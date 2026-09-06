@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>THE 1% CLUB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="ringGoldGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#FCF3D6"/>
+        <stop offset="0.18" stop-color="#EBCD84"/>
+        <stop offset="0.36" stop-color="#B8863A"/>
+        <stop offset="0.52" stop-color="#8A6323"/>
+        <stop offset="0.68" stop-color="#D9AF62"/>
+        <stop offset="0.84" stop-color="#F7E7B9"/>
+        <stop offset="1" stop-color="#7A5A22"/>
+      </linearGradient>
+      <linearGradient id="wreathGrad" x1="0" y1="0" x2="60" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#6B4A18"/>
+        <stop offset="0.3" stop-color="#D9AF62"/>
+        <stop offset="0.5" stop-color="#F7E7B9"/>
+        <stop offset="0.7" stop-color="#B8863A"/>
+        <stop offset="1" stop-color="#6B4A18"/>
+      </linearGradient>
+      <radialGradient id="bezelGrad" cx="35%" cy="30%" r="75%">
+        <stop offset="0" stop-color="#FCF3D6"/>
+        <stop offset="0.4" stop-color="#C79A3E"/>
+        <stop offset="0.7" stop-color="#7A5A22"/>
+        <stop offset="1" stop-color="#4A340F"/>
+      </radialGradient>
+      <linearGradient id="goldText" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F7E7B9"/>
+        <stop offset="0.45" stop-color="#C79A3E"/>
+        <stop offset="1" stop-color="#8A6323"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- PURCHASE MODAL -->
+  <div class="purchase-modal-overlay" id="purchaseModal" hidden>
+    <div class="purchase-modal">
+      <div class="purchase-modal-header">
+        <div class="purchase-modal-icon" id="purchaseModalIcon"></div>
+        <h3 class="purchase-modal-name" id="purchaseModalName">—</h3>
+        <span class="purchase-modal-rarity" id="purchaseModalRarity">—</span>
+      </div>
+      <div class="purchase-modal-details">
+        <div class="purchase-modal-row">
+          <span>السعر</span>
+          <span class="purchase-modal-price-val" id="purchaseModalPrice">—</span>
+        </div>
+        <div class="purchase-modal-row">
+          <span>رصيدك الحالي</span>
+          <span id="purchaseModalBalance">—</span>
+        </div>
+      </div>
+      <div class="purchase-modal-actions">
+        <button class="btn btn-gold" id="purchaseConfirmBtn" type="button">تأكيد الشراء</button>
+        <button class="btn btn-outline" id="purchaseCancelBtn" type="button">إلغاء</button>
+      </div>
+      <p class="purchase-modal-msg" id="purchaseModalMsg"></p>
+    </div>
+  </div>
+
+  <!-- CREDITS PURCHASE MODAL -->
+  <div class="purchase-modal-overlay" id="creditsModal" hidden>
+    <div class="purchase-modal">
+      <div class="purchase-modal-header">
+        <h3 class="purchase-modal-name">شراء رصيد رسائل</h3>
+        <p style="font-size:11px;color:#948C7C;margin-top:4px;">اختر الباقة المناسبة</p>
+      </div>
+      <div class="credits-packages">
+        <button class="credits-pkg" data-credits="10" data-price="10" type="button">
+          <span class="credits-pkg-amount">١٠ رسائل</span>
+          <span class="credits-pkg-price">$10</span>
+        </button>
+        <button class="credits-pkg" data-credits="25" data-price="20" type="button">
+          <span class="credits-pkg-amount">٢٥ رسالة</span>
+          <span class="credits-pkg-price">$20</span>
+        </button>
+        <button class="credits-pkg" data-credits="50" data-price="35" type="button">
+          <span class="credits-pkg-amount">٥٠ رسالة</span>
+          <span class="credits-pkg-price">$35</span>
+        </button>
+      </div>
+      <p class="purchase-modal-msg" id="creditsModalMsg"></p>
+      <button class="btn btn-outline" id="creditsCancelBtn" type="button" style="width:100%;margin-top:8px;">إلغاء</button>
+    </div>
+  </div>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="app-header" id="appHeader">
+      <button class="icon-btn back-btn" id="backBtn" type="button" aria-label="رجوع" hidden>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="brand">
+        <svg class="brand-crown" viewBox="0 0 48 28" fill="none">
+          <path d="M4 24 L2 9 L12 16 L24 4 L36 16 L46 9 L44 24 Z" fill="url(#bezelGrad)" stroke="var(--gold-line)" stroke-width="0.6"/>
+          <circle cx="24" cy="4" r="2.4" fill="url(#bezelGrad)"/>
+          <circle cx="2" cy="9" r="2" fill="url(#bezelGrad)"/>
+          <circle cx="46" cy="9" r="2" fill="url(#bezelGrad)"/>
+        </svg>
+        <h1>THE 1% CLUB</h1>
+        <p class="tagline">PRIVATE WEALTH. PRIVATE SOCIETY.</p>
+        <div class="section-rule"><span></span><i class="diamond"></i><span></span></div>
+        <h2 class="section-name" id="sectionName">العضوية</h2>
+      </div>
+      <button class="icon-btn shield-btn" type="button" aria-label="Registry">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.6-2.9 8.3-7 10-4.1-1.7-7-5.4-7-10V6l7-3z" stroke="currentColor" stroke-width="1.3"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+
+    <main class="app-main">
+
+    <!-- PAGE: MEMBERSHIP -->
+    <section class="page is-active" id="page-card">
+
+      <!-- MASTER CARD -->
+      <section class="membership-card" id="membershipCard" aria-label="Membership card">
+
+        <!-- Layered frame ornaments -->
+        <svg class="corner corner-tl" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M2 28V8a6 6 0 016-6h20" stroke="url(#ringGoldGrad)" stroke-width="1.4"/>
+          <path d="M2 18c8 0 14 6 14 14" stroke="url(#ringGoldGrad)" stroke-width="0.7" opacity="0.6"/>
+          <path d="M2 10c4 0 8 4 8 8" stroke="url(#ringGoldGrad)" stroke-width="0.5" opacity="0.4"/>
+          <circle cx="2" cy="2" r="2" fill="url(#ringGoldGrad)"/>
+          <rect x="26" y="1.5" width="4" height="1" rx="0.5" fill="url(#ringGoldGrad)" opacity="0.5"/>
+          <rect x="1.5" y="30" width="1" height="4" rx="0.5" fill="url(#ringGoldGrad)" opacity="0.5"/>
+        </svg>
+        <svg class="corner corner-tr" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M2 28V8a6 6 0 016-6h20" stroke="url(#ringGoldGrad)" stroke-width="1.4"/>
+          <path d="M2 18c8 0 14 6 14 14" stroke="url(#ringGoldGrad)" stroke-width="0.7" opacity="0.6"/>
+          <path d="M2 10c4 0 8 4 8 8" stroke="url(#ringGoldGrad)" stroke-width="0.5" opacity="0.4"/>
+          <circle cx="2" cy="2" r="2" fill="url(#ringGoldGrad)"/>
+          <rect x="26" y="1.5" width="4" height="1" rx="0.5" fill="url(#ringGoldGrad)" opacity="0.5"/>
+          <rect x="1.5" y="30" width="1" height="4" rx="0.5" fill="url(#ringGoldGrad)" opacity="0.5"/>
+        </svg>
+        <svg class="corner corner-bl" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M2 28V8a6 6 0 016-6h20" stroke="url(#ringGoldGrad)" stroke-width="1.4"/>
+          <path d="M2 18c8 0 14 6 14 14" stroke="url(#ringGoldGrad)" stroke-width="0.7" opacity="0.6"/>
+          <path d="M2 10c4 0 8 4 8 8" stroke="url(#ringGoldGrad)" stroke-width="0.5" opacity="0.4"/>
+          <circle cx="2" cy="2" r="2" fill="url(#ringGoldGrad)"/>
+          <rect x="26" y="1.5" width="4" height="1" rx="0.5" fill="url(#ringGoldGrad)" opacity="0.5"/>
+          <rect x="1.5" y="30" width="1" height="4" rx="0.5" fill="url(#ringGoldGrad)" opacity="0.5"/>
+        </svg>
+        <svg class="corner corner-br" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M2 28V8a6 6 0 016-6h20" stroke="url(#ringGoldGrad)" stroke-width="1.4"/>
+          <path d="M2 18c8 0 14 6 14 14" stroke="url(#ringGoldGrad)" stroke-width="0.7" opacity="0.6"/>
+          <path d="M2 10c4 0 8 4 8 8" stroke="url(#ringGoldGrad)" stroke-width="0.5" opacity="0.4"/>
+          <circle cx="2" cy="2" r="2" fill="url(#ringGoldGrad)"/>
+          <rect x="26" y="1.5" width="4" height="1" rx="0.5" fill="url(#ringGoldGrad)" opacity="0.5"/>
+          <rect x="1.5" y="30" width="1" height="4" rx="0.5" fill="url(#ringGoldGrad)" opacity="0.5"/>
+        </svg>
+
+        <div class="hallmark-layer" id="hallmarkLayer" aria-hidden="true"></div>
+        <div class="card-sheen" aria-hidden="true"></div>
+
+        <!-- Club identity top bar -->
+        <div class="card-top-bar">
+          <svg class="card-crown" viewBox="0 0 48 28" fill="none">
+            <path d="M4 24 L2 9 L12 16 L24 4 L36 16 L46 9 L44 24 Z" fill="url(#bezelGrad)" stroke="var(--gold-line)" stroke-width="0.6"/>
+            <circle cx="24" cy="4" r="2.2" fill="url(#bezelGrad)"/>
+            <circle cx="2" cy="9" r="1.8" fill="url(#bezelGrad)"/>
+            <circle cx="46" cy="9" r="1.8" fill="url(#bezelGrad)"/>
+          </svg>
+          <p class="card-club-name">THE 1% CLUB</p>
+          <p class="card-est">EST. 2026</p>
+        </div>
+
+        <!-- Portrait Medallion -->
+        <div class="portrait-wrap">
+          <!-- Equipped aura (outer glow ring, behind everything) -->
+          <div class="equipped-aura-slot" id="equippedAuraSlot" aria-hidden="true"></div>
+
+          <div class="bezel-ticks" id="bezelTicks" aria-hidden="true"></div>
+
+          <svg class="wreath wreath-left" viewBox="0 0 60 160" fill="none">
+            <path d="M50 8C30 20 18 45 18 80c0 35 12 60 32 72" stroke="url(#wreathGrad)" stroke-width="2" fill="none"/>
+            <g stroke="url(#wreathGrad)" stroke-width="1.6" fill="none">
+              <path d="M32 24c-8 2-14 8-16 14"/>
+              <path d="M24 44c-8 1-15 6-18 13"/>
+              <path d="M20 66c-8 0-16 4-19 10"/>
+              <path d="M19 88c-8-1-16 2-20 8"/>
+              <path d="M22 110c-7-2-16 0-21 5"/>
+              <path d="M28 130c-6-3-15-3-20 1"/>
+            </g>
+          </svg>
+          <svg class="wreath wreath-right" viewBox="0 0 60 160" fill="none">
+            <path d="M10 8C30 20 42 45 42 80c0 35-12 60-32 72" stroke="url(#wreathGrad)" stroke-width="2" fill="none"/>
+            <g stroke="url(#wreathGrad)" stroke-width="1.6" fill="none">
+              <path d="M28 24c8 2 14 8 16 14"/>
+              <path d="M36 44c8 1 15 6 18 13"/>
+              <path d="M40 66c8 0 16 4 19 10"/>
+              <path d="M41 88c8-1 16 2 20 8"/>
+              <path d="M38 110c7-2 16 0 21 5"/>
+              <path d="M32 130c6-3 15-3 20 1"/>
+            </g>
+          </svg>
+
+          <!-- Equipped crown slot (above portrait) -->
+          <div class="equipped-crown-slot" id="equippedCrownSlot" aria-hidden="true"></div>
+
+          <div class="portrait-ring" id="portraitRing">
+            <div class="portrait-photo" id="portraitPhoto">
+              <button class="photo-upload-btn" id="photoUploadBtn" type="button" aria-label="Upload your photo">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="1.3"/><path d="M4 8h2.2l1.2-2h9.2l1.2 2H20a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                <span>ADD PHOTO</span>
+              </button>
+              <input type="file" id="photoInput" accept="image/*" hidden />
+            </div>
+          </div>
+
+          <svg class="shield-badge" viewBox="0 0 60 54" fill="none">
+            <path d="M30 2 L54 11 V27 C54 41 44 50 30 52 C16 50 6 41 6 27 V11 Z" fill="#0B0B0C" stroke="url(#ringGoldGrad)" stroke-width="1.4"/>
+            <text x="30" y="32" text-anchor="middle" class="shield-text">1%</text>
+          </svg>
+        </div>
+
+        <!-- Identity -->
+        <p class="member-label">MEMBER Nº</p>
+        <p class="member-number" id="memberNumber">3426</p>
+        <p class="member-name" id="memberName">ISMAIL ELSAYED</p>
+
+        <!-- Equipped ring/signet (jewelry) -->
+        <div class="equipped-ring-slot" id="equippedRingSlot" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="5" stroke="url(#ringGoldGrad)" stroke-width="1.5"/><path d="M9.5 9l2.5-5 2.5 5-2.5 1.5z" fill="url(#ringGoldGrad)"/></svg>
+          <span class="equipped-ring-label" id="equippedRingLabel">SIGNET RING</span>
+        </div>
+
+        <div class="tier-pill" id="tierPill">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12l1-6 3 3 2-5 2 5 3-3 1 6z" fill="url(#ringGoldGrad)"/></svg>
+          <span id="tierName">SOVEREIGN MEMBER</span>
+          <span class="equipped-stars-slot" id="equippedStarsSlot"></span>
+        </div>
+
+        <p class="member-quote" id="memberQuote">"Not everyone understands wealth. That's why we have this Club."</p>
+
+        <!-- Hallmark line -->
+        <div class="card-hallmark-line" id="cardHallmarkLine" aria-hidden="true">
+          <span></span><svg viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 4 4.5.6-3.3 3 .8 4.4L7 11l-3.5 2 .8-4.4L1 5.6l4.5-.6z" fill="url(#ringGoldGrad)" opacity="0.7"/></svg><span>
+        </div>
+
+        <p class="card-tagline">Private Wealth<br /><span>FICTIONAL. SATIRICAL. MEMBERSHIP.</span></p>
+
+        <div class="living-core" id="livingCore" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><path d="M20 2 L23 17 L38 20 L23 23 L20 38 L17 23 L2 20 L17 17 Z" /></svg>
+        </div>
+
+      </section>
+
+      <!-- IDENTITY METRICS -->
+      <section class="identity-metrics" aria-label="مؤشرات الهوية">
+        <div class="metric-ring" id="wealthRingWrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="52"/>
+            <circle class="ring-progress" id="wealthRing" cx="60" cy="60" r="52"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-value" id="wealthValue">92%</span>
+          </div>
+          <p class="ring-label">مؤشر الثروة</p>
+        </div>
+        <div class="metric-ring" id="privRingWrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="52"/>
+            <circle class="ring-progress" id="privRing" cx="60" cy="60" r="52"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-value" id="privValue">84%</span>
+          </div>
+          <p class="ring-label">الامتيازات</p>
+        </div>
+      </section>
+
+      <!-- ACTIONS -->
+      <div class="card-actions">
+        <button class="btn btn-outline" id="shareBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v12M8 8l4-4 4 4M5 15v3a2 2 0 002 2h10a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          مشاركة العضوية
+        </button>
+        <button class="btn btn-outline" id="copyBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 15V5a1 1 0 011-1h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          نسخ الرابط السيادي
+        </button>
+      </div>
+      <p class="copy-toast" id="copyToast" role="status" aria-live="polite"></p>
+
+    </section>
+
+    <!-- PAGE: EDIT ACCOUNT -->
+    <section class="page" id="page-edit-account" hidden>
+      <form class="edit-form" id="editAccountForm">
+        <label class="edit-field"><span>الاسم</span><input type="text" id="editName" /></label>
+        <label class="edit-field"><span>اسم المستخدم</span><input type="text" id="editUsername" dir="ltr" /></label>
+        <label class="edit-field"><span>نبذة</span><textarea id="editBio" rows="2"></textarea></label>
+        <label class="edit-field"><span>الاهتمامات</span><input type="text" id="editInterests" placeholder="مفصولة بفواصل" /></label>
+        <label class="edit-field"><span>الموقع</span><input type="text" id="editLocation" /></label>
+        <button class="btn btn-outline edit-save-btn" type="submit">حفظ التعديلات</button>
+      </form>
+    </section>
+
+    <!-- PAGE: CLUB -->
+    <section class="page" id="page-club" hidden>
+      <div class="club-pinned">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 5.6H19l-4.6 3.4 1.8 5.6L12 13.2 7.8 16.6l1.8-5.6L5 7.6h5.2z" fill="url(#ringGoldGrad)"/></svg>
+        <div>
+          <p class="club-pinned-title">أهلًا بك في النادي</p>
+          <p class="club-pinned-sub">اتصل. شارك. ارتقِ.</p>
+        </div>
+      </div>
+
+      <div class="club-messages" id="clubMessages"></div>
+
+      <div class="club-composer-wrap">
+        <div class="club-credits-display" id="clubCreditsDisplay">
+          <span id="clubCreditsText">الرسائل المتبقية اليوم: — / —</span>
+          <button class="club-credits-buy" id="clubCreditsBuyBtn" type="button">+ رصيد</button>
+        </div>
+        <div class="club-composer">
+          <input type="text" id="clubInput" placeholder="اكتب رسالة للنادي…" />
+          <button class="club-send" id="clubSendBtn" type="button" aria-label="إرسال">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l16-7-6 16-2.5-6.5L4 12z" fill="url(#ringGoldGrad)"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE: MEMBER PROFILE (contextual) -->
+    <section class="page" id="page-member" hidden>
+      <div class="profile-head">
+        <div class="profile-portrait-wrap">
+          <div class="portrait-ring sm" id="memberPortraitRing">
+            <div class="portrait-photo" id="memberPortraitPhoto"></div>
+          </div>
+        </div>
+        <p class="member-name" id="memberProfileName">—</p>
+        <div class="tier-pill" id="memberTierPill">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12l1-6 3 3 2-5 2 5 3-3 1 6z" fill="url(#ringGoldGrad)"/></svg>
+          <span id="memberProfileTier">—</span>
+        </div>
+        <p class="member-quote" id="memberProfileQuote">""</p>
+      </div>
+      <section class="info-panel" aria-label="معلومات العضو">
+        <div class="info-row"><span class="info-label">مؤشر الثروة</span><span class="info-value" id="memberProfileWealth">—</span></div>
+        <div class="info-row"><span class="info-label">الامتيازات</span><span class="info-value" id="memberProfilePriv">—</span></div>
+        <div class="info-row"><span class="info-label">الحالة</span><span class="info-value status-active">نشط</span></div>
+      </section>
+      <div class="card-actions">
+        <button class="btn btn-outline" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          مراسلة
+        </button>
+        <button class="btn btn-outline" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.4"/><path d="M3 19c1-3 3-5 6-5s5 2 6 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M17 8h4M19 6v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          إضافة صديق
+        </button>
+      </div>
+    </section>
+
+    <!-- PAGE: PROFILE -->
+    <section class="page" id="page-profile" hidden>
+      <div class="profile-head">
+        <div class="profile-portrait-wrap">
+          <svg class="wreath wreath-left sm" viewBox="0 0 60 160" fill="none"><path d="M50 8C30 20 18 45 18 80c0 35 12 60 32 72" stroke="url(#wreathGrad)" stroke-width="2" fill="none"/></svg>
+          <svg class="wreath wreath-right sm" viewBox="0 0 60 160" fill="none"><path d="M10 8C30 20 42 45 42 80c0 35-12 60-32 72" stroke="url(#wreathGrad)" stroke-width="2" fill="none"/></svg>
+          <div class="portrait-ring sm" id="profilePortraitRing">
+            <div class="portrait-photo" id="profilePortraitPhoto"></div>
+          </div>
+        </div>
+        <p class="member-name" id="profileName">LUXOR_VOYAGER</p>
+        <div class="tier-pill" id="profileTierPill">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12l1-6 3 3 2-5 2 5 3-3 1 6z" fill="url(#ringGoldGrad)"/></svg>
+          <span id="profileTierName">عضو سيادي</span>
+        </div>
+        <p class="member-quote" id="profileQuote">"البناء في صمت، ودع النجاح يتكلم."</p>
+      </div>
+
+      <section class="prestige-strip" aria-label="شارات المكانة">
+        <div class="prestige-item"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="url(#ringGoldGrad)"/></svg><span>سيادي</span></div>
+        <div class="prestige-item"><svg viewBox="0 0 24 24" fill="none"><path d="M3 18l1.6-9L9 13l3-8 3 8 4.4-4L21 18H3z" fill="url(#ringGoldGrad)"/></svg><span>3 نجوم</span></div>
+        <div class="prestige-item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="url(#ringGoldGrad)"/></svg><span>التاج</span></div>
+        <div class="prestige-item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="url(#ringGoldGrad)" stroke-width="1.6"/></svg><span>الهالة الملكية</span></div>
+        <div class="prestige-item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="6" stroke="url(#ringGoldGrad)" stroke-width="1.6"/><circle cx="12" cy="12" r="1.6" fill="url(#ringGoldGrad)"/></svg><span>الحلقة الإمبراطورية</span></div>
+        <div class="prestige-item"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.6-2.9 8.3-7 10-4.1-1.7-7-5.4-7-10V6l7-3z" stroke="url(#ringGoldGrad)" stroke-width="1.4"/></svg><span>الختم</span></div>
+      </section>
+
+      <section class="info-panel" aria-label="معلومات العضوية">
+        <div class="info-row"><span class="info-label">تاريخ الانضمام</span><span class="info-value">أغسطس ٢٠٢٦</span></div>
+        <div class="info-row"><span class="info-label">مؤشر الثروة</span><span class="info-value">٩٢٪</span></div>
+        <div class="info-row"><span class="info-label">الامتيازات</span><span class="info-value">٨٤٪</span></div>
+        <div class="info-row"><span class="info-label">الموقع</span><span class="info-value" id="profileLocationValue">الإسكندرية</span></div>
+        <div class="info-row"><span class="info-label">الاهتمامات</span><span class="info-value" id="profileInterestsValue">التصميم · التقنية · الإرث</span></div>
+        <div class="info-row"><span class="info-label">الحالة</span><span class="info-value status-active">نشط</span></div>
+      </section>
+
+      <section class="collection-preview" aria-label="المقتنيات المملوكة">
+        <div class="section-head"><h3>المقتنيات</h3><span class="see-all" id="goToShopBtn">عرض الكل ›</span></div>
+        <div class="collection-grid" id="profileCollectionGrid">
+          <div class="collection-item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="url(#ringGoldGrad)"/></svg><span>التاج</span></div>
+          <div class="collection-item"><svg viewBox="0 0 24 24" fill="none"><path d="M3 18l1.6-9L9 13l3-8 3 8 4.4-4L21 18H3z" fill="url(#ringGoldGrad)"/></svg><span>الهالة</span></div>
+          <div class="collection-item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="url(#ringGoldGrad)" stroke-width="1.6"/></svg><span>الخاتم</span></div>
+          <div class="collection-item collection-more"><span>+٢٤</span><small>عنصر آخر</small></div>
+        </div>
+      </section>
+
+      <section class="about-panel" aria-label="نبذة">
+        <h3>نبذة</h3>
+        <p class="about-line" id="profileBioValue">أبني. أجمع. أستثمر في الإرث.</p>
+        <p class="about-line">رائد أعمال · مستثمر · صاحب رؤية</p>
+        <p class="about-line">the1club.com/luxor_voyager</p>
+      </section>
+
+      <div class="card-actions">
+        <button class="btn btn-outline" id="editAccountBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 20h4l10-10-4-4L4 16v4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          تعديل الحساب
+        </button>
+        <button class="btn btn-outline" id="profileShareBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v12M8 8l4-4 4 4M5 15v3a2 2 0 002 2h10a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          مشاركة العضوية
+        </button>
+      </div>
+    </section>
+
+    <!-- PAGE: BOUTIQUE -->
+    <section class="page" id="page-shop" hidden>
+      <div class="boutique-balance">
+        <span class="boutique-balance-icon">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="url(#ringGoldGrad)" stroke-width="1.4"/><path d="M12 7v10M9 9.5c0-1.4 1.3-2.5 3-2.5s3 1.1 3 2.5-1.3 2-3 2.5c-1.7.5-3 1.1-3 2.5s1.3 2.5 3 2.5 3-1.1 3-2.5" stroke="url(#ringGoldGrad)" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </span>
+        <span class="boutique-balance-value" id="boutiqueBalanceDisplay">24,750</span>
+        <button class="boutique-balance-add" type="button" id="boutiqueAddBalanceBtn" aria-label="إضافة رصيد">+</button>
+      </div>
+
+      <div class="boutique-tabs" id="boutiqueTabs">
+        <button class="boutique-tab is-active" data-cat="all" type="button">الكل</button>
+        <button class="boutique-tab" data-cat="stars" type="button">النجوم</button>
+        <button class="boutique-tab" data-cat="crowns" type="button">التيجان</button>
+        <button class="boutique-tab" data-cat="auras" type="button">الهالات</button>
+        <button class="boutique-tab" data-cat="jewelry" type="button">المجوهرات</button>
+        <button class="boutique-tab" data-cat="artifacts" type="button">المقتنيات النادرة</button>
+        <button class="boutique-tab" data-cat="widgets" type="button">الودجت</button>
+      </div>
+
+      <div id="boutiqueSections"></div>
+    </section>
+
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav" aria-label="Primary">
+      <button class="nav-item is-active" data-tab="card" type="button">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="6" width="19" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M2.5 10h19" stroke="currentColor" stroke-width="1.3"/></svg>
+        <span>العضوية</span>
+      </button>
+      <button class="nav-item" data-tab="club" type="button">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <span>النادي</span>
+      </button>
+      <button class="nav-item" data-tab="profile" type="button">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.3"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <span>الملف</span>
+      </button>
+      <button class="nav-item" data-tab="shop" type="button">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16l-1.3 10.2A2 2 0 0116.7 20H7.3a2 2 0 01-2-1.8L4 8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.3"/></svg>
+        <span>البوتيك</span>
+      </button>
+    </nav>
+
+    <p class="nav-toast" id="navToast" role="status" aria-live="polite"></p>
+
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
