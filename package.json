@@ -1,0 +1,14 @@
+{
+  "name": "vanilla-app",
+  "version": "1.0.0",
+  "description": "Vanilla JS App",
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "lint": "node -c app.js",
+    "start": "PORT=3000 npx serve --no-clipboard .",
+    "dev": "PORT=3000 npx serve --no-clipboard ."
+  },
+  "dependencies": {
+    "css": "^3.0.0"
+  }
+}
