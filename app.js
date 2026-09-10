@@ -125,7 +125,7 @@ function generateBezelTicksSVG() {
   let svg = '';
 
   ringDefs.forEach(ring => {
-    svg += `<circle cx="${cx}" cy="${cy}" r="${ring.r}" fill="none" stroke="url(#ringGoldGrad)" stroke-width="${ring.sw}" opacity="${ring.op}"/>`;
+    svg += `<circle cx="${cx}" cy="${cy}" r="${ring.r}" fill="none" stroke="#C79A3E" stroke-width="${ring.sw}" opacity="${ring.op}"/>`;
   });
 
   // Tick marks between outermost two rings
@@ -139,7 +139,7 @@ function generateBezelTicksSVG() {
     const y1 = cy + Math.sin(rad) * rOuter;
     const x2 = cx + Math.cos(rad) * rInner;
     const y2 = cy + Math.sin(rad) * rInner;
-    svg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="url(#ringGoldGrad)" stroke-width="${major ? 1.5 : 0.6}" opacity="${major ? 0.9 : 0.5}"/>`;
+    svg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#C79A3E" stroke-width="${major ? 1.5 : 0.6}" opacity="${major ? 0.9 : 0.5}"/>`;
   }
 
   // Crown detail at 12 o'clock
@@ -147,10 +147,10 @@ function generateBezelTicksSVG() {
   const crownX = cx - 13 * crownScale;
   const crownY = cy - 82 - 14;
   svg += `<g transform="translate(${crownX.toFixed(1)},${crownY.toFixed(1)}) scale(${crownScale})">
-    <path d="M2 18 L0 5 L8 11 L14 0 L20 11 L28 5 L26 18 Z" fill="url(#ringGoldGrad)" opacity="0.82" stroke="#3A2808" stroke-width="0.6"/>
-    <circle cx="14" cy="0" r="1.6" fill="url(#ringGoldGrad)" opacity="0.9"/>
-    <circle cx="0" cy="5" r="1.4" fill="url(#ringGoldGrad)" opacity="0.8"/>
-    <circle cx="28" cy="5" r="1.4" fill="url(#ringGoldGrad)" opacity="0.8"/>
+    <path d="M2 18 L0 5 L8 11 L14 0 L20 11 L28 5 L26 18 Z" fill="#C79A3E" opacity="0.82" stroke="#3A2808" stroke-width="0.6"/>
+    <circle cx="14" cy="0" r="1.6" fill="#C79A3E" opacity="0.9"/>
+    <circle cx="0" cy="5" r="1.4" fill="#C79A3E" opacity="0.8"/>
+    <circle cx="28" cy="5" r="1.4" fill="#C79A3E" opacity="0.8"/>
   </g>`;
 
   // Diamond ornaments at 3, 6, 9 o'clock positions
@@ -159,7 +159,7 @@ function generateBezelTicksSVG() {
     const r = 71;
     const dx = cx + Math.cos(rad) * r;
     const dy = cy + Math.sin(rad) * r;
-    svg += `<rect x="${(dx - 2).toFixed(1)}" y="${(dy - 2).toFixed(1)}" width="4" height="4" transform="rotate(45 ${dx.toFixed(1)} ${dy.toFixed(1)})" fill="url(#ringGoldGrad)" opacity="0.65"/>`;
+    svg += `<rect x="${(dx - 2).toFixed(1)}" y="${(dy - 2).toFixed(1)}" width="4" height="4" transform="rotate(45 ${dx.toFixed(1)} ${dy.toFixed(1)})" fill="#C79A3E" opacity="0.65"/>`;
   });
 
   // Fine inner engraving lines (rosette style)
@@ -172,7 +172,7 @@ function generateBezelTicksSVG() {
     const y1 = cy + Math.sin(rad) * rStart;
     const x2 = cx + Math.cos(rad) * rEnd;
     const y2 = cy + Math.sin(rad) * rEnd;
-    svg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="url(#ringGoldGrad)" stroke-width="0.5" opacity="0.35"/>`;
+    svg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#C79A3E" stroke-width="0.5" opacity="0.35"/>`;
   }
 
   return `<svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`;
@@ -309,6 +309,7 @@ function updateCreditsUI() {
 
 // Credits purchase modal
 document.getElementById("clubCreditsBuyBtn").addEventListener("click", () => {
+  if (window.AudioEngine) AudioEngine.playRustle();
   document.getElementById("creditsModal").hidden = false;
 });
 document.getElementById("creditsCancelBtn").addEventListener("click", () => {
@@ -321,12 +322,10 @@ document.querySelectorAll(".credits-pkg").forEach(btn => {
     const credits = parseInt(btn.dataset.credits, 10);
     const price = btn.dataset.price;
     addBonusCredits(credits);
-    document.getElementById("creditsModalMsg").textContent = `✓ تمت إضافة ${credits} رسائل — $${price} (محاكاة)`;
     updateCreditsUI();
-    setTimeout(() => {
-      document.getElementById("creditsModal").hidden = true;
-      document.getElementById("creditsModalMsg").textContent = "";
-    }, 1800);
+    document.getElementById("creditsModal").hidden = true;
+    document.getElementById("creditsModalMsg").textContent = "";
+    showPremiumToast("عملية ناجحة", `تمت إضافة ${credits} رسائل بنجاح`);
   });
 });
 
@@ -337,15 +336,23 @@ const CLUB_MEMBERS = [
   { id: "8172", name: "LUXOR_VOYAGER", tier: "سيادي", wealth: "92%", priv: "84%", text: "ممتن للطاقة في هذه الغرفة. نبني في صمت ونترك النجاح يتحدث.", time: "11:45 ص" },
   { id: "5510", name: "MILLIONAIRE_MIND", tier: "سيادي", wealth: "88%", priv: "76%", text: "الانضباط اليوم، الحرية غدًا.", time: "11:47 ص" },
   { id: "2290", name: "ELEVATED_LIFE", tier: "بلاتيني", wealth: "71%", priv: "63%", text: "الأشخاص المناسبون يرفعون كل شيء.", time: "11:48 ص" },
-  { id: "6640", name: "GLOBAL_INVESTOR", tier: "سيادي", wealth: "95%", priv: "80%", text: "فرص جديدة كل يوم.", time: "11:50 ص" },
+  { id: "6640", name: "GLOBAL_INVESTOR", tier: "سيادي", wealth: "95%", priv: "80%", text: "تم تأكيد صفقة الاستحواذ على 4.5% من الأصول. التوقيع غداً في جنيف.", time: "11:50 ص", isWhisper: true },
   { id: "3901", name: "CROWN_COLLECTOR", tier: "ذهبي", wealth: "58%", priv: "49%", text: "الإرث يُبنى، لا يُشترى.", time: "11:55 ص" }
 ];
+
+let currentTypingMember = null;
+let typingTimeout = null;
+
+function setTypingIndicator(memberInfo) {
+  currentTypingMember = memberInfo;
+  renderClubMessages();
+}
 
 function renderClubMessages() {
   const container = document.getElementById("clubMessages");
   if (!container) return;
   // oldest → newest (array order)
-  container.innerHTML = CLUB_MEMBERS.map((m) => {
+  let html = CLUB_MEMBERS.map((m) => {
     const isCurrentUser = m.id === MEMBER.id;
     if (isCurrentUser) {
       // OUTGOING (المرسل / المستخدم الحالي) — on the FAR RIGHT
@@ -368,6 +375,7 @@ function renderClubMessages() {
     } else {
       // INCOMING (المستقبل / الأعضاء الآخرون) — on the FAR LEFT
       const initials = (m.name || "MB").substring(0, 2).toUpperCase();
+      const whisperClass = m.isWhisper ? " chat-whisper" : "";
       return `
         <div class="chat-row is-incoming" data-member-id="${m.id}">
           <button class="chat-avatar-btn" type="button" title="${escapeHtml(m.name)}" aria-label="${escapeHtml(m.name)}">
@@ -375,7 +383,7 @@ function renderClubMessages() {
               <span class="chat-avatar-initials">${initials}</span>
             </span>
           </button>
-          <div class="chat-bubble is-incoming">
+          <div class="chat-bubble is-incoming${whisperClass}">
             <div class="chat-sender-header" title="عرض الملف الشخصي">
               <span class="chat-sender-name">${escapeHtml(m.name)}</span>
               <span class="chat-sender-tier">${escapeHtml(m.tier)}</span>
@@ -390,6 +398,25 @@ function renderClubMessages() {
     }
   }).join("");
 
+  if (currentTypingMember) {
+    const initials = (currentTypingMember.name || "MB").substring(0, 2).toUpperCase();
+    html += `
+      <div class="chat-row is-incoming typing-indicator-row">
+        <button class="chat-avatar-btn" type="button" title="${escapeHtml(currentTypingMember.name)}" aria-label="${escapeHtml(currentTypingMember.name)}">
+          <span class="chat-avatar-rim">
+            <span class="chat-avatar-initials">${initials}</span>
+          </span>
+        </button>
+        <div class="chat-bubble is-incoming typing-bubble">
+          <div class="typing-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  container.innerHTML = html;
+
   // Member profile click handlers for incoming messages
   container.querySelectorAll(".chat-row.is-incoming").forEach((row) => {
     const memberId = row.dataset.memberId;
@@ -402,6 +429,18 @@ function renderClubMessages() {
     }
     if (senderHeader) {
       senderHeader.addEventListener("click", () => openMemberProfile(member));
+    }
+
+    // Whisper logic
+    const whisperBubble = row.querySelector(".chat-whisper");
+    if (whisperBubble) {
+      const revealWhisper = (e) => whisperBubble.classList.add("is-revealed");
+      const hideWhisper = (e) => whisperBubble.classList.remove("is-revealed");
+      
+      whisperBubble.addEventListener("pointerdown", revealWhisper);
+      whisperBubble.addEventListener("pointerup", hideWhisper);
+      whisperBubble.addEventListener("pointerleave", hideWhisper);
+      whisperBubble.addEventListener("pointercancel", hideWhisper);
     }
   });
 
@@ -451,6 +490,19 @@ function sendClubMessage() {
   renderClubMessages();
   updateCreditsUI();
   input.value = "";
+  
+  // Simulate someone typing a reply
+  clearTimeout(typingTimeout);
+  const otherMembers = CLUB_MEMBERS.filter(m => m.id !== MEMBER.id);
+  if (otherMembers.length > 0) {
+    const randomMember = otherMembers[Math.floor(Math.random() * otherMembers.length)];
+    setTimeout(() => {
+      setTypingIndicator(randomMember);
+      typingTimeout = setTimeout(() => {
+        setTypingIndicator(null);
+      }, 4000 + Math.random() * 2000);
+    }, 1500 + Math.random() * 1500);
+  }
 }
 
 document.getElementById("clubSendBtn").addEventListener("click", sendClubMessage);
@@ -470,17 +522,38 @@ function getBalance() {
   const v = localStorage.getItem(BALANCE_KEY);
   return v === null ? DEFAULT_BALANCE : parseInt(v, 10);
 }
+
+function checkBalanceIndicator() {
+  const currentBalance = getBalance();
+  let minPrice = Infinity;
+  for (const catKey in BOUTIQUE) {
+    for (const item of BOUTIQUE[catKey].items) {
+      if (!item.free && item.price < minPrice) {
+        minPrice = item.price;
+      }
+    }
+  }
+  const addBtn = document.getElementById("boutiqueAddBalanceBtn");
+  if (addBtn) {
+    if (currentBalance < minPrice) {
+      addBtn.classList.add("needs-balance");
+    } else {
+      addBtn.classList.remove("needs-balance");
+    }
+  }
+}
+
 function setBalance(val) {
   localStorage.setItem(BALANCE_KEY, val);
   const display = document.getElementById("boutiqueBalanceDisplay");
-  if (display) display.textContent = val.toLocaleString("ar");
+  if (display) display.textContent = val.toLocaleString("en-US");
+  checkBalanceIndicator();
 }
-// Init display
-document.getElementById("boutiqueBalanceDisplay").textContent = getBalance().toLocaleString("ar");
+// Balance init moved to bottom
 
 document.getElementById("boutiqueAddBalanceBtn").addEventListener("click", () => {
   setBalance(getBalance() + 10000);
-  showNavToast("تمت إضافة ١٠,٠٠٠ — (محاكاة)");
+  showPremiumToast("إيداع مكتمل", "تمت إضافة ١٠,٠٠٠ ◈ لرصيدك بنجاح");
 });
 
 // ---------------------------------------------------------
@@ -546,7 +619,7 @@ function applyEquippedToCard(equipped) {
     if (equipped.stars) {
       const count = parseInt(equipped.stars.match(/\d+/)?.[0] || "1", 10);
       const starsSvg = Array.from({ length: Math.min(count, 5) }).map(() =>
-        `<svg viewBox="0 0 10 10" fill="none"><path d="M5 1l.9 2.7H9l-2.3 1.7.9 2.6L5 6.6 2.4 8l.9-2.6L1 3.7h3.1z" fill="url(#ringGoldGrad)"/></svg>`
+        `<svg viewBox="0 0 10 10" fill="none"><path d="M5 1l.9 2.7H9l-2.3 1.7.9 2.6L5 6.6 2.4 8l.9-2.6L1 3.7h3.1z" fill="#C79A3E"/></svg>`
       ).join("");
       starsSlot.innerHTML = starsSvg;
     } else {
@@ -617,13 +690,13 @@ const RARITY_LABEL = {
 };
 
 const ICONS = {
-  star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="url(#ringGoldGrad)" stroke="#5C430F" stroke-width="0.4"/></svg>`,
-  crown: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="url(#ringGoldGrad)" stroke="#5C430F" stroke-width="0.4"/></svg>`,
-  aura: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="url(#ringGoldGrad)" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="url(#ringGoldGrad)" stroke-width="0.6" opacity="0.5"/></svg>`,
-  ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="url(#ringGoldGrad)" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="url(#ringGoldGrad)" stroke="#5C430F" stroke-width="0.4"/></svg>`,
-  pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="url(#ringGoldGrad)" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="url(#ringGoldGrad)" stroke="#5C430F" stroke-width="0.4"/></svg>`,
-  artifact: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" fill="url(#ringGoldGrad)"/><circle cx="12" cy="12" r="9" stroke="url(#ringGoldGrad)" stroke-width="1"/><circle cx="12" cy="12" r="9" stroke="url(#ringGoldGrad)" stroke-width="1" transform="rotate(45 12 12)"/></svg>`,
-  widget: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="url(#ringGoldGrad)" stroke-width="1.4"/></svg>`
+  star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  crown: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  aura: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C79A3E" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#C79A3E" stroke-width="0.6" opacity="0.5"/></svg>`,
+  ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="#C79A3E" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="#C79A3E" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  artifact: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" fill="#C79A3E"/><circle cx="12" cy="12" r="9" stroke="#C79A3E" stroke-width="1"/><circle cx="12" cy="12" r="9" stroke="#C79A3E" stroke-width="1" transform="rotate(45 12 12)"/></svg>`,
+  widget: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#C79A3E" stroke-width="1.4"/></svg>`
 };
 
 const BOUTIQUE = {
@@ -688,71 +761,8 @@ const BOUTIQUE = {
 
 // ---------------------------------------------------------
 // 12. PURCHASE MODAL
-// ---------------------------------------------------------
-let pendingPurchase = null;
+// (Removed)
 
-function openPurchaseModal(item, catKey) {
-  pendingPurchase = { item, catKey };
-  const owned = getOwned();
-  const balance = getBalance();
-
-  document.getElementById("purchaseModalIcon").innerHTML = ICONS[item.icon] || "";
-  document.getElementById("purchaseModalName").textContent = item.name;
-  document.getElementById("purchaseModalRarity").textContent = RARITY_LABEL[item.rarity] || item.rarity;
-  document.getElementById("purchaseModalPrice").textContent = item.price.toLocaleString("ar") + " ◈";
-  document.getElementById("purchaseModalBalance").textContent = balance.toLocaleString("ar") + " ◈";
-  document.getElementById("purchaseModalMsg").textContent = "";
-  document.getElementById("purchaseModal").hidden = false;
-}
-
-document.getElementById("purchaseCancelBtn").addEventListener("click", () => {
-  document.getElementById("purchaseModal").hidden = true;
-  pendingPurchase = null;
-});
-
-document.getElementById("purchaseConfirmBtn").addEventListener("click", () => {
-  if (!pendingPurchase) return;
-  const { item, catKey } = pendingPurchase;
-  const balance = getBalance();
-  const msg = document.getElementById("purchaseModalMsg");
-
-  if (balance < item.price) {
-    msg.className = "purchase-modal-msg has-action";
-    msg.innerHTML = `<span style="color:#C97766">الرصيد غير كافٍ.</span>
-      <button class="btn-add-balance" type="button" id="modalAddBalanceBtn">إضافة رصيد +١٠,٠٠٠</button>`;
-    document.getElementById("modalAddBalanceBtn")?.addEventListener("click", () => {
-      setBalance(getBalance() + 10000);
-      // Update balance row
-      document.getElementById("purchaseModalBalance").textContent =
-        getBalance().toLocaleString("ar") + " ◈";
-      msg.className = "purchase-modal-msg";
-      msg.innerHTML = "";
-    });
-    return;
-  }
-
-  setBalance(balance - item.price);
-  // Update balance display in open modal immediately
-  document.getElementById("purchaseModalBalance").textContent =
-    getBalance().toLocaleString("ar") + " ◈";
-
-  const owned = getOwned();
-  if (!owned[catKey]) owned[catKey] = [];
-  if (!owned[catKey].includes(item.id)) owned[catKey].push(item.id);
-  setOwned(owned);
-
-  msg.className = "purchase-modal-msg";
-  msg.style.color = "#7FBE8C";
-  msg.textContent = `✓ تمت عملية الشراء — ${item.name}`;
-
-  setTimeout(() => {
-    document.getElementById("purchaseModal").hidden = true;
-    pendingPurchase = null;
-    renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
-  }, 1200);
-});
-
-// ---------------------------------------------------------
 // 13. EQUIP SYSTEM
 // ---------------------------------------------------------
 function toggleEquip(item, catKey) {
@@ -764,11 +774,13 @@ function toggleEquip(item, catKey) {
     // Unequip
     delete equipped[catKey];
     setEquipped(equipped);
+    if (window.AudioEngine) AudioEngine.playRustle();
     showNavToast(`تم فك تجهيز: ${item.name}`);
   } else {
     // Equip (replaces previous in same slot)
     equipped[catKey] = item.name;
     setEquipped(equipped);
+    if (window.AudioEngine) AudioEngine.playChime();
     showNavToast(`تم تجهيز: ${item.name}`);
   }
   renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
@@ -798,7 +810,7 @@ function renderBoutique(filter = "all") {
 
       let btnText, btnClass;
       if (item.free) {
-        btnText = "مجاني — مُفعَّل"; btnClass = "btn-free";
+        btnText = "تم الامتلاك ✓"; btnClass = "btn-free";
       } else if (isEquipped) {
         btnText = "✓ مجهّز — فك التجهيز"; btnClass = "btn-equipped";
       } else if (isOwned && canEquip) {
@@ -812,21 +824,17 @@ function renderBoutique(filter = "all") {
       const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}`;
       const priceHtml = item.free
         ? `<span class="boutique-card-price is-free">مجاني</span>`
-        : `<span class="boutique-card-price"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="url(#ringGoldGrad)" stroke-width="1.4"/></svg>${item.price.toLocaleString("ar")}</span>`;
+        : `<span class="boutique-card-price">${item.price.toLocaleString("en-US")}</span>`;
 
       return `
-        <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}">
+        <div class="${cardClass}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned}, ${isEquipped})' style="cursor: pointer;">
           <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity]}</span>
           <span class="boutique-card-icon">
-            <span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon]}</span>
+            <span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>
           </span>
           <span class="boutique-card-name">${item.name}</span>
           ${priceHtml}
-          <button class="boutique-own-btn ${btnClass}" type="button"
-            data-item-id="${item.id}" data-cat="${catKey}"
-            data-owned="${isOwned ? "1" : "0"}"
-            data-equipped="${isEquipped ? "1" : "0"}"
-            data-free="${item.free ? "1" : "0"}">
+          <button class="boutique-own-btn ${btnClass}" type="button" style="pointer-events: none;">
             ${btnText}
           </button>
         </div>
@@ -844,25 +852,19 @@ function renderBoutique(filter = "all") {
     `;
   }).join("");
 
-  // Wire up buttons
-  root.querySelectorAll(".boutique-own-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const itemId = btn.dataset.itemId;
-      const catKey = btn.dataset.cat;
-      const isOwned = btn.dataset.owned === "1";
-      const isEquipped = btn.dataset.equipped === "1";
-      const isFree = btn.dataset.free === "1";
+  // Wire up cards to open inspection modal
+  root.querySelectorAll(".boutique-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const itemId = card.dataset.itemId;
+      const catKey = card.dataset.cat;
+      const isOwned = card.dataset.owned === "1";
+      const isEquipped = card.dataset.equipped === "1";
       const cat = BOUTIQUE[catKey];
       if (!cat) return;
       const item = cat.items.find(i => i.id === itemId);
       if (!item) return;
 
-      if (isFree) return; // widgets are always free / active
-      if (isOwned && EQUIP_CATEGORIES[catKey]) {
-        toggleEquip(item, catKey);
-      } else if (!isOwned) {
-        openPurchaseModal(item, catKey);
-      }
+      openInspectionModal(item, catKey, isOwned, isEquipped);
     });
   });
 
@@ -870,76 +872,22 @@ function renderBoutique(filter = "all") {
 }
 
 function renderWidgetSection() {
-  const equipped = getEquipped();
-  // Portrait sync
-  const portraitBg = document.getElementById("portraitPhoto")?.style.backgroundImage || "";
-  const widgetPhotoStyle = portraitBg ? `background-image:${portraitBg};` : "";
-  // Crown sync
-  const crownHTML = equipped.crowns
-    ? `<div class="widget-crown-slot" style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:32px;height:18px;display:flex;align-items:center;justify-content:center;">
-        <svg viewBox="0 0 48 28" fill="none" style="width:100%;height:100%">
-          <path d="M4 24 L2 9 L12 16 L24 4 L36 16 L46 9 L44 24 Z" fill="url(#bezelGrad)" stroke="var(--gold-line)" stroke-width="0.8"/>
-          <circle cx="24" cy="4" r="2" fill="url(#bezelGrad)"/>
-        </svg>
-      </div>`
-    : `<div class="widget-crown-slot" style="display:none"></div>`;
-  // Aura filter
-  const auraFilter = equipped.auras
-    ? `filter:drop-shadow(0 0 8px rgba(212,175,106,0.55));`
-    : "";
-  // Member data — Single Source of Truth from MEMBER
-  const displayName = document.getElementById("memberName")?.textContent || MEMBER.name;
-  const displayId = document.getElementById("memberNumber")?.textContent || MEMBER.id;
-  const displayTier = document.getElementById("tierName")?.textContent || MEMBER.tier;
-
+  const masterCard = document.getElementById('membershipCard');
+  const cardHTML = masterCard ? masterCard.innerHTML : '';
+  
   return `
     <section class="boutique-section widget-section" data-category="widgets">
       <div class="boutique-section-head">
         <h3>${BOUTIQUE.widgets.title}</h3>
         <span class="boutique-section-sub">${BOUTIQUE.widgets.sub}</span>
       </div>
-      <p class="widget-preview-label">WIDGET 1 — MASTER MEMBERSHIP CARD</p>
-
-      <div class="widget-card-preview">
-        <div class="widget-corner widget-corner-tl" aria-hidden="true"></div>
-        <div class="widget-corner widget-corner-tr" aria-hidden="true"></div>
-        <div class="widget-corner widget-corner-bl" aria-hidden="true"></div>
-        <div class="widget-corner widget-corner-br" aria-hidden="true"></div>
-
-        <div class="card-top-bar" style="margin-bottom:8px;">
-          <svg style="width:22px;height:13px;" viewBox="0 0 48 28" fill="none">
-            <path d="M4 24 L2 9 L12 16 L24 4 L36 16 L46 9 L44 24 Z" fill="url(#bezelGrad)" stroke="var(--gold-line)" stroke-width="0.8"/>
-            <circle cx="24" cy="4" r="2" fill="url(#bezelGrad)"/>
-          </svg>
-          <span style="font-size:7px;letter-spacing:0.18em;font-family:var(--font-display);background:var(--gold-text);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600;">THE 1% CLUB</span>
-          <span style="font-size:6px;letter-spacing:0.12em;color:rgba(160,130,60,0.65);">2026</span>
-        </div>
-
-        <div style="position:relative;display:inline-block;">
-          ${crownHTML}
-          <div class="widget-portrait-ring" style="${auraFilter}">
-            <div class="widget-portrait-photo" style="${widgetPhotoStyle}">
-              ${!widgetPhotoStyle ? `<svg viewBox="0 0 24 24" fill="none" style="width:20px;height:20px;opacity:0.35"><circle cx="12" cy="9" r="3.5" stroke="url(#ringGoldGrad)" stroke-width="1.2"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6" stroke="url(#ringGoldGrad)" stroke-width="1.2" stroke-linecap="round"/></svg>` : ""}
-            </div>
-          </div>
-        </div>
-
-        <p class="widget-member-number">${displayId}</p>
-        <p class="widget-member-name">${displayName}</p>
-        <p class="widget-tier">${displayTier}</p>
-        <div class="widget-living-core">
-          <svg viewBox="0 0 40 40"><path d="M20 2 L23 17 L38 20 L23 23 L20 38 L17 23 L2 20 L17 17 Z"/></svg>
-        </div>
-
-        <div class="widget-hallmark-line" aria-hidden="true">
-          <span></span>
-          <div class="widget-shield-pill">1%</div>
-          <span></span>
-        </div>
-        <p class="widget-tagline">PRIVATE WEALTH</p>
+      <p class="widget-preview-label">الودجت — بطاقة الهوية الأساسية</p>
+      
+      <div class="membership-card widget-card-preview" style="transform: scale(0.9); transform-origin: top center; margin-bottom: -10%;">
+        ${cardHTML}
       </div>
-
-      <button class="widget-add-btn" type="button">
+      
+      <button class="widget-add-btn" type="button" onclick="alert('تم إضافة الودجت لشاشة هاتفك بنجاح')">
         ✓ مجاني — مُفعَّل
       </button>
     </section>
@@ -955,6 +903,16 @@ document.querySelectorAll(".boutique-tab").forEach((tab) => {
 });
 
 renderBoutique();
+
+// Init balance display
+const balanceDisplay = document.getElementById("boutiqueBalanceDisplay");
+if (balanceDisplay) {
+  balanceDisplay.textContent = getBalance().toLocaleString("en-US");
+}
+// checkBalanceIndicator needs BOUTIQUE to be defined.
+// BOUTIQUE is defined above this point now.
+checkBalanceIndicator();
+
 
 // ---------------------------------------------------------
 // 15. SHARE / COPY
@@ -1330,7 +1288,7 @@ async function renderMasterCardToBlob() {
   // 9. Member Identity Information
   // Member Nº
   ctx.font = "600 15px 'Cormorant Garamond', Georgia, serif";
-  ctx.fillStyle = "#C79A3E";
+  ctx.fillStyle = "url(#ringGoldGrad)";
   ctx.textAlign = "center";
   ctx.fillText(`MEMBER  Nº  ${memberId}`, cx, cardY + 475);
 
@@ -1592,6 +1550,7 @@ const PAGE_TITLES = { card: "العضوية", profile: "الملف", club: "ال
 const IMPLEMENTED_TABS = ["card", "profile", "club", "shop"];
 
 function goToPage(tab) {
+  if (window.AudioEngine) AudioEngine.playRustle();
   document.querySelectorAll(".page").forEach(p => p.classList.remove("is-active"));
   document.getElementById(`page-${tab}`)?.classList.add("is-active");
   document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("is-active"));
@@ -1638,6 +1597,7 @@ document.getElementById("goToShopBtn")?.addEventListener("click", () => goToPage
 let contextReturnTab = "club";
 
 function openContextPage(pageId, title, returnTab) {
+  if (window.AudioEngine) AudioEngine.playRustle();
   contextReturnTab = returnTab;
   document.querySelectorAll(".page").forEach(p => p.classList.remove("is-active"));
   document.getElementById(pageId)?.classList.add("is-active");
@@ -1684,6 +1644,7 @@ document.getElementById("editAccountForm").addEventListener("submit", e => {
   document.getElementById("profileLocationValue").textContent = document.getElementById("editLocation").value;
   document.getElementById("backBtn").hidden = true;
   goToPage("profile");
+  showPremiumToast("تحديث الملف", "تم حفظ التعديلات بنجاح");
 });
 
 // ---------------------------------------------------------
@@ -1740,3 +1701,149 @@ if (cardEl) {
 // INIT
 // ---------------------------------------------------------
 updateCreditsUI();
+
+// ---------------------------------------------------------
+// PREMIUM TOAST
+// ---------------------------------------------------------
+let premiumToastTimer = null;
+function showPremiumToast(title, msg) {
+  const toast = document.getElementById("premiumToast");
+  document.getElementById("premiumToastTitle").textContent = title;
+  document.getElementById("premiumToastMsg").textContent = msg;
+  toast.classList.add("is-visible");
+  if (window.AudioEngine) AudioEngine.playChime();
+  clearTimeout(premiumToastTimer);
+  premiumToastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3000);
+}
+
+// Room selection visuals
+document.querySelectorAll(".club-room-btn").forEach((btn, index) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".club-room-btn").forEach(b => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    if (window.AudioEngine) AudioEngine.playRustle();
+    
+    // Remove unread badge text when clicking to "read" it, but keep the badge structure if it's a dot
+    const badge = btn.querySelector('.room-badge');
+    if (badge) badge.remove();
+    
+    const roomName = btn.childNodes[0].nodeValue.trim(); // Get text without child elements
+    document.querySelector(".club-pinned-title").textContent = `أهلًا بك في ${roomName}`;
+    
+    // Simulate someone typing in the room
+    clearTimeout(typingTimeout);
+    
+    // Pick a random member from CLUB_MEMBERS
+    const otherMembers = CLUB_MEMBERS.filter(m => m.id !== MEMBER.id);
+    if (otherMembers.length > 0) {
+      const randomMember = otherMembers[Math.floor(Math.random() * otherMembers.length)];
+      
+      // Delay before typing starts
+      setTimeout(() => {
+        setTypingIndicator(randomMember);
+        
+        // Stop typing after a few seconds
+        typingTimeout = setTimeout(() => {
+          setTypingIndicator(null);
+        }, 3500 + Math.random() * 2000);
+      }, 500 + Math.random() * 1000);
+    } else {
+      setTypingIndicator(null);
+    }
+  });
+});
+
+function openInspectionModal(item, catKey, isOwned, isEquipped) {
+  const modal = document.getElementById("inspectionModal");
+  if (!modal) return;
+  
+  modal.hidden = false;
+  
+  document.getElementById("inspectionTitle").textContent = item.name;
+  document.getElementById("inspectionRarity").textContent = RARITY_LABEL[item.rarity];
+  document.getElementById("inspectionLore").textContent = item.lore || "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص.";
+  
+  const svgContent = ICONS[item.icon] || ICONS["crown"];
+  document.getElementById("inspectionImage").innerHTML = svgContent;
+  
+  const equipBtn = document.getElementById("inspectionEquipBtn");
+  
+  // Clone button to remove old listeners
+  const newBtn = equipBtn.cloneNode(true);
+  equipBtn.parentNode.replaceChild(newBtn, equipBtn);
+  
+  if (item.free) {
+    newBtn.textContent = "مجاني — مُفعَّل";
+    newBtn.disabled = true;
+  } else if (isOwned) {
+    newBtn.textContent = isEquipped ? "فك التجهيز" : "تجهيز الهوية";
+    newBtn.disabled = false;
+    newBtn.onclick = () => equipItem(item, catKey);
+  } else {
+    newBtn.textContent = `شراء — ${item.price.toLocaleString("en-US")}`;
+    newBtn.disabled = false;
+    newBtn.onclick = () => purchaseItem(item, catKey);
+  }
+}
+
+document.getElementById("inspectionCloseBtn")?.addEventListener("click", () => {
+  document.getElementById("inspectionModal").hidden = true;
+});
+
+function purchaseItem(item, catKey) {
+  if (getBalance() >= item.price) {
+    setBalance(getBalance() - item.price);
+    const owned = getOwned();
+    if (!owned[catKey]) owned[catKey] = [];
+    if (!owned[catKey].includes(item.id)) owned[catKey].push(item.id);
+    setOwned(owned);
+    renderBoutique(document.querySelector('.boutique-tab.is-active').dataset.cat);
+    closeInspectionModal();
+    
+    // Premium animation
+    const flash = document.createElement('div');
+    flash.style.position = 'fixed';
+    flash.style.inset = '0';
+    flash.style.background = 'radial-gradient(circle at center, rgba(212,175,106,0.25), transparent)';
+    flash.style.pointerEvents = 'none';
+    flash.style.zIndex = '9999';
+    flash.style.transition = 'opacity 0.8s ease-out';
+    document.body.appendChild(flash);
+    setTimeout(() => { flash.style.opacity = '0'; }, 50);
+    setTimeout(() => { flash.remove(); }, 850);
+  } else {
+    alert("رصيد غير كافٍ");
+  }
+}
+
+function equipItem(item, catKey) {
+  const isCurrentlyEquipped = MEMBER.equipped[catKey] === item.id;
+  if (isCurrentlyEquipped) {
+    MEMBER.equipped[catKey] = null;
+  } else {
+    MEMBER.equipped[catKey] = item.id;
+  }
+  renderBoutique(document.querySelector('.boutique-tab.is-active').dataset.cat);
+  closeInspectionModal();
+  updateMasterCard();
+}
+
+function updateMasterCard() {
+  if (window.renderMembershipTab) window.renderMembershipTab();
+  if (window.renderWidgetSection) {
+      const widgetHTML = renderWidgetSection();
+      const widgetContainer = document.querySelector('.widget-section');
+      if (widgetContainer) {
+          widgetContainer.outerHTML = widgetHTML;
+      }
+  }
+}
+
+
+function closeInspectionModal() {
+  const modal = document.getElementById("inspectionModal");
+  if (modal) {
+    modal.hidden = true;
+    modal.classList.remove("is-active");
+  }
+}

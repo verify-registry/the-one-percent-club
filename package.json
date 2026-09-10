@@ -5,10 +5,12 @@
   "scripts": {
     "build": "echo 'No build step required'",
     "lint": "node -c app.js",
-    "start": "PORT=3000 npx serve --no-clipboard .",
-    "dev": "PORT=3000 npx serve --no-clipboard ."
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
-    "css": "^3.0.0"
+    "css": "^3.0.0",
+    "express": "^5.2.1",
+    "jsdom": "^30.0.1"
   }
 }
