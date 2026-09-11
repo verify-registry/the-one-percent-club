@@ -18,7 +18,217 @@ const MEMBER = {
   status: "ACTIVE",
   wealthIndexValue: 92,
   privilegesValue: 84,
-  verifyUrl: "https://1percent.club/verify/3426"
+  verifyUrl: "https://1percent.club/verify/3426",
+};
+
+const ICONS = {
+  star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  crown: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  aura: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C79A3E" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#C79A3E" stroke-width="0.6" opacity="0.5"/></svg>`,
+  ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="#C79A3E" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="#C79A3E" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  artifact: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" fill="#C79A3E"/><circle cx="12" cy="12" r="9" stroke="#C79A3E" stroke-width="1"/><circle cx="12" cy="12" r="9" stroke="#C79A3E" stroke-width="1" transform="rotate(45 12 12)"/></svg>`,
+  widget: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#C79A3E" stroke-width="1.4"/></svg>`,
+};
+
+const EQUIP_CATEGORIES = {
+  crowns: "crown",
+  auras: "aura",
+  stars: "stars",
+  jewelry: "ring",
+};
+
+const BOUTIQUE = {
+  stars: {
+    title: "النجوم",
+    sub: "ارتقِ بمكانتك. اكسب الاحترام.",
+    cat: "stars",
+    items: [
+      {
+        id: "star-1",
+        name: "نجمة ذهبية",
+        rarity: "rare",
+        price: 200,
+        icon: "star",
+      },
+      {
+        id: "star-3",
+        name: "٣ نجوم ذهبية",
+        rarity: "rare",
+        price: 500,
+        icon: "star",
+      },
+      {
+        id: "star-5",
+        name: "٥ نجوم",
+        rarity: "epic",
+        price: 800,
+        icon: "star",
+      },
+      {
+        id: "star-10",
+        name: "١٠ نجوم إمبراطورية",
+        rarity: "legendary",
+        price: 1500,
+        icon: "star",
+      },
+    ],
+  },
+  crowns: {
+    title: "التيجان",
+    sub: "ارتدِ التاج. تصدّر الـ1%.",
+    cat: "crowns",
+    items: [
+      {
+        id: "crown-sovereign",
+        name: "التاج السيادي",
+        rarity: "rare",
+        price: 750,
+        icon: "crown",
+      },
+      {
+        id: "crown-royal",
+        name: "التاج الملكي",
+        rarity: "epic",
+        price: 1500,
+        icon: "crown",
+      },
+      {
+        id: "crown-imperial",
+        name: "التاج الإمبراطوري",
+        rarity: "legendary",
+        price: 3000,
+        icon: "crown",
+      },
+      {
+        id: "crown-legend",
+        name: "تاج الأسطورة",
+        rarity: "mythic",
+        price: 6000,
+        icon: "crown",
+      },
+    ],
+  },
+  auras: {
+    title: "الهالات",
+    sub: "هالتك. طاقتك.",
+    cat: "auras",
+    items: [
+      {
+        id: "aura-golden",
+        name: "الهالة الذهبية",
+        rarity: "rare",
+        price: 500,
+        icon: "aura",
+      },
+      {
+        id: "aura-radiant",
+        name: "الهالة المشعة",
+        rarity: "epic",
+        price: 1000,
+        icon: "aura",
+      },
+      {
+        id: "aura-royal",
+        name: "الهالة الملكية",
+        rarity: "legendary",
+        price: 1800,
+        icon: "aura",
+      },
+      {
+        id: "aura-legendary",
+        name: "الهالة الخرافية",
+        rarity: "mythic",
+        price: 3500,
+        icon: "aura",
+      },
+    ],
+  },
+  jewelry: {
+    title: "المجوهرات",
+    sub: "قطع تُصنع لا تُشترى.",
+    cat: "jewelry",
+    items: [
+      {
+        id: "ring-sovereign",
+        name: "الخاتم السيادي",
+        rarity: "rare",
+        price: 900,
+        icon: "ring",
+      },
+      {
+        id: "ring-diamond",
+        name: "خاتم الماس",
+        rarity: "epic",
+        price: 1800,
+        icon: "ring",
+      },
+      {
+        id: "pendant-gold",
+        name: "قلادة ذهبية",
+        rarity: "epic",
+        price: 1600,
+        icon: "pendant",
+      },
+      {
+        id: "pendant-diamond",
+        name: "قلادة الماس",
+        rarity: "legendary",
+        price: 2600,
+        icon: "pendant",
+      },
+    ],
+  },
+  artifacts: {
+    title: "المقتنيات النادرة",
+    sub: "محدودة. أسطورية. لا مثيل لها.",
+    cat: "artifacts",
+    items: [
+      {
+        id: "artifact-medallion",
+        name: "الميدالية السيادية",
+        rarity: "legendary",
+        price: 25000,
+        icon: "artifact",
+      },
+      {
+        id: "artifact-seal",
+        name: "ختم الماس الأسود",
+        rarity: "mythic",
+        price: 40000,
+        icon: "artifact",
+      },
+      {
+        id: "artifact-orb",
+        name: "الكرة الأزلية",
+        rarity: "mythic",
+        price: 75000,
+        icon: "artifact",
+      },
+      {
+        id: "artifact-legacy",
+        name: "إرث الـ1%",
+        rarity: "unique",
+        price: 100000,
+        icon: "artifact",
+      },
+    ],
+  },
+  widgets: {
+    title: "الودجت",
+    sub: "ارتدِ مكانتك على شاشتك الرئيسية.",
+    cat: "widgets",
+    items: [
+      {
+        id: "widget-1",
+        name: "بطاقة العضوية الفاخرة",
+        rarity: "free",
+        price: 0,
+        icon: "widget",
+        free: true,
+      },
+    ],
+  },
 };
 
 // ---------------------------------------------------------
@@ -59,38 +269,39 @@ function livingCoreProfile(id) {
 // ---------------------------------------------------------
 function generateHallmarkSVG(id) {
   const rand = mulberry32(seedFromId(id) + 7);
-  const cx = 200, cy = 260;
-  
+  const cx = 200,
+    cy = 260;
+
   // More intricate guilloche generator
   const rMin = 20;
   const rMax = 180;
-  const lobes = 12 + Math.floor(rand() * 12) * 2; 
+  const lobes = 12 + Math.floor(rand() * 12) * 2;
   const cycles = 3 + Math.floor(rand() * 4);
   const rotationOffset = rand() * Math.PI * 2;
-  
+
   let paths = "";
   let d = "";
-  
-  for(let c=0; c<cycles; c++) {
-    const scale = 1 - (c * 0.25);
+
+  for (let c = 0; c < cycles; c++) {
+    const scale = 1 - c * 0.25;
     const cMin = rMin * scale;
     const cMax = rMax * scale;
-    d += `M${cx + Math.cos(rotationOffset)*cMax},${cy + Math.sin(rotationOffset)*cMax} `;
-    
+    d += `M${cx + Math.cos(rotationOffset) * cMax},${cy + Math.sin(rotationOffset) * cMax} `;
+
     for (let i = 1; i <= 360; i++) {
-        const theta = (i * Math.PI) / 180;
-        const rad = cMin + (cMax - cMin) * 0.5 * (1 + Math.sin(lobes * theta));
-        const x = cx + Math.cos(theta + rotationOffset) * rad;
-        const y = cy + Math.sin(theta + rotationOffset) * rad;
-        d += `L${x},${y} `;
+      const theta = (i * Math.PI) / 180;
+      const rad = cMin + (cMax - cMin) * 0.5 * (1 + Math.sin(lobes * theta));
+      const x = cx + Math.cos(theta + rotationOffset) * rad;
+      const y = cy + Math.sin(theta + rotationOffset) * rad;
+      d += `L${x},${y} `;
     }
   }
 
   paths += `<path d="${d}" fill="none" stroke="url(#hallmarkStroke)" stroke-width="0.3" opacity="0.6"/>`;
-  
+
   const outerRings = 3;
-  for(let i=0; i<outerRings; i++) {
-      paths += `<circle cx="${cx}" cy="${cy}" r="${rMax + 5 + i*4}" fill="none" stroke="url(#hallmarkStroke)" stroke-width="0.25" opacity="0.4"/>`;
+  for (let i = 0; i < outerRings; i++) {
+    paths += `<circle cx="${cx}" cy="${cy}" r="${rMax + 5 + i * 4}" fill="none" stroke="url(#hallmarkStroke)" stroke-width="0.25" opacity="0.4"/>`;
   }
 
   return `
@@ -111,7 +322,9 @@ function generateHallmarkSVG(id) {
 // 4b. BEZEL TICKS — luxury multi-ring medallion
 // ---------------------------------------------------------
 function generateBezelTicksSVG() {
-  const size = 172, cx = 86, cy = 86;
+  const size = 172,
+    cx = 86,
+    cy = 86;
 
   // Concentric rings (outermost → innermost)
   const ringDefs = [
@@ -122,14 +335,17 @@ function generateBezelTicksSVG() {
     { r: 65, sw: 0.5, op: 0.3 },
   ];
 
-  let svg = '';
+  let svg = "";
 
-  ringDefs.forEach(ring => {
+  ringDefs.forEach((ring) => {
     svg += `<circle cx="${cx}" cy="${cy}" r="${ring.r}" fill="none" stroke="#C79A3E" stroke-width="${ring.sw}" opacity="${ring.op}"/>`;
   });
 
   // Tick marks between outermost two rings
-  const count = 60, rOuter = 82, rMinor = 77, rMajor = 74;
+  const count = 60,
+    rOuter = 82,
+    rMinor = 77,
+    rMajor = 74;
   for (let i = 0; i < count; i++) {
     const angle = (360 / count) * i - 90;
     const rad = (angle * Math.PI) / 180;
@@ -154,7 +370,7 @@ function generateBezelTicksSVG() {
   </g>`;
 
   // Diamond ornaments at 3, 6, 9 o'clock positions
-  [0, 90, 180].forEach(deg => {
+  [0, 90, 180].forEach((deg) => {
     const rad = ((deg - 90) * Math.PI) / 180;
     const r = 71;
     const dx = cx + Math.cos(rad) * r;
@@ -164,7 +380,8 @@ function generateBezelTicksSVG() {
 
   // Fine inner engraving lines (rosette style)
   const innerLines = 24;
-  const rStart = 63, rEnd = 67;
+  const rStart = 63,
+    rEnd = 67;
   for (let i = 0; i < innerLines; i++) {
     const angle = (360 / innerLines) * i;
     const rad = (angle * Math.PI) / 180;
@@ -190,9 +407,11 @@ function renderRing(ringId, valueId, percent) {
   const offset = RING_CIRCUMFERENCE * (1 - clamped / 100);
   value.textContent = `${clamped}%`;
   ring.style.strokeDashoffset = RING_CIRCUMFERENCE;
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    ring.style.strokeDashoffset = offset;
-  }));
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      ring.style.strokeDashoffset = offset;
+    }),
+  );
 }
 
 function renderMember(member) {
@@ -202,14 +421,18 @@ function renderMember(member) {
   document.getElementById("memberQuote").textContent = `"${member.quote}"`;
   renderRing("wealthRing", "wealthValue", member.wealthIndexValue);
   renderRing("privRing", "privValue", member.privilegesValue);
-  document.getElementById("hallmarkLayer").innerHTML = generateHallmarkSVG(member.id);
+  document.getElementById("hallmarkLayer").innerHTML = generateHallmarkSVG(
+    member.id,
+  );
   const bezelEl = document.getElementById("bezelTicks");
   if (bezelEl) bezelEl.innerHTML = generateBezelTicksSVG();
   const core = livingCoreProfile(member.id);
   const root = document.documentElement;
   root.style.setProperty("--core-hue", core.hue.toFixed(1));
-  document.getElementById("livingCore").style.animationDuration = `${core.duration.toFixed(2)}s`;
-  document.getElementById("portraitRing").style.animationDuration = `${(core.duration * 1.7).toFixed(2)}s`;
+  document.getElementById("livingCore").style.animationDuration =
+    `${core.duration.toFixed(2)}s`;
+  document.getElementById("portraitRing").style.animationDuration =
+    `${(core.duration * 1.7).toFixed(2)}s`;
 }
 
 renderMember(MEMBER);
@@ -233,7 +456,9 @@ photoInput.addEventListener("change", (e) => {
     const profilePhoto = document.getElementById("profilePortraitPhoto");
     if (profilePhoto) profilePhoto.style.backgroundImage = `url(${url})`;
     // Sync widget — re-render widget section if it's visible
-    const widgetSection = document.querySelector(".boutique-section[data-category='widgets']");
+    const widgetSection = document.querySelector(
+      ".boutique-section[data-category='widgets']",
+    );
     if (widgetSection) {
       const tempDiv = document.createElement("div");
       tempDiv.innerHTML = renderWidgetSection();
@@ -295,14 +520,21 @@ function updateCreditsUI() {
   if (!creditsText) return;
 
   if (remaining <= 0) {
-    creditsText.innerHTML = "انتهى رصيد رسائلك اليومي.<br>يمكنك شراء رصيد إضافي.";
+    creditsText.innerHTML =
+      "انتهى رصيد رسائلك اليومي.<br>يمكنك شراء رصيد إضافي.";
     creditsText.style.color = "#C97766";
-    if (input) { input.disabled = true; input.placeholder = "انتهى الرصيد…"; }
+    if (input) {
+      input.disabled = true;
+      input.placeholder = "انتهى الرصيد…";
+    }
     if (sendBtn) sendBtn.disabled = true;
   } else {
     creditsText.textContent = `الرسائل المتبقية اليوم: ${remaining} / ${limit}`;
     creditsText.style.color = "";
-    if (input) { input.disabled = false; input.placeholder = "اكتب رسالة للنادي…"; }
+    if (input) {
+      input.disabled = false;
+      input.placeholder = "اكتب رسالة للنادي…";
+    }
     if (sendBtn) sendBtn.disabled = false;
   }
 }
@@ -317,7 +549,7 @@ document.getElementById("creditsCancelBtn").addEventListener("click", () => {
   document.getElementById("creditsModalMsg").textContent = "";
 });
 
-document.querySelectorAll(".credits-pkg").forEach(btn => {
+document.querySelectorAll(".credits-pkg").forEach((btn) => {
   btn.addEventListener("click", () => {
     const credits = parseInt(btn.dataset.credits, 10);
     const price = btn.dataset.price;
@@ -333,11 +565,62 @@ document.querySelectorAll(".credits-pkg").forEach(btn => {
 // 8. CLUB CHAT
 // ---------------------------------------------------------
 const CLUB_MEMBERS = [
-  { id: "8172", name: "LUXOR_VOYAGER", tier: "سيادي", wealth: "92%", priv: "84%", text: "ممتن للطاقة في هذه الغرفة. نبني في صمت ونترك النجاح يتحدث.", time: "11:45 ص" },
-  { id: "5510", name: "MILLIONAIRE_MIND", tier: "سيادي", wealth: "88%", priv: "76%", text: "الانضباط اليوم، الحرية غدًا.", time: "11:47 ص" },
-  { id: "2290", name: "ELEVATED_LIFE", tier: "بلاتيني", wealth: "71%", priv: "63%", text: "الأشخاص المناسبون يرفعون كل شيء.", time: "11:48 ص" },
-  { id: "6640", name: "GLOBAL_INVESTOR", tier: "سيادي", wealth: "95%", priv: "80%", text: "تم تأكيد صفقة الاستحواذ على 4.5% من الأصول. التوقيع غداً في جنيف.", time: "11:50 ص", isWhisper: true },
-  { id: "3901", name: "CROWN_COLLECTOR", tier: "ذهبي", wealth: "58%", priv: "49%", text: "الإرث يُبنى، لا يُشترى.", time: "11:55 ص" }
+  {
+    id: "8172",
+    msgId: "msg-1",
+    name: "LUXOR_VOYAGER",
+    tier: "سيادي",
+    wealth: "92%",
+    priv: "84%",
+    text: "ممتن للطاقة في هذه الغرفة. نبني في صمت ونترك النجاح يتحدث.",
+    time: "11:45 ص",
+    reactions: [],
+  },
+  {
+    id: "5510",
+    msgId: "msg-2",
+    name: "MILLIONAIRE_MIND",
+    tier: "سيادي",
+    wealth: "88%",
+    priv: "76%",
+    text: "الانضباط اليوم، الحرية غدًا.",
+    time: "11:47 ص",
+    reactions: [],
+  },
+  {
+    id: "2290",
+    msgId: "msg-3",
+    name: "ELEVATED_LIFE",
+    tier: "بلاتيني",
+    wealth: "71%",
+    priv: "63%",
+    text: "الأشخاص المناسبون يرفعون كل شيء.",
+    time: "11:48 ص",
+    reactions: [],
+  },
+  {
+    id: "6640",
+    msgId: "msg-4",
+    name: "GLOBAL_INVESTOR",
+    tier: "سيادي",
+    wealth: "95%",
+    priv: "80%",
+    text: "تم تأكيد صفقة الاستحواذ على 4.5% من الأصول. التوقيع غداً في جنيف.",
+    time: "11:50 ص",
+    isWhisper: true,
+    reactions: [],
+  },
+  {
+    id: "3901",
+    msgId: "msg-5",
+    name: "CROWN_COLLECTOR",
+    tier: "ذهبي",
+    wealth: "58%",
+    priv: "49%",
+    text: "الإرث يُبنى، لا يُشترى.",
+    time: "11:55 ص",
+    reactions: [],
+  },
 ];
 
 let currentTypingMember = null;
@@ -399,7 +682,9 @@ function renderClubMessages() {
   }).join("");
 
   if (currentTypingMember) {
-    const initials = (currentTypingMember.name || "MB").substring(0, 2).toUpperCase();
+    const initials = (currentTypingMember.name || "MB")
+      .substring(0, 2)
+      .toUpperCase();
     html += `
       <div class="chat-row is-incoming typing-indicator-row">
         <button class="chat-avatar-btn" type="button" title="${escapeHtml(currentTypingMember.name)}" aria-label="${escapeHtml(currentTypingMember.name)}">
@@ -436,11 +721,21 @@ function renderClubMessages() {
     if (whisperBubble) {
       const revealWhisper = (e) => whisperBubble.classList.add("is-revealed");
       const hideWhisper = (e) => whisperBubble.classList.remove("is-revealed");
-      
+
       whisperBubble.addEventListener("pointerdown", revealWhisper);
       whisperBubble.addEventListener("pointerup", hideWhisper);
       whisperBubble.addEventListener("pointerleave", hideWhisper);
       whisperBubble.addEventListener("pointercancel", hideWhisper);
+    }
+
+    // Reaction Logic
+    const msgId = row.dataset.msgId;
+    const reactBtn = row.querySelector(".chat-add-reaction-btn");
+    if (reactBtn && msgId) {
+      reactBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showReactionMenu(reactBtn, msgId);
+      });
     }
   });
 
@@ -478,34 +773,45 @@ function sendClubMessage() {
 
   CLUB_MEMBERS.push({
     id: MEMBER.id,
+    msgId: "msg-" + Date.now(),
     name: MEMBER.name,
     tier: MEMBER.tier.replace(" MEMBER", ""),
     wealth: `${MEMBER.wealthIndexValue}%`,
     priv: `${MEMBER.privilegesValue}%`,
     text,
-    time: timeStr
+    time: timeStr,
+    reactions: [],
   });
 
   deductCredit();
   renderClubMessages();
   updateCreditsUI();
   input.value = "";
-  
+
   // Simulate someone typing a reply
   clearTimeout(typingTimeout);
-  const otherMembers = CLUB_MEMBERS.filter(m => m.id !== MEMBER.id);
+  const otherMembers = CLUB_MEMBERS.filter((m) => m.id !== MEMBER.id);
   if (otherMembers.length > 0) {
-    const randomMember = otherMembers[Math.floor(Math.random() * otherMembers.length)];
-    setTimeout(() => {
-      setTypingIndicator(randomMember);
-      typingTimeout = setTimeout(() => {
-        setTypingIndicator(null);
-      }, 4000 + Math.random() * 2000);
-    }, 1500 + Math.random() * 1500);
+    const randomMember =
+      otherMembers[Math.floor(Math.random() * otherMembers.length)];
+    setTimeout(
+      () => {
+        setTypingIndicator(randomMember);
+        typingTimeout = setTimeout(
+          () => {
+            setTypingIndicator(null);
+          },
+          4000 + Math.random() * 2000,
+        );
+      },
+      1500 + Math.random() * 1500,
+    );
   }
 }
 
-document.getElementById("clubSendBtn").addEventListener("click", sendClubMessage);
+document
+  .getElementById("clubSendBtn")
+  .addEventListener("click", sendClubMessage);
 document.getElementById("clubInput").addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendClubMessage();
 });
@@ -550,11 +856,14 @@ function setBalance(val) {
   checkBalanceIndicator();
 }
 // Balance init moved to bottom
+renderProfileCollection();
 
-document.getElementById("boutiqueAddBalanceBtn").addEventListener("click", () => {
-  setBalance(getBalance() + 10000);
-  showPremiumToast("إيداع مكتمل", "تمت إضافة ١٠,٠٠٠ ◈ لرصيدك بنجاح");
-});
+document
+  .getElementById("boutiqueAddBalanceBtn")
+  .addEventListener("click", () => {
+    setBalance(getBalance() + 10000);
+    showPremiumToast("إيداع مكتمل", "تمت إضافة ١٠,٠٠٠ ◈ لرصيدك بنجاح");
+  });
 
 // ---------------------------------------------------------
 // 10. OWNED / EQUIPPED (localStorage)
@@ -563,12 +872,22 @@ const OWNED_KEY = `owned_${MEMBER.id}`;
 const EQUIPPED_KEY = `equipped_${MEMBER.id}`;
 
 function getOwned() {
-  try { return JSON.parse(localStorage.getItem(OWNED_KEY)) || {}; } catch { return {}; }
+  try {
+    return JSON.parse(localStorage.getItem(OWNED_KEY)) || {};
+  } catch {
+    return {};
+  }
 }
-function setOwned(data) { localStorage.setItem(OWNED_KEY, JSON.stringify(data)); }
+function setOwned(data) {
+  localStorage.setItem(OWNED_KEY, JSON.stringify(data));
+}
 
 function getEquipped() {
-  try { return JSON.parse(localStorage.getItem(EQUIPPED_KEY)) || {}; } catch { return {}; }
+  try {
+    return JSON.parse(localStorage.getItem(EQUIPPED_KEY)) || {};
+  } catch {
+    return {};
+  }
 }
 function setEquipped(data) {
   localStorage.setItem(EQUIPPED_KEY, JSON.stringify(data));
@@ -576,12 +895,6 @@ function setEquipped(data) {
 }
 
 // Equip-category slot mapping
-const EQUIP_CATEGORIES = {
-  crowns: "crown",
-  auras: "aura",
-  stars: "stars",
-  jewelry: "ring"
-};
 
 function applyEquippedToCard(equipped) {
   // --- CROWN ---
@@ -608,7 +921,8 @@ function applyEquippedToCard(equipped) {
       let auraClass = "active-aura-golden";
       if (auraKey.includes("radiant")) auraClass = "active-aura-radiant";
       else if (auraKey.includes("royal")) auraClass = "active-aura-royal";
-      else if (auraKey.includes("legendary") || auraKey.includes("mythic")) auraClass = "active-aura-legendary";
+      else if (auraKey.includes("legendary") || auraKey.includes("mythic"))
+        auraClass = "active-aura-legendary";
       auraSlot.classList.add(auraClass);
     }
   }
@@ -618,9 +932,12 @@ function applyEquippedToCard(equipped) {
   if (starsSlot) {
     if (equipped.stars) {
       const count = parseInt(equipped.stars.match(/\d+/)?.[0] || "1", 10);
-      const starsSvg = Array.from({ length: Math.min(count, 5) }).map(() =>
-        `<svg viewBox="0 0 10 10" fill="none"><path d="M5 1l.9 2.7H9l-2.3 1.7.9 2.6L5 6.6 2.4 8l.9-2.6L1 3.7h3.1z" fill="#C79A3E"/></svg>`
-      ).join("");
+      const starsSvg = Array.from({ length: Math.min(count, 5) })
+        .map(
+          () =>
+            `<svg viewBox="0 0 10 10" fill="none"><path d="M5 1l.9 2.7H9l-2.3 1.7.9 2.6L5 6.6 2.4 8l.9-2.6L1 3.7h3.1z" fill="#C79A3E"/></svg>`,
+        )
+        .join("");
       starsSlot.innerHTML = starsSvg;
     } else {
       starsSlot.innerHTML = "";
@@ -654,7 +971,8 @@ function syncWidgetState(equipped) {
     wlc.style.animationDuration = `${core.duration.toFixed(2)}s`;
   }
   // Portrait
-  const portraitBg = document.getElementById("portraitPhoto")?.style.backgroundImage || "";
+  const portraitBg =
+    document.getElementById("portraitPhoto")?.style.backgroundImage || "";
   const widgetPhoto = document.querySelector(".widget-portrait-photo");
   if (widgetPhoto) {
     if (portraitBg) {
@@ -679,84 +997,18 @@ function syncWidgetState(equipped) {
 }
 
 // Init card from stored equipped
-applyEquippedToCard(getEquipped());
+// Moved applyEquippedToCard down
 
 // ---------------------------------------------------------
 // 11. BOUTIQUE CATALOG
 // ---------------------------------------------------------
 const RARITY_LABEL = {
-  rare: "نادر", epic: "استثنائي", legendary: "أسطوري",
-  mythic: "خرافي", unique: "فريد — 1/1", free: "مجاني"
-};
-
-const ICONS = {
-  star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  crown: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  aura: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C79A3E" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#C79A3E" stroke-width="0.6" opacity="0.5"/></svg>`,
-  ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="#C79A3E" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="#C79A3E" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  artifact: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" fill="#C79A3E"/><circle cx="12" cy="12" r="9" stroke="#C79A3E" stroke-width="1"/><circle cx="12" cy="12" r="9" stroke="#C79A3E" stroke-width="1" transform="rotate(45 12 12)"/></svg>`,
-  widget: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#C79A3E" stroke-width="1.4"/></svg>`
-};
-
-const BOUTIQUE = {
-  stars: {
-    title: "النجوم", sub: "ارتقِ بمكانتك. اكسب الاحترام.",
-    cat: "stars",
-    items: [
-      { id: "star-1", name: "نجمة ذهبية", rarity: "rare", price: 200, icon: "star" },
-      { id: "star-3", name: "٣ نجوم ذهبية", rarity: "rare", price: 500, icon: "star" },
-      { id: "star-5", name: "٥ نجوم", rarity: "epic", price: 800, icon: "star" },
-      { id: "star-10", name: "١٠ نجوم إمبراطورية", rarity: "legendary", price: 1500, icon: "star" }
-    ]
-  },
-  crowns: {
-    title: "التيجان", sub: "ارتدِ التاج. تصدّر الـ1%.",
-    cat: "crowns",
-    items: [
-      { id: "crown-sovereign", name: "التاج السيادي", rarity: "rare", price: 750, icon: "crown" },
-      { id: "crown-royal", name: "التاج الملكي", rarity: "epic", price: 1500, icon: "crown" },
-      { id: "crown-imperial", name: "التاج الإمبراطوري", rarity: "legendary", price: 3000, icon: "crown" },
-      { id: "crown-legend", name: "تاج الأسطورة", rarity: "mythic", price: 6000, icon: "crown" }
-    ]
-  },
-  auras: {
-    title: "الهالات", sub: "هالتك. طاقتك.",
-    cat: "auras",
-    items: [
-      { id: "aura-golden", name: "الهالة الذهبية", rarity: "rare", price: 500, icon: "aura" },
-      { id: "aura-radiant", name: "الهالة المشعة", rarity: "epic", price: 1000, icon: "aura" },
-      { id: "aura-royal", name: "الهالة الملكية", rarity: "legendary", price: 1800, icon: "aura" },
-      { id: "aura-legendary", name: "الهالة الخرافية", rarity: "mythic", price: 3500, icon: "aura" }
-    ]
-  },
-  jewelry: {
-    title: "المجوهرات", sub: "قطع تُصنع لا تُشترى.",
-    cat: "jewelry",
-    items: [
-      { id: "ring-sovereign", name: "الخاتم السيادي", rarity: "rare", price: 900, icon: "ring" },
-      { id: "ring-diamond", name: "خاتم الماس", rarity: "epic", price: 1800, icon: "ring" },
-      { id: "pendant-gold", name: "قلادة ذهبية", rarity: "epic", price: 1600, icon: "pendant" },
-      { id: "pendant-diamond", name: "قلادة الماس", rarity: "legendary", price: 2600, icon: "pendant" }
-    ]
-  },
-  artifacts: {
-    title: "المقتنيات النادرة", sub: "محدودة. أسطورية. لا مثيل لها.",
-    cat: "artifacts",
-    items: [
-      { id: "artifact-medallion", name: "الميدالية السيادية", rarity: "legendary", price: 25000, icon: "artifact" },
-      { id: "artifact-seal", name: "ختم الماس الأسود", rarity: "mythic", price: 40000, icon: "artifact" },
-      { id: "artifact-orb", name: "الكرة الأزلية", rarity: "mythic", price: 75000, icon: "artifact" },
-      { id: "artifact-legacy", name: "إرث الـ1%", rarity: "unique", price: 100000, icon: "artifact" }
-    ]
-  },
-  widgets: {
-    title: "الودجت", sub: "ارتدِ مكانتك على شاشتك الرئيسية.",
-    cat: "widgets",
-    items: [
-      { id: "widget-1", name: "بطاقة العضوية الفاخرة", rarity: "free", price: 0, icon: "widget", free: true }
-    ]
-  }
+  rare: "نادر",
+  epic: "استثنائي",
+  legendary: "أسطوري",
+  mythic: "خرافي",
+  unique: "فريد — 1/1",
+  free: "مجاني",
 };
 
 // ---------------------------------------------------------
@@ -783,50 +1035,119 @@ function toggleEquip(item, catKey) {
     if (window.AudioEngine) AudioEngine.playChime();
     showNavToast(`تم تجهيز: ${item.name}`);
   }
-  renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
+  renderBoutique(
+    document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all",
+  );
 }
 
 // ---------------------------------------------------------
 // 14. BOUTIQUE RENDER
 // ---------------------------------------------------------
+let currentOwnershipFilter = "all";
+// ---------------------------------------------------------
+
+function generateSkeletonGrid() {
+  const cards = Array(6)
+    .fill(
+      `
+    <div class="boutique-skeleton-card">
+      <div class="skeleton-icon"></div>
+      <div class="skeleton-text name"></div>
+      <div class="skeleton-text price"></div>
+      <div class="skeleton-text button"></div>
+    </div>
+  `,
+    )
+    .join("");
+  return `<div class="boutique-skeleton-grid">${cards}</div>`;
+}
+
 function renderBoutique(filter = "all") {
   const root = document.getElementById("boutiqueSections");
   const owned = getOwned();
   const equipped = getEquipped();
   const categories = filter === "all" ? Object.keys(BOUTIQUE) : [filter];
 
-  root.innerHTML = categories.map((catKey) => {
-    const cat = BOUTIQUE[catKey];
+  // Show Skeleton First
+  if (!root.dataset.skeletonShown) {
+    root.innerHTML = generateSkeletonGrid();
+    root.dataset.skeletonShown = "true";
+    setTimeout(
+      () => renderBoutiqueContent(filter, root, owned, equipped, categories),
+      450,
+    );
+    return;
+  }
 
-    // Widget 1 special rendering
-    if (catKey === "widgets") {
-      return renderWidgetSection();
-    }
+  root.dataset.skeletonShown = "";
+  renderBoutiqueContent(filter, root, owned, equipped, categories);
+}
 
-    const cards = cat.items.map((item) => {
-      const isOwned = owned[catKey] && owned[catKey].includes(item.id);
-      const isEquipped = equipped[catKey] === item.name;
-      const canEquip = EQUIP_CATEGORIES[catKey] !== undefined;
+function renderBoutiqueContent(filter, root, owned, equipped, categories) {
+  root.innerHTML = categories
+    .map((catKey) => {
+      const cat = BOUTIQUE[catKey];
 
-      let btnText, btnClass;
-      if (item.free) {
-        btnText = "تم الامتلاك ✓"; btnClass = "btn-free";
-      } else if (isEquipped) {
-        btnText = "✓ مجهّز — فك التجهيز"; btnClass = "btn-equipped";
-      } else if (isOwned && canEquip) {
-        btnText = "تجهيز"; btnClass = "btn-equip";
-      } else if (isOwned) {
-        btnText = "مملوك"; btnClass = "btn-owned";
-      } else {
-        btnText = "امتلك"; btnClass = "";
+      // Widget 1 special rendering
+      if (catKey === "widgets") {
+        return renderWidgetSection();
       }
 
-      const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}`;
-      const priceHtml = item.free
-        ? `<span class="boutique-card-price is-free">مجاني</span>`
-        : `<span class="boutique-card-price">${item.price.toLocaleString("en-US")}</span>`;
+      const currentBalance = getBalance();
 
-      return `
+      const filteredItems = cat.items.filter((item) => {
+        const isOwned = owned[catKey] && owned[catKey].includes(item.id);
+        if (currentOwnershipFilter === "owned") return isOwned;
+        if (currentOwnershipFilter === "unowned") return !isOwned;
+        return true;
+      });
+
+      if (filteredItems.length === 0) return ""; // Skip category if empty due to filter
+
+      const cards = filteredItems
+        .map((item) => {
+          const isOwned = owned[catKey] && owned[catKey].includes(item.id);
+          const isEquipped = equipped[catKey] === item.name;
+          const canEquip = EQUIP_CATEGORIES[catKey] !== undefined;
+
+          let btnText, btnClass;
+          if (item.free) {
+            btnText = "تم الامتلاك ✓";
+            btnClass = "btn-free";
+          } else if (isEquipped) {
+            btnText = "✓ مجهّز — فك التجهيز";
+            btnClass = "btn-equipped";
+          } else if (isOwned && canEquip) {
+            btnText = "تجهيز";
+            btnClass = "btn-equip";
+          } else if (isOwned) {
+            btnText = "مملوك";
+            btnClass = "btn-owned";
+          } else {
+            btnText = "امتلك";
+            btnClass = "";
+          }
+
+          const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}`;
+          const priceHtml = item.free
+            ? `<span class="boutique-card-price is-free">مجاني</span>`
+            : `<span class="boutique-card-price">${item.price.toLocaleString("en-US")}</span>`;
+
+          let progressHtml = "";
+          if (!isOwned && !item.free) {
+            const pct = Math.min((currentBalance / item.price) * 100, 100);
+            const isReady = pct >= 100;
+            progressHtml = `
+          <div class="purchase-progress-wrap" aria-label="مدى القدرة على الشراء" title="${Math.floor(pct)}%">
+            <div class="purchase-progress-fill ${isReady ? "is-ready" : ""}" style="width: ${pct}%"></div>
+          </div>
+        `;
+          } else {
+            // Space filler to keep card heights consistent
+            progressHtml = `<div class="purchase-progress-wrap is-transparent"></div>`;
+          }
+
+          return `
         <div class="${cardClass}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned}, ${isEquipped})' style="cursor: pointer;">
           <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity]}</span>
           <span class="boutique-card-icon">
@@ -834,14 +1155,16 @@ function renderBoutique(filter = "all") {
           </span>
           <span class="boutique-card-name">${item.name}</span>
           ${priceHtml}
+          ${progressHtml}
           <button class="boutique-own-btn ${btnClass}" type="button" style="pointer-events: none;">
             ${btnText}
           </button>
         </div>
       `;
-    }).join("");
+        })
+        .join("");
 
-    return `
+      return `
       <section class="boutique-section" data-category="${catKey}">
         <div class="boutique-section-head">
           <h3>${cat.title}</h3>
@@ -850,20 +1173,87 @@ function renderBoutique(filter = "all") {
         <div class="boutique-grid">${cards}</div>
       </section>
     `;
-  }).join("");
+    })
+    .filter((html) => html !== "")
+    .join("");
 
-  // Wire up cards to open inspection modal
+  if (root.innerHTML.trim() === "") {
+    root.innerHTML = `
+      <div class="luxury-empty-state" style="margin-top: 40px; padding: 60px 20px;">
+        <div class="empty-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" class="empty-icon"><path d="M4 8h16l-1.3 10.2A2 2 0 0116.7 20H7.3a2 2 0 01-2-1.8L4 8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.2"/></svg>
+        </div>
+        <p>لا توجد مقتنيات</p>
+        <span style="max-width: 280px; margin-bottom: 0;">لا توجد أي قطع تتوافق مع التصنيف الحالي.</span>
+      </div>
+    `;
+  }
+
+  // Wire up cards to open inspection modal and handle long press
   root.querySelectorAll(".boutique-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      const itemId = card.dataset.itemId;
-      const catKey = card.dataset.cat;
-      const isOwned = card.dataset.owned === "1";
-      const isEquipped = card.dataset.equipped === "1";
-      const cat = BOUTIQUE[catKey];
-      if (!cat) return;
-      const item = cat.items.find(i => i.id === itemId);
-      if (!item) return;
+    let pressTimer;
+    let isLongPress = false;
 
+    const itemId = card.dataset.itemId;
+    const catKey = card.dataset.cat;
+    const isOwned = card.dataset.owned === "1";
+    const isEquipped = card.dataset.equipped === "1";
+    const cat = BOUTIQUE[catKey];
+    if (!cat) return;
+    const item = cat.items.find((i) => i.id === itemId);
+    if (!item) return;
+
+    const startPress = (e) => {
+      isLongPress = false;
+      pressTimer = setTimeout(() => {
+        isLongPress = true;
+
+        // Auto-equip check: If owned, and nothing is currently equipped in this category
+        const currentEquipped = getEquipped();
+        let wasAutoEquipped = false;
+        if (
+          isOwned &&
+          !isEquipped &&
+          !currentEquipped[catKey] &&
+          EQUIP_CATEGORIES[catKey]
+        ) {
+          equipItem(item, catKey);
+          wasAutoEquipped = true;
+          // Refresh our local flags for the preview
+        }
+
+        showQuickPreview(item, wasAutoEquipped);
+        if (navigator.vibrate) navigator.vibrate(50);
+        if (window.AudioEngine) window.AudioEngine.playRustle();
+      }, 400); // 400ms for long press
+    };
+
+    const endPress = (e) => {
+      clearTimeout(pressTimer);
+      if (isLongPress) {
+        hideQuickPreview();
+      }
+    };
+
+    // Touch events for mobile
+    card.addEventListener("touchstart", startPress, { passive: true });
+    card.addEventListener("touchend", endPress);
+    card.addEventListener("touchcancel", endPress);
+    card.addEventListener("touchmove", () => {
+      clearTimeout(pressTimer);
+    });
+
+    // Mouse events for desktop testing
+    card.addEventListener("mousedown", startPress);
+    card.addEventListener("mouseup", endPress);
+    card.addEventListener("mouseleave", endPress);
+
+    card.addEventListener("click", (e) => {
+      if (isLongPress) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
       openInspectionModal(item, catKey, isOwned, isEquipped);
     });
   });
@@ -872,9 +1262,9 @@ function renderBoutique(filter = "all") {
 }
 
 function renderWidgetSection() {
-  const masterCard = document.getElementById('membershipCard');
-  const cardHTML = masterCard ? masterCard.innerHTML : '';
-  
+  const masterCard = document.getElementById("membershipCard");
+  const cardHTML = masterCard ? masterCard.innerHTML : "";
+
   return `
     <section class="boutique-section widget-section" data-category="widgets">
       <div class="boutique-section-head">
@@ -896,7 +1286,9 @@ function renderWidgetSection() {
 
 document.querySelectorAll(".boutique-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".boutique-tab").forEach((t) => t.classList.remove("is-active"));
+    document
+      .querySelectorAll(".boutique-tab")
+      .forEach((t) => t.classList.remove("is-active"));
     tab.classList.add("is-active");
     renderBoutique(tab.dataset.cat);
   });
@@ -912,7 +1304,6 @@ if (balanceDisplay) {
 // checkBalanceIndicator needs BOUTIQUE to be defined.
 // BOUTIQUE is defined above this point now.
 checkBalanceIndicator();
-
 
 // ---------------------------------------------------------
 // 15. SHARE / COPY
@@ -940,7 +1331,9 @@ document.getElementById("copyBtn").addEventListener("click", async () => {
 
 async function renderMasterCardToBlob() {
   if (document.fonts && document.fonts.ready) {
-    try { await document.fonts.ready; } catch (_) {}
+    try {
+      await document.fonts.ready;
+    } catch (_) {}
   }
 
   const canvas = document.createElement("canvas");
@@ -951,12 +1344,30 @@ async function renderMasterCardToBlob() {
   const ctx = canvas.getContext("2d");
 
   // Get live member data
-  const memberName = (document.getElementById("memberName")?.textContent || MEMBER.name).trim();
-  const memberId = (document.getElementById("memberNumber")?.textContent || MEMBER.id).trim();
-  const tierName = (document.getElementById("tierName")?.textContent || MEMBER.tier).trim();
-  const memberQuote = (document.getElementById("memberQuote")?.textContent || `"${MEMBER.quote}"`).trim();
-  const wealthText = (document.getElementById("wealthValue")?.textContent || `${MEMBER.wealthIndexValue}%`).replace("%", "").trim();
-  const privText = (document.getElementById("privValue")?.textContent || `${MEMBER.privilegesValue}%`).replace("%", "").trim();
+  const memberName = (
+    document.getElementById("memberName")?.textContent || MEMBER.name
+  ).trim();
+  const memberId = (
+    document.getElementById("memberNumber")?.textContent || MEMBER.id
+  ).trim();
+  const tierName = (
+    document.getElementById("tierName")?.textContent || MEMBER.tier
+  ).trim();
+  const memberQuote = (
+    document.getElementById("memberQuote")?.textContent || `"${MEMBER.quote}"`
+  ).trim();
+  const wealthText = (
+    document.getElementById("wealthValue")?.textContent ||
+    `${MEMBER.wealthIndexValue}%`
+  )
+    .replace("%", "")
+    .trim();
+  const privText = (
+    document.getElementById("privValue")?.textContent ||
+    `${MEMBER.privilegesValue}%`
+  )
+    .replace("%", "")
+    .trim();
   const wealthVal = parseInt(wealthText, 10) || 92;
   const privVal = parseInt(privText, 10) || 84;
   const equipped = typeof getEquipped === "function" ? getEquipped() : {};
@@ -965,7 +1376,9 @@ async function renderMasterCardToBlob() {
   let photoImg = null;
   const portraitPhotoEl = document.getElementById("portraitPhoto");
   if (portraitPhotoEl && portraitPhotoEl.style.backgroundImage) {
-    const match = portraitPhotoEl.style.backgroundImage.match(/url\(["']?([^"']+)["']?\)/);
+    const match = portraitPhotoEl.style.backgroundImage.match(
+      /url\(["']?([^"']+)["']?\)/,
+    );
     if (match && match[1]) {
       photoImg = await new Promise((resolve) => {
         const img = new Image();
@@ -1029,7 +1442,14 @@ async function renderMasterCardToBlob() {
   ctx.fillRect(cardX, cardY, cardW, cardH);
 
   // Warm gold radial glow from top
-  const topGlow = ctx.createRadialGradient(cx, cardY + 60, 20, cx, cardY + 380, 520);
+  const topGlow = ctx.createRadialGradient(
+    cx,
+    cardY + 60,
+    20,
+    cx,
+    cardY + 380,
+    520,
+  );
   topGlow.addColorStop(0, "rgba(212, 175, 106, 0.18)");
   topGlow.addColorStop(0.5, "rgba(180, 135, 45, 0.06)");
   topGlow.addColorStop(1, "transparent");
@@ -1154,7 +1574,14 @@ async function renderMasterCardToBlob() {
 
   // Aura (if equipped)
   if (equipped.auras) {
-    const auraGlow = ctx.createRadialGradient(cx, medY, medR * 0.8, cx, medY, medR * 1.5);
+    const auraGlow = ctx.createRadialGradient(
+      cx,
+      medY,
+      medR * 0.8,
+      cx,
+      medY,
+      medR * 1.5,
+    );
     auraGlow.addColorStop(0, "rgba(235, 205, 132, 0.45)");
     auraGlow.addColorStop(0.5, "rgba(184, 134, 58, 0.2)");
     auraGlow.addColorStop(1, "transparent");
@@ -1177,7 +1604,7 @@ async function renderMasterCardToBlob() {
     ctx.arc(0, 0, medR + 24, Math.PI * 0.25, Math.PI * 0.85);
     ctx.stroke();
 
-    for (let a = 0.32; a <= 0.80; a += 0.08) {
+    for (let a = 0.32; a <= 0.8; a += 0.08) {
       const angle = Math.PI * a;
       const lx = Math.cos(angle) * (medR + 24);
       const ly = Math.sin(angle) * (medR + 24);
@@ -1220,7 +1647,12 @@ async function renderMasterCardToBlob() {
   ctx.stroke();
 
   ctx.lineWidth = 4;
-  ctx.strokeStyle = makeGoldGrad(cx - medR, medY - medR, cx + medR, medY + medR);
+  ctx.strokeStyle = makeGoldGrad(
+    cx - medR,
+    medY - medR,
+    cx + medR,
+    medY + medR,
+  );
   ctx.beginPath();
   ctx.arc(cx, medY, medR, 0, Math.PI * 2);
   ctx.stroke();
@@ -1237,7 +1669,17 @@ async function renderMasterCardToBlob() {
     const size = Math.min(nw, nh);
     const sx = (nw - size) / 2;
     const sy = (nh - size) / 2;
-    ctx.drawImage(photoImg, sx, sy, size, size, cx - medR + 2, medY - medR + 2, (medR - 2) * 2, (medR - 2) * 2);
+    ctx.drawImage(
+      photoImg,
+      sx,
+      sy,
+      size,
+      size,
+      cx - medR + 2,
+      medY - medR + 2,
+      (medR - 2) * 2,
+      (medR - 2) * 2,
+    );
   } else {
     const silBg = ctx.createRadialGradient(cx, medY - 20, 10, cx, medY, medR);
     silBg.addColorStop(0, "#262218");
@@ -1332,7 +1774,8 @@ async function renderMasterCardToBlob() {
   let quoteLine1 = "";
   let quoteLine2 = "";
   for (const qw of quoteWords) {
-    if ((quoteLine1 + " " + qw).length <= 48) quoteLine1 += (quoteLine1 ? " " : "") + qw;
+    if ((quoteLine1 + " " + qw).length <= 48)
+      quoteLine1 += (quoteLine1 ? " " : "") + qw;
     else quoteLine2 += (quoteLine2 ? " " : "") + qw;
   }
   const quoteBaseY = equipped.jewelry ? cardY + 625 : cardY + 615;
@@ -1355,7 +1798,7 @@ async function renderMasterCardToBlob() {
     ctx.stroke();
 
     const startAngle = -Math.PI / 2;
-    const sweep = (Math.PI * 2 * (percent / 100));
+    const sweep = Math.PI * 2 * (percent / 100);
     ctx.lineWidth = 5.5;
     ctx.strokeStyle = makeGoldGrad(gx - gr, gy - gr, gx + gr, gy + gr);
     ctx.lineCap = "round";
@@ -1400,7 +1843,9 @@ async function renderMasterCardToBlob() {
   ctx.closePath();
   ctx.fill();
 
-  const coreHue = getComputedStyle(document.documentElement).getPropertyValue("--core-hue") || "45";
+  const coreHue =
+    getComputedStyle(document.documentElement).getPropertyValue("--core-hue") ||
+    "45";
   ctx.fillStyle = `hsl(${coreHue}, 90%, 65%)`;
   ctx.shadowColor = `hsl(${coreHue}, 95%, 60%)`;
   ctx.shadowBlur = 12;
@@ -1411,7 +1856,12 @@ async function renderMasterCardToBlob() {
 
   // 11. Hallmark Divider with 1% Sovereign Shield
   const hallmarkLineY = cardY + 950;
-  const hLineGradL = ctx.createLinearGradient(cardX + 80, hallmarkLineY, cx - 40, hallmarkLineY);
+  const hLineGradL = ctx.createLinearGradient(
+    cardX + 80,
+    hallmarkLineY,
+    cx - 40,
+    hallmarkLineY,
+  );
   hLineGradL.addColorStop(0, "transparent");
   hLineGradL.addColorStop(1, primaryGold);
   ctx.strokeStyle = hLineGradL;
@@ -1421,7 +1871,12 @@ async function renderMasterCardToBlob() {
   ctx.lineTo(cx - 40, hallmarkLineY);
   ctx.stroke();
 
-  const hLineGradR = ctx.createLinearGradient(cx + 40, hallmarkLineY, cardX + cardW - 80, hallmarkLineY);
+  const hLineGradR = ctx.createLinearGradient(
+    cx + 40,
+    hallmarkLineY,
+    cardX + cardW - 80,
+    hallmarkLineY,
+  );
   hLineGradR.addColorStop(0, primaryGold);
   hLineGradR.addColorStop(1, "transparent");
   ctx.strokeStyle = hLineGradR;
@@ -1491,7 +1946,7 @@ async function shareMasterCard() {
         await navigator.share({
           files: [file],
           title: "THE 1% CLUB — MASTER MEMBERSHIP CARD",
-          text: `${MEMBER.name} — Member Nº${MEMBER.id} — ${MEMBER.tier}`
+          text: `${MEMBER.name} — Member Nº${MEMBER.id} — ${MEMBER.tier}`,
         });
         return;
       } catch (shareErr) {
@@ -1509,16 +1964,20 @@ async function shareMasterCard() {
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 2000);
     showCopyToast("✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة");
-
   } catch (err) {
     // Final fallback: share URL text
     const shareData = {
       title: "THE 1% CLUB",
       text: `${MEMBER.name} — Member Nº${MEMBER.id} — ${MEMBER.tier}`,
-      url: MEMBER.verifyUrl
+      url: MEMBER.verifyUrl,
     };
     if (navigator.share) {
-      try { await navigator.share(shareData); return; } catch { /* cancelled */ }
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch {
+        /* cancelled */
+      }
     }
     try {
       await navigator.clipboard.writeText(MEMBER.verifyUrl);
@@ -1530,7 +1989,9 @@ async function shareMasterCard() {
 }
 
 document.getElementById("shareBtn").addEventListener("click", shareMasterCard);
-document.getElementById("profileShareBtn").addEventListener("click", shareMasterCard);
+document
+  .getElementById("profileShareBtn")
+  .addEventListener("click", shareMasterCard);
 
 // ---------------------------------------------------------
 // 17. BOTTOM NAV
@@ -1543,21 +2004,42 @@ function showNavToast(msg) {
   navToast.textContent = msg;
   navToast.classList.add("is-visible");
   clearTimeout(navToastTimer);
-  navToastTimer = setTimeout(() => navToast.classList.remove("is-visible"), 1800);
+  navToastTimer = setTimeout(
+    () => navToast.classList.remove("is-visible"),
+    1800,
+  );
 }
 
-const PAGE_TITLES = { card: "العضوية", profile: "الملف", club: "النادي", shop: "البوتيك" };
+const PAGE_TITLES = {
+  card: "العضوية",
+  profile: "الملف",
+  club: "النادي",
+  shop: "البوتيك",
+};
 const IMPLEMENTED_TABS = ["card", "profile", "club", "shop"];
 
 function goToPage(tab) {
   if (window.AudioEngine) AudioEngine.playRustle();
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("is-active"));
-  document.getElementById(`page-${tab}`)?.classList.add("is-active");
-  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("is-active"));
-  document.querySelector(`.nav-item[data-tab="${tab}"]`)?.classList.add("is-active");
+  document.querySelectorAll(".page").forEach((p) => {
+    p.classList.remove("is-active");
+    p.hidden = true;
+  });
+  const activePage = document.getElementById(`page-${tab}`);
+  if (activePage) {
+    activePage.classList.add("is-active");
+    activePage.hidden = false;
+  }
+  document
+    .querySelectorAll(".nav-item")
+    .forEach((n) => n.classList.remove("is-active"));
+  document
+    .querySelector(`.nav-item[data-tab="${tab}"]`)
+    ?.classList.add("is-active");
   sectionName.textContent = PAGE_TITLES[tab] || tab;
   document.getElementById("backBtn").hidden = true;
-  document.getElementById("appHeader").classList.toggle("header-compact", tab === "club");
+  document
+    .getElementById("appHeader")
+    .classList.toggle("header-compact", tab === "club");
   document.querySelector(".app-main").scrollTop = 0;
   window.scrollTo(0, 0);
 
@@ -1571,25 +2053,35 @@ function goToPage(tab) {
   }
 }
 
-document.querySelectorAll(".nav-item").forEach(item => {
+document.querySelectorAll(".nav-item").forEach((item) => {
   item.addEventListener("click", () => {
     const tab = item.dataset.tab;
-    if (IMPLEMENTED_TABS.includes(tab)) { goToPage(tab); return; }
-    const prev = document.querySelector(".nav-item.is-active")?.dataset.tab || "card";
-    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("is-active"));
+    if (IMPLEMENTED_TABS.includes(tab)) {
+      goToPage(tab);
+      return;
+    }
+    const prev =
+      document.querySelector(".nav-item.is-active")?.dataset.tab || "card";
+    document
+      .querySelectorAll(".nav-item")
+      .forEach((n) => n.classList.remove("is-active"));
     item.classList.add("is-active");
     showNavToast(`${item.querySelector("span").textContent} — قريبًا`);
     clearTimeout(navToastTimer);
     navToastTimer = setTimeout(() => {
       navToast.classList.remove("is-visible");
       item.classList.remove("is-active");
-      document.querySelector(`.nav-item[data-tab="${prev}"]`)?.classList.add("is-active");
+      document
+        .querySelector(`.nav-item[data-tab="${prev}"]`)
+        ?.classList.add("is-active");
     }, 1800);
   });
 });
 
 // Profile → Shop shortcut
-document.getElementById("goToShopBtn")?.addEventListener("click", () => goToPage("shop"));
+document
+  .getElementById("goToShopBtn")
+  ?.addEventListener("click", () => goToPage("shop"));
 
 // ---------------------------------------------------------
 // 18. CONTEXTUAL NAV (back button)
@@ -1599,8 +2091,15 @@ let contextReturnTab = "club";
 function openContextPage(pageId, title, returnTab) {
   if (window.AudioEngine) AudioEngine.playRustle();
   contextReturnTab = returnTab;
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("is-active"));
-  document.getElementById(pageId)?.classList.add("is-active");
+  document.querySelectorAll(".page").forEach((p) => {
+    p.classList.remove("is-active");
+    p.hidden = true;
+  });
+  const activePage = document.getElementById(pageId);
+  if (activePage) {
+    activePage.classList.add("is-active");
+    activePage.hidden = false;
+  }
   document.getElementById("sectionName").textContent = title;
   document.getElementById("appHeader").classList.remove("header-compact");
   document.getElementById("backBtn").hidden = false;
@@ -1610,8 +2109,10 @@ function openContextPage(pageId, title, returnTab) {
 
 function openMemberProfile(member) {
   document.getElementById("memberProfileName").textContent = member.name;
-  document.getElementById("memberProfileTier").textContent = `عضو ${member.tier}`;
-  document.getElementById("memberProfileQuote").textContent = `"${member.text}"`;
+  document.getElementById("memberProfileTier").textContent =
+    `عضو ${member.tier}`;
+  document.getElementById("memberProfileQuote").textContent =
+    `"${member.text}"`;
   document.getElementById("memberProfileWealth").textContent = member.wealth;
   document.getElementById("memberProfilePriv").textContent = member.priv;
   openContextPage("page-member", "ملف العضو", "club");
@@ -1622,26 +2123,38 @@ document.getElementById("backBtn").addEventListener("click", () => {
   goToPage(contextReturnTab);
 });
 
-document.querySelectorAll("#page-member .card-actions .btn").forEach(btn => {
+document.querySelectorAll("#page-member .card-actions .btn").forEach((btn) => {
   btn.addEventListener("click", () => showNavToast("قريبًا"));
 });
 
 document.getElementById("editAccountBtn").addEventListener("click", () => {
-  document.getElementById("editName").value = document.getElementById("memberName").textContent;
-  document.getElementById("editUsername").value = document.getElementById("profileName").textContent;
-  document.getElementById("editBio").value = document.getElementById("profileBioValue").textContent;
-  document.getElementById("editInterests").value = document.getElementById("profileInterestsValue").textContent;
-  document.getElementById("editLocation").value = document.getElementById("profileLocationValue").textContent;
+  document.getElementById("editName").value =
+    document.getElementById("memberName").textContent;
+  document.getElementById("editUsername").value =
+    document.getElementById("profileName").textContent;
+  document.getElementById("editBio").value =
+    document.getElementById("profileBioValue").textContent;
+  document.getElementById("editInterests").value = document.getElementById(
+    "profileInterestsValue",
+  ).textContent;
+  document.getElementById("editLocation").value = document.getElementById(
+    "profileLocationValue",
+  ).textContent;
   openContextPage("page-edit-account", "تعديل الحساب", "profile");
 });
 
-document.getElementById("editAccountForm").addEventListener("submit", e => {
+document.getElementById("editAccountForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  document.getElementById("memberName").textContent = document.getElementById("editName").value;
-  document.getElementById("profileName").textContent = document.getElementById("editUsername").value;
-  document.getElementById("profileBioValue").textContent = document.getElementById("editBio").value;
-  document.getElementById("profileInterestsValue").textContent = document.getElementById("editInterests").value;
-  document.getElementById("profileLocationValue").textContent = document.getElementById("editLocation").value;
+  document.getElementById("memberName").textContent =
+    document.getElementById("editName").value;
+  document.getElementById("profileName").textContent =
+    document.getElementById("editUsername").value;
+  document.getElementById("profileBioValue").textContent =
+    document.getElementById("editBio").value;
+  document.getElementById("profileInterestsValue").textContent =
+    document.getElementById("editInterests").value;
+  document.getElementById("profileLocationValue").textContent =
+    document.getElementById("editLocation").value;
   document.getElementById("backBtn").hidden = true;
   goToPage("profile");
   showPremiumToast("تحديث الملف", "تم حفظ التعديلات بنجاح");
@@ -1655,13 +2168,22 @@ const TILT_MAX_DEG = 12;
 function setCardTilt(x, y) {
   const clX = Math.max(-1, Math.min(1, x));
   const clY = Math.max(-1, Math.min(1, y));
-  document.documentElement.style.setProperty("--tiltX", (clX * TILT_MAX_DEG).toFixed(2));
-  document.documentElement.style.setProperty("--tiltY", (clY * TILT_MAX_DEG).toFixed(2));
+  document.documentElement.style.setProperty(
+    "--tiltX",
+    (clX * TILT_MAX_DEG).toFixed(2),
+  );
+  document.documentElement.style.setProperty(
+    "--tiltY",
+    (clY * TILT_MAX_DEG).toFixed(2),
+  );
 }
 
 function handleDeviceOrientation(e) {
   if (e.beta === null || e.gamma === null) return;
-  setCardTilt(Math.max(-1, Math.min(1, e.gamma / 28)), Math.max(-1, Math.min(1, (e.beta - 45) / 28)));
+  setCardTilt(
+    Math.max(-1, Math.min(1, e.gamma / 28)),
+    Math.max(-1, Math.min(1, (e.beta - 45) / 28)),
+  );
 }
 
 function enableDeviceTilt() {
@@ -1674,10 +2196,14 @@ let tiltEnabled = false;
 function requestTiltPermissionOnce() {
   if (tiltEnabled) return;
   tiltEnabled = true;
-  if (typeof DeviceOrientationEvent !== "undefined" &&
-      typeof DeviceOrientationEvent.requestPermission === "function") {
+  if (
+    typeof DeviceOrientationEvent !== "undefined" &&
+    typeof DeviceOrientationEvent.requestPermission === "function"
+  ) {
     DeviceOrientationEvent.requestPermission()
-      .then(state => { if (state === "granted") enableDeviceTilt(); })
+      .then((state) => {
+        if (state === "granted") enableDeviceTilt();
+      })
       .catch(() => {});
   } else if (typeof DeviceOrientationEvent !== "undefined") {
     enableDeviceTilt();
@@ -1685,14 +2211,22 @@ function requestTiltPermissionOnce() {
 }
 
 // Ensure any interaction on the page attempts to enable tilt (vital for iOS Safari)
-document.body.addEventListener("click", requestTiltPermissionOnce, { once: true });
-document.body.addEventListener("touchstart", requestTiltPermissionOnce, { once: true, passive: true });
+document.body.addEventListener("click", requestTiltPermissionOnce, {
+  once: true,
+});
+document.body.addEventListener("touchstart", requestTiltPermissionOnce, {
+  once: true,
+  passive: true,
+});
 
 if (cardEl) {
-  cardEl.addEventListener("pointermove", e => {
+  cardEl.addEventListener("pointermove", (e) => {
     if (e.pointerType === "touch") return;
     const rect = cardEl.getBoundingClientRect();
-    setCardTilt(((e.clientX - rect.left) / rect.width - 0.5) * 2, ((e.clientY - rect.top) / rect.height - 0.5) * 2);
+    setCardTilt(
+      ((e.clientX - rect.left) / rect.width - 0.5) * 2,
+      ((e.clientY - rect.top) / rect.height - 0.5) * 2,
+    );
   });
   cardEl.addEventListener("pointerleave", () => setCardTilt(0, 0));
 }
@@ -1713,40 +2247,53 @@ function showPremiumToast(title, msg) {
   toast.classList.add("is-visible");
   if (window.AudioEngine) AudioEngine.playChime();
   clearTimeout(premiumToastTimer);
-  premiumToastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3000);
+  premiumToastTimer = setTimeout(
+    () => toast.classList.remove("is-visible"),
+    3000,
+  );
 }
 
 // Room selection visuals
 document.querySelectorAll(".club-room-btn").forEach((btn, index) => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll(".club-room-btn").forEach(b => b.classList.remove("is-active"));
+    document
+      .querySelectorAll(".club-room-btn")
+      .forEach((b) => b.classList.remove("is-active"));
     btn.classList.add("is-active");
     if (window.AudioEngine) AudioEngine.playRustle();
-    
+
     // Remove unread badge text when clicking to "read" it, but keep the badge structure if it's a dot
-    const badge = btn.querySelector('.room-badge');
+    const badge = btn.querySelector(".room-badge");
     if (badge) badge.remove();
-    
+
     const roomName = btn.childNodes[0].nodeValue.trim(); // Get text without child elements
-    document.querySelector(".club-pinned-title").textContent = `أهلًا بك في ${roomName}`;
-    
+    document.querySelector(".club-pinned-title").textContent =
+      `أهلًا بك في ${roomName}`;
+
     // Simulate someone typing in the room
     clearTimeout(typingTimeout);
-    
+
     // Pick a random member from CLUB_MEMBERS
-    const otherMembers = CLUB_MEMBERS.filter(m => m.id !== MEMBER.id);
+    const otherMembers = CLUB_MEMBERS.filter((m) => m.id !== MEMBER.id);
     if (otherMembers.length > 0) {
-      const randomMember = otherMembers[Math.floor(Math.random() * otherMembers.length)];
-      
+      const randomMember =
+        otherMembers[Math.floor(Math.random() * otherMembers.length)];
+
       // Delay before typing starts
-      setTimeout(() => {
-        setTypingIndicator(randomMember);
-        
-        // Stop typing after a few seconds
-        typingTimeout = setTimeout(() => {
-          setTypingIndicator(null);
-        }, 3500 + Math.random() * 2000);
-      }, 500 + Math.random() * 1000);
+      setTimeout(
+        () => {
+          setTypingIndicator(randomMember);
+
+          // Stop typing after a few seconds
+          typingTimeout = setTimeout(
+            () => {
+              setTypingIndicator(null);
+            },
+            3500 + Math.random() * 2000,
+          );
+        },
+        500 + Math.random() * 1000,
+      );
     } else {
       setTypingIndicator(null);
     }
@@ -1756,22 +2303,25 @@ document.querySelectorAll(".club-room-btn").forEach((btn, index) => {
 function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const modal = document.getElementById("inspectionModal");
   if (!modal) return;
-  
+
   modal.hidden = false;
-  
+
   document.getElementById("inspectionTitle").textContent = item.name;
-  document.getElementById("inspectionRarity").textContent = RARITY_LABEL[item.rarity];
-  document.getElementById("inspectionLore").textContent = item.lore || "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص.";
-  
+  document.getElementById("inspectionRarity").textContent =
+    RARITY_LABEL[item.rarity];
+  document.getElementById("inspectionLore").textContent =
+    item.lore ||
+    "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص.";
+
   const svgContent = ICONS[item.icon] || ICONS["crown"];
   document.getElementById("inspectionImage").innerHTML = svgContent;
-  
+
   const equipBtn = document.getElementById("inspectionEquipBtn");
-  
+
   // Clone button to remove old listeners
   const newBtn = equipBtn.cloneNode(true);
   equipBtn.parentNode.replaceChild(newBtn, equipBtn);
-  
+
   if (item.free) {
     newBtn.textContent = "مجاني — مُفعَّل";
     newBtn.disabled = true;
@@ -1797,20 +2347,27 @@ function purchaseItem(item, catKey) {
     if (!owned[catKey]) owned[catKey] = [];
     if (!owned[catKey].includes(item.id)) owned[catKey].push(item.id);
     setOwned(owned);
-    renderBoutique(document.querySelector('.boutique-tab.is-active').dataset.cat);
+    renderBoutique(
+      document.querySelector(".boutique-tab.is-active").dataset.cat,
+    );
     closeInspectionModal();
-    
+
     // Premium animation
-    const flash = document.createElement('div');
-    flash.style.position = 'fixed';
-    flash.style.inset = '0';
-    flash.style.background = 'radial-gradient(circle at center, rgba(212,175,106,0.25), transparent)';
-    flash.style.pointerEvents = 'none';
-    flash.style.zIndex = '9999';
-    flash.style.transition = 'opacity 0.8s ease-out';
+    const flash = document.createElement("div");
+    flash.style.position = "fixed";
+    flash.style.inset = "0";
+    flash.style.background =
+      "radial-gradient(circle at center, rgba(212,175,106,0.25), transparent)";
+    flash.style.pointerEvents = "none";
+    flash.style.zIndex = "9999";
+    flash.style.transition = "opacity 0.8s ease-out";
     document.body.appendChild(flash);
-    setTimeout(() => { flash.style.opacity = '0'; }, 50);
-    setTimeout(() => { flash.remove(); }, 850);
+    setTimeout(() => {
+      flash.style.opacity = "0";
+    }, 50);
+    setTimeout(() => {
+      flash.remove();
+    }, 850);
   } else {
     alert("رصيد غير كافٍ");
   }
@@ -1823,7 +2380,7 @@ function equipItem(item, catKey) {
   } else {
     MEMBER.equipped[catKey] = item.id;
   }
-  renderBoutique(document.querySelector('.boutique-tab.is-active').dataset.cat);
+  renderBoutique(document.querySelector(".boutique-tab.is-active").dataset.cat);
   closeInspectionModal();
   updateMasterCard();
 }
@@ -1831,14 +2388,13 @@ function equipItem(item, catKey) {
 function updateMasterCard() {
   if (window.renderMembershipTab) window.renderMembershipTab();
   if (window.renderWidgetSection) {
-      const widgetHTML = renderWidgetSection();
-      const widgetContainer = document.querySelector('.widget-section');
-      if (widgetContainer) {
-          widgetContainer.outerHTML = widgetHTML;
-      }
+    const widgetHTML = renderWidgetSection();
+    const widgetContainer = document.querySelector(".widget-section");
+    if (widgetContainer) {
+      widgetContainer.outerHTML = widgetHTML;
+    }
   }
 }
-
 
 function closeInspectionModal() {
   const modal = document.getElementById("inspectionModal");
@@ -1847,3 +2403,248 @@ function closeInspectionModal() {
     modal.classList.remove("is-active");
   }
 }
+
+// ---------------------------------------------------------
+// QUICK PREVIEW (Long Press)
+// ---------------------------------------------------------
+function showQuickPreview(item, wasAutoEquipped = false) {
+  let tooltip = document.getElementById("quickPreviewTooltip");
+  if (!tooltip) {
+    tooltip = document.createElement("div");
+    tooltip.id = "quickPreviewTooltip";
+    tooltip.className = "quick-preview-tooltip";
+    tooltip.innerHTML = `
+      <div class="qp-content">
+        <div id="qpIcon" class="qp-icon-wrapper"></div>
+        <h4 id="qpName"></h4>
+        <span id="qpRarity" class="rarity-badge"></span>
+        <p id="qpLore"></p>
+        <div id="qpAutoEquipMsg" class="qp-auto-equip-msg" style="display:none; color: var(--gold-champagne); font-size: 11px; margin-top: 10px; font-weight: 600;">✨ تم التجهيز تلقائياً</div>
+        <div class="qp-hint">أفلت للإغلاق</div>
+      </div>
+    `;
+    document.body.appendChild(tooltip);
+  }
+
+  document.getElementById("qpName").textContent = item.name;
+
+  const autoEquipMsg = document.getElementById("qpAutoEquipMsg");
+  if (autoEquipMsg) {
+    autoEquipMsg.style.display = wasAutoEquipped ? "block" : "none";
+  }
+
+  const rarityEl = document.getElementById("qpRarity");
+  rarityEl.textContent = RARITY_LABEL[item.rarity];
+  rarityEl.className = `rarity-badge rarity-${item.rarity}`;
+
+  // Try to use a more context-aware default lore based on the icon/type
+  let lore = item.lore;
+  if (!lore) {
+    if (item.icon === "crown")
+      lore =
+        "تاج سيادي يرمز لقمة الهرم. صُنع ليكون علامة مميزة لأولئك الذين يقودون ولا يتبعون.";
+    else if (item.icon === "aura")
+      lore =
+        "هالة نادرة تشع بقوة خفية. تمنح حضورك في النادي وزناً لا يمكن تجاهله.";
+    else if (item.icon === "ring")
+      lore =
+        "خاتم نُحت بدقة متناهية من معادن نفيسة. يحمل ختم الـ 1% ويمثل الولاء المطلق للنجاح.";
+    else if (item.icon === "pendant")
+      lore =
+        "قلادة فريدة تتوارثها النخب. ترمز للتفرد والثروة التي لا تُرى بل تُحس.";
+    else if (item.icon === "artifact")
+      lore =
+        "قطعة أثرية أسطورية لا يملكها سوى القلة. من يقتنيها يكتب إرثه في سجلات النادي للأبد.";
+    else if (item.icon === "star")
+      lore =
+        "نجمة امتياز لامعة تبرز مكانتك بين الأعضاء. دليل قاطع على تفوقك وإنجازاتك.";
+    else
+      lore =
+        "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص.";
+  }
+  document.getElementById("qpLore").textContent = lore;
+
+  const iconSvg = ICONS[item.icon] || ICONS["star"];
+  document.getElementById("qpIcon").innerHTML = iconSvg;
+
+  tooltip.classList.add("is-visible");
+}
+
+function hideQuickPreview() {
+  const tooltip = document.getElementById("quickPreviewTooltip");
+  if (tooltip) {
+    tooltip.classList.remove("is-visible");
+  }
+}
+
+// ---------------------------------------------------------
+// RENDER PROFILE EQUIPPED
+// ---------------------------------------------------------
+function renderProfileEquipped() {
+  const grid = document.getElementById("profileEquippedGrid");
+  if (!grid) return;
+
+  const equipped = getEquipped();
+  let itemsHtml = "";
+
+  // We'll iterate through all boutique categories and display the equipped ones
+  for (const catKey in BOUTIQUE) {
+    if (!EQUIP_CATEGORIES[catKey]) continue; // Only equipable categories
+
+    const equippedName = equipped[catKey];
+    if (equippedName) {
+      const itemDef = BOUTIQUE[catKey].items.find(
+        (i) => i.name === equippedName,
+      );
+      if (itemDef) {
+        const iconSvg = ICONS[itemDef.icon] || ICONS["star"];
+        itemsHtml += `
+          <div class="profile-equipped-item">
+            <div class="profile-eq-icon">${iconSvg}</div>
+            <div class="profile-eq-name">${itemDef.name}</div>
+          </div>
+        `;
+      }
+    }
+  }
+
+  if (itemsHtml) {
+    grid.innerHTML = itemsHtml;
+    grid.style.display = "grid";
+  } else {
+    grid.innerHTML = `
+      <div class="profile-empty-collection luxury-empty-state" style="grid-column: 1 / -1; padding: 30px;">
+        <p style="margin: 0;">لم يتم تجهيز أي مقتنيات</p>
+      </div>
+    `;
+    grid.style.display = "block";
+  }
+}
+// ---------------------------------------------------------
+// RENDER PROFILE COLLECTION
+// ---------------------------------------------------------
+function renderProfileCollection() {
+  renderProfileEquipped();
+  const grid = document.getElementById("profileCollectionGrid");
+  if (!grid) return;
+
+  const owned = getOwned();
+  let hasItems = false;
+  let itemsHtml = "";
+
+  for (const catKey in owned) {
+    const ownedIds = owned[catKey] || [];
+    if (!BOUTIQUE[catKey]) continue;
+
+    for (const itemId of ownedIds) {
+      const itemDef = BOUTIQUE[catKey].items.find((i) => i.id === itemId);
+      if (itemDef) {
+        hasItems = true;
+        const iconSvg = ICONS[itemDef.icon] || ICONS["star"];
+        itemsHtml += `
+          <div class="profile-col-item">
+            <div class="profile-col-item-icon">${iconSvg}</div>
+            <div class="profile-col-item-name">${itemDef.name}</div>
+          </div>
+        `;
+      }
+    }
+  }
+
+  if (hasItems) {
+    grid.innerHTML = itemsHtml;
+    grid.classList.remove("is-empty");
+  } else {
+    grid.innerHTML = `
+      <div class="profile-empty-collection luxury-empty-state" onclick="document.querySelector('[data-tab=\'shop\']').click()">
+        <div class="empty-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" class="empty-icon"><path d="M4 8h16l-1.3 10.2A2 2 0 0116.7 20H7.3a2 2 0 01-2-1.8L4 8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="14" r="1.5" fill="currentColor"/></svg>
+        </div>
+        <p>إرثك يبدأ من هنا</p>
+        <span>المحفظة فارغة. استكشف البوتيك واقتنِ أولى قطعك النادرة لتبني هويتك السيادية.</span>
+        <button class="empty-explore-btn">استكشاف البوتيك</button>
+      </div>
+    `;
+    grid.classList.add("is-empty");
+  }
+}
+
+// ---------------------------------------------------------
+// REACTIONS MENU
+// ---------------------------------------------------------
+function showReactionMenu(anchorEl, msgId) {
+  // Remove existing menu if any
+  let existing = document.getElementById("reactionMenuBox");
+  if (existing) existing.remove();
+
+  const menu = document.createElement("div");
+  menu.id = "reactionMenuBox";
+  menu.className = "chat-reaction-menu";
+
+  const emojis = ["💎", "🏆", "👑", "✨", "🔥"];
+
+  emojis.forEach((emoji) => {
+    const btn = document.createElement("button");
+    btn.className = "reaction-emoji-btn";
+    btn.textContent = emoji;
+    btn.onclick = () => {
+      addReactionToMessage(msgId, emoji);
+      menu.remove();
+    };
+    menu.appendChild(btn);
+  });
+
+  document.body.appendChild(menu);
+
+  // Position it right above the add reaction button
+  const rect = anchorEl.getBoundingClientRect();
+  menu.style.top = rect.top - 40 + "px";
+  // Attempt to center it above the button, but cap it so it doesn't overflow screen
+  let leftPos = rect.left + rect.width / 2 - menu.offsetWidth / 2;
+  leftPos = Math.max(
+    10,
+    Math.min(leftPos, window.innerWidth - menu.offsetWidth - 10),
+  );
+  menu.style.left = leftPos + "px";
+
+  // Click outside to close
+  setTimeout(() => {
+    const closeMenu = (e) => {
+      if (!menu.contains(e.target) && e.target !== anchorEl) {
+        menu.remove();
+        document.removeEventListener("click", closeMenu);
+      }
+    };
+    document.addEventListener("click", closeMenu);
+  }, 10);
+}
+
+function addReactionToMessage(msgId, emoji) {
+  const msg = CLUB_MEMBERS.find((m) => m.msgId === msgId);
+  if (msg) {
+    if (!msg.reactions) msg.reactions = [];
+    // Only allow one of each emoji per user theoretically, but we'll just push for now
+    if (!msg.reactions.includes(emoji)) {
+      msg.reactions.push(emoji);
+      if (window.AudioEngine) window.AudioEngine.playChime();
+      renderClubMessages();
+    }
+  }
+}
+
+// Setup Ownership Filter Toggles
+document.querySelectorAll(".b-filt-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document
+      .querySelectorAll(".b-filt-btn")
+      .forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    currentOwnershipFilter = btn.dataset.filter;
+    const activeCat =
+      document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all";
+    renderBoutique(activeCat);
+  });
+});
+
+// Initialize card state on load
+applyEquippedToCard(getEquipped());
