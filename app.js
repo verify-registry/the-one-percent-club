@@ -1,12 +1,49 @@
-/* =========================================================
-   THE 1% CLUB — app.js Phase 2
-   Master Card · Club Chat · Credits · Boutique · Equip · Widget 1
-========================================================= */
+let currentOwnershipFilter = 'all';
+const ICONS = {
+  star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  crown: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  aura: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C79A3E" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#C79A3E" stroke-width="0.6" opacity="0.5"/></svg>`,
+  ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="#C79A3E" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="#C79A3E" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+};
+const RARITY_LABEL = { 1: "نادر", 2: "ملحمي", 3: "أسطوري", 4: "سيادي" };
+const EQUIP_CATEGORIES = {
+  stars: "equippedStarsSlot",
+  crowns: "equippedCrownSlot",
+  auras: "equippedAuraSlot",
+  jewelry: "equippedRingSlot"
+};
+const BOUTIQUE = {
+  stars: { title: "النجوم", items: [
+    { id: "star1", name: "نجمة النخبة", icon: "star", rarity: 1, price: 1000, lore: "نجمة ماسية" },
+    { id: "star2", name: "نجمة السيادة", icon: "star", rarity: 2, price: 2500, lore: "نجمة ذهبية" }
+  ]},
+  crowns: { title: "التيجان", items: [
+    { id: "crown1", name: "تاج سيادي", icon: "crown", rarity: 3, price: 5000, lore: "تاج الملك" },
+    { id: "crown2", name: "تاج الإمبراطور", icon: "crown", rarity: 4, price: 15000, lore: "تاج فريد" }
+  ]},
+  auras: { title: "الهالات", items: [
+    { id: "aura1", name: "هالة ملكية", icon: "aura", rarity: 2, price: 2000, lore: "هالة القوة" },
+    { id: "aura2", name: "هالة النخبة", icon: "aura", rarity: 3, price: 8000, lore: "هالة غامضة" }
+  ]},
+  jewelry: { title: "المجوهرات", items: [
+    { id: "ring1", name: "خاتم السلطة", icon: "ring", rarity: 2, price: 3000, lore: "خاتم ثمين" },
+    { id: "ring2", name: "خاتم النخبة", icon: "ring", rarity: 3, price: 7500, lore: "خاتم أسطوري" }
+  ]},
+  artifacts: { title: "المقتنيات النادرة", items: [
+    { id: "art1", name: "تحفة نادرة", icon: "pendant", rarity: 3, price: 10000, lore: "قطعة نادرة" },
+    { id: "art2", name: "قلادة السيادة", icon: "pendant", rarity: 4, price: 25000, lore: "قلادة فريدة" }
+  ]},
+  widgets: { title: "الودجت", items: [
+    { id: "wid1", name: "الودجت الذهبي", icon: "star", rarity: 1, price: 0, free: true, lore: "ودجت مجاني" }
+  ]}
+};
 
-// ---------------------------------------------------------
-// 1. MEMBER DATA
-// ---------------------------------------------------------
-const MEMBER = {
+// ==========================================
+// ECONOMY & STATE LOGIC
+// ==========================================
+const ClubState = {
+  member: {
   id: "3426",
   name: "ISMAIL ELSAYED",
   tier: "SOVEREIGN MEMBER",
@@ -14,1058 +51,229 @@ const MEMBER = {
   joined: "AUG 2026",
   wealthIndex: "98%",
   location: "ALEXANDRIA",
+  email: "ism6il.x@gmail.com",
+  phone: "+20 12 345 6789",
   interests: "DESIGN · CRAFT · TECHNOLOGY",
   status: "ACTIVE",
   wealthIndexValue: 92,
   privilegesValue: 84,
+  connectionsValue: 75,
   verifyUrl: "https://1percent.club/verify/3426",
-};
+},
+  balance: 24750,
+  owned: {},
+  equipped: {},
+  chatCredits: 10,
 
-const ICONS = {
-  star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  crown: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  aura: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C79A3E" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#C79A3E" stroke-width="0.6" opacity="0.5"/></svg>`,
-  ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="#C79A3E" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="#C79A3E" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  artifact: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" fill="#C79A3E"/><circle cx="12" cy="12" r="9" stroke="#C79A3E" stroke-width="1"/><circle cx="12" cy="12" r="9" stroke="#C79A3E" stroke-width="1" transform="rotate(45 12 12)"/></svg>`,
-  widget: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#C79A3E" stroke-width="1.4"/></svg>`,
-};
-
-const EQUIP_CATEGORIES = {
-  crowns: "crown",
-  auras: "aura",
-  stars: "stars",
-  jewelry: "ring",
-};
-
-const BOUTIQUE = {
-  stars: {
-    title: "النجوم",
-    sub: "ارتقِ بمكانتك. اكسب الاحترام.",
-    cat: "stars",
-    items: [
-      {
-        id: "star-1",
-        name: "نجمة ذهبية",
-        rarity: "rare",
-        price: 200,
-        icon: "star",
-      },
-      {
-        id: "star-3",
-        name: "٣ نجوم ذهبية",
-        rarity: "rare",
-        price: 500,
-        icon: "star",
-      },
-      {
-        id: "star-5",
-        name: "٥ نجوم",
-        rarity: "epic",
-        price: 800,
-        icon: "star",
-      },
-      {
-        id: "star-10",
-        name: "١٠ نجوم إمبراطورية",
-        rarity: "legendary",
-        price: 1500,
-        icon: "star",
-      },
-    ],
+  _subscribers: {},
+  on(event, callback) {
+    if (!this._subscribers[event]) this._subscribers[event] = [];
+    this._subscribers[event].push(callback);
   },
-  crowns: {
-    title: "التيجان",
-    sub: "ارتدِ التاج. تصدّر الـ1%.",
-    cat: "crowns",
-    items: [
-      {
-        id: "crown-sovereign",
-        name: "التاج السيادي",
-        rarity: "rare",
-        price: 750,
-        icon: "crown",
-      },
-      {
-        id: "crown-royal",
-        name: "التاج الملكي",
-        rarity: "epic",
-        price: 1500,
-        icon: "crown",
-      },
-      {
-        id: "crown-imperial",
-        name: "التاج الإمبراطوري",
-        rarity: "legendary",
-        price: 3000,
-        icon: "crown",
-      },
-      {
-        id: "crown-legend",
-        name: "تاج الأسطورة",
-        rarity: "mythic",
-        price: 6000,
-        icon: "crown",
-      },
-    ],
+  emit(event, data) {
+    if (!this._subscribers[event]) return;
+    this._subscribers[event].forEach(cb => cb(data));
   },
-  auras: {
-    title: "الهالات",
-    sub: "هالتك. طاقتك.",
-    cat: "auras",
-    items: [
-      {
-        id: "aura-golden",
-        name: "الهالة الذهبية",
-        rarity: "rare",
-        price: 500,
-        icon: "aura",
-      },
-      {
-        id: "aura-radiant",
-        name: "الهالة المشعة",
-        rarity: "epic",
-        price: 1000,
-        icon: "aura",
-      },
-      {
-        id: "aura-royal",
-        name: "الهالة الملكية",
-        rarity: "legendary",
-        price: 1800,
-        icon: "aura",
-      },
-      {
-        id: "aura-legendary",
-        name: "الهالة الخرافية",
-        rarity: "mythic",
-        price: 3500,
-        icon: "aura",
-      },
-    ],
+  
+  init() {
+    const savedBalance = localStorage.getItem(`balance_${this.member.id}`);
+    this.balance = savedBalance !== null ? parseInt(savedBalance, 10) : 24750;
+    const savedCredits = localStorage.getItem(`chatCredits_${this.member.id}`);
+    this.chatCredits = savedCredits !== null ? parseInt(savedCredits, 10) : 10;
+    try { this.owned = JSON.parse(localStorage.getItem(`owned_${this.member.id}`)) || {}; } catch { this.owned = {}; }
+    try { this.equipped = JSON.parse(localStorage.getItem(`equipped_${this.member.id}`)) || {}; } catch { this.equipped = {}; }
+    
+    try { 
+      const savedProfile = JSON.parse(localStorage.getItem(`profile_${this.member.id}`));
+      this.member.bio = this.member.bio || "عضو نشط في النادي";
+  this.member.interests = this.member.interests || "التصميم · التكنولوجيا";
+  this.member.location = this.member.location || "دبي، الإمارات";
+  this.member.username = this.member.username || "MEMBER";
+      if (savedProfile) Object.assign(this.member, savedProfile);
+    } catch {}
+    
+    this.recalculatePrestige();
   },
-  jewelry: {
-    title: "المجوهرات",
-    sub: "قطع تُصنع لا تُشترى.",
-    cat: "jewelry",
-    items: [
-      {
-        id: "ring-sovereign",
-        name: "الخاتم السيادي",
-        rarity: "rare",
-        price: 900,
-        icon: "ring",
-      },
-      {
-        id: "ring-diamond",
-        name: "خاتم الماس",
-        rarity: "epic",
-        price: 1800,
-        icon: "ring",
-      },
-      {
-        id: "pendant-gold",
-        name: "قلادة ذهبية",
-        rarity: "epic",
-        price: 1600,
-        icon: "pendant",
-      },
-      {
-        id: "pendant-diamond",
-        name: "قلادة الماس",
-        rarity: "legendary",
-        price: 2600,
-        icon: "pendant",
-      },
-    ],
+  
+  save() {
+    localStorage.setItem(`balance_${this.member.id}`, this.balance);
+    localStorage.setItem(`chatCredits_${this.member.id}`, this.chatCredits);
+    localStorage.setItem(`owned_${this.member.id}`, JSON.stringify(this.owned));
+    localStorage.setItem(`equipped_${this.member.id}`, JSON.stringify(this.equipped));
+    localStorage.setItem(`profile_${this.member.id}`, JSON.stringify(this.member));
+    if (typeof window.updateRadarChart === "function") window.updateRadarChart();
   },
-  artifacts: {
-    title: "المقتنيات النادرة",
-    sub: "محدودة. أسطورية. لا مثيل لها.",
-    cat: "artifacts",
-    items: [
-      {
-        id: "artifact-medallion",
-        name: "الميدالية السيادية",
-        rarity: "legendary",
-        price: 25000,
-        icon: "artifact",
-      },
-      {
-        id: "artifact-seal",
-        name: "ختم الماس الأسود",
-        rarity: "mythic",
-        price: 40000,
-        icon: "artifact",
-      },
-      {
-        id: "artifact-orb",
-        name: "الكرة الأزلية",
-        rarity: "mythic",
-        price: 75000,
-        icon: "artifact",
-      },
-      {
-        id: "artifact-legacy",
-        name: "إرث الـ1%",
-        rarity: "unique",
-        price: 100000,
-        icon: "artifact",
-      },
-    ],
-  },
-  widgets: {
-    title: "الودجت",
-    sub: "ارتدِ مكانتك على شاشتك الرئيسية.",
-    cat: "widgets",
-    items: [
-      {
-        id: "widget-1",
-        name: "بطاقة العضوية الفاخرة",
-        rarity: "free",
-        price: 0,
-        icon: "widget",
-        free: true,
-      },
-    ],
-  },
-};
-
-// ---------------------------------------------------------
-// 2. DETERMINISTIC SEED
-// ---------------------------------------------------------
-function seedFromId(id) {
-  let hash = 0;
-  const str = String(id);
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-}
-
-function mulberry32(seed) {
-  return function () {
-    seed |= 0;
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-// ---------------------------------------------------------
-// 3. LIVING CORE
-// ---------------------------------------------------------
-function livingCoreProfile(id) {
-  const rand = mulberry32(seedFromId(id));
-  const hue = 34 + rand() * 26;
-  const duration = 2.2 + rand() * 1.2;
-  return { hue, duration };
-}
-
-// ---------------------------------------------------------
-// 4. HALLMARK — procedural guilloché SVG
-// ---------------------------------------------------------
-function generateHallmarkSVG(id) {
-  const rand = mulberry32(seedFromId(id) + 7);
-  const cx = 200,
-    cy = 260;
-
-  // More intricate guilloche generator
-  const rMin = 20;
-  const rMax = 180;
-  const lobes = 12 + Math.floor(rand() * 12) * 2;
-  const cycles = 3 + Math.floor(rand() * 4);
-  const rotationOffset = rand() * Math.PI * 2;
-
-  let paths = "";
-  let d = "";
-
-  for (let c = 0; c < cycles; c++) {
-    const scale = 1 - c * 0.25;
-    const cMin = rMin * scale;
-    const cMax = rMax * scale;
-    d += `M${cx + Math.cos(rotationOffset) * cMax},${cy + Math.sin(rotationOffset) * cMax} `;
-
-    for (let i = 1; i <= 360; i++) {
-      const theta = (i * Math.PI) / 180;
-      const rad = cMin + (cMax - cMin) * 0.5 * (1 + Math.sin(lobes * theta));
-      const x = cx + Math.cos(theta + rotationOffset) * rad;
-      const y = cy + Math.sin(theta + rotationOffset) * rad;
-      d += `L${x},${y} `;
+  
+  recalculatePrestige() {
+    let totalItems = 0;
+    let addedWealth = 0;
+    let addedPrivilege = 0;
+    let maxRarity = 0;
+      
+    for (const catKey in BOUTIQUE) {
+      for (const item of BOUTIQUE[catKey].items) {
+        if (this.owned[item.id]) {
+          totalItems++;
+          addedWealth += (item.wealthImpact || item.rarity * 2);
+          addedPrivilege += (item.privilegeImpact || item.rarity * 1.5);
+          if (item.rarity > maxRarity) maxRarity = item.rarity;
+        }
+      }
     }
-  }
-
-  paths += `<path d="${d}" fill="none" stroke="url(#hallmarkStroke)" stroke-width="0.3" opacity="0.6"/>`;
-
-  const outerRings = 3;
-  for (let i = 0; i < outerRings; i++) {
-    paths += `<circle cx="${cx}" cy="${cy}" r="${rMax + 5 + i * 4}" fill="none" stroke="url(#hallmarkStroke)" stroke-width="0.25" opacity="0.4"/>`;
-  }
-
-  return `
-    <svg viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="hallmarkStroke" x1="0" y1="0" x2="400" y2="520" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#8A6323"/>
-          <stop offset="0.5" stop-color="#E9C877"/>
-          <stop offset="1" stop-color="#8A6323"/>
-        </linearGradient>
-      </defs>
-      ${paths}
-    </svg>
-  `;
-}
-
-// ---------------------------------------------------------
-// 4b. BEZEL TICKS — luxury multi-ring medallion
-// ---------------------------------------------------------
-function generateBezelTicksSVG() {
-  const size = 172,
-    cx = 86,
-    cy = 86;
-
-  // Concentric rings (outermost → innermost)
-  const ringDefs = [
-    { r: 82, sw: 0.6, op: 0.45 },
-    { r: 78, sw: 1.4, op: 0.65 },
-    { r: 74, sw: 0.4, op: 0.35 },
-    { r: 69, sw: 1.8, op: 0.75 },
-    { r: 65, sw: 0.5, op: 0.3 },
-  ];
-
-  let svg = "";
-
-  ringDefs.forEach((ring) => {
-    svg += `<circle cx="${cx}" cy="${cy}" r="${ring.r}" fill="none" stroke="#C79A3E" stroke-width="${ring.sw}" opacity="${ring.op}"/>`;
-  });
-
-  // Tick marks between outermost two rings
-  const count = 60,
-    rOuter = 82,
-    rMinor = 77,
-    rMajor = 74;
-  for (let i = 0; i < count; i++) {
-    const angle = (360 / count) * i - 90;
-    const rad = (angle * Math.PI) / 180;
-    const major = i % 5 === 0;
-    const rInner = major ? rMajor : rMinor;
-    const x1 = cx + Math.cos(rad) * rOuter;
-    const y1 = cy + Math.sin(rad) * rOuter;
-    const x2 = cx + Math.cos(rad) * rInner;
-    const y2 = cy + Math.sin(rad) * rInner;
-    svg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#C79A3E" stroke-width="${major ? 1.5 : 0.6}" opacity="${major ? 0.9 : 0.5}"/>`;
-  }
-
-  // Crown detail at 12 o'clock
-  const crownScale = 0.55;
-  const crownX = cx - 13 * crownScale;
-  const crownY = cy - 82 - 14;
-  svg += `<g transform="translate(${crownX.toFixed(1)},${crownY.toFixed(1)}) scale(${crownScale})">
-    <path d="M2 18 L0 5 L8 11 L14 0 L20 11 L28 5 L26 18 Z" fill="#C79A3E" opacity="0.82" stroke="#3A2808" stroke-width="0.6"/>
-    <circle cx="14" cy="0" r="1.6" fill="#C79A3E" opacity="0.9"/>
-    <circle cx="0" cy="5" r="1.4" fill="#C79A3E" opacity="0.8"/>
-    <circle cx="28" cy="5" r="1.4" fill="#C79A3E" opacity="0.8"/>
-  </g>`;
-
-  // Diamond ornaments at 3, 6, 9 o'clock positions
-  [0, 90, 180].forEach((deg) => {
-    const rad = ((deg - 90) * Math.PI) / 180;
-    const r = 71;
-    const dx = cx + Math.cos(rad) * r;
-    const dy = cy + Math.sin(rad) * r;
-    svg += `<rect x="${(dx - 2).toFixed(1)}" y="${(dy - 2).toFixed(1)}" width="4" height="4" transform="rotate(45 ${dx.toFixed(1)} ${dy.toFixed(1)})" fill="#C79A3E" opacity="0.65"/>`;
-  });
-
-  // Fine inner engraving lines (rosette style)
-  const innerLines = 24;
-  const rStart = 63,
-    rEnd = 67;
-  for (let i = 0; i < innerLines; i++) {
-    const angle = (360 / innerLines) * i;
-    const rad = (angle * Math.PI) / 180;
-    const x1 = cx + Math.cos(rad) * rStart;
-    const y1 = cy + Math.sin(rad) * rStart;
-    const x2 = cx + Math.cos(rad) * rEnd;
-    const y2 = cy + Math.sin(rad) * rEnd;
-    svg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#C79A3E" stroke-width="0.5" opacity="0.35"/>`;
-  }
-
-  return `<svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">${svg}</svg>`;
-}
-
-// ---------------------------------------------------------
-// 5. RENDER MEMBER
-// ---------------------------------------------------------
-const RING_CIRCUMFERENCE = 2 * Math.PI * 52;
-
-function renderRing(ringId, valueId, percent) {
-  const ring = document.getElementById(ringId);
-  const value = document.getElementById(valueId);
-  const clamped = Math.max(0, Math.min(100, percent));
-  const offset = RING_CIRCUMFERENCE * (1 - clamped / 100);
-  value.textContent = `${clamped}%`;
-  ring.style.strokeDashoffset = RING_CIRCUMFERENCE;
-  requestAnimationFrame(() =>
-    requestAnimationFrame(() => {
-      ring.style.strokeDashoffset = offset;
-    }),
-  );
-}
-
-function renderMember(member) {
-  document.getElementById("memberNumber").textContent = member.id;
-  document.getElementById("memberName").textContent = member.name;
-  document.getElementById("tierName").textContent = member.tier;
-  document.getElementById("memberQuote").textContent = `"${member.quote}"`;
-  renderRing("wealthRing", "wealthValue", member.wealthIndexValue);
-  renderRing("privRing", "privValue", member.privilegesValue);
-  document.getElementById("hallmarkLayer").innerHTML = generateHallmarkSVG(
-    member.id,
-  );
-  const bezelEl = document.getElementById("bezelTicks");
-  if (bezelEl) bezelEl.innerHTML = generateBezelTicksSVG();
-  const core = livingCoreProfile(member.id);
-  const root = document.documentElement;
-  root.style.setProperty("--core-hue", core.hue.toFixed(1));
-  document.getElementById("livingCore").style.animationDuration =
-    `${core.duration.toFixed(2)}s`;
-  document.getElementById("portraitRing").style.animationDuration =
-    `${(core.duration * 1.7).toFixed(2)}s`;
-}
-
-renderMember(MEMBER);
-
-// ---------------------------------------------------------
-// 6. PHOTO UPLOAD
-// ---------------------------------------------------------
-const photoInput = document.getElementById("photoInput");
-const photoUploadBtn = document.getElementById("photoUploadBtn");
-const portraitPhoto = document.getElementById("portraitPhoto");
-
-photoUploadBtn.addEventListener("click", () => photoInput.click());
-photoInput.addEventListener("change", (e) => {
-  const file = e.target.files && e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    const url = ev.target.result;
-    portraitPhoto.style.backgroundImage = `url(${url})`;
-    photoUploadBtn.style.display = "none";
-    const profilePhoto = document.getElementById("profilePortraitPhoto");
-    if (profilePhoto) profilePhoto.style.backgroundImage = `url(${url})`;
-    // Sync widget — re-render widget section if it's visible
-    const widgetSection = document.querySelector(
-      ".boutique-section[data-category='widgets']",
-    );
-    if (widgetSection) {
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = renderWidgetSection();
-      widgetSection.replaceWith(tempDiv.firstElementChild);
-      syncWidgetState();
-    }
-  };
-  reader.readAsDataURL(file);
-});
-
-// ---------------------------------------------------------
-// 7. MESSAGE CREDITS SYSTEM
-// ---------------------------------------------------------
-const DAILY_LIMITS = { 1: 2, 2: 5, 3: 10, 4: 25, 5: 50 };
-
-function getMemberLevel() {
-  const t = MEMBER.tier.toUpperCase();
-  if (t.includes("SOVEREIGN")) return 5;
-  if (t.includes("PRESTIGE")) return 4;
-  if (t.includes("ELITE") || t.includes("ASSOCIATE")) return 3;
-  if (t.includes("AFFILIATE")) return 2;
-  return 1;
-}
-
-function getCreditKey() {
-  const today = new Date().toISOString().slice(0, 10);
-  return `credits_${MEMBER.id}_${today}`;
-}
-
-function getCredits() {
-  const level = getMemberLevel();
-  const limit = DAILY_LIMITS[level];
-  const key = getCreditKey();
-  const stored = localStorage.getItem(key);
-  if (stored === null) {
-    localStorage.setItem(key, limit);
-    return { remaining: limit, limit };
-  }
-  return { remaining: parseInt(stored, 10), limit };
-}
-
-function deductCredit() {
-  const { remaining } = getCredits();
-  if (remaining <= 0) return false;
-  localStorage.setItem(getCreditKey(), remaining - 1);
-  return true;
-}
-
-function addBonusCredits(amount) {
-  const { remaining } = getCredits();
-  localStorage.setItem(getCreditKey(), remaining + amount);
-}
-
-function updateCreditsUI() {
-  const { remaining, limit } = getCredits();
-  const creditsText = document.getElementById("clubCreditsText");
-  const input = document.getElementById("clubInput");
-  const sendBtn = document.getElementById("clubSendBtn");
-  if (!creditsText) return;
-
-  if (remaining <= 0) {
-    creditsText.innerHTML =
-      "انتهى رصيد رسائلك اليومي.<br>يمكنك شراء رصيد إضافي.";
-    creditsText.style.color = "#C97766";
-    if (input) {
-      input.disabled = true;
-      input.placeholder = "انتهى الرصيد…";
-    }
-    if (sendBtn) sendBtn.disabled = true;
-  } else {
-    creditsText.textContent = `الرسائل المتبقية اليوم: ${remaining} / ${limit}`;
-    creditsText.style.color = "";
-    if (input) {
-      input.disabled = false;
-      input.placeholder = "اكتب رسالة للنادي…";
-    }
-    if (sendBtn) sendBtn.disabled = false;
-  }
-}
-
-// Credits purchase modal
-document.getElementById("clubCreditsBuyBtn").addEventListener("click", () => {
-  if (window.AudioEngine) AudioEngine.playRustle();
-  document.getElementById("creditsModal").hidden = false;
-});
-document.getElementById("creditsCancelBtn").addEventListener("click", () => {
-  document.getElementById("creditsModal").hidden = true;
-  document.getElementById("creditsModalMsg").textContent = "";
-});
-
-document.querySelectorAll(".credits-pkg").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const credits = parseInt(btn.dataset.credits, 10);
-    const price = btn.dataset.price;
-    addBonusCredits(credits);
-    updateCreditsUI();
-    document.getElementById("creditsModal").hidden = true;
-    document.getElementById("creditsModalMsg").textContent = "";
-    showPremiumToast("عملية ناجحة", `تمت إضافة ${credits} رسائل بنجاح`);
-  });
-});
-
-// ---------------------------------------------------------
-// 8. CLUB CHAT
-// ---------------------------------------------------------
-const CLUB_MEMBERS = [
-  {
-    id: "8172",
-    msgId: "msg-1",
-    name: "LUXOR_VOYAGER",
-    tier: "سيادي",
-    wealth: "92%",
-    priv: "84%",
-    text: "ممتن للطاقة في هذه الغرفة. نبني في صمت ونترك النجاح يتحدث.",
-    time: "11:45 ص",
-    reactions: [],
-  },
-  {
-    id: "5510",
-    msgId: "msg-2",
-    name: "MILLIONAIRE_MIND",
-    tier: "سيادي",
-    wealth: "88%",
-    priv: "76%",
-    text: "الانضباط اليوم، الحرية غدًا.",
-    time: "11:47 ص",
-    reactions: [],
-  },
-  {
-    id: "2290",
-    msgId: "msg-3",
-    name: "ELEVATED_LIFE",
-    tier: "بلاتيني",
-    wealth: "71%",
-    priv: "63%",
-    text: "الأشخاص المناسبون يرفعون كل شيء.",
-    time: "11:48 ص",
-    reactions: [],
-  },
-  {
-    id: "6640",
-    msgId: "msg-4",
-    name: "GLOBAL_INVESTOR",
-    tier: "سيادي",
-    wealth: "95%",
-    priv: "80%",
-    text: "تم تأكيد صفقة الاستحواذ على 4.5% من الأصول. التوقيع غداً في جنيف.",
-    time: "11:50 ص",
-    isWhisper: true,
-    reactions: [],
-  },
-  {
-    id: "3901",
-    msgId: "msg-5",
-    name: "CROWN_COLLECTOR",
-    tier: "ذهبي",
-    wealth: "58%",
-    priv: "49%",
-    text: "الإرث يُبنى، لا يُشترى.",
-    time: "11:55 ص",
-    reactions: [],
-  },
-];
-
-let currentTypingMember = null;
-let typingTimeout = null;
-
-function setTypingIndicator(memberInfo) {
-  currentTypingMember = memberInfo;
-  renderClubMessages();
-}
-
-function renderClubMessages() {
-  const container = document.getElementById("clubMessages");
-  if (!container) return;
-  // oldest → newest (array order)
-  let html = CLUB_MEMBERS.map((m) => {
-    const isCurrentUser = m.id === MEMBER.id;
-    if (isCurrentUser) {
-      // OUTGOING (المرسل / المستخدم الحالي) — on the FAR RIGHT
-      return `
-        <div class="chat-row is-outgoing">
-          <div class="chat-bubble is-outgoing">
-            <div class="chat-text">${escapeHtml(m.text)}</div>
-            <div class="chat-meta">
-              <span class="chat-time">${m.time}</span>
-              <span class="chat-ticks" aria-label="تم التسليم">
-                <svg viewBox="0 0 16 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M1 6.5l3.2 3.2L10.5 2.5"/>
-                  <path d="M5.5 6.5l3.2 3.2L15 2.5"/>
-                </svg>
-              </span>
-            </div>
-          </div>
-        </div>
-      `;
+      
+    this.member.wealthIndexValue = Math.min(99, Math.floor(82 + addedWealth));
+    this.member.privilegesValue = Math.min(99, Math.floor(70 + addedPrivilege));
+    this.member.connectionsValue = Math.min(99, Math.floor(65 + totalItems * 2));
+      
+    if (totalItems >= 5 && maxRarity >= 3) {
+      this.member.tier = "SOVEREIGN EXARCH";
+    } else if (totalItems >= 2) {
+      this.member.tier = "SOVEREIGN LUMINARY";
     } else {
-      // INCOMING (المستقبل / الأعضاء الآخرون) — on the FAR LEFT
-      const initials = (m.name || "MB").substring(0, 2).toUpperCase();
-      const whisperClass = m.isWhisper ? " chat-whisper" : "";
-      return `
-        <div class="chat-row is-incoming" data-member-id="${m.id}">
-          <button class="chat-avatar-btn" type="button" title="${escapeHtml(m.name)}" aria-label="${escapeHtml(m.name)}">
-            <span class="chat-avatar-rim">
-              <span class="chat-avatar-initials">${initials}</span>
-            </span>
-          </button>
-          <div class="chat-bubble is-incoming${whisperClass}">
-            <div class="chat-sender-header" title="عرض الملف الشخصي">
-              <span class="chat-sender-name">${escapeHtml(m.name)}</span>
-              <span class="chat-sender-tier">${escapeHtml(m.tier)}</span>
-            </div>
-            <div class="chat-text">${escapeHtml(m.text)}</div>
-            <div class="chat-meta">
-              <span class="chat-time">${m.time}</span>
-            </div>
-          </div>
-        </div>
-      `;
+      this.member.tier = "SOVEREIGN MEMBER";
     }
-  }).join("");
+    
+    const tierNameEl = document.getElementById("tierName");
+    if (tierNameEl) tierNameEl.textContent = this.member.tier;
+  },
 
-  if (currentTypingMember) {
-    const initials = (currentTypingMember.name || "MB")
-      .substring(0, 2)
-      .toUpperCase();
-    html += `
-      <div class="chat-row is-incoming typing-indicator-row">
-        <button class="chat-avatar-btn" type="button" title="${escapeHtml(currentTypingMember.name)}" aria-label="${escapeHtml(currentTypingMember.name)}">
-          <span class="chat-avatar-rim">
-            <span class="chat-avatar-initials">${initials}</span>
-          </span>
-        </button>
-        <div class="chat-bubble is-incoming typing-bubble">
-          <div class="typing-dots">
-            <span></span><span></span><span></span>
-          </div>
-        </div>
-      </div>
-    `;
+  purchase(item) {
+    if (this.balance >= item.price && !this.owned[item.id]) {
+      this.balance -= item.price;
+      this.owned[item.id] = true;
+      this.recalculatePrestige();
+      this.save();
+      if (typeof updateUI === 'function') updateUI();
+      return true;
+    }
+    return false;
+  },
+
+  toggleEquip(catKey, itemId) {
+    if (this.equipped[catKey] === itemId) {
+      delete this.equipped[catKey];
+    } else {
+      this.equipped[catKey] = itemId;
+    }
+    this.save();
+    if (typeof updateUI === 'function') updateUI();
   }
-  container.innerHTML = html;
+};
+ClubState.init();
+document.addEventListener('DOMContentLoaded', () => ClubState.emit('change'));
 
-  // Member profile click handlers for incoming messages
-  container.querySelectorAll(".chat-row.is-incoming").forEach((row) => {
-    const memberId = row.dataset.memberId;
-    const member = CLUB_MEMBERS.find((m) => m.id === memberId);
-    if (!member) return;
-    const avatarBtn = row.querySelector(".chat-avatar-btn");
-    const senderHeader = row.querySelector(".chat-sender-header");
-    if (avatarBtn) {
-      avatarBtn.addEventListener("click", () => openMemberProfile(member));
-    }
-    if (senderHeader) {
-      senderHeader.addEventListener("click", () => openMemberProfile(member));
-    }
-
-    // Whisper logic
-    const whisperBubble = row.querySelector(".chat-whisper");
-    if (whisperBubble) {
-      const revealWhisper = (e) => whisperBubble.classList.add("is-revealed");
-      const hideWhisper = (e) => whisperBubble.classList.remove("is-revealed");
-
-      whisperBubble.addEventListener("pointerdown", revealWhisper);
-      whisperBubble.addEventListener("pointerup", hideWhisper);
-      whisperBubble.addEventListener("pointerleave", hideWhisper);
-      whisperBubble.addEventListener("pointercancel", hideWhisper);
-    }
-
-    // Reaction Logic
-    const msgId = row.dataset.msgId;
-    const reactBtn = row.querySelector(".chat-add-reaction-btn");
-    if (reactBtn && msgId) {
-      reactBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        showReactionMenu(reactBtn, msgId);
-      });
-    }
-  });
-
-  // Scroll to bottom (newest at bottom)
-  requestAnimationFrame(() => {
-    container.scrollTop = container.scrollHeight;
-  });
+function updateUI() {
+  ClubState.emit('change');
 }
-
-function escapeHtml(str) {
-  if (!str) return "";
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-function sendClubMessage() {
-  const { remaining } = getCredits();
-  if (remaining <= 0) {
-    document.getElementById("creditsModal").hidden = false;
-    return;
-  }
-  const input = document.getElementById("clubInput");
-  const text = input.value.trim();
-  if (!text) return;
-
-  // Add to END of array (newest at bottom)
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, "0");
-  const mins = now.getMinutes().toString().padStart(2, "0");
-  const timeStr = `${hours}:${mins}`;
-
-  CLUB_MEMBERS.push({
-    id: MEMBER.id,
-    msgId: "msg-" + Date.now(),
-    name: MEMBER.name,
-    tier: MEMBER.tier.replace(" MEMBER", ""),
-    wealth: `${MEMBER.wealthIndexValue}%`,
-    priv: `${MEMBER.privilegesValue}%`,
-    text,
-    time: timeStr,
-    reactions: [],
-  });
-
-  deductCredit();
-  renderClubMessages();
-  updateCreditsUI();
-  input.value = "";
-
-  // Simulate someone typing a reply
-  clearTimeout(typingTimeout);
-  const otherMembers = CLUB_MEMBERS.filter((m) => m.id !== MEMBER.id);
-  if (otherMembers.length > 0) {
-    const randomMember =
-      otherMembers[Math.floor(Math.random() * otherMembers.length)];
-    setTimeout(
-      () => {
-        setTypingIndicator(randomMember);
-        typingTimeout = setTimeout(
-          () => {
-            setTypingIndicator(null);
-          },
-          4000 + Math.random() * 2000,
-        );
-      },
-      1500 + Math.random() * 1500,
-    );
-  }
-}
-
-document
-  .getElementById("clubSendBtn")
-  .addEventListener("click", sendClubMessage);
-document.getElementById("clubInput").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendClubMessage();
-});
-
-renderClubMessages();
 
 // ---------------------------------------------------------
-// 9. MOCK BALANCE (localStorage)
+// UI SUBSCRIBERS
 // ---------------------------------------------------------
-const BALANCE_KEY = `balance_${MEMBER.id}`;
-const DEFAULT_BALANCE = 24750;
+ClubState.on('change', () => {
 
-function getBalance() {
-  const v = localStorage.getItem(BALANCE_KEY);
-  return v === null ? DEFAULT_BALANCE : parseInt(v, 10);
-}
+  // Sync Profile Text
+  const pName = document.getElementById("profileName");
+  if (pName) pName.textContent = ClubState.member.username || ClubState.member.name;
+  
+  const pBio = document.getElementById("profileBioValue");
+  if (pBio && ClubState.member.bio) pBio.textContent = ClubState.member.bio;
+  
+  const pInt = document.getElementById("profileInterestsValue");
+  if (pInt && ClubState.member.interests) pInt.textContent = ClubState.member.interests;
+  
+  const pLoc = document.getElementById("profileLocationValue");
+  if (pLoc && ClubState.member.location) pLoc.textContent = ClubState.member.location;
+  
+  const pQuote = document.getElementById("profileQuote");
+  if (pQuote && ClubState.member.bio) pQuote.textContent = '"' + ClubState.member.bio + '"';
 
-function checkBalanceIndicator() {
-  const currentBalance = getBalance();
+  const mName = document.getElementById("memberName");
+  if (mName) mName.textContent = ClubState.member.name;
+
+  const balEl = document.getElementById("boutiqueBalanceDisplay");
+  if (balEl) balEl.textContent = ClubState.balance.toLocaleString("en-US");
+  
+  if (typeof renderProfileCollection === "function") renderProfileCollection();
+  
+  if (typeof renderRing === "function") {
+    renderRing("wealthRing", "wealthValue", ClubState.member.wealthIndexValue);
+    renderRing("privRing", "privValue", ClubState.member.privilegesValue);
+  }
+  
+  if (typeof applyEquippedToCard === "function") applyEquippedToCard(ClubState.equipped);
+  
+  const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
+  if (activeBoutiqueTab && typeof renderBoutique === "function") {
+    renderBoutique(activeBoutiqueTab.dataset.cat);
+  }
+  
+  if (typeof updateMasterCard === "function") updateMasterCard();
+  
   let minPrice = Infinity;
   for (const catKey in BOUTIQUE) {
     for (const item of BOUTIQUE[catKey].items) {
-      if (!item.free && item.price < minPrice) {
-        minPrice = item.price;
-      }
+      if (!item.free && item.price < minPrice) minPrice = item.price;
     }
   }
   const addBtn = document.getElementById("boutiqueAddBalanceBtn");
   if (addBtn) {
-    if (currentBalance < minPrice) {
-      addBtn.classList.add("needs-balance");
-    } else {
-      addBtn.classList.remove("needs-balance");
-    }
+    if (ClubState.balance < minPrice) addBtn.classList.add("needs-balance");
+    else addBtn.classList.remove("needs-balance");
   }
-}
+});
 
-function setBalance(val) {
-  localStorage.setItem(BALANCE_KEY, val);
-  const display = document.getElementById("boutiqueBalanceDisplay");
-  if (display) display.textContent = val.toLocaleString("en-US");
-  checkBalanceIndicator();
-}
-// Balance init moved to bottom
-renderProfileCollection();
-
-document
-  .getElementById("boutiqueAddBalanceBtn")
-  .addEventListener("click", () => {
-    setBalance(getBalance() + 10000);
-    showPremiumToast("إيداع مكتمل", "تمت إضافة ١٠,٠٠٠ ◈ لرصيدك بنجاح");
-  });
-
-// ---------------------------------------------------------
-// 10. OWNED / EQUIPPED (localStorage)
-// ---------------------------------------------------------
-const OWNED_KEY = `owned_${MEMBER.id}`;
-const EQUIPPED_KEY = `equipped_${MEMBER.id}`;
-
-function getOwned() {
-  try {
-    return JSON.parse(localStorage.getItem(OWNED_KEY)) || {};
-  } catch {
-    return {};
-  }
-}
-function setOwned(data) {
-  localStorage.setItem(OWNED_KEY, JSON.stringify(data));
-}
-
-function getEquipped() {
-  try {
-    return JSON.parse(localStorage.getItem(EQUIPPED_KEY)) || {};
-  } catch {
-    return {};
-  }
-}
-function setEquipped(data) {
-  localStorage.setItem(EQUIPPED_KEY, JSON.stringify(data));
-  applyEquippedToCard(data);
-}
-
-// Equip-category slot mapping
 
 function applyEquippedToCard(equipped) {
-  // --- CROWN ---
-  const crownSlot = document.getElementById("equippedCrownSlot");
-  if (crownSlot) {
-    if (equipped.crowns) {
-      crownSlot.innerHTML = `<svg viewBox="0 0 48 28" fill="none">
-        <path d="M4 24 L2 9 L12 16 L24 4 L36 16 L46 9 L44 24 Z" fill="url(#bezelGrad)" stroke="var(--gold-line)" stroke-width="0.8"/>
-        <circle cx="24" cy="4" r="2.4" fill="url(#bezelGrad)"/>
-        <circle cx="2" cy="9" r="2" fill="url(#bezelGrad)"/>
-        <circle cx="46" cy="9" r="2" fill="url(#bezelGrad)"/>
-      </svg>`;
+  for (const catKey in EQUIP_CATEGORIES) {
+    const slotId = EQUIP_CATEGORIES[catKey];
+    const slotEl = document.getElementById(slotId);
+    if (!slotEl) continue;
+    const itemId = equipped[catKey];
+    if (itemId) {
+      const itemDef = BOUTIQUE[catKey].items.find(i => i.id === itemId);
+      if (itemDef) {
+        slotEl.innerHTML = ICONS[itemDef.icon] || ICONS["star"];
+        slotEl.style.display = "flex";
+      } else {
+        slotEl.style.display = "none";
+      }
     } else {
-      crownSlot.innerHTML = "";
+      slotEl.style.display = "none";
     }
-  }
-
-  // --- AURA ---
-  const auraSlot = document.getElementById("equippedAuraSlot");
-  if (auraSlot) {
-    auraSlot.className = "equipped-aura-slot";
-    if (equipped.auras) {
-      const auraKey = equipped.auras.replace(/\s+/g, "-").toLowerCase();
-      let auraClass = "active-aura-golden";
-      if (auraKey.includes("radiant")) auraClass = "active-aura-radiant";
-      else if (auraKey.includes("royal")) auraClass = "active-aura-royal";
-      else if (auraKey.includes("legendary") || auraKey.includes("mythic"))
-        auraClass = "active-aura-legendary";
-      auraSlot.classList.add(auraClass);
-    }
-  }
-
-  // --- STARS ---
-  const starsSlot = document.getElementById("equippedStarsSlot");
-  if (starsSlot) {
-    if (equipped.stars) {
-      const count = parseInt(equipped.stars.match(/\d+/)?.[0] || "1", 10);
-      const starsSvg = Array.from({ length: Math.min(count, 5) })
-        .map(
-          () =>
-            `<svg viewBox="0 0 10 10" fill="none"><path d="M5 1l.9 2.7H9l-2.3 1.7.9 2.6L5 6.6 2.4 8l.9-2.6L1 3.7h3.1z" fill="#C79A3E"/></svg>`,
-        )
-        .join("");
-      starsSlot.innerHTML = starsSvg;
-    } else {
-      starsSlot.innerHTML = "";
-    }
-  }
-
-  // --- RING / SIGNET (jewelry) ---
-  // Shows beneath member name as a precision signet marker
-  const ringSlot = document.getElementById("equippedRingSlot");
-  const ringLabel = document.getElementById("equippedRingLabel");
-  if (ringSlot && ringLabel) {
-    if (equipped.jewelry) {
-      ringLabel.textContent = equipped.jewelry.toUpperCase();
-      ringSlot.classList.add("active");
-    } else {
-      ringSlot.classList.remove("active");
-    }
-  }
-
-  // Sync widget state after any equip change
-  syncWidgetState(equipped);
-}
-
-// Sync Widget 1 with current card state
-function syncWidgetState(equipped) {
-  equipped = equipped || getEquipped();
-  // Living core animation duration
-  const wlc = document.querySelector(".widget-living-core");
-  if (wlc) {
-    const core = livingCoreProfile(MEMBER.id);
-    wlc.style.animationDuration = `${core.duration.toFixed(2)}s`;
-  }
-  // Portrait
-  const portraitBg =
-    document.getElementById("portraitPhoto")?.style.backgroundImage || "";
-  const widgetPhoto = document.querySelector(".widget-portrait-photo");
-  if (widgetPhoto) {
-    if (portraitBg) {
-      widgetPhoto.style.backgroundImage = portraitBg;
-      widgetPhoto.innerHTML = "";
-    }
-  }
-  // Crown on widget
-  const widgetCrown = document.querySelector(".widget-crown-slot");
-  if (widgetCrown) {
-    widgetCrown.innerHTML = equipped.crowns
-      ? `<svg viewBox="0 0 32 18" fill="none" style="width:32px;height:18px"><path d="M2 16L1 6l7 5 8-9 8 9 7-5-1 10z" fill="url(#bezelGrad)" stroke="var(--gold-line)" stroke-width="0.6"/></svg>`
-      : "";
-  }
-  // Aura on widget
-  const widgetRing = document.querySelector(".widget-portrait-ring");
-  if (widgetRing) {
-    widgetRing.style.filter = equipped.auras
-      ? "drop-shadow(0 0 8px rgba(212,175,106,0.6))"
-      : "";
   }
 }
 
-// Init card from stored equipped
-// Moved applyEquippedToCard down
 
-// ---------------------------------------------------------
-// 11. BOUTIQUE CATALOG
-// ---------------------------------------------------------
-const RARITY_LABEL = {
-  rare: "نادر",
-  epic: "استثنائي",
-  legendary: "أسطوري",
-  mythic: "خرافي",
-  unique: "فريد — 1/1",
-  free: "مجاني",
-};
 
-// ---------------------------------------------------------
-// 12. PURCHASE MODAL
-// (Removed)
+/* =========================================================
+   THE 1% CLUB — app.js Phase 2
+   Master Card · Club Chat · Credits · Boutique · Equip · Widget 1
+========================================================= */
 
-// 13. EQUIP SYSTEM
-// ---------------------------------------------------------
-function toggleEquip(item, catKey) {
-  const equipped = getEquipped();
-  const equipSlot = EQUIP_CATEGORIES[catKey];
-  if (!equipSlot) return;
-
-  if (equipped[catKey] === item.name) {
-    // Unequip
-    delete equipped[catKey];
-    setEquipped(equipped);
-    if (window.AudioEngine) AudioEngine.playRustle();
-    showNavToast(`تم فك تجهيز: ${item.name}`);
-  } else {
-    // Equip (replaces previous in same slot)
-    equipped[catKey] = item.name;
-    setEquipped(equipped);
-    if (window.AudioEngine) AudioEngine.playChime();
-    showNavToast(`تم تجهيز: ${item.name}`);
-  }
-  renderBoutique(
-    document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all",
-  );
-}
-
-// ---------------------------------------------------------
-// 14. BOUTIQUE RENDER
-// ---------------------------------------------------------
-let currentOwnershipFilter = "all";
-// ---------------------------------------------------------
 
 function generateSkeletonGrid() {
-  const cards = Array(6)
-    .fill(
-      `
-    <div class="boutique-skeleton-card">
-      <div class="skeleton-icon"></div>
-      <div class="skeleton-text name"></div>
-      <div class="skeleton-text price"></div>
-      <div class="skeleton-text button"></div>
-    </div>
-  `,
-    )
-    .join("");
-  return `<div class="boutique-skeleton-grid">${cards}</div>`;
+  let html = '<div class="boutique-grid">';
+  for(let i=0; i<6; i++) {
+    html += `
+      <div class="boutique-card is-skeleton" style="pointer-events: none; opacity: 0.6; animation: pulse 1.5s infinite ease-in-out;">
+        <span class="rarity-badge" style="background: #2a2a2a; color: transparent; width: 40px; height: 16px;"></span>
+        <span class="boutique-card-icon">
+          <span class="boutique-card-fallback" style="background: #222; border-radius: 50%; width: 40px; height: 40px; display: block;"></span>
+        </span>
+        <span class="boutique-card-name" style="background: #222; width: 60%; height: 12px; margin: 8px auto; border-radius: 4px;"></span>
+        <span class="boutique-card-price" style="background: #222; width: 40%; height: 12px; margin: 0 auto; border-radius: 4px;"></span>
+      </div>
+    `;
+  }
+  html += '</div>';
+  return html;
 }
 
 function renderBoutique(filter = "all") {
+
   const root = document.getElementById("boutiqueSections");
-  const owned = getOwned();
-  const equipped = getEquipped();
+  const owned = ClubState.owned;
+  const equipped = ClubState.equipped;
   const categories = filter === "all" ? Object.keys(BOUTIQUE) : [filter];
 
   // Show Skeleton First
@@ -1093,10 +301,10 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         return renderWidgetSection();
       }
 
-      const currentBalance = getBalance();
+      const currentBalance = ClubState.balance;
 
       const filteredItems = cat.items.filter((item) => {
-        const isOwned = owned[catKey] && owned[catKey].includes(item.id);
+        const isOwned = ClubState.owned[item.id];
         if (currentOwnershipFilter === "owned") return isOwned;
         if (currentOwnershipFilter === "unowned") return !isOwned;
         return true;
@@ -1106,8 +314,8 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 
       const cards = filteredItems
         .map((item) => {
-          const isOwned = owned[catKey] && owned[catKey].includes(item.id);
-          const isEquipped = equipped[catKey] === item.name;
+          const isOwned = ClubState.owned[item.id];
+          const isEquipped = ClubState.equipped[catKey] === item.id;
           const canEquip = EQUIP_CATEGORIES[catKey] !== undefined;
 
           let btnText, btnClass;
@@ -1209,7 +417,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         isLongPress = true;
 
         // Auto-equip check: If owned, and nothing is currently equipped in this category
-        const currentEquipped = getEquipped();
+        const currentEquipped = ClubState.equipped;
         let wasAutoEquipped = false;
         if (
           isOwned &&
@@ -1258,7 +466,14 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     });
   });
 
-  syncWidgetState();
+}
+
+function syncWidgetState() {
+  const masterCard = document.getElementById("membershipCard");
+  const preview = document.querySelector(".widget-card-preview");
+  if (masterCard && preview) {
+    preview.innerHTML = masterCard.innerHTML;
+  }
 }
 
 function renderWidgetSection() {
@@ -1299,11 +514,11 @@ renderBoutique();
 // Init balance display
 const balanceDisplay = document.getElementById("boutiqueBalanceDisplay");
 if (balanceDisplay) {
-  balanceDisplay.textContent = getBalance().toLocaleString("en-US");
+  balanceDisplay.textContent = ClubState.balance.toLocaleString("en-US");
 }
-// checkBalanceIndicator needs BOUTIQUE to be defined.
-// BOUTIQUE is defined above this point now.
-checkBalanceIndicator();
+
+
+updateUI();
 
 // ---------------------------------------------------------
 // 15. SHARE / COPY
@@ -1318,10 +533,10 @@ function showCopyToast(msg) {
 
 document.getElementById("copyBtn").addEventListener("click", async () => {
   try {
-    await navigator.clipboard.writeText(MEMBER.verifyUrl);
+    await navigator.clipboard.writeText(ClubState.member.verifyUrl);
     showCopyToast("تم نسخ الرابط");
   } catch {
-    showCopyToast(MEMBER.verifyUrl);
+    showCopyToast(ClubState.member.verifyUrl);
   }
 });
 
@@ -1345,32 +560,32 @@ async function renderMasterCardToBlob() {
 
   // Get live member data
   const memberName = (
-    document.getElementById("memberName")?.textContent || MEMBER.name
+    document.getElementById("memberName")?.textContent || ClubState.member.name
   ).trim();
   const memberId = (
-    document.getElementById("memberNumber")?.textContent || MEMBER.id
+    document.getElementById("memberNumber")?.textContent || ClubState.member.id
   ).trim();
   const tierName = (
-    document.getElementById("tierName")?.textContent || MEMBER.tier
+    document.getElementById("tierName")?.textContent || ClubState.member.tier
   ).trim();
   const memberQuote = (
-    document.getElementById("memberQuote")?.textContent || `"${MEMBER.quote}"`
+    document.getElementById("memberQuote")?.textContent || `"${ClubState.member.quote}"`
   ).trim();
   const wealthText = (
     document.getElementById("wealthValue")?.textContent ||
-    `${MEMBER.wealthIndexValue}%`
+    `${ClubState.member.wealthIndexValue}%`
   )
     .replace("%", "")
     .trim();
   const privText = (
     document.getElementById("privValue")?.textContent ||
-    `${MEMBER.privilegesValue}%`
+    `${ClubState.member.privilegesValue}%`
   )
     .replace("%", "")
     .trim();
   const wealthVal = parseInt(wealthText, 10) || 92;
   const privVal = parseInt(privText, 10) || 84;
-  const equipped = typeof getEquipped === "function" ? getEquipped() : {};
+  const equipped = typeof getEquipped === "function" ? ClubState.equipped : {};
 
   // Check if user uploaded a portrait photo
   let photoImg = null;
@@ -1937,7 +1152,7 @@ async function shareMasterCard() {
 
   try {
     const blob = await renderMasterCardToBlob();
-    const fname = `1percent-mastercard-${MEMBER.id}.png`;
+    const fname = `1percent-mastercard-${ClubState.member.id}.png`;
     const file = new File([blob], fname, { type: "image/png" });
 
     // Try Web Share API with image file (supported on iOS 15+, Android Chrome)
@@ -1946,7 +1161,7 @@ async function shareMasterCard() {
         await navigator.share({
           files: [file],
           title: "THE 1% CLUB — MASTER MEMBERSHIP CARD",
-          text: `${MEMBER.name} — Member Nº${MEMBER.id} — ${MEMBER.tier}`,
+          text: `${ClubState.member.name} — Member Nº${ClubState.member.id} — ${ClubState.member.tier}`,
         });
         return;
       } catch (shareErr) {
@@ -1968,8 +1183,8 @@ async function shareMasterCard() {
     // Final fallback: share URL text
     const shareData = {
       title: "THE 1% CLUB",
-      text: `${MEMBER.name} — Member Nº${MEMBER.id} — ${MEMBER.tier}`,
-      url: MEMBER.verifyUrl,
+      text: `${ClubState.member.name} — Member Nº${ClubState.member.id} — ${ClubState.member.tier}`,
+      url: ClubState.member.verifyUrl,
     };
     if (navigator.share) {
       try {
@@ -1980,10 +1195,10 @@ async function shareMasterCard() {
       }
     }
     try {
-      await navigator.clipboard.writeText(MEMBER.verifyUrl);
+      await navigator.clipboard.writeText(ClubState.member.verifyUrl);
       showCopyToast("تم نسخ الرابط السيادي");
     } catch {
-      showCopyToast(MEMBER.verifyUrl);
+      showCopyToast(ClubState.member.verifyUrl);
     }
   }
 }
@@ -2000,6 +1215,60 @@ const navToast = document.getElementById("navToast");
 const sectionName = document.getElementById("sectionName");
 let navToastTimer = null;
 
+// ==========================================
+// UI EFFECTS & ANIMATIONS
+// ==========================================
+
+// ---------------------------------------------------------
+// PROFILE GYROSCOPE & PARALLAX
+// ---------------------------------------------------------
+function initProfileGyro() {
+  const wrap = document.querySelector('#profile-tab .profile-portrait-wrap');
+  if (!wrap) return;
+
+  const handleMove = (x, y, w, h) => {
+    const rx = ((y / h) - 0.5) * -15; // rotateX
+    const ry = ((x / w) - 0.5) * 15;  // rotateY
+    wrap.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
+    wrap.style.transition = 'none';
+  };
+
+  const handleReset = () => {
+    wrap.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    wrap.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+  };
+
+  // Mouse fallback
+  wrap.addEventListener('mousemove', (e) => {
+    const rect = wrap.getBoundingClientRect();
+    handleMove(e.clientX - rect.left, e.clientY - rect.top, rect.width, rect.height);
+  });
+  wrap.addEventListener('mouseleave', handleReset);
+
+  // Gyroscope
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (e) => {
+      // Only active if profile tab is active
+      const profileTab = document.getElementById('profile-tab');
+      if (!profileTab || profileTab.hidden) return;
+
+      const beta = e.beta || 0; // -180 to 180 (front/back tilt)
+      const gamma = e.gamma || 0; // -90 to 90 (left/right tilt)
+      
+      // Clamp values
+      const rx = Math.max(-15, Math.min(15, (beta - 45) * 0.5)); // Assume 45deg is neutral holding pos
+      const ry = Math.max(-15, Math.min(15, gamma * 0.5));
+
+      wrap.style.transform = `perspective(800px) rotateX(${-rx}deg) rotateY(${ry}deg)`;
+      wrap.style.transition = 'transform 0.1s ease-out';
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initProfileGyro();
+});
+
 function showNavToast(msg) {
   navToast.textContent = msg;
   navToast.classList.add("is-visible");
@@ -2010,48 +1279,94 @@ function showNavToast(msg) {
   );
 }
 
-const PAGE_TITLES = {
-  card: "العضوية",
-  profile: "الملف",
-  club: "النادي",
-  shop: "البوتيك",
+const PAGE_TITLES = { membership: "العضوية", club: "النادي", profile: "الملف", boutique: "البوتيك" };
+const IMPLEMENTED_TABS = ["membership", "profile", "club", "boutique"];
+
+// ==========================================
+// NAVIGATION & ROUTER
+// ==========================================
+const Router = {
+  navigate(tab) {
+    if (window.AudioEngine) AudioEngine.playRustle();
+    this.switchView(tab);
+    this.updateHeader(tab);
+    this.triggerEnter(tab);
+  },
+  
+  switchView(tab) {
+    document.querySelectorAll(".page").forEach((p) => {
+      p.classList.remove("is-active");
+      p.hidden = true;
+    });
+    
+    const activePage = document.getElementById(`${tab}-tab`);
+    if (activePage) {
+      activePage.classList.add("is-active");
+      activePage.hidden = false;
+    }
+    
+    document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("is-active"));
+    const activeNav = document.querySelector(`.nav-item[data-tab="${tab}"]`);
+    if (activeNav) activeNav.classList.add("is-active");
+    
+    const main = document.querySelector(".app-main");
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+  },
+  
+  updateHeader(tab) {
+    const sectionName = document.getElementById("sectionName");
+    if (sectionName) sectionName.textContent = PAGE_TITLES[tab] || tab;
+    
+    const backBtn = document.getElementById("backBtn");
+    if (backBtn) backBtn.hidden = true;
+    
+    const header = document.getElementById("appHeader");
+    if (header) header.classList.toggle("header-compact", tab === "club");
+  },
+  
+  triggerEnter(tab) {
+    this.onEnter(tab);
+  },
+  
+  navigateContext(pageId, title, returnTab) {
+    if (window.AudioEngine) AudioEngine.playRustle();
+    contextReturnTab = returnTab;
+    document.querySelectorAll(".page").forEach((p) => {
+      p.classList.remove("is-active");
+      p.hidden = true;
+    });
+    
+    const activePage = document.getElementById(pageId);
+    if (activePage) {
+      activePage.classList.add("is-active");
+      activePage.hidden = false;
+    }
+    document.getElementById("sectionName").textContent = title;
+    document.getElementById("appHeader").classList.remove("header-compact");
+    document.getElementById("backBtn").hidden = false;
+    document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("is-active"));
+    
+    const main = document.querySelector(".app-main");
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+  },
+
+  onEnter(tab) {
+    if (tab === "club") {
+      if (typeof updateCreditsUI === 'function') updateCreditsUI();
+      requestAnimationFrame(() => {
+        const msgs = document.getElementById("clubMessages");
+        if (msgs) window.scrollTo(0, document.body.scrollHeight);
+      });
+    }
+  }
 };
-const IMPLEMENTED_TABS = ["card", "profile", "club", "shop"];
 
 function goToPage(tab) {
-  if (window.AudioEngine) AudioEngine.playRustle();
-  document.querySelectorAll(".page").forEach((p) => {
-    p.classList.remove("is-active");
-    p.hidden = true;
-  });
-  const activePage = document.getElementById(`page-${tab}`);
-  if (activePage) {
-    activePage.classList.add("is-active");
-    activePage.hidden = false;
-  }
-  document
-    .querySelectorAll(".nav-item")
-    .forEach((n) => n.classList.remove("is-active"));
-  document
-    .querySelector(`.nav-item[data-tab="${tab}"]`)
-    ?.classList.add("is-active");
-  sectionName.textContent = PAGE_TITLES[tab] || tab;
-  document.getElementById("backBtn").hidden = true;
-  document
-    .getElementById("appHeader")
-    .classList.toggle("header-compact", tab === "club");
-  document.querySelector(".app-main").scrollTop = 0;
-  window.scrollTo(0, 0);
-
-  // When opening club, scroll chat to bottom and update credits
-  if (tab === "club") {
-    updateCreditsUI();
-    requestAnimationFrame(() => {
-      const msgs = document.getElementById("clubMessages");
-      if (msgs) window.scrollTo(0, document.body.scrollHeight);
-    });
-  }
+  Router.navigate(tab);
 }
+
 
 document.querySelectorAll(".nav-item").forEach((item) => {
   item.addEventListener("click", () => {
@@ -2145,18 +1460,19 @@ document.getElementById("editAccountBtn").addEventListener("click", () => {
 
 document.getElementById("editAccountForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  document.getElementById("memberName").textContent =
-    document.getElementById("editName").value;
-  document.getElementById("profileName").textContent =
-    document.getElementById("editUsername").value;
-  document.getElementById("profileBioValue").textContent =
-    document.getElementById("editBio").value;
-  document.getElementById("profileInterestsValue").textContent =
-    document.getElementById("editInterests").value;
-  document.getElementById("profileLocationValue").textContent =
-    document.getElementById("editLocation").value;
+  
+  // Update State
+  ClubState.member.name = document.getElementById("editName").value;
+  ClubState.member.username = document.getElementById("editUsername").value;
+  ClubState.member.bio = document.getElementById("editBio").value;
+  ClubState.member.interests = document.getElementById("editInterests").value;
+  ClubState.member.location = document.getElementById("editLocation").value;
+  ClubState.save();
+  
+  ClubState.emit('change');
+
   document.getElementById("backBtn").hidden = true;
-  goToPage("profile");
+  Router.navigate("profile");
   showPremiumToast("تحديث الملف", "تم حفظ التعديلات بنجاح");
 });
 
@@ -2178,12 +1494,38 @@ function setCardTilt(x, y) {
   );
 }
 
+let pendingTilt = null;
+let tiltTicking = false;
+
+function updateDeviceTilt() {
+  if (!pendingTilt) {
+    tiltTicking = false;
+    return;
+  }
+  const { beta, gamma } = pendingTilt;
+
+  const x = Math.max(-1, Math.min(1, gamma / 28));
+  const y = Math.max(-1, Math.min(1, (beta - 45) / 28));
+  setCardTilt(x, y);
+
+  const profileWraps = document.querySelectorAll(".profile-portrait-wrap");
+  profileWraps.forEach((wrap) => {
+    let rotX = Math.max(-15, Math.min(15, beta - 45));
+    let rotY = Math.max(-15, Math.min(15, gamma));
+    wrap.style.setProperty("--rot-x", rotX + "deg");
+    wrap.style.setProperty("--rot-y", rotY + "deg");
+  });
+
+  tiltTicking = false;
+}
+
 function handleDeviceOrientation(e) {
   if (e.beta === null || e.gamma === null) return;
-  setCardTilt(
-    Math.max(-1, Math.min(1, e.gamma / 28)),
-    Math.max(-1, Math.min(1, (e.beta - 45) / 28)),
-  );
+  pendingTilt = { beta: e.beta, gamma: e.gamma };
+  if (!tiltTicking) {
+    tiltTicking = true;
+    requestAnimationFrame(updateDeviceTilt);
+  }
 }
 
 function enableDeviceTilt() {
@@ -2220,13 +1562,19 @@ document.body.addEventListener("touchstart", requestTiltPermissionOnce, {
 });
 
 if (cardEl) {
+  let pointerTicking = false;
   cardEl.addEventListener("pointermove", (e) => {
     if (e.pointerType === "touch") return;
     const rect = cardEl.getBoundingClientRect();
-    setCardTilt(
-      ((e.clientX - rect.left) / rect.width - 0.5) * 2,
-      ((e.clientY - rect.top) / rect.height - 0.5) * 2,
-    );
+    const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    if (!pointerTicking) {
+      pointerTicking = true;
+      requestAnimationFrame(() => {
+        setCardTilt(nx, ny);
+        pointerTicking = false;
+      });
+    }
   });
   cardEl.addEventListener("pointerleave", () => setCardTilt(0, 0));
 }
@@ -2274,7 +1622,7 @@ document.querySelectorAll(".club-room-btn").forEach((btn, index) => {
     clearTimeout(typingTimeout);
 
     // Pick a random member from CLUB_MEMBERS
-    const otherMembers = CLUB_MEMBERS.filter((m) => m.id !== MEMBER.id);
+    const otherMembers = CLUB_MEMBERS.filter((m) => m.id !== ClubState.member.id);
     if (otherMembers.length > 0) {
       const randomMember =
         otherMembers[Math.floor(Math.random() * otherMembers.length)];
@@ -2340,52 +1688,19 @@ document.getElementById("inspectionCloseBtn")?.addEventListener("click", () => {
   document.getElementById("inspectionModal").hidden = true;
 });
 
+function processPurchase(item) {
+  return ClubState.purchase(item);
+}
+
 function purchaseItem(item, catKey) {
-  if (getBalance() >= item.price) {
-    setBalance(getBalance() - item.price);
-    const owned = getOwned();
-    if (!owned[catKey]) owned[catKey] = [];
-    if (!owned[catKey].includes(item.id)) owned[catKey].push(item.id);
-    setOwned(owned);
-    renderBoutique(
-      document.querySelector(".boutique-tab.is-active").dataset.cat,
-    );
+  if (processPurchase(item)) {
     closeInspectionModal();
-
-    // Premium animation
-    const flash = document.createElement("div");
-    flash.style.position = "fixed";
-    flash.style.inset = "0";
-    flash.style.background =
-      "radial-gradient(circle at center, rgba(212,175,106,0.25), transparent)";
-    flash.style.pointerEvents = "none";
-    flash.style.zIndex = "9999";
-    flash.style.transition = "opacity 0.8s ease-out";
-    document.body.appendChild(flash);
-    setTimeout(() => {
-      flash.style.opacity = "0";
-    }, 50);
-    setTimeout(() => {
-      flash.remove();
-    }, 850);
-  } else {
-    alert("رصيد غير كافٍ");
+    playPurchaseAnimation();
   }
-}
-
-function equipItem(item, catKey) {
-  const isCurrentlyEquipped = MEMBER.equipped[catKey] === item.id;
-  if (isCurrentlyEquipped) {
-    MEMBER.equipped[catKey] = null;
-  } else {
-    MEMBER.equipped[catKey] = item.id;
-  }
-  renderBoutique(document.querySelector(".boutique-tab.is-active").dataset.cat);
+}function equipItem(item, catKey) {
+  ClubState.toggleEquip(catKey, item.id);
   closeInspectionModal();
-  updateMasterCard();
-}
-
-function updateMasterCard() {
+}function updateMasterCard() {
   if (window.renderMembershipTab) window.renderMembershipTab();
   if (window.renderWidgetSection) {
     const widgetHTML = renderWidgetSection();
@@ -2484,7 +1799,7 @@ function renderProfileEquipped() {
   const grid = document.getElementById("profileEquippedGrid");
   if (!grid) return;
 
-  const equipped = getEquipped();
+  const equipped = ClubState.equipped;
   let itemsHtml = "";
 
   // We'll iterate through all boutique categories and display the equipped ones
@@ -2524,54 +1839,34 @@ function renderProfileEquipped() {
 // RENDER PROFILE COLLECTION
 // ---------------------------------------------------------
 function renderProfileCollection() {
-  renderProfileEquipped();
-  const grid = document.getElementById("profileCollectionGrid");
-  if (!grid) return;
-
-  const owned = getOwned();
+  const container = document.getElementById("profileCollectionList");
+  if (!container) return;
+  const owned = ClubState.owned;
   let hasItems = false;
   let itemsHtml = "";
-
-  for (const catKey in owned) {
-    const ownedIds = owned[catKey] || [];
-    if (!BOUTIQUE[catKey]) continue;
-
-    for (const itemId of ownedIds) {
-      const itemDef = BOUTIQUE[catKey].items.find((i) => i.id === itemId);
-      if (itemDef) {
+  
+  for (const catKey in BOUTIQUE) {
+    for (const item of BOUTIQUE[catKey].items) {
+      if (owned[item.id] && !item.free) {
         hasItems = true;
-        const iconSvg = ICONS[itemDef.icon] || ICONS["star"];
+        const iconSvg = ICONS[item.icon] || ICONS["star"];
         itemsHtml += `
-          <div class="profile-col-item">
+          <div class="profile-col-item rarity-${item.rarity}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", true, ClubState.equipped["${catKey}"] === "${item.id}")'>
             <div class="profile-col-item-icon">${iconSvg}</div>
-            <div class="profile-col-item-name">${itemDef.name}</div>
+            <div class="profile-col-item-name">${item.name}</div>
+            <div class="pci-rarity" style="font-size:9px;opacity:0.7;">${RARITY_LABEL[item.rarity]}</div>
           </div>
         `;
       }
     }
   }
-
-  if (hasItems) {
-    grid.innerHTML = itemsHtml;
-    grid.classList.remove("is-empty");
-  } else {
-    grid.innerHTML = `
-      <div class="profile-empty-collection luxury-empty-state" onclick="document.querySelector('[data-tab=\'shop\']').click()">
-        <div class="empty-icon-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" class="empty-icon"><path d="M4 8h16l-1.3 10.2A2 2 0 0116.7 20H7.3a2 2 0 01-2-1.8L4 8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="14" r="1.5" fill="currentColor"/></svg>
-        </div>
-        <p>إرثك يبدأ من هنا</p>
-        <span>المحفظة فارغة. استكشف البوتيك واقتنِ أولى قطعك النادرة لتبني هويتك السيادية.</span>
-        <button class="empty-explore-btn">استكشاف البوتيك</button>
-      </div>
-    `;
-    grid.classList.add("is-empty");
+  
+  if (!hasItems) {
+    itemsHtml = `<div class="empty-dossier" id="emptyDossier">المحفظة فارغة حالياً.</div>`;
   }
+  container.innerHTML = itemsHtml;
 }
 
-// ---------------------------------------------------------
-// REACTIONS MENU
-// ---------------------------------------------------------
 function showReactionMenu(anchorEl, msgId) {
   // Remove existing menu if any
   let existing = document.getElementById("reactionMenuBox");
@@ -2647,4 +1942,444 @@ document.querySelectorAll(".b-filt-btn").forEach((btn) => {
 });
 
 // Initialize card state on load
-applyEquippedToCard(getEquipped());
+
+  // Update Boutique UI and Card Equipment
+  applyEquippedToCard(ClubState.equipped);
+  const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
+  if (activeBoutiqueTab && typeof renderBoutique === "function") {
+    renderBoutique(activeBoutiqueTab.dataset.cat);
+  }
+  if (typeof updateMasterCard === "function") {
+    updateMasterCard();
+  }
+    if (typeof renderProfileCollection === "function") {
+    // Actually our updateUI handles profile collection, but let's call the original just in case.
+    // wait, we handled it.
+  }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Load custom portrait if exists
+  const savedPortrait = localStorage.getItem(`portrait_${ClubState.member.id}`);
+  if (savedPortrait) {
+    if (portraitPhoto) {
+      portraitPhoto.style.backgroundImage = `url(${savedPortrait})`;
+      if (photoUploadBtn) photoUploadBtn.style.display = "none";
+    }
+    const profilePhoto = document.getElementById("profilePortraitPhoto");
+    if (profilePhoto)
+      profilePhoto.style.backgroundImage = `url(${savedPortrait})`;
+  }
+
+  const menuAddFriend = document.getElementById("menuAddFriend");
+  if (menuAddFriend) {
+    menuAddFriend.addEventListener("click", () => {
+      showNavToast("إضافة صديق — قريباً");
+    });
+  }
+
+  const menuMyCollectionNav = document.getElementById("menuMyCollectionNav");
+  if (menuMyCollectionNav) {
+    menuMyCollectionNav.addEventListener("click", () => {
+      document.querySelector('[data-tab="shop"]').click();
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const menuAddFriend = document.getElementById("menuAddFriend");
+  if (menuAddFriend) {
+    menuAddFriend.addEventListener("click", () => {
+      showNavToast("إضافة صديق — قريباً");
+    });
+  }
+
+  const menuMyCollectionNav = document.getElementById("menuMyCollectionNav");
+  if (menuMyCollectionNav) {
+    menuMyCollectionNav.addEventListener("click", () => {
+      document.querySelector('[data-tab="shop"]').click();
+    });
+  }
+
+  const editIconFloating = document.querySelector(".edit-icon-floating");
+  if (editIconFloating) {
+    editIconFloating.addEventListener("click", () => {
+      document.getElementById("editAccountBtn")?.click();
+    });
+  }
+
+  const menuAccountInfo = document.getElementById("menuAccountInfo");
+  if (menuAccountInfo) {
+    menuAccountInfo.addEventListener("click", () => {
+      document.getElementById("editAccountBtn")?.click();
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const menuMembership = document.getElementById("menuMembership");
+  if (menuMembership) {
+    menuMembership.addEventListener("click", () => {
+      document.querySelector('[data-tab="card"]')?.click();
+    });
+  }
+});
+
+var d3RadarSvg = null;
+
+function renderRadarChart() {
+  if (typeof d3 === "undefined") {
+    console.warn("D3 is not loaded yet. Waiting...");
+    setTimeout(renderRadarChart, 100);
+    return;
+  }
+  const container = d3.select("#profileRadarChart");
+  if (container.empty()) return;
+
+  const w = 100;
+  const h = 100;
+  const cx = w / 2;
+  const cy = h / 2;
+  const radius = 35;
+
+  const metrics = [
+    { name: "الثروة", value: ClubState.member.wealthIndexValue || 92 },
+    { name: "الامتيازات", value: ClubState.member.privilegesValue || 84 },
+    { name: "الاتصالات", value: ClubState.member.connectionsValue || 75 },
+  ];
+
+  // Set up SVG only once
+  if (!d3RadarSvg) {
+    container.html(""); // clear vanilla SVG
+
+    // Add tooltip container
+    d3.select("#profileRadarChart")
+      .style("position", "relative")
+      .append("div")
+      .attr("class", "radar-tooltip")
+      .style("opacity", 0)
+      .style("position", "absolute")
+      .style("pointer-events", "none")
+      .style("z-index", "20");
+
+    d3RadarSvg = container
+      .append("svg")
+      .attr("class", "radar-svg")
+      .attr("viewBox", `-20 -20 ${w + 40} ${h + 40}`);
+
+    const angles = [-Math.PI / 2, Math.PI / 6, (5 * Math.PI) / 6];
+
+    // Draw Grid (Levels)
+    const gridLevels = [0.33, 0.66, 1];
+    gridLevels.forEach((level) => {
+      const r = radius * level;
+      const pts = angles
+        .map((a) => `${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`)
+        .join(" ");
+      d3RadarSvg
+        .append("polygon")
+        .attr("points", pts)
+        .attr("class", "radar-grid");
+    });
+
+    // Draw Axes
+    angles.forEach((a) => {
+      d3RadarSvg
+        .append("line")
+        .attr("x1", cx)
+        .attr("y1", cy)
+        .attr("x2", cx + radius * Math.cos(a))
+        .attr("y2", cy + radius * Math.sin(a))
+        .attr("class", "radar-axis");
+    });
+
+    // Draw Labels
+    metrics.forEach((m, i) => {
+      const a = angles[i];
+      const labelR = radius + 14;
+      const lx = cx + labelR * Math.cos(a);
+      const ly = cy + labelR * Math.sin(a);
+
+      let anchor = "middle";
+      if (Math.cos(a) > 0.1) anchor = "start";
+      else if (Math.cos(a) < -0.1) anchor = "end";
+
+      let dy = Math.sin(a) > 0.1 ? 2 : Math.sin(a) < -0.1 ? 0 : 3;
+
+      d3RadarSvg
+        .append("text")
+        .attr("x", lx)
+        .attr("y", ly)
+        .attr("class", "radar-label")
+        .attr("text-anchor", anchor)
+        .attr("dy", dy)
+        .text(m.name);
+    });
+  }
+
+  const angles = [-Math.PI / 2, Math.PI / 6, (5 * Math.PI) / 6];
+  const lineGen = d3
+    .line()
+    .x((d) => d.x)
+    .y((d) => d.y);
+
+  // Calculate positions
+  const dataPtsArr = metrics.map((m, i) => {
+    let val = Math.max(0, Math.min(100, m.value)) / 100;
+    let r = radius * val;
+    return {
+      x: cx + r * Math.cos(angles[i]),
+      y: cy + r * Math.sin(angles[i]),
+      val: m.value,
+      name: m.name,
+    };
+  });
+
+  // To close the polygon
+  const polyPtsArr = [...dataPtsArr, dataPtsArr[0]];
+
+  // Data binding: Radar Polygon
+  const polygon = d3RadarSvg.selectAll(".radar-polygon-d3").data([polyPtsArr]);
+
+  polygon
+    .enter()
+    .append("path")
+    .attr("class", "radar-polygon-d3")
+    .merge(polygon)
+    .transition()
+    .duration(500)
+    .ease(d3.easeCubicOut)
+    .attr("d", lineGen);
+
+  // Data binding: Points
+  const circles = d3RadarSvg.selectAll(".radar-point-d3").data(dataPtsArr);
+
+  circles
+    .enter()
+    .append("circle")
+    .attr("class", "radar-point-d3")
+    .attr("r", 2.5)
+    .on("mouseover", function (event, d) {
+      d3.select(this)
+        .transition()
+        .duration(200)
+        .attr("r", 4)
+        .style("fill", "#D4AF6A");
+
+      const tooltip = d3
+        .select(this.parentNode.parentNode)
+        .select(".radar-tooltip");
+      const [mx, my] = d3.pointer(event, this.parentNode.parentNode);
+
+      tooltip
+        .html(`<strong>${d.name}</strong><br/>${d.val}%`)
+        .style("left", mx + 10 + "px")
+        .style("top", my - 10 + "px")
+        .transition()
+        .duration(200)
+        .style("opacity", 1);
+    })
+    .on("mouseout", function () {
+      d3.select(this)
+        .transition()
+        .duration(200)
+        .attr("r", 2.5)
+        .style("fill", "#fff");
+
+      d3.select(this.parentNode.parentNode)
+        .select(".radar-tooltip")
+        .transition()
+        .duration(200)
+        .style("opacity", 0);
+    })
+    .merge(circles)
+    .transition()
+    .duration(500)
+    .ease(d3.easeCubicOut)
+    .attr("cx", (d) => d.x)
+    .attr("cy", (d) => d.y);
+}
+
+window.updateRadarChart = renderRadarChart;
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderRadarChart();
+  renderProgressChart();
+});
+
+// ---------------------------------------------------------
+// PROGRESS CHART (WEEKLY EVOLUTION)
+// ---------------------------------------------------------
+function renderProgressChart() {
+  const wrapper = document.getElementById("profileProgressChart");
+  if (!wrapper) return;
+
+  // Mock data mimicking growth
+  const data = [
+    { week: "الأسبوع ١", wealth: 60, priv: 50, conn: 40 },
+    { week: "الأسبوع ٢", wealth: 72, priv: 62, conn: 55 },
+    { week: "الأسبوع ٣", wealth: 85, priv: 76, conn: 65 },
+    {
+      week: "الحالي",
+      wealth: ClubState.member.wealthIndexValue || 92,
+      priv: ClubState.member.privilegesValue || 84,
+      conn: ClubState.member.connectionsValue || 75,
+    },
+  ];
+
+  const w = 300;
+  const h = 120;
+  const padX = 25;
+  const padYTop = 15;
+  const padYBot = 25;
+  const usableW = w - padX * 2;
+  const usableH = h - padYTop - padYBot;
+
+  const getX = (i) => padX + (i * usableW) / (data.length - 1);
+  const getY = (val) => padYTop + usableH - (val / 100) * usableH;
+
+  const colors = { wealth: "#D4AF6A", priv: "#EAE5D9", conn: "#8C877A" };
+
+  let svg = `<svg class="progress-svg" viewBox="0 0 ${w} ${h}">`;
+
+  // Draw Grid lines
+  [0, 25, 50, 75, 100].forEach((val) => {
+    let y = getY(val);
+    svg += `<line x1="${padX}" y1="${y}" x2="${w - padX}" y2="${y}" class="progress-grid-line" />`;
+  });
+
+  // Vertical Active Line
+  svg += `<line id="progressActiveLine" x1="0" y1="${padYTop}" x2="0" y2="${h - padYBot}" class="progress-active-line" />`;
+
+  // Draw Paths (Lines)
+  ["wealth", "priv", "conn"].forEach((key) => {
+    let pts = data.map((d, i) => `${getX(i)},${getY(d[key])}`).join(" L ");
+    svg += `<path d="M ${pts}" class="progress-line" stroke="${colors[key]}" />`;
+  });
+
+  // Draw Points and X-axis Labels
+  data.forEach((d, i) => {
+    let x = getX(i);
+    // Label
+    svg += `<text x="${x}" y="${h - 5}" class="progress-axis-text">${d.week}</text>`;
+
+    // Points
+    ["wealth", "priv", "conn"].forEach((key) => {
+      let y = getY(d[key]);
+      svg += `<circle cx="${x}" cy="${y}" r="2.5" class="progress-point" fill="#0F0F0F" stroke="${colors[key]}" />`;
+    });
+
+    // Hover Interaction Zones
+    let zoneW = usableW / (data.length - 1);
+    let zoneX = x - zoneW / 2;
+    svg += `<rect x="${zoneX}" y="0" width="${zoneW}" height="${h}" class="hover-zone" data-idx="${i}" />`;
+  });
+
+  svg += `</svg>`;
+
+  const tooltip = document.createElement("div");
+  tooltip.className = "progress-tooltip";
+  tooltip.id = "progressTooltip";
+
+  wrapper.innerHTML = svg;
+  wrapper.appendChild(tooltip);
+
+  // Bind Interactions
+  const zones = wrapper.querySelectorAll(".hover-zone");
+  const activeLine = wrapper.querySelector("#progressActiveLine");
+
+  zones.forEach((zone) => {
+    zone.addEventListener("mouseenter", (e) => handleHover(e.target));
+    zone.addEventListener(
+      "touchstart",
+      (e) => {
+        // Only prevent default if we want to stop scroll, but let's just trigger hover
+        handleHover(e.target);
+      },
+      { passive: true },
+    );
+  });
+
+  wrapper.addEventListener("mouseleave", () => {
+    tooltip.style.opacity = 0;
+    activeLine.style.opacity = 0;
+  });
+
+  function handleHover(target) {
+    const idx = parseInt(target.getAttribute("data-idx"));
+    const d = data[idx];
+    const x = getX(idx);
+
+    activeLine.setAttribute("x1", x);
+    activeLine.setAttribute("x2", x);
+    activeLine.style.opacity = 1;
+
+    tooltip.innerHTML = `
+      <div class="tooltip-week">${d.week}</div>
+      <div class="tooltip-row"><span style="color:${colors.wealth}">الثروة</span> <span>${d.wealth}%</span></div>
+      <div class="tooltip-row"><span style="color:${colors.priv}">الامتيازات</span> <span>${d.priv}%</span></div>
+      <div class="tooltip-row"><span style="color:${colors.conn}">الاتصالات</span> <span>${d.conn}%</span></div>
+    `;
+
+    let percX = (x / w) * 100;
+    // Keep tooltip within bounds for edges
+    if (idx === 0) percX += 15;
+    if (idx === data.length - 1) percX -= 15;
+
+    tooltip.style.left = `calc(${percX}%)`;
+    tooltip.style.top = `10px`;
+    tooltip.style.opacity = 1;
+  }
+}
+
+// FOR TESTING REAL-TIME D3 UPDATES
+window.testRadarUpdate = () => {
+  ClubState.member.wealthIndexValue = Math.floor(Math.random() * 100);
+  ClubState.member.privilegesValue = Math.floor(Math.random() * 100);
+  ClubState.member.connectionsValue = Math.floor(Math.random() * 100);
+};
+function updateCreditsUI() {
+  const creditsText = document.getElementById("clubCreditsText");
+  const buyBtn = document.getElementById("clubCreditsBuyBtn");
+  if (!creditsText) return;
+
+  const currentCredits = ClubState.chatCredits !== undefined ? ClubState.chatCredits : 10;
+  const maxCredits = 10;
+  
+  if (currentCredits <= 0) {
+    creditsText.textContent = `الرسائل المتبقية اليوم: ${currentCredits} / ${maxCredits}`;
+    creditsText.style.color = "#d9534f";
+    if (buyBtn) buyBtn.style.display = "inline-block";
+  } else {
+    creditsText.textContent = `الرسائل المتبقية اليوم: ${currentCredits} / ${maxCredits}`;
+    creditsText.style.color = "inherit";
+    if (buyBtn) buyBtn.style.display = "inline-block";
+  }
+}
+function renderClubMessages() {
+  console.log("renderClubMessages placeholder called");
+}
+const CLUB_MEMBERS = [
+  { id: "1001", name: "ALEXANDER W.", tier: "SOVEREIGN EXARCH", msgId: "msg-1", content: "Great investment opportunity in the new fund." },
+  { id: "1002", name: "SARAH V.", tier: "SOVEREIGN LUMINARY", msgId: "msg-2", content: "I agree, looking into the details now." },
+  { id: "1003", name: "MICHAEL T.", tier: "SOVEREIGN MEMBER", msgId: "msg-3", content: "When is the next global meetup?" }
+];
+
+let typingTimeout = null;
+function setTypingIndicator(member) {
+  console.log("Typing indicator for:", member.name);
+}
+
+
+function playPurchaseAnimation() {
+  const flash = document.createElement("div");
+  flash.style.position = "fixed";
+  flash.style.inset = "0";
+  flash.style.background = "radial-gradient(circle at center, rgba(212,175,106,0.25), transparent)";
+  flash.style.pointerEvents = "none";
+  flash.style.zIndex = "9999";
+  flash.style.transition = "opacity 0.8s ease-out";
+  document.body.appendChild(flash);
+  setTimeout(() => { flash.style.opacity = "0"; }, 50);
+  setTimeout(() => { flash.remove(); }, 850);
+}

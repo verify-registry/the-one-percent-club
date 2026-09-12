@@ -423,7 +423,7 @@ input {
   margin-bottom: 4px;
   padding: 0 4px;
 }
-.membership-card .card-club-name {
+#club-tab .membership-card .card-club-name {
   font-family: var(--font-display);
   font-size: 9.5px;
   letter-spacing: 0.28em;
@@ -556,7 +556,7 @@ input {
 }
 @keyframes halo-breathe {
   0%,
-  100% {
+100% {
     box-shadow:
       0 0 0 2px rgba(20, 13, 3, 0.97),
       0 0 18px 3px rgba(212, 175, 106, 0.26),
@@ -565,7 +565,7 @@ input {
       inset -2px -3px 6px rgba(0, 0, 0, 0.7),
       inset 0 0 12px 4px rgba(0, 0, 0, 0.55);
   }
-  50% {
+50% {
     box-shadow:
       0 0 0 2px rgba(20, 13, 3, 0.97),
       0 0 28px 6px rgba(247, 231, 185, 0.42),
@@ -815,11 +815,11 @@ input {
 }
 @keyframes core-pulse {
   0%,
-  100% {
+100% {
     opacity: 0.85;
     transform: scale(0.98);
   }
-  50% {
+50% {
     opacity: 1;
     transform: scale(1.02);
   }
@@ -997,12 +997,12 @@ input {
   opacity: 1;
 }
 /* ========================================================= INFO PANEL ========================================================= */
-.info-panel {
+#page-member .info-panel {
   border: 1px solid var(--hairline);
   border-radius: 14px;
   overflow: hidden;
 }
-.info-row {
+#page-member .info-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1010,23 +1010,23 @@ input {
   border-bottom: 1px solid var(--hairline);
   font-size: 12px;
 }
-.info-row:last-child {
+#page-member .info-row:last-child {
   border-bottom: none;
 }
-.info-label {
+#page-member .info-label {
   letter-spacing: 0.02em;
   color: #948c7c;
 }
-.info-value {
+#page-member .info-value {
   color: #ede7d8;
   font-weight: 500;
   text-align: left;
 }
-.status-active {
+#page-member .status-active {
   color: #7fbe8c;
 }
 /* ========================================================= CLUB SCREEN — WHATSAPP-STYLE LUXURY CHAT ========================================================= */ /* Club page: full flex layout, NO page-level scroll — only messages scroll */
-#page-club.is-active {
+#club-tab #page-club.is-active {
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
@@ -1036,7 +1036,7 @@ input {
   padding-bottom: 0;
   gap: 0;
 }
-.club-pinned {
+#club-tab .club-pinned {
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1051,19 +1051,19 @@ input {
     0 4px 12px rgba(0, 0, 0, 0.5),
     inset 0 1px 1px rgba(255, 255, 255, 0.03);
 }
-.club-pinned-title {
+#club-tab .club-pinned-title {
   font-size: 13px;
   color: var(--gold-pale);
   font-weight: 600;
   letter-spacing: 0.02em;
   margin-bottom: 2px;
 }
-.club-pinned-sub {
+#club-tab .club-pinned-sub {
   font-size: 11px;
   color: #948c7c;
   margin-top: 0;
 }
-.club-messages {
+#club-tab .club-messages {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -1235,7 +1235,7 @@ input {
   height: 9px;
 }
 /* Credits display & Composer */
-.club-composer-wrap {
+#club-tab .club-composer-wrap {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -1243,7 +1243,7 @@ input {
   padding: 6px 0 2px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
-.club-credits-display {
+#club-tab .club-credits-display {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1252,12 +1252,12 @@ input {
   border-radius: 9px;
   background: rgba(8, 6, 2, 0.7);
 }
-#clubCreditsText {
+#club-tab #clubCreditsText {
   font-size: 10px;
   color: #a09b8c;
   letter-spacing: 0.02em;
 }
-.club-credits-buy {
+#club-tab .club-credits-buy {
   font-size: 9px;
   color: var(--gold-champagne);
   border: 1px solid transparent;
@@ -1266,7 +1266,7 @@ input {
   letter-spacing: 0.04em;
   position: relative;
 }
-.club-credits-buy::after {
+#club-tab .club-credits-buy::after {
   content: "";
   position: absolute;
   inset: -1px;
@@ -1280,7 +1280,7 @@ input {
   mask-composite: exclude;
   pointer-events: none;
 }
-.club-composer {
+#club-tab .club-composer {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1293,7 +1293,7 @@ input {
     0 2px 10px rgba(0, 0, 0, 0.4);
   direction: ltr;
 }
-.club-composer input {
+#club-tab .club-composer input {
   flex: 1;
   background: none;
   border: none;
@@ -1303,10 +1303,10 @@ input {
   direction: auto;
   text-align: start;
 }
-.club-composer input::placeholder {
+#club-tab .club-composer input::placeholder {
   color: #6e695d;
 }
-.club-send {
+#club-tab .club-send {
   width: 32px;
   height: 32px;
   flex-shrink: 0;
@@ -1324,7 +1324,7 @@ input {
   transition: transform 0.15s ease;
   position: relative;
 }
-.club-send::after {
+#club-tab .club-send::after {
   content: "";
   position: absolute;
   inset: -1px;
@@ -1338,19 +1338,19 @@ input {
   mask-composite: exclude;
   pointer-events: none;
 }
-.club-send:active {
+#club-tab .club-send:active {
   transform: scale(0.92);
 }
-.club-send svg {
+#club-tab .club-send svg {
   width: 14px;
   height: 14px;
 }
 /* Credits exhausted state */
-.club-composer input:disabled {
+#club-tab .club-composer input:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
-.club-send:disabled {
+#club-tab .club-send:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
@@ -1391,7 +1391,7 @@ input {
   margin-top: 4px;
 }
 /* ========================================================= BOUTIQUE ========================================================= */
-.boutique-balance {
+#boutique-tab .boutique-balance {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1402,19 +1402,19 @@ input {
   width: 100%;
   box-sizing: border-box;
 }
-.boutique-balance-icon svg {
+#boutique-tab .boutique-balance-icon svg {
   width: 22px;
   height: 22px;
   display: block;
 }
-.boutique-balance-value {
+#boutique-tab .boutique-balance-value {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 16px;
   color: var(--gold-champagne);
   letter-spacing: 0.05em;
 }
-.boutique-balance-add {
+#boutique-tab .boutique-balance-add {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -1428,24 +1428,24 @@ input {
   position: relative;
 }
 @keyframes pulseGoldAlert {
-  0% {
+0% {
     box-shadow: 0 0 0 0 rgba(212, 175, 106, 0.4);
   }
-  70% {
+70% {
     box-shadow: 0 0 0 10px rgba(212, 175, 106, 0);
   }
-  100% {
+100% {
     box-shadow: 0 0 0 0 rgba(212, 175, 106, 0);
   }
 }
-.boutique-balance-add.needs-balance {
+#boutique-tab .boutique-balance-add.needs-balance {
   animation: pulseGoldAlert 2s infinite;
   border-color: var(--gold-champagne);
   color: var(--oled-black);
   background: var(--gold-champagne);
 }
 
-.boutique-tabs {
+#boutique-tab .boutique-tabs {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -1466,13 +1466,13 @@ input {
   box-sizing: border-box;
   min-height: 40px;
 }
-.boutique-tabs::after {
+#boutique-tab .boutique-tabs::after {
   display: none;
 }
-.boutique-tabs::-webkit-scrollbar {
+#boutique-tab .boutique-tabs::-webkit-scrollbar {
   display: none;
 }
-.boutique-tab {
+#boutique-tab .boutique-tab {
   flex: 0 0 auto;
   background: transparent;
   border: none;
@@ -1489,13 +1489,13 @@ input {
   align-items: center;
   justify-content: center;
 }
-.boutique-tab:active {
+#boutique-tab .boutique-tab:active {
   transform: translateY(2px);
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.8),
     inset 0 2px 4px rgba(0, 0, 0, 0.5);
 }
-.boutique-tab.is-active {
+#boutique-tab .boutique-tab.is-active {
   background: rgba(212, 175, 106, 0.15);
   color: #c8a951;
   box-shadow: inset 0 1px 2px rgba(212, 175, 106, 0.1);
@@ -1504,16 +1504,16 @@ input {
   transform: none;
   text-shadow: none;
 }
-.boutique-tab.is-active:active {
+#boutique-tab .boutique-tab.is-active:active {
   transform: scale(0.97);
 }
-.boutique-tab.is-active::after {
+#boutique-tab .boutique-tab.is-active::after {
   display: none;
 }
-.boutique-section {
+#boutique-tab .boutique-section {
   margin-top: 4px;
 }
-.boutique-section-head {
+#boutique-tab .boutique-section-head {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1523,24 +1523,24 @@ input {
   text-align: right;
   gap: 6px;
 }
-.boutique-section-head h3 {
+#boutique-tab .boutique-section-head h3 {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 16px;
   color: #f1eada;
 }
-.boutique-section-sub {
+#boutique-tab .boutique-section-sub {
   font-size: 11px;
   color: #8a8172;
   direction: rtl;
   unicode-bidi: isolate;
 }
-.boutique-grid {
+#boutique-tab .boutique-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-.boutique-card {
+#boutique-tab .boutique-card {
   position: relative;
   border: 1px solid var(--hairline);
   border-radius: 14px;
@@ -1553,10 +1553,10 @@ input {
   background: linear-gradient(160deg, #181510, #0a0906);
   box-shadow: inset 0 0 15px rgba(212, 175, 106, 0.02);
 }
-.boutique-card.is-owned {
+#boutique-tab .boutique-card.is-owned {
   border-color: rgba(212, 175, 106, 0.4);
 }
-.boutique-card.is-equipped {
+#boutique-tab .boutique-card.is-equipped {
   border-color: rgba(212, 175, 106, 0.7);
   background: linear-gradient(
     160deg,
@@ -1604,7 +1604,7 @@ input {
   color: #7fbe8c;
   border-color: rgba(127, 190, 140, 0.5);
 }
-.boutique-card-icon {
+#boutique-tab .boutique-card-icon {
   margin: 10px 0 6px;
   display: flex;
   align-items: center;
@@ -1618,12 +1618,12 @@ input {
   );
   border-radius: 50%;
 }
-.boutique-card-icon img {
+#boutique-tab .boutique-card-icon img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.boutique-card-fallback {
+#boutique-tab .boutique-card-fallback {
   border: 1px solid rgba(212, 175, 106, 0.2);
   border-radius: 14px;
   width: 56px;
@@ -1635,18 +1635,18 @@ input {
   background: transparent;
   box-shadow: inset 0 1px 3px rgba(212, 175, 106, 0.1);
 }
-.boutique-card-fallback svg {
+#boutique-tab .boutique-card-fallback svg {
   width: 34px !important;
   height: 34px !important;
 }
-.boutique-card-name {
+#boutique-tab .boutique-card-name {
   font-size: 12px;
   margin-top: 8px;
   font-weight: 600;
   color: #f1eada;
   line-height: 1.3;
 }
-.boutique-card-price {
+#boutique-tab .boutique-card-price {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1656,14 +1656,14 @@ input {
   color: var(--gold-champagne);
   margin-top: 2px;
 }
-.boutique-card-price svg {
+#boutique-tab .boutique-card-price svg {
   width: 11px;
   height: 11px;
 }
-.boutique-card-price.is-free {
+#boutique-tab .boutique-card-price.is-free {
   color: #7fbe8c;
 }
-.boutique-own-btn {
+#boutique-tab .boutique-own-btn {
   margin-top: 6px;
   width: 100%;
   padding: 7px;
@@ -1674,7 +1674,7 @@ input {
   color: var(--gold-champagne);
   position: relative;
 }
-.boutique-own-btn::after {
+#boutique-tab .boutique-own-btn::after {
   content: "";
   position: absolute;
   inset: -1px;
@@ -1688,23 +1688,23 @@ input {
   mask-composite: exclude;
   pointer-events: none;
 }
-.boutique-own-btn:active {
+#boutique-tab .boutique-own-btn:active {
   background: rgba(199, 154, 62, 0.1);
 }
-.boutique-own-btn.btn-owned {
+#boutique-tab .boutique-own-btn.btn-owned {
   color: #948c7c;
   border-color: var(--hairline);
 }
-.boutique-own-btn.btn-equip {
+#boutique-tab .boutique-own-btn.btn-equip {
   color: var(--gold-pale);
   border-color: rgba(212, 175, 106, 0.5);
   background: rgba(120, 90, 20, 0.15);
 }
-.boutique-own-btn.btn-equipped {
+#boutique-tab .boutique-own-btn.btn-equipped {
   color: #7fbe8c;
   border-color: rgba(127, 190, 140, 0.4);
 }
-.boutique-own-btn.btn-free {
+#boutique-tab .boutique-own-btn.btn-free {
   color: #7fbe8c;
   border-color: rgba(127, 190, 140, 0.4);
 }
@@ -2062,14 +2062,14 @@ input {
   color: #7fbe8c;
 }
 /* ========================================================= PROFILE SCREEN ========================================================= */
-.profile-head {
+#profile-tab .profile-head {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 6px;
 }
-.profile-portrait-wrap {
+#profile-tab .profile-portrait-wrap {
   position: relative;
   width: 120px;
   margin-bottom: 6px;
@@ -2204,46 +2204,46 @@ input {
 }
 /* ── 360–380px (smallest Android) ───────────────── */
 @media (max-width: 380px) {
-  .app-main {
+.app-main {
     padding-left: 10px;
     padding-right: 10px;
   }
-  .page {
+.page {
     gap: 8px;
   }
-  .membership-card {
+.membership-card {
     padding: 4px;
     margin-left: 1px;
     margin-right: 1px;
   }
-  .membership-card .portrait-wrap {
+.membership-card .portrait-wrap {
     width: 140px;
     height: 148px;
   }
-  .portrait-ring {
+.portrait-ring {
     width: 110px;
     height: 110px;
   }
-  .membership-card .bezel-ticks {
+.membership-card .bezel-ticks {
     width: 148px;
     height: 148px;
   }
-  .member-name {
+.member-name {
     font-size: 21px;
   }
-  .member-number {
+.member-number {
     font-size: 12.5px;
   }
-  .member-quote {
+.member-quote {
     font-size: 10px;
     max-width: 195px;
   }
-  .membership-card .corner {
+.membership-card .corner {
     width: 24px;
     height: 24px;
   }
 
-  .boutique-tabs {
+#boutique-tab .boutique-tabs {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -2264,48 +2264,48 @@ input {
     box-sizing: border-box;
     min-height: 40px;
   }
-  .boutique-tabs::after {
+#boutique-tab .boutique-tabs::after {
     display: none;
   }
-  .identity-metrics {
+.identity-metrics {
     gap: 6px;
   }
-  .membership-card .metric-ring {
+.membership-card .metric-ring {
     padding: 6px 4px 5px;
   }
-  .membership-card .ring-svg {
+.membership-card .ring-svg {
     width: 40px;
     height: 40px;
   }
-  .membership-card .ring-center {
+.membership-card .ring-center {
     height: 40px;
     top: 6px;
   }
-  .membership-card .ring-value {
+.membership-card .ring-value {
     font-size: 10.5px;
   }
-  .membership-card .ring-label {
+.membership-card .ring-label {
     font-size: 7px;
   }
-  .card-actions {
+.card-actions {
     gap: 6px;
   }
-  .btn {
+.btn {
     padding: 6px 8px;
     font-size: 8.5px;
     gap: 4px;
   }
-  .btn svg {
+.btn svg {
     width: 11px;
     height: 11px;
   }
-  .boutique-grid {
+#boutique-tab .boutique-grid {
     gap: 8px;
   }
-  .boutique-balance-value {
+#boutique-tab .boutique-balance-value {
     font-size: 12px;
   }
-  .boutique-card {
+#boutique-tab .boutique-card {
     position: relative;
     border: 1px solid var(--hairline);
     border-radius: 14px;
@@ -2318,7 +2318,7 @@ input {
     background: linear-gradient(160deg, #181510, #0a0906);
     box-shadow: inset 0 0 15px rgba(212, 175, 106, 0.02);
   }
-  .boutique-card-icon {
+#boutique-tab .boutique-card-icon {
     margin: 10px 0 6px;
     display: flex;
     align-items: center;
@@ -2332,72 +2332,72 @@ input {
     );
     border-radius: 50%;
   }
-  .info-row {
+#page-member .info-row {
     padding: 10px 12px;
     font-size: 11.5px;
   }
-  .club-credits-display {
+#club-tab .club-credits-display {
     padding: 4px 10px;
   }
-  #clubCreditsText {
+#club-tab #clubCreditsText {
     font-size: 9.5px;
   }
 }
 /* ── 360px specifically ──────────────────────────── */
 @media (max-width: 365px) {
-  .member-name {
+.member-name {
     font-size: 20px;
   }
-  .member-number {
+.member-number {
     font-size: 12px;
   }
-  .tier-pill {
+.tier-pill {
     font-size: 9px;
     padding: 4px 9px;
   }
-  .member-quote {
+.member-quote {
     max-width: 186px;
     font-size: 9.5px;
   }
-  .membership-card .card-top-bar {
+.membership-card .card-top-bar {
     margin-bottom: 7px;
   }
-  .membership-card .portrait-wrap {
+.membership-card .portrait-wrap {
     width: 134px;
     height: 142px;
   }
-  .portrait-ring {
+.portrait-ring {
     width: 106px;
     height: 106px;
   }
-  .membership-card .bezel-ticks {
+.membership-card .bezel-ticks {
     width: 142px;
     height: 142px;
   }
 }
 /* ── Short screens (height < 700px) ─────────────── */
 @media (max-height: 700px) {
-  .app-header {
+.app-header {
     padding: 6px 18px 4px;
   }
-  .tagline {
+.tagline {
     margin-top: 1px;
   }
-  .section-rule {
+.section-rule {
     margin: 4px auto 3px;
   }
-  .app-main {
+.app-main {
     padding-top: 3px;
   }
 }
 @media (max-height: 670px) {
-  .member-quote {
+.member-quote {
     display: none;
   }
-  .membership-card .card-hallmark-line {
+.membership-card .card-hallmark-line {
     margin-top: 5px;
   }
-  .membership-card .card-tagline {
+.membership-card .card-tagline {
     margin-top: 5px;
   }
 }
@@ -2406,7 +2406,7 @@ input {
   .membership-card .living-core,
   .widget-living-core,
   .membership-card,
-  #membershipCard {
+#membershipCard {
     animation: none;
   }
 }
@@ -2487,7 +2487,7 @@ input {
 }
 
 /* ========================================================= CLUB ROOMS NAV ========================================================= */
-.club-rooms-nav {
+#club-tab .club-rooms-nav {
   display: flex;
   overflow-x: auto;
   gap: 8px;
@@ -2498,10 +2498,10 @@ input {
   margin-bottom: 8px;
   flex-shrink: 0;
 }
-.club-rooms-nav::-webkit-scrollbar {
+#club-tab .club-rooms-nav::-webkit-scrollbar {
   display: none;
 }
-.club-room-btn {
+#club-tab .club-room-btn {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -2516,7 +2516,7 @@ input {
   font-weight: 500;
   transition: all 0.2s ease;
 }
-.club-room-btn.is-active {
+#club-tab .club-room-btn.is-active {
   background: linear-gradient(
     135deg,
     rgba(200, 155, 60, 0.15),
@@ -2546,7 +2546,7 @@ input {
   height: 6px;
   border-radius: 50%;
 }
-.club-pinned-icon {
+#club-tab .club-pinned-icon {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -2557,11 +2557,11 @@ input {
   justify-content: center;
   flex: none;
 }
-.club-pinned-icon svg {
+#club-tab .club-pinned-icon svg {
   width: 12px;
   height: 12px;
 }
-.club-pinned-content {
+#club-tab .club-pinned-content {
   flex: 1;
   min-width: 0;
 }
@@ -2592,11 +2592,11 @@ input {
 }
 @keyframes typingBounce {
   0%,
-  100% {
+100% {
     transform: translateY(0);
     opacity: 0.4;
   }
-  50% {
+50% {
     transform: translateY(-3px);
     opacity: 1;
   }
@@ -2675,10 +2675,10 @@ input {
 }
 @keyframes floatCollectible {
   0%,
-  100% {
+100% {
     transform: translateY(0);
   }
-  50% {
+50% {
     transform: translateY(-8px);
   }
 }
@@ -2711,11 +2711,11 @@ input {
    ========================================================= */
 @keyframes core-breathing {
   0%,
-  100% {
+100% {
     filter: brightness(1) drop-shadow(0 0 4px rgba(212, 175, 106, 0.2));
     transform: scale(1);
   }
-  50% {
+50% {
     filter: brightness(1.4) drop-shadow(0 0 15px rgba(212, 175, 106, 0.6));
     transform: scale(1.02);
   }
@@ -2727,7 +2727,7 @@ input {
 /* =========================================================
    NEW PROFILE STYLES
    ========================================================= */
-.profile-head {
+#profile-tab .profile-head {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2735,7 +2735,7 @@ input {
   gap: 12px; /* Increased gap */
   margin-bottom: 24px;
 }
-.profile-portrait-wrap {
+#profile-tab .profile-portrait-wrap {
   position: relative;
   width: 140px; /* larger portrait */
   height: 140px;
@@ -2747,33 +2747,33 @@ input {
   width: 140px !important;
   height: 140px !important;
 }
-.profile-head .member-name {
+#profile-tab .profile-head .member-name {
   margin-top: 8px;
   font-size: 20px;
 }
-.profile-head .tier-pill {
+#profile-tab .profile-head .tier-pill {
   margin-top: 4px;
   padding: 4px 16px;
   background: transparent; /* No fill */
   border: 1px solid rgba(212, 175, 106, 0.4);
 }
-.profile-head .tier-pill span {
+#profile-tab .profile-head .tier-pill span {
   font-size: 10px;
   color: var(--gold-champagne);
 }
-.profile-head .member-quote {
+#profile-tab .profile-head .member-quote {
   font-size: 11px;
   margin-top: 6px;
   opacity: 0.8;
 }
 
-.profile-equipped-grid {
+#profile-tab .profile-equipped-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-bottom: 24px;
 }
-.profile-equipped-item {
+#profile-tab .profile-equipped-item {
   background: linear-gradient(160deg, #15120f, #0a0806);
   display: flex;
   flex-direction: column;
@@ -2791,11 +2791,11 @@ input {
   gap: 6px;
   transition: transform 0.2s;
 }
-.profile-equipped-item:hover {
+#profile-tab .profile-equipped-item:hover {
   border-color: rgba(212, 175, 106, 0.4);
   transform: translateY(-2px);
 }
-.profile-eq-icon {
+#profile-tab .profile-eq-icon {
   width: 32px;
   height: 32px;
   display: flex;
@@ -2808,17 +2808,17 @@ input {
   );
   border-radius: 50%;
 }
-.profile-eq-icon svg {
+#profile-tab .profile-eq-icon svg {
   width: 20px;
   height: 20px;
 }
-.profile-eq-name {
+#profile-tab .profile-eq-name {
   font-weight: 500;
   text-align: center;
   line-height: 1.2;
 }
 
-.profile-collection-section {
+#profile-tab .profile-collection-section {
   border: 1px solid rgba(212, 175, 106, 0.2);
   border-radius: 16px;
   padding: 20px;
@@ -2832,31 +2832,31 @@ input {
     inset 0 1px 1px rgba(255, 255, 255, 0.03),
     0 4px 10px rgba(0, 0, 0, 0.5);
 }
-.profile-section-head {
+#profile-tab .profile-section-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
 }
-.profile-section-head h3 {
+#profile-tab .profile-section-head h3 {
   font-family: var(--font-display);
   font-size: 16px;
   color: #f1eada;
 }
-.profile-section-head .see-all {
+#profile-tab .profile-section-head .see-all {
   font-size: 11px;
   color: var(--gold-antique);
 }
 
-.profile-collection-list {
+#profile-tab .profile-collection-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
-.profile-collection-list::-webkit-scrollbar {
+#profile-tab .profile-collection-list::-webkit-scrollbar {
   display: none;
 }
-.profile-col-item {
+#profile-tab .profile-col-item {
   background: rgba(15, 12, 10, 0.6);
   border: 1px solid rgba(212, 175, 106, 0.1);
   border-radius: 12px;
@@ -2870,21 +2870,21 @@ input {
   align-items: center;
   justify-content: center;
 }
-.profile-col-more {
+#profile-tab .profile-col-more {
   border-color: rgba(212, 175, 106, 0.05);
 }
-.profile-col-more .more-num {
+#profile-tab .profile-col-more .more-num {
   font-family: var(--font-display);
   color: var(--gold-champagne);
   font-size: 14px;
   margin-bottom: 4px;
 }
-.profile-col-more .more-text {
+#profile-tab .profile-col-more .more-text {
   font-size: 8px;
   opacity: 0.6;
 }
 
-.profile-bio-section {
+#profile-tab .profile-bio-section {
   border: 1px solid rgba(212, 175, 106, 0.2);
   border-radius: 16px;
   padding: 24px;
@@ -2898,14 +2898,14 @@ input {
     inset 0 1px 1px rgba(255, 255, 255, 0.03),
     0 4px 10px rgba(0, 0, 0, 0.5);
 }
-.profile-bio-section .bio-title {
+#profile-tab .profile-bio-section .bio-title {
   font-family: var(--font-display);
   font-size: 16px;
   margin-top: 0;
   color: #f1eada;
   margin-bottom: 16px;
 }
-.profile-bio-section .bio-content {
+#profile-tab .profile-bio-section .bio-content {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -2919,12 +2919,12 @@ input {
   font-size: 12px;
 }
 
-.profile-actions-row {
+#profile-tab .profile-actions-row {
   display: flex;
   gap: 12px;
   margin-bottom: 32px;
 }
-.profile-action-btn {
+#profile-tab .profile-action-btn {
   flex: 1;
   background: transparent;
   border: 1px solid rgba(212, 175, 106, 0.3);
@@ -2939,21 +2939,21 @@ input {
   font-family: inherit;
   transition: all 0.2s ease;
 }
-.profile-action-btn svg {
+#profile-tab .profile-action-btn svg {
   width: 14px;
   height: 14px;
 }
-.profile-action-btn:active {
+#profile-tab .profile-action-btn:active {
   background: rgba(212, 175, 106, 0.1);
 }
 
 .boutique-card-fallback svg path,
 .boutique-card-fallback svg circle,
-.boutique-card-fallback svg rect {
+#boutique-tab .boutique-card-fallback svg rect {
   stroke: #c79a3e !important;
 }
 .boutique-card-fallback svg [fill="url(#ringGoldGrad)"],
-.boutique-card-fallback svg [fill="#C79A3E"] {
+#boutique-tab .boutique-card-fallback svg [fill="#C79A3E"] {
   fill: #c79a3e !important;
   stroke: none !important;
 }
@@ -3039,7 +3039,7 @@ input {
 }
 
 /* Profile Collection Dynamic Items */
-.profile-col-item {
+#profile-tab .profile-col-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3051,25 +3051,25 @@ input {
   padding: 12px;
   text-align: center;
 }
-.profile-col-item-icon {
+#profile-tab .profile-col-item-icon {
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.profile-col-item-icon svg {
+#profile-tab .profile-col-item-icon svg {
   width: 24px;
   height: 24px;
 }
-.profile-col-item-name {
+#profile-tab .profile-col-item-name {
   font-size: 11px;
   color: #d9cba3;
   line-height: 1.2;
 }
 
 /* Empty State */
-.profile-collection-list.is-empty {
+#profile-tab .profile-collection-list.is-empty {
   display: flex;
   grid-template-columns: 1fr;
   padding: 24px 0;
@@ -3199,10 +3199,10 @@ input {
 }
 @keyframes pulseHint {
   0%,
-  100% {
+100% {
     opacity: 0.5;
   }
-  50% {
+50% {
     opacity: 1;
   }
 }
@@ -3235,11 +3235,11 @@ input {
   animation: pulseProgressReady 3s infinite alternate;
 }
 @keyframes pulseProgressReady {
-  0% {
+0% {
     box-shadow: 0 0 3px rgba(212, 175, 106, 0.4);
     opacity: 0.8;
   }
-  100% {
+100% {
     box-shadow:
       0 0 8px rgba(212, 175, 106, 0.9),
       0 0 12px rgba(255, 244, 208, 0.4);
@@ -3284,7 +3284,7 @@ input {
 }
 @media (max-width: 768px) {
   /* On mobile, make it always slightly visible */
-  .chat-add-reaction-btn {
+.chat-add-reaction-btn {
     opacity: 0.6;
     transform: translateY(0);
   }
@@ -3304,11 +3304,11 @@ input {
   animation: popReactionMenu 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 @keyframes popReactionMenu {
-  from {
+from {
     opacity: 0;
     transform: scale(0.8) translateY(10px);
   }
-  to {
+to {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
@@ -3348,24 +3348,24 @@ input {
   animation: popBadge 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 @keyframes popBadge {
-  0% {
+0% {
     transform: scale(0);
   }
-  70% {
+70% {
     transform: scale(1.1);
   }
-  100% {
+100% {
     transform: scale(1);
   }
 }
 
 /* ========================================================= BOUTIQUE FILTERS ========================================================= */
-.boutique-filters-row {
+#boutique-tab .boutique-filters-row {
   display: flex;
   justify-content: center;
   margin: -4px 0 20px 0;
 }
-.boutique-ownership-toggle {
+#boutique-tab .boutique-ownership-toggle {
   display: flex;
   background: rgba(10, 8, 5, 0.6);
   border: 1px solid rgba(212, 175, 106, 0.15);
@@ -3392,7 +3392,7 @@ input {
   box-shadow: inset 0 1px 2px rgba(212, 175, 106, 0.1);
 }
 
-#profileName {
+#profile-tab #profileName {
   font-size: 24px;
   letter-spacing: 0.05em;
   background: linear-gradient(180deg, #f1eada 0%, #d9cba3 100%);
@@ -3400,7 +3400,7 @@ input {
   -webkit-text-fill-color: transparent;
   margin-bottom: 4px;
 }
-#profileTierPill {
+#profile-tab #profileTierPill {
   background: rgba(212, 175, 106, 0.1);
   border: 1px solid rgba(212, 175, 106, 0.4);
   color: #e9c877;
@@ -3413,22 +3413,22 @@ input {
 }
 /* Skeleton Loading Animation */
 @keyframes shimmer {
-  0% {
+0% {
     background-position: -200% 0;
   }
-  100% {
+100% {
     background-position: 200% 0;
   }
 }
 
-.boutique-skeleton-grid {
+#boutique-tab .boutique-skeleton-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   width: 100%;
 }
 
-.boutique-skeleton-card {
+#boutique-tab .boutique-skeleton-card {
   position: relative;
   border: 1px solid rgba(212, 175, 106, 0.05);
   border-radius: 14px;
@@ -3442,7 +3442,7 @@ input {
 }
 
 /* Shimmer overlay */
-.boutique-skeleton-card::before {
+#boutique-tab .boutique-skeleton-card::before {
   content: "";
   position: absolute;
   top: 0;
@@ -3487,4 +3487,159 @@ input {
   height: 26px;
   margin-top: 6px;
   border-radius: 8px;
+}
+
+/* =========================================================
+   PAGE PROFILE - DOSSIER LAYOUT
+   ========================================================= */
+
+
+
+@media (max-width: 380px) {
+  
+}
+
+/* =========================================================
+   PAGE PROFILE - DOSSIER LAYOUT
+   ========================================================= */
+#profile-tab #page-profile {
+  margin: -5px -16px -80px;
+  padding: 24px 16px 100px;
+  background-color: #050403;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 106, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(20, 16, 12, 0.8) 0%, rgba(5, 4, 3, 1) 100%);
+  position: relative;
+  min-height: calc(100vh - 60px);
+  z-index: 1;
+}
+
+#profile-tab #page-profile::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(212, 175, 106, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 106, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
+  pointer-events: none;
+  z-index: -1;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 40%);
+}
+
+#profile-tab #page-profile::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 16px; right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 106, 0.3), transparent);
+  pointer-events: none;
+}
+
+@media (max-width: 380px) {
+#profile-tab #page-profile {
+    margin: -5px -10px -80px;
+    padding: 24px 10px 100px;
+  }
+}
+
+/* Override max-width for profile to allow negative margins to work correctly */
+#profile-tab #page-profile {
+  max-width: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+}
+
+/* 2. Profile Portrait Design */
+#profile-tab .profile-portrait-wrap {
+  perspective: 800px; /* For 3D tilt */
+  transform-style: preserve-3d;
+}
+
+#profile-tab .portrait-ring.lg {
+  background: linear-gradient(135deg, rgba(212,175,106,1) 0%, rgba(166,124,53,1) 50%, rgba(255,235,170,1) 100%);
+  border-radius: 50%;
+  padding: 3px;
+  box-shadow: 0 0 20px rgba(212, 175, 106, 0.2), inset 0 0 15px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* For image */
+  position: relative;
+}
+
+#profile-tab .portrait-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #0f0c0a;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.9);
+}
+
+/* 3. RTL for Bio and Quotes */
+#profile-tab .profile-bio-section .bio-content,
+#profile-tab #profileQuote {
+  direction: rtl !important;
+  text-align: right !important;
+  unicode-bidi: isolate !important;
+}
+
+/* 4. Collectibles Cards Aesthetics */
+#profile-tab .profile-col-item {
+  min-height: 130px;
+  background: linear-gradient(145deg, rgba(35, 30, 25, 0.9), rgba(15, 12, 10, 0.95));
+  border: 1px solid rgba(212, 175, 106, 0.25);
+  box-shadow: inset 0 0 12px rgba(212, 175, 106, 0.05), 0 4px 12px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#profile-tab .profile-col-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(212, 175, 106, 0.5);
+  box-shadow: inset 0 0 15px rgba(212, 175, 106, 0.1), 0 8px 16px rgba(0, 0, 0, 0.8);
+}
+
+#profile-tab .profile-collection-list.is-empty .empty-dossier {
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(35, 30, 25, 0.9), rgba(15, 12, 10, 0.95));
+  border: 1px solid rgba(212, 175, 106, 0.25);
+  border-radius: 12px;
+  box-shadow: inset 0 0 12px rgba(212, 175, 106, 0.05);
+  color: rgba(212, 175, 106, 0.5);
+  font-size: 13px;
+  direction: rtl;
+}
+
+/* Additional Collectibles Enhancements */
+#profile-tab .profile-equipped-item {
+  min-height: 130px;
+  background: linear-gradient(145deg, rgba(35, 30, 25, 0.9), rgba(15, 12, 10, 0.95));
+  border: 1px solid rgba(212, 175, 106, 0.25);
+  box-shadow: inset 0 0 12px rgba(212, 175, 106, 0.05), 0 4px 12px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+}
+
+#profile-tab .profile-equipped-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(212, 175, 106, 0.5);
+  box-shadow: inset 0 0 15px rgba(212, 175, 106, 0.1), 0 8px 16px rgba(0, 0, 0, 0.8);
 }
