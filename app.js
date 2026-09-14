@@ -13,6 +13,46 @@ const EQUIP_CATEGORIES = {
   auras: "equippedAuraSlot",
   jewelry: "equippedRingSlot"
 };
+
+const ACHIEVEMENTS_DATA = {
+  'initiate': {
+    name: 'THE INITIATE',
+    title: 'FIRST STEP',
+    desc: 'Boutique threshold: 1 Artifact or $5,000 spent.',
+    icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C9.24 2 7 4.24 7 7C7 9.38 8.67 11.37 10.9 11.87L10 22H14L13.1 11.87C15.33 11.37 17 9.38 17 7C17 4.24 14.76 2 12 2ZM12 8.5C11.17 8.5 10.5 7.83 10.5 7C10.5 6.17 11.17 5.5 12 5.5C12.83 5.5 13.5 6.17 13.5 7C13.5 7.83 12.83 8.5 12 8.5Z" fill="currentColor"/></svg>',
+    isUnlocked: () => Object.keys(ClubState.owned).length >= 1 || (ClubState.totalSpent || 0) >= 5000,
+    target: 5000,
+    progress: () => Math.max(Object.keys(ClubState.owned).length ? 5000 : 0, ClubState.totalSpent || 0)
+  },
+  'connoisseur': {
+    name: 'THE CONNOISSEUR',
+    title: 'COLLECTOR',
+    desc: 'Boutique threshold: 3 Artifacts or $25,000 spent.',
+    icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 9L12 22L22 9L12 2ZM12 5.82L17.18 9L12 18.02L6.82 9L12 5.82Z" fill="currentColor"/></svg>',
+    isUnlocked: () => Object.keys(ClubState.owned).length >= 3 || (ClubState.totalSpent || 0) >= 25000,
+    target: 25000,
+    progress: () => Math.max(Object.keys(ClubState.owned).length >= 3 ? 25000 : 0, ClubState.totalSpent || 0)
+  },
+  'high_sovereign': {
+    name: 'HIGH SOVEREIGN',
+    title: 'ELITE STATUS',
+    desc: 'Boutique threshold: $50,000 cumulative spend.',
+    icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.5 2 5 4 5 9C5 12.5 7 16 12 21C17 16 19 12.5 19 9C19 4 15.5 2 12 2ZM12 17.5C8.5 13.5 7 11 7 9C7 5.5 9.5 4 12 4C14.5 4 17 5.5 17 9C17 11 15.5 13.5 12 17.5Z" fill="currentColor"/><circle cx="12" cy="9" r="3" fill="currentColor"/></svg>',
+    isUnlocked: () => (ClubState.totalSpent || 0) >= 50000,
+    target: 50000,
+    progress: () => ClubState.totalSpent || 0
+  },
+  'apex_titan': {
+    name: 'THE APEX TITAN',
+    title: 'MAXIMUM PRESTIGE',
+    desc: 'Boutique threshold: $100,000 cumulative spend.',
+    icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z" fill="currentColor"/><rect x="3" y="19" width="18" height="2" fill="currentColor"/></svg>',
+    isUnlocked: () => (ClubState.totalSpent || 0) >= 100000,
+    target: 100000,
+    progress: () => ClubState.totalSpent || 0
+  }
+};
+
 const BOUTIQUE = {
   stars: { title: "النجوم", items: [
     { id: "star1", name: "نجمة النخبة", icon: "star", rarity: 1, price: 1000, lore: "نجمة ماسية" },
@@ -40,30 +80,57 @@ const BOUTIQUE = {
 };
 
 // ==========================================
-// ECONOMY & STATE LOGIC
+// ECONOMY & STATE LOGIC (CENTRALIZED REACTIVE STATE)
 // ==========================================
-const ClubState = {
-  member: {
-  id: "3426",
-  name: "ISMAIL ELSAYED",
-  tier: "SOVEREIGN MEMBER",
-  quote: "Not everyone understands wealth. That's why we have this Club.",
-  joined: "AUG 2026",
-  wealthIndex: "98%",
-  location: "ALEXANDRIA",
-  email: "ism6il.x@gmail.com",
-  phone: "+20 12 345 6789",
-  interests: "DESIGN · CRAFT · TECHNOLOGY",
-  status: "ACTIVE",
-  wealthIndexValue: 92,
-  privilegesValue: 84,
-  connectionsValue: 75,
-  verifyUrl: "https://1percent.club/verify/3426",
-},
+const AppState = {
+  user: {
+    id: "3426",
+    name: "ISMAIL ELSAYED",
+    username: "ISMAIL ELSAYED",
+    tier: "SOVEREIGN MEMBER",
+    quote: "Not everyone understands wealth. That's why we have this Club.",
+    joined: "AUG 2026",
+    est: "EST. 2026",
+    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+    wealthIndex: "98%",
+    location: "ALEXANDRIA",
+    email: "ism6il.x@gmail.com",
+    phone: "+20 12 345 6789",
+    interests: "DESIGN · CRAFT · TECHNOLOGY",
+    status: "ACTIVE",
+    wealthIndexValue: 92,
+    privilegesValue: 84,
+    connectionsValue: 75,
+    verifyUrl: "https://1percent.club/verify/3426",
+  },
   balance: 24750,
+  totalSpent: 0,
   owned: {},
   equipped: {},
   chatCredits: 10,
+  activeChannelId: 'global-lounge',
+  channels: {
+    'global-lounge': { name: 'صالة الأعضاء', messages: [] },
+    'wealth': { name: 'الثروة والاستثمار', messages: [] },
+    'business': { name: 'الأعمال والفرص', messages: [] },
+    'lifestyle': { name: 'أسلوب الحياة', messages: [] }
+  },
+  
+  listeners: [],
+  isNotifying: false,
+  subscribe(fn) {
+    this.listeners.push(fn);
+  },
+  notify() {
+    if (this.isNotifying) return;
+    this.isNotifying = true;
+    try {
+      this.listeners.forEach(fn => fn(this));
+      this.emit('change', this);
+    } finally {
+      this.isNotifying = false;
+    }
+  },
 
   _subscribers: {},
   on(event, callback) {
@@ -75,35 +142,55 @@ const ClubState = {
     this._subscribers[event].forEach(cb => cb(data));
   },
   
+  // Backwards compatibility for app.js references to ClubState.member
+  get member() { return this.user; },
+  set member(val) { this.user = val; },
+  get collectedItems() { return Object.keys(this.owned); },
+  
   init() {
-    const savedBalance = localStorage.getItem(`balance_${this.member.id}`);
+    const savedAvatar = localStorage.getItem('avatar_' + this.user.id);
+    if (savedAvatar) this.user.avatarUrl = savedAvatar;
+
+    const savedBalance = localStorage.getItem(`balance_${this.user.id}`);
     this.balance = savedBalance !== null ? parseInt(savedBalance, 10) : 24750;
-    const savedCredits = localStorage.getItem(`chatCredits_${this.member.id}`);
+    const savedSpent = localStorage.getItem(`spent_${this.user.id}`);
+    this.totalSpent = savedSpent !== null ? parseInt(savedSpent, 10) : 0;
+    const savedCredits = localStorage.getItem(`chatCredits_${this.user.id}`);
     this.chatCredits = savedCredits !== null ? parseInt(savedCredits, 10) : 10;
-    try { this.owned = JSON.parse(localStorage.getItem(`owned_${this.member.id}`)) || {}; } catch { this.owned = {}; }
-    try { this.equipped = JSON.parse(localStorage.getItem(`equipped_${this.member.id}`)) || {}; } catch { this.equipped = {}; }
+    try { this.owned = JSON.parse(localStorage.getItem(`owned_${this.user.id}`)) || {}; } catch { this.owned = {}; }
+    try { this.equipped = JSON.parse(localStorage.getItem(`equipped_${this.user.id}`)) || {}; } catch { this.equipped = {}; }
+    try { 
+      const savedChannels = JSON.parse(localStorage.getItem(`channels_${this.user.id}`));
+      if (savedChannels) {
+        for (const k in savedChannels) {
+          if (this.channels[k]) this.channels[k].messages = savedChannels[k].messages;
+        }
+      }
+    } catch {}
     
     try { 
-      const savedProfile = JSON.parse(localStorage.getItem(`profile_${this.member.id}`));
-      this.member.bio = this.member.bio || "عضو نشط في النادي";
-  this.member.interests = this.member.interests || "التصميم · التكنولوجيا";
-  this.member.location = this.member.location || "دبي، الإمارات";
-  this.member.username = this.member.username || "MEMBER";
-      if (savedProfile) Object.assign(this.member, savedProfile);
+      const savedProfile = JSON.parse(localStorage.getItem(`profile_${this.user.id}`));
+      this.user.bio = this.user.bio || "عضو نشط في النادي";
+      this.user.interests = this.user.interests || "التصميم · التكنولوجيا";
+      this.user.location = this.user.location || "دبي، الإمارات";
+      this.user.username = this.user.username || "MEMBER";
+      if (savedProfile) Object.assign(this.user, savedProfile);
     } catch {}
     
     this.recalculatePrestige();
   },
   
   save() {
-    localStorage.setItem(`balance_${this.member.id}`, this.balance);
-    localStorage.setItem(`chatCredits_${this.member.id}`, this.chatCredits);
-    localStorage.setItem(`owned_${this.member.id}`, JSON.stringify(this.owned));
-    localStorage.setItem(`equipped_${this.member.id}`, JSON.stringify(this.equipped));
-    localStorage.setItem(`profile_${this.member.id}`, JSON.stringify(this.member));
+    localStorage.setItem(`balance_${this.user.id}`, this.balance);
+    localStorage.setItem(`spent_${this.user.id}`, this.totalSpent);
+    localStorage.setItem(`chatCredits_${this.user.id}`, this.chatCredits);
+    localStorage.setItem(`owned_${this.user.id}`, JSON.stringify(this.owned));
+    localStorage.setItem(`equipped_${this.user.id}`, JSON.stringify(this.equipped));
+    localStorage.setItem(`channels_${this.user.id}`, JSON.stringify(this.channels));
+    localStorage.setItem(`profile_${this.user.id}`, JSON.stringify(this.user));
     if (typeof window.updateRadarChart === "function") window.updateRadarChart();
   },
-  
+
   recalculatePrestige() {
     let totalItems = 0;
     let addedWealth = 0;
@@ -140,9 +227,26 @@ const ClubState = {
   purchase(item) {
     if (this.balance >= item.price && !this.owned[item.id]) {
       this.balance -= item.price;
+      this.totalSpent = (this.totalSpent || 0) + item.price;
       this.owned[item.id] = true;
       this.recalculatePrestige();
       this.save();
+      
+      // Check for newly unlocked honors
+      Object.keys(ACHIEVEMENTS_DATA).forEach(key => {
+        const ach = ACHIEVEMENTS_DATA[key];
+        if (ach.isUnlocked()) {
+           if (window.unlockAchievement) {
+             window.unlockAchievement(key, ach.name, ach.title);
+           }
+        }
+      });
+      
+      // Emit change event for UI updates
+      if (this._subscribers['change']) {
+        this._subscribers['change'].forEach(cb => cb());
+      }
+      
       if (typeof updateUI === 'function') updateUI();
       return true;
     }
@@ -159,11 +263,17 @@ const ClubState = {
     if (typeof updateUI === 'function') updateUI();
   }
 };
-ClubState.init();
-document.addEventListener('DOMContentLoaded', () => ClubState.emit('change'));
+const ClubState = AppState;
+Object.defineProperty(AppState.user, "balance", { get: () => AppState.balance, set: (v) => AppState.balance = v });
+Object.defineProperty(AppState.user, "totalSpent", { get: () => AppState.totalSpent, set: (v) => AppState.totalSpent = v });
+Object.defineProperty(AppState.user, "memberSince", { get: () => AppState.user.joined });
+Object.defineProperty(AppState.user, "connections", { get: () => AppState.user.connectionsValue });
+Object.defineProperty(AppState.user, "collectedItems", { get: () => Object.keys(AppState.owned) });
+AppState.init();
+document.addEventListener('DOMContentLoaded', () => AppState.notify());
 
 function updateUI() {
-  ClubState.emit('change');
+  AppState.notify();
 }
 
 // ---------------------------------------------------------
@@ -171,36 +281,68 @@ function updateUI() {
 // ---------------------------------------------------------
 ClubState.on('change', () => {
 
+  // Sync Avatars Globally (Master Card, Profile Card, Widgets, etc.)
+  const avatarElements = document.querySelectorAll("#profilePortraitPhoto, #widgetAvatarPhoto, .membership-avatar");
+  avatarElements.forEach(el => {
+    if (AppState.user.avatarUrl) {
+      if (el.tagName.toLowerCase() === 'img') {
+        el.src = AppState.user.avatarUrl;
+      } else {
+        el.style.backgroundImage = `url('${AppState.user.avatarUrl}')`;
+      }
+    }
+  });
+
+  // Sync Global IDs
+  const idElements = document.querySelectorAll(".membership-id, #profileIdValue");
+  idElements.forEach(el => {
+    if (el.id === "profileIdValue") {
+      el.textContent = AppState.user.id;
+    } else {
+      el.textContent = "ID: " + AppState.user.id;
+    }
+  });
+  
+  const estElements = document.querySelectorAll(".membership-est");
+  estElements.forEach(el => {
+    el.textContent = AppState.user.est;
+  });
+
   // Sync Profile Text
   const pName = document.getElementById("profileName");
-  if (pName) pName.textContent = ClubState.member.username || ClubState.member.name;
+  if (pName) pName.textContent = AppState.user.username || AppState.user.name;
   
   const pBio = document.getElementById("profileBioValue");
-  if (pBio && ClubState.member.bio) pBio.textContent = ClubState.member.bio;
+  if (pBio && AppState.user.bio) pBio.textContent = AppState.user.bio;
   
   const pInt = document.getElementById("profileInterestsValue");
-  if (pInt && ClubState.member.interests) pInt.textContent = ClubState.member.interests;
+  if (pInt && AppState.user.interests) pInt.textContent = AppState.user.interests;
   
   const pLoc = document.getElementById("profileLocationValue");
-  if (pLoc && ClubState.member.location) pLoc.textContent = ClubState.member.location;
+  if (pLoc && AppState.user.location) pLoc.textContent = AppState.user.location;
   
   const pQuote = document.getElementById("profileQuote");
-  if (pQuote && ClubState.member.bio) pQuote.textContent = '"' + ClubState.member.bio + '"';
+  if (pQuote) pQuote.textContent = '"' + (AppState.user.quote || AppState.user.bio) + '"';
 
   const mName = document.getElementById("memberName");
-  if (mName) mName.textContent = ClubState.member.name;
+  if (mName) mName.textContent = AppState.user.name;
 
   const balEl = document.getElementById("boutiqueBalanceDisplay");
-  if (balEl) balEl.textContent = ClubState.balance.toLocaleString("en-US");
+  if (balEl) balEl.textContent = AppState.balance.toLocaleString("en-US");
   
+  // Sync Profile summary counts
+  const countEl = document.getElementById("profileItemCount");
+  if (countEl) countEl.textContent = AppState.collectedItems.length;
+
   if (typeof renderProfileCollection === "function") renderProfileCollection();
+  if (typeof renderProfileAchievements === "function") renderProfileAchievements();
   
   if (typeof renderRing === "function") {
-    renderRing("wealthRing", "wealthValue", ClubState.member.wealthIndexValue);
-    renderRing("privRing", "privValue", ClubState.member.privilegesValue);
+    renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
+    renderRing("privRing", "privValue", AppState.user.privilegesValue);
   }
   
-  if (typeof applyEquippedToCard === "function") applyEquippedToCard(ClubState.equipped);
+  if (typeof applyEquippedToCard === "function") applyEquippedToCard(AppState.equipped);
   
   const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
   if (activeBoutiqueTab && typeof renderBoutique === "function") {
@@ -647,6 +789,10 @@ const Router = {
   }
 };
 
+window.switchTab = function switchTab(tabId) {
+  Router.navigate(tabId);
+};
+
 function goToPage(tab) {
   Router.navigate(tab);
 }
@@ -726,21 +872,7 @@ document.querySelectorAll("#page-member .card-actions .btn").forEach((btn) => {
   btn.addEventListener("click", () => showNavToast("قريبًا"));
 });
 
-document.getElementById("editAccountBtn").addEventListener("click", () => {
-  document.getElementById("editName").value =
-    document.getElementById("memberName").textContent;
-  document.getElementById("editUsername").value =
-    document.getElementById("profileName").textContent;
-  document.getElementById("editBio").value =
-    document.getElementById("profileBioValue").textContent;
-  document.getElementById("editInterests").value = document.getElementById(
-    "profileInterestsValue",
-  ).textContent;
-  document.getElementById("editLocation").value = document.getElementById(
-    "profileLocationValue",
-  ).textContent;
-  openContextPage("page-edit-account", "تعديل الحساب", "profile");
-});
+
 
 document.getElementById("editAccountForm").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -758,6 +890,9 @@ document.getElementById("editAccountForm").addEventListener("submit", (e) => {
   document.getElementById("backBtn").hidden = true;
   Router.navigate("profile");
   showPremiumToast("تحديث الملف", "تم حفظ التعديلات بنجاح");
+  if (window.unlockAchievement) {
+    window.unlockAchievement('profile_updated', 'THE DOSSIER', 'Your personal identity dossier has been updated.');
+  }
 });
 
 // ---------------------------------------------------------
@@ -782,51 +917,314 @@ function showPremiumToast(title, msg) {
   );
 }
 
-// Room selection visuals
-document.querySelectorAll(".club-room-btn").forEach((btn, index) => {
-  btn.addEventListener("click", () => {
-    document
-      .querySelectorAll(".club-room-btn")
-      .forEach((b) => b.classList.remove("is-active"));
-    btn.classList.add("is-active");
-    if (window.AudioEngine) AudioEngine.playRustle();
+// ---------------------------------------------------------
+// ACHIEVEMENT TOAST & LOGIC
+// ---------------------------------------------------------
+let achievementToastTimer = null;
+window.showAchievementToast = function(title, msg) {
+  const toast = document.getElementById("achievementToast");
+  if (!toast) return;
+  document.getElementById("achToastTitle").textContent = title;
+  document.getElementById("achToastMsg").textContent = msg;
+  toast.classList.add("is-visible");
+  if (window.AudioEngine) AudioEngine.playChime();
+  clearTimeout(achievementToastTimer);
+  achievementToastTimer = setTimeout(
+    () => toast.classList.remove("is-visible"),
+    5000
+  );
+};
 
-    // Remove unread badge text when clicking to "read" it, but keep the badge structure if it's a dot
+function spawnGoldenConfetti() {
+  const particleCount = 40;
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement("div");
+    particle.className = "gold-confetti-particle";
+    
+    // Randomize starting position across the top of the screen
+    particle.style.left = Math.random() * 100 + "vw";
+    
+    // Randomize animation duration between 1.5s and 3.5s
+    const duration = Math.random() * 2 + 1.5;
+    particle.style.animationDuration = duration + "s";
+    
+    // Randomize starting rotation
+    particle.style.transform = `rotate(${Math.random() * 360}deg)`;
+    
+    // Add varying delay so they don't all fall at exactly the same time
+    particle.style.animationDelay = Math.random() * 0.5 + "s";
+    
+    // Optional: randomly size them slightly differently
+    const scale = Math.random() * 0.5 + 0.5;
+    particle.style.width = (6 * scale) + "px";
+    particle.style.height = (12 * scale) + "px";
+
+    document.body.appendChild(particle);
+
+    // Clean up after animation finishes
+    setTimeout(() => {
+      particle.remove();
+    }, (duration + 0.5) * 1000);
+  }
+}
+
+window.unlockAchievement = function(id, title, desc) {
+  let unlocked = [];
+  try {
+    unlocked = JSON.parse(localStorage.getItem('club_achievements')) || [];
+  } catch (e) {}
+
+  if (!unlocked.includes(id)) {
+    unlocked.push(id);
+    localStorage.setItem('club_achievements', JSON.stringify(unlocked));
+    // Small delay for better UX if triggered by a modal close
+    setTimeout(() => {
+      if (window.AudioEngine) window.AudioEngine.playChime();
+      window.showAchievementToast(title, desc);
+      spawnGoldenConfetti();
+      if (typeof renderProfileAchievements === "function") {
+        renderProfileAchievements();
+      }
+    }, 500);
+  }
+};
+
+// ==========================================
+// ELITE MEMBERS BOT SIMULATOR & CHAT ENGINE
+// ==========================================
+
+const ELITE_MEMBERS = [
+  { name: 'Lord Julian', tier: 'FOUNDER', id: '001', color: '#e6c27a' },
+  { name: 'Elena Rostova', tier: 'SOVEREIGN', id: '084', color: '#d4af37' },
+  { name: 'Marcus Sterling', tier: 'TITAN', id: '112', color: '#f3e5ab' },
+  { name: 'Concierge Desk', tier: 'SYSTEM', id: '000', color: '#a39b8b' }
+];
+
+function processEliteResponse(text) {
+  const lower = text.toLowerCase();
+  const isArabic = /[\u0600-\u06FF]/.test(text);
+  const userName = AppState.user.name ? AppState.user.name.split(' ')[0] : 'Member';
+
+  const lordJulian = ELITE_MEMBERS.find(m => m.id === '001');
+  const elena = ELITE_MEMBERS.find(m => m.id === '084');
+  const marcus = ELITE_MEMBERS.find(m => m.id === '112');
+  const concierge = ELITE_MEMBERS.find(m => m.id === '000');
+  
+  const others = [lordJulian, elena, marcus];
+
+  // 1. Support & Concierge
+  if (lower.includes('help') || lower.includes('support') || lower.includes('rule') || lower.includes('app') || lower.includes('concierge') || lower.includes('مساعدة') || lower.includes('دعم') || lower.includes('قوانين')) {
+    const responses = isArabic ? [
+      `أهلاً بك يا ${userName}. مكتب الكونسيرج تحت تصرفك، كيف يمكنني مساعدتك؟`,
+      "نحن هنا لضمان تجربة سيادية خالية من المتاعب. تفضل بطلبك."
+    ] : [
+      `Good evening, ${userName}. How may the Concierge Desk assist you today?`,
+      "Please let me know if you require any private arrangements or technical support."
+    ];
+    return { member: concierge, text: responses[Math.floor(Math.random() * responses.length)] };
+  }
+
+  // 2. Presence & Greetings
+  if (lower.includes('is anyone here') || lower.includes('anyone online') || lower.includes('hello') || lower.includes('hi') || lower.includes('حد هنا') || lower.includes('مين موجود') || lower.includes('مساء الخير') || lower.includes('سلام') || lower.includes('مرحبا') || lower.includes('أهلا')) {
+    if (isArabic) {
+      const responses = [
+        `مساء الخير يا ${userName}. متواجدون لمتابعة مستجدات السوق وأحدث التطورات.`,
+        "أهلاً بك في الصالة. نناقش حالياً بعض الفرص الاستثمارية المغلقة.",
+        `تحياتي. نحن هنا، تفضل يا ${userName}.`
+      ];
+      return { member: others[Math.floor(Math.random() * others.length)], text: responses[Math.floor(Math.random() * responses.length)] };
+    } else {
+      const responses = [
+        { member: lordJulian, text: `Good evening, ${userName}. Lord Julian here, currently reviewing the London exchange.` },
+        { member: marcus, text: `Present, sir. Marcus Sterling at your disposal. What's on your mind?` },
+        { member: others[Math.floor(Math.random() * others.length)], text: `Welcome to the lounge, ${userName}. A few of us are here observing the latest market movements.` }
+      ];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+  }
+
+  // 3. Investment, Wealth & Markets
+  if (lower.includes('invest') || lower.includes('market') || lower.includes('stock') || lower.includes('crypto') || lower.includes('real estate') || lower.includes('deal') || lower.includes('استثمار') || lower.includes('سوق') || lower.includes('أعمال') || lower.includes('صفق') || lower.includes('عقار')) {
+    if (isArabic) {
+      const responses = [
+        "السوق العقاري في دبي يقدم فرصاً سيادية ممتازة في الوقت الحالي.",
+        "الأسواق تشهد تحركات غير مسبوقة. يجب التركيز على الأصول الصلبة.",
+        `نحن ندرس حالياً صندوق تحوط جديد. يسعدني مناقشة التفاصيل معك لاحقاً يا ${userName}.`
+      ];
+      return { member: [lordJulian, marcus][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
+    } else {
+      const responses = [
+        "The London and Dubai markets are showing interesting divergence today.",
+        "Private equity acquisitions in the tech sector are currently undervalued.",
+        `We are exploring a new hedge fund opportunity. Happy to discuss it privately, ${userName}.`
+      ];
+      return { member: [lordJulian, marcus][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
+    }
+  }
+
+  // 4. Collectibles & Luxury
+  if (lower.includes('boutique') || lower.includes('watch') || lower.includes('car') || lower.includes('gold') || lower.includes('art') || lower.includes('rare') || lower.includes('مقتنيات') || lower.includes('ساعة') || lower.includes('قطعة') || lower.includes('نادر') || lower.includes('فخامة') || lower.includes('بوتيك')) {
+    if (isArabic) {
+      const responses = [
+        "الساعات النادرة والقطع الفنية تمثل الملاذ الآمن الحقيقي للأصول.",
+        `البوتيك يعرض قطعاً سيادية تستحق الاهتمام. لا تفوت الفرصة يا ${userName}.`,
+        "الندرة المطلقة هي ما يحدد القيمة الحقيقية لأي قطعة."
+      ];
+      return { member: [lordJulian, elena][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
+    } else {
+      const responses = [
+        "Just acquired a vintage Patek. The craftsmanship is unparalleled.",
+        `Sotheby's has an interesting auction next week. Are you attending, ${userName}?`,
+        "True luxury is about absolute scarcity and historical significance."
+      ];
+      return { member: [lordJulian, elena][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
+    }
+  }
+
+  // 5. Fallback
+  if (isArabic) {
+    const responses = [
+      `وجهة نظر مثيرة للاهتمام يا ${userName}. نتفق في هذا التوجه.`,
+      "بالتأكيد. القرارات المدروسة هي ما يميز أعضاء هذا النادي.",
+      "أتفق معك تماماً. الجودة والأصالة دائماً ما تثبت نفسها مع الوقت."
+    ];
+    return { member: others[Math.floor(Math.random() * others.length)], text: responses[Math.floor(Math.random() * responses.length)] };
+  } else {
+    const responses = [
+      `Fascinating perspective, ${userName}. Let us discuss this further.`,
+      "Indeed. The current environment rewards patience and precise execution.",
+      "I see your point. Quality always reveals itself over time."
+    ];
+    return { member: others[Math.floor(Math.random() * others.length)], text: responses[Math.floor(Math.random() * responses.length)] };
+  }
+}
+function switchChannel(channelId) {
+  AppState.activeChannelId = channelId;
+  const channelData = AppState.channels[channelId] || { name: 'صالة الأعضاء', messages: [] };
+  
+  document.querySelectorAll(".club-room-btn").forEach(btn => {
+    btn.classList.toggle("is-active", btn.dataset.channel === channelId);
+  });
+  
+  const pinnedTitle = document.getElementById("clubPinnedTitle");
+  if (pinnedTitle) pinnedTitle.textContent = `أهلًا بك في ${channelData.name}`;
+  
+  if (window.AudioEngine) window.AudioEngine.playRustle();
+  renderMessages();
+}
+
+document.querySelectorAll(".club-room-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
     const badge = btn.querySelector(".room-badge");
     if (badge) badge.remove();
-
-    const roomName = btn.childNodes[0].nodeValue.trim(); // Get text without child elements
-    document.querySelector(".club-pinned-title").textContent =
-      `أهلًا بك في ${roomName}`;
-
-    // Simulate someone typing in the room
-    clearTimeout(typingTimeout);
-
-    // Pick a random member from CLUB_MEMBERS
-    const otherMembers = CLUB_MEMBERS.filter((m) => m.id !== ClubState.member.id);
-    if (otherMembers.length > 0) {
-      const randomMember =
-        otherMembers[Math.floor(Math.random() * otherMembers.length)];
-
-      // Delay before typing starts
-      setTimeout(
-        () => {
-          setTypingIndicator(randomMember);
-
-          // Stop typing after a few seconds
-          typingTimeout = setTimeout(
-            () => {
-              setTypingIndicator(null);
-            },
-            3500 + Math.random() * 2000,
-          );
-        },
-        500 + Math.random() * 1000,
-      );
-    } else {
-      setTypingIndicator(null);
-    }
+    switchChannel(btn.dataset.channel);
   });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  switchChannel('global-lounge');
+});
+
+function renderMessages() {
+  const container = document.getElementById("clubMessages");
+  if (!container) return;
+  
+  const channelId = AppState.activeChannelId;
+  const messages = AppState.channels[channelId]?.messages || [];
+  
+  container.innerHTML = messages.map(msg => {
+    const isMe = msg.senderId === AppState.user.id;
+    const timeStr = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    if (isMe) {
+      return `
+        <div class="chat-row is-outgoing">
+          <div class="chat-bubble is-outgoing">
+            <div class="chat-text">${msg.text}</div>
+            <div class="chat-meta">
+              <span class="chat-time">${timeStr}</span>
+              <span class="chat-ticks">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="chat-row is-incoming">
+          <div class="chat-bubble is-incoming">
+            <div class="chat-sender-header">
+              <span style="font-size: 10px; color: ${msg.senderColor || '#d4af37'}; font-weight: bold; font-family: 'Cinzel', serif;">${msg.senderName}</span>
+              <span style="font-size: 8px; color: #8a7a5a; background: rgba(212,175,55,0.1); padding: 2px 6px; border-radius: 4px;">${msg.senderTier || 'MEMBER'}</span>
+            </div>
+            <div class="chat-text">${msg.text}</div>
+            <div class="chat-meta">
+              <span class="chat-time">${timeStr}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  }).join('');
+  
+  container.scrollTop = container.scrollHeight;
+}
+
+let typingTimeout;
+function handleSendMessage() {
+  const input = document.getElementById("clubInput");
+  const text = input.value.trim();
+  if (!text) return;
+  
+  const channelId = AppState.activeChannelId;
+  if (!AppState.channels[channelId]) AppState.channels[channelId] = { messages: [] };
+  
+  AppState.channels[channelId].messages.push({
+    senderId: AppState.user.id,
+    text: text,
+    timestamp: Date.now()
+  });
+  
+  input.value = "";
+  if (window.AudioEngine) window.AudioEngine.playSend(); // Assuming playSend exists or will fallback
+  AppState.save();
+  renderMessages();
+  
+  // Trigger Elite Bot Simulator
+  clearTimeout(typingTimeout);
+  
+  const indicator = document.getElementById("typingIndicator");
+  const typingName = document.getElementById("typingName");
+  
+  setTimeout(() => {
+    const { member: elite, text: replyText } = processEliteResponse(text);
+    if (typingName) typingName.textContent = elite.name;
+    if (indicator) indicator.style.display = "flex";
+    
+    // Typing delay between 1.5 and 2.5 seconds
+    typingTimeout = setTimeout(() => {
+      if (indicator) indicator.style.display = "none";
+      
+      AppState.channels[channelId].messages.push({
+        senderId: elite.id,
+        senderName: elite.name,
+        senderTier: elite.tier,
+        senderColor: elite.color,
+        text: replyText,
+        timestamp: Date.now()
+      });
+      
+      if (window.AudioEngine) window.AudioEngine.playReceive();
+      AppState.save();
+      renderMessages();
+    }, 1500 + Math.random() * 1000);
+  }, 1000);
+}
+
+document.getElementById("clubSendBtn")?.addEventListener("click", handleSendMessage);
+document.getElementById("clubInput")?.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") handleSendMessage();
 });
 
 function openInspectionModal(item, catKey, isOwned, isEquipped) {
@@ -877,8 +1275,12 @@ function purchaseItem(item, catKey) {
   if (processPurchase(item)) {
     closeInspectionModal();
     playPurchaseAnimation();
+    if (window.AudioEngine) {
+      window.AudioEngine.playChime();
+    }
   }
-}function equipItem(item, catKey) {
+}
+function equipItem(item, catKey) {
   ClubState.toggleEquip(catKey, item.id);
   closeInspectionModal();
 }function updateMasterCard() {
@@ -1019,34 +1421,7 @@ function renderProfileEquipped() {
 // ---------------------------------------------------------
 // RENDER PROFILE COLLECTION
 // ---------------------------------------------------------
-function renderProfileCollection() {
-  const container = document.getElementById("profileCollectionList");
-  if (!container) return;
-  const owned = ClubState.owned;
-  let hasItems = false;
-  let itemsHtml = "";
-  
-  for (const catKey in BOUTIQUE) {
-    for (const item of BOUTIQUE[catKey].items) {
-      if (owned[item.id] && !item.free) {
-        hasItems = true;
-        const iconSvg = ICONS[item.icon] || ICONS["star"];
-        itemsHtml += `
-          <div class="profile-col-item rarity-${item.rarity}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", true, ClubState.equipped["${catKey}"] === "${item.id}")'>
-            <div class="profile-col-item-icon">${iconSvg}</div>
-            <div class="profile-col-item-name">${item.name}</div>
-            <div class="pci-rarity" style="font-size:9px;opacity:0.7;">${RARITY_LABEL[item.rarity]}</div>
-          </div>
-        `;
-      }
-    }
-  }
-  
-  if (!hasItems) {
-    itemsHtml = `<div class="empty-dossier" id="emptyDossier">المحفظة فارغة حالياً.</div>`;
-  }
-  container.innerHTML = itemsHtml;
-}
+
 
 function showReactionMenu(anchorEl, msgId) {
   // Remove existing menu if any
@@ -1189,10 +1564,87 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // --- Profile Menu: Account Info ---
   const menuAccountInfo = document.getElementById("menuAccountInfo");
-  if (menuAccountInfo) {
+  const accountInfoModal = document.getElementById("accountInfoModal");
+  if (menuAccountInfo && accountInfoModal) {
     menuAccountInfo.addEventListener("click", () => {
-      document.getElementById("editAccountBtn")?.click();
+      document.getElementById("accEmailInput").value = AppState.user.email || "";
+      document.getElementById("accPhoneInput").value = AppState.user.phone || "";
+      accountInfoModal.classList.add("is-open");
+    });
+  }
+  document.getElementById("closeAccountInfoModal")?.addEventListener("click", () => {
+    accountInfoModal?.classList.remove("is-open");
+  });
+  document.getElementById("saveAccountInfoBtn")?.addEventListener("click", () => {
+    AppState.user.email = document.getElementById("accEmailInput").value.trim();
+    AppState.user.phone = document.getElementById("accPhoneInput").value.trim();
+    AppState.save();
+    // AppState.notify() removed to prevent loop
+    accountInfoModal?.classList.remove("is-open");
+  });
+
+  // --- Profile Menu: Help Support ---
+  const menuHelp = document.getElementById("menuHelp");
+  const helpSupportModal = document.getElementById("helpSupportModal");
+  if (menuHelp && helpSupportModal) {
+    menuHelp.addEventListener("click", () => {
+      helpSupportModal.classList.add("is-open");
+    });
+  }
+  document.getElementById("closeHelpSupportModal")?.addEventListener("click", () => {
+    helpSupportModal?.classList.remove("is-open");
+  });
+
+  // --- Profile Menu: Membership Tab ---
+  const menuMembership = document.getElementById("menuMembership");
+  if (menuMembership) {
+    menuMembership.addEventListener("click", () => {
+      const membershipTabBtn = document.querySelector('[data-tab="membership"]');
+      if (membershipTabBtn) membershipTabBtn.click();
+    });
+  }
+
+  // --- Profile Menu: Settings Modal ---
+  const menuSettings = document.getElementById("menuSettings");
+  const settingsModal = document.getElementById("settingsModal");
+  const closeSettingsModal = document.getElementById("closeSettingsModal");
+  if (menuSettings && settingsModal) {
+    menuSettings.addEventListener("click", () => {
+      settingsModal.classList.add("is-open");
+    });
+  }
+  if (closeSettingsModal && settingsModal) {
+    closeSettingsModal.addEventListener("click", () => {
+      settingsModal.classList.remove("is-open");
+    });
+  }
+
+  // --- Profile Menu: My Collection ---
+  const menuMyCollection = document.getElementById("menuMyCollection");
+  if (menuMyCollection) {
+    menuMyCollection.addEventListener("click", () => {
+      // Find the target section
+      const targetSection = document.querySelector("#profile-tab .profile-collection-section");
+      if (targetSection) {
+        // Smooth scroll to it
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Add a gold flash to the cards for attention
+        setTimeout(() => {
+          const cards = targetSection.querySelectorAll(".pcs-item-card");
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.style.transition = "box-shadow 0.4s ease";
+              card.style.boxShadow = "0 0 20px rgba(212, 175, 55, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.4)";
+              setTimeout(() => {
+                card.style.boxShadow = "";
+              }, 600);
+            }, index * 100);
+          });
+        }, 500); // wait for scroll
+      }
     });
   }
 });
@@ -1546,7 +1998,7 @@ const CLUB_MEMBERS = [
   { id: "1003", name: "MICHAEL T.", tier: "SOVEREIGN MEMBER", msgId: "msg-3", content: "When is the next global meetup?" }
 ];
 
-let typingTimeout = null;
+let typingTimeout2 = null;
 function setTypingIndicator(member) {
   console.log("Typing indicator for:", member.name);
 }
@@ -1564,3 +2016,196 @@ function playPurchaseAnimation() {
   setTimeout(() => { flash.style.opacity = "0"; }, 50);
   setTimeout(() => { flash.remove(); }, 850);
 }
+
+// ---------------------------------------------------------
+// PROFILE ACHIEVEMENTS
+// ---------------------------------------------------------
+function renderProfileAchievements() {
+  const container = document.getElementById("profileAchievementsGrid");
+  const summaryContainer = document.getElementById("achievementsSummary");
+  if (!container) return;
+
+  let unlocked = [];
+  try {
+    unlocked = JSON.parse(localStorage.getItem('club_achievements')) || [];
+  } catch (e) {}
+
+  let html = "";
+  const totalAchievements = Object.keys(ACHIEVEMENTS_DATA).length;
+  let earnedCount = 0;
+  
+  // Render honors
+  Object.keys(ACHIEVEMENTS_DATA).forEach(id => {
+    const ach = ACHIEVEMENTS_DATA[id];
+    const isUnlocked = ach.isUnlocked();
+    if (isUnlocked) earnedCount++;
+
+    if (isUnlocked) {
+      html += `
+        <div class="honor-card is-unlocked gyro-element" data-tilt data-tooltip="${ach.desc.replace(/"/g, '&quot;')}">
+          <div class="honor-icon">${ach.icon}</div>
+          <div class="honor-name">${ach.name}</div>
+          <div class="honor-title">${ach.title}</div>
+          <div class="honor-pill">EARNED</div>
+        </div>
+      `;
+    } else {
+      let current = ach.progress();
+      if (current > ach.target) current = ach.target;
+      const percent = Math.min(100, Math.max(0, (current / ach.target) * 100));
+
+      html += `
+        <div class="honor-card is-locked gyro-element" data-tilt data-tooltip="${ach.desc.replace(/"/g, '&quot;')}">
+          <div class="honor-icon">${ach.icon}</div>
+          <div class="honor-name">${ach.name}</div>
+          <div class="honor-title">LOCKED</div>
+          <div class="honor-progress-wrap">
+            <div class="honor-progress-bar">
+              <div class="honor-progress-fill" style="width: ${percent}%;"></div>
+            </div>
+            <div class="honor-progress-text">$${(ach.target - current).toLocaleString()} REMAINING</div>
+          </div>
+        </div>
+      `;
+    }
+  });
+
+  container.innerHTML = html;
+  if (window.initGyroElements) window.initGyroElements();
+
+  if (summaryContainer) {
+    const completionPercent = Math.round((earnedCount / totalAchievements) * 100);
+    summaryContainer.innerHTML = `
+      <div class="achievements-summary-col">
+        <span class="achievements-summary-label">HONORS UNLOCKED</span>
+        <span class="achievements-summary-value">${earnedCount} / ${totalAchievements}</span>
+      </div>
+      <div class="achievements-summary-divider"></div>
+      <div class="achievements-summary-col" style="align-items: flex-end;">
+        <span class="achievements-summary-label">TIER PROGRESS</span>
+        <span class="achievements-summary-value" style="color: ${completionPercent === 100 ? '#e6c27a' : '#d4af6a'};">${completionPercent}%</span>
+      </div>
+    `;
+  }
+}
+
+function renderProfileCollection() {
+  const container = document.getElementById("profileCollectionGrid");
+  if (!container) return;
+
+  const owned = ClubState.owned;
+  const equipped = ClubState.equipped;
+  let hasItems = false;
+  let itemsHtml = "";
+  let itemCount = 0;
+
+  for (const catKey in BOUTIQUE) {
+    for (const item of BOUTIQUE[catKey].items) {
+      if (owned[item.id] && !item.free) {
+        hasItems = true;
+        itemCount++;
+        const iconSvg = ICONS[item.icon] || ICONS["star"];
+        const isActive = equipped[catKey] === item.name || equipped[catKey] === item.id;
+        
+        itemsHtml += `
+          <div class="pcs-item-card gyro-element" data-tilt onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", true, ${isActive})'>
+            <div class="pcs-item-icon">${iconSvg}</div>
+            <div class="pcs-item-name">${item.name}</div>
+            <div class="pcs-item-type">${BOUTIQUE[catKey].title}</div>
+            ${isActive ? '<span class="item-status-badge">ACTIVE</span>' : ''}
+          </div>
+        `;
+      }
+    }
+  }
+
+  // Always add the explore card at the end
+  itemsHtml += `
+    <div class="pcs-explore-card" onclick="document.querySelector('[data-tab=\\'boutique\\']').click()">
+      <div class="pcs-explore-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+      </div>
+      <div class="pcs-explore-text">Explore More<br/>Items</div>
+    </div>
+  `;
+
+  // Use innerHTML to overwrite the container precisely, removing any chance of duplication
+  container.innerHTML = itemsHtml;
+
+  const metricsItems = document.getElementById("pmItemsCollected");
+  if (metricsItems) metricsItems.textContent = itemCount;
+  
+  if (typeof initProfileGyro === "function") initProfileGyro();
+}
+// ---------------------------------------------------------
+// EDIT PROFILE MODAL LOGIC
+// ---------------------------------------------------------
+const profilePhotos = [
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1560086820-bba7dc1f274a?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1595085610896-cba5ee370002?q=80&w=200&auto=format&fit=crop"
+];
+
+let selectedProfilePhoto = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop";
+
+function initEditProfileModal() {
+  const photoGrid = document.getElementById("editProfilePhotoGrid");
+  if (photoGrid) {
+    photoGrid.innerHTML = profilePhotos.map((url, i) => `
+      <div class="edit-profile-photo-opt ${url === selectedProfilePhoto ? 'selected' : ''}" 
+           style="background-image: url('${url}')" 
+           data-url="${url}">
+      </div>
+    `).join('');
+
+    const opts = photoGrid.querySelectorAll('.edit-profile-photo-opt');
+    opts.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        opts.forEach(o => o.classList.remove('selected'));
+        e.target.classList.add('selected');
+        selectedProfilePhoto = e.target.dataset.url;
+      });
+    });
+  }
+}
+
+document.getElementById("editAccountBtn")?.addEventListener("click", () => {
+  const modal = document.getElementById("editProfileModal");
+  if (modal) {
+    document.getElementById("editProfileNameInput").value = AppState.user.name || "";
+    document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
+    document.getElementById("editProfileAvatarUrl").value = AppState.user.avatarUrl || "";
+    initEditProfileModal();
+    modal.classList.add("is-open");
+  }
+});
+
+document.getElementById("closeEditProfileModal")?.addEventListener("click", () => {
+  document.getElementById("editProfileModal")?.classList.remove("is-open");
+});
+
+document.getElementById("saveEditProfileBtn")?.addEventListener("click", () => {
+  const nameInput = document.getElementById("editProfileNameInput").value.trim();
+  const quoteInput = document.getElementById("editProfileQuoteInput").value.trim();
+  let avatarUrl = document.getElementById("editProfileAvatarUrl").value.trim();
+
+  if (nameInput) AppState.user.name = nameInput;
+  if (nameInput) AppState.user.username = nameInput; // Sync username
+  if (quoteInput) AppState.user.quote = quoteInput;
+  if (quoteInput) AppState.user.bio = quoteInput;
+  if (avatarUrl) AppState.user.avatarUrl = avatarUrl;
+  
+  // Use selected fallback photo if no text input URL
+  if (!avatarUrl && typeof selectedProfilePhoto !== "undefined") {
+    AppState.user.avatarUrl = selectedProfilePhoto;
+  }
+  
+  AppState.save();
+  updateUI();
+  document.getElementById("editProfileModal")?.classList.remove("is-open");
+});

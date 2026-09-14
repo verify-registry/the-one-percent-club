@@ -146,7 +146,7 @@
         <section class="page is-active" id="membership-tab">
           <!-- MASTER CARD -->
           <section
-            class="membership-card"
+            class="membership-card luxury-tilt-card"
             id="membershipCard"
             aria-label="Membership card"
           >
@@ -332,6 +332,7 @@
 
             <div class="card-inner-frame">
               <canvas id="guillocheCanvas" class="guilloche-canvas"></canvas>
+              <canvas id="goldDustCanvas" class="gold-dust-canvas"></canvas>
               <div class="card-sheen" aria-hidden="true"></div>
 
               <div class="card-top-bar">
@@ -597,16 +598,16 @@
         <!-- PAGE: CLUB -->
         <section class="page" id="club-tab" hidden>
           <div class="club-rooms-nav">
-            <button class="club-room-btn is-active" type="button">
+            <button class="club-room-btn is-active" data-channel="global-lounge" type="button">
               صالة الأعضاء
             </button>
-            <button class="club-room-btn" type="button">
+            <button class="club-room-btn" data-channel="wealth" type="button">
               الثروة والاستثمار<span class="room-badge">2</span>
             </button>
-            <button class="club-room-btn" type="button">
+            <button class="club-room-btn" data-channel="business" type="button">
               الأعمال والفرص<span class="room-badge unread-dot"></span>
             </button>
-            <button class="club-room-btn" type="button">أسلوب الحياة</button>
+            <button class="club-room-btn" data-channel="lifestyle" type="button">أسلوب الحياة</button>
           </div>
 
           <div class="club-pinned">
@@ -619,7 +620,7 @@
               </svg>
             </div>
             <div class="club-pinned-content">
-              <p class="club-pinned-title">أهلًا بك في صالة الأعضاء</p>
+              <p class="club-pinned-title" id="clubPinnedTitle">أهلًا بك في صالة الأعضاء</p>
               <p class="club-pinned-sub">
                 مساحة الأعضاء السياديين. تواصل بثقة.
               </p>
@@ -629,6 +630,9 @@
           <div class="club-messages" id="clubMessages"></div>
 
           <div class="club-composer-wrap">
+            <div id="typingIndicator" style="display: none; align-items: center; gap: 6px; padding: 0 12px; font-size: 10px; color: #d4af37; margin-bottom: 4px;">
+              <span id="typingName"></span> is typing<span class="typing-dots">...</span>
+            </div>
             <div class="club-credits-display" id="clubCreditsDisplay">
               <span id="clubCreditsText">الرسائل المتبقية اليوم: — / —</span>
               <button
@@ -733,59 +737,157 @@
         </section>
 
         <!-- PAGE: PROFILE -->
-                <section class="page" id="profile-tab" hidden>
-          <div class="profile-head">
-            <div class="profile-portrait-wrap gyro-element" data-tilt>
-              <div class="portrait-ring lg" id="profilePortraitRing">
-                <div class="portrait-photo" id="profilePortraitPhoto"></div>
+        <!-- PAGE: PROFILE -->
+        <!-- PAGE: PROFILE -->
+        <section class="page" id="profile-tab" hidden>
+          <!-- 1. Hero Member Card -->
+          <div class="profile-hero-card luxury-tilt-card">
+            <div class="phc-inner">
+              <div class="phc-avatar-col">
+                <div class="phc-avatar-ring">
+                  <div class="phc-avatar-photo" id="profilePortraitPhoto" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop');"></div>
+                  <div class="phc-crown-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z" stroke="none"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="phc-info-col">
+                <h2 class="phc-name" id="profileName">ALEXANDER</h2>
+                <div class="phc-tier" id="profileTierName">SOVEREIGN MEMBER</div>
+                <div class="phc-quote" id="profileQuote">“A higher standard in a different world.”</div>
+                <div class="phc-meta">
+                  <svg class="phc-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                  <span class="phc-id">ID 0001-1P</span>
+                  <span class="phc-dot">•</span>
+                  <span class="phc-est">EST. 2024</span>
+                </div>
+              </div>
+              <button class="phc-edit-btn" id="editAccountBtn" title="Edit Profile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                <span>Edit Profile</span>
+              </button>
+              <div class="phc-vertical-text">
+                <span>DISCIPLINE</span>
+                <span>NETWORK</span>
+                <span>FREEDOM</span>
               </div>
             </div>
-            <h2 class="member-name" id="profileName">MEMBER</h2>
-            <div class="tier-pill">
-              <svg viewBox="0 0 16 16" fill="none">
-                <path d="M2 12l1-6 3 3 2-5 2 5 3-3 1 6z" fill="url(#ringGoldGrad)"/>
-              </svg>
-              <span id="profileTierName">SOVEREIGN MEMBER</span>
+          </div>
+
+          <!-- 2. 4-Column Luxury Stats Bar -->
+          <div class="profile-stats-bar">
+            <div class="psb-col">
+              <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z"></path></svg>
+              <div class="psb-value">SOVEREIGN</div>
+              <div class="psb-label">Membership Level</div>
             </div>
-            <p class="member-quote" id="profileQuote">""</p>
+            <div class="psb-divider"></div>
+            <div class="psb-col">
+              <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <div class="psb-value" id="pmItemsCollected">0</div>
+              <div class="psb-label">Items Collected</div>
+            </div>
+            <div class="psb-divider"></div>
+            <div class="psb-col">
+              <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <div class="psb-value">248</div>
+              <div class="psb-label">Connections</div>
+            </div>
+            <div class="psb-divider"></div>
+            <div class="psb-col">
+              <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <div class="psb-value">Jan 2024</div>
+              <div class="psb-label">Member Since</div>
+            </div>
           </div>
 
-          <div class="profile-equipped-grid" id="profileEquippedGrid">
-             <!-- JS equipped items -->
+          <!-- 3. Unified Navigation Menu -->
+          <div class="profile-nav-menu">
+            <div class="pnm-item" id="menuAccountInfo">
+              <div class="pnm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+              <div class="pnm-content">
+                <div class="pnm-title">Account Information</div>
+                <div class="pnm-sub">Name, email, phone, password</div>
+              </div>
+              <div class="pnm-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            </div>
+            <div class="pnm-item" id="menuMembership">
+              <div class="pnm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div>
+              <div class="pnm-content">
+                <div class="pnm-title">Membership</div>
+                <div class="pnm-sub">Plan details, renewal, benefits</div>
+              </div>
+              <div class="pnm-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            </div>
+            <div class="pnm-item" id="menuMyCollection">
+              <div class="pnm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+              <div class="pnm-content">
+                <div class="pnm-title">My Collection</div>
+                <div class="pnm-sub">Your purchased items & active items</div>
+              </div>
+              <div class="pnm-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            </div>
+            <div class="pnm-item" id="menuAddFriend">
+              <div class="pnm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div>
+              <div class="pnm-content">
+                <div class="pnm-title">Add Friend / Message</div>
+              </div>
+              <div class="pnm-badge">Coming Soon</div>
+            </div>
+            <div class="pnm-item" id="menuSettings">
+              <div class="pnm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
+              <div class="pnm-content">
+                <div class="pnm-title">Settings</div>
+                <div class="pnm-sub">Notifications, privacy, app preferences</div>
+              </div>
+              <div class="pnm-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            </div>
+            <div class="pnm-item" id="menuHelp">
+              <div class="pnm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
+              <div class="pnm-content">
+                <div class="pnm-title">Help & Support</div>
+                <div class="pnm-sub">FAQs, contact us</div>
+              </div>
+              <div class="pnm-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            </div>
           </div>
 
+          <!-- 4. MY COLLECTION Showcase -->
           <div class="profile-collection-section">
-            <div class="profile-section-head">
-              <h3>مجموعتي</h3>
-              <span class="see-all">عرض الكل</span>
+            <div class="pcs-head">
+              <h3>MY COLLECTION</h3>
+              <button class="pcs-view-all" onclick="document.querySelector('[data-tab=\'boutique\']').click()">View All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
             </div>
-            <div class="profile-collection-list" id="profileCollectionGrid">
-              <!-- JS injected items -->
-            </div>
-          </div>
-
-          <div class="profile-bio-section">
-            <h3 class="bio-title">الهوية</h3>
-            <div class="bio-content">
-              <div id="profileBioValue"></div>
-              <div id="profileInterestsValue"></div>
-              <div id="profileLocationValue"></div>
+            <div class="pcs-scroll-container">
+              <div class="pcs-grid" id="profileCollectionGrid">
+                <!-- JS injected items -->
+              </div>
             </div>
           </div>
 
-          <div class="profile-actions-row">
-            <button class="profile-action-btn" id="editAccountBtn">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              تعديل الملف
-            </button>
-            <button class="profile-action-btn" id="profileShareBtn">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              مشاركة
-            </button>
+          <!-- 5. PRESTIGE & HONORS Showcase -->
+          <div class="profile-collection-section prestige-honors">
+            <div class="pcs-head">
+              <h3 style="font-family: 'Cinzel', 'Georgia', serif; color: #d4af37; letter-spacing: 2px;">PRESTIGE & HONORS</h3>
+            </div>
+            <div class="achievements-summary" id="achievementsSummary">
+              <!-- JS injected summary -->
+            </div>
+            <div class="pcs-grid honors-grid" id="profileAchievementsGrid">
+              <!-- JS injected achievements -->
+            </div>
+          </div>
+
+          <!-- ACHIEVEMENT TOAST -->
+          <div class="achievement-toast" id="achievementToast" aria-live="polite">
+            <div class="ach-toast-icon">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#d4af37"/></svg>
+            </div>
+            <div class="ach-toast-content">
+              <div class="ach-toast-badge">MILESTONE UNLOCKED</div>
+              <h4 class="ach-toast-title" id="achToastTitle"></h4>
+              <p class="ach-toast-msg" id="achToastMsg"></p>
+            </div>
           </div>
         </section>
         <!-- PAGE: BOUTIQUE -->
@@ -1042,6 +1144,154 @@
         </div>
       </div>
     </div>
+
+    <!-- SETTINGS MODAL -->
+    <div id="settingsModal" class="luxury-modal-overlay">
+      <div class="luxury-modal-box">
+        <div class="luxury-modal-header">
+          <h3>SETTINGS</h3>
+          <button class="luxury-close-btn" id="closeSettingsModal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div class="luxury-modal-body">
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-title">Private Notifications</div>
+              <div class="setting-desc">Exclusive club alerts</div>
+            </div>
+            <label class="luxury-switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-title">Haptic & Audio FX</div>
+              <div class="setting-desc">Premium tactile feedback</div>
+            </div>
+            <label class="luxury-switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-title">Stealth Mode</div>
+              <div class="setting-desc">Hide public ID online</div>
+            </div>
+            <label class="luxury-switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT PROFILE MODAL -->
+    <div id="editProfileModal" class="luxury-modal-overlay">
+      <div class="luxury-modal-box">
+        <div class="luxury-modal-header">
+          <h3>EDIT IDENTITY</h3>
+          <button class="luxury-close-btn" id="closeEditProfileModal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div class="luxury-modal-body">
+          
+          <div class="edit-profile-section">
+            <label class="edit-profile-label">DISPLAY NAME</label>
+            <input type="text" class="edit-profile-input" id="editProfileNameInput" placeholder="Enter your display name">
+          </div>
+          
+          <div class="edit-profile-section">
+            <label class="edit-profile-label">PROFILE QUOTE</label>
+            <input type="text" class="edit-profile-input" id="editProfileQuoteInput" placeholder="Enter your quote">
+          </div>
+
+          <div class="edit-profile-section">
+            <label class="edit-profile-label">AVATAR URL (OR UPLOAD)</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" class="edit-profile-input" id="editProfileAvatarUrl" placeholder="https://..." style="flex: 1;">
+              <label class="edit-profile-save-btn" style="width: auto; padding: 0 16px; margin: 0; display: flex; align-items: center; cursor: pointer;">
+                FILE
+                <input type="file" id="editProfileAvatarFile" accept="image/*" style="display: none;">
+              </label>
+            </div>
+          </div>
+          
+          <div class="edit-profile-section" style="display: none;">
+            <label class="edit-profile-label">SELECT PORTRAIT</label>
+            <div class="edit-profile-photo-grid" id="editProfilePhotoGrid">
+              <!-- JS injected photos -->
+            </div>
+          </div>
+          
+          <button class="edit-profile-save-btn" id="saveEditProfileBtn">SAVE CHANGES</button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT INFO MODAL -->
+    <div id="accountInfoModal" class="luxury-modal-overlay">
+      <div class="luxury-modal-box">
+        <div class="luxury-modal-header">
+          <h3>ACCOUNT INFORMATION</h3>
+          <button class="luxury-close-btn" id="closeAccountInfoModal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div class="luxury-modal-body">
+          <div class="edit-profile-section">
+            <label class="edit-profile-label">EMAIL ADDRESS</label>
+            <input type="email" class="edit-profile-input" id="accEmailInput" placeholder="name@domain.com">
+          </div>
+          <div class="edit-profile-section">
+            <label class="edit-profile-label">PHONE NUMBER</label>
+            <input type="text" class="edit-profile-input" id="accPhoneInput" placeholder="+1 ...">
+          </div>
+          <div class="edit-profile-section">
+            <label class="edit-profile-label">NEW PASSWORD</label>
+            <input type="password" class="edit-profile-input" id="accPasswordInput" placeholder="Leave blank to keep current">
+          </div>
+          <button class="edit-profile-save-btn" id="saveAccountInfoBtn">UPDATE ACCOUNT</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HELP & SUPPORT MODAL -->
+    <div id="helpSupportModal" class="luxury-modal-overlay">
+      <div class="luxury-modal-box">
+        <div class="luxury-modal-header">
+          <h3>CONCIERGE & SUPPORT</h3>
+          <button class="luxury-close-btn" id="closeHelpSupportModal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div class="luxury-modal-body" style="text-align: center;">
+          <div style="margin-bottom: 24px; color: #8a8172; font-size: 13px; line-height: 1.6;">
+            Welcome to the Sovereign Concierge. Our private desk is available 24/7 for members.
+          </div>
+          
+          <button class="edit-profile-save-btn" style="margin-bottom: 12px; background: rgba(212,175,55,0.1); color: #d4af37; border: 1px solid rgba(212,175,55,0.4);" onclick="alert('Concierge Request Submitted. An agent will contact you shortly.')">CONTACT CONCIERGE</button>
+          
+          <div style="text-align: left; margin-top: 24px;">
+            <div class="edit-profile-label" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 12px;">FREQUENTLY ASKED QUESTIONS</div>
+            <div style="margin-bottom: 16px;">
+              <strong style="color: #d4af37; font-size: 12px; font-family: 'Cinzel', serif;">How are milestones earned?</strong>
+              <div style="color: rgba(255,255,255,0.6); font-size: 11px; margin-top: 4px;">Milestones unlock automatically based on your cumulative Boutique acquisitions and profile authentication.</div>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <strong style="color: #d4af37; font-size: 12px; font-family: 'Cinzel', serif;">Can I change my Sovereign ID?</strong>
+              <div style="color: rgba(255,255,255,0.6); font-size: 11px; margin-top: 4px;">Your Sovereign ID is permanently linked to your genesis record and cannot be altered.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="Audio.js"></script>
     <script src="luxury.js?v=2"></script>

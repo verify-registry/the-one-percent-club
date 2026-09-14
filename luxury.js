@@ -1,3 +1,4 @@
+var gyroListenerAdded = false;
 // luxury.js
 // Handles the drawing of a complex geometric Guilloché pattern for the membership card background.
 // Also generates offscreen metallic textures for 3D bezels and wreaths.
@@ -983,164 +984,295 @@ async function shareMasterCard() {
   }
 }
 
-document.getElementById("shareBtn").addEventListener("click", shareMasterCard);
+document.getElementById("shareBtn")?.addEventListener("click", shareMasterCard);
 document
   .getElementById("profileShareBtn")
-  .addEventListener("click", shareMasterCard);
+  ?.addEventListener("click", shareMasterCard);
 
 
 
 // ---------------------------------------------------------
-// 19. 3D TILT
+// 19. UNIFIED 3D TILT ENGINE
 // ---------------------------------------------------------
-const TILT_MAX_DEG = 12;
+const TILT_MAX_DEG = 6;
+let globalTiltEnabled = false;
 
-function setCardTilt(x, y) {
-  const clX = Math.max(-1, Math.min(1, x));
-  const clY = Math.max(-1, Math.min(1, y));
-  document.documentElement.style.setProperty(
-    "--tiltX",
-    (clX * TILT_MAX_DEG).toFixed(2),
-  );
-  document.documentElement.style.setProperty(
-    "--tiltY",
-    (clY * TILT_MAX_DEG).toFixed(2),
-  );
+// LERP Physics Variables
+let targetRotX = 0;
+let targetRotY = 0;
+let currentRotX = 0;
+let currentRotY = 0;
+const lerpFactor = 0.08;
+let tiltLoopActive = false;
+const DEADZONE = 1.5;
+
+function applyTiltToCards(rx, ry) {
+  document.querySelectorAll(".luxury-tilt-card").forEach(card => {
+    card.style.transform = `perspective(1500px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    card.style.transition = 'none';
+  });
 }
 
-let pendingTilt = null;
-let tiltTicking = false;
+function resetTiltForCard(card) {
+  targetRotX = 0;
+  targetRotY = 0;
+  card.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg)`;
+  card.style.transition = 'transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1)';
+}
 
-function updateDeviceTilt() {
-  if (!pendingTilt) {
-    tiltTicking = false;
+function tiltLoop() {
+  const dx = targetRotX - currentRotX;
+  const dy = targetRotY - currentRotY;
+  
+  if (Math.abs(dx) < 0.01 && Math.abs(dy) < 0.01 && targetRotX === 0 && targetRotY === 0) {
+    currentRotX = 0;
+    currentRotY = 0;
+    applyTiltToCards(0, 0);
+    tiltLoopActive = false;
     return;
   }
-  const { beta, gamma } = pendingTilt;
-
-  const x = Math.max(-1, Math.min(1, gamma / 28));
-  const y = Math.max(-1, Math.min(1, (beta - 45) / 28));
-  setCardTilt(x, y);
-
-  const profileWraps = document.querySelectorAll(".profile-portrait-wrap");
-  profileWraps.forEach((wrap) => {
-    let rotX = Math.max(-15, Math.min(15, beta - 45));
-    let rotY = Math.max(-15, Math.min(15, gamma));
-    wrap.style.setProperty("--rot-x", rotX + "deg");
-    wrap.style.setProperty("--rot-y", rotY + "deg");
-  });
-
-  tiltTicking = false;
+  
+  currentRotX += dx * lerpFactor;
+  currentRotY += dy * lerpFactor;
+  
+  applyTiltToCards(currentRotX, currentRotY);
+  requestAnimationFrame(tiltLoop);
 }
 
-function handleDeviceOrientation(e) {
+function updateTiltTarget(rx, ry) {
+  // Strict Angle Clamping
+  targetRotX = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, rx));
+  targetRotY = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, ry));
+  
+  if (!tiltLoopActive) {
+    tiltLoopActive = true;
+    requestAnimationFrame(tiltLoop);
+  }
+}
+
+function handleGlobalDeviceOrientation(e) {
   if (e.beta === null || e.gamma === null) return;
-  pendingTilt = { beta: e.beta, gamma: e.gamma };
-  if (!tiltTicking) {
-    tiltTicking = true;
-    requestAnimationFrame(updateDeviceTilt);
+  
+  let betaDev = e.beta - 45; // Assume 45deg is normal reading angle
+  
+  // Bed / Flat Mode Normalization
+  // If phone is flat (beta close to 0) or upside down, shrink the effect
+  if (e.beta < 15 || e.beta > 165 || e.beta < -165) {
+     betaDev *= 0.15; // Suppress gimbal lock jumpiness
   }
+  
+  let rx = -betaDev * 0.3;
+  let ry = e.gamma * 0.3;
+  
+  // Apply Deadzone
+  if (Math.abs(rx) < DEADZONE) rx = 0;
+  if (Math.abs(ry) < DEADZONE) ry = 0;
+  
+  updateTiltTarget(rx, ry);
 }
 
-function enableDeviceTilt() {
-  window.addEventListener("deviceorientation", handleDeviceOrientation);
-}
-
-const cardEl = document.getElementById("membershipCard");
-let tiltEnabled = false;
-
-function requestTiltPermissionOnce() {
-  if (tiltEnabled) return;
-  tiltEnabled = true;
-  if (
-    typeof DeviceOrientationEvent !== "undefined" &&
-    typeof DeviceOrientationEvent.requestPermission === "function"
-  ) {
-    DeviceOrientationEvent.requestPermission()
-      .then((state) => {
-        if (state === "granted") enableDeviceTilt();
-      })
-      .catch(() => {});
-  } else if (typeof DeviceOrientationEvent !== "undefined") {
-    enableDeviceTilt();
-  }
-}
-
-// Ensure any interaction on the page attempts to enable tilt (vital for iOS Safari)
-document.body.addEventListener("click", requestTiltPermissionOnce, {
-  once: true,
-});
-document.body.addEventListener("touchstart", requestTiltPermissionOnce, {
-  once: true,
-  passive: true,
-});
-
-if (cardEl) {
-  let pointerTicking = false;
-  cardEl.addEventListener("pointermove", (e) => {
-    if (e.pointerType === "touch") return;
-    const rect = cardEl.getBoundingClientRect();
-    const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    if (!pointerTicking) {
-      pointerTicking = true;
-      requestAnimationFrame(() => {
-        setCardTilt(nx, ny);
-        pointerTicking = false;
-      });
+function initGlobalTilt() {
+  // Device Orientation Setup
+  const requestTiltPermissionOnce = () => {
+    if (globalTiltEnabled) return;
+    globalTiltEnabled = true;
+    if (typeof DeviceOrientationEvent !== "undefined" && typeof DeviceOrientationEvent.requestPermission === "function") {
+      DeviceOrientationEvent.requestPermission()
+        .then((state) => {
+          if (state === "granted") window.addEventListener("deviceorientation", handleGlobalDeviceOrientation);
+        })
+        .catch(() => {});
+    } else if (typeof DeviceOrientationEvent !== "undefined") {
+      window.addEventListener("deviceorientation", handleGlobalDeviceOrientation);
     }
-  });
-  cardEl.addEventListener("pointerleave", () => setCardTilt(0, 0));
-}
-
-
-
-// ---------------------------------------------------------
-// PROFILE GYROSCOPE & PARALLAX
-// ---------------------------------------------------------
-function initProfileGyro() {
-  const wrap = document.querySelector('#profile-tab .profile-portrait-wrap');
-  if (!wrap) return;
-
-  const handleMove = (x, y, w, h) => {
-    const rx = ((y / h) - 0.5) * -15; // rotateX
-    const ry = ((x / w) - 0.5) * 15;  // rotateY
-    wrap.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
-    wrap.style.transition = 'none';
   };
 
-  const handleReset = () => {
-    wrap.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    wrap.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
-  };
+  document.body.addEventListener("click", requestTiltPermissionOnce, { once: true });
+  document.body.addEventListener("touchstart", requestTiltPermissionOnce, { once: true, passive: true });
 
-  // Mouse fallback
-  wrap.addEventListener('mousemove', (e) => {
-    const rect = wrap.getBoundingClientRect();
-    handleMove(e.clientX - rect.left, e.clientY - rect.top, rect.width, rect.height);
-  });
-  wrap.addEventListener('mouseleave', handleReset);
+  // Mouse Move Setup
+  document.querySelectorAll(".luxury-tilt-card").forEach(card => {
+    if (card.dataset.tiltBound) return;
+    card.dataset.tiltBound = "true";
 
-  // Gyroscope
-  if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', (e) => {
-      // Only active if profile tab is active
-      const profileTab = document.getElementById('profile-tab');
-      if (!profileTab || profileTab.hidden) return;
-
-      const beta = e.beta || 0; // -180 to 180 (front/back tilt)
-      const gamma = e.gamma || 0; // -90 to 90 (left/right tilt)
+    card.addEventListener("pointermove", (e) => {
+      if (e.pointerType === "touch") return; // Touch is handled by device orientation
+      const rect = card.getBoundingClientRect();
+      const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
       
-      // Clamp values
-      const rx = Math.max(-15, Math.min(15, (beta - 45) * 0.5)); // Assume 45deg is neutral holding pos
-      const ry = Math.max(-15, Math.min(15, gamma * 0.5));
-
-      wrap.style.transform = `perspective(800px) rotateX(${-rx}deg) rotateY(${ry}deg)`;
-      wrap.style.transition = 'transform 0.1s ease-out';
+      const rx = -ny * TILT_MAX_DEG;
+      const ry = nx * TILT_MAX_DEG;
+      updateTiltTarget(rx, ry);
     });
-  }
+
+    card.addEventListener("pointerleave", () => resetTiltForCard(card));
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initProfileGyro();
+  initGlobalTilt();
+  initGoldDust();
 });
+
+// GOLD DUST PARTICLES
+function initGoldDust() {
+  const canvas = document.getElementById("goldDustCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d", { alpha: true });
+  
+  let particles = [];
+  const PARTICLE_COUNT = 40;
+  
+  let width, height;
+  
+  const resize = () => {
+    const parent = canvas.parentElement;
+    if (!parent) return;
+    const rect = parent.getBoundingClientRect();
+    width = rect.width;
+    height = rect.height;
+    
+    // Scale for high DPI displays
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+    
+    initParticles();
+  };
+  
+  const initParticles = () => {
+    particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 0.8 + 0.2, // very small
+        speedX: (Math.random() - 0.5) * 0.2, // slow drift
+        speedY: (Math.random() - 0.5) * 0.2 - 0.1, // slightly drifting upwards
+        opacity: Math.random() * 0.5 + 0.1,
+        blinkSpeed: Math.random() * 0.02 + 0.005,
+        angle: Math.random() * Math.PI * 2,
+        flare: 0 // Sparkle state
+      });
+    }
+  };
+  
+  const draw = () => {
+    ctx.clearRect(0, 0, width, height);
+    
+    particles.forEach(p => {
+      // Move
+      p.x += p.speedX;
+      p.y += p.speedY;
+      
+      // Wrap around
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height;
+      if (p.y > height) p.y = 0;
+      
+      // Randomly trigger a bright twinkle (flare)
+      if (p.flare <= 0 && Math.random() < 0.0015) {
+        p.flare = 1;
+      } else if (p.flare > 0) {
+        p.flare -= 0.015; // Fade out the sparkle
+      }
+      
+      // Blink (normal ambient oscillation)
+      p.angle += p.blinkSpeed;
+      const currentOpacity = p.opacity + Math.sin(p.angle) * 0.3;
+      // Add flare intensity if active
+      const finalOpacity = Math.max(0, Math.min(1, currentOpacity + (p.flare > 0 ? p.flare * 0.6 : 0)));
+      
+      const currentRadius = p.radius * (1 + (p.flare > 0 ? p.flare * 1.2 : 0));
+      
+      // Add subtle glow to larger particles or flaring particles
+      if (currentRadius > 0.6 || p.flare > 0) {
+        ctx.shadowBlur = p.flare > 0 ? 6 : 2;
+        ctx.shadowColor = p.flare > 0 ? "rgba(255, 245, 210, 0.9)" : "rgba(212, 175, 106, 0.8)";
+      } else {
+        ctx.shadowBlur = 0;
+      }
+      
+      // Draw base ambient particle
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, currentRadius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(212, 175, 106, ${finalOpacity})`; // Gold Champagne
+      ctx.fill();
+      
+      // Draw 4-point bezier star glint if flaring
+      if (p.flare > 0.05) {
+        const size = p.radius * 7 * p.flare + 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y - size); // Top
+        ctx.quadraticCurveTo(p.x, p.y, p.x + size, p.y); // Right
+        ctx.quadraticCurveTo(p.x, p.y, p.x, p.y + size); // Bottom
+        ctx.quadraticCurveTo(p.x, p.y, p.x - size, p.y); // Left
+        ctx.quadraticCurveTo(p.x, p.y, p.x, p.y - size); // Top
+        ctx.fillStyle = `rgba(255, 248, 220, ${p.flare * 0.9})`;
+        ctx.fill();
+        
+        // Add a tiny white-hot core
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.flare})`;
+        ctx.fill();
+      }
+    });
+    
+    requestAnimationFrame(draw);
+  };
+  
+  window.addEventListener('resize', resize);
+  
+  // Initial setup
+  // Wait a bit for layout to settle
+  setTimeout(() => {
+    resize();
+    draw();
+  }, 100);
+}
+
+function initProfileGyro() {
+  const handleMove = (wrap, x, y, w, h) => {
+    const rx = ((y / h) - 0.5) * -15; 
+    const ry = ((x / w) - 0.5) * 15;  
+    wrap.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
+    wrap.style.transition = 'none';
+  };
+  
+  const handleReset = (wrap) => {
+    wrap.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    wrap.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+  };
+  
+  document.querySelectorAll('#profile-tab .gyro-element:not(.gyro-bound)').forEach(wrap => {
+    wrap.classList.add('gyro-bound');
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
+      handleMove(wrap, e.clientX - rect.left, e.clientY - rect.top, rect.width, rect.height);
+    });
+    wrap.addEventListener('mouseleave', () => handleReset(wrap));
+  });
+  
+  if (window.DeviceOrientationEvent && !gyroListenerAdded) {
+    gyroListenerAdded = true;
+    window.addEventListener('deviceorientation', (e) => {
+      const profileTab = document.getElementById('profile-tab');
+      if (!profileTab || profileTab.hidden) return;
+      
+      const beta = e.beta || 0; 
+      const gamma = e.gamma || 0; 
+      
+      const rx = Math.max(-15, Math.min(15, (beta - 45) * 0.5));
+      const ry = Math.max(-15, Math.min(15, gamma * 0.5));
+      
+      document.querySelectorAll('#profile-tab .gyro-element').forEach(wrap => {
+        wrap.style.transform = `perspective(800px) rotateX(${-rx}deg) rotateY(${ry}deg)`;
+        wrap.style.transition = 'transform 0.1s ease-out';
+      });
+    });
+  }
+}
