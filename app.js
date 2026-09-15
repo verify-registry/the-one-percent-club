@@ -1,54 +1,19 @@
 
+// ==========================================
+// CENTRAL LOCALIZATION SYSTEM
+// ==========================================
+
+
 const savedLang = localStorage.getItem('one_percent_lang');
 let currentLang = (savedLang === 'ar') ? 'ar' : 'en';
 
+function getNestedValue(obj, path) {
+  return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+}
+
 window.t = function(key, lang = currentLang) {
-  if (!window.I18N || !window.I18N[lang]) return key;
-  
-  // Try direct match
-  if (window.I18N[lang][key]) return window.I18N[lang][key];
-
-  // Try mapping common old keys to new keys
-  const map = {
-    'nav.membership': 'tab_membership',
-    'nav.club': 'tab_club',
-    'nav.profile': 'tab_profile',
-    'nav.boutique': 'tab_boutique',
-    'membership.wealthIndex': 'wealth_index',
-    'membership.privileges': 'privileges',
-    'profile.accountBalance': 'account_balance',
-    'profile.email': 'email',
-    'profile.phone': 'phone',
-    'profile.password': 'new_password',
-    'profile.updateAccount': 'update_account',
-    'boutique.allColl': 'all_items',
-    'boutique.ownedColl': 'owned_items',
-    'boutique.available': 'available_items',
-    'boutique.all': 'cat_all',
-    'boutique.stars': 'cat_stars',
-    'boutique.crowns': 'cat_crowns',
-    'boutique.auras': 'cat_auras',
-    'boutique.jewelry': 'cat_gems',
-    'boutique.rare': 'vault_title',
-    'club.leaderboardTitle': 'leaderboard_title',
-    'club.leaderboardSub': 'leaderboard_sub',
-    'misc.prestige': 'honors_title',
-    'misc.supportTitle': 'concierge',
-    'profile.viewAll': 'view_all',
-    'boutique.acquire': 'acquire',
-    'leave_blank': 'placeholder_leave_blank',
-    'menu_account_title': 'modal_account_title',
-    'menu_settings_title': 'settings',
-    'menu_concierge_title': 'concierge',
-    'modal_account_title': 'modal_account_title',
-    'honors.unlocked': 'honors_earned',
-    'honors.tierProgress': 'tier_progress'
-  };
-
-  const mappedKey = map[key] || key.split('.').pop(); // fallback to last part if possible
-  
-  if (window.I18N[lang][mappedKey]) return window.I18N[lang][mappedKey];
-  
+  const item = getNestedValue(window.I18N, key);
+  if (item && item[lang]) return item[lang];
   return key; // fallback
 };
 
@@ -2327,9 +2292,9 @@ function renderProfileCollection() {
   let itemCount = collectedItems.length;
 
   if (itemCount === 0) {
-    const lang = (AppState.language === 'ar' || document.documentElement.lang === 'ar') ? 'ar' : 'en';
-    const emptyText = window.I18N && window.I18N[lang] ? window.I18N[lang].vault_empty : (lang === 'ar' ? 'الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك.' : 'Your vault is empty. Acquire your first asset from the Boutique.');
-    const btnText = window.I18N && window.I18N[lang] ? window.I18N[lang].explore_boutique : (lang === 'ar' ? 'استكشاف البوتيك' : 'Explore Boutique');
+    const isAr = (AppState.language === 'ar' || document.documentElement.lang === 'ar');
+    const emptyText = isAr ? 'الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك.' : 'Your vault is empty. Acquire your first asset from the Boutique.';
+    const btnText = isAr ? 'استكشاف البوتيك' : 'Explore Boutique';
 
     container.innerHTML = `
       <div class="empty-vault-card" onclick="goToPage('boutique')">
