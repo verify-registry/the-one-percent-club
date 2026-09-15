@@ -1,72 +1,75 @@
-
+/* === 1. CONFIG & GLOBAL STATE === */
 // ==========================================
 // CENTRAL LOCALIZATION SYSTEM
 // ==========================================
 
-
-const savedLang = localStorage.getItem('one_percent_lang');
-let currentLang = (savedLang === 'ar') ? 'ar' : 'en';
+const savedLang = localStorage.getItem("one_percent_lang");
+let currentLang = savedLang === "ar" ? "ar" : "en";
 
 function getNestedValue(obj, path) {
-  return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  return path.split(".").reduce((acc, part) => acc && acc[part], obj);
 }
 
-window.t = function(key, lang = currentLang) {
+window.t = function (key, lang = currentLang) {
   const item = getNestedValue(window.I18N, key);
   if (item && item[lang]) return item[lang];
   return key; // fallback
 };
 
-window.setLanguage = function(lang) {
-  if (lang !== 'en' && lang !== 'ar') return;
+window.setLanguage = function (lang) {
+  if (lang !== "en" && lang !== "ar") return;
   currentLang = lang;
-  localStorage.setItem('one_percent_lang', lang);
-  if (typeof AppState !== 'undefined') AppState.language = lang;
+  localStorage.setItem("one_percent_lang", lang);
+  if (typeof AppState !== "undefined") AppState.language = lang;
 
   document.documentElement.lang = lang;
-  document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+  document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
   // Update typography
   const root = document.documentElement;
-  if (lang === 'en') {
-    root.style.setProperty('--font-display', '"Cormorant Garamond", serif');
-    root.style.setProperty('--font-ui', '"Inter", -apple-system, sans-serif');
-    root.style.fontFamily = 'var(--font-ui)';
+  if (lang === "en") {
+    root.style.setProperty("--font-display", '"Cormorant Garamond", serif');
+    root.style.setProperty("--font-ui", '"Inter", -apple-system, sans-serif');
+    root.style.fontFamily = "var(--font-ui)";
   } else {
-    root.style.setProperty('--font-display', '"Amiri", "Cormorant Garamond", serif');
-    root.style.setProperty('--font-ui', '"Readex Pro", "Cairo", "Inter", sans-serif');
-    root.style.fontFamily = 'var(--font-ui)';
+    root.style.setProperty(
+      "--font-display",
+      '"Amiri", "Cormorant Garamond", serif',
+    );
+    root.style.setProperty(
+      "--font-ui",
+      '"Readex Pro", "Cairo", "Inter", sans-serif',
+    );
+    root.style.fontFamily = "var(--font-ui)";
   }
 
-
   // Apply translations to data-i18n elements
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
     const translated = window.t(key, lang);
     if (translated !== key) {
-       
-       if (el.children.length === 0) {
-           el.textContent = translated;
-       } else {
-           // We have elements like SVGs inside. Find the span or text node.
-           // Cleanest way: If it's a button with an SVG, just find the span inside it and we don't need to do anything here if the span itself has data-i18n.
-           // However, if the parent has data-i18n, we should probably just replace the first text node.
-           let textReplaced = false;
-           for (const child of el.childNodes) {
-               if (child.nodeType === 3 && child.nodeValue.trim().length > 0) {
-                   child.nodeValue = translated;
-                   textReplaced = true;
-                   break;
-               }
-           }
-           // Do NOT append/prepend new text nodes here to prevent duplication bugs!
-       }
+      if (el.children.length === 0) {
+        el.textContent = translated;
+      } else {
+        // We have elements like SVGs inside. Find the span or text node.
+        // Cleanest way: If it's a button with an SVG, just find the span inside it and we don't need to do anything here if the span itself has data-i18n.
+        // However, if the parent has data-i18n, we should probably just replace the first text node.
+        let textReplaced = false;
+        for (const child of el.childNodes) {
+          if (child.nodeType === 3 && child.nodeValue.trim().length > 0) {
+            child.nodeValue = translated;
+            textReplaced = true;
+            break;
+          }
+        }
+        // Do NOT append/prepend new text nodes here to prevent duplication bugs!
+      }
     }
   });
 
   // Apply translations to attributes
-  const attrTypes = ['placeholder', 'title', 'aria-label', 'data-tooltip'];
-  attrTypes.forEach(attr => {
-    document.querySelectorAll(`[data-i18n-${attr}]`).forEach(el => {
+  const attrTypes = ["placeholder", "title", "aria-label", "data-tooltip"];
+  attrTypes.forEach((attr) => {
+    document.querySelectorAll(`[data-i18n-${attr}]`).forEach((el) => {
       const key = el.getAttribute(`data-i18n-${attr}`);
       const translated = window.t(key, lang);
       if (translated !== key) {
@@ -76,72 +79,76 @@ window.setLanguage = function(lang) {
   });
 
   // Update Settings Toggles
-  const btnEn = document.getElementById('langEnBtn');
-  const btnAr = document.getElementById('langArBtn');
+  const btnEn = document.getElementById("langEnBtn");
+  const btnAr = document.getElementById("langArBtn");
   if (btnEn && btnAr) {
-    if (lang === 'en') {
-      btnEn.classList.add('is-active');
-      btnEn.style.background = 'rgba(212,175,55,0.1)';
-      btnEn.style.color = '#d4af37';
-      btnEn.style.borderColor = '#d4af37';
-      btnAr.classList.remove('is-active');
-      btnAr.style.background = 'transparent';
-      btnAr.style.color = '';
-      btnAr.style.borderColor = '';
+    if (lang === "en") {
+      btnEn.classList.add("is-active");
+      btnEn.style.background = "rgba(212,175,55,0.1)";
+      btnEn.style.color = "#d4af37";
+      btnEn.style.borderColor = "#d4af37";
+      btnAr.classList.remove("is-active");
+      btnAr.style.background = "transparent";
+      btnAr.style.color = "";
+      btnAr.style.borderColor = "";
     } else {
-      btnAr.classList.add('is-active');
-      btnAr.style.background = 'rgba(212,175,55,0.1)';
-      btnAr.style.color = '#d4af37';
-      btnAr.style.borderColor = '#d4af37';
-      btnEn.classList.remove('is-active');
-      btnEn.style.background = 'transparent';
-      btnEn.style.color = '';
-      btnEn.style.borderColor = '';
+      btnAr.classList.add("is-active");
+      btnAr.style.background = "rgba(212,175,55,0.1)";
+      btnAr.style.color = "#d4af37";
+      btnAr.style.borderColor = "#d4af37";
+      btnEn.classList.remove("is-active");
+      btnEn.style.background = "transparent";
+      btnEn.style.color = "";
+      btnEn.style.borderColor = "";
     }
   }
 
-  
   // Update specific UI states if needed
   if (typeof window.applyLanguage === "function") window.applyLanguage(lang);
   if (typeof window.updateUI === "function") {
     window.updateUI();
   }
-  if (typeof window.renderBoutique === 'function') window.renderBoutique();
-  if (typeof window.renderMessages === 'function') window.renderMessages();
-  if (typeof window.renderLeaderboard === 'function') window.renderLeaderboard();
-  
+  if (typeof window.renderBoutique === "function") window.renderBoutique();
+  if (typeof window.renderMessages === "function") window.renderMessages();
+  if (typeof window.renderLeaderboard === "function")
+    window.renderLeaderboard();
+
   // Update Profile strings if they rely on UI text
   const profileLevel = document.getElementById("profileMembershipLevel");
-  if (profileLevel && typeof AppState !== 'undefined') {
+  if (profileLevel && typeof AppState !== "undefined") {
     const tier = AppState.user.tier;
-    let tierTrans = window.t('misc.member');
-    if (tier === 'Sovereign' || tier === 'سيادي') tierTrans = window.t('misc.sovereign');
-    else if (tier === 'Elite' || tier === 'نخبة') tierTrans = window.t('misc.elite');
+    let tierTrans = window.t("misc.member");
+    if (tier === "Sovereign" || tier === "سيادي")
+      tierTrans = window.t("misc.sovereign");
+    else if (tier === "Elite" || tier === "نخبة")
+      tierTrans = window.t("misc.elite");
     profileLevel.textContent = tierTrans;
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  const btnEn = document.getElementById('langEnBtn');
-  const btnAr = document.getElementById('langArBtn');
-  
-  if (btnEn) btnEn.addEventListener('click', () => window.setLanguage('en'));
-  if (btnAr) btnAr.addEventListener('click', () => window.setLanguage('ar'));
+document.addEventListener("DOMContentLoaded", () => {
+  const btnEn = document.getElementById("langEnBtn");
+  const btnAr = document.getElementById("langArBtn");
+
+  if (btnEn) btnEn.addEventListener("click", () => window.setLanguage("en"));
+  if (btnAr) btnAr.addEventListener("click", () => window.setLanguage("ar"));
 
   window.setLanguage(currentLang);
 });
 
 // Intercept dynamic DOM additions (MutationObserver)
 // Since we are moving to data-i18n, we just need to ensure dynamically created components
-// have the data-i18n attribute and we can just call setLanguage on them, but for now 
+// have the data-i18n attribute and we can just call setLanguage on them, but for now
 // they will be created with window.t() in JS.
-window.applyLanguage = function(lang) {
-  const colTitle = document.getElementById('collectionSectionTitle');
-  if (colTitle) colTitle.textContent = lang === 'ar' ? 'خزينة المقتنيات النادرة' : 'MY LUXURY COLLECTION';
-  if (typeof renderProfileStatsBar === 'function') renderProfileStatsBar();
-  if (typeof renderProfileCollection === 'function') renderProfileCollection();
+window.applyLanguage = function (lang) {
+  const colTitle = document.getElementById("collectionSectionTitle");
+  if (colTitle)
+    colTitle.textContent =
+      lang === "ar" ? "خزينة المقتنيات النادرة" : "MY LUXURY COLLECTION";
+  if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
+  if (typeof renderProfileCollection === "function") renderProfileCollection();
 };
-let currentOwnershipFilter = 'all';
+let currentOwnershipFilter = "all";
 const ICONS = {
   star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
   crown: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
@@ -149,77 +156,190 @@ const ICONS = {
   ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="#C79A3E" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
   pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="#C79A3E" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
 };
-const RARITY_LABEL = { 1: () => window.t("misc.rarity1"), 2: () => window.t("misc.rarity2"), 3: () => window.t("misc.rarity3"), 4: () => window.t("misc.rarity4") };
+const RARITY_LABEL = {
+  1: () => window.t("misc.rarity1"),
+  2: () => window.t("misc.rarity2"),
+  3: () => window.t("misc.rarity3"),
+  4: () => window.t("misc.rarity4"),
+};
 const EQUIP_CATEGORIES = {
   stars: "equippedStarsSlot",
   crowns: "equippedCrownSlot",
   auras: "equippedAuraSlot",
-  jewelry: "equippedRingSlot"
+  jewelry: "equippedRingSlot",
 };
 
 const ACHIEVEMENTS_DATA = {
-  'initiate': {
-    name: 'THE INITIATE',
-    title: 'FIRST STEP',
-    desc: 'Boutique threshold: 1 Artifact or $5,000 spent.',
+  initiate: {
+    name: "THE INITIATE",
+    title: "FIRST STEP",
+    desc: "Boutique threshold: 1 Artifact or $5,000 spent.",
     icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C9.24 2 7 4.24 7 7C7 9.38 8.67 11.37 10.9 11.87L10 22H14L13.1 11.87C15.33 11.37 17 9.38 17 7C17 4.24 14.76 2 12 2ZM12 8.5C11.17 8.5 10.5 7.83 10.5 7C10.5 6.17 11.17 5.5 12 5.5C12.83 5.5 13.5 6.17 13.5 7C13.5 7.83 12.83 8.5 12 8.5Z" fill="currentColor"/></svg>',
-    isUnlocked: () => Object.keys(ClubState.owned).length >= 1 || (ClubState.totalSpent || 0) >= 5000,
+    isUnlocked: () =>
+      Object.keys(ClubState.owned).length >= 1 ||
+      (ClubState.totalSpent || 0) >= 5000,
     target: 5000,
-    progress: () => Math.max(Object.keys(ClubState.owned).length ? 5000 : 0, ClubState.totalSpent || 0)
+    progress: () =>
+      Math.max(
+        Object.keys(ClubState.owned).length ? 5000 : 0,
+        ClubState.totalSpent || 0,
+      ),
   },
-  'connoisseur': {
-    name: 'THE CONNOISSEUR',
-    title: 'COLLECTOR',
-    desc: 'Boutique threshold: 3 Artifacts or $25,000 spent.',
+  connoisseur: {
+    name: "THE CONNOISSEUR",
+    title: "COLLECTOR",
+    desc: "Boutique threshold: 3 Artifacts or $25,000 spent.",
     icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 9L12 22L22 9L12 2ZM12 5.82L17.18 9L12 18.02L6.82 9L12 5.82Z" fill="currentColor"/></svg>',
-    isUnlocked: () => Object.keys(ClubState.owned).length >= 3 || (ClubState.totalSpent || 0) >= 25000,
+    isUnlocked: () =>
+      Object.keys(ClubState.owned).length >= 3 ||
+      (ClubState.totalSpent || 0) >= 25000,
     target: 25000,
-    progress: () => Math.max(Object.keys(ClubState.owned).length >= 3 ? 25000 : 0, ClubState.totalSpent || 0)
+    progress: () =>
+      Math.max(
+        Object.keys(ClubState.owned).length >= 3 ? 25000 : 0,
+        ClubState.totalSpent || 0,
+      ),
   },
-  'high_sovereign': {
-    name: 'HIGH SOVEREIGN',
-    title: 'ELITE STATUS',
-    desc: 'Boutique threshold: $50,000 cumulative spend.',
+  high_sovereign: {
+    name: "HIGH SOVEREIGN",
+    title: "ELITE STATUS",
+    desc: "Boutique threshold: $50,000 cumulative spend.",
     icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.5 2 5 4 5 9C5 12.5 7 16 12 21C17 16 19 12.5 19 9C19 4 15.5 2 12 2ZM12 17.5C8.5 13.5 7 11 7 9C7 5.5 9.5 4 12 4C14.5 4 17 5.5 17 9C17 11 15.5 13.5 12 17.5Z" fill="currentColor"/><circle cx="12" cy="9" r="3" fill="currentColor"/></svg>',
     isUnlocked: () => (ClubState.totalSpent || 0) >= 50000,
     target: 50000,
-    progress: () => ClubState.totalSpent || 0
+    progress: () => ClubState.totalSpent || 0,
   },
-  'apex_titan': {
-    name: 'THE APEX TITAN',
-    title: 'MAXIMUM PRESTIGE',
-    desc: 'Boutique threshold: $100,000 cumulative spend.',
+  apex_titan: {
+    name: "THE APEX TITAN",
+    title: "MAXIMUM PRESTIGE",
+    desc: "Boutique threshold: $100,000 cumulative spend.",
     icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z" fill="currentColor"/><rect x="3" y="19" width="18" height="2" fill="currentColor"/></svg>',
     isUnlocked: () => (ClubState.totalSpent || 0) >= 100000,
     target: 100000,
-    progress: () => ClubState.totalSpent || 0
-  }
+    progress: () => ClubState.totalSpent || 0,
+  },
 };
 
 const BOUTIQUE = {
-  stars: { title: window.t("boutique.stars"), items: [
-    { id: "star1", name: window.t("items.star1"), icon: "star", rarity: 1, price: 1000, lore: window.t("items.star2") },
-    { id: "star2", name: window.t("items.star3"), icon: "star", rarity: 2, price: 2500, lore: window.t("items.star4") }
-  ]},
-  crowns: { title: window.t("boutique.crowns"), items: [
-    { id: "crown1", name: window.t("items.crown1"), icon: "crown", rarity: 3, price: 5000, lore: window.t("items.crown2") },
-    { id: "crown2", name: window.t("items.crown3"), icon: "crown", rarity: 4, price: 15000, lore: window.t("items.crown4") }
-  ]},
-  auras: { title: window.t("boutique.auras"), items: [
-    { id: "aura1", name: window.t("items.aura1"), icon: "aura", rarity: 2, price: 2000, lore: window.t("items.aura2") },
-    { id: "aura2", name: window.t("items.aura3"), icon: "aura", rarity: 3, price: 8000, lore: window.t("items.aura4") }
-  ]},
-  jewelry: { title: window.t("boutique.jewelry"), items: [
-    { id: "ring1", name: window.t("items.ring1"), icon: "ring", rarity: 2, price: 3000, lore: window.t("items.ring2") },
-    { id: "ring2", name: window.t("items.ring3"), icon: "ring", rarity: 3, price: 7500, lore: window.t("items.ring4") }
-  ]},
-  artifacts: { title: window.t("boutique.rare"), items: [
-    { id: "art1", name: window.t("items.rare1"), icon: "pendant", rarity: 3, price: 10000, lore: window.t("items.rare2") },
-    { id: "art2", name: window.t("items.rare3"), icon: "pendant", rarity: 4, price: 25000, lore: window.t("items.rare4") }
-  ]},
-  widgets: { title: window.t("boutique.widgets"), items: [
-    { id: "wid1", name: window.t("items.widget1"), icon: "star", rarity: 1, price: 0, free: true, lore: window.t("items.widget2") }
-  ]}
+  stars: {
+    title: window.t("boutique.stars"),
+    items: [
+      {
+        id: "star1",
+        name: window.t("items.star1"),
+        icon: "star",
+        rarity: 1,
+        price: 1000,
+        lore: window.t("items.star2"),
+      },
+      {
+        id: "star2",
+        name: window.t("items.star3"),
+        icon: "star",
+        rarity: 2,
+        price: 2500,
+        lore: window.t("items.star4"),
+      },
+    ],
+  },
+  crowns: {
+    title: window.t("boutique.crowns"),
+    items: [
+      {
+        id: "crown1",
+        name: window.t("items.crown1"),
+        icon: "crown",
+        rarity: 3,
+        price: 5000,
+        lore: window.t("items.crown2"),
+      },
+      {
+        id: "crown2",
+        name: window.t("items.crown3"),
+        icon: "crown",
+        rarity: 4,
+        price: 15000,
+        lore: window.t("items.crown4"),
+      },
+    ],
+  },
+  auras: {
+    title: window.t("boutique.auras"),
+    items: [
+      {
+        id: "aura1",
+        name: window.t("items.aura1"),
+        icon: "aura",
+        rarity: 2,
+        price: 2000,
+        lore: window.t("items.aura2"),
+      },
+      {
+        id: "aura2",
+        name: window.t("items.aura3"),
+        icon: "aura",
+        rarity: 3,
+        price: 8000,
+        lore: window.t("items.aura4"),
+      },
+    ],
+  },
+  jewelry: {
+    title: window.t("boutique.jewelry"),
+    items: [
+      {
+        id: "ring1",
+        name: window.t("items.ring1"),
+        icon: "ring",
+        rarity: 2,
+        price: 3000,
+        lore: window.t("items.ring2"),
+      },
+      {
+        id: "ring2",
+        name: window.t("items.ring3"),
+        icon: "ring",
+        rarity: 3,
+        price: 7500,
+        lore: window.t("items.ring4"),
+      },
+    ],
+  },
+  artifacts: {
+    title: window.t("boutique.rare"),
+    items: [
+      {
+        id: "art1",
+        name: window.t("items.rare1"),
+        icon: "pendant",
+        rarity: 3,
+        price: 10000,
+        lore: window.t("items.rare2"),
+      },
+      {
+        id: "art2",
+        name: window.t("items.rare3"),
+        icon: "pendant",
+        rarity: 4,
+        price: 25000,
+        lore: window.t("items.rare4"),
+      },
+    ],
+  },
+  widgets: {
+    title: window.t("boutique.widgets"),
+    items: [
+      {
+        id: "wid1",
+        name: window.t("items.widget1"),
+        icon: "star",
+        rarity: 1,
+        price: 0,
+        free: true,
+        lore: window.t("items.widget2"),
+      },
+    ],
+  },
 };
 
 // ==========================================
@@ -233,7 +353,8 @@ const AppState = {
     quote: "Not everyone understands wealth. That's why we have this Club.",
     joined: "AUG 2026",
     est: "EST. 2026",
-    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+    avatarUrl:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
     wealthIndex: "98%",
     location: "ALEXANDRIA",
     email: "ism6il.x@gmail.com",
@@ -250,12 +371,12 @@ const AppState = {
   owned: {},
   equipped: {},
   chatCredits: 10,
-  activeChannelId: 'global-lounge',
+  activeChannelId: "global-lounge",
   channels: {
-    'global-lounge': { name: window.t("club.lounge"), messages: [] },
-    'wealth': { name: window.t("club.wealth"), messages: [] },
-    'business': { name: window.t("club.business"), messages: [] },
-    'lifestyle': { name: window.t("club.lifestyle"), messages: [] }
+    "global-lounge": { name: window.t("club.lounge"), messages: [] },
+    wealth: { name: window.t("club.wealth"), messages: [] },
+    business: { name: window.t("club.business"), messages: [] },
+    lifestyle: { name: window.t("club.lifestyle"), messages: [] },
   },
 
   listeners: [],
@@ -267,8 +388,8 @@ const AppState = {
     if (this.isNotifying) return;
     this.isNotifying = true;
     try {
-      this.listeners.forEach(fn => fn(this));
-      this.emit('change', this);
+      this.listeners.forEach((fn) => fn(this));
+      this.emit("change", this);
     } finally {
       this.isNotifying = false;
     }
@@ -281,15 +402,21 @@ const AppState = {
   },
   emit(event, data) {
     if (!this._subscribers[event]) return;
-    this._subscribers[event].forEach(cb => cb(data));
+    this._subscribers[event].forEach((cb) => cb(data));
   },
 
-  get member() { return this.user; },
-  set member(val) { this.user = val; },
-  get collectedItems() { return Object.keys(this.owned); },
+  get member() {
+    return this.user;
+  },
+  set member(val) {
+    this.user = val;
+  },
+  get collectedItems() {
+    return Object.keys(this.owned);
+  },
 
   init() {
-    const savedAvatar = localStorage.getItem('avatar_' + this.user.id);
+    const savedAvatar = localStorage.getItem("avatar_" + this.user.id);
     if (savedAvatar) this.user.avatarUrl = savedAvatar;
 
     const savedBalance = localStorage.getItem(`balance_${this.user.id}`);
@@ -298,22 +425,42 @@ const AppState = {
     this.totalSpent = savedSpent !== null ? parseInt(savedSpent, 10) : 0;
     const savedCredits = localStorage.getItem(`chatCredits_${this.user.id}`);
     this.chatCredits = savedCredits !== null ? parseInt(savedCredits, 10) : 10;
-    try { this.owned = JSON.parse(localStorage.getItem(`owned_${this.user.id}`)) || {}; } catch { this.owned = {}; }
-    try { this.equipped = JSON.parse(localStorage.getItem(`equipped_${this.user.id}`)) || {}; } catch { this.equipped = {}; }
     try {
-      const savedChannels = JSON.parse(localStorage.getItem(`channels_${this.user.id}`));
+      this.owned =
+        JSON.parse(localStorage.getItem(`owned_${this.user.id}`)) || {};
+    } catch {
+      this.owned = {};
+    }
+    try {
+      this.equipped =
+        JSON.parse(localStorage.getItem(`equipped_${this.user.id}`)) || {};
+    } catch {
+      this.equipped = {};
+    }
+    try {
+      const savedChannels = JSON.parse(
+        localStorage.getItem(`channels_${this.user.id}`),
+      );
       if (savedChannels) {
         for (const k in savedChannels) {
-          if (this.channels[k]) this.channels[k].messages = savedChannels[k].messages;
+          if (this.channels[k])
+            this.channels[k].messages = savedChannels[k].messages;
         }
       }
     } catch {}
 
     try {
-      const savedProfile = JSON.parse(localStorage.getItem(`profile_${this.user.id}`));
-      this.user.bio = this.user.bio || window.t("items.activeMember") || "Active Member";
-      this.user.interests = this.user.interests || window.t("items.designTech") || "Design · Technology";
-      this.user.location = this.user.location || window.t("items.dubai") || "Dubai, UAE";
+      const savedProfile = JSON.parse(
+        localStorage.getItem(`profile_${this.user.id}`),
+      );
+      this.user.bio =
+        this.user.bio || window.t("items.activeMember") || "Active Member";
+      this.user.interests =
+        this.user.interests ||
+        window.t("items.designTech") ||
+        "Design · Technology";
+      this.user.location =
+        this.user.location || window.t("items.dubai") || "Dubai, UAE";
       this.user.username = this.user.username || "MEMBER";
       if (savedProfile) Object.assign(this.user, savedProfile);
     } catch {}
@@ -326,10 +473,17 @@ const AppState = {
     localStorage.setItem(`spent_${this.user.id}`, this.totalSpent);
     localStorage.setItem(`chatCredits_${this.user.id}`, this.chatCredits);
     localStorage.setItem(`owned_${this.user.id}`, JSON.stringify(this.owned));
-    localStorage.setItem(`equipped_${this.user.id}`, JSON.stringify(this.equipped));
-    localStorage.setItem(`channels_${this.user.id}`, JSON.stringify(this.channels));
+    localStorage.setItem(
+      `equipped_${this.user.id}`,
+      JSON.stringify(this.equipped),
+    );
+    localStorage.setItem(
+      `channels_${this.user.id}`,
+      JSON.stringify(this.channels),
+    );
     localStorage.setItem(`profile_${this.user.id}`, JSON.stringify(this.user));
-    if (typeof window.updateRadarChart === "function") window.updateRadarChart();
+    if (typeof window.updateRadarChart === "function")
+      window.updateRadarChart();
   },
 
   recalculatePrestige() {
@@ -342,8 +496,8 @@ const AppState = {
       for (const item of BOUTIQUE[catKey].items) {
         if (this.owned[item.id]) {
           totalItems++;
-          addedWealth += (item.wealthImpact || item.rarity * 2);
-          addedPrivilege += (item.privilegeImpact || item.rarity * 1.5);
+          addedWealth += item.wealthImpact || item.rarity * 2;
+          addedPrivilege += item.privilegeImpact || item.rarity * 1.5;
           if (item.rarity > maxRarity) maxRarity = item.rarity;
         }
       }
@@ -351,7 +505,10 @@ const AppState = {
 
     this.member.wealthIndexValue = Math.min(99, Math.floor(82 + addedWealth));
     this.member.privilegesValue = Math.min(99, Math.floor(70 + addedPrivilege));
-    this.member.connectionsValue = Math.min(99, Math.floor(65 + totalItems * 2));
+    this.member.connectionsValue = Math.min(
+      99,
+      Math.floor(65 + totalItems * 2),
+    );
 
     if (totalItems >= 5 && maxRarity >= 3) {
       this.member.tier = "SOVEREIGN EXARCH";
@@ -372,26 +529,29 @@ const AppState = {
       this.owned[item.id] = true;
       if (!this.user.collectedItems) this.user.collectedItems = [];
       this.user.collectedItems.push(item);
-      localStorage.setItem('one_percent_collection', JSON.stringify(this.user.collectedItems));
+      localStorage.setItem(
+        "one_percent_collection",
+        JSON.stringify(this.user.collectedItems),
+      );
       this.recalculatePrestige();
       this.save();
       this.notify();
       return true;
 
-      Object.keys(ACHIEVEMENTS_DATA).forEach(key => {
+      Object.keys(ACHIEVEMENTS_DATA).forEach((key) => {
         const ach = ACHIEVEMENTS_DATA[key];
         if (ach.isUnlocked()) {
-           if (window.unlockAchievement) {
-             window.unlockAchievement(key, ach.name, ach.title);
-           }
+          if (window.unlockAchievement) {
+            window.unlockAchievement(key, ach.name, ach.title);
+          }
         }
       });
 
-      if (this._subscribers['change']) {
-        this._subscribers['change'].forEach(cb => cb());
+      if (this._subscribers["change"]) {
+        this._subscribers["change"].forEach((cb) => cb());
       }
 
-      if (typeof updateUI === 'function') updateUI();
+      if (typeof updateUI === "function") updateUI();
       return true;
     }
     return false;
@@ -404,36 +564,47 @@ const AppState = {
       this.equipped[catKey] = itemId;
     }
     this.save();
-    if (typeof updateUI === 'function') updateUI();
-  }
+    if (typeof updateUI === "function") updateUI();
+  },
 };
 const ClubState = AppState;
-Object.defineProperty(AppState.user, "balance", { get: () => AppState.balance, set: (v) => AppState.balance = v });
-Object.defineProperty(AppState.user, "totalSpent", { get: () => AppState.totalSpent, set: (v) => AppState.totalSpent = v });
-Object.defineProperty(AppState.user, "memberSince", { get: () => AppState.user.joined });
-Object.defineProperty(AppState.user, "connections", { get: () => AppState.user.connectionsValue });
+Object.defineProperty(AppState.user, "balance", {
+  get: () => AppState.balance,
+  set: (v) => (AppState.balance = v),
+});
+Object.defineProperty(AppState.user, "totalSpent", {
+  get: () => AppState.totalSpent,
+  set: (v) => (AppState.totalSpent = v),
+});
+Object.defineProperty(AppState.user, "memberSince", {
+  get: () => AppState.user.joined,
+});
+Object.defineProperty(AppState.user, "connections", {
+  get: () => AppState.user.connectionsValue,
+});
 
 AppState.init();
-const savedAppLang = localStorage.getItem('one_percent_lang');
-const initialLang = (savedAppLang === 'ar') ? 'ar' : 'en';
+const savedAppLang = localStorage.getItem("one_percent_lang");
+const initialLang = savedAppLang === "ar" ? "ar" : "en";
 AppState.language = initialLang;
-if (typeof window.applyLanguage === 'function') window.applyLanguage(initialLang);
+if (typeof window.applyLanguage === "function")
+  window.applyLanguage(initialLang);
 
-document.getElementById('photoUploadBtn')?.addEventListener('click', () => {
-  document.getElementById('photoInput')?.click();
+document.getElementById("photoUploadBtn")?.addEventListener("click", () => {
+  document.getElementById("photoInput")?.click();
 });
 
 function handleImageUpload(e, callback) {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(event) {
+  reader.onload = function (event) {
     callback(event.target.result);
   };
   reader.readAsDataURL(file);
 }
 
-document.getElementById('photoInput')?.addEventListener('change', (e) => {
+document.getElementById("photoInput")?.addEventListener("change", (e) => {
   handleImageUpload(e, (dataUrl) => {
     AppState.user.avatarUrl = dataUrl;
     AppState.save();
@@ -441,14 +612,19 @@ document.getElementById('photoInput')?.addEventListener('change', (e) => {
   });
 });
 
-document.getElementById('editProfileAvatarFile')?.addEventListener('change', (e) => {
-  handleImageUpload(e, (dataUrl) => {
-    const urlInput = document.getElementById('editProfileAvatarUrl');
-    if (urlInput) { urlInput.value = dataUrl; urlInput.dispatchEvent(new Event("input")); }
+document
+  .getElementById("editProfileAvatarFile")
+  ?.addEventListener("change", (e) => {
+    handleImageUpload(e, (dataUrl) => {
+      const urlInput = document.getElementById("editProfileAvatarUrl");
+      if (urlInput) {
+        urlInput.value = dataUrl;
+        urlInput.dispatchEvent(new Event("input"));
+      }
+    });
   });
-});
 
-document.addEventListener('DOMContentLoaded', () => AppState.notify());
+document.addEventListener("DOMContentLoaded", () => AppState.notify());
 
 function updateUI() {
   AppState.notify();
@@ -456,27 +632,30 @@ function updateUI() {
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
-ClubState.on('change', () => {
-
-  const avatarElements = document.querySelectorAll("#portraitPhoto, #profilePortraitPhoto, #widgetAvatarPhoto, .membership-avatar");
-  avatarElements.forEach(el => {
+ClubState.on("change", () => {
+  const avatarElements = document.querySelectorAll(
+    "#portraitPhoto, #profilePortraitPhoto, #widgetAvatarPhoto, .membership-avatar",
+  );
+  avatarElements.forEach((el) => {
     if (AppState.user.avatarUrl) {
-      if (el.tagName.toLowerCase() === 'img') {
+      if (el.tagName.toLowerCase() === "img") {
         el.src = AppState.user.avatarUrl;
       } else {
         el.style.backgroundImage = `url('${AppState.user.avatarUrl}')`;
-        el.style.backgroundSize = 'cover';
-        el.style.backgroundPosition = 'center';
+        el.style.backgroundSize = "cover";
+        el.style.backgroundPosition = "center";
       }
     }
   });
 
-  const photoUploadBtn = document.getElementById('photoUploadBtn');
+  const photoUploadBtn = document.getElementById("photoUploadBtn");
   if (photoUploadBtn) {
-    photoUploadBtn.style.display = AppState.user.avatarUrl ? 'none' : 'flex';
+    photoUploadBtn.style.display = AppState.user.avatarUrl ? "none" : "flex";
   }
-  const idElements = document.querySelectorAll(".membership-id, #profileIdValue");
-  idElements.forEach(el => {
+  const idElements = document.querySelectorAll(
+    ".membership-id, #profileIdValue",
+  );
+  idElements.forEach((el) => {
     if (el.id === "profileIdValue") {
       el.textContent = AppState.user.id;
     } else {
@@ -485,7 +664,7 @@ ClubState.on('change', () => {
   });
 
   const estElements = document.querySelectorAll(".membership-est");
-  estElements.forEach(el => {
+  estElements.forEach((el) => {
     el.textContent = AppState.user.est;
   });
 
@@ -496,42 +675,53 @@ ClubState.on('change', () => {
   if (pBio && AppState.user.bio) pBio.textContent = AppState.user.bio;
 
   const pInt = document.getElementById("profileInterestsValue");
-  if (pInt && AppState.user.interests) pInt.textContent = AppState.user.interests;
+  if (pInt && AppState.user.interests)
+    pInt.textContent = AppState.user.interests;
 
   const pLoc = document.getElementById("profileLocationValue");
   if (pLoc && AppState.user.location) pLoc.textContent = AppState.user.location;
 
-  const shareBtn = document.getElementById('shareBtn');
+  const shareBtn = document.getElementById("shareBtn");
   if (shareBtn) {
     shareBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none">
       <path d="M12 4v12M8 8l4-4 4 4M5 15v3a2 2 0 002 2h10a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
-    <span>${window.t('membership.shareMembership')}</span>`;
+    <span>${window.t("membership.shareMembership")}</span>`;
   }
 
-  const copyBtn = document.getElementById('copyBtn');
+  const copyBtn = document.getElementById("copyBtn");
   if (copyBtn) {
     copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none">
       <rect x="9" y="9" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"></rect>
       <path d="M5 15V5a1 1 0 011-1h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
     </svg>
-    <span>${window.t('membership.copyLink')}</span>`;
+    <span>${window.t("membership.copyLink")}</span>`;
   }
 
   const pQuote = document.getElementById("profileQuote");
   if (pQuote) {
-    if (AppState.user.quote === "Not everyone understands wealth. That's why we have this Club.") {
-      pQuote.textContent = '"' + window.t('profile.quoteText') + '"';
+    if (
+      AppState.user.quote ===
+      "Not everyone understands wealth. That's why we have this Club."
+    ) {
+      pQuote.textContent = '"' + window.t("profile.quoteText") + '"';
     } else {
-      pQuote.textContent = '"' + (AppState.user.quote || AppState.user.bio) + '"';
+      pQuote.textContent =
+        '"' + (AppState.user.quote || AppState.user.bio) + '"';
     }
   }
 
-  const wealthLabel = document.querySelector('[data-i18n="membership.wealthIndex"]');
-  if (wealthLabel && !wealthLabel.querySelector('span')) wealthLabel.textContent = window.t('membership.wealthIndex');
+  const wealthLabel = document.querySelector(
+    '[data-i18n="membership.wealthIndex"]',
+  );
+  if (wealthLabel && !wealthLabel.querySelector("span"))
+    wealthLabel.textContent = window.t("membership.wealthIndex");
 
-  const privLabel = document.querySelector('[data-i18n="membership.privileges"]');
-  if (privLabel && !privLabel.querySelector('span')) privLabel.textContent = window.t('membership.privileges');
+  const privLabel = document.querySelector(
+    '[data-i18n="membership.privileges"]',
+  );
+  if (privLabel && !privLabel.querySelector("span"))
+    privLabel.textContent = window.t("membership.privileges");
 
   const mName = document.getElementById("memberName");
   if (mName) mName.textContent = AppState.user.name;
@@ -543,14 +733,16 @@ ClubState.on('change', () => {
   if (countEl) countEl.textContent = AppState.collectedItems.length;
 
   if (typeof renderProfileCollection === "function") renderProfileCollection();
-  if (typeof renderProfileAchievements === "function") renderProfileAchievements();
+  if (typeof renderProfileAchievements === "function")
+    renderProfileAchievements();
 
   if (typeof renderRing === "function") {
     renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
     renderRing("privRing", "privValue", AppState.user.privilegesValue);
   }
 
-  if (typeof applyEquippedToCard === "function") applyEquippedToCard(AppState.equipped);
+  if (typeof applyEquippedToCard === "function")
+    applyEquippedToCard(AppState.equipped);
 
   const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
   if (activeBoutiqueTab && typeof renderBoutique === "function") {
@@ -579,7 +771,7 @@ function applyEquippedToCard(equipped) {
     if (!slotEl) continue;
     const itemId = equipped[catKey];
     if (itemId) {
-      const itemDef = BOUTIQUE[catKey].items.find(i => i.id === itemId);
+      const itemDef = BOUTIQUE[catKey].items.find((i) => i.id === itemId);
       if (itemDef) {
         slotEl.innerHTML = ICONS[itemDef.icon] || ICONS["star"];
         slotEl.style.display = "flex";
@@ -599,7 +791,7 @@ function applyEquippedToCard(equipped) {
 
 function generateSkeletonGrid() {
   let html = '<div class="boutique-grid">';
-  for(let i=0; i<6; i++) {
+  for (let i = 0; i < 6; i++) {
     html += `
       <div class="boutique-card is-skeleton" style="pointer-events: none; opacity: 0.6; animation: pulse 1.5s infinite ease-in-out;">
         <span class="rarity-badge" style="background: #2a2a2a; color: transparent; width: 40px; height: 16px;"></span>
@@ -611,12 +803,12 @@ function generateSkeletonGrid() {
       </div>
     `;
   }
-  html += '</div>';
+  html += "</div>";
   return html;
 }
 
+/* === 3. BOUTIQUE & STORE RENDERING === */
 function renderBoutique(filter = "all") {
-
   const root = document.getElementById("boutiqueSections");
   const owned = ClubState.owned;
   const equipped = ClubState.equipped;
@@ -719,7 +911,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       <section class="boutique-section" data-category="${catKey}">
         <div class="boutique-section-head">
           <h3>${cat.title}</h3>
-          ${(typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined") ? `<span class="boutique-section-sub">${cat.sub}</span>` : ""}
+          ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${cat.sub}</span>` : ""}
         </div>
         <div class="boutique-grid">${cards}</div>
       </section>
@@ -803,9 +995,9 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       openInspectionModal(item, catKey, isOwned, isEquipped);
     });
   });
-
 }
 
+/* === 4. VAULT & USER ASSET SYNC === */
 function syncWidgetState() {
   const masterCard = document.getElementById("membershipCard");
   const preview = document.querySelector(".widget-card-preview");
@@ -822,7 +1014,7 @@ function renderWidgetSection() {
     <section class="boutique-section widget-section" data-category="widgets">
       <div class="boutique-section-head">
         <h3>${BOUTIQUE.widgets.title}</h3>
-        ${(typeof BOUTIQUE.widgets.sub !== "undefined" && BOUTIQUE.widgets.sub && String(BOUTIQUE.widgets.sub) !== "undefined") ? `<span class="boutique-section-sub">${BOUTIQUE.widgets.sub}</span>` : ""}
+        ${typeof BOUTIQUE.widgets.sub !== "undefined" && BOUTIQUE.widgets.sub && String(BOUTIQUE.widgets.sub) !== "undefined" ? `<span class="boutique-section-sub">${BOUTIQUE.widgets.sub}</span>` : ""}
       </div>
       <p class="widget-preview-label">الودجت — بطاقة الهوية الأساسية</p>
 
@@ -877,6 +1069,7 @@ document.getElementById("copyBtn").addEventListener("click", async () => {
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
+/* === 2. NAVIGATION & TAB SWITCHING === */
 const navToast = document.getElementById("navToast");
 const sectionName = document.getElementById("sectionName");
 let navToastTimer = null;
@@ -894,7 +1087,12 @@ function showNavToast(msg) {
   );
 }
 
-const PAGE_TITLES = { membership: window.t("nav.membership"), club: window.t("nav.club"), profile: window.t("nav.profile"), boutique: window.t("nav.boutique") };
+const PAGE_TITLES = {
+  membership: window.t("nav.membership"),
+  club: window.t("nav.club"),
+  profile: window.t("nav.profile"),
+  boutique: window.t("nav.boutique"),
+};
 const IMPLEMENTED_TABS = ["membership", "profile", "club", "boutique"];
 
 // ==========================================
@@ -919,7 +1117,9 @@ const Router = {
       activePage.hidden = false;
     }
 
-    document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("is-active"));
+    document
+      .querySelectorAll(".nav-item")
+      .forEach((n) => n.classList.remove("is-active"));
     const activeNav = document.querySelector(`.nav-item[data-tab="${tab}"]`);
     if (activeNav) activeNav.classList.add("is-active");
 
@@ -959,7 +1159,9 @@ const Router = {
     document.getElementById("sectionName").textContent = title;
     document.getElementById("appHeader").classList.remove("header-compact");
     document.getElementById("backBtn").hidden = false;
-    document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("is-active"));
+    document
+      .querySelectorAll(".nav-item")
+      .forEach((n) => n.classList.remove("is-active"));
 
     const main = document.querySelector(".app-main");
     if (main) main.scrollTop = 0;
@@ -968,13 +1170,13 @@ const Router = {
 
   onEnter(tab) {
     if (tab === "club") {
-      if (typeof updateCreditsUI === 'function') updateCreditsUI();
+      if (typeof updateCreditsUI === "function") updateCreditsUI();
       requestAnimationFrame(() => {
         const msgs = document.getElementById("clubMessages");
         if (msgs) window.scrollTo(0, document.body.scrollHeight);
       });
     }
-  }
+  },
 };
 
 window.switchTab = function switchTab(tabId) {
@@ -1054,7 +1256,9 @@ document.getElementById("backBtn").addEventListener("click", () => {
 });
 
 document.querySelectorAll("#page-member .card-actions .btn").forEach((btn) => {
-  btn.addEventListener("click", () => showNavToast(window.t("profile.comingSoon")));
+  btn.addEventListener("click", () =>
+    showNavToast(window.t("profile.comingSoon")),
+  );
 });
 
 document.getElementById("editAccountForm").addEventListener("submit", (e) => {
@@ -1067,13 +1271,20 @@ document.getElementById("editAccountForm").addEventListener("submit", (e) => {
   ClubState.member.location = document.getElementById("editLocation").value;
   ClubState.save();
 
-  ClubState.emit('change');
+  ClubState.emit("change");
 
   document.getElementById("backBtn").hidden = true;
   Router.navigate("profile");
-  showPremiumToast(window.t("profile.profileUpdated"), window.t("misc.changesSaved"));
+  showPremiumToast(
+    window.t("profile.profileUpdated"),
+    window.t("misc.changesSaved"),
+  );
   if (window.unlockAchievement) {
-    window.unlockAchievement('profile_updated', 'THE DOSSIER', 'Your personal identity dossier has been updated.');
+    window.unlockAchievement(
+      "profile_updated",
+      "THE DOSSIER",
+      "Your personal identity dossier has been updated.",
+    );
   }
 });
 
@@ -1100,7 +1311,7 @@ function showPremiumToast(title, msg) {
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 let achievementToastTimer = null;
-window.showAchievementToast = function(title, msg) {
+window.showAchievementToast = function (title, msg) {
   const toast = document.getElementById("achievementToast");
   if (!toast) return;
   document.getElementById("achToastTitle").textContent = title;
@@ -1110,7 +1321,7 @@ window.showAchievementToast = function(title, msg) {
   clearTimeout(achievementToastTimer);
   achievementToastTimer = setTimeout(
     () => toast.classList.remove("is-visible"),
-    5000
+    5000,
   );
 };
 
@@ -1130,26 +1341,29 @@ function spawnGoldenConfetti() {
     particle.style.animationDelay = Math.random() * 0.5 + "s";
 
     const scale = Math.random() * 0.5 + 0.5;
-    particle.style.width = (6 * scale) + "px";
-    particle.style.height = (12 * scale) + "px";
+    particle.style.width = 6 * scale + "px";
+    particle.style.height = 12 * scale + "px";
 
     document.body.appendChild(particle);
 
-    setTimeout(() => {
-      particle.remove();
-    }, (duration + 0.5) * 1000);
+    setTimeout(
+      () => {
+        particle.remove();
+      },
+      (duration + 0.5) * 1000,
+    );
   }
 }
 
-window.unlockAchievement = function(id, title, desc) {
+window.unlockAchievement = function (id, title, desc) {
   let unlocked = [];
   try {
-    unlocked = JSON.parse(localStorage.getItem('club_achievements')) || [];
+    unlocked = JSON.parse(localStorage.getItem("club_achievements")) || [];
   } catch (e) {}
 
   if (!unlocked.includes(id)) {
     unlocked.push(id);
-    localStorage.setItem('club_achievements', JSON.stringify(unlocked));
+    localStorage.setItem("club_achievements", JSON.stringify(unlocked));
     setTimeout(() => {
       if (window.AudioEngine) window.AudioEngine.playChime();
       window.showAchievementToast(title, desc);
@@ -1165,86 +1379,162 @@ window.unlockAchievement = function(id, title, desc) {
 // ==========================================
 
 const ELITE_MEMBERS = [
-  { name: 'Lord Julian', tier: 'FOUNDER', id: '001', color: '#e6c27a' },
-  { name: 'Elena Rostova', tier: 'SOVEREIGN', id: '084', color: '#d4af37' },
-  { name: 'Marcus Sterling', tier: 'TITAN', id: '112', color: '#f3e5ab' },
-  { name: 'Concierge Desk', tier: 'SYSTEM', id: '000', color: '#a39b8b' }
+  { name: "Lord Julian", tier: "FOUNDER", id: "001", color: "#e6c27a" },
+  { name: "Elena Rostova", tier: "SOVEREIGN", id: "084", color: "#d4af37" },
+  { name: "Marcus Sterling", tier: "TITAN", id: "112", color: "#f3e5ab" },
+  { name: "Concierge Desk", tier: "SYSTEM", id: "000", color: "#a39b8b" },
 ];
 
 function processEliteResponse(text) {
   const lower = text.toLowerCase();
   const isArabic = /[\u0600-\u06FF]/.test(text);
-  const userName = AppState.user.name ? AppState.user.name.split(' ')[0] : 'Member';
+  const userName = AppState.user.name
+    ? AppState.user.name.split(" ")[0]
+    : "Member";
 
-  const lordJulian = ELITE_MEMBERS.find(m => m.id === '001');
-  const elena = ELITE_MEMBERS.find(m => m.id === '084');
-  const marcus = ELITE_MEMBERS.find(m => m.id === '112');
-  const concierge = ELITE_MEMBERS.find(m => m.id === '000');
+  const lordJulian = ELITE_MEMBERS.find((m) => m.id === "001");
+  const elena = ELITE_MEMBERS.find((m) => m.id === "084");
+  const marcus = ELITE_MEMBERS.find((m) => m.id === "112");
+  const concierge = ELITE_MEMBERS.find((m) => m.id === "000");
 
   const others = [lordJulian, elena, marcus];
 
-  if (lower.includes('help') || lower.includes('support') || lower.includes('rule') || lower.includes('app') || lower.includes('concierge') || lower.includes('مساعدة') || lower.includes('دعم') || lower.includes('قوانين')) {
-    const responses = isArabic ? [
-      window.t("dynamic.chatHelp1").replace("{0}", userName),
-      window.t("dynamic.chatHelp2")
-    ] : [
-      `Good evening, ${userName}. How may the Concierge Desk assist you today?`,
-      "Please let me know if you require any private arrangements or technical support."
-    ];
-    return { member: concierge, text: responses[Math.floor(Math.random() * responses.length)] };
+  if (
+    lower.includes("help") ||
+    lower.includes("support") ||
+    lower.includes("rule") ||
+    lower.includes("app") ||
+    lower.includes("concierge") ||
+    lower.includes("مساعدة") ||
+    lower.includes("دعم") ||
+    lower.includes("قوانين")
+  ) {
+    const responses = isArabic
+      ? [
+          window.t("dynamic.chatHelp1").replace("{0}", userName),
+          window.t("dynamic.chatHelp2"),
+        ]
+      : [
+          `Good evening, ${userName}. How may the Concierge Desk assist you today?`,
+          "Please let me know if you require any private arrangements or technical support.",
+        ];
+    return {
+      member: concierge,
+      text: responses[Math.floor(Math.random() * responses.length)],
+    };
   }
 
-  if (lower.includes('is anyone here') || lower.includes('anyone online') || lower.includes('hello') || lower.includes('hi') || lower.includes('حد هنا') || lower.includes('مين موجود') || lower.includes('مساء الخير') || lower.includes('سلام') || lower.includes('مرحبا') || lower.includes('أهلا')) {
+  if (
+    lower.includes("is anyone here") ||
+    lower.includes("anyone online") ||
+    lower.includes("hello") ||
+    lower.includes("hi") ||
+    lower.includes("حد هنا") ||
+    lower.includes("مين موجود") ||
+    lower.includes("مساء الخير") ||
+    lower.includes("سلام") ||
+    lower.includes("مرحبا") ||
+    lower.includes("أهلا")
+  ) {
     if (isArabic) {
       const responses = [
         window.t("dynamic.chatGreet1").replace("{0}", userName),
         window.t("dynamic.chatGreet2"),
-        window.t("dynamic.chatGreet3").replace("{0}", userName)
+        window.t("dynamic.chatGreet3").replace("{0}", userName),
       ];
-      return { member: others[Math.floor(Math.random() * others.length)], text: responses[Math.floor(Math.random() * responses.length)] };
+      return {
+        member: others[Math.floor(Math.random() * others.length)],
+        text: responses[Math.floor(Math.random() * responses.length)],
+      };
     } else {
       const responses = [
-        { member: lordJulian, text: `Good evening, ${userName}. Lord Julian here, currently reviewing the London exchange.` },
-        { member: marcus, text: `Present, sir. Marcus Sterling at your disposal. What's on your mind?` },
-        { member: others[Math.floor(Math.random() * others.length)], text: `Welcome to the lounge, ${userName}. A few of us are here observing the latest market movements.` }
+        {
+          member: lordJulian,
+          text: `Good evening, ${userName}. Lord Julian here, currently reviewing the London exchange.`,
+        },
+        {
+          member: marcus,
+          text: `Present, sir. Marcus Sterling at your disposal. What's on your mind?`,
+        },
+        {
+          member: others[Math.floor(Math.random() * others.length)],
+          text: `Welcome to the lounge, ${userName}. A few of us are here observing the latest market movements.`,
+        },
       ];
       return responses[Math.floor(Math.random() * responses.length)];
     }
   }
 
-  if (lower.includes('invest') || lower.includes('market') || lower.includes('stock') || lower.includes('crypto') || lower.includes('real estate') || lower.includes('deal') || lower.includes('استثمار') || lower.includes('سوق') || lower.includes('أعمال') || lower.includes('صفق') || lower.includes('عقار')) {
+  if (
+    lower.includes("invest") ||
+    lower.includes("market") ||
+    lower.includes("stock") ||
+    lower.includes("crypto") ||
+    lower.includes("real estate") ||
+    lower.includes("deal") ||
+    lower.includes("استثمار") ||
+    lower.includes("سوق") ||
+    lower.includes("أعمال") ||
+    lower.includes("صفق") ||
+    lower.includes("عقار")
+  ) {
     if (isArabic) {
       const responses = [
         window.t("dynamic.chatInvest1"),
         window.t("dynamic.chatInvest2"),
-        window.t("dynamic.chatInvest3").replace("{0}", userName)
+        window.t("dynamic.chatInvest3").replace("{0}", userName),
       ];
-      return { member: [lordJulian, marcus][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
+      return {
+        member: [lordJulian, marcus][Math.floor(Math.random() * 2)],
+        text: responses[Math.floor(Math.random() * responses.length)],
+      };
     } else {
       const responses = [
         "The London and Dubai markets are showing interesting divergence today.",
         "Private equity acquisitions in the tech sector are currently undervalued.",
-        `We are exploring a new hedge fund opportunity. Happy to discuss it privately, ${userName}.`
+        `We are exploring a new hedge fund opportunity. Happy to discuss it privately, ${userName}.`,
       ];
-      return { member: [lordJulian, marcus][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
+      return {
+        member: [lordJulian, marcus][Math.floor(Math.random() * 2)],
+        text: responses[Math.floor(Math.random() * responses.length)],
+      };
     }
   }
 
-  if (lower.includes('boutique') || lower.includes('watch') || lower.includes('car') || lower.includes('gold') || lower.includes('art') || lower.includes('rare') || lower.includes('مقتنيات') || lower.includes('ساعة') || lower.includes('قطعة') || lower.includes(window.t("misc.rarity1")) || lower.includes('فخامة') || lower.includes('بوتيك')) {
+  if (
+    lower.includes("boutique") ||
+    lower.includes("watch") ||
+    lower.includes("car") ||
+    lower.includes("gold") ||
+    lower.includes("art") ||
+    lower.includes("rare") ||
+    lower.includes("مقتنيات") ||
+    lower.includes("ساعة") ||
+    lower.includes("قطعة") ||
+    lower.includes(window.t("misc.rarity1")) ||
+    lower.includes("فخامة") ||
+    lower.includes("بوتيك")
+  ) {
     if (isArabic) {
       const responses = [
         window.t("dynamic.chatBoutique1"),
         window.t("dynamic.chatBoutique2").replace("{0}", userName),
-        window.t("dynamic.chatBoutique3")
+        window.t("dynamic.chatBoutique3"),
       ];
-      return { member: [lordJulian, elena][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
+      return {
+        member: [lordJulian, elena][Math.floor(Math.random() * 2)],
+        text: responses[Math.floor(Math.random() * responses.length)],
+      };
     } else {
       const responses = [
         "Just acquired a vintage Patek. The craftsmanship is unparalleled.",
         `Sotheby's has an interesting auction next week. Are you attending, ${userName}?`,
-        "True luxury is about absolute scarcity and historical significance."
+        "True luxury is about absolute scarcity and historical significance.",
       ];
-      return { member: [lordJulian, elena][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
+      return {
+        member: [lordJulian, elena][Math.floor(Math.random() * 2)],
+        text: responses[Math.floor(Math.random() * responses.length)],
+      };
     }
   }
 
@@ -1252,23 +1542,32 @@ function processEliteResponse(text) {
     const responses = [
       window.t("dynamic.chatDefault1").replace("{0}", userName),
       window.t("dynamic.chatDefault2"),
-      window.t("dynamic.chatDefault3")
+      window.t("dynamic.chatDefault3"),
     ];
-    return { member: others[Math.floor(Math.random() * others.length)], text: responses[Math.floor(Math.random() * responses.length)] };
+    return {
+      member: others[Math.floor(Math.random() * others.length)],
+      text: responses[Math.floor(Math.random() * responses.length)],
+    };
   } else {
     const responses = [
       `Fascinating perspective, ${userName}. Let us discuss this further.`,
       "Indeed. The current environment rewards patience and precise execution.",
-      "I see your point. Quality always reveals itself over time."
+      "I see your point. Quality always reveals itself over time.",
     ];
-    return { member: others[Math.floor(Math.random() * others.length)], text: responses[Math.floor(Math.random() * responses.length)] };
+    return {
+      member: others[Math.floor(Math.random() * others.length)],
+      text: responses[Math.floor(Math.random() * responses.length)],
+    };
   }
 }
 function switchChannel(channelId) {
   AppState.activeChannelId = channelId;
-  const channelData = AppState.channels[channelId] || { name: window.t("club.lounge"), messages: [] };
+  const channelData = AppState.channels[channelId] || {
+    name: window.t("club.lounge"),
+    messages: [],
+  };
 
-  document.querySelectorAll(".club-room-btn").forEach(btn => {
+  document.querySelectorAll(".club-room-btn").forEach((btn) => {
     btn.classList.toggle("is-active", btn.dataset.channel === channelId);
   });
 
@@ -1276,9 +1575,11 @@ function switchChannel(channelId) {
   const pinnedSub = document.getElementById("clubPinnedSub");
   const messagesContainer = document.getElementById("clubMessages");
   const composerWrap = document.getElementById("clubComposerWrap");
-  const leaderboardContainer = document.getElementById("clubLeaderboardContainer");
+  const leaderboardContainer = document.getElementById(
+    "clubLeaderboardContainer",
+  );
 
-  if (channelId === 'leaderboard') {
+  if (channelId === "leaderboard") {
     if (pinnedTitle) {
       pinnedTitle.textContent = "قائمة المتصدرين";
       pinnedTitle.setAttribute("data-i18n", "leaderboardTitle");
@@ -1313,12 +1614,12 @@ function switchChannel(channelId) {
 
   if (window.AudioEngine) window.AudioEngine.playRustle();
   if (window.translateDOM && document.body) {
-    const lang = localStorage.getItem('appLang') || 'ar';
-    if (lang === 'en') window.translateDOM(document.body, lang);
+    const lang = localStorage.getItem("appLang") || "ar";
+    if (lang === "en") window.translateDOM(document.body, lang);
   }
 }
 
-document.querySelectorAll(".club-room-btn").forEach(btn => {
+document.querySelectorAll(".club-room-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const badge = btn.querySelector(".room-badge");
     if (badge) badge.remove();
@@ -1327,7 +1628,7 @@ document.querySelectorAll(".club-room-btn").forEach(btn => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  switchChannel('global-lounge');
+  switchChannel("global-lounge");
 });
 
 function renderMessages() {
@@ -1337,12 +1638,16 @@ function renderMessages() {
   const channelId = AppState.activeChannelId;
   const messages = AppState.channels[channelId]?.messages || [];
 
-  container.innerHTML = messages.map(msg => {
-    const isMe = msg.senderId === AppState.user.id;
-    const timeStr = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  container.innerHTML = messages
+    .map((msg) => {
+      const isMe = msg.senderId === AppState.user.id;
+      const timeStr = new Date(msg.timestamp).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
 
-    if (isMe) {
-      return `
+      if (isMe) {
+        return `
         <div class="chat-row is-outgoing">
           <div class="chat-bubble is-outgoing">
             <div class="chat-text">${msg.text}</div>
@@ -1355,13 +1660,13 @@ function renderMessages() {
           </div>
         </div>
       `;
-    } else {
-      return `
+      } else {
+        return `
         <div class="chat-row is-incoming">
           <div class="chat-bubble is-incoming">
             <div class="chat-sender-header">
-              <span style="font-size: 10px; color: ${msg.senderColor || '#d4af37'}; font-weight: bold; font-family: 'Cinzel', serif;">${msg.senderName}</span>
-              <span style="font-size: 8px; color: #8a7a5a; background: rgba(212,175,55,0.1); padding: 2px 6px; border-radius: 4px;">${msg.senderTier || 'MEMBER'}</span>
+              <span style="font-size: 10px; color: ${msg.senderColor || "#d4af37"}; font-weight: bold; font-family: 'Cinzel', serif;">${msg.senderName}</span>
+              <span style="font-size: 8px; color: #8a7a5a; background: rgba(212,175,55,0.1); padding: 2px 6px; border-radius: 4px;">${msg.senderTier || "MEMBER"}</span>
             </div>
             <div class="chat-text">${msg.text}</div>
             <div class="chat-meta">
@@ -1370,8 +1675,9 @@ function renderMessages() {
           </div>
         </div>
       `;
-    }
-  }).join('');
+      }
+    })
+    .join("");
 
   container.scrollTop = container.scrollHeight;
 }
@@ -1383,12 +1689,13 @@ function handleSendMessage() {
   if (!text) return;
 
   const channelId = AppState.activeChannelId;
-  if (!AppState.channels[channelId]) AppState.channels[channelId] = { messages: [] };
+  if (!AppState.channels[channelId])
+    AppState.channels[channelId] = { messages: [] };
 
   AppState.channels[channelId].messages.push({
     senderId: AppState.user.id,
     text: text,
-    timestamp: Date.now()
+    timestamp: Date.now(),
   });
 
   input.value = "";
@@ -1406,30 +1713,36 @@ function handleSendMessage() {
     if (typingName) typingName.textContent = elite.name;
     if (indicator) indicator.style.display = "flex";
 
-    typingTimeout = setTimeout(() => {
-      if (indicator) indicator.style.display = "none";
+    typingTimeout = setTimeout(
+      () => {
+        if (indicator) indicator.style.display = "none";
 
-      AppState.channels[channelId].messages.push({
-        senderId: elite.id,
-        senderName: elite.name,
-        senderTier: elite.tier,
-        senderColor: elite.color,
-        text: replyText,
-        timestamp: Date.now()
-      });
+        AppState.channels[channelId].messages.push({
+          senderId: elite.id,
+          senderName: elite.name,
+          senderTier: elite.tier,
+          senderColor: elite.color,
+          text: replyText,
+          timestamp: Date.now(),
+        });
 
-      if (window.AudioEngine) window.AudioEngine.playReceive();
-      AppState.save();
-      renderMessages();
-    }, 1500 + Math.random() * 1000);
+        if (window.AudioEngine) window.AudioEngine.playReceive();
+        AppState.save();
+        renderMessages();
+      },
+      1500 + Math.random() * 1000,
+    );
   }, 1000);
 }
 
-document.getElementById("clubSendBtn")?.addEventListener("click", handleSendMessage);
+document
+  .getElementById("clubSendBtn")
+  ?.addEventListener("click", handleSendMessage);
 document.getElementById("clubInput")?.addEventListener("keypress", (e) => {
   if (e.key === "Enter") handleSendMessage();
 });
 
+/* === 6. MODALS & SETTINGS LOGIC === */
 function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const modal = document.getElementById("inspectionModal");
   if (!modal) return;
@@ -1440,8 +1753,7 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   document.getElementById("inspectionRarity").textContent =
     RARITY_LABEL[item.rarity]();
   document.getElementById("inspectionLore").textContent =
-    item.lore ||
-    window.t("dynamic.loreDefault");
+    item.lore || window.t("dynamic.loreDefault");
 
   const svgContent = ICONS[item.icon] || ICONS["crown"];
   document.getElementById("inspectionImage").innerHTML = svgContent;
@@ -1455,7 +1767,9 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
     newBtn.textContent = window.t("boutique.freeActivated");
     newBtn.disabled = true;
   } else if (isOwned) {
-    newBtn.textContent = isEquipped ? window.t("boutique.unequip") : window.t("dynamic.equipIdentity");
+    newBtn.textContent = isEquipped
+      ? window.t("boutique.unequip")
+      : window.t("dynamic.equipIdentity");
     newBtn.disabled = false;
     newBtn.onclick = () => equipItem(item, catKey);
   } else {
@@ -1485,14 +1799,15 @@ function purchaseItem(item, catKey) {
 function equipItem(item, catKey) {
   ClubState.toggleEquip(catKey, item.id);
   closeInspectionModal();
-}function updateMasterCard() {
-  const pmItems = document.getElementById('pmItemsCollected');
+}
+function updateMasterCard() {
+  const pmItems = document.getElementById("pmItemsCollected");
   if (pmItems) {
-      pmItems.textContent = (AppState.user.collectedItems || []).length;
+    pmItems.textContent = (AppState.user.collectedItems || []).length;
   }
 
-  const wealthValueEl = document.getElementById('wealthValue');
-  const privValueEl = document.getElementById('privValue');
+  const wealthValueEl = document.getElementById("wealthValue");
+  const privValueEl = document.getElementById("privValue");
   if (wealthValueEl && privValueEl) {
     const totalSpent = AppState.user.totalSpent || 0;
     const itemsCount = (AppState.user.collectedItems || []).length;
@@ -1500,11 +1815,11 @@ function equipItem(item, catKey) {
     let wealth = 90.0 + (totalSpent / 1000) * 0.1;
     if (wealth > 99.9) wealth = 99.9;
 
-    let priv = 80 + (itemsCount * 5);
+    let priv = 80 + itemsCount * 5;
     if (priv > 100) priv = 100;
 
-    wealthValueEl.textContent = wealth.toFixed(1) + '%';
-    privValueEl.textContent = priv + '%';
+    wealthValueEl.textContent = wealth.toFixed(1) + "%";
+    privValueEl.textContent = priv + "%";
   }
 
   if (window.renderMembershipTab) window.renderMembershipTab();
@@ -1559,27 +1874,13 @@ function showQuickPreview(item, wasAutoEquipped = false) {
 
   let lore = item.lore;
   if (!lore) {
-    if (item.icon === "crown")
-      lore =
-        window.t("dynamic.loreCrown");
-    else if (item.icon === "aura")
-      lore =
-        window.t("dynamic.loreAura");
-    else if (item.icon === "ring")
-      lore =
-        window.t("dynamic.loreRing");
-    else if (item.icon === "pendant")
-      lore =
-        window.t("dynamic.lorePendant");
-    else if (item.icon === "artifact")
-      lore =
-        window.t("dynamic.loreArtifact");
-    else if (item.icon === "star")
-      lore =
-        window.t("dynamic.loreStar");
-    else
-      lore =
-        window.t("dynamic.loreDefault");
+    if (item.icon === "crown") lore = window.t("dynamic.loreCrown");
+    else if (item.icon === "aura") lore = window.t("dynamic.loreAura");
+    else if (item.icon === "ring") lore = window.t("dynamic.loreRing");
+    else if (item.icon === "pendant") lore = window.t("dynamic.lorePendant");
+    else if (item.icon === "artifact") lore = window.t("dynamic.loreArtifact");
+    else if (item.icon === "star") lore = window.t("dynamic.loreStar");
+    else lore = window.t("dynamic.loreDefault");
   }
   document.getElementById("qpLore").textContent = lore;
 
@@ -1708,17 +2009,16 @@ document.querySelectorAll(".b-filt-btn").forEach((btn) => {
   });
 });
 
-
-  applyEquippedToCard(ClubState.equipped);
-  const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
-  if (activeBoutiqueTab && typeof renderBoutique === "function") {
-    renderBoutique(activeBoutiqueTab.dataset.cat);
-  }
-  if (typeof updateMasterCard === "function") {
-    updateMasterCard();
-  }
-    if (typeof renderProfileCollection === "function") {
-  }
+applyEquippedToCard(ClubState.equipped);
+const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
+if (activeBoutiqueTab && typeof renderBoutique === "function") {
+  renderBoutique(activeBoutiqueTab.dataset.cat);
+}
+if (typeof updateMasterCard === "function") {
+  updateMasterCard();
+}
+if (typeof renderProfileCollection === "function") {
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const savedPortrait = localStorage.getItem(`portrait_${ClubState.member.id}`);
@@ -1757,20 +2057,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const accountInfoModal = document.getElementById("accountInfoModal");
   if (menuAccountInfo && accountInfoModal) {
     menuAccountInfo.addEventListener("click", () => {
-      document.getElementById("accEmailInput").value = AppState.user.email || "";
-      document.getElementById("accPhoneInput").value = AppState.user.phone || "";
+      document.getElementById("accEmailInput").value =
+        AppState.user.email || "";
+      document.getElementById("accPhoneInput").value =
+        AppState.user.phone || "";
       accountInfoModal.classList.add("is-open");
     });
   }
-  document.getElementById("closeAccountInfoModal")?.addEventListener("click", () => {
-    accountInfoModal?.classList.remove("is-open");
-  });
-  document.getElementById("saveAccountInfoBtn")?.addEventListener("click", () => {
-    AppState.user.email = document.getElementById("accEmailInput").value.trim();
-    AppState.user.phone = document.getElementById("accPhoneInput").value.trim();
-    AppState.save();
-    accountInfoModal?.classList.remove("is-open");
-  });
+  document
+    .getElementById("closeAccountInfoModal")
+    ?.addEventListener("click", () => {
+      accountInfoModal?.classList.remove("is-open");
+    });
+  document
+    .getElementById("saveAccountInfoBtn")
+    ?.addEventListener("click", () => {
+      AppState.user.email = document
+        .getElementById("accEmailInput")
+        .value.trim();
+      AppState.user.phone = document
+        .getElementById("accPhoneInput")
+        .value.trim();
+      AppState.save();
+      accountInfoModal?.classList.remove("is-open");
+    });
 
   const menuHelp = document.getElementById("menuHelp");
   const helpSupportModal = document.getElementById("helpSupportModal");
@@ -1779,14 +2089,18 @@ document.addEventListener("DOMContentLoaded", () => {
       helpSupportModal.classList.add("is-open");
     });
   }
-  document.getElementById("closeHelpSupportModal")?.addEventListener("click", () => {
-    helpSupportModal?.classList.remove("is-open");
-  });
+  document
+    .getElementById("closeHelpSupportModal")
+    ?.addEventListener("click", () => {
+      helpSupportModal?.classList.remove("is-open");
+    });
 
   const menuMembership = document.getElementById("menuMembership");
   if (menuMembership) {
     menuMembership.addEventListener("click", () => {
-      const membershipTabBtn = document.querySelector('[data-tab="membership"]');
+      const membershipTabBtn = document.querySelector(
+        '[data-tab="membership"]',
+      );
       if (membershipTabBtn) membershipTabBtn.click();
     });
   }
@@ -1807,7 +2121,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const btnSettingsLogout = document.getElementById("btnSettingsLogout");
   const logoutConfirmModal = document.getElementById("logoutConfirmModal");
-  const closeLogoutConfirmModal = document.getElementById("closeLogoutConfirmModal");
+  const closeLogoutConfirmModal = document.getElementById(
+    "closeLogoutConfirmModal",
+  );
   const btnCancelLogout = document.getElementById("btnCancelLogout");
   const btnConfirmLogout = document.getElementById("btnConfirmLogout");
 
@@ -1836,16 +2152,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuMyCollection = document.getElementById("menuMyCollection");
   if (menuMyCollection) {
     menuMyCollection.addEventListener("click", () => {
-      const targetSection = document.querySelector("#profile-tab .profile-collection-section");
+      const targetSection = document.querySelector(
+        "#profile-tab .profile-collection-section",
+      );
       if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetSection.scrollIntoView({ behavior: "smooth", block: "center" });
 
         setTimeout(() => {
           const cards = targetSection.querySelectorAll(".pcs-item-card");
           cards.forEach((card, index) => {
             setTimeout(() => {
               card.style.transition = "box-shadow 0.4s ease";
-              card.style.boxShadow = "0 0 20px rgba(212, 175, 55, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.4)";
+              card.style.boxShadow =
+                "0 0 20px rgba(212, 175, 55, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.4)";
               setTimeout(() => {
                 card.style.boxShadow = "";
               }, 600);
@@ -1883,9 +2202,18 @@ function renderRadarChart() {
   const radius = 35;
 
   const metrics = [
-    { name: window.t("dynamic.wealth"), value: ClubState.member.wealthIndexValue || 92 },
-    { name: window.t("dynamic.privileges") || window.t("membership.privileges"), value: ClubState.member.privilegesValue || 84 },
-    { name: window.t("dynamic.connections"), value: ClubState.member.connectionsValue || 75 },
+    {
+      name: window.t("dynamic.wealth"),
+      value: ClubState.member.wealthIndexValue || 92,
+    },
+    {
+      name: window.t("dynamic.privileges") || window.t("membership.privileges"),
+      value: ClubState.member.privilegesValue || 84,
+    },
+    {
+      name: window.t("dynamic.connections"),
+      value: ClubState.member.connectionsValue || 75,
+    },
   ];
 
   if (!d3RadarSvg) {
@@ -2033,6 +2361,7 @@ function renderRadarChart() {
 
 window.updateRadarChart = renderRadarChart;
 
+/* === 7. INITIALIZATION & LISTENERS === */
 document.addEventListener("DOMContentLoaded", () => {
   renderRadarChart();
   renderProgressChart();
@@ -2161,7 +2490,8 @@ function updateCreditsUI() {
   const buyBtn = document.getElementById("clubCreditsBuyBtn");
   if (!creditsText) return;
 
-  const currentCredits = ClubState.chatCredits !== undefined ? ClubState.chatCredits : 10;
+  const currentCredits =
+    ClubState.chatCredits !== undefined ? ClubState.chatCredits : 10;
   const maxCredits = 10;
 
   if (currentCredits <= 0) {
@@ -2174,29 +2504,50 @@ function updateCreditsUI() {
     if (buyBtn) buyBtn.style.display = "inline-block";
   }
 }
-function renderClubMessages() {
-}
+function renderClubMessages() {}
 const CLUB_MEMBERS = [
-  { id: "1001", name: "ALEXANDER W.", tier: "SOVEREIGN EXARCH", msgId: "msg-1", content: "Great investment opportunity in the new fund." },
-  { id: "1002", name: "SARAH V.", tier: "SOVEREIGN LUMINARY", msgId: "msg-2", content: "I agree, looking into the details now." },
-  { id: "1003", name: "MICHAEL T.", tier: "SOVEREIGN MEMBER", msgId: "msg-3", content: "When is the next global meetup?" }
+  {
+    id: "1001",
+    name: "ALEXANDER W.",
+    tier: "SOVEREIGN EXARCH",
+    msgId: "msg-1",
+    content: "Great investment opportunity in the new fund.",
+  },
+  {
+    id: "1002",
+    name: "SARAH V.",
+    tier: "SOVEREIGN LUMINARY",
+    msgId: "msg-2",
+    content: "I agree, looking into the details now.",
+  },
+  {
+    id: "1003",
+    name: "MICHAEL T.",
+    tier: "SOVEREIGN MEMBER",
+    msgId: "msg-3",
+    content: "When is the next global meetup?",
+  },
 ];
 
 let typingTimeout2 = null;
-function setTypingIndicator(member) {
-}
+function setTypingIndicator(member) {}
 
 function playPurchaseAnimation() {
   const flash = document.createElement("div");
   flash.style.position = "fixed";
   flash.style.inset = "0";
-  flash.style.background = "radial-gradient(circle at center, rgba(212,175,106,0.25), transparent)";
+  flash.style.background =
+    "radial-gradient(circle at center, rgba(212,175,106,0.25), transparent)";
   flash.style.pointerEvents = "none";
   flash.style.zIndex = "9999";
   flash.style.transition = "opacity 0.8s ease-out";
   document.body.appendChild(flash);
-  setTimeout(() => { flash.style.opacity = "0"; }, 50);
-  setTimeout(() => { flash.remove(); }, 850);
+  setTimeout(() => {
+    flash.style.opacity = "0";
+  }, 50);
+  setTimeout(() => {
+    flash.remove();
+  }, 850);
 }
 
 // ---------------------------------------------------------
@@ -2208,28 +2559,28 @@ function renderProfileAchievements() {
 
   let unlocked = [];
   try {
-    unlocked = JSON.parse(localStorage.getItem('club_achievements')) || [];
+    unlocked = JSON.parse(localStorage.getItem("club_achievements")) || [];
   } catch (e) {}
 
   let html = "";
   const totalAchievements = Object.keys(ACHIEVEMENTS_DATA).length;
   let earnedCount = 0;
 
-  Object.keys(ACHIEVEMENTS_DATA).forEach(id => {
+  Object.keys(ACHIEVEMENTS_DATA).forEach((id) => {
     const ach = ACHIEVEMENTS_DATA[id];
     const isUnlocked = ach.isUnlocked();
     if (isUnlocked) earnedCount++;
 
-    const nameText = window.t('honors.' + id);
-    const titleText = window.t('honors.title_' + id);
+    const nameText = window.t("honors." + id);
+    const titleText = window.t("honors.title_" + id);
 
     if (isUnlocked) {
       html += `
-        <div class="honor-card is-unlocked gyro-element" data-tilt data-tooltip="${window.t('honors.desc_' + id).replace(/"/g, '&quot;')}">
+        <div class="honor-card is-unlocked gyro-element" data-tilt data-tooltip="${window.t("honors.desc_" + id).replace(/"/g, "&quot;")}">
           <div class="honor-icon">${ach.icon}</div>
           <div class="honor-name">${nameText}</div>
           <div class="honor-title">${titleText}</div>
-          <div class="honor-pill">${window.t('honors.earned')}</div>
+          <div class="honor-pill">${window.t("honors.earned")}</div>
         </div>
       `;
     } else {
@@ -2238,13 +2589,15 @@ function renderProfileAchievements() {
       const percent = Math.min(100, Math.max(0, (current / ach.target) * 100));
 
       const remainingFormatted = "$" + (ach.target - current).toLocaleString();
-      let remainingText = window.t('honors.remaining').replace('{0}', remainingFormatted);
+      let remainingText = window
+        .t("honors.remaining")
+        .replace("{0}", remainingFormatted);
 
       html += `
-        <div class="honor-card is-locked gyro-element" data-tilt data-tooltip="${window.t('honors.desc_' + id).replace(/"/g, '&quot;')}">
+        <div class="honor-card is-locked gyro-element" data-tilt data-tooltip="${window.t("honors.desc_" + id).replace(/"/g, "&quot;")}">
           <div class="honor-icon">${ach.icon}</div>
           <div class="honor-name">${nameText}</div>
-          <div class="honor-title">${window.t('honors.locked')}</div>
+          <div class="honor-title">${window.t("honors.locked")}</div>
           <div class="honor-progress-wrap">
             <div class="honor-progress-bar">
               <div class="honor-progress-fill" style="width: ${percent}%;"></div>
@@ -2260,16 +2613,18 @@ function renderProfileAchievements() {
   if (window.initGyroElements) window.initGyroElements();
 
   if (summaryContainer) {
-    const completionPercent = Math.round((earnedCount / totalAchievements) * 100);
+    const completionPercent = Math.round(
+      (earnedCount / totalAchievements) * 100,
+    );
     summaryContainer.innerHTML = `
       <div class="achievements-summary-col">
-        <span class="achievements-summary-label">${window.t('honors.unlocked')}</span>
+        <span class="achievements-summary-label">${window.t("honors.unlocked")}</span>
         <span class="achievements-summary-value">${earnedCount} / ${totalAchievements}</span>
       </div>
       <div class="achievements-summary-divider"></div>
       <div class="achievements-summary-col" style="align-items: flex-end;">
-        <span class="achievements-summary-label">${window.t('honors.tierProgress')}</span>
-        <span class="achievements-summary-value" style="color: ${completionPercent === 100 ? '#e6c27a' : '#d4af6a'};">${completionPercent}%</span>
+        <span class="achievements-summary-label">${window.t("honors.tierProgress")}</span>
+        <span class="achievements-summary-value" style="color: ${completionPercent === 100 ? "#e6c27a" : "#d4af6a"};">${completionPercent}%</span>
       </div>
     `;
   }
@@ -2279,22 +2634,27 @@ function renderProfileCollection() {
   const container = document.getElementById("profileCollectionGrid");
   if (!container) return;
 
-  const collectedItems = (AppState.user.collectedItems || []).map(id => {
-    if (typeof id === 'object') return id;
-    let found = null;
-    for (const cat in BOUTIQUE) {
-      const it = BOUTIQUE[cat].items.find(i => i.id === id);
-      if (it) found = it;
-    }
-    return found;
-  }).filter(i => i);
+  const collectedItems = (AppState.user.collectedItems || [])
+    .map((id) => {
+      if (typeof id === "object") return id;
+      let found = null;
+      for (const cat in BOUTIQUE) {
+        const it = BOUTIQUE[cat].items.find((i) => i.id === id);
+        if (it) found = it;
+      }
+      return found;
+    })
+    .filter((i) => i);
 
   let itemCount = collectedItems.length;
 
   if (itemCount === 0) {
-    const isAr = (AppState.language === 'ar' || document.documentElement.lang === 'ar');
-    const emptyText = isAr ? 'الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك.' : 'Your vault is empty. Acquire your first asset from the Boutique.';
-    const btnText = isAr ? 'استكشاف البوتيك' : 'Explore Boutique';
+    const isAr =
+      AppState.language === "ar" || document.documentElement.lang === "ar";
+    const emptyText = isAr
+      ? "الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك."
+      : "Your vault is empty. Acquire your first asset from the Boutique.";
+    const btnText = isAr ? "استكشاف البوتيك" : "Explore Boutique";
 
     container.innerHTML = `
       <div class="empty-vault-card" onclick="goToPage('boutique')">
@@ -2304,11 +2664,14 @@ function renderProfileCollection() {
       </div>
     `;
   } else {
-    let html = '';
+    let html = "";
     for (const item of collectedItems) {
       if (!item) continue;
-      const isAr = (AppState.language === 'ar' || document.documentElement.lang === 'ar');
-      const nameText = isAr ? window.t('items.' + item.id) : window.t('items.' + item.id);
+      const isAr =
+        AppState.language === "ar" || document.documentElement.lang === "ar";
+      const nameText = isAr
+        ? window.t("items." + item.id)
+        : window.t("items." + item.id);
 
       html += `
         <div class="pcs-item-card gyro-element" data-tilt>
@@ -2317,7 +2680,7 @@ function renderProfileCollection() {
           </div>
           <div class="pcs-item-info">
             <div class="pcs-item-name">${nameText}</div>
-            <div class="pcs-item-price">${item.price ? '$$' + item.price.toLocaleString() : item.rarity}</div>
+            <div class="pcs-item-price">${item.price ? "$$" + item.price.toLocaleString() : item.rarity}</div>
           </div>
         </div>
       `;
@@ -2330,18 +2693,22 @@ function renderProfileCollection() {
 function initEditProfileModal() {
   const photoGrid = document.getElementById("editProfilePhotoGrid");
   if (photoGrid) {
-    photoGrid.innerHTML = profilePhotos.map((url, i) => `
-      <div class="edit-profile-photo-opt ${url === selectedProfilePhoto ? 'selected' : ''}"
+    photoGrid.innerHTML = profilePhotos
+      .map(
+        (url, i) => `
+      <div class="edit-profile-photo-opt ${url === selectedProfilePhoto ? "selected" : ""}"
            style="background-image: url('${url}')"
            data-url="${url}">
       </div>
-    `).join('');
+    `,
+      )
+      .join("");
 
-    const opts = photoGrid.querySelectorAll('.edit-profile-photo-opt');
-    opts.forEach(opt => {
-      opt.addEventListener('click', (e) => {
-        opts.forEach(o => o.classList.remove('selected'));
-        e.target.classList.add('selected');
+    const opts = photoGrid.querySelectorAll(".edit-profile-photo-opt");
+    opts.forEach((opt) => {
+      opt.addEventListener("click", (e) => {
+        opts.forEach((o) => o.classList.remove("selected"));
+        e.target.classList.add("selected");
         selectedProfilePhoto = e.target.dataset.url;
       });
     });
@@ -2352,31 +2719,42 @@ function saveProfileDraft() {
   const draft = {
     name: document.getElementById("editProfileNameInput")?.value || "",
     quote: document.getElementById("editProfileQuoteInput")?.value || "",
-    avatarUrl: document.getElementById("editProfileAvatarUrl")?.value || ""
+    avatarUrl: document.getElementById("editProfileAvatarUrl")?.value || "",
   };
-  localStorage.setItem('profileDraft', JSON.stringify(draft));
+  localStorage.setItem("profileDraft", JSON.stringify(draft));
 }
 
-document.getElementById("editProfileNameInput")?.addEventListener("input", saveProfileDraft);
-document.getElementById("editProfileQuoteInput")?.addEventListener("input", saveProfileDraft);
-document.getElementById("editProfileAvatarUrl")?.addEventListener("input", saveProfileDraft);
+document
+  .getElementById("editProfileNameInput")
+  ?.addEventListener("input", saveProfileDraft);
+document
+  .getElementById("editProfileQuoteInput")
+  ?.addEventListener("input", saveProfileDraft);
+document
+  .getElementById("editProfileAvatarUrl")
+  ?.addEventListener("input", saveProfileDraft);
 
 document.getElementById("editAccountBtn")?.addEventListener("click", () => {
   const modal = document.getElementById("editProfileModal");
   if (modal) {
     let draft = null;
     try {
-      draft = JSON.parse(localStorage.getItem('profileDraft'));
-    } catch(e) {}
+      draft = JSON.parse(localStorage.getItem("profileDraft"));
+    } catch (e) {}
 
     if (draft) {
       document.getElementById("editProfileNameInput").value = draft.name || "";
-      document.getElementById("editProfileQuoteInput").value = draft.quote || "";
-      document.getElementById("editProfileAvatarUrl").value = draft.avatarUrl || "";
+      document.getElementById("editProfileQuoteInput").value =
+        draft.quote || "";
+      document.getElementById("editProfileAvatarUrl").value =
+        draft.avatarUrl || "";
     } else {
-      document.getElementById("editProfileNameInput").value = AppState.user.name || "";
-      document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
-      document.getElementById("editProfileAvatarUrl").value = AppState.user.avatarUrl || "";
+      document.getElementById("editProfileNameInput").value =
+        AppState.user.name || "";
+      document.getElementById("editProfileQuoteInput").value =
+        AppState.user.quote || AppState.user.bio || "";
+      document.getElementById("editProfileAvatarUrl").value =
+        AppState.user.avatarUrl || "";
     }
 
     initEditProfileModal();
@@ -2384,13 +2762,19 @@ document.getElementById("editAccountBtn")?.addEventListener("click", () => {
   }
 });
 
-document.getElementById("closeEditProfileModal")?.addEventListener("click", () => {
-  document.getElementById("editProfileModal")?.classList.remove("is-open");
-});
+document
+  .getElementById("closeEditProfileModal")
+  ?.addEventListener("click", () => {
+    document.getElementById("editProfileModal")?.classList.remove("is-open");
+  });
 
 document.getElementById("saveEditProfileBtn")?.addEventListener("click", () => {
-  const nameInput = document.getElementById("editProfileNameInput").value.trim();
-  const quoteInput = document.getElementById("editProfileQuoteInput").value.trim();
+  const nameInput = document
+    .getElementById("editProfileNameInput")
+    .value.trim();
+  const quoteInput = document
+    .getElementById("editProfileQuoteInput")
+    .value.trim();
   let avatarUrl = document.getElementById("editProfileAvatarUrl").value.trim();
 
   if (nameInput) AppState.user.name = nameInput;
@@ -2405,7 +2789,7 @@ document.getElementById("saveEditProfileBtn")?.addEventListener("click", () => {
 
   AppState.save();
   updateUI();
-  localStorage.removeItem('profileDraft'); // Clear draft on successful save
+  localStorage.removeItem("profileDraft"); // Clear draft on successful save
   document.getElementById("editProfileModal")?.classList.remove("is-open");
 });
 
@@ -2413,19 +2797,21 @@ function renderProfileStatsBar() {
   const container = document.getElementById("profileStatsBar");
   if (!container) return;
 
-  const lang = document.documentElement.lang || 'en';
+  const lang = document.documentElement.lang || "en";
 
-  const levelVal = lang === 'ar' ? 'سيادي' : 'SOVEREIGN';
-  const levelLabel = lang === 'ar' ? 'رتبة العضوية' : 'MEMBERSHIP LEVEL';
+  const levelVal = lang === "ar" ? "سيادي" : "SOVEREIGN";
+  const levelLabel = lang === "ar" ? "رتبة العضوية" : "MEMBERSHIP LEVEL";
 
-  const itemsVal = AppState.user.collectedItems ? AppState.user.collectedItems.length : 0;
-  const itemsLabel = lang === 'ar' ? 'المقتنيات' : 'ITEMS COLLECTED';
+  const itemsVal = AppState.user.collectedItems
+    ? AppState.user.collectedItems.length
+    : 0;
+  const itemsLabel = lang === "ar" ? "المقتنيات" : "ITEMS COLLECTED";
 
-  const connectionsVal = '248';
-  const connectionsLabel = lang === 'ar' ? 'شبكة المعارف' : 'CONNECTIONS';
+  const connectionsVal = "248";
+  const connectionsLabel = lang === "ar" ? "شبكة المعارف" : "CONNECTIONS";
 
-  const sinceVal = lang === 'ar' ? 'يناير 2024' : 'Jan 2024';
-  const sinceLabel = lang === 'ar' ? 'عضو منذ' : 'MEMBER SINCE';
+  const sinceVal = lang === "ar" ? "يناير 2024" : "Jan 2024";
+  const sinceLabel = lang === "ar" ? "عضو منذ" : "MEMBER SINCE";
 
   container.innerHTML = `
     <div class="psb-col">
@@ -2454,12 +2840,25 @@ function renderProfileStatsBar() {
   `;
 }
 
+/* === 5. PRESTIGE, HONORS & METRICS === */
 function renderLeaderboard() {
-  const container = document.getElementById("leaderboardList") || document.getElementById("clubLeaderboardContainer");
+  const container =
+    document.getElementById("leaderboardList") ||
+    document.getElementById("clubLeaderboardContainer");
   if (!container) return;
   const mockTopMembers = [
-    { id: "SV-0001", name: "A. Al Maktoum", wealth: "99.9%", tier: "Sovereign" },
-    { id: "SV-0822", name: "E. Rothschild", wealth: "99.7%", tier: "Sovereign" },
+    {
+      id: "SV-0001",
+      name: "A. Al Maktoum",
+      wealth: "99.9%",
+      tier: "Sovereign",
+    },
+    {
+      id: "SV-0822",
+      name: "E. Rothschild",
+      wealth: "99.7%",
+      tier: "Sovereign",
+    },
     { id: "SV-1105", name: "M. Windsor", wealth: "99.5%", tier: "Elite" },
     { id: "SV-0344", name: "J. Rockefeller", wealth: "99.2%", tier: "Elite" },
     { id: "SV-2211", name: "K. Arnault", wealth: "98.9%", tier: "Elite" },
@@ -2467,25 +2866,27 @@ function renderLeaderboard() {
     { id: "SV-4402", name: "F. Pinault", wealth: "98.1%", tier: "Member" },
     { id: "SV-5510", name: "D. Wertheimer", wealth: "97.8%", tier: "Member" },
     { id: "SV-6623", name: "G. Armani", wealth: "97.5%", tier: "Member" },
-    { id: "SV-7734", name: "S. Ortega", wealth: "97.0%", tier: "Member" }
+    { id: "SV-7734", name: "S. Ortega", wealth: "97.0%", tier: "Member" },
   ];
 
   let html = '<div class="leaderboard-list">';
   mockTopMembers.forEach((member, index) => {
     const rank = index + 1;
-    const isAr = (AppState.language === 'ar' || document.documentElement.lang === 'ar');
+    const isAr =
+      AppState.language === "ar" || document.documentElement.lang === "ar";
     const name = member.name;
     const score = member.wealth;
 
     let tagText = member.tier;
     if (isAr) {
-       if (member.tier.includes('Sovereign')) tagText = window.t('misc.sovereign');
-       else if (member.tier.includes('Elite')) tagText = window.t('misc.elite');
-       else tagText = window.t('misc.member');
+      if (member.tier.includes("Sovereign"))
+        tagText = window.t("misc.sovereign");
+      else if (member.tier.includes("Elite")) tagText = window.t("misc.elite");
+      else tagText = window.t("misc.member");
     } else {
-       if (member.tier.includes('Sovereign')) tagText = 'Sovereign';
-       else if (member.tier.includes('Elite')) tagText = 'Elite';
-       else tagText = 'Member';
+      if (member.tier.includes("Sovereign")) tagText = "Sovereign";
+      else if (member.tier.includes("Elite")) tagText = "Elite";
+      else tagText = "Member";
     }
 
     html += `
@@ -2503,6 +2904,6 @@ function renderLeaderboard() {
     </div>
     `;
   });
-  html += '</div>';
+  html += "</div>";
   container.innerHTML = html;
 }

@@ -1,882 +1,882 @@
 window.I18N = {
   modal_account_title: {
     en: "ACCOUNT INFORMATION",
-    ar: "بيانات الحساب"
+    ar: "بيانات الحساب",
   },
   leave_blank: {
     en: "Leave blank to keep current",
-    ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية"
+    ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية",
   },
   explore_boutique: {
     en: "Explore Boutique",
-    ar: "استكشاف البوتيك"
+    ar: "استكشاف البوتيك",
   },
   nav: {
     membership: {
       en: "Membership",
-      ar: "العضوية"
+      ar: "العضوية",
     },
     club: {
       en: "Club",
-      ar: "النادي"
+      ar: "النادي",
     },
     profile: {
       accountInfo: {
         en: "Account Information",
-        ar: "معلومات الحساب"
+        ar: "معلومات الحساب",
       },
       accountInfoDesc: {
         en: "Name, email, phone, password",
-        ar: "الاسم، البريد، الهاتف، كلمة المرور"
+        ar: "الاسم، البريد، الهاتف، كلمة المرور",
       },
       membershipLabel: {
         en: "Membership",
-        ar: "العضوية السيادية"
+        ar: "العضوية السيادية",
       },
       membershipDesc: {
         en: "Plan details, renewal, benefits",
-        ar: "تفاصيل الخطة، التجديد، المزايا"
+        ar: "تفاصيل الخطة، التجديد، المزايا",
       },
       myCollection: {
         en: "My Collection",
-        ar: "مقتنياتي"
+        ar: "مقتنياتي",
       },
       myCollectionDesc: {
         en: "Your purchased items & active items",
-        ar: "مقتنياتك المشتراة والنشطة"
+        ar: "مقتنياتك المشتراة والنشطة",
       },
       addFriendBtn: {
         en: "Add Friend",
-        ar: "إضافة عضو"
+        ar: "إضافة عضو",
       },
       comingSoon: {
         en: "Coming Soon",
-        ar: "قريباً"
+        ar: "قريباً",
       },
       settingsTitle: {
         en: "Settings",
-        ar: "الإعدادات"
+        ar: "الإعدادات",
       },
       settingsDesc: {
         en: "Language, audio, and preferences",
-        ar: "اللغة، الصوت، والتفضيلات"
+        ar: "اللغة، الصوت، والتفضيلات",
       },
       supportTitle: {
         en: "Concierge & Support",
-        ar: "المساعد الخاص (الكونسيرج)"
+        ar: "المساعد الخاص (الكونسيرج)",
       },
       supportDesc: {
         en: "FAQs, contact us",
-        ar: "الأسئلة الشائعة، اتصل بنا"
+        ar: "الأسئلة الشائعة، اتصل بنا",
       },
       editIdentity: {
         en: "EDIT IDENTITY",
-        ar: "تعديل الهوية"
+        ar: "تعديل الهوية",
       },
       avatarLabel: {
         en: "AVATAR URL (OR UPLOAD)",
-        ar: "رابط الصورة (أو رفع صورة)"
+        ar: "رابط الصورة (أو رفع صورة)",
       },
       selectPortrait: {
         en: "SELECT PORTRAIT",
-        ar: "اختر صورة شخصية"
+        ar: "اختر صورة شخصية",
       },
       email: {
         en: "EMAIL ADDRESS",
-        ar: "البريد الإلكتروني"
+        ar: "البريد الإلكتروني",
       },
       phone: {
         en: "PHONE NUMBER",
-        ar: "رقم الهاتف"
+        ar: "رقم الهاتف",
       },
       password: {
         en: "NEW PASSWORD",
-        ar: "كلمة المرور الجديدة"
+        ar: "كلمة المرور الجديدة",
       },
       passPlaceholder: {
         en: "Leave blank to keep current",
-        ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية"
+        ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية",
       },
       updateAccount: {
         en: "UPDATE ACCOUNT",
-        ar: "تحديث الحساب"
+        ar: "تحديث الحساب",
       },
       accountInfoTitleModal: {
         en: "ACCOUNT INFORMATION",
-        ar: "بيانات الحساب"
+        ar: "بيانات الحساب",
       },
       quoteText: {
         en: "Not everyone understands wealth. That's why we have this Club.",
-        ar: "ليس الجميع يدرك معنى الثروة الحقيقية.. لهذا وُجد هذا النادي."
+        ar: "ليس الجميع يدرك معنى الثروة الحقيقية.. لهذا وُجد هذا النادي.",
       },
       itemsCollected: {
         en: "Items Collected",
-        ar: "المقتنيات"
+        ar: "المقتنيات",
       },
       connections: {
         en: "Connections",
-        ar: "شبكة المعارف"
+        ar: "شبكة المعارف",
       },
       en: "Profile",
-      ar: "الملف"
+      ar: "الملف",
     },
     boutique: {
       en: "Boutique",
-      ar: "البوتيك"
-    }
+      ar: "البوتيك",
+    },
   },
   membership: {
     idMetrics: {
       en: "Identity Metrics",
-      ar: "مؤشرات الهوية"
+      ar: "مؤشرات الهوية",
     },
     wealthIndex: {
       en: "Wealth Index",
-      ar: "مؤشر الثروة"
+      ar: "مؤشر الثروة",
     },
     privileges: {
       en: "Privileges",
-      ar: "الامتيازات"
+      ar: "الامتيازات",
     },
     shareMembership: {
       en: "Share Membership",
-      ar: "مشاركة العضوية"
+      ar: "مشاركة العضوية",
     },
     copyLink: {
       en: "Copy Sovereign Link",
-      ar: "نسخ الرابط السيادي"
+      ar: "نسخ الرابط السيادي",
     },
     memberSince: {
       en: "Member Since",
-      ar: "عضو منذ"
+      ar: "عضو منذ",
     },
     activeStatus: {
       en: "Active",
-      ar: "نشط"
+      ar: "نشط",
     },
     statusLabel: {
       en: "Status",
-      ar: "الحالة"
+      ar: "الحالة",
     },
     level: {
       en: "Membership Level",
-      ar: "رتبة العضوية"
-    }
+      ar: "رتبة العضوية",
+    },
   },
   club: {
     lounge: {
       en: "Members Lounge",
-      ar: "صالة الأعضاء"
+      ar: "صالة الأعضاء",
     },
     wealth: {
       en: "Wealth & Investing",
-      ar: "الثروة والاستثمار"
+      ar: "الثروة والاستثمار",
     },
     business: {
       en: "Business & Opportunities",
-      ar: "الأعمال والفرص"
+      ar: "الأعمال والفرص",
     },
     lifestyle: {
       en: "Lifestyle",
-      ar: "أسلوب الحياة"
+      ar: "أسلوب الحياة",
     },
     leaderboard: {
       en: "Leaderboard",
-      ar: "قائمة المتصدرين"
+      ar: "قائمة المتصدرين",
     },
     leaderboardTitle: {
       en: "Leaderboard",
-      ar: "قائمة المتصدرين"
+      ar: "قائمة المتصدرين",
     },
     leaderboardSubtitle: {
       en: "Global Elite of Sovereign Wealth",
-      ar: "النخبة العالمية لأصحاب الثروة السيادية"
+      ar: "النخبة العالمية لأصحاب الثروة السيادية",
     },
     leaderboardSub: {
       en: "Global Sovereign Wealth Elite",
-      ar: "النخبة العالمية لأصحاب الثروة السيادية"
+      ar: "النخبة العالمية لأصحاب الثروة السيادية",
     },
     welcomeTitle: {
       en: "Welcome to Members Lounge",
-      ar: "أهلًا بك في صالة الأعضاء"
+      ar: "أهلًا بك في صالة الأعضاء",
     },
     welcomeSub: {
       en: "Sovereign members space. Communicate with confidence.",
-      ar: "مساحة الأعضاء السياديين. تواصل بثقة."
+      ar: "مساحة الأعضاء السياديين. تواصل بثقة.",
     },
     messagesLeft: {
       en: "Remaining messages today",
-      ar: "الرسائل المتبقية اليوم"
+      ar: "الرسائل المتبقية اليوم",
     },
     credit: {
       en: "Credit",
-      ar: "رصيد"
+      ar: "رصيد",
     },
     typeMessage: {
       en: "Type a message to the club...",
-      ar: "اكتب رسالة للنادي…"
+      ar: "اكتب رسالة للنادي…",
     },
     send: {
       en: "Send",
-      ar: "إرسال"
+      ar: "إرسال",
     },
     buyCredits: {
       en: "Buy Message Credits",
-      ar: "شراء رصيد رسائل"
+      ar: "شراء رصيد رسائل",
     },
     choosePackage: {
       en: "Choose the right package",
-      ar: "اختر الباقة المناسبة"
+      ar: "اختر الباقة المناسبة",
     },
     msgs10: {
       en: "10 Messages",
-      ar: "١٠ رسائل"
+      ar: "١٠ رسائل",
     },
     msgs25: {
       en: "25 Messages",
-      ar: "٢٥ رسالة"
+      ar: "٢٥ رسالة",
     },
     msgs50: {
       en: "50 Messages",
-      ar: "٥٠ رسالة"
+      ar: "٥٠ رسالة",
     },
     cancel: {
       en: "Cancel",
-      ar: "إلغاء"
+      ar: "إلغاء",
     },
     insufficientBalance: {
       en: "Insufficient balance",
-      ar: "لا يوجد رصيد كافٍ"
+      ar: "لا يوجد رصيد كافٍ",
     },
     insufficientBalanceDesc: {
       en: "Your current balance is insufficient to complete this transaction.",
-      ar: "رصيدك الحالي لا يكفي لإتمام هذه العملية."
-    }
+      ar: "رصيدك الحالي لا يكفي لإتمام هذه العملية.",
+    },
   },
   profile: {
     editProfile: {
       en: "Edit Profile",
-      ar: "تعديل الملف"
+      ar: "تعديل الملف",
     },
     displayName: {
       en: "DISPLAY NAME",
-      ar: "اسم العرض"
+      ar: "اسم العرض",
     },
     namePlaceholder: {
       en: "Enter your display name",
-      ar: "أدخل اسم العرض"
+      ar: "أدخل اسم العرض",
     },
     quoteLabel: {
       en: "PROFILE QUOTE",
-      ar: "النبذة"
+      ar: "النبذة",
     },
     quotePlaceholder: {
       en: "Enter your quote",
-      ar: "أدخل نبذة عنك"
+      ar: "أدخل نبذة عنك",
     },
     avatarLabel: {
       en: "AVATAR URL (OR UPLOAD)",
-      ar: "صورة العرض (رابط أو رفع)"
+      ar: "صورة العرض (رابط أو رفع)",
     },
     saveChanges: {
       en: "SAVE CHANGES",
-      ar: "حفظ التعديلات"
+      ar: "حفظ التعديلات",
     },
     infoTitle: {
       en: "Member Info",
-      ar: "معلومات العضو"
+      ar: "معلومات العضو",
     },
     messageBtn: {
       en: "Message",
-      ar: "مراسلة"
+      ar: "مراسلة",
     },
     addFriendBtn: {
       en: "Add Friend",
-      ar: "إضافة صديق"
+      ar: "إضافة صديق",
     },
     accountBalance: {
       en: "Account Balance",
-      ar: "رصيد الحساب"
+      ar: "رصيد الحساب",
     },
     addBalance: {
       en: "Add Balance",
-      ar: "إضافة رصيد"
+      ar: "إضافة رصيد",
     },
     myCollection: {
       en: "My Collection",
-      ar: "مقتنياتي"
+      ar: "مقتنياتي",
     },
     viewAll: {
       en: "View All",
-      ar: "عرض الكل"
+      ar: "عرض الكل",
     },
     comingSoon: {
       en: "Coming soon",
-      ar: "قريبًا"
+      ar: "قريبًا",
     },
     profileUpdated: {
       en: "Profile Updated",
-      ar: "تحديث الملف"
+      ar: "تحديث الملف",
     },
     email: {
       en: "EMAIL ADDRESS",
-      ar: "البريد الإلكتروني"
+      ar: "البريد الإلكتروني",
     },
     phone: {
       en: "PHONE NUMBER",
-      ar: "رقم الهاتف"
+      ar: "رقم الهاتف",
     },
     password: {
       en: "NEW PASSWORD",
-      ar: "كلمة مرور جديدة"
+      ar: "كلمة مرور جديدة",
     },
     updateAccount: {
       en: "UPDATE ACCOUNT",
-      ar: "تحديث الحساب"
-    }
+      ar: "تحديث الحساب",
+    },
   },
   boutique: {
     allColl: {
       en: "All Collectibles",
-      ar: "جميع المقتنيات"
+      ar: "جميع المقتنيات",
     },
     ownedColl: {
       en: "Owned Collectibles",
-      ar: "المملوكة"
+      ar: "المملوكة",
     },
     available: {
       en: "Available",
-      ar: "المتاحة"
+      ar: "المتاحة",
     },
     all: {
       en: "All",
-      ar: "الكل"
+      ar: "الكل",
     },
     stars: {
       en: "Stars",
-      ar: "النجوم"
+      ar: "النجوم",
     },
     crowns: {
       en: "Crowns",
-      ar: "التيجان"
+      ar: "التيجان",
     },
     auras: {
       en: "Auras",
-      ar: "الهالات"
+      ar: "الهالات",
     },
     jewelry: {
       en: "Jewelry",
-      ar: "المجوهرات"
+      ar: "المجوهرات",
     },
     rare: {
       en: "Rare Artifacts",
-      ar: "المقتنيات النادرة"
+      ar: "المقتنيات النادرة",
     },
     widgets: {
       en: "Widgets",
-      ar: "الودجت"
+      ar: "الودجت",
     },
     equip: {
       en: "Equip",
-      ar: "تجهيز"
+      ar: "تجهيز",
     },
     unequip: {
       en: "Unequip",
-      ar: "فك التجهيز"
+      ar: "فك التجهيز",
     },
     ownedCheck: {
       en: "Owned ✓",
-      ar: "تم الامتلاك ✓"
+      ar: "تم الامتلاك ✓",
     },
     equippedCheck: {
       en: "Equipped ✓",
-      ar: "مجهّز ✓"
+      ar: "مجهّز ✓",
     },
     owned: {
       en: "Owned",
-      ar: "مملوك"
+      ar: "مملوك",
     },
     acquire: {
       en: "Acquire",
-      ar: "امتلك"
+      ar: "امتلك",
     },
     noItems: {
       en: "No Collectibles",
-      ar: "لا توجد مقتنيات"
+      ar: "لا توجد مقتنيات",
     },
     noFilterMatch: {
       en: "No items match the current filter.",
-      ar: "لا توجد أي قطع تتوافق مع التصنيف الحالي."
+      ar: "لا توجد أي قطع تتوافق مع التصنيف الحالي.",
     },
     close: {
       en: "Close",
-      ar: "إغلاق"
+      ar: "إغلاق",
     },
     widgetIdentity: {
       en: "Widget — Core Identity Card",
-      ar: "الودجت — بطاقة الهوية الأساسية"
+      ar: "الودجت — بطاقة الهوية الأساسية",
     },
     freeActivated: {
       en: "Free — Activated",
-      ar: "مجاني — مُفعَّل"
+      ar: "مجاني — مُفعَّل",
     },
     purchaseSuccess: {
       en: "Purchase Successful",
-      ar: "تم الشراء بنجاح"
+      ar: "تم الشراء بنجاح",
     },
     txSuccess: {
       en: "Transaction Successful",
-      ar: "عملية ناجحة"
+      ar: "عملية ناجحة",
     },
     paymentApplied: {
       en: "Payment applied. Your new balance:",
-      ar: "تم الدفع. رصيدك الجديد:"
-    }
+      ar: "تم الدفع. رصيدك الجديد:",
+    },
   },
   honors: {
     locked: {
       en: "LOCKED",
-      ar: "مغلق"
+      ar: "مغلق",
     },
     earned: {
       en: "EARNED",
-      ar: "مكتسب"
+      ar: "مكتسب",
     },
     unlocked: {
       en: "HONORS UNLOCKED",
-      ar: "الأوسمة المكتسبة"
+      ar: "الأوسمة المكتسبة",
     },
     tierProgress: {
       en: "TIER PROGRESS",
-      ar: "تقدم الرتبة"
+      ar: "تقدم الرتبة",
     },
     remaining: {
       en: "${0} REMAINING",
-      ar: "المتبقي ${0}"
+      ar: "المتبقي ${0}",
     },
     desc_initiate: {
       en: "Boutique threshold: $5,000 cumulative spend.",
-      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $5,000."
+      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $5,000.",
     },
     desc_connoisseur: {
       en: "Boutique threshold: $25,000 cumulative spend.",
-      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $25,000."
+      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $25,000.",
     },
     desc_high_sovereign: {
       en: "Boutique threshold: $50,000 cumulative spend.",
-      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $50,000."
+      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $50,000.",
     },
     desc_apex_titan: {
       en: "Boutique threshold: $100,000 cumulative spend.",
-      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $100,000."
+      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $100,000.",
     },
     initiate: {
       en: "THE INITIATE",
-      ar: "وسام المقتني الأول"
+      ar: "وسام المقتني الأول",
     },
     connoisseur: {
       en: "THE CONNOISSEUR",
-      ar: "وسام المتذوق"
+      ar: "وسام المتذوق",
     },
     high_sovereign: {
       en: "HIGH SOVEREIGN",
-      ar: "وسام النخبة السيادية"
+      ar: "وسام النخبة السيادية",
     },
     apex_titan: {
       en: "THE APEX TITAN",
-      ar: "وسام قمة النخبة"
+      ar: "وسام قمة النخبة",
     },
     title_initiate: {
       en: "FIRST STEP",
-      ar: "الخطوة الأولى"
+      ar: "الخطوة الأولى",
     },
     title_connoisseur: {
       en: "COLLECTOR",
-      ar: "جامع المقتنيات"
+      ar: "جامع المقتنيات",
     },
     title_high_sovereign: {
       en: "ELITE STATUS",
-      ar: "مكانة النخبة"
+      ar: "مكانة النخبة",
     },
     title_apex_titan: {
       en: "MAXIMUM PRESTIGE",
-      ar: "أقصى درجات الفخامة"
-    }
+      ar: "أقصى درجات الفخامة",
+    },
   },
   settings: {
     title: {
       en: "Settings",
-      ar: "الإعدادات"
+      ar: "الإعدادات",
     },
     language: {
       en: "Language",
-      ar: "اللغة"
+      ar: "اللغة",
     },
     interfaceLang: {
       en: "Interface language",
-      ar: "لغة الواجهة"
+      ar: "لغة الواجهة",
     },
     notif: {
       en: "Private Notifications",
-      ar: "الإشعارات الخاصة"
+      ar: "الإشعارات الخاصة",
     },
     notifDesc: {
       en: "Exclusive club alerts",
-      ar: "تنبيهات النادي الحصرية"
+      ar: "تنبيهات النادي الحصرية",
     },
     haptic: {
       en: "Haptic & Audio FX",
-      ar: "التأثيرات الصوتية واللمسية"
+      ar: "التأثيرات الصوتية واللمسية",
     },
     hapticDesc: {
       en: "Premium tactile feedback",
-      ar: "ردود فعل حسية ممتازة"
+      ar: "ردود فعل حسية ممتازة",
     },
     stealth: {
       en: "Stealth Mode",
-      ar: "وضع التخفي"
+      ar: "وضع التخفي",
     },
     stealthDesc: {
       en: "Hide public ID online",
-      ar: "إخفاء الهوية العامة"
+      ar: "إخفاء الهوية العامة",
     },
     privacyMenu: {
       en: "Notifications, privacy",
-      ar: "الإشعارات والخصوصية"
-    }
+      ar: "الإشعارات والخصوصية",
+    },
   },
   misc: {
     discipline: {
       en: "DISCIPLINE",
-      ar: "انضباط"
+      ar: "انضباط",
     },
     network: {
       en: "NETWORK",
-      ar: "نفوذ"
+      ar: "نفوذ",
     },
     freedom: {
       en: "FREEDOM",
-      ar: "سيادة"
+      ar: "سيادة",
     },
     supportTitle: {
       en: "CONCIERGE & SUPPORT",
-      ar: "الكونسيرج والدعم"
+      ar: "الكونسيرج والدعم",
     },
     linkCopied: {
       en: "Link Copied",
-      ar: "تم نسخ الرابط"
+      ar: "تم نسخ الرابط",
     },
     changesSaved: {
       en: "Changes saved successfully",
-      ar: "تم حفظ التعديلات بنجاح"
+      ar: "تم حفظ التعديلات بنجاح",
     },
     sovereign: {
       en: "Sovereign",
-      ar: "سيادي"
+      ar: "سيادي",
     },
     elite: {
       en: "Elite",
-      ar: "نخبة"
+      ar: "نخبة",
     },
     member: {
       en: "Member",
-      ar: "عضو"
+      ar: "عضو",
     },
     rarity1: {
       en: "Rare",
-      ar: "نادر"
+      ar: "نادر",
     },
     rarity2: {
       en: "Epic",
-      ar: "ملحمي"
+      ar: "ملحمي",
     },
     rarity3: {
       en: "Legendary",
-      ar: "أسطوري"
+      ar: "أسطوري",
     },
     rarity4: {
       en: "Sovereign",
-      ar: "سيادي"
+      ar: "سيادي",
     },
     supportDesc: {
       en: "Welcome to the Sovereign Concierge. Our private desk is available 24/7 for members.",
-      ar: "مرحباً بك في الكونسيرج السيادي. مكتبنا الخاص متاح للأعضاء على مدار الساعة."
+      ar: "مرحباً بك في الكونسيرج السيادي. مكتبنا الخاص متاح للأعضاء على مدار الساعة.",
     },
     contactSupport: {
       en: "CONTACT CONCIERGE",
-      ar: "التواصل مع الكونسيرج"
+      ar: "التواصل مع الكونسيرج",
     },
     faq: {
       en: "FREQUENTLY ASKED QUESTIONS",
-      ar: "الأسئلة الشائعة"
+      ar: "الأسئلة الشائعة",
     },
     faq1q: {
       en: "How are milestones earned?",
-      ar: "كيف يتم تحقيق الإنجازات؟"
+      ar: "كيف يتم تحقيق الإنجازات؟",
     },
     faq1a: {
       en: "Milestones unlock automatically based on your cumulative Boutique acquisitions and profile authentication.",
-      ar: "يتم فتح الإنجازات تلقائياً بناءً على المقتنيات المتراكمة من البوتيك وتوثيق الملف."
+      ar: "يتم فتح الإنجازات تلقائياً بناءً على المقتنيات المتراكمة من البوتيك وتوثيق الملف.",
     },
     faq2q: {
       en: "Can I change my Sovereign ID?",
-      ar: "هل يمكنني تغيير المعرف السيادي الخاص بي؟"
+      ar: "هل يمكنني تغيير المعرف السيادي الخاص بي؟",
     },
     faq2a: {
       en: "Your Sovereign ID is permanently linked to your genesis record and cannot be altered.",
-      ar: "المعرف السيادي الخاص بك مرتبط بشكل دائم بسجلك الأساسي ولا يمكن تغييره."
+      ar: "المعرف السيادي الخاص بك مرتبط بشكل دائم بسجلك الأساسي ولا يمكن تغييره.",
     },
     prestige: {
       en: "PRESTIGE & HONORS",
-      ar: "الأوسمة والإنجازات"
-    }
+      ar: "الأوسمة والإنجازات",
+    },
   },
   dynamic: {
     free: {
       en: "Free",
-      ar: "مجاني"
+      ar: "مجاني",
     },
     affordability: {
       en: "Purchasing Power",
-      ar: "مدى القدرة على الشراء"
+      ar: "مدى القدرة على الشراء",
     },
     equippedAuto: {
       en: "✨ Automatically Equipped",
-      ar: "✨ تم التجهيز تلقائياً"
+      ar: "✨ تم التجهيز تلقائياً",
     },
     dropToClose: {
       en: "Drop to close",
-      ar: "أفلت للإغلاق"
+      ar: "أفلت للإغلاق",
     },
     noEquipped: {
       en: "No items equipped",
-      ar: "لم يتم تجهيز أي مقتنيات"
+      ar: "لم يتم تجهيز أي مقتنيات",
     },
     addFriendSoon: {
       en: "Add Friend — Coming Soon",
-      ar: "إضافة صديق — قريباً"
+      ar: "إضافة صديق — قريباً",
     },
     wealth: {
       en: "Wealth",
-      ar: "الثروة"
+      ar: "الثروة",
     },
     connections: {
       en: "Connections",
-      ar: "الاتصالات"
+      ar: "الاتصالات",
     },
     week1: {
       en: "Week 1",
-      ar: "الأسبوع ١"
+      ar: "الأسبوع ١",
     },
     week2: {
       en: "Week 2",
-      ar: "الأسبوع ٢"
+      ar: "الأسبوع ٢",
     },
     week3: {
       en: "Week 3",
-      ar: "الأسبوع ٣"
+      ar: "الأسبوع ٣",
     },
     current: {
       en: "Current",
-      ar: "الحالي"
+      ar: "الحالي",
     },
     msgsLeft: {
       en: "Remaining messages today: ",
-      ar: "الرسائل المتبقية اليوم: "
+      ar: "الرسائل المتبقية اليوم: ",
     },
     equipIdentity: {
       en: "Equip Identity",
-      ar: "تجهيز الهوية"
+      ar: "تجهيز الهوية",
     },
     buy: {
       en: "Buy",
-      ar: "شراء"
+      ar: "شراء",
     },
     loreDefault: {
       en: "A piece crafted with rare skill, pulsing with a history of power and sovereignty. Whoever possesses it writes their own legacy.",
-      ar: "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص."
+      ar: "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص.",
     },
     loreCrown: {
       en: "A sovereign crown symbolizing the pinnacle. Crafted to be a distinctive mark for those who lead and do not follow.",
-      ar: "تاج سيادي يرمز لقمة الهرم. صُنع ليكون علامة مميزة لأولئك الذين يقودون ولا يتبعون."
+      ar: "تاج سيادي يرمز لقمة الهرم. صُنع ليكون علامة مميزة لأولئك الذين يقودون ولا يتبعون.",
     },
     loreAura: {
       en: "A rare aura radiating hidden power. Gives your presence in the club a weight that cannot be ignored.",
-      ar: "هالة نادرة تشع بقوة خفية. تمنح حضورك في النادي وزناً لا يمكن تجاهله."
+      ar: "هالة نادرة تشع بقوة خفية. تمنح حضورك في النادي وزناً لا يمكن تجاهله.",
     },
     loreRing: {
       en: "A ring carved with ultimate precision from precious metals. Bears the 1% seal and represents absolute loyalty to success.",
-      ar: "خاتم نُحت بدقة متناهية من معادن نفيسة. يحمل ختم الـ 1% ويمثل الولاء المطلق للنجاح."
+      ar: "خاتم نُحت بدقة متناهية من معادن نفيسة. يحمل ختم الـ 1% ويمثل الولاء المطلق للنجاح.",
     },
     lorePendant: {
       en: "A unique pendant passed down by elites. Symbolizes exclusivity and wealth that is felt, not just seen.",
-      ar: "قلادة فريدة تتوارثها النخب. ترمز للتفرد والثروة التي لا تُرى بل تُحس."
+      ar: "قلادة فريدة تتوارثها النخب. ترمز للتفرد والثروة التي لا تُرى بل تُحس.",
     },
     loreArtifact: {
       en: "A legendary artifact possessed only by the few. Whoever acquires it inscribes their legacy in the club's records forever.",
-      ar: "قطعة أثرية أسطورية لا يملكها سوى القلة. من يقتنيها يكتب إرثه في سجلات النادي للأبد."
+      ar: "قطعة أثرية أسطورية لا يملكها سوى القلة. من يقتنيها يكتب إرثه في سجلات النادي للأبد.",
     },
     loreStar: {
       en: "A shining star of privilege highlighting your status among members. Irrefutable proof of your superiority and achievements.",
-      ar: "نجمة امتياز لامعة تبرز مكانتك بين الأعضاء. دليل قاطع على تفوقك وإنجازاتك."
+      ar: "نجمة امتياز لامعة تبرز مكانتك بين الأعضاء. دليل قاطع على تفوقك وإنجازاتك.",
     },
     chatHelp1: {
       en: "Welcome {0}. The concierge desk is at your disposal, how may I assist you?",
-      ar: "أهلاً بك يا {0}. مكتب الكونسيرج تحت تصرفك، كيف يمكنني مساعدتك؟"
+      ar: "أهلاً بك يا {0}. مكتب الكونسيرج تحت تصرفك، كيف يمكنني مساعدتك؟",
     },
     chatHelp2: {
       en: "We are here to ensure a hassle-free sovereign experience. Please state your request.",
-      ar: "نحن هنا لضمان تجربة سيادية خالية من المتاعب. تفضل بطلبك."
+      ar: "نحن هنا لضمان تجربة سيادية خالية من المتاعب. تفضل بطلبك.",
     },
     chatGreet1: {
       en: "Good evening {0}. We are here monitoring market updates and latest developments.",
-      ar: "مساء الخير يا {0}. متواجدون لمتابعة مستجدات السوق وأحدث التطورات."
+      ar: "مساء الخير يا {0}. متواجدون لمتابعة مستجدات السوق وأحدث التطورات.",
     },
     chatGreet2: {
       en: "Welcome to the Lounge. We are currently discussing some closed investment opportunities.",
-      ar: "أهلاً بك في الصالة. نناقش حالياً بعض الفرص الاستثمارية المغلقة."
+      ar: "أهلاً بك في الصالة. نناقش حالياً بعض الفرص الاستثمارية المغلقة.",
     },
     chatGreet3: {
       en: "Greetings. We are here, go ahead {0}.",
-      ar: "تحياتي. نحن هنا، تفضل يا {0}."
+      ar: "تحياتي. نحن هنا، تفضل يا {0}.",
     },
     chatInvest1: {
       en: "Dubai's real estate market offers excellent sovereign opportunities right now.",
-      ar: "السوق العقاري في دبي يقدم فرصاً سيادية ممتازة في الوقت الحالي."
+      ar: "السوق العقاري في دبي يقدم فرصاً سيادية ممتازة في الوقت الحالي.",
     },
     chatInvest2: {
       en: "Markets are witnessing unprecedented movements. Focus should be on hard assets.",
-      ar: "الأسواق تشهد تحركات غير مسبوقة. يجب التركيز على الأصول الصلبة."
+      ar: "الأسواق تشهد تحركات غير مسبوقة. يجب التركيز على الأصول الصلبة.",
     },
     chatInvest3: {
       en: "We are currently studying a new hedge fund. I'd be glad to discuss details with you later {0}.",
-      ar: "نحن ندرس حالياً صندوق تحوط جديد. يسعدني مناقشة التفاصيل معك لاحقاً يا {0}."
+      ar: "نحن ندرس حالياً صندوق تحوط جديد. يسعدني مناقشة التفاصيل معك لاحقاً يا {0}.",
     },
     chatBoutique1: {
       en: "Rare watches and art pieces represent the true safe haven for assets.",
-      ar: "الساعات النادرة والقطع الفنية تمثل الملاذ الآمن الحقيقي للأصول."
+      ar: "الساعات النادرة والقطع الفنية تمثل الملاذ الآمن الحقيقي للأصول.",
     },
     chatBoutique2: {
       en: "The boutique showcases sovereign pieces worth attention. Don't miss the opportunity {0}.",
-      ar: "البوتيك يعرض قطعاً سيادية تستحق الاهتمام. لا تفوت الفرصة يا {0}."
+      ar: "البوتيك يعرض قطعاً سيادية تستحق الاهتمام. لا تفوت الفرصة يا {0}.",
     },
     chatBoutique3: {
       en: "Absolute rarity is what determines the true value of any piece.",
-      ar: "الندرة المطلقة هي ما يحدد القيمة الحقيقية لأي قطعة."
+      ar: "الندرة المطلقة هي ما يحدد القيمة الحقيقية لأي قطعة.",
     },
     chatDefault1: {
       en: "An interesting perspective {0}. We agree with this direction.",
-      ar: "وجهة نظر مثيرة للاهتمام يا {0}. نتفق في هذا التوجه."
+      ar: "وجهة نظر مثيرة للاهتمام يا {0}. نتفق في هذا التوجه.",
     },
     chatDefault2: {
       en: "Certainly. Calculated decisions are what distinguish the members of this club.",
-      ar: "بالتأكيد. القرارات المدروسة هي ما يميز أعضاء هذا النادي."
+      ar: "بالتأكيد. القرارات المدروسة هي ما يميز أعضاء هذا النادي.",
     },
     chatDefault3: {
       en: "I completely agree with you. Quality and authenticity always prove themselves over time.",
-      ar: "أتفق معك تماماً. الجودة والأصالة دائماً ما تثبت نفسها مع الوقت."
-    }
+      ar: "أتفق معك تماماً. الجودة والأصالة دائماً ما تثبت نفسها مع الوقت.",
+    },
   },
   items: {
     activeMember: {
       en: "Active club member",
-      ar: "عضو نشط في النادي"
+      ar: "عضو نشط في النادي",
     },
     designTech: {
       en: "Design · Technology",
-      ar: "التصميم · التكنولوجيا"
+      ar: "التصميم · التكنولوجيا",
     },
     dubai: {
       en: "Dubai, UAE",
-      ar: "دبي، الإمارات"
+      ar: "دبي، الإمارات",
     },
     star1: {
       en: "Elite Star",
-      ar: "نجمة النخبة"
+      ar: "نجمة النخبة",
     },
     star2: {
       en: "Diamond Star",
-      ar: "نجمة ماسية"
+      ar: "نجمة ماسية",
     },
     star3: {
       en: "Sovereign Star",
-      ar: "نجمة السيادة"
+      ar: "نجمة السيادة",
     },
     star4: {
       en: "Golden Star",
-      ar: "نجمة ذهبية"
+      ar: "نجمة ذهبية",
     },
     crown1: {
       en: "Sovereign Crown",
-      ar: "تاج سيادي"
+      ar: "تاج سيادي",
     },
     crown2: {
       en: "King's Crown",
-      ar: "تاج الملك"
+      ar: "تاج الملك",
     },
     crown3: {
       en: "Emperor's Crown",
-      ar: "تاج الإمبراطور"
+      ar: "تاج الإمبراطور",
     },
     crown4: {
       en: "Unique Crown",
-      ar: "تاج فريد"
+      ar: "تاج فريد",
     },
     aura1: {
       en: "Royal Aura",
-      ar: "هالة ملكية"
+      ar: "هالة ملكية",
     },
     aura2: {
       en: "Aura of Power",
-      ar: "هالة القوة"
+      ar: "هالة القوة",
     },
     aura3: {
       en: "Elite Aura",
-      ar: "هالة النخبة"
+      ar: "هالة النخبة",
     },
     aura4: {
       en: "Mysterious Aura",
-      ar: "هالة غامضة"
+      ar: "هالة غامضة",
     },
     ring1: {
       en: "Ring of Power",
-      ar: "خاتم السلطة"
+      ar: "خاتم السلطة",
     },
     ring2: {
       en: "Precious Ring",
-      ar: "خاتم ثمين"
+      ar: "خاتم ثمين",
     },
     ring3: {
       en: "Elite Ring",
-      ar: "خاتم النخبة"
+      ar: "خاتم النخبة",
     },
     ring4: {
       en: "Legendary Ring",
-      ar: "خاتم أسطوري"
+      ar: "خاتم أسطوري",
     },
     rare1: {
       en: "Rare Artifact",
-      ar: "تحفة نادرة"
+      ar: "تحفة نادرة",
     },
     rare2: {
       en: "Rare Piece",
-      ar: "قطعة نادرة"
+      ar: "قطعة نادرة",
     },
     rare3: {
       en: "Sovereign Pendant",
-      ar: "قلادة السيادة"
+      ar: "قلادة السيادة",
     },
     rare4: {
       en: "Unique Pendant",
-      ar: "قلادة فريدة"
+      ar: "قلادة فريدة",
     },
     widget1: {
       en: "Golden Widget",
-      ar: "الودجت الذهبي"
+      ar: "الودجت الذهبي",
     },
     widget2: {
       en: "Free Widget",
-      ar: "ودجت مجاني"
-    }
-  }
+      ar: "ودجت مجاني",
+    },
+  },
 };
