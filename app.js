@@ -1,3 +1,1028 @@
+
+// ==========================================
+// CENTRAL LOCALIZATION SYSTEM
+// ==========================================
+
+const translations = {
+  modal_account_title: {
+    en: "ACCOUNT INFORMATION",
+    ar: "بيانات الحساب"
+  },
+  leave_blank: {
+    en: "Leave blank to keep current",
+    ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية"
+  },
+  explore_boutique: {
+    en: "Explore Boutique",
+    ar: "استكشاف البوتيك"
+  },
+  nav: {
+    membership: {
+      en: "Membership",
+      ar: "العضوية"
+    },
+    club: {
+      en: "Club",
+      ar: "النادي"
+    },
+    profile: {
+      accountInfo: {
+        en: "Account Information",
+        ar: "معلومات الحساب"
+      },
+      accountInfoDesc: {
+        en: "Name, email, phone, password",
+        ar: "الاسم، البريد، الهاتف، كلمة المرور"
+      },
+      membershipLabel: {
+        en: "Membership",
+        ar: "العضوية السيادية"
+      },
+      membershipDesc: {
+        en: "Plan details, renewal, benefits",
+        ar: "تفاصيل الخطة، التجديد، المزايا"
+      },
+      myCollection: {
+        en: "My Collection",
+        ar: "مقتنياتي"
+      },
+      myCollectionDesc: {
+        en: "Your purchased items & active items",
+        ar: "مقتنياتك المشتراة والنشطة"
+      },
+      addFriendBtn: {
+        en: "Add Friend",
+        ar: "إضافة عضو"
+      },
+      comingSoon: {
+        en: "Coming Soon",
+        ar: "قريباً"
+      },
+      settingsTitle: {
+        en: "Settings",
+        ar: "الإعدادات"
+      },
+      settingsDesc: {
+        en: "Language, audio, and preferences",
+        ar: "اللغة، الصوت، والتفضيلات"
+      },
+      supportTitle: {
+        en: "Concierge & Support",
+        ar: "المساعد الخاص (الكونسيرج)"
+      },
+      supportDesc: {
+        en: "FAQs, contact us",
+        ar: "الأسئلة الشائعة، اتصل بنا"
+      },
+      editIdentity: {
+        en: "EDIT IDENTITY",
+        ar: "تعديل الهوية"
+      },
+      avatarLabel: {
+        en: "AVATAR URL (OR UPLOAD)",
+        ar: "رابط الصورة (أو رفع صورة)"
+      },
+      selectPortrait: {
+        en: "SELECT PORTRAIT",
+        ar: "اختر صورة شخصية"
+      },
+      email: {
+        en: "EMAIL ADDRESS",
+        ar: "البريد الإلكتروني"
+      },
+      phone: {
+        en: "PHONE NUMBER",
+        ar: "رقم الهاتف"
+      },
+      password: {
+        en: "NEW PASSWORD",
+        ar: "كلمة المرور الجديدة"
+      },
+      passPlaceholder: {
+        en: "Leave blank to keep current",
+        ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية"
+      },
+      updateAccount: {
+        en: "UPDATE ACCOUNT",
+        ar: "تحديث الحساب"
+      },
+      accountInfoTitleModal: {
+        en: "ACCOUNT INFORMATION",
+        ar: "بيانات الحساب"
+      },
+      quoteText: {
+        en: "Not everyone understands wealth. That's why we have this Club.",
+        ar: "ليس الجميع يدرك معنى الثروة الحقيقية.. لهذا وُجد هذا النادي."
+      },
+      itemsCollected: {
+        en: "Items Collected",
+        ar: "المقتنيات"
+      },
+      connections: {
+        en: "Connections",
+        ar: "شبكة المعارف"
+      },
+      en: "Profile",
+      ar: "الملف"
+    },
+    boutique: {
+      en: "Boutique",
+      ar: "البوتيك"
+    }
+  },
+  membership: {
+    idMetrics: {
+      en: "Identity Metrics",
+      ar: "مؤشرات الهوية"
+    },
+    wealthIndex: {
+      en: "Wealth Index",
+      ar: "مؤشر الثروة"
+    },
+    privileges: {
+      en: "Privileges",
+      ar: "الامتيازات"
+    },
+    shareMembership: {
+      en: "Share Membership",
+      ar: "مشاركة العضوية"
+    },
+    copyLink: {
+      en: "Copy Sovereign Link",
+      ar: "نسخ الرابط السيادي"
+    },
+    memberSince: {
+      en: "Member Since",
+      ar: "عضو منذ"
+    },
+    activeStatus: {
+      en: "Active",
+      ar: "نشط"
+    },
+    statusLabel: {
+      en: "Status",
+      ar: "الحالة"
+    },
+    level: {
+      en: "Membership Level",
+      ar: "رتبة العضوية"
+    }
+  },
+  club: {
+    lounge: {
+      en: "Members Lounge",
+      ar: "صالة الأعضاء"
+    },
+    wealth: {
+      en: "Wealth & Investing",
+      ar: "الثروة والاستثمار"
+    },
+    business: {
+      en: "Business & Opportunities",
+      ar: "الأعمال والفرص"
+    },
+    lifestyle: {
+      en: "Lifestyle",
+      ar: "أسلوب الحياة"
+    },
+    leaderboard: {
+      en: "Leaderboard",
+      ar: "قائمة المتصدرين"
+    },
+    leaderboardTitle: {
+      en: "Leaderboard",
+      ar: "قائمة المتصدرين"
+    },
+    leaderboardSubtitle: {
+      en: "Global Elite of Sovereign Wealth",
+      ar: "النخبة العالمية لأصحاب الثروة السيادية"
+    },
+    leaderboardSub: {
+      en: "Global Sovereign Wealth Elite",
+      ar: "النخبة العالمية لأصحاب الثروة السيادية"
+    },
+    welcomeTitle: {
+      en: "Welcome to Members Lounge",
+      ar: "أهلًا بك في صالة الأعضاء"
+    },
+    welcomeSub: {
+      en: "Sovereign members space. Communicate with confidence.",
+      ar: "مساحة الأعضاء السياديين. تواصل بثقة."
+    },
+    messagesLeft: {
+      en: "Remaining messages today",
+      ar: "الرسائل المتبقية اليوم"
+    },
+    credit: {
+      en: "Credit",
+      ar: "رصيد"
+    },
+    typeMessage: {
+      en: "Type a message to the club...",
+      ar: "اكتب رسالة للنادي…"
+    },
+    send: {
+      en: "Send",
+      ar: "إرسال"
+    },
+    buyCredits: {
+      en: "Buy Message Credits",
+      ar: "شراء رصيد رسائل"
+    },
+    choosePackage: {
+      en: "Choose the right package",
+      ar: "اختر الباقة المناسبة"
+    },
+    msgs10: {
+      en: "10 Messages",
+      ar: "١٠ رسائل"
+    },
+    msgs25: {
+      en: "25 Messages",
+      ar: "٢٥ رسالة"
+    },
+    msgs50: {
+      en: "50 Messages",
+      ar: "٥٠ رسالة"
+    },
+    cancel: {
+      en: "Cancel",
+      ar: "إلغاء"
+    },
+    insufficientBalance: {
+      en: "Insufficient balance",
+      ar: "لا يوجد رصيد كافٍ"
+    },
+    insufficientBalanceDesc: {
+      en: "Your current balance is insufficient to complete this transaction.",
+      ar: "رصيدك الحالي لا يكفي لإتمام هذه العملية."
+    }
+  },
+  profile: {
+    editProfile: {
+      en: "Edit Profile",
+      ar: "تعديل الملف"
+    },
+    displayName: {
+      en: "DISPLAY NAME",
+      ar: "اسم العرض"
+    },
+    namePlaceholder: {
+      en: "Enter your display name",
+      ar: "أدخل اسم العرض"
+    },
+    quoteLabel: {
+      en: "PROFILE QUOTE",
+      ar: "النبذة"
+    },
+    quotePlaceholder: {
+      en: "Enter your quote",
+      ar: "أدخل نبذة عنك"
+    },
+    avatarLabel: {
+      en: "AVATAR URL (OR UPLOAD)",
+      ar: "صورة العرض (رابط أو رفع)"
+    },
+    saveChanges: {
+      en: "SAVE CHANGES",
+      ar: "حفظ التعديلات"
+    },
+    infoTitle: {
+      en: "Member Info",
+      ar: "معلومات العضو"
+    },
+    messageBtn: {
+      en: "Message",
+      ar: "مراسلة"
+    },
+    addFriendBtn: {
+      en: "Add Friend",
+      ar: "إضافة صديق"
+    },
+    accountBalance: {
+      en: "Account Balance",
+      ar: "رصيد الحساب"
+    },
+    addBalance: {
+      en: "Add Balance",
+      ar: "إضافة رصيد"
+    },
+    myCollection: {
+      en: "My Collection",
+      ar: "مقتنياتي"
+    },
+    viewAll: {
+      en: "View All",
+      ar: "عرض الكل"
+    },
+    comingSoon: {
+      en: "Coming soon",
+      ar: "قريبًا"
+    },
+    profileUpdated: {
+      en: "Profile Updated",
+      ar: "تحديث الملف"
+    },
+    email: {
+      en: "EMAIL ADDRESS",
+      ar: "البريد الإلكتروني"
+    },
+    phone: {
+      en: "PHONE NUMBER",
+      ar: "رقم الهاتف"
+    },
+    password: {
+      en: "NEW PASSWORD",
+      ar: "كلمة مرور جديدة"
+    },
+    updateAccount: {
+      en: "UPDATE ACCOUNT",
+      ar: "تحديث الحساب"
+    }
+  },
+  boutique: {
+    allColl: {
+      en: "All Collectibles",
+      ar: "جميع المقتنيات"
+    },
+    ownedColl: {
+      en: "Owned Collectibles",
+      ar: "المملوكة"
+    },
+    available: {
+      en: "Available",
+      ar: "المتاحة"
+    },
+    all: {
+      en: "All",
+      ar: "الكل"
+    },
+    stars: {
+      en: "Stars",
+      ar: "النجوم"
+    },
+    crowns: {
+      en: "Crowns",
+      ar: "التيجان"
+    },
+    auras: {
+      en: "Auras",
+      ar: "الهالات"
+    },
+    jewelry: {
+      en: "Jewelry",
+      ar: "المجوهرات"
+    },
+    rare: {
+      en: "Rare Artifacts",
+      ar: "المقتنيات النادرة"
+    },
+    widgets: {
+      en: "Widgets",
+      ar: "الودجت"
+    },
+    equip: {
+      en: "Equip",
+      ar: "تجهيز"
+    },
+    unequip: {
+      en: "Unequip",
+      ar: "فك التجهيز"
+    },
+    ownedCheck: {
+      en: "Owned ✓",
+      ar: "تم الامتلاك ✓"
+    },
+    equippedCheck: {
+      en: "Equipped ✓",
+      ar: "مجهّز ✓"
+    },
+    owned: {
+      en: "Owned",
+      ar: "مملوك"
+    },
+    acquire: {
+      en: "Acquire",
+      ar: "امتلك"
+    },
+    noItems: {
+      en: "No Collectibles",
+      ar: "لا توجد مقتنيات"
+    },
+    noFilterMatch: {
+      en: "No items match the current filter.",
+      ar: "لا توجد أي قطع تتوافق مع التصنيف الحالي."
+    },
+    close: {
+      en: "Close",
+      ar: "إغلاق"
+    },
+    widgetIdentity: {
+      en: "Widget — Core Identity Card",
+      ar: "الودجت — بطاقة الهوية الأساسية"
+    },
+    freeActivated: {
+      en: "Free — Activated",
+      ar: "مجاني — مُفعَّل"
+    },
+    purchaseSuccess: {
+      en: "Purchase Successful",
+      ar: "تم الشراء بنجاح"
+    },
+    txSuccess: {
+      en: "Transaction Successful",
+      ar: "عملية ناجحة"
+    },
+    paymentApplied: {
+      en: "Payment applied. Your new balance:",
+      ar: "تم الدفع. رصيدك الجديد:"
+    }
+  },
+  honors: {
+    locked: {
+      en: "LOCKED",
+      ar: "مغلق"
+    },
+    earned: {
+      en: "EARNED",
+      ar: "مكتسب"
+    },
+    unlocked: {
+      en: "HONORS UNLOCKED",
+      ar: "الأوسمة المكتسبة"
+    },
+    tierProgress: {
+      en: "TIER PROGRESS",
+      ar: "تقدم الرتبة"
+    },
+    remaining: {
+      en: "${0} REMAINING",
+      ar: "المتبقي ${0}"
+    },
+    desc_initiate: {
+      en: "Boutique threshold: $5,000 cumulative spend.",
+      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $5,000."
+    },
+    desc_connoisseur: {
+      en: "Boutique threshold: $25,000 cumulative spend.",
+      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $25,000."
+    },
+    desc_high_sovereign: {
+      en: "Boutique threshold: $50,000 cumulative spend.",
+      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $50,000."
+    },
+    desc_apex_titan: {
+      en: "Boutique threshold: $100,000 cumulative spend.",
+      ar: "حد الإنفاق في البوتيك: إنفاق تراكمي بقيمة $100,000."
+    },
+    initiate: {
+      en: "THE INITIATE",
+      ar: "وسام المقتني الأول"
+    },
+    connoisseur: {
+      en: "THE CONNOISSEUR",
+      ar: "وسام المتذوق"
+    },
+    high_sovereign: {
+      en: "HIGH SOVEREIGN",
+      ar: "وسام النخبة السيادية"
+    },
+    apex_titan: {
+      en: "THE APEX TITAN",
+      ar: "وسام قمة النخبة"
+    },
+    title_initiate: {
+      en: "FIRST STEP",
+      ar: "الخطوة الأولى"
+    },
+    title_connoisseur: {
+      en: "COLLECTOR",
+      ar: "جامع المقتنيات"
+    },
+    title_high_sovereign: {
+      en: "ELITE STATUS",
+      ar: "مكانة النخبة"
+    },
+    title_apex_titan: {
+      en: "MAXIMUM PRESTIGE",
+      ar: "أقصى درجات الفخامة"
+    }
+  },
+  settings: {
+    title: {
+      en: "Settings",
+      ar: "الإعدادات"
+    },
+    language: {
+      en: "Language",
+      ar: "اللغة"
+    },
+    interfaceLang: {
+      en: "Interface language",
+      ar: "لغة الواجهة"
+    },
+    notif: {
+      en: "Private Notifications",
+      ar: "الإشعارات الخاصة"
+    },
+    notifDesc: {
+      en: "Exclusive club alerts",
+      ar: "تنبيهات النادي الحصرية"
+    },
+    haptic: {
+      en: "Haptic & Audio FX",
+      ar: "التأثيرات الصوتية واللمسية"
+    },
+    hapticDesc: {
+      en: "Premium tactile feedback",
+      ar: "ردود فعل حسية ممتازة"
+    },
+    stealth: {
+      en: "Stealth Mode",
+      ar: "وضع التخفي"
+    },
+    stealthDesc: {
+      en: "Hide public ID online",
+      ar: "إخفاء الهوية العامة"
+    },
+    privacyMenu: {
+      en: "Notifications, privacy",
+      ar: "الإشعارات والخصوصية"
+    }
+  },
+  misc: {
+    discipline: {
+      en: "DISCIPLINE",
+      ar: "انضباط"
+    },
+    network: {
+      en: "NETWORK",
+      ar: "نفوذ"
+    },
+    freedom: {
+      en: "FREEDOM",
+      ar: "سيادة"
+    },
+    supportTitle: {
+      en: "CONCIERGE & SUPPORT",
+      ar: "الكونسيرج والدعم"
+    },
+    linkCopied: {
+      en: "Link Copied",
+      ar: "تم نسخ الرابط"
+    },
+    changesSaved: {
+      en: "Changes saved successfully",
+      ar: "تم حفظ التعديلات بنجاح"
+    },
+    sovereign: {
+      en: "Sovereign",
+      ar: "سيادي"
+    },
+    elite: {
+      en: "Elite",
+      ar: "نخبة"
+    },
+    member: {
+      en: "Member",
+      ar: "عضو"
+    },
+    rarity1: {
+      en: "Rare",
+      ar: "نادر"
+    },
+    rarity2: {
+      en: "Epic",
+      ar: "ملحمي"
+    },
+    rarity3: {
+      en: "Legendary",
+      ar: "أسطوري"
+    },
+    rarity4: {
+      en: "Sovereign",
+      ar: "سيادي"
+    },
+    supportDesc: {
+      en: "Welcome to the Sovereign Concierge. Our private desk is available 24/7 for members.",
+      ar: "مرحباً بك في الكونسيرج السيادي. مكتبنا الخاص متاح للأعضاء على مدار الساعة."
+    },
+    contactSupport: {
+      en: "CONTACT CONCIERGE",
+      ar: "التواصل مع الكونسيرج"
+    },
+    faq: {
+      en: "FREQUENTLY ASKED QUESTIONS",
+      ar: "الأسئلة الشائعة"
+    },
+    faq1q: {
+      en: "How are milestones earned?",
+      ar: "كيف يتم تحقيق الإنجازات؟"
+    },
+    faq1a: {
+      en: "Milestones unlock automatically based on your cumulative Boutique acquisitions and profile authentication.",
+      ar: "يتم فتح الإنجازات تلقائياً بناءً على المقتنيات المتراكمة من البوتيك وتوثيق الملف."
+    },
+    faq2q: {
+      en: "Can I change my Sovereign ID?",
+      ar: "هل يمكنني تغيير المعرف السيادي الخاص بي؟"
+    },
+    faq2a: {
+      en: "Your Sovereign ID is permanently linked to your genesis record and cannot be altered.",
+      ar: "المعرف السيادي الخاص بك مرتبط بشكل دائم بسجلك الأساسي ولا يمكن تغييره."
+    },
+    prestige: {
+      en: "PRESTIGE & HONORS",
+      ar: "الأوسمة والإنجازات"
+    }
+  },
+  dynamic: {
+    free: {
+      en: "Free",
+      ar: "مجاني"
+    },
+    affordability: {
+      en: "Purchasing Power",
+      ar: "مدى القدرة على الشراء"
+    },
+    equippedAuto: {
+      en: "✨ Automatically Equipped",
+      ar: "✨ تم التجهيز تلقائياً"
+    },
+    dropToClose: {
+      en: "Drop to close",
+      ar: "أفلت للإغلاق"
+    },
+    noEquipped: {
+      en: "No items equipped",
+      ar: "لم يتم تجهيز أي مقتنيات"
+    },
+    addFriendSoon: {
+      en: "Add Friend — Coming Soon",
+      ar: "إضافة صديق — قريباً"
+    },
+    wealth: {
+      en: "Wealth",
+      ar: "الثروة"
+    },
+    connections: {
+      en: "Connections",
+      ar: "الاتصالات"
+    },
+    week1: {
+      en: "Week 1",
+      ar: "الأسبوع ١"
+    },
+    week2: {
+      en: "Week 2",
+      ar: "الأسبوع ٢"
+    },
+    week3: {
+      en: "Week 3",
+      ar: "الأسبوع ٣"
+    },
+    current: {
+      en: "Current",
+      ar: "الحالي"
+    },
+    msgsLeft: {
+      en: "Remaining messages today: ",
+      ar: "الرسائل المتبقية اليوم: "
+    },
+    equipIdentity: {
+      en: "Equip Identity",
+      ar: "تجهيز الهوية"
+    },
+    buy: {
+      en: "Buy",
+      ar: "شراء"
+    },
+    loreDefault: {
+      en: "A piece crafted with rare skill, pulsing with a history of power and sovereignty. Whoever possesses it writes their own legacy.",
+      ar: "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص."
+    },
+    loreCrown: {
+      en: "A sovereign crown symbolizing the pinnacle. Crafted to be a distinctive mark for those who lead and do not follow.",
+      ar: "تاج سيادي يرمز لقمة الهرم. صُنع ليكون علامة مميزة لأولئك الذين يقودون ولا يتبعون."
+    },
+    loreAura: {
+      en: "A rare aura radiating hidden power. Gives your presence in the club a weight that cannot be ignored.",
+      ar: "هالة نادرة تشع بقوة خفية. تمنح حضورك في النادي وزناً لا يمكن تجاهله."
+    },
+    loreRing: {
+      en: "A ring carved with ultimate precision from precious metals. Bears the 1% seal and represents absolute loyalty to success.",
+      ar: "خاتم نُحت بدقة متناهية من معادن نفيسة. يحمل ختم الـ 1% ويمثل الولاء المطلق للنجاح."
+    },
+    lorePendant: {
+      en: "A unique pendant passed down by elites. Symbolizes exclusivity and wealth that is felt, not just seen.",
+      ar: "قلادة فريدة تتوارثها النخب. ترمز للتفرد والثروة التي لا تُرى بل تُحس."
+    },
+    loreArtifact: {
+      en: "A legendary artifact possessed only by the few. Whoever acquires it inscribes their legacy in the club's records forever.",
+      ar: "قطعة أثرية أسطورية لا يملكها سوى القلة. من يقتنيها يكتب إرثه في سجلات النادي للأبد."
+    },
+    loreStar: {
+      en: "A shining star of privilege highlighting your status among members. Irrefutable proof of your superiority and achievements.",
+      ar: "نجمة امتياز لامعة تبرز مكانتك بين الأعضاء. دليل قاطع على تفوقك وإنجازاتك."
+    },
+    chatHelp1: {
+      en: "Welcome {0}. The concierge desk is at your disposal, how may I assist you?",
+      ar: "أهلاً بك يا {0}. مكتب الكونسيرج تحت تصرفك، كيف يمكنني مساعدتك؟"
+    },
+    chatHelp2: {
+      en: "We are here to ensure a hassle-free sovereign experience. Please state your request.",
+      ar: "نحن هنا لضمان تجربة سيادية خالية من المتاعب. تفضل بطلبك."
+    },
+    chatGreet1: {
+      en: "Good evening {0}. We are here monitoring market updates and latest developments.",
+      ar: "مساء الخير يا {0}. متواجدون لمتابعة مستجدات السوق وأحدث التطورات."
+    },
+    chatGreet2: {
+      en: "Welcome to the Lounge. We are currently discussing some closed investment opportunities.",
+      ar: "أهلاً بك في الصالة. نناقش حالياً بعض الفرص الاستثمارية المغلقة."
+    },
+    chatGreet3: {
+      en: "Greetings. We are here, go ahead {0}.",
+      ar: "تحياتي. نحن هنا، تفضل يا {0}."
+    },
+    chatInvest1: {
+      en: "Dubai's real estate market offers excellent sovereign opportunities right now.",
+      ar: "السوق العقاري في دبي يقدم فرصاً سيادية ممتازة في الوقت الحالي."
+    },
+    chatInvest2: {
+      en: "Markets are witnessing unprecedented movements. Focus should be on hard assets.",
+      ar: "الأسواق تشهد تحركات غير مسبوقة. يجب التركيز على الأصول الصلبة."
+    },
+    chatInvest3: {
+      en: "We are currently studying a new hedge fund. I'd be glad to discuss details with you later {0}.",
+      ar: "نحن ندرس حالياً صندوق تحوط جديد. يسعدني مناقشة التفاصيل معك لاحقاً يا {0}."
+    },
+    chatBoutique1: {
+      en: "Rare watches and art pieces represent the true safe haven for assets.",
+      ar: "الساعات النادرة والقطع الفنية تمثل الملاذ الآمن الحقيقي للأصول."
+    },
+    chatBoutique2: {
+      en: "The boutique showcases sovereign pieces worth attention. Don't miss the opportunity {0}.",
+      ar: "البوتيك يعرض قطعاً سيادية تستحق الاهتمام. لا تفوت الفرصة يا {0}."
+    },
+    chatBoutique3: {
+      en: "Absolute rarity is what determines the true value of any piece.",
+      ar: "الندرة المطلقة هي ما يحدد القيمة الحقيقية لأي قطعة."
+    },
+    chatDefault1: {
+      en: "An interesting perspective {0}. We agree with this direction.",
+      ar: "وجهة نظر مثيرة للاهتمام يا {0}. نتفق في هذا التوجه."
+    },
+    chatDefault2: {
+      en: "Certainly. Calculated decisions are what distinguish the members of this club.",
+      ar: "بالتأكيد. القرارات المدروسة هي ما يميز أعضاء هذا النادي."
+    },
+    chatDefault3: {
+      en: "I completely agree with you. Quality and authenticity always prove themselves over time.",
+      ar: "أتفق معك تماماً. الجودة والأصالة دائماً ما تثبت نفسها مع الوقت."
+    }
+  },
+  items: {
+    activeMember: {
+      en: "Active club member",
+      ar: "عضو نشط في النادي"
+    },
+    designTech: {
+      en: "Design · Technology",
+      ar: "التصميم · التكنولوجيا"
+    },
+    dubai: {
+      en: "Dubai, UAE",
+      ar: "دبي، الإمارات"
+    },
+    star1: {
+      en: "Elite Star",
+      ar: "نجمة النخبة"
+    },
+    star2: {
+      en: "Diamond Star",
+      ar: "نجمة ماسية"
+    },
+    star3: {
+      en: "Sovereign Star",
+      ar: "نجمة السيادة"
+    },
+    star4: {
+      en: "Golden Star",
+      ar: "نجمة ذهبية"
+    },
+    crown1: {
+      en: "Sovereign Crown",
+      ar: "تاج سيادي"
+    },
+    crown2: {
+      en: "King's Crown",
+      ar: "تاج الملك"
+    },
+    crown3: {
+      en: "Emperor's Crown",
+      ar: "تاج الإمبراطور"
+    },
+    crown4: {
+      en: "Unique Crown",
+      ar: "تاج فريد"
+    },
+    aura1: {
+      en: "Royal Aura",
+      ar: "هالة ملكية"
+    },
+    aura2: {
+      en: "Aura of Power",
+      ar: "هالة القوة"
+    },
+    aura3: {
+      en: "Elite Aura",
+      ar: "هالة النخبة"
+    },
+    aura4: {
+      en: "Mysterious Aura",
+      ar: "هالة غامضة"
+    },
+    ring1: {
+      en: "Ring of Power",
+      ar: "خاتم السلطة"
+    },
+    ring2: {
+      en: "Precious Ring",
+      ar: "خاتم ثمين"
+    },
+    ring3: {
+      en: "Elite Ring",
+      ar: "خاتم النخبة"
+    },
+    ring4: {
+      en: "Legendary Ring",
+      ar: "خاتم أسطوري"
+    },
+    rare1: {
+      en: "Rare Artifact",
+      ar: "تحفة نادرة"
+    },
+    rare2: {
+      en: "Rare Piece",
+      ar: "قطعة نادرة"
+    },
+    rare3: {
+      en: "Sovereign Pendant",
+      ar: "قلادة السيادة"
+    },
+    rare4: {
+      en: "Unique Pendant",
+      ar: "قلادة فريدة"
+    },
+    widget1: {
+      en: "Golden Widget",
+      ar: "الودجت الذهبي"
+    },
+    widget2: {
+      en: "Free Widget",
+      ar: "ودجت مجاني"
+    }
+  }
+};
+
+const savedLang = localStorage.getItem('one_percent_lang');
+let currentLang = (savedLang === 'ar') ? 'ar' : 'en';
+
+function getNestedValue(obj, path) {
+  return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+}
+
+window.t = function(key, lang = currentLang) {
+  const item = getNestedValue(translations, key);
+  if (item && item[lang]) return item[lang];
+  return key; // fallback
+};
+
+window.setLanguage = function(lang) {
+  if (lang !== 'en' && lang !== 'ar') return;
+  currentLang = lang;
+  localStorage.setItem('one_percent_lang', lang);
+  if (typeof AppState !== 'undefined') AppState.language = lang;
+
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+  // Update typography
+  const root = document.documentElement;
+  if (lang === 'en') {
+    root.style.setProperty('--font-display', '"Cormorant Garamond", serif');
+    root.style.setProperty('--font-ui', '"Inter", -apple-system, sans-serif');
+    root.style.fontFamily = 'var(--font-ui)';
+  } else {
+    root.style.setProperty('--font-display', '"Amiri", "Cormorant Garamond", serif');
+    root.style.setProperty('--font-ui', '"Readex Pro", "Cairo", "Inter", sans-serif');
+    root.style.fontFamily = 'var(--font-ui)';
+  }
+
+
+  // Apply translations to data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const translated = window.t(key, lang);
+    if (translated !== key) {
+       
+       if (el.children.length === 0) {
+           el.textContent = translated;
+       } else {
+           // We have elements like SVGs inside. Find the span or text node.
+           // Cleanest way: If it's a button with an SVG, just find the span inside it and we don't need to do anything here if the span itself has data-i18n.
+           // However, if the parent has data-i18n, we should probably just replace the first text node.
+           let textReplaced = false;
+           for (const child of el.childNodes) {
+               if (child.nodeType === 3 && child.nodeValue.trim().length > 0) {
+                   child.nodeValue = translated;
+                   textReplaced = true;
+                   break;
+               }
+           }
+           // Do NOT append/prepend new text nodes here to prevent duplication bugs!
+       }
+    }
+  });
+
+  // Apply translations to attributes
+  const attrTypes = ['placeholder', 'title', 'aria-label', 'data-tooltip'];
+  attrTypes.forEach(attr => {
+    document.querySelectorAll(`[data-i18n-${attr}]`).forEach(el => {
+      const key = el.getAttribute(`data-i18n-${attr}`);
+      const translated = window.t(key, lang);
+      if (translated !== key) {
+        el.setAttribute(attr, translated);
+      }
+    });
+  });
+
+  // Update Settings Toggles
+  const btnEn = document.getElementById('langEnBtn');
+  const btnAr = document.getElementById('langArBtn');
+  if (btnEn && btnAr) {
+    if (lang === 'en') {
+      btnEn.classList.add('is-active');
+      btnEn.style.background = 'rgba(212,175,55,0.1)';
+      btnEn.style.color = '#d4af37';
+      btnEn.style.borderColor = '#d4af37';
+      btnAr.classList.remove('is-active');
+      btnAr.style.background = 'transparent';
+      btnAr.style.color = '';
+      btnAr.style.borderColor = '';
+    } else {
+      btnAr.classList.add('is-active');
+      btnAr.style.background = 'rgba(212,175,55,0.1)';
+      btnAr.style.color = '#d4af37';
+      btnAr.style.borderColor = '#d4af37';
+      btnEn.classList.remove('is-active');
+      btnEn.style.background = 'transparent';
+      btnEn.style.color = '';
+      btnEn.style.borderColor = '';
+    }
+  }
+
+  
+  // Update specific UI states if needed
+  if (typeof window.applyLanguage === "function") window.applyLanguage(lang);
+  if (typeof window.updateUI === "function") {
+    window.updateUI();
+  }
+  if (typeof window.renderBoutique === 'function') window.renderBoutique();
+  if (typeof window.renderMessages === 'function') window.renderMessages();
+  if (typeof window.renderLeaderboard === 'function') window.renderLeaderboard();
+  
+  // Update Profile strings if they rely on UI text
+  const profileLevel = document.getElementById("profileMembershipLevel");
+  if (profileLevel && typeof AppState !== 'undefined') {
+    const tier = AppState.user.tier;
+    let tierTrans = window.t('misc.member');
+    if (tier === 'Sovereign' || tier === 'سيادي') tierTrans = window.t('misc.sovereign');
+    else if (tier === 'Elite' || tier === 'نخبة') tierTrans = window.t('misc.elite');
+    profileLevel.textContent = tierTrans;
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btnEn = document.getElementById('langEnBtn');
+  const btnAr = document.getElementById('langArBtn');
+  
+  if (btnEn) btnEn.addEventListener('click', () => window.setLanguage('en'));
+  if (btnAr) btnAr.addEventListener('click', () => window.setLanguage('ar'));
+
+  window.setLanguage(currentLang);
+});
+
+// Intercept dynamic DOM additions (MutationObserver)
+// Since we are moving to data-i18n, we just need to ensure dynamically created components
+// have the data-i18n attribute and we can just call setLanguage on them, but for now 
+// they will be created with window.t() in JS.
+window.applyLanguage = function(lang) {
+  const colTitle = document.getElementById('collectionSectionTitle');
+  if (colTitle) colTitle.textContent = lang === 'ar' ? 'خزينة المقتنيات النادرة' : 'MY LUXURY COLLECTION';
+  if (typeof renderProfileStatsBar === 'function') renderProfileStatsBar();
+  if (typeof renderProfileCollection === 'function') renderProfileCollection();
+};
 let currentOwnershipFilter = 'all';
 const ICONS = {
   star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
@@ -6,7 +1031,7 @@ const ICONS = {
   ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="#C79A3E" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
   pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="#C79A3E" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
 };
-const RARITY_LABEL = { 1: "نادر", 2: "ملحمي", 3: "أسطوري", 4: "سيادي" };
+const RARITY_LABEL = { 1: () => window.t("misc.rarity1"), 2: () => window.t("misc.rarity2"), 3: () => window.t("misc.rarity3"), 4: () => window.t("misc.rarity4") };
 const EQUIP_CATEGORIES = {
   stars: "equippedStarsSlot",
   crowns: "equippedCrownSlot",
@@ -54,33 +1079,32 @@ const ACHIEVEMENTS_DATA = {
 };
 
 const BOUTIQUE = {
-  stars: { title: "النجوم", items: [
-    { id: "star1", name: "نجمة النخبة", icon: "star", rarity: 1, price: 1000, lore: "نجمة ماسية" },
-    { id: "star2", name: "نجمة السيادة", icon: "star", rarity: 2, price: 2500, lore: "نجمة ذهبية" }
+  stars: { title: window.t("boutique.stars"), items: [
+    { id: "star1", name: window.t("items.star1"), icon: "star", rarity: 1, price: 1000, lore: window.t("items.star2") },
+    { id: "star2", name: window.t("items.star3"), icon: "star", rarity: 2, price: 2500, lore: window.t("items.star4") }
   ]},
-  crowns: { title: "التيجان", items: [
-    { id: "crown1", name: "تاج سيادي", icon: "crown", rarity: 3, price: 5000, lore: "تاج الملك" },
-    { id: "crown2", name: "تاج الإمبراطور", icon: "crown", rarity: 4, price: 15000, lore: "تاج فريد" }
+  crowns: { title: window.t("boutique.crowns"), items: [
+    { id: "crown1", name: window.t("items.crown1"), icon: "crown", rarity: 3, price: 5000, lore: window.t("items.crown2") },
+    { id: "crown2", name: window.t("items.crown3"), icon: "crown", rarity: 4, price: 15000, lore: window.t("items.crown4") }
   ]},
-  auras: { title: "الهالات", items: [
-    { id: "aura1", name: "هالة ملكية", icon: "aura", rarity: 2, price: 2000, lore: "هالة القوة" },
-    { id: "aura2", name: "هالة النخبة", icon: "aura", rarity: 3, price: 8000, lore: "هالة غامضة" }
+  auras: { title: window.t("boutique.auras"), items: [
+    { id: "aura1", name: window.t("items.aura1"), icon: "aura", rarity: 2, price: 2000, lore: window.t("items.aura2") },
+    { id: "aura2", name: window.t("items.aura3"), icon: "aura", rarity: 3, price: 8000, lore: window.t("items.aura4") }
   ]},
-  jewelry: { title: "المجوهرات", items: [
-    { id: "ring1", name: "خاتم السلطة", icon: "ring", rarity: 2, price: 3000, lore: "خاتم ثمين" },
-    { id: "ring2", name: "خاتم النخبة", icon: "ring", rarity: 3, price: 7500, lore: "خاتم أسطوري" }
+  jewelry: { title: window.t("boutique.jewelry"), items: [
+    { id: "ring1", name: window.t("items.ring1"), icon: "ring", rarity: 2, price: 3000, lore: window.t("items.ring2") },
+    { id: "ring2", name: window.t("items.ring3"), icon: "ring", rarity: 3, price: 7500, lore: window.t("items.ring4") }
   ]},
-  artifacts: { title: "المقتنيات النادرة", items: [
-    { id: "art1", name: "تحفة نادرة", icon: "pendant", rarity: 3, price: 10000, lore: "قطعة نادرة" },
-    { id: "art2", name: "قلادة السيادة", icon: "pendant", rarity: 4, price: 25000, lore: "قلادة فريدة" }
+  artifacts: { title: window.t("boutique.rare"), items: [
+    { id: "art1", name: window.t("items.rare1"), icon: "pendant", rarity: 3, price: 10000, lore: window.t("items.rare2") },
+    { id: "art2", name: window.t("items.rare3"), icon: "pendant", rarity: 4, price: 25000, lore: window.t("items.rare4") }
   ]},
-  widgets: { title: "الودجت", items: [
-    { id: "wid1", name: "الودجت الذهبي", icon: "star", rarity: 1, price: 0, free: true, lore: "ودجت مجاني" }
+  widgets: { title: window.t("boutique.widgets"), items: [
+    { id: "wid1", name: window.t("items.widget1"), icon: "star", rarity: 1, price: 0, free: true, lore: window.t("items.widget2") }
   ]}
 };
 
 // ==========================================
-// ECONOMY & STATE LOGIC (CENTRALIZED REACTIVE STATE)
 // ==========================================
 const AppState = {
   user: {
@@ -110,12 +1134,12 @@ const AppState = {
   chatCredits: 10,
   activeChannelId: 'global-lounge',
   channels: {
-    'global-lounge': { name: 'صالة الأعضاء', messages: [] },
-    'wealth': { name: 'الثروة والاستثمار', messages: [] },
-    'business': { name: 'الأعمال والفرص', messages: [] },
-    'lifestyle': { name: 'أسلوب الحياة', messages: [] }
+    'global-lounge': { name: window.t("club.lounge"), messages: [] },
+    'wealth': { name: window.t("club.wealth"), messages: [] },
+    'business': { name: window.t("club.business"), messages: [] },
+    'lifestyle': { name: window.t("club.lifestyle"), messages: [] }
   },
-  
+
   listeners: [],
   isNotifying: false,
   subscribe(fn) {
@@ -141,12 +1165,11 @@ const AppState = {
     if (!this._subscribers[event]) return;
     this._subscribers[event].forEach(cb => cb(data));
   },
-  
-  // Backwards compatibility for app.js references to ClubState.member
+
   get member() { return this.user; },
   set member(val) { this.user = val; },
   get collectedItems() { return Object.keys(this.owned); },
-  
+
   init() {
     const savedAvatar = localStorage.getItem('avatar_' + this.user.id);
     if (savedAvatar) this.user.avatarUrl = savedAvatar;
@@ -159,7 +1182,7 @@ const AppState = {
     this.chatCredits = savedCredits !== null ? parseInt(savedCredits, 10) : 10;
     try { this.owned = JSON.parse(localStorage.getItem(`owned_${this.user.id}`)) || {}; } catch { this.owned = {}; }
     try { this.equipped = JSON.parse(localStorage.getItem(`equipped_${this.user.id}`)) || {}; } catch { this.equipped = {}; }
-    try { 
+    try {
       const savedChannels = JSON.parse(localStorage.getItem(`channels_${this.user.id}`));
       if (savedChannels) {
         for (const k in savedChannels) {
@@ -167,19 +1190,19 @@ const AppState = {
         }
       }
     } catch {}
-    
-    try { 
+
+    try {
       const savedProfile = JSON.parse(localStorage.getItem(`profile_${this.user.id}`));
-      this.user.bio = this.user.bio || "عضو نشط في النادي";
-      this.user.interests = this.user.interests || "التصميم · التكنولوجيا";
-      this.user.location = this.user.location || "دبي، الإمارات";
+      this.user.bio = this.user.bio || window.t("items.activeMember") || "Active Member";
+      this.user.interests = this.user.interests || window.t("items.designTech") || "Design · Technology";
+      this.user.location = this.user.location || window.t("items.dubai") || "Dubai, UAE";
       this.user.username = this.user.username || "MEMBER";
       if (savedProfile) Object.assign(this.user, savedProfile);
     } catch {}
-    
+
     this.recalculatePrestige();
   },
-  
+
   save() {
     localStorage.setItem(`balance_${this.user.id}`, this.balance);
     localStorage.setItem(`spent_${this.user.id}`, this.totalSpent);
@@ -196,7 +1219,7 @@ const AppState = {
     let addedWealth = 0;
     let addedPrivilege = 0;
     let maxRarity = 0;
-      
+
     for (const catKey in BOUTIQUE) {
       for (const item of BOUTIQUE[catKey].items) {
         if (this.owned[item.id]) {
@@ -207,11 +1230,11 @@ const AppState = {
         }
       }
     }
-      
+
     this.member.wealthIndexValue = Math.min(99, Math.floor(82 + addedWealth));
     this.member.privilegesValue = Math.min(99, Math.floor(70 + addedPrivilege));
     this.member.connectionsValue = Math.min(99, Math.floor(65 + totalItems * 2));
-      
+
     if (totalItems >= 5 && maxRarity >= 3) {
       this.member.tier = "SOVEREIGN EXARCH";
     } else if (totalItems >= 2) {
@@ -219,7 +1242,7 @@ const AppState = {
     } else {
       this.member.tier = "SOVEREIGN MEMBER";
     }
-    
+
     const tierNameEl = document.getElementById("tierName");
     if (tierNameEl) tierNameEl.textContent = this.member.tier;
   },
@@ -229,10 +1252,14 @@ const AppState = {
       this.balance -= item.price;
       this.totalSpent = (this.totalSpent || 0) + item.price;
       this.owned[item.id] = true;
+      if (!this.user.collectedItems) this.user.collectedItems = [];
+      this.user.collectedItems.push(item);
+      localStorage.setItem('one_percent_collection', JSON.stringify(this.user.collectedItems));
       this.recalculatePrestige();
       this.save();
-      
-      // Check for newly unlocked honors
+      this.notify();
+      return true;
+
       Object.keys(ACHIEVEMENTS_DATA).forEach(key => {
         const ach = ACHIEVEMENTS_DATA[key];
         if (ach.isUnlocked()) {
@@ -241,12 +1268,11 @@ const AppState = {
            }
         }
       });
-      
-      // Emit change event for UI updates
+
       if (this._subscribers['change']) {
         this._subscribers['change'].forEach(cb => cb());
       }
-      
+
       if (typeof updateUI === 'function') updateUI();
       return true;
     }
@@ -268,8 +1294,42 @@ Object.defineProperty(AppState.user, "balance", { get: () => AppState.balance, s
 Object.defineProperty(AppState.user, "totalSpent", { get: () => AppState.totalSpent, set: (v) => AppState.totalSpent = v });
 Object.defineProperty(AppState.user, "memberSince", { get: () => AppState.user.joined });
 Object.defineProperty(AppState.user, "connections", { get: () => AppState.user.connectionsValue });
-Object.defineProperty(AppState.user, "collectedItems", { get: () => Object.keys(AppState.owned) });
+
 AppState.init();
+const savedAppLang = localStorage.getItem('one_percent_lang');
+const initialLang = (savedAppLang === 'ar') ? 'ar' : 'en';
+AppState.language = initialLang;
+if (typeof window.applyLanguage === 'function') window.applyLanguage(initialLang);
+
+document.getElementById('photoUploadBtn')?.addEventListener('click', () => {
+  document.getElementById('photoInput')?.click();
+});
+
+function handleImageUpload(e, callback) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    callback(event.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+document.getElementById('photoInput')?.addEventListener('change', (e) => {
+  handleImageUpload(e, (dataUrl) => {
+    AppState.user.avatarUrl = dataUrl;
+    AppState.save();
+    updateUI();
+  });
+});
+
+document.getElementById('editProfileAvatarFile')?.addEventListener('change', (e) => {
+  handleImageUpload(e, (dataUrl) => {
+    const urlInput = document.getElementById('editProfileAvatarUrl');
+    if (urlInput) { urlInput.value = dataUrl; urlInput.dispatchEvent(new Event("input")); }
+  });
+});
+
 document.addEventListener('DOMContentLoaded', () => AppState.notify());
 
 function updateUI() {
@@ -277,23 +1337,26 @@ function updateUI() {
 }
 
 // ---------------------------------------------------------
-// UI SUBSCRIBERS
 // ---------------------------------------------------------
 ClubState.on('change', () => {
 
-  // Sync Avatars Globally (Master Card, Profile Card, Widgets, etc.)
-  const avatarElements = document.querySelectorAll("#profilePortraitPhoto, #widgetAvatarPhoto, .membership-avatar");
+  const avatarElements = document.querySelectorAll("#portraitPhoto, #profilePortraitPhoto, #widgetAvatarPhoto, .membership-avatar");
   avatarElements.forEach(el => {
     if (AppState.user.avatarUrl) {
       if (el.tagName.toLowerCase() === 'img') {
         el.src = AppState.user.avatarUrl;
       } else {
         el.style.backgroundImage = `url('${AppState.user.avatarUrl}')`;
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center';
       }
     }
   });
 
-  // Sync Global IDs
+  const photoUploadBtn = document.getElementById('photoUploadBtn');
+  if (photoUploadBtn) {
+    photoUploadBtn.style.display = AppState.user.avatarUrl ? 'none' : 'flex';
+  }
   const idElements = document.querySelectorAll(".membership-id, #profileIdValue");
   idElements.forEach(el => {
     if (el.id === "profileIdValue") {
@@ -302,55 +1365,82 @@ ClubState.on('change', () => {
       el.textContent = "ID: " + AppState.user.id;
     }
   });
-  
+
   const estElements = document.querySelectorAll(".membership-est");
   estElements.forEach(el => {
     el.textContent = AppState.user.est;
   });
 
-  // Sync Profile Text
   const pName = document.getElementById("profileName");
   if (pName) pName.textContent = AppState.user.username || AppState.user.name;
-  
+
   const pBio = document.getElementById("profileBioValue");
   if (pBio && AppState.user.bio) pBio.textContent = AppState.user.bio;
-  
+
   const pInt = document.getElementById("profileInterestsValue");
   if (pInt && AppState.user.interests) pInt.textContent = AppState.user.interests;
-  
+
   const pLoc = document.getElementById("profileLocationValue");
   if (pLoc && AppState.user.location) pLoc.textContent = AppState.user.location;
-  
+
+  const shareBtn = document.getElementById('shareBtn');
+  if (shareBtn) {
+    shareBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none">
+      <path d="M12 4v12M8 8l4-4 4 4M5 15v3a2 2 0 002 2h10a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <span>${window.t('membership.shareMembership')}</span>`;
+  }
+
+  const copyBtn = document.getElementById('copyBtn');
+  if (copyBtn) {
+    copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none">
+      <rect x="9" y="9" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4"></rect>
+      <path d="M5 15V5a1 1 0 011-1h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+    </svg>
+    <span>${window.t('membership.copyLink')}</span>`;
+  }
+
   const pQuote = document.getElementById("profileQuote");
-  if (pQuote) pQuote.textContent = '"' + (AppState.user.quote || AppState.user.bio) + '"';
+  if (pQuote) {
+    if (AppState.user.quote === "Not everyone understands wealth. That's why we have this Club.") {
+      pQuote.textContent = '"' + window.t('profile.quoteText') + '"';
+    } else {
+      pQuote.textContent = '"' + (AppState.user.quote || AppState.user.bio) + '"';
+    }
+  }
+
+  const wealthLabel = document.querySelector('[data-i18n="membership.wealthIndex"]');
+  if (wealthLabel && !wealthLabel.querySelector('span')) wealthLabel.textContent = window.t('membership.wealthIndex');
+
+  const privLabel = document.querySelector('[data-i18n="membership.privileges"]');
+  if (privLabel && !privLabel.querySelector('span')) privLabel.textContent = window.t('membership.privileges');
 
   const mName = document.getElementById("memberName");
   if (mName) mName.textContent = AppState.user.name;
 
   const balEl = document.getElementById("boutiqueBalanceDisplay");
   if (balEl) balEl.textContent = AppState.balance.toLocaleString("en-US");
-  
-  // Sync Profile summary counts
+
   const countEl = document.getElementById("profileItemCount");
   if (countEl) countEl.textContent = AppState.collectedItems.length;
 
   if (typeof renderProfileCollection === "function") renderProfileCollection();
   if (typeof renderProfileAchievements === "function") renderProfileAchievements();
-  
+
   if (typeof renderRing === "function") {
     renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
     renderRing("privRing", "privValue", AppState.user.privilegesValue);
   }
-  
+
   if (typeof applyEquippedToCard === "function") applyEquippedToCard(AppState.equipped);
-  
+
   const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
   if (activeBoutiqueTab && typeof renderBoutique === "function") {
     renderBoutique(activeBoutiqueTab.dataset.cat);
   }
-  
+
   if (typeof updateMasterCard === "function") updateMasterCard();
-  
+
   let minPrice = Infinity;
   for (const catKey in BOUTIQUE) {
     for (const item of BOUTIQUE[catKey].items) {
@@ -363,7 +1453,6 @@ ClubState.on('change', () => {
     else addBtn.classList.remove("needs-balance");
   }
 });
-
 
 function applyEquippedToCard(equipped) {
   for (const catKey in EQUIP_CATEGORIES) {
@@ -385,13 +1474,10 @@ function applyEquippedToCard(equipped) {
   }
 }
 
-
-
 /* =========================================================
    THE 1% CLUB — app.js Phase 2
    Master Card · Club Chat · Credits · Boutique · Equip · Widget 1
 ========================================================= */
-
 
 function generateSkeletonGrid() {
   let html = '<div class="boutique-grid">';
@@ -418,7 +1504,6 @@ function renderBoutique(filter = "all") {
   const equipped = ClubState.equipped;
   const categories = filter === "all" ? Object.keys(BOUTIQUE) : [filter];
 
-  // Show Skeleton First
   if (!root.dataset.skeletonShown) {
     root.innerHTML = generateSkeletonGrid();
     root.dataset.skeletonShown = "true";
@@ -438,7 +1523,6 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     .map((catKey) => {
       const cat = BOUTIQUE[catKey];
 
-      // Widget 1 special rendering
       if (catKey === "widgets") {
         return renderWidgetSection();
       }
@@ -462,19 +1546,19 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 
           let btnText, btnClass;
           if (item.free) {
-            btnText = "تم الامتلاك ✓";
+            btnText = window.t("boutique.ownedCheck");
             btnClass = "btn-free";
           } else if (isEquipped) {
-            btnText = "✓ مجهّز — فك التجهيز";
+            btnText = window.t("boutique.equippedCheck");
             btnClass = "btn-equipped";
           } else if (isOwned && canEquip) {
-            btnText = "تجهيز";
+            btnText = window.t("boutique.equip");
             btnClass = "btn-equip";
           } else if (isOwned) {
-            btnText = "مملوك";
+            btnText = window.t("boutique.owned");
             btnClass = "btn-owned";
           } else {
-            btnText = "امتلك";
+            btnText = window.t("boutique.acquire");
             btnClass = "";
           }
 
@@ -488,18 +1572,17 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             const pct = Math.min((currentBalance / item.price) * 100, 100);
             const isReady = pct >= 100;
             progressHtml = `
-          <div class="purchase-progress-wrap" aria-label="مدى القدرة على الشراء" title="${Math.floor(pct)}%">
+          <div class="purchase-progress-wrap" aria-label=window.t("dynamic.affordability") title="${Math.floor(pct)}%">
             <div class="purchase-progress-fill ${isReady ? "is-ready" : ""}" style="width: ${pct}%"></div>
           </div>
         `;
           } else {
-            // Space filler to keep card heights consistent
             progressHtml = `<div class="purchase-progress-wrap is-transparent"></div>`;
           }
 
           return `
         <div class="${cardClass}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned}, ${isEquipped})' style="cursor: pointer;">
-          <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity]}</span>
+          <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity]()}</span>
           <span class="boutique-card-icon">
             <span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>
           </span>
@@ -518,7 +1601,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       <section class="boutique-section" data-category="${catKey}">
         <div class="boutique-section-head">
           <h3>${cat.title}</h3>
-          <span class="boutique-section-sub">${cat.sub}</span>
+          ${(typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined") ? `<span class="boutique-section-sub">${cat.sub}</span>` : ""}
         </div>
         <div class="boutique-grid">${cards}</div>
       </section>
@@ -539,7 +1622,6 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     `;
   }
 
-  // Wire up cards to open inspection modal and handle long press
   root.querySelectorAll(".boutique-card").forEach((card) => {
     let pressTimer;
     let isLongPress = false;
@@ -558,7 +1640,6 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       pressTimer = setTimeout(() => {
         isLongPress = true;
 
-        // Auto-equip check: If owned, and nothing is currently equipped in this category
         const currentEquipped = ClubState.equipped;
         let wasAutoEquipped = false;
         if (
@@ -569,7 +1650,6 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         ) {
           equipItem(item, catKey);
           wasAutoEquipped = true;
-          // Refresh our local flags for the preview
         }
 
         showQuickPreview(item, wasAutoEquipped);
@@ -585,7 +1665,6 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       }
     };
 
-    // Touch events for mobile
     card.addEventListener("touchstart", startPress, { passive: true });
     card.addEventListener("touchend", endPress);
     card.addEventListener("touchcancel", endPress);
@@ -593,7 +1672,6 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       clearTimeout(pressTimer);
     });
 
-    // Mouse events for desktop testing
     card.addEventListener("mousedown", startPress);
     card.addEventListener("mouseup", endPress);
     card.addEventListener("mouseleave", endPress);
@@ -626,15 +1704,15 @@ function renderWidgetSection() {
     <section class="boutique-section widget-section" data-category="widgets">
       <div class="boutique-section-head">
         <h3>${BOUTIQUE.widgets.title}</h3>
-        <span class="boutique-section-sub">${BOUTIQUE.widgets.sub}</span>
+        ${(typeof BOUTIQUE.widgets.sub !== "undefined" && BOUTIQUE.widgets.sub && String(BOUTIQUE.widgets.sub) !== "undefined") ? `<span class="boutique-section-sub">${BOUTIQUE.widgets.sub}</span>` : ""}
       </div>
       <p class="widget-preview-label">الودجت — بطاقة الهوية الأساسية</p>
-      
+
       <div class="membership-card widget-card-preview" style="transform: scale(0.9); transform-origin: top center; margin-bottom: -10%;">
         ${cardHTML}
       </div>
-      
-      <button class="widget-add-btn" type="button" onclick="alert('تم إضافة الودجت لشاشة هاتفك بنجاح')">
+
+      <button class="widget-add-btn" type="button" onclick="alert("Widget Added")">
         ✓ مجاني — مُفعَّل
       </button>
     </section>
@@ -653,17 +1731,14 @@ document.querySelectorAll(".boutique-tab").forEach((tab) => {
 
 renderBoutique();
 
-// Init balance display
 const balanceDisplay = document.getElementById("boutiqueBalanceDisplay");
 if (balanceDisplay) {
   balanceDisplay.textContent = ClubState.balance.toLocaleString("en-US");
 }
 
-
 updateUI();
 
 // ---------------------------------------------------------
-// 15. SHARE / COPY
 // ---------------------------------------------------------
 const copyToast = document.getElementById("copyToast");
 
@@ -676,24 +1751,20 @@ function showCopyToast(msg) {
 document.getElementById("copyBtn").addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(ClubState.member.verifyUrl);
-    showCopyToast("تم نسخ الرابط");
+    showCopyToast(window.t("misc.linkCopied"));
   } catch {
     showCopyToast(ClubState.member.verifyUrl);
   }
 });
 
 // ---------------------------------------------------------
-// 17. BOTTOM NAV
 // ---------------------------------------------------------
 const navToast = document.getElementById("navToast");
 const sectionName = document.getElementById("sectionName");
 let navToastTimer = null;
 
 // ==========================================
-// UI EFFECTS & ANIMATIONS
 // ==========================================
-
-
 
 function showNavToast(msg) {
   navToast.textContent = msg;
@@ -705,11 +1776,10 @@ function showNavToast(msg) {
   );
 }
 
-const PAGE_TITLES = { membership: "العضوية", club: "النادي", profile: "الملف", boutique: "البوتيك" };
+const PAGE_TITLES = { membership: window.t("nav.membership"), club: window.t("nav.club"), profile: window.t("nav.profile"), boutique: window.t("nav.boutique") };
 const IMPLEMENTED_TABS = ["membership", "profile", "club", "boutique"];
 
 // ==========================================
-// NAVIGATION & ROUTER
 // ==========================================
 const Router = {
   navigate(tab) {
@@ -718,43 +1788,43 @@ const Router = {
     this.updateHeader(tab);
     this.triggerEnter(tab);
   },
-  
+
   switchView(tab) {
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
       p.hidden = true;
     });
-    
+
     const activePage = document.getElementById(`${tab}-tab`);
     if (activePage) {
       activePage.classList.add("is-active");
       activePage.hidden = false;
     }
-    
+
     document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("is-active"));
     const activeNav = document.querySelector(`.nav-item[data-tab="${tab}"]`);
     if (activeNav) activeNav.classList.add("is-active");
-    
+
     const main = document.querySelector(".app-main");
     if (main) main.scrollTop = 0;
     window.scrollTo(0, 0);
   },
-  
+
   updateHeader(tab) {
     const sectionName = document.getElementById("sectionName");
     if (sectionName) sectionName.textContent = PAGE_TITLES[tab] || tab;
-    
+
     const backBtn = document.getElementById("backBtn");
     if (backBtn) backBtn.hidden = true;
-    
+
     const header = document.getElementById("appHeader");
     if (header) header.classList.toggle("header-compact", tab === "club");
   },
-  
+
   triggerEnter(tab) {
     this.onEnter(tab);
   },
-  
+
   navigateContext(pageId, title, returnTab) {
     if (window.AudioEngine) AudioEngine.playRustle();
     contextReturnTab = returnTab;
@@ -762,7 +1832,7 @@ const Router = {
       p.classList.remove("is-active");
       p.hidden = true;
     });
-    
+
     const activePage = document.getElementById(pageId);
     if (activePage) {
       activePage.classList.add("is-active");
@@ -772,7 +1842,7 @@ const Router = {
     document.getElementById("appHeader").classList.remove("header-compact");
     document.getElementById("backBtn").hidden = false;
     document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("is-active"));
-    
+
     const main = document.querySelector(".app-main");
     if (main) main.scrollTop = 0;
     window.scrollTo(0, 0);
@@ -796,7 +1866,6 @@ window.switchTab = function switchTab(tabId) {
 function goToPage(tab) {
   Router.navigate(tab);
 }
-
 
 document.querySelectorAll(".nav-item").forEach((item) => {
   item.addEventListener("click", () => {
@@ -823,13 +1892,11 @@ document.querySelectorAll(".nav-item").forEach((item) => {
   });
 });
 
-// Profile → Shop shortcut
 document
   .getElementById("goToShopBtn")
   ?.addEventListener("click", () => goToPage("shop"));
 
 // ---------------------------------------------------------
-// 18. CONTEXTUAL NAV (back button)
 // ---------------------------------------------------------
 let contextReturnTab = "club";
 
@@ -855,7 +1922,7 @@ function openContextPage(pageId, title, returnTab) {
 function openMemberProfile(member) {
   document.getElementById("memberProfileName").textContent = member.name;
   document.getElementById("memberProfileTier").textContent =
-    `عضو ${member.tier}`;
+    `${window.t("misc.member")} ${member.tier}`;
   document.getElementById("memberProfileQuote").textContent =
     `"${member.text}"`;
   document.getElementById("memberProfileWealth").textContent = member.wealth;
@@ -869,39 +1936,34 @@ document.getElementById("backBtn").addEventListener("click", () => {
 });
 
 document.querySelectorAll("#page-member .card-actions .btn").forEach((btn) => {
-  btn.addEventListener("click", () => showNavToast("قريبًا"));
+  btn.addEventListener("click", () => showNavToast(window.t("profile.comingSoon")));
 });
-
-
 
 document.getElementById("editAccountForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  
-  // Update State
+
   ClubState.member.name = document.getElementById("editName").value;
   ClubState.member.username = document.getElementById("editUsername").value;
   ClubState.member.bio = document.getElementById("editBio").value;
   ClubState.member.interests = document.getElementById("editInterests").value;
   ClubState.member.location = document.getElementById("editLocation").value;
   ClubState.save();
-  
+
   ClubState.emit('change');
 
   document.getElementById("backBtn").hidden = true;
   Router.navigate("profile");
-  showPremiumToast("تحديث الملف", "تم حفظ التعديلات بنجاح");
+  showPremiumToast(window.t("profile.profileUpdated"), window.t("misc.changesSaved"));
   if (window.unlockAchievement) {
     window.unlockAchievement('profile_updated', 'THE DOSSIER', 'Your personal identity dossier has been updated.');
   }
 });
 
 // ---------------------------------------------------------
-// INIT
 // ---------------------------------------------------------
 updateCreditsUI();
 
 // ---------------------------------------------------------
-// PREMIUM TOAST
 // ---------------------------------------------------------
 let premiumToastTimer = null;
 function showPremiumToast(title, msg) {
@@ -918,7 +1980,6 @@ function showPremiumToast(title, msg) {
 }
 
 // ---------------------------------------------------------
-// ACHIEVEMENT TOAST & LOGIC
 // ---------------------------------------------------------
 let achievementToastTimer = null;
 window.showAchievementToast = function(title, msg) {
@@ -940,28 +2001,22 @@ function spawnGoldenConfetti() {
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement("div");
     particle.className = "gold-confetti-particle";
-    
-    // Randomize starting position across the top of the screen
+
     particle.style.left = Math.random() * 100 + "vw";
-    
-    // Randomize animation duration between 1.5s and 3.5s
+
     const duration = Math.random() * 2 + 1.5;
     particle.style.animationDuration = duration + "s";
-    
-    // Randomize starting rotation
+
     particle.style.transform = `rotate(${Math.random() * 360}deg)`;
-    
-    // Add varying delay so they don't all fall at exactly the same time
+
     particle.style.animationDelay = Math.random() * 0.5 + "s";
-    
-    // Optional: randomly size them slightly differently
+
     const scale = Math.random() * 0.5 + 0.5;
     particle.style.width = (6 * scale) + "px";
     particle.style.height = (12 * scale) + "px";
 
     document.body.appendChild(particle);
 
-    // Clean up after animation finishes
     setTimeout(() => {
       particle.remove();
     }, (duration + 0.5) * 1000);
@@ -977,7 +2032,6 @@ window.unlockAchievement = function(id, title, desc) {
   if (!unlocked.includes(id)) {
     unlocked.push(id);
     localStorage.setItem('club_achievements', JSON.stringify(unlocked));
-    // Small delay for better UX if triggered by a modal close
     setTimeout(() => {
       if (window.AudioEngine) window.AudioEngine.playChime();
       window.showAchievementToast(title, desc);
@@ -990,7 +2044,6 @@ window.unlockAchievement = function(id, title, desc) {
 };
 
 // ==========================================
-// ELITE MEMBERS BOT SIMULATOR & CHAT ENGINE
 // ==========================================
 
 const ELITE_MEMBERS = [
@@ -1009,14 +2062,13 @@ function processEliteResponse(text) {
   const elena = ELITE_MEMBERS.find(m => m.id === '084');
   const marcus = ELITE_MEMBERS.find(m => m.id === '112');
   const concierge = ELITE_MEMBERS.find(m => m.id === '000');
-  
+
   const others = [lordJulian, elena, marcus];
 
-  // 1. Support & Concierge
   if (lower.includes('help') || lower.includes('support') || lower.includes('rule') || lower.includes('app') || lower.includes('concierge') || lower.includes('مساعدة') || lower.includes('دعم') || lower.includes('قوانين')) {
     const responses = isArabic ? [
-      `أهلاً بك يا ${userName}. مكتب الكونسيرج تحت تصرفك، كيف يمكنني مساعدتك؟`,
-      "نحن هنا لضمان تجربة سيادية خالية من المتاعب. تفضل بطلبك."
+      window.t("dynamic.chatHelp1").replace("{0}", userName),
+      window.t("dynamic.chatHelp2")
     ] : [
       `Good evening, ${userName}. How may the Concierge Desk assist you today?`,
       "Please let me know if you require any private arrangements or technical support."
@@ -1024,13 +2076,12 @@ function processEliteResponse(text) {
     return { member: concierge, text: responses[Math.floor(Math.random() * responses.length)] };
   }
 
-  // 2. Presence & Greetings
   if (lower.includes('is anyone here') || lower.includes('anyone online') || lower.includes('hello') || lower.includes('hi') || lower.includes('حد هنا') || lower.includes('مين موجود') || lower.includes('مساء الخير') || lower.includes('سلام') || lower.includes('مرحبا') || lower.includes('أهلا')) {
     if (isArabic) {
       const responses = [
-        `مساء الخير يا ${userName}. متواجدون لمتابعة مستجدات السوق وأحدث التطورات.`,
-        "أهلاً بك في الصالة. نناقش حالياً بعض الفرص الاستثمارية المغلقة.",
-        `تحياتي. نحن هنا، تفضل يا ${userName}.`
+        window.t("dynamic.chatGreet1").replace("{0}", userName),
+        window.t("dynamic.chatGreet2"),
+        window.t("dynamic.chatGreet3").replace("{0}", userName)
       ];
       return { member: others[Math.floor(Math.random() * others.length)], text: responses[Math.floor(Math.random() * responses.length)] };
     } else {
@@ -1043,13 +2094,12 @@ function processEliteResponse(text) {
     }
   }
 
-  // 3. Investment, Wealth & Markets
   if (lower.includes('invest') || lower.includes('market') || lower.includes('stock') || lower.includes('crypto') || lower.includes('real estate') || lower.includes('deal') || lower.includes('استثمار') || lower.includes('سوق') || lower.includes('أعمال') || lower.includes('صفق') || lower.includes('عقار')) {
     if (isArabic) {
       const responses = [
-        "السوق العقاري في دبي يقدم فرصاً سيادية ممتازة في الوقت الحالي.",
-        "الأسواق تشهد تحركات غير مسبوقة. يجب التركيز على الأصول الصلبة.",
-        `نحن ندرس حالياً صندوق تحوط جديد. يسعدني مناقشة التفاصيل معك لاحقاً يا ${userName}.`
+        window.t("dynamic.chatInvest1"),
+        window.t("dynamic.chatInvest2"),
+        window.t("dynamic.chatInvest3").replace("{0}", userName)
       ];
       return { member: [lordJulian, marcus][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
     } else {
@@ -1062,13 +2112,12 @@ function processEliteResponse(text) {
     }
   }
 
-  // 4. Collectibles & Luxury
-  if (lower.includes('boutique') || lower.includes('watch') || lower.includes('car') || lower.includes('gold') || lower.includes('art') || lower.includes('rare') || lower.includes('مقتنيات') || lower.includes('ساعة') || lower.includes('قطعة') || lower.includes('نادر') || lower.includes('فخامة') || lower.includes('بوتيك')) {
+  if (lower.includes('boutique') || lower.includes('watch') || lower.includes('car') || lower.includes('gold') || lower.includes('art') || lower.includes('rare') || lower.includes('مقتنيات') || lower.includes('ساعة') || lower.includes('قطعة') || lower.includes(window.t("misc.rarity1")) || lower.includes('فخامة') || lower.includes('بوتيك')) {
     if (isArabic) {
       const responses = [
-        "الساعات النادرة والقطع الفنية تمثل الملاذ الآمن الحقيقي للأصول.",
-        `البوتيك يعرض قطعاً سيادية تستحق الاهتمام. لا تفوت الفرصة يا ${userName}.`,
-        "الندرة المطلقة هي ما يحدد القيمة الحقيقية لأي قطعة."
+        window.t("dynamic.chatBoutique1"),
+        window.t("dynamic.chatBoutique2").replace("{0}", userName),
+        window.t("dynamic.chatBoutique3")
       ];
       return { member: [lordJulian, elena][Math.floor(Math.random() * 2)], text: responses[Math.floor(Math.random() * responses.length)] };
     } else {
@@ -1081,12 +2130,11 @@ function processEliteResponse(text) {
     }
   }
 
-  // 5. Fallback
   if (isArabic) {
     const responses = [
-      `وجهة نظر مثيرة للاهتمام يا ${userName}. نتفق في هذا التوجه.`,
-      "بالتأكيد. القرارات المدروسة هي ما يميز أعضاء هذا النادي.",
-      "أتفق معك تماماً. الجودة والأصالة دائماً ما تثبت نفسها مع الوقت."
+      window.t("dynamic.chatDefault1").replace("{0}", userName),
+      window.t("dynamic.chatDefault2"),
+      window.t("dynamic.chatDefault3")
     ];
     return { member: others[Math.floor(Math.random() * others.length)], text: responses[Math.floor(Math.random() * responses.length)] };
   } else {
@@ -1100,17 +2148,56 @@ function processEliteResponse(text) {
 }
 function switchChannel(channelId) {
   AppState.activeChannelId = channelId;
-  const channelData = AppState.channels[channelId] || { name: 'صالة الأعضاء', messages: [] };
-  
+  const channelData = AppState.channels[channelId] || { name: window.t("club.lounge"), messages: [] };
+
   document.querySelectorAll(".club-room-btn").forEach(btn => {
     btn.classList.toggle("is-active", btn.dataset.channel === channelId);
   });
-  
+
   const pinnedTitle = document.getElementById("clubPinnedTitle");
-  if (pinnedTitle) pinnedTitle.textContent = `أهلًا بك في ${channelData.name}`;
-  
+  const pinnedSub = document.getElementById("clubPinnedSub");
+  const messagesContainer = document.getElementById("clubMessages");
+  const composerWrap = document.getElementById("clubComposerWrap");
+  const leaderboardContainer = document.getElementById("clubLeaderboardContainer");
+
+  if (channelId === 'leaderboard') {
+    if (pinnedTitle) {
+      pinnedTitle.textContent = "قائمة المتصدرين";
+      pinnedTitle.setAttribute("data-i18n", "leaderboardTitle");
+    }
+    if (pinnedSub) {
+      pinnedSub.textContent = "النخبة العالمية لأصحاب الثروة السيادية";
+      pinnedSub.setAttribute("data-i18n", "leaderboardSub");
+    }
+
+    if (messagesContainer) messagesContainer.style.display = "none";
+    if (composerWrap) composerWrap.style.display = "none";
+    if (leaderboardContainer) {
+      leaderboardContainer.style.display = "block";
+      renderLeaderboard();
+    }
+  } else {
+    if (pinnedTitle) {
+      pinnedTitle.textContent = `أهلًا بك في ${channelData.name}`;
+      pinnedTitle.removeAttribute("data-i18n");
+    }
+    if (pinnedSub) {
+      pinnedSub.textContent = "مساحة الأعضاء السياديين. تواصل بثقة.";
+      pinnedSub.setAttribute("data-i18n", "clubSubText");
+    }
+
+    if (messagesContainer) messagesContainer.style.display = "";
+    if (composerWrap) composerWrap.style.display = "";
+    if (leaderboardContainer) leaderboardContainer.style.display = "none";
+
+    renderMessages();
+  }
+
   if (window.AudioEngine) window.AudioEngine.playRustle();
-  renderMessages();
+  if (window.translateDOM && document.body) {
+    const lang = localStorage.getItem('appLang') || 'ar';
+    if (lang === 'en') window.translateDOM(document.body, lang);
+  }
 }
 
 document.querySelectorAll(".club-room-btn").forEach(btn => {
@@ -1128,14 +2215,14 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderMessages() {
   const container = document.getElementById("clubMessages");
   if (!container) return;
-  
+
   const channelId = AppState.activeChannelId;
   const messages = AppState.channels[channelId]?.messages || [];
-  
+
   container.innerHTML = messages.map(msg => {
     const isMe = msg.senderId === AppState.user.id;
     const timeStr = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
+
     if (isMe) {
       return `
         <div class="chat-row is-outgoing">
@@ -1167,7 +2254,7 @@ function renderMessages() {
       `;
     }
   }).join('');
-  
+
   container.scrollTop = container.scrollHeight;
 }
 
@@ -1176,36 +2263,34 @@ function handleSendMessage() {
   const input = document.getElementById("clubInput");
   const text = input.value.trim();
   if (!text) return;
-  
+
   const channelId = AppState.activeChannelId;
   if (!AppState.channels[channelId]) AppState.channels[channelId] = { messages: [] };
-  
+
   AppState.channels[channelId].messages.push({
     senderId: AppState.user.id,
     text: text,
     timestamp: Date.now()
   });
-  
+
   input.value = "";
   if (window.AudioEngine) window.AudioEngine.playSend(); // Assuming playSend exists or will fallback
   AppState.save();
   renderMessages();
-  
-  // Trigger Elite Bot Simulator
+
   clearTimeout(typingTimeout);
-  
+
   const indicator = document.getElementById("typingIndicator");
   const typingName = document.getElementById("typingName");
-  
+
   setTimeout(() => {
     const { member: elite, text: replyText } = processEliteResponse(text);
     if (typingName) typingName.textContent = elite.name;
     if (indicator) indicator.style.display = "flex";
-    
-    // Typing delay between 1.5 and 2.5 seconds
+
     typingTimeout = setTimeout(() => {
       if (indicator) indicator.style.display = "none";
-      
+
       AppState.channels[channelId].messages.push({
         senderId: elite.id,
         senderName: elite.name,
@@ -1214,7 +2299,7 @@ function handleSendMessage() {
         text: replyText,
         timestamp: Date.now()
       });
-      
+
       if (window.AudioEngine) window.AudioEngine.playReceive();
       AppState.save();
       renderMessages();
@@ -1235,29 +2320,28 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
 
   document.getElementById("inspectionTitle").textContent = item.name;
   document.getElementById("inspectionRarity").textContent =
-    RARITY_LABEL[item.rarity];
+    RARITY_LABEL[item.rarity]();
   document.getElementById("inspectionLore").textContent =
     item.lore ||
-    "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص.";
+    window.t("dynamic.loreDefault");
 
   const svgContent = ICONS[item.icon] || ICONS["crown"];
   document.getElementById("inspectionImage").innerHTML = svgContent;
 
   const equipBtn = document.getElementById("inspectionEquipBtn");
 
-  // Clone button to remove old listeners
   const newBtn = equipBtn.cloneNode(true);
   equipBtn.parentNode.replaceChild(newBtn, equipBtn);
 
   if (item.free) {
-    newBtn.textContent = "مجاني — مُفعَّل";
+    newBtn.textContent = window.t("boutique.freeActivated");
     newBtn.disabled = true;
   } else if (isOwned) {
-    newBtn.textContent = isEquipped ? "فك التجهيز" : "تجهيز الهوية";
+    newBtn.textContent = isEquipped ? window.t("boutique.unequip") : window.t("dynamic.equipIdentity");
     newBtn.disabled = false;
     newBtn.onclick = () => equipItem(item, catKey);
   } else {
-    newBtn.textContent = `شراء — ${item.price.toLocaleString("en-US")}`;
+    newBtn.textContent = `${window.t("dynamic.buy")} — ${item.price.toLocaleString("en-US")}`;
     newBtn.disabled = false;
     newBtn.onclick = () => purchaseItem(item, catKey);
   }
@@ -1284,6 +2368,27 @@ function equipItem(item, catKey) {
   ClubState.toggleEquip(catKey, item.id);
   closeInspectionModal();
 }function updateMasterCard() {
+  const pmItems = document.getElementById('pmItemsCollected');
+  if (pmItems) {
+      pmItems.textContent = (AppState.user.collectedItems || []).length;
+  }
+
+  const wealthValueEl = document.getElementById('wealthValue');
+  const privValueEl = document.getElementById('privValue');
+  if (wealthValueEl && privValueEl) {
+    const totalSpent = AppState.user.totalSpent || 0;
+    const itemsCount = (AppState.user.collectedItems || []).length;
+
+    let wealth = 90.0 + (totalSpent / 1000) * 0.1;
+    if (wealth > 99.9) wealth = 99.9;
+
+    let priv = 80 + (itemsCount * 5);
+    if (priv > 100) priv = 100;
+
+    wealthValueEl.textContent = wealth.toFixed(1) + '%';
+    privValueEl.textContent = priv + '%';
+  }
+
   if (window.renderMembershipTab) window.renderMembershipTab();
   if (window.renderWidgetSection) {
     const widgetHTML = renderWidgetSection();
@@ -1303,7 +2408,6 @@ function closeInspectionModal() {
 }
 
 // ---------------------------------------------------------
-// QUICK PREVIEW (Long Press)
 // ---------------------------------------------------------
 function showQuickPreview(item, wasAutoEquipped = false) {
   let tooltip = document.getElementById("quickPreviewTooltip");
@@ -1332,33 +2436,32 @@ function showQuickPreview(item, wasAutoEquipped = false) {
   }
 
   const rarityEl = document.getElementById("qpRarity");
-  rarityEl.textContent = RARITY_LABEL[item.rarity];
+  rarityEl.textContent = RARITY_LABEL[item.rarity]();
   rarityEl.className = `rarity-badge rarity-${item.rarity}`;
 
-  // Try to use a more context-aware default lore based on the icon/type
   let lore = item.lore;
   if (!lore) {
     if (item.icon === "crown")
       lore =
-        "تاج سيادي يرمز لقمة الهرم. صُنع ليكون علامة مميزة لأولئك الذين يقودون ولا يتبعون.";
+        window.t("dynamic.loreCrown");
     else if (item.icon === "aura")
       lore =
-        "هالة نادرة تشع بقوة خفية. تمنح حضورك في النادي وزناً لا يمكن تجاهله.";
+        window.t("dynamic.loreAura");
     else if (item.icon === "ring")
       lore =
-        "خاتم نُحت بدقة متناهية من معادن نفيسة. يحمل ختم الـ 1% ويمثل الولاء المطلق للنجاح.";
+        window.t("dynamic.loreRing");
     else if (item.icon === "pendant")
       lore =
-        "قلادة فريدة تتوارثها النخب. ترمز للتفرد والثروة التي لا تُرى بل تُحس.";
+        window.t("dynamic.lorePendant");
     else if (item.icon === "artifact")
       lore =
-        "قطعة أثرية أسطورية لا يملكها سوى القلة. من يقتنيها يكتب إرثه في سجلات النادي للأبد.";
+        window.t("dynamic.loreArtifact");
     else if (item.icon === "star")
       lore =
-        "نجمة امتياز لامعة تبرز مكانتك بين الأعضاء. دليل قاطع على تفوقك وإنجازاتك.";
+        window.t("dynamic.loreStar");
     else
       lore =
-        "قطعة صُنعت بحرفية نادرة، تنبض بتاريخ من القوة والسيادة. من يمتلكها يكتب إرثه الخاص.";
+        window.t("dynamic.loreDefault");
   }
   document.getElementById("qpLore").textContent = lore;
 
@@ -1376,7 +2479,6 @@ function hideQuickPreview() {
 }
 
 // ---------------------------------------------------------
-// RENDER PROFILE EQUIPPED
 // ---------------------------------------------------------
 function renderProfileEquipped() {
   const grid = document.getElementById("profileEquippedGrid");
@@ -1385,7 +2487,6 @@ function renderProfileEquipped() {
   const equipped = ClubState.equipped;
   let itemsHtml = "";
 
-  // We'll iterate through all boutique categories and display the equipped ones
   for (const catKey in BOUTIQUE) {
     if (!EQUIP_CATEGORIES[catKey]) continue; // Only equipable categories
 
@@ -1419,12 +2520,9 @@ function renderProfileEquipped() {
   }
 }
 // ---------------------------------------------------------
-// RENDER PROFILE COLLECTION
 // ---------------------------------------------------------
 
-
 function showReactionMenu(anchorEl, msgId) {
-  // Remove existing menu if any
   let existing = document.getElementById("reactionMenuBox");
   if (existing) existing.remove();
 
@@ -1447,10 +2545,8 @@ function showReactionMenu(anchorEl, msgId) {
 
   document.body.appendChild(menu);
 
-  // Position it right above the add reaction button
   const rect = anchorEl.getBoundingClientRect();
   menu.style.top = rect.top - 40 + "px";
-  // Attempt to center it above the button, but cap it so it doesn't overflow screen
   let leftPos = rect.left + rect.width / 2 - menu.offsetWidth / 2;
   leftPos = Math.max(
     10,
@@ -1458,7 +2554,6 @@ function showReactionMenu(anchorEl, msgId) {
   );
   menu.style.left = leftPos + "px";
 
-  // Click outside to close
   setTimeout(() => {
     const closeMenu = (e) => {
       if (!menu.contains(e.target) && e.target !== anchorEl) {
@@ -1474,7 +2569,6 @@ function addReactionToMessage(msgId, emoji) {
   const msg = CLUB_MEMBERS.find((m) => m.msgId === msgId);
   if (msg) {
     if (!msg.reactions) msg.reactions = [];
-    // Only allow one of each emoji per user theoretically, but we'll just push for now
     if (!msg.reactions.includes(emoji)) {
       msg.reactions.push(emoji);
       if (window.AudioEngine) window.AudioEngine.playChime();
@@ -1483,7 +2577,6 @@ function addReactionToMessage(msgId, emoji) {
   }
 }
 
-// Setup Ownership Filter Toggles
 document.querySelectorAll(".b-filt-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     document
@@ -1497,9 +2590,7 @@ document.querySelectorAll(".b-filt-btn").forEach((btn) => {
   });
 });
 
-// Initialize card state on load
 
-  // Update Boutique UI and Card Equipment
   applyEquippedToCard(ClubState.equipped);
   const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
   if (activeBoutiqueTab && typeof renderBoutique === "function") {
@@ -1509,13 +2600,9 @@ document.querySelectorAll(".b-filt-btn").forEach((btn) => {
     updateMasterCard();
   }
     if (typeof renderProfileCollection === "function") {
-    // Actually our updateUI handles profile collection, but let's call the original just in case.
-    // wait, we handled it.
   }
 
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Load custom portrait if exists
   const savedPortrait = localStorage.getItem(`portrait_${ClubState.member.id}`);
   if (savedPortrait) {
     if (portraitPhoto) {
@@ -1530,23 +2617,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuAddFriend = document.getElementById("menuAddFriend");
   if (menuAddFriend) {
     menuAddFriend.addEventListener("click", () => {
-      showNavToast("إضافة صديق — قريباً");
-    });
-  }
-
-  const menuMyCollectionNav = document.getElementById("menuMyCollectionNav");
-  if (menuMyCollectionNav) {
-    menuMyCollectionNav.addEventListener("click", () => {
-      document.querySelector('[data-tab="shop"]').click();
-    });
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const menuAddFriend = document.getElementById("menuAddFriend");
-  if (menuAddFriend) {
-    menuAddFriend.addEventListener("click", () => {
-      showNavToast("إضافة صديق — قريباً");
+      showNavToast(window.t("dynamic.addFriendSoon"));
     });
   }
 
@@ -1564,7 +2635,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Profile Menu: Account Info ---
   const menuAccountInfo = document.getElementById("menuAccountInfo");
   const accountInfoModal = document.getElementById("accountInfoModal");
   if (menuAccountInfo && accountInfoModal) {
@@ -1581,11 +2651,9 @@ document.addEventListener("DOMContentLoaded", () => {
     AppState.user.email = document.getElementById("accEmailInput").value.trim();
     AppState.user.phone = document.getElementById("accPhoneInput").value.trim();
     AppState.save();
-    // AppState.notify() removed to prevent loop
     accountInfoModal?.classList.remove("is-open");
   });
 
-  // --- Profile Menu: Help Support ---
   const menuHelp = document.getElementById("menuHelp");
   const helpSupportModal = document.getElementById("helpSupportModal");
   if (menuHelp && helpSupportModal) {
@@ -1597,7 +2665,6 @@ document.addEventListener("DOMContentLoaded", () => {
     helpSupportModal?.classList.remove("is-open");
   });
 
-  // --- Profile Menu: Membership Tab ---
   const menuMembership = document.getElementById("menuMembership");
   if (menuMembership) {
     menuMembership.addEventListener("click", () => {
@@ -1606,7 +2673,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Profile Menu: Settings Modal ---
   const menuSettings = document.getElementById("menuSettings");
   const settingsModal = document.getElementById("settingsModal");
   const closeSettingsModal = document.getElementById("closeSettingsModal");
@@ -1621,17 +2687,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Profile Menu: My Collection ---
+  const btnSettingsLogout = document.getElementById("btnSettingsLogout");
+  const logoutConfirmModal = document.getElementById("logoutConfirmModal");
+  const closeLogoutConfirmModal = document.getElementById("closeLogoutConfirmModal");
+  const btnCancelLogout = document.getElementById("btnCancelLogout");
+  const btnConfirmLogout = document.getElementById("btnConfirmLogout");
+
+  if (btnSettingsLogout && logoutConfirmModal) {
+    btnSettingsLogout.addEventListener("click", () => {
+      logoutConfirmModal.classList.add("is-open");
+    });
+  }
+  if (closeLogoutConfirmModal && logoutConfirmModal) {
+    closeLogoutConfirmModal.addEventListener("click", () => {
+      logoutConfirmModal.classList.remove("is-open");
+    });
+  }
+  if (btnCancelLogout && logoutConfirmModal) {
+    btnCancelLogout.addEventListener("click", () => {
+      logoutConfirmModal.classList.remove("is-open");
+    });
+  }
+  if (btnConfirmLogout) {
+    btnConfirmLogout.addEventListener("click", () => {
+      localStorage.clear();
+      window.location.reload();
+    });
+  }
+
   const menuMyCollection = document.getElementById("menuMyCollection");
   if (menuMyCollection) {
     menuMyCollection.addEventListener("click", () => {
-      // Find the target section
       const targetSection = document.querySelector("#profile-tab .profile-collection-section");
       if (targetSection) {
-        // Smooth scroll to it
         targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Add a gold flash to the cards for attention
+
         setTimeout(() => {
           const cards = targetSection.querySelectorAll(".pcs-item-card");
           cards.forEach((card, index) => {
@@ -1662,7 +2752,6 @@ var d3RadarSvg = null;
 
 function renderRadarChart() {
   if (typeof d3 === "undefined") {
-    console.warn("D3 is not loaded yet. Waiting...");
     setTimeout(renderRadarChart, 100);
     return;
   }
@@ -1676,16 +2765,14 @@ function renderRadarChart() {
   const radius = 35;
 
   const metrics = [
-    { name: "الثروة", value: ClubState.member.wealthIndexValue || 92 },
-    { name: "الامتيازات", value: ClubState.member.privilegesValue || 84 },
-    { name: "الاتصالات", value: ClubState.member.connectionsValue || 75 },
+    { name: window.t("dynamic.wealth"), value: ClubState.member.wealthIndexValue || 92 },
+    { name: window.t("dynamic.privileges") || window.t("membership.privileges"), value: ClubState.member.privilegesValue || 84 },
+    { name: window.t("dynamic.connections"), value: ClubState.member.connectionsValue || 75 },
   ];
 
-  // Set up SVG only once
   if (!d3RadarSvg) {
     container.html(""); // clear vanilla SVG
 
-    // Add tooltip container
     d3.select("#profileRadarChart")
       .style("position", "relative")
       .append("div")
@@ -1702,7 +2789,6 @@ function renderRadarChart() {
 
     const angles = [-Math.PI / 2, Math.PI / 6, (5 * Math.PI) / 6];
 
-    // Draw Grid (Levels)
     const gridLevels = [0.33, 0.66, 1];
     gridLevels.forEach((level) => {
       const r = radius * level;
@@ -1715,7 +2801,6 @@ function renderRadarChart() {
         .attr("class", "radar-grid");
     });
 
-    // Draw Axes
     angles.forEach((a) => {
       d3RadarSvg
         .append("line")
@@ -1726,7 +2811,6 @@ function renderRadarChart() {
         .attr("class", "radar-axis");
     });
 
-    // Draw Labels
     metrics.forEach((m, i) => {
       const a = angles[i];
       const labelR = radius + 14;
@@ -1756,7 +2840,6 @@ function renderRadarChart() {
     .x((d) => d.x)
     .y((d) => d.y);
 
-  // Calculate positions
   const dataPtsArr = metrics.map((m, i) => {
     let val = Math.max(0, Math.min(100, m.value)) / 100;
     let r = radius * val;
@@ -1768,10 +2851,8 @@ function renderRadarChart() {
     };
   });
 
-  // To close the polygon
   const polyPtsArr = [...dataPtsArr, dataPtsArr[0]];
 
-  // Data binding: Radar Polygon
   const polygon = d3RadarSvg.selectAll(".radar-polygon-d3").data([polyPtsArr]);
 
   polygon
@@ -1784,7 +2865,6 @@ function renderRadarChart() {
     .ease(d3.easeCubicOut)
     .attr("d", lineGen);
 
-  // Data binding: Points
   const circles = d3RadarSvg.selectAll(".radar-point-d3").data(dataPtsArr);
 
   circles
@@ -1841,19 +2921,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ---------------------------------------------------------
-// PROGRESS CHART (WEEKLY EVOLUTION)
 // ---------------------------------------------------------
 function renderProgressChart() {
   const wrapper = document.getElementById("profileProgressChart");
   if (!wrapper) return;
 
-  // Mock data mimicking growth
   const data = [
-    { week: "الأسبوع ١", wealth: 60, priv: 50, conn: 40 },
-    { week: "الأسبوع ٢", wealth: 72, priv: 62, conn: 55 },
-    { week: "الأسبوع ٣", wealth: 85, priv: 76, conn: 65 },
+    { week: window.t("dynamic.week1"), wealth: 60, priv: 50, conn: 40 },
+    { week: window.t("dynamic.week2"), wealth: 72, priv: 62, conn: 55 },
+    { week: window.t("dynamic.week3"), wealth: 85, priv: 76, conn: 65 },
     {
-      week: "الحالي",
+      week: window.t("dynamic.current"),
       wealth: ClubState.member.wealthIndexValue || 92,
       priv: ClubState.member.privilegesValue || 84,
       conn: ClubState.member.connectionsValue || 75,
@@ -1875,34 +2953,27 @@ function renderProgressChart() {
 
   let svg = `<svg class="progress-svg" viewBox="0 0 ${w} ${h}">`;
 
-  // Draw Grid lines
   [0, 25, 50, 75, 100].forEach((val) => {
     let y = getY(val);
     svg += `<line x1="${padX}" y1="${y}" x2="${w - padX}" y2="${y}" class="progress-grid-line" />`;
   });
 
-  // Vertical Active Line
   svg += `<line id="progressActiveLine" x1="0" y1="${padYTop}" x2="0" y2="${h - padYBot}" class="progress-active-line" />`;
 
-  // Draw Paths (Lines)
   ["wealth", "priv", "conn"].forEach((key) => {
     let pts = data.map((d, i) => `${getX(i)},${getY(d[key])}`).join(" L ");
     svg += `<path d="M ${pts}" class="progress-line" stroke="${colors[key]}" />`;
   });
 
-  // Draw Points and X-axis Labels
   data.forEach((d, i) => {
     let x = getX(i);
-    // Label
     svg += `<text x="${x}" y="${h - 5}" class="progress-axis-text">${d.week}</text>`;
 
-    // Points
     ["wealth", "priv", "conn"].forEach((key) => {
       let y = getY(d[key]);
       svg += `<circle cx="${x}" cy="${y}" r="2.5" class="progress-point" fill="#0F0F0F" stroke="${colors[key]}" />`;
     });
 
-    // Hover Interaction Zones
     let zoneW = usableW / (data.length - 1);
     let zoneX = x - zoneW / 2;
     svg += `<rect x="${zoneX}" y="0" width="${zoneW}" height="${h}" class="hover-zone" data-idx="${i}" />`;
@@ -1917,7 +2988,6 @@ function renderProgressChart() {
   wrapper.innerHTML = svg;
   wrapper.appendChild(tooltip);
 
-  // Bind Interactions
   const zones = wrapper.querySelectorAll(".hover-zone");
   const activeLine = wrapper.querySelector("#progressActiveLine");
 
@@ -1926,7 +2996,6 @@ function renderProgressChart() {
     zone.addEventListener(
       "touchstart",
       (e) => {
-        // Only prevent default if we want to stop scroll, but let's just trigger hover
         handleHover(e.target);
       },
       { passive: true },
@@ -1955,7 +3024,6 @@ function renderProgressChart() {
     `;
 
     let percX = (x / w) * 100;
-    // Keep tooltip within bounds for edges
     if (idx === 0) percX += 15;
     if (idx === data.length - 1) percX -= 15;
 
@@ -1965,7 +3033,6 @@ function renderProgressChart() {
   }
 }
 
-// FOR TESTING REAL-TIME D3 UPDATES
 window.testRadarUpdate = () => {
   ClubState.member.wealthIndexValue = Math.floor(Math.random() * 100);
   ClubState.member.privilegesValue = Math.floor(Math.random() * 100);
@@ -1978,19 +3045,18 @@ function updateCreditsUI() {
 
   const currentCredits = ClubState.chatCredits !== undefined ? ClubState.chatCredits : 10;
   const maxCredits = 10;
-  
+
   if (currentCredits <= 0) {
-    creditsText.textContent = `الرسائل المتبقية اليوم: ${currentCredits} / ${maxCredits}`;
+    creditsText.textContent = `${window.t("dynamic.msgsLeft")}${currentCredits} / ${maxCredits}`;
     creditsText.style.color = "#d9534f";
     if (buyBtn) buyBtn.style.display = "inline-block";
   } else {
-    creditsText.textContent = `الرسائل المتبقية اليوم: ${currentCredits} / ${maxCredits}`;
+    creditsText.textContent = `${window.t("dynamic.msgsLeft")}${currentCredits} / ${maxCredits}`;
     creditsText.style.color = "inherit";
     if (buyBtn) buyBtn.style.display = "inline-block";
   }
 }
 function renderClubMessages() {
-  console.log("renderClubMessages placeholder called");
 }
 const CLUB_MEMBERS = [
   { id: "1001", name: "ALEXANDER W.", tier: "SOVEREIGN EXARCH", msgId: "msg-1", content: "Great investment opportunity in the new fund." },
@@ -2000,9 +3066,7 @@ const CLUB_MEMBERS = [
 
 let typingTimeout2 = null;
 function setTypingIndicator(member) {
-  console.log("Typing indicator for:", member.name);
 }
-
 
 function playPurchaseAnimation() {
   const flash = document.createElement("div");
@@ -2018,7 +3082,6 @@ function playPurchaseAnimation() {
 }
 
 // ---------------------------------------------------------
-// PROFILE ACHIEVEMENTS
 // ---------------------------------------------------------
 function renderProfileAchievements() {
   const container = document.getElementById("profileAchievementsGrid");
@@ -2033,20 +3096,22 @@ function renderProfileAchievements() {
   let html = "";
   const totalAchievements = Object.keys(ACHIEVEMENTS_DATA).length;
   let earnedCount = 0;
-  
-  // Render honors
+
   Object.keys(ACHIEVEMENTS_DATA).forEach(id => {
     const ach = ACHIEVEMENTS_DATA[id];
     const isUnlocked = ach.isUnlocked();
     if (isUnlocked) earnedCount++;
 
+    const nameText = window.t('honors.' + id);
+    const titleText = window.t('honors.title_' + id);
+
     if (isUnlocked) {
       html += `
-        <div class="honor-card is-unlocked gyro-element" data-tilt data-tooltip="${ach.desc.replace(/"/g, '&quot;')}">
+        <div class="honor-card is-unlocked gyro-element" data-tilt data-tooltip="${window.t('honors.desc_' + id).replace(/"/g, '&quot;')}">
           <div class="honor-icon">${ach.icon}</div>
-          <div class="honor-name">${ach.name}</div>
-          <div class="honor-title">${ach.title}</div>
-          <div class="honor-pill">EARNED</div>
+          <div class="honor-name">${nameText}</div>
+          <div class="honor-title">${titleText}</div>
+          <div class="honor-pill">${window.t('honors.earned')}</div>
         </div>
       `;
     } else {
@@ -2054,16 +3119,19 @@ function renderProfileAchievements() {
       if (current > ach.target) current = ach.target;
       const percent = Math.min(100, Math.max(0, (current / ach.target) * 100));
 
+      const remainingFormatted = "$" + (ach.target - current).toLocaleString();
+      let remainingText = window.t('honors.remaining').replace('{0}', remainingFormatted);
+
       html += `
-        <div class="honor-card is-locked gyro-element" data-tilt data-tooltip="${ach.desc.replace(/"/g, '&quot;')}">
+        <div class="honor-card is-locked gyro-element" data-tilt data-tooltip="${window.t('honors.desc_' + id).replace(/"/g, '&quot;')}">
           <div class="honor-icon">${ach.icon}</div>
-          <div class="honor-name">${ach.name}</div>
-          <div class="honor-title">LOCKED</div>
+          <div class="honor-name">${nameText}</div>
+          <div class="honor-title">${window.t('honors.locked')}</div>
           <div class="honor-progress-wrap">
             <div class="honor-progress-bar">
               <div class="honor-progress-fill" style="width: ${percent}%;"></div>
             </div>
-            <div class="honor-progress-text">$${(ach.target - current).toLocaleString()} REMAINING</div>
+            <div class="honor-progress-text">${remainingText}</div>
           </div>
         </div>
       `;
@@ -2077,12 +3145,12 @@ function renderProfileAchievements() {
     const completionPercent = Math.round((earnedCount / totalAchievements) * 100);
     summaryContainer.innerHTML = `
       <div class="achievements-summary-col">
-        <span class="achievements-summary-label">HONORS UNLOCKED</span>
+        <span class="achievements-summary-label">${window.t('honors.unlocked')}</span>
         <span class="achievements-summary-value">${earnedCount} / ${totalAchievements}</span>
       </div>
       <div class="achievements-summary-divider"></div>
       <div class="achievements-summary-col" style="align-items: flex-end;">
-        <span class="achievements-summary-label">TIER PROGRESS</span>
+        <span class="achievements-summary-label">${window.t('honors.tierProgress')}</span>
         <span class="achievements-summary-value" style="color: ${completionPercent === 100 ? '#e6c27a' : '#d4af6a'};">${completionPercent}%</span>
       </div>
     `;
@@ -2093,72 +3161,60 @@ function renderProfileCollection() {
   const container = document.getElementById("profileCollectionGrid");
   if (!container) return;
 
-  const owned = ClubState.owned;
-  const equipped = ClubState.equipped;
-  let hasItems = false;
-  let itemsHtml = "";
-  let itemCount = 0;
-
-  for (const catKey in BOUTIQUE) {
-    for (const item of BOUTIQUE[catKey].items) {
-      if (owned[item.id] && !item.free) {
-        hasItems = true;
-        itemCount++;
-        const iconSvg = ICONS[item.icon] || ICONS["star"];
-        const isActive = equipped[catKey] === item.name || equipped[catKey] === item.id;
-        
-        itemsHtml += `
-          <div class="pcs-item-card gyro-element" data-tilt onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", true, ${isActive})'>
-            <div class="pcs-item-icon">${iconSvg}</div>
-            <div class="pcs-item-name">${item.name}</div>
-            <div class="pcs-item-type">${BOUTIQUE[catKey].title}</div>
-            ${isActive ? '<span class="item-status-badge">ACTIVE</span>' : ''}
-          </div>
-        `;
-      }
+  const collectedItems = (AppState.user.collectedItems || []).map(id => {
+    if (typeof id === 'object') return id;
+    let found = null;
+    for (const cat in BOUTIQUE) {
+      const it = BOUTIQUE[cat].items.find(i => i.id === id);
+      if (it) found = it;
     }
-  }
+    return found;
+  }).filter(i => i);
 
-  // Always add the explore card at the end
-  itemsHtml += `
-    <div class="pcs-explore-card" onclick="document.querySelector('[data-tab=\\'boutique\\']').click()">
-      <div class="pcs-explore-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+  let itemCount = collectedItems.length;
+
+  if (itemCount === 0) {
+    const isAr = (AppState.language === 'ar' || document.documentElement.lang === 'ar');
+    const emptyText = isAr ? 'الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك.' : 'Your vault is empty. Acquire your first asset from the Boutique.';
+    const btnText = isAr ? 'استكشاف البوتيك' : 'Explore Boutique';
+
+    container.innerHTML = `
+      <div class="empty-vault-card" onclick="goToPage('boutique')">
+        <div class="vault-empty-icon">+</div>
+        <p class="vault-empty-text">${emptyText}</p>
+        <span class="vault-empty-btn">${btnText}</span>
       </div>
-      <div class="pcs-explore-text">Explore More<br/>Items</div>
-    </div>
-  `;
+    `;
+  } else {
+    let html = '';
+    for (const item of collectedItems) {
+      if (!item) continue;
+      const isAr = (AppState.language === 'ar' || document.documentElement.lang === 'ar');
+      const nameText = isAr ? window.t('items.' + item.id) : window.t('items.' + item.id);
 
-  // Use innerHTML to overwrite the container precisely, removing any chance of duplication
-  container.innerHTML = itemsHtml;
-
-  const metricsItems = document.getElementById("pmItemsCollected");
-  if (metricsItems) metricsItems.textContent = itemCount;
-  
-  if (typeof initProfileGyro === "function") initProfileGyro();
+      html += `
+        <div class="pcs-item-card gyro-element" data-tilt>
+          <div class="pcs-item-image">
+            <span class="boutique-card-fallback" style="display:flex; font-size: 24px; color: #d4af37;">${ICONS[item.icon] || ICONS["star"]}</span>
+          </div>
+          <div class="pcs-item-info">
+            <div class="pcs-item-name">${nameText}</div>
+            <div class="pcs-item-price">${item.price ? '$$' + item.price.toLocaleString() : item.rarity}</div>
+          </div>
+        </div>
+      `;
+    }
+    container.innerHTML = html;
+    if (window.initGyroElements) window.initGyroElements();
+  }
 }
-// ---------------------------------------------------------
-// EDIT PROFILE MODAL LOGIC
-// ---------------------------------------------------------
-const profilePhotos = [
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1560086820-bba7dc1f274a?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1595085610896-cba5ee370002?q=80&w=200&auto=format&fit=crop"
-];
-
-let selectedProfilePhoto = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop";
 
 function initEditProfileModal() {
   const photoGrid = document.getElementById("editProfilePhotoGrid");
   if (photoGrid) {
     photoGrid.innerHTML = profilePhotos.map((url, i) => `
-      <div class="edit-profile-photo-opt ${url === selectedProfilePhoto ? 'selected' : ''}" 
-           style="background-image: url('${url}')" 
+      <div class="edit-profile-photo-opt ${url === selectedProfilePhoto ? 'selected' : ''}"
+           style="background-image: url('${url}')"
            data-url="${url}">
       </div>
     `).join('');
@@ -2174,12 +3230,37 @@ function initEditProfileModal() {
   }
 }
 
+function saveProfileDraft() {
+  const draft = {
+    name: document.getElementById("editProfileNameInput")?.value || "",
+    quote: document.getElementById("editProfileQuoteInput")?.value || "",
+    avatarUrl: document.getElementById("editProfileAvatarUrl")?.value || ""
+  };
+  localStorage.setItem('profileDraft', JSON.stringify(draft));
+}
+
+document.getElementById("editProfileNameInput")?.addEventListener("input", saveProfileDraft);
+document.getElementById("editProfileQuoteInput")?.addEventListener("input", saveProfileDraft);
+document.getElementById("editProfileAvatarUrl")?.addEventListener("input", saveProfileDraft);
+
 document.getElementById("editAccountBtn")?.addEventListener("click", () => {
   const modal = document.getElementById("editProfileModal");
   if (modal) {
-    document.getElementById("editProfileNameInput").value = AppState.user.name || "";
-    document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
-    document.getElementById("editProfileAvatarUrl").value = AppState.user.avatarUrl || "";
+    let draft = null;
+    try {
+      draft = JSON.parse(localStorage.getItem('profileDraft'));
+    } catch(e) {}
+
+    if (draft) {
+      document.getElementById("editProfileNameInput").value = draft.name || "";
+      document.getElementById("editProfileQuoteInput").value = draft.quote || "";
+      document.getElementById("editProfileAvatarUrl").value = draft.avatarUrl || "";
+    } else {
+      document.getElementById("editProfileNameInput").value = AppState.user.name || "";
+      document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
+      document.getElementById("editProfileAvatarUrl").value = AppState.user.avatarUrl || "";
+    }
+
     initEditProfileModal();
     modal.classList.add("is-open");
   }
@@ -2199,13 +3280,111 @@ document.getElementById("saveEditProfileBtn")?.addEventListener("click", () => {
   if (quoteInput) AppState.user.quote = quoteInput;
   if (quoteInput) AppState.user.bio = quoteInput;
   if (avatarUrl) AppState.user.avatarUrl = avatarUrl;
-  
-  // Use selected fallback photo if no text input URL
+
   if (!avatarUrl && typeof selectedProfilePhoto !== "undefined") {
     AppState.user.avatarUrl = selectedProfilePhoto;
   }
-  
+
   AppState.save();
   updateUI();
+  localStorage.removeItem('profileDraft'); // Clear draft on successful save
   document.getElementById("editProfileModal")?.classList.remove("is-open");
 });
+
+function renderProfileStatsBar() {
+  const container = document.getElementById("profileStatsBar");
+  if (!container) return;
+
+  const lang = document.documentElement.lang || 'en';
+
+  const levelVal = lang === 'ar' ? 'سيادي' : 'SOVEREIGN';
+  const levelLabel = lang === 'ar' ? 'رتبة العضوية' : 'MEMBERSHIP LEVEL';
+
+  const itemsVal = AppState.user.collectedItems ? AppState.user.collectedItems.length : 0;
+  const itemsLabel = lang === 'ar' ? 'المقتنيات' : 'ITEMS COLLECTED';
+
+  const connectionsVal = '248';
+  const connectionsLabel = lang === 'ar' ? 'شبكة المعارف' : 'CONNECTIONS';
+
+  const sinceVal = lang === 'ar' ? 'يناير 2024' : 'Jan 2024';
+  const sinceLabel = lang === 'ar' ? 'عضو منذ' : 'MEMBER SINCE';
+
+  container.innerHTML = `
+    <div class="psb-col">
+      <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z"></path></svg>
+      <div class="psb-value">${levelVal}</div>
+      <div class="psb-label">${levelLabel}</div>
+    </div>
+    <div class="psb-divider"></div>
+    <div class="psb-col">
+      <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <div class="psb-value" id="pmItemsCollected">${itemsVal}</div>
+      <div class="psb-label">${itemsLabel}</div>
+    </div>
+    <div class="psb-divider"></div>
+    <div class="psb-col">
+      <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <div class="psb-value">${connectionsVal}</div>
+      <div class="psb-label">${connectionsLabel}</div>
+    </div>
+    <div class="psb-divider"></div>
+    <div class="psb-col">
+      <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <div class="psb-value">${sinceVal}</div>
+      <div class="psb-label">${sinceLabel}</div>
+    </div>
+  `;
+}
+
+function renderLeaderboard() {
+  const container = document.getElementById("leaderboardList") || document.getElementById("clubLeaderboardContainer");
+  if (!container) return;
+  const mockTopMembers = [
+    { id: "SV-0001", name: "A. Al Maktoum", wealth: "99.9%", tier: "Sovereign" },
+    { id: "SV-0822", name: "E. Rothschild", wealth: "99.7%", tier: "Sovereign" },
+    { id: "SV-1105", name: "M. Windsor", wealth: "99.5%", tier: "Elite" },
+    { id: "SV-0344", name: "J. Rockefeller", wealth: "99.2%", tier: "Elite" },
+    { id: "SV-2211", name: "K. Arnault", wealth: "98.9%", tier: "Elite" },
+    { id: "SV-3091", name: "L. Bettencourt", wealth: "98.5%", tier: "Member" },
+    { id: "SV-4402", name: "F. Pinault", wealth: "98.1%", tier: "Member" },
+    { id: "SV-5510", name: "D. Wertheimer", wealth: "97.8%", tier: "Member" },
+    { id: "SV-6623", name: "G. Armani", wealth: "97.5%", tier: "Member" },
+    { id: "SV-7734", name: "S. Ortega", wealth: "97.0%", tier: "Member" }
+  ];
+
+  let html = '<div class="leaderboard-list">';
+  mockTopMembers.forEach((member, index) => {
+    const rank = index + 1;
+    const isAr = (AppState.language === 'ar' || document.documentElement.lang === 'ar');
+    const name = member.name;
+    const score = member.wealth;
+
+    let tagText = member.tier;
+    if (isAr) {
+       if (member.tier.includes('Sovereign')) tagText = window.t('misc.sovereign');
+       else if (member.tier.includes('Elite')) tagText = window.t('misc.elite');
+       else tagText = window.t('misc.member');
+    } else {
+       if (member.tier.includes('Sovereign')) tagText = 'Sovereign';
+       else if (member.tier.includes('Elite')) tagText = 'Elite';
+       else tagText = 'Member';
+    }
+
+    html += `
+    <div class="leader-item">
+      <div class="leader-rank">${rank}</div>
+      <div class="leader-avatar">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="${name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="avatar-fallback" style="display:none;">${name.charAt(0)}</span>
+      </div>
+      <div class="leader-info">
+        <div class="leader-name">${name}</div>
+        <div class="leader-tag">${tagText}</div>
+      </div>
+      <div class="leader-score">${score}</div>
+    </div>
+    `;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
