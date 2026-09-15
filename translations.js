@@ -270,6 +270,10 @@ window.I18N = {
       en: "PROFILE QUOTE",
       ar: "النبذة",
     },
+    quoteText: {
+      en: "Discipline. Network. Freedom.",
+      ar: "الانضباط. النفوذ. الحرية.",
+    },
     quotePlaceholder: {
       en: "Enter your quote",
       ar: "أدخل نبذة عنك",
@@ -504,6 +508,18 @@ window.I18N = {
     },
   },
   settings: {
+    theme_title: {
+      en: "Theme Mode",
+      ar: "مظهر التطبيق",
+    },
+    theme_dark: {
+      en: "Obsidian Dark",
+      ar: "الداكن الملكي (الافتراضي)",
+    },
+    theme_light: {
+      en: "Imperial Light",
+      ar: "الفاتح الإمبراطوري",
+    },
     title: {
       en: "Settings",
       ar: "الإعدادات",

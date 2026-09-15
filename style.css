@@ -60,9 +60,493 @@
   --core-hue: 42;
   --core-color: hsl(var(--core-hue) 80% 62%);
   --core-glow: hsl(var(--core-hue) 90% 55%);
-  --font-display: "Cormorant Garamond", serif;
-  --font-ui: "Inter", -apple-system, sans-serif;
+  --font-display: "Cormorant Garamond", "Amiri", serif;
+  --font-ui: "Inter", "Cairo", -apple-system, sans-serif;
   color-scheme: dark;
+}
+
+/* === Light Theme Overrides === */
+body.light-mode {
+  --oled-black: #fdfbf7;
+  --obsidian: #f4f0e6;
+  --obsidian-2: #ece6d8;
+  --luxury-card-bg: radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.08) 0%, #fdfaf4 55%, #f4f0e6 100%);
+  color-scheme: light;
+}
+
+body.light-mode .app {
+  color: #1a1510;
+}
+
+body.light-mode .app-header {
+  background: rgba(253, 251, 247, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .section-name,
+body.light-mode .member-name,
+body.light-mode .metric-val,
+body.light-mode .profile-name,
+body.light-mode .menu-title,
+body.light-mode .setting-title,
+body.light-mode .luxury-modal-header h3 {
+  color: #1a1510 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .membership-card .card-inner-frame {
+  background: linear-gradient(170deg, #fdfbf7 0%, #f4f0e6 50%, #e2dcca 100%);
+  box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+}
+
+body.light-mode .portrait-photo {
+  background: radial-gradient(circle at 35% 25%, #ffffff 0%, #f8f6f0 45%, #ede8dc 100%);
+  border: 1px solid rgba(212, 175, 106, 0.4);
+  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.05), inset 0 -3px 8px rgba(255, 255, 255, 1), 0 0 25px rgba(212, 175, 106, 0.15);
+}
+
+body.light-mode .boutique-card {
+  background: radial-gradient(circle at 50% -20%, #ffffff 0%, #f4f0e6 60%, #e8dec8 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(212, 175, 106, 0.4);
+}
+
+body.light-mode .bottom-nav {
+  background: rgba(253, 251, 247, 0.95);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .luxury-modal-box {
+  background: radial-gradient(ellipse at center, #fdfbf7, #f4f0e6);
+  border: 1px solid rgba(212, 175, 106, 0.3);
+}
+
+
+body.light-mode .vault-card,
+body.light-mode .honor-card,
+body.light-mode .menu-card,
+body.light-mode .stats-bar,
+body.light-mode .lounge-banner,
+body.light-mode .pcs-item-card,
+body.light-mode .club-composer {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .club-composer input {
+  color: #1a1a1a !important;
+}
+body.light-mode .club-composer input::placeholder {
+  color: #888 !important;
+}
+
+body.light-mode .b-filt-btn.is-active,
+body.light-mode .pill-btn.is-active {
+  background: #fdfbf7 !important;
+  border-color: rgba(197, 160, 89, 0.5) !important;
+  color: #8f6820 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .b-filt-btn,
+body.light-mode .pill-btn {
+  background: #f4f0e6 !important;
+  border-color: rgba(0,0,0,0.05) !important;
+  color: #4a4a4a !important;
+}
+
+body.light-mode .section-subtitle,
+body.light-mode .category-title,
+body.light-mode .club-name,
+body.light-mode .boutique-card-name,
+body.light-mode .honor-name, body.light-mode .pcs-item-name, body.light-mode .pcs-item-type {
+  color: #1a1a1a !important;
+}
+
+body.light-mode .boutique-card-price,
+body.light-mode .honor-desc,
+body.light-mode .room-desc {
+  color: #8f6820 !important;
+}
+
+body.light-mode .boutique-card-fallback,
+body.light-mode .pcs-item-icon, body.light-mode .pcs-item-image, body.light-mode .boutique-card-icon img, body.light-mode .boutique-card-fallback {
+  background: radial-gradient(circle at 30% 30%, rgba(212, 175, 106, 0.1), transparent 60%) !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  box-shadow: inset 0 1px 3px rgba(212, 175, 106, 0.2), 0 2px 5px rgba(0,0,0,0.05) !important;
+}
+
+body.light-mode .honor-card.is-locked {
+  background: #f8f7f4 !important;
+  border: 1px dashed rgba(197, 160, 89, 0.3) !important;
+  opacity: 0.8;
+}
+
+body.light-mode .club-room:hover,
+body.light-mode .menu-card:hover {
+  background: #fdfbf7 !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+}
+
+
+body.light-mode .boutique-card-icon::after {
+  background: radial-gradient(ellipse at center, rgba(143, 104, 32, 0.4) 0%, transparent 70%) !important;
+}
+body.light-mode .member-number {
+  color: #8f6820 !important;
+  background: none !important;
+  -webkit-text-fill-color: #8f6820 !important;
+}
+
+
+body.light-mode .club-composer {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .club-composer input {
+  color: #1a1a1a !important;
+}
+body.light-mode .club-composer input::placeholder {
+  color: #888 !important;
+}
+
+
+body.light-mode .club-room-btn.is-active {
+  background: #fdfbf7 !important;
+  border-color: rgba(197, 160, 89, 0.5) !important;
+  color: #8f6820 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .club-room-btn {
+  background: #f4f0e6 !important;
+  border-color: rgba(0,0,0,0.05) !important;
+  color: #4a4a4a !important;
+}
+
+
+body.light-mode .nav-item {
+  color: rgba(0, 0, 0, 0.4);
+}
+body.light-mode .nav-item.is-active {
+  color: #8f6820;
+}
+
+
+body.light-mode .boutique-section-head h3 {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .boutique-section-sub {
+  color: #8f6820 !important;
+}
+
+
+body.light-mode .luxury-empty-state p {
+  color: #1a1a1a !important;
+}
+
+body.light-mode .luxury-empty-state span {
+  color: #4a4a4a !important;
+}
+
+body.light-mode .vault-empty-text {
+  color: #1a1a1a !important;
+}
+
+
+body.light-mode .tier-pill {
+  background: rgba(143, 104, 32, 0.1) !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  color: #8f6820 !important;
+  box-shadow: inset 0 0 10px rgba(197, 160, 89, 0.1) !important;
+}
+
+body.light-mode .metric-label {
+  color: #888 !important;
+}
+
+body.light-mode .metric-val {
+  color: #1a1a1a !important;
+}
+
+body.light-mode .card-club-name {
+  color: rgba(26, 26, 26, 0.7) !important;
+}
+
+
+body.light-mode .menu-subtitle {
+  color: #666 !important;
+}
+body.light-mode .pnm-title .menu-title {
+  color: #1a1a1a !important;
+}
+
+body.light-mode .setting-desc {
+  color: #666 !important;
+}
+
+
+body.light-mode .pcs-item-price {
+  color: #8f6820 !important;
+}
+
+
+/* Light Mode Comprehensive Overrides */
+
+/* Master Card Internal Metrics */
+body.light-mode .membership-card .metric-ring {
+  background: radial-gradient(ellipse at top left, #ffffff, #fdfbf7) !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .membership-card .ring-value {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+body.light-mode .membership-card .ring-label {
+  color: #666 !important;
+}
+
+/* Honors Summary Header */
+body.light-mode #profile-tab .prestige-honors .achievements-summary {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .achievements-summary-value {
+  color: #8f6820 !important;
+  text-shadow: none !important;
+}
+body.light-mode .achievements-summary-label,
+body.light-mode .pcs-view-all {
+  color: #666 !important;
+}
+body.light-mode .achievements-summary-divider {
+  background: rgba(197, 160, 89, 0.2) !important;
+}
+
+/* Honor Cards */
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.1) !important;
+}
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked .honor-icon {
+  color: #8f6820 !important;
+  filter: none !important;
+}
+body.light-mode #profile-tab .prestige-honors .honor-card.is-locked {
+  background: #f8f7f4 !important;
+  border-style: dashed !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: none !important;
+}
+body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-icon {
+  color: #a0a0a0 !important;
+}
+
+/* Profile Navigation Menu */
+body.light-mode .profile-nav-menu {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .pnm-item {
+  border-bottom-color: rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .pnm-item:hover {
+  background: rgba(197, 160, 89, 0.05) !important;
+}
+body.light-mode .pnm-icon {
+  background: rgba(197, 160, 89, 0.1) !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+  color: #8f6820 !important;
+}
+body.light-mode .menu-title {
+  color: #1a1a1a !important;
+}
+body.light-mode .pnm-arrow {
+  color: #aaa !important;
+}
+
+/* Profile Hero Card */
+body.light-mode #profile-tab .profile-hero-card {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .phc-name {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+body.light-mode .phc-tier {
+  color: #8f6820 !important;
+  background: rgba(143, 104, 32, 0.1) !important;
+  border: 1px solid rgba(197, 160, 89, 0.2) !important;
+}
+body.light-mode .phc-quote, 
+body.light-mode .phc-meta {
+  color: #666 !important;
+}
+body.light-mode .phc-meta-icon {
+  color: #8f6820 !important;
+}
+body.light-mode .phc-crown-badge {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.5) !important;
+}
+body.light-mode .phc-crown-badge svg path {
+  fill: #8f6820 !important;
+}
+
+/* Profile Stats inside Hero */
+body.light-mode .phc-stats {
+  background: #f8f7f4 !important;
+  border-color: rgba(197, 160, 89, 0.2) !important;
+}
+body.light-mode .phc-stat-val {
+  color: #1a1a1a !important;
+}
+body.light-mode .phc-stat-label {
+  color: #888 !important;
+}
+body.light-mode .phc-stat-icon {
+  color: #8f6820 !important;
+}
+body.light-mode .phc-stat-divider {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Boutique specific overrides */
+body.light-mode #boutique-tab .boutique-tabs {
+  background: #f4f0e6 !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+}
+body.light-mode #boutique-tab .boutique-tab {
+  color: #666 !important;
+}
+body.light-mode #boutique-tab .boutique-tab.is-active {
+  background: #ffffff !important;
+  color: #8f6820 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode #boutique-tab .boutique-ownership-toggle {
+  background: #f4f0e6 !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+}
+body.light-mode #boutique-tab .boutique-card {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Modal Inputs */
+body.light-mode .edit-profile-input,
+body.light-mode .luxury-input {
+  background: #fdfbf7 !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  color: #1a1a1a !important;
+}
+body.light-mode .edit-profile-input::placeholder,
+body.light-mode .luxury-input::placeholder {
+  color: #aaa !important;
+}
+body.light-mode .modal-label,
+body.light-mode .input-label,
+/* body.light-mode .pnm-content span { removed */
+  color: #666 !important;
+}
+body.light-mode .modal-close {
+  color: #1a1a1a !important;
+}
+body.light-mode .edit-profile-row span {
+  color: #666 !important;
+}
+
+/* Club Pinned Banner */
+body.light-mode #club-tab .club-pinned {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode #club-tab .club-pinned-title {
+  color: #8f6820 !important;
+}
+body.light-mode #club-tab .club-pinned-sub {
+  color: #666 !important;
+}
+body.light-mode #club-tab .club-pinned-icon {
+  background: rgba(197, 160, 89, 0.1) !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+}
+body.light-mode #club-tab .club-pinned-icon svg path {
+  fill: #8f6820 !important;
+}
+
+
+body.light-mode .menu-title,
+body.light-mode .pnm-title span {
+  color: #1a1a1a !important;
+}
+body.light-mode .menu-subtitle,
+body.light-mode .pnm-sub span {
+  color: #666 !important;
+}
+body.light-mode .empty-vault-card {
+  background: #ffffff !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+
+body.light-mode .luxury-modal-header h2,
+body.light-mode .luxury-modal-header h3 {
+  color: #8f6820 !important;
+  text-shadow: none !important;
+}
+body.light-mode .edit-profile-label {
+  color: #666 !important;
+}
+body.light-mode .pcs-item-image {
+  background: transparent !important;
+  border-color: rgba(197, 160, 89, 0.2) !important;
+}
+body.light-mode .club-pinned-title {
+  color: #8f6820 !important;
+}
+body.light-mode .club-pinned-sub span {
+  color: #666 !important;
+}
+
+
+body.light-mode .pcs-item-image svg path,
+body.light-mode .pcs-item-image svg circle,
+body.light-mode .boutique-card-fallback svg path,
+body.light-mode .boutique-card-fallback svg circle {
+  fill: #8f6820 !important;
+  stroke: #8f6820 !important;
+}
+body.light-mode .pcs-item-image svg [fill="url(#ringGoldGrad)"],
+body.light-mode .boutique-card-fallback svg [fill="url(#ringGoldGrad)"] {
+  fill: #8f6820 !important;
+}
+
+body.light-mode .app-main {
+  color: #2c2c2c;
+}
+
+body.light-mode .club-room {
+  background: linear-gradient(145deg, #fdfbf7 0%, #f4f0e6 100%);
+  border: 1px solid rgba(212, 175, 106, 0.2);
+}
+
+body, .app, .app-header, .bottom-nav, .boutique-card, .membership-card .card-inner-frame, .portrait-photo, .luxury-modal-box, .club-room, .section-name, .member-name, .metric-val {
+  transition: background-color 0.3s ease, color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 svg *[stroke="currentColor"] {
@@ -372,9 +856,9 @@ input {
     inset 0 10px 40px -10px rgba(0, 0, 0, 0.98);
   background: linear-gradient(
     170deg,
-    rgba(20, 18, 14, 0.4) 0%,
-    rgba(5, 4, 3, 0.8) 50%,
-    rgba(2, 2, 2, 0.98) 100%
+    #181512 0%,
+    #0c0b09 50%,
+    #050403 100%
   );
   padding: clamp(8px, 1.5vh, 12px) 10px clamp(6px, 1.2vh, 10px);
   display: flex;
@@ -419,10 +903,11 @@ input {
   inset: 0;
   border-radius: 12px;
   background: radial-gradient(
-    circle at calc(50% + var(--tiltX, 0) * 30%)
-      calc(50% + var(--tiltY, 0) * 30%),
-    rgba(255, 244, 214, 0.14),
-    rgba(255, 244, 214, 0) 70%
+    ellipse at calc(50% + var(--tiltX, 0) * 50%)
+      calc(50% + var(--tiltY, 0) * 50%),
+    rgba(255, 244, 214, 0.18),
+    rgba(215, 180, 80, 0.05) 40%,
+    rgba(255, 244, 214, 0) 80%
   );
   pointer-events: none;
   z-index: 3;
@@ -538,32 +1023,32 @@ input {
   width: clamp(86px, 12vh, 102px);
   height: clamp(86px, 12vh, 102px);
   border-radius: 50%;
-  padding: 4px;
-  transform: translateZ(6px);
+  padding: 5px;
+  transform: translateZ(8px);
   will-change: transform;
   background: conic-gradient(
     from 190deg,
-    #30220a 0deg,
+    #2c2010 0deg,
     #8a6627 30deg,
-    #dfb14a 70deg,
-    #fff0c8 105deg,
-    #f2d480 135deg,
-    #d4af6a 165deg,
-    #b08436 195deg,
-    #8a6323 230deg,
-    #5c430f 265deg,
+    #e5bd58 70deg,
+    #fff8dc 105deg,
+    #f8df8e 135deg,
+    #dcae5f 165deg,
+    #ba8e40 195deg,
+    #8f6a27 230deg,
+    #4a350e 265deg,
     #8a6627 295deg,
-    #dfb14a 330deg,
-    #30220a 360deg
+    #e5bd58 330deg,
+    #2c2010 360deg
   );
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.9),
-    0 0 0 2px rgba(220, 175, 70, 0.4),
-    0 0 0 3px rgba(10, 8, 5, 0.9),
-    0 15px 30px -5px rgba(0, 0, 0, 0.85),
-    inset 1px 2px 4px rgba(255, 255, 255, 0.4),
-    inset -1px -2px 6px rgba(0, 0, 0, 0.8),
-    inset 0 0 15px rgba(0, 0, 0, 0.7);
+    0 0 0 1px rgba(0, 0, 0, 0.95),
+    0 0 0 2.5px rgba(220, 175, 70, 0.45),
+    0 0 0 4px rgba(10, 8, 5, 0.95),
+    0 20px 40px -5px rgba(0, 0, 0, 0.95),
+    inset 1.5px 2.5px 6px rgba(255, 255, 255, 0.5),
+    inset -1.5px -2.5px 8px rgba(0, 0, 0, 0.85),
+    inset 0 0 20px rgba(0, 0, 0, 0.85);
   z-index: 3;
 }
 @keyframes halo-breathe {
@@ -571,20 +1056,20 @@ input {
   100% {
     box-shadow:
       0 0 0 2px rgba(20, 13, 3, 0.97),
-      0 0 18px 3px rgba(212, 175, 106, 0.26),
-      0 0 40px 6px rgba(199, 154, 62, 0.1),
-      inset 2px 3px 5px rgba(255, 248, 215, 0.28),
-      inset -2px -3px 6px rgba(0, 0, 0, 0.7),
-      inset 0 0 12px 4px rgba(0, 0, 0, 0.55);
+      0 0 20px 4px rgba(212, 175, 106, 0.3),
+      0 0 45px 8px rgba(199, 154, 62, 0.15),
+      inset 2px 3px 6px rgba(255, 248, 215, 0.35),
+      inset -2px -3px 8px rgba(0, 0, 0, 0.8),
+      inset 0 0 15px 5px rgba(0, 0, 0, 0.6);
   }
   50% {
     box-shadow:
       0 0 0 2px rgba(20, 13, 3, 0.97),
-      0 0 28px 6px rgba(247, 231, 185, 0.42),
-      0 0 60px 12px rgba(199, 154, 62, 0.24),
-      inset 2px 3px 5px rgba(255, 248, 215, 0.28),
-      inset -2px -3px 6px rgba(0, 0, 0, 0.7),
-      inset 0 0 12px 4px rgba(0, 0, 0, 0.55);
+      0 0 32px 8px rgba(247, 231, 185, 0.45),
+      0 0 70px 15px rgba(199, 154, 62, 0.28),
+      inset 2px 3px 6px rgba(255, 248, 215, 0.35),
+      inset -2px -3px 8px rgba(0, 0, 0, 0.8),
+      inset 0 0 15px 5px rgba(0, 0, 0, 0.6);
   }
 }
 .portrait-photo {
@@ -592,12 +1077,12 @@ input {
   height: 100%;
   border-radius: 50%;
   background: radial-gradient(
-    circle at 38% 28%,
-    #1c1c1f 0%,
-    #0d0d0f 40%,
-    #070707 100%
+    circle at 35% 25%,
+    #1f1e1a 0%,
+    #0c0b09 45%,
+    #040403 100%
   );
-  border: 1.5px solid rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.9);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -605,9 +1090,9 @@ input {
   background-size: cover;
   background-position: center;
   box-shadow:
-    inset 0 3px 8px rgba(0, 0, 0, 0.8),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.6),
-    inset 0 0 16px rgba(0, 0, 0, 0.5);
+    inset 0 6px 12px rgba(0, 0, 0, 0.95),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.7),
+    inset 0 0 25px rgba(0, 0, 0, 0.65);
 }
 .membership-card .photo-upload-btn {
   display: flex;
@@ -639,8 +1124,8 @@ input {
 .member-number {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  font-size: 13px;
+  letter-spacing: 0.15em;
   background: var(--gold-text);
   -webkit-background-clip: text;
   background-clip: text;
@@ -649,14 +1134,14 @@ input {
 .member-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(17px, 2.5vh, 21px);
-  letter-spacing: 0.14em;
-  color: #f3eedf;
-  margin-top: 2px;
+  font-size: clamp(20px, 3vh, 26px);
+  letter-spacing: 0.16em;
+  color: #fcf9f2;
+  margin-top: 4px;
   text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.06),
-    0 -1px 1px rgba(0, 0, 0, 0.5);
-  transform: translateZ(8px);
+    0 1px 2px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(212, 175, 106, 0.3);
+  transform: translateZ(10px);
   will-change: transform;
 }
 .tier-pill {
@@ -1568,7 +2053,7 @@ input {
 }
 #boutique-tab .boutique-card {
   position: relative;
-  border: 1px solid var(--hairline);
+  border: 1px solid rgba(212, 175, 106, 0.15);
   border-radius: 14px;
   padding: 14px 12px 12px;
   display: flex;
@@ -1576,8 +2061,12 @@ input {
   align-items: center;
   gap: 5px;
   text-align: center;
-  background: linear-gradient(160deg, #181510, #0a0906);
-  box-shadow: inset 0 0 15px rgba(212, 175, 106, 0.02);
+  background: radial-gradient(circle at 50% -20%, #201c15 0%, #0c0b09 60%, #050403 100%);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    inset 0 -5px 15px rgba(0, 0, 0, 0.8),
+    0 10px 20px -5px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 #boutique-tab .boutique-card.is-owned {
   border-color: rgba(212, 175, 106, 0.4);
@@ -1635,14 +2124,31 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   background: radial-gradient(
-    circle at center,
-    rgba(212, 175, 106, 0.1) 0%,
-    transparent 60%
+    ellipse at top,
+    rgba(212, 175, 106, 0.15) 0%,
+    transparent 70%
   );
   border-radius: 50%;
+  position: relative;
+}
+#boutique-tab .boutique-card-icon::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 50px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.8) 0%, transparent 70%);
+  filter: blur(2px);
+  z-index: 0;
+}
+#boutique-tab .boutique-card-icon img,
+#boutique-tab .boutique-card-fallback {
+  position: relative;
+  z-index: 1;
 }
 #boutique-tab .boutique-card-icon img {
   width: 100%;
@@ -1650,16 +2156,19 @@ input {
   object-fit: cover;
 }
 #boutique-tab .boutique-card-fallback {
-  border: 1px solid rgba(212, 175, 106, 0.2);
-  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 106, 0.3);
+  border-radius: 50%;
   width: 56px;
   height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background: transparent;
-  box-shadow: inset 0 1px 3px rgba(212, 175, 106, 0.1);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 60%);
+  box-shadow: 
+    inset 0 1px 3px rgba(212, 175, 106, 0.2),
+    0 4px 10px rgba(0,0,0,0.5);
+  transform: translateZ(10px);
 }
 #boutique-tab .boutique-card-fallback svg {
   width: 34px !important;
@@ -4712,3 +5221,220 @@ html[dir="rtl"] .leader-item {
   gap: 12px !important;
   width: 100% !important;
 }
+
+
+/* ADDITIONAL LIGHT MODE CONTRAST FIXES - APPENDED LAST FOR GUARANTEED PRECEDENCE */
+
+/* Master Card Labels */
+body.light-mode .membership-card p.ring-label,
+body.light-mode .membership-card .ring-label {
+  color: #1a1a1a !important;
+  font-weight: 600 !important;
+}
+body.light-mode .membership-card .equipped-ring-label {
+  color: #8f6820 !important;
+  font-weight: 600 !important;
+}
+body.light-mode .membership-card .living-core {
+  color: #8f6820 !important;
+}
+
+/* Honors Summary Header */
+body.light-mode #profile-tab .prestige-honors .achievements-summary {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .achievements-summary-value {
+  color: #8f6820 !important;
+  text-shadow: none !important;
+}
+body.light-mode .achievements-summary-label,
+body.light-mode .pcs-view-all {
+  color: #666 !important;
+}
+body.light-mode .achievements-summary-divider {
+  background: rgba(197, 160, 89, 0.2) !important;
+}
+
+/* Leaderboard */
+body.light-mode .leaderboard-list {
+  background: #ffffff !important;
+}
+body.light-mode .leader-item {
+  background: #fdfbf7 !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+}
+body.light-mode .leader-rank {
+  color: #8f6820 !important;
+}
+body.light-mode .leader-name {
+  color: #1a1a1a !important;
+}
+body.light-mode .leader-tag {
+  background: rgba(197, 160, 89, 0.1) !important;
+  color: #8f6820 !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+}
+body.light-mode .leader-score {
+  color: #1a1a1a !important;
+}
+
+/* Club Message Credits Bar */
+body.light-mode #club-tab .club-credits-display {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode #club-tab #clubCreditsText {
+  color: #1a1a1a !important;
+}
+body.light-mode #club-tab .club-credits-buy {
+  background: #8f6820 !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+/* Pinned Banner */
+body.light-mode #club-tab .club-pinned {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode #club-tab .club-pinned-title {
+  color: #8f6820 !important;
+  text-shadow: none !important;
+}
+body.light-mode #club-tab .club-pinned-sub,
+body.light-mode #club-tab .club-pinned-sub span {
+  color: #666 !important;
+}
+body.light-mode #club-tab .club-pinned-icon {
+  background: rgba(197, 160, 89, 0.1) !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+}
+body.light-mode #club-tab .club-pinned-icon svg path {
+  fill: #8f6820 !important;
+}
+
+/* Chat Bubbles */
+body.light-mode .chat-bubble.is-incoming {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .chat-bubble.is-outgoing {
+  background: #fdfbf7 !important;
+  border: 1px solid rgba(197, 160, 89, 0.5) !important;
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.1) !important;
+}
+body.light-mode .chat-bubble.is-incoming .chat-text,
+body.light-mode .chat-bubble.is-outgoing .chat-text {
+  color: #1a1a1a !important;
+}
+body.light-mode .chat-bubble.is-incoming .chat-time,
+body.light-mode .chat-bubble.is-outgoing .chat-time {
+  color: #8f6820 !important;
+}
+body.light-mode .chat-ticks {
+  color: #8f6820 !important;
+}
+body.light-mode .chat-sender-header span {
+  color: #8f6820 !important;
+}
+body.light-mode .typing-bubble {
+  color: #666 !important;
+}
+body.light-mode #typingName {
+  color: #1a1a1a !important;
+}
+
+/* Modals */
+body.light-mode .luxury-modal-box {
+  background: #ffffff !important;
+}
+body.light-mode .modal-header h3 {
+  color: #1a1a1a !important;
+}
+body.light-mode .modal-close {
+  color: #1a1a1a !important;
+}
+body.light-mode .info-row .info-label,
+body.light-mode .modal-label,
+body.light-mode .input-label {
+  color: #666 !important;
+}
+body.light-mode .info-row .info-value,
+body.light-mode .setting-desc {
+  color: #1a1a1a !important;
+}
+body.light-mode .luxury-input,
+body.light-mode .edit-profile-input {
+  background: #fdfbf7 !important;
+  color: #1a1a1a !important;
+  border-color: rgba(197, 160, 89, 0.3) !important;
+}
+body.light-mode .luxury-input::placeholder,
+body.light-mode .edit-profile-input::placeholder {
+  color: #888 !important;
+}
+
+/* Profile Hero Card */
+body.light-mode #profile-tab .profile-hero-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .phc-name {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+body.light-mode .phc-tier {
+  color: #8f6820 !important;
+  background: rgba(143, 104, 32, 0.1) !important;
+  border: 1px solid rgba(197, 160, 89, 0.2) !important;
+}
+body.light-mode .phc-quote, 
+body.light-mode .phc-meta {
+  color: #666 !important;
+}
+
+/* Profile Navigation Menu */
+body.light-mode .profile-nav-menu {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .pnm-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .pnm-item:hover {
+  background: rgba(197, 160, 89, 0.05) !important;
+}
+body.light-mode .pnm-icon {
+  background: rgba(197, 160, 89, 0.1) !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  color: #8f6820 !important;
+}
+body.light-mode .pnm-title span,
+body.light-mode .menu-title {
+  color: #1a1a1a !important;
+}
+
+/* Boutique Cards Fixes */
+body.light-mode .boutique-card {
+  background: #ffffff !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+}
+body.light-mode .boutique-card-name {
+  color: #1a1a1a !important;
+}
+body.light-mode .boutique-card-desc {
+  color: #666 !important;
+}
+body.light-mode .boutique-card-price {
+  color: #8f6820 !important;
+}
+
+

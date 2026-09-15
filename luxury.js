@@ -251,6 +251,8 @@ function drawGuilloche(ctx, width, height) {
 
   const cx = width / 2;
   const cy = height / 2;
+  
+  const isLight = document.body.classList.contains("light-mode");
 
   // 1. Deep Obsidian Base with Brushed Metal Spotlight
   const bgGradient = ctx.createRadialGradient(
@@ -261,18 +263,24 @@ function drawGuilloche(ctx, width, height) {
     cy * 0.4,
     height * 0.85,
   );
-  bgGradient.addColorStop(0, "#1c160c"); // Subtle warm gold/brown inner glow
-  bgGradient.addColorStop(0.35, "#0a0806"); // Deep transition
-  bgGradient.addColorStop(1, "#000000"); // Pure black edges
+  if (isLight) {
+    bgGradient.addColorStop(0, "#fcfaf6");
+    bgGradient.addColorStop(0.35, "#f3efe6");
+    bgGradient.addColorStop(1, "#e6ddce");
+  } else {
+    bgGradient.addColorStop(0, "#12100a"); // Subtle warm gold/brown inner glow
+    bgGradient.addColorStop(0.35, "#060504"); // Deep transition
+    bgGradient.addColorStop(1, "#020202"); // Pure black edges
+  }
 
   ctx.fillStyle = bgGradient;
   ctx.fillRect(0, 0, width, height);
 
   // Subtle brushed texture
   ctx.save();
-  ctx.globalCompositeOperation = "screen";
+  ctx.globalCompositeOperation = isLight ? "multiply" : "screen";
   ctx.lineWidth = 0.5;
-  ctx.strokeStyle = "rgba(255, 230, 150, 0.015)";
+  ctx.strokeStyle = isLight ? "rgba(0, 0, 0, 0.02)" : "rgba(255, 230, 150, 0.015)";
   // Optimize texture drawing by using larger steps if possible
   for (let i = 0; i < width; i += 3) {
     ctx.beginPath();
@@ -282,22 +290,32 @@ function drawGuilloche(ctx, width, height) {
   }
   ctx.restore();
 
-  // 2. Guilloché Security Lines
-  ctx.lineWidth = 0.5;
+  // 2. Guilloché Security Lines - Engraved effect
+  ctx.lineWidth = 0.6;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 
-  // Central dense rosette (more visible)
-  ctx.strokeStyle = "rgba(215, 180, 80, 0.15)";
+  // Draw dark engraved shadow first
+  ctx.save();
+  ctx.translate(0, 1);
+  ctx.strokeStyle = isLight ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.9)";
   drawHypotrochoid(ctx, cx, cy, width * 0.45, width * 0.12, width * 0.18, 150);
-
-  // Secondary outer web (fainter)
-  ctx.strokeStyle = "rgba(215, 180, 80, 0.08)";
   drawHypotrochoid(ctx, cx, cy, width * 0.6, width * 0.05, width * 0.1, 250);
-
-  // Inner delicate weave
-  ctx.strokeStyle = "rgba(215, 180, 80, 0.12)";
   drawHypotrochoid(ctx, cx, cy, width * 0.3, width * 0.11, width * 0.08, 100);
+  ctx.restore();
+
+  // Draw highlight (metallic reflection inside the engraving)
+  ctx.save();
+  ctx.translate(0, -0.5);
+  ctx.strokeStyle = isLight ? "rgba(255, 255, 255, 0.8)" : "rgba(215, 180, 80, 0.18)";
+  drawHypotrochoid(ctx, cx, cy, width * 0.45, width * 0.12, width * 0.18, 150);
+  
+  ctx.strokeStyle = isLight ? "rgba(255, 255, 255, 0.4)" : "rgba(215, 180, 80, 0.1)";
+  drawHypotrochoid(ctx, cx, cy, width * 0.6, width * 0.05, width * 0.1, 250);
+  
+  ctx.strokeStyle = isLight ? "rgba(255, 255, 255, 0.6)" : "rgba(215, 180, 80, 0.15)";
+  drawHypotrochoid(ctx, cx, cy, width * 0.3, width * 0.11, width * 0.08, 100);
+  ctx.restore();
 }
 
 function drawHypotrochoid(ctx, cx, cy, R, r, d, loops) {
@@ -1113,6 +1131,12 @@ function initGlobalTilt() {
     if (card.dataset.tiltBound) return;
     card.dataset.tiltBound = "true";
 
+    card.addEventListener("pointerenter", (e) => {
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(5); // subtle tick on hover enter
+      }
+    });
+
     card.addEventListener("pointermove", (e) => {
       if (e.pointerType === "touch") return; // Touch is handled by device orientation
       const rect = card.getBoundingClientRect();
@@ -1124,7 +1148,25 @@ function initGlobalTilt() {
       updateTiltTarget(rx, ry);
     });
 
-    card.addEventListener("pointerleave", () => resetTiltForCard(card));
+    card.addEventListener("pointerleave", () => {
+      resetTiltForCard(card);
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(5); // subtle tick on hover leave
+      }
+    });
+
+    // Mobile tactile feedback
+    card.addEventListener("touchstart", () => {
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(10); // slightly stronger for direct touch
+      }
+    }, { passive: true });
+
+    card.addEventListener("touchend", () => {
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(5);
+      }
+    }, { passive: true });
   });
 }
 
@@ -1173,6 +1215,27 @@ function initGoldDust() {
         blinkSpeed: Math.random() * 0.02 + 0.005,
         angle: Math.random() * Math.PI * 2,
         flare: 0, // Sparkle state
+        isBurst: false
+      });
+    }
+  };
+
+  // Expose milestone trigger
+  window.triggerGoldDustMilestone = () => {
+    if (!width || !height) return;
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: height * 0.8 + (Math.random() * height * 0.2), // start near bottom
+        radius: Math.random() * 1.5 + 0.4,
+        speedX: (Math.random() - 0.5) * 1.2,
+        speedY: -(Math.random() * 2 + 1), // floating upwards faster
+        opacity: Math.random() * 0.5 + 0.5,
+        blinkSpeed: Math.random() * 0.05 + 0.02,
+        angle: Math.random() * Math.PI * 2,
+        flare: Math.random() > 0.6 ? 1 : 0.4,
+        isBurst: true,
+        life: 1.0 // Fade out over time
       });
     }
   };
@@ -1180,19 +1243,28 @@ function initGoldDust() {
   const draw = () => {
     ctx.clearRect(0, 0, width, height);
 
+    // Filter out dead burst particles
+    particles = particles.filter((p) => !p.isBurst || p.life > 0);
+
     particles.forEach((p) => {
       // Move
       p.x += p.speedX;
       p.y += p.speedY;
 
-      // Wrap around
-      if (p.x < 0) p.x = width;
-      if (p.x > width) p.x = 0;
-      if (p.y < 0) p.y = height;
-      if (p.y > height) p.y = 0;
+      if (p.isBurst) {
+        p.life -= 0.004; // ~4 seconds lifetime
+        p.speedX *= 0.98; // drift slowly to a stop horizontally
+        p.speedY *= 0.99; // slow down vertical rise
+      } else {
+        // Wrap around normal particles
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+      }
 
       // Randomly trigger a bright twinkle (flare)
-      if (p.flare <= 0 && Math.random() < 0.0015) {
+      if (p.flare <= 0 && !p.isBurst && Math.random() < 0.0015) {
         p.flare = 1;
       } else if (p.flare > 0) {
         p.flare -= 0.015; // Fade out the sparkle
@@ -1200,7 +1272,12 @@ function initGoldDust() {
 
       // Blink (normal ambient oscillation)
       p.angle += p.blinkSpeed;
-      const currentOpacity = p.opacity + Math.sin(p.angle) * 0.3;
+      let currentOpacity = p.opacity + Math.sin(p.angle) * 0.3;
+      
+      if (p.isBurst) {
+        currentOpacity *= Math.min(1, p.life * 2); // fade out nicely
+      }
+
       // Add flare intensity if active
       const finalOpacity = Math.max(
         0,
