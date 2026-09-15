@@ -1,0 +1,95 @@
+window.I18N = {
+  ar: {
+    // نصوص العضوية والبطاقة
+    club_name: "نادي الـ 1%",
+    club_slogan: "ثروة سيادية. مجتمع نخبوي خاص.",
+    wealth_index: "مؤشر الثروة",
+    privileges: "الامتيازات الحصرية",
+    member: "عضو",
+    sovereign_member: "عضو سيادي",
+    
+    // التبويبات السفلية
+    tab_membership: "العضوية",
+    tab_club: "النادي",
+    tab_profile: "الملف",
+    tab_boutique: "البوتيك",
+    
+    // النوافذ والحساب
+    modal_account_title: "بيانات الحساب",
+    placeholder_leave_blank: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية",
+    email: "البريد الإلكتروني",
+    phone: "رقم الهاتف",
+    new_password: "كلمة مرور جديدة",
+    update_account: "تحديث الحساب",
+    settings: "الإعدادات العامة",
+    concierge: "المساعد الخاص (الكونسيرج)",
+    
+    // البوتيك والخزينة
+    boutique_title: "البوتيك الملكي",
+    account_balance: "رصيد الحساب",
+    all_items: "جميع المقتنيات",
+    owned_items: "المملوكة",
+    available_items: "المتاحة",
+    explore_boutique: "استكشاف البوتيك",
+    vault_title: "خزينة المقتنيات النادرة",
+    vault_empty: "الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك.",
+    view_all: "عرض الكل",
+    acquire: "اقتناء",
+    owned_badge: "مقتنى",
+    
+    // فئات البوتيك
+    cat_all: "الكل",
+    cat_stars: "النجوم",
+    cat_crowns: "التيجان",
+    cat_auras: "الهالات",
+    cat_gems: "الجوهرات",
+    
+    // المتصدرين والأوسمة
+    leaderboard_title: "قائمة المتصدرين",
+    leaderboard_sub: "النخبة العالمية لأصحاب الثروة السيادية",
+    honors_title: "الأوسمة والإنجازات",
+    honors_earned: "الأوسمة المكتسبة",
+    tier_progress: "تقدم الرتبة"
+  },
+  en: {
+    club_name: "THE 1% CLUB",
+    club_slogan: "PRIVATE WEALTH. PRIVATE SOCIETY.",
+    wealth_index: "Wealth Index",
+    privileges: "Privileges",
+    member: "MEMBER",
+    sovereign_member: "SOVEREIGN MEMBER",
+    tab_membership: "Membership",
+    tab_club: "Club",
+    tab_profile: "Profile",
+    tab_boutique: "Boutique",
+    modal_account_title: "ACCOUNT INFORMATION",
+    placeholder_leave_blank: "Leave blank to keep current",
+    email: "Email",
+    phone: "Phone",
+    new_password: "New Password",
+    update_account: "Update Account",
+    settings: "SETTINGS",
+    concierge: "PRIVATE CONCIERGE",
+    boutique_title: "THE BOUTIQUE",
+    account_balance: "Account Balance",
+    all_items: "All Items",
+    owned_items: "Owned",
+    available_items: "Available",
+    explore_boutique: "Explore Boutique",
+    vault_title: "Rare Vault",
+    vault_empty: "Your vault is empty. Acquire your first asset from the Boutique.",
+    view_all: "View All",
+    acquire: "Acquire",
+    owned_badge: "OWNED",
+    cat_all: "All",
+    cat_stars: "Stars",
+    cat_crowns: "Crowns",
+    cat_auras: "Auras",
+    cat_gems: "Gems",
+    leaderboard_title: "LEADERBOARD",
+    leaderboard_sub: "Global Sovereign Wealth Elite",
+    honors_title: "HONORS & BADGES",
+    honors_earned: "HONORS UNLOCKED",
+    tier_progress: "TIER PROGRESS"
+  }
+};
