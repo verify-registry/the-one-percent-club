@@ -2759,6 +2759,15 @@ function renderProfileCollection() {
   }
 }
 
+const profilePhotos = [
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
+  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop",
+  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop"
+];
+let selectedProfilePhoto = "";
+
 function initEditProfileModal() {
   const photoGrid = document.getElementById("editProfilePhotoGrid");
   if (photoGrid) {
