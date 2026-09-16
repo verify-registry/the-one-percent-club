@@ -1,270 +1,277 @@
-==================================================
-1. PROJECT INVENTORY
-==================================================
-**ACTIVE FILES:**
-- `index.html` (HTML): The primary entry point. Contains the complete DOM structure for all tabs, modals, bottom navigation, and layout wrappers.
-- `style.css` (CSS): The global stylesheet. Contains all visual styling, layout definitions, responsive rules, and theming (both dark and light modes).
-- `app.js` (JavaScript): The core logic engine. Contains state management (`AppState`), initialization, rendering functions for Club, Boutique, and Profile, DOM listeners, and the navigation Router.
-- `luxury.js` (JavaScript): A specialized visual/graphics engine responsible for rendering hardware-accelerated offscreen metallic textures, generating Guilloché patterns for the Master Identity Card, and handling the device-orientation (gyroscope) tilt effects.
-- `translations.js` (JavaScript): The localized dictionary (`window.I18N`) mapping keys to English and Arabic translations.
-- `Audio.js` (JavaScript): A synthesized audio engine for providing premium interaction sounds (e.g., rustling, chimes).
-- `package.json`, `server.js`, `metadata.json`: Standard Node.js entry point and AI Studio metadata.
+# THE 1% CLUB — COMPREHENSIVE POST-FIX ARCHITECTURE & AUDIT REPORT
 
-**OBSOLETE / LEGACY / PATCH FILES (DO NOT DELETE, REPORT ONLY):**
-- `append-light.js`, `append-light-club.js`, `append-light-composer.js`, `append-light-empty.js`, `append-light-final.js`, `append-light-fixes.js`, `append-light-headers.js`, `append-light-labels.js`, `append-light-menu.js`, `append-light-nav.js`, `append-light-pcs-price.js`, `append-light-pill.js`, `append-light-shadow.js`, `append-light-svg.js`: These appear to be iterative patch scripts executed previously to append CSS rules to `style.css` during the development of Light Mode.
-- `fix-pnm-title.js`, `fix-pnm-title2.js`: Past patch scripts.
-- `update-app.js`, `update-app-tier.js`, `update-dust.js`, `update-dust2.js`, `update-trans.js`: Previously used deployment scripts for injecting specific features or updates.
+This document represents the current, verified state of THE 1% CLUB application following the successful completion of Phase 2, 3, and 4 audits and fixes. 
 
 ==================================================
-2. APPLICATION ARCHITECTURE
+SECTION 1: PROJECT INVENTORY
 ==================================================
-**Architecture Type:** Vanilla HTML / CSS / JS (No framework like React or Vue).
 
-**Bootstrap Flow:**
-1. The browser loads `index.html`.
-2. Scripts (`d3.v7.min.js`, `Audio.js`, `luxury.js`, `translations.js`, `app.js`) are parsed.
-3. `AppState.init()` runs on load to hydrate state from `localStorage`.
-4. `DOMContentLoaded` fires in `app.js` and `luxury.js`.
-5. Event listeners are bound to static DOM elements.
-6. The `Router` sets the initial active tab (`membership` by default).
+**Active Core Files:**
+- `index.html`: Vanilla HTML entry point containing the 4-tab DOM structure, navigation, and modal definitions.
+- `style.css`: Monolithic stylesheet containing Dark Mode base styles and Light Mode overrides (`body.light-mode`).
+- `app.js`: Monolithic JavaScript application logic, rendering logic, and State Management.
+- `luxury.js`: Canvas graphics engine responsible for rendering guilloché and gold dust patterns on the Master Card.
+- `translations.js`: i18n dictionary (window.I18N) for AR/EN language support.
+- `audio.js`: Sound effects management.
+- `metadata.json`: Application metadata configuration.
 
-**State & Rendering Flow (Example: Boutique Purchase):**
-User Action (Click "Acquire") → Event Handler (`buyItem`) → State Update (`ClubState.purchase`) → Persistence (`localStorage.setItem`) → Reactivity (`AppState.notify()` / `updateUI()`) → Render Function (`renderProfileCollection()`, `renderBoutique()`) → DOM is overwritten via `innerHTML`.
-
-**Dependency Mapping:**
-- All tabs share the `AppState` (aliased as `ClubState`) singleton.
-- Navigation is handled by a central `Router` object.
-- The UI heavily relies on `innerHTML` string interpolation for lists (Boutique grids, Profile collections, Club messages), meaning state changes often destroy and recreate entire DOM subtrees.
+**Legacy/Patch Files (Report Only - Do not delete):**
+- Various legacy `append-*.js` scripts in history, originally used to inject light mode CSS and patches. (These are part of the platform's historical execution log).
 
 ==================================================
-3. MAIN APPLICATION TABS
+SECTION 2: APPLICATION ARCHITECTURE
 ==================================================
-The tabs are structured as sibling `<section class="page">` elements inside `<main class="app-main">`.
 
-1. **Membership** (`id="membership-tab"`)
-2. **Club** (`id="club-tab"`)
-3. **Profile** (`id="profile-tab"`)
-4. **Boutique** (`id="boutique-tab"`)
-
-**Isolation Status:**
-- HTML is well-isolated (separate wrapper IDs).
-- CSS is moderately isolated (many rules are scoped like `#profile-tab .selector`, but some are global).
-- JavaScript logic is tightly coupled; a state change in Boutique directly triggers rendering functions for Profile (e.g., `renderProfileCollection`).
+- **Type:** Vanilla HTML / CSS / JS Single Page Application (SPA).
+- **Frameworks:** None (Zero dependencies).
+- **Bootstrap Flow:** `document.addEventListener("DOMContentLoaded", ...)` triggers `initApp()`. This initializes `AppState`, binds translation strings, setups the router, renders the initial views (Boutique, Profile, Club), and initializes `luxury.js`.
+- **State & Rendering Flow:** The application relies on reactive-style manual updates. Changes to `AppState` (like purchasing an item) trigger `AppState.save()` followed by explicit DOM updates (e.g., `updateUI()`, `renderBoutique()`, `renderProfileHonors()`).
+- **Dependency Mapping:** `app.js` is globally dependent on `window.t()` (from `translations.js`), and `index.html` relies heavily on `style.css` for both layout and the specific `.light-mode` cascade.
 
 ==================================================
-4. MEMBERSHIP
+SECTION 3: STATE MANAGEMENT (UPDATED)
 ==================================================
-- **DOM Root:** `<section id="membership-tab">`
-- **Core Features:** Master Identity Card, portrait ring, wealth/privileges SVG dials, dynamic tier badge, member quotes.
-- **JavaScript:** `updateUI()`, `renderRing()` (D3.js integration).
-- **State Dependencies:** `AppState.user.wealthIndexValue`, `AppState.user.privilegesValue`, `AppState.user.tier`.
-- **Interference Risk:** The Master Card relies heavily on generic-sounding classes like `.membership-card`, `.portrait-ring`, and `.metric-ring`. If Boutique or Profile uses similar class names, the Master Card will break visually. `luxury.js` blindly targets `.membership-card .card-inner` to draw the Guilloché canvas.
+
+**Current AppState Structure:**
+The application uses a globally accessible `ClubState` (aliased as `AppState`).
+
+- **Canonical Ownership Source:** `AppState.owned` (Object map: `{ "item_id": 1 }`) is the single source of truth for all purchased collectibles.
+- **Derived Getter:** `AppState.collectedItems` is a read-only getter (`return Object.keys(this.owned);`).
+- **Removal of Dual-Source:** `AppState.user.collectedItems` has been completely eliminated from all active logic, solving the Phase 2 desync bug.
+- **Ghost State Sanitization:** In `AppState.init()`, if a legacy `user.collectedItems` array is loaded from the `profile_{id}` object via `Object.assign`, it is immediately sanitized: `if (this.user.collectedItems) delete this.user.collectedItems;`.
+- **Legacy Migration:** `AppState.init()` detects and migrates the old `one_percent_collection` array into the new `owned` object.
+
+**LocalStorage Keys in Use:**
+- `avatar_{id}`: User's profile image string.
+- `balance_{id}`: Virtual currency balance.
+- `spent_{id}`: Lifetime currency spent.
+- `chatCredits_{id}`: Daily messaging allowance.
+- `owned_{id}`: Stringified `AppState.owned` object.
+- `equipped_{id}`: Stringified `AppState.equipped` object.
+- `channels_{id}`: Club chat room histories.
+- `profile_{id}`: Stringified `AppState.user` object (name, location, tier, etc.).
 
 ==================================================
-5. CLUB
+SECTION 4: TAB-BY-TAB ANALYSIS
 ==================================================
-- **DOM Root:** `<section id="club-tab">`
-- **Core Features:** Pinned welcome banner, message scroll area, chat composer, chat credits UI, leaderboard.
-- **JavaScript:** `renderClubMessages()`, `processEliteResponse()`, `sendMessage()`, `renderLeaderboard()`.
-- **State Dependencies:** `ClubState.chatCredits` (decrements on send), `ClubState.channels` (stores message history).
-- **Mechanics:** The Club detects the user's tier and name from `ClubState.member` and injects it into outgoing message headers. A naive AI responder (`processEliteResponse`) generates random replies based on hardcoded arrays.
-- **Interference Risk:** Chat bubbles use `.chat-bubble.is-incoming`. This is global CSS, but currently isolated functionally because it only renders inside `#club-tab`.
+
+**1. Membership Tab (`#membership-tab`)**
+- **DOM Root:** Primary hero landing screen.
+- **Features:** Master Identity Card displaying tier, rings, core, and equipped items.
+- **JS Dependencies:** Driven by `updateUI()` and `luxury.js`.
+- **CSS Isolation:** Scoped tightly under `.membership-card`. Light mode overrides are correctly mapped.
+- **Known Issues:** None. Phase 4B fixed the invisible member quote and tagline in Light Mode.
+
+**2. Club Tab (`#club-tab`)**
+- **DOM Root:** Private society chat interface.
+- **Features:** Messaging rooms, credits system, AI responses.
+- **JS Dependencies:** `renderClubRooms()`, `switchClubRoom()`, `sendClubMessage()`.
+- **CSS Isolation:** Scoped under `#club-tab`.
+- **Known Issues:** None. Scales securely on narrow viewports.
+
+**3. Profile Tab (`#profile-tab`)**
+- **DOM Root:** Personal Dossier.
+- **Features:** Profile Hero Card (`.profile-hero-card`), editable stats, equipped summary, honors collection (`.prestige-honors`).
+- **JS Dependencies:** `renderProfileHonors()`, `updateUI()`.
+- **CSS Isolation:** Scoped under `#profile-tab` and `.phc-*` classes.
+- **Known Issues:** None. Phase 4D fixed the Edit Profile button overlap in Arabic. Phase 4C fixed the dark mode SVG sizing leak. Phase 4E fixed Light Mode contrast for motto and edit button.
+
+**4. Boutique Tab (`#boutique-tab`)**
+- **DOM Root:** Luxury collectibles marketplace.
+- **Features:** Categorized shop, long-press item inspection, purchase logic.
+- **JS Dependencies:** `renderBoutique()`, `purchase()`, `equipItem()`.
+- **CSS Isolation:** Scoped primarily under `#boutique-tab`.
+- **Known Issues:** Phase 4 Potential Risk: Light mode forces `.boutique-own-btn` to black (`#1a1a1a`), removing the subtle green/gray color-coding of equipped/owned states. Not classified as a bug, but a minor UX degradation.
 
 ==================================================
-6. PROFILE
+SECTION 5: EVENT HANDLING SYSTEM
 ==================================================
-- **DOM Root:** `<section id="profile-tab">`
-- **Core Features:** Hero dossier (avatar, tier, quote), Achievements summary (Prestige & Honors), Collection grid.
-- **JavaScript:** `renderProfileCollection()`, `renderProfileAchievements()`, `renderProfileStatsBar()`.
-- **State Dependencies:** Reads from `AppState.owned`, `AppState.equipped`, `AppState.user` (bio, location, interests).
-- **DOM Duplication Risks:** Profile renders its own representation of items using `.pcs-item-card`. It uses `innerHTML` appending in a loop, which destroys existing listeners on those cards on every re-render.
-- **CSS Conflicts:** There are redundant Light Mode fixes for `#profile-tab .prestige-honors .achievements-summary` that exist in multiple places in `style.css`, overriding each other based on cascading order.
-- **Bugs/Stale Selectors:** `renderProfileEquipped()` exists in `app.js` but searches for `id="profileEquippedGrid"`, which may or may not map correctly to the newest HTML structure. 
+
+- **Event Attachment Patterns:** The application heavily uses explicit inline handlers in template literals (e.g., `onclick='openInspectionModal(...)'`). This ensures event bindings survive `innerHTML` re-renders.
+- **Long Press Status (Phase 3B):** Successfully implemented. `data-item-id`, `data-cat`, `data-owned`, and `data-equipped` are now correctly injected into the `.boutique-card` HTML string in `renderBoutique()`. The explicit `touchstart`/`touchend` listeners correctly read the dataset post-render.
+- **innerHTML Behavior:** Safe. String-based rendering is constrained to inner grids (`.boutique-grid`, `.pcs-grid`, `.club-chat-window`), preventing total page destruction.
 
 ==================================================
-7. BOUTIQUE + COLLECTION SYSTEM
+SECTION 6: RESPONSIVE AUDIT STATUS
 ==================================================
-- **Source of Truth:** A hardcoded constant `const BOUTIQUE = { stars: {...}, crowns: {...} ... }` acts as the product catalog.
-- **Ownership State:** `AppState.owned` (Object dictionary mapping item IDs to booleans, e.g., `{"crown1": true}`).
-- **Equip State:** `AppState.equipped` (Object mapping category keys to item IDs, e.g., `{"crowns": "crown1"}`).
-- **Data Flow:** 
-  1. User clicks Buy.
-  2. `AppState.purchase(item)` deducts `balance`, sets `owned[item.id] = true`, and pushes to a secondary array `user.collectedItems`.
-  3. `AppState.save()` writes to `localStorage`.
-  4. `updateUI()` triggers `renderProfileCollection()` and `renderBoutique()`.
-- **Conflict Warning:** The system maintains both `AppState.owned` (dictionary) AND `AppState.user.collectedItems` (array). This is a dual-source-of-truth risk. If they fall out of sync, Profile might show different items than Boutique.
+
+- **Tested Viewports:** 360x800, 375x812, 390x844, 412x915, 430x932.
+- **Confirmed Working Areas:** 
+  - Master Card fits on 360x800.
+  - Boutique grid fits 2 columns comfortably.
+  - Profile Hero Card successfully prevents horizontal clipping.
+  - Club chat composer fits securely above the bottom nav.
+- **Remaining Responsive Risks:** 
+  - None confirmed. The Edit Button overlap in Profile was resolved (Phase 4D). 
 
 ==================================================
-8. STATE MANAGEMENT
+SECTION 7: LIGHT MODE / THEME SYSTEM
 ==================================================
-**Architecture:** Singleton object with naive pub/sub. `ClubState` is a literal reference (`const ClubState = AppState;`) to `AppState`.
-**Important Magic/Alias:** `AppState` defines a getter/setter for `member` (`get member() { return this.user; }`). Thus, `ClubState.member` and `AppState.user` are identical.
 
-| DATA | SOURCE OF TRUTH | WRITERS | READERS | PERSISTENCE | RISK |
-|---|---|---|---|---|---|
-| Profile Info (Name, Bio) | `AppState.user` | Edit Profile Form | Membership, Club, Profile | `localStorage: profile_{id}` | LOW |
-| Ownership | `AppState.owned` | `purchase()` | Boutique, Profile | `localStorage: owned_{id}` | MED (Duplicates `collectedItems`) |
-| Equipped | `AppState.equipped` | `toggleEquip()` | Profile, Master Card | `localStorage: equipped_{id}` | LOW |
-| Balances & Credits | `AppState.balance`, `chatCredits` | `purchase()`, Chat UI | Boutique, Club | `localStorage: balance_{id}`, etc. | LOW |
-| Achievements | `club_achievements` | `ach.isUnlocked()` | Profile | `localStorage: club_achievements` | MED (Polled continuously) |
-| Language | `currentLang` | `setLanguage()` | Translations, UI | `localStorage: one_percent_lang` | MED (Also uses `appLang`) |
-| Theme | DOM `classList` | Theme Toggle | CSS | `localStorage: app_theme` | LOW |
+- **Mechanism:** Global `document.body.classList.toggle("light-mode")`. `style.css` contains heavy `body.light-mode` overrides at the bottom of the file.
+- **Phase 4 Fixes Applied:**
+  1. Profile Hero SVG scoping (`body.light-mode .pcs-item-image svg`).
+  2. Membership Card quote/tagline contrast (`color: #666 !important`).
+  3. Profile edit button overlap (Padding updated to 140px).
+  4. Profile Edit/Motto contrast (`color: #8f6820 !important`).
+- **Remaining Light Mode Considerations:** Requires extremely high CSS specificity (`!important`) for all future additions.
 
 ==================================================
-9. LANGUAGE / LOCALIZATION
+SECTION 8: DESIGN SYSTEM
 ==================================================
-- **System:** `window.I18N` object in `translations.js` maps keys (e.g. `nav.membership`) to `{en: "...", ar: "..."}`.
-- **Implementation:** `window.t("key")` fetches the translation. Static HTML uses `data-i18n="key"` which is parsed on load and on switch by `window.setLanguage()`.
-- **Dynamic Content:** Injected HTML (e.g., Boutique cards, Chat messages) uses inline `${window.t('key')}` during `innerHTML` generation.
-- **Risks:** 
-  - Some hardcoded English remains in fallback texts.
-  - Changing language invokes `renderProfileCollection()` and `renderProfileStatsBar()` explicitly, forcing DOM rebuilds to translate dynamic text.
-  - `localStorage` stores both `"one_percent_lang"` and `"appLang"`.
+
+- **Typography:** `Playfair Display` (EN) / `Aref Ruqaa` (AR) for luxury headers. `Plus Jakarta Sans` / `Readex Pro` for UI text.
+- **Colors:** Deep obsidian blacks (`#0c0a08`), authentic golds (`#d4af37`), champagnes (`#f5e8cf`).
+- **Components:** High-fidelity layered cards, inner shadows, hairline borders.
+- **Luxury Aesthetic Compliance:** Excellent. The application successfully avoids generic SaaS, NFT, and crypto tropes in favor of a private-club horology aesthetic.
 
 ==================================================
-10. DARK MODE / THEME SYSTEM
+SECTION 9: CSS ISOLATION AUDIT
 ==================================================
-- **Mechanism:** Toggled by adding/removing the `.light-mode` class on `document.body`.
-- **CSS Architecture:** Uses a massive cascade of `body.light-mode .selector { ... !important; }` overrides rather than CSS variables (`var(--bg-color)`).
-- **Risks:** Because it relies on `!important` class overrides appended to the end of the file, any new UI component added must explicitly have a `body.light-mode .new-component` rule written for it, otherwise it will remain dark.
 
-==================================================
-11. DESIGN SYSTEM
-==================================================
-- **Typography:** Uses CSS Custom Properties updated by JS. `var(--font-display)` toggles between "Cormorant Garamond" (EN) and "Amiri" (AR). `var(--font-ui)` toggles between "Inter" and "Readex Pro".
-- **Colors:** heavily relies on raw hex codes (`#d4af37`, `#1a1a1a`) scattered throughout `style.css` rather than a unified token system.
-- **Safety:** Most selectors are component-specific (e.g., `.boutique-card`, `.honor-pill`), minimizing collateral damage.
-
-==================================================
-12. CSS ISOLATION AUDIT
-==================================================
 **SAFE (Scoped):**
-- `#profile-tab .prestige-honors`
-- `#club-tab .club-pinned`
-- `.membership-card` (as long as it only exists on one tab)
+- `#profile-tab`, `#boutique-tab`, `#club-tab` prefixed rules.
+- `.membership-card`, `.phc-info-col`, `.luxury-modal-box`.
 
 **RISKY (Unscoped Globals):**
-- `.btn`, `.btn-outline`, `.btn-gold`: Modifying these will impact every button across all 4 tabs.
+- `.btn`, `.btn-outline`, `.btn-gold`: Modifying these impacts all tabs.
 - `.page`, `.app-main`, `.bottom-nav`: Structural globals.
-- `.chat-bubble`, `.boutique-card`, `.pcs-item-card`: While specific, they are not prefixed with `#parent-tab`. If a `.boutique-card` is rendered inside Profile, it will inherit Boutique styling.
+- `.pcs-item-card`, `.honor-card`: Component globals not tied to a specific tab.
 
 ==================================================
-13. JAVASCRIPT ISOLATION AUDIT
+SECTION 10: JAVASCRIPT ISOLATION AUDIT
 ==================================================
-- **Cross-Tab Risks:** High. `app.js` is a monolithic file. Functions like `updateUI()` reach out and mutate DOM across multiple tabs simultaneously (e.g., `document.getElementById("profileItemCount")` and `document.getElementById("boutiqueBalanceDisplay")` in the same function).
-- **Listener Leaks:** Re-rendering grids via `innerHTML += ...` requires recreating DOM event listeners. The current code uses inline `<div onclick="...">` or attaches event listeners in loops post-render, which can lead to memory leaks or broken bindings if not careful.
+
+- **Cross-Tab Risks:** Medium. Functions like `updateUI()` reach across the DOM to update balances in Boutique and Profile simultaneously. 
+- **Monolithic Concerns:** `app.js` is over 1,500 lines. The router, state manager, and UI renderers are tightly coupled. This demands extreme caution when modifying structural element IDs.
 
 ==================================================
-14. NAVIGATION AUDIT
+SECTION 11: LOCALIZATION SYSTEM
 ==================================================
-- **System:** `Router.navigate(tab)` and `goToPage(tab)`.
-- **Mechanism:** Adds `.is-active` class and removes `hidden` attribute on the target `<section>`, and hides the others.
-- **Triggers:** Calls `Router.triggerEnter(tab)`. For the `club` tab, it fires `updateCreditsUI()` and forces a scroll-to-bottom.
-- **State Preservation:** Excellent. Because hidden tabs remain in the DOM, scrolling positions and state are intrinsically preserved by the browser (unless explicitly reset by `scrollTop = 0`).
+
+- **Structure:** `window.I18N` provides an object dictionary containing `ar` and `en` keys.
+- **Persistence:** Saved to `localStorage` under `1percent_lang`.
+- **Implementation:** `window.t("key.path")` retrieves the string. A mutation observer automatically updates elements with `data-i18n` attributes.
 
 ==================================================
-15. RESPONSIVE / MOBILE AUDIT
+SECTION 12: SECURITY & DATA INTEGRITY
 ==================================================
-- **General Form:** Optimized well for `360x800` to `430x932`. 
-- **Overflow Risks:** The Boutique grid uses specific column fractions. The Profile's Honors section (`.pcs-grid`) uses `display: grid`, which may squeeze horizontally on extremely narrow devices (e.g. iPhone SE) if padding is too generous.
-- **Bottom Nav:** Consumes fixed bottom space. `padding-bottom` on `.app-main` correctly prevents content hiding.
+
+- **Current Security Posture:** 100% Client-Side. All balances, owned items, and user tiers are stored in unencrypted `localStorage`.
+- **Production Status:** Sufficient for UI/UX prototyping. Completely insufficient for a production financial or true membership application. Requires backend API migration for true authoritative state.
 
 ==================================================
-16. VISUAL QUALITY AUDIT
+SECTION 13: NAVIGATION SYSTEM
 ==================================================
-- **Strong Areas:** The Master Identity Card has excellent material presence (`luxury.js` Guilloché, SVG rings, good typography).
-- **Weak Areas:** Profile's nested cards occasionally feel slightly generic (borders and simple gradients) rather than deeply physical objects. The Light Mode requires heavy overrides, meaning subtle lighting effects (like specular highlights) get flattened into pure white backgrounds.
-- **Overall:** Adheres well to the "Luxury private society" prompt, avoiding generic SaaS / NFT tropes.
+
+- **Router Behavior:** `Router.navigate(tabId)` adds `.is-active` and removes `hidden` from `<section class="page">`.
+- **State Preservation:** Excellent. Hidden tabs are physically retained in the DOM (`display: none`), preserving scroll positions natively.
 
 ==================================================
-17. CURRENT PROFILE TARGET
+SECTION 14: VISUAL QUALITY AUDIT
 ==================================================
-(Acknowledged — Analysis only, no implementation done. Profile target aims for a unified dossier hero card, four metric summary, premium information panel, collection, and bottom navigation).
+
+- **Strong Areas:** Master Identity Card (`luxury.js` canvas layering), typography hierarchy, rich dark mode gradients.
+- **Weak Areas:** Light mode requires heavy !important overrides.
+- **Compliance:** Master Card serves successfully as the single source of truth for the brand's visual identity.
 
 ==================================================
-18. BUG / REGRESSION AUDIT
+SECTION 15: PHASE EXECUTION LOG
 ==================================================
-- **[MEDIUM] Multiple State Truths:** `AppState.owned` vs `AppState.user.collectedItems`. If these diverge, UI components relying on one vs. the other will break.
-- **[MEDIUM] `innerHTML` Event Dropping:** Re-rendering `.boutique-grid` or `.profileCollectionGrid` via strings destroys all attached child event listeners.
-- **[LOW] CSS Specificity Wars:** Light mode uses hundreds of `!important` flags. Any future styling must also use `!important` or high-specificity `#id` targeting to override it.
-- **[LOW] `ClubState.member` Confusion:** An undocumented aliased getter mapping `member` to `user` exists in `AppState`. Future developers (or agents) may assume `member` is undefined.
+
+**Phase 2: Ownership Consistency**
+- *Objective:* Fix dual ownership state.
+- *Root Cause:* Boutique checked `user.collectedItems`, while AppState used `owned`.
+- *Changes:* Removed push logic, mapped `collectedItems` to `Object.keys(this.owned)`, added legacy migration.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 2B: Ghost State Sanitization**
+- *Objective:* Prevent legacy array from respawning on page reload.
+- *Root Cause:* `Object.assign` overwrote `user` with legacy `profile_{id}` data containing `collectedItems`.
+- *Changes:* Added `if (this.user.collectedItems) delete this.user.collectedItems;` after load.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 3: Event Handling Audit**
+- *Objective:* Verify `innerHTML` event listener loss.
+- *Root Cause:* `renderBoutique` wiped elements.
+- *Validation:* Confirmed inline `onclick` survives. Long press requires rebinding. No Event Delegation needed.
+- *Status:* Audit Complete. ✅
+
+**Phase 3B: Boutique Long Press Fix**
+- *Objective:* Fix broken long press inspect modal.
+- *Root Cause:* Rebound listeners lacked `data-*` attributes to read.
+- *Changes:* Injected `data-item-id`, `data-cat`, `data-owned`, `data-equipped` into HTML template.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 4: Responsive & Light Mode Audit**
+- *Objective:* Multi-viewport visual forensic analysis.
+- *Validation:* Found 1 HIGH and 3 MEDIUM CSS bugs.
+- *Status:* Audit Complete. ✅
+
+**Phase 4B: Membership Light Mode Quote & Tagline**
+- *Objective:* Fix invisible text on Master Card.
+- *Root Cause:* Missing Light Mode overrides.
+- *Changes:* Added `#666 !important` for `.member-quote` and `.card-tagline`.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 4C: Profile SVG Dark Mode Leak**
+- *Objective:* Fix global 34px SVG lock.
+- *Root Cause:* Unscoped `.pcs-item-image svg` in Light Mode block.
+- *Changes:* Removed unscoped selector.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 4D: Profile Edit Button Overlap**
+- *Objective:* Prevent button from obscuring Arabic member name on 360px viewport.
+- *Root Cause:* Insufficient `padding-inline-end`.
+- *Changes:* Updated from `78px` to `140px`.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 4E: Profile Light Mode Contrast**
+- *Objective:* Fix invisible Edit Button and Motto text.
+- *Root Cause:* Gold text against white background lacked contrast.
+- *Changes:* Added `#8f6820 !important` to `.phc-edit-btn` and `.phc-motto-text`.
+- *Status:* Checkpoint Created. ✅
 
 ==================================================
-19. CHANGE HISTORY / CURRENT ARCHITECTURE
+SECTION 16: KNOWN REMAINING ISSUES
 ==================================================
-**Inferred History:**
-1. Started as a dark-mode only, single/dual-page app with `AppState`.
-2. Expanded to four tabs (Membership, Club, Profile, Boutique) using a simple `Router`.
-3. Integrated `luxury.js` to elevate the visual fidelity of the primary Master Card.
-4. Added Localization (`translations.js`) post-development, evidenced by the mix of `data-i18n` tags and inline JS translation calls.
-5. Added Light Mode post-development, evidenced by the 15+ `append-light*.js` scripts that were run to iteratively append `body.light-mode` overrides to the bottom of `style.css`.
+
+**Potential Risks (Not confirmed bugs):**
+1. **Light Mode Boutique Button Context Loss (UX Degradation):** `.boutique-own-btn` forces `color: #1a1a1a !important` in Light Mode, destroying the green/faded/gold color-coding that Dark Mode uses to distinguish Owned/Free/Equipped states.
+2. **Global CSS Specificity Debt:** `style.css` is approaching an unmaintainable level of `!important` flags for Light Mode.
 
 ==================================================
-20. SAFE DEVELOPMENT STRATEGY
+SECTION 17: SAFE DEVELOPMENT STRATEGY (UPDATED)
 ==================================================
-- **Protected Systems (Do Not Touch Casually):** `AppState`, `luxury.js`, `translations.js`, and `.membership-card` CSS.
-- **Modification Strategy:** Work on ONE tab at a time. Do not modify global `.btn` or `.card` classes; instead, prefix all new CSS with `#profile-tab` or `#boutique-tab`.
-- **State Modifications:** When modifying collections, update BOTH `AppState.owned` and `AppState.user.collectedItems` to prevent desync, or refactor one to be a computed property of the other.
-- **Post-Change Testing:** After any change to HTML strings in `app.js`, verify that Light Mode hasn't regressed (since Light Mode relies on specific class names).
+
+- **Protected Systems:** `AppState`, `luxury.js`, `translations.js`, Long Press Bindings.
+- **Modification Strategy:** 
+  - Ensure all DOM re-renders inside `app.js` include explicit `data-*` attributes if interactive.
+  - Rely exclusively on `AppState.owned` for checking purchase states.
+- **Post-Change Testing:** Always verify changes in Light Mode and at 360x800 viewport size.
 
 ==================================================
-21. MASTER APPLICATION MAP
+SECTION 18: MASTER APPLICATION MAP
 ==================================================
+
 ```text
-APPLICATION
+THE 1% CLUB
 │
-├── GLOBAL
-│   ├── index.html (Main Layout, Modals, 4-Tab DOM)
-│   ├── style.css (All Dark/Light Styles)
-│   ├── app.js (Business Logic & Rendering)
-│   ├── luxury.js (Canvas Graphics Engine)
-│   ├── translations.js (I18N Dictionary)
-│   └── Audio.js (Sound Effects)
-│
-├── STATE
-│   └── AppState (aliased as ClubState)
-│       ├── user / member
-│       ├── owned / equipped / collectedItems
-│       └── balance / chatCredits
-│
-├── NAVIGATION
-│   └── Router (navigate, switchView, onEnter hooks)
-│
-├── MEMBERSHIP (#membership-tab)
-│   └── Master Identity Card (Rings, Tiers, Guilloché)
-│
-├── CLUB (#club-tab)
-│   └── Chat Interface (Rooms, Credits, Elite Responses)
-│
-├── PROFILE (#profile-tab)
-│   └── Hero Dossier, Achievements, Equipped Showcase
-│
-└── BOUTIQUE (#boutique-tab)
-    └── Product Catalog (BOUTIQUE constant), Purchase Logic
+├── index.html
+├── style.css
+├── app.js
+├── luxury.js
+├── translations.js
+└── AUDIT.md
 ```
 
-**CURRENT ARCHITECTURE STATUS:**
-PARTIALLY STABLE (Monolithic JS makes it fragile to large edits).
+==================================================
+SECTION 19: CHANGE HISTORY
+==================================================
 
-**HIGHEST-RISK AREAS:**
-1. `style.css` (Light mode overrides are highly dependent on exact class names).
-2. `AppState.init()` and `localStorage` schema.
-3. String-based DOM rendering in `app.js` (`innerHTML`).
-4. Dual ownership tracking (`owned` object vs `collectedItems` array).
-5. `luxury.js` canvas targeting.
-
-**SAFE AREAS FOR FUTURE MODIFICATION:**
-1. Adding new static objects to `BOUTIQUE` constant.
-2. Appending new localized keys to `translations.js`.
-3. Creating isolated CSS rules prefixed with specific `#tab-id`.
-4. Modifying internal layout of `#profile-tab` (if properly isolated).
-5. Modifying static modal content in `index.html`.
-
-**MOST IMPORTANT SOURCE-OF-TRUTH OBJECTS:**
-1. `AppState.user` (or `ClubState.member`)
-2. `AppState.owned`
-3. `AppState.equipped`
-4. `window.I18N`
-5. `localStorage`
-
-FULL APPLICATION FORENSIC AUDIT COMPLETE — NO FILES MODIFIED.
+- **V1:** Initial Dark Mode build.
+- **V2:** Expansion to 4 Tabs.
+- **V3:** Integration of Luxury Canvas graphics.
+- **V4:** i18n Localization.
+- **V5:** Post-development Light Mode CSS injections.
+- **V6 (Current):** Phase 2-4 comprehensive stabilization. (Ownership consolidated, Event Handlers secured, Light Mode contrast and responsive layout fixed).

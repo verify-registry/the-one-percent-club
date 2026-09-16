@@ -3849,7 +3849,7 @@ input {
   align-items: flex-start !important;
   text-align: left !important;
   padding-inline-start: 10px !important;
-  padding-inline-end: 78px !important;
+  padding-inline-end: 140px !important;
   gap: 3px !important;
 }
 
@@ -5239,6 +5239,11 @@ body.light-mode .membership-card .living-core {
   color: #8f6820 !important;
 }
 
+body.light-mode .member-quote,
+body.light-mode .membership-card .card-tagline {
+  color: #666 !important;
+}
+
 /* Honors Summary Header */
 body.light-mode #profile-tab .prestige-honors .achievements-summary {
   background: #ffffff !important;
@@ -5399,6 +5404,11 @@ body.light-mode .phc-meta {
   color: #666 !important;
 }
 
+body.light-mode .phc-edit-btn,
+body.light-mode .phc-motto-text {
+  color: #8f6820 !important;
+}
+
 /* Profile Navigation Menu */
 body.light-mode .profile-nav-menu {
   background: #ffffff !important;
@@ -5440,8 +5450,7 @@ body.light-mode .boutique-card-price {
 
 
 /* FIX 1: PROFILE COLLECTION SVG SIZE */
-body.light-mode .pcs-item-image svg,
-.pcs-item-image svg {
+body.light-mode .pcs-item-image svg {
   width: 34px !important;
   height: 34px !important;
 }
