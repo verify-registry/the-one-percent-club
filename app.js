@@ -4,7 +4,7 @@
 // ==========================================
 
 const savedLang = localStorage.getItem("one_percent_lang");
-let currentLang = savedLang === "ar" ? "ar" : "en";
+let currentLang = (savedLang === "ar" || savedLang === "en") ? savedLang : "en";
 
 function getNestedValue(obj, path) {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
@@ -1488,8 +1488,8 @@ function processEliteResponse(text) {
           window.t("dynamic.chatHelp2"),
         ]
       : [
-          `Good evening, ${userName}. How may the Concierge Desk assist you today?`,
-          "Please let me know if you require any private arrangements or technical support.",
+          window.t("dynamic.chatHelp1").replace("{0}", userName),
+          window.t("dynamic.chatHelp2"),
         ];
     return {
       member: concierge,
@@ -1521,20 +1521,14 @@ function processEliteResponse(text) {
       };
     } else {
       const responses = [
-        {
-          member: lordJulian,
-          text: `Good evening, ${userName}. Lord Julian here, currently reviewing the London exchange.`,
-        },
-        {
-          member: marcus,
-          text: `Present, sir. Marcus Sterling at your disposal. What's on your mind?`,
-        },
-        {
-          member: others[Math.floor(Math.random() * others.length)],
-          text: `Welcome to the lounge, ${userName}. A few of us are here observing the latest market movements.`,
-        },
+        window.t("dynamic.chatGreet1").replace("{0}", userName),
+        window.t("dynamic.chatGreet2"),
+        window.t("dynamic.chatGreet3").replace("{0}", userName),
       ];
-      return responses[Math.floor(Math.random() * responses.length)];
+      return {
+        member: others[Math.floor(Math.random() * others.length)],
+        text: responses[Math.floor(Math.random() * responses.length)],
+      };
     }
   }
 
@@ -1563,9 +1557,9 @@ function processEliteResponse(text) {
       };
     } else {
       const responses = [
-        "The London and Dubai markets are showing interesting divergence today.",
-        "Private equity acquisitions in the tech sector are currently undervalued.",
-        `We are exploring a new hedge fund opportunity. Happy to discuss it privately, ${userName}.`,
+        window.t("dynamic.chatInvest1"),
+        window.t("dynamic.chatInvest2"),
+        window.t("dynamic.chatInvest3").replace("{0}", userName),
       ];
       return {
         member: [lordJulian, marcus][Math.floor(Math.random() * 2)],
@@ -1600,9 +1594,9 @@ function processEliteResponse(text) {
       };
     } else {
       const responses = [
-        "Just acquired a vintage Patek. The craftsmanship is unparalleled.",
-        `Sotheby's has an interesting auction next week. Are you attending, ${userName}?`,
-        "True luxury is about absolute scarcity and historical significance.",
+        window.t("dynamic.chatBoutique1"),
+        window.t("dynamic.chatBoutique2").replace("{0}", userName),
+        window.t("dynamic.chatBoutique3"),
       ];
       return {
         member: [lordJulian, elena][Math.floor(Math.random() * 2)],
@@ -1623,9 +1617,9 @@ function processEliteResponse(text) {
     };
   } else {
     const responses = [
-      `Fascinating perspective, ${userName}. Let us discuss this further.`,
-      "Indeed. The current environment rewards patience and precise execution.",
-      "I see your point. Quality always reveals itself over time.",
+      window.t("dynamic.chatDefault1").replace("{0}", userName),
+      window.t("dynamic.chatDefault2"),
+      window.t("dynamic.chatDefault3"),
     ];
     return {
       member: others[Math.floor(Math.random() * others.length)],

@@ -1,4 +1,52 @@
 window.I18N = {
+  coming_soon: {
+    en: "Coming Soon",
+    ar: "قريباً",
+  },
+  menu_account_title: {
+    en: "Account Information",
+    ar: "معلومات الحساب",
+  },
+  menu_account_desc: {
+    en: "Name, email, phone, password",
+    ar: "الاسم، البريد، الهاتف، كلمة المرور",
+  },
+  menu_collection_title: {
+    en: "My Collection",
+    ar: "مقتنياتي",
+  },
+  menu_collection_desc: {
+    en: "Your purchased items & active assets",
+    ar: "مقتنياتك المشتراة والأصول النشطة",
+  },
+  menu_concierge_title: {
+    en: "Concierge & Support",
+    ar: "الكونسيرج والدعم",
+  },
+  menu_concierge_desc: {
+    en: "FAQs and direct assistance",
+    ar: "الأسئلة الشائعة والمساعدة المباشرة",
+  },
+  menu_friends_title: {
+    en: "Add Member",
+    ar: "إضافة عضو",
+  },
+  menu_membership_title: {
+    en: "Sovereign Membership",
+    ar: "العضوية السيادية",
+  },
+  menu_membership_desc: {
+    en: "Plan details, renewal, benefits",
+    ar: "تفاصيل الخطة، التجديد، المزايا",
+  },
+  menu_settings_title: {
+    en: "Settings",
+    ar: "الإعدادات",
+  },
+  menu_settings_desc: {
+    en: "Language, audio, and preferences",
+    ar: "اللغة، الصوت، والتفضيلات",
+  },
   modal_account_title: {
     en: "ACCOUNT INFORMATION",
     ar: "بيانات الحساب",
@@ -258,9 +306,33 @@ window.I18N = {
     },
   },
   profile: {
+    editIdentity: {
+      en: "EDIT IDENTITY",
+      ar: "تعديل الهوية",
+    },
+    selectPortrait: {
+      en: "SELECT PORTRAIT",
+      ar: "اختيار صورة العرض",
+    },
     editProfile: {
       en: "Edit Profile",
       ar: "تعديل الملف",
+    },
+    name: {
+      en: "Name",
+      ar: "الاسم",
+    },
+    username: {
+      en: "Username",
+      ar: "اسم المستخدم",
+    },
+    bio: {
+      en: "Bio",
+      ar: "نبذة",
+    },
+    interests: {
+      en: "Interests",
+      ar: "الاهتمامات",
     },
     displayName: {
       en: "DISPLAY NAME",
@@ -520,6 +592,22 @@ window.I18N = {
     },
   },
   settings: {
+    logout: {
+      en: "Logout",
+      ar: "تسجيل الخروج",
+    },
+    logoutConfirmTitle: {
+      en: "Confirm Logout",
+      ar: "تأكيد تسجيل الخروج",
+    },
+    logoutConfirmDesc: {
+      en: "Are you sure you want to terminate your session?",
+      ar: "هل أنت متأكد من رغبتك في إنهاء الجلسة؟",
+    },
+    cancel: {
+      en: "Cancel",
+      ar: "إلغاء",
+    },
     theme_title: {
       en: "Theme Mode",
       ar: "مظهر التطبيق",
