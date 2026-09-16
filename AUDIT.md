@@ -179,6 +179,25 @@ SECTION 14: VISUAL QUALITY AUDIT
 SECTION 15: PHASE EXECUTION LOG
 ==================================================
 
+**Phase 6: VISUAL & AESTHETIC AUDIT (LIGHT MODE)**
+- *Method:* 13 user screenshots across Membership, Club (3), Profile (5), Boutique (4), reviewed on 7 axes (typography, contrast, colors, spacing, details, buttons, luxury feel).
+- *Findings summary table:* 1 CRITICAL-functional (Edit Profile modal reliability/layout), 13 HIGH, 20 MEDIUM, 14 LOW.
+- *Key HIGH findings list:* invisible FAQ answers in Light Mode, invisible stats-bar labels, broken OFF-state toggle track, motto watermark overlapping meta row, double-dollar "$$" remaining text, leaderboard header showing Arabic in English mode, repeated leaderboard avatars, tier tag rendered as input box, dead empty chat state.
+- *Approved fix plan:* Phases 6A-6G batches (6A modal reliability and layout; 6B invisible/broken batch; 6C components; 6D typography; 6E containers and shadows; 6F contrast; 6G icons and details).
+
+**Workspace Hygiene Log (Entry 2)**
+- `fix_colors.js` (Type A): Deleted.
+- `fix_rgba.js` (Type A): Deleted.
+- `check_btn.js` (Type C): Deleted.
+- `get_errors.js` (Type C): Deleted.
+- `click_test.js` (Type C): Deleted.
+- `check_exists.js` (Type C): Deleted.
+- `get_body.js` (Type C): Deleted.
+- `check_local.js` (Type C): Deleted.
+- `package-lock.json` (Type C / Package Manager): Deleted.
+- `bun.lock` (Type C / Package Manager): Deleted.
+- *Status:* Verified ZERO auxiliary files remain. ✅
+
 **Phase 2: Ownership Consistency**
 - *Objective:* Fix dual ownership state.
 - *Root Cause:* Boutique checked `user.collectedItems`, while AppState used `owned`.
@@ -311,4 +330,5 @@ SECTION 19: CHANGE HISTORY
 - **V4:** i18n Localization.
 - **V5:** Post-development Light Mode CSS injections.
 - **V6:** Phase 2-4 comprehensive stabilization.
-- **V7 (Current):** Phase 5 localization stabilization. Full EN/AR parity, RTL-safe positioning, render-time translation resolution, GitHub synced.
+- **V7:** Phase 5 localization stabilization. Full EN/AR parity, RTL-safe positioning, render-time translation resolution, GitHub synced.
+- **V8:** Phase 6 Light Mode visual audit completed; hygiene pass; audit documented; repository synced.

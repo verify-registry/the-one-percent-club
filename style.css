@@ -12,7 +12,7 @@
   --gold-polished: #d4af6a;
   --gold-antique: #c79a3e;
   --gold-aged: #8a6323;
-  --gold-dark: #5c430f;
+  --gold-dark: var(--gold-aged);
   --gold-line: var(--gold-antique);
   --gold-text: linear-gradient(
     180deg,
@@ -71,34 +71,34 @@ body.light-mode {
   --obsidian: #f4f0e6;
   --obsidian-2: #ece6d8;
   --luxury-card-bg: radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.08) 0%, #fdfaf4 55%, #f4f0e6 100%);
-  --hairline: rgba(143, 104, 32, 0.25);
-  --hairline-strong: rgba(143, 104, 32, 0.5);
-  --gold-pale: #a87b29;
-  --gold-champagne: #9c6f21;
-  --gold-polished: #8f6820;
-  --gold-antique: #7a5615;
-  --gold-aged: #5c430f;
-  --gold-dark: #3d2c0a;
+  --hairline: rgba(156, 109, 35, 0.25);
+  --hairline-strong: rgba(156, 109, 35, 0.5);
+  --gold-pale: #c4923e;
+  --gold-champagne: #b38031;
+  --gold-polished: #9c6d23;
+  --gold-antique: #855a1a;
+  --gold-aged: #664311;
+  --gold-dark: #472f0b;
   --gold-line: var(--gold-antique);
   --gold-text: linear-gradient(
     180deg,
-    #8f6820 0%,
-    #5c430f 100%
+    var(--gold-polished) 0%,
+    var(--gold-aged) 100%
   );
   --gold-grad-champagne: radial-gradient(
     ellipse at top left,
-    #9c6f21 0%,
-    #7a5615 100%
+    var(--gold-champagne) 0%,
+    var(--gold-antique) 100%
   );
   --gold-grad-antique: linear-gradient(
     135deg,
-    #a87b29 0%,
-    #8f6820 35%,
-    #7a5615 65%,
-    #5c430f 100%
+    var(--gold-pale) 0%,
+    var(--gold-polished) 35%,
+    var(--gold-antique) 65%,
+    var(--gold-aged) 100%
   );
-  --btn-gold-bg: linear-gradient(135deg, #8f6820 0%, #5c430f 100%);
-  --btn-gold-border: #a87b29;
+  --btn-gold-bg: linear-gradient(135deg, var(--gold-polished) 0%, var(--gold-aged) 100%);
+  --btn-gold-border: var(--gold-pale);
   color-scheme: light;
 }
 
@@ -124,19 +124,19 @@ body.light-mode .luxury-modal-header h3 {
 
 body.light-mode .membership-card .card-inner-frame {
   background: linear-gradient(170deg, #fdfbf7 0%, #f4f0e6 50%, #e2dcca 100%);
-  box-shadow: 0 0 0 1px rgba(212, 175, 106, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 0 1px rgba(156, 109, 35, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 10px 30px -10px rgba(0, 0, 0, 0.15);
 }
 
 body.light-mode .portrait-photo {
   background: radial-gradient(circle at 35% 25%, #ffffff 0%, #f8f6f0 45%, #ede8dc 100%);
-  border: 1px solid rgba(212, 175, 106, 0.4);
-  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.05), inset 0 -3px 8px rgba(255, 255, 255, 1), 0 0 25px rgba(212, 175, 106, 0.15);
+  border: 1px solid rgba(156, 109, 35, 0.4);
+  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.05), inset 0 -3px 8px rgba(255, 255, 255, 1), 0 0 25px rgba(156, 109, 35, 0.15);
 }
 
 body.light-mode .boutique-card {
   background: radial-gradient(circle at 50% -20%, #ffffff 0%, #f4f0e6 60%, #e8dec8 100%);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 5px 15px -5px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(212, 175, 106, 0.4);
+  border: 1px solid rgba(156, 109, 35, 0.4);
 }
 
 body.light-mode .bottom-nav {
@@ -146,7 +146,7 @@ body.light-mode .bottom-nav {
 
 body.light-mode .luxury-modal-box {
   background: radial-gradient(ellipse at center, #fdfbf7, #f4f0e6);
-  border: 1px solid rgba(212, 175, 106, 0.3);
+  border: 1px solid rgba(156, 109, 35, 0.3);
 }
 
 
@@ -158,7 +158,7 @@ body.light-mode .lounge-banner,
 body.light-mode .pcs-item-card,
 body.light-mode .club-composer {
   background: #ffffff !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
 }
 
@@ -172,8 +172,8 @@ body.light-mode .club-composer input::placeholder {
 body.light-mode .b-filt-btn.is-active,
 body.light-mode .pill-btn.is-active {
   background: #fdfbf7 !important;
-  border-color: rgba(197, 160, 89, 0.5) !important;
-  color: #8f6820 !important;
+  border-color: rgba(156, 109, 35, 0.5) !important;
+  color: var(--gold-polished) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
 }
 
@@ -195,42 +195,42 @@ body.light-mode .honor-name, body.light-mode .pcs-item-name, body.light-mode .pc
 body.light-mode .boutique-card-price,
 body.light-mode .honor-desc,
 body.light-mode .room-desc {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 
 body.light-mode .boutique-card-fallback,
 body.light-mode .pcs-item-icon, body.light-mode .pcs-item-image, body.light-mode .boutique-card-icon img, body.light-mode .boutique-card-fallback {
-  background: radial-gradient(circle at 30% 30%, rgba(212, 175, 106, 0.1), transparent 60%) !important;
-  border: 1px solid rgba(197, 160, 89, 0.3) !important;
-  box-shadow: inset 0 1px 3px rgba(212, 175, 106, 0.2), 0 2px 5px rgba(0,0,0,0.05) !important;
+  background: radial-gradient(circle at 30% 30%, rgba(156, 109, 35, 0.1), transparent 60%) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
+  box-shadow: inset 0 1px 3px rgba(156, 109, 35, 0.2), 0 2px 5px rgba(0,0,0,0.05) !important;
 }
 
 body.light-mode .honor-card.is-locked {
   background: #f8f7f4 !important;
-  border: 1px dashed rgba(197, 160, 89, 0.3) !important;
+  border: 1px dashed rgba(156, 109, 35, 0.3) !important;
   opacity: 0.8;
 }
 
 body.light-mode .club-room:hover,
 body.light-mode .menu-card:hover {
   background: #fdfbf7 !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
 }
 
 
 body.light-mode .boutique-card-icon::after {
-  background: radial-gradient(ellipse at center, rgba(143, 104, 32, 0.4) 0%, transparent 70%) !important;
+  background: radial-gradient(ellipse at center, rgba(156, 109, 35, 0.4) 0%, transparent 70%) !important;
 }
 body.light-mode .member-number {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
   background: none !important;
-  -webkit-text-fill-color: #8f6820 !important;
+  -webkit-text-fill-color: var(--gold-polished) !important;
 }
 
 
 body.light-mode .club-composer {
   background: #ffffff !important;
-  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
 }
 
@@ -244,8 +244,8 @@ body.light-mode .club-composer input::placeholder {
 
 body.light-mode .club-room-btn.is-active {
   background: #fdfbf7 !important;
-  border-color: rgba(197, 160, 89, 0.5) !important;
-  color: #8f6820 !important;
+  border-color: rgba(156, 109, 35, 0.5) !important;
+  color: var(--gold-polished) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
 }
 
@@ -260,7 +260,7 @@ body.light-mode .nav-item {
   color: rgba(0, 0, 0, 0.4);
 }
 body.light-mode .nav-item.is-active {
-  color: #8f6820;
+  color: var(--gold-polished);
 }
 
 
@@ -270,7 +270,7 @@ body.light-mode .boutique-section-head h3 {
 }
 
 body.light-mode .boutique-section-sub {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 
 
@@ -288,10 +288,10 @@ body.light-mode .vault-empty-text {
 
 
 body.light-mode .tier-pill {
-  background: rgba(143, 104, 32, 0.1) !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
-  color: #8f6820 !important;
-  box-shadow: inset 0 0 10px rgba(197, 160, 89, 0.1) !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
+  color: var(--gold-polished) !important;
+  box-shadow: inset 0 0 10px rgba(156, 109, 35, 0.1) !important;
 }
 
 body.light-mode .metric-label {
@@ -320,7 +320,7 @@ body.light-mode .setting-desc {
 
 
 body.light-mode .pcs-item-price {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 
 
@@ -329,7 +329,7 @@ body.light-mode .pcs-item-price {
 /* Master Card Internal Metrics */
 body.light-mode .membership-card .metric-ring {
   background: radial-gradient(ellipse at top left, #ffffff, #fdfbf7) !important;
-  border: 1px solid rgba(197, 160, 89, 0.4) !important;
+  border: 1px solid rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .membership-card .ring-value {
@@ -343,11 +343,11 @@ body.light-mode .membership-card .ring-label {
 /* Honors Summary Header */
 body.light-mode #profile-tab .prestige-honors .achievements-summary {
   background: #ffffff !important;
-  border-color: rgba(197, 160, 89, 0.3) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .achievements-summary-value {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
   text-shadow: none !important;
 }
 body.light-mode .achievements-summary-label,
@@ -355,23 +355,23 @@ body.light-mode .pcs-view-all {
   color: #666 !important;
 }
 body.light-mode .achievements-summary-divider {
-  background: rgba(197, 160, 89, 0.2) !important;
+  background: rgba(156, 109, 35, 0.2) !important;
 }
 
 /* Honor Cards */
 body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked {
   background: #ffffff !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
-  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.1) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(156, 109, 35, 0.1) !important;
 }
 body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked .honor-icon {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
   filter: none !important;
 }
 body.light-mode #profile-tab .prestige-honors .honor-card.is-locked {
   background: #f8f7f4 !important;
   border-style: dashed !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: none !important;
 }
 body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-icon {
@@ -381,19 +381,19 @@ body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-icon 
 /* Profile Navigation Menu */
 body.light-mode .profile-nav-menu {
   background: #ffffff !important;
-  border-color: rgba(197, 160, 89, 0.3) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .pnm-item {
   border-bottom-color: rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .pnm-item:hover {
-  background: rgba(197, 160, 89, 0.05) !important;
+  background: rgba(156, 109, 35, 0.05) !important;
 }
 body.light-mode .pnm-icon {
-  background: rgba(197, 160, 89, 0.1) !important;
-  border-color: rgba(197, 160, 89, 0.3) !important;
-  color: #8f6820 !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .menu-title {
   color: #1a1a1a !important;
@@ -405,7 +405,7 @@ body.light-mode .pnm-arrow {
 /* Profile Hero Card */
 body.light-mode #profile-tab .profile-hero-card {
   background: #ffffff !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .phc-name {
@@ -413,29 +413,29 @@ body.light-mode .phc-name {
   text-shadow: none !important;
 }
 body.light-mode .phc-tier {
-  color: #8f6820 !important;
-  background: rgba(143, 104, 32, 0.1) !important;
-  border: 1px solid rgba(197, 160, 89, 0.2) !important;
+  color: var(--gold-polished) !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  border: 1px solid rgba(156, 109, 35, 0.2) !important;
 }
 body.light-mode .phc-quote, 
 body.light-mode .phc-meta {
   color: #666 !important;
 }
 body.light-mode .phc-meta-icon {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .phc-crown-badge {
   background: #ffffff !important;
-  border-color: rgba(197, 160, 89, 0.5) !important;
+  border-color: rgba(156, 109, 35, 0.5) !important;
 }
 body.light-mode .phc-crown-badge svg path {
-  fill: #8f6820 !important;
+  fill: var(--gold-polished) !important;
 }
 
 /* Profile Stats inside Hero */
 body.light-mode .phc-stats {
   background: #f8f7f4 !important;
-  border-color: rgba(197, 160, 89, 0.2) !important;
+  border-color: rgba(156, 109, 35, 0.2) !important;
 }
 body.light-mode .phc-stat-val {
   color: #1a1a1a !important;
@@ -444,7 +444,7 @@ body.light-mode .phc-stat-label {
   color: #888 !important;
 }
 body.light-mode .phc-stat-icon {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .phc-stat-divider {
   background: rgba(0, 0, 0, 0.05) !important;
@@ -453,23 +453,23 @@ body.light-mode .phc-stat-divider {
 /* Boutique specific overrides */
 body.light-mode #boutique-tab .boutique-tabs {
   background: #f4f0e6 !important;
-  border-color: rgba(197, 160, 89, 0.3) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
 }
 body.light-mode #boutique-tab .boutique-tab {
   color: #666 !important;
 }
 body.light-mode #boutique-tab .boutique-tab.is-active {
   background: #ffffff !important;
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode #boutique-tab .boutique-ownership-toggle {
   background: #f4f0e6 !important;
-  border-color: rgba(197, 160, 89, 0.3) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
 }
 body.light-mode #boutique-tab .boutique-card {
   background: #ffffff !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
@@ -477,7 +477,7 @@ body.light-mode #boutique-tab .boutique-card {
 body.light-mode .edit-profile-input,
 body.light-mode .luxury-input {
   background: #fdfbf7 !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
   color: #1a1a1a !important;
 }
 body.light-mode .edit-profile-input::placeholder,
@@ -499,21 +499,21 @@ body.light-mode .edit-profile-row span {
 /* Club Pinned Banner */
 body.light-mode #club-tab .club-pinned {
   background: #ffffff !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode #club-tab .club-pinned-title {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode #club-tab .club-pinned-sub {
   color: #666 !important;
 }
 body.light-mode #club-tab .club-pinned-icon {
-  background: rgba(197, 160, 89, 0.1) !important;
-  border-color: rgba(197, 160, 89, 0.3) !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
 }
 body.light-mode #club-tab .club-pinned-icon svg path {
-  fill: #8f6820 !important;
+  fill: var(--gold-polished) !important;
 }
 
 
@@ -527,14 +527,14 @@ body.light-mode .pnm-sub span {
 }
 body.light-mode .empty-vault-card {
   background: #ffffff !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
 
 body.light-mode .luxury-modal-header h2,
 body.light-mode .luxury-modal-header h3 {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
   text-shadow: none !important;
 }
 body.light-mode .edit-profile-label {
@@ -542,10 +542,10 @@ body.light-mode .edit-profile-label {
 }
 body.light-mode .pcs-item-image {
   background: transparent !important;
-  border-color: rgba(197, 160, 89, 0.2) !important;
+  border-color: rgba(156, 109, 35, 0.2) !important;
 }
 body.light-mode .club-pinned-title {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .club-pinned-sub span {
   color: #666 !important;
@@ -556,12 +556,12 @@ body.light-mode .pcs-item-image svg path,
 body.light-mode .pcs-item-image svg circle,
 body.light-mode .boutique-card-fallback svg path,
 body.light-mode .boutique-card-fallback svg circle {
-  fill: #8f6820 !important;
-  stroke: #8f6820 !important;
+  fill: var(--gold-polished) !important;
+  stroke: var(--gold-polished) !important;
 }
 body.light-mode .pcs-item-image svg [fill="url(#ringGoldGrad)"],
 body.light-mode .boutique-card-fallback svg [fill="url(#ringGoldGrad)"] {
-  fill: #8f6820 !important;
+  fill: var(--gold-polished) !important;
 }
 
 body.light-mode .app-main {
@@ -570,7 +570,7 @@ body.light-mode .app-main {
 
 body.light-mode .club-room {
   background: linear-gradient(145deg, #fdfbf7 0%, #f4f0e6 100%);
-  border: 1px solid rgba(212, 175, 106, 0.2);
+  border: 1px solid rgba(156, 109, 35, 0.2);
 }
 
 body, .app, .app-header, .bottom-nav, .boutique-card, .membership-card .card-inner-frame, .portrait-photo, .luxury-modal-box, .club-room, .section-name, .member-name, .metric-val {
@@ -3879,6 +3879,7 @@ input {
   padding-inline-start: 10px !important;
   padding-inline-end: 140px !important;
   gap: 3px !important;
+  pointer-events: none !important;
 }
 
 .phc-name {
@@ -5260,11 +5261,11 @@ body.light-mode .membership-card .ring-label {
   font-weight: 600 !important;
 }
 body.light-mode .membership-card .equipped-ring-label {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
   font-weight: 600 !important;
 }
 body.light-mode .membership-card .living-core {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 
 body.light-mode .member-quote,
@@ -5275,11 +5276,11 @@ body.light-mode .membership-card .card-tagline {
 /* Honors Summary Header */
 body.light-mode #profile-tab .prestige-honors .achievements-summary {
   background: #ffffff !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .achievements-summary-value {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
   text-shadow: none !important;
 }
 body.light-mode .achievements-summary-label,
@@ -5287,7 +5288,7 @@ body.light-mode .pcs-view-all {
   color: #666 !important;
 }
 body.light-mode .achievements-summary-divider {
-  background: rgba(197, 160, 89, 0.2) !important;
+  background: rgba(156, 109, 35, 0.2) !important;
 }
 
 /* Leaderboard */
@@ -5296,18 +5297,18 @@ body.light-mode .leaderboard-list {
 }
 body.light-mode .leader-item {
   background: #fdfbf7 !important;
-  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
 }
 body.light-mode .leader-rank {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .leader-name {
   color: #1a1a1a !important;
 }
 body.light-mode .leader-tag {
-  background: rgba(197, 160, 89, 0.1) !important;
-  color: #8f6820 !important;
-  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  color: var(--gold-polished) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
 }
 body.light-mode .leader-score {
   color: #1a1a1a !important;
@@ -5316,14 +5317,14 @@ body.light-mode .leader-score {
 /* Club Message Credits Bar */
 body.light-mode #club-tab .club-credits-display {
   background: #ffffff !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode #club-tab #clubCreditsText {
   color: #1a1a1a !important;
 }
 body.light-mode #club-tab .club-credits-buy {
-  background: #8f6820 !important;
+  background: var(--gold-polished) !important;
   color: #ffffff !important;
   border: none !important;
 }
@@ -5331,11 +5332,11 @@ body.light-mode #club-tab .club-credits-buy {
 /* Pinned Banner */
 body.light-mode #club-tab .club-pinned {
   background: #ffffff !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode #club-tab .club-pinned-title {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
   text-shadow: none !important;
 }
 body.light-mode #club-tab .club-pinned-sub,
@@ -5343,23 +5344,23 @@ body.light-mode #club-tab .club-pinned-sub span {
   color: #666 !important;
 }
 body.light-mode #club-tab .club-pinned-icon {
-  background: rgba(197, 160, 89, 0.1) !important;
-  border-color: rgba(197, 160, 89, 0.3) !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
 }
 body.light-mode #club-tab .club-pinned-icon svg path {
-  fill: #8f6820 !important;
+  fill: var(--gold-polished) !important;
 }
 
 /* Chat Bubbles */
 body.light-mode .chat-bubble.is-incoming {
   background: #ffffff !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .chat-bubble.is-outgoing {
   background: #fdfbf7 !important;
-  border: 1px solid rgba(143, 104, 32, 0.4) !important;
-  box-shadow: 0 4px 16px rgba(143, 104, 32, 0.08) !important;
+  border: 1px solid rgba(156, 109, 35, 0.4) !important;
+  box-shadow: 0 4px 16px rgba(156, 109, 35, 0.08) !important;
 }
 body.light-mode .chat-bubble.is-incoming .chat-text,
 body.light-mode .chat-bubble.is-outgoing .chat-text {
@@ -5367,13 +5368,13 @@ body.light-mode .chat-bubble.is-outgoing .chat-text {
 }
 body.light-mode .chat-bubble.is-incoming .chat-time,
 body.light-mode .chat-bubble.is-outgoing .chat-time {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .chat-ticks {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .chat-sender-header span {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .typing-bubble {
   color: #666 !important;
@@ -5385,8 +5386,8 @@ body.light-mode #typingName {
 /* Modals */
 body.light-mode .luxury-modal-box {
   background: #ffffff !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(143, 104, 32, 0.05) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(156, 109, 35, 0.05) !important;
 }
 body.light-mode .modal-header h3 {
   color: #1a1a1a !important;
@@ -5407,7 +5408,7 @@ body.light-mode .luxury-input,
 body.light-mode .edit-profile-input {
   background: #fdfbf7 !important;
   color: #1a1a1a !important;
-  border-color: rgba(197, 160, 89, 0.3) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
 }
 body.light-mode .luxury-input::placeholder,
 body.light-mode .edit-profile-input::placeholder {
@@ -5417,17 +5418,17 @@ body.light-mode .edit-profile-input::placeholder {
 /* Profile Hero Card */
 body.light-mode #profile-tab .profile-hero-card {
   background: #ffffff !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(143, 104, 32, 0.04) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(156, 109, 35, 0.04) !important;
 }
 body.light-mode .phc-name {
   color: #1a1a1a !important;
   text-shadow: none !important;
 }
 body.light-mode .phc-tier {
-  color: #8f6820 !important;
-  background: rgba(143, 104, 32, 0.1) !important;
-  border: 1px solid rgba(197, 160, 89, 0.2) !important;
+  color: var(--gold-polished) !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  border: 1px solid rgba(156, 109, 35, 0.2) !important;
 }
 body.light-mode .phc-quote, 
 body.light-mode .phc-meta {
@@ -5436,25 +5437,25 @@ body.light-mode .phc-meta {
 
 body.light-mode .phc-edit-btn,
 body.light-mode .phc-motto-text {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 
 /* Profile Navigation Menu */
 body.light-mode .profile-nav-menu {
   background: #ffffff !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .pnm-item {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .pnm-item:hover {
-  background: rgba(197, 160, 89, 0.05) !important;
+  background: rgba(156, 109, 35, 0.05) !important;
 }
 body.light-mode .pnm-icon {
-  background: rgba(197, 160, 89, 0.1) !important;
-  border: 1px solid rgba(197, 160, 89, 0.3) !important;
-  color: #8f6820 !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
+  color: var(--gold-polished) !important;
 }
 body.light-mode .pnm-title span,
 body.light-mode .menu-title {
@@ -5465,7 +5466,7 @@ body.light-mode .menu-title {
 body.light-mode .boutique-card {
   background: #ffffff !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
-  border: 1px solid rgba(143, 104, 32, 0.25) !important;
+  border: 1px solid rgba(156, 109, 35, 0.25) !important;
   border-radius: 16px !important;
   padding: 18px 14px 14px !important;
 }
@@ -5476,7 +5477,7 @@ body.light-mode .boutique-card-desc {
   color: #666 !important;
 }
 body.light-mode .boutique-card-price {
-  color: #8f6820 !important;
+  color: var(--gold-polished) !important;
 }
 
 
@@ -5497,7 +5498,7 @@ body.light-mode .pcs-item-image svg {
 /* FIX 5: IMPERIAL LIGHT MODE CONTRAST */
 body.light-mode #profile-tab .profile-stats-bar {
   background: #ffffff !important;
-  border: 1px solid rgba(197, 160, 89, 0.35) !important;
+  border: 1px solid rgba(156, 109, 35, 0.35) !important;
 }
 
 body.light-mode #profile-tab .profile-stats-bar .stat-value,
@@ -5511,8 +5512,8 @@ body.light-mode #boutique-tab .boutique-own-btn {
 body.light-mode #boutique-tab .btn-acquire,
 body.light-mode #boutique-tab .btn-equip {
   color: var(--gold-polished) !important;
-  background: rgba(143, 104, 32, 0.1) !important;
-  border-color: rgba(143, 104, 32, 0.4) !important;
+  background: rgba(156, 109, 35, 0.1) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
 }
 body.light-mode #boutique-tab .btn-equipped {
   color: #2b733e !important;
@@ -5524,8 +5525,8 @@ body.light-mode #boutique-tab .btn-owned {
 }
 
 body.light-mode #profile-tab .prestige-honors .is-unlocked .honor-pill {
-  color: #8f6820 !important;
-  border-color: rgba(197, 160, 89, 0.35) !important;
+  color: var(--gold-polished) !important;
+  border-color: rgba(156, 109, 35, 0.35) !important;
 }
 
 /* Profile Hero Card Fade-in Animation */
