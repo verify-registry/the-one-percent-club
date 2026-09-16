@@ -5438,3 +5438,109 @@ body.light-mode .boutique-card-price {
 }
 
 
+
+/* FIX 1: PROFILE COLLECTION SVG SIZE */
+body.light-mode .pcs-item-image svg,
+.pcs-item-image svg {
+  width: 34px !important;
+  height: 34px !important;
+}
+
+/* FIX 3: WIDGET CENTERING */
+#boutique-tab .id-widget-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* FIX 5: IMPERIAL LIGHT MODE CONTRAST */
+body.light-mode #profile-tab .profile-stats-bar {
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 89, 0.35) !important;
+}
+
+body.light-mode #profile-tab .profile-stats-bar .stat-value,
+body.light-mode #profile-tab .profile-stats-bar .stat-label {
+  color: #1a1a1a !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn,
+body.light-mode #boutique-tab .btn-acquire,
+body.light-mode #boutique-tab .btn-equip,
+body.light-mode #boutique-tab .btn-equipped,
+body.light-mode #boutique-tab .btn-owned {
+  color: #1a1a1a !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .is-unlocked .honor-pill {
+  color: #8f6820 !important;
+  border-color: rgba(197, 160, 89, 0.35) !important;
+}
+
+/* Profile Hero Card Fade-in Animation */
+@keyframes profileHeroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#profile-tab.is-active .profile-hero-card {
+  animation: profileHeroFadeIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+
+/* 3D Parallax Effect for Membership Card */
+.membership-card {
+  transform-style: preserve-3d;
+}
+
+.card-inner-frame {
+  transform-style: preserve-3d;
+  /* Push inner frame slightly forward to clear background shadows */
+  transform: translateZ(5px);
+}
+
+
+
+.card-top-bar {
+  transform: translateZ(15px);
+}
+
+.portrait-wrap {
+  transform: translateZ(30px);
+}
+
+.card-identity-section {
+  transform: translateZ(25px);
+}
+
+.card-metrics-footer {
+  transform: translateZ(20px);
+}
+
+.guilloche-canvas {
+  transform: translateZ(-5px);
+}
+
+.gold-dust-canvas {
+  transform: translateZ(0px);
+}
+
+.card-sheen {
+  transform: translateZ(2px);
+}
+
+.hallmark-layer {
+  transform: translateZ(8px);
+}
+
+
+.membership-card .corner-tl { transform: rotate(0deg) translateZ(10px) !important; }
+.membership-card .corner-tr { transform: rotate(90deg) translateZ(10px) !important; }
+.membership-card .corner-bl { transform: rotate(-90deg) translateZ(10px) !important; }
+.membership-card .corner-br { transform: rotate(180deg) translateZ(10px) !important; }

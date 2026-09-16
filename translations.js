@@ -196,6 +196,10 @@ window.I18N = {
       en: "Global Sovereign Wealth Elite",
       ar: "النخبة العالمية لأصحاب الثروة السيادية",
     },
+    welcomePrefix: {
+      en: "Welcome to ",
+      ar: "أهلًا بك في ",
+    },
     welcomeTitle: {
       en: "Welcome to Members Lounge",
       ar: "أهلًا بك في صالة الأعضاء",
@@ -340,6 +344,14 @@ window.I18N = {
     },
   },
   boutique: {
+    id_widget_title: {
+      en: "Identity Widget — Master Card",
+      ar: "الودجت — بطاقة الهوية الأساسية",
+    },
+    id_widget_status: {
+      en: "Included — Active",
+      ar: "مجاني — مُفعّل",
+    },
     allColl: {
       en: "All Collectibles",
       ar: "جميع المقتنيات",

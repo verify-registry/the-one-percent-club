@@ -922,7 +922,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}`;
           const priceHtml = item.free
             ? `<span class="boutique-card-price is-free">مجاني</span>`
-            : `<span class="boutique-card-price">${item.price.toLocaleString("en-US")}</span>`;
+            : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
 
           let progressHtml = "";
           if (!isOwned && !item.free) {
@@ -1063,14 +1063,16 @@ function renderWidgetSection() {
         <h3>${BOUTIQUE.widgets.title}</h3>
         ${typeof BOUTIQUE.widgets.sub !== "undefined" && BOUTIQUE.widgets.sub && String(BOUTIQUE.widgets.sub) !== "undefined" ? `<span class="boutique-section-sub">${BOUTIQUE.widgets.sub}</span>` : ""}
       </div>
-      <p class="widget-preview-label">الودجت — بطاقة الهوية الأساسية</p>
+      <p class="widget-preview-label">${window.t("boutique.id_widget_title")}</p>
 
-      <div class="membership-card widget-card-preview" style="transform: scale(0.9); transform-origin: top center; margin-bottom: -10%;">
-        ${cardHTML}
+      <div class="id-widget-container">
+        <div class="membership-card widget-card-preview" style="transform: scale(0.9); transform-origin: top center; margin-bottom: -10%;">
+          ${cardHTML}
+        </div>
       </div>
 
-      <button class="widget-add-btn" type="button" onclick="alert("Widget Added")">
-        ✓ مجاني — مُفعَّل
+      <button class="widget-add-btn" type="button" onclick="alert('Widget Added')">
+        ✓ ${window.t("boutique.id_widget_status")}
       </button>
     </section>
   `;
@@ -1644,12 +1646,18 @@ function switchChannel(channelId) {
     }
   } else {
     if (pinnedTitle) {
-      pinnedTitle.textContent = `أهلًا بك في ${channelData.name}`;
+      const prefix = window.t("club.welcomePrefix") || (AppState.language === "ar" ? "أهلًا بك في " : "Welcome to ");
+      const tKey = "club." + (channelId === "global-lounge" ? "lounge" : channelId);
+      let locName = channelData.name;
+      if (window.I18N && window.I18N.club && window.I18N.club[tKey.split('.')[1]]) {
+        locName = window.t(tKey);
+      }
+      pinnedTitle.textContent = `${prefix}${locName}`;
       pinnedTitle.removeAttribute("data-i18n");
     }
     if (pinnedSub) {
-      pinnedSub.textContent = "مساحة الأعضاء السياديين. تواصل بثقة.";
-      pinnedSub.setAttribute("data-i18n", "clubSubText");
+      pinnedSub.textContent = window.t("club.welcomeSub");
+      pinnedSub.setAttribute("data-i18n", "club.welcomeSub");
     }
 
     if (messagesContainer) messagesContainer.style.display = "";
@@ -2727,7 +2735,7 @@ function renderProfileCollection() {
           </div>
           <div class="pcs-item-info">
             <div class="pcs-item-name">${nameText}</div>
-            <div class="pcs-item-price">${item.price ? "$$" + item.price.toLocaleString() : item.rarity}</div>
+            <div class="pcs-item-price">${item.price ? "$" + item.price.toLocaleString() : item.rarity}</div>
           </div>
         </div>
       `;
