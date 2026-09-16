@@ -232,13 +232,47 @@ SECTION 15: PHASE EXECUTION LOG
 - *Changes:* Added `#8f6820 !important` to `.phc-edit-btn` and `.phc-motto-text`.
 - *Status:* Checkpoint Created. ✅
 
+
+**Phase 5A: Localization Audit**
+- *Objective:* Read-only audit of localization state.
+- *Status:* 5 confirmed bugs, 2 potential risks.
+
+**Phase 5B: RTL/LTR fix**
+- *Changes:* right replaced by inset-inline-end on .phc-edit-btn and .phc-motto-text. style.css only.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 5C: Edit Profile & Edit Account Labels**
+- *Changes:* data-i18n added for profile.name / username / bio / interests. index.html + translations.js (4 new keys).
+- *Status:* Checkpoint Created. ✅
+
+**Phase 5D: processEliteResponse English Branch**
+- *Changes:* converted to window.t() (14 strings). app.js only.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 5E: Hardcoded Strings Elimination**
+- *Changes:* hardcoded strings removed (empty states, stats bar, progress tooltip, location label, comma placeholder). 6 new keys.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 5E-Hotfix: dynamic.sovereign Key**
+- *Changes:* dynamic.sovereign key added after proven missing.
+- *Status:* Checkpoint Created. ✅
+
+**Phase 5F: BOUTIQUE Constant Render-Time Resolution**
+- *Changes:* BOUTIQUE constant stores translation keys; resolved via window.t() at render time (28 removed from definition, 8 added at render sites). app.js only.
+- *Status:* Checkpoint Created. ✅
+
+**Workspace Hygiene**
+- *Changes:* auxiliary artifacts (test_i18n.js, defined_keys.txt, used_keys.txt, fix_boutique.js, fix_app.js, fix_qp.js, fix_widget.js, fix_itemdef.js) verified as applied and deleted; none in repository.
+- *Status:* Verified and DELETED. ✅
+
 ==================================================
 SECTION 16: KNOWN REMAINING ISSUES
 ==================================================
 
-**Potential Risks (Not confirmed bugs):**
-1. **Light Mode Boutique Button Context Loss (UX Degradation):** `.boutique-own-btn` forces `color: #1a1a1a !important` in Light Mode, destroying the green/faded/gold color-coding that Dark Mode uses to distinguish Owned/Free/Equipped states.
-2. **Global CSS Specificity Debt:** `style.css` is approaching an unmaintainable level of `!important` flags for Light Mode.
+- POTENTIAL RISK: Light Mode .boutique-own-btn color coding loss (UX only).
+- TECHNICAL DEBT: style.css !important specificity accumulation.
+- NOTE: legacy patch scripts removed from repo root; preserved in git history; never loaded by index.html.
+- NOTE: appLang localStorage dead read; harmless.
 
 ==================================================
 SECTION 17: SAFE DEVELOPMENT STRATEGY (UPDATED)
@@ -249,6 +283,8 @@ SECTION 17: SAFE DEVELOPMENT STRATEGY (UPDATED)
   - Ensure all DOM re-renders inside `app.js` include explicit `data-*` attributes if interactive.
   - Rely exclusively on `AppState.owned` for checking purchase states.
 - **Post-Change Testing:** Always verify changes in Light Mode and at 360x800 viewport size.
+- Data constants must store translation KEYS, never resolved window.t() values; resolve at render time.
+- Directional CSS must use logical properties (inset-inline-*, padding-inline-*), never physical left/right.
 
 ==================================================
 SECTION 18: MASTER APPLICATION MAP
@@ -274,4 +310,5 @@ SECTION 19: CHANGE HISTORY
 - **V3:** Integration of Luxury Canvas graphics.
 - **V4:** i18n Localization.
 - **V5:** Post-development Light Mode CSS injections.
-- **V6 (Current):** Phase 2-4 comprehensive stabilization. (Ownership consolidated, Event Handlers secured, Light Mode contrast and responsive layout fixed).
+- **V6:** Phase 2-4 comprehensive stabilization.
+- **V7 (Current):** Phase 5 localization stabilization. Full EN/AR parity, RTL-safe positioning, render-time translation resolution, GitHub synced.
