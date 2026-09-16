@@ -314,6 +314,30 @@ window.I18N = {
       en: "SELECT PORTRAIT",
       ar: "اختيار صورة العرض",
     },
+    emptyVault: {
+      en: "Your vault is empty. Acquire your first asset from the Boutique.",
+      ar: "الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك.",
+    },
+    itemsCollected: {
+      en: "ITEMS COLLECTED",
+      ar: "المقتنيات",
+    },
+    connections: {
+      en: "CONNECTIONS",
+      ar: "شبكة المعارف",
+    },
+    sinceDate: {
+      en: "Jan 2024",
+      ar: "يناير 2024",
+    },
+    location: {
+      en: "Location",
+      ar: "الموقع",
+    },
+    commaSeparated: {
+      en: "Comma separated",
+      ar: "مفصولة بفواصل",
+    },
     editProfile: {
       en: "Edit Profile",
       ar: "تعديل الملف",
@@ -748,6 +772,10 @@ window.I18N = {
     },
   },
   dynamic: {
+    sovereign: {
+      en: "SOVEREIGN",
+      ar: "سيادي",
+    },
     free: {
       en: "Free",
       ar: "مجاني",

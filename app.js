@@ -261,121 +261,121 @@ const ACHIEVEMENTS_DATA = {
 
 const BOUTIQUE = {
   stars: {
-    title: window.t("boutique.stars"),
+    title: "boutique.stars",
     items: [
       {
         id: "star1",
-        name: window.t("items.star1"),
+        name: "items.star1",
         icon: "star",
         rarity: 1,
         price: 1000,
-        lore: window.t("items.star2"),
+        lore: "items.star2",
       },
       {
         id: "star2",
-        name: window.t("items.star3"),
+        name: "items.star3",
         icon: "star",
         rarity: 2,
         price: 2500,
-        lore: window.t("items.star4"),
+        lore: "items.star4",
       },
     ],
   },
   crowns: {
-    title: window.t("boutique.crowns"),
+    title: "boutique.crowns",
     items: [
       {
         id: "crown1",
-        name: window.t("items.crown1"),
+        name: "items.crown1",
         icon: "crown",
         rarity: 3,
         price: 5000,
-        lore: window.t("items.crown2"),
+        lore: "items.crown2",
       },
       {
         id: "crown2",
-        name: window.t("items.crown3"),
+        name: "items.crown3",
         icon: "crown",
         rarity: 4,
         price: 15000,
-        lore: window.t("items.crown4"),
+        lore: "items.crown4",
       },
     ],
   },
   auras: {
-    title: window.t("boutique.auras"),
+    title: "boutique.auras",
     items: [
       {
         id: "aura1",
-        name: window.t("items.aura1"),
+        name: "items.aura1",
         icon: "aura",
         rarity: 2,
         price: 2000,
-        lore: window.t("items.aura2"),
+        lore: "items.aura2",
       },
       {
         id: "aura2",
-        name: window.t("items.aura3"),
+        name: "items.aura3",
         icon: "aura",
         rarity: 3,
         price: 8000,
-        lore: window.t("items.aura4"),
+        lore: "items.aura4",
       },
     ],
   },
   jewelry: {
-    title: window.t("boutique.jewelry"),
+    title: "boutique.jewelry",
     items: [
       {
         id: "ring1",
-        name: window.t("items.ring1"),
+        name: "items.ring1",
         icon: "ring",
         rarity: 2,
         price: 3000,
-        lore: window.t("items.ring2"),
+        lore: "items.ring2",
       },
       {
         id: "ring2",
-        name: window.t("items.ring3"),
+        name: "items.ring3",
         icon: "ring",
         rarity: 3,
         price: 7500,
-        lore: window.t("items.ring4"),
+        lore: "items.ring4",
       },
     ],
   },
   artifacts: {
-    title: window.t("boutique.rare"),
+    title: "boutique.rare",
     items: [
       {
         id: "art1",
-        name: window.t("items.rare1"),
+        name: "items.rare1",
         icon: "pendant",
         rarity: 3,
         price: 10000,
-        lore: window.t("items.rare2"),
+        lore: "items.rare2",
       },
       {
         id: "art2",
-        name: window.t("items.rare3"),
+        name: "items.rare3",
         icon: "pendant",
         rarity: 4,
         price: 25000,
-        lore: window.t("items.rare4"),
+        lore: "items.rare4",
       },
     ],
   },
   widgets: {
-    title: window.t("boutique.widgets"),
+    title: "boutique.widgets",
     items: [
       {
         id: "wid1",
-        name: window.t("items.widget1"),
+        name: "items.widget1",
         icon: "star",
         rarity: 1,
         price: 0,
         free: true,
-        lore: window.t("items.widget2"),
+        lore: "items.widget2",
       },
     ],
   },
@@ -967,7 +967,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           <span class="boutique-card-icon">
             <span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>
           </span>
-          <span class="boutique-card-name">${item.name}</span>
+          <span class="boutique-card-name">${window.t(item.name)}</span>
           ${priceHtml}
           ${progressHtml}
           <button class="boutique-own-btn ${btnClass}" type="button" style="pointer-events: none;">
@@ -981,7 +981,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       return `
       <section class="boutique-section" data-category="${catKey}">
         <div class="boutique-section-head">
-          <h3>${cat.title}</h3>
+          <h3>${window.t(cat.title)}</h3>
           ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${cat.sub}</span>` : ""}
         </div>
         <div class="boutique-grid">${cards}</div>
@@ -997,8 +997,8 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         <div class="empty-icon-wrapper">
             <svg viewBox="0 0 24 24" fill="none" class="empty-icon"><path d="M4 8h16l-1.3 10.2A2 2 0 0116.7 20H7.3a2 2 0 01-2-1.8L4 8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.2"/></svg>
         </div>
-        <p>لا توجد مقتنيات</p>
-        <span style="max-width: 280px; margin-bottom: 0;">لا توجد أي قطع تتوافق مع التصنيف الحالي.</span>
+        <p>${window.t("boutique.noItems")}</p>
+        <span style="max-width: 280px; margin-bottom: 0;">${window.t("boutique.noFilterMatch")}</span>
       </div>
     `;
   }
@@ -1084,7 +1084,7 @@ function renderWidgetSection() {
   return `
     <section class="boutique-section widget-section" data-category="widgets">
       <div class="boutique-section-head">
-        <h3>${BOUTIQUE.widgets.title}</h3>
+        <h3>${window.t(BOUTIQUE.widgets.title)}</h3>
         ${typeof BOUTIQUE.widgets.sub !== "undefined" && BOUTIQUE.widgets.sub && String(BOUTIQUE.widgets.sub) !== "undefined" ? `<span class="boutique-section-sub">${BOUTIQUE.widgets.sub}</span>` : ""}
       </div>
       <p class="widget-preview-label">${window.t("boutique.id_widget_title")}</p>
@@ -1822,11 +1822,11 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
 
   modal.hidden = false;
 
-  document.getElementById("inspectionTitle").textContent = item.name;
+  document.getElementById("inspectionTitle").textContent = window.t(item.name);
   document.getElementById("inspectionRarity").textContent =
     RARITY_LABEL[item.rarity]();
   document.getElementById("inspectionLore").textContent =
-    item.lore || window.t("dynamic.loreDefault");
+    (item.lore ? window.t(item.lore) : window.t("dynamic.loreDefault"));
 
   const svgContent = ICONS[item.icon] || ICONS["crown"];
   document.getElementById("inspectionImage").innerHTML = svgContent;
@@ -1934,7 +1934,7 @@ function showQuickPreview(item, wasAutoEquipped = false) {
     document.body.appendChild(tooltip);
   }
 
-  document.getElementById("qpName").textContent = item.name;
+  document.getElementById("qpName").textContent = window.t(item.name);
 
   const autoEquipMsg = document.getElementById("qpAutoEquipMsg");
   if (autoEquipMsg) {
@@ -1955,7 +1955,7 @@ function showQuickPreview(item, wasAutoEquipped = false) {
     else if (item.icon === "star") lore = window.t("dynamic.loreStar");
     else lore = window.t("dynamic.loreDefault");
   }
-  document.getElementById("qpLore").textContent = lore;
+  document.getElementById("qpLore").textContent = (item.lore ? window.t(lore) : lore);
 
   const iconSvg = ICONS[item.icon] || ICONS["star"];
   document.getElementById("qpIcon").innerHTML = iconSvg;
@@ -1992,7 +1992,7 @@ function renderProfileEquipped() {
         itemsHtml += `
           <div class="profile-equipped-item">
             <div class="profile-eq-icon">${iconSvg}</div>
-            <div class="profile-eq-name">${itemDef.name}</div>
+            <div class="profile-eq-name">${window.t(itemDef.name)}</div>
           </div>
         `;
       }
@@ -2538,9 +2538,9 @@ function renderProgressChart() {
 
     tooltip.innerHTML = `
       <div class="tooltip-week">${d.week}</div>
-      <div class="tooltip-row"><span style="color:${colors.wealth}">الثروة</span> <span>${d.wealth}%</span></div>
-      <div class="tooltip-row"><span style="color:${colors.priv}">الامتيازات</span> <span>${d.priv}%</span></div>
-      <div class="tooltip-row"><span style="color:${colors.conn}">الاتصالات</span> <span>${d.conn}%</span></div>
+      <div class="tooltip-row"><span style="color:${colors.wealth}">${window.t("dynamic.wealth")}</span> <span>${d.wealth}%</span></div>
+      <div class="tooltip-row"><span style="color:${colors.priv}">${window.t("membership.privileges")}</span> <span>${d.priv}%</span></div>
+      <div class="tooltip-row"><span style="color:${colors.conn}">${window.t("dynamic.connections")}</span> <span>${d.conn}%</span></div>
     `;
 
     let percX = (x / w) * 100;
@@ -2722,12 +2722,8 @@ function renderProfileCollection() {
   let itemCount = collectedItems.length;
 
   if (itemCount === 0) {
-    const isAr =
-      AppState.language === "ar" || document.documentElement.lang === "ar";
-    const emptyText = isAr
-      ? "الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك."
-      : "Your vault is empty. Acquire your first asset from the Boutique.";
-    const btnText = isAr ? "استكشاف البوتيك" : "Explore Boutique";
+    const emptyText = window.t("profile.emptyVault");
+    const btnText = window.t("explore_boutique");
 
     container.innerHTML = `
       <div class="empty-vault-card" onclick="goToPage('boutique')">
@@ -2870,19 +2866,17 @@ function renderProfileStatsBar() {
   const container = document.getElementById("profileStatsBar");
   if (!container) return;
 
-  const lang = document.documentElement.lang || "en";
-
-  const levelVal = lang === "ar" ? "سيادي" : "SOVEREIGN";
-  const levelLabel = lang === "ar" ? "رتبة العضوية" : "MEMBERSHIP LEVEL";
+  const levelVal = window.t("dynamic.sovereign");
+  const levelLabel = window.t("membership.level");
 
   const itemsVal = AppState.collectedItems.length;
-  const itemsLabel = lang === "ar" ? "المقتنيات" : "ITEMS COLLECTED";
+  const itemsLabel = window.t("profile.itemsCollected");
 
   const connectionsVal = "248";
-  const connectionsLabel = lang === "ar" ? "شبكة المعارف" : "CONNECTIONS";
+  const connectionsLabel = window.t("profile.connections");
 
-  const sinceVal = lang === "ar" ? "يناير 2024" : "Jan 2024";
-  const sinceLabel = lang === "ar" ? "عضو منذ" : "MEMBER SINCE";
+  const sinceVal = window.t("profile.sinceDate");
+  const sinceLabel = window.t("membership.memberSince");
 
   container.innerHTML = `
     <div class="psb-col">
