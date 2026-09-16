@@ -476,6 +476,33 @@ const AppState = {
     } catch {
       this.equipped = {};
     }
+
+    try {
+      const legacyCol = localStorage.getItem("one_percent_collection");
+      if (legacyCol) {
+        const parsedLegacy = JSON.parse(legacyCol);
+        if (Array.isArray(parsedLegacy)) {
+          parsedLegacy.forEach((item) => {
+            let id = null;
+            if (typeof item === "string") id = item;
+            else if (item && typeof item === "object" && item.id) id = item.id;
+            
+            if (id) {
+              let found = false;
+              for (const cat in BOUTIQUE) {
+                if (BOUTIQUE[cat].items.some(i => i.id === id)) {
+                  found = true;
+                  break;
+                }
+              }
+              if (found) {
+                this.owned[id] = true;
+              }
+            }
+          });
+        }
+      }
+    } catch {}
     try {
       const savedChannels = JSON.parse(
         localStorage.getItem(`channels_${this.user.id}`),
@@ -501,7 +528,10 @@ const AppState = {
       this.user.location =
         this.user.location || window.t("items.dubai") || "Dubai, UAE";
       this.user.username = this.user.username || "MEMBER";
-      if (savedProfile) Object.assign(this.user, savedProfile);
+      if (savedProfile) {
+        Object.assign(this.user, savedProfile);
+        if (this.user.collectedItems) delete this.user.collectedItems;
+      }
     } catch {}
 
     this.recalculatePrestige();
@@ -574,12 +604,6 @@ const AppState = {
       this.balance -= item.price;
       this.totalSpent = (this.totalSpent || 0) + item.price;
       this.owned[item.id] = true;
-      if (!this.user.collectedItems) this.user.collectedItems = [];
-      this.user.collectedItems.push(item);
-      localStorage.setItem(
-        "one_percent_collection",
-        JSON.stringify(this.user.collectedItems),
-      );
       this.recalculatePrestige();
       this.save();
       this.notify();
@@ -1858,14 +1882,14 @@ function equipItem(item, catKey) {
 function updateMasterCard() {
   const pmItems = document.getElementById("pmItemsCollected");
   if (pmItems) {
-    pmItems.textContent = (AppState.user.collectedItems || []).length;
+    pmItems.textContent = AppState.collectedItems.length;
   }
 
   const wealthValueEl = document.getElementById("wealthValue");
   const privValueEl = document.getElementById("privValue");
   if (wealthValueEl && privValueEl) {
     const totalSpent = AppState.user.totalSpent || 0;
-    const itemsCount = (AppState.user.collectedItems || []).length;
+    const itemsCount = AppState.collectedItems.length;
 
     let wealth = 90.0 + (totalSpent / 1000) * 0.1;
     if (wealth > 99.9) wealth = 99.9;
@@ -2689,7 +2713,7 @@ function renderProfileCollection() {
   const container = document.getElementById("profileCollectionGrid");
   if (!container) return;
 
-  const collectedItems = (AppState.user.collectedItems || [])
+  const collectedItems = AppState.collectedItems
     .map((id) => {
       if (typeof id === "object") return id;
       let found = null;
@@ -2857,9 +2881,7 @@ function renderProfileStatsBar() {
   const levelVal = lang === "ar" ? "سيادي" : "SOVEREIGN";
   const levelLabel = lang === "ar" ? "رتبة العضوية" : "MEMBERSHIP LEVEL";
 
-  const itemsVal = AppState.user.collectedItems
-    ? AppState.user.collectedItems.length
-    : 0;
+  const itemsVal = AppState.collectedItems.length;
   const itemsLabel = lang === "ar" ? "المقتنيات" : "ITEMS COLLECTED";
 
   const connectionsVal = "248";
