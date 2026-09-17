@@ -306,6 +306,26 @@ window.I18N = {
     },
   },
   profile: {
+    memberCredentials: {
+      en: "MEMBER CREDENTIALS",
+      ar: "بيانات العضوية",
+    },
+    changePortrait: {
+      en: "CHANGE PORTRAIT",
+      ar: "تغيير الصورة",
+    },
+    publicIdentity: {
+      en: "PUBLIC IDENTITY",
+      ar: "الهوية العامة",
+    },
+    securityContact: {
+      en: "SECURITY & CONTACT",
+      ar: "الأمان والتواصل",
+    },
+    saveCredentials: {
+      en: "SAVE CREDENTIALS",
+      ar: "حفظ البيانات",
+    },
     editIdentity: {
       en: "EDIT IDENTITY",
       ar: "تعديل الهوية",
@@ -381,6 +401,10 @@ window.I18N = {
     avatarLabel: {
       en: "AVATAR URL (OR UPLOAD)",
       ar: "صورة العرض (رابط أو رفع)",
+    },
+    upload: {
+      en: "UPLOAD",
+      ar: "رفع",
     },
     saveChanges: {
       en: "SAVE CHANGES",

@@ -2,6 +2,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Montserrat:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@300;400;500;600;700&display=swap");
 
 :root {
+  /* THE 1% CLUB — GLOBAL GOLD MATERIAL SYSTEM */
+  /* Centralized luxury metal language (Dark Mode Default) */
+  --gold-primary: #c9a86a; /* Authentic Champagne Gold */
+  --gold-highlight: #eae0c4; /* Polished highlight */
+  --gold-deep: #8a6d3b; /* Rich gold body */
+  --gold-antique: #5a4622; /* Dark gold shadow / Engraving */
+  --gold-micro: #a68b52; /* Satin / Micro details */
+
+  /* Metallic Gradients (Abstracted for reuse) */
+  --gold-grad-polished: linear-gradient(
+    135deg,
+    var(--gold-highlight) 0%,
+    var(--gold-primary) 40%,
+    var(--gold-deep) 100%
+  );
+  --gold-grad-brushed: linear-gradient(
+    180deg,
+    var(--gold-primary) 0%,
+    var(--gold-micro) 100%
+  );
+  --gold-grad-antique: linear-gradient(
+    135deg,
+    var(--gold-deep) 0%,
+    var(--gold-antique) 100%
+  );
+
   --oled-black: #050505;
   --obsidian: #0c0c0e;
   --obsidian-2: #121214;
@@ -70,7 +96,12 @@ body.light-mode {
   --oled-black: #fdfbf7;
   --obsidian: #f4f0e6;
   --obsidian-2: #ece6d8;
-  --luxury-card-bg: radial-gradient(circle at 85% 15%, rgba(212, 175, 55, 0.08) 0%, #fdfaf4 55%, #f4f0e6 100%);
+  --luxury-card-bg: radial-gradient(
+    circle at 85% 15%,
+    rgba(212, 175, 55, 0.08) 0%,
+    #fdfaf4 55%,
+    #f4f0e6 100%
+  );
   --hairline: rgba(156, 109, 35, 0.25);
   --hairline-strong: rgba(156, 109, 35, 0.5);
   --gold-pale: #c4923e;
@@ -97,7 +128,11 @@ body.light-mode {
     var(--gold-antique) 65%,
     var(--gold-aged) 100%
   );
-  --btn-gold-bg: linear-gradient(135deg, var(--gold-polished) 0%, var(--gold-aged) 100%);
+  --btn-gold-bg: linear-gradient(
+    135deg,
+    var(--gold-polished) 0%,
+    var(--gold-aged) 100%
+  );
   --btn-gold-border: var(--gold-pale);
   color-scheme: light;
 }
@@ -124,18 +159,36 @@ body.light-mode .luxury-modal-header h3 {
 
 body.light-mode .membership-card .card-inner-frame {
   background: linear-gradient(170deg, #fdfbf7 0%, #f4f0e6 50%, #e2dcca 100%);
-  box-shadow: 0 0 0 1px rgba(156, 109, 35, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(156, 109, 35, 0.3),
+    inset 0 1px 3px rgba(255, 255, 255, 0.8),
+    0 10px 30px -10px rgba(0, 0, 0, 0.15);
 }
 
 body.light-mode .portrait-photo {
-  background: radial-gradient(circle at 35% 25%, #ffffff 0%, #f8f6f0 45%, #ede8dc 100%);
+  background: radial-gradient(
+    circle at 35% 25%,
+    #ffffff 0%,
+    #f8f6f0 45%,
+    #ede8dc 100%
+  );
   border: 1px solid rgba(156, 109, 35, 0.4);
-  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.05), inset 0 -3px 8px rgba(255, 255, 255, 1), 0 0 25px rgba(156, 109, 35, 0.15);
+  box-shadow:
+    inset 0 6px 12px rgba(0, 0, 0, 0.05),
+    inset 0 -3px 8px rgba(255, 255, 255, 1),
+    0 0 25px rgba(156, 109, 35, 0.15);
 }
 
 body.light-mode .boutique-card {
-  background: radial-gradient(circle at 50% -20%, #ffffff 0%, #f4f0e6 60%, #e8dec8 100%);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+  background: radial-gradient(
+    circle at 50% -20%,
+    #ffffff 0%,
+    #f4f0e6 60%,
+    #e8dec8 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    0 5px 15px -5px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(156, 109, 35, 0.4);
 }
 
@@ -148,7 +201,6 @@ body.light-mode .luxury-modal-box {
   background: radial-gradient(ellipse at center, #fdfbf7, #f4f0e6);
   border: 1px solid rgba(156, 109, 35, 0.3);
 }
-
 
 body.light-mode .vault-card,
 body.light-mode .honor-card,
@@ -180,7 +232,7 @@ body.light-mode .pill-btn.is-active {
 body.light-mode .b-filt-btn,
 body.light-mode .pill-btn {
   background: #f4f0e6 !important;
-  border-color: rgba(0,0,0,0.05) !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
   color: #4a4a4a !important;
 }
 
@@ -188,7 +240,9 @@ body.light-mode .section-subtitle,
 body.light-mode .category-title,
 body.light-mode .club-name,
 body.light-mode .boutique-card-name,
-body.light-mode .honor-name, body.light-mode .pcs-item-name, body.light-mode .pcs-item-type {
+body.light-mode .honor-name,
+body.light-mode .pcs-item-name,
+body.light-mode .pcs-item-type {
   color: #1a1a1a !important;
 }
 
@@ -199,10 +253,19 @@ body.light-mode .room-desc {
 }
 
 body.light-mode .boutique-card-fallback,
-body.light-mode .pcs-item-icon, body.light-mode .pcs-item-image, body.light-mode .boutique-card-icon img, body.light-mode .boutique-card-fallback {
-  background: radial-gradient(circle at 30% 30%, rgba(156, 109, 35, 0.1), transparent 60%) !important;
+body.light-mode .pcs-item-icon,
+body.light-mode .pcs-item-image,
+body.light-mode .boutique-card-icon img,
+body.light-mode .boutique-card-fallback {
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(156, 109, 35, 0.1),
+    transparent 60%
+  ) !important;
   border: 1px solid rgba(156, 109, 35, 0.3) !important;
-  box-shadow: inset 0 1px 3px rgba(156, 109, 35, 0.2), 0 2px 5px rgba(0,0,0,0.05) !important;
+  box-shadow:
+    inset 0 1px 3px rgba(156, 109, 35, 0.2),
+    0 2px 5px rgba(0, 0, 0, 0.05) !important;
 }
 
 body.light-mode .honor-card.is-locked {
@@ -217,16 +280,18 @@ body.light-mode .menu-card:hover {
   border-color: rgba(156, 109, 35, 0.4) !important;
 }
 
-
 body.light-mode .boutique-card-icon::after {
-  background: radial-gradient(ellipse at center, rgba(156, 109, 35, 0.4) 0%, transparent 70%) !important;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(156, 109, 35, 0.4) 0%,
+    transparent 70%
+  ) !important;
 }
 body.light-mode .member-number {
   color: var(--gold-polished) !important;
   background: none !important;
   -webkit-text-fill-color: var(--gold-polished) !important;
 }
-
 
 body.light-mode .club-composer {
   background: #ffffff !important;
@@ -241,7 +306,6 @@ body.light-mode .club-composer input::placeholder {
   color: #888 !important;
 }
 
-
 body.light-mode .club-room-btn.is-active {
   background: #fdfbf7 !important;
   border-color: rgba(156, 109, 35, 0.5) !important;
@@ -251,10 +315,9 @@ body.light-mode .club-room-btn.is-active {
 
 body.light-mode .club-room-btn {
   background: #f4f0e6 !important;
-  border-color: rgba(0,0,0,0.05) !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
   color: #4a4a4a !important;
 }
-
 
 body.light-mode .nav-item {
   color: rgba(0, 0, 0, 0.4);
@@ -262,7 +325,6 @@ body.light-mode .nav-item {
 body.light-mode .nav-item.is-active {
   color: var(--gold-polished);
 }
-
 
 body.light-mode .boutique-section-head h3 {
   color: #1a1a1a !important;
@@ -272,7 +334,6 @@ body.light-mode .boutique-section-head h3 {
 body.light-mode .boutique-section-sub {
   color: var(--gold-polished) !important;
 }
-
 
 body.light-mode .luxury-empty-state p {
   color: #1a1a1a !important;
@@ -285,7 +346,6 @@ body.light-mode .luxury-empty-state span {
 body.light-mode .vault-empty-text {
   color: #1a1a1a !important;
 }
-
 
 body.light-mode .tier-pill {
   background: rgba(156, 109, 35, 0.1) !important;
@@ -306,7 +366,6 @@ body.light-mode .card-club-name {
   color: rgba(26, 26, 26, 0.7) !important;
 }
 
-
 body.light-mode .menu-subtitle {
   color: #666 !important;
 }
@@ -318,20 +377,14 @@ body.light-mode .setting-desc {
   color: #666 !important;
 }
 
-
 body.light-mode .pcs-item-price {
   color: var(--gold-polished) !important;
 }
 
-
 /* Light Mode Comprehensive Overrides */
 
 /* Master Card Internal Metrics */
-body.light-mode .membership-card .metric-ring {
-  background: radial-gradient(ellipse at top left, #ffffff, #fdfbf7) !important;
-  border: 1px solid rgba(156, 109, 35, 0.4) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
-}
+
 body.light-mode .membership-card .ring-value {
   color: #1a1a1a !important;
   text-shadow: none !important;
@@ -364,7 +417,11 @@ body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked {
   border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 4px 15px rgba(156, 109, 35, 0.1) !important;
 }
-body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked .honor-icon {
+body.light-mode
+  #profile-tab
+  .prestige-honors
+  .honor-card.is-unlocked
+  .honor-icon {
   color: var(--gold-polished) !important;
   filter: none !important;
 }
@@ -374,7 +431,11 @@ body.light-mode #profile-tab .prestige-honors .honor-card.is-locked {
   border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: none !important;
 }
-body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-icon {
+body.light-mode
+  #profile-tab
+  .prestige-honors
+  .honor-card.is-locked
+  .honor-icon {
   color: #a0a0a0 !important;
 }
 
@@ -417,7 +478,7 @@ body.light-mode .phc-tier {
   background: rgba(156, 109, 35, 0.1) !important;
   border: 1px solid rgba(156, 109, 35, 0.2) !important;
 }
-body.light-mode .phc-quote, 
+body.light-mode .phc-quote,
 body.light-mode .phc-meta {
   color: #666 !important;
 }
@@ -485,8 +546,7 @@ body.light-mode .luxury-input::placeholder {
   color: #aaa !important;
 }
 body.light-mode .modal-label,
-body.light-mode .input-label,
-/* body.light-mode .pnm-content span { removed */
+body.light-mode .input-label {
   color: #666 !important;
 }
 body.light-mode .modal-close {
@@ -516,7 +576,6 @@ body.light-mode #club-tab .club-pinned-icon svg path {
   fill: var(--gold-polished) !important;
 }
 
-
 body.light-mode .menu-title,
 body.light-mode .pnm-title span {
   color: #1a1a1a !important;
@@ -530,7 +589,6 @@ body.light-mode .empty-vault-card {
   border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
-
 
 body.light-mode .luxury-modal-header h2,
 body.light-mode .luxury-modal-header h3 {
@@ -550,7 +608,6 @@ body.light-mode .club-pinned-title {
 body.light-mode .club-pinned-sub span {
   color: #666 !important;
 }
-
 
 body.light-mode .pcs-item-image svg path,
 body.light-mode .pcs-item-image svg circle,
@@ -573,8 +630,24 @@ body.light-mode .club-room {
   border: 1px solid rgba(156, 109, 35, 0.2);
 }
 
-body, .app, .app-header, .bottom-nav, .boutique-card, .membership-card .card-inner-frame, .portrait-photo, .luxury-modal-box, .club-room, .section-name, .member-name, .metric-val {
-  transition: background-color 0.3s ease, color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+body,
+.app,
+.app-header,
+.bottom-nav,
+.boutique-card,
+.membership-card .card-inner-frame,
+.portrait-photo,
+.luxury-modal-box,
+.club-room,
+.section-name,
+.member-name,
+.metric-val {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 svg *[stroke="currentColor"] {
@@ -882,12 +955,7 @@ input {
     inset 0 1px 1.5px rgba(255, 248, 220, 0.1),
     inset 0 -1px 1px rgba(0, 0, 0, 0.9),
     inset 0 10px 40px -10px rgba(0, 0, 0, 0.98);
-  background: linear-gradient(
-    170deg,
-    #181512 0%,
-    #0c0b09 50%,
-    #050403 100%
-  );
+  background: transparent;
   padding: clamp(8px, 1.5vh, 12px) 10px clamp(6px, 1.2vh, 10px);
   display: flex;
   flex-direction: column;
@@ -2089,12 +2157,19 @@ input {
   align-items: center;
   gap: 5px;
   text-align: center;
-  background: radial-gradient(circle at 50% -20%, #201c15 0%, #0c0b09 60%, #050403 100%);
-  box-shadow: 
+  background: radial-gradient(
+    circle at 50% -20%,
+    #201c15 0%,
+    #0c0b09 60%,
+    #050403 100%
+  );
+  box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.05),
     inset 0 -5px 15px rgba(0, 0, 0, 0.8),
     0 10px 20px -5px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 #boutique-tab .boutique-card.is-owned {
   border-color: rgba(212, 175, 106, 0.4);
@@ -2147,7 +2222,8 @@ input {
   color: #7fbe8c;
   border-color: rgba(127, 190, 140, 0.5);
 }
-#boutique-tab .boutique-card-icon {
+#boutique-tab .boutique-card-icon,
+#profileCollectionGrid .boutique-card-icon {
   margin: 10px 0 6px;
   display: flex;
   align-items: center;
@@ -2162,28 +2238,37 @@ input {
   border-radius: 50%;
   position: relative;
 }
-#boutique-tab .boutique-card-icon::after {
+#boutique-tab .boutique-card-icon,
+#profileCollectionGrid .boutique-card-icon::after {
   content: "";
   position: absolute;
   bottom: 0;
   width: 50px;
   height: 12px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.8) 0%, transparent 70%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.8) 0%,
+    transparent 70%
+  );
   filter: blur(2px);
   z-index: 0;
 }
-#boutique-tab .boutique-card-icon img,
-#boutique-tab .boutique-card-fallback {
+#boutique-tab .boutique-card-icon,
+#profileCollectionGrid .boutique-card-icon img,
+#boutique-tab .boutique-card-fallback,
+#profileCollectionGrid .boutique-card-fallback {
   position: relative;
   z-index: 1;
 }
-#boutique-tab .boutique-card-icon img {
+#boutique-tab .boutique-card-icon,
+#profileCollectionGrid .boutique-card-icon img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-#boutique-tab .boutique-card-fallback {
+#boutique-tab .boutique-card-fallback,
+#profileCollectionGrid .boutique-card-fallback {
   border: 1px solid rgba(212, 175, 106, 0.3);
   border-radius: 50%;
   width: 56px;
@@ -2192,13 +2277,18 @@ input {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 60%);
-  box-shadow: 
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.05),
+    transparent 60%
+  );
+  box-shadow:
     inset 0 1px 3px rgba(212, 175, 106, 0.2),
-    0 4px 10px rgba(0,0,0,0.5);
+    0 4px 10px rgba(0, 0, 0, 0.5);
   transform: translateZ(10px);
 }
-#boutique-tab .boutique-card-fallback svg {
+#boutique-tab .boutique-card-fallback,
+#profileCollectionGrid .boutique-card-fallback svg {
   width: 34px !important;
   height: 34px !important;
 }
@@ -2510,7 +2600,6 @@ input {
   font-size: 8px;
   color: var(--gold-champagne);
   letter-spacing: 0.18em;
-  margin-bottom: 12px;
 }
 .widget-living-core {
   width: 14px;
@@ -2866,7 +2955,8 @@ input {
     background: linear-gradient(160deg, #181510, #0a0906);
     box-shadow: inset 0 0 15px rgba(212, 175, 106, 0.02);
   }
-  #boutique-tab .boutique-card-icon {
+  #boutique-tab .boutique-card-icon,
+  #profileCollectionGrid .boutique-card-icon {
     margin: 10px 0 6px;
     display: flex;
     align-items: center;
@@ -3273,11 +3363,13 @@ input {
 
 .boutique-card-fallback svg path,
 .boutique-card-fallback svg circle,
-#boutique-tab .boutique-card-fallback svg rect {
+#boutique-tab .boutique-card-fallback,
+#profileCollectionGrid .boutique-card-fallback svg rect {
   stroke: #c79a3e !important;
 }
 .boutique-card-fallback svg [fill="url(#ringGoldGrad)"],
-#boutique-tab .boutique-card-fallback svg [fill="#C79A3E"] {
+#boutique-tab .boutique-card-fallback,
+#profileCollectionGrid .boutique-card-fallback svg [fill="#C79A3E"] {
   fill: #c79a3e !important;
   stroke: none !important;
 }
@@ -3884,13 +3976,16 @@ input {
 
 .phc-name {
   font-family: var(--font-display) !important;
-  font-size: 19px !important;
+  font-size: clamp(1.1rem, 2.8vw, 1.45rem) !important;
   font-weight: 700 !important;
-  letter-spacing: 2.5px !important;
+  letter-spacing: 2px !important;
   color: #f5e8cf !important;
   text-transform: uppercase !important;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
   margin: 0;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .phc-tier {
@@ -3944,31 +4039,32 @@ input {
 }
 
 .phc-edit-btn {
-  font-family: var(--font-ui) !important;
-  letter-spacing: 1px !important;
   position: absolute !important;
-  top: 12px !important;
-  inset-inline-end: 12px !important;
-  display: inline-flex !important;
+  top: 16px !important;
+  inset-inline-end: 16px !important;
+  display: flex !important;
   align-items: center !important;
-  gap: 4px !important;
-  padding: 4px 8px !important;
-  font-size: 9.5px !important;
-  white-space: nowrap !important;
-  border: 1px solid rgba(212, 175, 55, 0.5) !important;
-  border-radius: 4px !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  border-radius: 50% !important;
   color: #d4af37 !important;
-  background: transparent !important;
+  background: rgba(26, 26, 26, 0.6) !important;
   cursor: pointer !important;
-  transition: all 0.2s ease !important;
+  transition: all 0.3s ease !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+  backdrop-filter: blur(4px);
 }
 .phc-edit-btn:hover {
-  background: rgba(212, 175, 55, 0.15) !important;
-  transform: scale(1.02);
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-color: #d4af37 !important;
+  transform: scale(1.05);
 }
 .phc-edit-btn svg {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
 }
 
 .phc-motto-text {
@@ -4861,6 +4957,35 @@ input {
   box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
 }
 
+.modal-section-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #d4af37;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+.modal-divider {
+  border: none;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  margin: 24px 0;
+}
+.outline-upload-btn {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  color: #d4af37;
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+.outline-upload-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+}
+
 .edit-profile-section {
   display: flex;
   flex-direction: column;
@@ -5251,7 +5376,6 @@ html[dir="rtl"] .leader-item {
   width: 100% !important;
 }
 
-
 /* ADDITIONAL LIGHT MODE CONTRAST FIXES - APPENDED LAST FOR GUARANTEED PRECEDENCE */
 
 /* Master Card Labels */
@@ -5387,7 +5511,25 @@ body.light-mode #typingName {
 body.light-mode .luxury-modal-box {
   background: #ffffff !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(156, 109, 35, 0.05) !important;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(156, 109, 35, 0.05) !important;
+}
+body.light-mode #accountInfoModal .luxury-modal-box {
+  background: #fdfbf7 !important;
+}
+body.light-mode .modal-section-title {
+  color: #8f6820 !important;
+}
+body.light-mode .modal-divider {
+  border-top: 1px solid rgba(156, 109, 35, 0.2) !important;
+}
+body.light-mode .outline-upload-btn {
+  border: 1px solid rgba(156, 109, 35, 0.4) !important;
+  color: #8f6820 !important;
+}
+body.light-mode .outline-upload-btn:hover {
+  background: rgba(156, 109, 35, 0.05) !important;
 }
 body.light-mode .modal-header h3 {
   color: #1a1a1a !important;
@@ -5419,7 +5561,9 @@ body.light-mode .edit-profile-input::placeholder {
 body.light-mode #profile-tab .profile-hero-card {
   background: #ffffff !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(156, 109, 35, 0.04) !important;
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(156, 109, 35, 0.04) !important;
 }
 body.light-mode .phc-name {
   color: #1a1a1a !important;
@@ -5430,14 +5574,15 @@ body.light-mode .phc-tier {
   background: rgba(156, 109, 35, 0.1) !important;
   border: 1px solid rgba(156, 109, 35, 0.2) !important;
 }
-body.light-mode .phc-quote, 
+body.light-mode .phc-quote,
 body.light-mode .phc-meta {
   color: #666 !important;
 }
 
-body.light-mode .phc-edit-btn,
-body.light-mode .phc-motto-text {
+body.light-mode .phc-edit-btn {
   color: var(--gold-polished) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
 }
 
 /* Profile Navigation Menu */
@@ -5479,8 +5624,6 @@ body.light-mode .boutique-card-desc {
 body.light-mode .boutique-card-price {
   color: var(--gold-polished) !important;
 }
-
-
 
 /* FIX 1: PROFILE COLLECTION SVG SIZE */
 body.light-mode .pcs-item-image svg {
@@ -5545,7 +5688,6 @@ body.light-mode #profile-tab .prestige-honors .is-unlocked .honor-pill {
   animation: profileHeroFadeIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-
 /* 3D Parallax Effect for Membership Card */
 .membership-card {
   transform-style: preserve-3d;
@@ -5556,8 +5698,6 @@ body.light-mode #profile-tab .prestige-honors .is-unlocked .honor-pill {
   /* Push inner frame slightly forward to clear background shadows */
   transform: translateZ(5px);
 }
-
-
 
 .card-top-bar {
   transform: translateZ(15px);
@@ -5591,8 +5731,4959 @@ body.light-mode #profile-tab .prestige-honors .is-unlocked .honor-pill {
   transform: translateZ(8px);
 }
 
+.membership-card .corner-tl {
+  transform: rotate(0deg) translateZ(10px) !important;
+}
+.membership-card .corner-tr {
+  transform: rotate(90deg) translateZ(10px) !important;
+}
+.membership-card .corner-bl {
+  transform: rotate(-90deg) translateZ(10px) !important;
+}
+.membership-card .corner-br {
+  transform: rotate(180deg) translateZ(10px) !important;
+}
 
-.membership-card .corner-tl { transform: rotate(0deg) translateZ(10px) !important; }
-.membership-card .corner-tr { transform: rotate(90deg) translateZ(10px) !important; }
-.membership-card .corner-bl { transform: rotate(-90deg) translateZ(10px) !important; }
-.membership-card .corner-br { transform: rotate(180deg) translateZ(10px) !important; }
+/* Dossier Modal Layout */
+.dossier-modal-box {
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+.dossier-modal-body {
+  padding: 12px 16px;
+  overflow-y: auto;
+  flex: 1;
+  gap: 0;
+}
+.dossier-panel {
+  padding: 4px 12px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  background: #101010;
+
+  margin-bottom: 0;
+}
+.dossier-panel-head {
+  margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.dossier-avatar-ring {
+  width: 64px;
+  height: 64px;
+  margin: 0;
+}
+.dossier-panel-head .modal-section-title {
+  margin: 0;
+}
+.dossier-field {
+  margin-bottom: 8px;
+  gap: 4px;
+}
+.dossier-field:last-child {
+  margin-bottom: 0;
+}
+.dossier-field .edit-profile-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+.dossier-field .edit-profile-input {
+  height: 44px;
+  box-sizing: border-box;
+}
+.dossier-upload-btn {
+  width: 48px;
+  height: 48px;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+  flex-shrink: 0;
+}
+.dossier-divider {
+  margin: 8px 0;
+}
+.dossier-save-btn {
+  width: 100%;
+  height: 52px;
+  margin-top: 12px;
+}
+
+body.light-mode .dossier-panel {
+  background: #f4f0e6;
+  border-color: rgba(156, 109, 35, 0.2);
+}
+.dossier-panel > .modal-section-title {
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+
+#accountInfoModal .luxury-modal-header {
+  padding: 0px 16px;
+}
+
+/* Interactive Avatar Ring (Modal) */
+.interactive-avatar-ring {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  box-shadow:
+    0 0 0 4px rgba(212, 175, 55, 0.1),
+    inset 0 0 10px rgba(0, 0, 0, 0.8);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
+}
+.interactive-avatar-ring:hover {
+  border-color: rgba(212, 175, 55, 1);
+  box-shadow:
+    0 0 15px rgba(212, 175, 55, 0.4),
+    0 0 0 4px rgba(212, 175, 55, 0.2);
+}
+.interactive-avatar-ring .phc-avatar-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+.avatar-overlay-badge {
+  position: absolute;
+  bottom: 0px;
+  right: -4px;
+  width: 28px;
+  height: 28px;
+  background: #0d0d0d;
+  border: 1px solid rgba(212, 175, 55, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4af37;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+.interactive-avatar-ring:hover .avatar-overlay-badge {
+  background: #1a1a1a;
+  transform: scale(1.1);
+  border-color: #d4af37;
+}
+body.light-mode .interactive-avatar-ring {
+  background: #fdfbf7;
+  border-color: rgba(156, 109, 35, 0.4);
+  box-shadow:
+    0 0 0 4px rgba(156, 109, 35, 0.1),
+    inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+body.light-mode .interactive-avatar-ring:hover {
+  border-color: rgba(156, 109, 35, 0.8);
+  box-shadow:
+    0 0 15px rgba(156, 109, 35, 0.2),
+    0 0 0 4px rgba(156, 109, 35, 0.15);
+}
+body.light-mode .avatar-overlay-badge {
+  background: #f4f0e6;
+  border-color: rgba(156, 109, 35, 0.6);
+  color: #8f6820;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+body.light-mode .interactive-avatar-ring:hover .avatar-overlay-badge {
+  background: #ffffff;
+  border-color: rgba(156, 109, 35, 1);
+}
+
+/* Modal Obsidian Adjustments */
+body:not(.light-mode) .dossier-panel {
+  background: rgba(13, 13, 13, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+/* Specific scope for Light Mode Edit Profile / Account Info Modal */
+body.light-mode #accountInfoModal .dossier-panel {
+  background: #fdfbf7;
+  border-color: rgba(156, 109, 35, 0.4);
+}
+body.light-mode #accountInfoModal .modal-section-title {
+  color: #8f6820;
+}
+body.light-mode #accountInfoModal .edit-profile-label {
+  color: #666;
+}
+
+/* --- Modal High-End Dossier Updates --- */
+#accountInfoModal .luxury-modal-header h2 {
+  font-family: var(--font-display), "Playfair Display", serif;
+  letter-spacing: 0.12em;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  color: var(--gold-primary, #d4af37);
+  text-transform: uppercase;
+}
+
+#accountInfoModal .edit-profile-input {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 4px;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+#accountInfoModal .edit-profile-input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 1px #d4af37;
+  outline: none;
+}
+
+/* Preset Avatars */
+.avatar-presets-container {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-preset-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 4px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  max-width: 100%;
+}
+
+.avatar-preset-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.avatar-preset-thumbnail {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.avatar-preset-thumbnail:hover {
+  border-color: rgba(212, 175, 55, 0.8);
+}
+
+.avatar-preset-thumbnail.active {
+  border: 2px solid #1a1a1a;
+  box-shadow:
+    0 0 0 2px #d4af37,
+    0 0 8px 2px rgba(212, 175, 55, 0.4);
+  transform: scale(1.1);
+}
+
+/* Brushed Gold Save Button */
+#accountInfoModal .dossier-save-btn {
+  background: linear-gradient(135deg, #d4af37 0%, #9a7b2d 100%);
+  color: #1a1510;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#accountInfoModal .dossier-save-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Scoped Light Mode */
+body.light-mode #accountInfoModal .edit-profile-input {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border: 1px solid rgba(156, 109, 35, 0.2) !important;
+  color: #1a1a1a !important;
+}
+
+body.light-mode #accountInfoModal .edit-profile-input:focus {
+  border-color: #8f6820 !important;
+  box-shadow: 0 0 0 1px #8f6820 !important;
+}
+
+body.light-mode #accountInfoModal .avatar-preset-thumbnail {
+  border: 1px solid rgba(156, 109, 35, 0.4);
+}
+
+body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
+  border: 2px solid #fdfbf7;
+  box-shadow:
+    0 0 0 2px #8f6820,
+    0 0 8px 2px rgba(156, 109, 35, 0.3);
+}
+
+body.light-mode #accountInfoModal .dossier-save-btn {
+  background: linear-gradient(135deg, #c5a059 0%, #8f6820 100%) !important;
+  color: #fff !important;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Textarea Profile Quote specific styling */
+#accountInfoModal .edit-profile-textarea {
+  resize: none;
+  line-height: 1.5;
+  padding: 12px;
+  height: auto;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  font-family: inherit;
+}
+
+body.light-mode #accountInfoModal .edit-profile-textarea {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border: 1px solid rgba(156, 109, 35, 0.2) !important;
+  color: #1a1a1a !important;
+}
+
+/* Quote Presets Container */
+.quote-presets-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.quote-preset-chip {
+  font-family: var(--font-ui), sans-serif;
+  font-size: 10px;
+  padding: 6px 12px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.quote-preset-chip:hover {
+  border-color: #d4af37;
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.1);
+}
+
+body.light-mode .quote-preset-chip {
+  border-color: rgba(156, 109, 35, 0.3);
+  color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .quote-preset-chip:hover {
+  border-color: #8f6820;
+  color: #8f6820;
+  background: rgba(156, 109, 35, 0.05);
+}
+
+/* --- 3D LUXURY SKEUOMORPHIC OVERHAUL FOR EDIT PROFILE MODAL --- */
+
+/* 1. 3D OBSIDIAN CHASSIS */
+#accountInfoModal .luxury-modal-box {
+  background: radial-gradient(ellipse at top, #161618 0%, #0c0c0e 100%);
+  box-shadow:
+    0 30px 60px -12px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(212, 175, 55, 0.3),
+    inset 0 1px 1px rgba(255, 223, 128, 0.25);
+  border: none;
+}
+#accountInfoModal .luxury-close-btn {
+  background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4af37;
+  padding: 0;
+}
+#accountInfoModal .luxury-close-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 2. FIX LABEL CROWDING & ENGRAVED HIERARCHY */
+#accountInfoModal .modal-section-title {
+  margin-top: 24px;
+  letter-spacing: 0.15em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  color: #d4af37;
+}
+#accountInfoModal .dossier-panel:first-of-type .modal-section-title {
+  margin-top: 0; /* public identity */
+}
+#accountInfoModal .edit-profile-label {
+  color: #bfa36f;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* 3. 3D RECESSED "VAULT" INPUTS */
+#accountInfoModal .edit-profile-input {
+  background: #08080a;
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 1px 0 rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+}
+#accountInfoModal .edit-profile-input:focus {
+  background: #08080a;
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.9),
+    inset 0 0 10px rgba(212, 175, 55, 0.15),
+    0 0 0 1px #d4af37;
+  border-color: #d4af37;
+}
+
+/* 4. 3D GOLD MEDALLION AVATARS */
+#accountInfoModal .interactive-avatar-ring {
+  background: linear-gradient(135deg, #d4af37 0%, #8f6820 100%);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.8),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+  border: none;
+  padding: 3px;
+}
+#accountInfoModal .interactive-avatar-ring .phc-avatar-photo {
+  border: 2px solid #0d0d0d;
+}
+#accountInfoModal .avatar-overlay-badge {
+  background: linear-gradient(135deg, #d4af37 0%, #8f6820 100%);
+  border: 1px solid #1a1a1a;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  color: #1a1a1a;
+}
+#accountInfoModal .avatar-preset-thumbnail {
+  border: 1px solid #1a1a1a;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+#accountInfoModal .avatar-preset-thumbnail.active {
+  border: 1px solid #d4af37;
+  box-shadow:
+    0 0 12px rgba(212, 175, 55, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* 5. 3D EMBOSSED GOLD INGOT BUTTON */
+#accountInfoModal .dossier-save-btn {
+  background: linear-gradient(
+    180deg,
+    #e8cf82 0%,
+    #d4af37 45%,
+    #9a7b2d 100%
+  ) !important;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid #7c621f !important;
+  color: #0d0d0f !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  transform: translateY(0);
+  text-shadow: none !important;
+}
+#accountInfoModal .dossier-save-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 6. LIGHT MODE 3D SKEUOMORPHIC */
+body.light-mode #accountInfoModal .luxury-modal-box {
+  background: radial-gradient(
+    ellipse at top,
+    #ffffff 0%,
+    #f4f0e6 100%
+  ) !important;
+  box-shadow:
+    0 30px 60px -12px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(156, 109, 35, 0.2),
+    inset 0 1px 2px #ffffff !important;
+}
+body.light-mode #accountInfoModal .edit-profile-input {
+  background: #fdfbf7 !important;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(156, 109, 35, 0.1),
+    0 1px 0 #ffffff !important;
+  border: 1px solid rgba(156, 109, 35, 0.2) !important;
+  color: #1a1a1a !important;
+}
+body.light-mode #accountInfoModal .edit-profile-input:focus {
+  background: #ffffff !important;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.05),
+    inset 0 0 8px rgba(156, 109, 35, 0.1),
+    0 0 0 1px #8f6820 !important;
+  border-color: #8f6820 !important;
+}
+body.light-mode #accountInfoModal .modal-section-title {
+  color: #8f6820 !important;
+  text-shadow: 0 1px 1px #ffffff !important;
+}
+body.light-mode #accountInfoModal .edit-profile-label {
+  color: #666 !important;
+}
+body.light-mode #accountInfoModal .dossier-save-btn {
+  background: linear-gradient(
+    180deg,
+    #fdfbf7 0%,
+    #d4af37 45%,
+    #8f6820 100%
+  ) !important;
+  color: #fff !important;
+  border: 1px solid #8f6820 !important;
+}
+body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
+  border: 1px solid #8f6820 !important;
+  box-shadow:
+    0 0 12px rgba(156, 109, 35, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+#accountInfoModal .modal-divider {
+  display: none;
+}
+
+#accountInfoModal .dossier-panel {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+#accountInfoModal .dossier-save-btn {
+  margin: 32px 0 12px 0 !important;
+}
+
+/* --- SILKY SMOOTH LUXURY TRANSITIONS (GPU-ACCELERATED) --- */
+
+.page.is-active {
+  animation: luxuryFadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  will-change: transform, opacity;
+}
+
+@keyframes luxuryFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.luxury-modal-overlay {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity;
+}
+
+.luxury-modal-box {
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, opacity;
+}
+
+/* Any dropdown panels or tooltips */
+.quick-preview-tooltip,
+.chat-reactions-display,
+.achievement-toast,
+.copy-toast,
+.premium-toast {
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, opacity;
+}
+
+/* --- PROFILE CARD CSS OVERRIDES --- */
+#profile-tab .phc-info-col {
+  width: 100% !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  padding-inline-end: 50px !important;
+}
+
+#profile-tab .phc-quote {
+  width: 100% !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  font-style: italic !important;
+  white-space: normal !important;
+  line-height: 1.4 !important;
+  color: #dcd3be !important;
+  font-size: 0.82rem !important;
+}
+
+#profile-tab .phc-name {
+  white-space: nowrap !important;
+  font-family: "Cinzel", serif !important;
+  letter-spacing: 0.12em !important;
+  font-weight: 700 !important;
+}
+
+#profile-tab .profile-hero-card {
+  background: radial-gradient(
+    circle at 80% 20%,
+    rgba(212, 175, 55, 0.08) 0%,
+    #111114 60%,
+    #09090b 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 223, 128, 0.15) !important;
+  border-radius: 14px !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card {
+  background: radial-gradient(
+    circle at 80% 20%,
+    #ffffff 0%,
+    #fcf9f2 60%,
+    #f4f0e6 100%
+  ) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+body.light-mode #profile-tab .phc-quote {
+  color: #4a4a4a !important;
+}
+
+body.light-mode #profile-tab .phc-name {
+  color: #1a1a1a !important;
+}
+
+/* --- LUXURY COLLECTION GRID HOVER & TILT EFFECT --- */
+#profileCollectionGrid .pcs-item-card {
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, box-shadow;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+#profileCollectionGrid .pcs-item-card:hover {
+  transform: perspective(1000px) translateY(-6px) scale(1.04) rotateX(6deg)
+    rotateY(-6deg) !important;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 223, 128, 0.2),
+    inset 0 0 20px rgba(212, 175, 55, 0.05) !important;
+  border-color: rgba(212, 175, 55, 0.7) !important;
+  z-index: 10;
+}
+
+body.light-mode #profileCollectionGrid .pcs-item-card:hover {
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 8px 20px rgba(156, 109, 35, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+  border-color: rgba(156, 109, 35, 0.6) !important;
+}
+
+#profileCollectionGrid .pcs-item-card .pcs-item-image {
+  transform-style: preserve-3d;
+}
+
+#profileCollectionGrid .pcs-item-card .pcs-item-image .boutique-card-fallback {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: inline-flex;
+}
+
+#profileCollectionGrid
+  .pcs-item-card:hover
+  .pcs-item-image
+  .boutique-card-fallback {
+  transform: scale(1.15) translateZ(20px) !important;
+  text-shadow: 0 4px 15px rgba(212, 175, 55, 0.6) !important;
+}
+
+body.light-mode
+  #profileCollectionGrid
+  .pcs-item-card:hover
+  .pcs-item-image
+  .boutique-card-fallback {
+  text-shadow: 0 4px 15px rgba(156, 109, 35, 0.4) !important;
+}
+
+/* --- BESPOKE PROFILE HERO CARD OVERHAUL --- */
+
+/* 1. FIX PENCIL ICON POSITIONING */
+#profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  inset-inline-end: auto !important;
+  left: auto !important;
+  margin: 0 !important;
+  padding: 6px !important;
+  width: 28px !important;
+  height: 28px !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  border-radius: 50% !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#profile-tab .phc-edit-btn svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* 2. MASTER NAME & SOVEREIGN BADGE */
+#profile-tab .phc-name {
+  font-family: "Cinzel", serif !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.12em !important;
+  color: #f5f2eb !important;
+  margin-bottom: 4px !important;
+  padding-right: 32px !important;
+  white-space: nowrap !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+#profile-tab .phc-tier {
+  display: inline-block !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.15) 0%,
+    rgba(154, 123, 45, 0.05) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  border-radius: 3px !important;
+  font-size: 0.62rem !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 700 !important;
+  color: #d4af37 !important;
+  padding: 2px 8px !important;
+  margin-bottom: 6px !important;
+  text-transform: uppercase !important;
+  line-height: 1.2 !important;
+}
+
+/* 3. RESOLVE QUOTE PROPORTIONS */
+#profile-tab .phc-quote {
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-style: italic !important;
+  font-size: 0.72rem !important;
+  line-height: 1.35 !important;
+  color: #cfc5b0 !important;
+  opacity: 0.9 !important;
+  margin: 4px 0 8px 0 !important;
+  white-space: normal !important;
+}
+
+/* 4. TRUE 3D OBSIDIAN & GOLD FOIL FINISH */
+#profile-tab .profile-hero-card {
+  position: relative !important;
+  overflow: hidden !important;
+  background: radial-gradient(
+    circle at 90% 10%,
+    rgba(212, 175, 55, 0.12) 0%,
+    #121215 50%,
+    #08080a 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow:
+    0 18px 36px -10px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 rgba(255, 223, 128, 0.2),
+    inset 0 0 20px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 14px !important;
+}
+
+/* 5. BOTTOM FOOTER BASELINE */
+#profile-tab .phc-meta {
+  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+  padding-top: 6px !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.12em !important;
+  color: #8e8065 !important;
+  font-family: monospace, sans-serif !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin-top: 4px !important;
+}
+
+/* Light mode fallback adjustments */
+body.light-mode #profile-tab .profile-hero-card {
+  background: radial-gradient(
+    circle at 90% 10%,
+    #ffffff 0%,
+    #f4f0e6 100%
+  ) !important;
+  border: 1px solid rgba(156, 109, 35, 0.4) !important;
+  box-shadow:
+    0 18px 36px -10px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 20px rgba(156, 109, 35, 0.05) !important;
+}
+
+body.light-mode #profile-tab .phc-name {
+  color: #1a1a1a !important;
+}
+
+body.light-mode #profile-tab .phc-quote {
+  color: #4a4a4a !important;
+}
+
+body.light-mode #profile-tab .phc-tier {
+  background: linear-gradient(
+    135deg,
+    rgba(156, 109, 35, 0.1) 0%,
+    rgba(156, 109, 35, 0.02) 100%
+  ) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
+}
+
+/* --- PROFILE HERO CARD DISASTER FIX (FINAL REPAIR) --- */
+
+#profile-tab .profile-hero-card {
+  background: radial-gradient(
+    ellipse at 85% 15%,
+    rgba(212, 175, 55, 0.12) 0%,
+    #131317 45%,
+    #08080a 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.95),
+    inset 0 1px 1px rgba(255, 230, 150, 0.25),
+    inset 0 0 30px rgba(0, 0, 0, 0.7) !important;
+  border-radius: 16px !important;
+}
+
+#profile-tab .phc-inner {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+  padding: 22px 20px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  inset-inline-end: 16px !important; /* RTL override */
+  left: auto !important;
+  margin: 0 !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  background: rgba(18, 18, 22, 0.75) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 223, 128, 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+  cursor: pointer !important;
+}
+
+#profile-tab .phc-info-col {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding-right: 28px !important;
+  padding-inline-end: 28px !important;
+  text-align: start !important;
+  align-items: flex-start !important;
+}
+
+#profile-tab .phc-quote {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-style: italic !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.03em !important;
+  color: #d6ccb8 !important;
+  margin: 4px 0 8px 0 !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+#profile-tab .phc-name {
+  font-family: "Cinzel", serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  color: #fbf8f0 !important;
+  margin: 0 0 5px 0 !important;
+  white-space: nowrap !important;
+}
+
+#profile-tab .phc-tier {
+  display: inline-block !important;
+  width: fit-content !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.18) 0%,
+    rgba(20, 20, 24, 0.6) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  border-radius: 4px !important;
+  padding: 2px 8px !important;
+  font-size: 0.62rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2em !important;
+  color: #dfba53 !important;
+  text-transform: uppercase !important;
+}
+
+#profile-tab .phc-meta {
+  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+  padding-top: 8px !important;
+  margin-top: 4px !important;
+  font-family: "Cinzel", monospace, sans-serif !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.14em !important;
+  color: #8e8065 !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+/* Light mode adjustments for the new finish */
+body.light-mode #profile-tab .profile-hero-card {
+  background: radial-gradient(
+    ellipse at 85% 15%,
+    #ffffff 0%,
+    #f4f0e6 45%,
+    #e8e3d5 100%
+  ) !important;
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 0 30px rgba(156, 109, 35, 0.05) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
+}
+body.light-mode #profile-tab .phc-edit-btn {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+body.light-mode #profile-tab .phc-tier {
+  background: linear-gradient(
+    135deg,
+    rgba(156, 109, 35, 0.1) 0%,
+    rgba(156, 109, 35, 0.02) 100%
+  ) !important;
+}
+
+/* --- BESPOKE ART-DIRECTED LUXURY REDESIGN FOR PROFILE CARD --- */
+
+#profile-tab .profile-hero-card {
+  position: relative !important;
+  background: radial-gradient(
+    ellipse at 80% 20%,
+    rgba(212, 175, 55, 0.14) 0%,
+    #151519 50%,
+    #09090b 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.95),
+    inset 0 1px 1px rgba(255, 235, 160, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03) !important;
+  border-radius: 16px !important;
+  padding: 22px !important;
+}
+
+#profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 18px !important;
+  right: 18px !important;
+  inset-inline-end: 18px !important;
+  left: auto !important;
+  margin: 0 !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(
+    135deg,
+    rgba(35, 35, 42, 0.9) 0%,
+    rgba(15, 15, 18, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 223, 128, 0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+}
+
+#profile-tab .phc-info-col {
+  padding-right: 48px !important;
+  padding-inline-end: 48px !important;
+}
+
+#profile-tab .phc-name {
+  font-family: "Cinzel", serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  color: #fdfbf7 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  white-space: nowrap !important;
+  margin: 0 0 5px 0 !important;
+  padding-right: 48px !important; /* Extra clearance for name specifically */
+}
+
+#profile-tab .phc-quote {
+  font-family:
+    "Playfair Display", "Cormorant Garamond", Georgia, serif !important;
+  font-style: italic !important;
+  font-size: 0.78rem !important;
+  line-height: 1.45 !important;
+  color: #c8b99d !important;
+  letter-spacing: 0.02em !important;
+  margin: 6px 0 10px 0 !important;
+  max-width: 95% !important;
+  display: block !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+#profile-tab .phc-tier {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.2) 0%,
+    rgba(130, 95, 30, 0.08) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  border-radius: 3px !important;
+  font-size: 0.6rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.22em !important;
+  color: #e5c365 !important;
+  padding: 2px 8px !important;
+  display: inline-block !important;
+  text-transform: uppercase !important;
+  width: fit-content !important;
+}
+
+#profile-tab .phc-meta {
+  border-top: 1px solid rgba(212, 175, 55, 0.18) !important;
+  padding-top: 8px !important;
+  margin-top: 6px !important;
+  font-family: "Cinzel", monospace, sans-serif !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.16em !important;
+  color: #94856a !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+/* Light mode adjustments */
+body.light-mode #profile-tab .profile-hero-card {
+  background: radial-gradient(
+    ellipse at 80% 20%,
+    #ffffff 0%,
+    #f7f4ec 50%,
+    #eae4d3 100%
+  ) !important;
+  border: 1px solid rgba(156, 109, 35, 0.45) !important;
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 0 0 1px rgba(156, 109, 35, 0.05) !important;
+}
+body.light-mode #profile-tab .phc-edit-btn {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(245, 245, 245, 0.9) 100%
+  ) !important;
+}
+body.light-mode #profile-tab .phc-name {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+body.light-mode #profile-tab .phc-quote {
+  color: #555 !important;
+}
+body.light-mode #profile-tab .phc-tier {
+  background: linear-gradient(
+    135deg,
+    rgba(156, 109, 35, 0.15) 0%,
+    rgba(156, 109, 35, 0.02) 100%
+  ) !important;
+}
+
+/* --- PROFILE HERO CARD GOLDEN SHIMMER --- */
+
+#profile-tab .profile-hero-card::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 50% !important;
+  height: 100% !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.05),
+    rgba(255, 235, 160, 0.25),
+    rgba(212, 175, 55, 0.05),
+    transparent
+  ) !important;
+  transform: skewX(-25deg) !important;
+  animation: profileCardGlint 8s infinite cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+#profile-tab .phc-inner {
+  z-index: 2 !important; /* Ensure text stays strictly above the shimmer */
+}
+
+@keyframes profileCardGlint {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  30% {
+    left: 200%;
+    opacity: 0;
+  }
+  100% {
+    left: 200%;
+    opacity: 0;
+  }
+}
+
+/* Light mode elegant sweep */
+body.light-mode #profile-tab .profile-hero-card::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.4),
+    transparent
+  ) !important;
+}
+
+/* ==========================================================================
+   PROFILE HERO CARD: BESPOKE LUXURY ART DIRECTION (SWISS WATCH AESTHETIC)
+   ========================================================================== */
+
+/* 1. CHASSIS & MATERIAL CONSTRUCTION */
+#profile-tab .profile-hero-card {
+  position: relative !important;
+  overflow: hidden !important;
+  /* Cinematic lighting + micro-brushed metal texture + guilloché hint */
+  background:
+    radial-gradient(
+      ellipse at 80% 0%,
+      rgba(212, 175, 55, 0.12) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.015) 0%,
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(212, 175, 55, 0.01) 0,
+      rgba(212, 175, 55, 0.01) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    #0a0a0c !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 12px !important;
+  /* 1-2mm physical bevel, heavy shadow dropping away */
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.95),
+    inset 0 1px 1px rgba(255, 235, 160, 0.15),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6) !important;
+  padding: 24px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+#profile-tab .phc-inner {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  width: 100% !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+
+/* 2. AVATAR SEAL (DOUBLE PRECISION RINGS) */
+#profile-tab .phc-avatar-ring {
+  position: relative !important;
+  padding: 4px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.3) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  ) !important;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.7),
+    inset 0 1px 2px rgba(255, 255, 255, 0.15) !important;
+  flex-shrink: 0 !important;
+}
+#profile-tab .phc-avatar-ring::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  pointer-events: none !important;
+}
+#profile-tab .phc-avatar-photo {
+  width: 72px !important;
+  height: 72px !important;
+  border-radius: 50% !important;
+  border: 1px solid #000 !important;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6) !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* HERALDIC CROWN INSIGNIA */
+#profile-tab .phc-crown-badge {
+  position: absolute !important;
+  bottom: -4px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 22px !important;
+  height: 22px !important;
+  background: linear-gradient(135deg, #d4af37 0%, #9a6b18 100%) !important;
+  border: 1px solid #fdfbf7 !important; /* Etched highlight */
+  border-radius: 50% !important;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.8),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 3 !important;
+}
+#profile-tab .phc-crown-badge svg {
+  width: 11px !important;
+  height: 11px !important;
+  fill: #111 !important;
+  stroke: none !important;
+  opacity: 0.9 !important;
+}
+
+/* 3. TYPOGRAPHIC HIERARCHY */
+#profile-tab .phc-info-col {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  padding-inline-end: 32px !important; /* Clearance for edit button */
+}
+
+/* Name (High Fashion Editorial) */
+#profile-tab .phc-name {
+  font-family: "Cinzel", "Cormorant Garamond", "Didot", serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  color: #fdfbf7 !important;
+  margin: 0 0 6px 0 !important;
+  white-space: nowrap !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9) !important;
+  line-height: 1.1 !important;
+}
+
+/* Sovereign Plaque */
+#profile-tab .phc-tier {
+  display: inline-flex !important;
+  background: linear-gradient(135deg, #18181a 0%, #0a0a0c 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  border-radius: 2px !important;
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.55rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.22em !important;
+  color: #c9a94e !important;
+  padding: 3px 8px 3px 10px !important;
+  text-transform: uppercase !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.06) !important;
+  margin-bottom: 8px !important;
+  line-height: 1.2 !important;
+}
+
+/* Personal Motto (Engraved) */
+#profile-tab .phc-quote {
+  font-family: "Cormorant Garamond", "Playfair Display", serif !important;
+  font-style: italic !important;
+  font-size: 0.76rem !important;
+  line-height: 1.4 !important;
+  color: #c0b49e !important;
+  letter-spacing: 0.02em !important;
+  margin: 0 0 12px 0 !important;
+  white-space: normal !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  max-width: 95% !important;
+}
+
+/* Metadata Micro-Engraving */
+#profile-tab .phc-meta {
+  width: 100% !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+  padding-top: 8px !important;
+  font-family: "Inter", monospace, sans-serif !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.18em !important;
+  color: #8c7e63 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-transform: uppercase !important;
+}
+#profile-tab .phc-meta-icon {
+  width: 11px !important;
+  height: 11px !important;
+  opacity: 0.7 !important;
+}
+#profile-tab .phc-dot {
+  color: rgba(212, 175, 55, 0.3) !important;
+  font-size: 0.5rem !important;
+}
+
+/* 4. DISCREET EDIT CONTROL */
+#profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  inset-inline-end: 16px !important;
+  left: auto !important;
+  right: auto !important;
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(
+    circle at center,
+    rgba(30, 30, 35, 0.8) 0%,
+    rgba(10, 10, 12, 0.8) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: rgba(212, 175, 55, 0.7) !important;
+  transition: all 0.3s ease !important;
+  z-index: 10 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#profile-tab .phc-edit-btn svg {
+  width: 11px !important;
+  height: 11px !important;
+  stroke-width: 1.5 !important;
+}
+#profile-tab .phc-edit-btn:hover {
+  border-color: rgba(212, 175, 55, 0.6) !important;
+  color: #d4af37 !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 223, 128, 0.2) !important;
+  transform: scale(1.05) !important;
+}
+
+/* ==========================================================================
+   IMPERIAL LIGHT MODE (WARM IVORY / CHAMPAGNE)
+   ========================================================================== */
+body.light-mode #profile-tab .profile-hero-card {
+  background:
+    radial-gradient(
+      ellipse at 80% 0%,
+      rgba(255, 255, 255, 0.9) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.015) 0%,
+      rgba(0, 0, 0, 0.015) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    #f3efe6 !important;
+  border: 1px solid rgba(170, 125, 45, 0.3) !important;
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 0 0 1px rgba(170, 125, 45, 0.05) !important;
+}
+body.light-mode #profile-tab .phc-avatar-ring {
+  background: linear-gradient(
+    135deg,
+    rgba(170, 125, 45, 0.2) 0%,
+    rgba(255, 255, 255, 0.8) 100%
+  ) !important;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+}
+body.light-mode #profile-tab .phc-avatar-ring::before {
+  border-color: rgba(170, 125, 45, 0.35) !important;
+}
+body.light-mode #profile-tab .phc-avatar-photo {
+  border-color: #e8e3d5 !important;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1) !important;
+}
+body.light-mode #profile-tab .phc-crown-badge {
+  background: linear-gradient(135deg, #e5c365 0%, #aa771c 100%) !important;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+}
+body.light-mode #profile-tab .phc-name {
+  color: #1a1a18 !important;
+  text-shadow: none !important;
+}
+body.light-mode #profile-tab .phc-tier {
+  background: linear-gradient(135deg, #ffffff 0%, #f7f4ec 100%) !important;
+  border-color: rgba(170, 125, 45, 0.35) !important;
+  color: #8c732a !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 1) !important;
+}
+body.light-mode #profile-tab .phc-quote {
+  color: #5a5448 !important;
+  text-shadow: none !important;
+}
+body.light-mode #profile-tab .phc-meta {
+  border-top-color: rgba(170, 125, 45, 0.2) !important;
+  color: #7a705e !important;
+}
+body.light-mode #profile-tab .phc-dot {
+  color: rgba(170, 125, 45, 0.4) !important;
+}
+body.light-mode #profile-tab .phc-edit-btn {
+  background: radial-gradient(
+    circle at center,
+    #ffffff 0%,
+    #f7f4ec 100%
+  ) !important;
+  border-color: rgba(170, 125, 45, 0.25) !important;
+  color: #aa771c !important;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 1) !important;
+}
+body.light-mode #profile-tab .phc-edit-btn:hover {
+  background: #ffffff !important;
+  border-color: #aa771c !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ==========================================================================
+   PHASE 5D BUG FIXES: PROFILE COLLECTION ARTWORK & SPACING
+   ========================================================================== */
+
+/* FIX 1: RESTORE MISSING COLLECTION ARTWORK */
+/* The issue was that SVGs in the Profile collection lacked explicit dimensions in dark mode, causing them to collapse or render invisibly inside the overflow-hidden container. */
+#profileCollectionGrid .pcs-item-image svg,
+#profileCollectionGrid .boutique-card-fallback svg {
+  width: 32px !important;
+  height: 32px !important;
+  display: block !important;
+}
+
+#profileCollectionGrid .boutique-card-fallback {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* FIX 2: REMOVE EXCESSIVE VERTICAL SPACING IN PROFILE TAB */
+/* We are overriding the compounded margins and gaps to create a tighter, editorial rhythm. */
+#profile-tab .profile-nav-menu {
+  margin-bottom: 16px !important;
+}
+
+#profile-tab .profile-collection-section {
+  margin-bottom: 16px !important;
+}
+
+#profile-tab .pcs-head {
+  margin-bottom: 8px !important;
+}
+
+#profile-tab .pcs-scroll-container {
+  /* Reduce the padding-bottom that was creating a massive gap below the collection */
+  padding-bottom: 4px !important;
+  /* Maintain the pop-out ratio for the top but tighten it slightly */
+  padding-top: 60px !important;
+  margin-top: -50px !important;
+}
+#profileCollectionGrid .pcs-item-image svg,
+#profileCollectionGrid .boutique-card-fallback svg {
+  width: 34px !important;
+  height: 34px !important;
+}
+#profileCollectionGrid .boutique-card-icon {
+  margin: 10px auto 6px !important;
+}
+
+/* ==========================================================================
+   PHASE 6: ULTIMATE PROFILE HERO CARD REDESIGN (SCREENSHOT REFINEMENT)
+   ========================================================================== */
+
+/* 1. CHASSIS (THE PHYSICAL ARTIFACT) */
+body #profile-tab .profile-hero-card {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(212, 175, 55, 0.12) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.015) 0%,
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    linear-gradient(135deg, #111113 0%, #060606 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  box-shadow:
+    0 16px 32px -8px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 235, 160, 0.15),
+    inset 0 0 30px rgba(0, 0, 0, 0.6) !important;
+  padding: 24px 20px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+/* 2. INNER FLEX LAYOUT */
+body #profile-tab .phc-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 20px !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* 3. AVATAR COLUMN */
+body #profile-tab .phc-avatar-col {
+  flex-shrink: 0 !important;
+  position: relative !important;
+}
+body #profile-tab .phc-avatar-ring {
+  width: 76px !important;
+  height: 76px !important;
+  border-radius: 50% !important;
+  padding: 3px !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.5) 0%,
+    rgba(212, 175, 55, 0.1) 100%
+  ) !important;
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2) !important;
+  position: relative !important;
+}
+body #profile-tab .phc-avatar-photo {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  border: 1px solid #000 !important;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* 4. CROWN BADGE */
+body #profile-tab .phc-crown-badge {
+  position: absolute !important;
+  bottom: -4px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 22px !important;
+  height: 22px !important;
+  background: linear-gradient(135deg, #d4af37 0%, #8c6a21 100%) !important;
+  border: 1px solid #fdfbf7 !important;
+  border-radius: 50% !important;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 5 !important;
+}
+body #profile-tab .phc-crown-badge svg {
+  width: 10px !important;
+  height: 10px !important;
+  fill: #111 !important;
+  stroke: none !important;
+}
+
+/* 5. INFO COLUMN */
+body #profile-tab .phc-info-col {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  padding: 0 !important;
+}
+
+/* 6. TYPOGRAPHY */
+body #profile-tab .phc-name {
+  font-family: "Cinzel", "Cormorant Garamond", serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  color: #fdfbf7 !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  line-height: 1.2 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  padding-inline-end: 28px !important; /* Prevent overlap with pencil if it drops down */
+}
+
+body #profile-tab .phc-tier {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: linear-gradient(
+    135deg,
+    rgba(25, 25, 28, 0.9) 0%,
+    rgba(10, 10, 12, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  border-radius: 4px !important;
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.18em !important;
+  color: #c9a94e !important;
+  padding: 4px 10px !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05) !important;
+}
+
+body #profile-tab .phc-quote {
+  font-family: "Cormorant Garamond", "Playfair Display", serif !important;
+  font-style: italic !important;
+  font-size: 0.88rem !important;
+  line-height: 1.4 !important;
+  color: #bfa87a !important;
+  margin: 2px 0 0 0 !important;
+  white-space: normal !important;
+}
+
+/* 7. META INFO */
+body #profile-tab .phc-meta {
+  width: 100% !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+  padding-top: 8px !important;
+  margin-top: 2px !important;
+  font-family: "Inter", monospace, sans-serif !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.15em !important;
+  color: #8c7e63 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px 12px !important;
+}
+body #profile-tab .phc-meta-icon {
+  display: none !important;
+}
+body #profile-tab .phc-dot {
+  color: rgba(212, 175, 55, 0.4) !important;
+  font-size: 0.6rem !important;
+}
+body #profile-tab .phc-id,
+body #profile-tab .phc-est {
+  display: inline-block !important;
+}
+
+/* 8. EDIT BUTTON FIX */
+body #profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  margin: 0 !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(
+    circle at center,
+    rgba(35, 35, 35, 0.9) 0%,
+    rgba(15, 15, 15, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 223, 128, 0.15) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+}
+body #profile-tab .phc-edit-btn svg {
+  width: 12px !important;
+  height: 12px !important;
+  stroke: #d4af37 !important;
+  stroke-width: 1.5 !important;
+}
+
+/* RTL OVERRIDES FOR EDIT BUTTON */
+html[dir="rtl"] body #profile-tab .phc-edit-btn,
+body[dir="rtl"] #profile-tab .phc-edit-btn {
+  right: auto !important;
+  left: 16px !important;
+}
+html[dir="rtl"] body #profile-tab .phc-name,
+body[dir="rtl"] #profile-tab .phc-name {
+  padding-inline-end: 0 !important;
+  padding-inline-start: 28px !important;
+}
+
+/* 9. LIGHT MODE (IMPERIAL) */
+body.light-mode #profile-tab .profile-hero-card {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(156, 109, 35, 0.08) 0%,
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.015) 0%,
+      rgba(0, 0, 0, 0.015) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    linear-gradient(135deg, #ffffff 0%, #f4f0e6 100%) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
+  box-shadow:
+    0 16px 32px -8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 1) !important;
+}
+body.light-mode #profile-tab .phc-name {
+  color: #111 !important;
+  text-shadow: none !important;
+}
+body.light-mode #profile-tab .phc-tier {
+  background: #ffffff !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
+  color: #aa771c !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode #profile-tab .phc-quote {
+  color: #665b45 !important;
+}
+body.light-mode #profile-tab .phc-meta {
+  border-top-color: rgba(156, 109, 35, 0.2) !important;
+  color: #8c7e63 !important;
+}
+body.light-mode #profile-tab .phc-edit-btn {
+  background: #ffffff !important;
+  border-color: rgba(156, 109, 35, 0.25) !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 1) !important;
+}
+body.light-mode #profile-tab .phc-edit-btn svg {
+  stroke: #aa771c !important;
+}
+
+/* 10. ENSURE NO INSET CONFLICTS */
+body #profile-tab .phc-edit-btn {
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
+}
+
+/* ==========================================================================
+   PHASE 7: MASTERPIECE PROFILE CARD OVERRIDE (SINGLE LINE, PRECISE LAYOUT)
+   ========================================================================== */
+
+/* 1. Sleeker Chassis Proportions (Less Bloated) */
+body #profile-tab .profile-hero-card {
+  padding: 16px 14px !important;
+  border-radius: 12px !important;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(212, 175, 55, 0.12) 0%,
+      transparent 60%
+    ),
+    linear-gradient(145deg, #121214 0%, #050505 100%) !important;
+  box-shadow:
+    0 12px 24px -8px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px rgba(255, 235, 160, 0.12) !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f4f0e6 100%) !important;
+  box-shadow:
+    0 12px 24px -8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 1) !important;
+}
+
+/* 2. Layout & Spacing */
+body #profile-tab .phc-inner {
+  gap: 14px !important;
+}
+
+/* 3. Avatar Size Reduction */
+body #profile-tab .phc-avatar-ring {
+  width: 68px !important;
+  height: 68px !important;
+  padding: 2px !important;
+}
+body #profile-tab .phc-crown-badge {
+  width: 20px !important;
+  height: 20px !important;
+  bottom: -4px !important;
+}
+
+/* 4. Text Column Constraints (Crucial for single-line truncation) */
+body #profile-tab .phc-info-col {
+  gap: 4px !important;
+  min-width: 0 !important; /* Flexbox truncation fix */
+  overflow: hidden !important;
+}
+
+/* 5. Typography: Forced Single Line */
+body #profile-tab .phc-name {
+  font-size: 1.1rem !important;
+  letter-spacing: 0.05em !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin-top: -2px !important;
+}
+
+/* Fix RTL padding override that caused spacing issues */
+html[dir="rtl"] body #profile-tab .phc-name,
+body[dir="rtl"] #profile-tab .phc-name {
+  padding-inline-end: 0 !important;
+  padding-inline-start: 0 !important;
+}
+
+/* Force Quote to single line as well for elegance */
+body #profile-tab .phc-quote {
+  font-size: 0.85rem !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+  margin-top: 2px !important;
+}
+
+/* Meta Info (ID, Date) on single line */
+body #profile-tab .phc-meta {
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  padding-top: 6px !important;
+  margin-top: 2px !important;
+}
+
+/* 6. Edit Button Fixed to Physical Right Edge */
+body #profile-tab .phc-edit-btn,
+html[dir="rtl"] body #profile-tab .phc-edit-btn,
+body[dir="rtl"] #profile-tab .phc-edit-btn {
+  position: absolute !important;
+  right: 12px !important;
+  left: auto !important;
+  top: 12px !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important; /* Kill RTL flipping */
+  width: 26px !important;
+  height: 26px !important;
+}
+
+/* ==========================================================================
+   PHASE 8: ABSOLUTE PEN POSITIONING (FORCE RIGHT ALWAYS)
+   ========================================================================== */
+html body #profile-tab .phc-edit-btn,
+html[dir="rtl"] body #profile-tab .phc-edit-btn,
+body[dir="rtl"] #profile-tab .phc-edit-btn,
+html body .profile-hero-card .phc-edit-btn {
+  position: absolute !important;
+  right: 14px !important;
+  left: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
+}
+
+/* ==========================================================================
+   PHASE 9: LUXURY CHASSIS RESTORATION (THE 1% CLUB MASTERPIECE)
+   ========================================================================== */
+
+/* 1. The Obsidian-Gold 3D Chassis */
+body #profile-tab .profile-hero-card {
+  position: relative !important;
+  padding: 20px !important;
+  border-radius: 16px !important;
+  background: linear-gradient(145deg, #18181a 0%, #0a0a0c 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.5),
+    inset 0 0 40px rgba(212, 175, 55, 0.03) !important;
+  overflow: hidden !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(245, 245, 245, 0.9) 100%
+  ) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 0 0 1px rgba(156, 109, 35, 0.05) !important;
+}
+
+/* 2. Pen fixed strictly to the physical top-right (Absolute Override) */
+html body #profile-tab .phc-edit-btn,
+html[dir="rtl"] body #profile-tab .phc-edit-btn,
+body[dir="rtl"] #profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: rgba(10, 10, 12, 0.6) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(4px) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 10 !important;
+}
+
+body.light-mode #profile-tab .phc-edit-btn {
+  background: radial-gradient(
+    circle at center,
+    #ffffff 0%,
+    #f7f4ec 100%
+  ) !important;
+  border-color: rgba(170, 125, 45, 0.25) !important;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 1) !important;
+}
+
+html body #profile-tab .phc-edit-btn svg {
+  width: 12px !important;
+  height: 12px !important;
+  stroke: #d4af37 !important;
+}
+body.light-mode #profile-tab .phc-edit-btn svg {
+  stroke: #aa771c !important;
+}
+
+/* 3. Layout & Inner Spacing */
+body #profile-tab .phc-inner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+body #profile-tab .phc-avatar-ring {
+  flex-shrink: 0 !important;
+  width: 72px !important;
+  height: 72px !important;
+  padding: 2px !important;
+}
+
+/* 4. Forced Single Line Typography */
+body #profile-tab .phc-info-col {
+  min-width: 0 !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  /* Add padding to the right so long text doesn't hit the absolute positioned pen */
+  padding-right: 32px !important;
+  padding-left: 0 !important;
+}
+
+/* In RTL, text flows right-to-left, but the pen is physically on the right. 
+   We must protect the right side so text doesn't overlap the pen. */
+html[dir="rtl"] body #profile-tab .phc-info-col,
+body[dir="rtl"] #profile-tab .phc-info-col {
+  padding-right: 32px !important;
+  padding-left: 0 !important;
+}
+
+body #profile-tab .phc-name {
+  font-size: 1.15rem !important;
+  letter-spacing: 0.05em !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+  display: block !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+}
+
+body #profile-tab .phc-quote,
+body #profile-tab .phc-meta {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+/* ==========================================================================
+   PHASE 10: LUXURY GOLD GLINT ANIMATION
+   ========================================================================== */
+@keyframes subtleGoldGlint {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(250%) skewX(-25deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(250%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+body #profile-tab .profile-hero-card::after {
+  content: "";
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0) 35%,
+    rgba(212, 175, 55, 0.12) 50%,
+    rgba(212, 175, 55, 0) 65%,
+    transparent 100%
+  ) !important;
+  transform: translateX(-150%) skewX(-25deg);
+  animation: subtleGoldGlint 10s infinite cubic-bezier(0.4, 0, 0.2, 1) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 35%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 65%,
+    transparent 100%
+  ) !important;
+}
+
+/* Ensure the text and avatar content sits above the glint layer */
+body #profile-tab .phc-inner {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* ==========================================================================
+   PHASE 10: LUXURY GOLD GLINT ANIMATION (PROFILE CARD)
+   ========================================================================== */
+
+@keyframes premiumGlint {
+  0% {
+    transform: translateX(-150%) skewX(-45deg);
+  }
+  15% {
+    transform: translateX(250%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-45deg); /* Pause for the remaining 85% of the duration */
+  }
+}
+
+body #profile-tab .profile-hero-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(212, 175, 55, 0.03) 40%,
+    rgba(212, 175, 55, 0.15) 50%,
+    rgba(212, 175, 55, 0.03) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-150%) skewX(-45deg);
+  animation: premiumGlint 10s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+body.light-mode #profile-tab .profile-hero-card::after {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 40%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0.4) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Elevate the inner content above the glint */
+body #profile-tab .profile-hero-card .phc-inner {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Ensure the edit button remains above the glint */
+body #profile-tab .profile-hero-card .phc-edit-btn {
+  z-index: 10 !important;
+}
+
+/* ==========================================================================
+   PHASE 11: CRITICAL FLEX & POSITIONING FIX (THE MASTERPIECE RESTORED)
+   ========================================================================== */
+
+/* 1. Release the positioning trap and force full width */
+body #profile-tab .phc-inner {
+  position: static !important;
+  width: 100% !important;
+  display: flex !important;
+}
+
+/* 2. Elevate children individually above the glint */
+body #profile-tab .phc-avatar-col,
+body #profile-tab .phc-info-col {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* 3. Ensure info column takes remaining space without collapsing */
+body #profile-tab .phc-info-col {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  padding-right: 40px !important; /* Protect text from the edit button */
+}
+
+/* 4. Fix RTL padding mirror for the edit button */
+html[dir="rtl"] body #profile-tab .phc-info-col,
+body[dir="rtl"] #profile-tab .phc-info-col {
+  padding-right: 40px !important;
+  padding-left: 0 !important;
+}
+
+/* 5. Re-anchor the pen strictly to the Card bounds */
+html body #profile-tab .profile-hero-card .phc-edit-btn,
+html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
+body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
+  z-index: 10 !important;
+}
+
+/* ==========================================================================
+   PHASE 12: BULLETPROOF FLEX LAYOUT & GLINT VISIBILITY FIX
+   ========================================================================== */
+
+/* 1. Ensure the main card is the absolute positioning anchor */
+body #profile-tab .profile-hero-card {
+  position: relative !important;
+}
+
+/* 2. Reset the inner container to behave perfectly as a flex row */
+body #profile-tab .phc-inner {
+  position: static !important; /* Allow pen to bypass and anchor to card */
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  gap: 16px !important;
+}
+
+/* 3. Elevate content layers above the animated glint */
+body #profile-tab .phc-avatar-col,
+body #profile-tab .phc-info-col {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* 4. Fix Info Column - Crucial for text truncation and alignment */
+body #profile-tab .phc-info-col {
+  flex: 1 1 0% !important; /* Grow, shrink, and base 0 width */
+  min-width: 0 !important; /* Allows child elements to truncate */
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important; /* Align text to start edge */
+  gap: 4px !important;
+  padding-right: 36px !important; /* Keep clear of the pen */
+  padding-left: 0 !important;
+}
+
+html[dir="rtl"] body #profile-tab .phc-info-col,
+body[dir="rtl"] #profile-tab .phc-info-col {
+  padding-right: 36px !important; /* Pen is strictly physical right */
+  padding-left: 0 !important;
+}
+
+/* 5. Force Single Line on Typography Elements */
+body #profile-tab .phc-name,
+body #profile-tab .phc-quote,
+body #profile-tab .phc-meta {
+  display: block !important;
+  width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.4 !important;
+}
+
+/* 6. Special Tier Formatting */
+body #profile-tab .phc-tier {
+  display: inline-block !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 2px 0 !important;
+}
+
+/* 7. Pin the Edit Button with Absolute Authority */
+html body #profile-tab .profile-hero-card .phc-edit-btn,
+html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
+body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
+  z-index: 10 !important; /* Topmost layer */
+}
+
+/* ==========================================================================
+   PHASE 13: DELICATE INSET EDGE (OBSIDIAN-GOLD SHARPENING)
+   ========================================================================== */
+
+body #profile-tab .profile-hero-card {
+  /* Using the requested #D8AE5E color for the defining edge */
+  border: 1px solid rgba(216, 174, 94, 0.3) !important;
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 1px rgba(216, 174, 94, 0.25),
+    /* The delicate #D8AE5E inset border */ inset 0 1px 1px
+      rgba(255, 255, 255, 0.05),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.6),
+    inset 0 0 40px rgba(216, 174, 94, 0.04) !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card {
+  border: 1px solid rgba(216, 174, 94, 0.45) !important;
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(216, 174, 94, 0.3),
+    /* Light mode #D8AE5E edge */ inset 0 1px 1px rgba(255, 255, 255, 1) !important;
+}
+
+/* ==========================================================================
+   PHASE 14: ULTIMATE TEXT CONTRAST & ANTI-CLIPPING GUARANTEE
+   ========================================================================== */
+
+/* 1. Absolute Z-Index Authority (Guaranteed above Glint) */
+body #profile-tab .phc-inner,
+body #profile-tab .phc-avatar-col,
+body #profile-tab .phc-info-col,
+body #profile-tab .phc-name,
+body #profile-tab .phc-tier,
+body #profile-tab .phc-quote,
+body #profile-tab .phc-meta {
+  position: relative !important;
+  z-index: 5 !important; /* Glint is at z-index: 1 */
+}
+
+/* 2. Premium Text Contrast & Legibility (Dark Mode) */
+body #profile-tab .phc-name {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8) !important; /* Keeps text readable even if glint passes behind */
+  letter-spacing: 0.05em !important;
+}
+
+body #profile-tab .phc-tier {
+  color: #d8ae5e !important; /* Synchronized with the inset border */
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
+}
+
+body #profile-tab .phc-quote {
+  color: #c0c0c5 !important; /* Brightened for better contrast against obsidian */
+  font-style: italic !important;
+}
+
+body #profile-tab .phc-meta {
+  color: #9a9a9f !important;
+}
+
+/* 3. Premium Text Contrast & Legibility (Light Mode) */
+body.light-mode #profile-tab .phc-name {
+  color: #0a0a0c !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #profile-tab .phc-tier {
+  color: #9c6d23 !important;
+  text-shadow: none !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode #profile-tab .phc-quote {
+  color: #505050 !important;
+}
+
+body.light-mode #profile-tab .phc-meta {
+  color: #707070 !important;
+}
+
+/* 4. Anti-Clipping Flex Safeties */
+body #profile-tab .phc-info-col {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 6px !important; /* Slight breathing room between lines */
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  overflow: hidden !important; /* Required for horizontal text-overflow: ellipsis */
+}
+
+/* Ensure vertical descenders (like 'p', 'y', 'q') don't get clipped by overflow:hidden */
+body #profile-tab .phc-name,
+body #profile-tab .phc-quote,
+body #profile-tab .phc-meta,
+body #profile-tab .phc-tier {
+  line-height: 1.45 !important;
+  padding-bottom: 1px !important;
+}
+
+/* ==========================================================================
+   PHASE 15: ELIMINATE TEXT CLIPPING & REDESIGN PROFILE HERO CARD
+   ========================================================================== */
+
+/* 1. KILL ALL UNWANTED ELLIPSIS & EXPAND FLEX LAYOUT */
+body #profile-tab .phc-info-col {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  overflow: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding-right: 36px !important;
+}
+
+html[dir="rtl"] body #profile-tab .phc-info-col,
+body[dir="rtl"] #profile-tab .phc-info-col {
+  padding-right: 36px !important;
+  padding-left: 0 !important;
+}
+
+/* 2. MEMBER NAME (FULL DISPLAY WITHOUT CUTTING) */
+body #profile-tab .phc-name {
+  font-family: "Cinzel", serif !important;
+  font-size: clamp(0.95rem, 3.2vw, 1.15rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  color: #fbf8f0 !important;
+  white-space: nowrap !important;
+  margin: 0 0 4px 0 !important;
+  text-overflow: clip !important;
+  overflow: visible !important;
+  display: block !important;
+}
+
+/* 3. SOVEREIGN BADGE (NO CLIPPING) */
+body #profile-tab .phc-tier {
+  display: inline-block !important;
+  width: fit-content !important;
+  max-width: none !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.18) 0%,
+    rgba(30, 30, 36, 0.8) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  border-radius: 4px !important;
+  padding: 3px 10px !important;
+  font-size: 0.62rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+  color: #dfba53 !important;
+  text-transform: uppercase !important;
+  margin-bottom: 6px !important;
+}
+
+/* 4. POETIC QUOTE (FULL MULTI-LINE FLOW) */
+body #profile-tab .phc-quote {
+  font-family:
+    "Playfair Display", "Cormorant Garamond", Georgia, serif !important;
+  font-style: italic !important;
+  font-size: 0.76rem !important;
+  line-height: 1.4 !important;
+  color: #cfc5b0 !important;
+  white-space: normal !important;
+  margin: 4px 0 8px 0 !important;
+  width: 100% !important;
+  display: block !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+/* 5. CARD CHASSIS & PIN EDIT BUTTON TO FAR TOP-RIGHT */
+body #profile-tab .profile-hero-card {
+  position: relative !important;
+  background: radial-gradient(
+    ellipse at 85% 15%,
+    rgba(212, 175, 55, 0.12) 0%,
+    #141418 50%,
+    #09090b 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.95),
+    inset 0 1px 1px rgba(255, 230, 150, 0.25) !important;
+  border-radius: 16px !important;
+  padding: 22px 18px !important;
+}
+
+body #profile-tab .phc-inner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  width: 100% !important;
+}
+
+body #profile-tab .phc-edit-btn,
+html[dir="rtl"] body #profile-tab .phc-edit-btn,
+body[dir="rtl"] #profile-tab .phc-edit-btn,
+html body #profile-tab .profile-hero-card .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  bottom: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
+  margin: 0 !important;
+  z-index: 10 !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: rgba(22, 22, 28, 0.85) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body #profile-tab .phc-edit-btn svg {
+  width: 14px !important;
+  height: 14px !important;
+  stroke: #d4af37 !important;
+}
+
+/* 6. CLEAN FOOTER (FULL TEXT DISPLAY) */
+body #profile-tab .phc-meta {
+  border-top: 1px solid rgba(212, 175, 55, 0.18) !important;
+  padding-top: 8px !important;
+  margin-top: 4px !important;
+  font-family: "Cinzel", monospace, sans-serif !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.14em !important;
+  color: #8e8065 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* ==========================================================================
+   PHASE 16: VISUAL REFINEMENT & HARMONY (THE FINAL POLISH)
+   ========================================================================== */
+
+/* 1. Refine the Avatar Ring to match the new chassis */
+body #profile-tab .phc-avatar-ring {
+  width: 90px !important;
+  height: 90px !important;
+  padding: 4px !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.8) 0%,
+    rgba(138, 107, 28, 0.2) 100%
+  ) !important;
+  border-radius: 50% !important;
+  box-shadow:
+    0 8px 24px -6px rgba(0, 0, 0, 0.9),
+    inset 0 2px 4px rgba(255, 230, 150, 0.4) !important;
+}
+
+body #profile-tab .phc-avatar-photo {
+  border: 2px solid #09090b !important; /* Deep space to separate image from gold ring */
+}
+
+/* 2. Adjust Spacing for Perfect Vertical Rhythm */
+body #profile-tab .phc-inner {
+  gap: 20px !important; /* Slightly more space between avatar and text */
+}
+
+body #profile-tab .phc-info-col {
+  padding-right: 48px !important; /* Extra safe space from the new round edit button */
+  gap: 6px !important; /* Consistent vertical breathing room */
+}
+
+/* 3. Enhance the Sovereign Badge Contrast */
+body #profile-tab .phc-tier {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.12) 0%,
+    rgba(20, 20, 24, 0.9) 100%
+  ) !important;
+  border-color: rgba(212, 175, 55, 0.6) !important; /* Stronger border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important; /* Slight elevation */
+  color: #e6c565 !important; /* Brighter gold for better readability */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 4. Fine-tune the Poetic Quote */
+body #profile-tab .phc-quote {
+  font-size: 0.8rem !important; /* Slightly larger for legibility */
+  line-height: 1.5 !important;
+  color: #b5a88e !important; /* Softer antique silver-gold */
+  margin: 6px 0 10px 0 !important; /* Better separation from badge and footer */
+  padding-left: 2px !important; /* Optical alignment */
+}
+
+/* 5. Refine the Footer Data (ID & EST) */
+body #profile-tab .phc-meta {
+  border-top: 1px solid rgba(212, 175, 55, 0.25) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0.05) 0%,
+    transparent 100%
+  ) !important;
+  padding: 8px 0 0 0 !important;
+  gap: 8px !important; /* Space between ID, dot, and EST */
+  color: #a89877 !important;
+}
+
+body #profile-tab .phc-meta-icon {
+  display: none !important; /* Remove redundant icon if it clashes with the clean aesthetic */
+}
+
+/* 6. Light Mode Sync (Ensuring it looks just as premium) */
+body.light-mode #profile-tab .profile-hero-card {
+  background: radial-gradient(
+    ellipse at 85% 15%,
+    #ffffff 0%,
+    #f7f4ec 50%,
+    #e3dbcc 100%
+  ) !important;
+  border: 1px solid rgba(156, 109, 35, 0.45) !important;
+  box-shadow:
+    0 24px 48px -12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 1) !important;
+}
+
+body.light-mode #profile-tab .phc-name {
+  color: #121212 !important;
+}
+
+body.light-mode #profile-tab .phc-tier {
+  background: linear-gradient(
+    135deg,
+    rgba(156, 109, 35, 0.08) 0%,
+    rgba(255, 255, 255, 0.9) 100%
+  ) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
+  color: #8f6820 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #profile-tab .phc-quote {
+  color: #5c5549 !important;
+}
+
+body.light-mode #profile-tab .phc-meta {
+  border-top: 1px solid rgba(156, 109, 35, 0.2) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(156, 109, 35, 0.03) 0%,
+    transparent 100%
+  ) !important;
+  color: #7a6e54 !important;
+}
+
+body.light-mode #profile-tab .phc-edit-btn {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(156, 109, 35, 0.35) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode #profile-tab .phc-edit-btn svg {
+  stroke: #9c6d23 !important;
+}
+
+/* ==========================================================================
+   PHASE 17: COMPACT CHASSIS & SINGLE-LINE QUOTE
+   ========================================================================== */
+
+/* 1. Reduce Card Width & Center it */
+body #profile-tab .profile-hero-card {
+  max-width: 340px !important; /* Restricts the card from being too wide */
+  margin: 0 auto 24px auto !important; /* Centers it perfectly */
+  padding: 18px 16px !important; /* Slightly tighter horizontal padding */
+}
+
+/* 2. Optimize Avatar Size to save horizontal space */
+body #profile-tab .phc-avatar-ring {
+  width: 76px !important;
+  height: 76px !important;
+  padding: 3px !important;
+}
+
+/* 3. Tighter Inner Gap */
+body #profile-tab .phc-inner {
+  gap: 14px !important; /* Brings avatar and text closer together */
+}
+
+/* 4. Adjust safe zone for Edit Button */
+body #profile-tab .phc-info-col {
+  padding-right: 30px !important; /* Adjusted for the narrower card */
+}
+
+html[dir="rtl"] body #profile-tab .phc-info-col,
+body[dir="rtl"] #profile-tab .phc-info-col {
+  padding-right: 30px !important;
+  padding-left: 0 !important;
+}
+
+/* 5. Force Quote to Single Line */
+body #profile-tab .phc-quote {
+  white-space: nowrap !important; /* Forces text to stay next to each other */
+  overflow: visible !important; /* Ensures it doesn't get clipped */
+  font-size: 0.78rem !important; /* Optimized to fit perfectly */
+  letter-spacing: 0.02em !important;
+  width: auto !important;
+  display: block !important;
+  margin: 4px 0 8px 0 !important;
+}
+
+/* 6. Name Sizing adjustment for narrower card */
+body #profile-tab .phc-name {
+  font-size: clamp(0.95rem, 4vw, 1.1rem) !important;
+}
+
+/* ==========================================================================
+   PHASE 18: MASTER CARD VISUAL OVERHAUL - THE 1% CLUB STANDARD
+   ========================================================================== */
+
+/* 1. The Muddy Shadow Fix -> Warm Umber Radiance */
+body .membership-card .portrait-ring {
+  box-shadow:
+    0 25px 35px -10px rgba(45, 30, 10, 0.65),
+    /* Deep warm umber shadow */ 0 10px 15px -5px rgba(212, 175, 55, 0.1),
+    /* Subtle gold reflection */ inset 0 -2px 10px rgba(0, 0, 0, 0.8),
+    /* Inner depth */ inset 0 4px 6px rgba(255, 245, 200, 0.6) !important; /* Top light bounce */
+}
+
+/* Ensure Light Mode gets an even cleaner warm shadow, not muddy black */
+body.light-mode .membership-card .portrait-ring {
+  box-shadow:
+    0 25px 35px -10px rgba(110, 80, 40, 0.25),
+    /* Lighter, warm shadow for ivory */ 0 10px 15px -5px
+      rgba(212, 175, 55, 0.15),
+    inset 0 -2px 10px rgba(80, 50, 15, 0.4),
+    inset 0 4px 6px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Cinematic Spotlight for Dark Mode */
+body:not(.light-mode) .membership-card {
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(212, 175, 55, 0.08) 0%,
+    rgba(25, 25, 30, 0.9) 40%,
+    rgba(10, 10, 12, 0.95) 100%
+  ) !important;
+}
+
+/* Enhance Light Mode Card Background */
+body.light-mode .membership-card {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #ffffff 0%,
+    #f4f1e8 45%,
+    #e8e2d2 100%
+  ) !important;
+}
+
+/* 2. Debossed Stats Boxes (Wealth & Privileges) */
+body .membership-card .wealth-stat-block,
+body .membership-card .stat-box {
+  background: transparent !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  box-shadow:
+    inset 0 4px 8px rgba(0, 0, 0, 0.4),
+    /* Deep inner shadow for debossed look */ inset 0 -1px 2px
+      rgba(255, 255, 255, 0.05),
+    /* Bottom highlight */ 0 1px 1px rgba(255, 255, 255, 0.05) !important; /* Outer bottom highlight for physical lip */
+  border-radius: 10px !important;
+}
+
+/* Light mode specific deboss */
+body.light-mode .membership-card .wealth-stat-block,
+body.light-mode .membership-card .stat-box {
+  background: rgba(220, 210, 190, 0.1) !important;
+  border: 1px solid rgba(156, 109, 35, 0.3) !important;
+  box-shadow:
+    inset 0 4px 10px rgba(100, 80, 50, 0.15),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.8),
+    0 1px 1px rgba(255, 255, 255, 1) !important;
+}
+
+/* 3. Typography Upgrades */
+/* Title: THE 1% CLUB */
+body .membership-card .card-brand-title {
+  font-family: "Cinzel", serif !important;
+  letter-spacing: 0.25em !important;
+  font-weight: 500 !important;
+  font-size: 0.95rem !important;
+}
+
+/* Member ID */
+body .membership-card .member-number {
+  color: #dfba53 !important;
+  text-shadow: 0 0 12px rgba(223, 186, 83, 0.4) !important; /* Gold glow */
+  letter-spacing: 0.2em !important;
+}
+body.light-mode .membership-card .member-number {
+  color: #9c6d23 !important;
+  text-shadow: none !important;
+}
+
+/* 4. Sovereign Luminary Badge Plaque */
+body .membership-card .badge {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.15) 0%,
+    rgba(20, 20, 24, 0.85) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 230, 150, 0.15),
+    /* Inner metal rim */ 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 4px !important; /* Harder corners like a plaque */
+  padding: 4px 12px !important;
+  color: #e6c565 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
+}
+
+body.light-mode .membership-card .badge {
+  background: linear-gradient(
+    135deg,
+    rgba(156, 109, 35, 0.08) 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(156, 109, 35, 0.45) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    0 4px 12px rgba(100, 80, 40, 0.1) !important;
+  color: #8f6820 !important;
+  text-shadow: none !important;
+}
+
+/* 5. Action Buttons (Share / Copy) -> Gold Bars */
+body .membership-card .card-actions .btn {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 30, 36, 0.9) 0%,
+    rgba(15, 15, 18, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 230, 150, 0.2),
+    /* Top highlight */ inset 0 -1px 2px rgba(0, 0, 0, 0.8),
+    /* Bottom shadow */ 0 8px 16px -4px rgba(0, 0, 0, 0.6) !important;
+  color: #d4af37 !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+body .membership-card .card-actions .btn:active {
+  transform: translateY(2px) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.8),
+    0 2px 4px -2px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.light-mode .membership-card .card-actions .btn {
+  background: linear-gradient(180deg, #ffffff 0%, #f0ece1 100%) !important;
+  border: 1px solid rgba(156, 109, 35, 0.35) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(150, 120, 80, 0.1),
+    0 8px 16px -4px rgba(100, 80, 40, 0.15) !important;
+  color: #8f6820 !important;
+}
+
+/* ==========================================================================
+   PHASE 19: ANIMATING THE RINGS & AVATAR PULSE (THE LIVING IDENTITY)
+   ========================================================================== */
+
+/* 1. Make the Avatar Ring Pulse Very Subtly */
+@keyframes luxuryPulse {
+  0% {
+    box-shadow:
+      0 25px 35px -10px rgba(45, 30, 10, 0.65),
+      0 10px 15px -5px rgba(212, 175, 55, 0.1),
+      inset 0 -2px 10px rgba(0, 0, 0, 0.8),
+      inset 0 4px 6px rgba(255, 245, 200, 0.6);
+  }
+  50% {
+    box-shadow:
+      0 25px 35px -10px rgba(45, 30, 10, 0.65),
+      0 10px 25px -2px rgba(212, 175, 55, 0.25),
+      /* Outer glow expands slightly */ inset 0 -2px 10px rgba(0, 0, 0, 0.8),
+      inset 0 4px 8px rgba(255, 245, 200, 0.8); /* Inner top highlight intensifies */
+  }
+  100% {
+    box-shadow:
+      0 25px 35px -10px rgba(45, 30, 10, 0.65),
+      0 10px 15px -5px rgba(212, 175, 55, 0.1),
+      inset 0 -2px 10px rgba(0, 0, 0, 0.8),
+      inset 0 4px 6px rgba(255, 245, 200, 0.6);
+  }
+}
+
+/* Light Mode Pulse variant */
+@keyframes luxuryPulseLight {
+  0% {
+    box-shadow:
+      0 25px 35px -10px rgba(110, 80, 40, 0.25),
+      0 10px 15px -5px rgba(212, 175, 55, 0.15),
+      inset 0 -2px 10px rgba(80, 50, 15, 0.4),
+      inset 0 4px 6px rgba(255, 255, 255, 0.9);
+  }
+  50% {
+    box-shadow:
+      0 25px 35px -10px rgba(110, 80, 40, 0.25),
+      0 10px 25px -2px rgba(212, 175, 55, 0.3),
+      /* Brighter gold reflection */ inset 0 -2px 10px rgba(80, 50, 15, 0.4),
+      inset 0 4px 10px rgba(255, 255, 255, 1); /* Sharper top specular */
+  }
+  100% {
+    box-shadow:
+      0 25px 35px -10px rgba(110, 80, 40, 0.25),
+      0 10px 15px -5px rgba(212, 175, 55, 0.15),
+      inset 0 -2px 10px rgba(80, 50, 15, 0.4),
+      inset 0 4px 6px rgba(255, 255, 255, 0.9);
+  }
+}
+
+body .membership-card .portrait-ring {
+  animation: luxuryPulse 4s ease-in-out infinite !important;
+}
+
+body.light-mode .membership-card .portrait-ring {
+  animation: luxuryPulseLight 4s ease-in-out infinite !important;
+}
+
+/* 2. Fix the Stats Rings (Progress Bars) */
+/* Ensure the rings are visible and ready to be animated by JS */
+body .membership-card .ring-progress {
+  stroke: url(#ringGoldGrad) !important;
+  stroke-width: 4.5px !important;
+  stroke-linecap: round !important;
+  fill: none !important;
+  transform-origin: center !important;
+  transform: rotate(-90deg) !important; /* Starts at the top */
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) !important; /* Smooth animation when JS sets it */
+}
+
+/* Base track styles */
+body .membership-card .ring-track {
+  stroke: rgba(212, 175, 55, 0.1) !important;
+  stroke-width: 4.5px !important;
+  fill: none !important;
+}
+body.light-mode .membership-card .ring-track {
+  stroke: rgba(156, 109, 35, 0.15) !important;
+}
+
+/* Ensure SVG wraps them nicely */
+body .membership-card .ring-svg {
+  transform: rotate(
+    0deg
+  ) !important; /* Resetting the container rotate since we rotate the circle itself now */
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Metric ring container */
+body .membership-card .metric-ring {
+  position: relative !important;
+  width: 90px !important;
+  height: 90px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+body .membership-card .ring-center {
+  position: absolute !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Numbers inside */
+body .membership-card .ring-value {
+  font-family: "Cinzel", serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: #d4af37 !important;
+  letter-spacing: 0.05em !important;
+}
+body.light-mode .membership-card .ring-value {
+  color: #9c6d23 !important;
+}
+
+/* Labels below */
+body .membership-card .ring-label {
+  position: absolute !important;
+  bottom: -20px !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #8e8065 !important;
+  white-space: nowrap !important;
+}
+body.light-mode .membership-card .ring-label {
+  color: #7a6e54 !important;
+}
+
+/* ==========================================================================
+   PHASE 20: STATS RINGS PROPORTION RESTORE (THE CHRONOGRAPH FIX)
+   ========================================================================== */
+
+/* 1. Restore the delicate size of the container */
+body .membership-card .metric-ring {
+  width: auto !important;
+  height: auto !important;
+  padding: 10px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+/* 2. Shrink the SVG to luxury chronograph size (44px instead of 90px) */
+body .membership-card .ring-svg {
+  width: 44px !important;
+  height: 44px !important;
+  margin-bottom: 4px !important; /* Space before label */
+}
+
+/* 3. Center the number perfectly inside the 44px ring */
+body .membership-card .ring-center {
+  position: absolute !important;
+  top: 10px !important; /* Exactly matches the top padding of metric-ring */
+  left: 0 !important;
+  width: 100% !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body .membership-card .ring-value {
+  font-size: 0.65rem !important; /* Scaled down elegantly */
+  letter-spacing: 0 !important;
+}
+
+/* 4. Restore the Label position (flow naturally below the ring) */
+body .membership-card .ring-label {
+  position: relative !important;
+  bottom: auto !important;
+  font-size: 0.55rem !important;
+  margin: 0 !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* 5. Maintain the 3D Debossed look without breaking layout */
+body .membership-card .metric-ring {
+  border-radius: 12px !important;
+}
+
+/* ==========================================================================
+   PHASE 21: THE MASTERPIECE ART DIRECTION (ULTRA-REALISM)
+   ========================================================================== */
+
+/* 1. The Canvas: Obsidian & Ivory Realism (Multi-layered Lighting) */
+body .membership-card,
+body #profile-tab .profile-hero-card {
+  /* Matte finish with a sweeping diagonal light reflection */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0) 35%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(212, 175, 55, 0.15) 0%,
+      rgba(20, 20, 24, 0.8) 50%,
+      #0a0a0c 100%
+    ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  /* Complex bevel: outer drop, outer lip highlight, inner lip shadow, ambient inner glow */
+  box-shadow:
+    0 30px 60px -15px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.8),
+    inset 0 0 30px rgba(212, 175, 55, 0.03) !important;
+}
+
+body.light-mode .membership-card,
+body.light-mode #profile-tab .profile-hero-card {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0) 40%
+    ),
+    radial-gradient(circle at 85% 15%, #ffffff 0%, #f2efe6 50%, #e3dbcc 100%) !important;
+  border: 1px solid rgba(170, 125, 45, 0.35) !important;
+  box-shadow:
+    0 30px 60px -15px rgba(40, 30, 10, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(150, 120, 80, 0.15) !important;
+}
+
+/* 2. Gold Foil Stamping (Typography Depth) */
+/* Text that looks physically pressed and foiled */
+body .membership-card .card-brand-title,
+body .membership-card .member-name,
+body #profile-tab .phc-name {
+  color: #ebd18a !important; /* Pure gold leaf color */
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.15),
+    /* Top light catch */ 0 2px 4px rgba(0, 0, 0, 0.8) !important; /* Bottom cast shadow */
+}
+
+body.light-mode .membership-card .card-brand-title,
+body.light-mode .membership-card .member-name,
+body.light-mode #profile-tab .phc-name {
+  color: #1a1a1a !important;
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.8),
+    /* Impression highlight */ 0 -1px 1px rgba(0, 0, 0, 0.1) !important; /* Impression shadow */
+}
+
+/* 3. The Medallion Setting (Machined Metal Look) */
+body .membership-card .portrait-ring,
+body #profile-tab .phc-avatar-ring {
+  background: conic-gradient(
+    from 180deg,
+    #d4af37,
+    #ffe599,
+    #d4af37,
+    #8a6b1c,
+    #d4af37
+  ) !important;
+  padding: 4px !important;
+  /* Deep inset to make it look embedded */
+  box-shadow:
+    0 15px 25px -5px rgba(0, 0, 0, 0.85),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 6px rgba(100, 70, 20, 0.8) !important;
+}
+
+body .membership-card .portrait-photo,
+body #profile-tab .phc-avatar-photo {
+  border: 1px solid rgba(0, 0, 0, 0.8) !important;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6) !important; /* Deepen the photo well */
+}
+
+/* 4. CNC-Machined Chronograph Dials (Stats Rings) */
+body .membership-card .metric-ring {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+body .membership-card .ring-track {
+  stroke: rgba(0, 0, 0, 0.4) !important; /* Deep groove */
+  filter: drop-shadow(
+    0 1px 1px rgba(255, 255, 255, 0.08)
+  ) !important; /* Groove bottom reflection */
+}
+body.light-mode .membership-card .ring-track {
+  stroke: rgba(0, 0, 0, 0.08) !important;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.8)) !important;
+}
+
+body .membership-card .ring-progress {
+  filter: drop-shadow(0 0 3px rgba(212, 175, 55, 0.5))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)) !important;
+}
+body.light-mode .membership-card .ring-progress {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2)) !important;
+}
+
+body .membership-card .ring-value {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+body.light-mode .membership-card .ring-value {
+  text-shadow: none !important;
+}
+
+/* 5. The Polished Plaque (Sovereign Badge) */
+body .membership-card .badge,
+body #profile-tab .phc-tier {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 30, 35, 0.9) 0%,
+    rgba(15, 15, 18, 0.95) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 230, 150, 0.2),
+    /* Top bevel */ inset 0 -1px 1px rgba(0, 0, 0, 0.8),
+    /* Bottom bevel */ 0 8px 16px -4px rgba(0, 0, 0, 0.8) !important; /* Cast shadow */
+  color: #dfba53 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+}
+body.light-mode .membership-card .badge,
+body.light-mode #profile-tab .phc-tier {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f0e6 100%) !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.05),
+    0 8px 16px -4px rgba(0, 0, 0, 0.1) !important;
+  color: #9c6d23 !important;
+}
+
+/* ==========================================================================
+   PHASE 22: OBSIDIAN GLASSMORPHISM & QUOTE REFINEMENT
+   ========================================================================== */
+
+/* 1. Subtle Glassmorphism for the Profile Hero Card */
+body #profile-tab .profile-hero-card {
+  /* Semi-transparent obsidian blending with gold gradients */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0) 30%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(212, 175, 55, 0.25) 0%,
+      rgba(15, 15, 18, 0.65) 50%,
+      rgba(8, 8, 10, 0.75) 100%
+    ) !important;
+
+  /* The Glass Blur Effect */
+  backdrop-filter: blur(16px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+
+  /* Delicate glass edge */
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+
+  /* Deepened shadow for floating glass effect */
+  box-shadow:
+    0 30px 60px -15px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 0 20px rgba(212, 175, 55, 0.05) !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0) 40%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(242, 239, 230, 0.7) 50%,
+      rgba(227, 219, 204, 0.75) 100%
+    ) !important;
+  backdrop-filter: blur(16px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+  border: 1px solid rgba(170, 125, 45, 0.25) !important;
+  box-shadow:
+    0 30px 60px -15px rgba(40, 30, 10, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(150, 120, 80, 0.05) !important;
+}
+
+/* 2. Refine the Member Quote Typography & Alignment */
+body #profile-tab .phc-quote {
+  text-align: start !important; /* Ensures smooth alignment with the left/right edge based on language direction */
+  white-space: nowrap !important; /* Keeps the short requested quote strictly on one line */
+  overflow: visible !important;
+  font-family:
+    "Playfair Display", "Cormorant Garamond", Georgia, serif !important;
+  font-style: italic !important;
+  font-size: 0.82rem !important; /* Slightly enlarged for luxurious readability */
+  line-height: 1.4 !important;
+  color: rgba(
+    207,
+    197,
+    176,
+    0.95
+  ) !important; /* Soft antique silver-gold with subtle transparency */
+  margin: 6px 0 10px 0 !important;
+  padding: 0 !important;
+  letter-spacing: 0.01em !important;
+}
+
+body.light-mode #profile-tab .phc-quote {
+  color: rgba(92, 85, 73, 0.95) !important;
+}
+
+/* ==========================================================================
+   PHASE MEMBERSHIP — TYPOGRAPHY MICRO-PASS ONLY
+   Precision Typography Refinement (NO LAYOUT REDESIGN)
+   ========================================================================== */
+
+/* 1. MEMBER NAME (Strongest typographic element) */
+#membership-tab .member-name {
+  font-family:
+    "Cormorant Garamond", "Cinzel", "Playfair Display", serif !important;
+  font-weight: 500 !important;
+  font-size: 1.45rem !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1.2 !important;
+  text-transform: uppercase !important;
+}
+
+/* 2. MEMBERSHIP STATUS (Refined sans-serif) */
+#membership-tab .tier-pill {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.55rem !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  line-height: 1.1 !important;
+}
+
+#membership-tab #tierName {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.15em !important;
+}
+
+/* 3. MEMBER NUMBER (Precision micro-typography) */
+#membership-tab .member-label {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 0.5rem !important;
+  letter-spacing: 0.25em !important;
+  text-transform: uppercase !important;
+}
+
+#membership-tab .member-number {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 0.55rem !important;
+  letter-spacing: 0.15em !important;
+}
+
+/* 4. METRIC NUMBERS (Premium display numerals) */
+#membership-tab .ring-value {
+  font-family: "Cormorant Garamond", "Cinzel", serif !important;
+  font-weight: 500 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* 5. METRIC LABELS (Secondary luxury instrument labels) */
+#membership-tab .ring-label {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 0.45rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+}
+
+/* 6. THE 1% CLUB (Internal branding inside card) */
+#membership-tab .card-club-name {
+  font-family: "Cormorant Garamond", "Cinzel", serif !important;
+  font-weight: 500 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.2em !important;
+}
+
+/* 7. FOOTER / MICROTEXT (Disclaimer) */
+#membership-tab .card-tagline {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 0.55rem !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1.4 !important;
+  display: block !important;
+}
+#membership-tab .card-tagline span {
+  font-size: 0.45rem !important;
+  letter-spacing: 0.15em !important;
+  display: block !important;
+}
+
+/* 8. BUTTON TYPOGRAPHY (Private banking controls) */
+#membership-tab .card-actions .btn {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.2 !important;
+}
+#membership-tab .card-actions .btn span {
+  letter-spacing: 0.08em !important;
+}
+
+/* ==========================================================================
+   ARABIC / RTL (Natural elegance, no excessive tracking)
+   ========================================================================== */
+html[dir="rtl"] #membership-tab .member-name,
+html[dir="rtl"] #membership-tab .tier-pill,
+html[dir="rtl"] #membership-tab #tierName,
+html[dir="rtl"] #membership-tab .member-label,
+html[dir="rtl"] #membership-tab .member-number,
+html[dir="rtl"] #membership-tab .ring-value,
+html[dir="rtl"] #membership-tab .ring-label,
+html[dir="rtl"] #membership-tab .card-club-name,
+html[dir="rtl"] #membership-tab .card-tagline,
+html[dir="rtl"] #membership-tab .card-tagline span,
+html[dir="rtl"] #membership-tab .card-actions .btn,
+html[dir="rtl"] #membership-tab .card-actions .btn span {
+  letter-spacing: 0 !important;
+}
+
+/* Responsive adjustments if required (strictly isolated to Membership fonts) */
+@media (max-width: 375px) {
+  #membership-tab .member-name {
+    font-size: 1.2rem !important;
+  }
+}
+@media (max-width: 360px) {
+  #membership-tab .member-name {
+    font-size: 1.15rem !important;
+  }
+}
+
+/* ==========================================================================
+   MEMBER NAME REFINEMENT (Specific Clamp & Tracking)
+   ========================================================================== */
+#membership-tab .member-name {
+  font-family:
+    "Cormorant Garamond", "Cinzel", "Playfair Display", serif !important;
+  font-size: clamp(1.2rem, 4vw, 1.6rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  white-space: nowrap !important;
+}
+
+/* ==========================================================================
+   EDITORIAL TYPOGRAPHY FINAL PASS (Cormorant Garamond & Inter)
+   ========================================================================== */
+
+/* High-contrast serif for Member Name */
+#membership-tab .member-name {
+  font-family: "Cormorant Garamond", "Playfair Display", serif !important;
+  font-size: clamp(1.2rem, 4vw, 1.6rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+/* Inter for all UI labels and secondary text */
+#membership-tab .tier-pill,
+#membership-tab #tierName,
+#membership-tab .member-label,
+#membership-tab .member-number,
+#membership-tab .ring-label,
+#membership-tab .card-tagline,
+#membership-tab .card-tagline span,
+#membership-tab .card-actions .btn,
+#membership-tab .card-actions .btn span,
+#membership-tab .section-name,
+#membership-tab .tagline {
+  font-family: "Inter", sans-serif !important;
+}
+
+/* Precise editorial-grade letter-spacing and line-heights (LTR) */
+#membership-tab .member-label {
+  letter-spacing: 0.25em !important;
+  font-weight: 400 !important;
+  font-size: 0.5rem !important;
+}
+#membership-tab .member-number {
+  letter-spacing: 0.15em !important;
+  font-weight: 400 !important;
+  font-size: 0.55rem !important;
+}
+#membership-tab .ring-label {
+  letter-spacing: 0.18em !important;
+  font-weight: 400 !important;
+}
+#membership-tab .card-tagline {
+  letter-spacing: 0.12em !important;
+  line-height: 1.4 !important;
+  font-weight: 400 !important;
+  display: block !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+#membership-tab .card-tagline span {
+  font-size: 0.45rem !important;
+  letter-spacing: 0.15em !important;
+  display: block !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+#membership-tab .card-actions .btn {
+  letter-spacing: 0.08em !important;
+}
+
+/* Zero letter-spacing for elegant RTL (Arabic) rendering */
+html[dir="rtl"] #membership-tab .member-name,
+html[dir="rtl"] #membership-tab .member-label,
+html[dir="rtl"] #membership-tab .member-number,
+html[dir="rtl"] #membership-tab .ring-label,
+html[dir="rtl"] #membership-tab .card-tagline,
+html[dir="rtl"] #membership-tab .card-actions .btn {
+  letter-spacing: 0 !important;
+}
+
+body.light-mode {
+  /* Imperial Ivory / Light Mode Gold Adjustments */
+  --gold-primary: #a47a3b; /* Deeper antique gold for contrast against ivory */
+  --gold-highlight: #c29b57; /* Subdued highlight */
+  --gold-deep: #7d5a24; /* Darker body */
+  --gold-antique: #4a3311; /* Deepest engraving */
+  --gold-micro: #8c662d; /* Satin details */
+}
+
+/* ==========================================================================
+   PHASE MEMBERSHIP — GOLD MATERIAL SYSTEM
+   Application of Global Gold Language to Membership Tab
+   ========================================================================== */
+
+/* 1. PRIMARY GOLD (Polished & Identity) */
+#membership-tab .card-club-name {
+  color: var(--gold-primary) !important;
+  background: var(--gold-grad-polished) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important; /* No glow, purely metallic reflection */
+}
+
+#membership-tab .tier-pill {
+  color: var(--gold-primary) !important;
+  border-color: rgba(
+    201,
+    168,
+    106,
+    0.4
+  ) !important; /* Uses raw hex for opacity of --gold-primary */
+  box-shadow:
+    inset 0 1px 0 rgba(234, 224, 196, 0.1),
+    /* Highlight */ 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 25, 20, 0.4) 0%,
+    rgba(10, 8, 6, 0.6) 100%
+  ) !important;
+}
+body.light-mode #membership-tab .tier-pill {
+  border-color: rgba(164, 122, 59, 0.4) !important; /* Light mode opacity */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 2px 4px rgba(40, 30, 10, 0.1) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(240, 235, 225, 0.6) 100%
+  ) !important;
+}
+
+/* 2. SECONDARY GOLD (Brushed & Structural) */
+/* Member Number (Engraved metal) */
+#membership-tab .member-number {
+  color: var(--gold-micro) !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8) !important; /* Engraved depth, no glow */
+}
+body.light-mode #membership-tab .member-number {
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Ring Values */
+#membership-tab .ring-value {
+  color: var(--gold-primary) !important;
+}
+
+/* Central Star / Seal */
+#membership-tab .living-core svg path {
+  fill: url(#ringGoldGrad) !important; /* Re-using existing SVG gradient, but will override the visual feel of the container */
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8)) !important;
+}
+body.light-mode #membership-tab .living-core svg path {
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.8)) !important;
+}
+
+/* 3. MICRO GOLD & ANTIQUE (Labels and Shadows) */
+#membership-tab .member-label,
+#membership-tab .ring-label {
+  color: var(--gold-antique) !important; /* Very subtle and restrained */
+}
+
+/* 4. METRIC RINGS (Precision Metal Edge) */
+#membership-tab .ring-track {
+  stroke: rgba(90, 70, 34, 0.2) !important; /* Deep antique shadow */
+}
+#membership-tab .ring-progress {
+  stroke: var(--gold-primary) !important;
+  filter: drop-shadow(
+    0 1px 1px rgba(0, 0, 0, 0.8)
+  ) !important; /* Physical edge, no bloom */
+}
+body.light-mode #membership-tab .ring-track {
+  stroke: rgba(74, 51, 17, 0.1) !important;
+}
+body.light-mode #membership-tab .ring-progress {
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.8)) !important;
+}
+
+/* 5. BUTTON BORDERS (Brushed Metal) */
+#membership-tab .card-actions .btn {
+  color: var(--gold-micro) !important;
+  border: 1px solid rgba(138, 109, 59, 0.4) !important; /* --gold-deep with opacity */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+body.light-mode #membership-tab .card-actions .btn {
+  border-color: rgba(125, 90, 36, 0.3) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+#membership-tab .card-actions .btn:hover {
+  background: rgba(138, 109, 59, 0.05) !important;
+  border-color: var(--gold-primary) !important;
+  color: var(--gold-primary) !important;
+}
+body.light-mode #membership-tab .card-actions .btn:hover {
+  background: rgba(125, 90, 36, 0.05) !important;
+}
+
+/* ==========================================================================
+   SOVEREIGN EMBLEM REFINEMENT (Polished Heraldic Treatment)
+   ========================================================================== */
+#membership-tab .living-core svg path {
+  fill: var(--gold-primary) !important;
+  stroke: var(--gold-highlight) !important;
+  stroke-width: 0.5px !important;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.9))
+    drop-shadow(0 0 1px rgba(255, 255, 255, 0.2)) !important;
+}
+
+body.light-mode #membership-tab .living-core svg path {
+  fill: var(--gold-primary) !important;
+  stroke: var(--gold-highlight) !important;
+  stroke-width: 0.5px !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2))
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8)) !important;
+}
+
+:root {
+  --gold-shadow: var(--gold-antique, #5a4622);
+}
+body.light-mode {
+  --gold-shadow: var(--gold-antique, #4a3311);
+}
+
+/* ==========================================================================
+   HALLMARK & CROWN REFINEMENT (High-Contrast Metallic Seal)
+   ========================================================================== */
+
+/* Crown Emblem Texture */
+#membership-tab #equippedCrownSlot svg path {
+  fill: var(--gold-primary) !important;
+  stroke: var(--gold-highlight) !important;
+  stroke-width: 0.5px !important;
+  filter: drop-shadow(0 2px 3px var(--gold-shadow))
+    drop-shadow(0 -1px 1px rgba(255, 255, 255, 0.15)) !important;
+}
+
+body.light-mode #membership-tab #equippedCrownSlot svg path {
+  filter: drop-shadow(0 1px 2px var(--gold-shadow))
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8)) !important;
+}
+
+/* Hallmark Line (Micro-engraved aesthetics) */
+#membership-tab #cardHallmarkLine {
+  opacity: 0.85 !important;
+}
+
+#membership-tab #cardHallmarkLine span {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-primary),
+    transparent
+  ) !important;
+  height: 1px !important;
+  opacity: 0.6 !important;
+}
+
+#membership-tab #cardHallmarkLine svg path {
+  stroke: var(--gold-primary) !important;
+  fill: transparent !important; /* Deep obsidian fill inside the shield */
+  filter: drop-shadow(0 1px 2px var(--gold-shadow)) !important;
+}
+body.light-mode #membership-tab #cardHallmarkLine svg path {
+  fill: transparent !important;
+}
+
+#membership-tab #cardHallmarkLine svg text {
+  fill: var(--gold-highlight) !important;
+  text-shadow: 0 1px 1px var(--gold-shadow) !important; /* Authentic stamped look */
+}
+
+/* ==========================================================================
+   PHASE MEMBERSHIP — GOLD MATERIAL PASS v2
+   REALISTIC POLISHED GOLD / 3D METALLIC EFFECT ONLY
+   ========================================================================== */
+
+/* 1. Global Gold Variables Refinement for Polished Metal */
+:root {
+  --gold-primary: #c9a86a;
+  --gold-highlight: #fff1d0; /* Brighter, narrower specular highlight */
+  --gold-midtone: #b6924b;
+  --gold-deep: #705524;
+  --gold-shadow: #2b210d; /* Almost black-brown for realistic metal shadow */
+  --gold-micro: #9a7c40;
+
+  /* The Realistic Polished Gradient (Directional Light: Top-Left) */
+  --gold-metal-polished: linear-gradient(
+    135deg,
+    var(--gold-deep) 0%,
+    var(--gold-highlight) 15%,
+    /* Specular */ var(--gold-primary) 35%,
+    var(--gold-midtone) 65%,
+    var(--gold-deep) 85%,
+    var(--gold-shadow) 100%
+  );
+
+  /* Satin/Brushed Metal */
+  --gold-metal-brushed: linear-gradient(
+    145deg,
+    var(--gold-midtone) 0%,
+    var(--gold-micro) 50%,
+    var(--gold-deep) 100%
+  );
+}
+
+body.light-mode {
+  --gold-highlight: #f5deae;
+  --gold-primary: #ad8331;
+  --gold-midtone: #8e6821;
+  --gold-deep: #5e410c;
+  --gold-shadow: #332204;
+}
+
+/* 2. CARD BORDER / FRAME (Preserving precise original 6px stack geometry, adding material) */
+#membership-tab .membership-card {
+  box-shadow:
+    0 0 0 1px var(--gold-highlight) !important,
+    /* Inner highlight */ 0 0 0 2px var(--gold-primary) !important,
+    /* Inner metal */ 0 0 0 4px var(--obsidian) !important,
+    /* Gap */ 0 0 0 5px var(--gold-deep) !important,
+    /* Outer metal frame */ 0 0 0 6px var(--gold-shadow) !important,
+    /* Outer shadow edge */ 0 35px 70px -15px rgba(0, 0, 0, 0.95) !important,
+    /* Physical shadow */ 0 15px 25px -10px rgba(0, 0, 0, 0.8) !important;
+
+  filter: none !important; /* REMOVE THE YELLOW GLOW FILTER */
+}
+
+body.light-mode #membership-tab .membership-card {
+  box-shadow:
+    0 0 0 1px var(--gold-highlight) !important,
+    0 0 0 2px var(--gold-primary) !important,
+    0 0 0 4px var(--ivory, #fcf9f2) !important,
+    0 0 0 5px var(--gold-deep) !important,
+    0 0 0 6px var(--gold-shadow) !important,
+    0 25px 50px -15px rgba(0, 0, 0, 0.15) !important,
+    0 10px 20px -10px rgba(0, 0, 0, 0.1) !important;
+
+  filter: none !important; /* REMOVE THE YELLOW GLOW FILTER */
+}
+
+/* 3. TIER PILL (Machined metal plate with subtle bevel) */
+#membership-tab .tier-pill {
+  border: 1px solid transparent !important;
+  background-image:
+    linear-gradient(rgba(20, 18, 16, 0.95), rgba(10, 8, 6, 0.98)),
+    var(--gold-metal-brushed) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    /* Top bevel */ inset 0 -1px 1px rgba(0, 0, 0, 0.8),
+    /* Shadow bevel */ 0 2px 5px rgba(0, 0, 0, 0.6) !important; /* Physical drop */
+  color: var(--gold-primary) !important;
+}
+
+body.light-mode #membership-tab .tier-pill {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(245, 240, 230, 0.95)),
+    var(--gold-metal-brushed) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 4. BUTTONS (Brushed metal with bevel) */
+#membership-tab .card-actions .btn {
+  border: 1px solid transparent !important;
+  background-image:
+    linear-gradient(var(--obsidian-2), var(--obsidian-2)),
+    var(--gold-metal-brushed) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow:
+    inset 0 1px 0px rgba(255, 255, 255, 0.08),
+    /* Top bevel highlight */ inset 0 -1px 1px rgba(0, 0, 0, 0.8),
+    /* Bottom shadow bevel */ 0 2px 4px rgba(0, 0, 0, 0.5) !important; /* Drop shadow */
+  color: var(--gold-primary) !important;
+  text-shadow: none !important;
+}
+#membership-tab .card-actions .btn:hover {
+  background-image:
+    linear-gradient(rgba(201, 168, 106, 0.05), rgba(201, 168, 106, 0.05)),
+    var(--gold-metal-polished) !important;
+  color: var(--gold-highlight) !important;
+}
+
+body.light-mode #membership-tab .card-actions .btn {
+  background-image:
+    linear-gradient(var(--ivory, #fcf9f2), var(--ivory, #fcf9f2)),
+    var(--gold-metal-brushed) !important;
+  box-shadow:
+    inset 0 1px 0px rgba(255, 255, 255, 1),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 5. TEXT (Subtle metallic specular) */
+#membership-tab .card-club-name {
+  background: var(--gold-metal-polished) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(
+    0 1px 0px var(--gold-shadow)
+  ) !important; /* Physical stamped depth */
+}
+
+body.light-mode #membership-tab .card-club-name {
+  filter: drop-shadow(0 1px 0px rgba(255, 255, 255, 0.6)) !important;
+}
+
+/* Ensure Member Name remains visually unchanged in geometry, but respects dark/light contrast perfectly */
+#membership-tab .member-name {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important; /* Sharp stamped drop shadow, no glow */
+}
+body.light-mode #membership-tab .member-name {
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8) !important;
+}
+
+#membership-tab .ring-value {
+  color: var(--gold-primary) !important;
+  text-shadow: 0 1px 1px var(--gold-shadow) !important;
+}
+
+/* 6. SOVEREIGN EMBLEM / LIVING CORE (3D Mounted Emblem) */
+#membership-tab .living-core svg path {
+  fill: url(#ringGoldGrad) !important;
+  stroke: var(--gold-highlight) !important;
+  stroke-width: 0.4px !important;
+  filter: drop-shadow(0 1px 1px var(--gold-shadow)) /* Inner metal edge */
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) !important; /* Cast physical shadow */
+}
+body.light-mode #membership-tab .living-core svg path {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2))
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 1)) !important;
+}
+
+/* 7. CROWN (Polished Gold Mounted) */
+#membership-tab #equippedCrownSlot svg path {
+  fill: url(#ringGoldGrad) !important;
+  stroke: var(--gold-highlight) !important;
+  stroke-width: 0.4px !important;
+  filter: drop-shadow(0 1px 1px var(--gold-shadow))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.8)) !important;
+}
+body.light-mode #membership-tab #equippedCrownSlot svg path {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1))
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 1)) !important;
+}
+
+/* 8. METRIC RINGS (Precision Machined) */
+#membership-tab .ring-track {
+  stroke: var(--gold-shadow) !important;
+  stroke-width: 2px !important;
+}
+body.light-mode #membership-tab .ring-track {
+  stroke: rgba(0, 0, 0, 0.05) !important;
+}
+
+#membership-tab .ring-progress {
+  stroke: url(#ringGoldGrad) !important;
+  stroke-width: 1.5px !important;
+  filter: drop-shadow(0 1px 0px rgba(255, 255, 255, 0.15))
+    /* Top highlight bevel */ drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9)) !important; /* Cast shadow */
+}
+body.light-mode #membership-tab .ring-progress {
+  filter: drop-shadow(0 1px 0px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15)) !important;
+}
+
+/* ==========================================================================
+   PHASE — REAL GOLD MATERIAL REFINEMENT v3 (PHYSICAL METAL ONLY)
+   ========================================================================== */
+
+:root {
+  /* Core Realistic Physical Metal Palette */
+  --gold-primary: #c9a86a;
+  --gold-highlight: #fff8e7; /* Sharp, narrow specular */
+  --gold-champagne: #f0d59d;
+  --gold-midtone: #a68442;
+  --gold-shadow: #3a2a12; /* Dark valley */
+  --gold-deep: #1a1205; /* Recessed edge */
+  --gold-antique: #7d6133;
+  --gold-satin: #b39459;
+
+  /* Physical Metal Polished Gradient (Matches SVG structure) */
+  --gold-metal-polished: linear-gradient(
+    135deg,
+    var(--gold-shadow) 0%,
+    var(--gold-primary) 25%,
+    var(--gold-champagne) 38%,
+    var(--gold-highlight) 42%,
+    var(--gold-midtone) 65%,
+    var(--gold-deep) 100%
+  );
+
+  /* Horizontal Micro-brush / Satin Gradient */
+  --gold-metal-brushed: linear-gradient(
+    90deg,
+    var(--gold-shadow) 0%,
+    var(--gold-primary) 20%,
+    var(--gold-satin) 50%,
+    var(--gold-primary) 80%,
+    var(--gold-shadow) 100%
+  );
+}
+
+body.light-mode {
+  /* Deeper contrast for Ivory backgrounds */
+  --gold-primary: #a47b33;
+  --gold-highlight: #f5e2bb;
+  --gold-champagne: #d4ad66;
+  --gold-midtone: #7a571b;
+  --gold-shadow: #38250a;
+  --gold-deep: #1f1400;
+  --gold-antique: #664917;
+  --gold-satin: #8f6926;
+}
+
+/* 1. OUTER CARD FRAME (Thin physical metal edge via background-clip) */
+#membership-tab .membership-card {
+  border: 1px solid transparent !important;
+  background:
+    linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0) 40%
+      )
+      padding-box,
+    radial-gradient(
+        ellipse at 50% 30%,
+        rgba(30, 25, 20, 0.95) 0%,
+        rgba(12, 10, 8, 1) 100%
+      )
+      padding-box,
+    var(--gold-metal-polished) border-box !important;
+
+  /* 1-2px depth shadow stack (Inner bevel + Drop shadow) */
+  box-shadow:
+    inset 1px 1px 1px rgba(255, 255, 255, 0.08),
+    /* Inner bevel light catch */ inset -1px -1px 1px rgba(0, 0, 0, 0.9),
+    /* Inner bevel shadow */ 0 15px 35px -10px rgba(0, 0, 0, 0.95) !important; /* Physical contact shadow */
+
+  filter: none !important;
+}
+
+body.light-mode #membership-tab .membership-card {
+  background:
+    linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0) 40%
+      )
+      padding-box,
+    radial-gradient(ellipse at 50% 30%, #ffffff 0%, #f7f4ea 50%, #e8e2d2 100%)
+      padding-box,
+    var(--gold-metal-polished) border-box !important;
+
+  box-shadow:
+    inset 1px 1px 2px rgba(255, 255, 255, 1),
+    inset -1px -1px 2px rgba(150, 120, 80, 0.15),
+    0 15px 35px -10px rgba(40, 30, 10, 0.15) !important;
+}
+
+/* 2. PORTRAIT RING (Sharp conic reflection) */
+#membership-tab .portrait-ring {
+  background: conic-gradient(
+    from 135deg,
+    var(--gold-shadow) 0deg,
+    var(--gold-primary) 45deg,
+    var(--gold-highlight) 60deg,
+    var(--gold-primary) 75deg,
+    var(--gold-shadow) 150deg,
+    var(--gold-midtone) 220deg,
+    var(--gold-highlight) 240deg,
+    var(--gold-midtone) 260deg,
+    var(--gold-shadow) 360deg
+  ) !important;
+  box-shadow:
+    0 15px 25px -5px rgba(0, 0, 0, 0.8),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.25),
+    inset -1px -1px 2px rgba(10, 5, 0, 0.9) !important;
+}
+
+/* 3. BUTTONS & TIER PILL (Brushed/Satin metal) */
+#membership-tab .card-actions .btn,
+#membership-tab .tier-pill {
+  border: 1px solid transparent !important;
+  background:
+    linear-gradient(rgba(18, 16, 14, 0.95), rgba(10, 8, 6, 0.98)) padding-box,
+    var(--gold-metal-brushed) border-box !important;
+  box-shadow:
+    inset 0 1px 0px rgba(255, 255, 255, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.6) !important;
+}
+body.light-mode #membership-tab .card-actions .btn,
+body.light-mode #membership-tab .tier-pill {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.9), rgba(245, 240, 230, 0.95))
+      padding-box,
+    var(--gold-metal-brushed) border-box !important;
+  box-shadow:
+    inset 0 1px 0px rgba(255, 255, 255, 0.8),
+    0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Hover state retains brush */
+#membership-tab .card-actions .btn:hover {
+  background:
+    linear-gradient(rgba(201, 168, 106, 0.05), rgba(201, 168, 106, 0.05))
+      padding-box,
+    var(--gold-metal-polished) border-box !important;
+}
+
+/* 4. ANTIQUE / ENGRAVED GOLD (Microtext & Labels) */
+#membership-tab .member-label,
+#membership-tab .ring-label,
+#membership-tab .card-tagline,
+#membership-tab .card-tagline span {
+  color: var(--gold-antique) !important;
+  text-shadow: none !important; /* Extremely subtle deboss */
+}
+body.light-mode #membership-tab .member-label,
+body.light-mode #membership-tab .ring-label {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+}
+
+body.light-mode #membership-tab .card-tagline,
+body.light-mode #membership-tab .card-tagline span {
+  text-shadow: none !important;
+}
+#membership-tab .member-number {
+  color: var(--gold-satin) !important;
+}
+
+/* 5. METRIC RINGS (Precision Machined Edges) */
+#membership-tab .ring-progress {
+  stroke: url(#ringGoldGrad) !important;
+  /* Directional light filter simulating 3D bevel on the stroke */
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.15))
+    drop-shadow(-1px -1px 0px var(--gold-deep))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.7)) !important;
+}
+body.light-mode #membership-tab .ring-progress {
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.8))
+    drop-shadow(-1px -1px 0px var(--gold-shadow))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15)) !important;
+}
+#membership-tab .ring-track {
+  stroke: var(--gold-shadow) !important;
+  stroke-width: 1.5px !important;
+}
+body.light-mode #membership-tab .ring-track {
+  stroke: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 6. GOLD EMBLEMS (Mounted 3D Physical Seals) */
+#membership-tab .living-core svg path,
+#membership-tab #equippedCrownSlot svg path {
+  fill: url(#ringGoldGrad) !important;
+  stroke: var(--gold-highlight) !important;
+  stroke-width: 0.2px !important; /* Extremely fine polished edge */
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.2))
+    drop-shadow(-1px -1px 0px var(--gold-deep))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.85)) !important;
+}
+body.light-mode #membership-tab .living-core svg path,
+body.light-mode #membership-tab #equippedCrownSlot svg path {
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.9))
+    drop-shadow(-1px -1px 0px rgba(0, 0, 0, 0.2))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15)) !important;
+}
+
+/* 7. METALLIC TYPOGRAPHY (Stamping effect) */
+#membership-tab .card-club-name {
+  background: var(--gold-metal-polished) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(
+    0 1px 0px var(--gold-deep)
+  ) !important; /* Letterpress depth */
+}
+body.light-mode #membership-tab .card-club-name {
+  filter: drop-shadow(0 1px 0px rgba(255, 255, 255, 0.8)) !important;
+}
+#membership-tab .ring-value {
+  color: var(--gold-primary) !important;
+  text-shadow: 0 1px 1px var(--gold-shadow) !important;
+}
+
+/* ==========================================================================
+   PHASE — IMPERIAL IVORY LIGHT MODE (STRICT MEMBERSHIP MICRO-PASS)
+   ========================================================================== */
+
+/* 1. Page Background: Subtle warm ivory instead of clinical white */
+body.light-mode {
+  --oled-black: #ebe5d9; /* Warm ivory/champagne page background */
+  --obsidian: #e3dccf;
+  --obsidian-2: #dbd4c5;
+
+  /* Imperial Ivory Gold System (ensuring contrast against ivory) */
+  --gold-primary: #9c7225;
+  --gold-highlight: #f5deb3;
+  --gold-champagne: #c29642;
+  --gold-midtone: #704f12;
+  --gold-shadow: #302008;
+  --gold-deep: #1a1000;
+  --gold-antique: #5c3f0a;
+  --gold-satin: #855c1a;
+}
+
+/* 2. Membership Card Surface (Porcelain / Ivory artifact) */
+body.light-mode #membership-tab .membership-card {
+  background:
+    linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0) 40%
+      )
+      padding-box,
+    radial-gradient(ellipse at 50% 30%, #f4f0e6 0%, #e8e2d5 60%, #d8d0be 100%)
+      padding-box,
+    var(--gold-metal-polished) border-box !important;
+
+  box-shadow:
+    inset 1px 1px 2px rgba(255, 255, 255, 0.7),
+    inset -1px -1px 2px rgba(120, 100, 70, 0.15),
+    0 15px 35px -10px rgba(50, 40, 20, 0.15) !important;
+}
+
+/* 3. Wealth Index & Privileges Rectangles (Neutralizing the white cards) */
+body.light-mode #membership-tab .metric-ring {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid transparent !important;
+}
+
+/* 4. Metric Instrument Material (Watch dial instruments) */
+body.light-mode #membership-tab .ring-track {
+  stroke: rgba(0, 0, 0, 0.05) !important;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.6)) !important;
+}
+
+body.light-mode #membership-tab .ring-progress {
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.8))
+    drop-shadow(-1px -1px 0px rgba(0, 0, 0, 0.15))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1)) !important;
+}
+
+body.light-mode #membership-tab .ring-value {
+  color: #1a1a1a !important; /* Deep obsidian text */
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.5) !important;
+}
+
+body.light-mode #membership-tab .ring-label {
+  color: #4a3a20 !important; /* Dark antique gold / charcoal */
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* 5. Portrait Ring / Crown / Central Seal (Integration) */
+body.light-mode #membership-tab .portrait-ring {
+  box-shadow:
+    0 10px 20px -5px rgba(0, 0, 0, 0.15),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.6),
+    inset -1px -1px 2px rgba(50, 40, 20, 0.3) !important;
+}
+
+body.light-mode #membership-tab .living-core svg path,
+body.light-mode #membership-tab #equippedCrownSlot svg path {
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.8))
+    drop-shadow(-1px -1px 0px rgba(0, 0, 0, 0.15))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1)) !important;
+}
+
+/* 6. Buttons & Tier Pill */
+body.light-mode #membership-tab .card-actions .btn,
+body.light-mode #membership-tab .tier-pill {
+  background:
+    linear-gradient(#f0eadf, #e6dec9) padding-box,
+    var(--gold-metal-brushed) border-box !important;
+  box-shadow:
+    inset 0 1px 0px rgba(255, 255, 255, 0.7),
+    0 2px 4px rgba(0, 0, 0, 0.08) !important;
+  color: #2c200c !important; /* Dark antique text */
+}
+
+body.light-mode #membership-tab .card-actions .btn:hover {
+  background:
+    linear-gradient(#e8e2d5, #e8e2d5) padding-box,
+    var(--gold-metal-polished) border-box !important;
+}
+
+/* 7. Typography (Darker contrast for labels/numbers) */
+body.light-mode #membership-tab .member-name {
+  color: #1a1a1a !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.6) !important;
+}
+
+body.light-mode #membership-tab .member-label,
+body.light-mode #membership-tab .card-tagline,
+body.light-mode #membership-tab .card-tagline span {
+  color: #4a3a20 !important;
+}
+
+body.light-mode #membership-tab .member-number {
+  color: #5c4a2e !important;
+}
+
+body.light-mode #membership-tab .card-club-name {
+  filter: drop-shadow(0 1px 0px rgba(255, 255, 255, 0.6)) !important;
+}
+
+/* Fix inner frame covering the V4 ivory background */
+body.light-mode #membership-tab .membership-card .card-inner-frame {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(156, 109, 35, 0.15) !important; /* Extremely subtle inner border */
+}
+
+/* Also neutralize .portrait-photo background in light mode if it's too white */
+body.light-mode #membership-tab .portrait-photo {
+  background: transparent;
+  box-shadow:
+    inset 0 6px 12px rgba(0, 0, 0, 0.05),
+    inset 0 -3px 8px rgba(255, 255, 255, 0.5),
+    0 0 25px rgba(156, 109, 35, 0.15) !important;
+}
+
+/* Ensure portrait photo doesn't look like gold ring if empty */
+body.light-mode #membership-tab .portrait-photo {
+  background: radial-gradient(
+    circle at 35% 25%,
+    #f4f0e6 0%,
+    #e8e2d5 45%,
+    #d8d0be 100%
+  );
+}
+
+/* ==========================================================================
+   FORCE REMOVE RECTANGULAR BACKGROUNDS FROM WEALTH INDEX & PRIVILEGES (DARK MODE)
+   ========================================================================== */
+
+/* Target the dark mode (default) metric-ring elements inside the membership tab */
+#membership-tab .membership-card .metric-ring {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 1px solid transparent !important; /* Preserve geometric dimension */
+}
+
+/* Ensure the central area remains clean */
+#membership-tab .membership-card .ring-center {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================================================
+   TASK: RESOLVE DUAL-THEME CONFLICT FOR GUILLOCHÉ & MEMBERSHIP CARD
+   ========================================================================== */
+
+/* STEP 1 — CANVAS PURITY & LAYER STACKING */
+#guillocheCanvas,
+.guilloche-canvas {
+  background: transparent !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+}
+
+/* Surgical fix for canvas stacking without breaking corners/hallmarks */
+#membershipCard
+  .card-inner-frame
+  > *:not(#guillocheCanvas):not(.guilloche-canvas):not(.gold-dust-canvas):not(
+    .card-sheen
+  ) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+#membershipCard .card-inner-frame {
+  background: transparent !important;
+}
+
+/* STEP 2 — STRICT SCOPED CARD CHASSIS */
+
+/* DEFAULT / DARK MODE CHASSIS (applied when NOT light-mode) */
+#membershipCard {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  background: radial-gradient(
+    circle at 50% 30%,
+    #16161a 0%,
+    #0d0d10 65%,
+    #050507 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px rgba(255, 223, 128, 0.2) !important;
+}
+
+/* LIGHT MODE CHASSIS (STRICTLY SCOPED to body.light-mode) */
+body.light-mode #membershipCard {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #f7f5ef 0%,
+    #ebe7dc 60%,
+    #ded9cb 100%
+  ) !important;
+  border: 1px solid rgba(180, 160, 120, 0.5) !important;
+  box-shadow:
+    0 25px 50px -12px rgba(90, 80, 60, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ==========================================================================
+   SPECIFICITY OVERRIDE FIX FOR TASK
+   ========================================================================== */
+
+/* DARK MODE CHASSIS OVERRIDE */
+body #membership-tab #membershipCard.membership-card {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #16161a 0%,
+    #0d0d10 65%,
+    #050507 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px rgba(255, 223, 128, 0.2) !important;
+}
+
+/* LIGHT MODE CHASSIS OVERRIDE */
+body.light-mode #membership-tab #membershipCard.membership-card {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #f7f5ef 0%,
+    #ebe7dc 60%,
+    #ded9cb 100%
+  ) !important;
+  border: 1px solid rgba(180, 160, 120, 0.5) !important;
+  box-shadow:
+    0 25px 50px -12px rgba(90, 80, 60, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+}
+
+body #membership-tab #membershipCard.membership-card .card-inner-frame,
+body.light-mode
+  #membership-tab
+  #membershipCard.membership-card
+  .card-inner-frame {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* ==========================================================================
+
+/* ==========================================================================
+   TASK: FIX CANVAS BLACKOUT & FOREGROUND COLLISION
+   ========================================================================== */
+
+/* 1. Canvas transparency & stacking */
+#guillocheCanvas,
+.guilloche-canvas {
+  background: transparent !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+/* 2. Target child content inside #membershipCard (avatar, texts, badges, stats) to float above */
+#membershipCard .card-top-bar,
+#membershipCard .portrait-wrap,
+#membershipCard .card-identity-section,
+#membershipCard .card-metrics-footer,
+#membershipCard .card-hallmark-line,
+#membershipCard .card-tagline {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* 3. Target #membershipCard background */
+/* Default (Dark Mode) */
+body #membership-tab #membershipCard {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #16161a 0%,
+    #0d0d10 65%,
+    #050507 100%
+  ) !important;
+}
+
+/* Light Mode */
+body.light-mode #membership-tab #membershipCard {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #f7f5ef 0%,
+    #ebe7dc 60%,
+    #ded9cb 100%
+  ) !important;
+}
+
+/* Clear card-inner-frame from overriding the outer background */
+body #membership-tab #membershipCard.membership-card .card-inner-frame,
+body.light-mode
+  #membership-tab
+  #membershipCard.membership-card
+  .card-inner-frame {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* ==========================================================================
+   TASK: DIAGNOSTIC & SURGICAL FIX: MEMBERSHIP CARD LAYOUT & CANVAS BREAKAGE
+   ========================================================================== */
+
+/* 1. On the Parent Card */
+#membershipCard {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* 2. On the Canvas element & any canvas-wrapper div */
+#membershipCard #guillocheCanvas,
+#membershipCard .guilloche-canvas,
+#membershipCard #goldDustCanvas,
+#membershipCard .gold-dust-canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+}
+
+/* 3. On the Content Wrapper / All Card Text & Avatar Elements */
+#membershipCard .card-inner-frame {
+  /* Maintain internal spacing without offsetting the canvas */
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding-bottom: 16px !important;
+}
+
+#membershipCard .card-inner-frame > *:not(canvas):not(.card-sheen) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* 4. Light Mode Card Chassis */
+body.light-mode #membershipCard {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #f7f5ef 0%,
+    #ebe7dc 60%,
+    #ded9cb 100%
+  ) !important;
+}
+
+/* Fix Dark Mode Background as well */
+body #membership-tab #membershipCard {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #16161a 0%,
+    #0d0d10 65%,
+    #050507 100%
+  ) !important;
+}
+
+/* Fix for membership-card pseudo border in Light Mode */
+body.light-mode #membershipCard.membership-card::after,
+body.light-mode .membership-card::after {
+  border: 0.5px solid rgba(165, 125, 45, 0.25) !important;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.8) !important;
+  z-index: 0 !important;
+}
+
+#membershipCard.membership-card::after,
+.membership-card::after {
+  z-index: 0 !important;
+}
+
+#membershipCard .card-inner-frame {
+  z-index: 2 !important;
+}
+
+/* Fix hallmark SVG fill in Light Mode to match Ivory artifact theme */
+/* removed hallmark fill override to allow transparent fill */
+
+/* Force exact same rendering for the ENTIRE tagline block */
+#membership-tab .card-tagline {
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+  text-rendering: geometricPrecision !important;
+}
+
+#membership-tab .card-tagline span {
+  text-rendering: geometricPrecision !important;
+}
+
+/* Enhance hallmark lines in Light Mode for proper contrast */
+body.light-mode #membershipCard .card-hallmark-line span {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(180, 138, 52, 0.6)
+  ) !important;
+}
+body.light-mode #membershipCard .card-hallmark-line span:last-child {
+  background: linear-gradient(
+    90deg,
+    rgba(180, 138, 52, 0.6),
+    transparent
+  ) !important;
+}
+
+/* ULTIMATE FIX: Force EXACT pixel geometry for Tagline in both modes */
+#membership-tab .card-tagline {
+  margin: 5px 0 0 0 !important;
+  padding: 0 !important;
+  line-height: 12px !important;
+  text-align: center !important;
+  display: block !important;
+  height: 24px !important; /* 12px * 2 lines */
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+#membership-tab .card-tagline span {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 12px !important;
+  display: block !important;
+  height: 12px !important;
+  box-sizing: border-box !important;
+  vertical-align: top !important;
+}
+
+/* Force exact font-weight */
+#membership-tab .card-tagline {
+  font-weight: 400 !important;
+}
+#membership-tab .card-tagline span {
+  font-weight: 500 !important;
+}
+
+/* Extra safety for canvas */
+#membershipCard .guilloche-canvas {
+  z-index: 0 !important;
+}
+
+/* Explicit width and alignment for metrics footer and tagline */
+#membership-tab .card-metrics-footer {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+#membership-tab .card-tagline {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  line-height: 12px !important;
+}
+
+#membership-tab .card-tagline span {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  line-height: 12px !important;
+}
+
+/* Force consistent box-model and typography parity across modes */
+#membershipCard .card-metrics-footer,
+.membership-card .card-metrics-footer {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#membershipCard .card-tagline,
+.membership-card .card-tagline {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  line-height: 12px !important;
+  box-sizing: border-box !important;
+}
+
+#membershipCard .card-tagline span,
+.membership-card .card-tagline span {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  line-height: 12px !important;
+  box-sizing: border-box !important;
+}
+
+:root {
+  --tagline-line-height: 12px;
+  --tagline-margin: 5px 0 0 0;
+  --tagline-padding: 0;
+  --tagline-height: 24px;
+  --tagline-span-height: 12px;
+}
+
+#membership-tab .card-metrics-footer,
+.membership-card .card-metrics-footer {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#membership-tab .card-tagline,
+.membership-card .card-tagline {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  line-height: var(--tagline-line-height) !important;
+  margin: var(--tagline-margin) !important;
+  padding: var(--tagline-padding) !important;
+  height: var(--tagline-height) !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+#membership-tab .card-tagline span,
+.membership-card .card-tagline span {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  line-height: var(--tagline-line-height) !important;
+  margin: var(--tagline-margin) !important;
+  margin-top: 0 !important;
+  padding: var(--tagline-padding) !important;
+  height: var(--tagline-span-height) !important;
+  box-sizing: border-box !important;
+}
+
+/* Explicit typography lock for taglines to ensure baseline alignment */
+:root {
+  --tagline-letter-spacing: 0.15em;
+}
+
+#membership-tab .card-tagline,
+.membership-card .card-tagline,
+body.light-mode #membership-tab .card-tagline,
+body.light-mode .membership-card .card-tagline {
+  line-height: var(--tagline-line-height) !important;
+  letter-spacing: var(--tagline-letter-spacing) !important;
+}
+
+#membership-tab .card-tagline span,
+.membership-card .card-tagline span,
+body.light-mode #membership-tab .card-tagline span,
+body.light-mode .membership-card .card-tagline span {
+  line-height: var(--tagline-line-height) !important;
+  letter-spacing: var(--tagline-letter-spacing) !important;
+}
+
+/* ==========================================================================
+   ULTIMATE 3D GOLD BORDER & OUTER SHADOW REMOVAL FOR MASTER CARD
+   ========================================================================== */
+
+/* DARK MODE */
+body #membership-tab #membershipCard.membership-card {
+  border: 3px solid transparent !important;
+  border-radius: 20px !important;
+  background-image: 
+    /* The main obsidian card background */
+    radial-gradient(circle at 50% 30%, #16161a 0%, #0d0d10 65%, #050507 100%),
+    /* The 3D precious gold metal border */
+    linear-gradient(145deg, #f5d688 0%, #8b6214 20%, #fcebb6 50%, #4a3003 80%, #d4b257 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  
+  /* 
+   * Strict removal of outer shadows 
+   * Keep only inner inset shadows for depth 
+   */
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.15), 
+    inset 0 0 0 1px rgba(0, 0, 0, 0.9),
+    inset 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+    
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+/* LIGHT MODE */
+body.light-mode #membership-tab #membershipCard.membership-card {
+  border: 3px solid transparent !important;
+  border-radius: 20px !important;
+  background-image: 
+    /* The main ivory card background */
+    radial-gradient(circle at 50% 30%, #f7f5ef 0%, #ebe7dc 60%, #ded9cb 100%),
+    /* The 3D precious gold metal border */
+    linear-gradient(145deg, #c49b47 0%, #ebd082 20%, #7d570f 50%, #fcebb6 80%, #a67c27 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  
+  /* 
+   * Strict removal of outer shadows 
+   * Keep only inner inset shadows for depth 
+   */
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.9), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+    inset 0 10px 30px rgba(100, 80, 50, 0.1) !important;
+    
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+/* Ensure no pseudo-elements are injecting shadows or glows */
+body #membership-tab #membershipCard.membership-card::before,
+body #membership-tab #membershipCard.membership-card::after {
+  box-shadow: none !important;
+  filter: none !important;
+  background: none !important;
+}
+
+/* ==========================================================================
+   ULTRA-REALISTIC POLISHED 3D GOLD BORDER (V2)
+   Sharp highlights, deep reflections, mimicking physical bevel
+   ========================================================================== */
+
+/* DARK MODE */
+body #membership-tab #membershipCard.membership-card {
+  border: 4px solid transparent !important;
+  border-radius: 20px !important;
+  background-image: 
+    /* The main obsidian card background */
+    radial-gradient(circle at 50% 30%, #16161a 0%, #0d0d10 65%, #050507 100%),
+    /* Realistic Polished Gold Metal Reflection */
+    linear-gradient(160deg, 
+      #362507 0%, 
+      #d4af37 15%, 
+      #fffce0 23%, 
+      #c49a2b 35%, 
+      #2e2005 50%, 
+      #a67c00 65%, 
+      #fffce0 75%, 
+      #d4af37 85%, 
+      #1f1402 100%
+    ) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  
+  /* 
+   * Strict removal of outer shadows 
+   * Inner bevel shadow separates the gold frame from the obsidian core
+   */
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.1), 
+    inset 0 0 0 1px rgba(0, 0, 0, 0.95),
+    inset 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+    
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+/* LIGHT MODE */
+body.light-mode #membership-tab #membershipCard.membership-card {
+  border: 4px solid transparent !important;
+  border-radius: 20px !important;
+  background-image: 
+    /* The main ivory card background */
+    radial-gradient(circle at 50% 30%, #f7f5ef 0%, #ebe7dc 60%, #ded9cb 100%),
+    /* Realistic Polished Gold Metal Reflection */
+    linear-gradient(160deg, 
+      #59400f 0%, 
+      #d4af37 12%, 
+      #ffffff 22%, 
+      #b38b22 35%, 
+      #4a350e 50%, 
+      #d4af37 65%, 
+      #ffffff 78%, 
+      #c49a2b 88%, 
+      #2e2005 100%
+    ) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  
+  /* 
+   * Strict removal of outer shadows 
+   * Inner bevel separates the gold frame from the ivory core
+   */
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 1), 
+    inset 0 0 0 1px rgba(120, 90, 50, 0.4),
+    inset 0 10px 30px rgba(100, 80, 50, 0.1) !important;
+    
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+/* ==========================================================================
+   DYNAMIC EDGE GLOW THICKNESS (GYROSCOPE DRIVEN)
+   ========================================================================== */
+body #membership-tab #membershipCard.membership-card {
+  position: relative;
+  overflow: hidden; /* Keep the edge glow contained within the border radius */
+}
+
+/* Base Edge Glow */
+body #membership-tab #membershipCard.membership-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 120% 80% at var(--glow-x, 50%) var(--glow-y, 0%), 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(212, 175, 55, 0.1) 15%, 
+    transparent 50%
+  );
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.4);
+  mix-blend-mode: overlay;
+  z-index: 10;
+}
+
+/* Light Mode Edge Glow */
+body.light-mode #membership-tab #membershipCard.membership-card::after {
+  background: radial-gradient(
+    ellipse 120% 80% at var(--glow-x, 50%) var(--glow-y, 0%), 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(255, 255, 255, 0.4) 20%, 
+    transparent 60%
+  );
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 1);
+}

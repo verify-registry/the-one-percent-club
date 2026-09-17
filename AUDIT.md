@@ -179,11 +179,47 @@ SECTION 14: VISUAL QUALITY AUDIT
 SECTION 15: PHASE EXECUTION LOG
 ==================================================
 
-**Phase 6: VISUAL & AESTHETIC AUDIT (LIGHT MODE)**
-- *Method:* 13 user screenshots across Membership, Club (3), Profile (5), Boutique (4), reviewed on 7 axes (typography, contrast, colors, spacing, details, buttons, luxury feel).
-- *Findings summary table:* 1 CRITICAL-functional (Edit Profile modal reliability/layout), 13 HIGH, 20 MEDIUM, 14 LOW.
-- *Key HIGH findings list:* invisible FAQ answers in Light Mode, invisible stats-bar labels, broken OFF-state toggle track, motto watermark overlapping meta row, double-dollar "$$" remaining text, leaderboard header showing Arabic in English mode, repeated leaderboard avatars, tier tag rendered as input box, dead empty chat state.
-- *Approved fix plan:* Phases 6A-6G batches (6A modal reliability and layout; 6B invisible/broken batch; 6C components; 6D typography; 6E containers and shadows; 6F contrast; 6G icons and details).
+**Phase 6: Visual & Aesthetic Audit (Light Mode)**
+- Method: 13 user screenshots (Membership, Club x3, Profile x5,
+  Boutique x4) reviewed on 7 axes: typography, contrast, colors,
+  spacing, details, buttons, luxury feel.
+- Findings: 1 CRITICAL-functional, 13 HIGH, 20 MEDIUM, 14 LOW.
+- Key HIGH findings: invisible FAQ answers in Light Mode; invisible
+  stats-bar labels; broken OFF-state toggle track; motto watermark
+  overlapping meta row; double-dollar remaining text; leaderboard
+  header Arabic in English mode; repeated leaderboard avatars;
+  tier tag rendered as input box; dead empty chat state.
+
+**Phase 6A: Edit Profile Modal Reliability**
+- Root cause: .phc-info-col carried pointer-events: none !important;
+  the button inherited it, so taps passed through.
+- Fix: pointer-events: auto + z-index on .phc-edit-btn only.
+
+**Phase 6A-2: Modal Consolidation**
+- #editProfileModal abolished; identity fields merged into
+  #accountInfoModal as one unified Member Dossier modal.
+- Portrait grid deleted entirely (concept correction: sovereign
+  members upload their own portrait).
+
+**Phase 6A-3: Compact Dossier Layout**
+- Two inset panels (IDENTITY / ACCOUNT), 48px inputs, 85vh cap,
+  fits 360x800 without internal scroll.
+
+- Remaining plan: 6B invisible/broken batch; 6C components;
+  6D typography; 6E containers and shadows; 6F contrast;
+  6G icons and details.
+
+**Workspace Hygiene Log (Entry 3)**
+- `check_icon.js` (Type A): verified already applied, deleted.
+- `check_image.js` (Type A): verified already applied, deleted.
+- `find_image.js` (Type A): read-only, deleted.
+- `fix_modal.js` (Type A): verified already applied in app.js, deleted.
+- `fix_profile.js` (Type A): verified already applied in app.js, deleted.
+- `patch_icons.js` (Type A): verified already applied in app.js, deleted.
+- `test-card.html` (Type A/C): snippet, deleted.
+- `modal.png` (Type C): reference image, deleted.
+- `bun.lock` (Type A): auto-generated lockfile, deleted.
+- *Status:* Verified ZERO auxiliary files remain. ✅
 
 **Workspace Hygiene Log (Entry 2)**
 - `fix_colors.js` (Type A): Deleted.
@@ -331,4 +367,4 @@ SECTION 19: CHANGE HISTORY
 - **V5:** Post-development Light Mode CSS injections.
 - **V6:** Phase 2-4 comprehensive stabilization.
 - **V7:** Phase 5 localization stabilization. Full EN/AR parity, RTL-safe positioning, render-time translation resolution, GitHub synced.
-- **V8:** Phase 6 Light Mode visual audit completed; hygiene pass; audit documented; repository synced.
+- **V8:** Phase 6 Light Mode visual audit; Edit Profile modal rebuilt as unified compact Member Dossier; hygiene pass; repository synced.

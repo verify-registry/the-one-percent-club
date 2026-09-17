@@ -1,3 +1,25 @@
+
+function renderRing(ringId, valueId, percent) {
+  const ring = document.getElementById(ringId);
+  const valEl = document.getElementById(valueId);
+  if (!ring || !valEl) return;
+  const radius = ring.r.baseVal.value;
+  const circumference = radius * 2 * Math.PI;
+  ring.style.strokeDasharray = `${circumference} ${circumference}`;
+  const offset = circumference - (percent / 100) * circumference;
+  ring.style.strokeDashoffset = circumference;
+  
+  // Set value immediately
+  valEl.textContent = parseFloat(percent).toFixed(1) + "%";
+  
+  // Animate with a tiny delay to ensure transition triggers
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      ring.style.strokeDashoffset = offset;
+    });
+  });
+}
+
 /* === 1. CONFIG & GLOBAL STATE === */
 // ==========================================
 // CENTRAL LOCALIZATION SYSTEM
@@ -961,11 +983,22 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             progressHtml = `<div class="purchase-progress-wrap is-transparent"></div>`;
           }
 
-          return `
+          let iconHtml = "";
+        if (item.image) {
+          iconHtml = `<img src="${item.image}" alt="${window.t(item.name)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                      <span class="boutique-card-fallback" style="display:none">${ICONS[item.icon] || ICONS["star"]}</span>`;
+        } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
+          iconHtml = `<img src="${item.icon}" alt="${window.t(item.name)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                      <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
+        } else {
+          iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
+        }
+
+        return `
         <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" data-equipped="${isEquipped ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned}, ${isEquipped})' style="cursor: pointer;">
           <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity]()}</span>
           <span class="boutique-card-icon">
-            <span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>
+            ${iconHtml}
           </span>
           <span class="boutique-card-name">${window.t(item.name)}</span>
           ${priceHtml}
@@ -1199,6 +1232,7 @@ const Router = {
     const main = document.querySelector(".app-main");
     if (main) main.scrollTop = 0;
     window.scrollTo(0, 0);
+    window.dispatchEvent(new Event("resize"));
   },
 
   updateHeader(tab) {
@@ -1239,6 +1273,7 @@ const Router = {
     const main = document.querySelector(".app-main");
     if (main) main.scrollTop = 0;
     window.scrollTo(0, 0);
+    window.dispatchEvent(new Event("resize"));
   },
 
   onEnter(tab) {
@@ -1310,6 +1345,7 @@ function openContextPage(pageId, title, returnTab) {
   document.getElementById("backBtn").hidden = false;
   document.querySelector(".app-main").scrollTop = 0;
   window.scrollTo(0, 0);
+    window.dispatchEvent(new Event("resize"));
 }
 
 function openMemberProfile(member) {
@@ -1828,8 +1864,17 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   document.getElementById("inspectionLore").textContent =
     (item.lore ? window.t(item.lore) : window.t("dynamic.loreDefault"));
 
-  const svgContent = ICONS[item.icon] || ICONS["crown"];
-  document.getElementById("inspectionImage").innerHTML = svgContent;
+  let mediaContent = "";
+  if (item.image) {
+    mediaContent = `<img src="${item.image}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                    <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS[item.icon] || ICONS["crown"]}</div>`;
+  } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
+    mediaContent = `<img src="${item.icon}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                    <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS["crown"]}</div>`;
+  } else {
+    mediaContent = ICONS[item.icon] || ICONS["crown"];
+  }
+  document.getElementById("inspectionImage").innerHTML = mediaContent;
 
   const equipBtn = document.getElementById("inspectionEquipBtn");
 
@@ -2130,6 +2175,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const accountInfoModal = document.getElementById("accountInfoModal");
   if (menuAccountInfo && accountInfoModal) {
     menuAccountInfo.addEventListener("click", () => {
+      let draft = null;
+      try {
+        draft = JSON.parse(localStorage.getItem("profileDraft"));
+      } catch (e) {}
+      
+      let currentAvatarUrl = "";
+      if (draft) {
+        document.getElementById("editProfileNameInput").value = draft.name || "";
+        document.getElementById("editProfileQuoteInput").value = draft.quote || "";
+        currentAvatarUrl = draft.avatarUrl || "";
+        document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
+      } else {
+        document.getElementById("editProfileNameInput").value = AppState.user.name || "";
+        document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
+        currentAvatarUrl = AppState.user.avatarUrl || "";
+        document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
+      }
+      
+      if (typeof renderAvatarPresets === "function") { renderAvatarPresets(currentAvatarUrl); }
+      if (typeof updateEditProfilePreview === "function") {
+        updateEditProfilePreview(currentAvatarUrl);
+      }
+
       document.getElementById("accEmailInput").value =
         AppState.user.email || "";
       document.getElementById("accPhoneInput").value =
@@ -2142,16 +2210,46 @@ document.addEventListener("DOMContentLoaded", () => {
     ?.addEventListener("click", () => {
       accountInfoModal?.classList.remove("is-open");
     });
+  document.querySelectorAll(".quote-preset-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const quoteInput = document.getElementById("editProfileQuoteInput");
+      if (quoteInput) {
+        quoteInput.value = chip.dataset.quote;
+        quoteInput.dispatchEvent(new Event("input"));
+        saveProfileDraft();
+      }
+    });
+  });
+
   document
     .getElementById("saveAccountInfoBtn")
     ?.addEventListener("click", () => {
+      const nameInput = document.getElementById("editProfileNameInput").value.trim();
+      const quoteInput = document.getElementById("editProfileQuoteInput").value.trim();
+      const avatarUrl = document.getElementById("editProfileAvatarUrl").value.trim();
+      
+      if (nameInput) {
+        AppState.user.name = nameInput;
+        AppState.user.username = nameInput;
+      }
+      if (quoteInput) {
+        AppState.user.quote = quoteInput;
+        AppState.user.bio = quoteInput;
+      }
+      if (avatarUrl) {
+        AppState.user.avatarUrl = avatarUrl;
+      }
+
       AppState.user.email = document
         .getElementById("accEmailInput")
         .value.trim();
       AppState.user.phone = document
         .getElementById("accPhoneInput")
         .value.trim();
+        
       AppState.save();
+      updateUI();
+      localStorage.removeItem("profileDraft");
       accountInfoModal?.classList.remove("is-open");
     });
 
@@ -2742,11 +2840,22 @@ function renderProfileCollection() {
         ? window.t("items." + item.id)
         : window.t("items." + item.id);
 
+      let iconHtml = "";
+      if (item.image) {
+        iconHtml = `<img src="${item.image}" alt="${nameText}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <span class="boutique-card-fallback" style="display:none">${ICONS[item.icon] || ICONS["star"]}</span>`;
+      } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
+        iconHtml = `<img src="${item.icon}" alt="${nameText}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
+      } else {
+        iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
+      }
+
       html += `
         <div class="pcs-item-card gyro-element" data-tilt>
-          <div class="pcs-item-image">
-            <span class="boutique-card-fallback" style="display:flex; font-size: 24px; color: #d4af37;">${ICONS[item.icon] || ICONS["star"]}</span>
-          </div>
+          <span class="boutique-card-icon">
+            ${iconHtml}
+          </span>
           <div class="pcs-item-info">
             <div class="pcs-item-name">${nameText}</div>
             <div class="pcs-item-price">${item.price ? "$" + item.price.toLocaleString() : item.rarity}</div>
@@ -2759,36 +2868,52 @@ function renderProfileCollection() {
   }
 }
 
-const profilePhotos = [
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop"
+
+const PRESET_AVATARS = [
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
 ];
-let selectedProfilePhoto = "";
 
-function initEditProfileModal() {
-  const photoGrid = document.getElementById("editProfilePhotoGrid");
-  if (photoGrid) {
-    photoGrid.innerHTML = profilePhotos
-      .map(
-        (url, i) => `
-      <div class="edit-profile-photo-opt ${url === selectedProfilePhoto ? "selected" : ""}"
-           style="background-image: url('${url}')"
-           data-url="${url}">
-      </div>
-    `,
-      )
-      .join("");
+function renderAvatarPresets(currentUrl) {
+  const gallery = document.getElementById("avatarPresetsGallery");
+  if (!gallery) return;
+  
+  gallery.innerHTML = "";
+  PRESET_AVATARS.forEach((url) => {
+    const thumb = document.createElement("div");
+    thumb.className = "avatar-preset-thumbnail" + (url === currentUrl ? " active" : "");
+    thumb.style.backgroundImage = `url('${url}')`;
+    thumb.dataset.url = url;
+    thumb.addEventListener("click", () => {
+      // update hidden input
+      const urlInput = document.getElementById("editProfileAvatarUrl");
+      if (urlInput) {
+        urlInput.value = url;
+        urlInput.dispatchEvent(new Event("input"));
+      }
+      
+      // update active state in gallery
+      document.querySelectorAll(".avatar-preset-thumbnail").forEach(el => el.classList.remove("active"));
+      thumb.classList.add("active");
+    });
+    gallery.appendChild(thumb);
+  });
+}
 
-    const opts = photoGrid.querySelectorAll(".edit-profile-photo-opt");
-    opts.forEach((opt) => {
-      opt.addEventListener("click", (e) => {
-        opts.forEach((o) => o.classList.remove("selected"));
-        e.target.classList.add("selected");
-        selectedProfilePhoto = e.target.dataset.url;
-      });
+function updateEditProfilePreview(url) {
+  const preview = document.getElementById("editProfileAvatarPreview");
+  if (preview) {
+    if (!url) url = PRESET_AVATARS[0];
+    preview.style.backgroundImage = `url('${url}')`;
+    document.querySelectorAll(".avatar-preset-thumbnail").forEach(el => {
+      if (el.dataset.url === url || el.style.backgroundImage.includes(url)) {
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
     });
   }
 }
@@ -2810,65 +2935,29 @@ document
   ?.addEventListener("input", saveProfileDraft);
 document
   .getElementById("editProfileAvatarUrl")
-  ?.addEventListener("input", saveProfileDraft);
-
-document.getElementById("editAccountBtn")?.addEventListener("click", () => {
-  const modal = document.getElementById("editProfileModal");
-  if (modal) {
-    let draft = null;
-    try {
-      draft = JSON.parse(localStorage.getItem("profileDraft"));
-    } catch (e) {}
-
-    if (draft) {
-      document.getElementById("editProfileNameInput").value = draft.name || "";
-      document.getElementById("editProfileQuoteInput").value =
-        draft.quote || "";
-      document.getElementById("editProfileAvatarUrl").value =
-        draft.avatarUrl || "";
-    } else {
-      document.getElementById("editProfileNameInput").value =
-        AppState.user.name || "";
-      document.getElementById("editProfileQuoteInput").value =
-        AppState.user.quote || AppState.user.bio || "";
-      document.getElementById("editProfileAvatarUrl").value =
-        AppState.user.avatarUrl || "";
-    }
-
-    initEditProfileModal();
-    modal.classList.add("is-open");
-  }
-});
-
+  ?.addEventListener("input", (e) => {
+    saveProfileDraft();
+    updateEditProfilePreview(e.target.value);
+  });
 document
-  .getElementById("closeEditProfileModal")
-  ?.addEventListener("click", () => {
-    document.getElementById("editProfileModal")?.classList.remove("is-open");
+  .getElementById("editProfileAvatarFile")
+  ?.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target.result;
+        const urlInput = document.getElementById("editProfileAvatarUrl");
+        if (urlInput) urlInput.value = dataUrl;
+        updateEditProfilePreview(dataUrl);
+        saveProfileDraft();
+      };
+      reader.readAsDataURL(file);
+    }
   });
 
-document.getElementById("saveEditProfileBtn")?.addEventListener("click", () => {
-  const nameInput = document
-    .getElementById("editProfileNameInput")
-    .value.trim();
-  const quoteInput = document
-    .getElementById("editProfileQuoteInput")
-    .value.trim();
-  let avatarUrl = document.getElementById("editProfileAvatarUrl").value.trim();
-
-  if (nameInput) AppState.user.name = nameInput;
-  if (nameInput) AppState.user.username = nameInput; // Sync username
-  if (quoteInput) AppState.user.quote = quoteInput;
-  if (quoteInput) AppState.user.bio = quoteInput;
-  if (avatarUrl) AppState.user.avatarUrl = avatarUrl;
-
-  if (!avatarUrl && typeof selectedProfilePhoto !== "undefined") {
-    AppState.user.avatarUrl = selectedProfilePhoto;
-  }
-
-  AppState.save();
-  updateUI();
-  localStorage.removeItem("profileDraft"); // Clear draft on successful save
-  document.getElementById("editProfileModal")?.classList.remove("is-open");
+document.getElementById("editAccountBtn")?.addEventListener("click", () => {
+  document.getElementById("menuAccountInfo")?.click();
 });
 
 function renderProfileStatsBar() {

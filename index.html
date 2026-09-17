@@ -45,15 +45,18 @@
         </radialGradient>
 
         <!-- Specular multi-layered Gold Highlights for Rings/Bezels -->
-        <linearGradient id="ringGoldGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#FFF6D6"></stop>
-          <stop offset="0.15" stop-color="#D8AE5E"></stop>
-          <stop offset="0.35" stop-color="#8F6826"></stop>
-          <stop offset="0.5" stop-color="#3A2408"></stop>
-          <stop offset="0.65" stop-color="#8F6826"></stop>
-          <stop offset="0.85" stop-color="#D8AE5E"></stop>
-          <stop offset="1" stop-color="#FFF6D6"></stop>
-        </linearGradient>
+        <!-- THE 1% CLUB - Realistic Metallic Gold Gradient -->
+      <!-- THE 1% CLUB - Realistic Metallic Gold Gradient (Polished, Top-Left directional lighting) -->
+      <!-- THE 1% CLUB - Realistic Metallic Gold Gradient v3 (Physical Metal) -->
+      <!-- THE 1% CLUB - Realistic Metallic Gold Gradient v3 (Physical Metal) -->
+      <linearGradient id="ringGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="var(--gold-shadow, #3A2A12)" />  <!-- Dark metallic valley -->
+        <stop offset="25%" stop-color="var(--gold-primary, #C9A86A)" /> <!-- Rich warm gold body -->
+        <stop offset="38%" stop-color="var(--gold-champagne, #F0D59D)" /> <!-- Champagne reflection -->
+        <stop offset="42%" stop-color="var(--gold-highlight, #FFF8E7)" /> <!-- Narrow bright specular highlight -->
+        <stop offset="65%" stop-color="var(--gold-midtone, #A68442)" /> <!-- Midtone gold body -->
+        <stop offset="100%" stop-color="var(--gold-deep, #1A1205)" /> <!-- Darker opposite edge -->
+      </linearGradient>
         <linearGradient id="wreathGrad" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stop-color="#3A2408"></stop>
           <stop offset="0.3" stop-color="#D8AE5E"></stop>
@@ -512,21 +515,23 @@
                   <svg
                     viewBox="0 0 60 54"
                     fill="none"
-                    style="height: 14px; width: 14px; margin: 0 8px"
+                    style="height: 14px; width: 14px; margin: 0 8px; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.4));"
                   >
                     <path
                       d="M30 2 L54 11 V27 C54 41 44 50 30 52 C16 50 6 41 6 27 V11 Z"
-                      fill="#0B0B0C"
+                      fill="transparent"
                       stroke="url(#ringGoldGrad)"
                       stroke-width="4"
                     ></path>
                     <text
                       x="30"
-                      y="38"
+                      y="40"
                       text-anchor="middle"
-                      font-size="28"
+                      font-size="34"
+                      font-weight="600"
                       font-family="var(--font-display)"
-                      fill="url(#ringGoldGrad)"
+                      fill="var(--text-primary)"
+                      style="letter-spacing: -2px;"
                     >
                       1%
                     </text>
@@ -911,7 +916,7 @@
                 class="phc-edit-btn"
                 id="editAccountBtn"
                 title="Edit Profile"
-                data-i18n-title="profile.editProfile"
+                aria-label="Edit Profile"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -923,15 +928,8 @@
                     d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
                   ></path>
                 </svg>
-                <span data-i18n="profile.editProfile">Edit Profile</span>
               </button>
-              <div class="phc-motto-text">
-                <span data-i18n="misc.discipline">DISCIPLINE</span>
-                <span class="phc-dot">•</span>
-                <span data-i18n="misc.network">NETWORK</span>
-                <span class="phc-dot">•</span>
-                <span data-i18n="misc.freedom">FREEDOM</span>
-              </div>
+              
             </div>
           </div>
 
@@ -1691,109 +1689,12 @@
       </div>
     </div>
 
-    <!-- EDIT PROFILE MODAL -->
-    <div id="editProfileModal" class="luxury-modal-overlay">
-      <div class="luxury-modal-box">
-        <div class="luxury-modal-header">
-          <h3 data-i18n="profile.editIdentity">EDIT IDENTITY</h3>
-          <button class="luxury-close-btn" id="closeEditProfileModal">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <path d="M18 6L6 18M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <div class="luxury-modal-body">
-          <div class="edit-profile-section">
-            <label class="edit-profile-label" data-i18n="profile.displayName"
-              >DISPLAY NAME</label
-            >
-            <input
-              type="text"
-              class="edit-profile-input"
-              id="editProfileNameInput"
-              placeholder="Enter your display name"
-              data-i18n-placeholder="profile.namePlaceholder"
-            />
-          </div>
-
-          <div class="edit-profile-section">
-            <label class="edit-profile-label" data-i18n="profile.quoteLabel"
-              >PROFILE QUOTE</label
-            >
-            <input
-              type="text"
-              class="edit-profile-input"
-              id="editProfileQuoteInput"
-              placeholder="Enter your quote"
-              data-i18n-placeholder="profile.quotePlaceholder"
-            />
-          </div>
-
-          <div class="edit-profile-section">
-            <label class="edit-profile-label" data-i18n="profile.avatarLabel"
-              >AVATAR URL (OR UPLOAD)</label
-            >
-            <div style="display: flex; gap: 8px">
-              <input
-                type="text"
-                class="edit-profile-input"
-                id="editProfileAvatarUrl"
-                placeholder="https://..."
-                style="flex: 1"
-              />
-              <label
-                class="edit-profile-save-btn"
-                style="
-                  width: auto;
-                  padding: 0 16px;
-                  margin: 0;
-                  display: flex;
-                  align-items: center;
-                  cursor: pointer;
-                "
-              >
-                FILE
-                <input
-                  type="file"
-                  id="editProfileAvatarFile"
-                  accept="image/*"
-                  style="display: none"
-                />
-              </label>
-            </div>
-          </div>
-
-          <div class="edit-profile-section" style="display: none">
-            <label class="edit-profile-label" data-i18n="profile.selectPortrait"
-              >SELECT PORTRAIT</label
-            >
-            <div class="edit-profile-photo-grid" id="editProfilePhotoGrid">
-              <!-- JS injected photos -->
-            </div>
-          </div>
-
-          <button
-            class="edit-profile-save-btn"
-            id="saveEditProfileBtn"
-            data-i18n="profile.saveChanges"
-          >
-            SAVE CHANGES
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- ACCOUNT INFO MODAL -->
     <div id="accountInfoModal" class="luxury-modal-overlay">
-      <div class="luxury-modal-box">
+      <div class="luxury-modal-box dossier-modal-box">
         <div class="luxury-modal-header">
-          <h2 id="modal-account-title" data-i18n="modal_account_title">
-            ACCOUNT INFORMATION
+          <h2 id="modal-account-title" data-i18n="profile.memberCredentials">
+            MEMBER CREDENTIALS
           </h2>
           <button class="luxury-close-btn" id="closeAccountInfoModal">
             <svg
@@ -1806,47 +1707,112 @@
             </svg>
           </button>
         </div>
-        <div class="luxury-modal-body">
-          <div class="edit-profile-section">
-            <label class="edit-profile-label" data-i18n="profile.email"
-              >EMAIL ADDRESS</label
-            >
-            <input
-              type="email"
-              class="edit-profile-input ltr-input"
-              id="accEmailInput"
-              placeholder="name@domain.com"
-            />
+        <div class="luxury-modal-body dossier-modal-body">
+          
+          <!-- AVATAR CENTERPIECE -->
+          <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 12px; margin-top: 4px;">
+            <label class="interactive-avatar-ring">
+              <div
+                class="phc-avatar-photo"
+                id="editProfileAvatarPreview"
+                style="
+                  background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop');
+                "
+              ></div>
+              <div class="avatar-overlay-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 14px; height: 14px;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.197 7H3a2 2 0 00-2 2v10a2 2 0 002 2h18a2 2 0 002-2V9a2 2 0 00-2-2h-2.197a2.31 2.31 0 01-1.63-.825l-1.04-1.2A2.31 2.31 0 0014.502 4h-5.004a2.31 2.31 0 00-1.63.825l-1.04 1.2z" />
+                  <circle cx="12" cy="13" r="4" />
+                </svg>
+              </div>
+              <input type="file" id="editProfileAvatarFile" accept="image/*" style="display: none" />
+              <input type="hidden" id="editProfileAvatarUrl" />
+            </label>
+            <div style="margin-top: 8px; font-size: 10px; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;" data-i18n="profile.changePortrait">CHANGE PORTRAIT</div>
+            <div class="avatar-presets-container">
+              <div class="avatar-preset-scroll" id="avatarPresetsGallery">
+                <!-- JS injected -->
+              </div>
+            </div>
           </div>
-          <div class="edit-profile-section">
-            <label class="edit-profile-label" data-i18n="profile.phone"
-              >PHONE NUMBER</label
-            >
-            <input
-              type="text"
-              class="edit-profile-input ltr-input"
-              id="accPhoneInput"
-              placeholder="+1 ..."
-            />
+
+          <!-- IDENTITY PANEL -->
+          <div class="dossier-panel">
+            <h4 class="modal-section-title" data-i18n="profile.publicIdentity">PUBLIC IDENTITY</h4>
+
+            <div class="edit-profile-section dossier-field">
+              <label class="edit-profile-label" data-i18n="profile.displayName">DISPLAY NAME</label>
+              <input
+                type="text"
+                class="edit-profile-input"
+                id="editProfileNameInput"
+                placeholder="Enter your display name"
+                data-i18n-placeholder="profile.namePlaceholder"
+              />
+            </div>
+            
+            <div class="edit-profile-section dossier-field">
+              <label class="edit-profile-label" data-i18n="profile.quoteLabel">PROFILE QUOTE</label>
+              <textarea
+                class="edit-profile-input edit-profile-textarea"
+                id="editProfileQuoteInput"
+                rows="3"
+                placeholder="Enter your quote"
+                data-i18n-placeholder="profile.quotePlaceholder"
+              ></textarea>
+              <div class="quote-presets-container">
+                <span class="quote-preset-chip" data-quote="Discipline. Network. Freedom.">Discipline. Network. Freedom.</span>
+                <span class="quote-preset-chip" data-quote="Silence is the ultimate luxury.">Silence is the ultimate luxury.</span>
+                <span class="quote-preset-chip" data-quote="True wealth is private.">True wealth is private.</span>
+                <span class="quote-preset-chip" data-quote="Aut vincere aut mori.">Aut vincere aut mori.</span>
+              </div>
+            </div>
           </div>
-          <div class="edit-profile-section">
-            <label class="edit-profile-label" data-i18n="profile.password"
-              >NEW PASSWORD</label
-            >
-            <input
-              type="password"
-              class="edit-profile-input"
-              id="accPasswordInput"
-              placeholder="Leave blank to keep current"
-              data-i18n-placeholder="leave_blank"
-            />
+
+          <hr class="modal-divider dossier-divider" />
+
+          <!-- ACCOUNT PANEL -->
+          <div class="dossier-panel">
+            <h4 class="modal-section-title" data-i18n="profile.securityContact">SECURITY & CONTACT</h4>
+            
+            <div class="edit-profile-section dossier-field">
+              <label class="edit-profile-label" data-i18n="profile.email">EMAIL ADDRESS</label>
+              <input
+                type="email"
+                class="edit-profile-input ltr-input"
+                id="accEmailInput"
+                placeholder="name@domain.com"
+              />
+            </div>
+            
+            <div class="edit-profile-section dossier-field">
+              <label class="edit-profile-label" data-i18n="profile.phone">PHONE NUMBER</label>
+              <input
+                type="text"
+                class="edit-profile-input ltr-input"
+                id="accPhoneInput"
+                placeholder="+1 ..."
+              />
+            </div>
+            
+            <div class="edit-profile-section dossier-field">
+              <label class="edit-profile-label" data-i18n="profile.password">NEW PASSWORD</label>
+              <input
+                type="password"
+                class="edit-profile-input"
+                id="accPasswordInput"
+                placeholder="Leave blank to keep current"
+                data-i18n-placeholder="leave_blank"
+              />
+            </div>
           </div>
+
           <button
-            class="edit-profile-save-btn"
+            class="edit-profile-save-btn dossier-save-btn"
             id="saveAccountInfoBtn"
-            data-i18n="profile.updateAccount"
+            data-i18n="profile.saveCredentials"
           >
-            UPDATE ACCOUNT
+            SAVE CREDENTIALS
           </button>
         </div>
       </div>

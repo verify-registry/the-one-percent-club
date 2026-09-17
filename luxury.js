@@ -15,12 +15,12 @@ function initMetallicAssets() {
 
   if (typeof OffscreenCanvas !== "undefined") {
     offscreen = new OffscreenCanvas(size, size);
-    ctx = offscreen.getContext("2d", { alpha: false });
+    ctx = offscreen.getContext("2d", { alpha: true });
   } else {
     offscreen = document.createElement("canvas");
     offscreen.width = size;
     offscreen.height = size;
-    ctx = offscreen.getContext("2d", { alpha: false });
+    ctx = offscreen.getContext("2d", { alpha: true });
   }
 
   // Multi-layered specular gold gradient
@@ -186,12 +186,13 @@ function initMetallicAssets() {
 function initGuilloche() {
   const canvas = document.getElementById("guillocheCanvas");
   if (!canvas) return;
-  const ctx = canvas.getContext("2d", { alpha: false }); // Optimize by disabling alpha channel on base canvas
+  const ctx = canvas.getContext("2d", { alpha: true }); // Optimize by disabling alpha channel on base canvas
 
   // Performance optimization: track current dimensions to prevent redundant redraws
   let currentWidth = 0;
   let currentHeight = 0;
   let currentDpr = 1;
+  let currentIsLight = document.body.classList.contains("light-mode");
   let resizeTimeout;
   let isDirty = false;
 
@@ -201,6 +202,25 @@ function initGuilloche() {
     drawGuilloche(ctx, currentWidth, currentHeight);
   };
 
+  const forceRedraw = () => {
+    const isLight = document.body.classList.contains("light-mode");
+    if (currentIsLight !== isLight) {
+      currentIsLight = isLight;
+      isDirty = true;
+      window.requestAnimationFrame(drawFrame);
+    }
+  };
+
+  // Watch for theme changes specifically
+  const themeObserver = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.attributeName === 'class') {
+        forceRedraw();
+      }
+    }
+  });
+  themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
   const resizeCanvas = () => {
     const parent = canvas.parentElement;
     const dpr = window.devicePixelRatio || 1;
@@ -209,10 +229,12 @@ function initGuilloche() {
     if (rect.width === 0 || rect.height === 0) return; // Not visible yet
 
     // Only redraw if dimensions actually changed
+    const isLight = document.body.classList.contains("light-mode");
     if (
       currentWidth === rect.width &&
       currentHeight === rect.height &&
-      currentDpr === dpr
+      currentDpr === dpr &&
+      currentIsLight === isLight
     ) {
       return;
     }
@@ -220,6 +242,7 @@ function initGuilloche() {
     currentWidth = rect.width;
     currentHeight = rect.height;
     currentDpr = dpr;
+    currentIsLight = document.body.classList.contains("light-mode");
 
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
@@ -247,95 +270,107 @@ function initGuilloche() {
 }
 
 function drawGuilloche(ctx, width, height) {
-  ctx.clearRect(0, 0, width, height);
-
-  const cx = width / 2;
-  const cy = height / 2;
-  
+  if (!width || !height) return;
   const isLight = document.body.classList.contains("light-mode");
 
-  // 1. Deep Obsidian Base with Brushed Metal Spotlight
-  const bgGradient = ctx.createRadialGradient(
-    cx,
-    cy * 0.4,
-    0,
-    cx,
-    cy * 0.4,
-    height * 0.85,
-  );
-  if (isLight) {
-    bgGradient.addColorStop(0, "#fcfaf6");
-    bgGradient.addColorStop(0.35, "#f3efe6");
-    bgGradient.addColorStop(1, "#e6ddce");
-  } else {
-    bgGradient.addColorStop(0, "#12100a"); // Subtle warm gold/brown inner glow
-    bgGradient.addColorStop(0.35, "#060504"); // Deep transition
-    bgGradient.addColorStop(1, "#020202"); // Pure black edges
+  ctx.clearRect(0, 0, width, height);
+
+  // --- 1. PURE TOPOGRAPHIC GEOMETRY (NO CROSSHATCH) ---
+  // We use a single bundle of non-intersecting, diverging S-curves.
+  const paths = new Path2D();
+  const numLines = 300; 
+
+  for (let i = 0; i <= numLines; i++) {
+    let t = i / numLines;
+    let nt = t * 2 - 1; // Ranges from -1 to 1
+
+    // Density distribution: pushes lines tightly to the edges, leaving the center quiet
+    let yBase = Math.sign(nt) * Math.pow(Math.abs(nt), 1.2) * (height * 1.5);
+
+    // Amplitude of the curve increases as we move to the edges.
+    // This breaks the "repetitive parallel" look, creating gracefully expanding sweeps.
+    let amplitude = Math.pow(Math.abs(nt), 0.8) * height * 0.7;
+
+    let startX = -width * 1.5;
+    let endX = width * 1.5;
+
+    // Control points to create the sweeping S-curve
+    let cp1X = -width * 0.5;
+    let cp1Y = yBase - amplitude;
+
+    let cp2X = width * 0.5;
+    let cp2Y = yBase + amplitude;
+
+    paths.moveTo(startX, yBase);
+    paths.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, endX, yBase);
   }
 
-  ctx.fillStyle = bgGradient;
-  ctx.fillRect(0, 0, width, height);
-
-  // Subtle brushed texture
   ctx.save();
-  ctx.globalCompositeOperation = isLight ? "multiply" : "screen";
-  ctx.lineWidth = 0.5;
-  ctx.strokeStyle = isLight ? "rgba(0, 0, 0, 0.02)" : "rgba(255, 230, 150, 0.015)";
-  // Optimize texture drawing by using larger steps if possible
-  for (let i = 0; i < width; i += 3) {
-    ctx.beginPath();
-    ctx.moveTo(i, 0);
-    ctx.lineTo(i, height);
-    ctx.stroke();
-  }
-  ctx.restore();
+  // Rotate the entire majestic bundle so it flows diagonally across the card
+  ctx.translate(width * 0.5, height * 0.5);
+  ctx.rotate(-Math.PI / 7); // ~ -25 degrees tilt
 
-  // 2. Guilloché Security Lines - Engraved effect
-  ctx.lineWidth = 0.6;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 
-  // Draw dark engraved shadow first
+  // --- 2. PHYSICAL TRENCH (SHADOW) ---
+  // Deepens the existing CSS surface
   ctx.save();
-  ctx.translate(0, 1);
-  ctx.strokeStyle = isLight ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.9)";
-  drawHypotrochoid(ctx, cx, cy, width * 0.45, width * 0.12, width * 0.18, 150);
-  drawHypotrochoid(ctx, cx, cy, width * 0.6, width * 0.05, width * 0.1, 250);
-  drawHypotrochoid(ctx, cx, cy, width * 0.3, width * 0.11, width * 0.08, 100);
+  ctx.globalCompositeOperation = "multiply";
+  ctx.translate(0.5, 0.5); // Sub-pixel shift for physical depth
+  ctx.lineWidth = 1.0;
+  ctx.strokeStyle = isLight ? "rgba(90, 60, 40, 0.15)" : "rgba(0, 0, 0, 0.7)";
+  ctx.stroke(paths);
   ctx.restore();
 
-  // Draw highlight (metallic reflection inside the engraving)
+  // --- 3. ANISOTROPIC SPECULAR HIGHLIGHT (THE REAL METAL SECRET) ---
+  // We don't trace the whole line with light. We create a stationary light band
+  // that only catches the grooves at specific perpendicular angles.
   ctx.save();
-  ctx.translate(0, -0.5);
-  ctx.strokeStyle = isLight ? "rgba(255, 255, 255, 0.8)" : "rgba(215, 180, 80, 0.18)";
-  drawHypotrochoid(ctx, cx, cy, width * 0.45, width * 0.12, width * 0.18, 150);
-  
-  ctx.strokeStyle = isLight ? "rgba(255, 255, 255, 0.4)" : "rgba(215, 180, 80, 0.1)";
-  drawHypotrochoid(ctx, cx, cy, width * 0.6, width * 0.05, width * 0.1, 250);
-  
-  ctx.strokeStyle = isLight ? "rgba(255, 255, 255, 0.6)" : "rgba(215, 180, 80, 0.15)";
-  drawHypotrochoid(ctx, cx, cy, width * 0.3, width * 0.11, width * 0.08, 100);
-  ctx.restore();
-}
+  ctx.globalCompositeOperation = isLight ? "screen" : "color-dodge";
+  ctx.translate(-0.5, -0.5); // Opposing sub-pixel shift
+  ctx.lineWidth = 0.6; // Razor thin glint
 
-function drawHypotrochoid(ctx, cx, cy, R, r, d, loops) {
-  ctx.beginPath();
-  // Optimize step size to render faster without losing noticeable quality on mobile
-  const step = 0.08;
-  const maxTheta = Math.PI * 2 * loops;
+  // Directional Light Band relative to the rotated canvas
+  const specGrad = ctx.createLinearGradient(-width, -height, width, height);
 
-  for (let theta = 0; theta <= maxTheta; theta += step) {
-    // Parametric equations for a hypotrochoid
-    const x = (R - r) * Math.cos(theta) + d * Math.cos(((R - r) / r) * theta);
-    const y = (R - r) * Math.sin(theta) - d * Math.sin(((R - r) / r) * theta);
-
-    if (theta === 0) {
-      ctx.moveTo(cx + x, cy + y);
-    } else {
-      ctx.lineTo(cx + x, cy + y);
-    }
+  if (isLight) {
+    specGrad.addColorStop(0.0, "rgba(255, 255, 255, 0.0)");
+    specGrad.addColorStop(0.3, "rgba(255, 255, 255, 0.0)");
+    specGrad.addColorStop(0.4, "rgba(255, 255, 255, 0.7)");  // Sharp light catch
+    specGrad.addColorStop(0.45, "rgba(255, 255, 255, 0.0)"); // Falls back into shadow
+    specGrad.addColorStop(0.55, "rgba(255, 255, 255, 0.0)"); 
+    specGrad.addColorStop(0.65, "rgba(255, 255, 255, 0.5)");  // Secondary ambient catch
+    specGrad.addColorStop(0.7, "rgba(255, 255, 255, 0.0)");
+    specGrad.addColorStop(1.0, "rgba(255, 255, 255, 0.0)");
+  } else {
+    specGrad.addColorStop(0.0, "rgba(220, 180, 90, 0.0)");
+    specGrad.addColorStop(0.3, "rgba(220, 180, 90, 0.0)");
+    specGrad.addColorStop(0.4, "rgba(230, 190, 100, 0.7)");  // Polished gold catch
+    specGrad.addColorStop(0.45, "rgba(220, 180, 90, 0.0)");
+    specGrad.addColorStop(0.55, "rgba(220, 180, 90, 0.0)");
+    specGrad.addColorStop(0.65, "rgba(210, 170, 80, 0.4)");  // Softer secondary gold
+    specGrad.addColorStop(0.7, "rgba(220, 180, 90, 0.0)");
+    specGrad.addColorStop(1.0, "rgba(220, 180, 90, 0.0)");
   }
-  ctx.stroke();
+
+  ctx.strokeStyle = specGrad;
+  ctx.stroke(paths);
+  ctx.restore();
+
+  ctx.restore(); // End Rotation
+
+  // --- 4. ORGANIC CENTER PROTECTION ---
+  // Ensure the primary identity elements read perfectly by softly fading the grooves in the center.
+  ctx.save();
+  ctx.globalCompositeOperation = "destination-out";
+  const fadeGrad = ctx.createRadialGradient(width * 0.5, height * 0.45, 0, width * 0.5, height * 0.45, Math.max(width, height) * 0.55);
+  fadeGrad.addColorStop(0.0, "rgba(0, 0, 0, 0.95)");
+  fadeGrad.addColorStop(0.5, "rgba(0, 0, 0, 0.3)");
+  fadeGrad.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");
+  ctx.fillStyle = fadeGrad;
+  ctx.fillRect(0, 0, width, height);
+  ctx.restore();
 }
 
 // ---------------------------------------------------------
@@ -1026,6 +1061,15 @@ function applyTiltToCards(rx, ry) {
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
     card.style.transform = `perspective(1500px) rotateX(${rx}deg) rotateY(${ry}deg)`;
     card.style.transition = "none";
+    
+    // Depth-mapping edge glow
+    const glowX = 50 + (ry * 2); // Shift horizontal highlight
+    const glowY = 0 - (rx * 2);  // Shift vertical highlight (starts at 0% top)
+    const angle = 160 + ry + (rx * 0.5);
+    
+    card.style.setProperty('--glow-x', `${glowX}%`);
+    card.style.setProperty('--glow-y', `${glowY}%`);
+    card.style.setProperty('--metal-angle', `${angle}deg`);
   });
 }
 
@@ -1034,6 +1078,10 @@ function resetTiltForCard(card) {
   targetRotY = 0;
   card.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg)`;
   card.style.transition = "transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1)";
+  
+  card.style.setProperty('--glow-x', '50%');
+  card.style.setProperty('--glow-y', '0%');
+  card.style.setProperty('--metal-angle', '160deg');
 }
 
 function tiltLoop() {
