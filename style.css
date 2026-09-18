@@ -10599,6 +10599,8 @@ body.light-mode
   width: 100% !important;
   height: 100% !important;
   padding-bottom: 16px !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
 }
 
 #membershipCard .card-inner-frame > *:not(canvas):not(.card-sheen) {
