@@ -11427,6 +11427,9 @@ body.light-mode #membership-tab .card-club-name {
     #D4B56A 85%,
     #3B2D12 100%
   ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
   
   filter: 
     drop-shadow(0 -0.5px 0px rgba(255, 255, 255, 0.8))
