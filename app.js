@@ -613,6 +613,21 @@ const AppState = {
     
     const tierNameEl = document.getElementById("tierName");
     if (tierNameEl) tierNameEl.textContent = this.member.tier;
+
+    // Update Milestone Badges
+    const badgeIds = ["milestoneBadge", "memberTierBadge"];
+    badgeIds.forEach((id) => {
+      const badgeEl = document.getElementById(id);
+      if (badgeEl) {
+        if (this.member.tier === "SOVEREIGN EXARCH") {
+          badgeEl.className = "milestone-badge active tier-exarch";
+        } else if (this.member.tier === "SOVEREIGN LUMINARY") {
+          badgeEl.className = "milestone-badge active tier-luminary";
+        } else {
+          badgeEl.className = "milestone-badge";
+        }
+      }
+    });
     
     if (oldTier && oldTier !== this.member.tier) {
       if (typeof window.triggerGoldDustMilestone === "function") {
@@ -882,23 +897,25 @@ function applyEquippedToCard(equipped) {
    Master Card · Club Chat · Credits · Boutique · Equip · Widget 1
 ========================================================= */
 
-function generateSkeletonGrid() {
+
+function generateBoutiqueSkeleton() {
   let html = '<div class="boutique-grid">';
   for (let i = 0; i < 6; i++) {
     html += `
-      <div class="boutique-card is-skeleton" style="pointer-events: none; opacity: 0.6; animation: pulse 1.5s infinite ease-in-out;">
-        <span class="rarity-badge" style="background: #2a2a2a; color: transparent; width: 40px; height: 16px;"></span>
-        <span class="boutique-card-icon">
-          <span class="boutique-card-fallback" style="background: #222; border-radius: 50%; width: 40px; height: 40px; display: block;"></span>
-        </span>
-        <span class="boutique-card-name" style="background: #222; width: 60%; height: 12px; margin: 8px auto; border-radius: 4px;"></span>
-        <span class="boutique-card-price" style="background: #222; width: 40%; height: 12px; margin: 0 auto; border-radius: 4px;"></span>
+      <div class="boutique-card boutique-skeleton">
+        <span class="skeleton-shimmer-el skeleton-badge"></span>
+        <span class="skeleton-shimmer-el skeleton-icon"></span>
+        <span class="skeleton-shimmer-el skeleton-name"></span>
+        <span class="skeleton-shimmer-el skeleton-price"></span>
+        <div class="skeleton-shimmer-el skeleton-progress"></div>
+        <div class="skeleton-shimmer-el skeleton-button"></div>
       </div>
     `;
   }
-  html += "</div>";
+  html += '</div>';
   return html;
 }
+
 
 /* === 3. BOUTIQUE & STORE RENDERING === */
 function renderBoutique(filter = "all") {
@@ -908,7 +925,7 @@ function renderBoutique(filter = "all") {
   const categories = filter === "all" ? Object.keys(BOUTIQUE) : [filter];
 
   if (!root.dataset.skeletonShown) {
-    root.innerHTML = generateSkeletonGrid();
+    root.innerHTML = generateBoutiqueSkeleton();
     root.dataset.skeletonShown = "true";
     setTimeout(
       () => renderBoutiqueContent(filter, root, owned, equipped, categories),
@@ -947,25 +964,35 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           const isEquipped = ClubState.equipped[catKey] === item.id;
           const canEquip = EQUIP_CATEGORIES[catKey] !== undefined;
 
-          let btnText, btnClass;
+          let btnText = "";
+          let btnClass = "";
+          let btnOnClick = "";
+          let btnPointerEvents = "pointer-events: none;";
+          let extraCardClass = "";
+          
           if (item.free) {
             btnText = window.t("boutique.ownedCheck");
             btnClass = "btn-free";
           } else if (isEquipped) {
-            btnText = window.t("boutique.equippedCheck");
-            btnClass = "btn-equipped";
-          } else if (isOwned && canEquip) {
             btnText = window.t("boutique.equip");
             btnClass = "btn-equip";
           } else if (isOwned) {
-            btnText = window.t("boutique.owned");
-            btnClass = "btn-owned";
+            if (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) {
+              btnText = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-end: 4px; vertical-align: middle;"><polyline points="20 6 9 17 4 12"></polyline></svg> ` + window.t("boutique.owned");
+              btnClass = "btn-owned qp-success-btn";
+              extraCardClass = " qp-shimmer-active";
+            } else {
+              btnText = window.t("boutique.owned");
+              btnClass = "btn-owned";
+            }
           } else {
             btnText = window.t("boutique.acquire");
             btnClass = "";
+            btnPointerEvents = "pointer-events: auto;";
+            btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
           }
 
-          const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}`;
+          const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}${extraCardClass}`;
           const priceHtml = item.free
             ? `<span class="boutique-card-price is-free">مجاني</span>`
             : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
@@ -1003,7 +1030,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           <span class="boutique-card-name">${window.t(item.name)}</span>
           ${priceHtml}
           ${progressHtml}
-          <button class="boutique-own-btn ${btnClass}" type="button" style="pointer-events: none;">
+          <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick}>
             ${btnText}
           </button>
         </div>
@@ -1012,7 +1039,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         .join("");
 
       return `
-      <section class="boutique-section" data-category="${catKey}">
+      <section class="boutique-section skeleton-fade-in" data-category="${catKey}">
         <div class="boutique-section-head">
           <h3>${window.t(cat.title)}</h3>
           ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${cat.sub}</span>` : ""}
@@ -1066,16 +1093,24 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           wasAutoEquipped = true;
         }
 
-        showQuickPreview(item, wasAutoEquipped);
-        if (navigator.vibrate) navigator.vibrate(50);
-        if (window.AudioEngine) window.AudioEngine.playRustle();
+        if (!isOwned) {
+          if (window.hapticPreviewMgr) window.hapticPreviewMgr.open(item, e);
+        } else {
+          showQuickPreview(item, wasAutoEquipped);
+          if (navigator.vibrate) navigator.vibrate(50);
+          if (window.AudioEngine) window.AudioEngine.playRustle();
+        }
       }, 400); // 400ms for long press
     };
 
     const endPress = (e) => {
       clearTimeout(pressTimer);
       if (isLongPress) {
-        hideQuickPreview();
+        if (!isOwned && window.hapticPreviewMgr) {
+          // Handled by manager's own events, but safe to call
+        } else {
+          hideQuickPreview();
+        }
       }
     };
 
@@ -1214,13 +1249,11 @@ const Router = {
   switchView(tab) {
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
-      p.hidden = true;
     });
 
     const activePage = document.getElementById(`${tab}-tab`);
     if (activePage) {
       activePage.classList.add("is-active");
-      activePage.hidden = false;
     }
 
     document
@@ -1255,13 +1288,11 @@ const Router = {
     contextReturnTab = returnTab;
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
-      p.hidden = true;
     });
 
     const activePage = document.getElementById(pageId);
     if (activePage) {
       activePage.classList.add("is-active");
-      activePage.hidden = false;
     }
     document.getElementById("sectionName").textContent = title;
     document.getElementById("appHeader").classList.remove("header-compact");
@@ -1435,33 +1466,106 @@ window.showAchievementToast = function (title, msg) {
 };
 
 function spawnGoldenConfetti() {
-  const particleCount = 40;
+  const canvas = document.createElement("canvas");
+  canvas.style.position = "fixed";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100vw";
+  canvas.style.height = "100vh";
+  canvas.style.pointerEvents = "none";
+  canvas.style.zIndex = "100000"; // high z-index to be on top of everything
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+  
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+
+  const leaves = [];
+  const particleCount = 80;
+
+  const colors = ["#d4af37", "#f3e5ab", "#c5a017", "#e6c762"];
+
   for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement("div");
-    particle.className = "gold-confetti-particle";
-
-    particle.style.left = Math.random() * 100 + "vw";
-
-    const duration = Math.random() * 2 + 1.5;
-    particle.style.animationDuration = duration + "s";
-
-    particle.style.transform = `rotate(${Math.random() * 360}deg)`;
-
-    particle.style.animationDelay = Math.random() * 0.5 + "s";
-
-    const scale = Math.random() * 0.5 + 0.5;
-    particle.style.width = 6 * scale + "px";
-    particle.style.height = 12 * scale + "px";
-
-    document.body.appendChild(particle);
-
-    setTimeout(
-      () => {
-        particle.remove();
-      },
-      (duration + 0.5) * 1000,
-    );
+    leaves.push({
+      x: Math.random() * width,
+      y: -Math.random() * height - 50,
+      w: Math.random() * 5 + 4,
+      h: Math.random() * 8 + 8,
+      speedY: Math.random() * 2.5 + 1.5,
+      speedX: Math.random() * 2 - 1,
+      angle: Math.random() * Math.PI * 2,
+      spinSpeed: (Math.random() - 0.5) * 0.15,
+      sway: Math.random() * Math.PI * 2,
+      swaySpeed: Math.random() * 0.04 + 0.01,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      opacity: Math.random() * 0.5 + 0.5,
+      flip: 0,
+      flipSpeed: Math.random() * 0.1 + 0.05
+    });
   }
+
+  let animationFrame;
+  let startTime = Date.now();
+  const duration = 6000;
+
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+    
+    let allDead = true;
+
+    leaves.forEach(leaf => {
+      leaf.y += leaf.speedY;
+      leaf.x += leaf.speedX + Math.sin(leaf.sway) * 1.5;
+      leaf.sway += leaf.swaySpeed;
+      leaf.angle += leaf.spinSpeed;
+      leaf.flip += leaf.flipSpeed;
+
+      if (leaf.y < height + 50) {
+        allDead = false;
+        ctx.save();
+        ctx.translate(leaf.x, leaf.y);
+        ctx.rotate(leaf.angle);
+        
+        // 3D flip effect by scaling Y
+        ctx.scale(1, Math.sin(leaf.flip));
+        
+        ctx.fillStyle = leaf.color;
+        ctx.globalAlpha = leaf.opacity;
+        
+        // slight shadow for depth
+        ctx.shadowColor = "rgba(0,0,0,0.4)";
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetY = 2;
+        
+        ctx.beginPath();
+        ctx.moveTo(0, -leaf.h);
+        ctx.quadraticCurveTo(leaf.w, 0, 0, leaf.h);
+        ctx.quadraticCurveTo(-leaf.w, 0, 0, -leaf.h);
+        ctx.fill();
+        
+        // inner shine
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(0, -leaf.h + 2);
+        ctx.lineTo(0, leaf.h - 2);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+    });
+
+    if (Date.now() - startTime < duration && !allDead) {
+      animationFrame = requestAnimationFrame(render);
+    } else {
+      canvas.remove();
+    }
+  }
+
+  render();
 }
 
 window.unlockAchievement = function (id, title, desc) {
@@ -1772,6 +1876,11 @@ function renderMessages() {
       } else {
         return `
         <div class="chat-row is-incoming">
+          <button class="chat-avatar-btn is-online" type="button">
+            <div class="chat-avatar-rim">
+              <div class="chat-avatar-initials">${msg.senderName.charAt(0)}</div>
+            </div>
+          </button>
           <div class="chat-bubble is-incoming">
             <div class="chat-sender-header">
               <span style="font-size: 10px; color: ${msg.senderColor || "#d4af37"}; font-weight: bold; font-family: 'Cinzel', serif;">${msg.senderName}</span>
@@ -2150,19 +2259,20 @@ document.addEventListener("DOMContentLoaded", () => {
       profilePhoto.style.backgroundImage = `url(${savedPortrait})`;
   }
 
+
   const menuAddFriend = document.getElementById("menuAddFriend");
   if (menuAddFriend) {
     menuAddFriend.addEventListener("click", () => {
       showNavToast(window.t("dynamic.addFriendSoon"));
     });
   }
-
   const menuMyCollectionNav = document.getElementById("menuMyCollectionNav");
   if (menuMyCollectionNav) {
     menuMyCollectionNav.addEventListener("click", () => {
       document.querySelector('[data-tab="shop"]').click();
     });
   }
+
 
   const editIconFloating = document.querySelector(".edit-icon-floating");
   if (editIconFloating) {
@@ -2179,7 +2289,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         draft = JSON.parse(localStorage.getItem("profileDraft"));
       } catch (e) {}
-      
+        
       let currentAvatarUrl = "";
       if (draft) {
         document.getElementById("editProfileNameInput").value = draft.name || "";
@@ -2192,7 +2302,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentAvatarUrl = AppState.user.avatarUrl || "";
         document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
       }
-      
+        
       if (typeof renderAvatarPresets === "function") { renderAvatarPresets(currentAvatarUrl); }
       if (typeof updateEditProfilePreview === "function") {
         updateEditProfilePreview(currentAvatarUrl);
@@ -2227,7 +2337,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const nameInput = document.getElementById("editProfileNameInput").value.trim();
       const quoteInput = document.getElementById("editProfileQuoteInput").value.trim();
       const avatarUrl = document.getElementById("editProfileAvatarUrl").value.trim();
-      
+        
       if (nameInput) {
         AppState.user.name = nameInput;
         AppState.user.username = nameInput;
@@ -2246,7 +2356,7 @@ document.addEventListener("DOMContentLoaded", () => {
       AppState.user.phone = document
         .getElementById("accPhoneInput")
         .value.trim();
-        
+          
       AppState.save();
       updateUI();
       localStorage.removeItem("profileDraft");
@@ -2290,6 +2400,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
   const btnSettingsLogout = document.getElementById("btnSettingsLogout");
   const logoutConfirmModal = document.getElementById("logoutConfirmModal");
   const closeLogoutConfirmModal = document.getElementById(
@@ -2303,23 +2414,25 @@ document.addEventListener("DOMContentLoaded", () => {
       logoutConfirmModal.classList.add("is-open");
     });
   }
+
   if (closeLogoutConfirmModal && logoutConfirmModal) {
     closeLogoutConfirmModal.addEventListener("click", () => {
       logoutConfirmModal.classList.remove("is-open");
     });
   }
+
   if (btnCancelLogout && logoutConfirmModal) {
     btnCancelLogout.addEventListener("click", () => {
       logoutConfirmModal.classList.remove("is-open");
     });
   }
+
   if (btnConfirmLogout) {
     btnConfirmLogout.addEventListener("click", () => {
-      localStorage.clear();
+      // Simulate logout
       window.location.reload();
     });
   }
-
   const menuMyCollection = document.getElementById("menuMyCollection");
   if (menuMyCollection) {
     menuMyCollection.addEventListener("click", () => {
@@ -2723,10 +2836,36 @@ function playPurchaseAnimation() {
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
+
+function generateProfileAchievementSkeleton() {
+  let html = '';
+  for (let i = 0; i < 4; i++) {
+    html += `
+      <div class="honor-card profile-achievement-skeleton">
+        <div class="skeleton-shimmer-el skeleton-icon-small"></div>
+        <div class="skeleton-shimmer-el skeleton-name"></div>
+        <div class="skeleton-shimmer-el skeleton-badge"></div>
+        <div class="skeleton-shimmer-el skeleton-progress-wrap"></div>
+      </div>
+    `;
+  }
+  return html;
+}
+
 function renderProfileAchievements() {
   const container = document.getElementById("profileAchievementsGrid");
   const summaryContainer = document.getElementById("achievementsSummary");
   if (!container) return;
+
+  if (!container.dataset.skeletonShown) {
+    let skeletonHtml = generateProfileAchievementSkeleton();
+    
+    container.innerHTML = skeletonHtml;
+    container.dataset.skeletonShown = "true";
+    setTimeout(() => renderProfileAchievements(), 450);
+    return;
+  }
+  container.dataset.skeletonShown = "";
 
   let unlocked = [];
   try {
@@ -2765,7 +2904,7 @@ function renderProfileAchievements() {
         .replace("{0}", remainingFormatted);
 
       html += `
-        <div class="honor-card is-locked gyro-element" data-tilt data-tooltip="${window.t("honors.desc_" + id).replace(/"/g, "&quot;")}">
+        <div class="honor-card is-locked gyro-element skeleton-fade-in" data-tilt data-tooltip="${window.t("honors.desc_" + id).replace(/"/g, "&quot;")}">
           <div class="honor-icon">${ach.icon}</div>
           <div class="honor-name">${nameText}</div>
           <div class="honor-title">${window.t("honors.locked")}</div>
@@ -2801,9 +2940,34 @@ function renderProfileAchievements() {
   }
 }
 
+
+function generateProfileCollectionSkeleton() {
+  let html = '';
+  for (let i = 0; i < 4; i++) {
+    html += `
+      <div class="pcs-item-card profile-collection-skeleton">
+        <span class="skeleton-shimmer-el skeleton-icon-round"></span>
+        <div class="pcs-item-info">
+          <div class="skeleton-shimmer-el skeleton-name"></div>
+          <div class="skeleton-shimmer-el skeleton-price-small"></div>
+        </div>
+      </div>
+    `;
+  }
+  return html;
+}
+
 function renderProfileCollection() {
   const container = document.getElementById("profileCollectionGrid");
   if (!container) return;
+
+  if (!container.dataset.skeletonShown) {
+    container.innerHTML = generateProfileCollectionSkeleton();
+    container.dataset.skeletonShown = "true";
+    setTimeout(() => renderProfileCollection(), 450);
+    return;
+  }
+  container.dataset.skeletonShown = "";
 
   const collectedItems = AppState.collectedItems
     .map((id) => {
@@ -2852,7 +3016,7 @@ function renderProfileCollection() {
       }
 
       html += `
-        <div class="pcs-item-card gyro-element" data-tilt>
+        <div class="pcs-item-card gyro-element skeleton-fade-in" data-tilt>
           <span class="boutique-card-icon">
             ${iconHtml}
           </span>
@@ -2964,6 +3128,25 @@ function renderProfileStatsBar() {
   const container = document.getElementById("profileStatsBar");
   if (!container) return;
 
+  if (!container.dataset.skeletonShown) {
+    let html = '';
+    for(let i=0; i<4; i++) {
+      html += `
+        <div class="psb-col profile-stats-skeleton">
+          <div class="skeleton-shimmer-el skeleton-icon-tiny"></div>
+          <div class="skeleton-shimmer-el skeleton-name"></div>
+          <div class="skeleton-shimmer-el skeleton-badge"></div>
+        </div>
+      `;
+      if (i < 3) html += '<div class="psb-divider"></div>';
+    }
+    container.innerHTML = html;
+    container.dataset.skeletonShown = "true";
+    setTimeout(() => renderProfileStatsBar(), 450);
+    return;
+  }
+  container.dataset.skeletonShown = "";
+
   const levelVal = window.t("dynamic.sovereign");
   const levelLabel = window.t("membership.level");
 
@@ -2977,30 +3160,31 @@ function renderProfileStatsBar() {
   const sinceLabel = window.t("membership.memberSince");
 
   container.innerHTML = `
-    <div class="psb-col">
+    <div class="psb-col skeleton-fade-in">
       <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z"></path></svg>
       <div class="psb-value">${levelVal}</div>
       <div class="psb-label">${levelLabel}</div>
     </div>
     <div class="psb-divider"></div>
-    <div class="psb-col">
+    <div class="psb-col skeleton-fade-in">
       <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
       <div class="psb-value" id="pmItemsCollected">${itemsVal}</div>
       <div class="psb-label">${itemsLabel}</div>
     </div>
     <div class="psb-divider"></div>
-    <div class="psb-col">
+    <div class="psb-col skeleton-fade-in">
       <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
       <div class="psb-value">${connectionsVal}</div>
       <div class="psb-label">${connectionsLabel}</div>
     </div>
     <div class="psb-divider"></div>
-    <div class="psb-col">
+    <div class="psb-col skeleton-fade-in">
       <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       <div class="psb-value">${sinceVal}</div>
       <div class="psb-label">${sinceLabel}</div>
     </div>
   `;
+
 }
 
 /* === 5. PRESTIGE, HONORS & METRICS === */
@@ -3052,10 +3236,11 @@ function renderLeaderboard() {
       else tagText = "Member";
     }
 
+    const isOnline = index < 2 ? "is-online" : "";
     html += `
     <div class="leader-item">
       <div class="leader-rank">${rank}</div>
-      <div class="leader-avatar">
+      <div class="leader-avatar ${isOnline}">
         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="${name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <span class="avatar-fallback" style="display:none;">${name.charAt(0)}</span>
       </div>
@@ -3070,3 +3255,353 @@ function renderLeaderboard() {
   html += "</div>";
   container.innerHTML = html;
 }
+
+/* ==========================================================================
+   PARALLAX CONTROLLER (LUXURY DEPTH)
+   ========================================================================== */
+class ParallaxController {
+  constructor() {
+    this.ticking = false;
+    this.init();
+  }
+
+  init() {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => {
+      // Use passive listener for butter-smooth scrolling
+      page.addEventListener('scroll', () => {
+        if (!this.ticking) {
+          window.requestAnimationFrame(() => {
+            this.updateParallax(page);
+            this.ticking = false;
+          });
+          this.ticking = true;
+        }
+      }, { passive: true });
+    });
+    
+    // Initial trigger
+    setTimeout(() => {
+        const activePage = document.querySelector('.page.is-active');
+        if (activePage) this.updateParallax(activePage);
+    }, 100);
+  }
+
+  updateParallax(scrollContainer) {
+    const containerHeight = scrollContainer.clientHeight;
+    
+    // --- BOUTIQUE TAB PARALLAX ---
+    if (scrollContainer.id === 'boutique-tab') {
+      const cards = scrollContainer.querySelectorAll('.boutique-card');
+      
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        
+        // Skip if outside viewport
+        if (rect.bottom < 0 || rect.top > containerHeight) return;
+        
+        // Distance from center of viewport (- means above center, + means below)
+        const centerOffset = (rect.top + rect.height / 2) - (containerHeight / 2);
+        
+        // Layer 1: Icon (moves faster)
+        // Layer 2: Text (moves slower)
+        
+        const icon = card.querySelector('.boutique-card-icon');
+        const text1 = card.querySelector('.boutique-card-name');
+        const text2 = card.querySelector('.boutique-card-price');
+        const btn = card.querySelector('.boutique-own-btn');
+        const progress = card.querySelector('.purchase-progress-wrap');
+        
+        if (icon) {
+          icon.style.transform = `translate3d(0, ${centerOffset * 0.05}px, 0)`;
+          icon.style.transition = 'none'; 
+        }
+        
+        [text1, text2, btn, progress].forEach(el => {
+          if (el) {
+            el.style.transform = `translate3d(0, ${centerOffset * 0.015}px, 0)`;
+            el.style.transition = 'none';
+          }
+        });
+      });
+    }
+
+    // --- PROFILE TAB PARALLAX ---
+    if (scrollContainer.id === 'profile-tab') {
+      
+      // 1. Profile Hero Section Parallax
+      const hero = scrollContainer.querySelector('.profile-hero-card');
+      if (hero) {
+        const rect = hero.getBoundingClientRect();
+        const avatarCol = hero.querySelector('.phc-avatar-col');
+        const infoCol = hero.querySelector('.phc-info-col');
+        
+        // Only apply if visible and scrolling up (rect.top < 0)
+        if (rect.bottom > 0) {
+          // Push down as it scrolls up (negative rect.top)
+          
+          // Base offset is roughly where it starts (116px), so it parallaxes immediately
+          const offset = 116 - rect.top; 
+ 
+          
+          if (avatarCol) {
+            avatarCol.style.transform = `translate3d(0, ${offset * 0.15}px, 0)`;
+            avatarCol.style.transition = 'none';
+          }
+          if (infoCol) {
+            infoCol.style.transform = `translate3d(0, ${offset * 0.06}px, 0)`;
+            infoCol.style.transition = 'none';
+          }
+        }
+      }
+      
+      // 2. Profile Collection Grid Parallax
+      const collectionCards = scrollContainer.querySelectorAll('#profileCollectionGrid .pcs-item-card');
+      collectionCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > containerHeight) return;
+        
+        const centerOffset = (rect.top + rect.height / 2) - (containerHeight / 2);
+        
+        const icon = card.querySelector('.boutique-card-icon');
+        const info = card.querySelector('.pcs-item-info');
+        
+        if (icon) {
+          const yIcon = centerOffset * 0.04;
+          icon.style.transform = `translate3d(0, ${yIcon}px, 0)`;
+          icon.style.transition = 'none';
+        }
+        if (info) {
+          const yInfo = centerOffset * 0.01;
+          info.style.transform = `translate3d(0, ${yInfo}px, 0)`;
+          info.style.transition = 'none';
+        }
+      });
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  window.parallaxController = new ParallaxController();
+});
+
+/* ==========================================================================
+   HAPTIC 3D PREVIEW MANAGER
+   ========================================================================== */
+class HapticPreviewManager {
+  constructor() {
+    this.isActive = false;
+    this.imgSrc = null;
+    this.animationFrame = null;
+    this.tiltX = 0;
+    this.tiltY = 0;
+    this.targetTiltX = 0;
+    this.targetTiltY = 0;
+    this.startX = 0;
+    this.startY = 0;
+    this.initDOM();
+    this.bindEvents();
+  }
+
+  initDOM() {
+    if (document.getElementById('haptic3DOverlay')) return;
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'haptic3DOverlay';
+    overlay.className = 'haptic-3d-overlay';
+    overlay.innerHTML = `
+      <div class="haptic-3d-canvas-container">
+        <canvas id="haptic3DCanvas" width="600" height="600"></canvas>
+      </div>
+      <div class="haptic-3d-info">
+        <h3 id="haptic3DName"></h3>
+        <p id="haptic3DRarity" class="rarity-badge" style="margin: 0 auto; display: inline-block;"></p>
+        <div class="haptic-hint" data-i18n="boutique.hapticHint">حرّك إصبعك للمعاينة • أفلت للإغلاق</div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    
+    this.overlay = overlay;
+    this.canvas = document.getElementById('haptic3DCanvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.nameEl = document.getElementById('haptic3DName');
+    this.rarityEl = document.getElementById('haptic3DRarity');
+  }
+
+  bindEvents() {
+    this.handleMove = this.handleMove.bind(this);
+    this.handleEnd = this.handleEnd.bind(this);
+    this.renderLoop = this.renderLoop.bind(this);
+  }
+
+  open(item, startEvent) {
+    if (this.isActive) return;
+    this.isActive = true;
+    
+    if (navigator.vibrate) navigator.vibrate([15, 40, 15]);
+    if (window.AudioEngine) window.AudioEngine.playRustle();
+
+    this.nameEl.textContent = window.t(item.name);
+    this.rarityEl.className = `rarity-badge rarity-${item.rarity}`;
+    this.rarityEl.textContent = RARITY_LABEL[item.rarity]();
+
+    this.overlay.classList.add('is-active');
+
+    // Extract start coordinates
+    const touch = startEvent.touches ? startEvent.touches[0] : startEvent;
+    this.startX = touch.clientX;
+    this.startY = touch.clientY;
+    this.targetTiltX = 0;
+    this.targetTiltY = 0;
+    this.tiltX = 0;
+    this.tiltY = 0;
+
+    window.addEventListener('touchmove', this.handleMove, { passive: false });
+    window.addEventListener('touchend', this.handleEnd);
+    window.addEventListener('mousemove', this.handleMove);
+    window.addEventListener('mouseup', this.handleEnd);
+
+    this.prepareCanvas(item);
+    this.renderLoop();
+  }
+
+  close() {
+    if (!this.isActive) return;
+    this.isActive = false;
+    this.overlay.classList.remove('is-active');
+    
+    window.removeEventListener('touchmove', this.handleMove);
+    window.removeEventListener('touchend', this.handleEnd);
+    window.removeEventListener('mousemove', this.handleMove);
+    window.removeEventListener('mouseup', this.handleEnd);
+    
+    cancelAnimationFrame(this.animationFrame);
+    if (navigator.vibrate) navigator.vibrate(10);
+  }
+
+  handleMove(e) {
+    if (!this.isActive) return;
+    e.preventDefault(); // Prevent scrolling while previewing
+    
+    const touch = e.touches ? e.touches[0] : e;
+    const deltaX = touch.clientX - this.startX;
+    const deltaY = touch.clientY - this.startY;
+    
+    // Convert drag distance to tilt angles (max 40 degrees)
+    this.targetTiltY = Math.max(-40, Math.min(40, deltaX * 0.2));
+    this.targetTiltX = Math.max(-40, Math.min(40, -deltaY * 0.2));
+  }
+
+  handleEnd() {
+    this.close();
+  }
+
+  prepareCanvas(item) {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.cachedImage = new Image();
+    
+    let svgString = "";
+    if (item.image) {
+       this.cachedImage.src = item.image;
+    } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
+       this.cachedImage.src = item.icon;
+    } else {
+       svgString = ICONS[item.icon] || ICONS["star"];
+       // Convert SVG to data URL to draw on canvas
+       const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+       const url = URL.createObjectURL(svgBlob);
+       this.cachedImage.src = url;
+    }
+  }
+
+  renderLoop() {
+    if (!this.isActive) return;
+
+    // Smooth interpolation (lerp)
+    this.tiltX += (this.targetTiltX - this.tiltX) * 0.1;
+    this.tiltY += (this.targetTiltY - this.tiltY) * 0.1;
+
+    // Apply 3D CSS transform to the canvas
+    this.canvas.style.transform = `scale(1.1) rotateX(${this.tiltX}deg) rotateY(${this.tiltY}deg)`;
+
+    // Draw frame
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    if (this.cachedImage.complete && this.cachedImage.naturalWidth > 0) {
+      const padding = 100;
+      const drawSize = this.canvas.width - (padding * 2);
+      
+      // Draw Base Image
+      this.ctx.globalCompositeOperation = 'source-over';
+      this.ctx.drawImage(this.cachedImage, padding, padding, drawSize, drawSize);
+
+      // Create Dynamic Metallic Reflection Mask
+      this.ctx.globalCompositeOperation = 'source-atop';
+      
+      const gradX = this.canvas.width / 2 + (this.tiltY * 5);
+      const gradY = this.canvas.height / 2 - (this.tiltX * 5);
+      
+      const gradient = this.ctx.createRadialGradient(
+        gradX, gradY, 0,
+        this.canvas.width / 2, this.canvas.height / 2, this.canvas.width
+      );
+      
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.4)');
+      gradient.addColorStop(0.3, 'rgba(212, 175, 55, 0.1)');
+      gradient.addColorStop(1, 'rgba(0, 0, 0, 0.6)');
+      
+      this.ctx.fillStyle = gradient;
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    this.animationFrame = requestAnimationFrame(this.renderLoop);
+  }
+}
+
+window.hapticPreviewMgr = new HapticPreviewManager();
+
+/* ==========================================================================
+   SMART SCROLLBAR AUTO-HIDE
+   ========================================================================== */
+let globalScrollTimeout;
+document.addEventListener("scroll", (e) => {
+  const el = e.target;
+  if (!el || !el.classList) return;
+  
+  el.classList.add('is-scrolling');
+  
+  clearTimeout(el._scrollTimeout);
+  
+  el._scrollTimeout = setTimeout(() => {
+    el.classList.remove('is-scrolling');
+  }, 800);
+}, true); // Use capture phase to catch all scroll events
+
+
+
+window.quickPurchasedItems = new Set();
+window.handleQuickPurchase = function(event, item, catKey) {
+  event.stopPropagation();
+  event.preventDefault();
+  
+  const btn = event.currentTarget;
+  if (btn.disabled || btn.dataset.processing === "true") return;
+  btn.dataset.processing = "true";
+  
+  if (ClubState.purchase(item)) {
+    window.quickPurchasedItems.add(item.id);
+    if (window.AudioEngine) window.AudioEngine.playChime();
+    
+    setTimeout(() => {
+      window.quickPurchasedItems.delete(item.id);
+      const b = document.querySelector(`.boutique-card[data-item-id="${item.id}"] .boutique-own-btn`);
+      if(b) b.innerHTML = window.t("boutique.owned");
+      const c = document.querySelector(`.boutique-card[data-item-id="${item.id}"]`);
+      if(c) c.classList.remove("qp-shimmer-active");
+    }, 1500);
+  } else {
+    btn.dataset.processing = "";
+    btn.classList.add("shake-animation");
+    setTimeout(() => btn.classList.remove("shake-animation"), 400);
+  }
+};

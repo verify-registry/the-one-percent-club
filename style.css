@@ -660,7 +660,36 @@ svg *[fill="currentColor"] {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
+
+/* === Custom Scrollbars === */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 12px 0; /* Shortens the scrollbar from top and bottom */
+}
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+}
+.is-scrolling::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(212, 175, 55, 0.3);
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Light Mode Custom Scrollbar */
+body.light-mode .is-scrolling::-webkit-scrollbar-thumb,
+body.light-mode ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(156, 109, 35, 0.35);
+}
+
 html,
 /* === 2. Base & Layout === */
 body {
@@ -718,6 +747,12 @@ input {
 .app-header.header-compact {
   padding: 6px 16px 4px;
 }
+.app-header.header-compact .back-btn {
+  inset-inline-start: 16px;
+}
+.app-header.header-compact .shield-btn {
+  inset-inline-end: 16px;
+}
 .app-header.header-compact .brand {
   display: flex;
   flex-direction: column;
@@ -725,13 +760,28 @@ input {
   text-align: center;
   width: 100%;
 }
+.hallmark-wrapper {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .brand-crown {
+  position: relative;
+  z-index: 10;
   width: 22px;
   height: 14px;
-  margin-bottom: 1px;
-  margin: 0 auto 3px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 1px 0px rgba(0, 0, 0, 0.8));
+}
+body.light-mode .brand-crown {
+  filter: drop-shadow(0 2px 2px rgba(40, 30, 10, 0.2)) drop-shadow(0 1px 0px rgba(40, 30, 10, 0.4));
 }
 .app-header.header-compact .brand h1 {
+  margin-top: 13px;
   font-size: 15px;
 }
 .app-header.header-compact .tagline {
@@ -778,12 +828,85 @@ input {
   height: 15px;
 }
 .back-btn {
-  inset-inline-start: 14px;
+  position: absolute;
+  inset-inline-start: 18px;
 }
 .shield-btn {
-  inset-inline-end: 14px;
+  position: absolute;
+  inset-inline-end: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  /* Conic gradient for authentic anisotropic metallic reflection (Watch dial/Coin effect) */
+  background: conic-gradient(
+    from 135deg,
+    #a67c33 0%,
+    #d4af6a 15%,
+    #fff8e7 25%,
+    #d4af6a 35%,
+    #a67c33 50%,
+    #704f12 65%,
+    #d4af6a 80%,
+    #fff8e7 90%,
+    #a67c33 100%
+  );
+  border: 1px solid #6b4c10;
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -1px 2px rgba(60, 40, 10, 0.9),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b2707 !important;
+}
+.shield-btn svg {
+  width: 14px;
+  height: 14px;
+  /* Deep deboss engraving */
+  filter: drop-shadow(0 1px 0px rgba(255, 255, 255, 0.6));
+}
+.shield-btn::before {
+  content: "";
+  position: absolute;
+  inset: 1.5px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  pointer-events: none;
+  /* Inner bevel shadow */
+  box-shadow: inset 0 1px 3px rgba(100, 70, 20, 0.4);
+}
+.shield-btn::after {
+  display: none; /* override default icon-btn::after */
+}
+body.light-mode .shield-btn {
+  background: conic-gradient(
+    from 135deg,
+    #a67c33 0%,
+    #d4af6a 15%,
+    #fff8e7 25%,
+    #d4af6a 35%,
+    #a67c33 50%,
+    #704f12 65%,
+    #d4af6a 80%,
+    #fff8e7 90%,
+    #a67c33 100%
+  );
+  border: 1px solid #6b4c10;
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -1px 2px rgba(60, 40, 10, 0.9),
+    0 3px 8px rgba(40, 30, 10, 0.15); /* Softer shadow for light mode */
+  color: #3b2707 !important;
+}
+body.light-mode .shield-btn::before {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 1px 3px rgba(100, 70, 20, 0.4);
+  background: transparent;
 }
 .brand h1 {
+  margin-top: 17px;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(17px, 4.8vw, 22px);
@@ -833,30 +956,44 @@ input {
 .app-main {
   flex: 1;
   padding: 5px 16px 80px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   overflow: hidden;
+  position: relative;
 }
 .page {
-  display: none;
+  grid-area: 1 / 1;
+  display: flex;
   flex-direction: column;
   gap: 10px;
   height: 100%;
   min-height: 0;
-}
-
-.page.is-active {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  animation: fadeUp 0.4s ease forwards;
+  
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.99);
+  transition: opacity 0.15s ease,
+              transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              visibility 0.4s;
+  z-index: 1;
+}
+
+.page.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  z-index: 2;
+  transition: opacity 0.35s ease 0.1s,
+              transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s,
+              visibility 0s;
 }
 
 #page-card.is-active {
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -891,7 +1028,6 @@ input {
     inset 0 -24px 40px -20px rgba(0, 0, 0, 0.95);
   border: var(--gold-border-subtle);
   transform-style: preserve-3d;
-  will-change: transform;
 }
 .membership-card::after {
   content: "";
@@ -982,7 +1118,6 @@ input {
   opacity: 0.85;
   background: transparent;
   transform: translateZ(-1px) scale(1.02);
-  will-change: transform;
 }
 .membership-card .gold-dust-canvas {
   position: absolute;
@@ -1089,7 +1224,6 @@ input {
   pointer-events: none;
   opacity: 0.9;
   z-index: 2;
-  will-change: transform;
 }
 .membership-card .bezel-ticks svg {
   width: 100%;
@@ -1109,7 +1243,6 @@ input {
   justify-content: center;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8))
     drop-shadow(0 1px 1px rgba(0, 0, 0, 1));
-  will-change: transform;
 }
 .membership-card .equipped-crown-slot svg {
   width: 100%;
@@ -1122,7 +1255,6 @@ input {
   border-radius: 50%;
   padding: 5px;
   transform: translateZ(8px);
-  will-change: transform;
   background: conic-gradient(
     from 190deg,
     #2c2010 0deg,
@@ -1239,10 +1371,10 @@ input {
     0 1px 2px rgba(0, 0, 0, 0.8),
     0 0 10px rgba(212, 175, 106, 0.3);
   transform: translateZ(10px);
-  will-change: transform;
   white-space: nowrap;
 }
 .tier-pill {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1255,6 +1387,96 @@ input {
   color: var(--gold-champagne);
   background: rgba(10, 8, 2, 0.6);
 }
+
+/* --------------------------------- */
+/* CRYSTALLINE MILESTONE BADGE       */
+/* --------------------------------- */
+.milestone-badge {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: translateZ(0);
+  transform-origin: bottom center;
+  z-index: 10;
+}
+
+.milestone-badge.active {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.milestone-badge .crystal-core {
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-radius: 1px;
+  position: relative;
+}
+
+/* Bezel Setting */
+.milestone-badge .crystal-core::before {
+  content: "";
+  position: absolute;
+  top: -3px; right: -3px; bottom: -3px; left: -3px;
+  border: 1px solid var(--gold-polished);
+  border-radius: 3px;
+  box-shadow: 
+    inset 0 0 2px rgba(0, 0, 0, 0.5),
+    0 0 2px rgba(212, 175, 106, 0.4);
+  background: transparent;
+  z-index: -1;
+}
+
+/* Inner Reflection */
+.milestone-badge .crystal-core::after {
+  content: "";
+  position: absolute;
+  top: 1px; right: 1px; bottom: 1px; left: 1px;
+  background: linear-gradient(45deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+  border: 1px solid rgba(255,255,255,0.4);
+  pointer-events: none;
+}
+
+@keyframes crystal-shine {
+  0% { filter: brightness(1) drop-shadow(0 0 4px rgba(200, 230, 255, 0.2)); }
+  50% { filter: brightness(1.3) drop-shadow(0 0 12px rgba(200, 230, 255, 0.6)); }
+  100% { filter: brightness(1) drop-shadow(0 0 4px rgba(200, 230, 255, 0.2)); }
+}
+
+.milestone-badge.active .crystal-core {
+  animation: crystal-shine 3s infinite ease-in-out;
+}
+
+/* Tier: Luminary (Pristine Diamond) */
+.milestone-badge.tier-luminary .crystal-core {
+  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(220,235,255,0.9) 40%, rgba(160,190,220,0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 1), 0 0 8px rgba(180, 220, 255, 0.5);
+}
+
+/* Tier: Exarch (Imperial Citrine/Gold Diamond) */
+.milestone-badge.tier-exarch .crystal-core {
+  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,220,150,0.9) 40%, rgba(212,175,106,0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 1), 0 0 8px rgba(212, 175, 106, 0.5);
+}
+
+body.light-mode .milestone-badge.tier-luminary .crystal-core {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 1), 0 0 8px rgba(180, 220, 255, 0.5);
+}
+body.light-mode .milestone-badge.tier-exarch .crystal-core {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 1), 0 0 8px rgba(212, 175, 106, 0.5);
+}
+
 .tier-pill svg {
   width: 10px;
   height: 10px;
@@ -1276,6 +1498,7 @@ input {
   gap: 4px;
   margin-top: 4px;
   transition: opacity 0.4s ease;
+  transform: translateZ(0);
   opacity: 0;
   height: 0;
   overflow: hidden;
@@ -1335,7 +1558,6 @@ input {
     0 1px 0 rgba(255, 248, 215, 0.05),
     0 0 0 1px rgba(0, 0, 0, 0.9);
   transform: translateZ(10px);
-  will-change: transform;
 }
 .membership-card .metric-ring::before {
   display: none;
@@ -1505,6 +1727,7 @@ input {
   background: rgba(199, 154, 62, 0.1);
   transform: scale(0.98);
   transition: transform 0.1s ease;
+  transform: translateZ(0);
 }
 .btn-gold {
   border: 1px solid rgba(212, 175, 106, 0.6);
@@ -1520,6 +1743,7 @@ input {
   background: rgba(199, 154, 62, 0.25);
   transform: scale(0.98);
   transition: transform 0.1s ease;
+  transform: translateZ(0);
 }
 .copy-toast {
   text-align: center;
@@ -1528,6 +1752,7 @@ input {
   min-height: 0;
   opacity: 0;
   transition: opacity 0.25s ease;
+  transform: translateZ(0);
   flex: none;
 }
 .copy-toast.is-visible {
@@ -1559,10 +1784,14 @@ input {
   gap: 5px;
   padding: 4px 0;
   color: #6e695d;
+  transition: color 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateZ(0);
 }
 .nav-item svg {
   width: 20px;
   height: 20px;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+  transform: translateZ(0);
 }
 .nav-item span {
   font-size: 8.5px;
@@ -1571,6 +1800,11 @@ input {
 .nav-item.is-active {
   color: var(--gold-champagne);
   --icon-color: var(--icon-champagne);
+  transform: translateY(-2px);
+}
+.nav-item.is-active svg {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 6px rgba(212, 175, 106, 0.25));
 }
 .nav-toast {
   position: fixed;
@@ -1586,6 +1820,7 @@ input {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
+  transform: translateZ(0);
   white-space: nowrap;
   z-index: 200;
 }
@@ -2093,6 +2328,7 @@ input {
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateZ(0);
   line-height: normal;
   display: inline-flex;
   align-items: center;
@@ -2371,13 +2607,31 @@ input {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  padding: 0 0 env(safe-area-inset-bottom);
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(6px);
-  padding: 0 0 env(safe-area-inset-bottom);
+  will-change: opacity, filter;
 }
 .purchase-modal-overlay[hidden] {
   display: none;
 }
+.purchase-modal-overlay:not([hidden]) {
+  animation: overlayFadeIn 0.4s ease forwards;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.75);
+  }
+}
+
 .purchase-modal {
   width: 100%;
   max-width: 520px;
@@ -2389,6 +2643,38 @@ input {
   box-shadow:
     0 -8px 40px rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(8, 6, 2, 0.9);
+  transform-origin: bottom center;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.purchase-modal-overlay:not([hidden]) .purchase-modal {
+  animation: modalBloomPurchase 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes modalBloomPurchase {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px) translateZ(0);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8), 0 0 0 rgba(212, 175, 55, 0);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(0.985) translateY(5px) translateZ(0);
+    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.9), 0 -20px 40px rgba(212, 175, 55, 0.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) translateZ(0);
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(8, 6, 2, 0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .purchase-modal-overlay:not([hidden]),
+  .purchase-modal-overlay:not([hidden]) .purchase-modal {
+    animation: none;
+  }
 }
 .purchase-modal-header {
   text-align: center;
@@ -2718,7 +3004,6 @@ input {
 
 .wreath.sm {
   position: absolute;
-  will-change: transform;
   width: 26px;
   height: 76px;
   top: 10px;
@@ -3153,6 +3438,7 @@ input {
   font-family: inherit;
   font-weight: 500;
   transition: all 0.2s ease;
+  transform: translateZ(0);
 }
 #club-tab .club-room-btn.is-active {
   background: linear-gradient(
@@ -3246,6 +3532,7 @@ input {
     0 0 20px rgba(212, 175, 106, 0.4);
   user-select: none;
   transition: all 0.5s ease;
+  transform: translateZ(0);
   cursor: pointer;
 }
 .chat-whisper:active .chat-text,
@@ -3413,6 +3700,7 @@ input {
   opacity: 0;
   visibility: hidden;
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateZ(0);
   pointer-events: none;
   box-shadow:
     0 30px 60px rgba(0, 0, 0, 0.9),
@@ -3472,6 +3760,7 @@ input {
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
+  transform: translateZ(0);
   position: relative;
   overflow: hidden;
 }
@@ -3538,6 +3827,7 @@ input {
   font-size: 11px;
   font-weight: 500;
   transition: all 0.2s ease;
+  transform: translateZ(0);
   pointer-events: none;
 }
 .luxury-empty-state:hover .empty-explore-btn {
@@ -3605,6 +3895,7 @@ input {
   background: linear-gradient(90deg, #8a733f, #b49650);
   border-radius: 3px;
   transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateZ(0);
 }
 .purchase-progress-fill.is-ready {
   background: linear-gradient(90deg, #c8a951, #e6c27a);
@@ -3643,6 +3934,7 @@ input {
   opacity: 0;
   transform: translateY(5px);
   transition: all 0.2s ease;
+  transform: translateZ(0);
   cursor: pointer;
   z-index: 5;
 }
@@ -3696,6 +3988,7 @@ input {
   padding: 6px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  transform: translateZ(0);
   border-radius: 50%;
 }
 .reaction-emoji-btn:hover {
@@ -3759,6 +4052,7 @@ input {
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateZ(0);
 }
 .b-filt-btn.is-active {
   background: rgba(212, 175, 106, 0.1);
@@ -3889,7 +4183,6 @@ input {
 .profile-hero-card {
   position: relative;
   transform-style: preserve-3d;
-  will-change: transform;
   box-sizing: border-box;
   flex-shrink: 0;
 }
@@ -4055,6 +4348,7 @@ input {
   background: rgba(26, 26, 26, 0.6) !important;
   cursor: pointer !important;
   transition: all 0.3s ease !important;
+  transform: translateZ(0);
   pointer-events: auto !important;
   z-index: 10 !important;
   backdrop-filter: blur(4px);
@@ -4183,6 +4477,7 @@ input {
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   cursor: pointer;
   transition: background 0.2s ease;
+  transform: translateZ(0);
 }
 .pnm-item:last-child {
   border-bottom: none;
@@ -4316,6 +4611,7 @@ input {
   text-align: center !important;
   overflow: visible !important;
   transition: all 0.4s ease !important;
+  transform: translateZ(0);
 }
 
 #profile-tab .prestige-honors .honor-card.is-unlocked {
@@ -4345,6 +4641,7 @@ input {
   height: 42px !important;
   margin-bottom: 12px !important;
   transition: all 0.4s ease !important;
+  transform: translateZ(0);
 }
 
 #profile-tab .prestige-honors .honor-name {
@@ -4489,7 +4786,6 @@ input {
   align-items: center;
   justify-content: center;
   transform-style: preserve-3d;
-  will-change: transform;
 }
 
 .pcs-item-card[data-tooltip]::after,
@@ -4515,6 +4811,7 @@ input {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+  transform: translateZ(0);
   z-index: 1000;
   pointer-events: none;
 }
@@ -4531,6 +4828,7 @@ input {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+  transform: translateZ(0);
   z-index: 1001;
   pointer-events: none;
 }
@@ -4604,6 +4902,7 @@ input {
   cursor: pointer;
   color: rgba(212, 175, 55, 0.6);
   transition: all 0.2s ease;
+  transform: translateZ(0);
 }
 .pcs-explore-card:hover {
   background: rgba(212, 175, 55, 0.05);
@@ -4649,6 +4948,7 @@ input {
   opacity: 0;
   visibility: hidden;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
   pointer-events: none;
 }
 #profile-tab .achievement-toast.is-visible {
@@ -4740,6 +5040,7 @@ input {
   background: linear-gradient(90deg, #aa771c 0%, #e6c27a 100%);
   border-radius: 2px;
   transition: width 0.4s ease;
+  transform: translateZ(0);
 }
 .ach-progress-text {
   font-size: 9px;
@@ -4794,61 +5095,75 @@ input {
     0 0 5px rgba(255, 255, 255, 0.4) inset;
 }
 
-.gold-confetti-particle {
-  position: fixed;
-  top: -10px;
-  width: 6px;
-  height: 12px;
-  background: linear-gradient(135deg, #d4af37 0%, #aa771c 100%);
-  border-radius: 1px;
-  box-shadow: 0 0 4px rgba(212, 175, 55, 0.4);
-  pointer-events: none;
-  z-index: 10000;
-  opacity: 0;
-  animation: confettiFall linear forwards;
-}
-
-@keyframes confettiFall {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
-  }
-}
 
 .luxury-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
   z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease, backdrop-filter 0.4s ease, background 0.4s ease !important;
+  transform: translateZ(0);
+  will-change: opacity, filter;
 }
 .luxury-modal-overlay.is-open {
   opacity: 1;
   pointer-events: auto;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
 }
 .luxury-modal-box {
   width: 320px;
   background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 16px;
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.9),
-    inset 0 0 20px rgba(212, 175, 55, 0.05);
-  transform: translateY(20px) scale(0.95);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  opacity: 0;
+  transform: scale(0.95) translateZ(0);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 rgba(212, 175, 55, 0);
+  
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, box-shadow 0.3s ease !important;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
+
+@keyframes luxuryBloomOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateZ(0);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 rgba(212, 175, 55, 0);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(0.985) translateZ(0);
+    /* Subtle atmospheric golden blur only during entry */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+    /* Settled state without glow */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(212, 175, 55, 0.05);
+  }
+}
+
 .luxury-modal-overlay.is-open .luxury-modal-box {
-  transform: translateY(0) scale(1);
+  opacity: 1;
+  transform: scale(1) translateZ(0);
+  animation: luxuryBloomOpen 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luxury-modal-overlay.is-open .luxury-modal-box {
+    animation: none;
+    transition: opacity 0.3s ease !important;
+    transform: scale(1) translateZ(0);
+  }
 }
 .luxury-modal-header {
   display: flex;
@@ -4876,6 +5191,7 @@ input {
   align-items: center;
   justify-content: center;
   transition: color 0.2s;
+  transform: translateZ(0);
 }
 .luxury-close-btn:hover {
   color: #d4af37;
@@ -4983,6 +5299,7 @@ input {
   font-weight: 600;
   letter-spacing: 1px;
   transition: all 0.2s ease;
+  transform: translateZ(0);
 }
 .outline-upload-btn:hover {
   background: rgba(212, 175, 55, 0.1);
@@ -5028,6 +5345,7 @@ input {
   border: 2px solid transparent;
   cursor: pointer;
   transition: all 0.3s ease;
+  transform: translateZ(0);
   opacity: 0.5;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
 }
@@ -5049,6 +5367,7 @@ input {
   letter-spacing: 2px;
   cursor: pointer;
   transition: all 0.2s ease;
+  transform: translateZ(0);
   text-transform: uppercase;
 }
 .edit-profile-save-btn:hover {
@@ -5236,7 +5555,7 @@ html[dir="rtl"] .leader-item {
   min-width: 44px !important;
   border-radius: 50% !important;
   border: 1.5px solid var(--gold-metallic, #d4af37) !important;
-  overflow: hidden !important;
+  overflow: visible !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -5248,6 +5567,7 @@ html[dir="rtl"] .leader-item {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
+  border-radius: 50% !important;
 }
 
 .avatar-fallback {
@@ -5845,6 +6165,7 @@ body.light-mode .dossier-panel {
   position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
+  transform: translateZ(0);
   background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
 }
 .interactive-avatar-ring:hover {
@@ -5876,6 +6197,7 @@ body.light-mode .dossier-panel {
   color: #d4af37;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
   transition: all 0.3s ease;
+  transform: translateZ(0);
 }
 .interactive-avatar-ring:hover .avatar-overlay-badge {
   background: #1a1a1a;
@@ -5941,6 +6263,7 @@ body.light-mode #accountInfoModal .edit-profile-label {
   border-radius: 4px;
   color: #fff;
   transition: all 0.3s ease;
+  transform: translateZ(0);
 }
 
 #accountInfoModal .edit-profile-input:focus {
@@ -5982,6 +6305,7 @@ body.light-mode #accountInfoModal .edit-profile-label {
   cursor: pointer;
   flex-shrink: 0;
   transition: all 0.3s ease;
+  transform: translateZ(0);
 }
 
 .avatar-preset-thumbnail:hover {
@@ -6005,6 +6329,7 @@ body.light-mode #accountInfoModal .edit-profile-label {
   font-weight: bold;
   border-radius: 8px;
   transition: all 0.3s ease;
+  transform: translateZ(0);
 }
 
 #accountInfoModal .dossier-save-btn:hover {
@@ -6076,6 +6401,7 @@ body.light-mode #accountInfoModal .edit-profile-textarea {
   background: rgba(255, 255, 255, 0.03);
   cursor: pointer;
   transition: all 0.2s ease;
+  transform: translateZ(0);
   white-space: nowrap;
 }
 
@@ -6293,10 +6619,7 @@ body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
 
 /* --- SILKY SMOOTH LUXURY TRANSITIONS (GPU-ACCELERATED) --- */
 
-.page.is-active {
-  animation: luxuryFadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-  will-change: transform, opacity;
-}
+/* .page.is-active animation removed in favor of bi-directional transitions */
 
 @keyframes luxuryFadeSlide {
   from {
@@ -6309,17 +6632,7 @@ body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
   }
 }
 
-.luxury-modal-overlay {
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  will-change: opacity;
-}
 
-.luxury-modal-box {
-  transition:
-    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  will-change: transform, opacity;
-}
 
 /* Any dropdown panels or tooltips */
 .quick-preview-tooltip,
@@ -6330,7 +6643,6 @@ body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
   transition:
     opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  will-change: transform, opacity;
 }
 
 /* --- PROFILE CARD CSS OVERRIDES --- */
@@ -6400,7 +6712,6 @@ body.light-mode #profile-tab .phc-name {
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  will-change: transform, box-shadow;
   transform-style: preserve-3d;
   cursor: pointer;
 }
@@ -6430,6 +6741,7 @@ body.light-mode #profileCollectionGrid .pcs-item-card:hover {
 
 #profileCollectionGrid .pcs-item-card .pcs-item-image .boutique-card-fallback {
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transform: translateZ(0);
   display: inline-flex;
 }
 
@@ -7145,6 +7457,7 @@ body.light-mode #profile-tab .profile-hero-card::after {
   justify-content: center !important;
   color: rgba(212, 175, 55, 0.7) !important;
   transition: all 0.3s ease !important;
+  transform: translateZ(0);
   z-index: 10 !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -8645,6 +8958,7 @@ body .membership-card .card-actions .btn {
   color: #d4af37 !important;
   border-radius: 8px !important;
   transition: all 0.2s ease !important;
+  transform: translateZ(0);
 }
 
 body .membership-card .card-actions .btn:active {
@@ -10118,7 +10432,7 @@ body.light-mode #membership-tab .portrait-photo {
 /* DEFAULT / DARK MODE CHASSIS (applied when NOT light-mode) */
 #membershipCard {
   position: relative !important;
-  overflow: hidden !important;
+  overflow: visible !important;
   border-radius: 18px !important;
   background: radial-gradient(
     circle at 50% 30%,
@@ -10256,7 +10570,7 @@ body.light-mode
 /* 1. On the Parent Card */
 #membershipCard {
   position: relative !important;
-  overflow: hidden !important;
+  overflow: visible !important;
   padding: 0 !important;
 }
 
@@ -10658,7 +10972,7 @@ body.light-mode #membership-tab #membershipCard.membership-card {
    ========================================================================== */
 body #membership-tab #membershipCard.membership-card {
   position: relative;
-  overflow: hidden; /* Keep the edge glow contained within the border radius */
+  /* overflow: hidden removed to stop 3D clipping during tilt */
 }
 
 /* Base Edge Glow */
@@ -10688,4 +11002,467 @@ body.light-mode #membership-tab #membershipCard.membership-card::after {
     transparent 60%
   );
   box-shadow: inset 0 2px 4px rgba(255, 255, 255, 1);
+}
+
+/* ==========================================================================
+   HAPTIC 3D PREVIEW OVERLAY
+   ========================================================================== */
+.haptic-3d-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(25px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+}
+.haptic-3d-overlay.is-active {
+  opacity: 1;
+}
+.haptic-3d-canvas-container {
+  width: 280px;
+  height: 280px;
+  perspective: 1000px;
+  margin-bottom: 40px;
+}
+#haptic3DCanvas {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.15));
+}
+.haptic-3d-info {
+  text-align: center;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateZ(0);
+}
+.haptic-3d-overlay.is-active .haptic-3d-info {
+  transform: translateY(0);
+}
+.haptic-3d-info h3 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  background: var(--gold-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 8px;
+}
+.haptic-3d-info p {
+  font-size: 14px;
+  color: #a69c8a;
+}
+.haptic-3d-info .haptic-hint {
+  margin-top: 32px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(212, 175, 55, 0.4);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   ACTIVE MEMBER GLOW (PULSATING GOLD RING)
+   ========================================================================== */
+.chat-avatar-btn.is-online {
+  position: relative;
+}
+.chat-avatar-btn.is-online::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.7);
+  animation: goldPulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+@keyframes goldPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+body.light-mode .chat-avatar-btn.is-online::after {
+  border-color: rgba(156, 109, 35, 0.6);
+}
+
+.leader-avatar.is-online::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212, 175, 55, 0.7);
+  animation: goldPulse 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+body.light-mode .leader-avatar.is-online::after {
+  border-color: rgba(156, 109, 35, 0.6);
+}
+
+/* ==========================================================================
+   LUXURY SKELETONS (GOLDEN SHIMMER / MATCHING LAYOUTS)
+   ========================================================================== */
+
+/* Shimmer Animation & Base Shape */
+.skeleton-shimmer-el {
+  position: relative;
+  background: rgba(15, 12, 10, 0.4);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+body.light-mode .skeleton-shimmer-el {
+  background: rgba(156, 109, 35, 0.08);
+}
+
+.skeleton-shimmer-el::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.08) 30%,
+    rgba(255, 235, 160, 0.15) 50%,
+    rgba(212, 175, 55, 0.08) 70%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: skeletonShimmer 2s infinite ease-in-out;
+}
+
+body.light-mode .skeleton-shimmer-el::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(156, 109, 35, 0.05) 30%,
+    rgba(212, 175, 55, 0.12) 50%,
+    rgba(156, 109, 35, 0.05) 70%,
+    transparent 100%
+  );
+}
+
+@keyframes skeletonShimmer {
+  0% { left: -150%; }
+  100% { left: 200%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer-el::after {
+    animation: none;
+    display: none;
+  }
+}
+
+/* Specific Placeholder Sizes */
+.boutique-skeleton .skeleton-badge { width: 40px; height: 16px; align-self: flex-start; }
+.boutique-skeleton .skeleton-icon { width: 60px; height: 60px; border-radius: 50%; margin: 10px 0 6px; }
+.boutique-skeleton .skeleton-name { width: 70%; height: 14px; margin-bottom: 2px; }
+.boutique-skeleton .skeleton-price { width: 40%; height: 16px; margin-bottom: 4px; }
+.boutique-skeleton .skeleton-progress { width: 90%; height: 2.5px; border-radius: 2px; margin: 8px auto 12px; }
+.boutique-skeleton .skeleton-button { width: 100%; height: 26px; border-radius: 8px; margin-top: 6px; }
+
+.profile-collection-skeleton .skeleton-icon-round { width: 70px; height: 70px; border-radius: 50%; margin: 10px auto 6px; }
+.profile-collection-skeleton .skeleton-name { width: 70%; height: 12px; margin: 0 auto 4px; }
+.profile-collection-skeleton .skeleton-price-small { width: 50%; height: 12px; margin: 0 auto; }
+
+.profile-achievement-skeleton .skeleton-icon-small { width: 42px; height: 42px; border-radius: 50%; margin-bottom: 12px; }
+.profile-achievement-skeleton .skeleton-name { width: 80%; height: 12px; margin-bottom: 4px; }
+.profile-achievement-skeleton .skeleton-badge { width: 60%; height: 10px; margin-bottom: 12px; }
+.profile-achievement-skeleton .skeleton-progress-wrap { width: 100%; height: 16px; border-radius: 4px; margin-top: auto; }
+
+.profile-stats-skeleton { 
+  display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;
+}
+.profile-stats-skeleton .skeleton-icon-tiny { width: 24px; height: 24px; border-radius: 4px; }
+.profile-stats-skeleton .skeleton-name { width: 60%; height: 16px; }
+.profile-stats-skeleton .skeleton-badge { width: 80%; height: 10px; }
+
+
+/* Fade In transition for real content */
+.skeleton-fade-in {
+  animation: skeletonFadeIn 0.3s ease forwards;
+}
+
+@keyframes skeletonFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-fade-in {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes luxuryBloomOpenLight {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateZ(0);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), 0 0 0 rgba(156, 109, 35, 0);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(0.985) translateZ(0);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 0 30px rgba(156, 109, 35, 0.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(156, 109, 35, 0.05);
+  }
+}
+
+body.light-mode .luxury-modal-overlay.is-open .luxury-modal-box {
+  animation: luxuryBloomOpenLight 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+
+
+/* ==========================================================================
+   QUICK PURCHASE MICRO-ANIMATION
+   ========================================================================== */
+
+.qp-success-btn {
+  color: var(--gold-polished) !important;
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  background: rgba(212, 175, 55, 0.05) !important;
+  animation: qpBtnFade 0.3s ease forwards;
+}
+
+body.light-mode .qp-success-btn {
+  color: var(--gold-deep) !important;
+  border-color: rgba(156, 109, 35, 0.3) !important;
+  background: rgba(156, 109, 35, 0.05) !important;
+}
+
+@keyframes qpBtnFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.boutique-card.qp-shimmer-active {
+  position: relative;
+  overflow: hidden;
+}
+
+.boutique-card.qp-shimmer-active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.05) 30%,
+    rgba(255, 235, 160, 0.2) 50%,
+    rgba(212, 175, 55, 0.05) 70%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: qpMetallicSweep 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  pointer-events: none;
+  z-index: 5;
+}
+
+body.light-mode .boutique-card.qp-shimmer-active::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(156, 109, 35, 0.03) 30%,
+    rgba(212, 175, 55, 0.1) 50%,
+    rgba(156, 109, 35, 0.03) 70%,
+    transparent 100%
+  );
+}
+
+@keyframes qpMetallicSweep {
+  0% { left: -150%; }
+  100% { left: 200%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boutique-card.qp-shimmer-active::after {
+    animation: none;
+    display: none;
+  }
+  .qp-success-btn {
+    animation: none;
+  }
+}
+\n
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   SOLID GOLD MEDALLION (Header)
+   ========================================================================== */
+.solid-gold-medallion {
+  width: 32px !important;
+  height: 32px !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 50%;
+  position: absolute;
+  inset-inline-end: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  overflow: visible !important;
+}
+
+.solid-gold-medallion::after { display: none !important; }
+
+.sgm-svg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+body.light-mode .solid-gold-medallion {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(184, 134, 11, 0.3);
+}
+
+
+/* ==========================================================================
+   MICRO-PASS: LUXURY PHYSICAL MEMBERSHIP CARD MATERIAL
+   ========================================================================== */
+
+/* 1. OUTER FRAME: Authentic Polished Champagne Gold (Multi-stage bevel & Specular Highlight) */
+body #membership-tab #membershipCard.membership-card {
+  background-image: 
+    radial-gradient(circle at 50% 30%, #16161a 0%, #0d0d10 65%, #050507 100%),
+    linear-gradient(
+      145deg,
+      #4A3B1B 0%,      /* Darker occlusion */
+      #B59A54 15%,     /* Champagne gold */
+      #FDF2D0 22%,     /* Sharp specular highlight */
+      #8C7335 32%,     /* Mid-tone transition */
+      #2B220F 50%,     /* Deep occlusion / metallic curve */
+      #C9AA62 65%,     /* Secondary light hit */
+      #FDF2D0 75%,     /* Secondary specular highlight */
+      #8C7335 85%,     /* Shadow fade */
+      #1A1408 100%     /* Deep edge occlusion */
+    ) !important;
+  
+  box-shadow: 
+    inset 0 1px 1px rgba(253, 242, 208, 0.4), /* Outer bright micro-bevel (Specular) */
+    inset 0 0 0 1px rgba(10, 8, 4, 0.95),      /* Inner dark bevel (Depth) */
+    inset 0 10px 30px rgba(0, 0, 0, 0.8) !important; /* Deep interior shadow */
+}
+
+body.light-mode #membership-tab #membershipCard.membership-card {
+  background-image: 
+    radial-gradient(circle at 50% 30%, #f7f5ef 0%, #ebe7dc 60%, #ded9cb 100%),
+    linear-gradient(
+      145deg,
+      #705621 0%,
+      #D4B56A 12%,
+      #FFFFFF 20%,     /* Extreme bright hit */
+      #9C7C33 35%,
+      #3B2D12 50%,     /* Core metallic shadow */
+      #E3C57B 65%,
+      #FFFFFF 75%,     /* Secondary bright hit */
+      #A68740 85%,
+      #261D0B 100%
+    ) !important;
+  
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 1),    /* Outer bright micro-bevel */
+    inset 0 0 0 1px rgba(92, 70, 26, 0.5),     /* Inner dark bevel */
+    inset 0 10px 30px rgba(50, 40, 20, 0.1) !important; /* Soft interior shadow */
+}
+
+/* 2. TEXT: THE 1% CLUB - Embossed Metallic Lettering */
+#membership-tab .card-club-name {
+  background: linear-gradient(
+    170deg,
+    #FDF2D0 0%,      /* Bright upper edge */
+    #D4B56A 30%,     /* Main champagne gold */
+    #8C7335 65%,     /* Metal core shadow */
+    #C9AA62 85%,     /* Lower reflection */
+    #4A3B1B 100%     /* Bottom edge depth */
+  ) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  
+  /* Embossed metal illusion: light catches top edge, shadow drops below */
+  filter: 
+    drop-shadow(0 -0.5px 0px rgba(253, 242, 208, 0.5))
+    drop-shadow(0 1.5px 1.5px rgba(10, 8, 4, 0.9)) !important;
+}
+
+body.light-mode #membership-tab .card-club-name {
+  background: linear-gradient(
+    170deg,
+    #FFFFFF 0%,
+    #E3C57B 30%,
+    #9C7C33 65%,
+    #D4B56A 85%,
+    #3B2D12 100%
+  ) !important;
+  
+  filter: 
+    drop-shadow(0 -0.5px 0px rgba(255, 255, 255, 0.8))
+    drop-shadow(0 1.5px 1.5px rgba(60, 45, 15, 0.5)) !important;
+}
+
+
+/* ==========================================================================
+   SOLID GOLD MEDALLION - LIGHT SWEEP ANIMATION
+   ========================================================================== */
+.solid-gold-medallion::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.1) 45%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0.1) 55%,
+    transparent 80%
+  );
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  background-position: -200% 0;
+  animation: sgm-sweep-anim 6s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: overlay; /* Realistic metallic shine */
+}
+
+@keyframes sgm-sweep-anim {
+  0%, 15% { background-position: -200% 0; }
+  35%, 100% { background-position: 200% 0; }
+}
+
+/* Ensure the light sweep renders above the SVG children */
+.solid-gold-medallion {
+  z-index: 10;
 }
