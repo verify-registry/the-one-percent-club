@@ -91,7 +91,15 @@
   color-scheme: dark;
 }
 
+:root.dark-mode,
+html.dark-mode,
+body.dark-mode {
+  color-scheme: dark;
+}
+
 /* === Light Theme Overrides === */
+:root.light-mode,
+html.light-mode,
 body.light-mode {
   --oled-black: #fdfbf7;
   --obsidian: #f4f0e6;
@@ -139,11 +147,36 @@ body.light-mode {
 
 body.light-mode .app {
   color: #1a1510;
+  background:
+    radial-gradient(
+      ellipse 125% 65% at 50% 45%,
+      rgba(212, 175, 55, 0.035) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      #fdfbf7 0%,
+      #fdfbf7 10%,
+      #f8f5ed 22%,
+      #f2ece1 36%,
+      #ebe5d9 50%,
+      #ebe5d9 65%,
+      #f2ece1 78%,
+      #f8f5ed 88%,
+      #fdfbf7 96%,
+      #fdfbf7 100%
+    );
 }
 
 body.light-mode .app-header {
-  background: rgba(253, 251, 247, 0.95);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(
+    180deg,
+    rgba(253, 251, 247, 0.98) 0%,
+    rgba(253, 251, 247, 0.96) 60%,
+    rgba(250, 247, 240, 0.85) 82%,
+    rgba(245, 241, 233, 0.45) 100%
+  );
+  border-bottom: none;
 }
 
 body.light-mode .section-name,
@@ -193,8 +226,14 @@ body.light-mode .boutique-card {
 }
 
 body.light-mode .bottom-nav {
-  background: rgba(253, 251, 247, 0.95);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(
+    180deg,
+    rgba(245, 241, 233, 0.45) 0%,
+    rgba(250, 247, 240, 0.85) 20%,
+    rgba(253, 251, 247, 0.97) 50%,
+    #fdfbf7 100%
+  );
+  border-top: none;
 }
 
 body.light-mode .luxury-modal-box {
@@ -722,11 +761,22 @@ input {
   text-align: start;
   background:
     radial-gradient(
-      ellipse 120% 60% at 50% -10%,
-      rgba(199, 154, 62, 0.08),
-      transparent 60%
+      ellipse 130% 65% at 50% 45%,
+      rgba(201, 168, 106, 0.035) 0%,
+      transparent 70%
     ),
-    var(--oled-black);
+    linear-gradient(
+      180deg,
+      #050505 0%,
+      #050505 10%,
+      #08080b 22%,
+      #0c0c0f 38%,
+      #0d0d11 50%,
+      #0c0c0f 65%,
+      #08080b 80%,
+      #050505 92%,
+      #050505 100%
+    );
   overflow: hidden;
 }
 
@@ -735,13 +785,20 @@ input {
   position: relative;
   flex-shrink: 0;
   z-index: 90;
-  background: rgba(5, 5, 5, 0.95);
-  backdrop-filter: blur(12px);
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0.98) 0%,
+    rgba(5, 5, 5, 0.96) 60%,
+    rgba(6, 6, 9, 0.85) 82%,
+    rgba(8, 8, 11, 0.45) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: 8px 18px 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: none;
   transition: padding 0.3s ease;
 }
 .app-header.header-compact {
@@ -1128,7 +1185,8 @@ body.light-mode .shield-btn::before {
   z-index: 1;
   pointer-events: none;
   border-radius: 12px;
-  opacity: 0.7;
+  opacity: 1;
+  mix-blend-mode: screen;
 }
 .membership-card .card-sheen {
   position: absolute;
@@ -1391,6 +1449,12 @@ body.light-mode .shield-btn::before {
 /* --------------------------------- */
 /* CRYSTALLINE MILESTONE BADGE       */
 /* --------------------------------- */
+#membershipCard .milestone-badge,
+#tierPill .milestone-badge,
+#milestoneBadge {
+  display: none !important;
+}
+
 .milestone-badge {
   position: absolute;
   top: -8px;
@@ -1764,9 +1828,16 @@ body.light-mode .milestone-badge.tier-exarch .crystal-core {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(5, 5, 5, 0.94);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid var(--hairline);
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 11, 0.45) 0%,
+    rgba(6, 6, 9, 0.85) 20%,
+    rgba(5, 5, 5, 0.97) 50%,
+    #050505 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 10px 6px calc(10px + env(safe-area-inset-bottom));
@@ -10592,6 +10663,18 @@ body.light-mode
   border-radius: inherit !important;
 }
 
+#membershipCard #goldDustCanvas,
+#membershipCard .gold-dust-canvas {
+  opacity: 1 !important;
+  mix-blend-mode: screen;
+}
+
+body.light-mode #membershipCard #goldDustCanvas,
+body.light-mode #membershipCard .gold-dust-canvas {
+  mix-blend-mode: normal !important;
+  opacity: 0.92 !important;
+}
+
 /* 3. On the Content Wrapper / All Card Text & Avatar Elements */
 #membershipCard .card-inner-frame {
   /* Maintain internal spacing without offsetting the canvas */
@@ -11007,8 +11090,137 @@ body.light-mode #membership-tab #membershipCard.membership-card::after {
 }
 
 /* ==========================================================================
-   HAPTIC 3D PREVIEW OVERLAY
+   MEMBERSHIP CARD TACTILE 3D HOVER & PHYSICAL OBJECT TRANSFORMS
    ========================================================================== */
+#membership-tab {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+#membershipCard.membership-card {
+  --tilt-rx: 0deg;
+  --tilt-ry: 0deg;
+  --tilt-tz: 0px;
+  --tilt-ty: 0px;
+  --tilt-scale: 1;
+  --tiltX: 0;
+  --tiltY: 0;
+  transform: perspective(1200px) translateY(var(--tilt-ty, 0px)) translateZ(var(--tilt-tz, 0px)) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) scale3d(var(--tilt-scale, 1), var(--tilt-scale, 1), var(--tilt-scale, 1));
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  touch-action: pan-y pinch-zoom;
+  cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Physical 3D Object Depth Layering */
+#membershipCard.membership-card .card-inner-frame {
+  transform-style: preserve-3d;
+}
+
+#membershipCard.membership-card .corner {
+  transform: translateZ(8px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .card-top-bar {
+  transform: translateZ(12px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .portrait-wrap {
+  transform: translateZ(24px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .portrait-ring {
+  transform: translateZ(8px);
+  transform-style: preserve-3d;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.7);
+}
+
+#membershipCard.membership-card .card-identity-section {
+  transform: translateZ(18px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .card-metrics-footer {
+  transform: translateZ(14px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .card-hallmark-line {
+  transform: translateZ(10px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .card-actions {
+  transform: translateZ(16px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .card-sheen {
+  transform: translateZ(26px);
+  pointer-events: none;
+}
+
+/* Hover Physical Object Elevation & Subtle Tilt */
+@media (hover: hover) and (pointer: fine) {
+  #membershipCard.membership-card:hover {
+    --tilt-ty: -5px;
+    --tilt-tz: 14px;
+    --tilt-scale: 1.015;
+    box-shadow: 
+      0 30px 65px -12px rgba(0, 0, 0, 0.95),
+      0 14px 28px -6px rgba(0, 0, 0, 0.8),
+      0 0 32px rgba(212, 175, 106, 0.22),
+      inset 0 1px 2px rgba(255, 248, 220, 0.28) !important;
+  }
+}
+
+#membershipCard.membership-card.is-hovered {
+  --tilt-ty: -5px;
+  --tilt-tz: 14px;
+  --tilt-scale: 1.015;
+  box-shadow: 
+    0 30px 65px -12px rgba(0, 0, 0, 0.95),
+    0 14px 28px -6px rgba(0, 0, 0, 0.8),
+    0 0 32px rgba(212, 175, 106, 0.22),
+    inset 0 1px 2px rgba(255, 248, 220, 0.28) !important;
+}
+
+#membershipCard.membership-card.is-long-press-active {
+  --tilt-ty: -8px;
+  --tilt-tz: 22px;
+  --tilt-scale: 1.025;
+  box-shadow: 0 36px 72px -8px rgba(0, 0, 0, 0.96),
+              0 0 42px rgba(212, 175, 106, 0.35) !important;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body.light-mode #membershipCard.membership-card:hover,
+body.light-mode #membershipCard.membership-card.is-hovered {
+  box-shadow: 
+    0 24px 50px -10px rgba(90, 80, 60, 0.32),
+    0 12px 24px -6px rgba(90, 80, 60, 0.18),
+    0 0 28px rgba(180, 138, 52, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95) !important;
+}
+
+body.light-mode #membershipCard.membership-card.is-long-press-active {
+  box-shadow: 
+    0 30px 60px -8px rgba(90, 80, 60, 0.38),
+    0 0 36px rgba(180, 138, 52, 0.32) !important;
+}
 .haptic-3d-overlay {
   position: fixed;
   inset: 0;

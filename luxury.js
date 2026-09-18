@@ -982,6 +982,9 @@ async function renderMasterCardToBlob() {
 }
 
 async function shareMasterCard() {
+  if (window.AudioEngine && window.AudioEngine.playSend) {
+    window.AudioEngine.playSend();
+  }
   showCopyToast("جارٍ تصدير الماستر كارد الملكي…");
 
   try {
@@ -1045,8 +1048,9 @@ document
 // ---------------------------------------------------------
 // 19. UNIFIED 3D TILT ENGINE
 // ---------------------------------------------------------
-const TILT_MAX_DEG = 6;
+const TILT_MAX_DEG = 5;
 let globalTiltEnabled = false;
+let isLongPressActive = false;
 
 // LERP Physics Variables
 let targetRotX = 0;
@@ -1059,8 +1063,24 @@ const DEADZONE = 1.5;
 
 function applyTiltToCards(rx, ry) {
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
-    card.style.transform = `perspective(1500px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-    card.style.transition = "none";
+    const isMembership = card.id === "membershipCard";
+    const isHovered = isMembership && card.classList.contains("is-hovered");
+    const isLongPressed = isMembership && card.classList.contains("is-long-press-active");
+
+    const elevation = isLongPressed ? 22 : (isHovered ? 14 : 0);
+    const translateY = isLongPressed ? -8 : (isHovered ? -5 : 0);
+    const scale = isLongPressed ? 1.025 : (isHovered ? 1.015 : 1);
+
+    card.style.setProperty('--tilt-rx', `${rx.toFixed(2)}deg`);
+    card.style.setProperty('--tilt-ry', `${ry.toFixed(2)}deg`);
+    card.style.setProperty('--tilt-tz', `${elevation}px`);
+    card.style.setProperty('--tilt-ty', `${translateY}px`);
+    card.style.setProperty('--tilt-scale', `${scale}`);
+
+    card.style.transform = `perspective(1200px) translateY(${translateY}px) translateZ(${elevation}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+    card.style.transition = (isHovered || isLongPressed)
+      ? "transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease"
+      : "none";
     
     // Depth-mapping edge glow
     const glowX = 50 + (ry * 2); // Shift horizontal highlight
@@ -1070,18 +1090,31 @@ function applyTiltToCards(rx, ry) {
     card.style.setProperty('--glow-x', `${glowX}%`);
     card.style.setProperty('--glow-y', `${glowY}%`);
     card.style.setProperty('--metal-angle', `${angle}deg`);
+
+    // Dynamic specular sheen reflection on card face
+    const normX = Math.max(-1, Math.min(1, ry / TILT_MAX_DEG));
+    const normY = Math.max(-1, Math.min(1, -rx / TILT_MAX_DEG));
+    card.style.setProperty('--tiltX', normX.toFixed(3));
+    card.style.setProperty('--tiltY', normY.toFixed(3));
   });
 }
 
 function resetTiltForCard(card) {
   targetRotX = 0;
   targetRotY = 0;
-  card.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg)`;
-  card.style.transition = "transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1)";
+  card.style.setProperty('--tilt-rx', '0deg');
+  card.style.setProperty('--tilt-ry', '0deg');
+  card.style.setProperty('--tilt-tz', '0px');
+  card.style.setProperty('--tilt-ty', '0px');
+  card.style.setProperty('--tilt-scale', '1');
+  card.style.transform = `perspective(1200px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  card.style.transition = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1)";
   
   card.style.setProperty('--glow-x', '50%');
   card.style.setProperty('--glow-y', '0%');
   card.style.setProperty('--metal-angle', '160deg');
+  card.style.setProperty('--tiltX', '0');
+  card.style.setProperty('--tiltY', '0');
 }
 
 function tiltLoop() {
@@ -1120,6 +1153,7 @@ function updateTiltTarget(rx, ry) {
 }
 
 function handleGlobalDeviceOrientation(e) {
+  if (isLongPressActive) return; // Prioritize tactile long-press inspection
   if (e.beta === null || e.gamma === null) return;
 
   let betaDev = e.beta - 45; // Assume 45deg is normal reading angle
@@ -1174,47 +1208,200 @@ function initGlobalTilt() {
     passive: true,
   });
 
-  // Mouse Move Setup
+  // Setup all tilt cards
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
     if (card.dataset.tiltBound) return;
     card.dataset.tiltBound = "true";
 
+    const isMembership = card.id === "membershipCard";
+
+    // 1. DESKTOP HOVER INTERACTIONS
+    let hoverAmbientFrame = null;
+    let isHovered = false;
+    let lastPointerMoveTime = 0;
+
+    const startHoverAmbient = () => {
+      cancelAnimationFrame(hoverAmbientFrame);
+      const loop = () => {
+        if (!isHovered) return;
+        const now = performance.now();
+        // If cursor pauses for >200ms, introduce a gentle living micro-tilt breath (~0.75deg)
+        if (now - lastPointerMoveTime > 200) {
+          const t = (now - lastPointerMoveTime) * 0.0016;
+          const microRx = Math.sin(t) * 0.75;
+          const microRy = Math.cos(t * 0.85) * 0.75;
+          targetRotX = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, targetRotX * 0.96 + microRx * 0.04));
+          targetRotY = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, targetRotY * 0.96 + microRy * 0.04));
+          if (!tiltLoopActive) {
+            tiltLoopActive = true;
+            requestAnimationFrame(tiltLoop);
+          }
+        }
+        hoverAmbientFrame = requestAnimationFrame(loop);
+      };
+      hoverAmbientFrame = requestAnimationFrame(loop);
+    };
+
+    let cachedRect = null;
+
     card.addEventListener("pointerenter", (e) => {
+      if (e.pointerType === "touch") return; // Touch is handled separately
+      isHovered = true;
+      card.classList.add("is-hovered");
+      cachedRect = card.getBoundingClientRect();
+
       if (window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate(5); // subtle tick on hover enter
+        window.navigator.vibrate(6); // subtle tick on hover enter
       }
+
+      if (window.AudioEngine && window.AudioEngine.playHover) {
+        window.AudioEngine.playHover();
+      }
+
+      // Initial tactile tilt based on entry point
+      const rect = cachedRect;
+      const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
+      const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
+      lastPointerMoveTime = performance.now();
+      updateTiltTarget(-ny * TILT_MAX_DEG, nx * TILT_MAX_DEG);
+      if (isMembership) startHoverAmbient();
     });
 
     card.addEventListener("pointermove", (e) => {
-      if (e.pointerType === "touch") return; // Touch is handled by device orientation
-      const rect = card.getBoundingClientRect();
-      const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-      const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      if (e.pointerType === "touch") return;
+      lastPointerMoveTime = performance.now();
+      if (!cachedRect) cachedRect = card.getBoundingClientRect();
+      const rect = cachedRect;
+      const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
+      const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
 
       const rx = -ny * TILT_MAX_DEG;
       const ry = nx * TILT_MAX_DEG;
       updateTiltTarget(rx, ry);
     });
 
-    card.addEventListener("pointerleave", () => {
+    card.addEventListener("pointerleave", (e) => {
+      if (e.pointerType === "touch") return;
+      isHovered = false;
+      cachedRect = null;
+      card.classList.remove("is-hovered");
+      cancelAnimationFrame(hoverAmbientFrame);
       resetTiltForCard(card);
       if (window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate(5); // subtle tick on hover leave
+        window.navigator.vibrate(4); // subtle tick on hover leave
       }
     });
 
-    // Mobile tactile feedback
-    card.addEventListener("touchstart", () => {
+    // 2. MOBILE LONG-PRESS TACTILE INSPECTION
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isTouching = false;
+    let longPressTimer = null;
+    let longPressAnimFrame = null;
+    let wasLongPress = false;
+
+    const startLongPressTiltOrbit = () => {
+      const startTime = performance.now();
+      cancelAnimationFrame(longPressAnimFrame);
+      const loop = () => {
+        if (!isLongPressActive) return;
+        const elapsed = (performance.now() - startTime) * 0.0016;
+        // Restrained, continuous luxury 3D tilt orbit while held
+        const orbitRx = Math.sin(elapsed) * 3.2;
+        const orbitRy = Math.cos(elapsed * 0.85) * 3.6;
+        updateTiltTarget(orbitRx, orbitRy);
+        longPressAnimFrame = requestAnimationFrame(loop);
+      };
+      longPressAnimFrame = requestAnimationFrame(loop);
+    };
+
+    card.addEventListener("touchstart", (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isTouching = true;
+      wasLongPress = false;
+
+      clearTimeout(longPressTimer);
+      cancelAnimationFrame(longPressAnimFrame);
+
+      // Light tactile touch feedback
       if (window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate(10); // slightly stronger for direct touch
+        window.navigator.vibrate(8);
       }
+
+      // Start long-press detection timer (350ms)
+      longPressTimer = setTimeout(() => {
+        if (!isTouching) return;
+        isLongPressActive = true;
+        wasLongPress = true;
+        card.classList.add("is-long-press-active");
+
+        // Enhanced tactile haptics on long-press engagement
+        if (window.navigator && window.navigator.vibrate) {
+          window.navigator.vibrate([22, 35, 20]);
+        }
+        // Soft luxury rustle sound
+        if (window.AudioEngine && window.AudioEngine.playRustle) {
+          window.AudioEngine.playRustle();
+        }
+
+        // Start dynamic 3D inspection tilt animation
+        startLongPressTiltOrbit();
+      }, 350);
     }, { passive: true });
 
-    card.addEventListener("touchend", () => {
-      if (window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate(5);
+    card.addEventListener("touchmove", (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      const curX = e.touches[0].clientX;
+      const curY = e.touches[0].clientY;
+
+      if (!isLongPressActive) {
+        // If user moves finger >8px before long-press activates, cancel timer (it is a scroll)
+        const dist = Math.hypot(curX - touchStartX, curY - touchStartY);
+        if (dist > 8) {
+          clearTimeout(longPressTimer);
+          longPressTimer = null;
+        }
+      } else {
+        // Long-press active: allow finger to interactively steer the 3D tilt!
+        if (e.cancelable) e.preventDefault();
+        cancelAnimationFrame(longPressAnimFrame); // Direct touch overrides idle orbit
+
+        const rect = card.getBoundingClientRect();
+        const nx = ((curX - rect.left) / rect.width - 0.5) * 2;
+        const ny = ((curY - rect.top) / rect.height - 0.5) * 2;
+        updateTiltTarget(-ny * (TILT_MAX_DEG + 1), nx * (TILT_MAX_DEG + 1));
       }
-    }, { passive: true });
+    }, { passive: false });
+
+    const endTouch = () => {
+      isTouching = false;
+      clearTimeout(longPressTimer);
+      longPressTimer = null;
+      cancelAnimationFrame(longPressAnimFrame);
+
+      if (isLongPressActive) {
+        isLongPressActive = false;
+        card.classList.remove("is-long-press-active");
+        if (window.navigator && window.navigator.vibrate) {
+          window.navigator.vibrate(10); // subtle release tick
+        }
+        resetTiltForCard(card);
+      }
+    };
+
+    card.addEventListener("touchend", endTouch, { passive: true });
+    card.addEventListener("touchcancel", endTouch, { passive: true });
+
+    // Prevent accidental click triggering when finishing a long-press
+    card.addEventListener("click", (e) => {
+      if (wasLongPress) {
+        e.preventDefault();
+        e.stopPropagation();
+        wasLongPress = false;
+      }
+    }, true);
   });
 }
 
@@ -1230,156 +1417,268 @@ function initGoldDust() {
   const ctx = canvas.getContext("2d", { alpha: true });
 
   let particles = [];
-  const PARTICLE_COUNT = 40;
+  const PARTICLE_COUNT = 52;
 
-  let width, height;
+  let width = 0;
+  let height = 0;
+  let animId = null;
 
-  const resize = () => {
-    const parent = canvas.parentElement;
-    if (!parent) return;
-    const rect = parent.getBoundingClientRect();
-    width = rect.width;
-    height = rect.height;
+  // Sovereign Authentic Gold Palette
+  const darkGoldPalette = [
+    { r: 245, g: 232, b: 195 }, // Pale champagne highlight
+    { r: 232, g: 200, b: 110 }, // Radiant sovereign gold
+    { r: 212, g: 175, b: 55 },  // Authentic 24k gold
+    { r: 195, g: 155, b: 75 },  // Warm bronze gold
+    { r: 255, g: 245, b: 220 }  // Starlight gold
+  ];
 
-    // Scale for high DPI displays
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.scale(dpr, dpr);
+  const lightGoldPalette = [
+    { r: 175, g: 130, b: 45 },  // Deep antique gold
+    { r: 195, g: 148, b: 58 },  // Sovereign warm amber gold
+    { r: 155, g: 110, b: 35 },  // Rich bronze
+    { r: 210, g: 165, b: 70 }   // Polished brass highlight
+  ];
 
-    initParticles();
+  const createParticle = (isBurst = false, customX, customY) => {
+    const isLight = document.body.classList.contains("light-mode");
+    const palette = isLight ? lightGoldPalette : darkGoldPalette;
+    const color = palette[Math.floor(Math.random() * palette.length)];
+
+    // Type distribution: 60% fine motes, 28% medium shimmering flecks, 12% radiant glints
+    const typeRand = Math.random();
+    let type = "mote";
+    let radius = Math.random() * 0.7 + 0.65; // 0.65px - 1.35px
+
+    if (typeRand > 0.88) {
+      type = "glint";
+      radius = Math.random() * 0.8 + 1.8; // 1.8px - 2.6px
+    } else if (typeRand > 0.60) {
+      type = "fleck";
+      radius = Math.random() * 0.6 + 1.2; // 1.2px - 1.8px
+    }
+
+    if (isBurst) {
+      radius *= 1.35;
+    }
+
+    return {
+      x: customX !== undefined ? customX : Math.random() * (width || 360),
+      y: customY !== undefined ? customY : Math.random() * (height || 500),
+      radius,
+      type,
+      color,
+      // Suspended thermal buoyancy drift
+      speedX: isBurst ? (Math.random() - 0.5) * 1.4 : (Math.random() - 0.5) * 0.16,
+      speedY: isBurst ? -(Math.random() * 2.2 + 1.0) : -(Math.random() * 0.2 + 0.07),
+      wobbleSpeed: Math.random() * 0.02 + 0.01,
+      wobbleAngle: Math.random() * Math.PI * 2,
+      baseOpacity: type === "glint" ? Math.random() * 0.35 + 0.45 : Math.random() * 0.35 + 0.28,
+      pulseSpeed: Math.random() * 0.025 + 0.008,
+      pulseAngle: Math.random() * Math.PI * 2,
+      flare: type === "glint" && Math.random() > 0.5 ? Math.random() * 0.6 + 0.2 : 0,
+      flareDecay: Math.random() * 0.014 + 0.008,
+      flareInterval: Math.floor(Math.random() * 240 + 120),
+      flareTimer: Math.floor(Math.random() * 180),
+      depth: Math.random() * 0.8 + 0.2, // Parallax depth factor (0.2 to 1.0)
+      isBurst,
+      life: isBurst ? 1.0 : Infinity
+    };
   };
 
   const initParticles = () => {
     particles = [];
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 0.8 + 0.2, // very small
-        speedX: (Math.random() - 0.5) * 0.2, // slow drift
-        speedY: (Math.random() - 0.5) * 0.2 - 0.1, // slightly drifting upwards
-        opacity: Math.random() * 0.5 + 0.1,
-        blinkSpeed: Math.random() * 0.02 + 0.005,
-        angle: Math.random() * Math.PI * 2,
-        flare: 0, // Sparkle state
-        isBurst: false
-      });
+      particles.push(createParticle(false));
     }
   };
 
-  // Expose milestone trigger
+  const resize = () => {
+    const parent = canvas.parentElement;
+    if (!parent) return;
+    const rect = parent.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
+
+    width = rect.width;
+    height = rect.height;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+
+    if (particles.length === 0) {
+      initParticles();
+    }
+  };
+
+  // Expose milestone burst trigger
   window.triggerGoldDustMilestone = () => {
+    if (window.HapticEngine) {
+      window.HapticEngine.milestoneUnlock();
+    } else if (typeof navigator !== "undefined" && navigator.vibrate) {
+      navigator.vibrate([30, 40, 45, 60, 25]);
+    }
     if (!width || !height) return;
-    for (let i = 0; i < 50; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: height * 0.8 + (Math.random() * height * 0.2), // start near bottom
-        radius: Math.random() * 1.5 + 0.4,
-        speedX: (Math.random() - 0.5) * 1.2,
-        speedY: -(Math.random() * 2 + 1), // floating upwards faster
-        opacity: Math.random() * 0.5 + 0.5,
-        blinkSpeed: Math.random() * 0.05 + 0.02,
-        angle: Math.random() * Math.PI * 2,
-        flare: Math.random() > 0.6 ? 1 : 0.4,
-        isBurst: true,
-        life: 1.0 // Fade out over time
-      });
+    for (let i = 0; i < 45; i++) {
+      const startX = width * 0.5 + (Math.random() - 0.5) * (width * 0.6);
+      const startY = height * 0.75 + Math.random() * (height * 0.2);
+      particles.push(createParticle(true, startX, startY));
     }
   };
 
   const draw = () => {
+    if (!width || !height) {
+      resize();
+      animId = requestAnimationFrame(draw);
+      return;
+    }
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    ctx.save();
+    ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, width, height);
 
-    // Filter out dead burst particles
+    const isLight = document.body.classList.contains("light-mode");
+
+    // Clean up dead burst particles
     particles = particles.filter((p) => !p.isBurst || p.life > 0);
 
-    particles.forEach((p) => {
-      // Move
-      p.x += p.speedX;
+    // Maintain base particle population
+    while (particles.filter(p => !p.isBurst).length < PARTICLE_COUNT) {
+      particles.push(createParticle(false, Math.random() * width, height + 6));
+    }
+
+    // Parallax tilt shift from 3D tilt engine
+    const rotX = typeof currentRotX !== "undefined" ? currentRotX : 0;
+    const rotY = typeof currentRotY !== "undefined" ? currentRotY : 0;
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+
+      // Physical drift motion
+      p.wobbleAngle += p.wobbleSpeed;
+      const wobbleX = Math.sin(p.wobbleAngle) * 0.12;
+
+      p.x += p.speedX + wobbleX;
       p.y += p.speedY;
 
       if (p.isBurst) {
-        p.life -= 0.004; // ~4 seconds lifetime
-        p.speedX *= 0.98; // drift slowly to a stop horizontally
-        p.speedY *= 0.99; // slow down vertical rise
+        p.life -= 0.005;
+        p.speedX *= 0.985;
+        p.speedY *= 0.99;
       } else {
-        // Wrap around normal particles
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
+        // Wrap smoothly around card boundaries
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+        if (p.y < -10) {
+          p.y = height + 10;
+          p.x = Math.random() * width;
+        }
+        if (p.y > height + 10) p.y = -10;
       }
 
-      // Randomly trigger a bright twinkle (flare)
-      if (p.flare <= 0 && !p.isBurst && Math.random() < 0.0015) {
-        p.flare = 1;
+      // Parallax position based on 3D tilt
+      const parallaxX = rotY * p.depth * 1.5;
+      const parallaxY = -rotX * p.depth * 1.5;
+      const drawX = p.x + parallaxX;
+      const drawY = p.y + parallaxY;
+
+      // Pulse breathing
+      p.pulseAngle += p.pulseSpeed;
+      const pulse = Math.sin(p.pulseAngle);
+      let opacity = p.baseOpacity + pulse * 0.18;
+
+      // Handle glint twinkle
+      p.flareTimer++;
+      if (p.type === "glint" && p.flareTimer >= p.flareInterval && p.flare <= 0) {
+        p.flare = 1.0;
+        p.flareTimer = 0;
+        p.flareInterval = Math.floor(Math.random() * 260 + 140);
       } else if (p.flare > 0) {
-        p.flare -= 0.015; // Fade out the sparkle
+        p.flare -= p.flareDecay;
+        if (p.flare < 0) p.flare = 0;
       }
 
-      // Blink (normal ambient oscillation)
-      p.angle += p.blinkSpeed;
-      let currentOpacity = p.opacity + Math.sin(p.angle) * 0.3;
-      
       if (p.isBurst) {
-        currentOpacity *= Math.min(1, p.life * 2); // fade out nicely
+        opacity *= Math.min(1, p.life * 2.5);
       }
 
-      // Add flare intensity if active
+      // Final composite opacity
       const finalOpacity = Math.max(
         0,
-        Math.min(1, currentOpacity + (p.flare > 0 ? p.flare * 0.6 : 0)),
+        Math.min(1, opacity + p.flare * 0.5)
       );
 
-      const currentRadius = p.radius * (1 + (p.flare > 0 ? p.flare * 1.2 : 0));
+      const radius = p.radius * (1 + p.flare * 0.35);
+      const { r, g, b } = p.color;
 
-      // Add subtle glow to larger particles or flaring particles
-      if (currentRadius > 0.6 || p.flare > 0) {
-        ctx.shadowBlur = p.flare > 0 ? 6 : 2;
-        ctx.shadowColor =
-          p.flare > 0 ? "rgba(255, 245, 210, 0.9)" : "rgba(212, 175, 106, 0.8)";
+      // Draw particle base mote
+      ctx.beginPath();
+      ctx.arc(drawX, drawY, radius, 0, Math.PI * 2);
+
+      if (p.flare > 0.15 || p.type === "glint") {
+        ctx.shadowColor = isLight ? `rgba(180, 138, 52, ${finalOpacity * 0.7})` : `rgba(255, 235, 170, ${finalOpacity * 0.8})`;
+        ctx.shadowBlur = isLight ? 3 : 5 * (1 + p.flare);
+      } else if (p.type === "fleck") {
+        ctx.shadowColor = isLight ? `rgba(165, 125, 45, 0.4)` : `rgba(212, 175, 55, 0.4)`;
+        ctx.shadowBlur = 2;
       } else {
         ctx.shadowBlur = 0;
       }
 
-      // Draw base ambient particle
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, currentRadius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(212, 175, 106, ${finalOpacity})`; // Gold Champagne
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${finalOpacity})`;
       ctx.fill();
 
-      // Draw 4-point bezier star glint if flaring
-      if (p.flare > 0.05) {
-        const size = p.radius * 7 * p.flare + 1;
+      // Soft 4-point glint flare for starlet particles
+      if (p.flare > 0.08) {
+        const f = p.flare;
+        const flareSpan = (p.radius * 3.5 + 2) * f;
+
+        ctx.save();
+        ctx.translate(drawX, drawY);
+
         ctx.beginPath();
-        ctx.moveTo(p.x, p.y - size); // Top
-        ctx.quadraticCurveTo(p.x, p.y, p.x + size, p.y); // Right
-        ctx.quadraticCurveTo(p.x, p.y, p.x, p.y + size); // Bottom
-        ctx.quadraticCurveTo(p.x, p.y, p.x - size, p.y); // Left
-        ctx.quadraticCurveTo(p.x, p.y, p.x, p.y - size); // Top
-        ctx.fillStyle = `rgba(255, 248, 220, ${p.flare * 0.9})`;
+        ctx.moveTo(0, -flareSpan);
+        ctx.quadraticCurveTo(0, 0, flareSpan, 0);
+        ctx.quadraticCurveTo(0, 0, 0, flareSpan);
+        ctx.quadraticCurveTo(0, 0, -flareSpan, 0);
+        ctx.quadraticCurveTo(0, 0, 0, -flareSpan);
+
+        ctx.shadowColor = isLight ? "rgba(200, 150, 60, 0.8)" : "rgba(255, 245, 210, 0.9)";
+        ctx.shadowBlur = 6 * f;
+        ctx.fillStyle = isLight ? `rgba(210, 165, 70, ${f * 0.75})` : `rgba(255, 248, 220, ${f * 0.85})`;
         ctx.fill();
 
-        // Add a tiny white-hot core
+        // White-gold pinpoint center
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius * 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.flare})`;
+        ctx.arc(0, 0, p.radius * 0.7 * f, 0, Math.PI * 2);
+        ctx.fillStyle = isLight ? `rgba(255, 255, 255, ${f * 0.9})` : `rgba(255, 255, 255, ${f})`;
         ctx.fill();
+
+        ctx.restore();
       }
-    });
+    }
 
-    requestAnimationFrame(draw);
+    ctx.restore();
+    animId = requestAnimationFrame(draw);
   };
+
+  // ResizeObserver for reliable dimension tracking
+  if (window.ResizeObserver && canvas.parentElement) {
+    const ro = new ResizeObserver(() => {
+      resize();
+    });
+    ro.observe(canvas.parentElement);
+  }
 
   window.addEventListener("resize", resize);
 
-  // Initial setup
-  // Wait a bit for layout to settle
+  // Initialize after layout settles
   setTimeout(() => {
     resize();
-    draw();
-  }, 100);
+    if (!animId) {
+      draw();
+    }
+  }, 80);
 }
 
 function initProfileGyro() {

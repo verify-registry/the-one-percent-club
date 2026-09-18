@@ -157,41 +157,105 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.setLanguage(currentLang);
 
-  // --- Theme Mode Logic ---
-  const savedTheme = localStorage.getItem("app_theme") || "dark";
-  const themeToggle = document.getElementById("themeToggle");
-  const themeDesc = document.getElementById("themeDesc");
+  // --- Theme Mode State Manager ---
+  window.ThemeManager = {
+    getTheme() {
+      try {
+        return localStorage.getItem("app_theme") || "dark";
+      } catch {
+        return "dark";
+      }
+    },
+    isLight() {
+      return this.getTheme() === "light";
+    },
+    setTheme(theme, save = true) {
+      const isLight = theme === "light";
+      const root = document.documentElement;
+      const body = document.body;
 
-  if (savedTheme === "light") {
-    document.body.classList.add("light-mode");
-    if (themeToggle) themeToggle.checked = true;
-    if (themeDesc) {
-      themeDesc.setAttribute("data-i18n", "settings.theme_light");
-      themeDesc.textContent = window.t("settings.theme_light", currentLang);
-    }
-  }
+      // Toggle dark-mode / light-mode classes on document root element (<html>)
+      root.classList.toggle("light-mode", isLight);
+      root.classList.toggle("dark-mode", !isLight);
+      root.setAttribute("data-theme", theme);
 
-  if (themeToggle) {
-    themeToggle.addEventListener("change", (e) => {
-      const isLight = e.target.checked;
-      if (isLight) {
-        document.body.classList.add("light-mode");
-        localStorage.setItem("app_theme", "light");
-        if (themeDesc) {
-          themeDesc.setAttribute("data-i18n", "settings.theme_light");
-          themeDesc.textContent = window.t("settings.theme_light", currentLang);
-        }
-      } else {
-        document.body.classList.remove("light-mode");
-        localStorage.setItem("app_theme", "dark");
-        if (themeDesc) {
-          themeDesc.setAttribute("data-i18n", "settings.theme_dark");
-          themeDesc.textContent = window.t("settings.theme_dark", currentLang);
+      // Keep body synchronized for backwards compatibility
+      if (body) {
+        body.classList.toggle("light-mode", isLight);
+        body.classList.toggle("dark-mode", !isLight);
+        body.setAttribute("data-theme", theme);
+      }
+
+      if (save) {
+        try {
+          localStorage.setItem("app_theme", theme);
+        } catch (e) {}
+      }
+
+      if (typeof AppState !== "undefined" && AppState) {
+        AppState.theme = theme;
+      }
+
+      // Sync settings toggle input
+      const themeToggle = document.getElementById("themeToggle");
+      if (themeToggle && themeToggle.checked !== isLight) {
+        themeToggle.checked = isLight;
+      }
+
+      // Sync settings description text
+      const themeDesc = document.getElementById("themeDesc");
+      if (themeDesc) {
+        const key = isLight ? "settings.theme_light" : "settings.theme_dark";
+        themeDesc.setAttribute("data-i18n", key);
+        themeDesc.textContent = window.t
+          ? window.t(key, currentLang)
+          : isLight
+            ? "الفاتح الملكي"
+            : "الداكن الملكي (الافتراضي)";
+      }
+
+      // Trigger redraws for dynamic luxury elements (Guilloche canvas)
+      window.dispatchEvent(
+        new CustomEvent("themechange", { detail: { theme, isLight } }),
+      );
+      window.dispatchEvent(new Event("resize"));
+    },
+    toggle() {
+      const next = this.isLight() ? "dark" : "light";
+      this.setTheme(next);
+      return next;
+    },
+    init() {
+      const initial = this.getTheme();
+      this.setTheme(initial, false);
+
+      const themeToggle = document.getElementById("themeToggle");
+      if (themeToggle) {
+        themeToggle.checked = initial === "light";
+        themeToggle.addEventListener("change", (e) => {
+          const next = e.target.checked ? "light" : "dark";
+          this.setTheme(next);
+          if (window.AudioEngine && window.AudioEngine.playHover) {
+            window.AudioEngine.playHover();
+          }
+        });
+      }
+    },
+  };
+
+  window.ThemeManager.init();
+
+  // --- Audio & Tactile Setting Toggle ---
+  const audioHapticToggle = document.getElementById("audioHapticToggle");
+  if (audioHapticToggle) {
+    audioHapticToggle.checked = window.AudioEngine ? window.AudioEngine.isEnabled() : true;
+    audioHapticToggle.addEventListener("change", (e) => {
+      if (window.AudioEngine) {
+        window.AudioEngine.setEnabled(e.target.checked);
+        if (e.target.checked) {
+          window.AudioEngine.playHover();
         }
       }
-      
-      // trigger resize event so that Guilloche canvas redraws if needed
-      window.dispatchEvent(new Event("resize"));
     });
   }
 
@@ -432,6 +496,7 @@ const AppState = {
   owned: {},
   equipped: {},
   chatCredits: 10,
+  theme: localStorage.getItem("app_theme") || "dark",
   activeChannelId: "global-lounge",
   channels: {
     "global-lounge": { name: window.t("club.lounge"), messages: [] },
@@ -568,11 +633,9 @@ const AppState = {
       `equipped_${this.user.id}`,
       JSON.stringify(this.equipped),
     );
-    localStorage.setItem(
-      `channels_${this.user.id}`,
-      JSON.stringify(this.channels),
-    );
+    localStorage.setItem(`channels_${this.user.id}`, JSON.stringify(this.channels));
     localStorage.setItem(`profile_${this.user.id}`, JSON.stringify(this.user));
+    localStorage.setItem("app_theme", this.theme || "dark");
     if (typeof window.updateRadarChart === "function")
       window.updateRadarChart();
   },
@@ -615,7 +678,7 @@ const AppState = {
     if (tierNameEl) tierNameEl.textContent = this.member.tier;
 
     // Update Milestone Badges
-    const badgeIds = ["milestoneBadge", "memberTierBadge"];
+    const badgeIds = ["memberTierBadge"];
     badgeIds.forEach((id) => {
       const badgeEl = document.getElementById(id);
       if (badgeEl) {
@@ -630,6 +693,11 @@ const AppState = {
     });
     
     if (oldTier && oldTier !== this.member.tier) {
+      if (window.HapticEngine) {
+        window.HapticEngine.milestoneUnlock();
+      } else if (typeof navigator !== "undefined" && navigator.vibrate) {
+        navigator.vibrate([30, 40, 45, 60, 25]);
+      }
       if (typeof window.triggerGoldDustMilestone === "function") {
         window.triggerGoldDustMilestone();
       }
@@ -644,8 +712,15 @@ const AppState = {
       this.recalculatePrestige();
       this.save();
       this.notify();
-      return true;
 
+      // Subtle tactile haptic impulse for successful Boutique transaction
+      if (window.HapticEngine) {
+        window.HapticEngine.boutiquePurchase();
+      } else if (typeof navigator !== "undefined" && navigator.vibrate) {
+        navigator.vibrate([35, 50, 20]);
+      }
+
+      // Check milestones/achievements unlocked by this transaction
       Object.keys(ACHIEVEMENTS_DATA).forEach((key) => {
         const ach = ACHIEVEMENTS_DATA[key];
         if (ach.isUnlocked()) {
@@ -1200,6 +1275,9 @@ function showCopyToast(msg) {
 }
 
 document.getElementById("copyBtn").addEventListener("click", async () => {
+  if (window.AudioEngine && window.AudioEngine.playSend) {
+    window.AudioEngine.playSend();
+  }
   try {
     await navigator.clipboard.writeText(ClubState.member.verifyUrl);
     showCopyToast(window.t("misc.linkCopied"));
@@ -1577,6 +1655,14 @@ window.unlockAchievement = function (id, title, desc) {
   if (!unlocked.includes(id)) {
     unlocked.push(id);
     localStorage.setItem("club_achievements", JSON.stringify(unlocked));
+
+    // Sovereign harmonic haptic feedback for unlocking milestone
+    if (window.HapticEngine) {
+      window.HapticEngine.milestoneUnlock();
+    } else if (typeof navigator !== "undefined" && navigator.vibrate) {
+      navigator.vibrate([30, 40, 45, 60, 25]);
+    }
+
     setTimeout(() => {
       if (window.AudioEngine) window.AudioEngine.playChime();
       window.showAchievementToast(title, desc);
@@ -1966,6 +2052,9 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   if (!modal) return;
 
   modal.hidden = false;
+  if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+    window.AudioEngine.playModalOpen();
+  }
 
   document.getElementById("inspectionTitle").textContent = window.t(item.name);
   document.getElementById("inspectionRarity").textContent =
@@ -2007,7 +2096,7 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
 }
 
 document.getElementById("inspectionCloseBtn")?.addEventListener("click", () => {
-  document.getElementById("inspectionModal").hidden = true;
+  closeInspectionModal();
 });
 
 function processPurchase(item) {
@@ -2018,6 +2107,11 @@ function purchaseItem(item, catKey) {
   if (processPurchase(item)) {
     closeInspectionModal();
     playPurchaseAnimation();
+    if (window.HapticEngine) {
+      window.HapticEngine.boutiquePurchase();
+    } else if (typeof navigator !== "undefined" && navigator.vibrate) {
+      navigator.vibrate([35, 50, 20]);
+    }
     if (window.AudioEngine) {
       window.AudioEngine.playChime();
     }
@@ -2026,6 +2120,9 @@ function purchaseItem(item, catKey) {
 function equipItem(item, catKey) {
   ClubState.toggleEquip(catKey, item.id);
   closeInspectionModal();
+  if (window.AudioEngine && window.AudioEngine.playEquip) {
+    window.AudioEngine.playEquip();
+  }
 }
 function updateMasterCard() {
   const pmItems = document.getElementById("pmItemsCollected");
@@ -2064,6 +2161,9 @@ function closeInspectionModal() {
   if (modal) {
     modal.hidden = true;
     modal.classList.remove("is-active");
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
   }
 }
 
@@ -2313,12 +2413,18 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("accPhoneInput").value =
         AppState.user.phone || "";
       accountInfoModal.classList.add("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+        window.AudioEngine.playModalOpen();
+      }
     });
   }
   document
     .getElementById("closeAccountInfoModal")
     ?.addEventListener("click", () => {
       accountInfoModal?.classList.remove("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalClose) {
+        window.AudioEngine.playModalClose();
+      }
     });
   document.querySelectorAll(".quote-preset-chip").forEach(chip => {
     chip.addEventListener("click", () => {
@@ -2368,12 +2474,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (menuHelp && helpSupportModal) {
     menuHelp.addEventListener("click", () => {
       helpSupportModal.classList.add("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+        window.AudioEngine.playModalOpen();
+      }
     });
   }
   document
     .getElementById("closeHelpSupportModal")
     ?.addEventListener("click", () => {
       helpSupportModal?.classList.remove("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalClose) {
+        window.AudioEngine.playModalClose();
+      }
     });
 
   const menuMembership = document.getElementById("menuMembership");
@@ -2392,11 +2504,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (menuSettings && settingsModal) {
     menuSettings.addEventListener("click", () => {
       settingsModal.classList.add("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+        window.AudioEngine.playModalOpen();
+      }
     });
   }
   if (closeSettingsModal && settingsModal) {
     closeSettingsModal.addEventListener("click", () => {
       settingsModal.classList.remove("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalClose) {
+        window.AudioEngine.playModalClose();
+      }
     });
   }
 
@@ -2412,18 +2530,27 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnSettingsLogout && logoutConfirmModal) {
     btnSettingsLogout.addEventListener("click", () => {
       logoutConfirmModal.classList.add("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+        window.AudioEngine.playModalOpen();
+      }
     });
   }
 
   if (closeLogoutConfirmModal && logoutConfirmModal) {
     closeLogoutConfirmModal.addEventListener("click", () => {
       logoutConfirmModal.classList.remove("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalClose) {
+        window.AudioEngine.playModalClose();
+      }
     });
   }
 
   if (btnCancelLogout && logoutConfirmModal) {
     btnCancelLogout.addEventListener("click", () => {
       logoutConfirmModal.classList.remove("is-open");
+      if (window.AudioEngine && window.AudioEngine.playModalClose) {
+        window.AudioEngine.playModalClose();
+      }
     });
   }
 
@@ -3590,6 +3717,11 @@ window.handleQuickPurchase = function(event, item, catKey) {
   
   if (ClubState.purchase(item)) {
     window.quickPurchasedItems.add(item.id);
+    if (window.HapticEngine) {
+      window.HapticEngine.boutiquePurchase();
+    } else if (typeof navigator !== "undefined" && navigator.vibrate) {
+      navigator.vibrate([35, 50, 20]);
+    }
     if (window.AudioEngine) window.AudioEngine.playChime();
     
     setTimeout(() => {

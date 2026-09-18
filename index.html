@@ -23,6 +23,23 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css?v=51" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("app_theme") || "dark";
+          var root = document.documentElement;
+          if (saved === "light") {
+            root.classList.add("light-mode");
+            root.classList.remove("dark-mode");
+            root.setAttribute("data-theme", "light");
+          } else {
+            root.classList.add("dark-mode");
+            root.classList.remove("light-mode");
+            root.setAttribute("data-theme", "dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <svg width="0" height="0" style="position: absolute" aria-hidden="true">
@@ -443,9 +460,6 @@
                 <h2 class="member-name" id="memberName">ISMAIL ELSAYED</h2>
 
                 <div class="tier-pill" id="tierPill">
-                  <div class="milestone-badge" id="milestoneBadge">
-                    <div class="crystal-core"></div>
-                  </div>
                   <span
                     class="equipped-stars-slot"
                     id="equippedStarsSlot"
@@ -1629,7 +1643,7 @@
               </div>
             </div>
             <label class="luxury-switch">
-              <input type="checkbox" checked="" />
+              <input type="checkbox" id="audioHapticToggle" checked="" />
               <span class="slider"></span>
             </label>
           </div>
