@@ -360,6 +360,14 @@ window.I18N = {
       en: "Your Sovereign Dispatch",
       ar: "مرسومك السيادي",
     },
+    sealedDecree: {
+      en: "Sealed Document",
+      ar: "وثيقة مختومة",
+    },
+    goldenInkSeal: {
+      en: "Official Sovereign Seal",
+      ar: "ختم سيادي رسمي",
+    },
     messagesLeft: {
       en: "Remaining messages today",
       ar: "الرسائل المتبقية اليوم",
@@ -387,6 +395,10 @@ window.I18N = {
     whisperActiveNotice: {
       en: "Sovereign Whisper Active • End-to-End Chamber Seal",
       ar: "البرقية المشفرة مفعلة • ختم سري مغلق",
+    },
+    sealedDecree: {
+      en: "Sealed Decree",
+      ar: "وثيقة مختومة",
     },
     credit: {
       en: "Credit",

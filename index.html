@@ -1084,100 +1084,169 @@
           </div>
         </section>
 
-        <!-- PAGE: MEMBER PROFILE (contextual) -->
+        <!-- PAGE: MEMBER PROFILE (SOVEREIGN DOSSIER) -->
         <section class="page" id="page-member" hidden="">
-          <div class="profile-head">
-            <div class="profile-portrait-wrap">
-              <div class="portrait-ring sm" id="memberPortraitRing">
-                <div class="portrait-photo" id="memberPortraitPhoto"></div>
+          <div class="sovereign-dossier-card" id="memberDossierCard">
+            
+            <!-- Top Hallmarks & Rivets Header -->
+            <div class="sd-card-header">
+              <div class="sd-corner-rivet" title="Sovereign Seal Rivet"></div>
+              <div class="sd-crest-badge">
+                <span class="sd-crest-fleur">⚜️</span>
+                <span class="sd-badge-text" id="memberDossierCouncilBadge">المجلس السيادي • لوحة الشرف</span>
+                <span class="sd-crest-fleur">⚜️</span>
+              </div>
+              <div class="sd-corner-rivet" title="Sovereign Seal Rivet"></div>
+            </div>
+
+            <!-- Hero Portrait & Emblem Centerpiece -->
+            <div class="sd-hero-section">
+              <div class="sd-portrait-frame">
+                <div class="sd-crown-insignia" id="memberDossierCrown">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                    <path d="M4 18h16M5 15l2-8 5 5 5-5 2 8H5z" stroke="#f5df8b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="rgba(212, 175, 55, 0.35)"/>
+                  </svg>
+                </div>
+                <div class="sd-portrait-medallion">
+                  <img id="memberDossierImg" src="" alt="Member" class="sd-avatar-img" onerror="this.style.display='none'; document.getElementById('memberDossierFallback').style.display='flex';" />
+                  <div id="memberDossierFallback" class="sd-avatar-fallback" style="display: none;">⚜️</div>
+                  <div class="sd-status-jewel" id="memberDossierStatusJewel" title="Active"></div>
+                </div>
+                <div class="sd-rank-chip" id="memberDossierRankChip">
+                  <span id="memberDossierRankText">#1</span>
+                </div>
+              </div>
+
+              <!-- Identity Names & Tier -->
+              <div class="sd-identity-block">
+                <h2 class="sd-member-name" id="memberProfileName">—</h2>
+                <div class="sd-tier-capsule" id="memberTierPill">
+                  <span class="sd-tier-icon">👑</span>
+                  <span id="memberProfileTier">SOVEREIGN MEMBER</span>
+                </div>
+                <div class="sd-meta-line">
+                  <span class="sd-id-tag" id="memberDossierId">ID: SV-0001</span>
+                  <span class="sd-meta-dot">•</span>
+                  <span class="sd-location-tag" id="memberDossierLocation">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="10" r="3"></circle><path d="M12 2a8 8 0 0 0-8 8c0 5 8 12 8 12s8-7 8-12a8 8 0 0 0-8-8z"></path></svg>
+                    <span id="memberDossierLocationText">—</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Sovereign Motto / Quote -->
+              <div class="sd-motto-box">
+                <span class="sd-quote-mark start">“</span>
+                <p class="sd-quote-text" id="memberProfileQuote">—</p>
+                <span class="sd-quote-mark end">”</span>
               </div>
             </div>
-            <p class="member-name" id="memberProfileName">—</p>
-            <div class="tier-pill" id="memberTierPill">
-              <div class="milestone-badge" id="memberTierBadge">
-                <div class="crystal-core"></div>
+
+            <!-- 4 Complications / Horology Metrics Bar -->
+            <div class="sd-complications-grid">
+              <div class="sd-comp-dial">
+                <div class="sd-comp-icon">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 6v6l4 2"></path></svg>
+                </div>
+                <div class="sd-comp-val" id="memberProfileWealth">99.4%</div>
+                <div class="sd-comp-label" data-i18n="membership.wealthIndex">مؤشر الثروة</div>
               </div>
-              <svg viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M2 12l1-6 3 3 2-5 2 5 3-3 1 6z"
-                  fill="url(#ringGoldGrad)"
-                ></path>
-              </svg>
-              <span id="memberProfileTier">—</span>
+              <div class="sd-comp-divider"></div>
+              <div class="sd-comp-dial">
+                <div class="sd-comp-icon">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <div class="sd-comp-val" id="memberProfilePriv">98.2%</div>
+                <div class="sd-comp-label" data-i18n="membership.privileges">الامتيازات</div>
+              </div>
+              <div class="sd-comp-divider"></div>
+              <div class="sd-comp-dial">
+                <div class="sd-comp-icon">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H7.5"></path><path d="M14 14.66V17c0 .55.45 1 1 1h1.5"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
+                </div>
+                <div class="sd-comp-val" id="memberDossierRankStat">#1</div>
+                <div class="sd-comp-label" id="memberDossierRankLabel">الرتبة السيادية</div>
+              </div>
+              <div class="sd-comp-divider"></div>
+              <div class="sd-comp-dial">
+                <div class="sd-comp-icon">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#68d391" stroke-width="1.6"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <div class="sd-comp-val status-active" id="memberDossierStatusStat">نشط</div>
+                <div class="sd-comp-label" data-i18n="membership.statusLabel">حالة الاعتماد</div>
+              </div>
             </div>
-            <p class="member-quote" id="memberProfileQuote">""</p>
-          </div>
-          <section
-            class="info-panel"
-            aria-label="معلومات العضو"
-            data-i18n-aria-label="profile.infoTitle"
-          >
-            <div class="info-row">
-              <span class="info-label" data-i18n="membership.wealthIndex"
-                >مؤشر الثروة</span
-              ><span class="info-value" id="memberProfileWealth">—</span>
+
+            <!-- Action Protocol Buttons (Immediately Accessible) -->
+            <div class="sd-action-buttons card-actions">
+              <button class="sd-btn sd-btn-message btn" id="memberActionMessageBtn" type="button">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h16v11H8l-4 4V5z"></path></svg>
+                <span data-i18n="profile.messageBtn">مراسلة خاصة</span>
+              </button>
+              <button class="sd-btn sd-btn-add btn" id="memberActionAddFriendBtn" type="button">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"></circle><path d="M3 19c1-3 3-5 6-5s5 2 6 5"></path><path d="M17 8h4M19 6v4"></path></svg>
+                <span data-i18n="profile.addFriendBtn">إضافة لشبكة الشرف</span>
+              </button>
             </div>
-            <div class="info-row">
-              <span class="info-label" data-i18n="membership.privileges"
-                >الامتيازات</span
-              ><span class="info-value" id="memberProfilePriv">—</span>
+
+            <!-- Official Sovereign Registry / Charter Details -->
+            <div class="sd-registry-card">
+              <div class="sd-registry-header">
+                <span class="sd-reg-title">بيانات السجل السيادي المعتمد</span>
+                <span class="sd-reg-vault-tag">VERIFIED</span>
+              </div>
+              <div class="sd-registry-grid">
+                <div class="sd-reg-row">
+                  <span class="sd-reg-label">ميثاق العضوية</span>
+                  <span class="sd-reg-value" id="memberDossierCharter">ميثاق سيادي خاص • دائم</span>
+                </div>
+                <div class="sd-reg-row">
+                  <span class="sd-reg-label">تاريخ التدشين</span>
+                  <span class="sd-reg-value">EST. 2024 • عضو مؤسس</span>
+                </div>
+                <div class="sd-reg-row">
+                  <span class="sd-reg-label">بروتوكول التحقق</span>
+                  <span class="sd-reg-value"><bdi class="sd-code-text">SHA-256 VAULT VERIFIED</bdi></span>
+                </div>
+                <div class="sd-reg-row">
+                  <span class="sd-reg-label">صلاحية دخول المجلس</span>
+                  <span class="sd-reg-value" id="memberDossierAccess">وصول كامل للصالونات الخاصة</span>
+                </div>
+              </div>
             </div>
-            <div class="info-row">
-              <span class="info-label" data-i18n="membership.statusLabel"
-                >الحالة</span
-              ><span
-                class="info-value status-active"
-                data-i18n="membership.activeStatus"
-                >نشط</span
-              >
+
+            <!-- Sovereign Prestige Artifacts -->
+            <div class="sd-artifacts-panel">
+              <div class="sd-artifacts-title">
+                <span>أوسمة ومقتنيات الشرف السيادية</span>
+              </div>
+              <div class="sd-artifacts-row">
+                <div class="sd-artifact-item" title="تاج السيادة">
+                  <div class="sd-artifact-emblem">👑</div>
+                  <span class="sd-artifact-name">تاج السيادة</span>
+                </div>
+                <div class="sd-artifact-item" title="خاتم الذهب المعتق">
+                  <div class="sd-artifact-emblem">💍</div>
+                  <span class="sd-artifact-name">خاتم الذهب</span>
+                </div>
+                <div class="sd-artifact-item" title="وسام الشرف المذهب">
+                  <div class="sd-artifact-emblem">⚜️</div>
+                  <span class="sd-artifact-name">وسام الشرف</span>
+                </div>
+                <div class="sd-artifact-item" title="الختم المشفر">
+                  <div class="sd-artifact-emblem">🛡️</div>
+                  <span class="sd-artifact-name">الختم السيادي</span>
+                </div>
+              </div>
             </div>
-          </section>
-          <div class="card-actions">
-            <button
-              class="btn btn-outline"
-              id="memberActionMessageBtn"
-              type="button"
-              data-i18n="profile.messageBtn"
-            >
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M4 5h16v11H8l-4 4V5z"
-                  stroke="currentColor"
-                  stroke-width="1.4"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-              <span data-i18n="profile.messageBtn">مراسلة</span>
-            </button>
-            <button
-              class="btn btn-outline"
-              id="memberActionAddFriendBtn"
-              type="button"
-              data-i18n="profile.addFriendBtn"
-            >
-              <svg viewBox="0 0 24 24" fill="none">
-                <circle
-                  cx="9"
-                  cy="8"
-                  r="3"
-                  stroke="currentColor"
-                  stroke-width="1.4"
-                ></circle>
-                <path
-                  d="M3 19c1-3 3-5 6-5s5 2 6 5"
-                  stroke="currentColor"
-                  stroke-width="1.4"
-                  stroke-linecap="round"
-                ></path>
-                <path
-                  d="M17 8h4M19 6v4"
-                  stroke="currentColor"
-                  stroke-width="1.4"
-                  stroke-linecap="round"
-                ></path>
-              </svg>
-              <span data-i18n="profile.addFriendBtn">إضافة صديق</span>
-            </button>
+
+            <!-- Bottom Rivets & Guarantee Mark -->
+            <div class="sd-card-footer">
+              <div class="sd-corner-rivet" title="Sovereign Seal Rivet"></div>
+              <div class="sd-footer-hallmark">THE 1% CLUB • SOVEREIGN PRIVATE DOSSIER</div>
+              <div class="sd-corner-rivet" title="Sovereign Seal Rivet"></div>
+            </div>
+
           </div>
         </section>
 

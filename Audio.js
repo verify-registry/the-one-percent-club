@@ -322,40 +322,202 @@ const AudioEngine = (function () {
 
   function playSend() {
     if (!enabled) return;
-    if (!ctx) init();
-    if (!ctx) return;
-    const t = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(600, t);
-    osc.frequency.exponentialRampToValueAtTime(800, t + 0.1);
-    const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(0.05, t + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start(t);
-    osc.stop(t + 0.15);
+    try {
+      const c = ensureContextReady ? ensureContextReady() : ctx;
+      if (!c) return;
+      const t = c.currentTime;
+      const osc = c.createOscillator();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(600, t);
+      osc.frequency.exponentialRampToValueAtTime(800, t + 0.1);
+      const gain = c.createGain();
+      gain.gain.setValueAtTime(0.001, t);
+      gain.gain.linearRampToValueAtTime(0.05, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+      osc.connect(gain);
+      gain.connect(c.destination);
+      osc.start(t);
+      osc.stop(t + 0.15);
+    } catch (e) {}
   }
 
-  function playReceive() {
+  // --- RANK-BASED SOVEREIGN NOTIFICATION SYSTEM ---
+  // Highest Sovereign ranks (FOUNDER, SOVEREIGN, ARCHON, EXARCH):
+  // Produces a rich, resonant, multi-harmonic "Golden Chime" reminiscent of solid 24k gold horology minute-repeater
+  function playGoldenSovereignChime() {
     if (!enabled) return;
-    if (!ctx) init();
-    if (!ctx) return;
-    const t = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    osc.type = "triangle";
-    osc.frequency.setValueAtTime(800, t);
-    osc.frequency.exponentialRampToValueAtTime(600, t + 0.15);
-    const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(0.08, t + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start(t);
-    osc.stop(t + 0.2);
+    const c = ensureContextReady ? ensureContextReady() : ctx;
+    if (!c) return;
+
+    try {
+      const t = c.currentTime;
+
+      // 1. Primary fundamental bell tone (1174.66 Hz - D6)
+      const osc1 = c.createOscillator();
+      osc1.type = "sine";
+      osc1.frequency.setValueAtTime(1174.66, t);
+
+      // 2. Harmonic golden ratio overtone (~1900.6 Hz)
+      const osc2 = c.createOscillator();
+      osc2.type = "sine";
+      osc2.frequency.setValueAtTime(1900.6, t);
+
+      // 3. High-frequency crystalline golden shimmer (2349.32 Hz - D7)
+      const osc3 = c.createOscillator();
+      osc3.type = "sine";
+      osc3.frequency.setValueAtTime(2349.32, t);
+
+      // Warmth & Acoustic Luster Filter
+      const filter = c.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(4600, t);
+      filter.frequency.exponentialRampToValueAtTime(2200, t + 2.0);
+
+      // Master Gain with exquisite bell envelope (crisp attack, singing exponential decay)
+      const masterGain = c.createGain();
+      masterGain.gain.setValueAtTime(0, t);
+      masterGain.gain.linearRampToValueAtTime(0.16, t + 0.012);
+      masterGain.gain.exponentialRampToValueAtTime(0.045, t + 0.35);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, t + 2.1);
+
+      // Individual gain balances
+      const gain1 = c.createGain();
+      gain1.gain.setValueAtTime(0.12, t);
+      gain1.gain.exponentialRampToValueAtTime(0.0001, t + 2.1);
+
+      const gain2 = c.createGain();
+      gain2.gain.setValueAtTime(0.08, t);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
+
+      const gain3 = c.createGain();
+      gain3.gain.setValueAtTime(0.04, t);
+      gain3.gain.exponentialRampToValueAtTime(0.0001, t + 1.2);
+
+      osc1.connect(gain1);
+      osc2.connect(gain2);
+      osc3.connect(gain3);
+
+      gain1.connect(masterGain);
+      gain2.connect(masterGain);
+      gain3.connect(masterGain);
+
+      masterGain.connect(filter);
+      filter.connect(c.destination);
+
+      osc1.start(t);
+      osc2.start(t);
+      osc3.start(t);
+
+      osc1.stop(t + 2.15);
+      osc2.stop(t + 1.65);
+      osc3.stop(t + 1.25);
+    } catch (e) {}
+  }
+
+  // Mid-High Ranks (TITAN, PATRON, MAGNATE):
+  // Authoritative, polished bronze dual-chime resonance
+  function playTitanResonance() {
+    if (!enabled) return;
+    const c = ensureContextReady ? ensureContextReady() : ctx;
+    if (!c) return;
+
+    try {
+      const t = c.currentTime;
+
+      const osc1 = c.createOscillator();
+      osc1.type = "sine";
+      osc1.frequency.setValueAtTime(880, t); // A5
+
+      const osc2 = c.createOscillator();
+      osc2.type = "sine";
+      osc2.frequency.setValueAtTime(1318.5, t); // E6
+
+      const filter = c.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(3200, t);
+
+      const gain = c.createGain();
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.12, t + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0002, t + 1.15);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(filter);
+      filter.connect(c.destination);
+
+      osc1.start(t);
+      osc2.start(t);
+      osc1.stop(t + 1.2);
+      osc2.stop(t + 1.2);
+    } catch (e) {}
+  }
+
+  // Standard/Member Rank: Soft, velvet-damped mechanical impulse
+  function playStandardReceive() {
+    if (!enabled) return;
+    try {
+      const c = ensureContextReady ? ensureContextReady() : ctx;
+      if (!c) return;
+      const t = c.currentTime;
+      const osc = c.createOscillator();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(740, t);
+      osc.frequency.exponentialRampToValueAtTime(580, t + 0.16);
+      const gain = c.createGain();
+      gain.gain.setValueAtTime(0.001, t);
+      gain.gain.linearRampToValueAtTime(0.07, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+      osc.connect(gain);
+      gain.connect(c.destination);
+      osc.start(t);
+      osc.stop(t + 0.22);
+    } catch (e) {}
+  }
+
+  // Master Tier-Aware Dispatcher
+  function playReceive(tier) {
+    if (!enabled) return;
+    const rawTier = String(tier || "").toUpperCase().trim();
+
+    // 1. Highest Sovereign Ranks -> Distinctive Golden Chime
+    if (
+      rawTier.includes("FOUNDER") ||
+      rawTier.includes("SOVEREIGN") ||
+      rawTier.includes("ARCHON") ||
+      rawTier.includes("EXARCH") ||
+      rawTier.includes("المؤسس") ||
+      rawTier.includes("السيادي") ||
+      rawTier.includes("سيادي")
+    ) {
+      playGoldenSovereignChime();
+      if (typeof window !== "undefined" && window.HapticEngine && window.HapticEngine.vibrate) {
+        window.HapticEngine.vibrate([22, 55, 35]); // Sovereign tactile pulse
+      }
+      return "golden_sovereign";
+    }
+
+    // 2. Mid-High Ranks -> Authoritative Titan Resonance
+    if (
+      rawTier.includes("TITAN") ||
+      rawTier.includes("PATRON") ||
+      rawTier.includes("MAGNATE") ||
+      rawTier.includes("عملاق") ||
+      rawTier.includes("الراعي")
+    ) {
+      playTitanResonance();
+      if (typeof window !== "undefined" && window.HapticEngine && window.HapticEngine.vibrate) {
+        window.HapticEngine.vibrate([18, 40, 18]);
+      }
+      return "titan_resonance";
+    }
+
+    // 3. Standard Members -> Discreet mechanical receive
+    playStandardReceive();
+    if (typeof window !== "undefined" && window.HapticEngine && window.HapticEngine.vibrate) {
+      window.HapticEngine.vibrate(15);
+    }
+    return "standard";
   }
 
   return {
@@ -370,6 +532,9 @@ const AudioEngine = (function () {
     playEquip,
     playSend,
     playReceive,
+    playGoldenSovereignChime,
+    playTitanResonance,
+    playStandardReceive,
   };
 })();
 

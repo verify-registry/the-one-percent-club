@@ -582,6 +582,12 @@ const AppState = {
     connectionsValue: 75,
     verifyUrl: "https://1percent.club/verify/3426",
   },
+  get member() {
+    return this.user;
+  },
+  set member(v) {
+    this.user = v;
+  },
   balance: 24750,
   totalSpent: 0,
   owned: {},
@@ -976,6 +982,68 @@ const AppState = {
   },
 };
 const ClubState = AppState;
+Object.defineProperty(ClubState, "member", {
+  get: () => AppState.user,
+  set: (v) => {
+    AppState.user = v;
+  },
+  configurable: true,
+  enumerable: true,
+});
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+if (typeof window !== "undefined") {
+  window.escapeHtml = escapeHtml;
+}
+
+window.openMemberProfileFromDispatch = function (senderId) {
+  try {
+    if (window.AudioEngine && window.AudioEngine.playRustle) {
+      window.AudioEngine.playRustle();
+    }
+    if (window.HapticEngine && window.HapticEngine.tap) {
+      window.HapticEngine.tap(12);
+    }
+    if (senderId === AppState.user.id) {
+      if (typeof goToPage === "function") {
+        goToPage("profile");
+        return;
+      }
+    }
+
+    const elite = typeof ELITE_MEMBERS !== "undefined"
+      ? ELITE_MEMBERS.find((m) => m.id === senderId)
+      : null;
+    const isMe = senderId === AppState.user.id;
+    const avatarUrl = typeof getMemberAvatar === "function"
+      ? getMemberAvatar(senderId, elite?.name, isMe)
+      : ((typeof ELITE_AVATARS !== "undefined" && ELITE_AVATARS[senderId]) ||
+         "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop");
+
+    const memberData = {
+      name: elite ? elite.name : (senderId === AppState.user.id ? AppState.user.name : "MEMBER"),
+      tier: elite ? elite.tier : (senderId === AppState.user.id ? AppState.user.tier : "SOVEREIGN MEMBER"),
+      wealth: senderId === AppState.user.id ? (AppState.user.wealthIndex || "98%") : "99.8%",
+      priv: "98.5%",
+      quote: elite && elite.motto ? elite.motto : "Discipline, exclusivity, sovereignty.",
+      avatar: avatarUrl,
+    };
+
+    if (typeof openMemberProfile === "function") {
+      openMemberProfile(memberData);
+    }
+  } catch (err) {
+    console.error("openMemberProfileFromDispatch error:", err);
+  }
+};
 Object.defineProperty(AppState.user, "balance", {
   get: () => AppState.balance,
   set: (v) => (AppState.balance = v),
@@ -992,24 +1060,69 @@ Object.defineProperty(AppState.user, "connections", {
 });
 
 const ELITE_AVATARS = {
-  "001": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=240&auto=format&fit=crop",
-  "084": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=240&auto=format&fit=crop",
-  "112": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=240&auto=format&fit=crop",
-  "1001": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=240&auto=format&fit=crop",
-  "000": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=240&auto=format&fit=crop",
+  "001": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop", // Lord Julian (Founder / Zurich)
+  "084": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=240&auto=format&fit=crop", // Elena Rostova (Sovereign / Monaco)
+  "112": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=240&auto=format&fit=crop", // Marcus Sterling (Titan / London)
+  "1001": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=240&auto=format&fit=crop", // Alexander W. (Sovereign Exarch / Geneva)
+  "777": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=240&auto=format&fit=crop", // Sheikh Tariq Al-Mansoor (Sovereign / Dubai)
+  "205": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=240&auto=format&fit=crop", // Baroness Charlotte (Sovereign / Paris)
+  "000": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=240&auto=format&fit=crop", // Concierge Desk (System / Geneva)
 };
+
+const FALLBACK_SOVEREIGN_AVATARS = [
+  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=240&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=240&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=240&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=240&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=240&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=240&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=240&auto=format&fit=crop",
+];
+
+function getMemberAvatar(senderId, senderName, isMe) {
+  if (isMe) {
+    return (
+      AppState.user.avatarUrl ||
+      AppState.user.avatar ||
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=240&auto=format&fit=crop"
+    );
+  }
+  const sId = String(senderId || "").trim();
+  if (sId && ELITE_AVATARS[sId]) {
+    return ELITE_AVATARS[sId];
+  }
+  if (senderName) {
+    const sName = String(senderName).toLowerCase();
+    if (sName.includes("julian")) return ELITE_AVATARS["001"];
+    if (sName.includes("elena") || sName.includes("rostova")) return ELITE_AVATARS["084"];
+    if (sName.includes("marcus") || sName.includes("sterling")) return ELITE_AVATARS["112"];
+    if (sName.includes("alexander")) return ELITE_AVATARS["1001"];
+    if (sName.includes("tariq") || sName.includes("mansoor")) return ELITE_AVATARS["777"];
+    if (sName.includes("charlotte")) return ELITE_AVATARS["205"];
+    if (sName.includes("concierge")) return ELITE_AVATARS["000"];
+  }
+  const key = String(senderId || senderName || "sovereign-member");
+  let hash = 0;
+  for (let i = 0; i < key.length; i++) {
+    hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+  }
+  return FALLBACK_SOVEREIGN_AVATARS[hash % FALLBACK_SOVEREIGN_AVATARS.length];
+}
 
 const ELITE_SEATS = {
   "001": "ZURICH",
   "084": "MONACO",
   "112": "LONDON",
-  "1001": "RIYADH",
+  "1001": "GENEVA",
+  "777": "DUBAI",
+  "205": "PARIS",
   "000": "GENEVA",
 };
 
 if (typeof window !== "undefined") {
   window.ELITE_AVATARS = ELITE_AVATARS;
   window.ELITE_SEATS = ELITE_SEATS;
+  window.getMemberAvatar = getMemberAvatar;
 }
 
 AppState.init();
@@ -1901,7 +2014,7 @@ const Router = {
         if (msgs) window.scrollTo(0, document.body.scrollHeight);
       });
       if (typeof startClubWelcomeAutoDismiss === "function") {
-        startClubWelcomeAutoDismiss(15000);
+        startClubWelcomeAutoDismiss(5000);
       }
     } else {
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
@@ -2061,6 +2174,7 @@ function openContextPage(pageId, title, returnTab) {
   if (activePage) {
     activePage.classList.add("is-active");
     activePage.hidden = false;
+    activePage.scrollTop = 0;
   }
   document.getElementById("sectionName").textContent = title;
   document.getElementById("appHeader").classList.remove("header-compact");
@@ -2075,28 +2189,97 @@ function openMemberProfile(member) {
   if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
   if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(15);
 
+  const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
+  const memberName = isAr ? (member.nameAr || member.name) : (member.nameEn || member.name || "MEMBER");
+
+  // Name
   const nameEl = document.getElementById("memberProfileName");
-  if (nameEl) nameEl.textContent = member.name || "MEMBER";
+  if (nameEl) nameEl.textContent = memberName || "MEMBER";
 
+  // Tier Text & Formatting
   const tierEl = document.getElementById("memberProfileTier");
-  if (tierEl) tierEl.textContent = member.tier ? `${window.t("misc.member")} ${member.tier}` : "SOVEREIGN MEMBER";
+  const tierPill = document.getElementById("memberTierPill");
+  const rawTier = member.tier || "Sovereign";
+  let tierText = rawTier;
+  if (isAr) {
+    if (rawTier === "Sovereign") tierText = "فئة السيادة المطلقة";
+    else if (rawTier === "Elite") tierText = "فئة النخبة المعتمدة";
+    else tierText = "عضو معتمد بالمجلس";
+  } else {
+    tierText = `${rawTier.toUpperCase()} MEMBER`;
+  }
+  if (tierEl) tierEl.textContent = tierText;
+  if (tierPill) {
+    tierPill.className = `sd-tier-capsule tier-${rawTier.toLowerCase()}`;
+  }
 
+  // Quote / Sovereign Creed
   const quoteEl = document.getElementById("memberProfileQuote");
-  if (quoteEl) quoteEl.textContent = member.quote || member.text || "“A higher standard in a different world.”";
+  if (quoteEl) {
+    quoteEl.textContent = member.quote || member.text || (isAr ? "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة." : "A higher standard in a different world.");
+  }
 
+  // Wealth & Privileges
   const wealthEl = document.getElementById("memberProfileWealth");
   if (wealthEl) wealthEl.textContent = member.wealth || "99.4%";
 
   const privEl = document.getElementById("memberProfilePriv");
   if (privEl) privEl.textContent = member.priv || "98.2%";
 
-  const photoEl = document.getElementById("memberPortraitPhoto");
-  if (photoEl) {
-    const avatarUrl = member.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop";
-    photoEl.style.backgroundImage = `url('${avatarUrl}')`;
+  // Sovereign ID
+  const idEl = document.getElementById("memberDossierId");
+  if (idEl) idEl.textContent = member.id ? `ID: ${member.id}` : "ID: SV-0001";
+
+  // City / Sovereign Jurisdiction
+  const locEl = document.getElementById("memberDossierLocationText");
+  if (locEl) {
+    const city = isAr ? (member.city || member.cityAr || "المقر الدبلوماسي • جنيف") : (member.cityEn || member.city || "Geneva • Switzerland");
+    locEl.textContent = city;
   }
 
-  openContextPage("page-member", member.name || "ملف العضو", "club");
+  // Council Rank
+  const rankChip = document.getElementById("memberDossierRankText");
+  const rankStat = document.getElementById("memberDossierRankStat");
+  if (rankChip) rankChip.textContent = member.rank ? `#${member.rank}` : "#1";
+  if (rankStat) rankStat.textContent = member.rank ? `#${member.rank}` : "#1";
+
+  // Status Stat & Jewel
+  const statusStat = document.getElementById("memberDossierStatusStat");
+  if (statusStat) {
+    statusStat.textContent = isAr ? (member.isOnline !== false ? "نشط • معتمد" : "سجل موثق") : (member.isOnline !== false ? "Active" : "Verified");
+  }
+  const statusJewel = document.getElementById("memberDossierStatusJewel");
+  if (statusJewel) {
+    statusJewel.style.display = member.isOnline !== false ? "block" : "none";
+  }
+
+  // Dossier Charter & Access
+  const charterEl = document.getElementById("memberDossierCharter");
+  if (charterEl) {
+    charterEl.textContent = isAr 
+      ? (rawTier === "Sovereign" ? "ميثاق سيادي أول • غير قابل للإلغاء" : "ميثاق النخبة المعتمد • دائم")
+      : (rawTier === "Sovereign" ? "Tier I Sovereign Charter • Irrevocable" : "Elite Council Charter • Permanent");
+  }
+  const accessEl = document.getElementById("memberDossierAccess");
+  if (accessEl) {
+    accessEl.textContent = isAr ? "وصول كامل للصالونات الخاصة والمفاوضات" : "Unrestricted Access to Private Lounges";
+  }
+
+  // Portrait Image
+  const avatarUrl = member.avatar || "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop";
+  const imgEl = document.getElementById("memberDossierImg");
+  const fallbackEl = document.getElementById("memberDossierFallback");
+  if (imgEl) {
+    imgEl.src = avatarUrl;
+    imgEl.style.display = "block";
+    if (fallbackEl) fallbackEl.style.display = "none";
+  }
+  const oldPhotoEl = document.getElementById("memberPortraitPhoto");
+  if (oldPhotoEl) {
+    oldPhotoEl.style.backgroundImage = `url('${avatarUrl}')`;
+  }
+
+  openContextPage("page-member", memberName || (isAr ? "ملف العضو السيادي" : "Member Dossier"), "club");
 }
 window.openMemberProfile = openMemberProfile;
 
@@ -2105,7 +2288,7 @@ document.getElementById("backBtn").addEventListener("click", () => {
   goToPage(contextReturnTab);
 });
 
-document.querySelectorAll("#page-member .card-actions .btn").forEach((btn) => {
+document.querySelectorAll("#page-member .card-actions .btn, #page-member .sd-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     if (window.AudioEngine && window.AudioEngine.playChime) window.AudioEngine.playChime();
     if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(20);
@@ -2386,10 +2569,13 @@ window.unlockAchievement = function (id, title, desc) {
 // ==========================================
 
 const ELITE_MEMBERS = [
-  { name: "Lord Julian", tier: "FOUNDER", id: "001", color: "#e6c27a" },
-  { name: "Elena Rostova", tier: "SOVEREIGN", id: "084", color: "#d4af37" },
-  { name: "Marcus Sterling", tier: "TITAN", id: "112", color: "#f3e5ab" },
-  { name: "Concierge Desk", tier: "SYSTEM", id: "000", color: "#a39b8b" },
+  { name: "Lord Julian", tier: "FOUNDER", id: "001", color: "#e6c27a", seat: "ZURICH", motto: "Honor, lineage, and sovereign discretion." },
+  { name: "Elena Rostova", tier: "SOVEREIGN", id: "084", color: "#d4af37", seat: "MONACO", motto: "Elegance is the ultimate sovereign currency." },
+  { name: "Marcus Sterling", tier: "TITAN", id: "112", color: "#f3e5ab", seat: "LONDON", motto: "Capital in motion, unencumbered by borders." },
+  { name: "Alexander W.", tier: "SOVEREIGN EXARCH", id: "1001", color: "#e6c27a", seat: "GENEVA", motto: "Pioneering the architecture of digital sovereignty." },
+  { name: "Sheikh Tariq Al-Mansoor", tier: "SOVEREIGN", id: "777", color: "#f5d77f", seat: "DUBAI", motto: "Legacy built upon vision, precision, and steel." },
+  { name: "Baroness Charlotte", tier: "SOVEREIGN", id: "205", color: "#e2b872", seat: "PARIS", motto: "True luxury whispers through heritage and rarity." },
+  { name: "Concierge Desk", tier: "SYSTEM", id: "000", color: "#a39b8b", seat: "GENEVA", motto: "At the sovereign service of the Circle." },
 ];
 
 function processEliteResponse(text) {
@@ -2402,9 +2588,12 @@ function processEliteResponse(text) {
   const lordJulian = ELITE_MEMBERS.find((m) => m.id === "001");
   const elena = ELITE_MEMBERS.find((m) => m.id === "084");
   const marcus = ELITE_MEMBERS.find((m) => m.id === "112");
+  const alexander = ELITE_MEMBERS.find((m) => m.id === "1001");
+  const tariq = ELITE_MEMBERS.find((m) => m.id === "777");
+  const charlotte = ELITE_MEMBERS.find((m) => m.id === "205");
   const concierge = ELITE_MEMBERS.find((m) => m.id === "000");
 
-  const others = [lordJulian, elena, marcus];
+  const others = [lordJulian, elena, marcus, alexander, tariq, charlotte];
 
   if (
     lower.includes("help") ||
@@ -2416,15 +2605,10 @@ function processEliteResponse(text) {
     lower.includes("دعم") ||
     lower.includes("قوانين")
   ) {
-    const responses = isArabic
-      ? [
-          window.t("dynamic.chatHelp1").replace("{0}", userName),
-          window.t("dynamic.chatHelp2"),
-        ]
-      : [
-          window.t("dynamic.chatHelp1").replace("{0}", userName),
-          window.t("dynamic.chatHelp2"),
-        ];
+    const responses = [
+      window.t("dynamic.chatHelp1").replace("{0}", userName),
+      window.t("dynamic.chatHelp2"),
+    ];
     return {
       member: concierge,
       text: responses[Math.floor(Math.random() * responses.length)],
@@ -2443,27 +2627,15 @@ function processEliteResponse(text) {
     lower.includes("مرحبا") ||
     lower.includes("أهلا")
   ) {
-    if (isArabic) {
-      const responses = [
-        window.t("dynamic.chatGreet1").replace("{0}", userName),
-        window.t("dynamic.chatGreet2"),
-        window.t("dynamic.chatGreet3").replace("{0}", userName),
-      ];
-      return {
-        member: others[Math.floor(Math.random() * others.length)],
-        text: responses[Math.floor(Math.random() * responses.length)],
-      };
-    } else {
-      const responses = [
-        window.t("dynamic.chatGreet1").replace("{0}", userName),
-        window.t("dynamic.chatGreet2"),
-        window.t("dynamic.chatGreet3").replace("{0}", userName),
-      ];
-      return {
-        member: others[Math.floor(Math.random() * others.length)],
-        text: responses[Math.floor(Math.random() * responses.length)],
-      };
-    }
+    const responses = [
+      window.t("dynamic.chatGreet1").replace("{0}", userName),
+      window.t("dynamic.chatGreet2"),
+      window.t("dynamic.chatGreet3").replace("{0}", userName),
+    ];
+    return {
+      member: others[Math.floor(Math.random() * others.length)],
+      text: responses[Math.floor(Math.random() * responses.length)],
+    };
   }
 
   if (
@@ -2479,27 +2651,16 @@ function processEliteResponse(text) {
     lower.includes("صفق") ||
     lower.includes("عقار")
   ) {
-    if (isArabic) {
-      const responses = [
-        window.t("dynamic.chatInvest1"),
-        window.t("dynamic.chatInvest2"),
-        window.t("dynamic.chatInvest3").replace("{0}", userName),
-      ];
-      return {
-        member: [lordJulian, marcus][Math.floor(Math.random() * 2)],
-        text: responses[Math.floor(Math.random() * responses.length)],
-      };
-    } else {
-      const responses = [
-        window.t("dynamic.chatInvest1"),
-        window.t("dynamic.chatInvest2"),
-        window.t("dynamic.chatInvest3").replace("{0}", userName),
-      ];
-      return {
-        member: [lordJulian, marcus][Math.floor(Math.random() * 2)],
-        text: responses[Math.floor(Math.random() * responses.length)],
-      };
-    }
+    const responses = [
+      window.t("dynamic.chatInvest1"),
+      window.t("dynamic.chatInvest2"),
+      window.t("dynamic.chatInvest3").replace("{0}", userName),
+    ];
+    const investPool = [marcus, alexander, tariq, lordJulian];
+    return {
+      member: investPool[Math.floor(Math.random() * investPool.length)],
+      text: responses[Math.floor(Math.random() * responses.length)],
+    };
   }
 
   if (
@@ -2516,50 +2677,27 @@ function processEliteResponse(text) {
     lower.includes("فخامة") ||
     lower.includes("بوتيك")
   ) {
-    if (isArabic) {
-      const responses = [
-        window.t("dynamic.chatBoutique1"),
-        window.t("dynamic.chatBoutique2").replace("{0}", userName),
-        window.t("dynamic.chatBoutique3"),
-      ];
-      return {
-        member: [lordJulian, elena][Math.floor(Math.random() * 2)],
-        text: responses[Math.floor(Math.random() * responses.length)],
-      };
-    } else {
-      const responses = [
-        window.t("dynamic.chatBoutique1"),
-        window.t("dynamic.chatBoutique2").replace("{0}", userName),
-        window.t("dynamic.chatBoutique3"),
-      ];
-      return {
-        member: [lordJulian, elena][Math.floor(Math.random() * 2)],
-        text: responses[Math.floor(Math.random() * responses.length)],
-      };
-    }
+    const responses = [
+      window.t("dynamic.chatBoutique1"),
+      window.t("dynamic.chatBoutique2").replace("{0}", userName),
+      window.t("dynamic.chatBoutique3"),
+    ];
+    const boutiquePool = [lordJulian, elena, charlotte, tariq];
+    return {
+      member: boutiquePool[Math.floor(Math.random() * boutiquePool.length)],
+      text: responses[Math.floor(Math.random() * responses.length)],
+    };
   }
 
-  if (isArabic) {
-    const responses = [
-      window.t("dynamic.chatDefault1").replace("{0}", userName),
-      window.t("dynamic.chatDefault2"),
-      window.t("dynamic.chatDefault3"),
-    ];
-    return {
-      member: others[Math.floor(Math.random() * others.length)],
-      text: responses[Math.floor(Math.random() * responses.length)],
-    };
-  } else {
-    const responses = [
-      window.t("dynamic.chatDefault1").replace("{0}", userName),
-      window.t("dynamic.chatDefault2"),
-      window.t("dynamic.chatDefault3"),
-    ];
-    return {
-      member: others[Math.floor(Math.random() * others.length)],
-      text: responses[Math.floor(Math.random() * responses.length)],
-    };
-  }
+  const responses = [
+    window.t("dynamic.chatDefault1").replace("{0}", userName),
+    window.t("dynamic.chatDefault2"),
+    window.t("dynamic.chatDefault3"),
+  ];
+  return {
+    member: others[Math.floor(Math.random() * others.length)],
+    text: responses[Math.floor(Math.random() * responses.length)],
+  };
 }
 function switchChannel(channelId) {
   AppState.activeChannelId = channelId;
@@ -2645,13 +2783,13 @@ function switchChannel(channelId) {
 
   const activeTab = document.querySelector(".page.is-active");
   if (activeTab && activeTab.id === "club-tab") {
-    startClubWelcomeAutoDismiss(15000);
+    startClubWelcomeAutoDismiss(5000);
   }
 }
 
 let clubWelcomeDismissTimer = null;
 
-function startClubWelcomeAutoDismiss(duration = 15000) {
+function startClubWelcomeAutoDismiss(duration = 5000) {
   const plaque = document.getElementById("clubPinnedInfo");
   if (!plaque) return;
 
@@ -2755,7 +2893,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (document.getElementById("club-tab")?.classList.contains("is-active")) {
-    startClubWelcomeAutoDismiss(15000);
+    startClubWelcomeAutoDismiss(5000);
   }
 });
 
@@ -2791,6 +2929,46 @@ window.toggleAccolade = function (channelId, messageIndex, type) {
   renderMessages();
 };
 
+window.toggleDispatchReadMore = function (channelId, messageIndex) {
+  const channel = AppState.channels[channelId];
+  if (!channel || !channel.messages || !channel.messages[messageIndex]) return;
+  const msg = channel.messages[messageIndex];
+  msg.isExpanded = !msg.isExpanded;
+
+  const textEl = document.getElementById(`dispatch-text-${channelId}-${messageIndex}`);
+  const btnEl = document.getElementById(`dispatch-btn-${channelId}-${messageIndex}`);
+  if (textEl && btnEl) {
+    if (msg.isExpanded) {
+      textEl.classList.remove("is-truncated");
+      textEl.classList.add("is-expanded");
+      btnEl.classList.add("is-expanded");
+      btnEl.setAttribute("aria-expanded", "true");
+      const label = btnEl.querySelector(".read-more-label");
+      if (label) label.textContent = window.currentLang === "en" ? "Show Less" : "عرض أقل";
+    } else {
+      textEl.classList.remove("is-expanded");
+      textEl.classList.add("is-truncated");
+      btnEl.classList.remove("is-expanded");
+      btnEl.setAttribute("aria-expanded", "false");
+      const label = btnEl.querySelector(".read-more-label");
+      if (label) label.textContent = window.currentLang === "en" ? "Show More" : "عرض المزيد";
+    }
+  } else {
+    renderMessages();
+  }
+
+  if (window.AudioEngine && window.AudioEngine.playClick) {
+    try {
+      window.AudioEngine.playClick();
+    } catch (e) {}
+  }
+  if (window.HapticEngine && window.HapticEngine.tap) {
+    try {
+      window.HapticEngine.tap(10);
+    } catch (e) {}
+  }
+};
+
 function renderMessages() {
   const container = document.getElementById("clubMessages");
   if (!container) return;
@@ -2800,11 +2978,40 @@ function renderMessages() {
 
   container.innerHTML = messages
     .map((msg, idx) => {
-      const isMe = msg.senderId === AppState.user.id;
-      const timeStr = new Date(msg.timestamp).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
+      const isMe = Boolean(
+        msg.senderId === AppState.user.id ||
+        msg.isMe === true ||
+        (AppState.user.id && msg.senderId && String(msg.senderId) === String(AppState.user.id)) ||
+        (AppState.user.name && msg.senderName === AppState.user.name)
+      );
+
+      // Dynamic positioning & styling determined strictly by sender identity:
+      // Current user (Me) -> Appears on the RIGHT with special sovereign personal formatting
+      // Other members -> Appears on the LEFT with distinct elite guest formatting
+      const senderPositionClass = isMe
+        ? "dispatch-align-right dispatch-sender-me is-personal-dispatch"
+        : "dispatch-align-left dispatch-sender-other is-incoming-dispatch";
+
+      const senderPositionStyle = isMe
+        ? "margin-left: auto !important; margin-right: 0 !important; align-self: flex-end !important;"
+        : "margin-right: auto !important; margin-left: 0 !important; align-self: flex-start !important;";
+
+      const elapsed = Date.now() - (msg.timestamp || 0);
+      const isNewArrival = Boolean(msg.justDispatched || elapsed < 3200);
+      const isFreshBloom = isMe && (msg.justDispatched || elapsed < 3800);
+      const inkDelayMs = isFreshBloom ? Math.max(0, elapsed) : 0;
+      if (msg.justDispatched) {
+        setTimeout(() => {
+          msg.justDispatched = false;
+        }, 4000);
+      }
+      const msgDate = new Date(msg.timestamp || Date.now());
+      const hours = String(msgDate.getHours()).padStart(2, "0");
+      const minutes = String(msgDate.getMinutes()).padStart(2, "0");
+      const seconds = String(msgDate.getSeconds()).padStart(2, "0");
+      const preciseTimeStr = `${hours}:${minutes}:${seconds}`;
+      const fullDateIso = msgDate.toLocaleString();
+      const timeStr = `${hours}:${minutes}`;
 
       const senderName = isMe
         ? AppState.user.name || "Member"
@@ -2812,53 +3019,82 @@ function renderMessages() {
       const senderTier = isMe
         ? AppState.user.tier || "SOVEREIGN"
         : msg.senderTier || "MEMBER";
+      const displayTier = senderTier.replace(/\s+MEMBER$/i, "").trim() || senderTier;
       const senderWealth = isMe
-        ? AppState.user.wealth || "99.9%"
+        ? AppState.user.wealthIndex || AppState.user.wealth || "98%"
         : msg.senderWealth || "99.4%";
       const senderSeat = isMe
         ? "SANCTUM"
         : ((typeof ELITE_SEATS !== "undefined" && ELITE_SEATS[msg.senderId]) ||
            (typeof window !== "undefined" && window.ELITE_SEATS && window.ELITE_SEATS[msg.senderId]) ||
            "SOVEREIGN SEAT");
-      const avatarUrl = isMe
-        ? AppState.user.avatar ||
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=240&auto=format&fit=crop"
-        : ((typeof ELITE_AVATARS !== "undefined" && ELITE_AVATARS[msg.senderId]) ||
-           (typeof window !== "undefined" && window.ELITE_AVATARS && window.ELITE_AVATARS[msg.senderId]) ||
-           msg.avatarUrl ||
-           "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=240&auto=format&fit=crop");
+      const avatarUrl = typeof getMemberAvatar === "function"
+        ? getMemberAvatar(msg.senderId, senderName, isMe)
+        : (isMe
+            ? (AppState.user.avatarUrl || AppState.user.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=240&auto=format&fit=crop")
+            : ((typeof ELITE_AVATARS !== "undefined" && ELITE_AVATARS[msg.senderId]) ||
+               "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop"));
 
-      const accolades = msg.accolades || {
-        endorse: isMe ? 2 : 8 + ((idx * 3) % 12),
-        honor: isMe ? 1 : 5 + ((idx * 2) % 9),
-        toast: isMe ? 1 : 3 + ((idx * 4) % 7),
-      };
+      const defaultAccolades = isMe
+        ? { endorse: 0, honor: 0, toast: 0 }
+        : {
+            endorse: 8 + ((idx * 3) % 12),
+            honor: 5 + ((idx * 2) % 9),
+            toast: 3 + ((idx * 4) % 7),
+          };
+      const accolades = msg.accolades || defaultAccolades;
       if (!msg.accolades) msg.accolades = accolades;
       const userReacted = msg.userReacted || {};
-
-      const memberPayload = JSON.stringify({
-        name: senderName,
-        tier: senderTier,
-        wealth: senderWealth,
-        priv: "98.5%",
-        quote: msg.text || "Discipline, exclusivity, sovereignty.",
-        avatar: avatarUrl,
-      }).replace(/"/g, "&quot;");
-
+      const totalAccolades = (accolades.endorse || 0) + (accolades.honor || 0) + (accolades.toast || 0);
+      const hasAccolades = totalAccolades > 0;
       const isWhisper = Boolean(msg.isWhisper);
+      const safeText = typeof escapeHtml === "function" ? escapeHtml(msg.text) : String(msg.text || "");
+      const safeSenderName = typeof escapeHtml === "function" ? escapeHtml(senderName) : String(senderName || "Member");
+      const isLongText = Boolean(safeText && (safeText.length > 150 || (safeText.match(/\n/g) || []).length >= 3));
+      const isExpanded = Boolean(msg.isExpanded);
 
       return `
-      <div class="sovereign-dispatch-card ${isMe ? "is-personal-dispatch" : ""} ${isWhisper ? "is-whisper-dispatch" : ""}" data-msg-idx="${idx}">
+      <div class="sovereign-dispatch-card ${senderPositionClass} ${isWhisper ? "is-whisper-dispatch" : ""} ${isFreshBloom ? "has-golden-ink-bloom" : ""} ${isNewArrival ? "is-new-dispatch dispatch-just-arrived" : ""}" data-msg-idx="${idx}" data-sender-role="${isMe ? "me" : "other"}" style="${senderPositionStyle} ${isFreshBloom ? `--ink-delay: -${inkDelayMs}ms;` : ""}">
+        ${
+          isMe
+            ? `<div class="dispatch-golden-ink-layer" aria-hidden="true">
+                 <div class="golden-ink-wash"></div>
+                 <div class="golden-seal-watermark">
+                   <svg viewBox="0 0 100 100" class="golden-seal-watermark-svg" fill="none">
+                     <circle cx="50" cy="50" r="46" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5" opacity="0.6"/>
+                     <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="0.8" opacity="0.8"/>
+                     <circle cx="50" cy="50" r="39" stroke="currentColor" stroke-width="1.2"/>
+                     <path d="M40 45 L38 36 L43 40 L50 32 L57 40 L62 36 L60 45 Z" fill="currentColor" opacity="0.9"/>
+                     <circle cx="50" cy="31" r="1.5" fill="currentColor"/>
+                     <circle cx="38" cy="35" r="1.2" fill="currentColor"/>
+                     <circle cx="62" cy="35" r="1.2" fill="currentColor"/>
+                     <text x="50" y="56" text-anchor="middle" font-family="'Cormorant Garamond', 'Amiri', serif" font-size="7.5" font-weight="700" fill="currentColor" letter-spacing="1">THE 1% CLUB</text>
+                     <text x="50" y="63" text-anchor="middle" font-family="'Inter', 'Cairo', sans-serif" font-size="3.8" font-weight="700" fill="currentColor" letter-spacing="0.6">DECREE</text>
+                     <path d="M34 68 C 40 74, 45 76, 50 76 C 55 76, 60 74, 66 68" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+                     <circle cx="50" cy="76" r="1" fill="currentColor" opacity="0.8"/>
+                   </svg>
+                 </div>
+                 <div class="golden-ink-quill-trace"></div>
+               </div>`
+            : ""
+        }
         <div class="dispatch-header">
-          <div class="dispatch-profile-group" onclick="openMemberProfile(${memberPayload})">
+          <div class="dispatch-profile-group" onclick="openMemberProfileFromDispatch('${msg.senderId}')">
             <div class="dispatch-medallion-rim">
-              <img src="${avatarUrl}" alt="${senderName}" class="dispatch-avatar-img" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=240&auto=format&fit=crop'" />
+              <img src="${avatarUrl}" alt="${safeSenderName}" class="dispatch-avatar-img" onerror="this.src='https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop'" />
               <span class="dispatch-online-pip"></span>
             </div>
             <div class="dispatch-credentials">
               <div class="dispatch-primary-row">
-                <span class="dispatch-name" style="color: ${msg.senderColor || "#e6c27a"}">${senderName}</span>
-                <span class="dispatch-tier-hallmark">${senderTier}</span>
+                <span class="dispatch-name" style="color: ${msg.senderColor || "#e6c27a"}">${safeSenderName}</span>
+                <span class="dispatch-sovereign-timestamp" title="${fullDateIso}">
+                  <svg class="sovereign-time-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="0.95" opacity="0.85"/>
+                    <path d="M6 3.2v2.8l1.6 1" stroke="currentColor" stroke-width="0.95" stroke-linecap="round"/>
+                  </svg>
+                  <span class="timestamp-precise-val">${preciseTimeStr}</span>
+                </span>
+                <span class="dispatch-tier-hallmark">${displayTier}</span>
               </div>
               <div class="dispatch-secondary-row">
                 <span class="dispatch-seat-tag">${senderSeat}</span>
@@ -2868,8 +3104,16 @@ function renderMessages() {
             </div>
           </div>
           <div class="dispatch-chronometer">
-            <span class="dispatch-timestamp">${timeStr}</span>
-            ${isMe ? `<span class="dispatch-seal-mark" title="Sovereign Verified">✦</span>` : ""}
+            ${
+              isMe
+                ? `<span class="dispatch-seal-mark is-official-decree" title="${window.t("club.sealedDecree") || "وثيقة مختومة"}">
+                    <svg class="decree-seal-icon" viewBox="0 0 14 14" fill="none">
+                      <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.1" stroke-dasharray="2.2 1.2"/>
+                      <path d="M4.5 7.2l1.8 1.8 3.5-3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>`
+                : ""
+            }
           </div>
         </div>
 
@@ -2887,51 +3131,67 @@ function renderMessages() {
         }
 
         <div class="dispatch-manuscript-body ${isWhisper ? "is-whisper-content" : ""}">
-          ${msg.text}
-        </div>
-
-        <div class="dispatch-accolades-bar">
-          <div class="dispatch-accolades-actions">
-            <button
-              type="button"
-              class="sovereign-accolade-btn ${userReacted.endorse ? "is-conferred" : ""}"
-              onclick="toggleAccolade('${channelId}', ${idx}, 'endorse')"
-              title="مصادقة سيادية"
-            >
-              <span class="accolade-icon">✦</span>
-              <span class="accolade-title" data-i18n="club.endorse">${window.t("club.endorse") || "مصادقة"}</span>
-              <span class="accolade-tally">${accolades.endorse || 0}</span>
-            </button>
-
-            <button
-              type="button"
-              class="sovereign-accolade-btn ${userReacted.honor ? "is-conferred" : ""}"
-              onclick="toggleAccolade('${channelId}', ${idx}, 'honor')"
-              title="وسام فخامة"
-            >
-              <span class="accolade-icon">⚜️</span>
-              <span class="accolade-title" data-i18n="club.honor">${window.t("club.honor") || "وسام"}</span>
-              <span class="accolade-tally">${accolades.honor || 0}</span>
-            </button>
-
-            <button
-              type="button"
-              class="sovereign-accolade-btn ${userReacted.toast ? "is-conferred" : ""}"
-              onclick="toggleAccolade('${channelId}', ${idx}, 'toast')"
-              title="نخب التميز"
-            >
-              <span class="accolade-icon">🥂</span>
-              <span class="accolade-title" data-i18n="club.toast">${window.t("club.toast") || "نخب"}</span>
-              <span class="accolade-tally">${accolades.toast || 0}</span>
-            </button>
-          </div>
-
           ${
-            isMe
-              ? `<span class="dispatch-personal-hallmark" data-i18n="club.yourDispatch">${window.t("club.yourDispatch") || "مرسومك السيادي"}</span>`
-              : ""
+            isLongText
+              ? `<div class="dispatch-text-content ${isExpanded ? "is-expanded" : "is-truncated"}" id="dispatch-text-${channelId}-${idx}">
+                   ${safeText}
+                 </div>
+                 <button
+                   type="button"
+                   class="dispatch-read-more-btn ${isExpanded ? "is-expanded" : ""}"
+                   onclick="toggleDispatchReadMore('${channelId}', ${idx})"
+                   id="dispatch-btn-${channelId}-${idx}"
+                   aria-expanded="${isExpanded ? "true" : "false"}"
+                 >
+                   <span class="read-more-label">${isExpanded ? (window.currentLang === "en" ? "Show Less" : "عرض أقل") : (window.currentLang === "en" ? "Show More" : "عرض المزيد")}</span>
+                   <svg class="read-more-chevron" viewBox="0 0 12 12" fill="none">
+                     <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                   </svg>
+                 </button>`
+              : safeText
           }
         </div>
+
+        ${
+          (!isMe || hasAccolades)
+            ? `<div class="dispatch-accolades-bar">
+                 <div class="dispatch-accolades-actions">
+                   <button
+                     type="button"
+                     class="sovereign-accolade-btn ${userReacted.endorse ? "is-conferred" : ""}"
+                     onclick="toggleAccolade('${channelId}', ${idx}, 'endorse')"
+                     title="مصادقة سيادية"
+                   >
+                     <span class="accolade-icon">✦</span>
+                     <span class="accolade-title" data-i18n="club.endorse">${window.t("club.endorse") || "مصادقة"}</span>
+                     <span class="accolade-tally">${accolades.endorse || 0}</span>
+                   </button>
+
+                   <button
+                     type="button"
+                     class="sovereign-accolade-btn ${userReacted.honor ? "is-conferred" : ""}"
+                     onclick="toggleAccolade('${channelId}', ${idx}, 'honor')"
+                     title="وسام فخامة"
+                   >
+                     <span class="accolade-icon">⚜️</span>
+                     <span class="accolade-title" data-i18n="club.honor">${window.t("club.honor") || "وسام"}</span>
+                     <span class="accolade-tally">${accolades.honor || 0}</span>
+                   </button>
+
+                   <button
+                     type="button"
+                     class="sovereign-accolade-btn ${userReacted.toast ? "is-conferred" : ""}"
+                     onclick="toggleAccolade('${channelId}', ${idx}, 'toast')"
+                     title="نخب التميز"
+                   >
+                     <span class="accolade-icon">🥂</span>
+                     <span class="accolade-title" data-i18n="club.toast">${window.t("club.toast") || "نخب"}</span>
+                     <span class="accolade-tally">${accolades.toast || 0}</span>
+                   </button>
+                 </div>
+               </div>`
+            : ""
+        }
       </div>
       `;
     })
@@ -2977,71 +3237,130 @@ function initWhisperToggle() {
 
 let typingTimeout;
 function handleSendMessage() {
-  const input = document.getElementById("clubInput");
-  const text = input.value.trim();
-  if (!text) return;
+  try {
+    const input = document.getElementById("clubInput");
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
 
-  const currentCredits =
-    ClubState.chatCredits !== undefined ? ClubState.chatCredits : 10;
-  if (currentCredits <= 0) {
-    if (typeof window.openCreditsModal === "function") {
-      window.openCreditsModal(true);
+    const currentCredits =
+      typeof ClubState !== "undefined" && ClubState && ClubState.chatCredits !== undefined
+        ? ClubState.chatCredits
+        : 10;
+    if (currentCredits <= 0) {
+      if (typeof window.openCreditsModal === "function") {
+        window.openCreditsModal(true);
+      }
+      return;
     }
-    return;
+
+    ClubState.chatCredits = Math.max(0, currentCredits - 1);
+    try {
+      ClubState.save();
+    } catch (e) {
+      console.warn("Could not save ClubState:", e);
+    }
+    if (typeof updateCreditsUI === "function") {
+      updateCreditsUI(true);
+    }
+
+    const isWhisper = Boolean(window.isWhisperMode);
+    const channelId = AppState.activeChannelId || "global-lounge";
+    if (!AppState.channels[channelId]) {
+      AppState.channels[channelId] = { messages: [] };
+    }
+
+    const newMsg = {
+      senderId: AppState.user.id,
+      text: text,
+      isWhisper: isWhisper,
+      timestamp: Date.now(),
+      justDispatched: true,
+      accolades: { endorse: 0, honor: 0, toast: 0 },
+    };
+
+    AppState.channels[channelId].messages.push(newMsg);
+    input.value = "";
+
+    if (window.AudioEngine && window.AudioEngine.playSend) {
+      try {
+        window.AudioEngine.playSend();
+      } catch (e) {}
+    }
+    if (window.HapticEngine && window.HapticEngine.tap) {
+      try {
+        window.HapticEngine.tap(10);
+      } catch (e) {}
+    }
+
+    try {
+      AppState.save();
+    } catch (e) {
+      console.warn("Could not save AppState:", e);
+    }
+
+    renderMessages();
+
+    const container = document.getElementById("clubMessages");
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+      setTimeout(() => {
+        container.scrollTop = container.scrollHeight;
+      }, 50);
+    }
+
+    clearTimeout(typingTimeout);
+
+    const indicator = document.getElementById("typingIndicator");
+    const typingName = document.getElementById("typingName");
+
+    setTimeout(() => {
+      if (AppState.activeChannelId !== channelId) return;
+
+      const { member: elite, text: replyText } = processEliteResponse(text);
+      if (typingName) typingName.textContent = elite.name;
+      if (indicator) indicator.style.display = "flex";
+
+      typingTimeout = setTimeout(
+        () => {
+          if (indicator) indicator.style.display = "none";
+          if (!AppState.channels[channelId]) return;
+
+          AppState.channels[channelId].messages.push({
+            senderId: elite.id,
+            senderName: elite.name,
+            senderTier: elite.tier,
+            senderColor: elite.color,
+            avatarUrl: typeof getMemberAvatar === "function" ? getMemberAvatar(elite.id, elite.name, false) : (ELITE_AVATARS[elite.id] || ""),
+            text: replyText,
+            timestamp: Date.now(),
+            justDispatched: true,
+            accolades: {
+              endorse: 1 + Math.floor(Math.random() * 4),
+              honor: Math.floor(Math.random() * 3),
+              toast: Math.floor(Math.random() * 2),
+            },
+          });
+
+          if (window.AudioEngine && window.AudioEngine.playReceive) {
+            try {
+              window.AudioEngine.playReceive(elite.tier);
+            } catch (e) {}
+          }
+          try {
+            AppState.save();
+          } catch (e) {}
+
+          if (AppState.activeChannelId === channelId) {
+            renderMessages();
+          }
+        },
+        1400 + Math.random() * 800,
+      );
+    }, 900);
+  } catch (err) {
+    console.error("handleSendMessage encountered error:", err);
   }
-
-  ClubState.chatCredits = currentCredits - 1;
-  ClubState.save();
-  updateCreditsUI(true);
-
-  const isWhisper = Boolean(window.isWhisperMode);
-
-  const channelId = AppState.activeChannelId;
-  if (!AppState.channels[channelId])
-    AppState.channels[channelId] = { messages: [] };
-
-  AppState.channels[channelId].messages.push({
-    senderId: AppState.user.id,
-    text: text,
-    isWhisper: isWhisper,
-    timestamp: Date.now(),
-  });
-
-  input.value = "";
-  if (window.AudioEngine) window.AudioEngine.playSend();
-  AppState.save();
-  renderMessages();
-
-  clearTimeout(typingTimeout);
-
-  const indicator = document.getElementById("typingIndicator");
-  const typingName = document.getElementById("typingName");
-
-  setTimeout(() => {
-    const { member: elite, text: replyText } = processEliteResponse(text);
-    if (typingName) typingName.textContent = elite.name;
-    if (indicator) indicator.style.display = "flex";
-
-    typingTimeout = setTimeout(
-      () => {
-        if (indicator) indicator.style.display = "none";
-
-        AppState.channels[channelId].messages.push({
-          senderId: elite.id,
-          senderName: elite.name,
-          senderTier: elite.tier,
-          senderColor: elite.color,
-          text: replyText,
-          timestamp: Date.now(),
-        });
-
-        if (window.AudioEngine) window.AudioEngine.playReceive();
-        AppState.save();
-        renderMessages();
-      },
-      1500 + Math.random() * 1000,
-    );
-  }, 1000);
 }
 
 document
@@ -4634,7 +4953,7 @@ function renderLeaderboard() {
       city: "زيورخ • سويسرا",
       cityEn: "Zurich • Switzerland",
       quote: "الوقت أغلى من أي مقتنى، والكمال في كل تفصيلة متناهية.",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=260&auto=format&fit=crop",
+      avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
     },
     {
@@ -4682,6 +5001,20 @@ function renderLeaderboard() {
   const ledgerMembers = currentFilter === "all" ? mockTopMembers.slice(3) : filteredMembers;
 
   let html = `
+    <!-- SOVEREIGN HONOR BOARD METALLIC HEADER -->
+    <div class="sl-honor-board-header">
+      <div class="sl-honor-rivets-row">
+        <span class="sl-plaque-rivet" title="Sovereign Seal Rivet"></span>
+        <div class="sl-honor-crest-title">
+          <span class="sl-crest-fleur">⚜️</span>
+          <span class="sl-crest-text">${isAr ? "لوحة الشرف السيادية للمجلس" : "SOVEREIGN ROLL OF HONOR"}</span>
+          <span class="sl-crest-fleur">⚜️</span>
+        </div>
+        <span class="sl-plaque-rivet" title="Sovereign Seal Rivet"></span>
+      </div>
+      <div class="sl-honor-motto">${isAr ? "مجلس النخبة • السجل المعتمد لأصحاب الأصول السيادية" : "ACCREDITED TITANS OF SOVEREIGN WEALTH & EMINENCE"}</div>
+    </div>
+
     <!-- AUDIT PLAQUE -->
     <div class="sl-audit-plaque">
       <div class="sl-audit-info">
@@ -4722,30 +5055,51 @@ function renderLeaderboard() {
     const rank3 = podiumMembers[2];
 
     const p1Payload = JSON.stringify({
+      id: rank1.id,
+      rank: 1,
       name: isAr ? rank1.nameAr : rank1.name,
+      nameAr: rank1.nameAr,
+      nameEn: rank1.name,
       tier: rank1.tier,
       wealth: rank1.wealth,
       priv: rank1.priv,
+      city: isAr ? rank1.city : rank1.cityEn,
+      cityEn: rank1.cityEn,
       quote: rank1.quote,
       avatar: rank1.avatar,
+      isOnline: rank1.isOnline,
     }).replace(/"/g, "&quot;");
 
     const p2Payload = JSON.stringify({
+      id: rank2.id,
+      rank: 2,
       name: isAr ? rank2.nameAr : rank2.name,
+      nameAr: rank2.nameAr,
+      nameEn: rank2.name,
       tier: rank2.tier,
       wealth: rank2.wealth,
       priv: rank2.priv,
+      city: isAr ? rank2.city : rank2.cityEn,
+      cityEn: rank2.cityEn,
       quote: rank2.quote,
       avatar: rank2.avatar,
+      isOnline: rank2.isOnline,
     }).replace(/"/g, "&quot;");
 
     const p3Payload = JSON.stringify({
+      id: rank3.id,
+      rank: 3,
       name: isAr ? rank3.nameAr : rank3.name,
+      nameAr: rank3.nameAr,
+      nameEn: rank3.name,
       tier: rank3.tier,
       wealth: rank3.wealth,
       priv: rank3.priv,
+      city: isAr ? rank3.city : rank3.cityEn,
+      cityEn: rank3.cityEn,
       quote: rank3.quote,
       avatar: rank3.avatar,
+      isOnline: rank3.isOnline,
     }).replace(/"/g, "&quot;");
 
     html += `
@@ -4755,11 +5109,13 @@ function renderLeaderboard() {
         <div class="sl-podium-col rank-2" onclick="openMemberProfile(${p2Payload})" title="${isAr ? rank2.nameAr : rank2.name}">
           <div class="sl-podium-avatar-wrap">
             <img src="${rank2.avatar}" alt="${rank2.name}" class="sl-podium-avatar" />
-            <span class="sl-podium-rank-tag">2</span>
+            <span class="sl-podium-rank-tag"><bdi>2</bdi></span>
           </div>
           <div class="sl-podium-name">${isAr ? rank2.nameAr : rank2.name}</div>
           <div class="sl-podium-city">${isAr ? rank2.city : rank2.cityEn}</div>
-          <div class="sl-podium-score">${rank2.wealth}</div>
+          <div class="sl-podium-score">
+            <bdi class="sl-podium-score-num">${rank2.wealth}</bdi>
+          </div>
           <div class="sl-pedestal-base">
             <span class="sl-pedestal-roman">II</span>
           </div>
@@ -4774,11 +5130,14 @@ function renderLeaderboard() {
               </svg>
             </div>
             <img src="${rank1.avatar}" alt="${rank1.name}" class="sl-podium-avatar" />
-            <span class="sl-podium-rank-tag">1</span>
+            <span class="sl-podium-rank-tag"><bdi>1</bdi></span>
           </div>
           <div class="sl-podium-name">${isAr ? rank1.nameAr : rank1.name}</div>
           <div class="sl-podium-city">${isAr ? rank1.city : rank1.cityEn}</div>
-          <div class="sl-podium-score">${rank1.wealth} ⚜️</div>
+          <div class="sl-podium-score">
+            <bdi class="sl-podium-score-num">${rank1.wealth}</bdi>
+            <span class="sl-score-symbol">⚜️</span>
+          </div>
           <div class="sl-pedestal-base">
             <span class="sl-pedestal-roman">I</span>
           </div>
@@ -4788,11 +5147,13 @@ function renderLeaderboard() {
         <div class="sl-podium-col rank-3" onclick="openMemberProfile(${p3Payload})" title="${isAr ? rank3.nameAr : rank3.name}">
           <div class="sl-podium-avatar-wrap">
             <img src="${rank3.avatar}" alt="${rank3.name}" class="sl-podium-avatar" />
-            <span class="sl-podium-rank-tag">3</span>
+            <span class="sl-podium-rank-tag"><bdi>3</bdi></span>
           </div>
           <div class="sl-podium-name">${isAr ? rank3.nameAr : rank3.name}</div>
           <div class="sl-podium-city">${isAr ? rank3.city : rank3.cityEn}</div>
-          <div class="sl-podium-score">${rank3.wealth}</div>
+          <div class="sl-podium-score">
+            <bdi class="sl-podium-score-num">${rank3.wealth}</bdi>
+          </div>
           <div class="sl-pedestal-base">
             <span class="sl-pedestal-roman">III</span>
           </div>
@@ -4820,24 +5181,31 @@ function renderLeaderboard() {
     const tierClass = `tier-${member.tier.toLowerCase()}`;
     let tierText = member.tier;
     if (isAr) {
-      if (member.tier === "Sovereign") tierText = "فئة السيادة";
-      else if (member.tier === "Elite") tierText = "فئة النخبة";
-      else tierText = "عضو معتمد";
+      if (member.tier === "Sovereign") tierText = "سيادة";
+      else if (member.tier === "Elite") tierText = "نخبة";
+      else tierText = "معتمد";
     }
 
     const payload = JSON.stringify({
+      id: member.id,
+      rank: member.rank,
       name: memberName,
+      nameAr: member.nameAr,
+      nameEn: member.name,
       tier: member.tier,
       wealth: member.wealth,
       priv: member.priv,
+      city: memberCity,
+      cityEn: member.cityEn,
       quote: member.quote,
       avatar: member.avatar,
+      isOnline: member.isOnline,
     }).replace(/"/g, "&quot;");
 
     html += `
       <div class="sl-ledger-card ${tierClass}" onclick="openMemberProfile(${payload})" title="${memberName}">
         <div class="sl-card-rank">
-          <span>#${member.rank}</span>
+          <bdi>#${member.rank}</bdi>
         </div>
         <div class="sl-card-avatar-wrap">
           <img src="${member.avatar}" alt="${memberName}" class="sl-card-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
@@ -4850,14 +5218,14 @@ function renderLeaderboard() {
             <span class="sl-tier-pill ${tierClass}">${tierText}</span>
           </div>
           <div class="sl-card-meta">
-            <span class="sl-card-id">${member.id}</span>
-            <span>•</span>
-            <span class="sl-card-city">${memberCity}</span>
+            <bdi class="sl-card-id">${member.id}</bdi>
+            <span class="sl-meta-sep">•</span>
+            <span class="sl-card-city" title="${memberCity}">${memberCity}</span>
           </div>
         </div>
         <div class="sl-card-wealth">
-          <span class="sl-wealth-number">${member.wealth}</span>
-          <span class="sl-wealth-label">${isAr ? "تخصيص سيادي" : "ALLOCATION"}</span>
+          <bdi class="sl-wealth-number">${member.wealth}</bdi>
+          <span class="sl-wealth-label">${isAr ? "تخصيص" : "ALLOCATION"}</span>
         </div>
         <div class="sl-card-chevron">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
@@ -4876,10 +5244,10 @@ function renderLeaderboard() {
       <div class="sl-self-info">
         <div class="sl-self-rank-row">
           <span class="sl-self-star">✦</span>
-          <span class="sl-self-title">${isAr ? "سجلك السيادي الشخصي: المرتبة #11" : "Your Standing: Rank #11"}</span>
+          <span class="sl-self-title">${isAr ? "ترتيبك في المجلس: المرتبة <bdi>#11</bdi>" : "Council Standing: Rank <bdi>#11</bdi>"}</span>
         </div>
         <div class="sl-self-desc">
-          ${isAr ? "أنت تتقدم على 99.8% من نخبة العالم • استمر في المداولات" : "Surpassing 99.8% of global elite • Maintain sovereign status"}
+          ${isAr ? "أنت تتقدم على <bdi>99.8%</bdi> من نخبة العالم • استمر في المداولات" : "Surpassing 99.8% of global elite • Maintain sovereign status"}
         </div>
       </div>
       <div class="sl-self-cta">

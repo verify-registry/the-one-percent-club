@@ -2209,33 +2209,730 @@ body.light-mode .metric-tooltip::after {
   opacity: 1;
 }
 
-#page-member .info-panel {
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  overflow: hidden;
+/* ==========================================================================
+   SOVEREIGN MEMBER PROFILE (DOSSIER) — THE 1% CLUB DESIGN SYSTEM
+   ========================================================================== */
+
+#page-member {
+  padding: 6px 12px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
 }
-#page-member .info-row {
+
+#page-member.is-active {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.sovereign-dossier-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 20px auto;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  flex-shrink: 0 !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.16) 0%, transparent 65%),
+    radial-gradient(circle at 50% 100%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #181511 0%, #0d0b08 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  box-shadow:
+    inset 0 0 0 1px rgba(212, 175, 55, 0.18),
+    inset 0 2px 6px rgba(255, 235, 170, 0.18),
+    0 20px 48px rgba(0, 0, 0, 0.75);
+  animation: luxuryFadeSlide 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Guilloché fine-line watermark overlay */
+.sovereign-dossier-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 30%, transparent 35%, rgba(0, 0, 0, 0.4) 100%),
+    repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 8px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Light Mode Card Chassis */
+body.light-mode .sovereign-dossier-card {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(180, 140, 50, 0.12) 0%, transparent 65%),
+    linear-gradient(180deg, #fdfbf7 0%, #f6efe2 100%) !important;
+  border: 1.5px solid rgba(168, 124, 45, 0.5) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(168, 124, 45, 0.25),
+    inset 0 2px 6px #ffffff,
+    0 16px 40px rgba(168, 124, 45, 0.16) !important;
+}
+
+/* Card Header Strip */
+.sd-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--hairline);
-  font-size: 12px;
+  padding: 10px 14px 6px;
+  position: relative;
+  z-index: 1;
 }
-#page-member .info-row:last-child {
+
+.sd-corner-rivet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff 0%, #d4af37 55%, #4a3c12 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), inset 0 0.5px 1px #fff;
+  flex-shrink: 0;
+}
+
+body.light-mode .sd-corner-rivet {
+  background: radial-gradient(circle at 35% 35%, #fff 0%, #b8860b 55%, #5c4308 100%);
+}
+
+.sd-crest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2.5px 10px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(120, 90, 20, 0.18) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+body.light-mode .sd-crest-badge {
+  background: rgba(168, 124, 45, 0.08);
+  border-color: rgba(168, 124, 45, 0.3);
+}
+
+.sd-crest-fleur {
+  font-size: 11px;
+}
+
+.sd-badge-text {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #f5df8b;
+  letter-spacing: 0.04em;
+}
+
+body.light-mode .sd-badge-text {
+  color: #7d5a15;
+}
+
+/* Hero Section */
+.sd-hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 6px 14px 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Portrait Medallion Frame */
+.sd-portrait-frame {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  margin: 4px auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sd-crown-insignia {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}
+
+.sd-portrait-medallion {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  padding: 3.5px;
+  background: conic-gradient(from 180deg, #3d2c14, #d4af37, #fff8dc, #d4af37, #3d2c14);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.9), 0 8px 24px rgba(0, 0, 0, 0.6);
+  position: relative;
+  box-sizing: border-box;
+}
+
+body.light-mode .sd-portrait-medallion {
+  background: conic-gradient(from 180deg, #6e4e16, #b8860b, #fff4d0, #b8860b, #6e4e16);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(168, 124, 45, 0.25);
+}
+
+.sd-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  display: block;
+  background: #18140e;
+}
+
+.sd-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #241d13;
+  color: #f5df8b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.sd-status-jewel {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #48bb78;
+  border: 2px solid #14110b;
+  box-shadow: 0 0 8px #48bb78;
+  z-index: 4;
+}
+
+body.light-mode .sd-status-jewel {
+  border-color: #fdfbf7;
+}
+
+.sd-rank-chip {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 10px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2a2010, #120e06);
+  border: 1px solid #d4af37;
+  color: #f5df8b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+
+body.light-mode .sd-rank-chip {
+  background: linear-gradient(135deg, #fbf7ee, #eddcc2);
+  border-color: #b8860b;
+  color: #73500f;
+  box-shadow: 0 2px 6px rgba(168, 124, 45, 0.3);
+}
+
+/* Identity Block */
+.sd-identity-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3px;
+}
+
+.sd-member-name {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin: 0 0 5px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+body.light-mode .sd-member-name {
+  color: #1a150e;
+  text-shadow: none;
+}
+
+.sd-tier-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2.5px 11px;
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, rgba(130, 95, 25, 0.22) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: #f5df8b;
+  margin-bottom: 6px;
+}
+
+body.light-mode .sd-tier-capsule {
+  background: rgba(168, 124, 45, 0.1);
+  border-color: rgba(168, 124, 45, 0.35);
+  color: #7d5a15;
+}
+
+.sd-tier-capsule.tier-elite {
+  background: linear-gradient(135deg, rgba(200, 210, 220, 0.18) 0%, rgba(130, 145, 160, 0.22) 100%);
+  border-color: rgba(200, 215, 230, 0.45);
+  color: #e2e8f0;
+}
+
+body.light-mode .sd-tier-capsule.tier-elite {
+  background: rgba(120, 140, 160, 0.12);
+  border-color: rgba(100, 120, 140, 0.35);
+  color: #2d3748;
+}
+
+.sd-tier-icon {
+  font-size: 11px;
+}
+
+.sd-meta-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 10.5px;
+  color: #b8ab96;
+}
+
+body.light-mode .sd-meta-line {
+  color: #5c5244;
+}
+
+.sd-id-tag {
+  font-family: 'SF Mono', Monaco, monospace;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #f5df8b;
+  font-weight: 700;
+  font-size: 10px;
+}
+
+body.light-mode .sd-id-tag {
+  background: rgba(168, 124, 45, 0.08);
+  border-color: rgba(168, 124, 45, 0.3);
+  color: #7d5a15;
+}
+
+.sd-meta-dot {
+  color: rgba(212, 175, 55, 0.5);
+}
+
+.sd-location-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #dfd3bf;
+  font-weight: 500;
+}
+
+body.light-mode .sd-location-tag {
+  color: #3e372e;
+}
+
+/* Sovereign Motto Box */
+.sd-motto-box {
+  margin: 8px 0 2px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: rgba(18, 15, 11, 0.65);
+  border: 1px dashed rgba(212, 175, 55, 0.28);
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #ede3d1;
+  font-style: italic;
+  position: relative;
+  max-width: 95%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+body.light-mode .sd-motto-box {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(168, 124, 45, 0.3);
+  color: #3b3329;
+}
+
+.sd-quote-mark {
+  color: #d4af37;
+  font-family: var(--font-display, "Cinzel", serif);
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 0;
+  vertical-align: middle;
+  padding: 0 2px;
+}
+
+.sd-quote-text {
+  display: inline;
+  margin: 0;
+}
+
+/* 4 Complications / Horology Metrics Bar */
+.sd-complications-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 6px;
+  margin: 4px 10px 10px;
+  border-radius: 12px;
+  background: rgba(14, 12, 9, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+body.light-mode .sd-complications-grid {
+  background: #ffffff;
+  border-color: rgba(168, 124, 45, 0.25);
+  box-shadow: 0 4px 14px rgba(168, 124, 45, 0.08);
+}
+
+.sd-comp-dial {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1px;
+  padding: 2px 3px;
+  min-width: 0;
+}
+
+.sd-comp-icon {
+  color: #d4af37;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1px;
+}
+
+body.light-mode .sd-comp-icon {
+  color: #b8860b;
+}
+
+.sd-comp-val {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #f5df8b;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+body.light-mode .sd-comp-val {
+  color: #7d5a15;
+}
+
+.sd-comp-val.status-active {
+  color: #68d391;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sd-comp-label {
+  font-size: 8.5px;
+  color: #a49782;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+body.light-mode .sd-comp-label {
+  color: #7a6e5e;
+}
+
+.sd-comp-divider {
+  width: 1px;
+  height: 22px;
+  background: rgba(212, 175, 55, 0.2);
+  flex-shrink: 0;
+}
+
+body.light-mode .sd-comp-divider {
+  background: rgba(168, 124, 45, 0.2);
+}
+
+/* Action Protocol Buttons */
+.sd-action-buttons {
+  display: flex;
+  gap: 8px;
+  margin: 0 10px 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.sd-btn {
+  flex: 1;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.sd-btn:active {
+  transform: scale(0.98);
+}
+
+.sd-btn-message {
+  background: linear-gradient(135deg, rgba(38, 30, 18, 0.95) 0%, rgba(20, 16, 11, 0.98) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  color: #f5df8b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode .sd-btn-message {
+  background: #ffffff;
+  border-color: rgba(168, 124, 45, 0.5);
+  color: #7d5a15;
+  box-shadow: 0 4px 12px rgba(168, 124, 45, 0.12);
+}
+
+.sd-btn-add {
+  background: linear-gradient(135deg, #d4af37 0%, #aa8022 100%);
+  border: 1.5px solid #fae69e;
+  color: #120e06;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+}
+
+body.light-mode .sd-btn-add {
+  background: linear-gradient(135deg, #c99326 0%, #9e7016 100%);
+  border-color: #e5b955;
+  color: #ffffff;
+}
+
+/* Official Sovereign Registry Card */
+.sd-registry-card {
+  margin: 0 10px 10px;
+  border-radius: 10px;
+  background: rgba(18, 15, 12, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+body.light-mode .sd-registry-card {
+  background: #ffffff;
+  border-color: rgba(168, 124, 45, 0.25);
+  box-shadow: 0 4px 14px rgba(168, 124, 45, 0.06);
+}
+
+.sd-registry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 10px;
+  background: rgba(212, 175, 55, 0.1);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #f5df8b;
+}
+
+body.light-mode .sd-registry-header {
+  background: rgba(168, 124, 45, 0.08);
+  border-color: rgba(168, 124, 45, 0.2);
+  color: #7d5a15;
+}
+
+.sd-reg-vault-tag {
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(104, 211, 145, 0.16);
+  border: 1px solid rgba(104, 211, 145, 0.4);
+  color: #68d391;
+}
+
+.sd-registry-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.sd-reg-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 10px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  font-size: 11px;
+}
+
+body.light-mode .sd-reg-row {
+  border-color: rgba(168, 124, 45, 0.1);
+}
+
+.sd-reg-row:last-child {
   border-bottom: none;
 }
-#page-member .info-label {
-  letter-spacing: 0.02em;
-  color: #948c7c;
-}
-#page-member .info-value {
-  color: #ede7d8;
+
+.sd-reg-label {
+  color: #a49782;
   font-weight: 500;
-  text-align: start;
 }
-#page-member .status-active {
-  color: #7fbe8c;
+
+body.light-mode .sd-reg-label {
+  color: #6e6353;
+}
+
+.sd-reg-value {
+  color: #ede3d1;
+  font-weight: 600;
+  text-align: end;
+}
+
+body.light-mode .sd-reg-value {
+  color: #241e17;
+}
+
+.sd-code-text {
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: 9.5px;
+  color: #f5df8b;
+  letter-spacing: 0.04em;
+}
+
+body.light-mode .sd-code-text {
+  color: #7d5a15;
+}
+
+/* Sovereign Prestige Artifacts */
+.sd-artifacts-panel {
+  margin: 0 10px 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(18, 15, 12, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  position: relative;
+  z-index: 1;
+}
+
+body.light-mode .sd-artifacts-panel {
+  background: #ffffff;
+  border-color: rgba(168, 124, 45, 0.25);
+  box-shadow: 0 4px 14px rgba(168, 124, 45, 0.06);
+}
+
+.sd-artifacts-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #a49782;
+  letter-spacing: 0.02em;
+}
+
+body.light-mode .sd-artifacts-title {
+  color: #6e6353;
+}
+
+.sd-artifacts-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 5px;
+}
+
+.sd-artifact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 3px;
+  border-radius: 8px;
+  background: rgba(212, 175, 55, 0.06);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  flex: 1;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.sd-artifact-item:active {
+  transform: scale(0.96);
+}
+
+body.light-mode .sd-artifact-item {
+  background: rgba(168, 124, 45, 0.05);
+  border-color: rgba(168, 124, 45, 0.2);
+}
+
+.sd-artifact-emblem {
+  font-size: 16px;
+  margin-bottom: 2px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.sd-artifact-name {
+  font-size: 9px;
+  font-weight: 600;
+  color: #dfd3bf;
+  white-space: nowrap;
+}
+
+body.light-mode .sd-artifact-name {
+  color: #4a4033;
+}
+
+/* Card Footer Hallmark */
+.sd-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.sd-footer-hallmark {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(212, 175, 55, 0.6);
+  text-align: center;
+  flex: 1;
+}
+
+body.light-mode .sd-footer-hallmark {
+  color: rgba(168, 124, 45, 0.7);
 }
 
 #club-tab.is-active {
@@ -2486,15 +3183,14 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 42px 2px 14px;
+  gap: 13px;
+  padding: 44px 8px 16px;
   border: none;
   background: transparent;
-  direction: rtl;
   scroll-behavior: smooth;
 }
 
-/* SOVEREIGN SALON FINANCIAL HUBS & PULSE FLOATING TICKER */
+/* SOVEREIGN SALON FINANCIAL HUBS & PULSE FLOATING TICKER (PREMIUM CLUB STATUS PANEL) */
 .sovereign-salon-ticker {
   position: absolute;
   top: 4px;
@@ -2504,53 +3200,58 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
   padding: 5px 12px;
   margin: 0;
-  background: rgba(14, 12, 10, 0.78);
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  border-radius: 20px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, rgba(26, 22, 18, 0.92) 0%, rgba(16, 14, 11, 0.94) 50%, rgba(10, 9, 7, 0.96) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-top: 1px solid rgba(233, 200, 119, 0.32);
+  border-bottom: 1px solid rgba(120, 95, 38, 0.28);
+  border-radius: 10px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(0, 0, 0, 0.65),
-    inset 0 1px 1px rgba(255, 240, 180, 0.12);
+    0 6px 20px rgba(0, 0, 0, 0.65),
+    0 1px 0 rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 235, 175, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
   pointer-events: auto;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease, border-color 0.25s ease;
 }
 .ticker-pulse-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
+  padding-inline-end: 8px;
+  border-inline-end: 1px solid rgba(212, 175, 55, 0.15);
 }
 .ticker-pulse-orb {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #50b86a;
-  box-shadow: 0 0 8px rgba(80, 184, 106, 0.9);
-  animation: pulseTicker 2.2s infinite ease-in-out;
+  background: #4ade80;
+  box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+  animation: pulseTicker 2.6s infinite ease-in-out;
 }
 @keyframes pulseTicker {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 10px rgba(80, 184, 106, 1); }
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 8px rgba(74, 222, 128, 0.85); }
 }
 .ticker-pulse-text {
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 600;
   color: var(--gold-champagne, #e9c877);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 .ticker-hubs-row {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: 8.5px;
-  font-family: monospace;
-  letter-spacing: 0.04em;
-  color: #8c816f;
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  letter-spacing: 0.05em;
+  color: #9e917d;
   overflow-x: auto;
   white-space: nowrap;
 }
@@ -2560,53 +3261,466 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   gap: 3px;
 }
 .ticker-city {
-  color: #a89c89;
+  color: #b5a894;
+  font-weight: 500;
 }
 .ticker-status-tag {
   font-size: 7.5px;
-  padding: 1px 3px;
-  border-radius: 2px;
-  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
 }
 .ticker-status-tag.live {
-  color: #50b86a;
-  background: rgba(80, 184, 106, 0.12);
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+  border-color: rgba(74, 222, 128, 0.22);
 }
 .ticker-status-tag.monitor {
   color: #d4af37;
-  background: rgba(212, 175, 55, 0.12);
+  background: rgba(212, 175, 55, 0.08);
+  border-color: rgba(212, 175, 55, 0.22);
 }
 .ticker-dot-sep {
-  color: #524a3c;
+  color: rgba(212, 175, 55, 0.25);
 }
 
 /* SOVEREIGN DISPATCH CARD (REPLACING CHAT BUBBLES) */
 .sovereign-dispatch-card {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
+  width: fit-content;
+  max-width: 82%;
+  min-width: 170px;
+  flex-shrink: 0;
+  min-height: fit-content;
+  padding: 8px 12px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+/* 1. Incoming Dispatches (Other Members / Elites) - Aligned to Left */
+.sovereign-dispatch-card:not(.is-personal-dispatch),
+.sovereign-dispatch-card.dispatch-align-left,
+.sovereign-dispatch-card.dispatch-sender-other {
+  align-self: flex-start !important;
+  margin-right: auto !important;
+  margin-left: 0 !important;
   background: linear-gradient(145deg, rgba(22, 19, 14, 0.96) 0%, rgba(12, 11, 8, 0.98) 100%);
   border: 1px solid rgba(212, 175, 55, 0.18);
+  border-left: 2px solid rgba(212, 175, 55, 0.35) !important;
+  border-inline-start: 2px solid rgba(212, 175, 55, 0.35) !important;
+  border-bottom-left-radius: 3px !important;
   box-shadow:
     0 4px 14px rgba(0, 0, 0, 0.55),
     inset 0 1px 1px rgba(255, 240, 180, 0.06);
-  position: relative;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
-.sovereign-dispatch-card:hover {
+.sovereign-dispatch-card:not(.is-personal-dispatch):hover {
   border-color: rgba(212, 175, 55, 0.32);
+  border-left-color: rgba(212, 175, 55, 0.6) !important;
   box-shadow:
     0 6px 18px rgba(0, 0, 0, 0.65),
     inset 0 1px 1px rgba(255, 240, 180, 0.1);
 }
 
-.sovereign-dispatch-card.is-personal-dispatch {
+/* 2. Personal Dispatches (Sent by Current Member) - Aligned Towards Send Button (Right) */
+.sovereign-dispatch-card.is-personal-dispatch,
+.sovereign-dispatch-card.dispatch-align-right,
+.sovereign-dispatch-card.dispatch-sender-me {
+  align-self: flex-end !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
   background: linear-gradient(145deg, rgba(32, 26, 17, 0.96) 0%, rgba(16, 13, 9, 0.98) 100%);
   border: 1px solid rgba(212, 175, 55, 0.38);
-  border-top: 2px solid #d4af37;
+  border-right: 2.5px solid #d4af37 !important;
+  border-inline-end: 2.5px solid #d4af37 !important;
+  border-top: 1.5px solid #d4af37 !important;
+  border-bottom-right-radius: 3px !important;
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.6),
+    0 4px 18px rgba(0, 0, 0, 0.62),
+    0 0 12px rgba(212, 175, 55, 0.08),
     inset 0 1px 2px rgba(255, 240, 180, 0.15);
+}
+.sovereign-dispatch-card.is-personal-dispatch:hover {
+  border-color: rgba(212, 175, 55, 0.52);
+  border-right-color: #f7df94 !important;
+  border-top-color: #f7df94 !important;
+  box-shadow:
+    0 6px 22px rgba(0, 0, 0, 0.72),
+    0 0 16px rgba(212, 175, 55, 0.14),
+    inset 0 1px 2px rgba(255, 240, 180, 0.2);
+}
+
+/* Personal Dispatch Orientation: Avatar and Name positioned towards the Send Button on the Right */
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-header {
+  flex-direction: row-reverse;
+}
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-profile-group {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-credentials {
+  align-items: flex-end;
+  text-align: right;
+}
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-primary-row {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-secondary-row {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-manuscript-body {
+  text-align: right;
+  margin: 6px 0 6px 0;
+}
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-read-more-btn {
+  margin-left: auto;
+  margin-right: 0;
+  justify-content: flex-end;
+}
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-accolades-bar {
+  justify-content: flex-end;
+  padding-top: 4px;
+  margin-top: 3px;
+}
+.sovereign-dispatch-card.is-personal-dispatch .dispatch-accolades-actions {
+  justify-content: flex-end;
+}
+.sovereign-dispatch-card.is-personal-dispatch .golden-seal-watermark {
+  left: 8px !important;
+  right: auto !important;
+  width: 48px;
+  height: 48px;
+  opacity: 0.04;
+}
+
+.sovereign-dispatch-card.is-personal-dispatch.has-golden-ink-bloom {
+  animation: sovereignCardDispatchBloom 4.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--ink-delay, 0s);
+}
+
+/* === NEW DISPATCH ARRIVAL ANIMATIONS (FADE-IN WITH SUBTLE SLIDE & HOROLOGICAL REALISM) === */
+.sovereign-dispatch-card.is-new-dispatch,
+.sovereign-dispatch-card.dispatch-just-arrived {
+  will-change: transform, opacity;
+  animation: dispatchArrivalGeneric 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 1. Incoming Messages Arrival (From Left / Other Members) */
+.sovereign-dispatch-card:not(.is-personal-dispatch).is-new-dispatch,
+.sovereign-dispatch-card.dispatch-align-left.is-new-dispatch,
+.sovereign-dispatch-card.dispatch-sender-other.is-new-dispatch,
+.sovereign-dispatch-card:not(.is-personal-dispatch).dispatch-just-arrived {
+  animation: dispatchArrivalIncoming 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 2. Personal Messages Arrival (From Right / Member Decrees) */
+.sovereign-dispatch-card.is-personal-dispatch.is-new-dispatch,
+.sovereign-dispatch-card.dispatch-align-right.is-new-dispatch,
+.sovereign-dispatch-card.dispatch-sender-me.is-new-dispatch,
+.sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arrived {
+  animation: dispatchArrivalPersonal 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Combined Arrival + Golden Bloom for New Personal Dispatches */
+.sovereign-dispatch-card.is-personal-dispatch.is-new-dispatch.has-golden-ink-bloom,
+.sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arrived.has-golden-ink-bloom {
+  animation:
+    dispatchArrivalPersonal 0.44s cubic-bezier(0.16, 1, 0.3, 1) both,
+    sovereignCardDispatchBloom 4.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0s, var(--ink-delay, 0s);
+}
+
+@keyframes dispatchArrivalIncoming {
+  0% {
+    opacity: 0;
+    transform: translate3d(-8px, 14px, 0) scale(0.985);
+  }
+  60% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes dispatchArrivalPersonal {
+  0% {
+    opacity: 0;
+    transform: translate3d(8px, 14px, 0) scale(0.985);
+  }
+  60% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes dispatchArrivalGeneric {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(0.985);
+  }
+  60% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sovereign-dispatch-card.is-new-dispatch,
+  .sovereign-dispatch-card.dispatch-just-arrived {
+    animation: dispatchArrivalReduced 0.2s ease forwards !important;
+    transform: none !important;
+  }
+  @keyframes dispatchArrivalReduced {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+/* === SOVEREIGN GOLDEN INK & OFFICIAL DOCUMENT SEAL LAYER === */
+.dispatch-golden-ink-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.golden-ink-wash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background: radial-gradient(
+    ellipse 85% 65% at 50% 35%,
+    rgba(212, 175, 55, 0.28) 0%,
+    rgba(180, 140, 45, 0.12) 50%,
+    transparent 100%
+  );
+  transform: scale(1);
+  transition: opacity 0.6s ease;
+}
+
+.has-golden-ink-bloom .golden-ink-wash {
+  animation: sovereignGoldInkWashFade 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--ink-delay, 0s);
+}
+
+.golden-seal-watermark {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 72px;
+  height: 72px;
+  transform: translateY(-50%) rotate(-4deg);
+  pointer-events: none;
+  color: #d4af37;
+  opacity: 0.06;
+  transition: opacity 0.6s ease;
+}
+
+[dir="rtl"] .golden-seal-watermark {
+  right: auto;
+  left: 12px;
+  transform: translateY(-50%) rotate(4deg);
+}
+
+.golden-seal-watermark-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.has-golden-ink-bloom .golden-seal-watermark {
+  animation: sovereignSealStampFade 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--ink-delay, 0s);
+}
+
+[dir="rtl"] .has-golden-ink-bloom .golden-seal-watermark {
+  animation-name: sovereignSealStampFadeRtl;
+}
+
+.golden-ink-quill-trace {
+  position: absolute;
+  bottom: 28px;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0.06;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.35) 25%,
+    rgba(255, 246, 214, 0.55) 50%,
+    rgba(212, 175, 55, 0.35) 75%,
+    transparent 100%
+  );
+  transform-origin: center;
+}
+
+.has-golden-ink-bloom .golden-ink-quill-trace {
+  animation: sovereignQuillGleam 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--ink-delay, 0s);
+}
+
+.dispatch-seal-mark.is-official-decree {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  color: #d4af37;
+  flex-shrink: 0;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+.dispatch-seal-mark.is-official-decree .decree-seal-icon {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  color: #d4af37;
+}
+
+.dispatch-seal-mark.is-official-decree .decree-seal-text {
+  display: none !important;
+}
+
+.has-golden-ink-bloom .dispatch-seal-mark.is-official-decree {
+  animation: decreeBadgePulse 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--ink-delay, 0s);
+}
+
+/* Animations for Golden Ink Bloom & Sovereign Document Impression */
+@keyframes sovereignGoldInkWashFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  10% {
+    opacity: 0.38;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 0.25;
+  }
+  65% {
+    opacity: 0.12;
+  }
+  100% {
+    opacity: 0.04;
+    transform: scale(1);
+  }
+}
+
+@keyframes sovereignSealStampFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) rotate(-8deg) scale(1.15);
+  }
+  12% {
+    opacity: 0.35;
+    transform: translateY(-50%) rotate(-4deg) scale(1);
+  }
+  30% {
+    opacity: 0.22;
+  }
+  65% {
+    opacity: 0.11;
+  }
+  100% {
+    opacity: 0.06;
+    transform: translateY(-50%) rotate(-4deg) scale(1);
+  }
+}
+
+@keyframes sovereignSealStampFadeRtl {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) rotate(8deg) scale(1.15);
+  }
+  12% {
+    opacity: 0.35;
+    transform: translateY(-50%) rotate(4deg) scale(1);
+  }
+  30% {
+    opacity: 0.22;
+  }
+  65% {
+    opacity: 0.11;
+  }
+  100% {
+    opacity: 0.06;
+    transform: translateY(-50%) rotate(4deg) scale(1);
+  }
+}
+
+@keyframes sovereignQuillGleam {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  15% {
+    opacity: 0.7;
+    transform: scaleX(1);
+  }
+  40% {
+    opacity: 0.35;
+  }
+  75% {
+    opacity: 0.15;
+  }
+  100% {
+    opacity: 0.06;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes sovereignCardDispatchBloom {
+  0% {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7), 0 0 14px rgba(212, 175, 55, 0.35), inset 0 1px 2px rgba(255, 240, 180, 0.3);
+    border-color: rgba(212, 175, 55, 0.6);
+  }
+  20% {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65), 0 0 8px rgba(212, 175, 55, 0.2), inset 0 1px 2px rgba(255, 240, 180, 0.2);
+    border-color: rgba(212, 175, 55, 0.5);
+  }
+  100% {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 240, 180, 0.15);
+    border-color: rgba(212, 175, 55, 0.38);
+  }
+}
+
+@keyframes decreeBadgePulse {
+  0% {
+    background: rgba(212, 175, 55, 0.3);
+    border-color: rgba(212, 175, 55, 0.65);
+  }
+  20% {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: rgba(212, 175, 55, 0.45);
+  }
+  100% {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.28);
+  }
 }
 
 .dispatch-header {
@@ -2614,6 +3728,8 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  position: relative;
+  z-index: 2;
 }
 .dispatch-profile-group {
   display: flex;
@@ -2667,16 +3783,19 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   display: flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 .dispatch-name {
   font-family: "Cinzel", "Times New Roman", serif;
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--gold-champagne, #e9c877);
   letter-spacing: 0.02em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+  overflow: visible;
+  text-overflow: clip;
 }
 .dispatch-tier-hallmark {
   font-size: 7.5px;
@@ -2689,6 +3808,46 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   padding: 1px 5px;
   text-transform: uppercase;
   flex-shrink: 0;
+  cursor: default;
+}
+
+/* Sovereign Archival Timestamp Badge (Directly Beside Sender Name) */
+.dispatch-sovereign-timestamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 3.5px;
+  font-family: "JetBrains Mono", "SF Mono", monospace, sans-serif;
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #a89a82;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 3px;
+  padding: 1px 4.5px;
+  flex-shrink: 0;
+  line-height: 1.2;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.sovereign-time-icon {
+  width: 9px;
+  height: 9px;
+  color: #d4af37;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+.is-personal-dispatch .dispatch-sovereign-timestamp {
+  color: #e6c27a;
+  background: rgba(212, 175, 55, 0.14);
+  border-color: rgba(212, 175, 55, 0.38);
+}
+body.light-mode .dispatch-sovereign-timestamp {
+  color: #6d5118 !important;
+  background: rgba(156, 109, 35, 0.09) !important;
+  border-color: rgba(156, 109, 35, 0.28) !important;
+}
+body.light-mode .sovereign-time-icon {
+  color: #9c6d23 !important;
 }
 .dispatch-secondary-row {
   display: flex;
@@ -2713,8 +3872,9 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
 .dispatch-chronometer {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   flex-shrink: 0;
+  margin-inline-start: auto;
 }
 .dispatch-timestamp {
   font-size: 9px;
@@ -2736,35 +3896,113 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   text-align: start;
   word-break: break-word;
   letter-spacing: 0.01em;
+  position: relative;
+  z-index: 2;
+}
+
+.dispatch-text-content {
+  line-height: 1.6;
+  font-size: 13px;
+  color: inherit;
+  word-break: break-word;
+  transition: max-height 0.3s ease;
+}
+
+.dispatch-text-content.is-truncated {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  max-height: 4.8em;
+}
+
+.dispatch-text-content.is-expanded {
+  display: block;
+  max-height: none;
+}
+
+.dispatch-read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4.5px;
+  background: transparent;
+  border: none;
+  padding: 4px 0 2px 0;
+  margin-top: 5px;
+  color: #d4af37;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  font-family: "Cinzel", "Cairo", serif, sans-serif;
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+.dispatch-read-more-btn:hover {
+  color: #fae5a6;
+  transform: translateY(-0.5px);
+}
+.dispatch-read-more-btn .read-more-chevron {
+  width: 11px;
+  height: 11px;
+  color: currentColor;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.dispatch-read-more-btn.is-expanded .read-more-chevron {
+  transform: rotate(180deg);
+}
+
+body.light-mode .dispatch-text-content {
+  color: #2b251a;
+}
+body.light-mode .dispatch-read-more-btn {
+  color: #9c6d23;
+}
+body.light-mode .dispatch-read-more-btn:hover {
+  color: #6d4b12;
 }
 
 .dispatch-accolades-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  justify-content: flex-start;
+  gap: 6px;
+  padding-top: 4px;
+  margin-top: 3px;
+  border-top: 1px solid rgba(212, 175, 55, 0.08);
+  position: relative;
+  z-index: 2;
 }
 .dispatch-accolades-actions {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+  gap: 5px;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.dispatch-accolades-actions::-webkit-scrollbar {
+  display: none;
 }
 .sovereign-accolade-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 9px;
-  border-radius: 16px;
-  font-size: 10px;
+  gap: 3.5px;
+  padding: 2.5px 7px;
+  border-radius: 12px;
+  font-size: 9.5px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(212, 175, 55, 0.2);
   color: #b0a592;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.2;
 }
 .sovereign-accolade-btn:active {
   transform: scale(0.95);
@@ -2773,36 +4011,20 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   background: rgba(212, 175, 55, 0.18);
   border-color: #d4af37;
   color: #fae5a6;
-  box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.3);
 }
 .accolade-icon {
-  font-size: 10px;
+  font-size: 9px;
 }
 .accolade-title {
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 500;
 }
 .accolade-tally {
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
   font-family: monospace;
   opacity: 0.9;
-}
-.dispatch-personal-hallmark {
-  font-size: 8.5px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: #d4af37;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  padding: 2px 7px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  flex-shrink: 0;
-}
-  border-radius: 6px;
-  padding: 1px 4px;
-  letter-spacing: 0.04em;
 }
 
 .chat-text {
@@ -2858,11 +4080,12 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 8px 0 4px;
-  border-top: 1px solid rgba(212, 175, 106, 0.15);
-  background: linear-gradient(180deg, rgba(8, 7, 5, 0.4) 0%, rgba(5, 4, 3, 0.95) 100%);
+  padding: 4px 6px 6px;
+  border-top: none;
+  background: transparent !important;
   position: relative;
   z-index: 10;
+  box-shadow: none !important;
 }
 
 /* Typing pulse indicator */
@@ -3117,7 +4340,10 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
     inset 0 1.5px 2px rgba(255, 245, 215, 0.12),
     inset 0 -1.5px 3px rgba(0, 0, 0, 0.85);
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  direction: ltr;
+}
+
+html[dir="rtl"] .obsidian-dispatch-composer {
+  padding: 5px 10px 5px 6px;
 }
 
 /* Polished Metallic Bezel Casing (Frame) */
@@ -3367,6 +4593,8 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 }
 .dispatch-whisper-tag-row {
   margin-bottom: 6px;
+  position: relative;
+  z-index: 2;
 }
 .dispatch-whisper-pill {
   display: inline-flex;
@@ -7026,17 +8254,92 @@ html[dir="rtl"] .phc-motto-text span {
   z-index: 10;
 }
 
-/* === 6. Prestige & Honors - SOVEREIGN LEADERBOARD (REDESIGNED) === */
+/* === 6. Prestige & Honors - SOVEREIGN HONOR BOARD LEADERBOARD === */
+#clubLeaderboardContainer,
 .club-leaderboard-container {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding: 6px 2px 32px;
+  position: relative;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.12) 0%, transparent 65%),
+    linear-gradient(180deg, rgba(22, 19, 14, 0.98) 0%, rgba(13, 11, 8, 0.99) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.48);
+  box-shadow:
+    inset 0 0 0 1px rgba(212, 175, 55, 0.22),
+    inset 0 2px 5px rgba(255, 235, 170, 0.18),
+    0 12px 36px rgba(0, 0, 0, 0.6);
+  padding: 16px 12px 32px;
+  margin: 4px 6px 20px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+#clubLeaderboardContainer::before,
+.club-leaderboard-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 240, 180, 0.6) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+/* SOVEREIGN HONOR BOARD HEADER */
+.sl-honor-board-header {
+  text-align: center;
+  padding: 8px 10px 12px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+  margin-bottom: 2px;
+  position: relative;
+}
+.sl-honor-rivets-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sl-plaque-rivet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #d4af37 45%, #4d3d12 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), inset 0 0.5px 1px rgba(255, 255, 255, 0.9);
+  border: 0.5px solid rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+.sl-honor-crest-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.sl-crest-fleur {
+  font-size: 13px;
+  color: #f5df8b;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
+}
+.sl-crest-text {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--gold-champagne, #f5df8b);
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+.sl-honor-motto {
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: #b0a28f;
+  margin-top: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 /* AUDIT PLAQUE */
@@ -7297,29 +8600,44 @@ html[dir="rtl"] .phc-motto-text span {
 .sl-podium-score {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 3px 8px;
-  border-radius: 12px;
+  justify-content: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 14px;
   font-family: var(--font-display, "Cinzel", serif);
-  font-size: 10.5px;
-  font-weight: 700;
+  font-size: 11.5px;
+  font-weight: 800;
   margin-bottom: 8px;
+  direction: ltr;
+  unicode-bidi: isolate;
+  line-height: 1.2;
+}
+.sl-podium-score-num {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.sl-score-symbol {
+  font-size: 10.5px;
 }
 .sl-podium-col.rank-1 .sl-podium-score {
-  background: rgba(212, 175, 55, 0.16);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  color: var(--gold-champagne, #e9c877);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  background: rgba(212, 175, 55, 0.22);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  color: #fae69e;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
 }
 .sl-podium-col.rank-2 .sl-podium-score {
-  background: rgba(184, 196, 208, 0.14);
-  border: 1px solid rgba(184, 196, 208, 0.35);
-  color: #e2eaf2;
+  background: rgba(184, 196, 208, 0.2);
+  border: 1px solid rgba(184, 196, 208, 0.5);
+  color: #edf3f8;
+  box-shadow: 0 0 10px rgba(184, 196, 208, 0.2);
 }
 .sl-podium-col.rank-3 .sl-podium-score {
-  background: rgba(205, 143, 82, 0.14);
-  border: 1px solid rgba(205, 143, 82, 0.35);
-  color: #f7be8b;
+  background: rgba(205, 143, 82, 0.2);
+  border: 1px solid rgba(205, 143, 82, 0.5);
+  color: #ffd8b3;
+  box-shadow: 0 0 10px rgba(205, 143, 82, 0.2);
 }
 
 /* PODIUM PEDESTAL BASE */
@@ -7334,41 +8652,46 @@ html[dir="rtl"] .phc-motto-text span {
 }
 .sl-podium-col.rank-1 .sl-pedestal-base {
   height: 60px;
-  background: linear-gradient(180deg, rgba(38, 32, 22, 0.95) 0%, rgba(16, 14, 10, 0.98) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: linear-gradient(180deg, rgba(46, 38, 26, 0.98) 0%, rgba(18, 15, 11, 0.99) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
   border-bottom: none;
-  box-shadow: 0 0 16px rgba(212, 175, 55, 0.15), inset 0 1px 1px rgba(255, 240, 180, 0.25);
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.2), inset 0 1px 2px rgba(255, 240, 180, 0.35);
 }
 .sl-podium-col.rank-2 .sl-pedestal-base {
   height: 44px;
-  background: linear-gradient(180deg, rgba(28, 30, 34, 0.95) 0%, rgba(14, 15, 18, 0.98) 100%);
-  border: 1px solid rgba(184, 196, 208, 0.25);
+  background: linear-gradient(180deg, rgba(34, 38, 44, 0.98) 0%, rgba(16, 18, 22, 0.99) 100%);
+  border: 1px solid rgba(184, 196, 208, 0.35);
   border-bottom: none;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
 }
 .sl-podium-col.rank-3 .sl-pedestal-base {
   height: 34px;
-  background: linear-gradient(180deg, rgba(32, 24, 18, 0.95) 0%, rgba(16, 12, 9, 0.98) 100%);
-  border: 1px solid rgba(205, 143, 82, 0.25);
+  background: linear-gradient(180deg, rgba(40, 30, 22, 0.98) 0%, rgba(18, 13, 10, 0.99) 100%);
+  border: 1px solid rgba(205, 143, 82, 0.35);
   border-bottom: none;
-  box-shadow: inset 0 1px 1px rgba(255, 220, 190, 0.15);
+  box-shadow: inset 0 1px 2px rgba(255, 220, 190, 0.2);
 }
 .sl-pedestal-roman {
   font-family: var(--font-display, "Cinzel", serif);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 800;
-  letter-spacing: 0.1em;
-  opacity: 0.65;
+  letter-spacing: 0.12em;
+  line-height: 1;
 }
 .sl-podium-col.rank-1 .sl-pedestal-roman {
-  color: var(--gold-champagne, #e9c877);
-  opacity: 0.85;
+  color: #f5df8b;
+  opacity: 0.95;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 .sl-podium-col.rank-2 .sl-pedestal-roman {
-  color: #b8c4d0;
+  color: #d6e2ed;
+  opacity: 0.95;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 .sl-podium-col.rank-3 .sl-pedestal-roman {
-  color: #cd8f52;
+  color: #f7be8b;
+  opacity: 0.95;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 /* SECTION DIVIDER / TITLE */
@@ -7401,9 +8724,8 @@ html[dir="rtl"] .phc-motto-text span {
 .sl-ledger-card {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
+  gap: 10px;
+  padding: 9px 12px;
   background: linear-gradient(135deg, rgba(22, 19, 15, 0.92) 0%, rgba(12, 11, 9, 0.98) 100%);
   border: 1px solid rgba(212, 175, 55, 0.18);
   border-radius: 12px;
@@ -7414,6 +8736,8 @@ html[dir="rtl"] .phc-motto-text span {
     inset 0 1px 1px rgba(255, 240, 180, 0.08);
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  width: 100%;
   direction: ltr;
 }
 html[dir="rtl"] .sl-ledger-card {
@@ -7432,33 +8756,47 @@ html[dir="rtl"] .sl-ledger-card {
 }
 
 .sl-card-rank {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display, "Cinzel", serif);
   font-size: 12px;
-  font-weight: 700;
-  color: #a49782;
-  border-radius: 6px;
-  background: rgba(10, 9, 8, 0.6);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  font-weight: 800;
+  color: #fae69e;
+  border-radius: 7px;
+  background: linear-gradient(135deg, rgba(28, 24, 18, 0.95) 0%, rgba(14, 12, 9, 0.98) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 235, 170, 0.2);
   flex-shrink: 0;
+  direction: ltr;
+  unicode-bidi: isolate;
+  line-height: 1;
+}
+.sl-card-rank bdi {
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
 }
 .sl-ledger-card.tier-sovereign .sl-card-rank {
-  color: var(--gold-champagne, #e9c877);
-  border-color: rgba(212, 175, 55, 0.35);
+  color: var(--gold-champagne, #f5df8b);
+  border-color: rgba(212, 175, 55, 0.55);
+  background: linear-gradient(135deg, rgba(38, 30, 18, 0.98) 0%, rgba(20, 16, 11, 0.99) 100%);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2), inset 0 1px 2px rgba(255, 235, 170, 0.3);
 }
 .sl-ledger-card.tier-elite .sl-card-rank {
   color: #e2eaf2;
-  border-color: rgba(184, 196, 208, 0.3);
+  border-color: rgba(184, 196, 208, 0.45);
+  background: linear-gradient(135deg, rgba(24, 28, 34, 0.98) 0%, rgba(14, 16, 20, 0.99) 100%);
+  box-shadow: 0 2px 8px rgba(184, 196, 208, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.2);
 }
 
 .sl-card-avatar-wrap {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
   border-radius: 50%;
   position: relative;
   flex-shrink: 0;
@@ -7468,7 +8806,7 @@ html[dir="rtl"] .sl-ledger-card {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 .sl-card-status-jewel {
@@ -7488,47 +8826,56 @@ html[dir="rtl"] .sl-card-status-jewel {
 }
 
 .sl-card-info {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  justify-content: center;
+  gap: 2.5px;
 }
 .sl-card-name-row {
   display: flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
 }
 .sl-card-name {
   font-family: var(--font-display, "Cinzel", serif);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 700;
   color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 0;
+  max-width: calc(100% - 48px);
+  letter-spacing: 0.01em;
 }
 .sl-tier-pill {
-  font-size: 9px;
-  padding: 2px 6px;
-  border-radius: 10px;
+  font-size: 8.5px;
+  padding: 1.5px 5.5px;
+  border-radius: 6px;
   white-space: nowrap;
-  font-weight: 500;
+  font-weight: 700;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
 }
 .sl-tier-pill.tier-sovereign {
-  background: rgba(212, 175, 55, 0.16);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  color: var(--gold-champagne, #e9c877);
+  background: rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: #fae69e;
 }
 .sl-tier-pill.tier-elite {
-  background: rgba(184, 196, 208, 0.14);
-  border: 1px solid rgba(184, 196, 208, 0.35);
-  color: #d6e2ed;
+  background: rgba(140, 175, 205, 0.18);
+  border: 1px solid rgba(140, 175, 205, 0.45);
+  color: #d6e8f7;
 }
 .sl-tier-pill.tier-member {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #9c917d;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #b8ac97;
 }
 
 .sl-card-meta {
@@ -7536,42 +8883,71 @@ html[dir="rtl"] .sl-card-status-jewel {
   align-items: center;
   gap: 5px;
   font-size: 10px;
-  color: #8c8170;
+  color: #a49782;
+  min-width: 0;
+  line-height: 1;
 }
 .sl-card-id {
-  font-family: monospace;
+  font-family: 'SF Mono', Monaco, monospace, sans-serif;
   font-size: 9.5px;
-  color: #b0a38e;
+  font-weight: 700;
+  color: #f5df8b;
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+.sl-meta-sep {
+  opacity: 0.5;
+  font-size: 8px;
+  flex-shrink: 0;
 }
 .sl-card-city {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
+  font-weight: 500;
+  font-size: 10px;
 }
 
 .sl-card-wealth {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  text-align: right;
+  text-align: end;
   flex-shrink: 0;
+  margin-inline-start: auto;
+  padding-inline-start: 4px;
 }
 html[dir="rtl"] .sl-card-wealth {
-  align-items: flex-start;
-  text-align: left;
+  align-items: flex-end;
+  text-align: end;
 }
 .sl-wealth-number {
   font-family: var(--font-display, "Cinzel", serif);
   font-size: 14.5px;
-  font-weight: 700;
-  color: var(--gold-champagne, #e9c877);
+  font-weight: 800;
+  color: var(--gold-champagne, #f5df8b);
   letter-spacing: 0.02em;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
 }
 .sl-wealth-label {
-  font-size: 8.5px;
-  color: #8c8170;
+  font-size: 8px;
+  color: #b0a28f;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  margin-top: 1px;
+  white-space: nowrap;
 }
 
 .sl-card-chevron {
@@ -7579,6 +8955,9 @@ html[dir="rtl"] .sl-card-wealth {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 .sl-ledger-card:hover .sl-card-chevron {
@@ -7689,77 +9068,270 @@ html[dir="ltr"] .sl-ledger-card:hover .sl-card-chevron {
   font-weight: bold;
 }
 
-/* LIGHT MODE LEADERBOARD OVERRIDES */
+/* LIGHT MODE LEADERBOARD OVERRIDES (SOVEREIGN BOARD CLARITY & HIGH CONTRAST) */
+body.light-mode #clubLeaderboardContainer,
+body.light-mode .club-leaderboard-container {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(180, 140, 50, 0.1) 0%, transparent 65%),
+    linear-gradient(180deg, #fdfbf7 0%, #f6efe2 100%) !important;
+  border: 1.5px solid rgba(168, 124, 45, 0.55) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(168, 124, 45, 0.3),
+    inset 0 2px 4px #ffffff,
+    0 10px 32px rgba(168, 124, 45, 0.14) !important;
+}
+body.light-mode .sl-honor-board-header {
+  border-bottom-color: rgba(168, 124, 45, 0.3) !important;
+}
+body.light-mode .sl-crest-text {
+  color: #6f4705 !important;
+  text-shadow: none !important;
+}
+body.light-mode .sl-honor-motto {
+  color: #574b3a !important;
+}
+body.light-mode .sl-plaque-rivet {
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #d4af37 55%, #8f6e1f 100%) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), inset 0 0.5px 1px #ffffff !important;
+  border: 0.5px solid rgba(168, 124, 45, 0.4) !important;
+}
+
 body.light-mode .sl-audit-plaque {
-  background: linear-gradient(135deg, #fdfbf7 0%, #f4eee2 100%) !important;
-  border-color: rgba(156, 109, 35, 0.3) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+  background: linear-gradient(135deg, #fdfbf7 0%, #f5eee2 100%) !important;
+  border-color: rgba(168, 124, 45, 0.35) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff !important;
 }
 body.light-mode .sl-audit-title {
-  color: #2b2111 !important;
+  color: #1a1309 !important;
+  font-weight: 800 !important;
 }
 body.light-mode .sl-audit-sub {
-  color: #635746 !important;
+  color: #4b3e2e !important;
+  font-weight: 500 !important;
+  font-size: 11px !important;
+  line-height: 1.45 !important;
 }
+body.light-mode .sl-audit-badge {
+  background: rgba(34, 139, 64, 0.12) !important;
+  border-color: rgba(34, 139, 64, 0.4) !important;
+  color: #15662f !important;
+  font-weight: 700 !important;
+  font-size: 10px !important;
+}
+body.light-mode .sl-audit-dot {
+  background: #188a3e !important;
+  box-shadow: 0 0 6px rgba(24, 138, 62, 0.6) !important;
+}
+
+/* Filter Bar Buttons */
 body.light-mode .sl-filter-btn {
-  background: #f7f3eb !important;
-  border-color: rgba(156, 109, 35, 0.22) !important;
-  color: #5c503e !important;
+  background: #fdfaf4 !important;
+  border-color: rgba(168, 124, 45, 0.28) !important;
+  color: #483c2d !important;
+  font-weight: 600 !important;
+}
+body.light-mode .sl-filter-btn:hover {
+  background: #f7f1e4 !important;
+  border-color: rgba(168, 124, 45, 0.48) !important;
+  color: #21190d !important;
 }
 body.light-mode .sl-filter-btn.is-active {
-  background: #fdfbf7 !important;
-  border-color: rgba(156, 109, 35, 0.6) !important;
-  color: #24190b !important;
-  box-shadow: 0 2px 8px rgba(156, 109, 35, 0.2) !important;
+  background: #231c13 !important;
+  border-color: #c99c30 !important;
+  color: #fae69e !important;
+  font-weight: 700 !important;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.22) !important;
 }
+
+/* Podium Names & Cities */
 body.light-mode .sl-podium-name {
-  color: #1b1916 !important;
+  color: #171410 !important;
+  font-weight: 700 !important;
 }
 body.light-mode .sl-podium-city {
-  color: #706352 !important;
+  color: #574b3a !important;
+  font-weight: 600 !important;
+  font-size: 9.5px !important;
+}
+
+/* Podium Scores (High-Contrast Metallic Badges) */
+body.light-mode .sl-podium-col.rank-1 .sl-podium-score {
+  background: #fff8e6 !important;
+  border: 1px solid #c99c30 !important;
+  color: #6f4705 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 8px rgba(180, 140, 50, 0.2) !important;
+}
+body.light-mode .sl-podium-col.rank-2 .sl-podium-score {
+  background: #f0f4f9 !important;
+  border: 1px solid #7d96ab !important;
+  color: #152b3d !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 8px rgba(70, 90, 110, 0.18) !important;
+}
+body.light-mode .sl-podium-col.rank-3 .sl-podium-score {
+  background: #fdf3ea !important;
+  border: 1px solid #bf7d4a !important;
+  color: #63310d !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 8px rgba(130, 70, 20, 0.18) !important;
+}
+
+/* Podium Pedestals (Sculpted Ivory & Precious Metal Slabs) */
+body.light-mode .sl-podium-col.rank-1 .sl-pedestal-base {
+  background: linear-gradient(180deg, #fdf8eb 0%, #ebd7af 100%) !important;
+  border: 1px solid #c99c30 !important;
+  border-bottom: none !important;
+  box-shadow: 0 4px 16px rgba(180, 140, 50, 0.22), inset 0 1px 2px #ffffff !important;
+}
+body.light-mode .sl-podium-col.rank-1 .sl-pedestal-roman {
+  color: #694306 !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+body.light-mode .sl-podium-col.rank-2 .sl-pedestal-base {
+  background: linear-gradient(180deg, #f3f7fa 0%, #d5e0ea 100%) !important;
+  border: 1px solid #8c9fae !important;
+  border-bottom: none !important;
+  box-shadow: 0 4px 14px rgba(70, 90, 110, 0.18), inset 0 1px 2px #ffffff !important;
+}
+body.light-mode .sl-podium-col.rank-2 .sl-pedestal-roman {
+  color: #1e3547 !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+body.light-mode .sl-podium-col.rank-3 .sl-pedestal-base {
+  background: linear-gradient(180deg, #fbf2ea 0%, #e8cfbc 100%) !important;
+  border: 1px solid #bf7d4a !important;
+  border-bottom: none !important;
+  box-shadow: 0 4px 14px rgba(130, 70, 20, 0.18), inset 0 1px 2px #ffffff !important;
+}
+body.light-mode .sl-podium-col.rank-3 .sl-pedestal-roman {
+  color: #572909 !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Ledger Header */
+body.light-mode .sl-ledger-header {
+  border-bottom: 1px solid rgba(168, 124, 45, 0.28) !important;
 }
 body.light-mode .sl-ledger-title {
-  color: #3b2c14 !important;
+  color: #21190d !important;
+  font-weight: 800 !important;
 }
+body.light-mode .sl-ledger-count {
+  color: #574b3a !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+}
+
+/* Ledger Cards */
 body.light-mode .sl-ledger-card {
   background: #ffffff !important;
-  border-color: rgba(156, 109, 35, 0.25) !important;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(168, 124, 45, 0.28) !important;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff !important;
 }
 body.light-mode .sl-ledger-card:hover {
   background: #fdfbf7 !important;
-  border-color: rgba(156, 109, 35, 0.45) !important;
-  box-shadow: 0 6px 18px rgba(156, 109, 35, 0.15) !important;
-}
-body.light-mode .sl-card-name {
-  color: #1a1916 !important;
+  border-color: rgba(168, 124, 45, 0.5) !important;
+  box-shadow: 0 6px 20px rgba(168, 124, 45, 0.15) !important;
 }
 body.light-mode .sl-card-rank {
-  background: #f5efe4 !important;
-  color: #4f4230 !important;
-  border-color: rgba(156, 109, 35, 0.25) !important;
+  background: #fdfaf3 !important;
+  color: #21190d !important;
+  border: 1px solid rgba(168, 124, 45, 0.35) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
 }
+body.light-mode .sl-card-avatar {
+  border: 1.5px solid rgba(168, 124, 45, 0.4) !important;
+}
+body.light-mode .sl-card-name {
+  color: #171410 !important;
+  font-weight: 800 !important;
+}
+
+/* Tier Pills in Light Mode */
+body.light-mode .sl-tier-pill.tier-sovereign {
+  background: #fff6de !important;
+  border: 1px solid #c99c30 !important;
+  color: #694406 !important;
+  font-weight: 700 !important;
+}
+body.light-mode .sl-tier-pill.tier-elite {
+  background: #eaf3fb !important;
+  border: 1px solid #6b9ac2 !important;
+  color: #173f63 !important;
+  font-weight: 700 !important;
+}
+body.light-mode .sl-tier-pill.tier-member {
+  background: #f4efe4 !important;
+  border: 1px solid #b8a88f !important;
+  color: #4a3e2e !important;
+  font-weight: 700 !important;
+}
+
+/* Card Metadata & ID */
 body.light-mode .sl-card-meta {
-  color: #695e4e !important;
+  color: #574b3a !important;
 }
+body.light-mode .sl-card-id {
+  background: #f5ede0 !important;
+  border: 1px solid rgba(168, 124, 45, 0.35) !important;
+  color: #2e2417 !important;
+  font-weight: 700 !important;
+}
+body.light-mode .sl-meta-sep {
+  color: #8c7c67 !important;
+  opacity: 0.7 !important;
+}
+body.light-mode .sl-card-city {
+  color: #524535 !important;
+  font-weight: 600 !important;
+}
+
+/* Wealth Numbers in Light Mode */
 body.light-mode .sl-wealth-number {
-  color: #8c6218 !important;
+  color: #6f4705 !important;
+  font-weight: 800 !important;
 }
+body.light-mode .sl-wealth-label {
+  color: #574a38 !important;
+  font-weight: 700 !important;
+}
+body.light-mode .sl-card-chevron {
+  color: #6f5f4b !important;
+}
+
+/* Self Standing Bottom Card */
 body.light-mode .sl-self-card {
-  background: linear-gradient(135deg, #fefcf9 0%, #f7f1e6 100%) !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
-  box-shadow: 0 4px 18px rgba(156, 109, 35, 0.12) !important;
+  background: linear-gradient(135deg, #fefdfa 0%, #f7f0e3 100%) !important;
+  border-color: rgba(168, 124, 45, 0.45) !important;
+  box-shadow: 0 4px 18px rgba(168, 124, 45, 0.15) !important;
+}
+body.light-mode .sl-self-star {
+  color: #b5851c !important;
 }
 body.light-mode .sl-self-title {
-  color: #1b1916 !important;
+  color: #171410 !important;
+  font-weight: 800 !important;
 }
 body.light-mode .sl-self-desc {
-  color: #5c503e !important;
+  color: #483d2d !important;
+  font-weight: 600 !important;
 }
 body.light-mode .sl-self-cta {
-  background: rgba(156, 109, 35, 0.12) !important;
-  border-color: rgba(156, 109, 35, 0.35) !important;
-  color: #634512 !important;
+  background: #231c13 !important;
+  border-color: #c99c30 !important;
+  color: #fae69e !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 .pcs-item-image {
@@ -7945,31 +9517,117 @@ body.light-mode #club-tab .club-pinned-icon svg path {
   fill: var(--gold-polished) !important;
 }
 
+/* Club Room Tabs in Light Mode */
+body.light-mode #club-tab .club-rooms-nav {
+  background: rgba(250, 248, 243, 0.95) !important;
+  border-bottom-color: rgba(156, 109, 35, 0.18) !important;
+}
+body.light-mode #club-tab .club-room-btn {
+  background: #f4f0e6 !important;
+  border-color: rgba(156, 109, 35, 0.28) !important;
+  color: #5c4e38 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+body.light-mode #club-tab .club-room-btn:hover {
+  background: #ede8dc !important;
+  border-color: rgba(156, 109, 35, 0.45) !important;
+  color: #3b2a09 !important;
+}
+body.light-mode #club-tab .club-room-btn.is-active {
+  background: #ffffff !important;
+  border-color: rgba(156, 109, 35, 0.65) !important;
+  color: #8c6014 !important;
+  box-shadow: 0 2px 8px rgba(156, 109, 35, 0.12) !important;
+}
+body.light-mode #club-tab .club-room-btn .chamber-icon {
+  color: #8c734b !important;
+}
+body.light-mode #club-tab .club-room-btn.is-active .chamber-icon {
+  color: #8c6014 !important;
+}
+body.light-mode #club-tab .club-room-btn.chamber-btn-board {
+  background: #f1ebd8 !important;
+  border-color: rgba(156, 109, 35, 0.4) !important;
+}
+body.light-mode #club-tab .club-room-btn.chamber-btn-board.is-active {
+  background: #ffffff !important;
+  border-color: var(--gold-polished) !important;
+}
+body.light-mode .room-badge {
+  background: linear-gradient(135deg, #d4af37 0%, #aa8022 100%) !important;
+  color: #1a150c !important;
+}
+
 /* Chat & Sovereign Dispatch */
 body.light-mode .sovereign-salon-ticker {
-  background: rgba(254, 252, 248, 0.88) !important;
-  border-color: rgba(156, 109, 35, 0.28) !important;
+  background: linear-gradient(180deg, rgba(255, 253, 249, 0.94) 0%, rgba(247, 242, 233, 0.96) 100%) !important;
+  border: 1px solid rgba(168, 124, 45, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(138, 98, 28, 0.25) !important;
+  border-radius: 10px !important;
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.07),
-    0 1px 3px rgba(156, 109, 35, 0.12),
-    inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(156, 109, 35, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(168, 124, 45, 0.08) !important;
+}
+body.light-mode .ticker-pulse-badge {
+  border-inline-end: 1px solid rgba(168, 124, 45, 0.18) !important;
 }
 body.light-mode .ticker-pulse-text {
-  color: #634714 !important;
+  color: #5c4314 !important;
 }
 body.light-mode .ticker-city {
-  color: #736450 !important;
+  color: #685b48 !important;
+}
+body.light-mode .ticker-dot-sep {
+  color: rgba(168, 124, 45, 0.3) !important;
 }
 body.light-mode .sovereign-dispatch-card {
   background: #ffffff !important;
   border-color: rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
 }
+body.light-mode .sovereign-dispatch-card:not(.is-personal-dispatch) {
+  border-inline-start: 2px solid rgba(156, 109, 35, 0.45) !important;
+}
 body.light-mode .sovereign-dispatch-card.is-personal-dispatch {
   background: #fdfbf7 !important;
   border-color: rgba(156, 109, 35, 0.45) !important;
+  border-inline-end: 2.5px solid var(--gold-polished) !important;
   border-top: 2px solid var(--gold-polished) !important;
   box-shadow: 0 4px 16px rgba(156, 109, 35, 0.08) !important;
+}
+body.light-mode .golden-ink-wash {
+  background: radial-gradient(
+    ellipse 95% 75% at 50% 40%,
+    rgba(184, 134, 11, 0.35) 0%,
+    rgba(166, 120, 34, 0.18) 45%,
+    rgba(120, 85, 20, 0.04) 80%,
+    transparent 100%
+  ) !important;
+}
+body.light-mode .golden-seal-watermark {
+  color: #8c6214 !important;
+  filter: none !important;
+}
+body.light-mode .golden-ink-quill-trace {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(156, 109, 35, 0.3) 25%,
+    rgba(212, 175, 55, 0.5) 50%,
+    rgba(156, 109, 35, 0.3) 75%,
+    transparent 100%
+  ) !important;
+}
+body.light-mode .dispatch-seal-mark.is-official-decree {
+  background: rgba(156, 109, 35, 0.1) !important;
+  border-color: rgba(156, 109, 35, 0.35) !important;
+  color: #6e4c0b !important;
+}
+body.light-mode .dispatch-seal-mark.is-official-decree .decree-seal-icon {
+  color: #6e4c0b !important;
 }
 body.light-mode .dispatch-name {
   color: #1a1a1a !important;
@@ -7994,8 +9652,9 @@ body.light-mode .sovereign-accolade-btn.is-conferred {
   color: #3b2a09 !important;
 }
 body.light-mode #club-tab .club-composer-wrap {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(247, 244, 237, 0.95) 100%) !important;
-  border-top-color: rgba(156, 109, 35, 0.2) !important;
+  background: transparent !important;
+  border-top: none !important;
+  box-shadow: none !important;
 }
 body.light-mode .horological-ledger-gauge {
   background: #ffffff !important;
