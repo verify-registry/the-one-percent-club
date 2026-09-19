@@ -22,7 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Inter:wght@400;500;600&amp;family=Amiri:wght@400;700&amp;family=Cairo:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=51" />
+    <link rel="stylesheet" href="style.css?v=60" />
     <script>
       (function () {
         try {
@@ -159,7 +159,7 @@
             العضوية
           </h2>
         </div>
-                <button class="icon-btn shield-btn solid-gold-medallion" type="button" aria-label="Verified Membership">
+        <button class="icon-btn shield-btn solid-gold-medallion" id="headerVerifiedShieldBtn" type="button" aria-label="Verified Membership">
           <svg viewBox="0 0 32 32" class="sgm-svg">
             <defs>
               <linearGradient id="gold-rim-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -504,7 +504,15 @@
                   aria-label="مؤشرات الهوية"
                   data-i18n-aria-label="membership.idMetrics"
                 >
-                  <div class="metric-ring" id="wealthRingWrap">
+                  <div
+                    class="metric-ring"
+                    id="wealthRingWrap"
+                    tabindex="0"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-label="مؤشر الثروة"
+                  >
                     <svg class="ring-svg" viewBox="0 0 120 120">
                       <circle
                         class="ring-track"
@@ -523,9 +531,32 @@
                     <div class="ring-center">
                       <span class="ring-value" id="wealthValue">90.0%</span>
                     </div>
-                    <p class="ring-label" data-i18n="membership.wealthIndex">
-                      مؤشر الثروة
+                    <p class="ring-label">
+                      <span data-i18n="membership.wealthIndex">مؤشر الثروة</span>
+                      <svg class="ring-info-icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                        <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/>
+                        <path d="M7 6.2V9.8M7 4.2V4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                      </svg>
                     </p>
+
+                    <!-- METRIC TOOLTIP: WEALTH INDEX -->
+                    <div class="metric-tooltip metric-tooltip-left" id="wealthTooltip" role="tooltip" aria-hidden="true">
+                      <div class="metric-tooltip-bezel">
+                        <div class="metric-tooltip-header">
+                          <svg class="metric-tooltip-icon" viewBox="0 0 16 16" fill="none">
+                            <circle cx="8" cy="8" r="6.5" stroke="url(#ringGoldGrad)" stroke-width="1.2"/>
+                            <path d="M8 4.5V8.5L10.5 10" stroke="url(#ringGoldGrad)" stroke-width="1.2" stroke-linecap="round"/>
+                          </svg>
+                          <span class="metric-tooltip-title" data-i18n="membership.wealthTooltipTitle">مؤشر الثروة السيادية</span>
+                        </div>
+                        <p class="metric-tooltip-body" data-i18n="membership.wealthTooltipDesc">
+                          يُحسب بقاعدة أساسية 82% ويرتفع تدريجياً حتى 99% باقتناء التحف والقطع النادرة والأصول السيادية من البوتيك.
+                        </p>
+                        <div class="metric-tooltip-formula">
+                          <span class="formula-tag" data-i18n="membership.wealthTooltipFormula">الأساس (82%) + ندرة المقتنيات</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="living-core" id="livingCore" aria-hidden="true">
@@ -536,7 +567,15 @@
                     </svg>
                   </div>
 
-                  <div class="metric-ring" id="privRingWrap">
+                  <div
+                    class="metric-ring"
+                    id="privRingWrap"
+                    tabindex="0"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-label="الامتيازات"
+                  >
                     <svg class="ring-svg" viewBox="0 0 120 120">
                       <circle
                         class="ring-track"
@@ -555,9 +594,32 @@
                     <div class="ring-center">
                       <span class="ring-value" id="privValue">80.0%</span>
                     </div>
-                    <p class="ring-label" data-i18n="membership.privileges">
-                      الامتيازات
+                    <p class="ring-label">
+                      <span data-i18n="membership.privileges">الامتيازات</span>
+                      <svg class="ring-info-icon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                        <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/>
+                        <path d="M7 6.2V9.8M7 4.2V4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                      </svg>
                     </p>
+
+                    <!-- METRIC TOOLTIP: PRIVILEGES -->
+                    <div class="metric-tooltip metric-tooltip-right" id="privTooltip" role="tooltip" aria-hidden="true">
+                      <div class="metric-tooltip-bezel">
+                        <div class="metric-tooltip-header">
+                          <svg class="metric-tooltip-icon" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 2.5L13.5 5V9.5C13.5 12.5 11 14.5 8 15.5C5 14.5 2.5 12.5 2.5 9.5V5L8 2.5Z" stroke="url(#ringGoldGrad)" stroke-width="1.2" stroke-linejoin="round"/>
+                            <path d="M6 8.5L7.5 10L10.5 7" stroke="url(#ringGoldGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          <span class="metric-tooltip-title" data-i18n="membership.privilegesTooltipTitle">مؤشر الامتيازات السيادية</span>
+                        </div>
+                        <p class="metric-tooltip-body" data-i18n="membership.privilegesTooltipDesc">
+                          يُحسب بقاعدة أساسية 70% ويتوسع حتى 99% وفق رتبة العضوية، نشاط النادي الحصري، ومقتنيات التيجان.
+                        </p>
+                        <div class="metric-tooltip-formula">
+                          <span class="formula-tag" data-i18n="membership.privilegesTooltipFormula">الأساس (70%) + الرتبة والتيجان</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -682,137 +744,342 @@
 
         <!-- PAGE: CLUB -->
         <section class="page" id="club-tab" hidden="">
-          <div class="club-rooms-nav">
+          <!-- SOVEREIGN CHAMBERS & SALONS NAVIGATION -->
+          <div class="club-rooms-nav" id="clubRoomsNav">
             <button
               class="club-room-btn is-active"
               data-channel="global-lounge"
               type="button"
-              data-i18n="club.lounge"
+              id="roomBtnLounge"
             >
-              <span data-i18n="club.lounge">صالة الأعضاء</span>
+              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                <path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="chamber-name" data-i18n="club.lounge">صالة الأعضاء السيادية</span>
             </button>
+
             <button
               class="club-room-btn"
               data-channel="wealth"
               type="button"
-              data-i18n="club.wealth"
+              id="roomBtnWealth"
             >
-              <span data-i18n="club.wealth">الثروة والاستثمار</span
-              ><span class="room-badge">2</span>
+              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                <path d="M12 3v18M6 8l-3 6h6L6 8zm12 0l-3 6h6l-3-6zM3 8h18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="3" r="1.5" fill="currentColor"/>
+              </svg>
+              <span class="chamber-name" data-i18n="club.wealth">الثروة والاستثمار</span>
+              <span class="room-badge">2</span>
             </button>
+
             <button
               class="club-room-btn"
               data-channel="business"
               type="button"
-              data-i18n="club.business"
+              id="roomBtnBusiness"
             >
-              <span data-i18n="club.business">الأعمال والفرص</span
-              ><span class="room-badge unread-dot"></span>
+              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+              </svg>
+              <span class="chamber-name" data-i18n="club.business">الأعمال والفرص</span>
+              <span class="room-badge unread-dot"></span>
             </button>
+
             <button
               class="club-room-btn"
               data-channel="lifestyle"
               type="button"
-              data-i18n="club.lifestyle"
+              id="roomBtnLifestyle"
             >
-              أسلوب الحياة
+              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/>
+                <polygon points="12 6 14.5 11 12 10 9.5 11" fill="currentColor"/>
+                <polygon points="12 18 14.5 13 12 14 9.5 13" stroke="currentColor" stroke-width="0.8"/>
+              </svg>
+              <span class="chamber-name" data-i18n="club.lifestyle">الترحال وأسلوب الحياة</span>
             </button>
+
             <button
               class="club-room-btn"
+              data-channel="ideas"
+              type="button"
+              id="roomBtnIdeas"
+            >
+              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.3"/>
+              </svg>
+              <span class="chamber-name" data-i18n="club.ideas">الأفكار والابتكار</span>
+            </button>
+
+            <button
+              class="club-room-btn"
+              data-channel="tech"
+              type="button"
+              id="roomBtnTech"
+            >
+              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                <rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M9 9h6v6H9zM9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3M19 9h3m-3 6h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <span class="chamber-name" data-i18n="club.tech">الذكاء الاصطناعي والتقنية</span>
+            </button>
+
+            <!-- Distinguished Sovereign Board (Leaderboard) -->
+            <button
+              class="club-room-btn chamber-btn-board"
               data-channel="leaderboard"
               type="button"
-              data-i18n="club.leaderboardTitle"
+              id="roomBtnLeaderboard"
             >
-              قائمة المتصدرين
+              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon chamber-icon-board">
+                <path d="M7 11.5a5.5 5.5 0 0110 0c0 4-3 6.5-5 8-2-1.5-5-4-5-8z" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M12 6l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4L12 6z" fill="currentColor"/>
+              </svg>
+              <span class="chamber-name" data-i18n="club.leaderboardTitle">المجلس السيادي</span>
+              <span class="chamber-board-tag">SOVEREIGN</span>
             </button>
           </div>
 
-          <div class="club-pinned" id="clubPinnedInfo">
-            <div class="club-pinned-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2l1.8 5.6H19l-4.6 3.4 1.8 5.6L12 13.2 7.8 16.6l1.8-5.6L5 7.6h5.2z"
-                  fill="#D4AF6A"
-                ></path>
-              </svg>
+          <!-- ENGRAVED SOVEREIGN CHAMBER PLAQUE -->
+          <div class="club-pinned club-chamber-plaque" id="clubPinnedInfo">
+            <div class="chamber-plaque-guilloche"></div>
+            <div class="chamber-plaque-corner corner-tl"></div>
+            <div class="chamber-plaque-corner corner-tr"></div>
+            <div class="chamber-plaque-corner corner-bl"></div>
+            <div class="chamber-plaque-corner corner-br"></div>
+            
+            <div class="chamber-plaque-medallion" id="clubPinnedIconWrap">
+              <div class="chamber-plaque-medallion-inner">
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-plaque-svg" id="clubPinnedSvg">
+                  <path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
             </div>
-            <div class="club-pinned-content">
+
+            <div class="chamber-plaque-content">
+              <div class="chamber-plaque-meta-row">
+                <span class="chamber-security-badge" id="clubPinnedProtocol">
+                  <span class="plaque-secure-dot"></span>
+                  <span data-i18n="club.chamberSecureProtocol">تشفير سيادي مغلق • جلسة سرية</span>
+                </span>
+                <button
+                  class="chamber-plaque-dismiss-btn"
+                  id="clubPinnedDismissBtn"
+                  type="button"
+                  title="إخفاء العبارة الترحيبية"
+                  aria-label="إخفاء"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
               <p
-                class="club-pinned-title"
+                class="chamber-plaque-title"
                 id="clubPinnedTitle"
                 data-i18n="club.welcomeTitle"
               >
-                أهلًا بك في <span data-i18n="club.lounge">صالة الأعضاء</span>
+                أهلًا بك في صالة الأعضاء السيادية
               </p>
               <p
-                class="club-pinned-sub"
+                class="chamber-plaque-sub"
                 id="clubPinnedSub"
                 data-i18n="club.welcomeSub"
               >
-                <span data-i18n="club.welcomeSub"
-                  >مساحة الأعضاء السياديين. تواصل بثقة.</span
-                >
+                مساحة الأعضاء السياديين. تواصل بثقة.
               </p>
             </div>
           </div>
 
           <div
             id="clubLeaderboardContainer"
-            style="display: none; padding: 0 16px; flex: 1; overflow-y: auto"
+            class="club-leaderboard-container"
+            style="display: none;"
           >
             <!-- Leaderboard content will be injected here -->
           </div>
 
-          <div class="club-messages" id="clubMessages"></div>
+          <!-- SOVEREIGN SALON CHAT VIEWPORT -->
+          <div class="club-chat-viewport" id="clubChatViewport">
+            <!-- SOVEREIGN SALON FINANCIAL TICKER & ACTIVITY PULSE (FLOATING OVER MESSAGES) -->
+            <div class="sovereign-salon-ticker" id="sovereignSalonTicker">
+              <div class="ticker-pulse-badge">
+                <span class="ticker-pulse-orb"></span>
+                <span class="ticker-pulse-text" data-i18n="club.activeSessionPulse">جلسة تداول ومداولات سيادية نشطة</span>
+              </div>
+              <div class="ticker-hubs-row">
+                <span class="ticker-hub-item"><span class="ticker-city">ZURICH</span> <span class="ticker-status-tag live">LIVE</span></span>
+                <span class="ticker-dot-sep">•</span>
+                <span class="ticker-hub-item"><span class="ticker-city">LONDON</span> <span class="ticker-status-tag live">OPEN</span></span>
+                <span class="ticker-dot-sep">•</span>
+                <span class="ticker-hub-item"><span class="ticker-city">RIYADH</span> <span class="ticker-status-tag live">PRIME</span></span>
+                <span class="ticker-dot-sep">•</span>
+                <span class="ticker-hub-item"><span class="ticker-city">NEW YORK</span> <span class="ticker-status-tag monitor">MONITOR</span></span>
+              </div>
+            </div>
+
+            <div class="club-messages" id="clubMessages"></div>
+          </div>
 
           <div class="club-composer-wrap" id="clubComposerWrap">
-            <div
-              id="typingIndicator"
-              style="
-                display: none;
-                align-items: center;
-                gap: 6px;
-                padding: 0 12px;
-                font-size: 10px;
-                color: #d4af37;
-                margin-bottom: 4px;
-              "
-            >
-              <span id="typingName"></span> is typing<span class="typing-dots"
-                >...</span
-              >
+            <div id="typingIndicator" class="club-typing-indicator" style="display: none;">
+              <span class="typing-pulse-dot"></span>
+              <span id="typingName"></span> <span data-i18n="club.isDrafting">يصوغ مرسوماً سيادياً</span><span class="typing-dots">...</span>
             </div>
-            <div class="club-credits-display" id="clubCreditsDisplay">
-              <span id="clubCreditsText" data-i18n="club.messagesLeft"
-                >الرسائل المتبقية اليوم: — / —</span
-              >
+
+            <!-- HOROLOGICAL DISPATCH GAUGE & LEDGER ALLOCATION -->
+            <div class="horological-ledger-gauge" id="clubCreditsDisplay">
+              <div class="gauge-dial-section">
+                <div class="gauge-dial-header">
+                  <span class="gauge-dial-crown-icon">⚜️</span>
+                  <span class="gauge-dial-title" data-i18n="club.ledgerAllocationTitle">مخصص المراسلات السيادية</span>
+                  <span class="gauge-tally-readout" id="clubCreditsText">10 / 10</span>
+                </div>
+                <div class="gauge-pips-strip" id="gaugePipsStrip" aria-label="10 Sovereign Dispatch Allocations">
+                  <span class="gauge-pip is-filled" data-idx="1"></span>
+                  <span class="gauge-pip is-filled" data-idx="2"></span>
+                  <span class="gauge-pip is-filled" data-idx="3"></span>
+                  <span class="gauge-pip is-filled" data-idx="4"></span>
+                  <span class="gauge-pip is-filled" data-idx="5"></span>
+                  <span class="gauge-pip is-filled" data-idx="6"></span>
+                  <span class="gauge-pip is-filled" data-idx="7"></span>
+                  <span class="gauge-pip is-filled" data-idx="8"></span>
+                  <span class="gauge-pip is-filled" data-idx="9"></span>
+                  <span class="gauge-pip is-filled" data-idx="10"></span>
+                </div>
+              </div>
+
               <button
-                class="club-credits-buy"
+                class="sovereign-allocation-seal-btn"
                 id="clubCreditsBuyBtn"
                 type="button"
-                data-i18n="club.credit"
+                data-i18n="club.requestAllocation"
+                title="طلب اعتماد رصيد مراسلات إضافي"
               >
-                <span data-i18n="club.credit">+ رصيد</span>
+                <span class="seal-btn-gold-sheen"></span>
+                <span class="seal-btn-label" data-i18n="club.requestAllocation">+ طلب اعتماد رصيد</span>
               </button>
             </div>
-            <div class="club-composer">
-              <input
-                type="text"
-                id="clubInput"
-                placeholder="اكتب رسالة للنادي…"
-                data-i18n-placeholder="club.typeMessage"
-              />
+
+            <!-- OBSIDIAN DISPATCH COMPOSER -->
+            <div class="obsidian-dispatch-composer" id="obsidianDispatchComposer">
+              <!-- Sovereign Whisper Mode Toggle Button -->
               <button
-                class="club-send"
+                type="button"
+                class="whisper-cipher-toggle"
+                id="whisperCipherToggle"
+                title="تفعيل البرقية المشفرة / السرية"
+                aria-pressed="false"
+              >
+                <svg class="whisper-cipher-svg" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="whisper-cipher-text" data-i18n="club.whisperToggle">برقية مشفرة</span>
+              </button>
+
+              <div class="composer-field-inner">
+                <input
+                  type="text"
+                  id="clubInput"
+                  class="obsidian-dispatch-input"
+                  placeholder="اكتب رسالة للنادي…"
+                  data-i18n-placeholder="club.typeMessage"
+                  autocomplete="off"
+                />
+              </div>
+
+              <!-- Sovereign Seal Send Button: Classic Gold Arrow with Club Monogram -->
+              <button
+                class="sovereign-seal-send-btn"
                 id="clubSendBtn"
                 type="button"
                 aria-label="إرسال"
                 data-i18n-aria-label="club.send"
+                title="ختم وإرسال عبر القنوات السيادية"
               >
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M4 12l16-7-6 16-2.5-6.5L4 12z" fill="#D4AF6A"></path>
+                <svg
+                  class="sovereign-arrow-monogram-svg"
+                  viewBox="0 0 44 44"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <linearGradient id="monogramArrowGoldSpecular" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFF9EA"/>
+                      <stop offset="25%" stop-color="#F5DF9E"/>
+                      <stop offset="55%" stop-color="#C59B3F"/>
+                      <stop offset="85%" stop-color="#8F6A1C"/>
+                      <stop offset="100%" stop-color="#543C0B"/>
+                    </linearGradient>
+                    <linearGradient id="monogramArrowGoldShade" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#FFE8B0"/>
+                      <stop offset="40%" stop-color="#D8B158"/>
+                      <stop offset="70%" stop-color="#997022"/>
+                      <stop offset="100%" stop-color="#3D2905"/>
+                    </linearGradient>
+                    <linearGradient id="monogramArrowBezelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#241C13"/>
+                      <stop offset="50%" stop-color="#141009"/>
+                      <stop offset="100%" stop-color="#0A0805"/>
+                    </linearGradient>
+                    <filter id="arrowSovereignShadow" x="-15%" y="-15%" width="130%" height="130%">
+                      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.75"/>
+                    </filter>
+                  </defs>
+
+                  <!-- Outer Polished Bezel Setting -->
+                  <circle cx="22" cy="22" r="21" class="btn-bezel-outer" fill="url(#monogramArrowBezelGrad)" stroke="url(#monogramArrowGoldSpecular)" stroke-width="1.3"/>
+                  <circle cx="22" cy="22" r="19" class="btn-bezel-milled" stroke="rgba(212, 175, 106, 0.3)" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                  <circle cx="22" cy="22" r="17.5" class="btn-bezel-inner" stroke="rgba(0, 0, 0, 0.6)" stroke-width="0.8"/>
+
+                  <!-- The Classic Sovereign Arrow (Flippable in RTL) -->
+                  <g class="arrow-shape" filter="url(#arrowSovereignShadow)">
+                    <!-- Arrow Shaft -->
+                    <line x1="8" y1="22" x2="33" y2="22" stroke="url(#monogramArrowGoldSpecular)" stroke-width="2.6" stroke-linecap="round"/>
+                    <line x1="8" y1="21.3" x2="33" y2="21.3" stroke="#FFF7DE" stroke-width="0.75" stroke-linecap="round" opacity="0.8"/>
+
+                    <!-- Classical Fletching (Feathers) at Tail -->
+                    <path d="M9 22L4 16.5M9 22L4 27.5M13 22L8 16.5M13 22L8 27.5" stroke="url(#monogramArrowGoldSpecular)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 21.5L4.5 16.5M13 21.5L8.5 16.5" stroke="#FFFFFF" stroke-width="0.6" stroke-linecap="round" opacity="0.6"/>
+
+                    <!-- Classical Spearhead (Tip) -->
+                    <!-- Top Facet (Specular Light) -->
+                    <polygon points="37,22 28,15 30,22" fill="url(#monogramArrowGoldSpecular)"/>
+                    <!-- Bottom Facet (Shaded Bevel) -->
+                    <polygon points="37,22 30,22 28,29" fill="url(#monogramArrowGoldShade)"/>
+                    <!-- Central Spine Ridge Highlight -->
+                    <line x1="29.5" y1="22" x2="37" y2="22" stroke="#FFFFFF" stroke-width="0.75" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- Central Sovereign Monogram Cartouche (Keeps upright in both RTL & LTR) -->
+                  <g class="arrow-monogram-badge" filter="url(#arrowSovereignShadow)">
+                    <!-- Medallion Rim -->
+                    <ellipse cx="22" cy="22" rx="7.8" ry="6.6" fill="url(#monogramArrowBezelGrad)" stroke="url(#monogramArrowGoldSpecular)" stroke-width="1.2"/>
+                    <ellipse cx="22" cy="22" rx="6.4" ry="5.2" stroke="rgba(212, 175, 106, 0.45)" stroke-width="0.5"/>
+                    <!-- Club Monogram '1%' -->
+                    <text
+                      x="22"
+                      y="24.8"
+                      text-anchor="middle"
+                      font-family="'Cinzel', 'Playfair Display', Georgia, serif"
+                      font-size="7.6"
+                      font-weight="900"
+                      fill="url(#monogramArrowGoldSpecular)"
+                      letter-spacing="-0.3"
+                    >1%</text>
+                  </g>
                 </svg>
               </button>
+            </div>
+
+            <div class="whisper-active-banner" id="whisperActiveBanner" style="display: none;">
+              <span class="whisper-banner-dot"></span>
+              <span class="whisper-banner-label" data-i18n="club.whisperActiveNotice">البرقية المشفرة مفعلة • ختم سري مغلق</span>
             </div>
           </div>
         </section>
@@ -868,6 +1135,7 @@
           <div class="card-actions">
             <button
               class="btn btn-outline"
+              id="memberActionMessageBtn"
               type="button"
               data-i18n="profile.messageBtn"
             >
@@ -883,6 +1151,7 @@
             </button>
             <button
               class="btn btn-outline"
+              id="memberActionAddFriendBtn"
               type="button"
               data-i18n="profile.addFriendBtn"
             >
@@ -1066,6 +1335,41 @@
                 </svg>
               </div>
             </div>
+            <div class="pnm-item" id="menuMembershipHistory">
+              <div class="pnm-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <polyline points="12 7 12 12 15 15"></polyline>
+                </svg>
+              </div>
+              <div class="pnm-content">
+                <div class="pnm-title">
+                  <span class="menu-title" data-i18n="profile.historySectionTitle"
+                    >سجل العضوية والانتساب</span
+                  >
+                </div>
+                <div class="pnm-sub">
+                  <span class="menu-subtitle" data-i18n="profile.historySectionSub"
+                    >تاريخ الانضمام والتوثيق السيادي</span
+                  >
+                </div>
+              </div>
+              <div class="pnm-chevron">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </div>
             <div class="pnm-item" id="menuMyCollection">
               <div class="pnm-icon">
                 <svg
@@ -1202,8 +1506,155 @@
             </div>
           </div>
 
-          <!-- 4. MY COLLECTION Showcase -->
-          <div class="profile-collection-section">
+          <!-- 4. CLASSIC MEMBERSHIP HISTORY & INDUCTION LEDGER -->
+          <div class="profile-collection-section profile-history-section" id="profileHistorySection">
+            <div class="pcs-head">
+              <div class="history-head-title-wrap">
+                <svg class="history-seal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                  <path d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2z" stroke="#d4af37" fill="rgba(212,175,55,0.15)"></path>
+                  <circle cx="12" cy="18" r="4" stroke="#d4af37"></circle>
+                  <path d="M10 21l-1 2m5-2l1 2" stroke="#d4af37"></path>
+                </svg>
+                <h3 id="historySectionTitle" data-i18n="profile.historySectionTitle">سجل العضوية والانتساب السيادي</h3>
+              </div>
+              <div class="history-badge-seal">
+                <span class="badge" data-i18n="profile.authenticatedSeal">سجل سيادي موثق</span>
+              </div>
+            </div>
+
+            <div class="membership-ledger-card luxury-tilt-card">
+              <!-- Corner Ornaments (Classic Horological & Heraldic brackets) -->
+              <div class="ledger-corner ledger-corner-tl"></div>
+              <div class="ledger-corner ledger-corner-tr"></div>
+              <div class="ledger-corner ledger-corner-bl"></div>
+              <div class="ledger-corner ledger-corner-br"></div>
+
+              <!-- Inner Ledger Parchment & Guilloché Bezel -->
+              <div class="ledger-card-inner">
+                <!-- Top Archival Header with Crest -->
+                <div class="ledger-top-banner">
+                  <div class="ledger-crest-badge">
+                    <svg viewBox="0 0 40 40" fill="none" class="ledger-crest-svg">
+                      <circle cx="20" cy="20" r="18" stroke="url(#goldBezelGrad)" stroke-width="1.2" stroke-dasharray="2 2"></circle>
+                      <circle cx="20" cy="20" r="15" stroke="#d4af37" stroke-width="0.8"></circle>
+                      <path d="M13 14l3.5 4 3.5-6 3.5 6 3.5-4v12h-14v-12z" fill="#d4af37" stroke="#b89030" stroke-width="0.8"></path>
+                      <circle cx="20" cy="12" r="1.5" fill="#f5e6b8"></circle>
+                      <circle cx="13" cy="14" r="1.2" fill="#f5e6b8"></circle>
+                      <circle cx="27" cy="14" r="1.2" fill="#f5e6b8"></circle>
+                    </svg>
+                  </div>
+                  <div class="ledger-top-texts">
+                    <span class="ledger-org" data-i18n="profile.archiveHallmark">THE 1% CLUB • PRIVATE SOVEREIGN REGISTRY</span>
+                    <span class="ledger-sub" data-i18n="profile.historySectionSub">السجل الرسمي والوثيقة المعتمدة للانتساب</span>
+                  </div>
+                </div>
+
+                <!-- Hero Induction Date Display (Watch Complication & Archival Certificate Style) -->
+                <div class="ledger-hero-date-block">
+                  <div class="ledger-hero-label" data-i18n="profile.inductionDateLabel">تاريخ الانضمام والانتساب</div>
+                  <div class="ledger-hero-date" id="profileInductionDateDisplay" data-i18n="profile.inductionDateValue">١٨ أغسطس ٢٠٢٦</div>
+                  <div class="ledger-hero-protocol" data-i18n="profile.inductionTimeProtocol">بروتوكول التأسيس الأول • 04:12 بالتوقيت العالمي</div>
+                </div>
+
+                <!-- Classic Gold Filigree Divider -->
+                <div class="ledger-divider">
+                  <span class="ledger-divider-line"></span>
+                  <span class="ledger-divider-seal">✦</span>
+                  <span class="ledger-divider-line"></span>
+                </div>
+
+                <!-- 4-Cell Archival Record Grid -->
+                <div class="ledger-records-grid">
+                  <div class="ledger-record-cell">
+                    <span class="lrc-label" data-i18n="profile.registryNumberLabel">رقم السجل السيادي</span>
+                    <span class="lrc-value" id="profileLedgerRegistryNo">REG-0001-3426</span>
+                  </div>
+                  <div class="ledger-record-cell">
+                    <span class="lrc-label" data-i18n="profile.recordStatusLabel">حالة السجل</span>
+                    <span class="lrc-value lrc-sealed">
+                      <span class="lrc-status-dot"></span>
+                      <span data-i18n="profile.recordStatusValue">معتمد ومحمي للأبد</span>
+                    </span>
+                  </div>
+                  <div class="ledger-record-cell">
+                    <span class="lrc-label" data-i18n="profile.inductionTierLabel">الرتبة التأسيسية</span>
+                    <span class="lrc-value" data-i18n="profile.inductionTierValue">عضوية سيادية</span>
+                  </div>
+                  <div class="ledger-record-cell">
+                    <span class="lrc-label" data-i18n="profile.tenureLabel">الأقدمية والعهد</span>
+                    <span class="lrc-value" data-i18n="profile.tenureValue">دورة التأسيس الأولى • فئة الرواد</span>
+                  </div>
+                </div>
+
+                <!-- Classic Historical Provenance Timeline -->
+                <div class="ledger-timeline-wrap">
+                  <div class="ledger-timeline-head">
+                    <svg viewBox="0 0 16 16" fill="none" class="ledger-timeline-icon">
+                      <circle cx="8" cy="8" r="6.5" stroke="#d4af37" stroke-width="1.2"></circle>
+                      <polyline points="8 4.5 8 8 10.5 9.5" stroke="#d4af37" stroke-width="1.2" stroke-linecap="round"></polyline>
+                    </svg>
+                    <span class="ledger-timeline-title" data-i18n="profile.timelineTitle">محطات الانتساب والاعتماد</span>
+                  </div>
+
+                  <div class="ledger-timeline">
+                    <!-- Event 1 -->
+                    <div class="ledger-timeline-item">
+                      <div class="lti-marker">
+                        <div class="lti-dot"></div>
+                        <div class="lti-line"></div>
+                      </div>
+                      <div class="lti-content">
+                        <div class="lti-header">
+                          <span class="lti-title" data-i18n="profile.event1Title">المصادقة على العضوية والانتساب</span>
+                          <span class="lti-date">18 AUG 2026</span>
+                        </div>
+                        <p class="lti-desc" data-i18n="profile.event1Desc">إصدار بطاقة الماستر كارد السيادية واعتماد العضوية من المجلس التأسيسي للنادي.</p>
+                      </div>
+                    </div>
+
+                    <!-- Event 2 -->
+                    <div class="ledger-timeline-item">
+                      <div class="lti-marker">
+                        <div class="lti-dot"></div>
+                        <div class="lti-line"></div>
+                      </div>
+                      <div class="lti-content">
+                        <div class="lti-header">
+                          <span class="lti-title" data-i18n="profile.event2Title">توثيق الهوية وتخصيص الخزينة الخاصة</span>
+                          <span class="lti-date">18 AUG 2026</span>
+                        </div>
+                        <p class="lti-desc" data-i18n="profile.event2Desc">ربط المفتاح البيومتري وتفعيل الحساب والرصيد الداخلي للبوتيك.</p>
+                      </div>
+                    </div>
+
+                    <!-- Event 3 -->
+                    <div class="ledger-timeline-item is-current">
+                      <div class="lti-marker">
+                        <div class="lti-dot is-pulsing"></div>
+                      </div>
+                      <div class="lti-content">
+                        <div class="lti-header">
+                          <span class="lti-title" data-i18n="profile.event3Title">العضوية النشطة والامتيازات الكاملة</span>
+                          <span class="lti-date lti-current-tag" data-i18n="dynamic.current">الحالي</span>
+                        </div>
+                        <p class="lti-desc" data-i18n="profile.event3Desc">حضور كامل في الصالات المغلقة، ومجالس النقاش، واقتناء التحف السيادية النادرة.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bottom Archival Stamp & Seal Footer -->
+                <div class="ledger-footer-stamp">
+                  <div class="ledger-seal-stamp">
+                    <span class="lss-text">AUTHENTICATED • SOVEREIGN INDUCTION • THE 1% CLUB</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. MY COLLECTION Showcase -->
+          <div class="profile-collection-section" id="profileCollectionSection">
             <div class="pcs-head">
               <h3 id="collectionSectionTitle">MY LUXURY COLLECTION</h3>
               <button
@@ -1536,6 +1987,60 @@
         </div>
       </div>
 
+      <!-- SOVEREIGN BALANCE DEPOSIT MODAL -->
+      <div class="purchase-modal-overlay" id="depositModal" hidden="">
+        <div class="purchase-modal">
+          <div class="purchase-modal-header">
+            <h3 class="purchase-modal-name" data-i18n="boutique.depositTitle">
+              إيداع رصيد سيادي
+            </h3>
+            <p
+              style="font-size: 11px; color: #948c7c; margin-top: 4px"
+              data-i18n="boutique.depositDesc"
+            >
+              اختر باقة سيولة خاصة لتعزيز مقتنياتك الفاخرة
+            </p>
+          </div>
+          <div class="credits-packages">
+            <button
+              class="credits-pkg deposit-pkg"
+              data-amount="10000"
+              type="button"
+            >
+              <span class="credits-pkg-amount" data-i18n="boutique.deposit10k">باقة السيادة — 10,000$</span>
+              <span class="credits-pkg-price">+$10,000</span>
+            </button>
+            <button
+              class="credits-pkg deposit-pkg is-popular"
+              data-amount="25000"
+              type="button"
+            >
+              <span class="credits-pkg-badge" data-i18n="club.popular">الأكثر طلبًا</span>
+              <span class="credits-pkg-amount" data-i18n="boutique.deposit25k">باقة البلاتين — 25,000$</span>
+              <span class="credits-pkg-price">+$25,000</span>
+            </button>
+            <button
+              class="credits-pkg deposit-pkg"
+              data-amount="50000"
+              type="button"
+            >
+              <span class="credits-pkg-amount" data-i18n="boutique.deposit50k">باقة القمة السيادية — 50,000$</span>
+              <span class="credits-pkg-price">+$50,000</span>
+            </button>
+          </div>
+          <p class="purchase-modal-msg" id="depositModalMsg"></p>
+          <button
+            class="btn btn-outline"
+            id="depositCancelBtn"
+            type="button"
+            style="width: 100%; margin-top: 8px"
+            data-i18n="club.cancel"
+          >
+            <span data-i18n="club.cancel">إلغاء</span>
+          </button>
+        </div>
+      </div>
+
       <!-- PREMIUM TOAST -->
       <div class="premium-toast" id="premiumToast" aria-live="polite">
         <div class="premium-toast-icon">
@@ -1552,6 +2057,53 @@
         <div class="premium-toast-content">
           <h4 class="premium-toast-title" id="premiumToastTitle"></h4>
           <p class="premium-toast-msg" id="premiumToastMsg"></p>
+        </div>
+      </div>
+
+      <!-- METALLIC GOLD COPY POPUP INDICATOR -->
+      <div
+        class="gold-copy-popup"
+        id="goldCopyPopup"
+        role="status"
+        aria-live="polite"
+        aria-hidden="true"
+      >
+        <div class="gold-copy-popup-rim">
+          <div class="gold-copy-popup-inner">
+            <div class="gold-copy-popup-shimmer" aria-hidden="true"></div>
+            <div class="gold-copy-popup-icon-wrap" aria-hidden="true">
+              <svg class="gold-copy-popup-icon" viewBox="0 0 28 28" fill="none">
+                <defs>
+                  <linearGradient id="copyIndicatorGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFF9EB" />
+                    <stop offset="28%" stop-color="#E8CD94" />
+                    <stop offset="65%" stop-color="#C9A86A" />
+                    <stop offset="100%" stop-color="#8A6323" />
+                  </linearGradient>
+                  <radialGradient id="copyIndicatorInnerFace" cx="35%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="#2A2215" />
+                    <stop offset="70%" stop-color="#12100C" />
+                    <stop offset="100%" stop-color="#080705" />
+                  </radialGradient>
+                </defs>
+                <circle cx="14" cy="14" r="13" stroke="url(#copyIndicatorGoldGrad)" stroke-width="1.2" fill="url(#copyIndicatorInnerFace)"/>
+                <circle cx="14" cy="14" r="11" stroke="rgba(201, 168, 106, 0.35)" stroke-width="0.6" stroke-dasharray="1 1"/>
+                <path d="M8.5 14.2L12 17.7L19.5 10.2" stroke="url(#copyIndicatorGoldGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="gold-copy-popup-text">
+              <span class="gold-copy-popup-title" id="goldCopyPopupTitle">Link Copied to Clipboard</span>
+              <span class="gold-copy-popup-subtitle" id="goldCopyPopupSubtitle">THE 1% CLUB · SOVEREIGN REGISTRY</span>
+            </div>
+            <div class="gold-copy-popup-hallmark" aria-hidden="true">
+              <svg viewBox="0 0 24 14" fill="none" class="gold-popup-crown">
+                <path d="M2 12 L1 4 L6 8 L12 2 L18 8 L23 4 L22 12 Z" fill="url(#copyIndicatorGoldGrad)" stroke="#3A2A12" stroke-width="0.4" stroke-linejoin="round"></path>
+                <circle cx="12" cy="2" r="1.2" fill="#FFF9EB"></circle>
+                <circle cx="1" cy="4" r="0.9" fill="#FFF9EB"></circle>
+                <circle cx="23" cy="4" r="0.9" fill="#FFF9EB"></circle>
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1629,17 +2181,31 @@
               </div>
             </div>
             <label class="luxury-switch">
-              <input type="checkbox" checked="" />
+              <input type="checkbox" id="vipNotifToggle" checked="" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-title" data-i18n="settings.soundscape">
+                المؤثرات الصوتية الساعاتية
+              </div>
+              <div class="setting-desc" id="soundscapeDesc" data-i18n="settings.soundscapeDesc">
+                صوتيات النادي الميكانيكية ونغمات الساعات الفاخرة
+              </div>
+            </div>
+            <label class="luxury-switch">
+              <input type="checkbox" id="soundscapeToggle" checked="" />
               <span class="slider"></span>
             </label>
           </div>
           <div class="setting-row">
             <div class="setting-info">
               <div class="setting-title" data-i18n="settings.haptic">
-                التأثيرات الصوتية واللمسية
+                الاهتزازات اللمسية
               </div>
               <div class="setting-desc" data-i18n="settings.hapticDesc">
-                ردود فعل حسية ممتازة
+                ردود فعل حسية ولمسية دقيقة
               </div>
             </div>
             <label class="luxury-switch">
@@ -1657,7 +2223,7 @@
               </div>
             </div>
             <label class="luxury-switch">
-              <input type="checkbox" />
+              <input type="checkbox" id="stealthModeToggle" />
               <span class="slider"></span>
             </label>
           </div>
@@ -1908,16 +2474,13 @@
 
           <button
             class="edit-profile-save-btn"
+            id="contactConciergeBtn"
+            type="button"
             style="
               margin-bottom: 12px;
               background: rgba(212, 175, 55, 0.1);
               color: #d4af37;
               border: 1px solid rgba(212, 175, 55, 0.4);
-            "
-            onclick="
-              alert(
-                'Concierge Request Submitted. An agent will contact you shortly.',
-              )
             "
             data-i18n="misc.contactSupport"
           >
@@ -1986,10 +2549,10 @@
     </div>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="Audio.js"></script>
-    <script src="luxury.js?v=2"></script>
-    <script src="translations.js"></script>
-    <script src="app.js?v=55"></script>
+    <script src="Audio.js?v=60"></script>
+    <script src="luxury.js?v=60"></script>
+    <script src="translations.js?v=60"></script>
+    <script src="app.js?v=60"></script>
 
     <input
       type="file"

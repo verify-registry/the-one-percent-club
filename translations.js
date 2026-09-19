@@ -182,9 +182,33 @@ window.I18N = {
       en: "Wealth Index",
       ar: "مؤشر الثروة",
     },
+    wealthTooltipTitle: {
+      en: "Sovereign Wealth Index",
+      ar: "مؤشر الثروة السيادية",
+    },
+    wealthTooltipDesc: {
+      en: "Calculated from a base of 82%, scaling up to 99% through boutique acquisitions and high-rarity sovereign artifacts.",
+      ar: "يُحسب بقاعدة أساسية 82% ويرتفع تدريجياً حتى 99% باقتناء التحف والقطع النادرة والأصول السيادية من البوتيك.",
+    },
+    wealthTooltipFormula: {
+      en: "Base (82%) + Rarity Impact",
+      ar: "الأساس (82%) + ندرة المقتنيات",
+    },
     privileges: {
       en: "Privileges",
       ar: "الامتيازات",
+    },
+    privilegesTooltipTitle: {
+      en: "Sovereign Privileges Index",
+      ar: "مؤشر الامتيازات السيادية",
+    },
+    privilegesTooltipDesc: {
+      en: "Calculated from a base of 70%, expanding up to 99% via membership tier, club activity, and equipped regalia.",
+      ar: "يُحسب بقاعدة أساسية 70% ويتوسع حتى 99% وفق رتبة العضوية، نشاط النادي الحصري، ومقتنيات التيجان.",
+    },
+    privilegesTooltipFormula: {
+      en: "Base (70%) + Tier & Regalia Influence",
+      ar: "الأساس (70%) + الرتبة والتيجان",
     },
     shareMembership: {
       en: "Share Membership",
@@ -213,8 +237,8 @@ window.I18N = {
   },
   club: {
     lounge: {
-      en: "Members Lounge",
-      ar: "صالة الأعضاء",
+      en: "Sovereign Lounge",
+      ar: "صالة الأعضاء السيادية",
     },
     wealth: {
       en: "Wealth & Investing",
@@ -225,16 +249,24 @@ window.I18N = {
       ar: "الأعمال والفرص",
     },
     lifestyle: {
-      en: "Lifestyle",
-      ar: "أسلوب الحياة",
+      en: "Travel & Lifestyle",
+      ar: "الترحال وأسلوب الحياة",
+    },
+    ideas: {
+      en: "Ideas & Innovation",
+      ar: "الأفكار والابتكار",
+    },
+    tech: {
+      en: "Tech & AI",
+      ar: "الذكاء الاصطناعي والتقنية",
     },
     leaderboard: {
-      en: "Leaderboard",
-      ar: "قائمة المتصدرين",
+      en: "The Sovereign Board",
+      ar: "المجلس السيادي",
     },
     leaderboardTitle: {
-      en: "Leaderboard",
-      ar: "قائمة المتصدرين",
+      en: "The Sovereign Board",
+      ar: "المجلس السيادي",
     },
     leaderboardSubtitle: {
       en: "Global Elite of Sovereign Wealth",
@@ -243,6 +275,34 @@ window.I18N = {
     leaderboardSub: {
       en: "Global Sovereign Wealth Elite",
       ar: "النخبة العالمية لأصحاب الثروة السيادية",
+    },
+    leaderboardPodium: {
+      en: "Sovereign Triumvirate",
+      ar: "منصة الثلاثي السيادي",
+    },
+    leaderboardAllTitans: {
+      en: "All Titans",
+      ar: "الترتيب العام",
+    },
+    leaderboardSovereignTier: {
+      en: "Sovereign Tier",
+      ar: "فئة السيادة",
+    },
+    leaderboardEliteTier: {
+      en: "Elite Tier",
+      ar: "فئة النخبة",
+    },
+    leaderboardLedger: {
+      en: "Sovereign Ledger",
+      ar: "سجل مراتب النخبة",
+    },
+    leaderboardYourRank: {
+      en: "Your Standing: Rank #11",
+      ar: "موقعك في السجل السيادي: المرتبة #11",
+    },
+    leaderboardViewProfile: {
+      en: "View Dossier",
+      ar: "عرض الملف",
     },
     welcomePrefix: {
       en: "Welcome to ",
@@ -256,9 +316,77 @@ window.I18N = {
       en: "Sovereign members space. Communicate with confidence.",
       ar: "مساحة الأعضاء السياديين. تواصل بثقة.",
     },
+    wealthSub: {
+      en: "High-conviction allocations and sovereign asset governance.",
+      ar: "تداول الفرص الاستثمارية الكبرى وإدارة الأصول السيادية.",
+    },
+    businessSub: {
+      en: "Strategic alliances and bespoke ventures among business titans.",
+      ar: "تحالفات استراتيجية وشراكات استثنائية بين قادة الأعمال.",
+    },
+    lifestyleSub: {
+      en: "Private aviation, nautical charters, and discreet sanctuaries.",
+      ar: "رحلات خاصة، أساطيل، وملاذات سرية حول العالم.",
+    },
+    ideasSub: {
+      en: "Intellectual theses and pioneering forward concepts.",
+      ar: "أطروحات النخبة الفكرية والمفاهيم الاستشرافية الرائدة.",
+    },
+    techSub: {
+      en: "Air-gapped compute, private AI, and frontier technology.",
+      ar: "تطبيقات الذكاء الاصطناعي السيادي والتقنيات العميقة.",
+    },
+    chamberSecureProtocol: {
+      en: "Sovereign Encrypted • Confidential Session",
+      ar: "تشفير سيادي مغلق • جلسة سرية",
+    },
+    activeSessionPulse: {
+      en: "Active Sovereign Discourse & Markets",
+      ar: "جلسة تداول ومداولات سيادية نشطة",
+    },
+    endorse: {
+      en: "Endorse",
+      ar: "مصادقة",
+    },
+    honor: {
+      en: "Honor",
+      ar: "وسام",
+    },
+    toast: {
+      en: "Toast",
+      ar: "نخب",
+    },
+    yourDispatch: {
+      en: "Your Sovereign Dispatch",
+      ar: "مرسومك السيادي",
+    },
     messagesLeft: {
       en: "Remaining messages today",
       ar: "الرسائل المتبقية اليوم",
+    },
+    ledgerAllocationTitle: {
+      en: "Sovereign Dispatch Allocation",
+      ar: "مخصص المراسلات السيادية",
+    },
+    requestAllocation: {
+      en: "+ Request Allocation",
+      ar: "+ طلب اعتماد رصيد",
+    },
+    whisperToggle: {
+      en: "Encrypted Dispatch",
+      ar: "برقية مشفرة",
+    },
+    whisperBadge: {
+      en: "CONFIDENTIAL DISPATCH",
+      ar: "برقية سرية مشفرة",
+    },
+    whisperPlaceholder: {
+      en: "Inscribe confidential sovereign dispatch...",
+      ar: "صياغة برقية سيادية مشفرة ومحمية…",
+    },
+    whisperActiveNotice: {
+      en: "Sovereign Whisper Active • End-to-End Chamber Seal",
+      ar: "البرقية المشفرة مفعلة • ختم سري مغلق",
     },
     credit: {
       en: "Credit",
@@ -347,8 +475,92 @@ window.I18N = {
       ar: "شبكة المعارف",
     },
     sinceDate: {
-      en: "Jan 2024",
-      ar: "يناير 2024",
+      en: "Aug 2026",
+      ar: "أغسطس 2026",
+    },
+    historySectionTitle: {
+      en: "MEMBERSHIP CHRONICLE & GENESIS",
+      ar: "سجل العضوية والانتساب السيادي",
+    },
+    historySectionSub: {
+      en: "Official Certified Archive of Induction",
+      ar: "السجل الرسمي والوثيقة المعتمدة للانتساب",
+    },
+    authenticatedSeal: {
+      en: "AUTHENTICATED ARCHIVE",
+      ar: "سجل سيادي موثق",
+    },
+    inductionDateLabel: {
+      en: "DATE OF INDUCTION",
+      ar: "تاريخ الانضمام والانتساب",
+    },
+    inductionDateValue: {
+      en: "18 AUGUST 2026",
+      ar: "١٨ أغسطس ٢٠٢٦",
+    },
+    inductionTimeProtocol: {
+      en: "Genesis Induction Protocol I • 04:12 UTC",
+      ar: "بروتوكول التأسيس الأول • 04:12 بالتوقيت العالمي",
+    },
+    registryNumberLabel: {
+      en: "SOVEREIGN REGISTRY NO.",
+      ar: "رقم السجل السيادي",
+    },
+    recordStatusLabel: {
+      en: "RECORD STATUS",
+      ar: "حالة السجل",
+    },
+    recordStatusValue: {
+      en: "Permanently Sealed",
+      ar: "معتمد ومحمي للأبد",
+    },
+    inductionTierLabel: {
+      en: "INDUCTION TIER",
+      ar: "الرتبة التأسيسية",
+    },
+    inductionTierValue: {
+      en: "Sovereign Member",
+      ar: "عضوية سيادية",
+    },
+    tenureLabel: {
+      en: "SENIORITY & TENURE",
+      ar: "الأقدمية والعهد",
+    },
+    tenureValue: {
+      en: "Genesis Cycle • Founder Class",
+      ar: "دورة التأسيس الأولى • فئة الرواد",
+    },
+    timelineTitle: {
+      en: "HISTORICAL PROVENANCE",
+      ar: "محطات الانتساب والاعتماد",
+    },
+    event1Title: {
+      en: "Genesis Admission Ratified",
+      ar: "المصادقة على العضوية والانتساب",
+    },
+    event1Desc: {
+      en: "Sovereign Master Card minted and induction sealed by the Founding Council.",
+      ar: "إصدار بطاقة الماستر كارد السيادية واعتماد العضوية من المجلس التأسيسي للنادي.",
+    },
+    event2Title: {
+      en: "Credential Hallmarking & Vault Allocation",
+      ar: "توثيق الهوية وتخصيص الخزينة الخاصة",
+    },
+    event2Desc: {
+      en: "Biometric key bound; Sovereign Boutique balance credit assigned.",
+      ar: "ربط المفتاح البيومتري وتفعيل الحساب والرصيد الداخلي للبوتيك.",
+    },
+    event3Title: {
+      en: "Active Sovereign Standing",
+      ar: "العضوية النشطة والامتيازات الكاملة",
+    },
+    event3Desc: {
+      en: "Full access granted to closed lounges, private councils, and boutique acquisitions.",
+      ar: "حضور كامل في الصالات المغلقة، ومجالس النقاش، واقتناء التحف السيادية النادرة.",
+    },
+    archiveHallmark: {
+      en: "THE 1% CLUB • ARCHIVAL REGISTRY OF SOVEREIGN SOULS • GENESIS CLASS",
+      ar: "نادي الـ 1% • سجل التأسيس والأعضاء السياديين • الفئة التأسيسية",
     },
     location: {
       en: "Location",
@@ -560,6 +772,26 @@ window.I18N = {
       en: "Purchase Successful",
       ar: "تم الشراء بنجاح",
     },
+    depositTitle: {
+      en: "Sovereign Balance Deposit",
+      ar: "إيداع رصيد سيادي",
+    },
+    depositDesc: {
+      en: "Select a private liquidity package to expand your acquisitions",
+      ar: "اختر باقة سيولة خاصة لتعزيز مقتنياتك الفاخرة",
+    },
+    deposit10k: {
+      en: "Sovereign Tier — $10,000",
+      ar: "باقة السيادة — 10,000$",
+    },
+    deposit25k: {
+      en: "Platinum Tier — $25,000",
+      ar: "باقة البلاتين — 25,000$",
+    },
+    deposit50k: {
+      en: "Apex Titan Tier — $50,000",
+      ar: "باقة القمة السيادية — 50,000$",
+    },
     txSuccess: {
       en: "Transaction Successful",
       ar: "عملية ناجحة",
@@ -689,12 +921,36 @@ window.I18N = {
       ar: "تنبيهات النادي الحصرية",
     },
     haptic: {
-      en: "Haptic & Audio FX",
-      ar: "التأثيرات الصوتية واللمسية",
+      en: "Tactile Haptics",
+      ar: "الاهتزازات اللمسية",
     },
     hapticDesc: {
-      en: "Premium tactile feedback",
-      ar: "ردود فعل حسية ممتازة",
+      en: "Micro-haptic impulse feedback",
+      ar: "ردود فعل حسية ولمسية دقيقة",
+    },
+    soundscape: {
+      en: "Horological Soundscape",
+      ar: "المؤثرات الصوتية الساعاتية",
+    },
+    soundscapeDesc: {
+      en: "Mechanical clicks, chimes & repeater tones",
+      ar: "صوتيات النادي الميكانيكية ونغمات الساعات الفاخرة",
+    },
+    soundMutedToast: {
+      en: "Horological soundscape muted",
+      ar: "تم كتم المؤثرات الصوتية الساعاتية",
+    },
+    soundUnmutedToast: {
+      en: "Horological soundscape unmuted",
+      ar: "تم تشغيل المؤثرات الصوتية الساعاتية",
+    },
+    soundToggleMute: {
+      en: "Mute Soundscape",
+      ar: "كتم الصوت",
+    },
+    soundToggleUnmute: {
+      en: "Unmute Soundscape",
+      ar: "تشغيل الصوت",
     },
     stealth: {
       en: "Stealth Mode",
@@ -707,6 +963,22 @@ window.I18N = {
     privacyMenu: {
       en: "Notifications, privacy",
       ar: "الإشعارات والخصوصية",
+    },
+    stealthActiveToast: {
+      en: "Stealth Mode Activated — Public identity masked",
+      ar: "تم تفعيل وضع التخفي — هويتك العامة مخفية الآن",
+    },
+    stealthDisabledToast: {
+      en: "Stealth Mode Deactivated — Public identity visible",
+      ar: "تم تعطيل وضع التخفي — هويتك العامة مرئية الآن",
+    },
+    notifActiveToast: {
+      en: "VIP Notifications enabled",
+      ar: "تم تفعيل التنبيهات الحصرية للنادي",
+    },
+    notifDisabledToast: {
+      en: "VIP Notifications muted",
+      ar: "تم كتم التنبيهات الحصرية",
     },
   },
   misc: {
@@ -727,8 +999,8 @@ window.I18N = {
       ar: "الكونسيرج والدعم",
     },
     linkCopied: {
-      en: "Link Copied",
-      ar: "تم نسخ الرابط",
+      en: "Link Copied to Clipboard",
+      ar: "تم نسخ الرابط إلى الحافظة",
     },
     changesSaved: {
       en: "Changes saved successfully",
@@ -769,6 +1041,14 @@ window.I18N = {
     contactSupport: {
       en: "CONTACT CONCIERGE",
       ar: "التواصل مع الكونسيرج",
+    },
+    conciergeSuccess: {
+      en: "Concierge request submitted. A private agent will contact you shortly.",
+      ar: "تم إرسال طلب الكونسيرج بنجاح. سيتواصل معك المساعد الخاص قريباً.",
+    },
+    widgetInstalledToast: {
+      en: "Sovereign Identity Widget installed to your device home screen.",
+      ar: "تم تثبيت ودجت الهوية السيادية بنجاح على الشاشة الرئيسية لجهازك.",
     },
     faq: {
       en: "FREQUENTLY ASKED QUESTIONS",

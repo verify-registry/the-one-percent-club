@@ -13,17 +13,66 @@ const AudioEngine = (function () {
     }
   } catch {}
 
-  function init() {
-    if (!ctx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) {
-        ctx = new AudioContext();
+  function getAudioContext() {
+    if (!ctx && typeof window !== "undefined") {
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtxClass) {
+        try {
+          ctx = new AudioCtxClass();
+        } catch (e) {}
       }
     }
-    if (ctx && ctx.state === "suspended") {
-      ctx.resume().catch(() => {});
+    return ctx;
+  }
+
+  function init() {
+    const context = getAudioContext();
+    if (context && context.state === "suspended") {
+      try {
+        context.resume().catch(() => {});
+      } catch (e) {}
     }
     unlocked = true;
+  }
+
+  function ensureContextReady() {
+    const context = getAudioContext();
+    if (!context) return null;
+    if (context.state === "suspended") {
+      try {
+        context.resume().catch(() => {});
+      } catch (e) {}
+    }
+    return context;
+  }
+
+  // Multi-gesture mobile unblock listener for iOS WebKit & Android Chrome
+  const unlockEvents = ["touchstart", "touchend", "pointerdown", "pointerup", "click", "keydown"];
+  function handleUnlock() {
+    init();
+    // Play a 0-volume 1-sample silent buffer on iOS to unlock the audio hardware immediately
+    try {
+      const c = getAudioContext();
+      if (c) {
+        const buffer = c.createBuffer(1, 1, 22050);
+        const source = c.createBufferSource();
+        source.buffer = buffer;
+        source.connect(c.destination);
+        source.start(0);
+      }
+    } catch (e) {}
+    if (ctx && ctx.state === "running") {
+      unlockEvents.forEach((e) => {
+        document.removeEventListener(e, handleUnlock, true);
+        window.removeEventListener(e, handleUnlock, true);
+      });
+    }
+  }
+  if (typeof document !== "undefined") {
+    unlockEvents.forEach((e) => {
+      document.addEventListener(e, handleUnlock, { capture: true, passive: true });
+      window.addEventListener(e, handleUnlock, { capture: true, passive: true });
+    });
   }
 
   function isEnabled() {
@@ -35,76 +84,83 @@ const AudioEngine = (function () {
     try {
       localStorage.setItem("club_audio_enabled", enabled ? "true" : "false");
     } catch {}
+    if (typeof window !== "undefined") {
+      try {
+        window.dispatchEvent(
+          new CustomEvent("club-audio-change", { detail: { enabled } })
+        );
+      } catch (e) {}
+    }
   }
 
-  // Ultra-subtle tactile hover tick for cards (damped mechanical impulse)
+  // Ultra-subtle tactile tick for cards (damped mechanical impulse)
   function playHover() {
     if (!enabled) return;
     const now = performance.now();
-    if (now - lastTickTime < 180) return; // Debounce rapid movements
+    if (now - lastTickTime < 140) return; // Debounce rapid movements
     lastTickTime = now;
 
-    if (!ctx) init();
-    if (!ctx) return;
+    const c = ensureContextReady();
+    if (!c) return;
 
     try {
-      const t = ctx.currentTime;
-      const osc = ctx.createOscillator();
+      const t = c.currentTime;
+      const osc = c.createOscillator();
       osc.type = "sine";
       osc.frequency.setValueAtTime(2200, t);
-      osc.frequency.exponentialRampToValueAtTime(1400, t + 0.02);
+      osc.frequency.exponentialRampToValueAtTime(1400, t + 0.025);
 
-      const filter = ctx.createBiquadFilter();
+      const filter = c.createBiquadFilter();
       filter.type = "lowpass";
-      filter.frequency.value = 2600;
+      filter.frequency.value = 2800;
 
-      const gain = ctx.createGain();
+      const gain = c.createGain();
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.022, t + 0.003);
-      gain.gain.exponentialRampToValueAtTime(0.0005, t + 0.022);
+      gain.gain.linearRampToValueAtTime(0.05, t + 0.003);
+      gain.gain.exponentialRampToValueAtTime(0.0005, t + 0.035);
 
       osc.connect(filter);
       filter.connect(gain);
-      gain.connect(ctx.destination);
+      gain.connect(c.destination);
 
       osc.start(t);
-      osc.stop(t + 0.025);
+      osc.stop(t + 0.04);
     } catch {}
   }
 
-  // A subtle, resonant chime for premium successful actions (e.g., purchase)
+  // A subtle, resonant chime for premium successful actions (e.g., purchase, copy, metric inspect)
   function playChime() {
     if (!enabled) return;
-    if (!ctx) init();
-    if (!ctx) return;
+    const c = ensureContextReady();
+    if (!c) return;
 
     try {
-      const t = ctx.currentTime;
+      const t = c.currentTime;
 
-      // Base tone
-      const osc = ctx.createOscillator();
+      // Base tone (C6)
+      const osc = c.createOscillator();
       osc.type = "sine";
-      osc.frequency.setValueAtTime(1046.5, t); // C6
+      osc.frequency.setValueAtTime(1046.5, t);
 
-      const gain = ctx.createGain();
+      const gain = c.createGain();
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.065, t + 0.02);
+      gain.gain.linearRampToValueAtTime(0.12, t + 0.02);
       gain.gain.exponentialRampToValueAtTime(0.001, t + 2.5);
 
-      // Harmonic overtone
-      const osc2 = ctx.createOscillator();
+      // Harmonic overtone (G6)
+      const osc2 = c.createOscillator();
       osc2.type = "sine";
-      osc2.frequency.setValueAtTime(1567.98, t); // G6
+      osc2.frequency.setValueAtTime(1567.98, t);
 
-      const gain2 = ctx.createGain();
+      const gain2 = c.createGain();
       gain2.gain.setValueAtTime(0, t);
-      gain2.gain.linearRampToValueAtTime(0.035, t + 0.03);
+      gain2.gain.linearRampToValueAtTime(0.08, t + 0.03);
       gain2.gain.exponentialRampToValueAtTime(0.001, t + 2.0);
 
       // Subtle low-pass filter for warmth
-      const filter = ctx.createBiquadFilter();
+      const filter = c.createBiquadFilter();
       filter.type = "lowpass";
-      filter.frequency.value = 3000;
+      filter.frequency.value = 3200;
 
       osc.connect(gain);
       gain.connect(filter);
@@ -112,7 +168,7 @@ const AudioEngine = (function () {
       osc2.connect(gain2);
       gain2.connect(filter);
 
-      filter.connect(ctx.destination);
+      filter.connect(c.destination);
 
       osc.start(t);
       osc2.start(t);
@@ -124,37 +180,37 @@ const AudioEngine = (function () {
   // Soft paper/fabric rustle for tactile inspection (e.g. card tilt, long-press)
   function playRustle() {
     if (!enabled) return;
-    if (!ctx) init();
-    if (!ctx) return;
+    const c = ensureContextReady();
+    if (!c) return;
 
     try {
-      const t = ctx.currentTime;
+      const t = c.currentTime;
       const duration = 0.22;
-      const bufferSize = Math.floor(ctx.sampleRate * duration);
-      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const bufferSize = Math.floor(c.sampleRate * duration);
+      const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
       const data = buffer.getChannelData(0);
 
       // Filtered white noise
       for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * 0.35;
+        data[i] = (Math.random() * 2 - 1) * 0.4;
       }
 
-      const noiseSource = ctx.createBufferSource();
+      const noiseSource = c.createBufferSource();
       noiseSource.buffer = buffer;
 
-      const filter = ctx.createBiquadFilter();
+      const filter = c.createBiquadFilter();
       filter.type = "lowpass";
-      filter.frequency.setValueAtTime(1100, t);
-      filter.frequency.exponentialRampToValueAtTime(280, t + duration);
+      filter.frequency.setValueAtTime(1200, t);
+      filter.frequency.exponentialRampToValueAtTime(320, t + duration);
 
-      const gain = ctx.createGain();
+      const gain = c.createGain();
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.035, t + 0.03);
+      gain.gain.linearRampToValueAtTime(0.06, t + 0.03);
       gain.gain.exponentialRampToValueAtTime(0.001, t + duration);
 
       noiseSource.connect(filter);
       filter.connect(gain);
-      gain.connect(ctx.destination);
+      gain.connect(c.destination);
 
       noiseSource.start(t);
     } catch {}
@@ -163,116 +219,106 @@ const AudioEngine = (function () {
   // Elegant warm chord when opening a modal (like a luxury velvet case sliding open)
   function playModalOpen() {
     if (!enabled) return;
-    if (!ctx) init();
-    if (!ctx) return;
+    const c = ensureContextReady();
+    if (!c) return;
 
     try {
-      const t = ctx.currentTime;
+      const t = c.currentTime;
 
       // Dual harmonic tones (F5 and C6)
-      const osc1 = ctx.createOscillator();
+      const osc1 = c.createOscillator();
       osc1.type = "sine";
-      osc1.frequency.setValueAtTime(698.46, t); // F5
+      osc1.frequency.setValueAtTime(698.46, t);
       osc1.frequency.exponentialRampToValueAtTime(740, t + 0.15);
 
-      const osc2 = ctx.createOscillator();
+      const osc2 = c.createOscillator();
       osc2.type = "sine";
-      osc2.frequency.setValueAtTime(1046.5, t); // C6
+      osc2.frequency.setValueAtTime(1046.5, t);
 
-      const filter = ctx.createBiquadFilter();
+      const filter = c.createBiquadFilter();
       filter.type = "lowpass";
-      filter.frequency.value = 2200;
+      filter.frequency.value = 2400;
 
-      const gain = ctx.createGain();
+      const gain = c.createGain();
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.035, t + 0.03);
-      gain.gain.exponentialRampToValueAtTime(0.0008, t + 0.32);
+      gain.gain.linearRampToValueAtTime(0.08, t + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0008, t + 0.35);
 
       osc1.connect(gain);
       osc2.connect(gain);
       gain.connect(filter);
-      filter.connect(ctx.destination);
+      filter.connect(c.destination);
 
       osc1.start(t);
       osc2.start(t);
-      osc1.stop(t + 0.35);
-      osc2.stop(t + 0.35);
+      osc1.stop(t + 0.38);
+      osc2.stop(t + 0.38);
     } catch {}
   }
 
   // Soft, muted latch tone when closing a modal
   function playModalClose() {
     if (!enabled) return;
-    if (!ctx) init();
-    if (!ctx) return;
+    const c = ensureContextReady();
+    if (!c) return;
 
     try {
-      const t = ctx.currentTime;
-      const osc = ctx.createOscillator();
+      const t = c.currentTime;
+      const osc = c.createOscillator();
       osc.type = "sine";
       osc.frequency.setValueAtTime(520, t);
       osc.frequency.exponentialRampToValueAtTime(360, t + 0.1);
 
-      const filter = ctx.createBiquadFilter();
+      const filter = c.createBiquadFilter();
       filter.type = "lowpass";
-      filter.frequency.value = 1600;
+      filter.frequency.value = 1800;
 
-      const gain = ctx.createGain();
+      const gain = c.createGain();
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.025, t + 0.015);
-      gain.gain.exponentialRampToValueAtTime(0.0008, t + 0.12);
+      gain.gain.linearRampToValueAtTime(0.06, t + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0008, t + 0.14);
 
       osc.connect(filter);
       filter.connect(gain);
-      gain.connect(ctx.destination);
+      gain.connect(c.destination);
 
       osc.start(t);
-      osc.stop(t + 0.13);
+      osc.stop(t + 0.15);
     } catch {}
   }
 
   // Precision metallic snap when equipping or unequipping an artifact
   function playEquip() {
     if (!enabled) return;
-    if (!ctx) init();
-    if (!ctx) return;
+    const c = ensureContextReady();
+    if (!c) return;
 
     try {
-      const t = ctx.currentTime;
+      const t = c.currentTime;
 
-      const osc = ctx.createOscillator();
+      const osc = c.createOscillator();
       osc.type = "sine";
       osc.frequency.setValueAtTime(1480, t);
       osc.frequency.exponentialRampToValueAtTime(2100, t + 0.04);
 
-      const gain = ctx.createGain();
+      const gain = c.createGain();
       gain.gain.setValueAtTime(0, t);
-      gain.gain.linearRampToValueAtTime(0.04, t + 0.008);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+      gain.gain.linearRampToValueAtTime(0.09, t + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
 
-      const filter = ctx.createBiquadFilter();
+      const filter = c.createBiquadFilter();
       filter.type = "bandpass";
       filter.frequency.value = 1800;
       filter.Q.value = 3;
 
       osc.connect(filter);
       filter.connect(gain);
-      gain.connect(ctx.destination);
+      gain.connect(c.destination);
 
       osc.start(t);
-      osc.stop(t + 0.13);
+      osc.stop(t + 0.15);
     } catch {}
   }
-
-  // Unlock audio context on user interaction
-  const unlockEvents = ["pointerdown", "touchstart", "keydown", "click"];
-  const unlock = () => {
-    init();
-    unlockEvents.forEach((e) => document.removeEventListener(e, unlock));
-  };
-  unlockEvents.forEach((e) =>
-    document.addEventListener(e, unlock, { once: true }),
-  );
 
   function playSend() {
     if (!enabled) return;
@@ -344,6 +390,10 @@ const HapticEngine = (function () {
   }
 
   function isEnabled() {
+    try {
+      const hapticSaved = localStorage.getItem("club_haptic_enabled");
+      if (hapticSaved === "false") return false;
+    } catch {}
     // Respect the global Audio & Tactile user preference
     return window.AudioEngine ? window.AudioEngine.isEnabled() : true;
   }

@@ -1,7 +1,7 @@
 {
-  "name": "vanilla-app",
+  "name": "the-1-percent-club",
   "version": "1.0.0",
-  "description": "Vanilla JS App",
+  "description": "Exclusive Sovereign Membership Application",
   "scripts": {
     "build": "echo 'No build step required'",
     "lint": "node -c server.js app.js Audio.js luxury.js translations.js",

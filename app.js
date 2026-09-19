@@ -245,17 +245,105 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.ThemeManager.init();
 
-  // --- Audio & Tactile Setting Toggle ---
+  // --- Horological Soundscape Global Controller (Settings Modal) ---
+  function syncAudioSoundUI(enabled) {
+    const isAudioOn = Boolean(enabled);
+    const soundscapeToggle = document.getElementById("soundscapeToggle");
+
+    if (soundscapeToggle && soundscapeToggle.checked !== isAudioOn) {
+      soundscapeToggle.checked = isAudioOn;
+    }
+  }
+  window.syncAudioSoundUI = syncAudioSoundUI;
+
+  // Initialize UI state from AudioEngine
+  const initialAudioState = window.AudioEngine ? window.AudioEngine.isEnabled() : true;
+  syncAudioSoundUI(initialAudioState);
+
+  // Listen to AudioEngine state change events
+  window.addEventListener("club-audio-change", (e) => {
+    syncAudioSoundUI(e.detail ? e.detail.enabled : (window.AudioEngine ? window.AudioEngine.isEnabled() : true));
+  });
+
+  // Settings Modal Soundscape Toggle Handler
+  const soundscapeToggle = document.getElementById("soundscapeToggle");
+  if (soundscapeToggle) {
+    soundscapeToggle.checked = initialAudioState;
+    soundscapeToggle.addEventListener("change", (e) => {
+      const isChecked = e.target.checked;
+      if (window.AudioEngine) {
+        window.AudioEngine.setEnabled(isChecked);
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(15);
+      }
+      if (isChecked && window.AudioEngine && window.AudioEngine.playHover) {
+        window.AudioEngine.playHover();
+      }
+      syncAudioSoundUI(isChecked);
+
+      const toastMsg = isChecked
+        ? (window.t ? window.t("settings.soundUnmutedToast") : "تم تشغيل المؤثرات الصوتية الساعاتية")
+        : (window.t ? window.t("settings.soundMutedToast") : "تم كتم المؤثرات الصوتية الساعاتية");
+      if (typeof showNavToast === "function") {
+        showNavToast(toastMsg);
+      }
+    });
+  }
+
+  // --- Tactile Haptics Setting Toggle ---
   const audioHapticToggle = document.getElementById("audioHapticToggle");
   if (audioHapticToggle) {
-    audioHapticToggle.checked = window.AudioEngine ? window.AudioEngine.isEnabled() : true;
+    const savedHaptic = localStorage.getItem("club_haptic_enabled");
+    audioHapticToggle.checked = savedHaptic !== "false";
     audioHapticToggle.addEventListener("change", (e) => {
-      if (window.AudioEngine) {
-        window.AudioEngine.setEnabled(e.target.checked);
-        if (e.target.checked) {
-          window.AudioEngine.playHover();
-        }
+      localStorage.setItem("club_haptic_enabled", e.target.checked ? "true" : "false");
+      if (e.target.checked && window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(25);
       }
+    });
+  }
+
+  // --- VIP Notifications Toggle ---
+  const vipNotifToggle = document.getElementById("vipNotifToggle");
+  if (vipNotifToggle) {
+    const savedNotif = localStorage.getItem("club_vip_notifications");
+    vipNotifToggle.checked = savedNotif !== "false";
+    vipNotifToggle.addEventListener("change", (e) => {
+      localStorage.setItem("club_vip_notifications", e.target.checked ? "true" : "false");
+      if (window.AudioEngine && window.AudioEngine.playHover) window.AudioEngine.playHover();
+      if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap();
+      const msg = e.target.checked
+        ? window.t("settings.notifActiveToast")
+        : window.t("settings.notifDisabledToast");
+      if (typeof showNavToast === "function") showNavToast(msg);
+    });
+  }
+
+  // --- Stealth Mode Toggle ---
+  const stealthModeToggle = document.getElementById("stealthModeToggle");
+  if (stealthModeToggle) {
+    const savedStealth = localStorage.getItem("club_stealth_mode") === "true";
+    stealthModeToggle.checked = savedStealth;
+    if (savedStealth) {
+      document.body.classList.add("stealth-mode-active");
+    }
+    stealthModeToggle.addEventListener("change", (e) => {
+      const isStealth = e.target.checked;
+      localStorage.setItem("club_stealth_mode", isStealth ? "true" : "false");
+      if (isStealth) {
+        document.body.classList.add("stealth-mode-active");
+      } else {
+        document.body.classList.remove("stealth-mode-active");
+      }
+      if (window.AudioEngine && window.AudioEngine.playHover) window.AudioEngine.playHover();
+      if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap();
+      const msg = isStealth
+        ? window.t("settings.stealthActiveToast")
+        : window.t("settings.stealthDisabledToast");
+      if (typeof showNavToast === "function") showNavToast(msg);
+      if (typeof updateUI === "function") updateUI();
+      if (typeof updateMasterCard === "function") updateMasterCard();
     });
   }
 
@@ -272,6 +360,9 @@ window.applyLanguage = function (lang) {
       lang === "ar" ? "خزينة المقتنيات النادرة" : "MY LUXURY COLLECTION";
   if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
   if (typeof renderProfileCollection === "function") renderProfileCollection();
+  if (typeof window.syncAudioSoundUI === "function" && window.AudioEngine) {
+    window.syncAudioSoundUI(window.AudioEngine.isEnabled());
+  }
 };
 let currentOwnershipFilter = "all";
 const ICONS = {
@@ -503,6 +594,8 @@ const AppState = {
     wealth: { name: window.t("club.wealth"), messages: [] },
     business: { name: window.t("club.business"), messages: [] },
     lifestyle: { name: window.t("club.lifestyle"), messages: [] },
+    ideas: { name: window.t("club.ideas"), messages: [] },
+    tech: { name: window.t("club.tech"), messages: [] },
   },
 
   listeners: [],
@@ -601,6 +694,138 @@ const AppState = {
         }
       }
     } catch {}
+
+    // Seed authentic sovereign messages for any empty channels
+    const defaultMessages = {
+      "global-lounge": [
+        {
+          senderId: "001",
+          senderName: "Lord Julian",
+          senderTier: "FOUNDER",
+          senderColor: "#e6c27a",
+          senderWealth: "99.9%",
+          text: "The Sovereign Gala in Zurich has been ratified. Discreet biometric travel credentials will be dispatched tomorrow.",
+          timestamp: Date.now() - 3600000 * 2,
+        },
+        {
+          senderId: "084",
+          senderName: "Elena Rostova",
+          senderTier: "SOVEREIGN",
+          senderColor: "#d4af37",
+          senderWealth: "99.7%",
+          text: "Splendid. Our flight team has cleared private airspace protocols through Geneva. Looking forward to meeting the circle.",
+          timestamp: Date.now() - 3600000,
+        },
+      ],
+      wealth: [
+        {
+          senderId: "112",
+          senderName: "Marcus Sterling",
+          senderTier: "TITAN",
+          senderColor: "#f3e5ab",
+          senderWealth: "99.8%",
+          text: "Private placement in sovereign rare earth reserves concluded with 28.4% net yield. Rebalancing liquidity into physical bullion vaults.",
+          timestamp: Date.now() - 3600000 * 3,
+        },
+        {
+          senderId: "001",
+          senderName: "Lord Julian",
+          senderTier: "FOUNDER",
+          senderColor: "#e6c27a",
+          senderWealth: "99.9%",
+          text: "Wise capital preservation. Zurich custodian vaults have recorded the allocation.",
+          timestamp: Date.now() - 3600000 * 1.5,
+        },
+      ],
+      business: [
+        {
+          senderId: "1001",
+          senderName: "Alexander W.",
+          senderTier: "SOVEREIGN EXARCH",
+          senderColor: "#d4af37",
+          senderWealth: "99.6%",
+          text: "The cross-border clean energy sovereign consortium in Riyadh and Abu Dhabi has ratified the primary term sheet.",
+          timestamp: Date.now() - 3600000 * 4,
+        },
+        {
+          senderId: "112",
+          senderName: "Marcus Sterling",
+          senderTier: "TITAN",
+          senderColor: "#f3e5ab",
+          senderWealth: "99.8%",
+          text: "Syndicate terms look impeccable. Multi-family office capital is fully committed.",
+          timestamp: Date.now() - 3600000 * 2,
+        },
+      ],
+      lifestyle: [
+        {
+          senderId: "084",
+          senderName: "Elena Rostova",
+          senderTier: "SOVEREIGN",
+          senderColor: "#d4af37",
+          senderWealth: "99.7%",
+          text: "Currently berthed at Port Hercule, Monaco. The regatta atmosphere this season is remarkably tranquil.",
+          timestamp: Date.now() - 3600000 * 5,
+        },
+        {
+          senderId: "001",
+          senderName: "Lord Julian",
+          senderTier: "FOUNDER",
+          senderColor: "#e6c27a",
+          senderWealth: "99.9%",
+          text: "The private sanctuary villa in Kyoto has opened its autumn doors for circle members seeking seclusion.",
+          timestamp: Date.now() - 3600000 * 2.5,
+        },
+      ],
+      ideas: [
+        {
+          senderId: "001",
+          senderName: "Lord Julian",
+          senderTier: "FOUNDER",
+          senderColor: "#e6c27a",
+          senderWealth: "99.9%",
+          text: "Circulating a confidential thesis on sovereign orbital compute nodes and unregulatable data havens.",
+          timestamp: Date.now() - 3600000 * 6,
+        },
+        {
+          senderId: "1001",
+          senderName: "Alexander W.",
+          senderTier: "SOVEREIGN EXARCH",
+          senderColor: "#d4af37",
+          senderWealth: "99.6%",
+          text: "Physical DePIN infrastructure directly backed by sovereign treasury assets is undoubtedly the vanguard.",
+          timestamp: Date.now() - 3600000 * 3,
+        },
+      ],
+      tech: [
+        {
+          senderId: "084",
+          senderName: "Elena Rostova",
+          senderTier: "SOVEREIGN",
+          senderColor: "#d4af37",
+          senderWealth: "99.7%",
+          text: "Deploying private air-gapped sovereign neural models calibrated for real-time multi-jurisdiction arbitrage.",
+          timestamp: Date.now() - 3600000 * 4,
+        },
+        {
+          senderId: "112",
+          senderName: "Marcus Sterling",
+          senderTier: "TITAN",
+          senderColor: "#f3e5ab",
+          senderWealth: "99.8%",
+          text: "Zero telemetry leakage and dedicated hardware security modules have verified complete sovereign autonomy.",
+          timestamp: Date.now() - 3600000 * 1,
+        },
+      ],
+    };
+
+    for (const chId in this.channels) {
+      if (!this.channels[chId].messages || this.channels[chId].messages.length === 0) {
+        if (defaultMessages[chId]) {
+          this.channels[chId].messages = [...defaultMessages[chId]];
+        }
+      }
+    }
 
     try {
       const savedProfile = JSON.parse(
@@ -766,6 +991,27 @@ Object.defineProperty(AppState.user, "connections", {
   get: () => AppState.user.connectionsValue,
 });
 
+const ELITE_AVATARS = {
+  "001": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=240&auto=format&fit=crop",
+  "084": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=240&auto=format&fit=crop",
+  "112": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=240&auto=format&fit=crop",
+  "1001": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=240&auto=format&fit=crop",
+  "000": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=240&auto=format&fit=crop",
+};
+
+const ELITE_SEATS = {
+  "001": "ZURICH",
+  "084": "MONACO",
+  "112": "LONDON",
+  "1001": "RIYADH",
+  "000": "GENEVA",
+};
+
+if (typeof window !== "undefined") {
+  window.ELITE_AVATARS = ELITE_AVATARS;
+  window.ELITE_SEATS = ELITE_SEATS;
+}
+
 AppState.init();
 const savedAppLang = localStorage.getItem("one_percent_lang");
 const initialLang = savedAppLang === "ar" ? "ar" : "en";
@@ -851,8 +1097,13 @@ ClubState.on("change", () => {
     el.textContent = AppState.user.est;
   });
 
+  const isStealth = localStorage.getItem("club_stealth_mode") === "true";
+  const stealthMoniker = window.currentLang === "ar" ? "عضو متخفٍ #8492" : "ANONYMOUS MEMBER #8492";
+
   const pName = document.getElementById("profileName");
-  if (pName) pName.textContent = AppState.user.username || AppState.user.name;
+  if (pName) {
+    pName.textContent = isStealth ? stealthMoniker : (AppState.user.username || AppState.user.name);
+  }
 
   const pBio = document.getElementById("profileBioValue");
   if (pBio && AppState.user.bio) pBio.textContent = AppState.user.bio;
@@ -907,7 +1158,9 @@ ClubState.on("change", () => {
     privLabel.textContent = window.t("membership.privileges");
 
   const mName = document.getElementById("memberName");
-  if (mName) mName.textContent = AppState.user.name;
+  if (mName) {
+    mName.textContent = isStealth ? stealthMoniker : AppState.user.name;
+  }
 
   const balEl = document.getElementById("boutiqueBalanceDisplay");
   if (balEl) balEl.textContent = AppState.balance.toLocaleString("en-US");
@@ -1220,9 +1473,28 @@ function syncWidgetState() {
   }
 }
 
+window.handleInstallWidget = function handleInstallWidget(event) {
+  if (event) event.stopPropagation();
+  if (window.AudioEngine && window.AudioEngine.playChime) window.AudioEngine.playChime();
+  if (window.HapticEngine && window.HapticEngine.boutiquePurchase) window.HapticEngine.boutiquePurchase();
+  localStorage.setItem("club_widget_installed", "true");
+
+  const btn = event?.currentTarget || document.querySelector(".widget-add-btn");
+  if (btn) {
+    btn.innerHTML = `✓ ${window.t("boutique.freeActivated") || "مفعل ومثبت"}`;
+    btn.classList.add("is-installed");
+  }
+
+  showNavToast(window.t("misc.widgetInstalledToast") || "تم تثبيت ودجت الهوية السيادية بنجاح على الشاشة الرئيسية!");
+};
+
 function renderWidgetSection() {
   const masterCard = document.getElementById("membershipCard");
   const cardHTML = masterCard ? masterCard.innerHTML : "";
+  const isInstalled = localStorage.getItem("club_widget_installed") === "true";
+  const btnLabel = isInstalled
+    ? `✓ ${window.t("boutique.freeActivated") || "مفعل ومثبت"}`
+    : `+ ${window.t("boutique.id_widget_status") || "تثبيت الودجت"}`;
 
   return `
     <section class="boutique-section widget-section" data-category="widgets">
@@ -1238,8 +1510,8 @@ function renderWidgetSection() {
         </div>
       </div>
 
-      <button class="widget-add-btn" type="button" onclick="alert('Widget Added')">
-        ✓ ${window.t("boutique.id_widget_status")}
+      <button class="widget-add-btn ${isInstalled ? "is-installed" : ""}" type="button" onclick="handleInstallWidget(event)">
+        ${btnLabel}
       </button>
     </section>
   `;
@@ -1267,24 +1539,259 @@ updateUI();
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 const copyToast = document.getElementById("copyToast");
+let goldCopyPopupTimer = null;
 
-function showCopyToast(msg) {
-  copyToast.textContent = msg;
-  copyToast.classList.add("is-visible");
-  setTimeout(() => copyToast.classList.remove("is-visible"), 2000);
+function showGoldCopyPopup(title = "Link Copied to Clipboard", subtitle = "") {
+  const popup = document.getElementById("goldCopyPopup");
+  const titleEl = document.getElementById("goldCopyPopupTitle");
+  const subEl = document.getElementById("goldCopyPopupSubtitle");
+
+  if (titleEl) {
+    titleEl.textContent = title || "Link Copied to Clipboard";
+  }
+  if (subEl) {
+    if (subtitle) {
+      subEl.textContent = subtitle;
+      subEl.style.display = "block";
+    } else {
+      const url = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl)
+        ? ClubState.member.verifyUrl
+        : "https://1percent.club/verify/3426";
+      subEl.textContent = url.replace(/^https?:\/\//, "");
+      subEl.style.display = "block";
+    }
+  }
+
+  // Also update original copyToast for accessibility & fallback
+  if (copyToast) {
+    copyToast.textContent = title;
+    copyToast.classList.add("is-visible");
+    setTimeout(() => copyToast.classList.remove("is-visible"), 2500);
+  }
+
+  if (popup) {
+    // Re-trigger shimmer animation
+    const shimmer = popup.querySelector(".gold-copy-popup-shimmer");
+    if (shimmer) {
+      shimmer.style.animation = "none";
+      void shimmer.offsetWidth;
+      shimmer.style.animation = "";
+    }
+
+    popup.classList.add("is-visible");
+    popup.setAttribute("aria-hidden", "false");
+
+    clearTimeout(goldCopyPopupTimer);
+    goldCopyPopupTimer = setTimeout(() => {
+      popup.classList.remove("is-visible");
+      popup.setAttribute("aria-hidden", "true");
+    }, 2800);
+  }
 }
 
-document.getElementById("copyBtn").addEventListener("click", async () => {
-  if (window.AudioEngine && window.AudioEngine.playSend) {
-    window.AudioEngine.playSend();
+window.showGoldCopyPopup = showGoldCopyPopup;
+
+function showCopyToast(msg) {
+  if (!msg || msg === window.t("misc.linkCopied") || String(msg).includes("نسخ") || String(msg).includes("Copied") || String(msg).includes("Link")) {
+    const url = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl) ? ClubState.member.verifyUrl : "";
+    showGoldCopyPopup("Link Copied to Clipboard", url);
+  } else {
+    showGoldCopyPopup(msg, "");
   }
-  try {
-    await navigator.clipboard.writeText(ClubState.member.verifyUrl);
-    showCopyToast(window.t("misc.linkCopied"));
-  } catch {
-    showCopyToast(ClubState.member.verifyUrl);
+}
+
+const copyBtn = document.getElementById("copyBtn");
+if (copyBtn) {
+  copyBtn.addEventListener("click", async () => {
+    if (window.AudioEngine && window.AudioEngine.playChime) {
+      window.AudioEngine.playChime();
+    } else if (window.AudioEngine && window.AudioEngine.playSend) {
+      window.AudioEngine.playSend();
+    }
+
+    copyBtn.classList.add("copied");
+    setTimeout(() => copyBtn.classList.remove("copied"), 1500);
+
+    const verifyUrl = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl)
+      ? ClubState.member.verifyUrl
+      : "https://1percent.club/verify/3426";
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(verifyUrl);
+      } else {
+        const tempInput = document.createElement("textarea");
+        tempInput.value = verifyUrl;
+        tempInput.style.position = "fixed";
+        tempInput.style.opacity = "0";
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+      }
+      showGoldCopyPopup("Link Copied to Clipboard", verifyUrl);
+    } catch {
+      showGoldCopyPopup("Link Copied to Clipboard", verifyUrl);
+    }
+  });
+}
+
+const goldPopup = document.getElementById("goldCopyPopup");
+if (goldPopup) {
+  goldPopup.addEventListener("click", () => {
+    goldPopup.classList.remove("is-visible");
+    goldPopup.setAttribute("aria-hidden", "true");
+    clearTimeout(goldCopyPopupTimer);
+  });
+}
+
+// ---------------------------------------------------------
+// CARD METRIC TOOLTIPS (WEALTH INDEX & PRIVILEGES)
+// ---------------------------------------------------------
+function initMetricTooltips() {
+  const metricRings = document.querySelectorAll(".membership-card .metric-ring");
+  if (!metricRings.length) return;
+
+  let autoDismissTimer = null;
+
+  function clearAutoDismissTimer() {
+    if (autoDismissTimer) {
+      clearTimeout(autoDismissTimer);
+      autoDismissTimer = null;
+    }
   }
-});
+
+  function closeAllTooltips(suppressHover = false) {
+    clearAutoDismissTimer();
+    metricRings.forEach((ring) => {
+      ring.classList.remove("is-tooltip-open");
+      if (suppressHover) {
+        ring.classList.add("tooltip-dismissed");
+      }
+      ring.setAttribute("aria-expanded", "false");
+      const tt = ring.querySelector(".metric-tooltip");
+      if (tt) tt.setAttribute("aria-hidden", "true");
+    });
+  }
+
+  window.closeMetricTooltips = closeAllTooltips;
+
+  metricRings.forEach((ring) => {
+    const tooltip = ring.querySelector(".metric-tooltip");
+    if (!tooltip) return;
+
+    let hoverTimeout = null;
+
+    function openTooltip() {
+      clearAutoDismissTimer();
+      metricRings.forEach((r) => {
+        r.classList.remove("is-tooltip-open");
+        r.setAttribute("aria-expanded", "false");
+        const tt = r.querySelector(".metric-tooltip");
+        if (tt) tt.setAttribute("aria-hidden", "true");
+      });
+
+      ring.classList.remove("tooltip-dismissed");
+      ring.classList.add("is-tooltip-open");
+      ring.setAttribute("aria-expanded", "true");
+      tooltip.setAttribute("aria-hidden", "false");
+
+      if (window.AudioEngine && window.AudioEngine.playChime) {
+        window.AudioEngine.playChime();
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(18);
+      }
+
+      // Automatically disappear after 15 seconds (15000 ms)
+      autoDismissTimer = setTimeout(() => {
+        closeAllTooltips(true);
+      }, 15000);
+    }
+
+    function toggleRingTooltip(e) {
+      if (e) {
+        if (e.target.closest(".metric-tooltip")) return;
+        e.stopPropagation();
+      }
+
+      const isOpen = ring.classList.contains("is-tooltip-open");
+      if (isOpen) {
+        closeAllTooltips();
+      } else {
+        openTooltip();
+      }
+    }
+
+    // Hover interactions for desktop with generous bridge timeout
+    ring.addEventListener("mouseenter", () => {
+      ring.classList.remove("tooltip-dismissed");
+      if (window.matchMedia("(hover: hover)").matches) {
+        clearTimeout(hoverTimeout);
+        openTooltip();
+      }
+    });
+
+    ring.addEventListener("mouseleave", (e) => {
+      ring.classList.remove("tooltip-dismissed");
+      if (window.matchMedia("(hover: hover)").matches) {
+        clearTimeout(hoverTimeout);
+        hoverTimeout = setTimeout(() => {
+          ring.classList.remove("is-tooltip-open");
+          ring.setAttribute("aria-expanded", "false");
+          tooltip.setAttribute("aria-hidden", "true");
+          clearAutoDismissTimer();
+        }, 150);
+      }
+    });
+
+    tooltip.addEventListener("mouseenter", () => {
+      clearTimeout(hoverTimeout);
+    });
+
+    tooltip.addEventListener("mouseleave", () => {
+      if (window.matchMedia("(hover: hover)").matches) {
+        clearTimeout(hoverTimeout);
+        hoverTimeout = setTimeout(() => {
+          ring.classList.remove("is-tooltip-open");
+          ring.setAttribute("aria-expanded", "false");
+          tooltip.setAttribute("aria-hidden", "true");
+          clearAutoDismissTimer();
+        }, 150);
+      }
+    });
+
+    // Support click on desktop & touch tap on mobile
+    ring.addEventListener("click", toggleRingTooltip);
+
+    ring.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleRingTooltip(e);
+      } else if (e.key === "Escape") {
+        closeAllTooltips();
+      }
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".membership-card .metric-ring")) {
+      closeAllTooltips();
+    }
+  });
+
+  document.addEventListener("touchend", (e) => {
+    if (!e.target.closest(".membership-card .metric-ring")) {
+      closeAllTooltips();
+    }
+  }, { passive: true });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initMetricTooltips);
+} else {
+  initMetricTooltips();
+}
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
@@ -1318,6 +1825,7 @@ const IMPLEMENTED_TABS = ["membership", "profile", "club", "boutique"];
 // ==========================================
 const Router = {
   navigate(tab) {
+    if (typeof window.closeMetricTooltips === "function") window.closeMetricTooltips();
     if (window.AudioEngine) AudioEngine.playRustle();
     this.switchView(tab);
     this.updateHeader(tab);
@@ -1392,6 +1900,13 @@ const Router = {
         const msgs = document.getElementById("clubMessages");
         if (msgs) window.scrollTo(0, document.body.scrollHeight);
       });
+      if (typeof startClubWelcomeAutoDismiss === "function") {
+        startClubWelcomeAutoDismiss(15000);
+      }
+    } else {
+      if (typeof cancelClubWelcomeAutoDismiss === "function") {
+        cancelClubWelcomeAutoDismiss();
+      }
     }
   },
 };
@@ -1434,6 +1949,104 @@ document
   ?.addEventListener("click", () => goToPage("shop"));
 
 // ---------------------------------------------------------
+// LUXURY SWIPE NAVIGATION BETWEEN MAIN TABS
+// ---------------------------------------------------------
+(function initTabSwipeNavigation() {
+  const ORDERED_TABS = ["membership", "club", "profile", "boutique"];
+  const appMain = document.querySelector(".app-main");
+  if (!appMain) return;
+
+  let startX = 0;
+  let startY = 0;
+  let isSwiping = false;
+  let isHorizontalGesture = null;
+
+  appMain.addEventListener(
+    "touchstart",
+    (e) => {
+      if (e.touches.length !== 1) return;
+      // Do not initiate tab swipe if user is interacting with an open modal or horizontal scroll container
+      if (document.querySelector(".luxury-modal-overlay.is-open")) return;
+      if (e.target.closest(".pcs-scroll-container, .horizontal-scroll, input, textarea, select, button, .chat-messages-container")) {
+        return;
+      }
+
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isSwiping = true;
+      isHorizontalGesture = null;
+    },
+    { passive: true }
+  );
+
+  appMain.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!isSwiping || e.touches.length !== 1) return;
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const diffX = currentX - startX;
+      const diffY = currentY - startY;
+
+      if (isHorizontalGesture === null) {
+        if (Math.abs(diffX) > 10 || Math.abs(diffY) > 10) {
+          isHorizontalGesture = Math.abs(diffX) > Math.abs(diffY) * 1.5;
+        }
+      }
+
+      if (isHorizontalGesture === false) {
+        isSwiping = false;
+      }
+    },
+    { passive: true }
+  );
+
+  appMain.addEventListener(
+    "touchend",
+    (e) => {
+      if (!isSwiping || isHorizontalGesture !== true) {
+        isSwiping = false;
+        isHorizontalGesture = null;
+        return;
+      }
+
+      const endX = e.changedTouches[0].clientX;
+      const diffX = endX - startX;
+      const SWIPE_THRESHOLD = 50;
+
+      if (Math.abs(diffX) >= SWIPE_THRESHOLD) {
+        const isRtl = document.documentElement.dir === "rtl" || document.documentElement.lang === "ar";
+        const currentActiveNav = document.querySelector(".nav-item.is-active");
+        const currentTab = currentActiveNav?.dataset?.tab || "membership";
+        const currentIndex = ORDERED_TABS.indexOf(currentTab);
+
+        if (currentIndex !== -1) {
+          let nextIndex = currentIndex;
+          if (diffX < -SWIPE_THRESHOLD) {
+            // Dragged left
+            nextIndex = isRtl ? currentIndex - 1 : currentIndex + 1;
+          } else if (diffX > SWIPE_THRESHOLD) {
+            // Dragged right
+            nextIndex = isRtl ? currentIndex + 1 : currentIndex - 1;
+          }
+
+          if (nextIndex >= 0 && nextIndex < ORDERED_TABS.length && nextIndex !== currentIndex) {
+            if (window.HapticEngine && window.HapticEngine.tap) {
+              window.HapticEngine.tap(12);
+            }
+            goToPage(ORDERED_TABS[nextIndex]);
+          }
+        }
+      }
+
+      isSwiping = false;
+      isHorizontalGesture = null;
+    },
+    { passive: true }
+  );
+})();
+
+// ---------------------------------------------------------
 // ---------------------------------------------------------
 let contextReturnTab = "club";
 
@@ -1458,15 +2071,34 @@ function openContextPage(pageId, title, returnTab) {
 }
 
 function openMemberProfile(member) {
-  document.getElementById("memberProfileName").textContent = member.name;
-  document.getElementById("memberProfileTier").textContent =
-    `${window.t("misc.member")} ${member.tier}`;
-  document.getElementById("memberProfileQuote").textContent =
-    `"${member.text}"`;
-  document.getElementById("memberProfileWealth").textContent = member.wealth;
-  document.getElementById("memberProfilePriv").textContent = member.priv;
-  openContextPage("page-member", "ملف العضو", "club");
+  if (!member) return;
+  if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
+  if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(15);
+
+  const nameEl = document.getElementById("memberProfileName");
+  if (nameEl) nameEl.textContent = member.name || "MEMBER";
+
+  const tierEl = document.getElementById("memberProfileTier");
+  if (tierEl) tierEl.textContent = member.tier ? `${window.t("misc.member")} ${member.tier}` : "SOVEREIGN MEMBER";
+
+  const quoteEl = document.getElementById("memberProfileQuote");
+  if (quoteEl) quoteEl.textContent = member.quote || member.text || "“A higher standard in a different world.”";
+
+  const wealthEl = document.getElementById("memberProfileWealth");
+  if (wealthEl) wealthEl.textContent = member.wealth || "99.4%";
+
+  const privEl = document.getElementById("memberProfilePriv");
+  if (privEl) privEl.textContent = member.priv || "98.2%";
+
+  const photoEl = document.getElementById("memberPortraitPhoto");
+  if (photoEl) {
+    const avatarUrl = member.avatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop";
+    photoEl.style.backgroundImage = `url('${avatarUrl}')`;
+  }
+
+  openContextPage("page-member", member.name || "ملف العضو", "club");
 }
+window.openMemberProfile = openMemberProfile;
 
 document.getElementById("backBtn").addEventListener("click", () => {
   document.getElementById("backBtn").hidden = true;
@@ -1474,9 +2106,11 @@ document.getElementById("backBtn").addEventListener("click", () => {
 });
 
 document.querySelectorAll("#page-member .card-actions .btn").forEach((btn) => {
-  btn.addEventListener("click", () =>
-    showNavToast(window.t("profile.comingSoon")),
-  );
+  btn.addEventListener("click", () => {
+    if (window.AudioEngine && window.AudioEngine.playChime) window.AudioEngine.playChime();
+    if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(20);
+    showNavToast(window.t("profile.comingSoon") || "قريباً");
+  });
 });
 
 document.getElementById("editAccountForm").addEventListener("submit", (e) => {
@@ -1508,6 +2142,80 @@ document.getElementById("editAccountForm").addEventListener("submit", (e) => {
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
+let lastRecordedCredits = null;
+let gaugeShimmerTimeout = null;
+let gaugeTallyTimeout = null;
+
+function updateCreditsUI(forceAnimate = false) {
+  const creditsText = document.getElementById("clubCreditsText");
+  const buyBtn = document.getElementById("clubCreditsBuyBtn");
+  const pipsContainer = document.getElementById("gaugePipsStrip");
+
+  const currentCredits =
+    typeof ClubState !== "undefined" && ClubState && ClubState.chatCredits !== undefined
+      ? ClubState.chatCredits
+      : 10;
+  const maxCredits = 10;
+
+  const shouldAnimate =
+    Boolean(forceAnimate) ||
+    (lastRecordedCredits !== null && lastRecordedCredits !== currentCredits);
+  lastRecordedCredits = currentCredits;
+
+  if (creditsText) {
+    creditsText.textContent = `${currentCredits} / ${maxCredits}`;
+    if (currentCredits <= 0) {
+      creditsText.style.color = "#d9534f";
+    } else {
+      creditsText.style.color = "";
+    }
+
+    if (shouldAnimate) {
+      creditsText.classList.remove("is-ticked");
+      void creditsText.offsetWidth; // Force reflow to retrigger animation
+      creditsText.classList.add("is-ticked");
+      if (gaugeTallyTimeout) clearTimeout(gaugeTallyTimeout);
+      gaugeTallyTimeout = setTimeout(() => {
+        creditsText.classList.remove("is-ticked");
+      }, 650);
+    }
+  }
+
+  if (pipsContainer) {
+    const pips = pipsContainer.querySelectorAll(".gauge-pip");
+    pips.forEach((pip, index) => {
+      if (index < currentCredits) {
+        pip.className = "gauge-pip is-filled";
+      } else {
+        pip.className = "gauge-pip is-spent";
+      }
+    });
+
+    if (shouldAnimate) {
+      pipsContainer.classList.remove("is-shimmering");
+      void pipsContainer.offsetWidth; // Force reflow to retrigger shimmer
+      pipsContainer.classList.add("is-shimmering");
+      if (gaugeShimmerTimeout) clearTimeout(gaugeShimmerTimeout);
+      gaugeShimmerTimeout = setTimeout(() => {
+        pipsContainer.classList.remove("is-shimmering");
+      }, 850);
+    }
+  }
+
+  if (buyBtn) {
+    if (currentCredits <= 0) {
+      buyBtn.classList.add("is-depleted-pulse");
+    } else {
+      buyBtn.classList.remove("is-depleted-pulse");
+    }
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.updateCreditsUI = updateCreditsUI;
+  window.triggerGaugeHorologicalShimmer = () => updateCreditsUI(true);
+}
+
 updateCreditsUI();
 
 // ---------------------------------------------------------
@@ -1866,11 +2574,26 @@ function switchChannel(channelId) {
 
   const pinnedTitle = document.getElementById("clubPinnedTitle");
   const pinnedSub = document.getElementById("clubPinnedSub");
+  const pinnedSvg = document.getElementById("clubPinnedSvg");
+  const chatViewport = document.getElementById("clubChatViewport");
   const messagesContainer = document.getElementById("clubMessages");
   const composerWrap = document.getElementById("clubComposerWrap");
   const leaderboardContainer = document.getElementById(
     "clubLeaderboardContainer",
   );
+
+  const chamberSvgs = {
+    "global-lounge": '<path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>',
+    wealth: '<path d="M12 3v18M6 8l-3 6h6L6 8zm12 0l-3 6h6l-3-6zM3 8h18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="3" r="1.5" fill="currentColor"/>',
+    business: '<rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>',
+    lifestyle: '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/><polygon points="12 6 14.5 11 12 10 9.5 11" fill="currentColor"/><polygon points="12 18 14.5 13 12 14 9.5 13" stroke="currentColor" stroke-width="0.8"/>',
+    ideas: '<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.3"/>',
+    tech: '<rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M9 9h6v6H9zM9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3M19 9h3m-3 6h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>',
+    leaderboard: '<path d="M7 11.5a5.5 5.5 0 0110 0c0 4-3 6.5-5 8-2-1.5-5-4-5-8z" stroke="currentColor" stroke-width="1.3"/><path d="M12 6l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4L12 6z" fill="currentColor"/>',
+  };
+  if (pinnedSvg && chamberSvgs[channelId]) {
+    pinnedSvg.innerHTML = chamberSvgs[channelId];
+  }
 
   if (channelId === "leaderboard") {
     if (pinnedTitle) {
@@ -1882,6 +2605,7 @@ function switchChannel(channelId) {
       pinnedSub.setAttribute("data-i18n", "leaderboardSub");
     }
 
+    if (chatViewport) chatViewport.style.display = "none";
     if (messagesContainer) messagesContainer.style.display = "none";
     if (composerWrap) composerWrap.style.display = "none";
     if (leaderboardContainer) {
@@ -1900,10 +2624,12 @@ function switchChannel(channelId) {
       pinnedTitle.removeAttribute("data-i18n");
     }
     if (pinnedSub) {
-      pinnedSub.textContent = window.t("club.welcomeSub");
-      pinnedSub.setAttribute("data-i18n", "club.welcomeSub");
+      const subKey = channelId === "global-lounge" ? "club.welcomeSub" : ("club." + channelId + "Sub");
+      pinnedSub.textContent = window.t(subKey) || window.t("club.welcomeSub");
+      pinnedSub.setAttribute("data-i18n", subKey);
     }
 
+    if (chatViewport) chatViewport.style.display = "flex";
     if (messagesContainer) messagesContainer.style.display = "";
     if (composerWrap) composerWrap.style.display = "";
     if (leaderboardContainer) leaderboardContainer.style.display = "none";
@@ -1916,19 +2642,154 @@ function switchChannel(channelId) {
     const lang = localStorage.getItem("appLang") || "ar";
     if (lang === "en") window.translateDOM(document.body, lang);
   }
+
+  const activeTab = document.querySelector(".page.is-active");
+  if (activeTab && activeTab.id === "club-tab") {
+    startClubWelcomeAutoDismiss(15000);
+  }
 }
+
+let clubWelcomeDismissTimer = null;
+
+function startClubWelcomeAutoDismiss(duration = 15000) {
+  const plaque = document.getElementById("clubPinnedInfo");
+  if (!plaque) return;
+
+  if (clubWelcomeDismissTimer) {
+    clearTimeout(clubWelcomeDismissTimer);
+    clubWelcomeDismissTimer = null;
+  }
+
+  plaque.classList.remove("is-collapsed");
+
+  clubWelcomeDismissTimer = setTimeout(() => {
+    dismissClubWelcomePlaque();
+  }, duration);
+}
+
+function cancelClubWelcomeAutoDismiss() {
+  if (clubWelcomeDismissTimer) {
+    clearTimeout(clubWelcomeDismissTimer);
+    clubWelcomeDismissTimer = null;
+  }
+}
+
+function dismissClubWelcomePlaque() {
+  const plaque = document.getElementById("clubPinnedInfo");
+  if (!plaque) return;
+  plaque.classList.add("is-collapsed");
+  if (clubWelcomeDismissTimer) {
+    clearTimeout(clubWelcomeDismissTimer);
+    clubWelcomeDismissTimer = null;
+  }
+}
+
+window.startClubWelcomeAutoDismiss = startClubWelcomeAutoDismiss;
+window.cancelClubWelcomeAutoDismiss = cancelClubWelcomeAutoDismiss;
+window.dismissClubWelcomePlaque = dismissClubWelcomePlaque;
 
 document.querySelectorAll(".club-room-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const badge = btn.querySelector(".room-badge");
     if (badge) badge.remove();
+    if (window.HapticEngine && window.HapticEngine.tap) {
+      window.HapticEngine.tap(10);
+    }
     switchChannel(btn.dataset.channel);
   });
 });
 
+function initSovereignSalonTicker() {
+  const tickerEl = document.getElementById("sovereignSalonTicker");
+  if (!tickerEl) return;
+
+  function updateTicker() {
+    const now = new Date();
+    const utcHours = now.getUTCHours();
+    
+    // Zurich/Geneva (UTC+1/+2): Prime during EU hours (7 - 16 UTC)
+    const zurichState = (utcHours >= 7 && utcHours <= 16) ? "LIVE" : "CLOSED";
+    // London (UTC+0/+1): Active (8 - 16:30 UTC)
+    const londonState = (utcHours >= 8 && utcHours <= 16) ? "OPEN" : "SETTLED";
+    // Riyadh (UTC+3): Session (7 - 15 UTC)
+    const riyadhState = (utcHours >= 7 && utcHours <= 15) ? "PRIME" : "SECURED";
+    // New York (UTC-5/-4): Monitor (13:30 - 20 UTC)
+    const nyState = (utcHours >= 13 && utcHours <= 20) ? "ACTIVE" : "MONITOR";
+
+    const hubsRow = tickerEl.querySelector(".ticker-hubs-row");
+    if (hubsRow) {
+      hubsRow.innerHTML = `
+        <span class="ticker-hub-item"><span class="ticker-city">ZURICH</span> <span class="ticker-status-tag ${zurichState === "LIVE" ? "live" : "monitor"}">${zurichState}</span></span>
+        <span class="ticker-dot-sep">•</span>
+        <span class="ticker-hub-item"><span class="ticker-city">LONDON</span> <span class="ticker-status-tag ${londonState === "OPEN" ? "live" : "monitor"}">${londonState}</span></span>
+        <span class="ticker-dot-sep">•</span>
+        <span class="ticker-hub-item"><span class="ticker-city">RIYADH</span> <span class="ticker-status-tag ${riyadhState === "PRIME" ? "live" : "monitor"}">${riyadhState}</span></span>
+        <span class="ticker-dot-sep">•</span>
+        <span class="ticker-hub-item"><span class="ticker-city">NEW YORK</span> <span class="ticker-status-tag ${nyState === "ACTIVE" ? "live" : "monitor"}">${nyState}</span></span>
+      `;
+    }
+  }
+
+  updateTicker();
+  setInterval(updateTicker, 30000);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   switchChannel("global-lounge");
+  initSovereignSalonTicker();
+  initWhisperToggle();
+  updateCreditsUI();
+
+  const dismissBtn = document.getElementById("clubPinnedDismissBtn");
+  if (dismissBtn) {
+    dismissBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (window.AudioEngine && window.AudioEngine.playRustle) {
+        window.AudioEngine.playRustle();
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(8);
+      }
+      dismissClubWelcomePlaque();
+    });
+  }
+
+  if (document.getElementById("club-tab")?.classList.contains("is-active")) {
+    startClubWelcomeAutoDismiss(15000);
+  }
 });
+
+window.toggleAccolade = function (channelId, messageIndex, type) {
+  const channel = AppState.channels[channelId];
+  if (!channel || !channel.messages[messageIndex]) return;
+  const msg = channel.messages[messageIndex];
+  if (!msg.accolades) msg.accolades = { endorse: 0, honor: 0, toast: 0 };
+  if (!msg.userReacted) msg.userReacted = {};
+
+  const hasReacted = msg.userReacted[type];
+  if (hasReacted) {
+    msg.accolades[type] = Math.max(0, (msg.accolades[type] || 1) - 1);
+    delete msg.userReacted[type];
+  } else {
+    msg.accolades[type] = (msg.accolades[type] || 0) + 1;
+    msg.userReacted[type] = true;
+    if (window.AudioEngine && window.AudioEngine.playChime) {
+      window.AudioEngine.playChime();
+    }
+    if (window.HapticEngine && window.HapticEngine.tap) {
+      window.HapticEngine.tap(15);
+    }
+  }
+
+  try {
+    localStorage.setItem(
+      `channels_${AppState.user.id}`,
+      JSON.stringify(AppState.channels),
+    );
+  } catch (e) {}
+
+  renderMessages();
+};
 
 function renderMessages() {
   const container = document.getElementById("clubMessages");
@@ -1938,52 +2799,180 @@ function renderMessages() {
   const messages = AppState.channels[channelId]?.messages || [];
 
   container.innerHTML = messages
-    .map((msg) => {
+    .map((msg, idx) => {
       const isMe = msg.senderId === AppState.user.id;
       const timeStr = new Date(msg.timestamp).toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       });
 
-      if (isMe) {
-        return `
-        <div class="chat-row is-outgoing">
-          <div class="chat-bubble is-outgoing">
-            <div class="chat-text">${msg.text}</div>
-            <div class="chat-meta">
-              <span class="chat-time">${timeStr}</span>
-              <span class="chat-ticks">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              </span>
+      const senderName = isMe
+        ? AppState.user.name || "Member"
+        : msg.senderName || "Member";
+      const senderTier = isMe
+        ? AppState.user.tier || "SOVEREIGN"
+        : msg.senderTier || "MEMBER";
+      const senderWealth = isMe
+        ? AppState.user.wealth || "99.9%"
+        : msg.senderWealth || "99.4%";
+      const senderSeat = isMe
+        ? "SANCTUM"
+        : ((typeof ELITE_SEATS !== "undefined" && ELITE_SEATS[msg.senderId]) ||
+           (typeof window !== "undefined" && window.ELITE_SEATS && window.ELITE_SEATS[msg.senderId]) ||
+           "SOVEREIGN SEAT");
+      const avatarUrl = isMe
+        ? AppState.user.avatar ||
+          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=240&auto=format&fit=crop"
+        : ((typeof ELITE_AVATARS !== "undefined" && ELITE_AVATARS[msg.senderId]) ||
+           (typeof window !== "undefined" && window.ELITE_AVATARS && window.ELITE_AVATARS[msg.senderId]) ||
+           msg.avatarUrl ||
+           "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=240&auto=format&fit=crop");
+
+      const accolades = msg.accolades || {
+        endorse: isMe ? 2 : 8 + ((idx * 3) % 12),
+        honor: isMe ? 1 : 5 + ((idx * 2) % 9),
+        toast: isMe ? 1 : 3 + ((idx * 4) % 7),
+      };
+      if (!msg.accolades) msg.accolades = accolades;
+      const userReacted = msg.userReacted || {};
+
+      const memberPayload = JSON.stringify({
+        name: senderName,
+        tier: senderTier,
+        wealth: senderWealth,
+        priv: "98.5%",
+        quote: msg.text || "Discipline, exclusivity, sovereignty.",
+        avatar: avatarUrl,
+      }).replace(/"/g, "&quot;");
+
+      const isWhisper = Boolean(msg.isWhisper);
+
+      return `
+      <div class="sovereign-dispatch-card ${isMe ? "is-personal-dispatch" : ""} ${isWhisper ? "is-whisper-dispatch" : ""}" data-msg-idx="${idx}">
+        <div class="dispatch-header">
+          <div class="dispatch-profile-group" onclick="openMemberProfile(${memberPayload})">
+            <div class="dispatch-medallion-rim">
+              <img src="${avatarUrl}" alt="${senderName}" class="dispatch-avatar-img" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=240&auto=format&fit=crop'" />
+              <span class="dispatch-online-pip"></span>
+            </div>
+            <div class="dispatch-credentials">
+              <div class="dispatch-primary-row">
+                <span class="dispatch-name" style="color: ${msg.senderColor || "#e6c27a"}">${senderName}</span>
+                <span class="dispatch-tier-hallmark">${senderTier}</span>
+              </div>
+              <div class="dispatch-secondary-row">
+                <span class="dispatch-seat-tag">${senderSeat}</span>
+                <span class="dispatch-mid-dot">•</span>
+                <span class="dispatch-wealth-tag">${senderWealth}</span>
+              </div>
             </div>
           </div>
-        </div>
-      `;
-      } else {
-        return `
-        <div class="chat-row is-incoming">
-          <button class="chat-avatar-btn is-online" type="button">
-            <div class="chat-avatar-rim">
-              <div class="chat-avatar-initials">${msg.senderName.charAt(0)}</div>
-            </div>
-          </button>
-          <div class="chat-bubble is-incoming">
-            <div class="chat-sender-header">
-              <span style="font-size: 10px; color: ${msg.senderColor || "#d4af37"}; font-weight: bold; font-family: 'Cinzel', serif;">${msg.senderName}</span>
-              <span style="font-size: 8px; color: #8a7a5a; background: rgba(212,175,55,0.1); padding: 2px 6px; border-radius: 4px;">${msg.senderTier || "MEMBER"}</span>
-            </div>
-            <div class="chat-text">${msg.text}</div>
-            <div class="chat-meta">
-              <span class="chat-time">${timeStr}</span>
-            </div>
+          <div class="dispatch-chronometer">
+            <span class="dispatch-timestamp">${timeStr}</span>
+            ${isMe ? `<span class="dispatch-seal-mark" title="Sovereign Verified">✦</span>` : ""}
           </div>
         </div>
+
+        ${
+          isWhisper
+            ? `<div class="dispatch-whisper-tag-row">
+                 <span class="dispatch-whisper-pill">
+                   <svg class="whisper-pill-icon" viewBox="0 0 24 24" fill="none">
+                     <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                   </svg>
+                   <span data-i18n="club.whisperBadge">${window.t("club.whisperBadge") || "برقية سرية مشفرة"}</span>
+                 </span>
+               </div>`
+            : ""
+        }
+
+        <div class="dispatch-manuscript-body ${isWhisper ? "is-whisper-content" : ""}">
+          ${msg.text}
+        </div>
+
+        <div class="dispatch-accolades-bar">
+          <div class="dispatch-accolades-actions">
+            <button
+              type="button"
+              class="sovereign-accolade-btn ${userReacted.endorse ? "is-conferred" : ""}"
+              onclick="toggleAccolade('${channelId}', ${idx}, 'endorse')"
+              title="مصادقة سيادية"
+            >
+              <span class="accolade-icon">✦</span>
+              <span class="accolade-title" data-i18n="club.endorse">${window.t("club.endorse") || "مصادقة"}</span>
+              <span class="accolade-tally">${accolades.endorse || 0}</span>
+            </button>
+
+            <button
+              type="button"
+              class="sovereign-accolade-btn ${userReacted.honor ? "is-conferred" : ""}"
+              onclick="toggleAccolade('${channelId}', ${idx}, 'honor')"
+              title="وسام فخامة"
+            >
+              <span class="accolade-icon">⚜️</span>
+              <span class="accolade-title" data-i18n="club.honor">${window.t("club.honor") || "وسام"}</span>
+              <span class="accolade-tally">${accolades.honor || 0}</span>
+            </button>
+
+            <button
+              type="button"
+              class="sovereign-accolade-btn ${userReacted.toast ? "is-conferred" : ""}"
+              onclick="toggleAccolade('${channelId}', ${idx}, 'toast')"
+              title="نخب التميز"
+            >
+              <span class="accolade-icon">🥂</span>
+              <span class="accolade-title" data-i18n="club.toast">${window.t("club.toast") || "نخب"}</span>
+              <span class="accolade-tally">${accolades.toast || 0}</span>
+            </button>
+          </div>
+
+          ${
+            isMe
+              ? `<span class="dispatch-personal-hallmark" data-i18n="club.yourDispatch">${window.t("club.yourDispatch") || "مرسومك السيادي"}</span>`
+              : ""
+          }
+        </div>
+      </div>
       `;
-      }
     })
     .join("");
 
   container.scrollTop = container.scrollHeight;
+}
+
+window.isWhisperMode = false;
+function initWhisperToggle() {
+  const toggleBtn = document.getElementById("whisperCipherToggle");
+  const composer = document.getElementById("obsidianDispatchComposer");
+  const banner = document.getElementById("whisperActiveBanner");
+  const input = document.getElementById("clubInput");
+
+  if (!toggleBtn) return;
+
+  toggleBtn.addEventListener("click", () => {
+    window.isWhisperMode = !window.isWhisperMode;
+    toggleBtn.setAttribute("aria-pressed", window.isWhisperMode ? "true" : "false");
+    toggleBtn.classList.toggle("is-active", window.isWhisperMode);
+    
+    if (composer) {
+      composer.classList.toggle("is-whisper-mode", window.isWhisperMode);
+    }
+    if (banner) {
+      banner.style.display = window.isWhisperMode ? "flex" : "none";
+    }
+    if (input) {
+      if (window.isWhisperMode) {
+        input.setAttribute("placeholder", window.t("club.whisperPlaceholder") || "صياغة برقية سيادية مشفرة ومحمية…");
+      } else {
+        input.setAttribute("placeholder", window.t("club.typeMessage") || "اكتب رسالة للنادي…");
+      }
+      input.focus();
+    }
+
+    if (window.AudioEngine && window.AudioEngine.playClick) {
+      window.AudioEngine.playClick();
+    }
+  });
 }
 
 let typingTimeout;
@@ -1992,6 +2981,21 @@ function handleSendMessage() {
   const text = input.value.trim();
   if (!text) return;
 
+  const currentCredits =
+    ClubState.chatCredits !== undefined ? ClubState.chatCredits : 10;
+  if (currentCredits <= 0) {
+    if (typeof window.openCreditsModal === "function") {
+      window.openCreditsModal(true);
+    }
+    return;
+  }
+
+  ClubState.chatCredits = currentCredits - 1;
+  ClubState.save();
+  updateCreditsUI(true);
+
+  const isWhisper = Boolean(window.isWhisperMode);
+
   const channelId = AppState.activeChannelId;
   if (!AppState.channels[channelId])
     AppState.channels[channelId] = { messages: [] };
@@ -1999,11 +3003,12 @@ function handleSendMessage() {
   AppState.channels[channelId].messages.push({
     senderId: AppState.user.id,
     text: text,
+    isWhisper: isWhisper,
     timestamp: Date.now(),
   });
 
   input.value = "";
-  if (window.AudioEngine) window.AudioEngine.playSend(); // Assuming playSend exists or will fallback
+  if (window.AudioEngine) window.AudioEngine.playSend();
   AppState.save();
   renderMessages();
 
@@ -2366,10 +3371,40 @@ document.addEventListener("DOMContentLoaded", () => {
       showNavToast(window.t("dynamic.addFriendSoon"));
     });
   }
-  const menuMyCollectionNav = document.getElementById("menuMyCollectionNav");
-  if (menuMyCollectionNav) {
-    menuMyCollectionNav.addEventListener("click", () => {
-      document.querySelector('[data-tab="shop"]').click();
+  const menuMyCollection = document.getElementById("menuMyCollection");
+  if (menuMyCollection) {
+    menuMyCollection.addEventListener("click", () => {
+      const targetSection = document.getElementById("profileCollectionSection") || document.querySelector(
+        "#profile-tab .profile-collection-section",
+      );
+      if (targetSection) {
+        if (window.AudioEngine && window.AudioEngine.playHover) {
+          window.AudioEngine.playHover();
+        }
+        if (window.HapticEngine && window.HapticEngine.tap) {
+          window.HapticEngine.tap(18);
+        }
+
+        targetSection.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        // Auto-Expansion effect
+        targetSection.classList.remove("profile-section-expanded");
+        void targetSection.offsetWidth;
+        targetSection.classList.add("profile-section-expanded");
+        setTimeout(() => targetSection.classList.remove("profile-section-expanded"), 1300);
+
+        setTimeout(() => {
+          const cards = targetSection.querySelectorAll(".pcs-item-card");
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add("is-expanded-card");
+              setTimeout(() => {
+                card.classList.remove("is-expanded-card");
+              }, 750);
+            }, index * 90);
+          });
+        }, 350);
+      }
     });
   }
 
@@ -2488,6 +3523,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+  const contactConciergeBtn = document.getElementById("contactConciergeBtn");
+  if (contactConciergeBtn) {
+    contactConciergeBtn.addEventListener("click", () => {
+      if (window.AudioEngine && window.AudioEngine.playChime) {
+        window.AudioEngine.playChime();
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(25);
+      }
+      helpSupportModal?.classList.remove("is-open");
+      showNavToast(window.t("misc.conciergeSuccess") || "تم إرسال طلب الكونسيرج بنجاح. سيتواصل معك المساعد الخاص قريباً.");
+    });
+  }
+
   const menuMembership = document.getElementById("menuMembership");
   if (menuMembership) {
     menuMembership.addEventListener("click", () => {
@@ -2495,6 +3544,24 @@ document.addEventListener("DOMContentLoaded", () => {
         '[data-tab="membership"]',
       );
       if (membershipTabBtn) membershipTabBtn.click();
+    });
+  }
+
+  const menuMembershipHistory = document.getElementById("menuMembershipHistory");
+  if (menuMembershipHistory) {
+    menuMembershipHistory.addEventListener("click", () => {
+      if (window.AudioEngine && window.AudioEngine.playRustle) {
+        window.AudioEngine.playRustle();
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(15);
+      }
+      const ledgerSec = document.getElementById("profileHistorySection");
+      if (ledgerSec) {
+        ledgerSec.scrollIntoView({ behavior: "smooth", block: "center" });
+        ledgerSec.classList.add("ledger-highlight");
+        setTimeout(() => ledgerSec.classList.remove("ledger-highlight"), 1600);
+      }
     });
   }
 
@@ -2560,40 +3627,180 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.reload();
     });
   }
-  const menuMyCollection = document.getElementById("menuMyCollection");
-  if (menuMyCollection) {
-    menuMyCollection.addEventListener("click", () => {
-      const targetSection = document.querySelector(
-        "#profile-tab .profile-collection-section",
-      );
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: "smooth", block: "center" });
-
-        setTimeout(() => {
-          const cards = targetSection.querySelectorAll(".pcs-item-card");
-          cards.forEach((card, index) => {
-            setTimeout(() => {
-              card.style.transition = "box-shadow 0.4s ease";
-              card.style.boxShadow =
-                "0 0 20px rgba(212, 175, 55, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.4)";
-              setTimeout(() => {
-                card.style.boxShadow = "";
-              }, 600);
-            }, index * 100);
-          });
-        }, 500); // wait for scroll
+  // --- Verified Membership Shield Medallion in Header ---
+  const headerVerifiedShieldBtn = document.getElementById("headerVerifiedShieldBtn");
+  if (headerVerifiedShieldBtn) {
+    headerVerifiedShieldBtn.addEventListener("click", () => {
+      if (window.AudioEngine && window.AudioEngine.playChime) {
+        window.AudioEngine.playChime();
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap();
+      }
+      const title = window.currentLang === "ar" ? "اعتماد العضوية السيادية" : "SOVEREIGN CREDENTIAL VERIFIED";
+      const desc = window.currentLang === "ar"
+        ? `العضوية موثقة ومعتمدة برقم #${AppState.user.id}`
+        : `Membership verified & authenticated under ID #${AppState.user.id}`;
+      if (typeof showNavToast === "function") {
+        showNavToast(`${title}: ${desc}`);
       }
     });
   }
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const menuMembership = document.getElementById("menuMembership");
-  if (menuMembership) {
-    menuMembership.addEventListener("click", () => {
-      document.querySelector('[data-tab="card"]')?.click();
+  // --- Boutique Sovereign Balance Deposit Modal ---
+  const boutiqueAddBalanceBtn = document.getElementById("boutiqueAddBalanceBtn");
+  const depositModal = document.getElementById("depositModal");
+  const depositCancelBtn = document.getElementById("depositCancelBtn");
+
+  window.openDepositModal = function() {
+    if (!depositModal) return;
+    depositModal.hidden = false;
+    const msgEl = document.getElementById("depositModalMsg");
+    if (msgEl) msgEl.textContent = "";
+    if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+      window.AudioEngine.playModalOpen();
+    }
+  };
+
+  window.closeDepositModal = function() {
+    if (!depositModal) return;
+    depositModal.hidden = true;
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  };
+
+  if (boutiqueAddBalanceBtn) {
+    boutiqueAddBalanceBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.openDepositModal();
     });
   }
+
+  if (depositCancelBtn) {
+    depositCancelBtn.addEventListener("click", window.closeDepositModal);
+  }
+
+  if (depositModal) {
+    depositModal.addEventListener("click", (e) => {
+      if (e.target === depositModal) {
+        window.closeDepositModal();
+      }
+    });
+  }
+
+  document.querySelectorAll(".deposit-pkg").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const amount = parseInt(btn.dataset.amount, 10) || 10000;
+      AppState.balance += amount;
+      ClubState.balance += amount;
+      AppState.save();
+      ClubState.save();
+      updateUI();
+
+      if (window.AudioEngine && window.AudioEngine.playChime) {
+        window.AudioEngine.playChime();
+      }
+      if (window.HapticEngine && window.HapticEngine.boutiquePurchase) {
+        window.HapticEngine.boutiquePurchase();
+      }
+      if (typeof triggerGoldDustMilestone === "function") {
+        triggerGoldDustMilestone();
+      }
+
+      const toastMsg = window.currentLang === "ar"
+        ? `تم إيداع $${amount.toLocaleString()} في رصيدك السيادي بنجاح!`
+        : `Successfully deposited $${amount.toLocaleString()} into your sovereign balance!`;
+      if (typeof showNavToast === "function") {
+        showNavToast(toastMsg);
+      }
+      window.closeDepositModal();
+    });
+  });
+
+  // --- Club Messaging Credits Modal ---
+  const clubCreditsBuyBtn = document.getElementById("clubCreditsBuyBtn");
+  const creditsModal = document.getElementById("creditsModal");
+  const creditsCancelBtn = document.getElementById("creditsCancelBtn");
+
+  window.openCreditsModal = function(showExhaustedMsg = false) {
+    if (!creditsModal) return;
+    creditsModal.hidden = false;
+    const msgEl = document.getElementById("creditsModalMsg");
+    if (msgEl) {
+      if (showExhaustedMsg) {
+        msgEl.textContent = window.currentLang === "ar"
+          ? "لقد استنفدت رصيد رسائلك اليومي. يرجى اختيار باقة للمتابعة."
+          : "You have exhausted your daily message allowance. Select a package to continue.";
+        msgEl.style.color = "#d9534f";
+      } else {
+        msgEl.textContent = "";
+      }
+    }
+    if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+      window.AudioEngine.playModalOpen();
+    }
+  };
+
+  window.closeCreditsModal = function() {
+    if (!creditsModal) return;
+    creditsModal.hidden = true;
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  };
+
+  if (clubCreditsBuyBtn) {
+    clubCreditsBuyBtn.addEventListener("click", () => {
+      window.openCreditsModal(false);
+    });
+  }
+
+  if (creditsCancelBtn) {
+    creditsCancelBtn.addEventListener("click", window.closeCreditsModal);
+  }
+
+  if (creditsModal) {
+    creditsModal.addEventListener("click", (e) => {
+      if (e.target === creditsModal) {
+        window.closeCreditsModal();
+      }
+    });
+  }
+
+  document.querySelectorAll("#creditsModal .credits-pkg").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const credits = parseInt(btn.dataset.credits, 10) || 10;
+      const price = parseInt(btn.dataset.price, 10) || 10;
+
+      if (AppState.balance >= price) {
+        AppState.balance -= price;
+        ClubState.balance = AppState.balance;
+        AppState.user.totalSpent = (AppState.user.totalSpent || 0) + price;
+        ClubState.totalSpent = AppState.user.totalSpent;
+      }
+      ClubState.chatCredits = (ClubState.chatCredits !== undefined ? ClubState.chatCredits : 10) + credits;
+      AppState.save();
+      ClubState.save();
+      updateCreditsUI(true);
+      updateUI();
+
+      if (window.AudioEngine && window.AudioEngine.playChime) {
+        window.AudioEngine.playChime();
+      }
+      if (window.HapticEngine && window.HapticEngine.boutiquePurchase) {
+        window.HapticEngine.boutiquePurchase();
+      }
+
+      const msg = window.currentLang === "ar"
+        ? `تم شحن ${credits} رسالة بنجاح!`
+        : `Successfully added ${credits} message credits!`;
+      if (typeof showNavToast === "function") {
+        showNavToast(msg);
+      }
+      window.closeCreditsModal();
+    });
+  });
 });
 
 var d3RadarSvg = null;
@@ -2896,25 +4103,7 @@ window.testRadarUpdate = () => {
   ClubState.member.privilegesValue = Math.floor(Math.random() * 100);
   ClubState.member.connectionsValue = Math.floor(Math.random() * 100);
 };
-function updateCreditsUI() {
-  const creditsText = document.getElementById("clubCreditsText");
-  const buyBtn = document.getElementById("clubCreditsBuyBtn");
-  if (!creditsText) return;
 
-  const currentCredits =
-    ClubState.chatCredits !== undefined ? ClubState.chatCredits : 10;
-  const maxCredits = 10;
-
-  if (currentCredits <= 0) {
-    creditsText.textContent = `${window.t("dynamic.msgsLeft")}${currentCredits} / ${maxCredits}`;
-    creditsText.style.color = "#d9534f";
-    if (buyBtn) buyBtn.style.display = "inline-block";
-  } else {
-    creditsText.textContent = `${window.t("dynamic.msgsLeft")}${currentCredits} / ${maxCredits}`;
-    creditsText.style.color = "inherit";
-    if (buyBtn) buyBtn.style.display = "inline-block";
-  }
-}
 function renderClubMessages() {}
 const CLUB_MEMBERS = [
   {
@@ -3314,72 +4503,394 @@ function renderProfileStatsBar() {
 
 }
 
-/* === 5. PRESTIGE, HONORS & METRICS === */
+/* === 5. PRESTIGE, HONORS & METRICS - SOVEREIGN LEADERBOARD === */
+window.leaderboardActiveFilter = window.leaderboardActiveFilter || "all";
+
+function setLeaderboardFilter(filter) {
+  window.leaderboardActiveFilter = filter;
+  if (window.AudioEngine && window.AudioEngine.playClick) window.AudioEngine.playClick();
+  if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(12);
+  renderLeaderboard();
+}
+window.setLeaderboardFilter = setLeaderboardFilter;
+
 function renderLeaderboard() {
   const container =
-    document.getElementById("leaderboardList") ||
-    document.getElementById("clubLeaderboardContainer");
+    document.getElementById("clubLeaderboardContainer") ||
+    document.getElementById("leaderboardList");
   if (!container) return;
+
+  const isAr =
+    AppState.language === "ar" || document.documentElement.lang === "ar";
+
+  // 10 UNIQUE, DIVERSE, PRESTIGIOUS SOVEREIGN TITANS
   const mockTopMembers = [
     {
+      rank: 1,
       id: "SV-0001",
       name: "A. Al Maktoum",
+      nameAr: "أ. آل مكتوم",
       wealth: "99.9%",
+      priv: "99.8%",
       tier: "Sovereign",
+      city: "دبي • الإمارات",
+      cityEn: "Dubai • UAE",
+      quote: "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة التاريخية.",
+      avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=260&auto=format&fit=crop",
+      isOnline: true,
     },
     {
+      rank: 2,
       id: "SV-0822",
       name: "E. Rothschild",
+      nameAr: "إ. روتشيلد",
       wealth: "99.7%",
+      priv: "99.5%",
       tier: "Sovereign",
+      city: "جنيف • سويسرا",
+      cityEn: "Geneva • Switzerland",
+      quote: "الذهب الحقيقي هو الثقة والسرية المتوارثة عبر الأجيال.",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=260&auto=format&fit=crop",
+      isOnline: true,
     },
-    { id: "SV-1105", name: "M. Windsor", wealth: "99.5%", tier: "Elite" },
-    { id: "SV-0344", name: "J. Rockefeller", wealth: "99.2%", tier: "Elite" },
-    { id: "SV-2211", name: "K. Arnault", wealth: "98.9%", tier: "Elite" },
-    { id: "SV-3091", name: "L. Bettencourt", wealth: "98.5%", tier: "Member" },
-    { id: "SV-4402", name: "F. Pinault", wealth: "98.1%", tier: "Member" },
-    { id: "SV-5510", name: "D. Wertheimer", wealth: "97.8%", tier: "Member" },
-    { id: "SV-6623", name: "G. Armani", wealth: "97.5%", tier: "Member" },
-    { id: "SV-7734", name: "S. Ortega", wealth: "97.0%", tier: "Member" },
+    {
+      rank: 3,
+      id: "SV-1105",
+      name: "M. Windsor",
+      nameAr: "م. ويندسور",
+      wealth: "99.5%",
+      priv: "99.2%",
+      tier: "Elite",
+      city: "لندن • المملكة المتحدة",
+      cityEn: "London • UK",
+      quote: "التقاليد العريقة هي الحصن المنيع للمكانة والجاه الرفيع.",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=260&auto=format&fit=crop",
+      isOnline: true,
+    },
+    {
+      rank: 4,
+      id: "SV-0344",
+      name: "J. Rockefeller",
+      nameAr: "ج. روكفلر",
+      wealth: "99.2%",
+      priv: "98.9%",
+      tier: "Elite",
+      city: "نيويورك • الولايات المتحدة",
+      cityEn: "New York • USA",
+      quote: "القوة تكمن في البصيرة الهادئة وراء كل قرار استراتيجي.",
+      avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=260&auto=format&fit=crop",
+      isOnline: false,
+    },
+    {
+      rank: 5,
+      id: "SV-2211",
+      name: "K. Arnault",
+      nameAr: "ك. أرنو",
+      wealth: "98.9%",
+      priv: "98.6%",
+      tier: "Elite",
+      city: "باريس • فرنسا",
+      cityEn: "Paris • France",
+      quote: "الفخامة المطلقة هي الجمع بين الفن والخلود المادي.",
+      avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=260&auto=format&fit=crop",
+      isOnline: true,
+    },
+    {
+      rank: 6,
+      id: "SV-3091",
+      name: "L. Bettencourt",
+      nameAr: "ل. بيتنكور",
+      wealth: "98.5%",
+      priv: "98.2%",
+      tier: "Member",
+      city: "باريس • فرنسا",
+      cityEn: "Paris • France",
+      quote: "الجمال والرفعة إرث يتجاوز حدود الزمن والحدود.",
+      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=260&auto=format&fit=crop",
+      isOnline: false,
+    },
+    {
+      rank: 7,
+      id: "SV-4402",
+      name: "F. Pinault",
+      nameAr: "ف. بينو",
+      wealth: "98.1%",
+      priv: "97.9%",
+      tier: "Member",
+      city: "موناكو • فرنسا",
+      cityEn: "Monaco • France",
+      quote: "اقتناء النوادر هو الشغف الذي يميز النخبة الحقيقية.",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=260&auto=format&fit=crop",
+      isOnline: false,
+    },
+    {
+      rank: 8,
+      id: "SV-5510",
+      name: "D. Wertheimer",
+      nameAr: "د. ويرثايمر",
+      wealth: "97.8%",
+      priv: "97.5%",
+      tier: "Member",
+      city: "زيورخ • سويسرا",
+      cityEn: "Zurich • Switzerland",
+      quote: "الوقت أغلى من أي مقتنى، والكمال في كل تفصيلة متناهية.",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=260&auto=format&fit=crop",
+      isOnline: true,
+    },
+    {
+      rank: 9,
+      id: "SV-6623",
+      name: "G. Armani",
+      nameAr: "ج. أرماني",
+      wealth: "97.5%",
+      priv: "97.2%",
+      tier: "Member",
+      city: "ميلانو • إيطاليا",
+      cityEn: "Milan • Italy",
+      quote: "الأناقة ليست لفت الأنظار، بل البقاء في الذاكرة الحية.",
+      avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=260&auto=format&fit=crop",
+      isOnline: false,
+    },
+    {
+      rank: 10,
+      id: "SV-7734",
+      name: "S. Ortega",
+      nameAr: "س. أورتيغا",
+      wealth: "97.0%",
+      priv: "96.8%",
+      tier: "Member",
+      city: "مدريد • إسبانيا",
+      cityEn: "Madrid • Spain",
+      quote: "الامبراطوريات تُبنى بالصمت والعمل والإنجاز المتواصل.",
+      avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=260&auto=format&fit=crop",
+      isOnline: false,
+    },
   ];
 
-  let html = '<div class="leaderboard-list">';
-  mockTopMembers.forEach((member, index) => {
-    const rank = index + 1;
-    const isAr =
-      AppState.language === "ar" || document.documentElement.lang === "ar";
-    const name = member.name;
-    const score = member.wealth;
+  const currentFilter = window.leaderboardActiveFilter || "all";
 
-    let tagText = member.tier;
+  // Filter members according to active tab
+  let filteredMembers = mockTopMembers;
+  if (currentFilter === "sovereign") {
+    filteredMembers = mockTopMembers.filter((m) => m.tier === "Sovereign");
+  } else if (currentFilter === "elite") {
+    filteredMembers = mockTopMembers.filter((m) => m.tier === "Elite");
+  }
+
+  // Top 3 (Podium) and remaining (Ledger)
+  const podiumMembers = mockTopMembers.slice(0, 3);
+  const ledgerMembers = currentFilter === "all" ? mockTopMembers.slice(3) : filteredMembers;
+
+  let html = `
+    <!-- AUDIT PLAQUE -->
+    <div class="sl-audit-plaque">
+      <div class="sl-audit-info">
+        <div class="sl-audit-title">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-linecap="round" stroke-linejoin="round" fill="rgba(212,175,55,0.2)"/>
+          </svg>
+          <span>${isAr ? "السجل السيادي العام للأعضاء" : "SOVEREIGN BENCHMARK LEDGER"}</span>
+        </div>
+        <div class="sl-audit-sub">
+          ${isAr ? "تصنيف النخبة العالمية لأصحاب الثروة والأصول السيادية المعتمدة" : "Global ranking of accredited sovereign wealth holdings"}
+        </div>
+      </div>
+      <div class="sl-audit-badge">
+        <span class="sl-audit-dot"></span>
+        <span>${isAr ? "تدقيق محكم" : "AUDITED"}</span>
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="sl-filter-bar">
+      <button class="sl-filter-btn ${currentFilter === 'all' ? 'is-active' : ''}" onclick="window.setLeaderboardFilter('all')">
+        <span>${isAr ? "الترتيب العام (10)" : "All Titans (10)"}</span>
+      </button>
+      <button class="sl-filter-btn ${currentFilter === 'sovereign' ? 'is-active' : ''}" onclick="window.setLeaderboardFilter('sovereign')">
+        <span>${isAr ? "فئة السيادة" : "Sovereign Tier"}</span>
+      </button>
+      <button class="sl-filter-btn ${currentFilter === 'elite' ? 'is-active' : ''}" onclick="window.setLeaderboardFilter('elite')">
+        <span>${isAr ? "فئة النخبة" : "Elite Tier"}</span>
+      </button>
+    </div>
+  `;
+
+  // RENDER PODIUM (Only in 'all' view or if sovereign tier is selected)
+  if (currentFilter === "all" || currentFilter === "sovereign") {
+    const rank1 = podiumMembers[0];
+    const rank2 = podiumMembers[1];
+    const rank3 = podiumMembers[2];
+
+    const p1Payload = JSON.stringify({
+      name: isAr ? rank1.nameAr : rank1.name,
+      tier: rank1.tier,
+      wealth: rank1.wealth,
+      priv: rank1.priv,
+      quote: rank1.quote,
+      avatar: rank1.avatar,
+    }).replace(/"/g, "&quot;");
+
+    const p2Payload = JSON.stringify({
+      name: isAr ? rank2.nameAr : rank2.name,
+      tier: rank2.tier,
+      wealth: rank2.wealth,
+      priv: rank2.priv,
+      quote: rank2.quote,
+      avatar: rank2.avatar,
+    }).replace(/"/g, "&quot;");
+
+    const p3Payload = JSON.stringify({
+      name: isAr ? rank3.nameAr : rank3.name,
+      tier: rank3.tier,
+      wealth: rank3.wealth,
+      priv: rank3.priv,
+      quote: rank3.quote,
+      avatar: rank3.avatar,
+    }).replace(/"/g, "&quot;");
+
+    html += `
+      <!-- SOVEREIGN TRIUMVIRATE PODIUM -->
+      <div class="sl-podium">
+        <!-- RANK 2 (SILVER / PLATINUM) -->
+        <div class="sl-podium-col rank-2" onclick="openMemberProfile(${p2Payload})" title="${isAr ? rank2.nameAr : rank2.name}">
+          <div class="sl-podium-avatar-wrap">
+            <img src="${rank2.avatar}" alt="${rank2.name}" class="sl-podium-avatar" />
+            <span class="sl-podium-rank-tag">2</span>
+          </div>
+          <div class="sl-podium-name">${isAr ? rank2.nameAr : rank2.name}</div>
+          <div class="sl-podium-city">${isAr ? rank2.city : rank2.cityEn}</div>
+          <div class="sl-podium-score">${rank2.wealth}</div>
+          <div class="sl-pedestal-base">
+            <span class="sl-pedestal-roman">II</span>
+          </div>
+        </div>
+
+        <!-- RANK 1 (SOVEREIGN CHAMPION - GOLD) -->
+        <div class="sl-podium-col rank-1" onclick="openMemberProfile(${p1Payload})" title="${isAr ? rank1.nameAr : rank1.name}">
+          <div class="sl-podium-avatar-wrap">
+            <div class="sl-crown-floating">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+                <path d="M4 18h16M5 15l2-8 5 5 5-5 2 8H5z" stroke="#f5df8b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="rgba(212, 175, 55, 0.35)"/>
+              </svg>
+            </div>
+            <img src="${rank1.avatar}" alt="${rank1.name}" class="sl-podium-avatar" />
+            <span class="sl-podium-rank-tag">1</span>
+          </div>
+          <div class="sl-podium-name">${isAr ? rank1.nameAr : rank1.name}</div>
+          <div class="sl-podium-city">${isAr ? rank1.city : rank1.cityEn}</div>
+          <div class="sl-podium-score">${rank1.wealth} ⚜️</div>
+          <div class="sl-pedestal-base">
+            <span class="sl-pedestal-roman">I</span>
+          </div>
+        </div>
+
+        <!-- RANK 3 (ANTIQUE BRONZE) -->
+        <div class="sl-podium-col rank-3" onclick="openMemberProfile(${p3Payload})" title="${isAr ? rank3.nameAr : rank3.name}">
+          <div class="sl-podium-avatar-wrap">
+            <img src="${rank3.avatar}" alt="${rank3.name}" class="sl-podium-avatar" />
+            <span class="sl-podium-rank-tag">3</span>
+          </div>
+          <div class="sl-podium-name">${isAr ? rank3.nameAr : rank3.name}</div>
+          <div class="sl-podium-city">${isAr ? rank3.city : rank3.cityEn}</div>
+          <div class="sl-podium-score">${rank3.wealth}</div>
+          <div class="sl-pedestal-base">
+            <span class="sl-pedestal-roman">III</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // RENDER SOVEREIGN LEDGER SECTION
+  html += `
+    <div class="sl-ledger-header">
+      <div class="sl-ledger-title">
+        ${isAr ? "سجل مراتب النخبة" : "SOVEREIGN LEDGER"}
+      </div>
+      <div class="sl-ledger-count">
+        ${isAr ? `${ledgerMembers.length} أعضاء مصنفين` : `${ledgerMembers.length} Ranked Members`}
+      </div>
+    </div>
+    <div class="sl-ledger-list">
+  `;
+
+  ledgerMembers.forEach((member) => {
+    const memberName = isAr ? member.nameAr : member.name;
+    const memberCity = isAr ? member.city : member.cityEn;
+    const tierClass = `tier-${member.tier.toLowerCase()}`;
+    let tierText = member.tier;
     if (isAr) {
-      if (member.tier.includes("Sovereign"))
-        tagText = window.t("misc.sovereign");
-      else if (member.tier.includes("Elite")) tagText = window.t("misc.elite");
-      else tagText = window.t("misc.member");
-    } else {
-      if (member.tier.includes("Sovereign")) tagText = "Sovereign";
-      else if (member.tier.includes("Elite")) tagText = "Elite";
-      else tagText = "Member";
+      if (member.tier === "Sovereign") tierText = "فئة السيادة";
+      else if (member.tier === "Elite") tierText = "فئة النخبة";
+      else tierText = "عضو معتمد";
     }
 
-    const isOnline = index < 2 ? "is-online" : "";
+    const payload = JSON.stringify({
+      name: memberName,
+      tier: member.tier,
+      wealth: member.wealth,
+      priv: member.priv,
+      quote: member.quote,
+      avatar: member.avatar,
+    }).replace(/"/g, "&quot;");
+
     html += `
-    <div class="leader-item">
-      <div class="leader-rank">${rank}</div>
-      <div class="leader-avatar ${isOnline}">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="${name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <span class="avatar-fallback" style="display:none;">${name.charAt(0)}</span>
+      <div class="sl-ledger-card ${tierClass}" onclick="openMemberProfile(${payload})" title="${memberName}">
+        <div class="sl-card-rank">
+          <span>#${member.rank}</span>
+        </div>
+        <div class="sl-card-avatar-wrap">
+          <img src="${member.avatar}" alt="${memberName}" class="sl-card-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <span class="avatar-fallback" style="display:none;">${memberName.charAt(0)}</span>
+          ${member.isOnline ? '<span class="sl-card-status-jewel" title="Active"></span>' : ""}
+        </div>
+        <div class="sl-card-info">
+          <div class="sl-card-name-row">
+            <span class="sl-card-name">${memberName}</span>
+            <span class="sl-tier-pill ${tierClass}">${tierText}</span>
+          </div>
+          <div class="sl-card-meta">
+            <span class="sl-card-id">${member.id}</span>
+            <span>•</span>
+            <span class="sl-card-city">${memberCity}</span>
+          </div>
+        </div>
+        <div class="sl-card-wealth">
+          <span class="sl-wealth-number">${member.wealth}</span>
+          <span class="sl-wealth-label">${isAr ? "تخصيص سيادي" : "ALLOCATION"}</span>
+        </div>
+        <div class="sl-card-chevron">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="${isAr ? "M15 18l-6-6 6-6" : "M9 18l6-6-6-6"}" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
       </div>
-      <div class="leader-info">
-        <div class="leader-name">${name}</div>
-        <div class="leader-tag">${tagText}</div>
-      </div>
-      <div class="leader-score">${score}</div>
-    </div>
     `;
   });
-  html += "</div>";
+
+  html += `
+    </div>
+
+    <!-- PERSONAL SOVEREIGN STANDING CARD -->
+    <div class="sl-self-card" onclick="goToPage('profile')" title="${isAr ? 'الانتقال إلى ملفك التعريفي' : 'Open your profile dossier'}">
+      <div class="sl-self-info">
+        <div class="sl-self-rank-row">
+          <span class="sl-self-star">✦</span>
+          <span class="sl-self-title">${isAr ? "سجلك السيادي الشخصي: المرتبة #11" : "Your Standing: Rank #11"}</span>
+        </div>
+        <div class="sl-self-desc">
+          ${isAr ? "أنت تتقدم على 99.8% من نخبة العالم • استمر في المداولات" : "Surpassing 99.8% of global elite • Maintain sovereign status"}
+        </div>
+      </div>
+      <div class="sl-self-cta">
+        <span>${isAr ? "عرض ملفك" : "View Dossier"}</span>
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="${isAr ? "M15 18l-6-6 6-6" : "M9 18l6-6-6-6"}" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  `;
+
   container.innerHTML = html;
 }
 

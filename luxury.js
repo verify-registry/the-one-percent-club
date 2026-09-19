@@ -1033,9 +1033,17 @@ async function shareMasterCard() {
     }
     try {
       await navigator.clipboard.writeText(ClubState.member.verifyUrl);
-      showCopyToast("تم نسخ الرابط السيادي");
+      if (window.showGoldCopyPopup) {
+        window.showGoldCopyPopup("Link Copied to Clipboard", ClubState.member.verifyUrl);
+      } else {
+        showCopyToast("Link Copied to Clipboard");
+      }
     } catch {
-      showCopyToast(ClubState.member.verifyUrl);
+      if (window.showGoldCopyPopup) {
+        window.showGoldCopyPopup("Link Copied to Clipboard", ClubState.member.verifyUrl);
+      } else {
+        showCopyToast(ClubState.member.verifyUrl);
+      }
     }
   }
 }
@@ -1096,6 +1104,15 @@ function applyTiltToCards(rx, ry) {
     const normY = Math.max(-1, Math.min(1, -rx / TILT_MAX_DEG));
     card.style.setProperty('--tiltX', normX.toFixed(3));
     card.style.setProperty('--tiltY', normY.toFixed(3));
+
+    // Dynamic gold foil shimmer coordinates (shifting metallic sheen across micro-textures)
+    const foilAngle = Math.round(135 + ry * 2.5 + rx * 1.5);
+    const foilPosX = Math.round(50 + normX * 35);
+    const foilPosY = Math.round(50 + normY * 35);
+    card.style.setProperty('--gold-foil-angle', `${foilAngle}deg`);
+    card.style.setProperty('--gold-foil-pos', `${foilPosX}% ${foilPosY}%`);
+    card.style.setProperty('--foil-shift-x', `${(normX * 12).toFixed(2)}px`);
+    card.style.setProperty('--foil-shift-y', `${(normY * 12).toFixed(2)}px`);
   });
 }
 
@@ -1115,6 +1132,10 @@ function resetTiltForCard(card) {
   card.style.setProperty('--metal-angle', '160deg');
   card.style.setProperty('--tiltX', '0');
   card.style.setProperty('--tiltY', '0');
+  card.style.setProperty('--gold-foil-angle', '135deg');
+  card.style.setProperty('--gold-foil-pos', '50% 50%');
+  card.style.setProperty('--foil-shift-x', '0px');
+  card.style.setProperty('--foil-shift-y', '0px');
 }
 
 function tiltLoop() {
