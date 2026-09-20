@@ -4139,11 +4139,13 @@ body.light-mode .dispatch-read-more-btn:hover {
   align-items: center;
   gap: 6px;
   line-height: 1;
+  min-width: 0;
 }
 .gauge-dial-crown-icon {
   font-size: 10px;
   opacity: 0.9;
   filter: drop-shadow(0 0 4px rgba(212, 175, 106, 0.4));
+  flex-shrink: 0;
 }
 .gauge-dial-title {
   font-size: 9.5px;
@@ -4151,6 +4153,7 @@ body.light-mode .dispatch-read-more-btn:hover {
   color: #b8af9c;
   font-weight: 600;
   white-space: nowrap;
+  flex-shrink: 1;
 }
 .gauge-tally-readout {
   font-family: var(--font-display, "Playfair Display", serif);
@@ -4162,7 +4165,12 @@ body.light-mode .dispatch-read-more-btn:hover {
   font-variant-numeric: tabular-nums;
   padding: 0 4px;
   transition: color 0.3s ease;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+  line-height: 1;
 }
 
 /* Horological Tally Tick Flash */

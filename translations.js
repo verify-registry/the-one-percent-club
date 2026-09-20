@@ -373,8 +373,8 @@ window.I18N = {
       ar: "الرسائل المتبقية اليوم",
     },
     ledgerAllocationTitle: {
-      en: "Sovereign Dispatch Allocation",
-      ar: "مخصص المراسلات السيادية",
+      en: "Dispatch Allocation",
+      ar: "مخصص المراسلات",
     },
     requestAllocation: {
       en: "+ Request Allocation",
