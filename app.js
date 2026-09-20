@@ -4834,7 +4834,10 @@ function renderProfileAchievements() {
     if (isUnlocked) {
       html += `
         <div class="honor-card is-unlocked gyro-element" data-tilt data-tooltip="${window.t("honors.desc_" + id).replace(/"/g, "&quot;")}">
-          <div class="honor-icon">${ach.icon}</div>
+          <div class="honor-card-bezel"></div>
+          <div class="honor-insignia-pedestal">
+            <div class="honor-icon">${ach.icon}</div>
+          </div>
           <div class="honor-name">${nameText}</div>
           <div class="honor-title">${titleText}</div>
           <div class="honor-pill">${window.t("honors.earned")}</div>
@@ -4852,7 +4855,10 @@ function renderProfileAchievements() {
 
       html += `
         <div class="honor-card is-locked gyro-element skeleton-fade-in" data-tilt data-tooltip="${window.t("honors.desc_" + id).replace(/"/g, "&quot;")}">
-          <div class="honor-icon">${ach.icon}</div>
+          <div class="honor-card-bezel"></div>
+          <div class="honor-insignia-pedestal">
+            <div class="honor-icon">${ach.icon}</div>
+          </div>
           <div class="honor-name">${nameText}</div>
           <div class="honor-title">${window.t("honors.locked")}</div>
           <div class="honor-progress-wrap">
@@ -4936,7 +4942,15 @@ function renderProfileCollection() {
 
     container.innerHTML = `
       <div class="empty-vault-card" onclick="goToPage('boutique')">
-        <div class="vault-empty-icon">+</div>
+        <div class="vault-empty-pedestal">
+          <div class="vault-empty-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.3">
+              <path d="M12 2L4 7v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V7l-8-5z" fill="rgba(212,175,106,0.12)" stroke="currentColor"/>
+              <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="vault-empty-title" data-i18n="profile.vaultTitle">خزينة المقتنيات الخاصة</div>
         <p class="vault-empty-text">${emptyText}</p>
         <span class="vault-empty-btn">${btnText}</span>
       </div>
@@ -4950,6 +4964,9 @@ function renderProfileCollection() {
       const nameText = isAr
         ? window.t("items." + item.id)
         : window.t("items." + item.id);
+      const isEquipped = AppState.equipped && Object.values(AppState.equipped).includes(item.id);
+      const equippedTag = isEquipped ? `<div class="pcs-equipped-hallmark"><span>مقلّد • EQUIPPED</span></div>` : '';
+      const rarityText = item.rarity ? (typeof RARITY_LABELS !== 'undefined' && RARITY_LABELS[item.rarity] ? RARITY_LABELS[item.rarity]() : item.rarity) : '';
 
       let iconHtml = "";
       if (item.image) {
@@ -4963,13 +4980,19 @@ function renderProfileCollection() {
       }
 
       html += `
-        <div class="pcs-item-card gyro-element skeleton-fade-in" data-tilt>
-          <span class="boutique-card-icon">
-            ${iconHtml}
-          </span>
+        <div class="pcs-item-card gyro-element skeleton-fade-in ${isEquipped ? 'is-equipped' : ''}" data-tilt>
+          ${equippedTag}
+          <div class="pcs-artifact-pedestal">
+            <span class="boutique-card-icon">
+              ${iconHtml}
+            </span>
+          </div>
           <div class="pcs-item-info">
             <div class="pcs-item-name">${nameText}</div>
-            <div class="pcs-item-price">${item.price ? "$" + item.price.toLocaleString() : item.rarity}</div>
+            <div class="pcs-item-meta">
+              ${rarityText ? `<span class="pcs-item-rarity">${rarityText}</span>` : ''}
+              <span class="pcs-item-price">${item.price ? "$" + item.price.toLocaleString() : ''}</span>
+            </div>
           </div>
         </div>
       `;

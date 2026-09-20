@@ -540,6 +540,10 @@ window.I18N = {
       en: "SELECT PORTRAIT",
       ar: "اختيار صورة العرض",
     },
+    vaultTitle: {
+      en: "PRIVATE SOVEREIGN VAULT",
+      ar: "خزينة المقتنيات السيادية",
+    },
     emptyVault: {
       en: "Your vault is empty. Acquire your first asset from the Boutique.",
       ar: "الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك.",

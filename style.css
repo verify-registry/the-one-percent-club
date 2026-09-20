@@ -16836,3 +16836,3271 @@ body.light-mode .mini-dossier-btn.is-secondary {
   color: #3b3121 !important;
   border-color: rgba(180, 140, 60, 0.3) !important;
 }
+
+/* ==========================================================================
+   THE 1% CLUB — PROFILE LUXURY FOUNDATION PASS (AUTHENTIC GOLD & REAL DEPTH)
+   1. Hero Profile Card / Personal Sovereign Dossier
+   2. Profile Stats / Luxury Instrument Panel
+   3. My Luxury Collection / Private Collector's Showcase
+   ========================================================================== */
+
+/* --- 1. HERO PROFILE CARD / PERSONAL SOVEREIGN DOSSIER --- */
+body #profile-tab .profile-hero-card {
+  max-width: 380px !important;
+  width: 100% !important;
+  margin: 0 auto 20px auto !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  padding: 20px 18px !important;
+  background: linear-gradient(145deg, #17171d 0%, #111114 55%, #0a0a0d 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.32) !important;
+  box-shadow:
+    0 20px 45px -10px rgba(0, 0, 0, 0.88),
+    inset 0 1px 0 rgba(255, 245, 215, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.85),
+    inset 0 0 35px rgba(0, 0, 0, 0.55) !important;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease !important;
+}
+
+/* Very subtle security guilloché watermark texture inside surface */
+body #profile-tab .profile-hero-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image:
+    repeating-radial-gradient(circle at 80% 20%, rgba(212, 175, 106, 0.035) 0px, rgba(212, 175, 106, 0.035) 1px, transparent 1px, transparent 10px),
+    repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.012) 0px, rgba(255, 255, 255, 0.012) 1px, transparent 1px, transparent 6px) !important;
+  opacity: 0.9 !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+/* Subtle micro-specular rim highlight */
+body #profile-tab .profile-hero-card::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 10% !important;
+  right: 10% !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 245, 215, 0.4) 50%, transparent 100%) !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+  animation: none !important;
+  transform: none !important;
+  width: auto !important;
+  opacity: 1 !important;
+}
+
+body #profile-tab .phc-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 16px !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Avatar Column & Medallion Bezel */
+body #profile-tab .phc-avatar-col {
+  flex-shrink: 0 !important;
+  position: relative !important;
+}
+
+body #profile-tab .phc-avatar-ring {
+  width: 76px !important;
+  height: 76px !important;
+  border-radius: 50% !important;
+  padding: 3.5px !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  background: conic-gradient(
+    from 135deg,
+    #dfb96c 0%,
+    #8f6826 22%,
+    #fff5d1 42%,
+    #b58937 68%,
+    #3a2408 90%,
+    #dfb96c 100%
+  ) !important;
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.8),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.35),
+    inset 0 -1.5px 3px rgba(30, 20, 5, 0.9) !important;
+  position: relative !important;
+}
+
+body #profile-tab .phc-avatar-photo {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(10, 8, 5, 0.9) !important;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.8) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* Sovereign Crown Hallmark Insignia */
+body #profile-tab .phc-crown-badge {
+  position: absolute !important;
+  bottom: -3px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #f0d59d 0%, #b88a35 60%, #593e0e 100%) !important;
+  border: 1px solid rgba(255, 248, 220, 0.7) !important;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.7) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 5 !important;
+}
+
+body #profile-tab .phc-crown-badge svg {
+  width: 11px !important;
+  height: 11px !important;
+  fill: #1a140a !important;
+  stroke: none !important;
+}
+
+/* Info Column & Editorial Typography */
+body #profile-tab .phc-info-col {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  padding-right: 28px !important;
+  box-sizing: border-box !important;
+}
+
+html[dir="rtl"] body #profile-tab .phc-info-col,
+body[dir="rtl"] #profile-tab .phc-info-col {
+  padding-right: 0 !important;
+  padding-left: 28px !important;
+  align-items: flex-start !important;
+}
+
+body #profile-tab .phc-name {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  margin: 0 !important;
+  line-height: 1.25 !important;
+  background: linear-gradient(180deg, #fff9ea 0%, #e5c179 60%, #b88c38 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6)) !important;
+}
+
+body #profile-tab .phc-tier {
+  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--gold-champagne, #f0d59d) !important;
+  margin-top: 1px !important;
+  opacity: 0.95 !important;
+}
+
+body #profile-tab .phc-quote {
+  font-family: var(--font-display, "Cormorant Garamond", serif) !important;
+  font-style: italic !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+  color: #dcd3c1 !important;
+  margin: 3px 0 !important;
+  max-width: 100% !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+body #profile-tab .phc-meta {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-family: var(--font-ui, "Montserrat", monospace) !important;
+  font-size: 8px !important;
+  letter-spacing: 0.12em !important;
+  color: #9c8e77 !important;
+  margin-top: 2px !important;
+  white-space: nowrap !important;
+}
+
+body #profile-tab .phc-meta-icon {
+  display: inline-block !important;
+  width: 11px !important;
+  height: 11px !important;
+  color: #b89347 !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .phc-id {
+  color: #bfad8f !important;
+  font-weight: 500 !important;
+}
+
+body #profile-tab .phc-dot {
+  color: #73644f !important;
+}
+
+body #profile-tab .phc-est {
+  color: #9c8e77 !important;
+}
+
+/* Machined Metallic Edit Push-Button */
+html body #profile-tab .profile-hero-card .phc-edit-btn,
+body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-edit-btn,
+body:not([dir="rtl"]) #profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: linear-gradient(145deg, #1f1f26 0%, #101014 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.38) !important;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 245, 215, 0.22) !important;
+  color: var(--gold-champagne, #f0d59d) !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  padding: 0 !important;
+}
+
+html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
+body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
+[dir="rtl"] #profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: auto !important;
+  left: 16px !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: linear-gradient(145deg, #1f1f26 0%, #101014 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.38) !important;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 245, 215, 0.22) !important;
+  color: var(--gold-champagne, #f0d59d) !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  padding: 0 !important;
+}
+
+body #profile-tab .phc-edit-btn:hover {
+  border-color: rgba(212, 175, 106, 0.7) !important;
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 245, 215, 0.35) !important;
+  color: #fff9e6 !important;
+}
+
+body #profile-tab .phc-edit-btn:active {
+  transform: scale(0.94) !important;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    inset 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+body #profile-tab .phc-edit-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke: currentColor !important;
+  stroke-width: 1.6 !important;
+}
+
+/* Light Mode Support for Hero Profile Card */
+body.light-mode #profile-tab .profile-hero-card {
+  background: linear-gradient(145deg, #fdfbf8 0%, #f6f1e6 55%, #ede4d3 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.38) !important;
+  box-shadow:
+    0 18px 40px -8px rgba(75, 55, 20, 0.12),
+    inset 0 1px 0 #ffffff,
+    inset 0 0 0 1px rgba(212, 175, 106, 0.12) !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card::before {
+  background-image:
+    repeating-radial-gradient(circle at 80% 20%, rgba(185, 145, 75, 0.04) 0px, rgba(185, 145, 75, 0.04) 1px, transparent 1px, transparent 10px),
+    repeating-linear-gradient(60deg, rgba(185, 145, 75, 0.02) 0px, rgba(185, 145, 75, 0.02) 1px, transparent 1px, transparent 6px) !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card::after {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%) !important;
+}
+
+body.light-mode #profile-tab .phc-avatar-ring {
+  background: conic-gradient(
+    from 135deg,
+    #e8d39c 0%,
+    #b38b41 22%,
+    #ffffff 42%,
+    #c49a4a 68%,
+    #7a571c 90%,
+    #e8d39c 100%
+  ) !important;
+  box-shadow:
+    0 8px 18px rgba(70, 50, 15, 0.12),
+    inset 0 1.5px 2px #ffffff,
+    inset 0 -1px 2px rgba(100, 70, 20, 0.4) !important;
+}
+
+body.light-mode #profile-tab .phc-avatar-photo {
+  border: 1px solid rgba(185, 145, 75, 0.3) !important;
+  box-shadow: inset 0 0 8px rgba(70, 50, 20, 0.15) !important;
+}
+
+body.light-mode #profile-tab .phc-name {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #241c10 !important;
+  color: #241c10 !important;
+  filter: none !important;
+}
+
+body.light-mode #profile-tab .phc-tier {
+  color: #966f27 !important;
+}
+
+body.light-mode #profile-tab .phc-quote {
+  color: #4f412d !important;
+}
+
+body.light-mode #profile-tab .phc-meta {
+  color: #786851 !important;
+}
+
+body.light-mode #profile-tab .phc-id {
+  color: #3b2f1e !important;
+}
+
+html body.light-mode #profile-tab .profile-hero-card .phc-edit-btn,
+body.light-mode #profile-tab .phc-edit-btn {
+  background: linear-gradient(145deg, #ffffff 0%, #f0ebd9 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.4) !important;
+  box-shadow:
+    0 3px 8px rgba(60, 45, 20, 0.1),
+    inset 0 1px 0 #ffffff !important;
+  color: #856122 !important;
+}
+
+
+/* --- 2. PROFILE STATS / LUXURY INSTRUMENT PANEL --- */
+body #profile-tab .profile-stats-bar {
+  max-width: 380px !important;
+  width: 100% !important;
+  margin: 0 auto 22px auto !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 12px 6px !important;
+  border-radius: 12px !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(180deg, #141419 0%, #0c0c0f 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  box-shadow:
+    0 14px 30px -8px rgba(0, 0, 0, 0.82),
+    inset 0 1px 0 rgba(255, 245, 215, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.9) !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-col {
+  flex: 1 1 25% !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 4px 2px !important;
+  border-right: none !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-divider {
+  width: 1px !important;
+  height: 38px !important;
+  flex-shrink: 0 !important;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(212, 175, 106, 0.35) 25%,
+    rgba(255, 245, 215, 0.55) 50%,
+    rgba(212, 175, 106, 0.35) 75%,
+    transparent 100%
+  ) !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-icon {
+  width: 13px !important;
+  height: 13px !important;
+  color: #cda863 !important;
+  margin-bottom: 3px !important;
+  flex-shrink: 0 !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6)) !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-value {
+  font-family: var(--font-display, "Cormorant Garamond", serif) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
+  margin: 2px 0 !important;
+  color: #f2e4c6 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-label {
+  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-size: 7px !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #998a75 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+  opacity: 0.85 !important;
+}
+
+/* Light Mode Support for Stats Bar */
+body.light-mode #profile-tab .profile-stats-bar {
+  background: linear-gradient(180deg, #ffffff 0%, #f5efe3 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  box-shadow:
+    0 8px 22px rgba(65, 45, 15, 0.08),
+    inset 0 1px 0 #ffffff,
+    inset 0 0 0 1px rgba(212, 175, 106, 0.1) !important;
+}
+
+body.light-mode #profile-tab .profile-stats-bar .psb-divider {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(185, 145, 75, 0.35) 25%,
+    rgba(140, 100, 35, 0.55) 50%,
+    rgba(185, 145, 75, 0.35) 75%,
+    transparent 100%
+  ) !important;
+}
+
+body.light-mode #profile-tab .profile-stats-bar .psb-icon {
+  color: #a07832 !important;
+  filter: none !important;
+}
+
+body.light-mode #profile-tab .profile-stats-bar .psb-value {
+  color: #241b10 !important;
+}
+
+body.light-mode #profile-tab .profile-stats-bar .psb-label {
+  color: #786955 !important;
+  opacity: 0.9 !important;
+}
+
+
+/* --- 3. MY LUXURY COLLECTION / PRIVATE COLLECTOR'S SHOWCASE --- */
+body #profile-tab .profile-collection-section#profileCollectionSection {
+  margin-top: 10px !important;
+  margin-bottom: 24px !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 12px !important;
+  padding: 0 4px !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-head h3 {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--gold-champagne, #f0d59d) !important;
+  margin: 0 !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-view-all {
+  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 4px 6px !important;
+  color: rgba(212, 175, 106, 0.85) !important;
+  transition: all 0.2s ease !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-view-all:hover {
+  color: #fff8e8 !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-scroll-container {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  padding: 6px 4px 14px 4px !important;
+  margin: 0 !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-scroll-container::-webkit-scrollbar {
+  display: none !important;
+}
+
+body #profile-tab #profileCollectionGrid {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+}
+
+/* Showcase Pedestal Card */
+body #profile-tab #profileCollectionGrid .pcs-item-card {
+  width: 112px !important;
+  min-height: 146px !important;
+  flex-shrink: 0 !important;
+  border-radius: 14px !important;
+  padding: 12px 8px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  cursor: pointer !important;
+  background: linear-gradient(160deg, #17171d 0%, #101013 60%, #0a0a0d 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.24) !important;
+  box-shadow:
+    0 12px 28px -6px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 245, 215, 0.1) !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body #profile-tab #profileCollectionGrid .pcs-item-card:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  border-color: rgba(212, 175, 106, 0.6) !important;
+  box-shadow:
+    0 16px 36px -6px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 245, 215, 0.2) !important;
+}
+
+/* Pedestal Recess Cradle */
+body #profile-tab .pcs-artifact-pedestal {
+  width: 58px !important;
+  height: 58px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 4px auto 8px auto !important;
+  position: relative !important;
+  background: radial-gradient(circle at 50% 35%, rgba(212, 175, 106, 0.09) 0%, rgba(10, 10, 14, 0.9) 80%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.2) !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8) !important;
+}
+
+body #profile-tab .boutique-card-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5)) !important;
+  margin: 0 !important;
+}
+
+body #profile-tab .boutique-card-icon img {
+  width: 38px !important;
+  height: 38px !important;
+  object-fit: contain !important;
+}
+
+body #profile-tab .boutique-card-fallback {
+  font-size: 26px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Card Info & Typography */
+body #profile-tab .pcs-item-info {
+  width: 100% !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 2px !important;
+}
+
+body #profile-tab .pcs-item-name {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.3 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  color: #eedcb9 !important;
+}
+
+body #profile-tab .pcs-item-meta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  width: 100% !important;
+  margin-top: 1px !important;
+}
+
+body #profile-tab .pcs-item-rarity {
+  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-size: 7px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #998a74 !important;
+}
+
+body #profile-tab .pcs-item-price {
+  font-family: var(--font-display, "Cormorant Garamond", serif) !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  color: #cbb07a !important;
+}
+
+/* Equipped State & Hallmark Badge */
+body #profile-tab #profileCollectionGrid .pcs-item-card.is-equipped {
+  border-color: rgba(212, 175, 106, 0.6) !important;
+  box-shadow:
+    0 14px 32px -6px rgba(0, 0, 0, 0.85),
+    inset 0 0 0 1px rgba(212, 175, 106, 0.25),
+    inset 0 1px 0 rgba(255, 245, 215, 0.2) !important;
+}
+
+body #profile-tab .pcs-equipped-hallmark {
+  position: absolute !important;
+  top: 6px !important;
+  right: 6px !important;
+  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-size: 6.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 1.5px 4.5px !important;
+  border-radius: 4px !important;
+  line-height: 1 !important;
+  z-index: 2 !important;
+  color: #ffecc2 !important;
+  background: rgba(212, 175, 106, 0.18) !important;
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+}
+
+html[dir="rtl"] body #profile-tab .pcs-equipped-hallmark,
+body[dir="rtl"] #profile-tab .pcs-equipped-hallmark {
+  right: auto !important;
+  left: 6px !important;
+}
+
+/* Empty Vault Collector's Alcove */
+body #profile-tab .empty-vault-card {
+  max-width: 380px !important;
+  width: 100% !important;
+  margin: 8px auto !important;
+  border-radius: 14px !important;
+  padding: 26px 18px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  background: radial-gradient(circle at 50% 25%, rgba(212, 175, 106, 0.05) 0%, rgba(15, 15, 18, 0.95) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  box-shadow:
+    0 14px 32px -8px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 245, 215, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body #profile-tab .empty-vault-card:hover {
+  border-color: rgba(212, 175, 106, 0.55) !important;
+  box-shadow:
+    0 18px 40px -8px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 245, 215, 0.2) !important;
+}
+
+body #profile-tab .vault-empty-pedestal {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  margin: 0 auto 10px auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(212, 175, 106, 0.08) !important;
+  border: 1px solid rgba(212, 175, 106, 0.25) !important;
+  color: var(--gold-champagne, #f0d59d) !important;
+}
+
+body #profile-tab .vault-empty-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  height: auto !important;
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  font-size: inherit !important;
+  color: inherit !important;
+}
+
+body #profile-tab .vault-empty-title {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  margin-bottom: 6px !important;
+  color: var(--gold-champagne, #f0d59d) !important;
+}
+
+body #profile-tab .vault-empty-text {
+  font-size: 11.5px !important;
+  line-height: 1.5 !important;
+  margin-bottom: 14px !important;
+  max-width: 280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  color: #a69882 !important;
+}
+
+body #profile-tab .vault-empty-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 7px 18px !important;
+  border-radius: 20px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  background: linear-gradient(180deg, rgba(212, 175, 106, 0.22) 0%, rgba(150, 115, 55, 0.25) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  color: #fff5da !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 245, 215, 0.25) !important;
+  transition: all 0.2s ease !important;
+}
+
+body #profile-tab .empty-vault-card:hover .vault-empty-btn {
+  background: linear-gradient(180deg, rgba(212, 175, 106, 0.35) 0%, rgba(150, 115, 55, 0.4) 100%) !important;
+  border-color: rgba(212, 175, 106, 0.7) !important;
+}
+
+/* Light Mode Support for Collection Showcase */
+body.light-mode #profile-tab #profileCollectionSection .pcs-head h3 {
+  color: #8c6826 !important;
+}
+
+body.light-mode #profile-tab #profileCollectionSection .pcs-view-all {
+  color: #916c27 !important;
+}
+
+body.light-mode #profile-tab #profileCollectionGrid .pcs-item-card {
+  background: linear-gradient(160deg, #ffffff 0%, #f6f1e5 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.32) !important;
+  box-shadow:
+    0 10px 24px rgba(60, 45, 15, 0.07),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab #profileCollectionGrid .pcs-item-card:hover {
+  border-color: rgba(185, 145, 75, 0.6) !important;
+  box-shadow:
+    0 14px 30px rgba(60, 45, 15, 0.12),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .pcs-artifact-pedestal {
+  background: radial-gradient(circle at 50% 35%, #ffffff 0%, #ede5d4 85%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.28) !important;
+  box-shadow: inset 0 1.5px 4px rgba(60, 45, 20, 0.12) !important;
+}
+
+body.light-mode #profile-tab .boutique-card-icon {
+  filter: drop-shadow(0 3px 5px rgba(60, 45, 20, 0.15)) !important;
+}
+
+body.light-mode #profile-tab .pcs-item-name {
+  color: #241b10 !important;
+}
+
+body.light-mode #profile-tab .pcs-item-rarity {
+  color: #796a55 !important;
+}
+
+body.light-mode #profile-tab .pcs-item-price {
+  color: #8c6724 !important;
+}
+
+body.light-mode #profile-tab #profileCollectionGrid .pcs-item-card.is-equipped {
+  border-color: rgba(185, 145, 75, 0.65) !important;
+  box-shadow:
+    0 12px 28px rgba(60, 45, 15, 0.12),
+    inset 0 0 0 1px rgba(185, 145, 75, 0.25) !important;
+}
+
+body.light-mode #profile-tab .pcs-equipped-hallmark {
+  color: #5c4314 !important;
+  background: rgba(185, 145, 75, 0.16) !important;
+  border: 1px solid rgba(185, 145, 75, 0.4) !important;
+}
+
+body.light-mode #profile-tab .empty-vault-card {
+  background: radial-gradient(circle at 50% 25%, #ffffff 0%, #f6f1e5 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  box-shadow:
+    0 10px 24px rgba(60, 45, 15, 0.08),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .vault-empty-pedestal {
+  background: rgba(185, 145, 75, 0.1) !important;
+  border: 1px solid rgba(185, 145, 75, 0.3) !important;
+  color: #8c6724 !important;
+}
+
+body.light-mode #profile-tab .vault-empty-title {
+  color: #241b10 !important;
+}
+
+body.light-mode #profile-tab .vault-empty-text {
+  color: #5c4e3b !important;
+}
+
+body.light-mode #profile-tab .vault-empty-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #ede4d2 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.45) !important;
+  color: #5a4216 !important;
+  box-shadow:
+    0 4px 10px rgba(60, 45, 15, 0.1),
+    inset 0 1px 0 #ffffff !important;
+}
+
+/* ========================================================================= */
+/* THE 1% CLUB — PROFILE TAB: PASS 2 (PRESTIGE & HONORS + CONCIERGE REGISTRY) */
+/* ========================================================================= */
+
+/* -------------------------------------------------- */
+/* 1. PRESTIGE & HONORS (SOVEREIGN DISTINCTIONS)      */
+/* -------------------------------------------------- */
+
+#profile-tab #profileHonorsSection,
+#profile-tab .profile-collection-section.prestige-honors {
+  margin-bottom: 20px !important;
+}
+
+#profile-tab .prestige-honors .pcs-head {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 12px !important;
+  padding: 0 4px !important;
+}
+
+#profile-tab .prestige-honors .honors-section-title,
+#profile-tab .prestige-honors .pcs-head h3 {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: #d4af6a !important;
+  margin: 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Honors Archival Ledger Summary Bar */
+body #profile-tab .prestige-honors .achievements-summary {
+  background: linear-gradient(175deg, #15120f 0%, #0d0b09 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.22) !important;
+  border-radius: 12px !important;
+  padding: 11px 16px !important;
+  margin-bottom: 14px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 240, 200, 0.08) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+body #profile-tab .achievements-summary-col {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+body #profile-tab .achievements-summary-label {
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 600 !important;
+  color: #948673 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 2px !important;
+}
+
+body #profile-tab .achievements-summary-value {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #f5e6b8 !important;
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: 0.04em !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+}
+
+body #profile-tab .achievements-summary-divider {
+  width: 1px !important;
+  height: 24px !important;
+  background: linear-gradient(180deg, transparent, rgba(212, 175, 106, 0.35), transparent) !important;
+}
+
+/* Honors Grid */
+body #profile-tab .prestige-honors .honors-grid,
+body #profile-tab #profileAchievementsGrid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 11px !important;
+  width: 100% !important;
+}
+
+/* Individual Honor Distinction Card */
+body #profile-tab .prestige-honors .honor-card {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 16px 12px 14px 12px !important;
+  border-radius: 14px !important;
+  min-height: 184px !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
+  overflow: hidden !important;
+  cursor: default !important;
+  box-sizing: border-box !important;
+}
+
+/* Card Bezel (Micro-Relief Rim) */
+body #profile-tab .prestige-honors .honor-card-bezel {
+  position: absolute !important;
+  top: 3px !important;
+  left: 3px !important;
+  right: 3px !important;
+  bottom: 3px !important;
+  border-radius: 11px !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  transition: border-color 0.25s ease !important;
+}
+
+/* Unlocked Distinction Card */
+body #profile-tab .prestige-honors .honor-card.is-unlocked {
+  background: linear-gradient(160deg, #181511 0%, #100e0b 55%, #0a0907 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.42) !important;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 235, 180, 0.18),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.8) !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-unlocked:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(212, 175, 106, 0.65) !important;
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 235, 180, 0.25) !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-unlocked .honor-card-bezel {
+  border: 1px solid rgba(212, 175, 106, 0.14) !important;
+}
+
+/* Locked Distinction Card (Subdued Antique Metal / Graphite / Muted Gold) */
+body #profile-tab .prestige-honors .honor-card.is-locked {
+  background: linear-gradient(160deg, #181410 0%, #110e0b 60%, #0c0a08 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.2) !important;
+  box-shadow:
+    inset 0 1.5px 4px rgba(0, 0, 0, 0.6),
+    0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-locked .honor-card-bezel {
+  border: 1px solid rgba(212, 175, 106, 0.08) !important;
+}
+
+/* Heraldic Insignia Pedestal (Centerpiece Medallion) */
+body #profile-tab .prestige-honors .honor-insignia-pedestal {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 12px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  transition: all 0.25s ease !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-unlocked .honor-insignia-pedestal {
+  background: radial-gradient(circle at 45% 35%, #2c2317 0%, #16120b 70%, #0d0a06 100%) !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.58) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    0 4px 10px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 240, 200, 0.35) !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-unlocked:hover .honor-insignia-pedestal {
+  border-color: rgba(212, 175, 106, 0.8) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.5),
+    0 5px 12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 240, 200, 0.5) !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-locked .honor-insignia-pedestal {
+  background: radial-gradient(circle at 50% 50%, #201b15 0%, #110e0b 100%) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.24) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Insignia SVG Icon */
+body #profile-tab .prestige-honors .honor-icon {
+  width: 24px !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.25s ease !important;
+}
+
+body #profile-tab .prestige-honors .honor-icon svg {
+  width: 24px !important;
+  height: 24px !important;
+  display: block !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-unlocked .honor-icon {
+  color: #f5e6b8 !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7)) !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-locked .honor-icon {
+  color: #b09c7d !important;
+  opacity: 0.72 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6)) !important;
+}
+
+/* Honor Name (Luxury Display Typography) */
+body #profile-tab .prestige-honors .honor-name {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 4px !important;
+  line-height: 1.35 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-unlocked .honor-name {
+  color: #f0dfb3 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-locked .honor-name {
+  color: #8c7f6d !important;
+}
+
+/* Honor Title (Composed Secondary Hierarchy) */
+body #profile-tab .prestige-honors .honor-title {
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 12px !important;
+  line-height: 1.2 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-unlocked .honor-title {
+  color: #9c8c73 !important;
+}
+
+body #profile-tab .prestige-honors .honor-card.is-locked .honor-title {
+  color: #635747 !important;
+}
+
+/* Earned Distinction Hallmark (Wax Seal Plaque) */
+body #profile-tab .prestige-honors .honor-pill {
+  margin-top: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4px 10px !important;
+  border-radius: 4px !important;
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  background: linear-gradient(180deg, rgba(212, 175, 106, 0.18) 0%, rgba(160, 120, 50, 0.12) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  color: #f5e6b8 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 200, 0.2),
+    0 2px 5px rgba(0, 0, 0, 0.3) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Locked Progress Complication (Horological Instrument Slot) */
+body #profile-tab .prestige-honors .honor-progress-wrap {
+  margin-top: auto !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 5px !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+body #profile-tab .prestige-honors .honor-progress-bar {
+  width: 100% !important;
+  height: 3px !important;
+  background: #080706 !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 2px !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+}
+
+body #profile-tab .prestige-honors .honor-progress-fill {
+  height: 100% !important;
+  background: linear-gradient(90deg, #967432 0%, #d4af6a 60%, #f0d59d 100%) !important;
+  border-radius: 2px !important;
+}
+
+body #profile-tab .prestige-honors .honor-progress-text {
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 600 !important;
+  color: #7d6e5a !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* -------------------------------------------------- */
+/* 2. PROFILE REGISTRY (PRIVATE CONCIERGE REGISTRY)   */
+/* -------------------------------------------------- */
+
+body #profile-tab .profile-nav-menu {
+  background: linear-gradient(175deg, #14110e 0%, #0d0b09 100%) !important;
+  background-image: radial-gradient(rgba(212, 175, 106, 0.04) 1px, transparent 0) !important;
+  background-size: 16px 16px !important;
+  border: 1px solid rgba(212, 175, 106, 0.22) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 240, 200, 0.08) !important;
+  margin-bottom: 18px !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .pnm-item {
+  display: flex !important;
+  align-items: center !important;
+  padding: 13px 16px !important;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.1) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  min-height: 58px !important;
+  transform: translateZ(0) !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .pnm-item:last-child {
+  border-bottom: none !important;
+}
+
+body #profile-tab .pnm-item:hover {
+  background: rgba(212, 175, 106, 0.04) !important;
+}
+
+body #profile-tab .pnm-item:active {
+  transform: scale(0.996) !important;
+}
+
+/* Small Refined Metallic Plaque Icon */
+body #profile-tab .pnm-icon {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 9px !important;
+  background: linear-gradient(145deg, #1f1a14 0%, #100d0a 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.3) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 180, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #e6c27a !important;
+  margin-inline-end: 14px !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s ease !important;
+}
+
+body #profile-tab .pnm-item:hover .pnm-icon {
+  border-color: rgba(212, 175, 106, 0.55) !important;
+  color: #f5e6b8 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 180, 0.28),
+    0 3px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+body #profile-tab .pnm-icon svg {
+  width: 17px !important;
+  height: 17px !important;
+  display: block !important;
+}
+
+/* Row Content */
+body #profile-tab .pnm-content {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+body #profile-tab .pnm-title,
+body #profile-tab .menu-title {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  color: #f2e8d5 !important;
+  margin-bottom: 2px !important;
+  line-height: 1.3 !important;
+  display: block !important;
+}
+
+body #profile-tab .pnm-sub,
+body #profile-tab .menu-subtitle {
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 10px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
+  color: #8c7d68 !important;
+  line-height: 1.35 !important;
+  display: block !important;
+}
+
+/* Refined Navigation Chevron */
+body #profile-tab .pnm-chevron {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-inline-start: 12px !important;
+  color: rgba(212, 175, 106, 0.45) !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s ease !important;
+}
+
+body #profile-tab .pnm-chevron svg {
+  width: 15px !important;
+  height: 15px !important;
+  display: block !important;
+}
+
+body #profile-tab .pnm-item:hover .pnm-chevron {
+  color: #d4af6a !important;
+  transform: translateX(2px) !important;
+}
+
+[dir="rtl"] #profile-tab .pnm-chevron svg {
+  transform: scaleX(-1) !important;
+}
+
+[dir="rtl"] #profile-tab .pnm-item:hover .pnm-chevron {
+  transform: translateX(-2px) !important;
+}
+
+/* Add Member Sovereign Badge */
+body #profile-tab .pnm-badge {
+  display: flex !important;
+  align-items: center !important;
+  margin-inline-start: 12px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .pnm-badge .badge {
+  background: rgba(212, 175, 106, 0.1) !important;
+  border: 1px solid rgba(212, 175, 106, 0.3) !important;
+  color: #d4af6a !important;
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* -------------------------------------------------- */
+/* 3. LIGHT MODE PARITY (IDENTICAL GEOMETRY & SPACING)*/
+/* -------------------------------------------------- */
+
+/* Light Mode: Prestige & Honors */
+body.light-mode #profile-tab .prestige-honors .honors-section-title,
+body.light-mode #profile-tab .prestige-honors .pcs-head h3 {
+  color: #8c6724 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .achievements-summary {
+  background: linear-gradient(175deg, #ffffff 0%, #f7f2e7 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.3) !important;
+  box-shadow:
+    0 4px 14px rgba(60, 45, 15, 0.06),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .achievements-summary-label {
+  color: #7d6e58 !important;
+}
+
+body.light-mode #profile-tab .achievements-summary-value {
+  color: #241b10 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #profile-tab .achievements-summary-divider {
+  background: linear-gradient(180deg, transparent, rgba(185, 145, 75, 0.35), transparent) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked {
+  background: linear-gradient(160deg, #ffffff 0%, #f9f5ec 60%, #eee6d6 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.42) !important;
+  box-shadow:
+    0 8px 22px rgba(60, 45, 15, 0.08),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked:hover {
+  border-color: rgba(185, 145, 75, 0.65) !important;
+  box-shadow:
+    0 12px 26px rgba(60, 45, 15, 0.12),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked .honor-card-bezel {
+  border: 1px solid rgba(185, 145, 75, 0.18) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-locked {
+  background: linear-gradient(160deg, #f7f3ea 0%, #ede6d8 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.3) !important;
+  box-shadow: inset 0 1.5px 3px rgba(60, 45, 15, 0.08) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-card-bezel {
+  border: 1px solid rgba(185, 145, 75, 0.12) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked .honor-insignia-pedestal {
+  background: radial-gradient(circle at 45% 35%, #ffffff 0%, #faefe0 70%, #eadfc8 100%) !important;
+  border: 1.5px solid rgba(185, 145, 75, 0.55) !important;
+  box-shadow:
+    inset 0 1.5px 3px rgba(60, 45, 15, 0.15),
+    0 3px 8px rgba(60, 45, 15, 0.1),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked:hover .honor-insignia-pedestal {
+  border-color: rgba(185, 145, 75, 0.75) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-insignia-pedestal {
+  background: radial-gradient(circle at 50% 50%, #ede5d8 0%, #ddd4c4 100%) !important;
+  border: 1.2px solid rgba(185, 145, 75, 0.32) !important;
+  box-shadow: inset 0 1.5px 3px rgba(60, 45, 15, 0.08) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked .honor-icon {
+  color: #7d5a1b !important;
+  filter: drop-shadow(0 1px 2px rgba(60, 45, 15, 0.2)) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-icon {
+  color: #7a6646 !important;
+  opacity: 0.75 !important;
+  filter: drop-shadow(0 1px 2px rgba(60, 45, 15, 0.15)) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked .honor-name {
+  color: #22190e !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-name {
+  color: #827461 !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked .honor-title {
+  color: #786851 !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-card.is-locked .honor-title {
+  color: #968875 !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-pill {
+  background: linear-gradient(180deg, rgba(185, 145, 75, 0.16) 0%, rgba(150, 110, 45, 0.1) 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.45) !important;
+  color: #523b10 !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 1px 3px rgba(60, 45, 15, 0.08) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-progress-bar {
+  background: #d8d1c4 !important;
+  box-shadow: inset 0 1px 2px rgba(60, 45, 15, 0.15) !important;
+  border: none !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-progress-fill {
+  background: linear-gradient(90deg, #7d5a1b 0%, #b89146 100%) !important;
+}
+
+body.light-mode #profile-tab .prestige-honors .honor-progress-text {
+  color: #82725e !important;
+}
+
+/* Light Mode: Profile Registry */
+body.light-mode #profile-tab .profile-nav-menu {
+  background: linear-gradient(175deg, #ffffff 0%, #fbf9f4 100%) !important;
+  background-image: radial-gradient(rgba(185, 145, 75, 0.04) 1px, transparent 0) !important;
+  background-size: 16px 16px !important;
+  border: 1px solid rgba(185, 145, 75, 0.32) !important;
+  box-shadow:
+    0 8px 24px rgba(60, 45, 15, 0.07),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .pnm-item {
+  border-bottom: 1px solid rgba(185, 145, 75, 0.14) !important;
+}
+
+body.light-mode #profile-tab .pnm-item:hover {
+  background: rgba(185, 145, 75, 0.05) !important;
+}
+
+body.light-mode #profile-tab .pnm-icon {
+  background: linear-gradient(145deg, #ffffff 0%, #ede3cf 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.38) !important;
+  color: #7d5a1b !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 2px 5px rgba(60, 45, 15, 0.08) !important;
+}
+
+body.light-mode #profile-tab .pnm-item:hover .pnm-icon {
+  border-color: rgba(185, 145, 75, 0.6) !important;
+  color: #5a3f12 !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 3px 6px rgba(60, 45, 15, 0.12) !important;
+}
+
+body.light-mode #profile-tab .pnm-title,
+body.light-mode #profile-tab .menu-title {
+  color: #20180d !important;
+}
+
+body.light-mode #profile-tab .pnm-sub,
+body.light-mode #profile-tab .menu-subtitle {
+  color: #6d5f4c !important;
+}
+
+body.light-mode #profile-tab .pnm-chevron {
+  color: rgba(185, 145, 75, 0.45) !important;
+}
+
+body.light-mode #profile-tab .pnm-item:hover .pnm-chevron {
+  color: #8c6724 !important;
+}
+
+body.light-mode #profile-tab .pnm-badge .badge {
+  background: rgba(185, 145, 75, 0.12) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  color: #6d4e16 !important;
+}
+
+/* -------------------------------------------------- */
+/* 4. RESPONSIVE REFINEMENT (360PX - 430PX)           */
+/* -------------------------------------------------- */
+
+@media (max-width: 380px) {
+  body #profile-tab .prestige-honors .honor-card {
+    padding: 14px 8px 12px 8px !important;
+    min-height: 178px !important;
+  }
+  body #profile-tab .prestige-honors .honor-insignia-pedestal {
+    width: 44px !important;
+    height: 44px !important;
+    margin-bottom: 10px !important;
+  }
+  body #profile-tab .prestige-honors .honor-icon,
+  body #profile-tab .prestige-honors .honor-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  body #profile-tab .prestige-honors .honor-name {
+    font-size: 10px !important;
+  }
+  body #profile-tab .prestige-honors .honor-title {
+    font-size: 8px !important;
+    margin-bottom: 10px !important;
+  }
+  body #profile-tab .pnm-item {
+    padding: 12px 14px !important;
+  }
+  body #profile-tab .pnm-icon {
+    width: 32px !important;
+    height: 32px !important;
+    margin-inline-end: 12px !important;
+  }
+  body #profile-tab .pnm-icon svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  body #profile-tab .pnm-title,
+  body #profile-tab .menu-title {
+    font-size: 12px !important;
+  }
+  body #profile-tab .pnm-sub,
+  body #profile-tab .menu-subtitle {
+    font-size: 9.5px !important;
+  }
+}
+
+/* ========================================================================= */
+/* THE 1% CLUB — PROFILE TAB: PASS 3 (FINAL PROFILE LUXURY PASS)             */
+/* ========================================================================= */
+
+/* -------------------------------------------------- */
+/* 1. PROFILE REGISTRY TACTILE REFINEMENT             */
+/* -------------------------------------------------- */
+
+body #profile-tab .pnm-item:active {
+  background: rgba(212, 175, 106, 0.06) !important;
+  transform: scale(0.995) !important;
+}
+
+body.light-mode #profile-tab .pnm-item:active {
+  background: rgba(185, 145, 75, 0.08) !important;
+  transform: scale(0.995) !important;
+}
+
+body #profile-tab .pnm-icon {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 180, 0.22),
+    inset 0 1px 2px rgba(0, 0, 0, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.light-mode #profile-tab .pnm-icon {
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    inset 0 1px 2px rgba(60, 45, 15, 0.06),
+    0 2px 5px rgba(60, 45, 15, 0.08) !important;
+}
+
+/* -------------------------------------------------- */
+/* 2. COLLECTION CARD FINAL REFINEMENT                */
+/* -------------------------------------------------- */
+
+body #profile-tab #profileCollectionGrid .pcs-item-card {
+  background: linear-gradient(160deg, #17130f 0%, #0f0d0a 60%, #090806 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.3) !important;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 235, 180, 0.12),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+body #profile-tab #profileCollectionGrid .pcs-item-card:hover {
+  border-color: rgba(212, 175, 106, 0.6) !important;
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 235, 180, 0.25) !important;
+}
+
+body #profile-tab .pcs-artifact-pedestal {
+  background: radial-gradient(circle at 45% 35%, #251e15 0%, #120e0a 70%, #090705 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.75),
+    0 2px 5px rgba(0, 0, 0, 0.35) !important;
+}
+
+body #profile-tab .pcs-item-name {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #f2e4c2 !important;
+  letter-spacing: 0.03em !important;
+}
+
+body #profile-tab .pcs-item-rarity {
+  color: #8c7d68 !important;
+  font-size: 7.5px !important;
+}
+
+body #profile-tab .pcs-item-price {
+  color: #bfa470 !important;
+  font-size: 9px !important;
+}
+
+/* Light Mode Collection Cards */
+body.light-mode #profile-tab #profileCollectionGrid .pcs-item-card {
+  background: linear-gradient(160deg, #ffffff 0%, #f9f5ec 60%, #efe7d8 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.38) !important;
+  box-shadow:
+    0 8px 20px rgba(60, 45, 15, 0.08),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab #profileCollectionGrid .pcs-item-card:hover {
+  border-color: rgba(185, 145, 75, 0.65) !important;
+  box-shadow:
+    0 12px 24px rgba(60, 45, 15, 0.12),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .pcs-artifact-pedestal {
+  background: radial-gradient(circle at 45% 35%, #ffffff 0%, #f7ede0 70%, #eadfc8 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.45) !important;
+  box-shadow:
+    inset 0 1.5px 3px rgba(60, 45, 15, 0.12),
+    0 2px 4px rgba(60, 45, 15, 0.06) !important;
+}
+
+body.light-mode #profile-tab .pcs-item-name {
+  color: #241b10 !important;
+}
+
+body.light-mode #profile-tab .pcs-item-rarity {
+  color: #82725e !important;
+}
+
+body.light-mode #profile-tab .pcs-item-price {
+  color: #7d5a1b !important;
+}
+
+/* -------------------------------------------------- */
+/* 3. LUXURY MODAL CORES (UNIFIED PROFILE DIALOGS)   */
+/* -------------------------------------------------- */
+
+#accountInfoModal.luxury-modal-overlay,
+#settingsModal.luxury-modal-overlay,
+#helpSupportModal.luxury-modal-overlay {
+  background: rgba(0, 0, 0, 0.78) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 9999 !important;
+}
+
+#accountInfoModal .luxury-modal-box,
+#settingsModal .luxury-modal-box,
+#helpSupportModal .luxury-modal-box {
+  width: 92% !important;
+  max-width: 410px !important;
+  background: linear-gradient(175deg, #161310 0%, #0d0b09 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.32) !important;
+  border-radius: 16px !important;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 235, 180, 0.15),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.9) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Light Mode Modal Box */
+body.light-mode #accountInfoModal .luxury-modal-box,
+body.light-mode #settingsModal .luxury-modal-box,
+body.light-mode #helpSupportModal .luxury-modal-box {
+  background: linear-gradient(175deg, #ffffff 0%, #f7f3ea 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  box-shadow:
+    0 24px 60px rgba(60, 45, 15, 0.14),
+    inset 0 1px 0 #ffffff !important;
+}
+
+/* Modal Headers */
+#accountInfoModal .luxury-modal-header,
+#settingsModal .luxury-modal-header,
+#helpSupportModal .luxury-modal-header {
+  padding: 18px 20px !important;
+  background: linear-gradient(180deg, rgba(212, 175, 106, 0.07) 0%, transparent 100%) !important;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.18) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
+}
+
+body.light-mode #accountInfoModal .luxury-modal-header,
+body.light-mode #settingsModal .luxury-modal-header,
+body.light-mode #helpSupportModal .luxury-modal-header {
+  background: linear-gradient(180deg, rgba(185, 145, 75, 0.08) 0%, transparent 100%) !important;
+  border-bottom: 1px solid rgba(185, 145, 75, 0.2) !important;
+}
+
+#accountInfoModal .luxury-modal-header h2,
+#settingsModal .luxury-modal-header h3,
+#helpSupportModal .luxury-modal-header h3 {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #f5e6b8 !important;
+  margin: 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.light-mode #accountInfoModal .luxury-modal-header h2,
+body.light-mode #settingsModal .luxury-modal-header h3,
+body.light-mode #helpSupportModal .luxury-modal-header h3 {
+  color: #22190e !important;
+  text-shadow: none !important;
+}
+
+/* Refined Metallic Close Button */
+#accountInfoModal .luxury-close-btn,
+#settingsModal .luxury-close-btn,
+#helpSupportModal .luxury-close-btn {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: rgba(212, 175, 106, 0.08) !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  color: #d4af6a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+#accountInfoModal .luxury-close-btn:hover,
+#settingsModal .luxury-close-btn:hover,
+#helpSupportModal .luxury-close-btn:hover {
+  background: rgba(212, 175, 106, 0.2) !important;
+  border-color: rgba(212, 175, 106, 0.6) !important;
+  color: #f5e6b8 !important;
+  transform: scale(1.05) !important;
+}
+
+body.light-mode #accountInfoModal .luxury-close-btn,
+body.light-mode #settingsModal .luxury-close-btn,
+body.light-mode #helpSupportModal .luxury-close-btn {
+  background: rgba(185, 145, 75, 0.1) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  color: #7d5a1b !important;
+}
+
+/* Modal Body Padding */
+#accountInfoModal .luxury-modal-body,
+#settingsModal .luxury-modal-body,
+#helpSupportModal .luxury-modal-body {
+  padding: 20px !important;
+  max-height: calc(85vh - 70px) !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+}
+
+/* -------------------------------------------------- */
+/* 4. MEMBER CREDENTIALS MODAL (#accountInfoModal)    */
+/* -------------------------------------------------- */
+
+#accountInfoModal .avatar-selector-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-bottom: 18px !important;
+}
+
+#accountInfoModal .interactive-avatar-ring {
+  position: relative !important;
+  display: inline-block !important;
+  padding: 4px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, #2b2318 0%, #120e0a 100%) !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.55) !important;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 235, 180, 0.3) !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+
+#accountInfoModal .interactive-avatar-ring:hover {
+  border-color: rgba(212, 175, 106, 0.8) !important;
+  transform: scale(1.02) !important;
+}
+
+body.light-mode #accountInfoModal .interactive-avatar-ring {
+  background: radial-gradient(circle, #ffffff 0%, #ede3cf 100%) !important;
+  border: 1.5px solid rgba(185, 145, 75, 0.6) !important;
+  box-shadow:
+    0 4px 14px rgba(60, 45, 15, 0.12),
+    inset 0 1px 0 #ffffff !important;
+}
+
+#accountInfoModal .phc-avatar-photo {
+  width: 68px !important;
+  height: 68px !important;
+  border-radius: 50% !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border: 1px solid rgba(0, 0, 0, 0.8) !important;
+}
+
+#accountInfoModal .avatar-overlay-badge {
+  position: absolute !important;
+  bottom: 2px !important;
+  right: 2px !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(145deg, #2b2318 0%, #14100b 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.6) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 235, 180, 0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #f0dfb3 !important;
+}
+
+[dir="rtl"] #accountInfoModal .avatar-overlay-badge {
+  right: auto !important;
+  left: 2px !important;
+}
+
+body.light-mode #accountInfoModal .avatar-overlay-badge {
+  background: linear-gradient(145deg, #ffffff 0%, #ecd8b4 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.65) !important;
+  color: #7d5a1b !important;
+  box-shadow: 0 2px 5px rgba(60, 45, 15, 0.15) !important;
+}
+
+#accountInfoModal .avatar-overlay-badge svg {
+  width: 12px !important;
+  height: 12px !important;
+  display: block !important;
+}
+
+/* Avatar Presets Gallery */
+#accountInfoModal .avatar-presets-container {
+  width: 100% !important;
+  margin-top: 10px !important;
+}
+
+#accountInfoModal .avatar-preset-scroll {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 4px 0 !important;
+}
+
+#accountInfoModal .avatar-preset-thumbnail {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.28) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  opacity: 0.65 !important;
+}
+
+#accountInfoModal .avatar-preset-thumbnail:hover {
+  opacity: 1 !important;
+  border-color: rgba(212, 175, 106, 0.6) !important;
+  transform: translateY(-1px) !important;
+}
+
+#accountInfoModal .avatar-preset-thumbnail.active {
+  opacity: 1 !important;
+  border: 1.5px solid #d4af6a !important;
+  box-shadow:
+    0 0 0 2px rgba(212, 175, 106, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 235, 180, 0.4) !important;
+  transform: scale(1.08) !important;
+}
+
+body.light-mode #accountInfoModal .avatar-preset-thumbnail {
+  border: 1.5px solid rgba(185, 145, 75, 0.35) !important;
+  box-shadow: 0 2px 4px rgba(60, 45, 15, 0.08) !important;
+}
+
+body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
+  border-color: #8c6724 !important;
+  box-shadow:
+    0 0 0 2px rgba(185, 145, 75, 0.4),
+    0 3px 8px rgba(60, 45, 15, 0.15) !important;
+}
+
+/* Dossier Panels & Inputs */
+#accountInfoModal .dossier-panel {
+  background: rgba(0, 0, 0, 0.22) !important;
+  border: 1px solid rgba(212, 175, 106, 0.14) !important;
+  border-radius: 12px !important;
+  padding: 13px 15px !important;
+  margin-bottom: 14px !important;
+}
+
+body.light-mode #accountInfoModal .dossier-panel {
+  background: rgba(185, 145, 75, 0.04) !important;
+  border: 1px solid rgba(185, 145, 75, 0.2) !important;
+}
+
+#accountInfoModal .modal-section-title {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: #d4af6a !important;
+  margin: 0 0 10px 0 !important;
+}
+
+body.light-mode #accountInfoModal .modal-section-title {
+  color: #8c6724 !important;
+}
+
+#accountInfoModal .edit-profile-section {
+  margin-bottom: 11px !important;
+}
+
+#accountInfoModal .edit-profile-section:last-child {
+  margin-bottom: 0 !important;
+}
+
+#accountInfoModal .edit-profile-label {
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #9c8e79 !important;
+  margin-bottom: 4px !important;
+  display: block !important;
+}
+
+body.light-mode #accountInfoModal .edit-profile-label {
+  color: #6d5f4c !important;
+}
+
+#accountInfoModal .edit-profile-input,
+#accountInfoModal .edit-profile-textarea {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: #090807 !important;
+  border: 1px solid rgba(212, 175, 106, 0.22) !important;
+  border-radius: 8px !important;
+  padding: 10px 12px !important;
+  font-size: 12.5px !important;
+  color: #f2e8d5 !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7) !important;
+  transition: all 0.2s ease !important;
+  font-family: inherit !important;
+}
+
+#accountInfoModal .edit-profile-input:focus,
+#accountInfoModal .edit-profile-textarea:focus {
+  border-color: rgba(212, 175, 106, 0.65) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(212, 175, 106, 0.25) !important;
+  outline: none !important;
+}
+
+body.light-mode #accountInfoModal .edit-profile-input,
+body.light-mode #accountInfoModal .edit-profile-textarea {
+  background: #fcfaf5 !important;
+  border: 1px solid rgba(185, 145, 75, 0.28) !important;
+  color: #20180d !important;
+  box-shadow: inset 0 1.5px 3px rgba(60, 45, 15, 0.08) !important;
+}
+
+body.light-mode #accountInfoModal .edit-profile-input:focus,
+body.light-mode #accountInfoModal .edit-profile-textarea:focus {
+  border-color: rgba(185, 145, 75, 0.7) !important;
+  box-shadow:
+    inset 0 1.5px 3px rgba(60, 45, 15, 0.1),
+    0 0 0 1px rgba(185, 145, 75, 0.3) !important;
+}
+
+#accountInfoModal .quote-presets-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  margin-top: 6px !important;
+}
+
+#accountInfoModal .quote-preset-chip {
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8.5px !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  background: rgba(212, 175, 106, 0.08) !important;
+  border: 1px solid rgba(212, 175, 106, 0.25) !important;
+  color: #d4af6a !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+#accountInfoModal .quote-preset-chip:hover {
+  background: rgba(212, 175, 106, 0.18) !important;
+  border-color: rgba(212, 175, 106, 0.5) !important;
+  color: #f5e6b8 !important;
+}
+
+body.light-mode #accountInfoModal .quote-preset-chip {
+  background: rgba(185, 145, 75, 0.09) !important;
+  border: 1px solid rgba(185, 145, 75, 0.32) !important;
+  color: #7d5a1b !important;
+}
+
+/* Save Credentials Physical Gold Button */
+#accountInfoModal #saveAccountInfoBtn,
+#accountInfoModal .dossier-save-btn {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 6px !important;
+  padding: 13px 16px !important;
+  border-radius: 10px !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  background: linear-gradient(180deg, #e4c282 0%, #c49d52 50%, #a27c34 100%) !important;
+  border: 1px solid rgba(255, 240, 200, 0.45) !important;
+  color: #171108 !important;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-shadow: 0 1px 0 rgba(255, 245, 220, 0.4) !important;
+}
+
+#accountInfoModal #saveAccountInfoBtn:hover {
+  filter: brightness(1.06) !important;
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(-1px) !important;
+}
+
+#accountInfoModal #saveAccountInfoBtn:active {
+  transform: translateY(0) scale(0.995) !important;
+}
+
+body.light-mode #accountInfoModal #saveAccountInfoBtn,
+body.light-mode #accountInfoModal .dossier-save-btn {
+  background: linear-gradient(180deg, #d4af6a 0%, #b89146 50%, #916c27 100%) !important;
+  border: 1px solid rgba(255, 245, 220, 0.5) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 4px 14px rgba(60, 45, 15, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* -------------------------------------------------- */
+/* 5. SETTINGS MODAL (#settingsModal)                */
+/* -------------------------------------------------- */
+
+#settingsModal .setting-row {
+  background: linear-gradient(165deg, #15120f 0%, #0d0b09 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.18) !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 200, 0.04),
+    0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 9px !important;
+  box-sizing: border-box !important;
+}
+
+#settingsModal .setting-row:last-of-type {
+  margin-bottom: 0 !important;
+}
+
+body.light-mode #settingsModal .setting-row {
+  background: linear-gradient(165deg, #ffffff 0%, #f7f3ea 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.25) !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 2px 5px rgba(60, 45, 15, 0.06) !important;
+}
+
+#settingsModal .setting-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  flex: 1 !important;
+  padding-inline-end: 12px !important;
+}
+
+#settingsModal .setting-title {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #f2e8d5 !important;
+  letter-spacing: 0.03em !important;
+}
+
+body.light-mode #settingsModal .setting-title {
+  color: #20180d !important;
+}
+
+#settingsModal .setting-desc {
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 9px !important;
+  color: #8c7d68 !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+}
+
+body.light-mode #settingsModal .setting-desc {
+  color: #6d5f4c !important;
+}
+
+/* Tactile Metallic Switch */
+#settingsModal .luxury-switch {
+  width: 44px !important;
+  height: 24px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  display: inline-block !important;
+}
+
+#settingsModal .luxury-switch input {
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+#settingsModal .luxury-switch .slider {
+  position: absolute !important;
+  cursor: pointer !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: #110e0c !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 24px !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#settingsModal .luxury-switch .slider:before {
+  position: absolute !important;
+  content: "" !important;
+  height: 16px !important;
+  width: 16px !important;
+  left: 3px !important;
+  bottom: 3px !important;
+  background: linear-gradient(145deg, #443c32 0%, #231f1a 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#settingsModal .luxury-switch input:checked + .slider {
+  background: linear-gradient(180deg, rgba(212, 175, 106, 0.28) 0%, rgba(160, 120, 50, 0.22) 100%) !important;
+  border-color: rgba(212, 175, 106, 0.55) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+#settingsModal .luxury-switch input:checked + .slider:before {
+  transform: translateX(20px) !important;
+  background: linear-gradient(145deg, #f5e6b8 0%, #d4af6a 60%, #9e7a32 100%) !important;
+  border-color: rgba(255, 240, 200, 0.5) !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+body.light-mode #settingsModal .luxury-switch .slider {
+  background: #ded8cb !important;
+  border: 1px solid rgba(60, 45, 15, 0.15) !important;
+  box-shadow: inset 0 1.5px 3px rgba(60, 45, 15, 0.1) !important;
+}
+
+body.light-mode #settingsModal .luxury-switch .slider:before {
+  background: linear-gradient(145deg, #ffffff 0%, #d8d0c2 100%) !important;
+  border: 1px solid rgba(60, 45, 15, 0.2) !important;
+  box-shadow: 0 1.5px 3px rgba(60, 45, 15, 0.15) !important;
+}
+
+body.light-mode #settingsModal .luxury-switch input:checked + .slider {
+  background: linear-gradient(180deg, rgba(185, 145, 75, 0.25) 0%, rgba(150, 110, 45, 0.2) 100%) !important;
+  border-color: rgba(185, 145, 75, 0.6) !important;
+}
+
+body.light-mode #settingsModal .luxury-switch input:checked + .slider:before {
+  background: linear-gradient(145deg, #ffffff 0%, #d4af6a 70%, #916c27 100%) !important;
+  border-color: rgba(185, 145, 75, 0.7) !important;
+}
+
+/* Language Segmented Control */
+#settingsModal .lang-selector-group {
+  display: flex !important;
+  gap: 6px !important;
+}
+
+#settingsModal .lang-btn {
+  border-radius: 6px !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  padding: 5px 12px !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #8c7d68 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+#settingsModal .lang-btn.is-active,
+#settingsModal .lang-btn.active {
+  background: linear-gradient(180deg, rgba(212, 175, 106, 0.22) 0%, rgba(160, 120, 50, 0.15) 100%) !important;
+  border-color: rgba(212, 175, 106, 0.5) !important;
+  color: #f5e6b8 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 240, 200, 0.2) !important;
+}
+
+body.light-mode #settingsModal .lang-btn {
+  background: rgba(60, 45, 15, 0.04) !important;
+  border: 1px solid rgba(60, 45, 15, 0.15) !important;
+  color: #6d5f4c !important;
+}
+
+body.light-mode #settingsModal .lang-btn.is-active,
+body.light-mode #settingsModal .lang-btn.active {
+  background: linear-gradient(180deg, rgba(185, 145, 75, 0.2) 0%, rgba(150, 110, 45, 0.14) 100%) !important;
+  border-color: rgba(185, 145, 75, 0.6) !important;
+  color: #241b10 !important;
+}
+
+/* Logout Button */
+#settingsModal #btnSettingsLogout {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 14px !important;
+  background: linear-gradient(180deg, rgba(160, 35, 35, 0.12) 0%, rgba(100, 20, 20, 0.1) 100%) !important;
+  border: 1px solid rgba(220, 70, 70, 0.35) !important;
+  color: #fca5a5 !important;
+  border-radius: 9px !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  padding: 11px 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-transform: uppercase !important;
+}
+
+#settingsModal #btnSettingsLogout:hover {
+  background: linear-gradient(180deg, rgba(180, 40, 40, 0.22) 0%, rgba(120, 25, 25, 0.18) 100%) !important;
+  border-color: rgba(220, 70, 70, 0.6) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(180, 40, 40, 0.25) !important;
+}
+
+body.light-mode #settingsModal #btnSettingsLogout {
+  background: linear-gradient(180deg, rgba(200, 40, 40, 0.08) 0%, rgba(160, 30, 30, 0.05) 100%) !important;
+  border: 1px solid rgba(200, 50, 50, 0.35) !important;
+  color: #b91c1c !important;
+}
+
+body.light-mode #settingsModal #btnSettingsLogout:hover {
+  background: linear-gradient(180deg, rgba(200, 40, 40, 0.15) 0%, rgba(160, 30, 30, 0.1) 100%) !important;
+  border-color: rgba(200, 50, 50, 0.6) !important;
+  color: #991b1b !important;
+}
+
+/* -------------------------------------------------- */
+/* 6. CONCIERGE & SUPPORT MODAL (#helpSupportModal)   */
+/* -------------------------------------------------- */
+
+#helpSupportModal .concierge-desc,
+#helpSupportModal [data-i18n="misc.supportDesc"] {
+  color: #a3937d !important;
+  font-size: 12px !important;
+  line-height: 1.65 !important;
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  margin-bottom: 18px !important;
+  letter-spacing: 0.01em !important;
+}
+
+body.light-mode #helpSupportModal .concierge-desc,
+body.light-mode #helpSupportModal [data-i18n="misc.supportDesc"] {
+  color: #5a4e3d !important;
+}
+
+#helpSupportModal #contactConciergeBtn {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 13px 16px !important;
+  border-radius: 10px !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  background: linear-gradient(180deg, #e4c282 0%, #c49d52 50%, #a27c34 100%) !important;
+  border: 1px solid rgba(255, 240, 200, 0.45) !important;
+  color: #171108 !important;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#helpSupportModal #contactConciergeBtn:hover {
+  filter: brightness(1.06) !important;
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(-1px) !important;
+}
+
+body.light-mode #helpSupportModal #contactConciergeBtn {
+  background: linear-gradient(180deg, #d4af6a 0%, #b89146 50%, #916c27 100%) !important;
+  border: 1px solid rgba(255, 245, 220, 0.5) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 4px 14px rgba(60, 45, 15, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+#helpSupportModal [data-i18n="misc.faq"] {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: #d4af6a !important;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.18) !important;
+  padding-bottom: 8px !important;
+  margin-top: 22px !important;
+  margin-bottom: 14px !important;
+}
+
+body.light-mode #helpSupportModal [data-i18n="misc.faq"] {
+  color: #8c6724 !important;
+  border-bottom-color: rgba(185, 145, 75, 0.25) !important;
+}
+
+#helpSupportModal .faq-item strong,
+#helpSupportModal [data-i18n^="misc.faq"][data-i18n$="q"] {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  color: #eedcb9 !important;
+  display: block !important;
+  margin-bottom: 4px !important;
+}
+
+body.light-mode #helpSupportModal .faq-item strong,
+body.light-mode #helpSupportModal [data-i18n^="misc.faq"][data-i18n$="q"] {
+  color: #22190e !important;
+}
+
+#helpSupportModal [data-i18n^="misc.faq"][data-i18n$="a"] {
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 10.5px !important;
+  color: #8c7d68 !important;
+  line-height: 1.55 !important;
+  margin-bottom: 14px !important;
+}
+
+body.light-mode #helpSupportModal [data-i18n^="misc.faq"][data-i18n$="a"] {
+  color: #635747 !important;
+}
+
+/* -------------------------------------------------- */
+/* 7. RESPONSIVE MODAL REFINEMENT (360PX - 430PX)     */
+/* -------------------------------------------------- */
+
+@media (max-width: 380px) {
+  #accountInfoModal .luxury-modal-box,
+  #settingsModal .luxury-modal-box,
+  #helpSupportModal .luxury-modal-box {
+    width: 95% !important;
+    border-radius: 14px !important;
+  }
+  #accountInfoModal .luxury-modal-header,
+  #settingsModal .luxury-modal-header,
+  #helpSupportModal .luxury-modal-header {
+    padding: 14px 16px !important;
+  }
+  #accountInfoModal .luxury-modal-header h2,
+  #settingsModal .luxury-modal-header h3,
+  #helpSupportModal .luxury-modal-header h3 {
+    font-size: 12px !important;
+  }
+  #accountInfoModal .luxury-modal-body,
+  #settingsModal .luxury-modal-body,
+  #helpSupportModal .luxury-modal-body {
+    padding: 16px !important;
+  }
+  #accountInfoModal .phc-avatar-photo {
+    width: 58px !important;
+    height: 58px !important;
+  }
+  #accountInfoModal .avatar-preset-thumbnail {
+    width: 34px !important;
+    height: 34px !important;
+  }
+  #settingsModal .setting-row {
+    padding: 10px 12px !important;
+  }
+  #settingsModal .setting-title {
+    font-size: 11px !important;
+  }
+  #settingsModal .luxury-switch {
+    width: 40px !important;
+    height: 22px !important;
+  }
+  #settingsModal .luxury-switch .slider:before {
+    width: 14px !important;
+    height: 14px !important;
+    left: 3px !important;
+    bottom: 3px !important;
+  }
+  #settingsModal .luxury-switch input:checked + .slider:before {
+    transform: translateX(18px) !important;
+  }
+}
+
+/* ========================================================================= */
+/* 8. PROFILE TAB: COMPREHENSIVE LAYOUT SPACING & ANTI-OVERFLOW (360PX - 430PX) */
+/* ========================================================================= */
+
+body #profile-tab {
+  width: 100% !important;
+  max-width: 420px !important;
+  margin: 0 auto !important;
+  padding: 0 0 32px 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+body #profile-tab .profile-hero-card,
+body #profile-tab .profile-stats-bar,
+body #profile-tab .profile-nav-menu,
+body #profile-tab .profile-collection-section,
+body #profile-tab .profile-history-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* 1. Profile Hero Card Precision Spacing */
+body #profile-tab .profile-hero-card {
+  padding: 16px 14px !important;
+  margin: 0 auto 14px auto !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+body #profile-tab .profile-hero-card .phc-inner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .profile-hero-card .phc-avatar-ring {
+  width: 72px !important;
+  height: 72px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .profile-hero-card .phc-avatar-photo {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+body #profile-tab .profile-hero-card .phc-info-col {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-info-col,
+html[dir="ltr"] body #profile-tab .profile-hero-card .phc-info-col {
+  padding-right: 32px !important;
+  padding-left: 0 !important;
+}
+
+body[dir="rtl"] #profile-tab .profile-hero-card .phc-info-col,
+html[dir="rtl"] body #profile-tab .profile-hero-card .phc-info-col {
+  padding-left: 32px !important;
+  padding-right: 0 !important;
+}
+
+body #profile-tab .profile-hero-card .phc-name {
+  font-size: 16px !important;
+  line-height: 1.25 !important;
+  word-break: break-word !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .profile-hero-card .phc-tier {
+  font-size: 8.5px !important;
+  letter-spacing: 0.14em !important;
+}
+
+body #profile-tab .profile-hero-card .phc-quote {
+  font-size: 10.5px !important;
+  line-height: 1.38 !important;
+  margin: 2px 0 !important;
+  word-break: break-word !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .profile-hero-card .phc-meta {
+  font-size: 8px !important;
+  gap: 4px !important;
+  flex-wrap: wrap !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .profile-hero-card .phc-edit-btn {
+  width: 28px !important;
+  height: 28px !important;
+  top: 14px !important;
+}
+
+body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-edit-btn {
+  right: 14px !important;
+  left: auto !important;
+}
+
+body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
+html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn {
+  left: 14px !important;
+  right: auto !important;
+}
+
+/* 2. Stats Bar Spacing & Micro-complications */
+body #profile-tab .profile-stats-bar {
+  padding: 10px 4px !important;
+  margin: 0 auto 14px auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-col {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  padding: 0 2px !important;
+  text-align: center !important;
+  overflow: hidden !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-icon {
+  width: 12px !important;
+  height: 12px !important;
+  margin-bottom: 2px !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-value {
+  font-size: 11.5px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-label {
+  font-size: 7px !important;
+  letter-spacing: 0.06em !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .profile-stats-bar .psb-divider {
+  height: 20px !important;
+  margin: 0 1px !important;
+  flex-shrink: 0 !important;
+}
+
+/* 3. Profile Registry (Nav Menu) */
+body #profile-tab .profile-nav-menu {
+  margin-bottom: 14px !important;
+  border-radius: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .profile-nav-menu .pnm-item {
+  padding: 11px 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+}
+
+body #profile-tab .profile-nav-menu .pnm-icon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-inline-end: 10px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .profile-nav-menu .pnm-content {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  overflow: hidden !important;
+}
+
+body #profile-tab .profile-nav-menu .pnm-title {
+  font-size: 11.5px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .profile-nav-menu .pnm-sub {
+  font-size: 9px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .profile-nav-menu .pnm-chevron {
+  margin-inline-start: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+/* 4. Membership Chronicle (Ledger Card) */
+body #profile-tab .profile-history-section {
+  margin-bottom: 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .membership-ledger-card {
+  padding: 2px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  border-radius: 12px !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-card-inner {
+  padding: 14px 11px 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  border-radius: 10px !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-top-banner {
+  gap: 10px !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-crest-badge {
+  width: 32px !important;
+  height: 32px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-top-texts {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-org {
+  font-size: 9px !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.3 !important;
+  word-break: break-word !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-sub {
+  font-size: 8.5px !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-hero-date-block {
+  padding: 10px 8px !important;
+  margin-bottom: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-hero-label {
+  font-size: 8px !important;
+  letter-spacing: 0.12em !important;
+  margin-bottom: 4px !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-hero-date {
+  font-size: 18px !important;
+  letter-spacing: 0.06em !important;
+  margin-bottom: 2px !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-hero-protocol {
+  font-size: 8px !important;
+  letter-spacing: 0.04em !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-divider {
+  margin: 10px 0 12px !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-records-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 8px !important;
+  margin-bottom: 14px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-record-cell {
+  padding: 8px 9px !important;
+  border-radius: 7px !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .membership-ledger-card .lrc-label {
+  font-size: 7.5px !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+body #profile-tab .membership-ledger-card .lrc-value {
+  font-size: 9.5px !important;
+  line-height: 1.32 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-timeline-wrap {
+  margin-top: 12px !important;
+  padding-top: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-timeline-item {
+  gap: 10px !important;
+  padding-bottom: 12px !important;
+}
+
+body #profile-tab .membership-ledger-card .lti-header {
+  gap: 6px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 2px !important;
+}
+
+body #profile-tab .membership-ledger-card .lti-title {
+  font-size: 9.5px !important;
+  line-height: 1.3 !important;
+}
+
+body #profile-tab .membership-ledger-card .lti-date {
+  font-size: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .membership-ledger-card .lti-desc {
+  font-size: 9px !important;
+  line-height: 1.4 !important;
+  word-break: break-word !important;
+}
+
+body #profile-tab .membership-ledger-card .ledger-footer-stamp {
+  margin-top: 10px !important;
+  padding-top: 8px !important;
+}
+
+body #profile-tab .membership-ledger-card .lss-text {
+  font-size: 7.5px !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.3 !important;
+  word-break: break-word !important;
+}
+
+/* 5. My Luxury Collection Showcase */
+body #profile-tab #profileCollectionSection {
+  margin-bottom: 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-head {
+  margin-bottom: 8px !important;
+  padding: 0 2px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-head h3 {
+  font-size: 11.5px !important;
+  letter-spacing: 0.12em !important;
+  margin: 0 !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-view-all {
+  font-size: 10px !important;
+  gap: 4px !important;
+}
+
+body #profile-tab #profileCollectionSection .pcs-scroll-container {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 4px 2px 10px 2px !important;
+  margin: 0 !important;
+}
+
+body #profile-tab #profileCollectionGrid {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  gap: 10px !important;
+  align-items: stretch !important;
+}
+
+body #profile-tab #profileCollectionGrid .pcs-item-card {
+  width: 104px !important;
+  min-height: 138px !important;
+  padding: 10px 6px !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+  border-radius: 12px !important;
+}
+
+body #profile-tab #profileCollectionGrid .pcs-item-icon-wrap {
+  width: 42px !important;
+  height: 42px !important;
+  margin-bottom: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab #profileCollectionGrid .pcs-item-name {
+  font-size: 9.5px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+body #profile-tab #profileCollectionGrid .pcs-item-rarity {
+  font-size: 7.5px !important;
+}
+
+body #profile-tab #profileCollectionGrid .pcs-item-price {
+  font-size: 8.5px !important;
+}
+
+/* 6. Prestige & Honors Showcase */
+body #profile-tab #profileHonorsSection {
+  margin-bottom: 24px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab #profileHonorsSection .pcs-head {
+  margin-bottom: 8px !important;
+  padding: 0 2px !important;
+}
+
+body #profile-tab #profileHonorsSection .honors-section-title {
+  font-size: 11.5px !important;
+  letter-spacing: 0.12em !important;
+  margin: 0 !important;
+}
+
+body #profile-tab #profileHonorsSection .achievements-summary {
+  padding: 9px 12px !important;
+  margin-bottom: 10px !important;
+  border-radius: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab #profileHonorsSection .achievements-summary-label {
+  font-size: 7.5px !important;
+  letter-spacing: 0.08em !important;
+}
+
+body #profile-tab #profileHonorsSection .achievements-summary-value {
+  font-size: 13.5px !important;
+}
+
+body #profile-tab #profileAchievementsGrid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 8px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-card {
+  padding: 12px 6px 10px 6px !important;
+  min-height: 165px !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  border-radius: 11px !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-insignia-pedestal {
+  width: 42px !important;
+  height: 42px !important;
+  margin-bottom: 7px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-icon,
+body #profile-tab #profileAchievementsGrid .honor-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-name {
+  font-size: 9.5px !important;
+  line-height: 1.25 !important;
+  margin-bottom: 3px !important;
+  word-break: break-word !important;
+  text-align: center !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-title {
+  font-size: 7.5px !important;
+  line-height: 1.2 !important;
+  margin-bottom: 8px !important;
+  word-break: break-word !important;
+  text-align: center !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-pill {
+  font-size: 7.5px !important;
+  padding: 2.5px 6px !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-progress-wrap {
+  width: 100% !important;
+  gap: 4px !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-progress-bar {
+  width: 100% !important;
+  height: 3px !important;
+}
+
+body #profile-tab #profileAchievementsGrid .honor-progress-text {
+  font-size: 7.5px !important;
+}
+
+/* 7. Ultra-Compact Screen Adaptations (360px - 374px) */
+@media (max-width: 374px) {
+  body #profile-tab .profile-hero-card {
+    padding: 13px 10px !important;
+  }
+  body #profile-tab .profile-hero-card .phc-avatar-ring {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  body #profile-tab .profile-hero-card .phc-avatar-photo {
+    width: 52px !important;
+    height: 52px !important;
+  }
+  body #profile-tab .profile-hero-card .phc-name {
+    font-size: 14.5px !important;
+  }
+  body #profile-tab .profile-hero-card .phc-quote {
+    font-size: 9.5px !important;
+  }
+  body #profile-tab .profile-stats-bar {
+    padding: 8px 2px !important;
+  }
+  body #profile-tab .profile-stats-bar .psb-value {
+    font-size: 10.5px !important;
+  }
+  body #profile-tab .profile-stats-bar .psb-label {
+    font-size: 6.5px !important;
+  }
+  body #profile-tab .profile-nav-menu .pnm-item {
+    padding: 9px 10px !important;
+  }
+  body #profile-tab .profile-nav-menu .pnm-icon {
+    width: 28px !important;
+    height: 28px !important;
+    margin-inline-end: 8px !important;
+  }
+  body #profile-tab .profile-nav-menu .pnm-title {
+    font-size: 10.5px !important;
+  }
+  body #profile-tab .profile-nav-menu .pnm-sub {
+    font-size: 8.5px !important;
+  }
+  body #profile-tab .membership-ledger-card .ledger-card-inner {
+    padding: 12px 9px 10px !important;
+  }
+  body #profile-tab .membership-ledger-card .ledger-records-grid {
+    gap: 6px !important;
+  }
+  body #profile-tab .membership-ledger-card .ledger-record-cell {
+    padding: 6px 7px !important;
+  }
+  body #profile-tab #profileAchievementsGrid {
+    gap: 6px !important;
+  }
+  body #profile-tab #profileAchievementsGrid .honor-card {
+    padding: 10px 4px 8px 4px !important;
+    min-height: 156px !important;
+  }
+  body #profile-tab #profileAchievementsGrid .honor-insignia-pedestal {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  body #profile-tab #profileAchievementsGrid .honor-name {
+    font-size: 9px !important;
+  }
+  body #profile-tab #profileAchievementsGrid .honor-title {
+    font-size: 7px !important;
+  }
+}
+
+/* ========================================================================= */
+/* SECTION 9: THE 1% CLUB — LUXURY TILT-ON-HOVER CARD ENGINE                */
+/* Materiality, depth, and tactile physical response for .luxury-tilt-card   */
+/* ========================================================================= */
+
+.luxury-tilt-card {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease;
+  will-change: transform, box-shadow;
+}
+
+/* Subtle, authentic physical tilt on hover for fine pointer / desktop devices */
+@media (hover: hover) and (pointer: fine) {
+  .luxury-tilt-card:hover {
+    transform: perspective(1200px) translateY(var(--tilt-ty, -4px)) translateZ(var(--tilt-tz, 8px)) rotateX(var(--tilt-rx, 1.8deg)) rotateY(var(--tilt-ry, -1.2deg)) scale3d(var(--tilt-scale, 1.008), var(--tilt-scale, 1.008), var(--tilt-scale, 1.008));
+    border-color: rgba(212, 175, 106, 0.55);
+    box-shadow:
+      0 26px 54px -10px rgba(0, 0, 0, 0.92),
+      0 0 20px rgba(212, 175, 106, 0.12),
+      inset 0 1px 0 rgba(255, 245, 215, 0.22);
+  }
+
+  /* Scoped Profile Tab: Hero Card Tactile Tilt */
+  body #profile-tab .profile-hero-card.luxury-tilt-card {
+    perspective: 1200px !important;
+    transform-style: preserve-3d !important;
+  }
+
+  body #profile-tab .profile-hero-card.luxury-tilt-card:hover {
+    border-color: rgba(212, 175, 106, 0.58) !important;
+    box-shadow:
+      0 28px 58px -12px rgba(0, 0, 0, 0.96),
+      0 0 24px rgba(212, 175, 106, 0.14),
+      inset 0 1px 0 rgba(255, 245, 215, 0.25) !important;
+  }
+
+  body #profile-tab .profile-hero-card.luxury-tilt-card.is-hovered {
+    transition:
+      transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.35s ease,
+      border-color 0.35s ease !important;
+  }
+
+  /* 3D Internal Elevation Layers for Profile Hero Card */
+  body #profile-tab .profile-hero-card.luxury-tilt-card .phc-avatar-wrap {
+    transform: translateZ(14px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body #profile-tab .profile-hero-card.luxury-tilt-card .phc-info {
+    transform: translateZ(8px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body #profile-tab .profile-hero-card.luxury-tilt-card .phc-edit-btn {
+    transform: translateZ(12px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Scoped Profile Tab: Membership Ledger Card Tactile Tilt */
+  body #profile-tab .membership-ledger-card.luxury-tilt-card {
+    perspective: 1200px !important;
+    transform-style: preserve-3d !important;
+  }
+
+  body #profile-tab .membership-ledger-card.luxury-tilt-card:hover {
+    border-color: rgba(212, 175, 106, 0.58) !important;
+    box-shadow:
+      0 24px 50px -10px rgba(0, 0, 0, 0.92),
+      0 0 22px rgba(212, 175, 106, 0.14),
+      inset 0 0 30px rgba(0, 0, 0, 0.9),
+      inset 0 1px 0 rgba(255, 245, 215, 0.22) !important;
+  }
+
+  body #profile-tab .membership-ledger-card.luxury-tilt-card.is-hovered {
+    transition:
+      transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.35s ease,
+      border-color 0.35s ease !important;
+  }
+
+  /* 3D Internal Elevation Layers for Membership Ledger Card */
+  body #profile-tab .membership-ledger-card.luxury-tilt-card .ledger-card-inner {
+    transform-style: preserve-3d !important;
+  }
+
+  body #profile-tab .membership-ledger-card.luxury-tilt-card .ledger-hero-date-block {
+    transform: translateZ(8px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body #profile-tab .membership-ledger-card.luxury-tilt-card .ledger-record-cell {
+    transform: translateZ(6px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Light Mode Sovereign Contrast Parity */
+  body.light-mode #profile-tab .profile-hero-card.luxury-tilt-card:hover {
+    border-color: rgba(185, 145, 75, 0.65) !important;
+    box-shadow:
+      0 18px 40px -8px rgba(70, 50, 15, 0.18),
+      0 0 18px rgba(185, 145, 75, 0.14),
+      inset 0 1px 0 #ffffff !important;
+  }
+
+  body.light-mode #profile-tab .membership-ledger-card.luxury-tilt-card:hover {
+    border-color: rgba(185, 145, 75, 0.65) !important;
+    box-shadow:
+      0 16px 36px -8px rgba(70, 50, 15, 0.16),
+      0 0 16px rgba(185, 145, 75, 0.12),
+      inset 0 1px 0 #ffffff !important;
+  }
+}
+
+

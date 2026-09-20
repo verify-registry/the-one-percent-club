@@ -1070,14 +1070,22 @@ let tiltLoopActive = false;
 const DEADZONE = 1.5;
 
 function applyTiltToCards(rx, ry) {
+  const activeInteracting = document.querySelectorAll(".luxury-tilt-card.is-hovered, .luxury-tilt-card.is-long-press-active");
+  const hasActiveCard = activeInteracting.length > 0;
+
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
     const isMembership = card.id === "membershipCard";
-    const isHovered = isMembership && card.classList.contains("is-hovered");
-    const isLongPressed = isMembership && card.classList.contains("is-long-press-active");
+    const isHovered = card.classList.contains("is-hovered");
+    const isLongPressed = card.classList.contains("is-long-press-active");
 
-    const elevation = isLongPressed ? 22 : (isHovered ? 14 : 0);
-    const translateY = isLongPressed ? -8 : (isHovered ? -5 : 0);
-    const scale = isLongPressed ? 1.025 : (isHovered ? 1.015 : 1);
+    // If an interaction is actively happening on a specific card, non-interacted cards stay at rest
+    if (hasActiveCard && !isHovered && !isLongPressed) {
+      return;
+    }
+
+    const elevation = isLongPressed ? 22 : (isHovered ? (isMembership ? 14 : 10) : 0);
+    const translateY = isLongPressed ? -8 : (isHovered ? (isMembership ? -5 : -4) : 0);
+    const scale = isLongPressed ? 1.025 : (isHovered ? (isMembership ? 1.015 : 1.008) : 1);
 
     card.style.setProperty('--tilt-rx', `${rx.toFixed(2)}deg`);
     card.style.setProperty('--tilt-ry', `${ry.toFixed(2)}deg`);
@@ -1087,7 +1095,7 @@ function applyTiltToCards(rx, ry) {
 
     card.style.transform = `perspective(1200px) translateY(${translateY}px) translateZ(${elevation}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
     card.style.transition = (isHovered || isLongPressed)
-      ? "transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease"
+      ? "transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease"
       : "none";
     
     // Depth-mapping edge glow
@@ -1125,7 +1133,7 @@ function resetTiltForCard(card) {
   card.style.setProperty('--tilt-ty', '0px');
   card.style.setProperty('--tilt-scale', '1');
   card.style.transform = `perspective(1200px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-  card.style.transition = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1)";
+  card.style.transition = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease";
   
   card.style.setProperty('--glow-x', '50%');
   card.style.setProperty('--glow-y', '0%');
@@ -1285,7 +1293,7 @@ function initGlobalTilt() {
       const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
       lastPointerMoveTime = performance.now();
       updateTiltTarget(-ny * TILT_MAX_DEG, nx * TILT_MAX_DEG);
-      if (isMembership) startHoverAmbient();
+      startHoverAmbient();
     });
 
     card.addEventListener("pointermove", (e) => {
