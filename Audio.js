@@ -520,6 +520,111 @@ const AudioEngine = (function () {
     return "standard";
   }
 
+  // --- SOVEREIGN SEALS & ACCOLADES HAPTIC AUDIO SYSTEM ---
+  function playAccoladeStamp(type = "endorse") {
+    if (!enabled) return;
+    const c = ensureContextReady ? ensureContextReady() : ctx;
+    if (!c) return;
+
+    try {
+      const t = c.currentTime;
+
+      if (type === "toast") {
+        // Crystalline champagne coupe clink
+        const osc1 = c.createOscillator();
+        osc1.type = "sine";
+        osc1.frequency.setValueAtTime(2489.02, t);
+        osc1.frequency.exponentialRampToValueAtTime(2450, t + 0.35);
+
+        const osc2 = c.createOscillator();
+        osc2.type = "sine";
+        osc2.frequency.setValueAtTime(3729.31, t);
+
+        const gain1 = c.createGain();
+        gain1.gain.setValueAtTime(0.0001, t);
+        gain1.gain.linearRampToValueAtTime(0.08, t + 0.004);
+        gain1.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+
+        const gain2 = c.createGain();
+        gain2.gain.setValueAtTime(0.0001, t);
+        gain2.gain.linearRampToValueAtTime(0.035, t + 0.003);
+        gain2.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+
+        osc1.connect(gain1);
+        gain1.connect(c.destination);
+        osc2.connect(gain2);
+        gain2.connect(c.destination);
+
+        osc1.start(t);
+        osc1.stop(t + 0.4);
+        osc2.start(t);
+        osc2.stop(t + 0.22);
+      } else if (type === "honor") {
+        // Signet ring accord stamp (crisp metallic click + resonant decay)
+        const oscMetal = c.createOscillator();
+        oscMetal.type = "triangle";
+        oscMetal.frequency.setValueAtTime(1480, t);
+        oscMetal.frequency.exponentialRampToValueAtTime(880, t + 0.07);
+
+        const oscChime = c.createOscillator();
+        oscChime.type = "sine";
+        oscChime.frequency.setValueAtTime(1760, t);
+        oscChime.frequency.exponentialRampToValueAtTime(1750, t + 0.28);
+
+        const gainMetal = c.createGain();
+        gainMetal.gain.setValueAtTime(0.0001, t);
+        gainMetal.gain.linearRampToValueAtTime(0.07, t + 0.004);
+        gainMetal.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
+
+        const gainChime = c.createGain();
+        gainChime.gain.setValueAtTime(0.0001, t);
+        gainChime.gain.linearRampToValueAtTime(0.045, t + 0.01);
+        gainChime.gain.exponentialRampToValueAtTime(0.0001, t + 0.32);
+
+        oscMetal.connect(gainMetal);
+        gainMetal.connect(c.destination);
+        oscChime.connect(gainChime);
+        gainChime.connect(c.destination);
+
+        oscMetal.start(t);
+        oscMetal.stop(t + 0.1);
+        oscChime.start(t);
+        oscChime.stop(t + 0.32);
+      } else {
+        // Sovereign wax endorsement stamp (warm velvet thump + soft gold shimmer)
+        const oscThump = c.createOscillator();
+        oscThump.type = "sine";
+        oscThump.frequency.setValueAtTime(190, t);
+        oscThump.frequency.exponentialRampToValueAtTime(65, t + 0.14);
+
+        const oscShimmer = c.createOscillator();
+        oscShimmer.type = "sine";
+        oscShimmer.frequency.setValueAtTime(1174.66, t);
+        oscShimmer.frequency.exponentialRampToValueAtTime(1160, t + 0.25);
+
+        const gainThump = c.createGain();
+        gainThump.gain.setValueAtTime(0.0001, t);
+        gainThump.gain.linearRampToValueAtTime(0.1, t + 0.005);
+        gainThump.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+
+        const gainShimmer = c.createGain();
+        gainShimmer.gain.setValueAtTime(0.0001, t);
+        gainShimmer.gain.linearRampToValueAtTime(0.04, t + 0.012);
+        gainShimmer.gain.exponentialRampToValueAtTime(0.0001, t + 0.3);
+
+        oscThump.connect(gainThump);
+        gainThump.connect(c.destination);
+        oscShimmer.connect(gainShimmer);
+        gainShimmer.connect(c.destination);
+
+        oscThump.start(t);
+        oscThump.stop(t + 0.16);
+        oscShimmer.start(t);
+        oscShimmer.stop(t + 0.3);
+      }
+    } catch (e) {}
+  }
+
   return {
     init,
     isEnabled,
@@ -535,6 +640,7 @@ const AudioEngine = (function () {
     playGoldenSovereignChime,
     playTitanResonance,
     playStandardReceive,
+    playAccoladeStamp,
   };
 })();
 

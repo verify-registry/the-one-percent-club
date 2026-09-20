@@ -346,15 +346,81 @@ window.I18N = {
     },
     endorse: {
       en: "Endorse",
-      ar: "مصادقة",
+      ar: "تأييد",
     },
     honor: {
-      en: "Honor",
-      ar: "وسام",
+      en: "Accord",
+      ar: "وفاق",
     },
     toast: {
       en: "Toast",
       ar: "نخب",
+    },
+    endorseDesc: {
+      en: "Sovereign wax endorsement stamp",
+      ar: "ختم التأييد السيادي بالشمع الملكي",
+    },
+    honorDesc: {
+      en: "Signet ring accord of honor",
+      ar: "خاتم المصادقة والوفاق السيادي",
+    },
+    toastDesc: {
+      en: "Prestige toast of honor",
+      ar: "نخب الامتياز والريادة",
+    },
+    whisperBadge: {
+      en: "ENCRYPTED WHISPER • DISCRETION",
+      ar: "همس سيادي مشفر • سرية سويسرية",
+    },
+    miniDossier: {
+      authLabel: {
+        en: "SOVEREIGN MEMBER DOSSIER",
+        ar: "سجل العضو السيادي المعتمد",
+      },
+      wealthLabel: {
+        en: "Wealth Index",
+        ar: "مؤشر الثروة",
+      },
+      privLabel: {
+        en: "Sovereign Privilege",
+        ar: "الامتياز السيادي",
+      },
+      standingLabel: {
+        en: "Charter Standing",
+        ar: "الميثاق",
+      },
+      regaliaTitle: {
+        en: "Equipped Sovereign Regalia & Seals:",
+        ar: "الأوسمة والمقتنيات المعتمدة:",
+      },
+      toastBtn: {
+        en: "Offer Sovereign Toast",
+        ar: "إرسال نخب سيادي",
+      },
+      toastSent: {
+        en: "Prestige toast conferred successfully to",
+        ar: "تم تقديم نخب الامتياز بنجاح إلى",
+      },
+      privateChatBtn: {
+        en: "Private Channel",
+        ar: "طلب تواصل خاص",
+      },
+      privateChatMsg: {
+        en: "Encrypted bilateral channels in diplomatic accreditation",
+        ar: "قريبًا • المراسلات الثنائية المشفرة قيد الاعتماد الدبلوماسي",
+      },
+      addMemberBtn: {
+        en: "Add to Circle",
+        ar: "إضافة عضو",
+      },
+      addMemberMsg: {
+        en: "Circle expansions pending council clearance",
+        ar: "قريبًا • توسيع الدوائر بانتظار اعتماد المجلس",
+      },
+      fullProfileBtn: {
+        en: "Inspect Complete Archives & Credentials →",
+        ar: "استعراض الأرشيف والملف الكامل ←",
+      },
     },
     yourDispatch: {
       en: "Your Sovereign Dispatch",

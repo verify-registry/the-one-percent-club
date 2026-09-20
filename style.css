@@ -1800,64 +1800,51 @@ body.light-mode .milestone-badge.tier-exarch .crystal-core {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* RTL (Default Arabic): Wealth is on RIGHT column, Privileges is on LEFT column */
-html[dir="rtl"] #wealthRingWrap .metric-tooltip,
-html:not([dir="ltr"]) #wealthRingWrap .metric-tooltip {
-  right: -6px;
-  left: auto;
-}
-html[dir="rtl"] #wealthRingWrap .metric-tooltip::after,
-html:not([dir="ltr"]) #wealthRingWrap .metric-tooltip::after {
-  right: 32px;
-  left: auto;
-}
+/* Robust Tooltip Alignment for Master Card:
+   The Master Card uses a fixed horizontal chronograph layout:
+   - Wealth Index (#wealthRingWrap) is on the LEFT column.
+     Its tooltip MUST expand towards the RIGHT/CENTER into the card body.
+   - Privileges (#privRingWrap) is on the RIGHT column.
+     Its tooltip MUST expand towards the LEFT/CENTER into the card body.
+   Both remain inside the card borders without clipping regardless of text direction. */
 
-html[dir="rtl"] #privRingWrap .metric-tooltip,
-html:not([dir="ltr"]) #privRingWrap .metric-tooltip {
-  left: -6px;
-  right: auto;
-}
-html[dir="rtl"] #privRingWrap .metric-tooltip::after,
-html:not([dir="ltr"]) #privRingWrap .metric-tooltip::after {
-  left: 32px;
-  right: auto;
-}
-
-/* LTR (English): Wealth is on LEFT column, Privileges is on RIGHT column */
-html[dir="ltr"] #wealthRingWrap .metric-tooltip {
-  left: -6px;
-  right: auto;
-}
-html[dir="ltr"] #wealthRingWrap .metric-tooltip::after {
-  left: 32px;
-  right: auto;
-}
-
-html[dir="ltr"] #privRingWrap .metric-tooltip {
-  right: -6px;
-  left: auto;
-}
-html[dir="ltr"] #privRingWrap .metric-tooltip::after {
-  right: 32px;
-  left: auto;
-}
-
-/* Fallback class-based alignment */
+#wealthRingWrap .metric-tooltip,
 .metric-tooltip-left {
-  left: -6px;
-  right: auto;
+  left: 0 !important;
+  right: auto !important;
 }
+#wealthRingWrap .metric-tooltip::after,
 .metric-tooltip-left::after {
-  left: 32px;
-  right: auto;
+  left: 32px !important;
+  right: auto !important;
 }
+
+#privRingWrap .metric-tooltip,
 .metric-tooltip-right {
-  right: -6px;
-  left: auto;
+  right: 0 !important;
+  left: auto !important;
 }
+#privRingWrap .metric-tooltip::after,
 .metric-tooltip-right::after {
-  right: 32px;
-  left: auto;
+  right: 32px !important;
+  left: auto !important;
+}
+
+/* Ensure inner tooltip content respects document text direction */
+html[dir="rtl"] .metric-tooltip,
+html:not([dir="ltr"]) .metric-tooltip {
+  direction: rtl;
+  text-align: right;
+}
+html[dir="ltr"] .metric-tooltip {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Prevent clipping by allowing card-inner-frame overflow when tooltip is open */
+#membershipCard.has-open-tooltip .card-inner-frame,
+#membershipCard:has(.is-tooltip-open) .card-inner-frame {
+  overflow: visible !important;
 }
 
 /* Reveal states: Controlled via is-tooltip-open (with 15s auto-dismiss) and desktop hover */
@@ -3172,9 +3159,131 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.8),
+    inset 0 0 20px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(0, 0, 0, 0.4);
+  background: #09080c;
+}
+
+/* LUXURY SOVEREIGN CHAT BACKDROP (OBSIDIAN + REAL GOLD WATERMARK & GUILLOCHÉ) */
+.sovereign-chat-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 0%, rgba(212, 175, 55, 0.055) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(184, 134, 11, 0.035) 0%, transparent 60%),
+    linear-gradient(180deg, #110f14 0%, #0c0a0e 40%, #070608 100%);
+  transition: background 0.3s ease;
+}
+
+.chat-backdrop-mesh {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(212, 175, 55, 0.015) 1px, transparent 1px);
+  background-size: 24px 24px, 100% 36px;
+  opacity: 0.75;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 45%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 45%, transparent 95%);
+}
+
+.chat-backdrop-ambient-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 140px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(233, 200, 119, 0.08) 0%, rgba(212, 175, 55, 0.02) 55%, transparent 80%);
+  pointer-events: none;
+}
+
+/* Watermark Medallion */
+.chat-watermark-medallion {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(340px, 80vw);
+  height: min(340px, 80vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.chat-watermark-svg {
+  width: 100%;
+  height: 100%;
+  color: #d4af37;
+  opacity: 0.048;
+  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.2));
+  animation: sovereignWatermarkBreathe 14s infinite ease-in-out;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+@keyframes sovereignWatermarkBreathe {
+  0%, 100% {
+    opacity: 0.045;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.068;
+    transform: scale(1.025);
+  }
+}
+
+/* Four Corner Filigrees */
+.chat-corner-filigree {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  color: #d4af37;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 1;
+}
+.chat-corner-tl { top: 8px; left: 8px; }
+.chat-corner-tr { top: 8px; right: 8px; }
+.chat-corner-bl { bottom: 8px; left: 8px; }
+.chat-corner-br { bottom: 8px; right: 8px; }
+
+.corner-filigree-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Hairlines */
+.chat-backdrop-hairline {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  pointer-events: none;
+  z-index: 1;
+}
+.chat-backdrop-hairline-top {
+  top: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.28) 50%, transparent 100%);
+}
+.chat-backdrop-hairline-bottom {
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
 }
 
 #club-tab .club-messages {
+  position: relative;
+  z-index: 2;
   flex: 1;
   min-height: 0;
   height: 100%;
@@ -3373,7 +3482,8 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   justify-content: flex-start;
 }
 .sovereign-dispatch-card.is-personal-dispatch .dispatch-manuscript-body {
-  text-align: right;
+  text-align: start;
+  unicode-bidi: plaintext;
   margin: 6px 0 6px 0;
 }
 .sovereign-dispatch-card.is-personal-dispatch .dispatch-read-more-btn {
@@ -3402,11 +3512,11 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   animation-delay: var(--ink-delay, 0s);
 }
 
-/* === NEW DISPATCH ARRIVAL ANIMATIONS (FADE-IN WITH SUBTLE SLIDE & HOROLOGICAL REALISM) === */
+/* === NEW DISPATCH ARRIVAL ANIMATIONS (FADE-IN SLIDE WITH LUXURY HOROLOGICAL REALISM) === */
 .sovereign-dispatch-card.is-new-dispatch,
 .sovereign-dispatch-card.dispatch-just-arrived {
-  will-change: transform, opacity;
-  animation: dispatchArrivalGeneric 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity, filter;
+  animation: dispatchFadeInSlide 0.56s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* 1. Incoming Messages Arrival (From Left / Other Members) */
@@ -3414,7 +3524,7 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
 .sovereign-dispatch-card.dispatch-align-left.is-new-dispatch,
 .sovereign-dispatch-card.dispatch-sender-other.is-new-dispatch,
 .sovereign-dispatch-card:not(.is-personal-dispatch).dispatch-just-arrived {
-  animation: dispatchArrivalIncoming 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: dispatchArrivalIncoming 0.56s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* 2. Personal Messages Arrival (From Right / Member Decrees) */
@@ -3422,14 +3532,14 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
 .sovereign-dispatch-card.dispatch-align-right.is-new-dispatch,
 .sovereign-dispatch-card.dispatch-sender-me.is-new-dispatch,
 .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arrived {
-  animation: dispatchArrivalPersonal 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: dispatchArrivalPersonal 0.56s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Combined Arrival + Golden Bloom for New Personal Dispatches */
 .sovereign-dispatch-card.is-personal-dispatch.is-new-dispatch.has-golden-ink-bloom,
 .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arrived.has-golden-ink-bloom {
   animation:
-    dispatchArrivalPersonal 0.44s cubic-bezier(0.16, 1, 0.3, 1) both,
+    dispatchArrivalPersonal 0.56s cubic-bezier(0.16, 1, 0.3, 1) both,
     sovereignCardDispatchBloom 4.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0s, var(--ink-delay, 0s);
 }
@@ -3437,42 +3547,120 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
 @keyframes dispatchArrivalIncoming {
   0% {
     opacity: 0;
-    transform: translate3d(-8px, 14px, 0) scale(0.985);
+    transform: translate3d(-6px, 20px, 0) scale(0.975);
+    filter: blur(2.5px);
   }
-  60% {
-    opacity: 0.96;
+  30% {
+    opacity: 0.75;
+    filter: blur(0.8px);
+  }
+  75% {
+    opacity: 0.98;
+    filter: blur(0);
+    transform: translate3d(0, 1px, 0) scale(1.002);
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
   }
 }
 
 @keyframes dispatchArrivalPersonal {
   0% {
     opacity: 0;
-    transform: translate3d(8px, 14px, 0) scale(0.985);
+    transform: translate3d(6px, 20px, 0) scale(0.975);
+    filter: blur(2.5px);
   }
-  60% {
-    opacity: 0.96;
+  30% {
+    opacity: 0.75;
+    filter: blur(0.8px);
+  }
+  75% {
+    opacity: 0.98;
+    filter: blur(0);
+    transform: translate3d(0, 1px, 0) scale(1.002);
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
   }
 }
 
-@keyframes dispatchArrivalGeneric {
+@keyframes dispatchFadeInSlide {
   0% {
     opacity: 0;
-    transform: translate3d(0, 14px, 0) scale(0.985);
+    transform: translate3d(0, 20px, 0) scale(0.975);
+    filter: blur(2.5px);
   }
-  60% {
-    opacity: 0.96;
+  30% {
+    opacity: 0.75;
+    filter: blur(0.8px);
+  }
+  75% {
+    opacity: 0.98;
+    filter: blur(0);
+    transform: translate3d(0, 1px, 0) scale(1.002);
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* RTL-aware directional adaptations */
+html[dir="rtl"] .sovereign-dispatch-card:not(.is-personal-dispatch).is-new-dispatch,
+html[dir="rtl"] .sovereign-dispatch-card:not(.is-personal-dispatch).dispatch-just-arrived {
+  animation-name: dispatchArrivalIncomingRTL;
+}
+html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.is-new-dispatch,
+html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arrived {
+  animation-name: dispatchArrivalPersonalRTL;
+}
+
+@keyframes dispatchArrivalIncomingRTL {
+  0% {
+    opacity: 0;
+    transform: translate3d(6px, 20px, 0) scale(0.975);
+    filter: blur(2.5px);
+  }
+  30% {
+    opacity: 0.75;
+    filter: blur(0.8px);
+  }
+  75% {
+    opacity: 0.98;
+    filter: blur(0);
+    transform: translate3d(0, 1px, 0) scale(1.002);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes dispatchArrivalPersonalRTL {
+  0% {
+    opacity: 0;
+    transform: translate3d(-6px, 20px, 0) scale(0.975);
+    filter: blur(2.5px);
+  }
+  30% {
+    opacity: 0.75;
+    filter: blur(0.8px);
+  }
+  75% {
+    opacity: 0.98;
+    filter: blur(0);
+    transform: translate3d(0, 1px, 0) scale(1.002);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
   }
 }
 
@@ -3796,6 +3984,13 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   word-break: break-word;
   overflow: visible;
   text-overflow: clip;
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+.dispatch-name bdi {
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 .dispatch-tier-hallmark {
   font-size: 7.5px;
@@ -3906,6 +4101,18 @@ body.light-mode .sovereign-time-icon {
   color: inherit;
   word-break: break-word;
   transition: max-height 0.3s ease;
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+.dispatch-text-content:dir(rtl),
+.dispatch-text-content[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+.dispatch-text-content:dir(ltr),
+.dispatch-text-content[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
 }
 
 .dispatch-text-content.is-truncated {
@@ -3975,43 +4182,67 @@ body.light-mode .dispatch-read-more-btn:hover {
   z-index: 2;
 }
 .dispatch-accolades-actions {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 5px;
-  flex-wrap: nowrap;
+  gap: 4px;
+  flex-wrap: wrap;
   max-width: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-.dispatch-accolades-actions::-webkit-scrollbar {
-  display: none;
+  overflow: visible;
 }
 .sovereign-accolade-btn {
   display: inline-flex;
   align-items: center;
-  gap: 3.5px;
+  gap: 4px;
   padding: 2.5px 7px;
   border-radius: 12px;
-  font-size: 9.5px;
+  font-size: 8.5px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.22);
   color: #b0a592;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   -webkit-tap-highlight-color: transparent;
   white-space: nowrap;
   flex-shrink: 0;
   line-height: 1.2;
 }
 .sovereign-accolade-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
+}
+.accolade-seal-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+.accolade-svg-seal {
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+.sovereign-accolade-btn:hover .accolade-svg-seal {
+  transform: scale(1.12);
 }
 .sovereign-accolade-btn.is-conferred {
-  background: rgba(212, 175, 55, 0.18);
-  border-color: #d4af37;
+  background: rgba(212, 175, 55, 0.16);
+  border-color: rgba(212, 175, 55, 0.7);
   color: #fae5a6;
-  box-shadow: 0 0 6px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.25), inset 0 0 4px rgba(212, 175, 55, 0.15);
+}
+.sovereign-accolade-btn.is-conferred.is-endorse {
+  border-color: #d4af37;
+  color: #fce7aa;
+}
+.sovereign-accolade-btn.is-conferred.is-honor {
+  border-color: #e6c27a;
+  color: #fff0c7;
+}
+.sovereign-accolade-btn.is-conferred.is-toast {
+  border-color: #ffd980;
+  color: #fff8e1;
 }
 .accolade-icon {
   font-size: 9px;
@@ -4019,12 +4250,13 @@ body.light-mode .dispatch-read-more-btn:hover {
 .accolade-title {
   font-size: 9px;
   font-weight: 500;
+  letter-spacing: 0.02em;
 }
 .accolade-tally {
   font-size: 8.5px;
   font-weight: 700;
   font-family: monospace;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .chat-text {
@@ -4088,15 +4320,107 @@ body.light-mode .dispatch-read-more-btn:hover {
   box-shadow: none !important;
 }
 
-/* Typing pulse indicator */
+/* Horological Escapement & Ink Drafting Indicator */
 .club-typing-indicator {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 0 14px;
+  gap: 8px;
+  padding: 4px 12px;
+  margin: 0 8px 4px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(24, 20, 14, 0.85) 0%, rgba(14, 11, 8, 0.95) 100%);
+  border: 1px solid rgba(212, 175, 106, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 235, 180, 0.08);
   font-size: 10px;
   color: var(--gold-champagne);
   letter-spacing: 0.02em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  width: fit-content;
+  max-width: calc(100% - 16px);
+}
+.horological-typing-escapement {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  color: var(--gold-polished);
+  flex-shrink: 0;
+}
+.horological-gear-svg {
+  width: 16px;
+  height: 16px;
+  animation: horologicalGearSpin 12s linear infinite;
+  opacity: 0.85;
+}
+.golden-ink-nib-svg {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  color: #fff2c4;
+  animation: inkNibPulse 1.8s ease-in-out infinite;
+}
+@keyframes horologicalGearSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes inkNibPulse {
+  0%, 100% { transform: translateY(0) scale(0.9); opacity: 0.7; }
+  50% { transform: translateY(-1.5px) scale(1.1); opacity: 1; filter: drop-shadow(0 0 4px rgba(212, 175, 106, 0.6)); }
+}
+.typing-text-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.typing-text-wrap bdi {
+  color: #f7edd6;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.typing-action-text {
+  color: rgba(212, 175, 106, 0.85);
+  font-weight: 400;
+}
+.horological-escapement-ticks {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-inline-start: 2px;
+  flex-shrink: 0;
+}
+.horological-tick {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold-polished);
+  opacity: 0.3;
+  animation: escapementTick 1.4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+.horological-tick.tick-1 {
+  animation-delay: 0s;
+}
+.horological-tick.tick-2 {
+  animation-delay: 0.25s;
+}
+.horological-tick.tick-3 {
+  animation-delay: 0.5s;
+}
+@keyframes escapementTick {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.3);
+    box-shadow: 0 0 6px var(--gold-polished);
+  }
 }
 .typing-pulse-dot {
   width: 5px;
@@ -4509,13 +4833,31 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   outline: none;
   color: #f7f1e1;
   font-size: 13.5px;
-  direction: auto;
-  text-align: start;
   letter-spacing: 0.01em;
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+.obsidian-dispatch-input:dir(rtl),
+.obsidian-dispatch-input[dir="rtl"],
+.obsidian-dispatch-input.is-rtl {
+  direction: rtl !important;
+  text-align: right !important;
+}
+.obsidian-dispatch-input:dir(ltr),
+.obsidian-dispatch-input[dir="ltr"],
+.obsidian-dispatch-input.is-ltr {
+  direction: ltr !important;
+  text-align: left !important;
 }
 .obsidian-dispatch-input::placeholder {
   color: #8c8371;
   font-size: 12.5px;
+}
+html[dir="rtl"] .obsidian-dispatch-input::placeholder {
+  text-align: right;
+}
+html[dir="ltr"] .obsidian-dispatch-input::placeholder {
+  text-align: left;
 }
 
 /* Sovereign Seal Send Button: Classic Gold Arrow with Club Monogram */
@@ -4595,12 +4937,34 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 
 /* Whisper Dispatch Card Decoration */
 .sovereign-dispatch-card.is-whisper-dispatch {
-  border-color: rgba(212, 175, 106, 0.55) !important;
-  background: linear-gradient(180deg, rgba(26, 20, 12, 0.95) 0%, rgba(14, 11, 7, 0.98) 100%) !important;
-  box-shadow: 0 4px 20px rgba(212, 175, 106, 0.08) !important;
+  border-color: rgba(212, 175, 106, 0.6) !important;
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(38, 30, 18, 0.95) 0%, rgba(14, 11, 7, 0.98) 100%),
+    repeating-linear-gradient(45deg, rgba(212, 175, 106, 0.02) 0px, rgba(212, 175, 106, 0.02) 1.5px, transparent 1.5px, transparent 6px) !important;
+  box-shadow: 
+    0 6px 24px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 235, 180, 0.12),
+    0 0 14px rgba(212, 175, 106, 0.12) !important;
+  position: relative;
+  overflow: hidden;
+}
+.sovereign-dispatch-card.is-whisper-dispatch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-champagne), var(--gold-polished), transparent);
+  opacity: 0.85;
+  pointer-events: none;
 }
 .dispatch-whisper-tag-row {
-  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
   position: relative;
   z-index: 2;
 }
@@ -4608,23 +4972,41 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 2px 8px;
+  padding: 2.5px 9px;
   border-radius: 12px;
-  background: rgba(212, 175, 106, 0.15);
-  border: 1px solid rgba(212, 175, 106, 0.4);
-  font-size: 9px;
+  background: rgba(212, 175, 106, 0.14);
+  border: 1px solid rgba(212, 175, 106, 0.45);
+  font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--gold-champagne);
+  color: #fff3d1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 .whisper-pill-icon {
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   color: var(--gold-polished);
+  flex-shrink: 0;
+}
+.whisper-text-label {
+  white-space: nowrap;
+}
+.dispatch-whisper-discretion-mark {
+  font-family: 'Cinzel', serif;
+  font-size: 7.5px;
+  letter-spacing: 0.12em;
+  color: rgba(212, 175, 106, 0.6);
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
 }
 .dispatch-manuscript-body.is-whisper-content {
-  font-style: italic;
-  color: #fff5dc;
+  font-style: normal;
+  color: #fff8e8;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  border-inline-start: 2px solid rgba(212, 175, 106, 0.4);
+  padding-inline-start: 8px;
+  margin-inline-start: 2px;
 }
 
 .edit-form {
@@ -8219,6 +8601,19 @@ html[dir="rtl"] h6 {
   unicode-bidi: plaintext;
 }
 
+html[dir="rtl"] .dispatch-name,
+html[dir="rtl"] .dispatch-name bdi {
+  direction: ltr !important;
+  unicode-bidi: isolate !important;
+  display: inline-block;
+}
+
+html[dir="rtl"] #typingName {
+  direction: ltr !important;
+  unicode-bidi: isolate !important;
+  display: inline-block;
+}
+
 html[dir="rtl"] .phc-vertical-text span {
   unicode-bidi: isolate;
 }
@@ -9567,6 +9962,63 @@ body.light-mode .room-badge {
 }
 
 /* Chat & Sovereign Dispatch */
+body.light-mode .club-chat-viewport {
+  border: 1px solid rgba(156, 109, 35, 0.22) !important;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.04),
+    inset 0 0 16px rgba(156, 109, 35, 0.04),
+    0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  background: #faf7ef !important;
+}
+
+body.light-mode .sovereign-chat-backdrop {
+  background:
+    radial-gradient(ellipse 90% 48% at 50% 0%, rgba(212, 175, 55, 0.11) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(180, 140, 60, 0.06) 0%, transparent 60%),
+    linear-gradient(180deg, #faf7ef 0%, #f5eee1 45%, #ede3cf 100%) !important;
+}
+
+body.light-mode .chat-backdrop-mesh {
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(156, 109, 35, 0.06) 1px, transparent 1px),
+    linear-gradient(rgba(156, 109, 35, 0.025) 1px, transparent 1px) !important;
+  opacity: 0.55 !important;
+}
+
+body.light-mode .chat-backdrop-ambient-glow {
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.15) 0%, rgba(184, 134, 11, 0.04) 55%, transparent 80%) !important;
+}
+
+body.light-mode .chat-watermark-svg {
+  color: #8c6014 !important;
+  opacity: 0.068 !important;
+  filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.8)) !important;
+  animation: sovereignWatermarkBreatheLight 14s infinite ease-in-out !important;
+}
+
+@keyframes sovereignWatermarkBreatheLight {
+  0%, 100% {
+    opacity: 0.062;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.088;
+    transform: scale(1.025);
+  }
+}
+
+body.light-mode .chat-corner-filigree {
+  color: #8c6014 !important;
+  opacity: 0.28 !important;
+}
+
+body.light-mode .chat-backdrop-hairline-top {
+  background: linear-gradient(90deg, transparent 0%, rgba(156, 109, 35, 0.35) 50%, transparent 100%) !important;
+}
+body.light-mode .chat-backdrop-hairline-bottom {
+  background: linear-gradient(90deg, transparent 0%, rgba(156, 109, 35, 0.25) 50%, transparent 100%) !important;
+}
+
 body.light-mode .sovereign-salon-ticker {
   background: linear-gradient(180deg, rgba(255, 253, 249, 0.94) 0%, rgba(247, 242, 233, 0.96) 100%) !important;
   border: 1px solid rgba(168, 124, 45, 0.22) !important;
@@ -16071,4 +16523,316 @@ body.light-mode #membership-tab .card-club-name {
   color: rgba(212, 175, 55, 0.7);
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+/* =========================================================
+   SOVEREIGN MEMBER DOSSIER MINI-CARD MODAL
+   ========================================================= */
+.sovereign-dossier-overlay {
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px;
+  background: radial-gradient(circle at 50% 50%, rgba(12, 10, 7, 0.85) 0%, rgba(0, 0, 0, 0.94) 100%) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+.sovereign-mini-dossier-card {
+  position: relative;
+  width: 100%;
+  max-width: 375px;
+  background: 
+    radial-gradient(ellipse at 50% -10%, rgba(35, 27, 16, 0.98) 0%, rgba(14, 11, 8, 0.99) 70%),
+    linear-gradient(180deg, #15120d 0%, #0c0a07 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  border-radius: 18px !important;
+  padding: 20px 18px 18px !important;
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.85),
+    0 0 24px rgba(212, 175, 106, 0.16),
+    inset 0 1px 1px rgba(255, 235, 180, 0.2) !important;
+  transform-origin: center center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.sovereign-mini-dossier-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-champagne), var(--gold-polished), transparent);
+  opacity: 0.9;
+  pointer-events: none;
+}
+.mini-dossier-close-btn {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 106, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+  color: #c9bfab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.mini-dossier-close-btn:hover {
+  background: rgba(212, 175, 106, 0.18);
+  border-color: var(--gold-champagne);
+  color: #fff;
+  transform: scale(1.05);
+}
+.mini-dossier-hallmark-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.mini-dossier-crown {
+  width: 15px;
+  height: 10px;
+}
+.mini-dossier-auth-label {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--gold-champagne);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.mini-dossier-hero-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.mini-dossier-avatar-rim {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  padding: 2.5px;
+  background: linear-gradient(135deg, var(--gold-polished), rgba(120, 90, 40, 0.4), var(--gold-champagne));
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 10px rgba(212, 175, 106, 0.2);
+  flex-shrink: 0;
+}
+.mini-dossier-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+.mini-dossier-status-pip {
+  position: absolute;
+  bottom: 2px;
+  inset-inline-end: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #34d399;
+  border: 2px solid #14120e;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.7);
+}
+.mini-dossier-hero-meta {
+  flex: 1;
+  min-width: 0;
+}
+.mini-dossier-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff4dc;
+  margin: 0 0 4px;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+.mini-dossier-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1.5px 7px;
+  border-radius: 6px;
+  background: rgba(212, 175, 106, 0.12);
+  border: 1px solid rgba(212, 175, 106, 0.35);
+  margin-bottom: 5px;
+}
+.mini-dossier-tier-text {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--gold-champagne);
+}
+.mini-dossier-jurisdiction-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9.5px;
+  color: #a39985;
+}
+.jurisdiction-icon {
+  color: var(--gold-antique);
+}
+.mini-dossier-complications-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(212, 175, 106, 0.18);
+  margin-bottom: 12px;
+}
+.mini-dossier-comp-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.comp-cell-label {
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  color: #8c8272;
+  margin-bottom: 2px;
+}
+.comp-cell-val {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold-champagne);
+}
+.mini-dossier-creed-box {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(212, 175, 106, 0.04);
+  border: 1px solid rgba(212, 175, 106, 0.14);
+  margin-bottom: 12px;
+  text-align: center;
+}
+.mini-dossier-creed-quote {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-style: italic;
+  line-height: 1.45;
+  color: #dfd7c5;
+}
+.mini-dossier-regalia-row {
+  margin-bottom: 14px;
+}
+.mini-dossier-regalia-title {
+  display: block;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  color: #8c8272;
+  margin-bottom: 6px;
+}
+.mini-dossier-regalia-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.mini-regalia-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: rgba(212, 175, 106, 0.08);
+  border: 1px solid rgba(212, 175, 106, 0.22);
+  font-size: 9px;
+  color: #ede2c8;
+}
+.mini-dossier-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.mini-dossier-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+.mini-dossier-btn.is-toast-primary {
+  background: linear-gradient(180deg, rgba(212, 175, 106, 0.25) 0%, rgba(175, 135, 65, 0.3) 100%);
+  border: 1px solid var(--gold-polished);
+  color: #fff9e6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 245, 210, 0.2);
+}
+.mini-dossier-btn.is-toast-primary:active {
+  transform: scale(0.97);
+  background: rgba(212, 175, 106, 0.4);
+}
+.mini-dossier-btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.mini-dossier-btn.is-secondary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 175, 106, 0.2);
+  color: #ccc2ae;
+}
+.mini-dossier-btn.is-secondary:hover {
+  background: rgba(212, 175, 106, 0.1);
+  border-color: rgba(212, 175, 106, 0.4);
+  color: #fff;
+}
+.mini-dossier-btn.is-secondary:active {
+  transform: scale(0.97);
+}
+.mini-dossier-btn.is-link {
+  background: transparent;
+  border: none;
+  color: var(--gold-champagne);
+  font-size: 10px;
+  padding: 4px 8px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.85;
+}
+.mini-dossier-btn.is-link:hover {
+  opacity: 1;
+}
+
+/* Light mode support for dossier */
+body.light-mode .sovereign-mini-dossier-card {
+  background: linear-gradient(180deg, #fdfbf7 0%, #f4eee1 100%) !important;
+  border-color: rgba(180, 140, 60, 0.4) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25) !important;
+}
+body.light-mode .mini-dossier-name {
+  color: #211c14 !important;
+}
+body.light-mode .mini-dossier-complications-grid {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(180, 140, 60, 0.25) !important;
+}
+body.light-mode .mini-dossier-creed-box {
+  background: rgba(180, 140, 60, 0.06) !important;
+}
+body.light-mode .mini-dossier-creed-quote {
+  color: #3b3121 !important;
+}
+body.light-mode .mini-regalia-chip {
+  background: rgba(180, 140, 60, 0.1) !important;
+  color: #3b3121 !important;
+}
+body.light-mode .mini-dossier-btn.is-secondary {
+  background: rgba(0, 0, 0, 0.03) !important;
+  color: #3b3121 !important;
+  border-color: rgba(180, 140, 60, 0.3) !important;
 }

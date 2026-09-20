@@ -26,7 +26,7 @@ function renderRing(ringId, valueId, percent) {
 // ==========================================
 
 const savedLang = localStorage.getItem("one_percent_lang");
-let currentLang = (savedLang === "ar" || savedLang === "en") ? savedLang : "en";
+let currentLang = (savedLang === "ar" || savedLang === "en") ? savedLang : "ar";
 
 function getNestedValue(obj, path) {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
@@ -38,6 +38,30 @@ window.t = function (key, lang = currentLang) {
   return key; // fallback
 };
 
+window.syncClubInputDirection = function (inputEl) {
+  const input = inputEl || document.getElementById("clubInput");
+  if (!input) return;
+  const val = input.value;
+  // Match first strong character (Arabic/Hebrew vs Latin)
+  const firstStrong = val.match(/[\u0590-\u08FF\uFB1D-\uFDFD\uFE70-\uFEFC]|[A-Za-z]/);
+  if (firstStrong) {
+    const isArabic = /[\u0590-\u08FF\uFB1D-\uFDFD\uFE70-\uFEFC]/.test(firstStrong[0]);
+    input.setAttribute("dir", isArabic ? "rtl" : "ltr");
+    input.style.direction = isArabic ? "rtl" : "ltr";
+    input.style.textAlign = isArabic ? "right" : "left";
+    input.classList.toggle("is-rtl", isArabic);
+    input.classList.toggle("is-ltr", !isArabic);
+  } else {
+    // If empty or neutral (numbers/symbols), match current active interface language
+    const isAr = (currentLang === "ar") || (document.documentElement.dir === "rtl");
+    input.setAttribute("dir", isAr ? "rtl" : "ltr");
+    input.style.direction = isAr ? "rtl" : "ltr";
+    input.style.textAlign = isAr ? "right" : "left";
+    input.classList.toggle("is-rtl", isAr);
+    input.classList.toggle("is-ltr", !isAr);
+  }
+};
+
 window.setLanguage = function (lang) {
   if (lang !== "en" && lang !== "ar") return;
   currentLang = lang;
@@ -46,6 +70,9 @@ window.setLanguage = function (lang) {
 
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
+  if (typeof window.syncClubInputDirection === "function") {
+    window.syncClubInputDirection();
+  }
   // Update typography
   const root = document.documentElement;
   if (lang === "en") {
@@ -746,7 +773,7 @@ const AppState = {
       business: [
         {
           senderId: "1001",
-          senderName: "Alexander W.",
+          senderName: "W. Alexander",
           senderTier: "SOVEREIGN EXARCH",
           senderColor: "#d4af37",
           senderWealth: "99.6%",
@@ -795,7 +822,7 @@ const AppState = {
         },
         {
           senderId: "1001",
-          senderName: "Alexander W.",
+          senderName: "W. Alexander",
           senderTier: "SOVEREIGN EXARCH",
           senderColor: "#d4af37",
           senderWealth: "99.6%",
@@ -1004,6 +1031,202 @@ if (typeof window !== "undefined") {
   window.escapeHtml = escapeHtml;
 }
 
+window.openMemberMiniDossier = function (member) {
+  if (!member) return;
+  const modal = document.getElementById("memberMiniDossierModal");
+  if (!modal) return;
+
+  if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+    window.AudioEngine.playModalOpen();
+  }
+  if (window.HapticEngine && window.HapticEngine.tap) {
+    window.HapticEngine.tap(14);
+  }
+
+  const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
+  let memberName = member.name || "MEMBER";
+  if (memberName === "Alexander W.") memberName = "W. Alexander";
+  if (memberName === "ALEXANDER W.") memberName = "W. ALEXANDER";
+
+  // Name
+  const nameEl = document.getElementById("miniDossierName");
+  if (nameEl) nameEl.innerHTML = `<bdi dir="auto">${memberName}</bdi>`;
+
+  // Avatar
+  const avatarEl = document.getElementById("miniDossierAvatar");
+  if (avatarEl) {
+    avatarEl.src = member.avatar || "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop";
+    avatarEl.alt = memberName;
+  }
+
+  // Status Pip
+  const statusPip = document.getElementById("miniDossierStatusPip");
+  if (statusPip) {
+    statusPip.style.display = member.isOnline !== false ? "block" : "none";
+  }
+
+  // Tier
+  const tierEl = document.getElementById("miniDossierTier");
+  const rawTier = (member.tier || "SOVEREIGN").toUpperCase();
+  let tierText = rawTier;
+  if (isAr) {
+    if (/FOUNDER/.test(rawTier)) tierText = "مؤسس المجلس السيادي • FOUNDER";
+    else if (/EXARCH/.test(rawTier)) tierText = "حاكم سيادي تنفيذي • SOVEREIGN EXARCH";
+    else if (/ARCHON/.test(rawTier)) tierText = "أركون سيادي أول • SOVEREIGN ARCHON";
+    else if (/TITAN/.test(rawTier)) tierText = "تيتان رأس المال • CAPITAL TITAN";
+    else tierText = "عضو سيادي معتمد • SOVEREIGN MEMBER";
+  } else {
+    tierText = `${rawTier} MEMBER`;
+  }
+  if (tierEl) tierEl.textContent = tierText;
+
+  // Seat / Jurisdiction
+  const seatEl = document.getElementById("miniDossierSeat");
+  if (seatEl) {
+    const rawSeat = (member.seat || member.city || "GENEVA").toUpperCase();
+    let seatText = rawSeat;
+    if (isAr) {
+      if (/GENEVA/.test(rawSeat)) seatText = "المقر الدبلوماسي • جنيف (Geneva)";
+      else if (/ZURICH/.test(rawSeat)) seatText = "المقر المصرفي • زيورخ (Zurich)";
+      else if (/MONACO/.test(rawSeat)) seatText = "الملاذ السيادي • موناكو (Monaco)";
+      else if (/LONDON/.test(rawSeat)) seatText = "حي النخبة المالي • لندن (London)";
+      else if (/DUBAI/.test(rawSeat)) seatText = "برج السيادة • دبي (Dubai)";
+      else if (/PARIS/.test(rawSeat)) seatText = "حي الفخامة التراثي • باريس (Paris)";
+    } else {
+      seatText = `${rawSeat} JURISDICTION`;
+    }
+    seatEl.textContent = seatText;
+  }
+
+  // Wealth & Priv
+  const wealthEl = document.getElementById("miniDossierWealth");
+  if (wealthEl) wealthEl.textContent = member.wealth || "99.8%";
+
+  const privEl = document.getElementById("miniDossierPriv");
+  if (privEl) privEl.textContent = member.priv || "98.5%";
+
+  const charterEl = document.getElementById("miniDossierCharter");
+  if (charterEl) {
+    charterEl.textContent = isAr ? "ميثاق سيادي مُعتمد" : "Sovereign Charter";
+  }
+
+  // Motto / Creed
+  const mottoEl = document.getElementById("miniDossierMotto");
+  if (mottoEl) {
+    const defaultMotto = isAr
+      ? "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة."
+      : "Discipline, exclusivity, and sovereign governance.";
+    mottoEl.textContent = `"${member.quote || defaultMotto}"`;
+  }
+
+  // Regalia Chips
+  const regaliaEl = document.getElementById("miniDossierRegalia");
+  if (regaliaEl) {
+    let chips = [];
+    if (/FOUNDER/.test(rawTier)) {
+      chips = isAr
+        ? ["👑 تاج المؤسس الذهبي", "💍 خاتم العرش الزيورخي", "⚜️ وسام السيادة الأول"]
+        : ["👑 Founder's Imperial Crown", "💍 Zurich Signet Ring", "⚜️ Sovereign First Medal"];
+    } else if (/EXARCH/.test(rawTier) || /alexander/i.test(memberName)) {
+      chips = isAr
+        ? ["👑 إكليل السيادة المطلقة", "💍 خاتم الوفاق السويسري", "⚜️ وسام المعمار الرقمي"]
+        : ["👑 Absolute Sovereign Diadem", "💍 Swiss Accord Signet", "⚜️ Digital Architecture Medal"];
+    } else if (/MONACO/i.test(member.seat || "") || /ROSTOVA/i.test(memberName)) {
+      chips = isAr
+        ? ["👑 تاج موناكو السيادي", "💎 قلادة الزمرد الملكية", "💍 خاتم السلالة"]
+        : ["👑 Monaco Sovereign Crown", "💎 Royal Emerald Choker", "💍 Lineage Signet"];
+    } else if (/LONDON/i.test(member.seat || "") || /TITAN/i.test(rawTier)) {
+      chips = isAr
+        ? ["⚡ صولجان رأس المال", "💍 خاتم تيتان لندن", "⚜️ وسام السيولة العابرة"]
+        : ["⚡ Capital Sceptre", "💍 London Titan Ring", "⚜️ Global Liquidity Medal"];
+    } else {
+      chips = isAr
+        ? ["👑 تاج السيادة المعتمد", "💍 خاتم الوفاق والمصادقة", "⚜️ وسام النخبة الدبلوماسي"]
+        : ["👑 Sovereign Crown", "💍 Ring of Accord", "⚜️ Diplomatic Medal"];
+    }
+    regaliaEl.innerHTML = chips
+      .map((c) => `<span class="mini-regalia-chip">${c}</span>`)
+      .join("");
+  }
+
+  // Toast Action
+  const toastBtn = document.getElementById("miniDossierToastBtn");
+  if (toastBtn) {
+    toastBtn.onclick = () => {
+      if (window.AudioEngine && window.AudioEngine.playAccoladeStamp) {
+        window.AudioEngine.playAccoladeStamp("toast");
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(24);
+      }
+      const title = isAr ? "نخب الامتياز السيادي" : "Prestige Toast Conferred";
+      const sentMsg = isAr
+        ? `تم تقديم نخب الامتياز بنجاح إلى ${memberName}`
+        : `Prestige toast conferred successfully to ${memberName}`;
+      if (typeof showPremiumToast === "function") {
+        showPremiumToast(title, sentMsg);
+      }
+    };
+  }
+
+  // Private Chat Action
+  const msgBtn = document.getElementById("miniDossierMsgBtn");
+  if (msgBtn) {
+    msgBtn.onclick = () => {
+      if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
+      if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(15);
+      const title = isAr ? "المراسلات الثنائية" : "Private Channel";
+      const notice = isAr
+        ? "قريبًا • المراسلات الثنائية المشفرة قيد الاعتماد الدبلوماسي"
+        : "Coming soon • Encrypted bilateral channels in diplomatic accreditation";
+      if (typeof showPremiumToast === "function") showPremiumToast(title, notice);
+    };
+  }
+
+  // Add Member Action
+  const addBtn = document.getElementById("miniDossierAddBtn");
+  if (addBtn) {
+    addBtn.onclick = () => {
+      if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
+      if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(15);
+      const title = isAr ? "الدائرة السيادية" : "Sovereign Circle";
+      const notice = isAr
+        ? "قريبًا • توسيع الدوائر بانتظار اعتماد المجلس"
+        : "Coming soon • Circle expansions pending council clearance";
+      if (typeof showPremiumToast === "function") showPremiumToast(title, notice);
+    };
+  }
+
+  // Full Profile Action
+  const fullProfileBtn = document.getElementById("miniDossierFullProfileBtn");
+  if (fullProfileBtn) {
+    fullProfileBtn.onclick = () => {
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+      if (typeof openMemberProfile === "function") {
+        openMemberProfile(member);
+      }
+    };
+  }
+
+  // Close handlers
+  const closeBtn = document.getElementById("closeMiniDossierBtn");
+  const closeModal = () => {
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  };
+  if (closeBtn) closeBtn.onclick = closeModal;
+  modal.onclick = (e) => {
+    if (e.target === modal) closeModal();
+  };
+
+  modal.hidden = false;
+  modal.setAttribute("aria-hidden", "false");
+};
+
 window.openMemberProfileFromDispatch = function (senderId) {
   try {
     if (window.AudioEngine && window.AudioEngine.playRustle) {
@@ -1028,16 +1251,25 @@ window.openMemberProfileFromDispatch = function (senderId) {
       : ((typeof ELITE_AVATARS !== "undefined" && ELITE_AVATARS[senderId]) ||
          "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop");
 
+    let rawName = elite ? elite.name : (senderId === AppState.user.id ? AppState.user.name : "MEMBER");
+    if (rawName === "Alexander W.") rawName = "W. Alexander";
+    if (rawName === "ALEXANDER W.") rawName = "W. ALEXANDER";
+
     const memberData = {
-      name: elite ? elite.name : (senderId === AppState.user.id ? AppState.user.name : "MEMBER"),
+      id: senderId,
+      name: rawName,
       tier: elite ? elite.tier : (senderId === AppState.user.id ? AppState.user.tier : "SOVEREIGN MEMBER"),
-      wealth: senderId === AppState.user.id ? (AppState.user.wealthIndex || "98%") : "99.8%",
-      priv: "98.5%",
+      seat: elite ? (elite.seat || "GENEVA") : "GENEVA",
+      wealth: senderId === AppState.user.id ? (AppState.user.wealthIndex || "98%") : (elite?.wealth || "99.8%"),
+      priv: elite?.priv || "98.5%",
       quote: elite && elite.motto ? elite.motto : "Discipline, exclusivity, sovereignty.",
       avatar: avatarUrl,
+      isOnline: true,
     };
 
-    if (typeof openMemberProfile === "function") {
+    if (typeof openMemberMiniDossier === "function") {
+      openMemberMiniDossier(memberData);
+    } else if (typeof openMemberProfile === "function") {
       openMemberProfile(memberData);
     }
   } catch (err) {
@@ -1063,7 +1295,7 @@ const ELITE_AVATARS = {
   "001": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop", // Lord Julian (Founder / Zurich)
   "084": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=240&auto=format&fit=crop", // Elena Rostova (Sovereign / Monaco)
   "112": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=240&auto=format&fit=crop", // Marcus Sterling (Titan / London)
-  "1001": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=240&auto=format&fit=crop", // Alexander W. (Sovereign Exarch / Geneva)
+  "1001": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=240&auto=format&fit=crop", // W. Alexander (Sovereign Exarch / Geneva)
   "777": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=240&auto=format&fit=crop", // Sheikh Tariq Al-Mansoor (Sovereign / Dubai)
   "205": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=240&auto=format&fit=crop", // Baroness Charlotte (Sovereign / Paris)
   "000": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=240&auto=format&fit=crop", // Concierge Desk (System / Geneva)
@@ -1776,6 +2008,9 @@ function initMetricTooltips() {
 
   function closeAllTooltips(suppressHover = false) {
     clearAutoDismissTimer();
+    document.querySelectorAll(".membership-card.has-open-tooltip").forEach((c) => {
+      c.classList.remove("has-open-tooltip");
+    });
     metricRings.forEach((ring) => {
       ring.classList.remove("is-tooltip-open");
       if (suppressHover) {
@@ -1806,6 +2041,8 @@ function initMetricTooltips() {
 
       ring.classList.remove("tooltip-dismissed");
       ring.classList.add("is-tooltip-open");
+      const card = ring.closest(".membership-card");
+      if (card) card.classList.add("has-open-tooltip");
       ring.setAttribute("aria-expanded", "true");
       tooltip.setAttribute("aria-hidden", "false");
 
@@ -1845,16 +2082,24 @@ function initMetricTooltips() {
       }
     });
 
-    ring.addEventListener("mouseleave", (e) => {
+    function scheduleTooltipClose() {
+      clearTimeout(hoverTimeout);
+      hoverTimeout = setTimeout(() => {
+        ring.classList.remove("is-tooltip-open");
+        ring.setAttribute("aria-expanded", "false");
+        tooltip.setAttribute("aria-hidden", "true");
+        const anyOpen = Array.from(metricRings).some((r) => r.classList.contains("is-tooltip-open"));
+        if (!anyOpen) {
+          document.querySelectorAll(".membership-card.has-open-tooltip").forEach((c) => c.classList.remove("has-open-tooltip"));
+        }
+        clearAutoDismissTimer();
+      }, 150);
+    }
+
+    ring.addEventListener("mouseleave", () => {
       ring.classList.remove("tooltip-dismissed");
       if (window.matchMedia("(hover: hover)").matches) {
-        clearTimeout(hoverTimeout);
-        hoverTimeout = setTimeout(() => {
-          ring.classList.remove("is-tooltip-open");
-          ring.setAttribute("aria-expanded", "false");
-          tooltip.setAttribute("aria-hidden", "true");
-          clearAutoDismissTimer();
-        }, 150);
+        scheduleTooltipClose();
       }
     });
 
@@ -1864,13 +2109,7 @@ function initMetricTooltips() {
 
     tooltip.addEventListener("mouseleave", () => {
       if (window.matchMedia("(hover: hover)").matches) {
-        clearTimeout(hoverTimeout);
-        hoverTimeout = setTimeout(() => {
-          ring.classList.remove("is-tooltip-open");
-          ring.setAttribute("aria-expanded", "false");
-          tooltip.setAttribute("aria-hidden", "true");
-          clearAutoDismissTimer();
-        }, 150);
+        scheduleTooltipClose();
       }
     });
 
@@ -2577,7 +2816,7 @@ const ELITE_MEMBERS = [
   { name: "Lord Julian", tier: "FOUNDER", id: "001", color: "#e6c27a", seat: "ZURICH", motto: "Honor, lineage, and sovereign discretion." },
   { name: "Elena Rostova", tier: "SOVEREIGN", id: "084", color: "#d4af37", seat: "MONACO", motto: "Elegance is the ultimate sovereign currency." },
   { name: "Marcus Sterling", tier: "TITAN", id: "112", color: "#f3e5ab", seat: "LONDON", motto: "Capital in motion, unencumbered by borders." },
-  { name: "Alexander W.", tier: "SOVEREIGN EXARCH", id: "1001", color: "#e6c27a", seat: "GENEVA", motto: "Pioneering the architecture of digital sovereignty." },
+  { name: "W. Alexander", tier: "SOVEREIGN EXARCH", id: "1001", color: "#e6c27a", seat: "GENEVA", motto: "Pioneering the architecture of digital sovereignty." },
   { name: "Sheikh Tariq Al-Mansoor", tier: "SOVEREIGN", id: "777", color: "#f5d77f", seat: "DUBAI", motto: "Legacy built upon vision, precision, and steel." },
   { name: "Baroness Charlotte", tier: "SOVEREIGN", id: "205", color: "#e2b872", seat: "PARIS", motto: "True luxury whispers through heritage and rarity." },
   { name: "Concierge Desk", tier: "SYSTEM", id: "000", color: "#a39b8b", seat: "GENEVA", motto: "At the sovereign service of the Circle." },
@@ -2913,14 +3152,22 @@ window.toggleAccolade = function (channelId, messageIndex, type) {
   if (hasReacted) {
     msg.accolades[type] = Math.max(0, (msg.accolades[type] || 1) - 1);
     delete msg.userReacted[type];
+    if (window.AudioEngine && window.AudioEngine.playRustle) {
+      window.AudioEngine.playRustle();
+    }
+    if (window.HapticEngine && window.HapticEngine.tap) {
+      window.HapticEngine.tap(8);
+    }
   } else {
     msg.accolades[type] = (msg.accolades[type] || 0) + 1;
     msg.userReacted[type] = true;
-    if (window.AudioEngine && window.AudioEngine.playChime) {
+    if (window.AudioEngine && window.AudioEngine.playAccoladeStamp) {
+      window.AudioEngine.playAccoladeStamp(type);
+    } else if (window.AudioEngine && window.AudioEngine.playChime) {
       window.AudioEngine.playChime();
     }
     if (window.HapticEngine && window.HapticEngine.tap) {
-      window.HapticEngine.tap(15);
+      window.HapticEngine.tap(type === "toast" ? 22 : type === "honor" ? 18 : 14);
     }
   }
 
@@ -3054,7 +3301,13 @@ function renderMessages() {
       const hasAccolades = totalAccolades > 0;
       const isWhisper = Boolean(msg.isWhisper);
       const safeText = typeof escapeHtml === "function" ? escapeHtml(msg.text) : String(msg.text || "");
-      const safeSenderName = typeof escapeHtml === "function" ? escapeHtml(senderName) : String(senderName || "Member");
+      const rawSenderName = typeof escapeHtml === "function" ? escapeHtml(senderName) : String(senderName || "Member");
+      const safeSenderName =
+        rawSenderName === "Alexander W."
+          ? "W. Alexander"
+          : rawSenderName === "ALEXANDER W."
+            ? "W. ALEXANDER"
+            : rawSenderName;
       const isLongText = Boolean(safeText && (safeText.length > 150 || (safeText.match(/\n/g) || []).length >= 3));
       const isExpanded = Boolean(msg.isExpanded);
 
@@ -3091,7 +3344,7 @@ function renderMessages() {
             </div>
             <div class="dispatch-credentials">
               <div class="dispatch-primary-row">
-                <span class="dispatch-name" style="color: ${msg.senderColor || "#e6c27a"}">${safeSenderName}</span>
+                <span class="dispatch-name" style="color: ${msg.senderColor || "#e6c27a"}"><bdi dir="auto">${safeSenderName}</bdi></span>
                 <span class="dispatch-sovereign-timestamp" title="${fullDateIso}">
                   <svg class="sovereign-time-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                     <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="0.95" opacity="0.85"/>
@@ -3126,11 +3379,14 @@ function renderMessages() {
           isWhisper
             ? `<div class="dispatch-whisper-tag-row">
                  <span class="dispatch-whisper-pill">
-                   <svg class="whisper-pill-icon" viewBox="0 0 24 24" fill="none">
-                     <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                   <svg class="whisper-pill-icon" viewBox="0 0 16 16" fill="none">
+                     <rect x="2.5" y="6.5" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.1" />
+                     <path d="M5 6.5V4.5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+                     <circle cx="8" cy="10.5" r="1.1" fill="currentColor"/>
                    </svg>
-                   <span data-i18n="club.whisperBadge">${window.t("club.whisperBadge") || "برقية سرية مشفرة"}</span>
+                   <span class="whisper-text-label" data-i18n="club.whisperBadge">${window.t("club.whisperBadge") || "همس سيادي مشفر • سرية سويسرية"}</span>
                  </span>
+                 <span class="dispatch-whisper-discretion-mark">DISCRETION SECURED</span>
                </div>`
             : ""
         }
@@ -3138,7 +3394,7 @@ function renderMessages() {
         <div class="dispatch-manuscript-body ${isWhisper ? "is-whisper-content" : ""}">
           ${
             isLongText
-              ? `<div class="dispatch-text-content ${isExpanded ? "is-expanded" : "is-truncated"}" id="dispatch-text-${channelId}-${idx}">
+              ? `<div class="dispatch-text-content ${isExpanded ? "is-expanded" : "is-truncated"}" id="dispatch-text-${channelId}-${idx}" dir="auto">
                    ${safeText}
                  </div>
                  <button
@@ -3153,7 +3409,7 @@ function renderMessages() {
                      <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
                    </svg>
                  </button>`
-              : safeText
+              : `<div class="dispatch-text-content" dir="auto">${safeText}</div>`
           }
         </div>
 
@@ -3163,33 +3419,52 @@ function renderMessages() {
                  <div class="dispatch-accolades-actions">
                    <button
                      type="button"
-                     class="sovereign-accolade-btn ${userReacted.endorse ? "is-conferred" : ""}"
+                     class="sovereign-accolade-btn is-endorse ${userReacted.endorse ? "is-conferred" : ""}"
                      onclick="toggleAccolade('${channelId}', ${idx}, 'endorse')"
-                     title="مصادقة سيادية"
+                     title="${window.t("club.endorseDesc") || "ختم التأييد السيادي"}"
                    >
-                     <span class="accolade-icon">✦</span>
-                     <span class="accolade-title" data-i18n="club.endorse">${window.t("club.endorse") || "مصادقة"}</span>
+                     <span class="accolade-seal-wrap">
+                       <svg class="accolade-svg-seal" viewBox="0 0 16 16" fill="none">
+                         <circle cx="8" cy="8" r="6.8" stroke="currentColor" stroke-width="0.9" stroke-dasharray="1.6 1"/>
+                         <path d="M8 3.2L9.2 6.3L12.5 7L10 9.2L10.8 12.5L8 10.7L5.2 12.5L6 9.2L3.5 7L6.8 6.3Z" fill="currentColor"/>
+                       </svg>
+                     </span>
+                     <span class="accolade-title" data-i18n="club.endorse">${window.t("club.endorse") || "تأييد"}</span>
                      <span class="accolade-tally">${accolades.endorse || 0}</span>
                    </button>
 
                    <button
                      type="button"
-                     class="sovereign-accolade-btn ${userReacted.honor ? "is-conferred" : ""}"
+                     class="sovereign-accolade-btn is-honor ${userReacted.honor ? "is-conferred" : ""}"
                      onclick="toggleAccolade('${channelId}', ${idx}, 'honor')"
-                     title="وسام فخامة"
+                     title="${window.t("club.honorDesc") || "خاتم الوفاق والمصادقة"}"
                    >
-                     <span class="accolade-icon">⚜️</span>
-                     <span class="accolade-title" data-i18n="club.honor">${window.t("club.honor") || "وسام"}</span>
+                     <span class="accolade-seal-wrap">
+                       <svg class="accolade-svg-seal" viewBox="0 0 16 16" fill="none">
+                         <circle cx="8" cy="8" r="6.8" stroke="currentColor" stroke-width="0.9"/>
+                         <circle cx="8" cy="8" r="4.8" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1 1"/>
+                         <circle cx="8" cy="8" r="2.2" stroke="currentColor" stroke-width="1.1"/>
+                         <circle cx="8" cy="8" r="0.9" fill="currentColor"/>
+                       </svg>
+                     </span>
+                     <span class="accolade-title" data-i18n="club.honor">${window.t("club.honor") || "وفاق"}</span>
                      <span class="accolade-tally">${accolades.honor || 0}</span>
                    </button>
 
                    <button
                      type="button"
-                     class="sovereign-accolade-btn ${userReacted.toast ? "is-conferred" : ""}"
+                     class="sovereign-accolade-btn is-toast ${userReacted.toast ? "is-conferred" : ""}"
                      onclick="toggleAccolade('${channelId}', ${idx}, 'toast')"
-                     title="نخب التميز"
+                     title="${window.t("club.toastDesc") || "نخب الامتياز والريادة"}"
                    >
-                     <span class="accolade-icon">🥂</span>
+                     <span class="accolade-seal-wrap">
+                       <svg class="accolade-svg-seal" viewBox="0 0 16 16" fill="none">
+                         <path d="M4.5 3.5H11.5L10.2 8.2C9.8 9.2 9 10 8 10C7 10 6.2 9.2 5.8 8.2L4.5 3.5Z" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                         <line x1="8" y1="10" x2="8" y2="13.2" stroke="currentColor" stroke-width="1"/>
+                         <line x1="5.5" y1="13.2" x2="10.5" y2="13.2" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                         <circle cx="8" cy="6.2" r="1" fill="currentColor"/>
+                       </svg>
+                     </span>
                      <span class="accolade-title" data-i18n="club.toast">${window.t("club.toast") || "نخب"}</span>
                      <span class="accolade-tally">${accolades.toast || 0}</span>
                    </button>
@@ -3202,7 +3477,17 @@ function renderMessages() {
     })
     .join("");
 
-  container.scrollTop = container.scrollHeight;
+  const hasNewArrival = messages.some((m) => m.justDispatched || (Date.now() - (m.timestamp || 0) < 1800));
+  if (hasNewArrival && typeof container.scrollTo === "function") {
+    requestAnimationFrame(() => {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+  } else {
+    container.scrollTop = container.scrollHeight;
+  }
 }
 
 window.isWhisperMode = false;
@@ -3286,6 +3571,9 @@ function handleSendMessage() {
 
     AppState.channels[channelId].messages.push(newMsg);
     input.value = "";
+    if (typeof window.syncClubInputDirection === "function") {
+      window.syncClubInputDirection(input);
+    }
 
     if (window.AudioEngine && window.AudioEngine.playSend) {
       try {
@@ -3371,9 +3659,28 @@ function handleSendMessage() {
 document
   .getElementById("clubSendBtn")
   ?.addEventListener("click", handleSendMessage);
-document.getElementById("clubInput")?.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") handleSendMessage();
-});
+
+const clubInputEl = document.getElementById("clubInput");
+if (clubInputEl) {
+  clubInputEl.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleSendMessage();
+  });
+  clubInputEl.addEventListener("input", () => {
+    if (typeof window.syncClubInputDirection === "function") {
+      window.syncClubInputDirection(clubInputEl);
+    }
+  });
+  clubInputEl.addEventListener("keyup", () => {
+    if (typeof window.syncClubInputDirection === "function") {
+      window.syncClubInputDirection(clubInputEl);
+    }
+  });
+  clubInputEl.addEventListener("change", () => {
+    if (typeof window.syncClubInputDirection === "function") {
+      window.syncClubInputDirection(clubInputEl);
+    }
+  });
+}
 
 /* === 6. MODALS & SETTINGS LOGIC === */
 function openInspectionModal(item, catKey, isOwned, isEquipped) {
@@ -4432,7 +4739,7 @@ function renderClubMessages() {}
 const CLUB_MEMBERS = [
   {
     id: "1001",
-    name: "ALEXANDER W.",
+    name: "W. ALEXANDER",
     tier: "SOVEREIGN EXARCH",
     msgId: "msg-1",
     content: "Great investment opportunity in the new fund.",
