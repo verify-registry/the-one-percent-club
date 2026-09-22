@@ -81,7 +81,78 @@ To guarantee fluid 3D gyroscope movement without visual clipping or layer bleedi
 
 ---
 
-## 5. Zero-Waste Declaration & Formal Sign-Off
+## 5. Haute Horlogerie & Sovereign Archival Implementations (Proposals 1–5)
+
+The physical and tactile realism of THE 1% CLUB has been systematically upgraded with five sovereign craft specifications:
+
+1. **Proposal 1: Anti-Reflective (AR) Sapphire Crystal Sheen & Refractions**
+   - Implemented real-time dynamic light sweeps across portrait medallions, the Sovereign Deed, and the Master Card.
+   - Utilizes CSS variables (`--sapphire-sheen-x`, `--sapphire-sheen-y`, `--sapphire-glare-angle`, `--sapphire-beam-pos`) driven by dynamic mouse and gyroscope lighting engines in `luxury.js`.
+   - Dual-layer optical coating with subtle champagne and violet-blue refraction highlights.
+
+2. **Proposal 2: Micro-Security Holographic Foil Thread**
+   - Embedded currency-grade security ribbon (`.deed-security-ribbon`) within the Sovereign Deed parchment.
+   - Dynamic prism dispersion, micro-text typography, and iridescent light-shifting gradient animations.
+
+3. **Proposal 3: Sovereign Wax & Embossed Metal Matrix Seals (COMPLETED)**
+   - High-fidelity physical depth on `.deed-wax-seal`, `.deed-embossed-seal`, `.oath-signet-seal-btn`, and `#profileCrownCoin`.
+   - Realistic organic molten wax perimeter pooling (`border-radius: 49% 51% 52% 48% / 51% 49% 51% 49%`) with viscous carmine-to-obsidian multi-stage radial depth.
+   - Concave matrix stamp well depression (`.dws-inner`) with deep internal ambient occlusion and 24K gold foil embossed hallmark stamping (`.dws-icon`, `.dws-text`).
+   - Mechanical wax deformation on press with tactile spring-back and sovereign gold flash.
+   - Solid bullion relief seal (`.deed-embossed-seal`) with dynamic specular conic reflection tracking `--gold-foil-angle`, beaded rims, and high-relief insignia.
+   - Heavy Damascus and titanium signet ring button (`.oath-signet-seal-btn`) with inset crimson wax cabochon.
+   - Acoustic matrix stamp feedback (`playHeavyBrassStamp()` in `Audio.js`), gold coin chimes, and sovereign triple-pulse haptic vibrations (`[26, 35, 52]ms`).
+   - Flawless day/night mode parity with royal vermilion wax and pure 24K white-gold foil on silk-ivory parchment.
+
+4. **Proposal 4: Haute Horlogerie Anglage Screws & Micro-Torque Acoustics**
+   - Micro-beveled, mirror-polished Swiss watchmaking fastener screws (`.deed-screw`, `.oath-screw`, `.vitrine-screw`, `.rmc-screw`).
+   - Conic specular reflections aligned with `--gold-foil-angle` and authentic counterbore stepped rims.
+   - Radial torque-indexed slot alignments (45°, 135°, 225°, 315°) reproducing handcrafted horological casing.
+   - Interactive micro-torque feedback with high-frequency jewel click acoustic impulse (`playFineScrewTick()` in `Audio.js`) and tactile haptics.
+   - Full light-mode ceramic and rhodium parity.
+
+5. **Proposal 5: Sovereign Ghost Watermark, Intaglio Micro-Relief & Forensic Ultraviolet (UV) Verification**
+   - Implemented an authentic high-security banknote ghost watermark (`.deed-ghost-watermark`) deeply infused into the obsidian parchment fibers of the Sovereign Deed.
+   - Features complex 12-fold geometric lathe guilloché rosettes, concentric intaglio security rings, imperial crown emblem, sovereign `I%` monogram, and micro-text perimeter ribbon.
+   - Embedded discrete multi-chromatic fluorescent security micro-fibers (`.uv-fiber`) in violet, cyan, and 24K gold that reveal vivid luminescence under verification.
+   - Cryptographic verification matrix (`.deed-crypto-hash-strip`) displaying SHA-256 genesis validation status.
+   - Forensic Ultraviolet scanner ray (`.deed-uv-scanner-ray`) that sweeps across the deed parchment upon clicking "المصادقة على صحة الصك" (Verify Official Seal) or pressing the interactive wax seal.
+   - Custom synthesized harmonic acoustic sweep and fluorophore resonance chime (`playUvForensicChime()` in `Audio.js`).
+   - Interactive tactile feedback and glint animation on direct watermark touch.
+   - Full day/night parity with light-mode banknote translucent fiber rendering.
+
+---
+
+## 6. Profile Hero Plaque Upgrades: Proposal 1 (Champlevé Bezel & Horological Screws)
+
+- **Multi-Tiered Champlevé Outer Bezel Architecture:**
+  - Upgraded `#profileHeroPlaque` from a flat card into a layered bullion plaque with authentic precious metal inlay, dual-stage outer rims (`rgba(212, 175, 106, 0.48)`), deep cast shadow, and realistic physical elevation.
+- **Diamond-Cut Chamfer Inlay (`.phc-diamond-chamfer`):**
+  - Integrated a stepped inner metallic bevel that catches directional specular light highlights moving dynamically with gyroscopic and pointer shifts (`--gold-foil-angle`).
+- **Silk-Ivory Parchment & Pearlescent Warm Texturing (`.phc-silk-sheen-layer`):**
+  - In Light Mode, replaced the flat beige gradient with an authentic silk-parchment banknote background layered with soft-light pearlescent warmth that reacts smoothly to device movement.
+- **Haute Horlogerie Anglage Corner Screws & Counterbore Wells:**
+  - Embedded 4 precision corner counterbore sockets (`.phc-screw-counterbore`) with micro-recessed shadows.
+  - Installed domed mirror-polished anglage screw heads (`.phc-screw`) with watchmaker slots indexed at 45°, 135°, 225°, and 315°.
+  - Bound directly to `attachHorologicalScrewHandlers()` for interactive jewel-tick acoustic impulse (`playFineScrewTick`), tactile haptics, and micro-torque rotation on tap/click.
+
+---
+
+## 7. Profile Hero Plaque: Sovereign Monolithic Scale & Frame Elimination
+
+- **Abolition of Nested Inner Frames ("إطار جوه إطار"):**
+  - Completely eradicated all secondary and tertiary inset borders (`.phc-inlay-border`, `.profile-hero-card::before`). The card is now an authentic monolithic ingot with a single masterwork perimeter bezel.
+- **Restoration of Grand, Imposing Scale:**
+  - Expanded the hero medallion from a cramped 72px to a commanding **94px diameter**, featuring a deep 5px solid 24K continuous Haute Horlogerie gold bezel and crisp, uncropped portrait presentation.
+  - Enlarged card dimensions and padding to `24px 22px` with a minimum height of `172px` and `20px` border-radius, giving the dossier plaque an authoritative luxury presence.
+- **Editorial Hierarchy & Crown Seal:**
+  - Prominent serif display typography for the member name (`clamp(1.35rem, 3.8vw, 1.75rem)`), distinct gold capsule tier badge, and a centered 24px solid gold crown coin.
+- **Bespoke Sovereign Edit Button:**
+  - Dedicated circular gold action button positioned with 46px clearance so text and badges never collide.
+
+---
+
+## 8. Zero-Waste Declaration & Formal Sign-Off
 
 - **Scrap Script Purge:** Complete. All 72+ temporary patch and utility scripts (`patch_*.js`, `fix_*.js`, `test_*.js`, `add_*.js`, `apply_*.js`, `wipe_*.js`, `force_*.js`, `make_*.js`, `strip_*.js`, `remove_*.js`, `bun.lock`) have been irrevocably deleted.
 - **Zero Data Loss:** All logic, styling, animations, and typography enhancements implemented across historical patches are unified inside the 11 canonical files.

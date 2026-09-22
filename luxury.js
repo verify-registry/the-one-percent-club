@@ -1121,6 +1121,19 @@ function applyTiltToCards(rx, ry) {
     card.style.setProperty('--gold-foil-pos', `${foilPosX}% ${foilPosY}%`);
     card.style.setProperty('--foil-shift-x', `${(normX * 12).toFixed(2)}px`);
     card.style.setProperty('--foil-shift-y', `${(normY * 12).toFixed(2)}px`);
+
+    // Horological AR Sapphire Crystal Glare & Sheen (Double-AR Coating Optic Beam)
+    const sapphireAngle = Math.round(128 + ry * 3.2 + rx * 2.0);
+    const sapphireSheenX = Math.round(50 + normX * 45);
+    const sapphireSheenY = Math.round(45 + normY * 45);
+    const sapphireBeamPos = Math.round(40 + normX * 50);
+    const sapphireOpacity = Math.min(1, 0.45 + (Math.abs(normX) + Math.abs(normY)) * 0.35);
+
+    card.style.setProperty('--sapphire-glare-angle', `${sapphireAngle}deg`);
+    card.style.setProperty('--sapphire-sheen-x', `${sapphireSheenX}%`);
+    card.style.setProperty('--sapphire-sheen-y', `${sapphireSheenY}%`);
+    card.style.setProperty('--sapphire-beam-pos', `${sapphireBeamPos}%`);
+    card.style.setProperty('--sapphire-opacity', sapphireOpacity.toFixed(2));
   });
 }
 
@@ -1144,6 +1157,11 @@ function resetTiltForCard(card) {
   card.style.setProperty('--gold-foil-pos', '50% 50%');
   card.style.setProperty('--foil-shift-x', '0px');
   card.style.setProperty('--foil-shift-y', '0px');
+  card.style.setProperty('--sapphire-glare-angle', '128deg');
+  card.style.setProperty('--sapphire-sheen-x', '50%');
+  card.style.setProperty('--sapphire-sheen-y', '45%');
+  card.style.setProperty('--sapphire-beam-pos', '40%');
+  card.style.setProperty('--sapphire-opacity', '0.45');
 }
 
 function tiltLoop() {

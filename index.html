@@ -22,7 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Inter:wght@400;500;600&amp;family=Amiri:wght@400;700&amp;family=Cairo:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=60" />
+    <link rel="stylesheet" href="style.css?v=66" />
     <script>
       (function () {
         try {
@@ -662,7 +662,6 @@
                   >
                 </p>
               </div>
-            </div>
           </section>
 
           <!-- ACTIONS -->
@@ -1218,7 +1217,7 @@
                   </svg>
                 </div>
                 <div class="sd-portrait-medallion">
-                  <img id="memberDossierImg" src="" alt="Member" class="sd-avatar-img" onerror="this.style.display='none'; document.getElementById('memberDossierFallback').style.display='flex';" />
+                  <img id="memberDossierImg" src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop" alt="Member" class="sd-avatar-img" onerror="this.style.display='none'; var fb = document.getElementById('memberDossierFallback'); if (fb) fb.style.display='flex';" />
                   <div id="memberDossierFallback" class="sd-avatar-fallback" style="display: none;">⚜️</div>
                   <div class="sd-status-jewel" id="memberDossierStatusJewel" title="Active"></div>
                 </div>
@@ -1364,41 +1363,63 @@
         <!-- PAGE: PROFILE -->
         <!-- PAGE: PROFILE -->
         <section class="page" id="profile-tab" hidden="">
-          <!-- 1. Hero Member Card -->
-          <div class="profile-hero-card luxury-tilt-card">
+          <!-- 1. Sovereign Dossier Hero Plaque -->
+          <div class="profile-hero-card luxury-tilt-card" id="profileHeroPlaque">
+            <!-- Sovereign Precision Corner Screws -->
+            <div class="phc-corner-rivet phc-rivet-tl phc-screw deed-screw" title="Sovereign Hallmark Screw" data-screw-angle="45">
+              <div class="phc-screw-slot deed-screw-slot"></div>
+            </div>
+            <div class="phc-corner-rivet phc-rivet-tr phc-screw deed-screw" title="Sovereign Hallmark Screw" data-screw-angle="135">
+              <div class="phc-screw-slot deed-screw-slot"></div>
+            </div>
+            <div class="phc-corner-rivet phc-rivet-bl phc-screw deed-screw" title="Sovereign Hallmark Screw" data-screw-angle="315">
+              <div class="phc-screw-slot deed-screw-slot"></div>
+            </div>
+            <div class="phc-corner-rivet phc-rivet-br phc-screw deed-screw" title="Sovereign Hallmark Screw" data-screw-angle="225">
+              <div class="phc-screw-slot deed-screw-slot"></div>
+            </div>
+
+            <!-- Precision Guilloché Watermark & Specular Sheen (Single Seamless Surface) -->
+            <div class="phc-guilloche-pattern" aria-hidden="true"></div>
+            <div class="phc-specular-sheen" aria-hidden="true"></div>
+
             <div class="phc-inner">
+              <!-- Horological Medallion Column -->
               <div class="phc-avatar-col">
-                <div class="phc-avatar-ring">
-                  <div
-                    class="phc-avatar-photo"
-                    id="profilePortraitPhoto"
-                    style="
-                      background-image: url(&quot;https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&amp;w=200&amp;auto=format&amp;fit=crop&quot;);
-                    "
-                  ></div>
-                  <div class="phc-crown-badge">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                    >
-                      <path
-                        d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z"
-                        stroke="none"
-                      ></path>
-                    </svg>
+                <div class="phc-medallion-case" id="profileMedallionCase">
+                  <div class="phc-avatar-ring">
+                    <div
+                      class="phc-avatar-photo"
+                      id="profilePortraitPhoto"
+                      style="
+                        background-image: url(&quot;https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&amp;w=200&amp;auto=format&amp;fit=crop&quot;);
+                      "
+                    ></div>
+                    <!-- Pristine Optical Bevel -->
+                    <div class="phc-optic-bevel" aria-hidden="true"></div>
+                    <!-- Sovereign Embossed Crown Seal -->
+                    <div class="phc-crown-badge" id="profileCrownCoin" title="Sovereign Crown Insignia">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z"></path>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <!-- Sovereign Dossier Info Column -->
               <div class="phc-info-col">
-                <h2 class="phc-name" id="profileName">ALEXANDER</h2>
-                <div class="phc-tier" id="profileTierName">
-                  SOVEREIGN MEMBER
+                <div class="phc-tier-row">
+                  <span class="phc-tier" id="profileTierName">SOVEREIGN MEMBER</span>
+                  <span class="phc-hallmark-tag" data-i18n="profile.heroCertifiedDossier">OFFICIAL SEAL</span>
                 </div>
+
+                <h2 class="phc-name" id="profileName">ALEXANDER</h2>
+
                 <div class="phc-quote" id="profileQuote">
                   “A higher standard in a different world.”
                 </div>
+
                 <div class="phc-meta">
                   <svg
                     class="phc-meta-icon"
@@ -1418,12 +1439,15 @@
                   <span class="phc-est">EST. 2024</span>
                 </div>
               </div>
+
+              <!-- Bespoke Sovereign Edit Button -->
               <button
                 class="phc-edit-btn"
                 id="editAccountBtn"
-                title="Edit Profile"
-                aria-label="Edit Profile"
+                title="Edit Dossier"
+                aria-label="Edit Dossier"
               >
+                <div class="phc-edit-btn-rim"></div>
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -1435,12 +1459,53 @@
                   ></path>
                 </svg>
               </button>
-              
             </div>
           </div>
 
           <!-- 2. 4-Column Luxury Stats Bar -->
           <div class="profile-stats-bar" id="profileStatsBar"></div>
+
+          <!-- 2.5 SOVEREIGN CIRCLES & DOMAINS (الدوائر والمجالات السيادية) -->
+          <div class="profile-circles-card sovereign-circles-card luxury-tilt-card" id="profileCirclesCard">
+            <!-- Corner Rivets -->
+            <div class="pcc-corner-rivet pcc-rivet-tl" title="Sovereign Hallmark Rivet"></div>
+            <div class="pcc-corner-rivet pcc-rivet-tr" title="Sovereign Hallmark Rivet"></div>
+            <div class="pcc-corner-rivet pcc-rivet-bl" title="Sovereign Hallmark Rivet"></div>
+            <div class="pcc-corner-rivet pcc-rivet-br" title="Sovereign Hallmark Rivet"></div>
+
+            <!-- Fine-line Guilloché Texture & Specular Sheen -->
+            <div class="pcc-guilloche-pattern" aria-hidden="true"></div>
+            <div class="pcc-specular-glare" aria-hidden="true"></div>
+
+            <div class="pcc-inner">
+              <div class="pcc-header">
+                <div class="pcc-header-title-wrap">
+                  <div class="pcc-crest-badge">
+                    <span class="pcc-crest-icon">⚜️</span>
+                  </div>
+                  <div class="pcc-title-group">
+                    <div class="pcc-title-row">
+                      <h3 class="pcc-title" data-i18n="profile.circlesTitle">الدوائر والمجالات السيادية</h3>
+                      <span class="pcc-accredited-tag" data-i18n="profile.circlesBadge">معتمد ✦</span>
+                    </div>
+                    <span class="pcc-subtitle" data-i18n="profile.circlesSub">دوائر الشغف والتأثير المعتمدة لصاحب السيادة</span>
+                  </div>
+                </div>
+                <button type="button" class="pcc-curate-btn" id="btnCurateCircles" title="تعديل الدوائر والمجالات" aria-label="Curate Circles">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                  </svg>
+                  <span data-i18n="profile.circlesEditBtn">تعديل الدوائر</span>
+                </button>
+              </div>
+
+              <!-- Circles Grid Container (Rendered by JS) -->
+              <div class="pcc-chips-grid" id="profileCirclesGrid">
+                <!-- JS injected accredited chips -->
+              </div>
+            </div>
+          </div>
+
           <!-- 3. Unified Navigation Menu -->
           <div class="profile-nav-menu">
             <div class="pnm-item" id="menuAccountInfo">
@@ -1689,11 +1754,13 @@
           <div class="profile-collection-section profile-history-section" id="profileHistorySection">
             <div class="pcs-head">
               <div class="history-head-title-wrap">
-                <svg class="history-seal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-                  <path d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2z" stroke="#d4af37" fill="rgba(212,175,55,0.15)"></path>
-                  <circle cx="12" cy="18" r="4" stroke="#d4af37"></circle>
-                  <path d="M10 21l-1 2m5-2l1 2" stroke="#d4af37"></path>
-                </svg>
+                <div class="deed-header-crest-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                    <path d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2z" stroke="#d4af37" fill="rgba(212,175,55,0.2)"></path>
+                    <circle cx="12" cy="18" r="4" stroke="#d4af37"></circle>
+                    <path d="M10 21l-1 2m5-2l1 2" stroke="#d4af37"></path>
+                  </svg>
+                </div>
                 <h3 id="historySectionTitle" data-i18n="profile.historySectionTitle">سجل العضوية والانتساب السيادي</h3>
               </div>
               <div class="history-badge-seal">
@@ -1701,35 +1768,127 @@
               </div>
             </div>
 
-            <div class="membership-ledger-card luxury-tilt-card">
-              <!-- Corner Ornaments (Classic Horological & Heraldic brackets) -->
+            <div class="membership-ledger-card sovereign-deed-folio luxury-tilt-card" id="sovereignDeedCard">
+              <!-- Physical Archival Corner Rivets / Screws -->
+              <div class="deed-screw deed-screw-tl"><div class="deed-screw-slot"></div></div>
+              <div class="deed-screw deed-screw-tr"><div class="deed-screw-slot"></div></div>
+              <div class="deed-screw deed-screw-bl"><div class="deed-screw-slot"></div></div>
+              <div class="deed-screw deed-screw-br"><div class="deed-screw-slot"></div></div>
+
+              <!-- Corner Heraldic Brackets -->
               <div class="ledger-corner ledger-corner-tl"></div>
               <div class="ledger-corner ledger-corner-tr"></div>
               <div class="ledger-corner ledger-corner-bl"></div>
               <div class="ledger-corner ledger-corner-br"></div>
 
-              <!-- Inner Ledger Parchment & Guilloché Bezel -->
+              <!-- Inner Ledger Parchment & Guilloché Slate -->
               <div class="ledger-card-inner">
-                <!-- Top Archival Header with Crest -->
+                <!-- PROPOSAL 5: Sovereign Archival Ghost Watermark & Intaglio Micro-Relief -->
+                <div class="deed-ghost-watermark" id="deedGhostWatermark" aria-hidden="true" title="Sovereign Ghost Watermark & Banknote Security Matrix">
+                  <div class="deed-watermark-emblem">
+                    <svg viewBox="0 0 160 160" fill="none" class="deed-watermark-svg">
+                      <!-- Concentric Lathe Guilloché Rosette Rings -->
+                      <circle cx="80" cy="80" r="76" stroke="currentColor" stroke-width="0.75" stroke-dasharray="1.5 2" opacity="0.4"></circle>
+                      <circle cx="80" cy="80" r="68" stroke="currentColor" stroke-width="0.5" opacity="0.3"></circle>
+                      <circle cx="80" cy="80" r="60" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 2" opacity="0.5"></circle>
+                      <circle cx="80" cy="80" r="48" stroke="currentColor" stroke-width="0.5" opacity="0.4"></circle>
+                      <circle cx="80" cy="80" r="38" stroke="currentColor" stroke-width="1.2" opacity="0.6"></circle>
+                      
+                      <!-- Intaglio Micro-Rosette Petals (12-Fold Guilloché) -->
+                      <g opacity="0.35" stroke="currentColor" stroke-width="0.6">
+                        <ellipse cx="80" cy="80" rx="42" ry="14" transform="rotate(0 80 80)"></ellipse>
+                        <ellipse cx="80" cy="80" rx="42" ry="14" transform="rotate(30 80 80)"></ellipse>
+                        <ellipse cx="80" cy="80" rx="42" ry="14" transform="rotate(60 80 80)"></ellipse>
+                        <ellipse cx="80" cy="80" rx="42" ry="14" transform="rotate(90 80 80)"></ellipse>
+                        <ellipse cx="80" cy="80" rx="42" ry="14" transform="rotate(120 80 80)"></ellipse>
+                        <ellipse cx="80" cy="80" rx="42" ry="14" transform="rotate(150 80 80)"></ellipse>
+                      </g>
+
+                      <!-- Sovereign Imperial Crown & Roman Monogram I% -->
+                      <path d="M68 66l6 7 6-10 6 10 6-7v18h-24v-18z" fill="currentColor" opacity="0.25"></path>
+                      <path d="M68 66l6 7 6-10 6 10 6-7v18h-24v-18z" stroke="currentColor" stroke-width="0.8" opacity="0.8"></path>
+                      <circle cx="80" cy="61" r="2.2" fill="currentColor" opacity="0.8"></circle>
+                      <circle cx="68" cy="64" r="1.8" fill="currentColor" opacity="0.7"></circle>
+                      <circle cx="92" cy="64" r="1.8" fill="currentColor" opacity="0.7"></circle>
+                      
+                      <!-- Deep Intaglio Central Monogram -->
+                      <text x="80" y="99" text-anchor="middle" font-size="12" font-family="'Cinzel', 'Playfair Display', serif" font-weight="900" letter-spacing="0.12em" fill="currentColor" opacity="0.85">I%</text>
+                      
+                      <!-- Micro-Text Sovereign Perimeter Ribbon -->
+                      <path id="watermarkArcPath" d="M 24,80 A 56,56 0 1,1 136,80 A 56,56 0 1,1 24,80" fill="none"></path>
+                      <text font-size="4.2" letter-spacing="0.18em" fill="currentColor" opacity="0.65" font-family="'Courier New', monospace" font-weight="bold">
+                        <textPath href="#watermarkArcPath" startOffset="0%">
+                          THE 1% CLUB • SOVEREIGN JURISDICTION • OFFICIAL IMMUTABLE ARCHIVE • GENESIS MATRIX •
+                        </textPath>
+                      </text>
+                    </svg>
+                  </div>
+                  
+                  <!-- Random Scattered UV Micro-Security Fibres (Fluorophores) -->
+                  <div class="deed-uv-fibers" aria-hidden="true">
+                    <span class="uv-fiber uv-fiber-1"></span>
+                    <span class="uv-fiber uv-fiber-2"></span>
+                    <span class="uv-fiber uv-fiber-3"></span>
+                    <span class="uv-fiber uv-fiber-4"></span>
+                    <span class="uv-fiber uv-fiber-5"></span>
+                    <span class="uv-fiber uv-fiber-6"></span>
+                    <span class="uv-fiber uv-fiber-7"></span>
+                    <span class="uv-fiber uv-fiber-8"></span>
+                  </div>
+
+                  <!-- Cryptographic Verification Watermark Seal (UV Responsive) -->
+                  <div class="deed-crypto-hash-strip">
+                    <span class="dch-code">SHA256//SOV-0001-ARCHIVE//VALIDATED</span>
+                    <span class="dch-indicator">✦ UV SECURE</span>
+                  </div>
+                </div>
+
+                <!-- Forensic UV Scanner Beam (Appears during verification) -->
+                <div class="deed-uv-scanner-ray" id="deedUvScannerRay" aria-hidden="true"></div>
+
+                <!-- Top Archival Seal & Hallmark -->
                 <div class="ledger-top-banner">
-                  <div class="ledger-crest-badge">
-                    <svg viewBox="0 0 40 40" fill="none" class="ledger-crest-svg">
-                      <circle cx="20" cy="20" r="18" stroke="url(#goldBezelGrad)" stroke-width="1.2" stroke-dasharray="2 2"></circle>
-                      <circle cx="20" cy="20" r="15" stroke="#d4af37" stroke-width="0.8"></circle>
-                      <path d="M13 14l3.5 4 3.5-6 3.5 6 3.5-4v12h-14v-12z" fill="#d4af37" stroke="#b89030" stroke-width="0.8"></path>
-                      <circle cx="20" cy="12" r="1.5" fill="#f5e6b8"></circle>
-                      <circle cx="13" cy="14" r="1.2" fill="#f5e6b8"></circle>
-                      <circle cx="27" cy="14" r="1.2" fill="#f5e6b8"></circle>
+                  <div class="deed-embossed-seal">
+                    <svg viewBox="0 0 44 44" fill="none" class="deed-seal-svg">
+                      <circle cx="22" cy="22" r="20" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="2 1.5"></circle>
+                      <circle cx="22" cy="22" r="17.5" stroke="rgba(212,175,55,0.5)" stroke-width="0.8"></circle>
+                      <circle cx="22" cy="22" r="14" fill="rgba(212,175,55,0.08)" stroke="#d4af37" stroke-width="1"></circle>
+                      <!-- Heraldic Crown & Wheat Laurel -->
+                      <path d="M16 16l3 3.5 3-5 3 5 3-3.5v10h-12v-10z" fill="url(#deedGoldGrad)" stroke="#c8a35f" stroke-width="0.6"></path>
+                      <circle cx="22" cy="13.5" r="1.3" fill="#fff5d7"></circle>
+                      <circle cx="16" cy="15" r="1" fill="#fff5d7"></circle>
+                      <circle cx="28" cy="15" r="1" fill="#fff5d7"></circle>
+                      <text x="22" y="32" text-anchor="middle" font-size="5" fill="#d4af37" font-weight="700" letter-spacing="0.1em">I%</text>
+                      <defs>
+                        <linearGradient id="deedGoldGrad" x1="16" y1="14" x2="28" y2="26" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#fae7b5"></stop>
+                          <stop offset="0.5" stop-color="#d4af37"></stop>
+                          <stop offset="1" stop-color="#8a6924"></stop>
+                        </linearGradient>
+                      </defs>
                     </svg>
                   </div>
                   <div class="ledger-top-texts">
-                    <span class="ledger-org" data-i18n="profile.archiveHallmark">THE 1% CLUB • PRIVATE SOVEREIGN REGISTRY</span>
+                    <span class="ledger-deed-label" data-i18n="profile.deedAuthenticityLabel">صك الانتساب والسيادة المعتمد</span>
+                    <span class="ledger-org" data-i18n="profile.archiveHallmark">THE 1% CLUB • ARCHIVAL REGISTRY OF SOVEREIGN SOULS • GENESIS CLASS</span>
                     <span class="ledger-sub" data-i18n="profile.historySectionSub">السجل الرسمي والوثيقة المعتمدة للانتساب</span>
                   </div>
                 </div>
 
-                <!-- Hero Induction Date Display (Watch Complication & Archival Certificate Style) -->
+                <!-- Micro-Security Thread (Horological / Currency Grade) -->
+                <div class="deed-security-ribbon" title="Official Sovereign Currency Thread AU 999.9">
+                  <div class="deed-security-track">
+                    <span class="deed-security-text">THE 1% CLUB • SOVEREIGN JURISDICTION • OFFICIAL IMMUTABLE DEED • GENESIS REGISTRY • ARCHIVE SEAL 0001 • </span>
+                    <span class="deed-security-text" aria-hidden="true">THE 1% CLUB • SOVEREIGN JURISDICTION • OFFICIAL IMMUTABLE DEED • GENESIS REGISTRY • ARCHIVE SEAL 0001 • </span>
+                  </div>
+                </div>
+
+                <!-- Induction Beneficiary & Sovereign Date Block -->
                 <div class="ledger-hero-date-block">
+                  <div class="deed-member-plaque">
+                    <span class="deed-beneficiary-label">SOVEREIGN BENEFICIARY / صاحب السيادة</span>
+                    <div class="deed-member-name" id="profileLedgerMemberName">MEMBER NAME</div>
+                  </div>
                   <div class="ledger-hero-label" data-i18n="profile.inductionDateLabel">تاريخ الانضمام والانتساب</div>
                   <div class="ledger-hero-date" id="profileInductionDateDisplay" data-i18n="profile.inductionDateValue">١٨ أغسطس ٢٠٢٦</div>
                   <div class="ledger-hero-protocol" data-i18n="profile.inductionTimeProtocol">بروتوكول التأسيس الأول • 04:12 بالتوقيت العالمي</div>
@@ -1746,18 +1905,18 @@
                 <div class="ledger-records-grid">
                   <div class="ledger-record-cell">
                     <span class="lrc-label" data-i18n="profile.registryNumberLabel">رقم السجل السيادي</span>
-                    <span class="lrc-value" id="profileLedgerRegistryNo">REG-0001-3426</span>
+                    <span class="lrc-value" id="profileLedgerRegistryNo">REG-0001-2024</span>
                   </div>
                   <div class="ledger-record-cell">
                     <span class="lrc-label" data-i18n="profile.recordStatusLabel">حالة السجل</span>
                     <span class="lrc-value lrc-sealed">
                       <span class="lrc-status-dot"></span>
-                      <span data-i18n="profile.recordStatusValue">معتمد ومحمي للأبد</span>
+                      <span id="profileLedgerStatusText" data-i18n="profile.recordStatusValue">معتمد ومحمي للأبد</span>
                     </span>
                   </div>
                   <div class="ledger-record-cell">
                     <span class="lrc-label" data-i18n="profile.inductionTierLabel">الرتبة التأسيسية</span>
-                    <span class="lrc-value" data-i18n="profile.inductionTierValue">عضوية سيادية</span>
+                    <span class="lrc-value" id="profileLedgerTier" data-i18n="profile.inductionTierValue">عضوية سيادية</span>
                   </div>
                   <div class="ledger-record-cell">
                     <span class="lrc-label" data-i18n="profile.tenureLabel">الأقدمية والعهد</span>
@@ -1765,19 +1924,21 @@
                   </div>
                 </div>
 
-                <!-- Classic Historical Provenance Timeline -->
+                <!-- Historical Provenance Timeline -->
                 <div class="ledger-timeline-wrap">
                   <div class="ledger-timeline-head">
-                    <svg viewBox="0 0 16 16" fill="none" class="ledger-timeline-icon">
-                      <circle cx="8" cy="8" r="6.5" stroke="#d4af37" stroke-width="1.2"></circle>
-                      <polyline points="8 4.5 8 8 10.5 9.5" stroke="#d4af37" stroke-width="1.2" stroke-linecap="round"></polyline>
-                    </svg>
+                    <div class="ledger-timeline-head-badge">
+                      <svg viewBox="0 0 16 16" fill="none" class="ledger-timeline-icon">
+                        <circle cx="8" cy="8" r="6.5" stroke="#d4af37" stroke-width="1.2"></circle>
+                        <polyline points="8 4.5 8 8 10.5 9.5" stroke="#d4af37" stroke-width="1.2" stroke-linecap="round"></polyline>
+                      </svg>
+                    </div>
                     <span class="ledger-timeline-title" data-i18n="profile.timelineTitle">محطات الانتساب والاعتماد</span>
                   </div>
 
                   <div class="ledger-timeline">
                     <!-- Event 1 -->
-                    <div class="ledger-timeline-item">
+                    <div class="ledger-timeline-item" id="chronicleItem1">
                       <div class="lti-marker">
                         <div class="lti-dot"></div>
                         <div class="lti-line"></div>
@@ -1792,7 +1953,7 @@
                     </div>
 
                     <!-- Event 2 -->
-                    <div class="ledger-timeline-item">
+                    <div class="ledger-timeline-item" id="chronicleItem2">
                       <div class="lti-marker">
                         <div class="lti-dot"></div>
                         <div class="lti-line"></div>
@@ -1807,7 +1968,7 @@
                     </div>
 
                     <!-- Event 3 -->
-                    <div class="ledger-timeline-item is-current">
+                    <div class="ledger-timeline-item is-current" id="chronicleItem3">
                       <div class="lti-marker">
                         <div class="lti-dot is-pulsing"></div>
                       </div>
@@ -1822,57 +1983,256 @@
                   </div>
                 </div>
 
-                <!-- Bottom Archival Stamp & Seal Footer -->
+                <!-- Bottom Archival Stamp & Interactive Deed Seal -->
                 <div class="ledger-footer-stamp">
-                  <div class="ledger-seal-stamp">
-                    <span class="lss-text">AUTHENTICATED • SOVEREIGN INDUCTION • THE 1% CLUB</span>
+                  <div class="deed-seal-stamp-container">
+                    <div class="deed-wax-seal" id="deedInteractiveWaxSeal" title="Tap to verify deed">
+                      <div class="dws-inner">
+                        <span class="dws-icon">✦</span>
+                        <span class="dws-text">SEALED</span>
+                      </div>
+                    </div>
+                    <div class="deed-seal-actions">
+                      <button type="button" class="deed-verify-btn" id="btnVerifyDeed" data-i18n="profile.verifyDeedBtn">
+                        <svg viewBox="0 0 16 16" fill="none" class="deed-btn-icon">
+                          <path d="M13.5 4.5l-6.5 6.5-3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <span data-i18n="profile.verifyDeedBtn">المصادقة على صحة الصك</span>
+                      </button>
+                      <span class="lss-text" data-i18n="profile.deedSealText">SIGILLUM SOVEREIGN • ARCHIVE SECURE</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- 5. MY COLLECTION Showcase -->
-          <div class="profile-collection-section" id="profileCollectionSection">
-            <div class="pcs-head">
-              <h3 id="collectionSectionTitle">MY LUXURY COLLECTION</h3>
-              <button
-                class="pcs-view-all"
-                onclick="
-                  document.querySelector('[data-tab=\'boutique\']').click()
-                "
-                data-i18n="profile.viewAll"
-              >
-                View All
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
+          <!-- 5. THE VELVET RELIQUARY SHOWCASE (خزانة المقتنيات والتحف السيادية) -->
+          <div class="profile-collection-section reliquary-showcase-section" id="profileCollectionSection">
+            <div class="pcs-head reliquary-head">
+              <div class="reliquary-head-title-wrap">
+                <div class="reliquary-crest-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                    <path d="M12 2l8 4.5v11L12 22l-8-4.5v-11L12 2z" stroke="#d4af37" fill="rgba(212,175,55,0.15)"></path>
+                    <circle cx="12" cy="12" r="3.5" stroke="#d4af37" fill="rgba(212,175,55,0.3)"></circle>
+                    <path d="M12 2v20M4 6.5l16 9M4 17.5l16-9" stroke="rgba(212,175,55,0.4)" stroke-width="0.75"></path>
+                  </svg>
+                </div>
+                <div class="reliquary-title-group">
+                  <h3 id="collectionSectionTitle" data-i18n="profile.reliquaryTitle">خزانة المقتنيات والتحف السيادية</h3>
+                  <span class="reliquary-sub-title" data-i18n="profile.reliquarySub">مخمل أوبسيدياني • حفظ وحراسة أرستقراطية</span>
+                </div>
+              </div>
+              <div class="reliquary-head-actions">
+                <span class="reliquary-count-pill" id="reliquaryCountPill">0 تحف سيادية</span>
+                <button
+                  type="button"
+                  class="pcs-view-all reliquary-boutique-btn"
+                  onclick="
+                    document.querySelector('[data-tab=\'boutique\']').click()
+                  "
+                  data-i18n="profile.viewAll"
                 >
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
+                  <span>استكشاف البوتيك</span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </div>
             </div>
-            <div class="pcs-scroll-container">
-              <div class="pcs-grid" id="profileCollectionGrid">
-                <!-- JS injected items -->
+
+            <!-- The Velvet Reliquary Vitrine Box -->
+            <div class="reliquary-vitrine-box" id="reliquaryVitrineBox">
+              <!-- Physical Archival Corner Rivets -->
+              <div class="vitrine-screw vitrine-screw-tl"><div class="vitrine-screw-slot"></div></div>
+              <div class="vitrine-screw vitrine-screw-tr"><div class="vitrine-screw-slot"></div></div>
+              <div class="vitrine-screw vitrine-screw-bl"><div class="vitrine-screw-slot"></div></div>
+              <div class="vitrine-screw vitrine-screw-br"><div class="vitrine-screw-slot"></div></div>
+
+              <!-- Vitrine Gallery Overhead Spotlight Cone -->
+              <div class="vitrine-spotlight-beam" aria-hidden="true"></div>
+
+              <!-- Inner Velvet Lining Chamber -->
+              <div class="vitrine-velvet-cushion">
+                <div class="pcs-scroll-container">
+                  <div class="pcs-grid reliquary-grid" id="profileCollectionGrid">
+                    <!-- JS injected items -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vitrine Bottom Hallmark & Security Ledger Bar -->
+              <div class="vitrine-hallmark-bar">
+                <span class="vhb-hallmark">AU 999.9 • MASTER RELIQUARY • IMMUTABLE GENESIS VAULT</span>
+                <span class="vhb-status" id="reliquaryActiveStatus" data-i18n="profile.reliquaryStatusSecured">حالة الحفظ: مؤمنة بالكامل ✦</span>
               </div>
             </div>
           </div>
 
-          <!-- 5. PRESTIGE & HONORS Showcase -->
-          <div class="profile-collection-section prestige-honors" id="profileHonorsSection">
-            <div class="pcs-head">
-              <h3 class="honors-section-title" data-i18n="misc.prestige">
-                PRESTIGE &amp; HONORS
-              </h3>
+          <!-- 5. SOVEREIGN HERALDIC HONORS & RIBBONS (سجل الأوسمة الملكية وأشرطة الشرف) -->
+          <div class="profile-collection-section prestige-honors heraldic-orders-section" id="profileHonorsSection">
+            <div class="pcs-head heraldic-orders-head">
+              <div class="history-head-title-wrap">
+                <div class="oath-header-crest-icon heraldic-crest-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#d4af37" fill="rgba(212,175,55,0.2)"></path>
+                    <circle cx="12" cy="12" r="3" stroke="#d4af37" fill="rgba(212,175,55,0.3)"></circle>
+                  </svg>
+                </div>
+                <div class="heraldic-titles-col">
+                  <h3 class="honors-section-title" id="honorsSectionTitle" data-i18n="honors.heraldicRegistryTitle">
+                    سجل الأوسمة الملكية وأشرطة الشرف
+                  </h3>
+                  <span class="heraldic-section-sub" data-i18n="honors.chancellerySub">مستودع الأوسمة السيادية • براءات الاستحقاق والتوشيح</span>
+                </div>
+              </div>
+              <div class="history-badge-seal">
+                <span class="badge badge-gold" id="heraldicChancelleryBadge" data-i18n="honors.bestowed">ديوان التشريفات • معتمد</span>
+              </div>
             </div>
-            <div class="achievements-summary" id="achievementsSummary">
+
+            <!-- The Sovereign Diplomatic Ribbon Rack (شريط الأوسمة الدبلوماسي المجمّع) -->
+            <div class="heraldic-ribbon-rack-chassis" id="heraldicRibbonRackChassis">
+              <div class="hrr-header">
+                <div class="hrr-title-wrap">
+                  <span class="hrr-emblem">🎖️</span>
+                  <span class="hrr-label" data-i18n="honors.ribbonRackLabel">شريط الأوسمة الدبلوماسي • SERVICE BAR</span>
+                </div>
+                <span class="hrr-status" id="hrrStatusBadge">✦ معتمد رسميًا</span>
+              </div>
+              <div class="hrr-rack-bar" id="heraldicRibbonRack">
+                <!-- Injected dynamically by JS -->
+              </div>
+            </div>
+
+            <div class="achievements-summary heraldic-chancellery-summary" id="achievementsSummary">
               <!-- JS injected summary -->
             </div>
-            <div class="pcs-grid honors-grid" id="profileAchievementsGrid">
+            <div class="pcs-grid honors-grid heraldic-medals-grid" id="profileAchievementsGrid">
               <!-- JS injected achievements -->
+            </div>
+          </div>
+
+          <!-- 6. THE SOVEREIGN OATH & DECREE OF DISCRETION -->
+          <div class="profile-collection-section profile-oath-section" id="profileOathSection">
+            <div class="pcs-head">
+              <div class="history-head-title-wrap">
+                <div class="oath-header-crest-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+                    <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" stroke="#d4af6a" fill="rgba(212,175,106,0.2)"></path>
+                  </svg>
+                </div>
+                <h3 id="oathSectionTitle" data-i18n="profile.oathSectionTitle">ميثاق السيادة وقَسَم الكتمان</h3>
+              </div>
+              <div class="history-badge-seal">
+                <span class="badge badge-gold" id="oathSectionBadge" data-i18n="profile.oathSectionBadge">حصانة دبلوماسية • المرتبة الأولى</span>
+              </div>
+            </div>
+
+            <!-- Archival Decree Card Folio -->
+            <div class="sovereign-oath-card luxury-tilt-card" id="sovereignOathCard">
+              <!-- Corner Fasteners -->
+              <div class="oath-screw oath-screw-tl"><div class="oath-screw-slot"></div></div>
+              <div class="oath-screw oath-screw-tr"><div class="oath-screw-slot"></div></div>
+              <div class="oath-screw oath-screw-bl"><div class="oath-screw-slot"></div></div>
+              <div class="oath-screw oath-screw-br"><div class="oath-screw-slot"></div></div>
+
+              <!-- Corner Heraldic Brackets -->
+              <div class="oath-corner oath-corner-tl"></div>
+              <div class="oath-corner oath-corner-tr"></div>
+              <div class="oath-corner oath-corner-bl"></div>
+              <div class="oath-corner oath-corner-br"></div>
+
+              <div class="sovereign-oath-inner">
+                <!-- Decree Emblem & Motto -->
+                <div class="oath-decree-header">
+                  <div class="oath-laurel-crest">
+                    <svg viewBox="0 0 40 40" fill="none" class="oath-laurel-svg">
+                      <circle cx="20" cy="20" r="18" stroke="#d4af6a" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"></circle>
+                      <path d="M20 7l2 4 4.5.7-3.2 3.2.8 4.5L20 17.2l-4.1 2.2.8-4.5-3.2-3.2 4.5-.7L20 7z" fill="url(#oathGoldGrad)" stroke="#8f6b2b" stroke-width="0.8"></path>
+                      <path d="M12 28c2-3 5-4 8-4s6 1 8 4" stroke="#d4af6a" stroke-width="1.2" stroke-linecap="round" opacity="0.8"></path>
+                      <circle cx="20" cy="20" r="11" stroke="#d4af6a" stroke-width="0.75" opacity="0.4"></circle>
+                      <defs>
+                        <linearGradient id="oathGoldGrad" x1="12" y1="7" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#fff0be"></stop>
+                          <stop offset="0.5" stop-color="#d4af6a"></stop>
+                          <stop offset="1" stop-color="#8a6727"></stop>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div class="oath-decree-sub" data-i18n="profile.oathMotto">PRIVATE WEALTH. PRIVATE SOCIETY.</div>
+                  <p class="oath-preamble" data-i18n="profile.oathPreamble">بموجب التنصيب في صرح THE 1% CLUB، يلتزم صاحب السيادة بهذا الميثاق الأبدي غير القابل للنقض، عهداً على السرية والشرف والرفعة.</p>
+                </div>
+
+                <!-- Three Covenants / Pillars -->
+                <div class="oath-pillars-grid">
+                  <!-- Pillar 1 -->
+                  <div class="oath-pillar-cell">
+                    <div class="opc-head">
+                      <div class="opc-icon">
+                        <svg viewBox="0 0 20 20" fill="none">
+                          <path d="M6 8V6a4 4 0 118 0v2" stroke="#d4af6a" stroke-width="1.4" stroke-linecap="round"></path>
+                          <rect x="4" y="8" width="12" height="9" rx="2" stroke="#d4af6a" stroke-width="1.4" fill="rgba(212,175,106,0.1)"></rect>
+                          <circle cx="10" cy="12.5" r="1.5" fill="#d4af6a"></circle>
+                        </svg>
+                      </div>
+                      <div class="opc-title" data-i18n="profile.oathPillar1Title">أولاً: عهد الكتمان الأبدي (LEX SILENTII)</div>
+                    </div>
+                    <p class="opc-desc" data-i18n="profile.oathPillar1Desc">كافة المداولات واللقاءات والمبادلات التي تنعقد داخل صالونات النادي مصونة بسرية تامة ولا يجوز إفشاؤها أو نقلها خارج الأروقة المغلقة.</p>
+                  </div>
+
+                  <!-- Pillar 2 -->
+                  <div class="oath-pillar-cell">
+                    <div class="opc-head">
+                      <div class="opc-icon">
+                        <svg viewBox="0 0 20 20" fill="none">
+                          <path d="M3 15l2-8 5 4 5-4 2 8H3z" stroke="#d4af6a" stroke-width="1.4" stroke-linejoin="round" fill="rgba(212,175,106,0.1)"></path>
+                          <circle cx="10" cy="5" r="1.5" fill="#d4af6a"></circle>
+                        </svg>
+                      </div>
+                      <div class="opc-title" data-i18n="profile.oathPillar2Title">ثانياً: ميثاق الرفعة والسيادة (PACTUM DIGNITATIS)</div>
+                    </div>
+                    <p class="opc-desc" data-i18n="profile.oathPillar2Desc">صيانة الهيبة الأرستقراطية للنادي ومراعاة المقامات السيادية للزملاء الأعضاء بالترفع عن كل ما يمس نقاء ومكانة المجتمع.</p>
+                  </div>
+
+                  <!-- Pillar 3 -->
+                  <div class="oath-pillar-cell">
+                    <div class="opc-head">
+                      <div class="opc-icon">
+                        <svg viewBox="0 0 20 20" fill="none">
+                          <path d="M14 6a3 3 0 10-4.2 4.2L5 15v3h3l1.5-1.5H11v-1.5l1.5-1.5L14 15l4-4-4-5z" stroke="#d4af6a" stroke-width="1.3" fill="rgba(212,175,106,0.1)"></path>
+                        </svg>
+                      </div>
+                      <div class="opc-title" data-i18n="profile.oathPillar3Title">ثالثاً: حرمة الخزينة والمقتنيات (SANCTITAS GAZAE)</div>
+                    </div>
+                    <p class="opc-desc" data-i18n="profile.oathPillar3Desc">حماية المفتاح المشفر للخزينة وصون أصالة الأوسمة والمقتنيات التاريخية كإرث سيادي خالد لا يقدر بثمن.</p>
+                  </div>
+                </div>
+
+                <!-- Ratification Signature & Signet Stamp -->
+                <div class="oath-ratification-footer">
+                  <div class="oath-sig-box">
+                    <span class="oath-sig-label" data-i18n="profile.oathSignetTitle">صُودق بخاتم السيادة والختم المشفر</span>
+                    <div class="oath-signature-text" id="oathMemberSignature">Alexander • Sovereign</div>
+                    <span class="oath-crypt-id" id="oathCryptographicCode">HASH: 8F2A • IMMUTABLE COVENANT • REGISTERED</span>
+                  </div>
+
+                  <div class="oath-action-wrap">
+                    <button type="button" class="oath-signet-seal-btn" id="oathInteractiveSignetBtn" title="Reaffirm Sovereign Oath">
+                      <div class="ossb-ring">
+                        <span class="ossb-star">✦</span>
+                        <span class="ossb-text" data-i18n="profile.oathSignetReaffirm">تجديد العهد والقَسَم</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1894,6 +2254,101 @@
               <div class="ach-toast-badge">MILESTONE UNLOCKED</div>
               <h4 class="ach-toast-title" id="achToastTitle"></h4>
               <p class="ach-toast-msg" id="achToastMsg"></p>
+            </div>
+          </div>
+
+          <!-- 7. SOVEREIGN RELIQUARY CERTIFICATE OF PROVENANCE MODAL -->
+          <div class="reliquary-modal-backdrop" id="reliquaryInspectModal" hidden="" aria-hidden="true">
+            <div class="reliquary-modal-card luxury-tilt-card" id="reliquaryCertificateCard">
+              <!-- Physical Archival Corner Rivets -->
+              <div class="rmc-screw rmc-screw-tl"><div class="rmc-screw-slot"></div></div>
+              <div class="rmc-screw rmc-screw-tr"><div class="rmc-screw-slot"></div></div>
+              <div class="rmc-screw rmc-screw-bl"><div class="rmc-screw-slot"></div></div>
+              <div class="rmc-screw rmc-screw-br"><div class="rmc-screw-slot"></div></div>
+
+              <!-- Close Button -->
+              <button type="button" class="rmc-close-btn" id="reliquaryModalCloseBtn" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+
+              <div class="rmc-inner">
+                <!-- Top Sovereign Certificate Seal & Header -->
+                <div class="rmc-header">
+                  <div class="rmc-seal-wrap">
+                    <svg viewBox="0 0 44 44" fill="none" class="rmc-seal-svg">
+                      <circle cx="22" cy="22" r="20" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="2 1.5"></circle>
+                      <circle cx="22" cy="22" r="17.5" stroke="rgba(212,175,55,0.5)" stroke-width="0.8"></circle>
+                      <circle cx="22" cy="22" r="14" fill="rgba(212,175,55,0.08)" stroke="#d4af37" stroke-width="1"></circle>
+                      <path d="M16 16l3 3.5 3-5 3 5 3-3.5v10h-12v-10z" fill="url(#rmcGoldGrad)" stroke="#c8a35f" stroke-width="0.6"></path>
+                      <defs>
+                        <linearGradient id="rmcGoldGrad" x1="16" y1="14" x2="28" y2="26" gradientUnits="userSpaceOnUse">
+                          <stop stop-color="#fae7b5"></stop>
+                          <stop offset="0.5" stop-color="#d4af37"></stop>
+                          <stop offset="1" stop-color="#8a6924"></stop>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div class="rmc-header-texts">
+                    <span class="rmc-eyebrow" data-i18n="profile.certTitle">CERTIFICATE OF SOVEREIGN PROVENANCE</span>
+                    <h4 class="rmc-artifact-title" id="reliquaryItemTitle">ARTIFACT TITLE</h4>
+                    <span class="rmc-serial" id="reliquaryItemSerial">SER: ARC-0001-GOLD</span>
+                  </div>
+                </div>
+
+                <!-- Showcase Turntable on Velvet Cushion -->
+                <div class="rmc-turntable-chamber">
+                  <div class="rmc-spotlight-cone" aria-hidden="true"></div>
+                  <div class="rmc-turntable-pedestal">
+                    <div class="rmc-pedestal-bezel"></div>
+                    <div class="rmc-pedestal-velvet" id="reliquaryItemVisual">
+                      <!-- Injected item icon or image -->
+                    </div>
+                  </div>
+                  <div class="rmc-status-badge" id="reliquaryItemStatusBadge">
+                    <span class="rsb-dot"></span>
+                    <span id="reliquaryItemStatusText" data-i18n="profile.equippedBadge">مُقَلَّد بالهوية السيادية</span>
+                  </div>
+                </div>
+
+                <!-- Archival Specifications Grid -->
+                <div class="rmc-spec-grid">
+                  <div class="rmc-spec-cell">
+                    <span class="rmc-spec-lbl" data-i18n="profile.alloyLabel">العيار والمعدن</span>
+                    <span class="rmc-spec-val" id="reliquaryItemAlloy">Au 999.9 خالص</span>
+                  </div>
+                  <div class="rmc-spec-cell">
+                    <span class="rmc-spec-lbl" data-i18n="profile.foundryLabel">دار الصك والاعتماد</span>
+                    <span class="rmc-spec-val" id="reliquaryItemFoundry">St. Moritz Foundry</span>
+                  </div>
+                  <div class="rmc-spec-cell">
+                    <span class="rmc-spec-lbl" data-i18n="profile.rarityLabel">رتبة الندرة</span>
+                    <span class="rmc-spec-val" id="reliquaryItemRarity">SOVEREIGN APEX</span>
+                  </div>
+                  <div class="rmc-spec-cell">
+                    <span class="rmc-spec-lbl" data-i18n="profile.valueLabel">القيمة التقديرية</span>
+                    <span class="rmc-spec-val" id="reliquaryItemPrice">$15,000</span>
+                  </div>
+                </div>
+
+                <!-- Historical Lore Description -->
+                <div class="rmc-lore-box">
+                  <p class="rmc-lore-paragraph" id="reliquaryItemLore">
+                    تحفة مسبوكة يدوياً من الذهب الخالص والأوبسيديان المعتق...
+                  </p>
+                </div>
+
+                <!-- Actions: Equip/Unequip Toggle -->
+                <div class="rmc-actions">
+                  <button type="button" class="rmc-equip-btn" id="reliquaryToggleEquipBtn">
+                    <span class="rmc-btn-icon">✦</span>
+                    <span id="reliquaryToggleEquipBtnText" data-i18n="profile.equipAction">تقليد على بطاقة الماستر كارد</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -2309,6 +2764,60 @@
         </div>
       </div>
 
+      <!-- SOVEREIGN CITATION & HERALDIC DECREE MODAL -->
+      <div class="purchase-modal-overlay heraldic-citation-overlay" id="heraldicCitationModal" hidden aria-hidden="true" role="dialog" aria-labelledby="citationMedalName">
+        <div class="purchase-modal heraldic-citation-card">
+          <div class="hcc-corner-screw hcc-screw-tl" aria-hidden="true"></div>
+          <div class="hcc-corner-screw hcc-screw-tr" aria-hidden="true"></div>
+          <div class="hcc-corner-screw hcc-screw-bl" aria-hidden="true"></div>
+          <div class="hcc-corner-screw hcc-screw-br" aria-hidden="true"></div>
+          
+          <button class="mini-dossier-close-btn hcc-close-btn" id="closeCitationModalBtn" type="button" aria-label="Close">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          
+          <div class="hcc-inner">
+            <div class="hcc-head">
+              <div class="hcc-seal-emblem" id="citationSealEmblem">⚜️</div>
+              <span class="hcc-protocol-tag" data-i18n="honors.chancelleryDecree">براءة وسام الاستحقاق السيادي</span>
+              <h3 class="hcc-medal-name" id="citationMedalName">وسام الاستحقاق</h3>
+              <span class="hcc-order-class" id="citationOrderClass">ORD. I • THE 1% CLUB CHANCELLERY</span>
+            </div>
+            
+            <div class="hcc-ribbon-preview" id="citationRibbonPreview">
+              <!-- Rendered ribbon swatch -->
+            </div>
+
+            <div class="hcc-body">
+              <p class="hcc-citation-quote" id="citationQuoteText">“يُمنح هذا الوسام الملكي بموجب الميثاق السيادي لصاحب السمو تكريمًا لمسيرته ومقتنياته النادرة في صالونات النادي.”</p>
+              
+              <div class="hcc-metrics-grid">
+                <div class="hcc-metric-col">
+                  <span class="hcc-m-lbl" data-i18n="honors.conferralStatus">حالة التوشيح</span>
+                  <span class="hcc-m-val" id="citationConferralStatus">موشّح رسميًا ✦</span>
+                </div>
+                <div class="hcc-metric-col">
+                  <span class="hcc-m-lbl" data-i18n="honors.conferralCriteria">المعيار المطلوب</span>
+                  <span class="hcc-m-val" id="citationCriteriaVal">$5,000</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hcc-footer">
+              <div class="hcc-hallmark-stamp">
+                <span class="hcc-stamp-txt">SIGILLUM CHANCELLERIAE • THE 1% CLUB</span>
+              </div>
+              <button type="button" class="hcc-action-btn" id="citationDismissBtn" data-i18n="common.close">
+                إغلاق البراءة
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- PREMIUM TOAST -->
       <div class="premium-toast" id="premiumToast" aria-live="polite">
         <div class="premium-toast-icon">
@@ -2663,6 +3172,22 @@
 
           <hr class="modal-divider dossier-divider" />
 
+          <!-- SOVEREIGN CIRCLES SELECTOR PANEL -->
+          <div class="dossier-panel" id="modalCirclesPanel">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <h4 class="modal-section-title" data-i18n="profile.circlesModalTitle" style="margin-bottom: 0;">ACCREDITED SOVEREIGN CIRCLES</h4>
+              <span id="modalCirclesCountBadge" class="modal-counter-badge">4 / 5</span>
+            </div>
+            <p class="dossier-panel-desc" data-i18n="profile.circlesModalDesc" style="font-size: 11px; color: #a39580; margin-bottom: 12px; line-height: 1.5;">
+              حدد حتى ٥ مجالات تعكس مكانتك السيادية واستثماراتك واهتماماتك الخاصة.
+            </p>
+            <div class="modal-circles-selector-grid" id="modalCirclesSelectorGrid">
+              <!-- JS injected selectable chips -->
+            </div>
+          </div>
+
+          <hr class="modal-divider dossier-divider" />
+
           <!-- ACCOUNT PANEL -->
           <div class="dossier-panel">
             <h4 class="modal-section-title" data-i18n="profile.securityContact">SECURITY & CONTACT</h4>
@@ -2817,10 +3342,10 @@
     </div>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="Audio.js?v=60"></script>
-    <script src="luxury.js?v=60"></script>
-    <script src="translations.js?v=60"></script>
-    <script src="app.js?v=60"></script>
+    <script src="Audio.js?v=66"></script>
+    <script src="luxury.js?v=66"></script>
+    <script src="translations.js?v=66"></script>
+    <script src="app.js?v=66"></script>
 
     <input
       type="file"

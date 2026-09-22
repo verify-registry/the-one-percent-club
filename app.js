@@ -164,14 +164,20 @@ window.setLanguage = function (lang) {
 
   // Update Profile strings if they rely on UI text
   const profileLevel = document.getElementById("profileMembershipLevel");
-  if (profileLevel && typeof AppState !== "undefined") {
+  const profileHeroTier = document.getElementById("profileTierName");
+  if (typeof AppState !== "undefined") {
     const tier = AppState.user.tier;
     let tierTrans = window.t("misc.member");
-    if (tier === "Sovereign" || tier === "سيادي")
+    let heroTierTrans = window.t("profile.heroSovereignTier");
+    if (tier === "Sovereign" || tier === "سيادي") {
       tierTrans = window.t("misc.sovereign");
-    else if (tier === "Elite" || tier === "نخبة")
+      heroTierTrans = window.t("profile.heroSovereignTier");
+    } else if (tier === "Elite" || tier === "نخبة") {
       tierTrans = window.t("misc.elite");
-    profileLevel.textContent = tierTrans;
+      heroTierTrans = window.t("profile.heroEliteTier");
+    }
+    if (profileLevel) profileLevel.textContent = tierTrans;
+    if (profileHeroTier) profileHeroTier.textContent = heroTierTrans;
   }
 };
 
@@ -386,6 +392,8 @@ window.applyLanguage = function (lang) {
     colTitle.textContent =
       lang === "ar" ? "خزينة المقتنيات النادرة" : "MY LUXURY COLLECTION";
   if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
+  if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
+  if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
   if (typeof renderProfileCollection === "function") renderProfileCollection();
   if (typeof window.syncAudioSoundUI === "function" && window.AudioEngine) {
     window.syncAudioSoundUI(window.AudioEngine.isEnabled());
@@ -584,6 +592,77 @@ const BOUTIQUE = {
     ],
   },
 };
+
+// ==========================================
+// 2.5 SOVEREIGN CIRCLES & DOMAINS CATALOG
+// ==========================================
+const SOVEREIGN_CIRCLES_CATALOG = [
+  {
+    id: "pe_venture",
+    nameKey: "profile.circle_pe_venture",
+    enName: "Private Equity & Venture",
+    arName: "الاستثمار ورأس المال الجريء",
+    badge: "ALPHA • VENTURE",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="8" x2="13" y2="8"></line><line x1="7" y1="16" x2="11" y2="16"></line><circle cx="16" cy="15" r="2"></circle></svg>`
+  },
+  {
+    id: "haute_horlogerie",
+    nameKey: "profile.circle_haute_horlogerie",
+    enName: "Haute Horlogerie & Rarities",
+    arName: "الساعات الفاخرة والمقتنيات",
+    badge: "HOROLOGY • RARITY",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 14.5 13.5"></polyline><path d="M9 2h6M9 22h6M12 2v3M12 19v3"></path></svg>`
+  },
+  {
+    id: "sovereign_ai",
+    nameKey: "profile.circle_sovereign_ai",
+    enName: "Sovereign AI & Deep Tech",
+    arName: "الذكاء الاصطناعي والتكنولوجيا",
+    badge: "DEEP TECH • AI",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"></rect><circle cx="9" cy="9" r="1.5" fill="currentColor"></circle><circle cx="15" cy="9" r="1.5" fill="currentColor"></circle><path d="M8 15h8M12 4V2M12 22v-2M2 12h2M20 12h2"></path></svg>`
+  },
+  {
+    id: "aviation_yachts",
+    nameKey: "profile.circle_aviation_yachts",
+    enName: "Private Aviation & Superyachts",
+    arName: "الطيران الخاص واليخوت",
+    badge: "FLEET • AERONAUTICS",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>`
+  },
+  {
+    id: "prime_estates",
+    nameKey: "profile.circle_prime_estates",
+    enName: "Prime Architectural Estates",
+    arName: "العقارات والقصور الفاخرة",
+    badge: "ESTATE • ASSETS",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h2M13 10h2M9 14h2M13 14h2M10 21v-4h4v4"></path></svg>`
+  },
+  {
+    id: "fine_art",
+    nameKey: "profile.circle_fine_art",
+    enName: "High Art & Historic Curations",
+    arName: "الفنون والمقتنيات التاريخية",
+    badge: "FINE ART • CURATION",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
+  },
+  {
+    id: "macro_strategy",
+    nameKey: "profile.circle_macro_strategy",
+    enName: "Global Macro & Sovereign Strategy",
+    arName: "الاستراتيجية والاقتصاد الكلي",
+    badge: "SOVEREIGN MACRO",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`
+  },
+  {
+    id: "royal_equestrian",
+    nameKey: "profile.circle_royal_equestrian",
+    enName: "Thoroughbred & Purebred Equine",
+    arName: "الخيول والفروسية الملكية",
+    badge: "EQUINE • ROYAL",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19h16M19 19a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4M12 3l3 4 5 1-4 4 1 5-5-3-5 3 1-5-4-4 5-1 3-4z"></path></svg>`
+  }
+];
+window.SOVEREIGN_CIRCLES_CATALOG = SOVEREIGN_CIRCLES_CATALOG;
 
 // ==========================================
 // ==========================================
@@ -876,6 +955,9 @@ const AppState = {
       if (savedProfile) {
         Object.assign(this.user, savedProfile);
         if (this.user.collectedItems) delete this.user.collectedItems;
+      }
+      if (!Array.isArray(this.user.circles) || this.user.circles.length === 0) {
+        this.user.circles = ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"];
       }
     } catch {}
 
@@ -1450,6 +1532,16 @@ ClubState.on("change", () => {
     pName.textContent = isStealth ? stealthMoniker : (AppState.user.username || AppState.user.name);
   }
 
+  const pTier = document.getElementById("profileTierName");
+  if (pTier) {
+    const tier = AppState.user.tier;
+    let heroTierTrans = window.t("profile.heroSovereignTier");
+    if (tier === "Elite" || tier === "نخبة") {
+      heroTierTrans = window.t("profile.heroEliteTier");
+    }
+    pTier.textContent = heroTierTrans;
+  }
+
   const pBio = document.getElementById("profileBioValue");
   if (pBio && AppState.user.bio) pBio.textContent = AppState.user.bio;
 
@@ -1513,6 +1605,10 @@ ClubState.on("change", () => {
   const countEl = document.getElementById("profileItemCount");
   if (countEl) countEl.textContent = AppState.collectedItems.length;
 
+  if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
+  if (typeof renderProfileCircles === "function") renderProfileCircles();
+  if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
+  if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
   if (typeof renderProfileCollection === "function") renderProfileCollection();
   if (typeof renderProfileAchievements === "function")
     renderProfileAchievements();
@@ -1685,10 +1781,10 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 
           let iconHtml = "";
         if (item.image) {
-          iconHtml = `<img src="${item.image}" alt="${window.t(item.name)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          iconHtml = `<img src="${item.image}" alt="${window.t(item.name)}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
                       <span class="boutique-card-fallback" style="display:none">${ICONS[item.icon] || ICONS["star"]}</span>`;
         } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
-          iconHtml = `<img src="${item.icon}" alt="${window.t(item.name)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          iconHtml = `<img src="${item.icon}" alt="${window.t(item.name)}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
                       <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
         } else {
           iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
@@ -2192,6 +2288,7 @@ const Router = {
     const activePage = document.getElementById(`${tab}-tab`);
     if (activePage) {
       activePage.classList.add("is-active");
+      activePage.scrollTop = 0;
     }
 
     document
@@ -2203,6 +2300,17 @@ const Router = {
     const main = document.querySelector(".app-main");
     if (main) main.scrollTop = 0;
     window.scrollTo(0, 0);
+
+    const header = document.getElementById("appHeader");
+    if (header) {
+      header.classList.remove("header-hidden");
+    }
+    if (typeof window.resetHeaderScrollTracking === "function") {
+      window.resetHeaderScrollTracking();
+    }
+    if (typeof window.updateHeaderHeightVar === "function") {
+      window.updateHeaderHeightVar();
+    }
     window.dispatchEvent(new Event("resize"));
   },
 
@@ -2214,7 +2322,11 @@ const Router = {
     if (backBtn) backBtn.hidden = true;
 
     const header = document.getElementById("appHeader");
-    if (header) header.classList.toggle("header-compact", tab === "club");
+    if (header) {
+      header.classList.remove("header-hidden");
+      header.classList.toggle("header-compact", tab === "club");
+      if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
+    }
   },
 
   triggerEnter(tab) {
@@ -2233,7 +2345,12 @@ const Router = {
       activePage.classList.add("is-active");
     }
     document.getElementById("sectionName").textContent = title;
-    document.getElementById("appHeader").classList.remove("header-compact");
+    const header = document.getElementById("appHeader");
+    if (header) {
+      header.classList.remove("header-hidden");
+      header.classList.remove("header-compact");
+      if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
+    }
     document.getElementById("backBtn").hidden = false;
     document
       .querySelectorAll(".nav-item")
@@ -2254,6 +2371,15 @@ const Router = {
       });
       if (typeof startClubWelcomeAutoDismiss === "function") {
         startClubWelcomeAutoDismiss(5000);
+      }
+    } else if (tab === "profile") {
+      if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
+      if (typeof renderProfileCircles === "function") renderProfileCircles();
+      if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
+      if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
+      if (typeof attachHorologicalScrewHandlers === "function") attachHorologicalScrewHandlers();
+      if (typeof cancelClubWelcomeAutoDismiss === "function") {
+        cancelClubWelcomeAutoDismiss();
       }
     } else {
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
@@ -2416,7 +2542,15 @@ function openContextPage(pageId, title, returnTab) {
     activePage.scrollTop = 0;
   }
   document.getElementById("sectionName").textContent = title;
-  document.getElementById("appHeader").classList.remove("header-compact");
+  const header = document.getElementById("appHeader");
+  if (header) {
+    header.classList.remove("header-hidden");
+    header.classList.remove("header-compact");
+    if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
+  }
+  if (typeof window.resetHeaderScrollTracking === "function") {
+    window.resetHeaderScrollTracking();
+  }
   document.getElementById("backBtn").hidden = false;
   document.querySelector(".app-main").scrollTop = 0;
   window.scrollTo(0, 0);
@@ -3700,10 +3834,10 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
 
   let mediaContent = "";
   if (item.image) {
-    mediaContent = `<img src="${item.image}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+    mediaContent = `<img src="${item.image}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
                     <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS[item.icon] || ICONS["crown"]}</div>`;
   } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
-    mediaContent = `<img src="${item.icon}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+    mediaContent = `<img src="${item.icon}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
                     <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS["crown"]}</div>`;
   } else {
     mediaContent = ICONS[item.icon] || ICONS["crown"];
@@ -3733,6 +3867,16 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
 
 document.getElementById("inspectionCloseBtn")?.addEventListener("click", () => {
   closeInspectionModal();
+});
+
+document.getElementById("reliquaryModalCloseBtn")?.addEventListener("click", () => {
+  if (typeof closeReliquaryInspectModal === "function") closeReliquaryInspectModal();
+});
+
+document.getElementById("reliquaryInspectModal")?.addEventListener("click", (e) => {
+  if (e.target.id === "reliquaryInspectModal") {
+    if (typeof closeReliquaryInspectModal === "function") closeReliquaryInspectModal();
+  }
 });
 
 function processPurchase(item) {
@@ -3986,6 +4130,8 @@ if (typeof renderProfileCollection === "function") {
 document.addEventListener("DOMContentLoaded", () => {
   const savedPortrait = localStorage.getItem(`portrait_${ClubState.member.id}`);
   if (savedPortrait) {
+    const portraitPhoto = document.getElementById("portraitPhoto");
+    const photoUploadBtn = document.getElementById("photoUploadBtn");
     if (portraitPhoto) {
       portraitPhoto.style.backgroundImage = `url(${savedPortrait})`;
       if (photoUploadBtn) photoUploadBtn.style.display = "none";
@@ -4078,6 +4224,11 @@ document.addEventListener("DOMContentLoaded", () => {
         AppState.user.email || "";
       document.getElementById("accPhoneInput").value =
         AppState.user.phone || "";
+
+      if (typeof renderModalCirclesSelector === "function") {
+        renderModalCirclesSelector(AppState.user.circles || ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"]);
+      }
+
       accountInfoModal.classList.add("is-open");
       if (window.AudioEngine && window.AudioEngine.playModalOpen) {
         window.AudioEngine.playModalOpen();
@@ -4128,9 +4279,22 @@ document.addEventListener("DOMContentLoaded", () => {
       AppState.user.phone = document
         .getElementById("accPhoneInput")
         .value.trim();
+
+      if (window.modalSelectedCircles && Array.isArray(window.modalSelectedCircles) && window.modalSelectedCircles.length > 0) {
+        AppState.user.circles = [...window.modalSelectedCircles];
+        const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl";
+        const circleNames = AppState.user.circles.map(id => {
+          const item = (typeof SOVEREIGN_CIRCLES_CATALOG !== "undefined") ? SOVEREIGN_CIRCLES_CATALOG.find(c => c.id === id) : null;
+          return item ? (isAr ? item.arName : item.enName) : id;
+        });
+        AppState.user.interests = circleNames.join(" · ");
+      }
           
       AppState.save();
       updateUI();
+      if (typeof renderProfileCircles === "function") {
+        renderProfileCircles();
+      }
       localStorage.removeItem("profileDraft");
       accountInfoModal?.classList.remove("is-open");
     });
@@ -4802,6 +4966,7 @@ function generateProfileAchievementSkeleton() {
 function renderProfileAchievements() {
   const container = document.getElementById("profileAchievementsGrid");
   const summaryContainer = document.getElementById("achievementsSummary");
+  const ribbonRack = document.getElementById("heraldicRibbonRack");
   if (!container) return;
 
   if (!container.dataset.skeletonShown) {
@@ -4823,6 +4988,35 @@ function renderProfileAchievements() {
   const totalAchievements = Object.keys(ACHIEVEMENTS_DATA).length;
   let earnedCount = 0;
 
+  // 1. Render Sovereign Diplomatic Ribbon Rack
+  if (ribbonRack) {
+    let rackHtml = "";
+    Object.keys(ACHIEVEMENTS_DATA).forEach((id) => {
+      const ach = ACHIEVEMENTS_DATA[id];
+      const isUnlocked = ach.isUnlocked();
+      const nameText = window.t("honors." + id);
+      const orderTag = window.t("honors.ord_" + id) || id.toUpperCase();
+      rackHtml += `
+        <div class="hrr-ribbon-unit ${isUnlocked ? 'is-unlocked' : 'is-locked'} hrr-ribbon-${id}" 
+             role="button" 
+             tabindex="0" 
+             title="${nameText} • ${isUnlocked ? window.t("honors.bestowed") : window.t("honors.pendingConferral")}"
+             onclick="window.openHeraldicCitationModal('${id}')">
+          <div class="hrr-ribbon-silk">
+            <div class="hrr-moire-texture" aria-hidden="true"></div>
+            <div class="hrr-ribbon-stripes"></div>
+          </div>
+          <div class="hrr-ribbon-bezel" aria-hidden="true"></div>
+          ${isUnlocked 
+            ? '<div class="hrr-rosette-device" aria-hidden="true"><span class="hrr-rosette-core">✦</span></div>' 
+            : '<div class="hrr-lock-device" aria-hidden="true">🔒</div>'}
+        </div>
+      `;
+    });
+    ribbonRack.innerHTML = rackHtml;
+  }
+
+  // 2. Render Heraldic Medals with Moiré Ribbons and Cloisonné Enamel
   Object.keys(ACHIEVEMENTS_DATA).forEach((id) => {
     const ach = ACHIEVEMENTS_DATA[id];
     const isUnlocked = ach.isUnlocked();
@@ -4830,17 +5024,59 @@ function renderProfileAchievements() {
 
     const nameText = window.t("honors." + id);
     const titleText = window.t("honors.title_" + id);
+    const orderTag = window.t("honors.ord_" + id) || id.toUpperCase();
+    const descText = window.t("honors.desc_" + id);
 
     if (isUnlocked) {
       html += `
-        <div class="honor-card is-unlocked gyro-element" data-tilt data-tooltip="${window.t("honors.desc_" + id).replace(/"/g, "&quot;")}">
+        <div class="honor-card heraldic-order-card is-unlocked gyro-element" 
+             data-tilt 
+             data-honor-id="${id}"
+             onclick="window.openHeraldicCitationModal('${id}')"
+             role="button" 
+             tabindex="0" 
+             title="${window.t("honors.inspectCitation")}">
           <div class="honor-card-bezel"></div>
-          <div class="honor-insignia-pedestal">
-            <div class="honor-icon">${ach.icon}</div>
+          <div class="honor-card-specular" aria-hidden="true"></div>
+          
+          <!-- Top Gilded Brooch Suspension Assembly -->
+          <div class="honor-suspension-assembly">
+            <div class="honor-brooch-bar">
+              <span class="brooch-rivet brooch-rivet-l" aria-hidden="true"></span>
+              <span class="brooch-hallmark">ORD • 24K</span>
+              <span class="brooch-rivet brooch-rivet-r" aria-hidden="true"></span>
+            </div>
+            
+            <!-- Draped Moiré Silk Ribbon -->
+            <div class="honor-moire-ribbon ribbon-${id}">
+              <div class="ribbon-watermark" aria-hidden="true"></div>
+              <div class="ribbon-stripes-weave"></div>
+              <div class="ribbon-crease-v" aria-hidden="true"></div>
+            </div>
+            
+            <!-- Solid Gold Suspension Ring -->
+            <div class="honor-suspension-ring" aria-hidden="true"></div>
           </div>
+
+          <!-- Cloisonné Enamel & High-Relief Medallion -->
+          <div class="honor-insignia-pedestal honor-cloisonne-medal medal-${id}">
+            <div class="cloisonne-enamel-base" aria-hidden="true"></div>
+            <div class="cloisonne-beaded-rim" aria-hidden="true"></div>
+            <div class="honor-icon">${ach.icon}</div>
+            <div class="cloisonne-specular-glint" aria-hidden="true"></div>
+          </div>
+
+          <div class="honor-order-badge">${orderTag}</div>
           <div class="honor-name">${nameText}</div>
           <div class="honor-title">${titleText}</div>
-          <div class="honor-pill">${window.t("honors.earned")}</div>
+          <div class="honor-pill honor-bestowed-pill">
+            <span class="pill-sparkle">✦</span>
+            <span>${window.t("honors.bestowed")}</span>
+          </div>
+
+          <div class="honor-citation-hint">
+            <span>${window.t("honors.inspectCitation")}</span>
+          </div>
         </div>
       `;
     } else {
@@ -4848,24 +5084,59 @@ function renderProfileAchievements() {
       if (current > ach.target) current = ach.target;
       const percent = Math.min(100, Math.max(0, (current / ach.target) * 100));
 
-      const remainingFormatted = "$" + (ach.target - current).toLocaleString();
+      const remainingFormatted = (ach.target - current).toLocaleString();
       let remainingText = window
         .t("honors.remaining")
         .replace("{0}", remainingFormatted);
 
       html += `
-        <div class="honor-card is-locked gyro-element skeleton-fade-in" data-tilt data-tooltip="${window.t("honors.desc_" + id).replace(/"/g, "&quot;")}">
+        <div class="honor-card heraldic-order-card is-locked gyro-element skeleton-fade-in" 
+             data-tilt 
+             data-honor-id="${id}"
+             onclick="window.openHeraldicCitationModal('${id}')"
+             role="button" 
+             tabindex="0" 
+             title="${window.t("honors.inspectCitation")}">
           <div class="honor-card-bezel"></div>
-          <div class="honor-insignia-pedestal">
+          
+          <!-- Top Muted Brooch Suspension Assembly -->
+          <div class="honor-suspension-assembly">
+            <div class="honor-brooch-bar is-muted">
+              <span class="brooch-rivet brooch-rivet-l" aria-hidden="true"></span>
+              <span class="brooch-hallmark">CHANCELLERIE</span>
+              <span class="brooch-rivet brooch-rivet-r" aria-hidden="true"></span>
+            </div>
+            
+            <!-- Draped Moiré Silk Ribbon (Subdued / Inactive) -->
+            <div class="honor-moire-ribbon ribbon-${id} is-muted">
+              <div class="ribbon-watermark" aria-hidden="true"></div>
+              <div class="ribbon-stripes-weave"></div>
+              <div class="ribbon-crease-v" aria-hidden="true"></div>
+            </div>
+            
+            <!-- Suspension Ring -->
+            <div class="honor-suspension-ring is-muted" aria-hidden="true"></div>
+          </div>
+
+          <!-- Antique Bronze Medallion -->
+          <div class="honor-insignia-pedestal honor-cloisonne-medal medal-${id} is-muted">
+            <div class="cloisonne-enamel-base" aria-hidden="true"></div>
+            <div class="cloisonne-beaded-rim" aria-hidden="true"></div>
             <div class="honor-icon">${ach.icon}</div>
           </div>
+
+          <div class="honor-order-badge">${orderTag}</div>
           <div class="honor-name">${nameText}</div>
-          <div class="honor-title">${window.t("honors.locked")}</div>
+          <div class="honor-title">${window.t("honors.pendingConferral")}</div>
           <div class="honor-progress-wrap">
             <div class="honor-progress-bar">
               <div class="honor-progress-fill" style="width: ${percent}%;"></div>
             </div>
             <div class="honor-progress-text">${remainingText}</div>
+          </div>
+
+          <div class="honor-citation-hint">
+            <span>${window.t("honors.inspectCitation")}</span>
           </div>
         </div>
       `;
@@ -4893,6 +5164,100 @@ function renderProfileAchievements() {
   }
 }
 
+// Sovereign Heraldic Citation Patent Modal Handlers
+window.openHeraldicCitationModal = function(id) {
+  const ach = ACHIEVEMENTS_DATA[id];
+  if (!ach) return;
+  const modal = document.getElementById("heraldicCitationModal");
+  if (!modal) return;
+
+  if (window.AudioEngine) {
+    if (typeof window.AudioEngine.playHeraldicMedalChime === "function") {
+      window.AudioEngine.playHeraldicMedalChime();
+    } else if (typeof window.AudioEngine.playGoldenSovereignChime === "function") {
+      window.AudioEngine.playGoldenSovereignChime();
+    }
+  }
+
+  if (window.HapticEngine && typeof window.HapticEngine.triggerMilestoneVibration === "function") {
+    window.HapticEngine.triggerMilestoneVibration();
+  } else if (navigator.vibrate) {
+    try { navigator.vibrate([15, 30, 45]); } catch (e) {}
+  }
+
+  // Physical Medal Sway Interaction
+  const clickedCard = document.querySelector(`.heraldic-order-card[data-honor-id="${id}"]`);
+  if (clickedCard) {
+    clickedCard.classList.remove("is-medal-swaying");
+    void clickedCard.offsetWidth;
+    clickedCard.classList.add("is-medal-swaying");
+  }
+
+  const isUnlocked = ach.isUnlocked();
+  const nameEl = document.getElementById("citationMedalName");
+  const orderClassEl = document.getElementById("citationOrderClass");
+  const quoteEl = document.getElementById("citationQuoteText");
+  const statusEl = document.getElementById("citationConferralStatus");
+  const criteriaEl = document.getElementById("citationCriteriaVal");
+  const emblemEl = document.getElementById("citationSealEmblem");
+  const ribbonPreviewEl = document.getElementById("citationRibbonPreview");
+
+  if (nameEl) nameEl.textContent = window.t("honors." + id);
+  if (orderClassEl) orderClassEl.textContent = window.t("honors.ord_" + id);
+  if (quoteEl) quoteEl.textContent = window.t("honors.chancelleryCitation_" + id) || window.t("honors.desc_" + id);
+  
+  if (statusEl) {
+    if (isUnlocked) {
+      statusEl.innerHTML = `<span class="hcc-status-bestowed">${window.t("honors.bestowed")}</span>`;
+    } else {
+      statusEl.innerHTML = `<span class="hcc-status-pending">${window.t("honors.pendingConferral")}</span>`;
+    }
+  }
+
+  if (criteriaEl) {
+    criteriaEl.textContent = `$${(ach.target || 5000).toLocaleString()}`;
+  }
+
+  if (emblemEl) {
+    emblemEl.innerHTML = ach.icon || '⚜️';
+  }
+
+  if (ribbonPreviewEl) {
+    ribbonPreviewEl.innerHTML = `
+      <div class="hcc-ribbon-sample ribbon-${id} ${isUnlocked ? 'is-unlocked' : 'is-locked'}">
+        <div class="ribbon-watermark" aria-hidden="true"></div>
+        <div class="ribbon-stripes-weave"></div>
+        <div class="hcc-ribbon-seal">${isUnlocked ? '✦ 24K' : 'PENDING'}</div>
+      </div>
+    `;
+  }
+
+  modal.hidden = false;
+  modal.setAttribute("aria-hidden", "false");
+  modal.classList.add("is-open");
+  document.body.classList.add("modal-open");
+};
+
+window.closeHeraldicCitationModal = function() {
+  const modal = document.getElementById("heraldicCitationModal");
+  if (!modal) return;
+  if (window.AudioEngine && window.AudioEngine.playModalClose) {
+    window.AudioEngine.playModalClose();
+  }
+  modal.classList.remove("is-open");
+  modal.hidden = true;
+  modal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+};
+
+document.getElementById("closeCitationModalBtn")?.addEventListener("click", window.closeHeraldicCitationModal);
+document.getElementById("citationDismissBtn")?.addEventListener("click", window.closeHeraldicCitationModal);
+document.getElementById("heraldicCitationModal")?.addEventListener("click", (e) => {
+  if (e.target.id === "heraldicCitationModal") {
+    window.closeHeraldicCitationModal();
+  }
+});
+
 
 function generateProfileCollectionSkeleton() {
   let html = '';
@@ -4909,6 +5274,154 @@ function generateProfileCollectionSkeleton() {
   }
   return html;
 }
+
+function findItemCategory(itemId) {
+  for (const cat in BOUTIQUE) {
+    if (BOUTIQUE[cat].items.some((i) => i.id === itemId)) {
+      return cat;
+    }
+  }
+  return "crowns";
+}
+
+function openReliquaryInspectModal(itemId) {
+  let item = null;
+  let catKey = "crowns";
+  for (const cat in BOUTIQUE) {
+    const found = BOUTIQUE[cat].items.find((i) => i.id === itemId);
+    if (found) {
+      item = found;
+      catKey = cat;
+      break;
+    }
+  }
+  if (!item) return;
+
+  const modal = document.getElementById("reliquaryInspectModal");
+  if (!modal) return;
+
+  const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
+  const isEquipped = AppState.equipped && AppState.equipped[catKey] === item.id;
+
+  // Title & Serial
+  const titleEl = document.getElementById("reliquaryItemTitle");
+  if (titleEl) {
+    titleEl.textContent = window.t("items." + item.id) || item.name;
+  }
+
+  const serialEl = document.getElementById("reliquaryItemSerial");
+  if (serialEl) {
+    serialEl.textContent = `SER: ARC-0001-${item.id.toUpperCase()}-${item.rarity || 1}`;
+  }
+
+  // Visual
+  const visualEl = document.getElementById("reliquaryItemVisual");
+  if (visualEl) {
+    let iconHtml = "";
+    if (item.image) {
+      iconHtml = `<img src="${item.image}" alt="${item.id}" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                  <span class="boutique-card-fallback" style="display:none;font-size:32px;">${ICONS[item.icon] || ICONS["crown"]}</span>`;
+    } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
+      iconHtml = `<img src="${item.icon}" alt="${item.id}" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                  <span class="boutique-card-fallback" style="display:none;font-size:32px;">${ICONS["crown"]}</span>`;
+    } else {
+      iconHtml = `<span class="boutique-card-fallback" style="display:flex;font-size:34px;color:#d4af37;">${ICONS[item.icon] || ICONS["crown"]}</span>`;
+    }
+    visualEl.innerHTML = iconHtml;
+  }
+
+  // Status Badge
+  const statusBadge = document.getElementById("reliquaryItemStatusBadge");
+  const statusText = document.getElementById("reliquaryItemStatusText");
+  if (statusBadge && statusText) {
+    statusBadge.className = "rmc-status-badge " + (isEquipped ? "is-equipped" : "is-vaulted");
+    statusText.textContent = isEquipped 
+      ? (window.t("profile.equippedBadge") || (isAr ? "مُقَلَّد بالهوية السيادية" : "EQUIPPED ON IDENTITY"))
+      : (window.t("profile.vaultedBadge") || (isAr ? "محفوظ بالخزانة الخاصة" : "SAFELY IN VAULT"));
+  }
+
+  // Specs
+  const alloyEl = document.getElementById("reliquaryItemAlloy");
+  if (alloyEl) {
+    alloyEl.textContent = (item.rarity >= 3)
+      ? (window.t("profile.solidGoldAlloy") || (isAr ? "Au 999.9 ذهب خالص" : "Au 999.9 Solid Gold"))
+      : (window.t("profile.obsidianTitaniumAlloy") || (isAr ? "تيتانيوم أسود وأوبسيديان" : "Black Titanium & Obsidian"));
+  }
+
+  const foundryEl = document.getElementById("reliquaryItemFoundry");
+  if (foundryEl) {
+    foundryEl.textContent = (item.rarity >= 3)
+      ? (window.t("profile.stMoritzFoundry") || (isAr ? "دار الصك • سانت موريتز" : "St. Moritz Master Foundry"))
+      : (window.t("profile.genevaGuild") || (isAr ? "نقابة الصياغة • جنيف" : "Geneva Guild of Horology"));
+  }
+
+  const rarityEl = document.getElementById("reliquaryItemRarity");
+  if (rarityEl) {
+    rarityEl.textContent = (typeof RARITY_LABEL !== 'undefined' && RARITY_LABEL[item.rarity]) ? RARITY_LABEL[item.rarity]() : (isAr ? "نادر سيادي" : "SOVEREIGN");
+  }
+
+  const priceEl = document.getElementById("reliquaryItemPrice");
+  if (priceEl) {
+    priceEl.textContent = item.price ? "$" + item.price.toLocaleString() : "$10,000";
+  }
+
+  // Lore
+  const loreEl = document.getElementById("reliquaryItemLore");
+  if (loreEl) {
+    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || (isAr ? "تحفة ملكية مسبوكة يدوياً من الذهب السيادي الخالص، معتمدة من المجلس التأسيسي الأعلى." : "Handcrafted sovereign artifact forged from solid gold and obsidian."));
+  }
+
+  // Toggle Equip Button
+  const toggleBtn = document.getElementById("reliquaryToggleEquipBtn");
+  const toggleText = document.getElementById("reliquaryToggleEquipBtnText");
+  if (toggleBtn && toggleText) {
+    toggleBtn.className = "rmc-equip-btn " + (isEquipped ? "is-unequip" : "is-equip");
+    toggleText.textContent = isEquipped
+      ? (window.t("profile.unequipAction") || (isAr ? "إعادة وحفظ في الخزانة" : "Return to Sovereign Vault"))
+      : (window.t("profile.equipAction") || (isAr ? "تقليد على بطاقة الماستر كارد" : "Equip to Master Card"));
+
+    toggleBtn.onclick = () => {
+      ClubState.toggleEquip(catKey, item.id);
+      if (window.AudioEngine && window.AudioEngine.playEquip) {
+        window.AudioEngine.playEquip();
+      }
+      if (window.HapticEngine && window.HapticEngine.boutiquePurchase) {
+        window.HapticEngine.boutiquePurchase();
+      } else if (typeof navigator !== "undefined" && navigator.vibrate) {
+        navigator.vibrate([25, 40, 15]);
+      }
+      renderProfileCollection();
+      if (typeof renderProfileEquipped === "function") renderProfileEquipped();
+      if (typeof updateMasterCard === "function") updateMasterCard();
+      openReliquaryInspectModal(item.id);
+    };
+  }
+
+  modal.hidden = false;
+  modal.classList.add("is-active");
+  if (typeof attachHorologicalScrewHandlers === "function") {
+    attachHorologicalScrewHandlers();
+  }
+  if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+    window.AudioEngine.playModalOpen();
+  }
+}
+
+function closeReliquaryInspectModal() {
+  const modal = document.getElementById("reliquaryInspectModal");
+  if (modal) {
+    modal.classList.remove("is-active");
+    setTimeout(() => {
+      modal.hidden = true;
+    }, 200);
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  }
+}
+
+window.openReliquaryInspectModal = openReliquaryInspectModal;
+window.closeReliquaryInspectModal = closeReliquaryInspectModal;
 
 function renderProfileCollection() {
   const container = document.getElementById("profileCollectionGrid");
@@ -4935,63 +5448,86 @@ function renderProfileCollection() {
     .filter((i) => i);
 
   let itemCount = collectedItems.length;
+  const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
+
+  // Update header count badge
+  const countPill = document.getElementById("reliquaryCountPill");
+  if (countPill) {
+    countPill.textContent = isAr ? `${itemCount} تحف سيادية` : `${itemCount} Artifacts`;
+  }
 
   if (itemCount === 0) {
-    const emptyText = window.t("profile.emptyVault");
-    const btnText = window.t("explore_boutique");
+    const emptyText = window.t("profile.emptyVault") || (isAr ? "الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك." : "Your vault is empty. Acquire your first asset from the Boutique.");
+    const btnText = window.t("explore_boutique") || (isAr ? "استكشاف البوتيك" : "Explore Boutique");
 
     container.innerHTML = `
-      <div class="empty-vault-card" onclick="goToPage('boutique')">
-        <div class="vault-empty-pedestal">
-          <div class="vault-empty-icon">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.3">
-              <path d="M12 2L4 7v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V7l-8-5z" fill="rgba(212,175,106,0.12)" stroke="currentColor"/>
-              <path d="M12 8v4m0 4h.01" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"/>
-            </svg>
-          </div>
+      <div class="empty-reliquary-cushion" onclick="goToPage('boutique')" role="button" tabindex="0">
+        <div class="reliquary-empty-icon-wrap">
+          <div class="reliquary-empty-pedestal-ring"></div>
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.3">
+            <path d="M12 2l8 4.5v11L12 22l-8-4.5v-11L12 2z" fill="rgba(212,175,106,0.08)" stroke="#d4af37"/>
+            <circle cx="12" cy="12" r="4" stroke="#d4af37" stroke-dasharray="2 2" stroke-width="1"/>
+          </svg>
         </div>
-        <div class="vault-empty-title" data-i18n="profile.vaultTitle">خزينة المقتنيات الخاصة</div>
-        <p class="vault-empty-text">${emptyText}</p>
-        <span class="vault-empty-btn">${btnText}</span>
+        <div class="reliquary-empty-title">${window.t("profile.reliquaryTitle") || "خزانة المقتنيات والتحف السيادية"}</div>
+        <p class="reliquary-empty-desc">${emptyText}</p>
+        <button type="button" class="reliquary-empty-action-btn">${btnText}</button>
       </div>
     `;
   } else {
     let html = "";
     for (const item of collectedItems) {
       if (!item) continue;
-      const isAr =
-        AppState.language === "ar" || document.documentElement.lang === "ar";
       const nameText = isAr
-        ? window.t("items." + item.id)
-        : window.t("items." + item.id);
+        ? (window.t("items." + item.id) || item.name)
+        : (window.t("items." + item.id) || item.name);
       const isEquipped = AppState.equipped && Object.values(AppState.equipped).includes(item.id);
-      const equippedTag = isEquipped ? `<div class="pcs-equipped-hallmark"><span>مقلّد • EQUIPPED</span></div>` : '';
       const rarityText = item.rarity ? (typeof RARITY_LABELS !== 'undefined' && RARITY_LABELS[item.rarity] ? RARITY_LABELS[item.rarity]() : item.rarity) : '';
 
       let iconHtml = "";
       if (item.image) {
-        iconHtml = `<img src="${item.image}" alt="${nameText}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        iconHtml = `<img src="${item.image}" alt="${nameText}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
                     <span class="boutique-card-fallback" style="display:none">${ICONS[item.icon] || ICONS["star"]}</span>`;
       } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
-        iconHtml = `<img src="${item.icon}" alt="${nameText}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        iconHtml = `<img src="${item.icon}" alt="${nameText}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
                     <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
       } else {
         iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
       }
 
+      const statusTag = isEquipped
+        ? `<div class="reliquary-card-status is-active"><span class="rcs-dot"></span><span>${isAr ? 'مُقَلَّد' : 'EQUIPPED'}</span></div>`
+        : `<div class="reliquary-card-status is-vaulted"><span class="rcs-dot"></span><span>${isAr ? 'بالخزانة' : 'VAULTED'}</span></div>`;
+
       html += `
-        <div class="pcs-item-card gyro-element skeleton-fade-in ${isEquipped ? 'is-equipped' : ''}" data-tilt>
-          ${equippedTag}
-          <div class="pcs-artifact-pedestal">
-            <span class="boutique-card-icon">
-              ${iconHtml}
-            </span>
+        <div class="pcs-item-card reliquary-pedestal-card gyro-element skeleton-fade-in ${isEquipped ? 'is-equipped' : ''}" 
+             data-tilt
+             data-item-id="${item.id}"
+             onclick="openReliquaryInspectModal('${item.id}')"
+             role="button"
+             tabindex="0"
+             title="${isAr ? 'انقر لفحص شهادة وتوثيق التحفة' : 'Tap to inspect provenance certificate'}">
+          ${statusTag}
+          <div class="reliquary-pedestal-cradle">
+            <div class="reliquary-spotlight-halo"></div>
+            <div class="pcs-artifact-pedestal">
+              <span class="boutique-card-icon">
+                ${iconHtml}
+              </span>
+            </div>
           </div>
           <div class="pcs-item-info">
             <div class="pcs-item-name">${nameText}</div>
             <div class="pcs-item-meta">
               ${rarityText ? `<span class="pcs-item-rarity">${rarityText}</span>` : ''}
               <span class="pcs-item-price">${item.price ? "$" + item.price.toLocaleString() : ''}</span>
+            </div>
+            <div class="reliquary-inspect-chip">
+              <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor">
+                <circle cx="8" cy="8" r="6" stroke="#d4af37" stroke-width="1.2"></circle>
+                <path d="M8 5v3l2 1" stroke="#d4af37" stroke-width="1.2" stroke-linecap="round"></path>
+              </svg>
+              <span>${isAr ? 'فحص الشهادة' : 'Inspect'}</span>
             </div>
           </div>
         </div>
@@ -5091,6 +5627,16 @@ document
   });
 
 document.getElementById("editAccountBtn")?.addEventListener("click", () => {
+  if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+    window.AudioEngine.playClick();
+  }
+  document.getElementById("menuAccountInfo")?.click();
+});
+
+document.querySelector(".phc-medallion-case")?.addEventListener("click", () => {
+  if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+    window.AudioEngine.playClick();
+  }
   document.getElementById("menuAccountInfo")?.click();
 });
 
@@ -5098,63 +5644,671 @@ function renderProfileStatsBar() {
   const container = document.getElementById("profileStatsBar");
   if (!container) return;
 
-  if (!container.dataset.skeletonShown) {
-    let html = '';
+  if (!container.dataset.renderedOnce) {
+    let html = `
+      <div class="horo-chassis-header" style="opacity:0.4;">
+        <span class="horo-hallmark-txt">MANUFACTURE D'HORLOGERIE • CALIBRE 1%</span>
+      </div>
+      <div class="horo-dials-row">
+    `;
     for(let i=0; i<4; i++) {
       html += `
-        <div class="psb-col profile-stats-skeleton">
-          <div class="skeleton-shimmer-el skeleton-icon-tiny"></div>
-          <div class="skeleton-shimmer-el skeleton-name"></div>
-          <div class="skeleton-shimmer-el skeleton-badge"></div>
+        <div class="psb-col horo-subdial profile-stats-skeleton">
+          <div class="skeleton-shimmer-el" style="width:38px; height:38px; border-radius:50%; margin:0 auto 4px auto;"></div>
+          <div class="skeleton-shimmer-el skeleton-name" style="width:32px; height:10px; margin:2px auto;"></div>
+          <div class="skeleton-shimmer-el skeleton-badge" style="width:24px; height:6px; margin:2px auto;"></div>
         </div>
       `;
-      if (i < 3) html += '<div class="psb-divider"></div>';
+      if (i < 3) html += '<div class="psb-divider horo-divider"></div>';
     }
+    html += '</div>';
     container.innerHTML = html;
-    container.dataset.skeletonShown = "true";
-    setTimeout(() => renderProfileStatsBar(), 450);
+    container.dataset.renderedOnce = "true";
+    setTimeout(() => renderProfileStatsBar(), 180);
     return;
   }
-  container.dataset.skeletonShown = "";
 
-  const levelVal = window.t("dynamic.sovereign");
-  const levelLabel = window.t("membership.level");
+  const isAr = document.documentElement.dir === "rtl" || document.body.dir === "rtl";
+  const isElite = AppState.user.tier === "Elite" || AppState.user.tier === "نخبة";
+  const tierVal = isElite ? window.t("profile.compTierElite") : window.t("profile.compTierSovereign");
+  const tierLabel = window.t("profile.compTierLabel");
+  const tierSubCalibre = window.t("profile.horoSubdialTier") || (isAr ? "عيار السيادة" : "Apex Calibre");
 
   const itemsVal = AppState.collectedItems.length;
-  const itemsLabel = window.t("profile.itemsCollected");
+  const itemsLabel = window.t("profile.compVaultLabel");
+  const vaultSubCalibre = window.t("profile.horoSubdialVault") || (isAr ? "عداد الخزانة" : "Vault Chrono");
 
-  const connectionsVal = "248";
-  const connectionsLabel = window.t("profile.connections");
+  // Calculate actual earned honors
+  let earnedHonors = 0;
+  if (typeof ACHIEVEMENTS_DATA !== "undefined") {
+    Object.keys(ACHIEVEMENTS_DATA).forEach((id) => {
+      try {
+        if (ACHIEVEMENTS_DATA[id].isUnlocked && ACHIEVEMENTS_DATA[id].isUnlocked()) {
+          earnedHonors++;
+        }
+      } catch(e) {}
+    });
+  }
+  const honorsVal = `${earnedHonors} / 4`;
+  const honorsLabel = window.t("profile.compHonorsLabel");
+  const honorsSubCalibre = window.t("profile.horoSubdialHonors") || (isAr ? "ميزان الأوسمة" : "Honors Quad");
 
-  const sinceVal = window.t("profile.sinceDate");
-  const sinceLabel = window.t("membership.memberSince");
+  const sinceVal = window.t("profile.compRegistryVal") || (isAr ? "2024" : "EST. 2024");
+  const sinceLabel = window.t("profile.compRegistryLabel");
+  const registrySubCalibre = window.t("profile.horoSubdialRegistry") || (isAr ? "ميناء الانتساب" : "Genesis Dial");
+
+  // Needle Rotations (Horological Degrees)
+  const tierNeedleDeg = isElite ? 45 : 0;
+  const vaultNeedleDeg = Math.min((itemsVal || 0) * 36, 360);
+  const honorsNeedleDeg = earnedHonors === 0 ? -45 : earnedHonors === 1 ? 45 : earnedHonors === 2 ? 135 : earnedHonors === 3 ? 225 : 315;
 
   container.innerHTML = `
-    <div class="psb-col skeleton-fade-in">
-      <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z"></path></svg>
-      <div class="psb-value">${levelVal}</div>
-      <div class="psb-label">${levelLabel}</div>
+    <!-- Precision Screws -->
+    <div class="horo-chassis-screw horo-screw-tl" aria-hidden="true"><div class="horo-screw-slot"></div></div>
+    <div class="horo-chassis-screw horo-screw-tr" aria-hidden="true"><div class="horo-screw-slot"></div></div>
+    <div class="horo-chassis-screw horo-screw-bl" aria-hidden="true"><div class="horo-screw-slot"></div></div>
+    <div class="horo-chassis-screw horo-screw-br" aria-hidden="true"><div class="horo-screw-slot"></div></div>
+
+    <!-- Sapphire Crystal Bevel Glare -->
+    <div class="horo-crystal-glare" aria-hidden="true"></div>
+
+    <!-- Calibre Hallmark Header -->
+    <div class="horo-chassis-header">
+      <span class="horo-hallmark-txt">MANUFACTURE D'HORLOGERIE • CALIBRE 1% • 28,800 VPH</span>
     </div>
-    <div class="psb-divider"></div>
-    <div class="psb-col skeleton-fade-in">
-      <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      <div class="psb-value" id="pmItemsCollected">${itemsVal}</div>
-      <div class="psb-label">${itemsLabel}</div>
-    </div>
-    <div class="psb-divider"></div>
-    <div class="psb-col skeleton-fade-in">
-      <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-      <div class="psb-value">${connectionsVal}</div>
-      <div class="psb-label">${connectionsLabel}</div>
-    </div>
-    <div class="psb-divider"></div>
-    <div class="psb-col skeleton-fade-in">
-      <svg class="psb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <div class="psb-value">${sinceVal}</div>
-      <div class="psb-label">${sinceLabel}</div>
+
+    <div class="horo-dials-row">
+      <!-- 1. SOVEREIGN TIER SUB-DIAL -->
+      <div class="psb-col psb-complication-pod horo-subdial skeleton-fade-in" id="compTierPod" role="button" tabindex="0" title="${tierLabel}: ${tierVal}">
+        <div class="horo-bezel-rim">
+          <div class="horo-dial-face horo-face-tier">
+            <div class="horo-azure-rings" aria-hidden="true"></div>
+            <svg viewBox="0 0 44 44" class="horo-subdial-svg" aria-hidden="true">
+              <circle cx="22" cy="22" r="20" stroke="rgba(212,175,106,0.28)" stroke-width="0.75" fill="none" />
+              <circle cx="22" cy="22" r="16.5" stroke="rgba(212,175,106,0.18)" stroke-dasharray="1 3.2" stroke-width="1.2" fill="none" />
+              <!-- Imperial Crown at Apex -->
+              <path d="M19 7l3-3.2 3 3.2 1.5-1.8 1.5 5h-12l1.5-5z" fill="#f4d38c" stroke="#8a6924" stroke-width="0.35"/>
+              <!-- Sector Graduations -->
+              <line x1="22" y1="4" x2="22" y2="7" stroke="#d4af6a" stroke-width="0.8"/>
+              <line x1="34" y1="10" x2="31.5" y2="12" stroke="#d4af6a" stroke-width="0.6"/>
+              <line x1="10" y1="10" x2="12.5" y2="12" stroke="#d4af6a" stroke-width="0.6"/>
+            </svg>
+            <!-- Hand / Needle -->
+            <div class="horo-needle-pivot" style="--target-rot: ${tierNeedleDeg}deg; transform: rotate(${tierNeedleDeg}deg);">
+              <div class="horo-needle horo-needle-gold"></div>
+            </div>
+            <!-- Central Ruby Pivot Jewel -->
+            <div class="horo-ruby-cap" aria-hidden="true"><div class="horo-ruby-core"></div></div>
+          </div>
+        </div>
+        <div class="psb-value horo-dial-val">${tierVal}</div>
+        <div class="psb-label horo-dial-lbl">${tierLabel}</div>
+      </div>
+
+      <div class="psb-divider horo-divider" aria-hidden="true"></div>
+
+      <!-- 2. RARE ASSETS / RELIQUARY SUB-DIAL -->
+      <div class="psb-col psb-complication-pod horo-subdial skeleton-fade-in" id="compVaultPod" role="button" tabindex="0" title="${itemsLabel}: ${itemsVal}">
+        <div class="horo-bezel-rim">
+          <div class="horo-dial-face horo-face-vault">
+            <div class="horo-azure-rings" aria-hidden="true"></div>
+            <svg viewBox="0 0 44 44" class="horo-subdial-svg" aria-hidden="true">
+              <circle cx="22" cy="22" r="20" stroke="rgba(212,175,106,0.28)" stroke-width="0.75" fill="none" />
+              <!-- 12-Hour Chrono Graduations -->
+              <circle cx="22" cy="22" r="16.5" stroke="rgba(212,175,106,0.22)" stroke-dasharray="0.9 2.25" stroke-width="1.1" fill="none" />
+              <circle cx="22" cy="5.5" r="0.9" fill="#d4af6a" />
+              <circle cx="38.5" cy="22" r="0.9" fill="#d4af6a" />
+              <circle cx="22" cy="38.5" r="0.9" fill="#d4af6a" />
+              <circle cx="5.5" cy="22" r="0.9" fill="#d4af6a" />
+            </svg>
+            <div class="horo-needle-pivot" style="--target-rot: ${vaultNeedleDeg}deg; transform: rotate(${vaultNeedleDeg}deg);">
+              <div class="horo-needle horo-needle-blued"></div>
+            </div>
+            <div class="horo-ruby-cap" aria-hidden="true"><div class="horo-ruby-core"></div></div>
+          </div>
+        </div>
+        <div class="psb-value horo-dial-val" id="pmItemsCollected">${itemsVal}</div>
+        <div class="psb-label horo-dial-lbl">${itemsLabel}</div>
+      </div>
+
+      <div class="psb-divider horo-divider" aria-hidden="true"></div>
+
+      <!-- 3. PRESTIGE HONORS QUADRANT SUB-DIAL -->
+      <div class="psb-col psb-complication-pod horo-subdial skeleton-fade-in" id="compHonorsPod" role="button" tabindex="0" title="${honorsLabel}: ${honorsVal}">
+        <div class="horo-bezel-rim">
+          <div class="horo-dial-face horo-face-honors">
+            <div class="horo-azure-rings" aria-hidden="true"></div>
+            <svg viewBox="0 0 44 44" class="horo-subdial-svg" aria-hidden="true">
+              <circle cx="22" cy="22" r="20" stroke="rgba(212,175,106,0.28)" stroke-width="0.75" fill="none" />
+              <!-- 4 Quadrants Crosshairs -->
+              <line x1="22" y1="4.5" x2="22" y2="39.5" stroke="rgba(212,175,106,0.22)" stroke-width="0.65" stroke-dasharray="2 2"/>
+              <line x1="4.5" y1="22" x2="39.5" y2="22" stroke="rgba(212,175,106,0.22)" stroke-width="0.65" stroke-dasharray="2 2"/>
+              <!-- Quadrant Honors Pips (Illuminated if earned) -->
+              <circle cx="31" cy="13" r="2" class="horo-sector-pip ${earnedHonors >= 1 ? 'is-lit' : ''}" />
+              <circle cx="31" cy="31" r="2" class="horo-sector-pip ${earnedHonors >= 2 ? 'is-lit' : ''}" />
+              <circle cx="13" cy="31" r="2" class="horo-sector-pip ${earnedHonors >= 3 ? 'is-lit' : ''}" />
+              <circle cx="13" cy="13" r="2" class="horo-sector-pip ${earnedHonors >= 4 ? 'is-lit' : ''}" />
+            </svg>
+            <div class="horo-needle-pivot" style="--target-rot: ${honorsNeedleDeg}deg; transform: rotate(${honorsNeedleDeg}deg);">
+              <div class="horo-needle horo-needle-gold"></div>
+            </div>
+            <div class="horo-ruby-cap" aria-hidden="true"><div class="horo-ruby-core"></div></div>
+          </div>
+        </div>
+        <div class="psb-value horo-dial-val">${honorsVal}</div>
+        <div class="psb-label horo-dial-lbl">${honorsLabel}</div>
+      </div>
+
+      <div class="psb-divider horo-divider" aria-hidden="true"></div>
+
+      <!-- 4. OFFICIAL REGISTRY CHRONOMETER SUB-DIAL -->
+      <div class="psb-col psb-complication-pod horo-subdial skeleton-fade-in" id="compRegistryPod" role="button" tabindex="0" title="${sinceLabel}: ${sinceVal}">
+        <div class="horo-bezel-rim">
+          <div class="horo-dial-face horo-face-registry">
+            <div class="horo-azure-rings" aria-hidden="true"></div>
+            <svg viewBox="0 0 44 44" class="horo-subdial-svg" aria-hidden="true">
+              <circle cx="22" cy="22" r="20" stroke="rgba(212,175,106,0.28)" stroke-width="0.75" fill="none" />
+              <circle cx="22" cy="22" r="16.5" stroke="rgba(212,175,106,0.18)" stroke-dasharray="1 5.2" stroke-width="1.3" fill="none" />
+              <!-- Cardinal Hour Batons -->
+              <line x1="22" y1="3.5" x2="22" y2="7.5" stroke="#f4d38c" stroke-width="1.1"/>
+              <line x1="40.5" y1="22" x2="36.5" y2="22" stroke="#f4d38c" stroke-width="1.1"/>
+              <line x1="22" y1="40.5" x2="22" y2="36.5" stroke="#f4d38c" stroke-width="1.1"/>
+              <line x1="3.5" y1="22" x2="7.5" y2="22" stroke="#f4d38c" stroke-width="1.1"/>
+            </svg>
+            <div class="horo-needle-pivot horo-needle-sweeping">
+              <div class="horo-needle horo-needle-blued"></div>
+            </div>
+            <div class="horo-ruby-cap" aria-hidden="true"><div class="horo-ruby-core"></div></div>
+          </div>
+        </div>
+        <div class="psb-value horo-dial-val">${sinceVal}</div>
+        <div class="psb-label horo-dial-lbl">${sinceLabel}</div>
+      </div>
     </div>
   `;
 
+  attachComplicationHandlers();
+}
+
+function attachComplicationHandlers() {
+  const playTactileFeedback = () => {
+    if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+      window.AudioEngine.playClick();
+    }
+    if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+      window.HapticEngine.tap(12);
+    }
+  };
+
+  const playClockworkHover = () => {
+    if (window.AudioEngine && typeof window.AudioEngine.playHover === "function") {
+      window.AudioEngine.playHover();
+    }
+  };
+
+  const pods = [
+    { id: "compTierPod", action: () => {
+      const hero = document.getElementById("profileHeroPlaque") || document.querySelector(".profile-hero-card");
+      if (hero) {
+        hero.scrollIntoView({ behavior: "smooth", block: "center" });
+        hero.classList.add("is-highlighted-sheen");
+        setTimeout(() => hero.classList.remove("is-highlighted-sheen"), 1200);
+      }
+    }},
+    { id: "compVaultPod", action: () => {
+      const sec = document.getElementById("profileCollectionSection") || document.querySelector(".profile-collection-section");
+      if (sec) {
+        sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }},
+    { id: "compHonorsPod", action: () => {
+      const sec = document.getElementById("profileHonorsSection") || document.querySelector(".profile-achievements-section");
+      if (sec) {
+        sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }},
+    { id: "compRegistryPod", action: () => {
+      const sec = document.getElementById("profileHistorySection") || document.querySelector(".profile-history-section");
+      if (sec) {
+        sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }}
+  ];
+
+  pods.forEach(({ id, action }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.addEventListener("mouseenter", playClockworkHover);
+
+    const trigger = (e) => {
+      e.preventDefault();
+      playTactileFeedback();
+      action();
+    };
+
+    el.addEventListener("click", trigger);
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        trigger(e);
+      }
+    });
+  });
+}
+
+// -------------------------------------------------------------
+// 2.5 SOVEREIGN CIRCLES & DOMAINS (الدوائر والمجالات السيادية)
+// -------------------------------------------------------------
+window.modalSelectedCircles = null;
+
+function renderProfileCircles() {
+  const container = document.getElementById("profileCirclesGrid");
+  if (!container) return;
+
+  const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl";
+  
+  if (!Array.isArray(AppState.user.circles) || AppState.user.circles.length === 0) {
+    AppState.user.circles = ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"];
+  }
+
+  const activeIds = AppState.user.circles;
+  const items = activeIds
+    .map(id => SOVEREIGN_CIRCLES_CATALOG.find(c => c.id === id))
+    .filter(Boolean);
+
+  let html = "";
+  items.forEach(item => {
+    const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
+    const statusText = isAr ? "معتمد" : "ACCREDITED";
+    html += `
+      <div class="pcc-chip" data-circle-id="${item.id}" role="button" tabindex="0" title="${localizedName}">
+        <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1 1 auto;">
+          <div class="pcc-chip-icon-box" aria-hidden="true">
+            ${item.icon}
+          </div>
+          <div class="pcc-chip-text-group">
+            <span class="pcc-chip-name">${localizedName}</span>
+            <span class="pcc-chip-domain">${item.badge}</span>
+          </div>
+        </div>
+        <div class="pcc-chip-seal-dot" aria-hidden="true">
+          <span>${statusText}</span>
+          <span style="color: #d4af37; font-size: 8.5px;">✦</span>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+
+  const openCirclesEditor = () => {
+    if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+      window.AudioEngine.playClick();
+    }
+    if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+      window.HapticEngine.tap(12);
+    }
+    const menuAcc = document.getElementById("menuAccountInfo");
+    if (menuAcc) {
+      menuAcc.click();
+      setTimeout(() => {
+        const panel = document.getElementById("modalCirclesPanel");
+        if (panel) {
+          panel.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 150);
+    } else {
+      const accModal = document.getElementById("accountInfoModal");
+      if (accModal) accModal.classList.add("is-open");
+    }
+  };
+
+  const curateBtn = document.getElementById("btnCurateCircles");
+  if (curateBtn) {
+    curateBtn.onclick = (e) => {
+      e.preventDefault();
+      openCirclesEditor();
+    };
+  }
+
+  container.querySelectorAll(".pcc-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      openCirclesEditor();
+    });
+    chip.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openCirclesEditor();
+      }
+    });
+  });
+}
+
+function renderModalCirclesSelector(currentSelected) {
+  const grid = document.getElementById("modalCirclesSelectorGrid");
+  const countBadge = document.getElementById("modalCirclesCountBadge");
+  if (!grid) return;
+
+  const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl";
+  window.modalSelectedCircles = Array.isArray(currentSelected) && currentSelected.length > 0
+    ? [...currentSelected]
+    : ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"];
+
+  const updateGridUI = () => {
+    if (countBadge) {
+      countBadge.textContent = `${window.modalSelectedCircles.length} / 5`;
+    }
+
+    grid.innerHTML = SOVEREIGN_CIRCLES_CATALOG.map(item => {
+      const isSelected = window.modalSelectedCircles.includes(item.id);
+      const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
+      return `
+        <div class="modal-circle-item ${isSelected ? "is-selected" : ""}" data-id="${item.id}" role="checkbox" aria-checked="${isSelected}">
+          <div style="display: flex; align-items: center; gap: 9px; min-width: 0; flex: 1 1 auto;">
+            <div class="mci-icon-box" aria-hidden="true">${item.icon}</div>
+            <div style="display: flex; flex-direction: column; min-width: 0; gap: 2px; text-align: start;">
+              <span class="mci-name">${localizedName}</span>
+              <span style="font-size: 7.5px; color: rgba(212, 175, 106, 0.7); letter-spacing: 0.08em; text-transform: uppercase;">${item.badge}</span>
+            </div>
+          </div>
+          <span class="mci-check">✓</span>
+        </div>
+      `;
+    }).join("");
+
+    grid.querySelectorAll(".modal-circle-item").forEach(el => {
+      el.addEventListener("click", () => {
+        const id = el.dataset.id;
+        const idx = window.modalSelectedCircles.indexOf(id);
+
+        if (idx > -1) {
+          if (window.modalSelectedCircles.length <= 1) {
+            if (typeof showNavToast === "function") {
+              showNavToast(isAr ? "يجب الإبقاء على مجال سيادي واحد على الأقل" : "Please keep at least one circle");
+            }
+            return;
+          }
+          window.modalSelectedCircles.splice(idx, 1);
+        } else {
+          if (window.modalSelectedCircles.length >= 5) {
+            if (typeof showNavToast === "function") {
+              showNavToast(isAr ? "الحد الأقصى هو ٥ مجالات سيادية معتمدة" : "Maximum 5 accredited circles allowed");
+            }
+            return;
+          }
+          window.modalSelectedCircles.push(id);
+        }
+
+        if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+          window.AudioEngine.playClick();
+        }
+        if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+          window.HapticEngine.tap(10);
+        }
+
+        updateGridUI();
+      });
+    });
+  };
+
+  updateGridUI();
+}
+
+function renderProfileMembershipDeed() {
+  const nameEl = document.getElementById("profileLedgerMemberName");
+  if (nameEl) {
+    const isStealth = localStorage.getItem("club_stealth_mode") === "true";
+    const stealthMoniker = (window.t && window.t("profile.stealthMoniker")) || "SOVEREIGN SHADOW • 001";
+    nameEl.textContent = isStealth ? stealthMoniker : (AppState.user?.name || "MEMBER NAME");
+  }
+
+  const regNoEl = document.getElementById("profileLedgerRegistryNo");
+  if (regNoEl) {
+    const rawId = AppState.user?.id ? String(AppState.user.id).replace("SV-", "") : "0001";
+    regNoEl.textContent = `REG-${rawId.padStart(4, "0")}-2024`;
+  }
+
+  const tierEl = document.getElementById("profileLedgerTier");
+  if (tierEl) {
+    const isElite = AppState.user?.tier === "Elite" || AppState.user?.tier === "نخبة";
+    tierEl.textContent = isElite ? window.t("profile.compTierElite") : window.t("profile.compTierSovereign");
+  }
+
+  const dateEl = document.getElementById("profileInductionDateDisplay");
+  if (dateEl) {
+    dateEl.textContent = window.t("profile.inductionDateValue");
+  }
+
+  attachDeedInteractiveHandlers();
+}
+
+function attachDeedInteractiveHandlers() {
+  const verifyBtn = document.getElementById("btnVerifyDeed");
+  const waxSeal = document.getElementById("deedInteractiveWaxSeal");
+  const deedCard = document.getElementById("sovereignDeedCard");
+  const ghostWatermark = document.getElementById("deedGhostWatermark");
+
+  const triggerVerification = () => {
+    if (window.AudioEngine && typeof window.AudioEngine.playHeavyBrassStamp === "function") {
+      window.AudioEngine.playHeavyBrassStamp();
+    } else if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+      window.AudioEngine.playClick();
+    }
+
+    // Trigger UV forensic sweep chime as ultraviolet beam traverses the parchment
+    setTimeout(() => {
+      if (window.AudioEngine && typeof window.AudioEngine.playUvForensicChime === "function") {
+        window.AudioEngine.playUvForensicChime();
+      }
+    }, 180);
+
+    if (window.HapticEngine && typeof window.HapticEngine.vibrate === "function") {
+      window.HapticEngine.vibrate([26, 35, 52]);
+    } else if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+      window.HapticEngine.tap(35);
+    }
+
+    if (deedCard) {
+      deedCard.classList.remove("is-deed-verified-flash");
+      deedCard.classList.remove("is-uv-scanning");
+      void deedCard.offsetWidth; // trigger reflow
+      deedCard.classList.add("is-deed-verified-flash");
+      deedCard.classList.add("is-uv-scanning");
+      setTimeout(() => {
+        deedCard.classList.remove("is-uv-scanning");
+      }, 1750);
+    }
+
+    if (waxSeal) {
+      waxSeal.classList.add("is-wax-pressed");
+      setTimeout(() => waxSeal.classList.remove("is-wax-pressed"), 650);
+    }
+
+    const title = window.t("profile.authenticatedSeal") || "AUTHENTICATED ARCHIVE";
+    const toastMsg = window.t("profile.deedVerifiedToast") || "Sovereign Deed verified against immutable Club Ledger.";
+    if (typeof showPremiumToast === "function") {
+      showPremiumToast(title, toastMsg);
+    } else if (typeof showCopyToast === "function") {
+      showCopyToast(toastMsg);
+    }
+  };
+
+  if (verifyBtn && !verifyBtn.dataset.bound) {
+    verifyBtn.dataset.bound = "true";
+    verifyBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      triggerVerification();
+    });
+  }
+
+  if (waxSeal && !waxSeal.dataset.bound) {
+    waxSeal.dataset.bound = "true";
+    waxSeal.addEventListener("click", (e) => {
+      e.stopPropagation();
+      triggerVerification();
+    });
+  }
+
+  if (ghostWatermark && !ghostWatermark.dataset.bound) {
+    ghostWatermark.dataset.bound = "true";
+    ghostWatermark.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (window.AudioEngine && typeof window.AudioEngine.playUvForensicChime === "function") {
+        window.AudioEngine.playUvForensicChime();
+      } else if (window.AudioEngine && typeof window.AudioEngine.playFineScrewTick === "function") {
+        window.AudioEngine.playFineScrewTick();
+      }
+      if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(24);
+      }
+      ghostWatermark.classList.remove("deed-watermark-glint");
+      void ghostWatermark.offsetWidth;
+      ghostWatermark.classList.add("deed-watermark-glint");
+      setTimeout(() => ghostWatermark.classList.remove("deed-watermark-glint"), 650);
+    });
+  }
+
+  const embossedSeal = deedCard ? deedCard.querySelector(".deed-embossed-seal") : null;
+  if (embossedSeal && !embossedSeal.dataset.bound) {
+    embossedSeal.dataset.bound = "true";
+    embossedSeal.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (window.AudioEngine && typeof window.AudioEngine.playGoldSheenChime === "function") {
+        window.AudioEngine.playGoldSheenChime();
+      } else if (window.AudioEngine && typeof window.AudioEngine.playHeavyBrassStamp === "function") {
+        window.AudioEngine.playHeavyBrassStamp();
+      }
+      if (window.HapticEngine && typeof window.HapticEngine.vibrate === "function") {
+        window.HapticEngine.vibrate([18, 30]);
+      } else if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(25);
+      }
+      embossedSeal.classList.remove("is-seal-active-spin");
+      void embossedSeal.offsetWidth;
+      embossedSeal.classList.add("is-seal-active-spin");
+      setTimeout(() => embossedSeal.classList.remove("is-seal-active-spin"), 600);
+    });
+  }
+
+  attachHorologicalScrewHandlers();
+}
+
+function attachHorologicalScrewHandlers() {
+  const screws = document.querySelectorAll(
+    ".deed-screw, .oath-screw, .vitrine-screw, .rmc-screw, .phc-screw, .phc-corner-rivet"
+  );
+  screws.forEach((screw) => {
+    if (screw.dataset.screwBound) return;
+    screw.dataset.screwBound = "true";
+
+    screw.addEventListener("pointerenter", () => {
+      if (window.AudioEngine && typeof window.AudioEngine.playFineScrewTick === "function") {
+        window.AudioEngine.playFineScrewTick();
+      }
+    });
+
+    screw.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (window.AudioEngine && typeof window.AudioEngine.playFineScrewTick === "function") {
+        window.AudioEngine.playFineScrewTick();
+      }
+      if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(16);
+      }
+      screw.classList.remove("is-screw-torqued");
+      void screw.offsetWidth;
+      screw.classList.add("is-screw-torqued");
+      setTimeout(() => screw.classList.remove("is-screw-torqued"), 400);
+    });
+  });
+
+  const crownCoin = document.getElementById("profileCrownCoin");
+  if (crownCoin && !crownCoin.dataset.bound) {
+    crownCoin.dataset.bound = "true";
+    crownCoin.addEventListener("pointerenter", () => {
+      if (window.AudioEngine && typeof window.AudioEngine.playHover === "function") {
+        window.AudioEngine.playHover();
+      }
+    });
+    crownCoin.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (window.AudioEngine && typeof window.AudioEngine.playGoldSheenChime === "function") {
+        window.AudioEngine.playGoldSheenChime();
+      } else if (window.AudioEngine && typeof window.AudioEngine.playFineScrewTick === "function") {
+        window.AudioEngine.playFineScrewTick();
+      }
+      if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(20);
+      }
+      crownCoin.classList.remove("is-coin-mint-active");
+      void crownCoin.offsetWidth;
+      crownCoin.classList.add("is-coin-mint-active");
+      setTimeout(() => crownCoin.classList.remove("is-coin-mint-active"), 500);
+    });
+  }
+}
+
+function renderProfileSovereignOath() {
+  const sigEl = document.getElementById("oathMemberSignature");
+  if (sigEl) {
+    const isStealth = localStorage.getItem("club_stealth_mode") === "true";
+    const stealthMoniker = (window.t && window.t("profile.stealthMoniker")) || "SOVEREIGN SHADOW • 001";
+    const rawName = isStealth ? stealthMoniker : (AppState.user?.name || "MEMBER");
+    const isElite = AppState.user?.tier === "Elite" || AppState.user?.tier === "نخبة";
+    const tierName = isElite ? (window.t("profile.compTierElite") || "Elite") : (window.t("profile.compTierSovereign") || "Sovereign");
+    sigEl.textContent = `${rawName} • ${tierName}`;
+  }
+
+  const cryptEl = document.getElementById("oathCryptographicCode");
+  if (cryptEl) {
+    const rawId = AppState.user?.id ? String(AppState.user.id).replace("SV-", "") : "0001";
+    cryptEl.textContent = `HASH: 8F${rawId.padStart(2, "0")} • IMMUTABLE COVENANT • ARCHIVED`;
+  }
+
+  attachOathInteractiveHandlers();
+}
+
+function attachOathInteractiveHandlers() {
+  const signetBtn = document.getElementById("oathInteractiveSignetBtn");
+  const oathCard = document.getElementById("sovereignOathCard");
+
+  if (signetBtn && !signetBtn.dataset.bound) {
+    signetBtn.dataset.bound = "true";
+    signetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      if (window.AudioEngine && typeof window.AudioEngine.playHeavyBrassStamp === "function") {
+        window.AudioEngine.playHeavyBrassStamp();
+      } else if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+        window.AudioEngine.playClick();
+      }
+      if (window.HapticEngine && typeof window.HapticEngine.vibrate === "function") {
+        window.HapticEngine.vibrate([26, 35, 52]);
+      } else if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(35);
+      }
+
+      if (oathCard) {
+        oathCard.classList.remove("is-oath-ratified-flash");
+        void oathCard.offsetWidth; // trigger reflow
+        oathCard.classList.add("is-oath-ratified-flash");
+      }
+
+      signetBtn.classList.add("is-signet-pressed");
+      setTimeout(() => signetBtn.classList.remove("is-signet-pressed"), 600);
+
+      const title = (window.t && window.t("profile.oathSectionTitle")) || "SOVEREIGN DECREE";
+      const toastMsg = (window.t && window.t("profile.oathReaffirmedToast")) || "The Sovereign Oath of Discretion has been solemnly reaffirmed in the Club Archives.";
+
+      if (typeof showPremiumToast === "function") {
+        showPremiumToast(title, toastMsg);
+      } else if (typeof showCopyToast === "function") {
+        showCopyToast(toastMsg);
+      }
+    });
+  }
+
+  attachHorologicalScrewHandlers();
 }
 
 /* === 5. PRESTIGE, HONORS & METRICS - SOVEREIGN LEADERBOARD === */
@@ -5543,7 +6697,7 @@ function renderLeaderboard() {
           <bdi>#${member.rank}</bdi>
         </div>
         <div class="sl-card-avatar-wrap">
-          <img src="${member.avatar}" alt="${memberName}" class="sl-card-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <img src="${member.avatar}" alt="${memberName}" class="sl-card-avatar" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
           <span class="avatar-fallback" style="display:none;">${memberName.charAt(0)}</span>
           ${member.isOnline ? '<span class="sl-card-status-jewel" title="Active"></span>' : ""}
         </div>
@@ -5951,3 +7105,130 @@ window.handleQuickPurchase = function(event, item, catKey) {
     setTimeout(() => btn.classList.remove("shake-animation"), 400);
   }
 };
+
+/* ==========================================================================
+   SMART HEADER AUTO-HIDE ON SCROLL DOWN (SHOW ON SCROLL UP)
+   ========================================================================== */
+window.updateHeaderHeightVar = function() {
+  const header = document.getElementById("appHeader");
+  if (header && !header.classList.contains("header-hidden")) {
+    const h = header.offsetHeight;
+    if (h > 0) {
+      document.documentElement.style.setProperty("--header-actual-height", h + "px");
+    }
+  }
+};
+
+(function initSmartHeaderScroll() {
+  let headerScrollTicking = false;
+  let lastProcessedScroll = 0;
+  let activeScrollEl = null;
+  let lastHideTime = 0;
+
+  window.resetHeaderScrollTracking = function() {
+    lastProcessedScroll = 0;
+    activeScrollEl = null;
+    headerScrollTicking = false;
+  };
+
+  function processScrollUpdate() {
+    if (!activeScrollEl) {
+      headerScrollTicking = false;
+      return;
+    }
+
+    const header = document.getElementById("appHeader");
+    if (!header) {
+      headerScrollTicking = false;
+      return;
+    }
+
+    const currentScroll = Math.max(0, activeScrollEl.scrollTop || 0);
+    const delta = currentScroll - lastProcessedScroll;
+    const now = Date.now();
+
+    // 1. Near the top: always reveal header
+    if (currentScroll <= 20) {
+      if (header.classList.contains("header-hidden")) {
+        header.classList.remove("header-hidden");
+        window.updateHeaderHeightVar();
+      }
+      lastProcessedScroll = currentScroll;
+      headerScrollTicking = false;
+      return;
+    }
+
+    // 2. Prevent rubber-band bounce at bottom
+    if (activeScrollEl.scrollHeight && activeScrollEl.clientHeight) {
+      const maxScroll = activeScrollEl.scrollHeight - activeScrollEl.clientHeight;
+      if (maxScroll > 0 && currentScroll >= maxScroll - 15) {
+        lastProcessedScroll = currentScroll;
+        headerScrollTicking = false;
+        return;
+      }
+    }
+
+    // 3. Scrolling DOWN past 35px threshold: hide header
+    if (delta > 8 && currentScroll > 35) {
+      if (!header.classList.contains("header-hidden")) {
+        window.updateHeaderHeightVar();
+        header.classList.add("header-hidden");
+        lastHideTime = now;
+      }
+    }
+    // 4. Scrolling UP by more than 10px (guard against immediate post-hide jitter)
+    else if (delta < -10 && (now - lastHideTime > 250)) {
+      if (header.classList.contains("header-hidden")) {
+        header.classList.remove("header-hidden");
+        window.updateHeaderHeightVar();
+      }
+    }
+
+    lastProcessedScroll = currentScroll;
+    headerScrollTicking = false;
+  }
+
+  function handleSmartHeaderScroll(e) {
+    const el = e.target;
+    if (!el || typeof el.scrollTop !== "number") return;
+
+    // Ignore scrolls inside modals, bottom sheets, dropdowns, subpage dialogs
+    if (el.closest && el.closest(".luxury-modal, .purchase-modal, .gold-modal, .custom-confirm-modal, .bottom-sheet, .modal-content, .dossier-modal-body")) {
+      return;
+    }
+
+    // Check if target is a scrollable page or inside an active page or app-main
+    const isPage = el.classList && (
+      el.classList.contains("page") || 
+      el.classList.contains("app-main") || 
+      el.id === "profile-tab" || 
+      el.id === "boutique-tab" || 
+      el.id === "club-tab" || 
+      el.id === "page-member"
+    );
+    const isInsideActivePage = !isPage && el.closest && el.closest(".page.is-active, .app-main");
+    if (!isPage && !isInsideActivePage) return;
+
+    // If switching scroll container, initialize tracking to its current scroll
+    if (activeScrollEl !== el) {
+      activeScrollEl = el;
+      lastProcessedScroll = Math.max(0, el.scrollTop || 0);
+    }
+
+    if (!headerScrollTicking) {
+      headerScrollTicking = true;
+      window.requestAnimationFrame(processScrollUpdate);
+    }
+  }
+
+  document.addEventListener("scroll", handleSmartHeaderScroll, { passive: true, capture: true });
+  window.addEventListener("resize", window.updateHeaderHeightVar, { passive: true });
+  
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => setTimeout(window.updateHeaderHeightVar, 120));
+  } else {
+    setTimeout(window.updateHeaderHeightVar, 120);
+  }
+})();
+
+

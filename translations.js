@@ -544,9 +544,69 @@ window.I18N = {
       en: "PRIVATE SOVEREIGN VAULT",
       ar: "خزينة المقتنيات السيادية",
     },
+    heroSovereignTier: {
+      en: "SOVEREIGN DOSSIER",
+      ar: "ملف سيادي معتمد",
+    },
+    heroEliteTier: {
+      en: "ELITE DOSSIER",
+      ar: "ملف نخبة معتمد",
+    },
+    heroCertifiedDossier: {
+      en: "OFFICIAL SEAL",
+      ar: "ختم رسمي",
+    },
+    editDossierBtn: {
+      en: "Edit Dossier",
+      ar: "تعديل الوثيقة",
+    },
     emptyVault: {
       en: "Your vault is empty. Acquire your first asset from the Boutique.",
       ar: "الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك.",
+    },
+    compTierLabel: {
+      en: "TIER",
+      ar: "الرتبة",
+    },
+    compVaultLabel: {
+      en: "ASSETS",
+      ar: "المقتنيات",
+    },
+    compHonorsLabel: {
+      en: "HONORS",
+      ar: "الأوسمة",
+    },
+    compRegistryLabel: {
+      en: "REGISTRY",
+      ar: "الانتساب",
+    },
+    compRegistryVal: {
+      en: "EST. 2024",
+      ar: "2024",
+    },
+    compTierSovereign: {
+      en: "SOVEREIGN",
+      ar: "سيادي",
+    },
+    compTierElite: {
+      en: "ELITE",
+      ar: "نخبة",
+    },
+    horoSubdialTier: {
+      en: "Apex Calibre",
+      ar: "عيار السيادة",
+    },
+    horoSubdialVault: {
+      en: "Vault Chrono",
+      ar: "عداد الخزانة",
+    },
+    horoSubdialHonors: {
+      en: "Honors Quad",
+      ar: "ميزان الأوسمة",
+    },
+    horoSubdialRegistry: {
+      en: "Genesis Dial",
+      ar: "ميناء الانتساب",
     },
     itemsCollected: {
       en: "ITEMS COLLECTED",
@@ -644,6 +704,146 @@ window.I18N = {
       en: "THE 1% CLUB • ARCHIVAL REGISTRY OF SOVEREIGN SOULS • GENESIS CLASS",
       ar: "نادي الـ 1% • سجل التأسيس والأعضاء السياديين • الفئة التأسيسية",
     },
+    deedSealText: {
+      en: "SIGILLUM SOVEREIGN • ARCHIVE SECURE",
+      ar: "الختم السيادي المعتمد • وثيقة غير قابلة للتحوير",
+    },
+    deedAuthenticityLabel: {
+      en: "DEED OF SOVEREIGN INDUCTION",
+      ar: "صك الانتساب والسيادة المعتمد",
+    },
+    verifyDeedBtn: {
+      en: "VERIFY OFFICIAL SEAL",
+      ar: "المصادقة على صحة الصك",
+    },
+    deedVerifiedToast: {
+      en: "Sovereign Deed verified against immutable Club Ledger.",
+      ar: "تمت المصادقة على صك العضوية في السجل السيادي المعتمد.",
+    },
+    oathSectionTitle: {
+      en: "SOVEREIGN OATH & DECREE",
+      ar: "ميثاق السيادة وقَسَم الكتمان",
+    },
+    oathSectionBadge: {
+      en: "DIPLOMATIC IMMUNITY • LEVEL I",
+      ar: "حصانة دبلوماسية • المرتبة الأولى",
+    },
+    oathMotto: {
+      en: "PRIVATE WEALTH. PRIVATE SOCIETY.",
+      ar: "ثروة خاصة. مجتمع نخبوي خاص.",
+    },
+    oathPreamble: {
+      en: "By virtue of induction into THE 1% CLUB, the Sovereign Member enters into this immutable pact of silence, honor, and sovereign fraternity.",
+      ar: "بموجب التنصيب في صرح THE 1% CLUB، يلتزم صاحب السيادة بهذا الميثاق الأبدي غير القابل للنقض، عهداً على السرية والشرف والرفعة.",
+    },
+    oathPillar1Title: {
+      en: "I. LEX SILENTII — ABSOLUTE DISCRETION",
+      ar: "أولاً: عهد الكتمان الأبدي (LEX SILENTII)",
+    },
+    oathPillar1Desc: {
+      en: "All deliberations, councils, and acquisitions behind sealed club portals remain inviolable and forever confidential.",
+      ar: "كافة المداولات واللقاءات والمبادلات التي تنعقد داخل صالونات النادي مصونة بسرية تامة ولا يجوز إفشاؤها أو نقلها خارج الأروقة المغلقة.",
+    },
+    oathPillar2Title: {
+      en: "II. PACTUM DIGNITATIS — SOVEREIGN FELLOWSHIP",
+      ar: "ثانياً: ميثاق الرفعة والسيادة (PACTUM DIGNITATIS)",
+    },
+    oathPillar2Desc: {
+      en: "Upholding supreme decorum, recognizing peer sovereign dignity, and preserving the rarefied stature of the Club above all.",
+      ar: "صيانة الهيبة الأرستقراطية للنادي ومراعاة المقامات السيادية للزملاء الأعضاء بالترفع عن كل ما يمس نقاء ومكانة المجتمع.",
+    },
+    oathPillar3Title: {
+      en: "III. SANCTITAS GAZAE — VAULT INTEGRITY",
+      ar: "ثالثاً: حرمة الخزينة والمقتنيات (SANCTITAS GAZAE)",
+    },
+    oathPillar3Desc: {
+      en: "Preserving the cryptographic authenticity of vaulted heirlooms and honoring the sovereign heritage of personal prestige.",
+      ar: "حماية المفتاح المشفر للخزينة وصون أصالة الأوسمة والمقتنيات التاريخية كإرث سيادي خالد لا يقدر بثمن.",
+    },
+    oathSignetTitle: {
+      en: "RATIFIED VIA SOVEREIGN SIGNET",
+      ar: "صُودق بخاتم السيادة والختم المشفر",
+    },
+    oathSignetReaffirm: {
+      en: "REAFFIRM OATH",
+      ar: "تجديد العهد والقَسَم",
+    },
+    oathReaffirmedToast: {
+      en: "The Sovereign Oath of Discretion has been solemnly reaffirmed in the Club Archives.",
+      ar: "تم تجديد القَسَم السيادي بنجاح وتوثيقه في الأرشيف الدبلوماسي للنادي.",
+    },
+    reliquaryTitle: {
+      en: "SOVEREIGN RELIQUARY & ARTIFACTS",
+      ar: "خزانة المقتنيات والتحف السيادية",
+    },
+    reliquarySub: {
+      en: "Obsidian Velvet • Aristocratic Archival Guard",
+      ar: "مخمل أوبسيدياني • حفظ وحراسة أرستقراطية",
+    },
+    reliquaryCountLabel: {
+      en: "Artifacts",
+      ar: "تحف سيادية",
+    },
+    reliquaryStatusSecured: {
+      en: "VAULT INTEGRITY: 100% SECURED ✦",
+      ar: "حالة الحفظ: مؤمنة بالكامل ✦",
+    },
+    certTitle: {
+      en: "CERTIFICATE OF SOVEREIGN PROVENANCE",
+      ar: "شهادة الملكية والتوثيق السيادي",
+    },
+    alloyLabel: {
+      en: "Alloy & Material",
+      ar: "العيار والمعدن",
+    },
+    foundryLabel: {
+      en: "Atelier & Foundry",
+      ar: "دار الصك والاعتماد",
+    },
+    rarityLabel: {
+      en: "Sovereign Tier",
+      ar: "رتبة الندرة",
+    },
+    valueLabel: {
+      en: "Estimated Value",
+      ar: "القيمة التقديرية",
+    },
+    equippedBadge: {
+      en: "EQUIPPED ON IDENTITY",
+      ar: "مُقَلَّد بالهوية السيادية",
+    },
+    vaultedBadge: {
+      en: "SAFELY IN VAULT",
+      ar: "محفوظ بالخزانة الخاصة",
+    },
+    equipAction: {
+      en: "Equip to Master Card",
+      ar: "تقليد على بطاقة الماستر كارد",
+    },
+    unequipAction: {
+      en: "Return to Sovereign Vault",
+      ar: "إعادة وحفظ في الخزانة",
+    },
+    inspectHint: {
+      en: "Inspect Certificate",
+      ar: "فحص الشهادة",
+    },
+    solidGoldAlloy: {
+      en: "Au 999.9 Solid Gold",
+      ar: "Au 999.9 ذهب خالص",
+    },
+    obsidianTitaniumAlloy: {
+      en: "Black Titanium & Obsidian",
+      ar: "تيتانيوم أسود وأوبسيديان بركاني",
+    },
+    stMoritzFoundry: {
+      en: "St. Moritz Master Foundry",
+      ar: "دار الصك • سانت موريتز",
+    },
+    genevaGuild: {
+      en: "Geneva Guild of Horology",
+      ar: "نقابة الصياغة • جنيف",
+    },
     location: {
       en: "Location",
       ar: "الموقع",
@@ -703,6 +903,62 @@ window.I18N = {
     saveChanges: {
       en: "SAVE CHANGES",
       ar: "حفظ التعديلات",
+    },
+    circlesTitle: {
+      en: "SOVEREIGN CIRCLES & DOMAINS",
+      ar: "الدوائر والمجالات السيادية",
+    },
+    circlesSub: {
+      en: "Accredited spheres of interest & influence",
+      ar: "دوائر الشغف والتأثير المعتمدة لصاحب السيادة",
+    },
+    circlesBadge: {
+      en: "ACCREDITED ✦",
+      ar: "معتمد ✦",
+    },
+    circlesEditBtn: {
+      en: "Curate Circles",
+      ar: "تعديل الدوائر",
+    },
+    circlesModalTitle: {
+      en: "ACCREDITED SOVEREIGN CIRCLES",
+      ar: "الدوائر والمجالات السيادية المعتمدة",
+    },
+    circlesModalDesc: {
+      en: "Select up to 5 domains that reflect your sovereign prestige, investments, and private society passions.",
+      ar: "حدد حتى ٥ مجالات تعكس مكانتك السيادية واستثماراتك واهتماماتك الخاصة.",
+    },
+    circle_pe_venture: {
+      en: "Private Equity & Venture",
+      ar: "الاستثمار الخاص ورأس المال الجريء",
+    },
+    circle_haute_horlogerie: {
+      en: "Haute Horlogerie & Rarities",
+      ar: "الساعات الفاخرة والمقتنيات النادرة",
+    },
+    circle_sovereign_ai: {
+      en: "Sovereign AI & Deep Tech",
+      ar: "الذكاء الاصطناعي والتكنولوجيا السيادية",
+    },
+    circle_aviation_yachts: {
+      en: "Private Aviation & Superyachts",
+      ar: "الطيران الخاص واليخوت الفاخرة",
+    },
+    circle_prime_estates: {
+      en: "Prime Architectural Estates",
+      ar: "الأصول العقارية والقصور الفاخرة",
+    },
+    circle_fine_art: {
+      en: "High Art & Historic Curations",
+      ar: "الفنون التشكيلية والمقتنيات التاريخية",
+    },
+    circle_macro_strategy: {
+      en: "Global Macro & Sovereign Strategy",
+      ar: "الاستراتيجيات الكبرى والاقتصاد الكلي",
+    },
+    circle_royal_equestrian: {
+      en: "Thoroughbred & Purebred Equine",
+      ar: "الخيول الأصيلة والفروسية الملكية",
     },
     infoTitle: {
       en: "Member Info",
@@ -951,6 +1207,74 @@ window.I18N = {
     title_apex_titan: {
       en: "MAXIMUM PRESTIGE",
       ar: "أقصى درجات الفخامة",
+    },
+    heraldicRegistryTitle: {
+      en: "SOVEREIGN HERALDIC HONORS & ORDERS",
+      ar: "سجل الأوسمة الملكية وأشرطة الشرف",
+    },
+    chancellerySub: {
+      en: "CHANCELLERIE DES ORDRES • CITATIONS OF PRESTIGE",
+      ar: "مستودع الأوسمة السيادية • براءات الاستحقاق والتوشيح",
+    },
+    ribbonRackLabel: {
+      en: "DIPLOMATIC SERVICE RIBBON RACK",
+      ar: "شريط الأوسمة الدبلوماسي • SERVICE BAR",
+    },
+    chancelleryDecree: {
+      en: "PATENT OF SOVEREIGN CONFERRAL",
+      ar: "براءة وسام الاستحقاق السيادي",
+    },
+    conferralStatus: {
+      en: "CONFERRAL STATUS",
+      ar: "حالة التوشيح",
+    },
+    conferralCriteria: {
+      en: "REQUIRED BENCHMARK",
+      ar: "المعيار المطلوب",
+    },
+    bestowed: {
+      en: "BESTOWED & CONFERRED ✦",
+      ar: "موشّح ومعتمد رسميًا ✦",
+    },
+    pendingConferral: {
+      en: "PENDING BENCHMARK",
+      ar: "قيد الاستحقاق السيادي",
+    },
+    inspectCitation: {
+      en: "TAP TO INSPECT PATENT DECREE",
+      ar: "انقر لمعاينة براءة الوسام",
+    },
+    ord_initiate: {
+      en: "ORD. I • THE ORDER OF THE INITIATE",
+      ar: "الوسام الأول • براءة المقتني التأسيسي",
+    },
+    ord_connoisseur: {
+      en: "ORD. II • THE ORDER OF THE CONNOISSEUR",
+      ar: "الوسام الثاني • براءة ذواقة التحف والمقتنيات",
+    },
+    ord_high_sovereign: {
+      en: "ORD. III • THE HIGH SOVEREIGN COLLAR",
+      ar: "الوسام الثالث • طوق النخبة السيادية العليا",
+    },
+    ord_apex_titan: {
+      en: "ORD. IV • THE APEX TITAN GRAND STAR",
+      ar: "الوسام الرابع • نجمة قمة النخبة والسيادة العظمى",
+    },
+    chancelleryCitation_initiate: {
+      en: "“By virtue of the Sovereign Charter, this Cross of Initiation is bestowed upon the Member for establishing their premier accredited acquisition in the Private Boutique.”",
+      ar: "“بموجب الميثاق السيادي وديوان التشريفات، يُمنح هذا الوسام التأسيسي لصاحب السمو تقديرًا لإتمام حيازته الأولى وتدشين حضوره في الخزانة الخاصة.”",
+    },
+    chancelleryCitation_connoisseur: {
+      en: "“Conferred in solemn recognition of exquisite discernment and the curation of three Sovereign Antiquities within the private reliquaries.”",
+      ar: "“يُمنح وسام المتذوق الرفيع تكريمًا للذائقة الرفيعة واقتناء ثلاث قطع أثرية نادرة مسجلة رسميًا في سجلات النادي السيادية.”",
+    },
+    chancelleryCitation_high_sovereign: {
+      en: "“The High Sovereign Collar is conferred upon leaders whose profound patronage and cumulative treasury commitments surpass the elevated hallmark of fifty thousand units.”",
+      ar: "“يُقلد طوق النخبة السيادية العليا للأعضاء ذوي التأثير المالي الاستثنائي الذين تجاوزت إسهاماتهم وخزائنهم خمسين ألف وحدة معتمدة.”",
+    },
+    chancelleryCitation_apex_titan: {
+      en: "“The Supreme Star of the Apex Titan represents the pinnacle of sovereign distinction, reserved exclusively for the vanguard whose legendary standing commands timeless honor.”",
+      ar: "“نجمة قمة النخبة والسيادة العظمى؛ أرقى تشريف يُمنح لرواد النادي الأوائل أصحاب المكانة التي لا تُضاهى والريادة المطلقة في مجالس السيادة.”",
     },
   },
   settings: {

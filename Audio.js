@@ -625,6 +625,218 @@ const AudioEngine = (function () {
     } catch (e) {}
   }
 
+  // --- SOVEREIGN HEAVY BRASS MATRIX & WAX PRESS ACOUSTIC ---
+  // Authentic mechanical sound of a heavy solid brass seal matrix stamping hot molten wax
+  function playHeavyBrassStamp() {
+    if (!enabled) return;
+    const c = ensureContextReady ? ensureContextReady() : ctx;
+    if (!c) return;
+
+    try {
+      const t = c.currentTime;
+
+      // 1. Solid brass clack impact (sharp mechanical attack)
+      const oscMetal = c.createOscillator();
+      oscMetal.type = "triangle";
+      oscMetal.frequency.setValueAtTime(1180, t);
+      oscMetal.frequency.exponentialRampToValueAtTime(320, t + 0.045);
+
+      const gainMetal = c.createGain();
+      gainMetal.gain.setValueAtTime(0.0001, t);
+      gainMetal.gain.linearRampToValueAtTime(0.12, t + 0.003);
+      gainMetal.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+
+      // 2. Heavy deep wax compression thump (viscous acoustic mass)
+      const oscThump = c.createOscillator();
+      oscThump.type = "sine";
+      oscThump.frequency.setValueAtTime(140, t + 0.012);
+      oscThump.frequency.exponentialRampToValueAtTime(42, t + 0.22);
+
+      const gainThump = c.createGain();
+      gainThump.gain.setValueAtTime(0.0001, t + 0.012);
+      gainThump.gain.linearRampToValueAtTime(0.16, t + 0.024);
+      gainThump.gain.exponentialRampToValueAtTime(0.0001, t + 0.24);
+
+      // 3. Resonant golden seal ring decay
+      const oscGold = c.createOscillator();
+      oscGold.type = "sine";
+      oscGold.frequency.setValueAtTime(880, t + 0.02);
+      oscGold.frequency.exponentialRampToValueAtTime(870, t + 0.38);
+
+      const gainGold = c.createGain();
+      gainGold.gain.setValueAtTime(0.0001, t + 0.02);
+      gainGold.gain.linearRampToValueAtTime(0.035, t + 0.03);
+      gainGold.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+
+      oscMetal.connect(gainMetal);
+      gainMetal.connect(c.destination);
+
+      oscThump.connect(gainThump);
+      gainThump.connect(c.destination);
+
+      oscGold.connect(gainGold);
+      gainGold.connect(c.destination);
+
+      oscMetal.start(t);
+      oscMetal.stop(t + 0.06);
+
+      oscThump.start(t + 0.012);
+      oscThump.stop(t + 0.24);
+
+      oscGold.start(t + 0.02);
+      oscGold.stop(t + 0.4);
+    } catch (e) {}
+  }
+
+  // --- SWISS HAUTE HORLOGERIE FINE SCREW TICK ---
+  // Crisp mechanical acoustic impulse when inspecting or torque-interacting with horological screws
+  function playFineScrewTick() {
+    if (!enabled) return;
+    const c = ensureContextReady ? ensureContextReady() : ctx;
+    if (!c) return;
+
+    try {
+      const t = c.currentTime;
+      const osc = c.createOscillator();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(3200, t);
+      osc.frequency.exponentialRampToValueAtTime(1600, t + 0.018);
+
+      const gain = c.createGain();
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.linearRampToValueAtTime(0.045, t + 0.001);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.02);
+
+      osc.connect(gain);
+      gain.connect(c.destination);
+
+      osc.start(t);
+      osc.stop(t + 0.02);
+    } catch (e) {}
+  }
+
+  // --- PROPOSAL 5: ULTRAVIOLET FORENSIC & GHOST WATERMARK CHIME ---
+  // Harmonic optical sweep & crystalline fluorophore resonance for cryptographic deed verification
+  function playUvForensicChime() {
+    if (!enabled) return;
+    const c = ensureContextReady ? ensureContextReady() : ctx;
+    if (!c) return;
+
+    try {
+      const t = c.currentTime;
+
+      // 1. Subtle deep UV tube initialization hum
+      const oscTube = c.createOscillator();
+      oscTube.type = "sine";
+      oscTube.frequency.setValueAtTime(140, t);
+      oscTube.frequency.exponentialRampToValueAtTime(260, t + 0.35);
+
+      const gainTube = c.createGain();
+      gainTube.gain.setValueAtTime(0.0001, t);
+      gainTube.gain.linearRampToValueAtTime(0.04, t + 0.05);
+      gainTube.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+
+      // 2. Rising harmonic resonance (watermark reveal)
+      const oscHarmonic = c.createOscillator();
+      oscHarmonic.type = "sine";
+      oscHarmonic.frequency.setValueAtTime(528, t + 0.04);
+      oscHarmonic.frequency.exponentialRampToValueAtTime(1056, t + 0.45);
+
+      const gainHarmonic = c.createGain();
+      gainHarmonic.gain.setValueAtTime(0.0001, t + 0.04);
+      gainHarmonic.gain.linearRampToValueAtTime(0.07, t + 0.12);
+      gainHarmonic.gain.exponentialRampToValueAtTime(0.0001, t + 0.65);
+
+      // 3. High crystalline sapphire fluorescence shimmer
+      const oscShimmer = c.createOscillator();
+      oscShimmer.type = "triangle";
+      oscShimmer.frequency.setValueAtTime(2112, t + 0.08);
+      oscShimmer.frequency.exponentialRampToValueAtTime(2640, t + 0.4);
+
+      const gainShimmer = c.createGain();
+      gainShimmer.gain.setValueAtTime(0.0001, t + 0.08);
+      gainShimmer.gain.linearRampToValueAtTime(0.03, t + 0.15);
+      gainShimmer.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+
+      oscTube.connect(gainTube);
+      gainTube.connect(c.destination);
+
+      oscHarmonic.connect(gainHarmonic);
+      gainHarmonic.connect(c.destination);
+
+      oscShimmer.connect(gainShimmer);
+      gainShimmer.connect(c.destination);
+
+      oscTube.start(t);
+      oscTube.stop(t + 0.4);
+
+      oscHarmonic.start(t + 0.04);
+      oscHarmonic.stop(t + 0.65);
+
+      oscShimmer.start(t + 0.08);
+      oscShimmer.stop(t + 0.55);
+    } catch (e) {}
+  }
+
+  // Heraldic Medal Inspection & Clink Acoustic:
+  // Synthesizes a high-purity ceremonial bullion medal clink with crystalline golden ring
+  function playHeraldicMedalChime() {
+    if (!enabled) return;
+    const c = ensureContextReady ? ensureContextReady() : ctx;
+    if (!c) return;
+
+    try {
+      const t = c.currentTime;
+
+      // 1. Initial crisp metallic contact clink (strike transient)
+      const oscClink = c.createOscillator();
+      oscClink.type = "sine";
+      oscClink.frequency.setValueAtTime(2637, t); // E7
+      oscClink.frequency.exponentialRampToValueAtTime(1760, t + 0.035);
+
+      const gainClink = c.createGain();
+      gainClink.gain.setValueAtTime(0.12, t);
+      gainClink.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+
+      // 2. Resonant Bell/Medal Ring (Pure 24K bullion chime)
+      const oscBell = c.createOscillator();
+      oscBell.type = "sine";
+      oscBell.frequency.setValueAtTime(1318.51, t); // E6
+
+      const oscHarmonic = c.createOscillator();
+      oscHarmonic.type = "sine";
+      oscHarmonic.frequency.setValueAtTime(2093, t); // C7 harmonic shimmer
+
+      const filter = c.createBiquadFilter();
+      filter.type = "bandpass";
+      filter.frequency.setValueAtTime(1800, t);
+      filter.Q.setValueAtTime(4.5, t);
+
+      const gainRing = c.createGain();
+      gainRing.gain.setValueAtTime(0.001, t);
+      gainRing.gain.linearRampToValueAtTime(0.15, t + 0.008);
+      gainRing.gain.exponentialRampToValueAtTime(0.035, t + 0.28);
+      gainRing.gain.exponentialRampToValueAtTime(0.0001, t + 1.85);
+
+      oscClink.connect(gainClink);
+      gainClink.connect(c.destination);
+
+      oscBell.connect(filter);
+      oscHarmonic.connect(filter);
+      filter.connect(gainRing);
+      gainRing.connect(c.destination);
+
+      oscClink.start(t);
+      oscClink.stop(t + 0.05);
+
+      oscBell.start(t);
+      oscBell.stop(t + 1.9);
+
+      oscHarmonic.start(t);
+      oscHarmonic.stop(t + 1.6);
+    } catch (e) {}
+  }
+
   return {
     init,
     isEnabled,
@@ -641,6 +853,10 @@ const AudioEngine = (function () {
     playTitanResonance,
     playStandardReceive,
     playAccoladeStamp,
+    playHeavyBrassStamp,
+    playFineScrewTick,
+    playUvForensicChime,
+    playHeraldicMedalChime,
   };
 })();
 
