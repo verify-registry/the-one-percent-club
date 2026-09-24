@@ -5014,16 +5014,35 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   position: relative;
   z-index: 2;
 }
-.obsidian-dispatch-input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
+.obsidian-dispatch-input,
+#clubInput {
+  width: 100% !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   color: #f7f1e1;
-  font-size: 13.5px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: normal;
   letter-spacing: 0.01em;
   unicode-bidi: plaintext;
   text-align: start;
+  padding: 0 8px !important;
+  margin: 0 !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.obsidian-dispatch-input:focus,
+#clubInput:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 .obsidian-dispatch-input:dir(rtl),
 .obsidian-dispatch-input[dir="rtl"],
@@ -5039,7 +5058,7 @@ html[dir="rtl"] .obsidian-dispatch-composer {
 }
 .obsidian-dispatch-input::placeholder {
   color: #8c8371;
-  font-size: 12.5px;
+  font-size: 13px;
 }
 html[dir="rtl"] .obsidian-dispatch-input::placeholder {
   text-align: right;
@@ -8790,7 +8809,7 @@ body.light-mode .luxury-modal-overlay.is-open .luxury-modal-box {
 }
 
 /* Centralized Global Form & Input System */
-input[type="text"],
+input[type="text"]:not(.obsidian-dispatch-input),
 input[type="password"],
 input[type="email"],
 input[type="search"],
@@ -8800,7 +8819,7 @@ textarea {
   color: var(--input-text);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-input[type="text"]:focus,
+input[type="text"]:not(.obsidian-dispatch-input):focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
 input[type="search"]:focus,
@@ -10556,7 +10575,22 @@ body.light-mode .whisper-cipher-toggle.is-active {
   border-color: var(--gold-polished) !important;
   color: #3b2a08 !important;
 }
-body.light-mode .obsidian-dispatch-input {
+body.light-mode .obsidian-dispatch-input,
+body.light-mode #clubInput {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #1a1a1a !important;
+}
+body.light-mode .obsidian-dispatch-input:focus,
+body.light-mode #clubInput:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   color: #1a1a1a !important;
 }
 body.light-mode .obsidian-dispatch-input::placeholder {
@@ -16072,13 +16106,15 @@ body.light-mode .leader-avatar.is-online::after {
 /* Shimmer Animation & Base Shape */
 .skeleton-shimmer-el {
   position: relative;
-  background: rgba(15, 12, 10, 0.4);
-  border-radius: 4px;
+  background: rgba(22, 18, 14, 0.7);
+  border: 1px solid rgba(212, 175, 106, 0.08);
+  border-radius: 6px;
   overflow: hidden;
 }
 
 body.light-mode .skeleton-shimmer-el {
-  background: rgba(156, 109, 35, 0.08);
+  background: rgba(185, 145, 75, 0.08);
+  border: 1px solid rgba(185, 145, 75, 0.12);
 }
 
 .skeleton-shimmer-el::after {
@@ -16091,22 +16127,22 @@ body.light-mode .skeleton-shimmer-el {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(212, 175, 55, 0.08) 30%,
-    rgba(255, 235, 160, 0.15) 50%,
-    rgba(212, 175, 55, 0.08) 70%,
+    rgba(212, 175, 55, 0.08) 25%,
+    rgba(255, 235, 160, 0.22) 50%,
+    rgba(212, 175, 55, 0.08) 75%,
     transparent 100%
   );
   transform: skewX(-20deg);
-  animation: skeletonShimmer 2s infinite ease-in-out;
+  animation: skeletonShimmer 1.8s infinite ease-in-out;
 }
 
 body.light-mode .skeleton-shimmer-el::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(156, 109, 35, 0.05) 30%,
-    rgba(212, 175, 55, 0.12) 50%,
-    rgba(156, 109, 35, 0.05) 70%,
+    rgba(185, 145, 75, 0.06) 25%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(185, 145, 75, 0.06) 75%,
     transparent 100%
   );
 }
@@ -16124,12 +16160,68 @@ body.light-mode .skeleton-shimmer-el::after {
 }
 
 /* Specific Placeholder Sizes */
-.boutique-skeleton .skeleton-badge { width: 40px; height: 16px; align-self: flex-start; }
-.boutique-skeleton .skeleton-icon { width: 60px; height: 60px; border-radius: 50%; margin: 10px 0 6px; }
-.boutique-skeleton .skeleton-name { width: 70%; height: 14px; margin-bottom: 2px; }
-.boutique-skeleton .skeleton-price { width: 40%; height: 16px; margin-bottom: 4px; }
-.boutique-skeleton .skeleton-progress { width: 90%; height: 2.5px; border-radius: 2px; margin: 8px auto 12px; }
-.boutique-skeleton .skeleton-button { width: 100%; height: 26px; border-radius: 8px; margin-top: 6px; }
+.boutique-skeleton-section {
+  width: 100%;
+  margin-bottom: 24px;
+}
+.skeleton-section-title {
+  width: 130px;
+  height: 18px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.skeleton-section-subtitle {
+  width: 200px;
+  height: 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.boutique-skeleton {
+  pointer-events: none;
+  cursor: default;
+}
+.boutique-skeleton .skeleton-badge { width: 44px; height: 16px; border-radius: 8px; align-self: flex-start; }
+.boutique-skeleton .skeleton-icon { width: 60px; height: 60px; border-radius: 50%; margin: 10px auto 6px; box-shadow: inset 0 0 12px rgba(212, 175, 106, 0.15); }
+.boutique-skeleton .skeleton-name { width: 72%; height: 14px; margin: 0 auto 4px; }
+.boutique-skeleton .skeleton-price { width: 45%; height: 16px; margin: 0 auto 6px; }
+.boutique-skeleton .skeleton-progress { width: 85%; height: 3px; border-radius: 2px; margin: 6px auto 10px; }
+.boutique-skeleton .skeleton-button { width: 100%; height: 28px; border-radius: 8px; margin-top: auto; }
+
+/* Reliquary Collectibles Skeleton */
+.reliquary-skeleton {
+  pointer-events: none;
+  cursor: default;
+}
+.reliquary-skeleton .skeleton-reliquary-status {
+  width: 68px;
+  height: 18px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.reliquary-skeleton .skeleton-reliquary-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: block;
+  box-shadow: inset 0 0 12px rgba(212, 175, 106, 0.18);
+}
+.reliquary-skeleton .skeleton-reliquary-name {
+  width: 75%;
+  height: 14px;
+  margin: 8px auto 4px;
+}
+.reliquary-skeleton .skeleton-reliquary-meta {
+  width: 55%;
+  height: 12px;
+  margin: 0 auto 6px;
+}
+.reliquary-skeleton .skeleton-reliquary-chip {
+  width: 82px;
+  height: 22px;
+  border-radius: 11px;
+  margin: 6px auto 0;
+}
 
 .profile-collection-skeleton .skeleton-icon-round { width: 70px; height: 70px; border-radius: 50%; margin: 10px auto 6px; }
 .profile-collection-skeleton .skeleton-name { width: 70%; height: 12px; margin: 0 auto 4px; }

@@ -1,4 +1,3 @@
-var gyroListenerAdded = false;
 // luxury.js
 // Handles the drawing of a complex geometric Guilloché pattern for the membership card background.
 // Also generates offscreen metallic textures for 3D bezels and wreaths.
@@ -1757,57 +1756,4 @@ function initGoldDust() {
       draw();
     }
   }, 80);
-}
-
-function initProfileGyro() {
-  const handleMove = (wrap, x, y, w, h) => {
-    const rx = (y / h - 0.5) * -15;
-    const ry = (x / w - 0.5) * 15;
-    wrap.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02, 1.02, 1.02)`;
-    wrap.style.transition = "none";
-  };
-
-  const handleReset = (wrap) => {
-    wrap.style.transform =
-      "perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
-    wrap.style.transition = "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
-  };
-
-  document
-    .querySelectorAll("#profile-tab .gyro-element:not(.gyro-bound)")
-    .forEach((wrap) => {
-      wrap.classList.add("gyro-bound");
-      wrap.addEventListener("mousemove", (e) => {
-        const rect = wrap.getBoundingClientRect();
-        handleMove(
-          wrap,
-          e.clientX - rect.left,
-          e.clientY - rect.top,
-          rect.width,
-          rect.height,
-        );
-      });
-      wrap.addEventListener("mouseleave", () => handleReset(wrap));
-    });
-
-  if (window.DeviceOrientationEvent && !gyroListenerAdded) {
-    gyroListenerAdded = true;
-    window.addEventListener("deviceorientation", (e) => {
-      const profileTab = document.getElementById("profile-tab");
-      if (!profileTab || profileTab.hidden) return;
-
-      const beta = e.beta || 0;
-      const gamma = e.gamma || 0;
-
-      const rx = Math.max(-15, Math.min(15, (beta - 45) * 0.5));
-      const ry = Math.max(-15, Math.min(15, gamma * 0.5));
-
-      document
-        .querySelectorAll("#profile-tab .gyro-element")
-        .forEach((wrap) => {
-          wrap.style.transform = `perspective(800px) rotateX(${-rx}deg) rotateY(${ry}deg)`;
-          wrap.style.transition = "transform 0.1s ease-out";
-        });
-    });
-  }
 }

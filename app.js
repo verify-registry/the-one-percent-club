@@ -27,6 +27,8 @@ function renderRing(ringId, valueId, percent) {
 
 const savedLang = localStorage.getItem("one_percent_lang");
 let currentLang = (savedLang === "ar" || savedLang === "en") ? savedLang : "ar";
+var boutiqueLoadingTimeout = null;
+var profileCollectionTimeout = null;
 
 function getNestedValue(obj, path) {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
@@ -1849,34 +1851,55 @@ function applyEquippedToCard(equipped) {
 ========================================================= */
 
 
-function generateBoutiqueSkeleton() {
-  let html = '<div class="boutique-grid">';
-  for (let i = 0; i < 6; i++) {
+function generateBoutiqueSkeleton(categories = ["crowns"]) {
+  const catsToShow = categories.length > 0 ? categories : Object.keys(BOUTIQUE);
+  let html = "";
+  catsToShow.forEach((catKey) => {
+    if (catKey === "widgets") return;
     html += `
-      <div class="boutique-card boutique-skeleton">
-        <span class="skeleton-shimmer-el skeleton-badge"></span>
-        <span class="skeleton-shimmer-el skeleton-icon"></span>
-        <span class="skeleton-shimmer-el skeleton-name"></span>
-        <span class="skeleton-shimmer-el skeleton-price"></span>
-        <div class="skeleton-shimmer-el skeleton-progress"></div>
-        <div class="skeleton-shimmer-el skeleton-button"></div>
-      </div>
+      <section class="boutique-section boutique-skeleton-section" data-skeleton="true">
+        <div class="boutique-section-head">
+          <div class="skeleton-shimmer-el skeleton-section-title"></div>
+          <div class="skeleton-shimmer-el skeleton-section-subtitle"></div>
+        </div>
+        <div class="boutique-grid">
+          ${Array(4).fill(0).map(() => `
+            <div class="boutique-card boutique-skeleton">
+              <span class="skeleton-shimmer-el skeleton-badge"></span>
+              <span class="skeleton-shimmer-el skeleton-icon"></span>
+              <span class="skeleton-shimmer-el skeleton-name"></span>
+              <span class="skeleton-shimmer-el skeleton-price"></span>
+              <div class="skeleton-shimmer-el skeleton-progress"></div>
+              <div class="skeleton-shimmer-el skeleton-button"></div>
+            </div>
+          `).join("")}
+        </div>
+      </section>
     `;
-  }
-  html += '</div>';
+  });
   return html;
 }
 
+// boutiqueLoadingTimeout hoisted at top-level
 
 /* === 3. BOUTIQUE & STORE RENDERING === */
-function renderBoutique(filter = "all") {
+function renderBoutique(filter = "all", showSkeleton = false) {
   const root = document.getElementById("boutiqueSections");
   if (!root) return;
   const owned = ClubState.owned;
   const equipped = ClubState.equipped;
   const categories = filter === "all" ? Object.keys(BOUTIQUE) : [filter];
 
-  root.dataset.skeletonShown = "true";
+  if (showSkeleton || !root.dataset.skeletonShown) {
+    if (boutiqueLoadingTimeout) clearTimeout(boutiqueLoadingTimeout);
+    root.innerHTML = generateBoutiqueSkeleton(categories);
+    root.dataset.skeletonShown = "true";
+    boutiqueLoadingTimeout = setTimeout(() => {
+      renderBoutiqueContent(filter, root, owned, equipped, categories);
+    }, 380);
+    return;
+  }
+
   renderBoutiqueContent(filter, root, owned, equipped, categories);
 }
 
@@ -2137,7 +2160,7 @@ document.querySelectorAll(".boutique-tab").forEach((tab) => {
       .querySelectorAll(".boutique-tab")
       .forEach((t) => t.classList.remove("is-active"));
     tab.classList.add("is-active");
-    renderBoutique(tab.dataset.cat);
+    renderBoutique(tab.dataset.cat, true);
   });
 });
 
@@ -2575,9 +2598,16 @@ const Router = {
       if (typeof renderProfileCircles === "function") renderProfileCircles();
       if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
       if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
-      if (typeof renderProfileCollection === "function") renderProfileCollection();
+      if (typeof renderProfileCollection === "function") renderProfileCollection(true);
       if (typeof renderProfileAchievements === "function") renderProfileAchievements();
       if (typeof attachHorologicalScrewHandlers === "function") attachHorologicalScrewHandlers();
+      if (typeof cancelClubWelcomeAutoDismiss === "function") {
+        cancelClubWelcomeAutoDismiss();
+      }
+    } else if (tab === "boutique") {
+      const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
+      const activeCat = activeBoutiqueTab ? activeBoutiqueTab.dataset.cat : "all";
+      renderBoutique(activeCat, true);
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
         cancelClubWelcomeAutoDismiss();
       }
@@ -4204,105 +4234,6 @@ function hideQuickPreview() {
   }
 }
 
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-function renderProfileEquipped() {
-  const grid = document.getElementById("profileEquippedGrid");
-  if (!grid) return;
-
-  const equipped = ClubState.equipped;
-  let itemsHtml = "";
-
-  for (const catKey in BOUTIQUE) {
-    if (!EQUIP_CATEGORIES[catKey]) continue; // Only equipable categories
-
-    const equippedName = equipped[catKey];
-    if (equippedName) {
-      const itemDef = BOUTIQUE[catKey].items.find(
-        (i) => i.name === equippedName,
-      );
-      if (itemDef) {
-        const iconSvg = ICONS[itemDef.icon] || ICONS["star"];
-        itemsHtml += `
-          <div class="profile-equipped-item">
-            <div class="profile-eq-icon">${iconSvg}</div>
-            <div class="profile-eq-name">${window.t(itemDef.name)}</div>
-          </div>
-        `;
-      }
-    }
-  }
-
-  if (itemsHtml) {
-    grid.innerHTML = itemsHtml;
-    grid.style.display = "grid";
-  } else {
-    grid.innerHTML = `
-      <div class="profile-empty-collection luxury-empty-state" style="grid-column: 1 / -1; padding: 30px;">
-        <p style="margin: 0;">لم يتم تجهيز أي مقتنيات</p>
-      </div>
-    `;
-    grid.style.display = "block";
-  }
-}
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-
-function showReactionMenu(anchorEl, msgId) {
-  let existing = document.getElementById("reactionMenuBox");
-  if (existing) existing.remove();
-
-  const menu = document.createElement("div");
-  menu.id = "reactionMenuBox";
-  menu.className = "chat-reaction-menu";
-
-  const emojis = ["💎", "🏆", "👑", "✨", "🔥"];
-
-  emojis.forEach((emoji) => {
-    const btn = document.createElement("button");
-    btn.className = "reaction-emoji-btn";
-    btn.textContent = emoji;
-    btn.onclick = () => {
-      addReactionToMessage(msgId, emoji);
-      menu.remove();
-    };
-    menu.appendChild(btn);
-  });
-
-  document.body.appendChild(menu);
-
-  const rect = anchorEl.getBoundingClientRect();
-  menu.style.top = rect.top - 40 + "px";
-  let leftPos = rect.left + rect.width / 2 - menu.offsetWidth / 2;
-  leftPos = Math.max(
-    10,
-    Math.min(leftPos, window.innerWidth - menu.offsetWidth - 10),
-  );
-  menu.style.left = leftPos + "px";
-
-  setTimeout(() => {
-    const closeMenu = (e) => {
-      if (!menu.contains(e.target) && e.target !== anchorEl) {
-        menu.remove();
-        document.removeEventListener("click", closeMenu);
-      }
-    };
-    document.addEventListener("click", closeMenu);
-  }, 10);
-}
-
-function addReactionToMessage(msgId, emoji) {
-  const msg = CLUB_MEMBERS.find((m) => m.msgId === msgId);
-  if (msg) {
-    if (!msg.reactions) msg.reactions = [];
-    if (!msg.reactions.includes(emoji)) {
-      msg.reactions.push(emoji);
-      if (window.AudioEngine) window.AudioEngine.playChime();
-      renderClubMessages();
-    }
-  }
-}
-
 document.querySelectorAll(".b-filt-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     document
@@ -4312,7 +4243,7 @@ document.querySelectorAll(".b-filt-btn").forEach((btn) => {
     currentOwnershipFilter = btn.dataset.filter;
     const activeCat =
       document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all";
-    renderBoutique(activeCat);
+    renderBoutique(activeCat, true);
   });
 });
 
@@ -4805,335 +4736,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-var d3RadarSvg = null;
-
-function renderRadarChart() {
-  if (typeof d3 === "undefined") {
-    setTimeout(renderRadarChart, 100);
-    return;
-  }
-  const container = d3.select("#profileRadarChart");
-  if (container.empty()) return;
-
-  const w = 100;
-  const h = 100;
-  const cx = w / 2;
-  const cy = h / 2;
-  const radius = 35;
-
-  const metrics = [
-    {
-      name: window.t("dynamic.wealth"),
-      value: ClubState.member.wealthIndexValue || 92,
-    },
-    {
-      name: window.t("dynamic.privileges") || window.t("membership.privileges"),
-      value: ClubState.member.privilegesValue || 84,
-    },
-    {
-      name: window.t("dynamic.connections"),
-      value: ClubState.member.connectionsValue || 75,
-    },
-  ];
-
-  if (!d3RadarSvg) {
-    container.html(""); // clear vanilla SVG
-
-    d3.select("#profileRadarChart")
-      .style("position", "relative")
-      .append("div")
-      .attr("class", "radar-tooltip")
-      .style("opacity", 0)
-      .style("position", "absolute")
-      .style("pointer-events", "none")
-      .style("z-index", "20");
-
-    d3RadarSvg = container
-      .append("svg")
-      .attr("class", "radar-svg")
-      .attr("viewBox", `-20 -20 ${w + 40} ${h + 40}`);
-
-    const angles = [-Math.PI / 2, Math.PI / 6, (5 * Math.PI) / 6];
-
-    const gridLevels = [0.33, 0.66, 1];
-    gridLevels.forEach((level) => {
-      const r = radius * level;
-      const pts = angles
-        .map((a) => `${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`)
-        .join(" ");
-      d3RadarSvg
-        .append("polygon")
-        .attr("points", pts)
-        .attr("class", "radar-grid");
-    });
-
-    angles.forEach((a) => {
-      d3RadarSvg
-        .append("line")
-        .attr("x1", cx)
-        .attr("y1", cy)
-        .attr("x2", cx + radius * Math.cos(a))
-        .attr("y2", cy + radius * Math.sin(a))
-        .attr("class", "radar-axis");
-    });
-
-    metrics.forEach((m, i) => {
-      const a = angles[i];
-      const labelR = radius + 14;
-      const lx = cx + labelR * Math.cos(a);
-      const ly = cy + labelR * Math.sin(a);
-
-      let anchor = "middle";
-      if (Math.cos(a) > 0.1) anchor = "start";
-      else if (Math.cos(a) < -0.1) anchor = "end";
-
-      let dy = Math.sin(a) > 0.1 ? 2 : Math.sin(a) < -0.1 ? 0 : 3;
-
-      d3RadarSvg
-        .append("text")
-        .attr("x", lx)
-        .attr("y", ly)
-        .attr("class", "radar-label")
-        .attr("text-anchor", anchor)
-        .attr("dy", dy)
-        .text(m.name);
-    });
-  }
-
-  const angles = [-Math.PI / 2, Math.PI / 6, (5 * Math.PI) / 6];
-  const lineGen = d3
-    .line()
-    .x((d) => d.x)
-    .y((d) => d.y);
-
-  const dataPtsArr = metrics.map((m, i) => {
-    let val = Math.max(0, Math.min(100, m.value)) / 100;
-    let r = radius * val;
-    return {
-      x: cx + r * Math.cos(angles[i]),
-      y: cy + r * Math.sin(angles[i]),
-      val: m.value,
-      name: m.name,
-    };
-  });
-
-  const polyPtsArr = [...dataPtsArr, dataPtsArr[0]];
-
-  const polygon = d3RadarSvg.selectAll(".radar-polygon-d3").data([polyPtsArr]);
-
-  polygon
-    .enter()
-    .append("path")
-    .attr("class", "radar-polygon-d3")
-    .merge(polygon)
-    .transition()
-    .duration(500)
-    .ease(d3.easeCubicOut)
-    .attr("d", lineGen);
-
-  const circles = d3RadarSvg.selectAll(".radar-point-d3").data(dataPtsArr);
-
-  circles
-    .enter()
-    .append("circle")
-    .attr("class", "radar-point-d3")
-    .attr("r", 2.5)
-    .on("mouseover", function (event, d) {
-      d3.select(this)
-        .transition()
-        .duration(200)
-        .attr("r", 4)
-        .style("fill", "#D4AF6A");
-
-      const tooltip = d3
-        .select(this.parentNode.parentNode)
-        .select(".radar-tooltip");
-      const [mx, my] = d3.pointer(event, this.parentNode.parentNode);
-
-      tooltip
-        .html(`<strong>${d.name}</strong><br/>${d.val}%`)
-        .style("left", mx + 10 + "px")
-        .style("top", my - 10 + "px")
-        .transition()
-        .duration(200)
-        .style("opacity", 1);
-    })
-    .on("mouseout", function () {
-      d3.select(this)
-        .transition()
-        .duration(200)
-        .attr("r", 2.5)
-        .style("fill", "#fff");
-
-      d3.select(this.parentNode.parentNode)
-        .select(".radar-tooltip")
-        .transition()
-        .duration(200)
-        .style("opacity", 0);
-    })
-    .merge(circles)
-    .transition()
-    .duration(500)
-    .ease(d3.easeCubicOut)
-    .attr("cx", (d) => d.x)
-    .attr("cy", (d) => d.y);
-}
-
-window.updateRadarChart = renderRadarChart;
-
-/* === 7. INITIALIZATION & LISTENERS === */
-document.addEventListener("DOMContentLoaded", () => {
-  renderRadarChart();
-  renderProgressChart();
-});
-
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-function renderProgressChart() {
-  const wrapper = document.getElementById("profileProgressChart");
-  if (!wrapper) return;
-
-  const data = [
-    { week: window.t("dynamic.week1"), wealth: 60, priv: 50, conn: 40 },
-    { week: window.t("dynamic.week2"), wealth: 72, priv: 62, conn: 55 },
-    { week: window.t("dynamic.week3"), wealth: 85, priv: 76, conn: 65 },
-    {
-      week: window.t("dynamic.current"),
-      wealth: ClubState.member.wealthIndexValue || 92,
-      priv: ClubState.member.privilegesValue || 84,
-      conn: ClubState.member.connectionsValue || 75,
-    },
-  ];
-
-  const w = 300;
-  const h = 120;
-  const padX = 25;
-  const padYTop = 15;
-  const padYBot = 25;
-  const usableW = w - padX * 2;
-  const usableH = h - padYTop - padYBot;
-
-  const getX = (i) => padX + (i * usableW) / (data.length - 1);
-  const getY = (val) => padYTop + usableH - (val / 100) * usableH;
-
-  const colors = { wealth: "#D4AF6A", priv: "#EAE5D9", conn: "#8C877A" };
-
-  let svg = `<svg class="progress-svg" viewBox="0 0 ${w} ${h}">`;
-
-  [0, 25, 50, 75, 100].forEach((val) => {
-    let y = getY(val);
-    svg += `<line x1="${padX}" y1="${y}" x2="${w - padX}" y2="${y}" class="progress-grid-line" />`;
-  });
-
-  svg += `<line id="progressActiveLine" x1="0" y1="${padYTop}" x2="0" y2="${h - padYBot}" class="progress-active-line" />`;
-
-  ["wealth", "priv", "conn"].forEach((key) => {
-    let pts = data.map((d, i) => `${getX(i)},${getY(d[key])}`).join(" L ");
-    svg += `<path d="M ${pts}" class="progress-line" stroke="${colors[key]}" />`;
-  });
-
-  data.forEach((d, i) => {
-    let x = getX(i);
-    svg += `<text x="${x}" y="${h - 5}" class="progress-axis-text">${d.week}</text>`;
-
-    ["wealth", "priv", "conn"].forEach((key) => {
-      let y = getY(d[key]);
-      svg += `<circle cx="${x}" cy="${y}" r="2.5" class="progress-point" fill="#0F0F0F" stroke="${colors[key]}" />`;
-    });
-
-    let zoneW = usableW / (data.length - 1);
-    let zoneX = x - zoneW / 2;
-    svg += `<rect x="${zoneX}" y="0" width="${zoneW}" height="${h}" class="hover-zone" data-idx="${i}" />`;
-  });
-
-  svg += `</svg>`;
-
-  const tooltip = document.createElement("div");
-  tooltip.className = "progress-tooltip";
-  tooltip.id = "progressTooltip";
-
-  wrapper.innerHTML = svg;
-  wrapper.appendChild(tooltip);
-
-  const zones = wrapper.querySelectorAll(".hover-zone");
-  const activeLine = wrapper.querySelector("#progressActiveLine");
-
-  zones.forEach((zone) => {
-    zone.addEventListener("mouseenter", (e) => handleHover(e.target));
-    zone.addEventListener(
-      "touchstart",
-      (e) => {
-        handleHover(e.target);
-      },
-      { passive: true },
-    );
-  });
-
-  wrapper.addEventListener("mouseleave", () => {
-    tooltip.style.opacity = 0;
-    activeLine.style.opacity = 0;
-  });
-
-  function handleHover(target) {
-    const idx = parseInt(target.getAttribute("data-idx"));
-    const d = data[idx];
-    const x = getX(idx);
-
-    activeLine.setAttribute("x1", x);
-    activeLine.setAttribute("x2", x);
-    activeLine.style.opacity = 1;
-
-    tooltip.innerHTML = `
-      <div class="tooltip-week">${d.week}</div>
-      <div class="tooltip-row"><span style="color:${colors.wealth}">${window.t("dynamic.wealth")}</span> <span>${d.wealth}%</span></div>
-      <div class="tooltip-row"><span style="color:${colors.priv}">${window.t("membership.privileges")}</span> <span>${d.priv}%</span></div>
-      <div class="tooltip-row"><span style="color:${colors.conn}">${window.t("dynamic.connections")}</span> <span>${d.conn}%</span></div>
-    `;
-
-    let percX = (x / w) * 100;
-    if (idx === 0) percX += 15;
-    if (idx === data.length - 1) percX -= 15;
-
-    tooltip.style.left = `calc(${percX}%)`;
-    tooltip.style.top = `10px`;
-    tooltip.style.opacity = 1;
-  }
-}
-
-window.testRadarUpdate = () => {
-  ClubState.member.wealthIndexValue = Math.floor(Math.random() * 100);
-  ClubState.member.privilegesValue = Math.floor(Math.random() * 100);
-  ClubState.member.connectionsValue = Math.floor(Math.random() * 100);
-};
-
-function renderClubMessages() {}
-const CLUB_MEMBERS = [
-  {
-    id: "1001",
-    name: "W. ALEXANDER",
-    tier: "SOVEREIGN EXARCH",
-    msgId: "msg-1",
-    content: "Great investment opportunity in the new fund.",
-  },
-  {
-    id: "1002",
-    name: "SARAH V.",
-    tier: "SOVEREIGN LUMINARY",
-    msgId: "msg-2",
-    content: "I agree, looking into the details now.",
-  },
-  {
-    id: "1003",
-    name: "MICHAEL T.",
-    tier: "SOVEREIGN MEMBER",
-    msgId: "msg-3",
-    content: "When is the next global meetup?",
-  },
-];
-
-let typingTimeout2 = null;
-function setTypingIndicator(member) {}
-
 function playPurchaseAnimation() {
   const flash = document.createElement("div");
   flash.style.position = "fixed";
@@ -5470,11 +5072,17 @@ function generateProfileCollectionSkeleton() {
   let html = '';
   for (let i = 0; i < 4; i++) {
     html += `
-      <div class="pcs-item-card profile-collection-skeleton">
-        <span class="skeleton-shimmer-el skeleton-icon-round"></span>
+      <div class="pcs-item-card reliquary-pedestal-card reliquary-skeleton">
+        <div class="skeleton-shimmer-el skeleton-reliquary-status"></div>
+        <div class="reliquary-pedestal-cradle">
+          <div class="pcs-artifact-pedestal">
+            <span class="skeleton-shimmer-el skeleton-reliquary-icon"></span>
+          </div>
+        </div>
         <div class="pcs-item-info">
-          <div class="skeleton-shimmer-el skeleton-name"></div>
-          <div class="skeleton-shimmer-el skeleton-price-small"></div>
+          <div class="skeleton-shimmer-el skeleton-reliquary-name"></div>
+          <div class="skeleton-shimmer-el skeleton-reliquary-meta"></div>
+          <div class="skeleton-shimmer-el skeleton-reliquary-chip"></div>
         </div>
       </div>
     `;
@@ -5598,7 +5206,6 @@ function openReliquaryInspectModal(itemId) {
         navigator.vibrate([25, 40, 15]);
       }
       renderProfileCollection();
-      if (typeof renderProfileEquipped === "function") renderProfileEquipped();
       if (typeof updateMasterCard === "function") updateMasterCard();
       openReliquaryInspectModal(item.id);
     };
@@ -5630,17 +5237,23 @@ function closeReliquaryInspectModal() {
 window.openReliquaryInspectModal = openReliquaryInspectModal;
 window.closeReliquaryInspectModal = closeReliquaryInspectModal;
 
-function renderProfileCollection() {
+// profileCollectionTimeout hoisted at top-level
+
+function renderProfileCollection(forceSkeleton = false) {
   const container = document.getElementById("profileCollectionGrid");
   if (!container) return;
 
-  if (!container.dataset.skeletonShown) {
+  if (forceSkeleton || !container.dataset.skeletonShown) {
+    if (profileCollectionTimeout) clearTimeout(profileCollectionTimeout);
     container.innerHTML = generateProfileCollectionSkeleton();
     container.dataset.skeletonShown = "true";
-    setTimeout(() => renderProfileCollection(), 450);
+    profileCollectionTimeout = setTimeout(() => {
+      container.dataset.skeletonShown = "done";
+      renderProfileCollection(false);
+    }, 380);
     return;
   }
-  container.dataset.skeletonShown = "";
+  container.dataset.skeletonShown = "done";
 
   const collectedItems = AppState.collectedItems
     .map((id) => {
