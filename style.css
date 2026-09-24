@@ -3,6 +3,74 @@
 
 :root {
   --header-actual-height: 82px;
+
+  /* ==========================================================================
+     THE 1% CLUB — CENTRALIZED SEMANTIC DESIGN TOKENS (OBSIDIAN DARK DEFAULT)
+     ========================================================================== */
+  --app-bg: #050505;
+  --app-bg-gradient: radial-gradient(
+      ellipse 130% 65% at 50% 45%,
+      rgba(201, 168, 106, 0.035) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      #050505 0%,
+      #050505 10%,
+      #08080b 22%,
+      #0c0c0f 38%,
+      #0d0d11 50%,
+      #0c0c0f 65%,
+      #08080b 80%,
+      #050505 92%,
+      #050505 100%
+    );
+
+  --surface-primary: #0d0d10;
+  --surface-secondary: #141418;
+  --surface-elevated: #1a1a22;
+  --surface-inset: #09090c;
+  --surface-modal: radial-gradient(ellipse at center, #18181d 0%, #0d0d10 100%);
+  --surface-card: linear-gradient(180deg, rgba(22, 22, 26, 0.95) 0%, rgba(13, 13, 16, 0.98) 100%);
+  --surface-panel: rgba(18, 18, 22, 0.88);
+  --surface-header: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0.98) 0%,
+    rgba(5, 5, 5, 0.96) 60%,
+    rgba(6, 6, 9, 0.85) 82%,
+    rgba(8, 8, 11, 0.45) 100%
+  );
+
+  --text-primary: #ede7d8;
+  --text-secondary: #c4ba9f;
+  --text-muted: rgba(201, 168, 106, 0.68);
+  --text-inverse: #0d0b08;
+
+  --border-subtle: rgba(212, 175, 55, 0.16);
+  --border-medium: rgba(212, 175, 55, 0.3);
+  --border-strong: rgba(212, 175, 55, 0.55);
+  --border-gold: #d4af37;
+
+  --control-bg: rgba(255, 255, 255, 0.04);
+  --control-bg-hover: rgba(212, 175, 55, 0.12);
+  --control-bg-active: rgba(212, 175, 55, 0.22);
+  --control-border: rgba(212, 175, 55, 0.32);
+  --control-text: #dfc17b;
+
+  --input-bg: rgba(11, 11, 15, 0.88);
+  --input-border: rgba(212, 175, 55, 0.28);
+  --input-border-focus: rgba(212, 175, 55, 0.85);
+  --input-text: #f5eedc;
+  --input-placeholder: rgba(201, 168, 106, 0.45);
+
+  --switch-track: rgba(255, 255, 255, 0.1);
+  --switch-track-active: linear-gradient(135deg, #d4af37 0%, #aa8022 100%);
+  --switch-thumb: #ffffff;
+  --switch-thumb-active: #ffffff;
+
+  --overlay-bg: rgba(4, 4, 6, 0.82);
+  --modal-box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 175, 55, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+
   /* THE 1% CLUB — GLOBAL GOLD MATERIAL SYSTEM */
   /* Centralized luxury metal language (Dark Mode Default) */
   --gold-primary: #c9a86a; /* Authentic Champagne Gold */
@@ -102,6 +170,74 @@ body.dark-mode {
 :root.light-mode,
 html.light-mode,
 body.light-mode {
+  /* ==========================================================================
+     THE 1% CLUB — CENTRALIZED SEMANTIC DESIGN TOKENS (IMPERIAL LIGHT MODE)
+     ========================================================================== */
+  --app-bg: #fdfbf7;
+  --app-bg-gradient: radial-gradient(
+      ellipse 125% 65% at 50% 45%,
+      rgba(212, 175, 55, 0.035) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      #fdfbf7 0%,
+      #fdfbf7 10%,
+      #f8f5ed 22%,
+      #f2ece1 36%,
+      #ebe5d9 50%,
+      #ebe5d9 65%,
+      #f2ece1 78%,
+      #f8f5ed 88%,
+      #fdfbf7 96%,
+      #fdfbf7 100%
+    );
+
+  --surface-primary: #ffffff;
+  --surface-secondary: #f7f4ec;
+  --surface-elevated: #f0ebe0;
+  --surface-inset: #ede7d8;
+  --surface-modal: radial-gradient(ellipse at center, #ffffff 0%, #f4f0e6 100%);
+  --surface-card: linear-gradient(180deg, #ffffff 0%, #fbf9f4 100%);
+  --surface-panel: rgba(255, 255, 255, 0.94);
+  --surface-header: linear-gradient(
+    180deg,
+    rgba(253, 251, 247, 0.98) 0%,
+    rgba(253, 251, 247, 0.96) 60%,
+    rgba(250, 247, 240, 0.85) 82%,
+    rgba(245, 241, 233, 0.45) 100%
+  );
+
+  --text-primary: #1a1510;
+  --text-secondary: #574836;
+  --text-muted: #8c6a28;
+  --text-inverse: #ffffff;
+
+  --border-subtle: rgba(185, 145, 75, 0.2);
+  --border-medium: rgba(185, 145, 75, 0.35);
+  --border-strong: rgba(185, 145, 75, 0.6);
+  --border-gold: #9c6d23;
+
+  --control-bg: rgba(185, 145, 75, 0.08);
+  --control-bg-hover: rgba(185, 145, 75, 0.18);
+  --control-bg-active: rgba(185, 145, 75, 0.28);
+  --control-border: rgba(185, 145, 75, 0.4);
+  --control-text: #694e1c;
+
+  --input-bg: #ffffff;
+  --input-border: rgba(185, 145, 75, 0.35);
+  --input-border-focus: rgba(185, 145, 75, 0.85);
+  --input-text: #1a1510;
+  --input-placeholder: rgba(140, 106, 40, 0.55);
+
+  --switch-track: rgba(0, 0, 0, 0.15);
+  --switch-track-active: linear-gradient(135deg, #c4923e 0%, #9c6d23 100%);
+  --switch-thumb: #ffffff;
+  --switch-thumb-active: #ffffff;
+
+  --overlay-bg: rgba(240, 235, 225, 0.84);
+  --modal-box-shadow: 0 24px 60px rgba(80, 55, 20, 0.15), 0 0 25px rgba(185, 145, 75, 0.1), inset 0 1px 1px #ffffff;
+
   --oled-black: #fdfbf7;
   --obsidian: #f4f0e6;
   --obsidian-2: #ece6d8;
@@ -629,12 +765,6 @@ body.light-mode .menu-subtitle,
 body.light-mode .pnm-sub span {
   color: #666 !important;
 }
-body.light-mode .empty-vault-card {
-  background: #ffffff !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-}
-
 body.light-mode .luxury-modal-header h2,
 body.light-mode .luxury-modal-header h3 {
   color: var(--gold-polished) !important;
@@ -675,24 +805,29 @@ body.light-mode .club-room {
   border: 1px solid rgba(156, 109, 35, 0.2);
 }
 
+/* Centralized Smooth Theme Transition Morph */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition-delay: 0s !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 body,
-.app,
-.app-header,
-.bottom-nav,
-.boutique-card,
-.membership-card .card-inner-frame,
-.portrait-photo,
-.luxury-modal-box,
-.club-room,
-.section-name,
-.member-name,
-.metric-val {
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    background 0.3s ease,
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+.app {
+  background-color: var(--app-bg);
+  color: var(--text-primary);
 }
 
 svg *[stroke="currentColor"] {
@@ -706,6 +841,7 @@ svg *[fill="currentColor"] {
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* === Custom Scrollbars === */
@@ -738,8 +874,8 @@ body.light-mode ::-webkit-scrollbar-thumb:hover {
 html,
 /* === 2. Base & Layout === */
 body {
-  background: var(--oled-black);
-  color: #ede7d8;
+  background: var(--app-bg);
+  color: var(--text-primary);
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   height: 100%;
@@ -765,24 +901,7 @@ input {
   position: relative;
   direction: ltr;
   text-align: start;
-  background:
-    radial-gradient(
-      ellipse 130% 65% at 50% 45%,
-      rgba(201, 168, 106, 0.035) 0%,
-      transparent 70%
-    ),
-    linear-gradient(
-      180deg,
-      #050505 0%,
-      #050505 10%,
-      #08080b 22%,
-      #0c0c0f 38%,
-      #0d0d11 50%,
-      #0c0c0f 65%,
-      #08080b 80%,
-      #050505 92%,
-      #050505 100%
-    );
+  background: var(--app-bg-gradient);
   overflow: hidden;
 }
 
@@ -791,13 +910,7 @@ input {
   position: relative;
   flex-shrink: 0;
   z-index: 90;
-  background: linear-gradient(
-    180deg,
-    rgba(5, 5, 5, 0.98) 0%,
-    rgba(5, 5, 5, 0.96) 60%,
-    rgba(6, 6, 9, 0.85) 82%,
-    rgba(8, 8, 11, 0.45) 100%
-  );
+  background: var(--surface-header);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 5px;
@@ -805,15 +918,13 @@ input {
   align-items: center;
   justify-content: space-between;
   border-bottom: none;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              margin-top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.25s ease,
-              padding 0.3s ease;
-  will-change: transform, margin-top, opacity;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              margin-top 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
 }
 .app-header.header-hidden {
-  transform: translateY(-100%) !important;
+  transform: translate3d(0, -100%, 0) !important;
   margin-top: calc(-1 * var(--header-actual-height, 82px)) !important;
   opacity: 0 !important;
   pointer-events: none !important;
@@ -879,6 +990,14 @@ body.light-mode .brand-crown {
   justify-content: center;
   color: var(--gold-champagne);
   --icon-color: var(--icon-champagne);
+  touch-action: manipulation;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.14s ease;
+  will-change: transform;
+}
+.icon-btn:active {
+  transform: scale(0.9) translate3d(0, 0, 0);
+  transition: transform 0.08s ease;
 }
 .icon-btn::after {
   content: "";
@@ -1033,10 +1152,11 @@ body.light-mode .shield-btn::before {
   display: grid;
   overflow: hidden;
   position: relative;
+  contain: layout;
 }
 .page {
   grid-area: 1 / 1;
-  display: flex;
+  display: none !important;
   flex-direction: column;
   gap: 10px;
   height: 100%;
@@ -1044,26 +1164,32 @@ body.light-mode .shield-btn::before {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(12px) scale(0.99);
-  transition: opacity 0.15s ease,
-              transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-              visibility 0.4s;
+  overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
   z-index: 1;
 }
 
 .page.is-active {
+  display: flex !important;
   opacity: 1;
-  visibility: visible;
   pointer-events: auto;
-  transform: translateY(0) scale(1);
   z-index: 2;
-  transition: opacity 0.35s ease 0.1s,
-              transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s,
-              visibility 0s;
+  animation: pageStabilizeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.page[hidden] {
+  display: none !important;
+}
+
+@keyframes pageStabilizeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 4px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 #page-card.is-active {
@@ -1771,19 +1897,21 @@ body.light-mode .milestone-badge.tier-exarch .crystal-core {
 
 .metric-tooltip {
   position: absolute;
-  bottom: calc(100% + 10px);
-  width: 224px;
-  max-width: min(235px, 68vw);
-  z-index: 300 !important;
+  bottom: calc(100% + 12px);
+  width: 220px;
+  max-width: min(226px, calc(100vw - 44px));
+  z-index: 500 !important;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px) translateZ(50px) scale(0.96);
+  transform: translateY(6px) translateZ(16px) scale(0.96);
+  transform-style: preserve-3d;
   transition:
-    opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0.24s;
+    opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.22s;
   box-sizing: border-box;
+  backface-visibility: hidden;
 }
 
 /* Invisible bridge so moving cursor across the gap keeps :hover active */
@@ -1813,32 +1941,31 @@ body.light-mode .milestone-badge.tier-exarch .crystal-core {
 }
 
 /* Robust Tooltip Alignment for Master Card:
-   The Master Card uses a fixed horizontal chronograph layout:
    - Wealth Index (#wealthRingWrap) is on the LEFT column.
-     Its tooltip MUST expand towards the RIGHT/CENTER into the card body.
+     Its tooltip is offset 6px inwards so it never clips on the left during tilt.
    - Privileges (#privRingWrap) is on the RIGHT column.
-     Its tooltip MUST expand towards the LEFT/CENTER into the card body.
-   Both remain inside the card borders without clipping regardless of text direction. */
+     Its tooltip is offset 6px inwards so it never clips on the right during tilt.
+   Both remain inside the card borders without clipping across all screen sizes. */
 
 #wealthRingWrap .metric-tooltip,
 .metric-tooltip-left {
-  left: 0 !important;
+  left: 6px !important;
   right: auto !important;
 }
 #wealthRingWrap .metric-tooltip::after,
 .metric-tooltip-left::after {
-  left: 32px !important;
+  left: 26px !important;
   right: auto !important;
 }
 
 #privRingWrap .metric-tooltip,
 .metric-tooltip-right {
-  right: 0 !important;
+  right: 6px !important;
   left: auto !important;
 }
 #privRingWrap .metric-tooltip::after,
 .metric-tooltip-right::after {
-  right: 32px !important;
+  right: 26px !important;
   left: auto !important;
 }
 
@@ -1855,7 +1982,8 @@ html[dir="ltr"] .metric-tooltip {
 
 /* Prevent clipping by allowing card-inner-frame overflow when tooltip is open */
 #membershipCard.has-open-tooltip .card-inner-frame,
-#membershipCard:has(.is-tooltip-open) .card-inner-frame {
+#membershipCard:has(.is-tooltip-open) .card-inner-frame,
+.membership-card:has(.is-tooltip-open) .card-inner-frame {
   overflow: visible !important;
 }
 
@@ -1864,7 +1992,7 @@ html[dir="ltr"] .metric-tooltip {
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: auto !important;
-  transform: translateY(0) translateZ(50px) scale(1) !important;
+  transform: translateY(0) translateZ(16px) scale(1) !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1873,7 +2001,7 @@ html[dir="ltr"] .metric-tooltip {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    transform: translateY(0) translateZ(50px) scale(1) !important;
+    transform: translateY(0) translateZ(16px) scale(1) !important;
   }
 }
 
@@ -1962,21 +2090,62 @@ html[dir="ltr"] .metric-tooltip {
   box-shadow: inset 0 1px 0 rgba(255, 248, 231, 0.15);
 }
 
-/* Light Mode Overrides */
+/* Light Mode Sovereign Ivory & Gold Artifact Tooltip */
 body.light-mode .metric-tooltip-bezel {
-  background: radial-gradient(
-    ellipse at 50% -20%,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(24, 20, 16, 0.98) 60%,
-    rgba(14, 12, 10, 0.99) 100%
-  );
+  background: linear-gradient(
+    168deg,
+    #ffffff 0%,
+    #fdfbf7 40%,
+    #f4ecdf 100%
+  ) !important;
+  border: 1px solid rgba(184, 139, 45, 0.55) !important;
   box-shadow:
-    0 16px 36px -4px rgba(0, 0, 0, 0.5),
-    0 4px 12px rgba(0, 0, 0, 0.25),
-    inset 0 1px 1px rgba(255, 248, 231, 0.4);
+    0 14px 34px -4px rgba(50, 35, 15, 0.18),
+    0 4px 14px rgba(50, 35, 15, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px rgba(184, 139, 45, 0.12) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
+
 body.light-mode .metric-tooltip::after {
-  background: #181410;
+  background: #fdfbf7 !important;
+  border-right: 1px solid rgba(184, 139, 45, 0.55) !important;
+  border-bottom: 1px solid rgba(184, 139, 45, 0.55) !important;
+  box-shadow: 2px 2px 4px rgba(50, 35, 15, 0.1) !important;
+}
+
+body.light-mode .metric-tooltip-title {
+  background: linear-gradient(
+    180deg,
+    #2a1f08 0%,
+    #594215 45%,
+    #7a5a1c 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #594215 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .metric-tooltip-body {
+  color: #3b3223 !important;
+  text-shadow: none !important;
+  font-weight: 500 !important;
+}
+
+body.light-mode .metric-tooltip-formula .formula-tag {
+  color: #664b15 !important;
+  background: rgba(184, 139, 45, 0.12) !important;
+  border: 1px solid rgba(184, 139, 45, 0.38) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .metric-tooltip-icon path,
+body.light-mode .metric-tooltip-icon circle {
+  stroke: #7a5a1c !important;
 }
 
 .membership-card .living-core {
@@ -2098,9 +2267,8 @@ body.light-mode .metric-tooltip::after {
 }
 .btn-outline:active {
   background: rgba(199, 154, 62, 0.1);
-  transform: scale(0.98);
-  transition: transform 0.1s ease;
-  transform: translateZ(0);
+  transform: scale(0.96) translate3d(0, 0, 0);
+  transition: transform 0.08s ease;
 }
 .btn-gold {
   border: 1px solid rgba(212, 175, 106, 0.6);
@@ -2114,9 +2282,8 @@ body.light-mode .metric-tooltip::after {
 }
 .btn-gold:active {
   background: rgba(199, 154, 62, 0.25);
-  transform: scale(0.98);
-  transition: transform 0.1s ease;
-  transform: translateZ(0);
+  transform: scale(0.96) translate3d(0, 0, 0);
+  transition: transform 0.08s ease;
 }
 .copy-toast {
   text-align: center;
@@ -2164,26 +2331,35 @@ body.light-mode .metric-tooltip::after {
   gap: 5px;
   padding: 4px 0;
   color: #6e695d;
-  transition: color 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transform: translateZ(0);
+  transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 0, 0);
+  touch-action: manipulation;
+  will-change: transform, color;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.nav-item:active {
+  transform: scale(0.92) translate3d(0, 0, 0);
+  transition: transform 0.08s ease;
 }
 .nav-item svg {
   width: 20px;
   height: 20px;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
-  transform: translateZ(0);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.22s ease;
+  transform: translate3d(0, 0, 0);
 }
 .nav-item span {
   font-size: 8.5px;
   letter-spacing: 0.08em;
+  transition: color 0.18s ease;
 }
 .nav-item.is-active {
   color: var(--gold-champagne);
   --icon-color: var(--icon-champagne);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translate3d(0, 0, 0);
 }
 .nav-item.is-active svg {
-  transform: scale(1.1);
+  transform: scale(1.08) translate3d(0, 0, 0);
   filter: drop-shadow(0 4px 6px rgba(212, 175, 106, 0.25));
 }
 .nav-toast {
@@ -7379,18 +7555,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   justify-content: center;
 }
 
-/* Fluted Outer Gold Ring */
-.phc-fluted-rim {
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  border: 1px solid rgba(212, 175, 106, 0.45);
-  box-shadow:
-    0 0 0 1px rgba(10, 9, 7, 0.9),
-    0 4px 12px rgba(0, 0, 0, 0.8),
-    inset 0 1px 1px rgba(255, 245, 215, 0.4);
-  pointer-events: none;
-}
+/* Obsolete rim removed */
 
 /* Double-stepped Polished Bezel */
 .phc-avatar-ring {
@@ -8393,71 +8558,63 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 
 
 .luxury-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  backdrop-filter: blur(0px);
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease, backdrop-filter 0.4s ease, background 0.4s ease !important;
-  transform: translateZ(0);
-  will-change: opacity, filter;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(6, 5, 4, 0.82) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s !important;
+  transform: translate3d(0, 0, 0) !important;
+  will-change: opacity;
 }
 .luxury-modal-overlay.is-open {
-  opacity: 1;
-  pointer-events: auto;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 .luxury-modal-box {
-  width: 320px;
-  background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  border-radius: 16px;
-  
-  opacity: 0;
-  transform: scale(0.95) translateZ(0);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 rgba(212, 175, 55, 0);
-  
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, box-shadow 0.3s ease !important;
+  width: 92% !important;
+  max-width: 410px !important;
+  background: var(--surface-modal) !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: 16px !important;
+  color: var(--text-primary) !important;
+  opacity: 0 !important;
+  transform: scale(0.96) translate3d(0, 8px, 0) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 235, 180, 0.15) !important;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
   will-change: transform, opacity;
   backface-visibility: hidden;
-}
-
-@keyframes luxuryBloomOpen {
-  0% {
-    opacity: 0;
-    transform: scale(0.95) translateZ(0);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 rgba(212, 175, 55, 0);
-  }
-  35% {
-    opacity: 1;
-    transform: scale(0.985) translateZ(0);
-    /* Subtle atmospheric golden blur only during entry */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 40px rgba(212, 175, 55, 0.15);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateZ(0);
-    /* Settled state without glow */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(212, 175, 55, 0.05);
-  }
+  box-sizing: border-box !important;
+  overflow: hidden !important;
 }
 
 .luxury-modal-overlay.is-open .luxury-modal-box {
-  opacity: 1;
-  transform: scale(1) translateZ(0);
-  animation: luxuryBloomOpen 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  opacity: 1 !important;
+  transform: scale(1) translate3d(0, 0, 0) !important;
+  animation: none !important;
+}
+
+body.light-mode .luxury-modal-overlay {
+  background: rgba(30, 24, 16, 0.52) !important;
+}
+body.light-mode .luxury-modal-overlay.is-open .luxury-modal-box {
+  opacity: 1 !important;
+  transform: scale(1) translate3d(0, 0, 0) !important;
+  animation: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .luxury-modal-overlay.is-open .luxury-modal-box {
     animation: none;
-    transition: opacity 0.3s ease !important;
+    transition: opacity 0.25s ease !important;
     transform: scale(1) translateZ(0);
   }
 }
@@ -8465,36 +8622,40 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-subtle);
 }
+.luxury-modal-header h2,
 .luxury-modal-header h3 {
   margin: 0;
-  color: #d4af37;
+  color: var(--text-primary);
   font-family: var(--font-display);
   font-size: 16px;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
 }
 .luxury-close-btn {
-  background: none;
-  border: none;
-  color: rgba(212, 175, 55, 0.6);
+  background: var(--control-bg);
+  border: 1px solid var(--control-border);
+  color: var(--control-text);
   cursor: pointer;
   padding: 0;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s;
+  transition: all 0.2s ease;
   transform: translateZ(0);
 }
 .luxury-close-btn:hover {
-  color: #d4af37;
+  background: var(--control-bg-hover);
+  border-color: var(--border-gold);
+  color: var(--text-primary);
 }
 .luxury-close-btn svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 .luxury-modal-body {
   padding: 20px;
@@ -8506,8 +8667,8 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(212, 175, 55, 0.1);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
   padding: 12px 16px;
   border-radius: 10px;
 }
@@ -8517,15 +8678,14 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   gap: 4px;
 }
 .setting-title {
-  color: #fff8dc;
+  color: var(--text-primary);
   font-size: 13px;
   letter-spacing: 0.5px;
+  font-weight: 500;
 }
 .setting-desc {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-size: 11px;
 }
 .luxury-switch {
   position: relative;
@@ -8545,10 +8705,10 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.1);
-  transition: 0.4s;
+  background-color: var(--switch-track);
+  transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-subtle);
 }
 .luxury-switch .slider:before {
   position: absolute;
@@ -8557,18 +8717,19 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   width: 18px;
   left: 2px;
   bottom: 2px;
-  background-color: #aaa;
-  transition: 0.4s;
+  background-color: var(--switch-thumb);
+  transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 .luxury-switch input:checked + .slider {
-  background-color: rgba(212, 175, 55, 0.2);
-  border-color: rgba(212, 175, 55, 0.5);
+  background: var(--switch-track-active);
+  border-color: var(--border-gold);
 }
 .luxury-switch input:checked + .slider:before {
   transform: translateX(20px);
-  background-color: #d4af37;
-  box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+  background-color: var(--switch-thumb-active);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
 }
 
 .modal-section-title {
@@ -8613,19 +8774,43 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   letter-spacing: 2px;
 }
 .edit-profile-input {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: var(--input-bg) !important;
+  border: 1px solid var(--input-border) !important;
   border-radius: 8px;
   padding: 12px 14px;
-  color: #fff8dc;
+  color: var(--input-text) !important;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: border-color 0.25s, box-shadow 0.25s;
   font-family: inherit;
 }
 .edit-profile-input:focus {
-  border-color: #d4af37;
+  border-color: var(--input-border-focus) !important;
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+/* Centralized Global Form & Input System */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+textarea {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+  border-color: var(--input-border-focus);
+  outline: none;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder);
 }
 .edit-profile-photo-grid {
   display: grid;
@@ -9956,47 +10141,6 @@ body.light-mode .sl-self-cta {
   color: #d4af37;
   font-size: 10px;
   font-family: var(--font-display);
-}
-
-.empty-vault-card {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 24px 16px !important;
-  border: 1.5px dashed rgba(212, 175, 55, 0.4) !important;
-  border-radius: 16px !important;
-  background: rgba(20, 20, 20, 0.5) !important;
-  text-align: center !important;
-  cursor: pointer !important;
-  margin: 12px 0 !important;
-  width: 100%;
-}
-
-.vault-empty-icon {
-  width: 42px !important;
-  height: 42px !important;
-  border-radius: 50% !important;
-  border: 1px solid var(--gold-metallic, #d4af37) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  color: var(--gold-metallic, #d4af37) !important;
-  font-size: 20px !important;
-  margin-bottom: 12px !important;
-}
-
-.vault-empty-text {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 13px;
-  line-height: 1.4;
-  margin-bottom: 12px;
-}
-
-.vault-empty-btn {
-  color: #d4af37;
-  font-size: 12px;
-  font-weight: 500;
 }
 
 #profileCollectionGrid {
@@ -15269,8 +15413,14 @@ body.light-mode #membershipCard .gold-dust-canvas {
   width: 100% !important;
   height: 100% !important;
   padding-bottom: 16px !important;
-  overflow: hidden !important;
+  overflow: visible !important;
   border-radius: 16px !important;
+}
+
+#membershipCard.has-open-tooltip .card-inner-frame,
+#membershipCard:has(.is-tooltip-open) .card-inner-frame,
+.membership-card:has(.is-tooltip-open) .card-inner-frame {
+  overflow: visible !important;
 }
 
 #membershipCard .card-inner-frame > *:not(canvas):not(.card-sheen) {
@@ -16015,26 +16165,9 @@ body.light-mode .skeleton-shimmer-el::after {
   }
 }
 
-@keyframes luxuryBloomOpenLight {
-  0% {
-    opacity: 0;
-    transform: scale(0.95) translateZ(0);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), 0 0 0 rgba(156, 109, 35, 0);
-  }
-  35% {
-    opacity: 1;
-    transform: scale(0.985) translateZ(0);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 0 30px rgba(156, 109, 35, 0.15);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateZ(0);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(156, 109, 35, 0.05);
-  }
-}
-
+/* Light mode modal bloom uses instant GPU-composited transform */
 body.light-mode .luxury-modal-overlay.is-open .luxury-modal-box {
-  animation: luxuryBloomOpenLight 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: none !important;
 }
 
 
@@ -18309,23 +18442,17 @@ body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
 [dir="rtl"] #profile-tab .phc-edit-btn {
   position: absolute !important;
   top: 16px !important;
-  right: auto !important;
-  left: 16px !important;
-  width: 30px !important;
-  height: 30px !important;
+  right: 16px !important;
+  left: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: 16px !important;
+  width: 34px !important;
+  height: 34px !important;
   border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: linear-gradient(145deg, #1f1f26 0%, #101014 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.38) !important;
-  box-shadow:
-    0 4px 10px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 245, 215, 0.22) !important;
-  color: var(--gold-champagne, #f0d59d) !important;
-  cursor: pointer !important;
   z-index: 10 !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   padding: 0 !important;
 }
 
@@ -19610,100 +19737,6 @@ body[dir="rtl"] #profile-tab .pcs-equipped-hallmark {
   left: 6px !important;
 }
 
-/* Empty Vault Collector's Alcove */
-body #profile-tab .empty-vault-card {
-  max-width: 380px !important;
-  width: 100% !important;
-  margin: 8px auto !important;
-  border-radius: 14px !important;
-  padding: 26px 18px !important;
-  box-sizing: border-box !important;
-  text-align: center !important;
-  cursor: pointer !important;
-  background: radial-gradient(circle at 50% 25%, rgba(212, 175, 106, 0.05) 0%, rgba(15, 15, 18, 0.95) 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.28) !important;
-  box-shadow:
-    0 14px 32px -8px rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 245, 215, 0.1) !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-body #profile-tab .empty-vault-card:hover {
-  border-color: rgba(212, 175, 106, 0.55) !important;
-  box-shadow:
-    0 18px 40px -8px rgba(0, 0, 0, 0.9),
-    inset 0 1px 0 rgba(255, 245, 215, 0.2) !important;
-}
-
-body #profile-tab .vault-empty-pedestal {
-  width: 48px !important;
-  height: 48px !important;
-  border-radius: 50% !important;
-  margin: 0 auto 10px auto !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: rgba(212, 175, 106, 0.08) !important;
-  border: 1px solid rgba(212, 175, 106, 0.25) !important;
-  color: var(--gold-champagne, #f0d59d) !important;
-}
-
-body #profile-tab .vault-empty-icon {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: auto !important;
-  height: auto !important;
-  border: none !important;
-  border-radius: 0 !important;
-  margin: 0 !important;
-  font-size: inherit !important;
-  color: inherit !important;
-}
-
-body #profile-tab .vault-empty-title {
-  font-family: var(--font-display, "Cinzel", serif) !important;
-  font-size: 13.5px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.1em !important;
-  margin-bottom: 6px !important;
-  color: var(--gold-champagne, #f0d59d) !important;
-}
-
-body #profile-tab .vault-empty-text {
-  font-size: 11.5px !important;
-  line-height: 1.5 !important;
-  margin-bottom: 14px !important;
-  max-width: 280px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  color: #a69882 !important;
-}
-
-body #profile-tab .vault-empty-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 7px 18px !important;
-  border-radius: 20px !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.06em !important;
-  text-transform: uppercase !important;
-  background: linear-gradient(180deg, rgba(212, 175, 106, 0.22) 0%, rgba(150, 115, 55, 0.25) 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.45) !important;
-  color: #fff5da !important;
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 245, 215, 0.25) !important;
-  transition: all 0.2s ease !important;
-}
-
-body #profile-tab .empty-vault-card:hover .vault-empty-btn {
-  background: linear-gradient(180deg, rgba(212, 175, 106, 0.35) 0%, rgba(150, 115, 55, 0.4) 100%) !important;
-  border-color: rgba(212, 175, 106, 0.7) !important;
-}
-
 /* Light Mode Support for Collection Showcase */
 body.light-mode #profile-tab #profileCollectionSection .pcs-head h3 {
   color: #8c6826 !important;
@@ -19761,37 +19794,6 @@ body.light-mode #profile-tab .pcs-equipped-hallmark {
   color: #5c4314 !important;
   background: rgba(185, 145, 75, 0.16) !important;
   border: 1px solid rgba(185, 145, 75, 0.4) !important;
-}
-
-body.light-mode #profile-tab .empty-vault-card {
-  background: radial-gradient(circle at 50% 25%, #ffffff 0%, #f6f1e5 100%) !important;
-  border: 1px solid rgba(185, 145, 75, 0.35) !important;
-  box-shadow:
-    0 10px 24px rgba(60, 45, 15, 0.08),
-    inset 0 1px 0 #ffffff !important;
-}
-
-body.light-mode #profile-tab .vault-empty-pedestal {
-  background: rgba(185, 145, 75, 0.1) !important;
-  border: 1px solid rgba(185, 145, 75, 0.3) !important;
-  color: #8c6724 !important;
-}
-
-body.light-mode #profile-tab .vault-empty-title {
-  color: #241b10 !important;
-}
-
-body.light-mode #profile-tab .vault-empty-text {
-  color: #5c4e3b !important;
-}
-
-body.light-mode #profile-tab .vault-empty-btn {
-  background: linear-gradient(180deg, #ffffff 0%, #ede4d2 100%) !important;
-  border: 1px solid rgba(185, 145, 75, 0.45) !important;
-  color: #5a4216 !important;
-  box-shadow:
-    0 4px 10px rgba(60, 45, 15, 0.1),
-    inset 0 1px 0 #ffffff !important;
 }
 
 /* ========================================================================= */
@@ -20635,11 +20637,19 @@ body.light-mode #profile-tab .pcs-item-price {
 
 #accountInfoModal.luxury-modal-overlay,
 #settingsModal.luxury-modal-overlay,
-#helpSupportModal.luxury-modal-overlay {
-  background: rgba(0, 0, 0, 0.78) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  z-index: 9999 !important;
+#helpSupportModal.luxury-modal-overlay,
+#logoutConfirmModal.luxury-modal-overlay {
+  background: rgba(6, 5, 4, 0.84) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 99999 !important;
+}
+
+body.light-mode #accountInfoModal.luxury-modal-overlay,
+body.light-mode #settingsModal.luxury-modal-overlay,
+body.light-mode #helpSupportModal.luxury-modal-overlay,
+body.light-mode #logoutConfirmModal.luxury-modal-overlay {
+  background: rgba(30, 24, 16, 0.52) !important;
 }
 
 #accountInfoModal .luxury-modal-box,
@@ -21151,7 +21161,7 @@ body.light-mode #settingsModal .setting-desc {
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 24px !important;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7) !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.24s ease !important;
 }
 
 #settingsModal .luxury-switch .slider:before {
@@ -21165,7 +21175,9 @@ body.light-mode #settingsModal .setting-desc {
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 50% !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6) !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transform: translate3d(0, 0, 0) !important;
+  will-change: transform;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), background 0.24s ease !important;
 }
 
 #settingsModal .luxury-switch input:checked + .slider {
@@ -21175,7 +21187,7 @@ body.light-mode #settingsModal .setting-desc {
 }
 
 #settingsModal .luxury-switch input:checked + .slider:before {
-  transform: translateX(20px) !important;
+  transform: translate3d(20px, 0, 0) !important;
   background: linear-gradient(145deg, #f5e6b8 0%, #d4af6a 60%, #9e7a32 100%) !important;
   border-color: rgba(255, 240, 200, 0.5) !important;
   box-shadow:
@@ -21489,15 +21501,17 @@ body #profile-tab .profile-hero-card {
 body #profile-tab .profile-hero-card .phc-inner {
   display: flex !important;
   align-items: center !important;
-  gap: 12px !important;
+  gap: 16px !important;
   width: 100% !important;
   min-width: 0 !important;
   box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 3 !important;
 }
 
 body #profile-tab .profile-hero-card .phc-avatar-ring {
-  width: 94px !important;
-  height: 94px !important;
+  width: 112px !important;
+  height: 112px !important;
   flex-shrink: 0 !important;
 }
 
@@ -21506,43 +21520,41 @@ body #profile-tab .profile-hero-card .phc-avatar-photo {
   height: 100% !important;
 }
 
+body #profile-tab .profile-hero-card .corner-tr {
+  display: none !important;
+}
+
 body #profile-tab .profile-hero-card .phc-info-col {
   flex: 1 1 auto !important;
   min-width: 0 !important;
-  overflow: hidden !important;
+  overflow: visible !important;
   box-sizing: border-box !important;
+  padding: 0 !important;
 }
 
 body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-info-col,
 html[dir="ltr"] body #profile-tab .profile-hero-card .phc-info-col,
-[dir="ltr"] #profile-tab .profile-hero-card .phc-info-col {
-  padding-right: 32px !important;
-  padding-left: 0 !important;
-}
-
+[dir="ltr"] #profile-tab .profile-hero-card .phc-info-col,
 body[dir="rtl"] #profile-tab .profile-hero-card .phc-info-col,
 html[dir="rtl"] body #profile-tab .profile-hero-card .phc-info-col,
 [dir="rtl"] #profile-tab .profile-hero-card .phc-info-col {
-  padding-left: 32px !important;
-  padding-right: 0 !important;
+  padding: 0 !important;
+}
+
+body #profile-tab .profile-hero-card .phc-tier-row {
+  padding-right: 38px !important;
+  padding-left: 0 !important;
+  box-sizing: border-box !important;
 }
 
 body #profile-tab .profile-hero-card .phc-name {
-  font-size: 16px !important;
   line-height: 1.25 !important;
   word-break: break-word !important;
   overflow-wrap: break-word !important;
   max-width: 100% !important;
 }
 
-body #profile-tab .profile-hero-card .phc-tier {
-  font-size: 8.5px !important;
-  letter-spacing: 0.14em !important;
-  word-break: break-word !important;
-}
-
 body #profile-tab .profile-hero-card .phc-quote {
-  font-size: 10.5px !important;
   line-height: 1.38 !important;
   margin: 2px 0 !important;
   word-break: break-word !important;
@@ -21550,31 +21562,19 @@ body #profile-tab .profile-hero-card .phc-quote {
   max-width: 100% !important;
 }
 
-body #profile-tab .profile-hero-card .phc-meta {
-  font-size: 8px !important;
-  gap: 4px !important;
-  flex-wrap: wrap !important;
-  max-width: 100% !important;
-}
-
-body #profile-tab .profile-hero-card .phc-edit-btn {
-  width: 28px !important;
-  height: 28px !important;
-  top: 14px !important;
-}
-
+body #profile-tab .profile-hero-card .phc-edit-btn,
 body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-edit-btn,
 html[dir="ltr"] body #profile-tab .profile-hero-card .phc-edit-btn,
-[dir="ltr"] #profile-tab .profile-hero-card .phc-edit-btn {
-  right: 14px !important;
-  left: auto !important;
-}
-
+[dir="ltr"] #profile-tab .profile-hero-card .phc-edit-btn,
 body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
 html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
 [dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
-  left: 14px !important;
-  right: auto !important;
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: 14px !important;
 }
 
 /* 2. Stats Bar Spacing & Horological Complications */
@@ -22347,37 +22347,34 @@ body #profile-tab .ossb-text {
     width: 100% !important;
     height: 100% !important;
   }
-  body #profile-tab .profile-hero-card .phc-info-col {
-    padding-inline-end: 28px !important;
-  }
+  body #profile-tab .profile-hero-card .phc-info-col,
   body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-info-col,
   html[dir="ltr"] body #profile-tab .profile-hero-card .phc-info-col,
-  [dir="ltr"] #profile-tab .profile-hero-card .phc-info-col {
-    padding-right: 28px !important;
-    padding-left: 0 !important;
-  }
+  [dir="ltr"] #profile-tab .profile-hero-card .phc-info-col,
   body[dir="rtl"] #profile-tab .profile-hero-card .phc-info-col,
   html[dir="rtl"] body #profile-tab .profile-hero-card .phc-info-col,
   [dir="rtl"] #profile-tab .profile-hero-card .phc-info-col {
-    padding-left: 28px !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
   }
-  body #profile-tab .profile-hero-card .phc-edit-btn {
-    width: 26px !important;
-    height: 26px !important;
-    top: 12px !important;
+  body #profile-tab .profile-hero-card .phc-tier-row {
+    padding-right: 32px !important;
+    padding-left: 0 !important;
+    box-sizing: border-box !important;
   }
+  body #profile-tab .profile-hero-card .phc-edit-btn,
   body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-edit-btn,
   html[dir="ltr"] body #profile-tab .profile-hero-card .phc-edit-btn,
-  [dir="ltr"] #profile-tab .profile-hero-card .phc-edit-btn {
-    right: 10px !important;
-    left: auto !important;
-  }
+  [dir="ltr"] #profile-tab .profile-hero-card .phc-edit-btn,
   body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
   html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
   [dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
-    left: 10px !important;
-    right: auto !important;
+    width: 28px !important;
+    height: 28px !important;
+    top: 12px !important;
+    right: 12px !important;
+    left: auto !important;
+    inset-inline-start: auto !important;
+    inset-inline-end: 12px !important;
   }
   body #profile-tab .profile-hero-card .phc-name {
     font-size: 14.5px !important;
@@ -22654,20 +22651,48 @@ body #profile-tab .ossb-text {
       inset 0 1px 0 rgba(255, 245, 215, 0.22);
   }
 
-  /* Scoped Profile Tab: Hero Card Tactile Tilt */
+  /* Scoped Profile Tab: Hero Card Tactile Tilt & Smooth Scale-Up Transform */
+  #profileHeroPlaque,
   body #profile-tab .profile-hero-card.luxury-tilt-card {
+    --tilt-rx: 0deg;
+    --tilt-ry: 0deg;
+    --tilt-tz: 0px;
+    --tilt-ty: 0px;
+    --tilt-scale: 1;
     perspective: 1200px !important;
     transform-style: preserve-3d !important;
+    transform: perspective(1200px) translateY(var(--tilt-ty, 0px)) translateZ(var(--tilt-tz, 0px)) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) scale3d(var(--tilt-scale, 1), var(--tilt-scale, 1), var(--tilt-scale, 1));
+    will-change: transform, box-shadow;
+    cursor: pointer;
+    transition:
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
+  #profileHeroPlaque:hover,
   body #profile-tab .profile-hero-card.luxury-tilt-card:hover {
-    border-color: rgba(212, 175, 106, 0.58) !important;
+    --tilt-ty: -3px;
+    --tilt-tz: 12px;
+    --tilt-scale: 1.015;
+    border-color: rgba(212, 175, 106, 0.62) !important;
     box-shadow:
-      0 28px 58px -12px rgba(0, 0, 0, 0.96),
-      0 0 24px rgba(212, 175, 106, 0.14),
-      inset 0 1px 0 rgba(255, 245, 215, 0.25) !important;
+      0 30px 62px -12px rgba(0, 0, 0, 0.96),
+      0 0 26px rgba(212, 175, 106, 0.16),
+      inset 0 1px 0 rgba(255, 245, 215, 0.28) !important;
   }
 
+  #profileHeroPlaque:active,
+  body #profile-tab .profile-hero-card.luxury-tilt-card:active {
+    --tilt-ty: 0px;
+    --tilt-tz: 4px;
+    --tilt-scale: 0.995;
+    transition:
+      transform 0.15s ease-out,
+      box-shadow 0.15s ease-out !important;
+  }
+
+  #profileHeroPlaque.is-hovered,
   body #profile-tab .profile-hero-card.luxury-tilt-card.is-hovered {
     transition:
       transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -24731,248 +24756,467 @@ body.light-mode .deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip {
    MAJESTIC SOVEREIGN PROFILE HERO PLAQUE (EXPANSIVE & MONOLITHIC)
    ========================================================= */
 
-/* 1. Eliminate Any Nested Inner Frames (Anti-Slop Single-Surface Rule) */
+/* 1. Eliminate Any Nested Inner Frames & Obsolete Elements (Anti-Slop Single-Surface Rule) */
 .profile-hero-card::before,
 body #profile-tab .profile-hero-card::before,
 body.light-mode #profile-tab .profile-hero-card::before,
 .phc-inlay-border,
-.phc-diamond-chamfer,
 .phc-fluted-rim,
+.phc-diamond-chamfer,
 .phc-rehaut-ring,
-.phc-screw-counterbore {
+.phc-screw-counterbore,
+.phc-corner-rivet {
   display: none !important;
   content: none !important;
   border: none !important;
 }
 
-/* 2. Grand, Authoritative Chassis Architecture */
+/* 2. Supreme Sovereign Chassis Architecture (Authentic Master Card Lineage) */
 body #profile-tab .profile-hero-card {
   position: relative !important;
   width: 100% !important;
-  min-height: 172px !important;
-  padding: 24px 22px !important;
+  box-sizing: border-box !important;
+  padding: 18px 20px 20px 20px !important;
   border-radius: 20px !important;
-  border: 1.5px solid rgba(212, 175, 106, 0.45) !important;
-  background:
-    radial-gradient(ellipse at 88% 18%, rgba(212, 175, 106, 0.12) 0%, rgba(24, 20, 14, 0.75) 50%, #0d0c0a 100%),
-    linear-gradient(170deg, #161410 0%, #0c0b09 60%, #060605 100%) !important;
-  box-shadow:
-    0 0 0 1px rgba(18, 14, 9, 0.95),
-    0 24px 56px -12px rgba(0, 0, 0, 0.96),
-    inset 0 1px 1.5px rgba(255, 245, 215, 0.28),
-    inset 0 0 24px rgba(0, 0, 0, 0.7) !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  gap: 22px !important;
-  margin-bottom: 22px !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-  transition:
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-@media (max-width: 480px) {
-  body #profile-tab .profile-hero-card {
-    padding: 20px 18px !important;
-    gap: 16px !important;
-    min-height: 164px !important;
-  }
-}
-
-/* 3. Subtle Guilloché Watermark (Seamless On Surface) */
-body #profile-tab .phc-guilloche-pattern {
-  position: absolute !important;
-  inset: 0 !important;
-  border: none !important;
-  opacity: 0.25 !important;
-  background-image:
-    radial-gradient(circle at 85% 25%, rgba(212, 175, 106, 0.08) 0px, transparent 1px),
-    radial-gradient(circle at 85% 25%, transparent 0, transparent 10px, rgba(212, 175, 106, 0.04) 11px, transparent 12px),
-    radial-gradient(circle at 85% 25%, transparent 0, transparent 20px, rgba(212, 175, 106, 0.03) 21px, transparent 22px) !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
-}
-
-/* 4. Precision Horological Corner Rivets (Flush On Perimeter) */
-body #profile-tab .phc-corner-rivet.phc-screw {
-  position: absolute !important;
-  width: 7px !important;
-  height: 7px !important;
-  border-radius: 50% !important;
-  background: radial-gradient(circle at 35% 30%, #fff7db 0%, #dfbf79 45%, #7a581e 85%, #3d290b 100%) !important;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.8),
-    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.8) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  z-index: 5 !important;
-  border: none !important;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  user-select: none !important;
-}
-
-body #profile-tab .phc-rivet-tl { top: 10px !important; left: 10px !important; right: auto !important; bottom: auto !important; }
-body #profile-tab .phc-rivet-tr { top: 10px !important; right: 10px !important; left: auto !important; bottom: auto !important; }
-body #profile-tab .phc-rivet-bl { bottom: 10px !important; left: 10px !important; top: auto !important; right: auto !important; }
-body #profile-tab .phc-rivet-br { bottom: 10px !important; right: 10px !important; top: auto !important; left: auto !important; }
-
-body #profile-tab .phc-corner-rivet.phc-screw:hover {
-  transform: scale(1.2) !important;
-}
-
-body #profile-tab .phc-screw-slot {
-  width: 3.5px !important;
-  height: 0.8px !important;
-  background: rgba(30, 18, 5, 0.85) !important;
-  border-radius: 0.5px !important;
-  box-shadow: 0 0.5px 0 rgba(255, 245, 215, 0.3) !important;
-  pointer-events: none !important;
-}
-
-body #profile-tab .phc-rivet-tl .phc-screw-slot { transform: rotate(45deg); }
-body #profile-tab .phc-rivet-tr .phc-screw-slot { transform: rotate(135deg); }
-body #profile-tab .phc-rivet-br .phc-screw-slot { transform: rotate(225deg); }
-body #profile-tab .phc-rivet-bl .phc-screw-slot { transform: rotate(315deg); }
-
-/* 5. Prominent Hero Medallion (92px Diameter - Commanding Scale) */
-body #profile-tab .phc-avatar-col {
-  flex: 0 0 94px !important;
-  width: 94px !important;
-  height: 94px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: relative !important;
-  z-index: 4 !important;
-}
-
-body #profile-tab .phc-medallion-case {
-  position: relative !important;
-  width: 94px !important;
-  height: 94px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 4 !important;
-}
-
-@media (max-width: 480px) {
-  body #profile-tab .phc-avatar-col,
-  body #profile-tab .phc-medallion-case {
-    flex: 0 0 86px !important;
-    width: 86px !important;
-    height: 86px !important;
-  }
-}
-
-/* Haute Horlogerie Polished Gold Bezel (Single Smooth Ingot) */
-body #profile-tab .phc-avatar-ring {
-  position: relative !important;
-  width: 94px !important;
-  height: 94px !important;
-  border-radius: 50% !important;
-  padding: 5px !important;
-  box-sizing: border-box !important;
-  background: conic-gradient(
-    from 190deg,
-    #2c2010 0deg,
-    #8a6627 30deg,
-    #e5bd58 70deg,
-    #fff8dc 105deg,
-    #f8df8e 135deg,
-    #dcae5f 165deg,
-    #ba8e40 195deg,
-    #8f6a27 230deg,
-    #4a350e 265deg,
-    #8a6627 295deg,
-    #e5bd58 330deg,
-    #2c2010 360deg
-  ) !important;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.9),
-    0 0 0 2px rgba(212, 175, 106, 0.4),
-    0 10px 24px rgba(0, 0, 0, 0.85),
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.65),
-    inset 0 -1.5px 2.5px rgba(0, 0, 0, 0.75) !important;
-  z-index: 3 !important;
-}
-
-@media (max-width: 480px) {
-  body #profile-tab .phc-avatar-ring {
-    width: 86px !important;
-    height: 86px !important;
-    padding: 4.5px !important;
-  }
-}
-
-/* Pristine, Crisp Portrait Photo */
-body #profile-tab .phc-avatar-photo {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 50% !important;
-  background-size: cover !important;
-  background-position: center !important;
-  box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.35) !important;
+  border: 1.5px solid transparent !important;
+  background-image: 
+    radial-gradient(ellipse at 50% -10%, rgba(255, 238, 185, 0.18) 0%, rgba(212, 175, 106, 0.04) 45%, transparent 70%),
+    radial-gradient(circle at 50% 30%, #17151a 0%, #100f13 52%, #08070a 100%),
+    linear-gradient(135deg, #ffd880 0%, #94691c 20%, #ffea9f 40%, #4f3309 60%, #ffcf66 80%, #855814 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.98),
+    0 2px 4px rgba(255, 245, 215, 0.18),
+    0 10px 30px -6px rgba(0, 0, 0, 0.85),
+    0 24px 50px -12px rgba(0, 0, 0, 0.92),
+    inset 0 1.5px 2px rgba(255, 245, 215, 0.25),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 1px rgba(20, 15, 10, 0.9) !important;
   display: block !important;
+  margin-bottom: 20px !important;
+  overflow: hidden !important;
+  transform-style: preserve-3d !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Clear Optical Highlight (Zero Color Cast) */
-body #profile-tab .phc-optic-bevel {
+/* Precision Inner Inlaid Gold Hairline Border conferring physical weight */
+body #profile-tab .profile-hero-card::after {
+  content: "" !important;
   position: absolute !important;
-  inset: 5px !important;
-  border-radius: 50% !important;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.32) 0%,
-    rgba(255, 255, 255, 0.08) 26%,
-    transparent 55%
-  ) !important;
+  inset: 6px !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(235, 195, 85, 0.35) !important;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.85),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.75),
+    inset 0 1px 1.5px rgba(255, 245, 205, 0.2) !important;
   pointer-events: none !important;
   z-index: 2 !important;
 }
 
-/* Sovereign 24K Gold Crown Seal */
+@media (max-width: 480px) {
+  body #profile-tab .profile-hero-card {
+    padding: 16px 14px 16px 14px !important;
+  }
+}
+
+/* Master Card 4 Corner Heraldic Filigree Ornaments */
+body #profile-tab .profile-hero-card .corner {
+  position: absolute !important;
+  width: 22px !important;
+  height: 22px !important;
+  opacity: 0.85 !important;
+  z-index: 4 !important;
+  filter: drop-shadow(0 0 2px rgba(235, 195, 85, 0.4)) !important;
+  pointer-events: none !important;
+}
+
+body #profile-tab .profile-hero-card .corner-tl { top: 4px !important; left: 4px !important; transform: rotate(0deg) !important; }
+body #profile-tab .profile-hero-card .corner-tr { top: 4px !important; right: 4px !important; transform: rotate(90deg) !important; display: block !important; }
+body #profile-tab .profile-hero-card .corner-bl { bottom: 4px !important; left: 4px !important; transform: rotate(-90deg) !important; }
+body #profile-tab .profile-hero-card .corner-br { bottom: 4px !important; right: 4px !important; transform: rotate(180deg) !important; }
+
+/* 3. Authentic Guilloché Intaglio Texture & Specular Sheen */
+body #profile-tab .phc-guilloche-pattern {
+  position: absolute !important;
+  inset: 6px !important;
+  border-radius: 14px !important;
+  opacity: 0.08 !important;
+  background-image:
+    repeating-radial-gradient(circle at 25% 45%, rgba(235, 195, 85, 0.4) 0px, transparent 1px, transparent 8px),
+    repeating-linear-gradient(45deg, rgba(235, 195, 85, 0.15) 0px, transparent 0.7px, transparent 10px),
+    repeating-linear-gradient(-45deg, rgba(235, 195, 85, 0.15) 0px, transparent 0.7px, transparent 10px) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+body #profile-tab .phc-specular-sheen {
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(
+    ellipse at calc(50% + var(--tiltX, 0) * 50%) calc(50% + var(--tiltY, 0) * 50%),
+    rgba(255, 244, 214, 0.12),
+    rgba(215, 180, 80, 0.03) 40%,
+    transparent 75%
+  ) !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+  mix-blend-mode: screen !important;
+  border-radius: 20px !important;
+}
+
+/* 4. Structured Non-Overlapping Inner Layout */
+body #profile-tab .phc-inner {
+  position: relative !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 3 !important;
+  gap: 12px !important;
+}
+
+/* Top Bar: Tier Ingot Badge & Non-Overlapping Edit Action Button */
+body #profile-tab .phc-top-bar {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: 2px !important;
+  padding: 0 2px !important;
+  box-sizing: border-box !important;
+}
+
+/* Bullion Ingot Struck Tier Badge */
+body #profile-tab .phc-tier-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 3px 8px !important;
+  border-radius: 5px !important;
+  background: linear-gradient(180deg, #2b1f11 0%, #150f06 100%) !important;
+  border: 1px solid rgba(225, 185, 75, 0.55) !important;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 245, 215, 0.25) !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .phc-crest-mark {
+  font-size: 11px !important;
+  line-height: 1 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8)) !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .phc-tier {
+  font-family: var(--font-ui) !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.2px !important;
+  text-transform: uppercase !important;
+  color: #fae4a7 !important;
+  white-space: nowrap !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
+}
+
+body #profile-tab .phc-divider-dot {
+  color: rgba(225, 185, 75, 0.5) !important;
+  font-size: 9px !important;
+}
+
+body #profile-tab .phc-hallmark-tag {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: #d4a753 !important;
+  white-space: nowrap !important;
+}
+
+/* Edit Dossier Action Button: Sovereign Precision Instrument */
+html body #profile-tab .phc-edit-btn,
+body #profile-tab .profile-hero-card .phc-edit-btn {
+  position: static !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  background: linear-gradient(180deg, #241a10 0%, #120d07 100%) !important;
+  border: 1px solid rgba(225, 185, 75, 0.6) !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 245, 215, 0.25) !important;
+  cursor: pointer !important;
+  color: #f7dfa3 !important;
+  font-family: var(--font-arabic, inherit) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .phc-edit-btn:hover {
+  background: linear-gradient(180deg, #332415 0%, #1c130a 100%) !important;
+  border-color: rgba(255, 225, 130, 0.9) !important;
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.85),
+    0 0 10px rgba(225, 185, 75, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-1px) !important;
+  color: #fff2cb !important;
+}
+
+body #profile-tab .phc-edit-btn:active {
+  transform: translateY(0px) scale(0.97) !important;
+}
+
+body #profile-tab .phc-edit-icon {
+  width: 12px !important;
+  height: 12px !important;
+  stroke: #e5c378 !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .phc-edit-txt {
+  font-size: 11px !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Main Dossier Content Row */
+body #profile-tab .phc-main-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 480px) {
+  body #profile-tab .phc-main-row {
+    gap: 13px !important;
+  }
+}
+
+/* 5. Horological Portrait Medallion */
+body #profile-tab .phc-avatar-col {
+  flex: 0 0 86px !important;
+  width: 86px !important;
+  height: 86px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  z-index: 4 !important;
+}
+
+@media (max-width: 480px) {
+  body #profile-tab .phc-avatar-col {
+    flex: 0 0 76px !important;
+    width: 76px !important;
+    height: 76px !important;
+  }
+}
+
+body #profile-tab .phc-medallion-case {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Master Card Lineage Portrait Ring (Pure Polished 24K Gold Bezel) */
+body #profile-tab .phc-avatar-ring {
+  position: relative !important;
+  width: 90px !important;
+  height: 90px !important;
+  border-radius: 50% !important;
+  padding: 4px !important;
+  box-sizing: border-box !important;
+  background: conic-gradient(
+    from 190deg,
+    #3d2a0e 0deg,
+    #997328 28deg,
+    #ffe580 65deg,
+    #ffffff 95deg,
+    #ffdf70 120deg,
+    #d4a33d 155deg,
+    #aa7c22 190deg,
+    #6e4d10 230deg,
+    #3d2a0e 265deg,
+    #997328 300deg,
+    #ffe580 335deg,
+    #3d2a0e 360deg
+  ) !important;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.95),
+    0 0 0 2px rgba(225, 185, 75, 0.75),
+    0 8px 22px -4px rgba(0, 0, 0, 0.95),
+    inset 1px 1.5px 3px rgba(255, 255, 255, 0.7),
+    inset -1px -1.5px 4px rgba(0, 0, 0, 0.85) !important;
+  cursor: pointer !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body #profile-tab .phc-avatar-ring:hover {
+  transform: scale(1.03) !important;
+}
+
+@media (max-width: 480px) {
+  body #profile-tab .phc-avatar-ring {
+    width: 80px !important;
+    height: 80px !important;
+    padding: 3.5px !important;
+  }
+}
+
+/* Horological Engraved Dial Calibration Ticks (60 Fine Micro-Ticks + Cardinal Batons) */
+body #profile-tab .phc-dial-ticks-svg {
+  position: absolute !important;
+  inset: -1.5px !important;
+  width: calc(100% + 3px) !important;
+  height: calc(100% + 3px) !important;
+  pointer-events: none !important;
+  z-index: 3 !important;
+  filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.8)) !important;
+}
+
+/* Equipped Collectible Slots on Profile Hero Plaque */
+body #profile-tab .phc-equipped-aura-slot {
+  position: absolute !important;
+  inset: -14px !important;
+  border-radius: 50% !important;
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  filter: drop-shadow(0 0 16px rgba(225, 185, 75, 0.5)) !important;
+}
+
+body #profile-tab .phc-equipped-crown-slot {
+  position: absolute !important;
+  top: -16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 32px !important;
+  height: 24px !important;
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  z-index: 8 !important;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 4px rgba(225, 185, 75, 0.6)) !important;
+}
+
+body #profile-tab .phc-equipped-ring-slot {
+  position: absolute !important;
+  bottom: 0px !important;
+  right: -4px !important;
+  width: 22px !important;
+  height: 22px !important;
+  display: none;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  z-index: 8 !important;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.85)) !important;
+}
+
+body #profile-tab .phc-avatar-photo {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  background-color: #0c0b09 !important;
+  border: 1px solid rgba(0, 0, 0, 0.9) !important;
+  overflow: hidden !important;
+  display: block !important;
+  background-size: cover !important;
+  background-position: center !important;
+  box-shadow:
+    inset 0 4px 10px rgba(0, 0, 0, 0.95),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.75) !important;
+}
+
+body #profile-tab .phc-optic-bevel {
+  position: absolute !important;
+  inset: 4px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.06) 28%,
+    transparent 55%
+  ) !important;
+  pointer-events: none !important;
+  z-index: 4 !important;
+}
+
+/* Sovereign Crown Crest Hallmark Coin */
 body #profile-tab .phc-crown-badge {
   position: absolute !important;
-  bottom: -3px !important;
+  bottom: -4px !important;
   left: 50% !important;
-  right: auto !important;
   transform: translateX(-50%) !important;
   width: 24px !important;
   height: 24px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle at 35% 30%, #fff7dc 0%, #e6c57f 40%, #a87e32 80%, #543c13 100%) !important;
-  border: 1.5px solid #dfbe76 !important;
+  padding: 1.2px !important;
+  box-sizing: border-box !important;
+  background: conic-gradient(
+    from 0deg,
+    #ffe580 0deg,
+    #b28328 60deg,
+    #fff5d6 120deg,
+    #59390a 180deg,
+    #ffe580 240deg,
+    #b28328 300deg,
+    #ffe580 360deg
+  ) !important;
   box-shadow:
-    0 3px 8px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(20, 14, 6, 0.9),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.85) !important;
+    0 3px 8px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(18, 12, 5, 0.95),
+    0 0 6px rgba(225, 185, 75, 0.4) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
   z-index: 6 !important;
-  transition: transform 0.2s ease !important;
-  user-select: none !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body #profile-tab .phc-crown-badge .phc-coin-relief {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #ebd082 35%, #b28328 75%, #59390a 100%) !important;
 }
 
 body #profile-tab .phc-crown-badge:hover {
-  transform: translateX(-50%) scale(1.14) !important;
+  transform: translateX(-50%) scale(1.15) !important;
 }
 
 body #profile-tab .phc-crown-badge svg {
-  width: 12px !important;
-  height: 12px !important;
+  width: 11px !important;
+  height: 11px !important;
   fill: #3b280c !important;
   color: #3b280c !important;
-  filter: drop-shadow(0 0.5px 0 rgba(255, 255, 255, 0.6)) !important;
 }
 
 /* 6. Sovereign Dossier Information Hierarchy */
@@ -24982,251 +25226,1578 @@ body #profile-tab .phc-info-col {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
+  align-items: flex-start !important;
+  padding: 0 !important;
   z-index: 3 !important;
-}
-
-body #profile-tab .phc-tier-row {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  margin-bottom: 2px !important;
-}
-
-body #profile-tab .phc-tier {
-  font-family: var(--font-ui) !important;
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  letter-spacing: 1.8px !important;
-  text-transform: uppercase !important;
-  color: #e5c483 !important;
-  background: linear-gradient(180deg, rgba(28, 24, 18, 0.9) 0%, rgba(15, 13, 10, 0.95) 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.45) !important;
-  padding: 3px 10px !important;
-  border-radius: 14px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
-}
-
-body #profile-tab .phc-hallmark-tag {
-  font-family: var(--font-ui) !important;
-  font-size: 8px !important;
-  font-weight: 700 !important;
-  letter-spacing: 1.4px !important;
-  text-transform: uppercase !important;
-  color: #a38248 !important;
-  background: rgba(0, 0, 0, 0.35) !important;
-  border: 0.5px solid rgba(212, 175, 106, 0.25) !important;
-  padding: 2.5px 7px !important;
-  border-radius: 10px !important;
+  gap: 3px !important;
 }
 
 body #profile-tab .phc-name {
   font-family: var(--font-display) !important;
-  font-size: clamp(1.35rem, 3.8vw, 1.75rem) !important;
+  font-size: clamp(1.18rem, 3.8vw, 1.45rem) !important;
   font-weight: 700 !important;
-  letter-spacing: 2px !important;
-  color: #f7eedc !important;
+  letter-spacing: 1.2px !important;
   text-transform: uppercase !important;
-  background: linear-gradient(180deg, #ffffff 0%, #ecd5a5 65%, #c29d58 100%) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fff0c7 28%, #dfb76c 68%, #9e7a2b 100%) !important;
   -webkit-background-clip: text !important;
+  background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.85)) !important;
-  margin: 4px 0 2px 0 !important;
-  line-height: 1.25 !important;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.9)) !important;
+  margin: 0 !important;
+  line-height: 1.15 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .phc-quote-wrap {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 3px !important;
+  max-width: 100% !important;
+  margin: 1px 0 2px 0 !important;
+}
+
+body #profile-tab .phc-quote-mark {
+  font-family: var(--font-display) !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  color: rgba(225, 185, 75, 0.65) !important;
+  user-select: none !important;
+  flex-shrink: 0 !important;
 }
 
 body #profile-tab .phc-quote {
   font-family: var(--font-display) !important;
   font-style: italic !important;
-  font-size: 12.5px !important;
-  line-height: 1.45 !important;
-  color: #a89a80 !important;
-  margin: 2px 0 6px 0 !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  color: #d8cbba !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
+  max-width: 100% !important;
 }
 
 body #profile-tab .phc-meta {
   display: flex !important;
+  flex-direction: row !important;
   align-items: center !important;
-  gap: 8px !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  gap: 6px !important;
   font-family: var(--font-mono, monospace) !important;
-  font-size: 11px !important;
-  letter-spacing: 1px !important;
-  color: #8c795d !important;
-  border-top: 1px solid rgba(212, 175, 106, 0.18) !important;
-  padding-top: 8px !important;
+  font-size: 8.5px !important;
+  letter-spacing: 0.7px !important;
+  color: #a39580 !important;
+  border-top: 1px solid rgba(212, 175, 106, 0.22) !important;
+  padding: 5px 0 0 0 !important;
+  margin-top: 3px !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+body #profile-tab .phc-meta-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3.5px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .phc-meta-icon {
+  width: 10px !important;
+  height: 10px !important;
+  stroke: #e5c378 !important;
+  stroke-width: 1.5 !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .phc-id {
+  color: #fae4a7 !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+}
+
+body #profile-tab .phc-dot {
+  color: rgba(225, 185, 75, 0.5) !important;
+}
+
+body #profile-tab .phc-est {
+  white-space: nowrap !important;
+}
+
+body #profile-tab .phc-standing-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+body #profile-tab .phc-status-jewel {
+  width: 5px !important;
+  height: 5px !important;
+  border-radius: 50% !important;
+  background: #4cd964 !important;
+  box-shadow: 0 0 6px #4cd964 !important;
+}
+
+body #profile-tab .phc-status-text {
+  font-size: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.8px !important;
+  color: #c9b48c !important;
+}
+
+/* ==========================================================================
+   7. SOVEREIGN INSTRUMENTS & HOROLOGICAL COMPLICATIONS RIBBON
+   Wealth Index & Sovereign Privileges Gauges (Direct Lineage of Master Card)
+   ========================================================================== */
+body #profile-tab .phc-complications-ribbon {
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 8px 12px !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg, rgba(24, 18, 11, 0.85) 0%, rgba(13, 10, 6, 0.92) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.22) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 215, 0.12),
+    0 3px 10px rgba(0, 0, 0, 0.5) !important;
+  box-sizing: border-box !important;
   margin-top: 4px !important;
 }
 
+body #profile-tab .phc-comp-cell {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+}
+
+body #profile-tab .phc-comp-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 4px !important;
+}
+
+body #profile-tab .phc-comp-label {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 8px !important;
+  letter-spacing: 0.7px !important;
+  color: #a89880 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+body #profile-tab .phc-comp-badge {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 7.5px !important;
+  font-weight: 700 !important;
+  color: #ffd980 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+body #profile-tab .phc-comp-body {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+body #profile-tab .phc-comp-val {
+  font-family: var(--font-display) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #fff4d1 !important;
+  white-space: nowrap !important;
+}
+
+body #profile-tab .phc-comp-unlimited {
+  font-size: 9.5px !important;
+  color: #fae4a7 !important;
+  letter-spacing: 0.2px !important;
+}
+
+body #profile-tab .phc-comp-meter {
+  flex: 1 1 auto !important;
+  height: 3.5px !important;
+  border-radius: 2px !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  border: 1px solid rgba(212, 175, 106, 0.2) !important;
+  overflow: hidden !important;
+}
+
+body #profile-tab .phc-comp-fill {
+  height: 100% !important;
+  background: linear-gradient(90deg, #997328, #ffd880) !important;
+  border-radius: 2px !important;
+  box-shadow: 0 0 6px rgba(255, 216, 128, 0.4) !important;
+}
+
+body #profile-tab .phc-comp-fill.is-full {
+  background: linear-gradient(90deg, #b8860b, #ffd700, #fff2a8) !important;
+}
+
+body #profile-tab .phc-comp-divider {
+  width: 1px !important;
+  height: 24px !important;
+  background: linear-gradient(180deg, transparent, rgba(212, 175, 106, 0.35), transparent) !important;
+}
+
+/* ==========================================================================
+   8. SOVEREIGN QUICK ACTION BAR (Add Member, Private Dispatch, Share Dossier)
+   Zero-Pill Luxury Horological Buttons (Compact, Refined, Tactile)
+   ========================================================================== */
+body #profile-tab .phc-actions-bar {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 7px !important;
+  width: 100% !important;
+  margin-top: 2px !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .phc-action-pill {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  height: 32px !important;
+  padding: 0 8px !important;
+  border-radius: 7px !important;
+  background: linear-gradient(180deg, #241c13 0%, #130f0a 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.32) !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 245, 215, 0.16) !important;
+  color: #fae7ba !important;
+  font-family: var(--font-arabic, inherit) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  user-select: none !important;
+}
+
+body #profile-tab .phc-action-pill:hover {
+  background: linear-gradient(180deg, #322518 0%, #1a140d 100%) !important;
+  border-color: rgba(235, 195, 85, 0.75) !important;
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.75),
+    0 0 8px rgba(225, 185, 75, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  color: #fff2cb !important;
+  transform: translateY(-1px) !important;
+}
+
+body #profile-tab .phc-action-pill:active {
+  transform: translateY(0px) scale(0.98) !important;
+}
+
+body #profile-tab .phc-pill-soon-tag {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 7px !important;
+  padding: 1px 4px !important;
+  border-radius: 3px !important;
+  background: rgba(225, 185, 75, 0.16) !important;
+  border: 1px solid rgba(225, 185, 75, 0.35) !important;
+  color: #e5c378 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  flex-shrink: 0 !important;
+}
+
+body #profile-tab .phc-action-icon {
+  width: 12px !important;
+  height: 12px !important;
+  stroke: #e5c378 !important;
+  flex-shrink: 0 !important;
+}
+
+@media (max-width: 375px) {
+  body #profile-tab .phc-actions-bar {
+    gap: 5px !important;
+  }
+  body #profile-tab .phc-action-pill {
+    padding: 0 4px !important;
+    font-size: 9.5px !important;
+    gap: 3px !important;
+  }
+  body #profile-tab .phc-pill-soon-tag {
+    display: none !important;
+  }
+}
+
 /* =========================================================
-   LIGHT MODE: MAJESTIC IMPERIAL SILK-IVORY MONOLITH
+   LIGHT MODE: MAJESTIC IMPERIAL SILK-IVORY CHASSIS (POLISHED REAL GOLD)
    ========================================================= */
 
 body.light-mode #profile-tab .profile-hero-card {
-  background:
-    radial-gradient(ellipse at 88% 15%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.45) 40%, transparent 75%),
-    linear-gradient(155deg, #fefdfb 0%, #f7f3e8 50%, #ede5d4 100%) !important;
-  border: 1.5px solid rgba(185, 145, 75, 0.45) !important;
+  border: 1.5px solid transparent !important;
   border-radius: 20px !important;
+  background-image: 
+    radial-gradient(ellipse at 50% -12%, rgba(255, 255, 255, 0.88) 0%, rgba(255, 250, 238, 0.35) 45%, transparent 72%),
+    radial-gradient(circle at 50% 28%, #fdfbf7 0%, #f7f2e7 52%, #eee6d5 100%),
+    linear-gradient(135deg, #dfbc77 0%, #faebc4 18%, #aa8033 42%, #faedc8 68%, #855e1b 88%, #cca457 100%) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  box-shadow: 
+    0 0 0 1px rgba(140, 102, 35, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.95),
+    0 4px 12px -2px rgba(70, 52, 22, 0.07),
+    0 14px 34px -8px rgba(60, 44, 18, 0.11),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 2px rgba(130, 95, 35, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.75) !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card::after {
+  border: 1px solid rgba(190, 148, 58, 0.32) !important;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.8),
-    0 22px 50px -10px rgba(80, 55, 20, 0.14),
-    inset 0 1px 1px #ffffff,
-    inset 0 0 24px rgba(185, 145, 75, 0.05) !important;
+    0 0 0 1px rgba(255, 255, 255, 0.85),
+    inset 0 0 0 1px rgba(150, 110, 35, 0.1),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.95) !important;
+}
+
+body.light-mode #profile-tab .profile-hero-card .corner {
+  opacity: 0.55 !important;
+  filter: drop-shadow(0 0.5px 0.5px rgba(255, 255, 255, 0.9)) !important;
 }
 
 body.light-mode #profile-tab .phc-guilloche-pattern {
-  opacity: 0.25 !important;
+  opacity: 0.055 !important;
   background-image:
-    radial-gradient(circle at 85% 25%, rgba(185, 145, 75, 0.08) 0px, transparent 1px),
-    radial-gradient(circle at 85% 25%, transparent 0, transparent 10px, rgba(185, 145, 75, 0.04) 11px, transparent 12px),
-    radial-gradient(circle at 85% 25%, transparent 0, transparent 20px, rgba(185, 145, 75, 0.03) 21px, transparent 22px) !important;
+    repeating-radial-gradient(circle at 50% 50%, rgba(160, 115, 30, 0.5) 0px, transparent 0.6px, transparent 6px),
+    repeating-linear-gradient(45deg, rgba(160, 115, 30, 0.35) 0px, transparent 0.5px, transparent 8px),
+    repeating-linear-gradient(-45deg, rgba(160, 115, 30, 0.35) 0px, transparent 0.5px, transparent 8px) !important;
 }
 
-body.light-mode #profile-tab .phc-corner-rivet.phc-screw {
-  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #faedd4 35%, #cca34d 75%, #825c1b 100%) !important;
-  box-shadow:
-    0 1px 2px rgba(80, 55, 20, 0.28),
-    inset 0 0.5px 0.5px #ffffff !important;
+body.light-mode #profile-tab .phc-specular-sheen {
+  background: radial-gradient(
+    ellipse at calc(50% + var(--tiltX, 0) * 50%) calc(50% + var(--tiltY, 0) * 50%),
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(245, 230, 190, 0.12) 38%,
+    transparent 70%
+  ) !important;
+  opacity: 0.8 !important;
 }
 
-body.light-mode #profile-tab .phc-screw-slot {
-  background: #3b280c !important;
-  box-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.6) !important;
+body.light-mode #profile-tab .phc-tier-badge {
+  background: linear-gradient(180deg, #fffefb 0%, #f6f0e0 100%) !important;
+  border-color: rgba(190, 148, 55, 0.45) !important;
+  box-shadow: 0 1px 2px rgba(80, 55, 20, 0.06), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .phc-tier {
+  color: #6a4c17 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+body.light-mode #profile-tab .phc-hallmark-tag {
+  color: #826022 !important;
+}
+
+body.light-mode #profile-tab .phc-edit-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f1e4 100%) !important;
+  border-color: rgba(190, 148, 55, 0.5) !important;
+  color: #553b0e !important;
+  box-shadow: 0 1.5px 4px rgba(70, 50, 20, 0.07), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .phc-edit-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #eee3ce 100%) !important;
+  color: #3b2807 !important;
+  border-color: rgba(175, 130, 40, 0.8) !important;
+  box-shadow: 0 2px 8px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .phc-edit-icon {
+  stroke: #735016 !important;
 }
 
 body.light-mode #profile-tab .phc-avatar-ring {
   background: conic-gradient(
-    from 135deg,
-    #e8d39c 0%,
-    #b38b41 22%,
-    #ffffff 42%,
-    #c49a4a 68%,
-    #7a571c 90%,
-    #e8d39c 100%
+    from 195deg,
+    #6a4813 0deg,
+    #c49435 30deg,
+    #fff5be 65deg,
+    #ffffff 92deg,
+    #ffe285 122deg,
+    #c79636 158deg,
+    #825816 195deg,
+    #57380a 232deg,
+    #9e7220 270deg,
+    #ffe58f 318deg,
+    #6a4813 360deg
   ) !important;
   box-shadow:
-    0 0 0 1px rgba(140, 105, 40, 0.3),
-    0 0 0 2px rgba(235, 215, 175, 0.6),
-    0 10px 22px rgba(70, 50, 15, 0.16),
-    inset 0 1.5px 2px #ffffff,
-    inset 0 -1px 2px rgba(110, 80, 25, 0.35) !important;
+    0 0 0 1px rgba(255, 255, 255, 0.95),
+    0 0 0 2px rgba(188, 144, 52, 0.65),
+    0 6px 14px -3px rgba(75, 52, 18, 0.16),
+    inset 1px 1.5px 2.5px rgba(255, 255, 255, 0.95),
+    inset -1px -1.5px 3px rgba(115, 80, 22, 0.22) !important;
 }
 
 body.light-mode #profile-tab .phc-avatar-photo {
+  background-color: #faf8f2 !important;
+  border: 1px solid rgba(175, 135, 50, 0.28) !important;
   box-shadow:
-    inset 0 2px 4px rgba(80, 55, 20, 0.22),
-    inset 0 0 0 1px rgba(185, 145, 75, 0.3) !important;
-}
-
-body.light-mode #profile-tab .phc-optic-bevel {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.48) 0%,
-    rgba(255, 255, 255, 0.12) 26%,
-    transparent 55%
-  ) !important;
+    inset 0 2.5px 5px rgba(45, 30, 10, 0.1),
+    inset 0 -1.5px 3px rgba(255, 255, 255, 0.85) !important;
 }
 
 body.light-mode #profile-tab .phc-crown-badge {
-  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #faedd2 35%, #cca34d 75%, #7a5419 100%) !important;
-  border: 1.5px solid #d4af6a !important;
-  box-shadow:
-    0 2px 6px rgba(80, 55, 20, 0.22),
-    inset 0 1px 1px #ffffff !important;
+  background: conic-gradient(
+    from 0deg,
+    #734e15 0deg,
+    #bf9032 45deg,
+    #fff2ae 90deg,
+    #9e7221 135deg,
+    #63410e 180deg,
+    #bf9032 225deg,
+    #fff2ae 270deg,
+    #9e7221 315deg,
+    #734e15 360deg
+  ) !important;
+  border: 1px solid rgba(188, 142, 48, 0.8) !important;
+  box-shadow: 0 2px 5px rgba(70, 48, 16, 0.18), inset 0 1px 1px #ffffff !important;
+}
+
+body.light-mode #profile-tab .phc-crown-badge .phc-coin-relief {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f9edd4 38%, #caa049 78%, #724e16 100%) !important;
 }
 
 body.light-mode #profile-tab .phc-crown-badge svg {
-  fill: #3b280c !important;
-  color: #3b280c !important;
-  filter: drop-shadow(0 0.5px 0 #ffffff) !important;
-}
-
-body.light-mode #profile-tab .phc-tier {
-  background: #ffffff !important;
-  border: 1px solid rgba(185, 145, 75, 0.4) !important;
-  color: #966f27 !important;
-  box-shadow: 0 1.5px 4px rgba(80, 55, 20, 0.08) !important;
-}
-
-body.light-mode #profile-tab .phc-hallmark-tag {
-  background: rgba(185, 145, 75, 0.14) !important;
-  border: 0.5px solid rgba(185, 145, 75, 0.3) !important;
-  color: #8c6a28 !important;
+  fill: #342208 !important;
+  color: #342208 !important;
 }
 
 body.light-mode #profile-tab .phc-name {
-  color: #1f1a12 !important;
-  background: none !important;
-  -webkit-background-clip: unset !important;
-  -webkit-text-fill-color: #1f1a12 !important;
-  filter: none !important;
+  background: linear-gradient(180deg, #171107 0%, #3a2810 42%, #634517 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0.5px 0 rgba(255, 255, 255, 0.9)) !important;
+}
+
+body.light-mode #profile-tab .phc-quote-mark {
+  color: rgba(180, 136, 45, 0.65) !important;
 }
 
 body.light-mode #profile-tab .phc-quote {
-  color: #594c39 !important;
+  color: #4b3a22 !important;
+  text-shadow: none !important;
 }
 
 body.light-mode #profile-tab .phc-meta {
-  border-top-color: rgba(185, 145, 75, 0.25) !important;
-  color: #7d6e57 !important;
+  border-top-color: rgba(188, 146, 62, 0.2) !important;
+  color: #6a563c !important;
+}
+
+body.light-mode #profile-tab .phc-meta-icon {
+  stroke: #8e6822 !important;
 }
 
 body.light-mode #profile-tab .phc-id {
-  color: #3d3120 !important;
+  color: #38250b !important;
 }
 
-/* 7. Bespoke Edit Dossier Button & Column Clearance */
-body #profile-tab .phc-info-col {
-  padding-right: 46px !important;
+body.light-mode #profile-tab .phc-dot {
+  color: rgba(180, 136, 45, 0.5) !important;
 }
 
-body #profile-tab .phc-edit-btn {
+body.light-mode #profile-tab .phc-est {
+  color: #6a563c !important;
+}
+
+body.light-mode #profile-tab .phc-status-jewel {
+  background: #34c759 !important;
+  box-shadow: 0 0 5px rgba(52, 199, 89, 0.55) !important;
+}
+
+body.light-mode #profile-tab .phc-status-text {
+  color: #614515 !important;
+}
+
+body.light-mode #profile-tab .phc-complications-ribbon {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(247, 242, 230, 0.95) 100%) !important;
+  border-color: rgba(190, 148, 55, 0.35) !important;
+  box-shadow: 0 2px 6px rgba(70, 50, 20, 0.06), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .phc-comp-label {
+  color: #725934 !important;
+}
+
+body.light-mode #profile-tab .phc-comp-badge {
+  color: #8c641d !important;
+}
+
+body.light-mode #profile-tab .phc-comp-val {
+  color: #38250b !important;
+}
+
+body.light-mode #profile-tab .phc-comp-unlimited {
+  color: #553b0e !important;
+}
+
+body.light-mode #profile-tab .phc-comp-meter {
+  background: rgba(190, 148, 55, 0.15) !important;
+  border-color: rgba(190, 148, 55, 0.3) !important;
+}
+
+body.light-mode #profile-tab .phc-comp-fill {
+  background: linear-gradient(90deg, #caa049, #dfbc77) !important;
+}
+
+body.light-mode #profile-tab .phc-comp-divider {
+  background: linear-gradient(180deg, transparent, rgba(190, 148, 55, 0.35), transparent) !important;
+}
+
+body.light-mode #profile-tab .phc-action-pill {
+  background: linear-gradient(180deg, #ffffff 0%, #f6efe0 100%) !important;
+  border-color: rgba(190, 148, 55, 0.45) !important;
+  color: #4b340c !important;
+  box-shadow: 0 1.5px 4px rgba(70, 50, 20, 0.08), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .phc-action-pill:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #ece0ca 100%) !important;
+  border-color: rgba(175, 130, 40, 0.8) !important;
+  color: #2e1e04 !important;
+  box-shadow: 0 2px 8px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .phc-pill-soon-tag {
+  background: rgba(190, 148, 55, 0.12) !important;
+  border-color: rgba(190, 148, 55, 0.35) !important;
+  color: #6a4c17 !important;
+}
+
+body.light-mode #profile-tab .phc-action-icon {
+  stroke: #735016 !important;
+}
+
+/* ==========================================================================
+   SOVEREIGN HERALDIC HONORS & ORDERS (سجل الأوسمة الملكية وأشرطة الشرف)
+   Manufacture Chancellery & Diplomatic Ribbon Rack System
+   ========================================================================== */
+
+#profile-tab .heraldic-orders-section {
+  position: relative !important;
+  margin-bottom: 22px !important;
+}
+
+#profile-tab .heraldic-orders-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 12px !important;
+}
+
+#profile-tab .heraldic-crest-icon {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 8px !important;
+  background: radial-gradient(circle at 35% 30%, rgba(212, 175, 55, 0.2), rgba(15, 15, 18, 0.95)) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+#profile-tab .heraldic-crest-icon svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+#profile-tab .heraldic-titles-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+#profile-tab .heraldic-section-sub {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 8px !important;
+  letter-spacing: 0.12em !important;
+  color: rgba(212, 175, 55, 0.65) !important;
+  text-transform: uppercase !important;
+}
+
+/* Diplomatic Service Ribbon Rack Chassis (لوحة أشرطة الخدمة الدبلوماسية) */
+#profile-tab .heraldic-ribbon-rack-chassis {
+  position: relative !important;
+  background: linear-gradient(180deg, rgba(20, 20, 24, 0.96) 0%, rgba(11, 11, 14, 0.98) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  box-shadow: 
+    0 4px 18px rgba(0, 0, 0, 0.75),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    inset 0 0 12px rgba(212, 175, 55, 0.04) !important;
+  border-radius: 12px !important;
+  padding: 10px 12px 12px 12px !important;
+  margin-bottom: 14px !important;
+}
+
+#profile-tab .hrr-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 8px !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.12) !important;
+}
+
+#profile-tab .hrr-title-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+#profile-tab .hrr-emblem {
+  font-size: 11px !important;
+  line-height: 1 !important;
+}
+
+#profile-tab .hrr-label {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 8.5px !important;
+  letter-spacing: 0.1em !important;
+  color: #dfc17b !important;
+  font-weight: 600 !important;
+}
+
+#profile-tab .hrr-status {
+  font-family: var(--font-arabic, sans-serif) !important;
+  font-size: 8.5px !important;
+  color: #d4af37 !important;
+  background: rgba(212, 175, 55, 0.1) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-radius: 10px !important;
+  padding: 1px 7px !important;
+  white-space: nowrap !important;
+}
+
+#profile-tab .hrr-rack-bar {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+/* Individual Ribbon Bar Unit */
+#profile-tab .hrr-ribbon-unit {
+  position: relative !important;
+  height: 22px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+#profile-tab .hrr-ribbon-unit:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+  border-color: rgba(212, 175, 55, 0.7) !important;
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(212, 175, 55, 0.3) !important;
+}
+
+#profile-tab .hrr-ribbon-unit.is-locked {
+  filter: grayscale(0.85) brightness(0.5) !important;
+  opacity: 0.65 !important;
+  border-color: rgba(120, 120, 130, 0.3) !important;
+}
+
+#profile-tab .hrr-ribbon-silk {
   position: absolute !important;
-  top: 18px !important;
-  right: 18px !important;
-  width: 38px !important;
-  height: 38px !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Moiré Silk Watermark Texture */
+#profile-tab .hrr-moire-texture,
+#profile-tab .ribbon-watermark {
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  ) !important;
+  pointer-events: none !important;
+}
+
+/* Distinct Sovereign Ribbon Weaves */
+/* 1. Initiate: Royal Navy with Twin Gold Pinstripes */
+.hrr-ribbon-initiate .hrr-ribbon-stripes,
+.ribbon-initiate .ribbon-stripes-weave {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    90deg,
+    #0c1b33 0%,
+    #0c1b33 30%,
+    #d4af37 30%,
+    #d4af37 40%,
+    #0c1b33 40%,
+    #0c1b33 60%,
+    #d4af37 60%,
+    #d4af37 70%,
+    #0c1b33 70%,
+    #0c1b33 100%
+  ) !important;
+}
+
+/* 2. Connoisseur: Imperial Crimson with Central Gold & Ivory Bands */
+.hrr-ribbon-connoisseur .hrr-ribbon-stripes,
+.ribbon-connoisseur .ribbon-stripes-weave {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    90deg,
+    #5a0b16 0%,
+    #5a0b16 33%,
+    #d4af37 33%,
+    #d4af37 45%,
+    #f4ebd0 45%,
+    #f4ebd0 55%,
+    #d4af37 55%,
+    #d4af37 67%,
+    #5a0b16 67%,
+    #5a0b16 100%
+  ) !important;
+}
+
+/* 3. High Sovereign: Sovereign Obsidian with Triple 24K Gold Bar Stripes */
+.hrr-ribbon-high_sovereign .hrr-ribbon-stripes,
+.ribbon-high_sovereign .ribbon-stripes-weave {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    90deg,
+    #111115 0%,
+    #111115 20%,
+    #d4af37 20%,
+    #d4af37 32%,
+    #111115 32%,
+    #111115 44%,
+    #f0d078 44%,
+    #f0d078 56%,
+    #111115 56%,
+    #111115 68%,
+    #d4af37 68%,
+    #d4af37 80%,
+    #111115 80%,
+    #111115 100%
+  ) !important;
+}
+
+/* 4. Apex Titan: Supreme Burgundy & Emerald with Polished Gold Border */
+.hrr-ribbon-apex_titan .hrr-ribbon-stripes,
+.ribbon-apex_titan .ribbon-stripes-weave {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    90deg,
+    #4a0d18 0%,
+    #4a0d18 25%,
+    #d4af37 25%,
+    #d4af37 35%,
+    #0c2e1f 35%,
+    #0c2e1f 65%,
+    #d4af37 65%,
+    #d4af37 75%,
+    #4a0d18 75%,
+    #4a0d18 100%
+  ) !important;
+}
+
+#profile-tab .hrr-ribbon-bezel {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 3px !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+  pointer-events: none !important;
+}
+
+#profile-tab .hrr-rosette-device {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 14px !important;
+  height: 14px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle at 35% 30%, #252018 0%, #110f0c 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.4) !important;
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.65),
-    inset 0 1px 1px rgba(255, 245, 215, 0.25) !important;
+  background: radial-gradient(circle, #fff3c4 0%, #d4af37 60%, #8c6a28 100%) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), 0 0 4px rgba(212, 175, 55, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#profile-tab .hrr-rosette-core {
+  font-size: 8px !important;
+  color: #1a1505 !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+}
+
+#profile-tab .hrr-lock-device {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  font-size: 8px !important;
+  opacity: 0.7 !important;
+}
+
+/* ==========================================================================
+   HERALDIC ORDER CARDS WITH MOIRÉ RIBBONS & CLOISONNÉ ENAMEL
+   ========================================================================== */
+
+#profile-tab .heraldic-order-card {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 12px 10px 14px 10px !important;
+  border-radius: 14px !important;
+  min-height: 236px !important;
+  background: linear-gradient(180deg, rgba(22, 22, 26, 0.95) 0%, rgba(13, 13, 16, 0.98) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  cursor: pointer !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+#profile-tab .heraldic-order-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(212, 175, 55, 0.6) !important;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(212, 175, 55, 0.25) !important;
+}
+
+#profile-tab .heraldic-order-card.is-locked {
+  background: linear-gradient(180deg, rgba(16, 16, 19, 0.95) 0%, rgba(10, 10, 12, 0.98) 100%) !important;
+  border-color: rgba(180, 140, 60, 0.15) !important;
+  opacity: 0.88 !important;
+}
+
+/* Suspension Brooch & Ribbon Assembly */
+#profile-tab .honor-suspension-assembly {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: 6px !important;
+}
+
+/* Horizontal Gilded Brooch Bar (شريط التثبيت المعدني) */
+#profile-tab .honor-brooch-bar {
+  position: relative !important;
+  width: 44px !important;
+  height: 8px !important;
+  background: linear-gradient(180deg, #fff3c4 0%, #d4af37 40%, #997527 100%) !important;
+  border-radius: 2px !important;
+  border: 1px solid rgba(80, 55, 10, 0.5) !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 4px !important;
+  z-index: 3 !important;
+}
+
+#profile-tab .honor-brooch-bar.is-muted {
+  background: linear-gradient(180deg, #6c6c74 0%, #44444a 100%) !important;
+  border-color: rgba(30, 30, 35, 0.7) !important;
+}
+
+#profile-tab .brooch-rivet {
+  width: 2.5px !important;
+  height: 2.5px !important;
+  border-radius: 50% !important;
+  background: #2a1f0a !important;
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.4) !important;
+}
+
+#profile-tab .brooch-hallmark {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 5px !important;
+  letter-spacing: 0.08em !important;
+  color: #2b1f09 !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+}
+
+#profile-tab .honor-brooch-bar.is-muted .brooch-hallmark {
+  color: #a8a8b2 !important;
+}
+
+/* Draped Moiré Silk Ribbon (الشريط الحريري) */
+#profile-tab .honor-moire-ribbon {
+  position: relative !important;
+  width: 38px !important;
+  height: 26px !important;
+  margin-top: -1px !important;
+  border-radius: 0 0 2px 2px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-top: none !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6) !important;
+  z-index: 2 !important;
+}
+
+#profile-tab .honor-moire-ribbon.is-muted {
+  filter: grayscale(0.8) brightness(0.6) !important;
+  border-color: rgba(120, 120, 130, 0.25) !important;
+}
+
+#profile-tab .ribbon-crease-v {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 6px solid transparent !important;
+  border-right: 6px solid transparent !important;
+  border-bottom: 5px solid rgba(13, 13, 16, 0.95) !important;
+  pointer-events: none !important;
+}
+
+/* Solid Gold Suspension Ring (حلقة التعليق الذهبية) */
+#profile-tab .honor-suspension-ring {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  border: 1.8px solid #d4af37 !important;
+  background: transparent !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 0 2px rgba(212, 175, 55, 0.4) !important;
+  margin-top: -3px !important;
+  z-index: 1 !important;
+}
+
+#profile-tab .honor-suspension-ring.is-muted {
+  border-color: #6d6d75 !important;
+}
+
+/* Cloisonné Enamel Medallion (الميدالية المينا الكوازوني المنقوشة) */
+#profile-tab .honor-cloisonne-medal {
+  position: relative !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 2px 0 8px 0 !important;
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.8),
+    0 0 12px rgba(212, 175, 55, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+  border: 2px solid #d4af37 !important;
+  transform-origin: top center !important;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+#profile-tab .honor-cloisonne-medal.is-muted {
+  border-color: #55555c !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Enamel Base Colors */
+.medal-initiate .cloisonne-enamel-base {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, #17325e 0%, #0a1426 80%) !important;
+}
+
+.medal-connoisseur .cloisonne-enamel-base {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, #731321 0%, #38070e 80%) !important;
+}
+
+.medal-high_sovereign .cloisonne-enamel-base {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, #282830 0%, #0d0d10 80%) !important;
+}
+
+.medal-apex_titan .cloisonne-enamel-base {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, #15452f 0%, #061f14 80%) !important;
+}
+
+#profile-tab .honor-cloisonne-medal.is-muted .cloisonne-enamel-base {
+  background: radial-gradient(circle at 35% 30%, #303036 0%, #151518 80%) !important;
+}
+
+/* Beaded Gold Rim (حافة الحبيبات الذهبية المنقوشة) */
+#profile-tab .cloisonne-beaded-rim {
+  position: absolute !important;
+  inset: 2px !important;
+  border-radius: 50% !important;
+  border: 1px dashed rgba(212, 175, 55, 0.45) !important;
+  pointer-events: none !important;
+}
+
+#profile-tab .cloisonne-specular-glint {
+  position: absolute !important;
+  top: 3px !important;
+  left: 6px !important;
+  width: 14px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, transparent 100%) !important;
+  transform: rotate(-35deg) !important;
+  pointer-events: none !important;
+}
+
+#profile-tab .honor-icon {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #dfc17b !important;
+}
+
+#profile-tab .honor-cloisonne-medal.is-muted .honor-icon {
+  color: #7b7b85 !important;
+}
+
+#profile-tab .honor-icon svg {
+  width: 22px !important;
+  height: 22px !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)) !important;
+}
+
+/* Medal Sway Micro-Interaction (حركة تأرجح الميدالية الملكية) */
+@keyframes medalSway {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(6deg); }
+  40% { transform: rotate(-5deg); }
+  60% { transform: rotate(3deg); }
+  80% { transform: rotate(-1.5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+#profile-tab .heraldic-order-card.is-medal-swaying .honor-cloisonne-medal {
+  animation: medalSway 1s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Order Class Badge */
+#profile-tab .honor-order-badge {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 7px !important;
+  letter-spacing: 0.12em !important;
+  color: rgba(212, 175, 55, 0.7) !important;
+  text-transform: uppercase !important;
+  margin-bottom: 2px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 95% !important;
+}
+
+#profile-tab .honor-name {
+  font-family: var(--font-arabic, sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #f7eed8 !important;
+  line-height: 1.25 !important;
+  margin-bottom: 2px !important;
+}
+
+#profile-tab .honor-title {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 8px !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(212, 175, 55, 0.8) !important;
+  margin-bottom: 6px !important;
+}
+
+#profile-tab .honor-bestowed-pill {
+  background: rgba(212, 175, 55, 0.12) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  border-radius: 12px !important;
+  padding: 2px 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 8.5px !important;
+  color: #d4af37 !important;
+  font-weight: 600 !important;
+  margin-bottom: 6px !important;
+}
+
+#profile-tab .honor-citation-hint {
+  margin-top: auto !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 6.5px !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(212, 175, 55, 0.5) !important;
+  text-transform: uppercase !important;
+  border-top: 1px dashed rgba(212, 175, 55, 0.15) !important;
+  padding-top: 5px !important;
+  width: 100% !important;
+}
+
+/* ==========================================================================
+   SOVEREIGN PATENT DECREE / HERALDIC CITATION MODAL
+   ========================================================================== */
+
+.heraldic-citation-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(4, 4, 6, 0.88) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 10500 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px !important;
+}
+
+.heraldic-citation-card {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 360px !important;
+  background: radial-gradient(circle at 50% 10%, #1f1f26 0%, #0d0d11 100%) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.9),
+    0 0 30px rgba(212, 175, 55, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+  border-radius: 16px !important;
+  padding: 22px 18px 20px 18px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  animation: modalPopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes modalPopIn {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.hcc-corner-screw {
+  position: absolute !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, #fff3c4 0%, #997527 100%) !important;
+  border: 0.5px solid rgba(50, 35, 10, 0.6) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+}
+
+.hcc-screw-tl { top: 8px !important; left: 8px !important; }
+.hcc-screw-tr { top: 8px !important; right: 8px !important; }
+.hcc-screw-bl { bottom: 8px !important; left: 8px !important; }
+.hcc-screw-br { bottom: 8px !important; right: 8px !important; }
+
+.hcc-close-btn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 12px !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  color: #dfc17b !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  z-index: 6 !important;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  z-index: 10 !important;
+  transition: all 0.2s ease !important;
 }
 
-body #profile-tab .phc-edit-btn:hover {
-  transform: scale(1.08) !important;
-  border-color: rgba(212, 175, 106, 0.8) !important;
-  box-shadow:
-    0 6px 16px rgba(0, 0, 0, 0.8),
-    0 0 12px rgba(212, 175, 106, 0.25) !important;
+.hcc-close-btn:hover {
+  background: rgba(212, 175, 55, 0.15) !important;
+  border-color: rgba(212, 175, 55, 0.6) !important;
+  color: #fff !important;
 }
 
-body #profile-tab .phc-edit-btn svg {
-  width: 16px !important;
-  height: 16px !important;
-  stroke: #dfbe76 !important;
-  stroke-width: 1.5 !important;
+.hcc-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
 }
 
-body.light-mode #profile-tab .phc-edit-btn {
+.hcc-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-bottom: 12px !important;
+}
+
+.hcc-seal-emblem {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, rgba(212, 175, 55, 0.25), rgba(16, 16, 20, 0.95)) !important;
+  border: 1.5px solid #d4af37 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7), 0 0 12px rgba(212, 175, 55, 0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 22px !important;
+  color: #d4af37 !important;
+  margin-bottom: 8px !important;
+}
+
+.hcc-seal-emblem svg {
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.hcc-protocol-tag {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 8px !important;
+  letter-spacing: 0.15em !important;
+  color: rgba(212, 175, 55, 0.7) !important;
+  text-transform: uppercase !important;
+  margin-bottom: 3px !important;
+}
+
+.hcc-medal-name {
+  font-family: var(--font-arabic, sans-serif) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: #f7eed8 !important;
+  margin-bottom: 2px !important;
+}
+
+.hcc-order-class {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 8.5px !important;
+  letter-spacing: 0.1em !important;
+  color: #d4af37 !important;
+}
+
+/* Ribbon Preview Swatch */
+.hcc-ribbon-preview {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 14px !important;
+}
+
+.hcc-ribbon-sample {
+  position: relative !important;
+  width: 120px !important;
+  height: 26px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.hcc-ribbon-seal {
+  position: relative !important;
+  z-index: 3 !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 8px !important;
+  letter-spacing: 0.12em !important;
+  color: #1a1408 !important;
+  background: #d4af37 !important;
+  padding: 1px 6px !important;
+  border-radius: 8px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Citation Quote */
+.hcc-citation-quote {
+  font-family: var(--font-arabic, serif) !important;
+  font-size: 12.5px !important;
+  line-height: 1.65 !important;
+  color: #f0e6ce !important;
+  font-style: italic !important;
+  background: rgba(0, 0, 0, 0.35) !important;
+  border-radius: 8px !important;
+  border-right: 3px solid #d4af37 !important;
+  padding: 10px 12px !important;
+  margin: 0 0 14px 0 !important;
+  text-align: right !important;
+}
+
+/* Metrics Grid */
+.hcc-metrics-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+  width: 100% !important;
+  margin-bottom: 14px !important;
+}
+
+.hcc-metric-col {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(212, 175, 55, 0.18) !important;
+  border-radius: 8px !important;
+  padding: 7px 6px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.hcc-m-lbl {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 7.5px !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(212, 175, 55, 0.7) !important;
+}
+
+.hcc-m-val {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+}
+
+.hcc-status-bestowed {
+  color: #d4af37 !important;
+  font-weight: 700 !important;
+}
+
+.hcc-status-pending {
+  color: #9999a3 !important;
+}
+
+/* Footer & Hallmark Stamp */
+.hcc-footer {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.hcc-hallmark-stamp {
+  padding: 4px 10px !important;
+  border: 1px dashed rgba(212, 175, 55, 0.3) !important;
+  border-radius: 4px !important;
+}
+
+.hcc-stamp-txt {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 7px !important;
+  letter-spacing: 0.14em !important;
+  color: rgba(212, 175, 55, 0.6) !important;
+}
+
+.hcc-action-btn {
+  width: 100% !important;
+  padding: 10px 0 !important;
+  border-radius: 8px !important;
+  background: linear-gradient(180deg, #d4af37 0%, #aa8222 100%) !important;
+  border: 1px solid rgba(60, 40, 10, 0.6) !important;
+  color: #1a1306 !important;
+  font-family: var(--font-arabic, sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+
+.hcc-action-btn:hover {
+  filter: brightness(1.1) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   LIGHT MODE PALETTE COMPATIBILITY
+   ========================================================================== */
+
+body.light-mode #profile-tab .heraldic-orders-section {
+  color: #2b2316 !important;
+}
+
+body.light-mode #profile-tab .heraldic-crest-icon {
   background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f4ede0 100%) !important;
-  border: 1px solid rgba(185, 145, 75, 0.45) !important;
-  box-shadow:
-    0 3px 10px rgba(80, 55, 20, 0.12),
-    inset 0 1px 1px #ffffff !important;
+  border: 1px solid rgba(185, 145, 75, 0.4) !important;
+  box-shadow: 0 2px 6px rgba(80, 55, 20, 0.1) !important;
 }
 
-body.light-mode #profile-tab .phc-edit-btn svg {
+body.light-mode #profile-tab .heraldic-crest-icon svg path,
+body.light-mode #profile-tab .heraldic-crest-icon svg circle {
   stroke: #8c6a28 !important;
 }
+
+body.light-mode #profile-tab .heraldic-section-sub {
+  color: #8c6a28 !important;
+}
+
+body.light-mode #profile-tab .heraldic-ribbon-rack-chassis {
+  background: linear-gradient(180deg, #ffffff 0%, #f9f6ef 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(80, 55, 20, 0.08), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .hrr-header {
+  border-bottom-color: rgba(185, 145, 75, 0.2) !important;
+}
+
+body.light-mode #profile-tab .hrr-label {
+  color: #694e1c !important;
+}
+
+body.light-mode #profile-tab .hrr-status {
+  background: rgba(185, 145, 75, 0.12) !important;
+  border-color: rgba(185, 145, 75, 0.3) !important;
+  color: #694e1c !important;
+}
+
+body.light-mode #profile-tab .heraldic-order-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fbf9f4 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  box-shadow: 0 4px 16px rgba(80, 55, 20, 0.08), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .heraldic-order-card.is-locked {
+  background: linear-gradient(180deg, #f7f5f0 0%, #ede8de 100%) !important;
+  border-color: rgba(180, 150, 90, 0.2) !important;
+}
+
+body.light-mode #profile-tab .honor-name {
+  color: #1e1912 !important;
+}
+
+body.light-mode #profile-tab .honor-title {
+  color: #7a5a22 !important;
+}
+
+body.light-mode #profile-tab .honor-order-badge {
+  color: #8c6a28 !important;
+}
+
+body.light-mode #profile-tab .honor-bestowed-pill {
+  background: rgba(185, 145, 75, 0.12) !important;
+  border-color: rgba(185, 145, 75, 0.4) !important;
+  color: #6d4e16 !important;
+}
+
+body.light-mode #profile-tab .honor-citation-hint {
+  color: #8c6a28 !important;
+  border-top-color: rgba(185, 145, 75, 0.2) !important;
+}
+
+body.light-mode .heraldic-citation-overlay {
+  background: rgba(240, 235, 225, 0.85) !important;
+}
+
+body.light-mode .heraldic-citation-card {
+  background: radial-gradient(circle at 50% 10%, #ffffff 0%, #f6f1e6 100%) !important;
+  border-color: rgba(185, 145, 75, 0.45) !important;
+  box-shadow: 0 18px 45px rgba(80, 55, 20, 0.2), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode .hcc-close-btn {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(185, 145, 75, 0.3) !important;
+  color: #6d4e16 !important;
+}
+
+body.light-mode .hcc-medal-name {
+  color: #1e1912 !important;
+}
+
+body.light-mode .hcc-protocol-tag {
+  color: #8c6a28 !important;
+}
+
+body.light-mode .hcc-order-class {
+  color: #725119 !important;
+}
+
+body.light-mode .hcc-citation-quote {
+  background: rgba(185, 145, 75, 0.08) !important;
+  color: #2b2316 !important;
+  border-right-color: #8c6a28 !important;
+}
+
+body.light-mode .hcc-metric-col {
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(185, 145, 75, 0.25) !important;
+}
+
+body.light-mode .hcc-m-lbl {
+  color: #8c6a28 !important;
+}
+
+body.light-mode .hcc-m-val {
+  color: #1e1912 !important;
+}
+
+body.light-mode .hcc-stamp-txt {
+  color: #8c6a28 !important;
+}
+
+/* Mobile Screen Proportions (360px - 430px) */
+@media (max-width: 380px) {
+  #profile-tab .heraldic-order-card {
+    padding: 10px 6px 12px 6px !important;
+    min-height: 220px !important;
+  }
+  #profile-tab .honor-brooch-bar {
+    width: 36px !important;
+    height: 7px !important;
+  }
+  #profile-tab .honor-moire-ribbon {
+    width: 32px !important;
+    height: 22px !important;
+  }
+  #profile-tab .honor-cloisonne-medal {
+    width: 42px !important;
+    height: 42px !important;
+  }
+  #profile-tab .honor-name {
+    font-size: 10px !important;
+  }
+  #profile-tab .honor-order-badge {
+    font-size: 6.5px !important;
+  }
+}
+
 
 
 

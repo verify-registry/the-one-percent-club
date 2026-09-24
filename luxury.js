@@ -1065,7 +1065,7 @@ let targetRotX = 0;
 let targetRotY = 0;
 let currentRotX = 0;
 let currentRotY = 0;
-const lerpFactor = 0.08;
+const lerpFactor = 0.14; // High-refresh 120Hz responsive physics
 let tiltLoopActive = false;
 const DEADZONE = 1.5;
 
@@ -1075,6 +1075,7 @@ function applyTiltToCards(rx, ry) {
 
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
     const isMembership = card.id === "membershipCard";
+    const isProfileHero = card.id === "profileHeroPlaque";
     const isHovered = card.classList.contains("is-hovered");
     const isLongPressed = card.classList.contains("is-long-press-active");
 
@@ -1083,9 +1084,9 @@ function applyTiltToCards(rx, ry) {
       return;
     }
 
-    const elevation = isLongPressed ? 22 : (isHovered ? (isMembership ? 14 : 10) : 0);
-    const translateY = isLongPressed ? -8 : (isHovered ? (isMembership ? -5 : -4) : 0);
-    const scale = isLongPressed ? 1.025 : (isHovered ? (isMembership ? 1.015 : 1.008) : 1);
+    const elevation = isLongPressed ? 22 : (isHovered ? (isMembership || isProfileHero ? 14 : 10) : 0);
+    const translateY = isLongPressed ? -8 : (isHovered ? (isMembership || isProfileHero ? -5 : -4) : 0);
+    const scale = isLongPressed ? 1.025 : (isHovered ? (isMembership || isProfileHero ? 1.015 : 1.008) : 1);
 
     card.style.setProperty('--tilt-rx', `${rx.toFixed(2)}deg`);
     card.style.setProperty('--tilt-ry', `${ry.toFixed(2)}deg`);
@@ -1094,9 +1095,7 @@ function applyTiltToCards(rx, ry) {
     card.style.setProperty('--tilt-scale', `${scale}`);
 
     card.style.transform = `perspective(1200px) translateY(${translateY}px) translateZ(${elevation}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
-    card.style.transition = (isHovered || isLongPressed)
-      ? "transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease"
-      : "none";
+    card.style.transition = "none";
     
     // Depth-mapping edge glow
     const glowX = 50 + (ry * 2); // Shift horizontal highlight
@@ -1168,15 +1167,11 @@ function tiltLoop() {
   const dx = targetRotX - currentRotX;
   const dy = targetRotY - currentRotY;
 
-  if (
-    Math.abs(dx) < 0.01 &&
-    Math.abs(dy) < 0.01 &&
-    targetRotX === 0 &&
-    targetRotY === 0
-  ) {
-    currentRotX = 0;
-    currentRotY = 0;
-    applyTiltToCards(0, 0);
+  // Once settled within threshold, snap precisely and stop the loop
+  if (Math.abs(dx) < 0.005 && Math.abs(dy) < 0.005) {
+    currentRotX = targetRotX;
+    currentRotY = targetRotY;
+    applyTiltToCards(currentRotX, currentRotY);
     tiltLoopActive = false;
     return;
   }
@@ -1190,8 +1185,16 @@ function tiltLoop() {
 
 function updateTiltTarget(rx, ry) {
   // Strict Angle Clamping
-  targetRotX = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, rx));
-  targetRotY = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, ry));
+  const nextX = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, rx));
+  const nextY = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, ry));
+
+  // Skip if target hasn't meaningfully changed and loop is idle
+  if (Math.abs(nextX - targetRotX) < 0.005 && Math.abs(nextY - targetRotY) < 0.005 && !tiltLoopActive) {
+    return;
+  }
+
+  targetRotX = nextX;
+  targetRotY = nextY;
 
   if (!tiltLoopActive) {
     tiltLoopActive = true;
@@ -1572,7 +1575,18 @@ function initGoldDust() {
     }
   };
 
+  const isCardActive = () => {
+    if (document.hidden) return false;
+    const tab = document.getElementById("membership-tab");
+    return Boolean(tab && tab.classList.contains("is-active"));
+  };
+
   const draw = () => {
+    if (!isCardActive()) {
+      animId = null;
+      return;
+    }
+
     if (!width || !height) {
       resize();
       animId = requestAnimationFrame(draw);
@@ -1719,10 +1733,27 @@ function initGoldDust() {
 
   window.addEventListener("resize", resize);
 
+  window.resumeGoldDustCanvas = () => {
+    if (!animId && isCardActive()) {
+      draw();
+    }
+  };
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      if (animId) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    } else if (isCardActive() && !animId) {
+      draw();
+    }
+  });
+
   // Initialize after layout settles
   setTimeout(() => {
     resize();
-    if (!animId) {
+    if (!animId && isCardActive()) {
       draw();
     }
   }, 80);

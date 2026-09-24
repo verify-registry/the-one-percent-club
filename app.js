@@ -131,25 +131,14 @@ window.setLanguage = function (lang) {
   const btnEn = document.getElementById("langEnBtn");
   const btnAr = document.getElementById("langArBtn");
   if (btnEn && btnAr) {
-    if (lang === "en") {
-      btnEn.classList.add("is-active");
-      btnEn.style.background = "rgba(212,175,55,0.1)";
-      btnEn.style.color = "#d4af37";
-      btnEn.style.borderColor = "#d4af37";
-      btnAr.classList.remove("is-active");
-      btnAr.style.background = "transparent";
-      btnAr.style.color = "";
-      btnAr.style.borderColor = "";
-    } else {
-      btnAr.classList.add("is-active");
-      btnAr.style.background = "rgba(212,175,55,0.1)";
-      btnAr.style.color = "#d4af37";
-      btnAr.style.borderColor = "#d4af37";
-      btnEn.classList.remove("is-active");
-      btnEn.style.background = "transparent";
-      btnEn.style.color = "";
-      btnEn.style.borderColor = "";
-    }
+    btnEn.classList.toggle("is-active", lang === "en");
+    btnAr.classList.toggle("is-active", lang === "ar");
+    btnEn.style.background = "";
+    btnEn.style.color = "";
+    btnEn.style.borderColor = "";
+    btnAr.style.background = "";
+    btnAr.style.color = "";
+    btnAr.style.borderColor = "";
   }
 
   // Update specific UI states if needed
@@ -206,6 +195,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const isLight = theme === "light";
       const root = document.documentElement;
       const body = document.body;
+
+      // Apply temporary smooth transition class for silky 120Hz morphing
+      root.classList.add("theme-transitioning");
+      if (this._themeTransitionTimer) clearTimeout(this._themeTransitionTimer);
+      this._themeTransitionTimer = setTimeout(() => {
+        root.classList.remove("theme-transitioning");
+      }, 280);
 
       // Toggle dark-mode / light-mode classes on document root element (<html>)
       root.classList.toggle("light-mode", isLight);
@@ -392,9 +388,11 @@ window.applyLanguage = function (lang) {
     colTitle.textContent =
       lang === "ar" ? "خزينة المقتنيات النادرة" : "MY LUXURY COLLECTION";
   if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
+  if (typeof renderProfileCircles === "function") renderProfileCircles();
   if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
   if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
   if (typeof renderProfileCollection === "function") renderProfileCollection();
+  if (typeof renderProfileAchievements === "function") renderProfileAchievements();
   if (typeof window.syncAudioSoundUI === "function" && window.AudioEngine) {
     window.syncAudioSoundUI(window.AudioEngine.isEnabled());
   }
@@ -1552,6 +1550,38 @@ ClubState.on("change", () => {
   const pLoc = document.getElementById("profileLocationValue");
   if (pLoc && AppState.user.location) pLoc.textContent = AppState.user.location;
 
+  // Profile Sovereign Hero Card Dynamic Elements
+  const pCardId = document.getElementById("profileCardMemberId");
+  if (pCardId) {
+    const rawId = AppState.user.id || "3426";
+    pCardId.textContent = `ID #${rawId} · 1P`;
+  }
+
+  const pCardLoc = document.getElementById("profileCardLocation");
+  if (pCardLoc) {
+    pCardLoc.textContent = (AppState.user.location || "ALEXANDRIA").toUpperCase();
+  }
+
+  const pCardEst = document.getElementById("profileCardEst");
+  if (pCardEst) {
+    pCardEst.textContent = AppState.user.est || "EST. 2026";
+  }
+
+  const pCardStanding = document.getElementById("profileCardStanding");
+  if (pCardStanding) {
+    pCardStanding.textContent = window.t("profile.statusStanding") || "SOVEREIGN";
+  }
+
+  const pCardWealth = document.getElementById("profileCardWealthVal");
+  if (pCardWealth) {
+    pCardWealth.textContent = AppState.user.wealthIndex || "98%";
+  }
+
+  const pCardWealthFill = document.getElementById("profileCardWealthFill");
+  if (pCardWealthFill) {
+    pCardWealthFill.style.width = AppState.user.wealthIndex || "98%";
+  }
+
   const shareBtn = document.getElementById("shareBtn");
   if (shareBtn) {
     shareBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none">
@@ -1659,7 +1689,159 @@ function applyEquippedToCard(equipped) {
       slotEl.style.display = "none";
     }
   }
+
+  // Synchronize equipped luxury assets on Profile Hero Plaque
+  const profileEquipMap = {
+    crowns: "profileEquippedCrownSlot",
+    auras: "profileEquippedAuraSlot",
+    rings: "profileEquippedRingSlot",
+  };
+  for (const catKey in profileEquipMap) {
+    const pSlotId = profileEquipMap[catKey];
+    const pSlotEl = document.getElementById(pSlotId);
+    if (!pSlotEl) continue;
+    const itemId = equipped[catKey];
+    if (itemId) {
+      const itemDef = BOUTIQUE[catKey]?.items?.find((i) => i.id === itemId);
+      if (itemDef) {
+        pSlotEl.innerHTML = ICONS[itemDef.icon] || ICONS["star"];
+        pSlotEl.style.display = "flex";
+      } else {
+        pSlotEl.style.display = "none";
+      }
+    } else {
+      pSlotEl.style.display = "none";
+    }
+  }
 }
+
+// Sovereign Hallmark Coin Tactile Verification
+(function setupProfileHallmarkInteraction() {
+  function attachCoinHandler() {
+    const coin = document.getElementById("profileCrownCoin");
+    if (!coin || coin.dataset.bound === "true") return;
+    coin.dataset.bound = "true";
+    coin.addEventListener("click", () => {
+      coin.classList.remove("is-coin-mint-active");
+      void coin.offsetWidth;
+      coin.classList.add("is-coin-mint-active");
+      if (window.AudioEngine && window.AudioEngine.playChime) {
+        window.AudioEngine.playChime();
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(25);
+      }
+      if (typeof showPremiumToast === "function") {
+        const isAr = (typeof AppState !== "undefined" && AppState.language === "ar") || document.documentElement.lang === "ar";
+        showPremiumToast(
+          isAr ? "ختم السيادة الذهبي" : "Sovereign Hallmark AU 999.9",
+          isAr ? "تم التحقق من مطابقة عيار الذهب السيادي والمواصفات الرسمية." : "Verified 24K solid hallmark & official calibre specification."
+        );
+      }
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", attachCoinHandler);
+  } else {
+    attachCoinHandler();
+  }
+})();
+
+// Sovereign Dossier Hero Card Quick Actions & Medallion Interactions
+(function setupProfileHeroInteractions() {
+  function attachHeroActions() {
+    // 1. Portrait Medallion Tap -> Open Edit Dossier Modal
+    const avatarRing = document.getElementById("profileAvatarRing");
+    if (avatarRing && avatarRing.dataset.bound !== "true") {
+      avatarRing.dataset.bound = "true";
+      avatarRing.addEventListener("click", () => {
+        if (window.AudioEngine && window.AudioEngine.playClick) {
+          window.AudioEngine.playClick();
+        }
+        document.getElementById("editAccountBtn")?.click();
+      });
+    }
+
+    // 2. Add Member Button -> Tactile Feedback & Prompt
+    const btnAdd = document.getElementById("btnProfileAddFriend");
+    if (btnAdd && btnAdd.dataset.bound !== "true") {
+      btnAdd.dataset.bound = "true";
+      btnAdd.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (window.AudioEngine && window.AudioEngine.playClick) {
+          window.AudioEngine.playClick();
+        }
+        if (window.HapticEngine && window.HapticEngine.tap) {
+          window.HapticEngine.tap(15);
+        }
+        const isAr = (typeof AppState !== "undefined" && AppState.language === "ar") || document.documentElement.lang === "ar";
+        const msg = isAr ? "إضافة عضو موثق — قريباً" : "Accredited Member Connection — Coming Soon";
+        if (typeof showNavToast === "function") {
+          showNavToast(msg);
+        } else if (typeof showCopyToast === "function") {
+          showCopyToast(msg);
+        }
+      });
+    }
+
+    // 3. Send Message Button -> Tactile Feedback & Prompt
+    const btnMsg = document.getElementById("btnProfileSendMessage");
+    if (btnMsg && btnMsg.dataset.bound !== "true") {
+      btnMsg.dataset.bound = "true";
+      btnMsg.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (window.AudioEngine && window.AudioEngine.playClick) {
+          window.AudioEngine.playClick();
+        }
+        if (window.HapticEngine && window.HapticEngine.tap) {
+          window.HapticEngine.tap(15);
+        }
+        const isAr = (typeof AppState !== "undefined" && AppState.language === "ar") || document.documentElement.lang === "ar";
+        const msg = isAr ? "المراسلة الدبلوماسية المشفرة — قريباً" : "Encrypted Diplomatic Dispatch — Coming Soon";
+        if (typeof showNavToast === "function") {
+          showNavToast(msg);
+        } else if (typeof showCopyToast === "function") {
+          showCopyToast(msg);
+        }
+      });
+    }
+
+    // 4. Share Dossier Button -> Copy Verification Link & Haptic Chime
+    const btnShare = document.getElementById("btnProfileShareDossier");
+    if (btnShare && btnShare.dataset.bound !== "true") {
+      btnShare.dataset.bound = "true";
+      btnShare.addEventListener("click", async (e) => {
+        e.preventDefault();
+        if (window.AudioEngine && window.AudioEngine.playChime) {
+          window.AudioEngine.playChime();
+        }
+        if (window.HapticEngine && window.HapticEngine.tap) {
+          window.HapticEngine.tap(25);
+        }
+        const memberId = AppState.user?.id || "3426";
+        const shareUrl = `${window.location.origin}${window.location.pathname}?ref=dossier-${memberId}#profile`;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(shareUrl);
+          }
+        } catch (err) {}
+        const isAr = (typeof AppState !== "undefined" && AppState.language === "ar") || document.documentElement.lang === "ar";
+        const msg = isAr ? "تم نسخ رابط الملف السيادي المعتمد بنجاح" : "Official Sovereign Dossier Link Copied";
+        if (typeof showCopyToast === "function") {
+          showCopyToast(msg);
+        } else if (typeof showNavToast === "function") {
+          showNavToast(msg);
+        }
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", attachHeroActions);
+  } else {
+    attachHeroActions();
+  }
+})();
 
 /* =========================================================
    THE 1% CLUB — app.js Phase 2
@@ -1689,21 +1871,12 @@ function generateBoutiqueSkeleton() {
 /* === 3. BOUTIQUE & STORE RENDERING === */
 function renderBoutique(filter = "all") {
   const root = document.getElementById("boutiqueSections");
+  if (!root) return;
   const owned = ClubState.owned;
   const equipped = ClubState.equipped;
   const categories = filter === "all" ? Object.keys(BOUTIQUE) : [filter];
 
-  if (!root.dataset.skeletonShown) {
-    root.innerHTML = generateBoutiqueSkeleton();
-    root.dataset.skeletonShown = "true";
-    setTimeout(
-      () => renderBoutiqueContent(filter, root, owned, equipped, categories),
-      450,
-    );
-    return;
-  }
-
-  root.dataset.skeletonShown = "";
+  root.dataset.skeletonShown = "true";
   renderBoutiqueContent(filter, root, owned, equipped, categories);
 }
 
@@ -2281,12 +2454,20 @@ const Router = {
   },
 
   switchView(tab) {
+    if (window.HeaderScrollController) {
+      window.HeaderScrollController.onTabChangeStart();
+    }
+
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
+      p.setAttribute("aria-hidden", "true");
+      p.setAttribute("hidden", "");
     });
 
     const activePage = document.getElementById(`${tab}-tab`);
     if (activePage) {
+      activePage.removeAttribute("hidden");
+      activePage.setAttribute("aria-hidden", "false");
       activePage.classList.add("is-active");
       activePage.scrollTop = 0;
     }
@@ -2305,13 +2486,20 @@ const Router = {
     if (header) {
       header.classList.remove("header-hidden");
     }
-    if (typeof window.resetHeaderScrollTracking === "function") {
-      window.resetHeaderScrollTracking();
+    if (window.HeaderScrollController) {
+      window.HeaderScrollController.onTabChangeComplete();
+    } else {
+      if (typeof window.resetHeaderScrollTracking === "function") {
+        window.resetHeaderScrollTracking();
+      }
+      if (typeof window.updateHeaderHeightVar === "function") {
+        window.updateHeaderHeightVar();
+      }
     }
-    if (typeof window.updateHeaderHeightVar === "function") {
-      window.updateHeaderHeightVar();
+
+    if (tab === "membership" && typeof window.resumeGoldDustCanvas === "function") {
+      window.resumeGoldDustCanvas();
     }
-    window.dispatchEvent(new Event("resize"));
   },
 
   updateHeader(tab) {
@@ -2335,14 +2523,22 @@ const Router = {
 
   navigateContext(pageId, title, returnTab) {
     if (window.AudioEngine) AudioEngine.playRustle();
+    if (window.HeaderScrollController) {
+      window.HeaderScrollController.onTabChangeStart();
+    }
     contextReturnTab = returnTab;
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
+      p.setAttribute("aria-hidden", "true");
+      p.setAttribute("hidden", "");
     });
 
     const activePage = document.getElementById(pageId);
     if (activePage) {
+      activePage.removeAttribute("hidden");
+      activePage.setAttribute("aria-hidden", "false");
       activePage.classList.add("is-active");
+      activePage.scrollTop = 0;
     }
     document.getElementById("sectionName").textContent = title;
     const header = document.getElementById("appHeader");
@@ -2359,7 +2555,9 @@ const Router = {
     const main = document.querySelector(".app-main");
     if (main) main.scrollTop = 0;
     window.scrollTo(0, 0);
-    window.dispatchEvent(new Event("resize"));
+    if (window.HeaderScrollController) {
+      window.HeaderScrollController.onTabChangeComplete();
+    }
   },
 
   onEnter(tab) {
@@ -2367,7 +2565,7 @@ const Router = {
       if (typeof updateCreditsUI === "function") updateCreditsUI();
       requestAnimationFrame(() => {
         const msgs = document.getElementById("clubMessages");
-        if (msgs) window.scrollTo(0, document.body.scrollHeight);
+        if (msgs) msgs.scrollTop = msgs.scrollHeight;
       });
       if (typeof startClubWelcomeAutoDismiss === "function") {
         startClubWelcomeAutoDismiss(5000);
@@ -2377,6 +2575,8 @@ const Router = {
       if (typeof renderProfileCircles === "function") renderProfileCircles();
       if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
       if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
+      if (typeof renderProfileCollection === "function") renderProfileCollection();
+      if (typeof renderProfileAchievements === "function") renderProfileAchievements();
       if (typeof attachHorologicalScrewHandlers === "function") attachHorologicalScrewHandlers();
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
         cancelClubWelcomeAutoDismiss();
@@ -4203,14 +4403,17 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (e) {}
         
       let currentAvatarUrl = "";
+      const locInput = document.getElementById("editProfileLocationInput");
       if (draft) {
         document.getElementById("editProfileNameInput").value = draft.name || "";
         document.getElementById("editProfileQuoteInput").value = draft.quote || "";
+        if (locInput) locInput.value = draft.location || "";
         currentAvatarUrl = draft.avatarUrl || "";
         document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
       } else {
         document.getElementById("editProfileNameInput").value = AppState.user.name || "";
         document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
+        if (locInput) locInput.value = AppState.user.location || "";
         currentAvatarUrl = AppState.user.avatarUrl || "";
         document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
       }
@@ -4259,6 +4462,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ?.addEventListener("click", () => {
       const nameInput = document.getElementById("editProfileNameInput").value.trim();
       const quoteInput = document.getElementById("editProfileQuoteInput").value.trim();
+      const locInput = document.getElementById("editProfileLocationInput")?.value.trim();
       const avatarUrl = document.getElementById("editProfileAvatarUrl").value.trim();
         
       if (nameInput) {
@@ -4268,6 +4472,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (quoteInput) {
         AppState.user.quote = quoteInput;
         AppState.user.bio = quoteInput;
+      }
+      if (locInput) {
+        AppState.user.location = locInput.toUpperCase();
       }
       if (avatarUrl) {
         AppState.user.avatarUrl = avatarUrl;
@@ -5592,6 +5799,7 @@ function saveProfileDraft() {
   const draft = {
     name: document.getElementById("editProfileNameInput")?.value || "",
     quote: document.getElementById("editProfileQuoteInput")?.value || "",
+    location: document.getElementById("editProfileLocationInput")?.value || "",
     avatarUrl: document.getElementById("editProfileAvatarUrl")?.value || "",
   };
   localStorage.setItem("profileDraft", JSON.stringify(draft));
@@ -5602,6 +5810,9 @@ document
   ?.addEventListener("input", saveProfileDraft);
 document
   .getElementById("editProfileQuoteInput")
+  ?.addEventListener("input", saveProfileDraft);
+document
+  .getElementById("editProfileLocationInput")
   ?.addEventListener("input", saveProfileDraft);
 document
   .getElementById("editProfileAvatarUrl")
@@ -6190,6 +6401,16 @@ function attachDeedInteractiveHandlers() {
     });
   }
 
+  const cryptoHashStrip = deedCard ? deedCard.querySelector(".deed-crypto-hash-strip") : null;
+  if (cryptoHashStrip && !cryptoHashStrip.dataset.bound) {
+    cryptoHashStrip.dataset.bound = "true";
+    cryptoHashStrip.style.cursor = "pointer";
+    cryptoHashStrip.addEventListener("click", (e) => {
+      e.stopPropagation();
+      triggerVerification();
+    });
+  }
+
   attachHorologicalScrewHandlers();
 }
 
@@ -6757,122 +6978,14 @@ function renderLeaderboard() {
 class ParallaxController {
   constructor() {
     this.ticking = false;
-    this.init();
   }
 
   init() {
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(page => {
-      // Use passive listener for butter-smooth scrolling
-      page.addEventListener('scroll', () => {
-        if (!this.ticking) {
-          window.requestAnimationFrame(() => {
-            this.updateParallax(page);
-            this.ticking = false;
-          });
-          this.ticking = true;
-        }
-      }, { passive: true });
-    });
-    
-    // Initial trigger
-    setTimeout(() => {
-        const activePage = document.querySelector('.page.is-active');
-        if (activePage) this.updateParallax(activePage);
-    }, 100);
+    // Parallax disabled to guarantee locked 120 FPS buttery-smooth native scrolling with zero layout thrashing
   }
 
-  updateParallax(scrollContainer) {
-    const containerHeight = scrollContainer.clientHeight;
-    
-    // --- BOUTIQUE TAB PARALLAX ---
-    if (scrollContainer.id === 'boutique-tab') {
-      const cards = scrollContainer.querySelectorAll('.boutique-card');
-      
-      cards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        
-        // Skip if outside viewport
-        if (rect.bottom < 0 || rect.top > containerHeight) return;
-        
-        // Distance from center of viewport (- means above center, + means below)
-        const centerOffset = (rect.top + rect.height / 2) - (containerHeight / 2);
-        
-        // Layer 1: Icon (moves faster)
-        // Layer 2: Text (moves slower)
-        
-        const icon = card.querySelector('.boutique-card-icon');
-        const text1 = card.querySelector('.boutique-card-name');
-        const text2 = card.querySelector('.boutique-card-price');
-        const btn = card.querySelector('.boutique-own-btn');
-        const progress = card.querySelector('.purchase-progress-wrap');
-        
-        if (icon) {
-          icon.style.transform = `translate3d(0, ${centerOffset * 0.05}px, 0)`;
-          icon.style.transition = 'none'; 
-        }
-        
-        [text1, text2, btn, progress].forEach(el => {
-          if (el) {
-            el.style.transform = `translate3d(0, ${centerOffset * 0.015}px, 0)`;
-            el.style.transition = 'none';
-          }
-        });
-      });
-    }
-
-    // --- PROFILE TAB PARALLAX ---
-    if (scrollContainer.id === 'profile-tab') {
-      
-      // 1. Profile Hero Section Parallax
-      const hero = scrollContainer.querySelector('.profile-hero-card');
-      if (hero) {
-        const rect = hero.getBoundingClientRect();
-        const avatarCol = hero.querySelector('.phc-avatar-col');
-        const infoCol = hero.querySelector('.phc-info-col');
-        
-        // Only apply if visible and scrolling up (rect.top < 0)
-        if (rect.bottom > 0) {
-          // Push down as it scrolls up (negative rect.top)
-          
-          // Base offset is roughly where it starts (116px), so it parallaxes immediately
-          const offset = 116 - rect.top; 
- 
-          
-          if (avatarCol) {
-            avatarCol.style.transform = `translate3d(0, ${offset * 0.15}px, 0)`;
-            avatarCol.style.transition = 'none';
-          }
-          if (infoCol) {
-            infoCol.style.transform = `translate3d(0, ${offset * 0.06}px, 0)`;
-            infoCol.style.transition = 'none';
-          }
-        }
-      }
-      
-      // 2. Profile Collection Grid Parallax
-      const collectionCards = scrollContainer.querySelectorAll('#profileCollectionGrid .pcs-item-card');
-      collectionCards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        if (rect.bottom < 0 || rect.top > containerHeight) return;
-        
-        const centerOffset = (rect.top + rect.height / 2) - (containerHeight / 2);
-        
-        const icon = card.querySelector('.boutique-card-icon');
-        const info = card.querySelector('.pcs-item-info');
-        
-        if (icon) {
-          const yIcon = centerOffset * 0.04;
-          icon.style.transform = `translate3d(0, ${yIcon}px, 0)`;
-          icon.style.transition = 'none';
-        }
-        if (info) {
-          const yInfo = centerOffset * 0.01;
-          info.style.transform = `translate3d(0, ${yInfo}px, 0)`;
-          info.style.transition = 'none';
-        }
-      });
-    }
+  updateParallax() {
+    // Zero-overhead no-op for stutter-free scrolling stability
   }
 }
 
@@ -7107,128 +7220,197 @@ window.handleQuickPurchase = function(event, item, catKey) {
 };
 
 /* ==========================================================================
-   SMART HEADER AUTO-HIDE ON SCROLL DOWN (SHOW ON SCROLL UP)
+   CENTRALIZED HEADER SCROLL CONTROLLER
+   - Detects actual content scrollability dynamically rather than hardcoded IDs
+   - Enforces permanent header visibility on non-scrollable pages
+   - Decouples navigation transitions from scrolling
+   - Delivers stable, zero-flicker 120Hz smooth scrolling
    ========================================================================== */
-window.updateHeaderHeightVar = function() {
-  const header = document.getElementById("appHeader");
-  if (header && !header.classList.contains("header-hidden")) {
-    const h = header.offsetHeight;
-    if (h > 0) {
-      document.documentElement.style.setProperty("--header-actual-height", h + "px");
+window.HeaderScrollController = (function() {
+  let isLockedVisible = false;
+  let isNavigating = false;
+  let activeScrollEl = null;
+  let lastScrollTop = 0;
+  let ticking = false;
+  let lastActionTime = 0;
+
+  function getActivePageEl() {
+    return document.querySelector(".page.is-active");
+  }
+
+  function isPageScrollable(pageEl) {
+    if (!pageEl) return false;
+    const scrollHeight = pageEl.scrollHeight || 0;
+    const clientHeight = pageEl.clientHeight || 0;
+    // Consider scrollable only if actual content overflows significantly (> 35px)
+    return (scrollHeight - clientHeight) > 35;
+  }
+
+  function updateHeaderHeightVar() {
+    const header = document.getElementById("appHeader");
+    if (header && !header.classList.contains("header-hidden")) {
+      const h = header.offsetHeight;
+      if (h > 0) {
+        document.documentElement.style.setProperty("--header-actual-height", h + "px");
+      }
     }
   }
-};
 
-(function initSmartHeaderScroll() {
-  let headerScrollTicking = false;
-  let lastProcessedScroll = 0;
-  let activeScrollEl = null;
-  let lastHideTime = 0;
-
-  window.resetHeaderScrollTracking = function() {
-    lastProcessedScroll = 0;
-    activeScrollEl = null;
-    headerScrollTicking = false;
-  };
-
-  function processScrollUpdate() {
-    if (!activeScrollEl) {
-      headerScrollTicking = false;
-      return;
-    }
-
+  function updateStateForCurrentTab() {
     const header = document.getElementById("appHeader");
-    if (!header) {
-      headerScrollTicking = false;
+    if (!header) return;
+
+    const pageEl = getActivePageEl();
+    activeScrollEl = pageEl;
+    lastScrollTop = Math.max(0, pageEl ? pageEl.scrollTop : 0);
+
+    // If page is not scrollable, header MUST remain permanently visible
+    if (!isPageScrollable(pageEl)) {
+      isLockedVisible = true;
+      if (header.classList.contains("header-hidden")) {
+        header.classList.remove("header-hidden");
+      }
+    } else {
+      isLockedVisible = false;
+      // If page is currently scrolled near the top, reveal header
+      if (lastScrollTop <= 25) {
+        if (header.classList.contains("header-hidden")) {
+          header.classList.remove("header-hidden");
+        }
+      }
+    }
+  }
+
+  function onTabChangeStart() {
+    isNavigating = true;
+    const header = document.getElementById("appHeader");
+    if (header) {
+      header.classList.remove("header-hidden");
+    }
+  }
+
+  function onTabChangeComplete() {
+    updateStateForCurrentTab();
+    // Guard against synthetic scroll events during DOM transitions
+    requestAnimationFrame(() => {
+      updateStateForCurrentTab();
+      updateHeaderHeightVar();
+      setTimeout(() => {
+        isNavigating = false;
+        updateStateForCurrentTab();
+      }, 50);
+    });
+  }
+
+  function processScroll(pageEl, currentScroll) {
+    if (isNavigating || isLockedVisible) return;
+    const header = document.getElementById("appHeader");
+    if (!header) return;
+
+    if (!isPageScrollable(pageEl)) {
+      if (header.classList.contains("header-hidden")) {
+        header.classList.remove("header-hidden");
+      }
       return;
     }
 
-    const currentScroll = Math.max(0, activeScrollEl.scrollTop || 0);
-    const delta = currentScroll - lastProcessedScroll;
+    const delta = currentScroll - lastScrollTop;
     const now = Date.now();
 
-    // 1. Near the top: always reveal header
-    if (currentScroll <= 20) {
+    // 1. Near the top (scrollTop <= 25): ALWAYS show header
+    if (currentScroll <= 25) {
       if (header.classList.contains("header-hidden")) {
         header.classList.remove("header-hidden");
-        window.updateHeaderHeightVar();
       }
-      lastProcessedScroll = currentScroll;
-      headerScrollTicking = false;
+      lastScrollTop = currentScroll;
       return;
     }
 
-    // 2. Prevent rubber-band bounce at bottom
-    if (activeScrollEl.scrollHeight && activeScrollEl.clientHeight) {
-      const maxScroll = activeScrollEl.scrollHeight - activeScrollEl.clientHeight;
-      if (maxScroll > 0 && currentScroll >= maxScroll - 15) {
-        lastProcessedScroll = currentScroll;
-        headerScrollTicking = false;
-        return;
-      }
+    // 2. Prevent rubber-band bounce near bottom
+    const maxScroll = pageEl.scrollHeight - pageEl.clientHeight;
+    if (maxScroll > 0 && currentScroll >= maxScroll - 15) {
+      lastScrollTop = currentScroll;
+      return;
     }
 
-    // 3. Scrolling DOWN past 35px threshold: hide header
-    if (delta > 8 && currentScroll > 35) {
+    // 3. Scrolling DOWN past 40px: hide header smoothly
+    if (delta > 8 && currentScroll > 40) {
       if (!header.classList.contains("header-hidden")) {
-        window.updateHeaderHeightVar();
         header.classList.add("header-hidden");
-        lastHideTime = now;
+        lastActionTime = now;
       }
     }
-    // 4. Scrolling UP by more than 10px (guard against immediate post-hide jitter)
-    else if (delta < -10 && (now - lastHideTime > 250)) {
+    // 4. Scrolling UP by more than 8px: reveal header smoothly
+    else if (delta < -8 && (now - lastActionTime > 180)) {
       if (header.classList.contains("header-hidden")) {
         header.classList.remove("header-hidden");
-        window.updateHeaderHeightVar();
+        lastActionTime = now;
       }
     }
 
-    lastProcessedScroll = currentScroll;
-    headerScrollTicking = false;
+    lastScrollTop = currentScroll;
   }
 
-  function handleSmartHeaderScroll(e) {
-    const el = e.target;
-    if (!el || typeof el.scrollTop !== "number") return;
+  function handleScroll(e) {
+    if (isNavigating || isLockedVisible) return;
 
-    // Ignore scrolls inside modals, bottom sheets, dropdowns, subpage dialogs
-    if (el.closest && el.closest(".luxury-modal, .purchase-modal, .gold-modal, .custom-confirm-modal, .bottom-sheet, .modal-content, .dossier-modal-body")) {
+    const target = e.target;
+    const activePage = getActivePageEl();
+    if (!activePage) return;
+
+    // Filter: ignore modals, overlays, dropdowns
+    if (target.closest && target.closest(".luxury-modal, .purchase-modal, .gold-modal, .custom-confirm-modal, .bottom-sheet, .modal-content, .dossier-modal-body")) {
       return;
     }
 
-    // Check if target is a scrollable page or inside an active page or app-main
-    const isPage = el.classList && (
-      el.classList.contains("page") || 
-      el.classList.contains("app-main") || 
-      el.id === "profile-tab" || 
-      el.id === "boutique-tab" || 
-      el.id === "club-tab" || 
-      el.id === "page-member"
-    );
-    const isInsideActivePage = !isPage && el.closest && el.closest(".page.is-active, .app-main");
-    if (!isPage && !isInsideActivePage) return;
-
-    // If switching scroll container, initialize tracking to its current scroll
-    if (activeScrollEl !== el) {
-      activeScrollEl = el;
-      lastProcessedScroll = Math.max(0, el.scrollTop || 0);
+    // Verify event comes from active page or its content
+    if (target !== activePage && !activePage.contains(target) && target !== document && target !== window) {
+      return;
     }
 
-    if (!headerScrollTicking) {
-      headerScrollTicking = true;
-      window.requestAnimationFrame(processScrollUpdate);
+    const currentScroll = Math.max(0, activePage.scrollTop || 0);
+
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(() => {
+        processScroll(activePage, currentScroll);
+        ticking = false;
+      });
     }
   }
 
-  document.addEventListener("scroll", handleSmartHeaderScroll, { passive: true, capture: true });
-  window.addEventListener("resize", window.updateHeaderHeightVar, { passive: true });
-  
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => setTimeout(window.updateHeaderHeightVar, 120));
-  } else {
-    setTimeout(window.updateHeaderHeightVar, 120);
-  }
+  return {
+    init() {
+      document.addEventListener("scroll", handleScroll, { passive: true, capture: true });
+      window.addEventListener("resize", () => {
+        updateStateForCurrentTab();
+        updateHeaderHeightVar();
+      }, { passive: true });
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => {
+          updateHeaderHeightVar();
+          updateStateForCurrentTab();
+        });
+      } else {
+        updateHeaderHeightVar();
+        updateStateForCurrentTab();
+      }
+    },
+    onTabChangeStart,
+    onTabChangeComplete,
+    updateStateForCurrentTab,
+    updateHeaderHeightVar,
+    forceShow() {
+      const header = document.getElementById("appHeader");
+      if (header) header.classList.remove("header-hidden");
+    }
+  };
 })();
+
+// Initialize controller & expose legacy aliases
+window.HeaderScrollController.init();
+window.updateHeaderHeightVar = window.HeaderScrollController.updateHeaderHeightVar;
+window.resetHeaderScrollTracking = window.HeaderScrollController.updateStateForCurrentTab;
 
 

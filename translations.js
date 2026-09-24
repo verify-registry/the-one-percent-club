@@ -556,9 +556,61 @@ window.I18N = {
       en: "OFFICIAL SEAL",
       ar: "ختم رسمي",
     },
+    addMemberBtn: {
+      en: "Add Member",
+      ar: "إضافة عضو",
+    },
+    messageBtn: {
+      en: "Private Dispatch",
+      ar: "مراسلة خاصة",
+    },
+    messageSoon: {
+      en: "Private Dispatch — Coming Soon",
+      ar: "المراسلة الخاصة — قريباً",
+    },
+    shareDossierBtn: {
+      en: "Share Dossier",
+      ar: "مشاركة الملف",
+    },
+    dossierLinkCopied: {
+      en: "Official Sovereign Dossier Link Copied",
+      ar: "تم نسخ رابط الملف السيادي المعتمد بنجاح",
+    },
+    wealthTopPercent: {
+      en: "TOP 0.1% WEALTH",
+      ar: "النخبة العليا 0.1%",
+    },
+    unlimitedPrivileges: {
+      en: "Full Sovereign Access",
+      ar: "كامل الصلاحيات والامتيازات",
+    },
+    locationLabel: {
+      en: "LOCATION",
+      ar: "المقر والمدينة",
+    },
+    locationPlaceholder: {
+      en: "e.g. MONACO / ALEXANDRIA / DUBAI",
+      ar: "مثال: الإسكندرية / موناكو / دبي",
+    },
+    microSecurityRibbon: {
+      en: "SOVEREIGN ARCHIVE SPECIFICATION · CALIBRE 1% · PROTOCOL VERIFIED",
+      ar: "مواصفات الأرشيف السيادي · عيار 1% · بروتوكول موثق",
+    },
+    hallmarkTooltip: {
+      en: "Sovereign Crown Insignia · AU 999.9 Fine Gold",
+      ar: "شارة التاج السيادي · ذهب خالص عيار ٩٩٩.٩",
+    },
+    statusStanding: {
+      en: "SOVEREIGN STANDING",
+      ar: "سريان سيادي",
+    },
     editDossierBtn: {
       en: "Edit Dossier",
       ar: "تعديل الوثيقة",
+    },
+    editBtnTxt: {
+      en: "Edit",
+      ar: "تعديل",
     },
     emptyVault: {
       en: "Your vault is empty. Acquire your first asset from the Boutique.",
