@@ -980,15 +980,77 @@ async function renderMasterCardToBlob() {
   });
 }
 
+async function captureLiveMasterCardBlob() {
+  const card = document.getElementById("membershipCard");
+  if (!card || !window.htmlToImage) return null;
+
+  const prevTransform = card.style.transform;
+  const prevTransition = card.style.transition;
+  card.style.transform = "none";
+  card.style.transition = "none";
+
+  try {
+    await new Promise((r) => requestAnimationFrame(r));
+    const dpr = Math.max(3, (window.devicePixelRatio || 2) * 1.5);
+    const blob = await window.htmlToImage.toBlob(card, {
+      pixelRatio: dpr,
+      cacheBust: true,
+      skipFonts: true,
+      fontEmbedCSS: "",
+      style: {
+        transform: "none",
+        transition: "none",
+        margin: "0",
+      },
+      filter: (node) => {
+        if (
+          node.classList &&
+          (node.classList.contains("metric-tooltip") ||
+            node.classList.contains("is-tooltip-open"))
+        ) {
+          return false;
+        }
+        return true;
+      },
+    });
+    return blob;
+  } catch (err) {
+    console.warn("Live client-side capture error:", err);
+    return null;
+  } finally {
+    card.style.transform = prevTransform;
+    card.style.transition = prevTransition;
+  }
+}
+
 async function shareMasterCard() {
+  const shareBtn = document.getElementById("shareBtn");
+  shareBtn?.blur();
+  shareBtn?.classList.remove("is-pressed");
+
   if (window.AudioEngine && window.AudioEngine.playSend) {
     window.AudioEngine.playSend();
   }
-  showCopyToast("جارٍ تصدير الماستر كارد الملكي…");
+  showCopyToast("جارٍ تصدير الماستر كارد الملكي فائق الدقة…");
 
   try {
-    const blob = await renderMasterCardToBlob();
-    const fname = `1percent-mastercard-${ClubState.member.id}.png`;
+    let blob = await captureLiveMasterCardBlob();
+    if (!blob) {
+      try {
+        const res = await fetch("/master-card-ultra-hd.png?v=" + Date.now());
+        if (res.ok) {
+          blob = await res.blob();
+        }
+      } catch (fetchErr) {
+        console.warn("Could not fetch pre-rendered ultra-HD asset, falling back:", fetchErr);
+      }
+    }
+
+    if (!blob) {
+      blob = await renderMasterCardToBlob();
+    }
+
+    const fname = `THE-1-PERCENT-CLUB-MASTER-CARD.png`;
     const file = new File([blob], fname, { type: "image/png" });
 
     // Try Web Share API with image file (supported on iOS 15+, Android Chrome)
@@ -1005,7 +1067,7 @@ async function shareMasterCard() {
       }
     }
 
-    // Fallback: download the image
+    // Fallback: download the image directly
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -1052,6 +1114,40 @@ document
   .getElementById("profileShareBtn")
   ?.addEventListener("click", shareMasterCard);
 
+function initActionButtonsTactileFeedback() {
+  const buttons = document.querySelectorAll(
+    "#membership-tab .card-actions .btn, #shareBtn, #copyBtn, #profileShareBtn"
+  );
+  buttons.forEach((btn) => {
+    const handleDown = () => {
+      btn.classList.add("is-pressed");
+    };
+    const handleUp = () => {
+      btn.classList.remove("is-pressed");
+      btn.blur();
+    };
+
+    btn.addEventListener("touchstart", handleDown, { passive: true });
+    btn.addEventListener("touchend", () => {
+      setTimeout(handleUp, 80);
+    }, { passive: true });
+    btn.addEventListener("touchcancel", handleUp, { passive: true });
+    btn.addEventListener("pointerdown", handleDown);
+    btn.addEventListener("pointerup", handleUp);
+    btn.addEventListener("pointercancel", handleUp);
+    btn.addEventListener("pointerleave", handleUp);
+    btn.addEventListener("click", () => {
+      setTimeout(handleUp, 100);
+    });
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initActionButtonsTactileFeedback);
+} else {
+  initActionButtonsTactileFeedback();
+}
+
 // ---------------------------------------------------------
 // 19. UNIFIED 3D TILT ENGINE
 // ---------------------------------------------------------
@@ -1093,7 +1189,28 @@ function applyTiltToCards(rx, ry) {
     card.style.setProperty('--tilt-ty', `${translateY}px`);
     card.style.setProperty('--tilt-scale', `${scale}`);
 
-    card.style.transform = `perspective(1200px) translateY(${translateY}px) translateZ(${elevation}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+    if (isMembership || isProfileHero) {
+      // MASTER IDENTITY CARD & PROFILE HERO CARD: Rotates circularly and smoothly from its exact center in 3D
+      card.style.transform = `perspective(1200px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
+      
+      // PROFILE HERO CARD: MULTI-LAYER 3D GYROSCOPE PARALLAX
+      // The portrait photo and its outer golden frame are locked together as ONE unit
+      // moving in coordinated 3D elevation and subtle parallax above the card surface
+      if (isProfileHero) {
+        const medallion = document.getElementById("profileMedallionCase");
+        if (medallion) {
+          const medParallaxX = (ry * 0.42).toFixed(2);
+          const medParallaxY = (-rx * 0.42).toFixed(2);
+          const medTiltRx = (rx * 1.12).toFixed(2);
+          const medTiltRy = (ry * 1.12).toFixed(2);
+          const medElevation = 18 + (isLongPressed ? 10 : (isHovered ? 4 : 0));
+          medallion.style.transform = `translateZ(${medElevation}px) translate3d(${medParallaxX}px, ${medParallaxY}px, 0px) rotateX(${medTiltRx}deg) rotateY(${medTiltRy}deg)`;
+          medallion.style.transition = "none";
+        }
+      }
+    } else {
+      card.style.transform = `perspective(1200px) translateY(${translateY}px) translateZ(${elevation}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+    }
     card.style.transition = "none";
     
     // Depth-mapping edge glow
@@ -1143,7 +1260,20 @@ function resetTiltForCard(card) {
   card.style.setProperty('--tilt-tz', '0px');
   card.style.setProperty('--tilt-ty', '0px');
   card.style.setProperty('--tilt-scale', '1');
-  card.style.transform = `perspective(1200px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  const isMembership = card.id === "membershipCard";
+  const isProfileHero = card.id === "profileHeroPlaque";
+  if (isMembership || isProfileHero) {
+    card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) translateY(0px) scale3d(1, 1, 1)`;
+    if (isProfileHero) {
+      const medallion = document.getElementById("profileMedallionCase");
+      if (medallion) {
+        medallion.style.transform = `translateZ(18px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg)`;
+        medallion.style.transition = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)";
+      }
+    }
+  } else {
+    card.style.transform = `perspective(1200px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  }
   card.style.transition = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease";
   
   card.style.setProperty('--glow-x', '50%');

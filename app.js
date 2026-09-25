@@ -2246,8 +2246,8 @@ if (copyBtn) {
       window.AudioEngine.playSend();
     }
 
-    copyBtn.classList.add("copied");
-    setTimeout(() => copyBtn.classList.remove("copied"), 1500);
+    copyBtn.blur();
+    copyBtn.classList.remove("is-pressed");
 
     const verifyUrl = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl)
       ? ClubState.member.verifyUrl
@@ -2502,7 +2502,10 @@ const Router = {
     if (activeNav) activeNav.classList.add("is-active");
 
     const main = document.querySelector(".app-main");
-    if (main) main.scrollTop = 0;
+    if (main) {
+      main.classList.toggle("main-membership-active", tab === "membership");
+      main.scrollTop = 0;
+    }
     window.scrollTo(0, 0);
 
     const header = document.getElementById("appHeader");
@@ -5464,6 +5467,14 @@ document.querySelector(".phc-medallion-case")?.addEventListener("click", () => {
   document.getElementById("menuAccountInfo")?.click();
 });
 
+document.getElementById("phcPhotoEditBadge")?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+    window.AudioEngine.playClick();
+  }
+  document.getElementById("menuAccountInfo")?.click();
+});
+
 function renderProfileStatsBar() {
   const container = document.getElementById("profileStatsBar");
   if (!container) return;
@@ -7004,10 +7015,16 @@ window.HeaderScrollController = (function() {
         document.addEventListener("DOMContentLoaded", () => {
           updateHeaderHeightVar();
           updateStateForCurrentTab();
+          if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
+            document.querySelector(".app-main")?.classList.add("main-membership-active");
+          }
         });
       } else {
         updateHeaderHeightVar();
         updateStateForCurrentTab();
+        if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
+          document.querySelector(".app-main")?.classList.add("main-membership-active");
+        }
       }
     },
     onTabChangeStart,
