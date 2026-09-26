@@ -313,44 +313,43 @@ function drawGuilloche(ctx, width, height) {
   ctx.lineJoin = "round";
 
   // --- 2. PHYSICAL TRENCH (SHADOW) ---
-  // Deepens the existing CSS surface
+  // Deepens the existing CSS surface as a true intaglio engraving
   ctx.save();
   ctx.globalCompositeOperation = "multiply";
   ctx.translate(0.5, 0.5); // Sub-pixel shift for physical depth
-  ctx.lineWidth = 1.0;
-  ctx.strokeStyle = isLight ? "rgba(90, 60, 40, 0.15)" : "rgba(0, 0, 0, 0.7)";
+  ctx.lineWidth = isLight ? 1.0 : 1.1;
+  ctx.strokeStyle = isLight ? "rgba(95, 68, 35, 0.28)" : "rgba(0, 0, 0, 0.85)";
   ctx.stroke(paths);
   ctx.restore();
 
   // --- 3. ANISOTROPIC SPECULAR HIGHLIGHT (THE REAL METAL SECRET) ---
-  // We don't trace the whole line with light. We create a stationary light band
-  // that only catches the grooves at specific perpendicular angles.
+  // Catches the grooves with controlled specular metallic highlights
   ctx.save();
   ctx.globalCompositeOperation = isLight ? "screen" : "color-dodge";
   ctx.translate(-0.5, -0.5); // Opposing sub-pixel shift
-  ctx.lineWidth = 0.6; // Razor thin glint
+  ctx.lineWidth = 0.75; // Razor-crisp intaglio bevel catch
 
   // Directional Light Band relative to the rotated canvas
   const specGrad = ctx.createLinearGradient(-width, -height, width, height);
 
   if (isLight) {
     specGrad.addColorStop(0.0, "rgba(255, 255, 255, 0.0)");
-    specGrad.addColorStop(0.3, "rgba(255, 255, 255, 0.0)");
-    specGrad.addColorStop(0.4, "rgba(255, 255, 255, 0.7)");  // Sharp light catch
-    specGrad.addColorStop(0.45, "rgba(255, 255, 255, 0.0)"); // Falls back into shadow
-    specGrad.addColorStop(0.55, "rgba(255, 255, 255, 0.0)"); 
-    specGrad.addColorStop(0.65, "rgba(255, 255, 255, 0.5)");  // Secondary ambient catch
-    specGrad.addColorStop(0.7, "rgba(255, 255, 255, 0.0)");
+    specGrad.addColorStop(0.28, "rgba(255, 255, 255, 0.0)");
+    specGrad.addColorStop(0.38, "rgba(255, 250, 235, 0.85)"); // Crisp champagne light catch
+    specGrad.addColorStop(0.44, "rgba(255, 255, 255, 0.05)"); // Falls back into shadow
+    specGrad.addColorStop(0.56, "rgba(255, 255, 255, 0.0)"); 
+    specGrad.addColorStop(0.66, "rgba(255, 248, 225, 0.65)"); // Secondary ambient catch
+    specGrad.addColorStop(0.72, "rgba(255, 255, 255, 0.0)");
     specGrad.addColorStop(1.0, "rgba(255, 255, 255, 0.0)");
   } else {
-    specGrad.addColorStop(0.0, "rgba(220, 180, 90, 0.0)");
-    specGrad.addColorStop(0.3, "rgba(220, 180, 90, 0.0)");
-    specGrad.addColorStop(0.4, "rgba(230, 190, 100, 0.7)");  // Polished gold catch
-    specGrad.addColorStop(0.45, "rgba(220, 180, 90, 0.0)");
-    specGrad.addColorStop(0.55, "rgba(220, 180, 90, 0.0)");
-    specGrad.addColorStop(0.65, "rgba(210, 170, 80, 0.4)");  // Softer secondary gold
-    specGrad.addColorStop(0.7, "rgba(220, 180, 90, 0.0)");
-    specGrad.addColorStop(1.0, "rgba(220, 180, 90, 0.0)");
+    specGrad.addColorStop(0.0, "rgba(201, 168, 106, 0.0)");
+    specGrad.addColorStop(0.28, "rgba(201, 168, 106, 0.0)");
+    specGrad.addColorStop(0.40, "rgba(245, 225, 165, 0.82)"); // Authentic Champagne gold catch
+    specGrad.addColorStop(0.46, "rgba(201, 168, 106, 0.08)");
+    specGrad.addColorStop(0.55, "rgba(201, 168, 106, 0.0)");
+    specGrad.addColorStop(0.65, "rgba(225, 190, 120, 0.55)"); // Secondary metallic glint
+    specGrad.addColorStop(0.72, "rgba(201, 168, 106, 0.0)");
+    specGrad.addColorStop(1.0, "rgba(201, 168, 106, 0.0)");
   }
 
   ctx.strokeStyle = specGrad;
@@ -360,12 +359,13 @@ function drawGuilloche(ctx, width, height) {
   ctx.restore(); // End Rotation
 
   // --- 4. ORGANIC CENTER PROTECTION ---
-  // Ensure the primary identity elements read perfectly by softly fading the grooves in the center.
+  // Ensure the primary identity elements read cleanly while preserving crisp engraving in all other regions.
   ctx.save();
   ctx.globalCompositeOperation = "destination-out";
-  const fadeGrad = ctx.createRadialGradient(width * 0.5, height * 0.45, 0, width * 0.5, height * 0.45, Math.max(width, height) * 0.55);
-  fadeGrad.addColorStop(0.0, "rgba(0, 0, 0, 0.95)");
-  fadeGrad.addColorStop(0.5, "rgba(0, 0, 0, 0.3)");
+  const fadeGrad = ctx.createRadialGradient(width * 0.5, height * 0.45, 0, width * 0.5, height * 0.45, Math.max(width, height) * 0.52);
+  fadeGrad.addColorStop(0.0, "rgba(0, 0, 0, 0.92)");
+  fadeGrad.addColorStop(0.42, "rgba(0, 0, 0, 0.25)");
+  fadeGrad.addColorStop(0.85, "rgba(0, 0, 0, 0.0)");
   fadeGrad.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");
   ctx.fillStyle = fadeGrad;
   ctx.fillRect(0, 0, width, height);

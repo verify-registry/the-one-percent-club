@@ -3,6 +3,14 @@ window.I18N = {
     en: "Coming Soon",
     ar: "قريباً",
   },
+  profile_account_actions_title: {
+    en: "Account Actions",
+    ar: "إجراءات الحساب",
+  },
+  profile_settings_title: {
+    en: "Settings & Concierge",
+    ar: "الإعدادات والدعم",
+  },
   menu_account_title: {
     en: "Account Information",
     ar: "معلومات الحساب",
