@@ -7515,10 +7515,6 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   pointer-events: none;
   z-index: 3;
 }
-.phc-rivet-tl { top: 9px; left: 9px; }
-.phc-rivet-tr { top: 9px; right: 9px; }
-.phc-rivet-bl { bottom: 9px; left: 9px; }
-.phc-rivet-br { bottom: 9px; right: 9px; }
 
 /* Fine-line Guilloché Intaglio Texture */
 .phc-guilloche-pattern {

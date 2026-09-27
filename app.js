@@ -668,6 +668,36 @@ const SOVEREIGN_CIRCLES_CATALOG = [
 window.SOVEREIGN_CIRCLES_CATALOG = SOVEREIGN_CIRCLES_CATALOG;
 
 // ==========================================
+// SAFE STORAGE HELPER
+// ==========================================
+const StorageHelper = {
+  get(key, fallback = null, isJson = false) {
+    try {
+      const val = localStorage.getItem(key);
+      if (val === null) return fallback;
+      return isJson ? JSON.parse(val) : val;
+    } catch (e) {
+      return fallback;
+    }
+  },
+  set(key, value, isJson = false) {
+    try {
+      const val = isJson ? JSON.stringify(value) : value;
+      localStorage.setItem(key, val);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+  remove(key) {
+    try {
+      localStorage.removeItem(key);
+    } catch (e) {}
+  }
+};
+window.StorageHelper = StorageHelper;
+
+// ==========================================
 // ==========================================
 const AppState = {
   user: {
@@ -702,7 +732,7 @@ const AppState = {
   owned: {},
   equipped: {},
   chatCredits: 10,
-  theme: localStorage.getItem("app_theme") || "dark",
+  theme: StorageHelper.get("app_theme", "dark"),
   activeChannelId: "global-lounge",
   channels: {
     "global-lounge": { name: window.t("club.lounge"), messages: [] },
@@ -750,30 +780,21 @@ const AppState = {
   },
 
   init() {
-    const savedAvatar = localStorage.getItem("avatar_" + this.user.id);
+    const savedAvatar = StorageHelper.get("avatar_" + this.user.id);
     if (savedAvatar) this.user.avatarUrl = savedAvatar;
 
-    const savedBalance = localStorage.getItem(`balance_${this.user.id}`);
+    const savedBalance = StorageHelper.get(`balance_${this.user.id}`);
     this.balance = savedBalance !== null ? parseInt(savedBalance, 10) : 24750;
-    const savedSpent = localStorage.getItem(`spent_${this.user.id}`);
+    const savedSpent = StorageHelper.get(`spent_${this.user.id}`);
     this.totalSpent = savedSpent !== null ? parseInt(savedSpent, 10) : 0;
-    const savedCredits = localStorage.getItem(`chatCredits_${this.user.id}`);
+    const savedCredits = StorageHelper.get(`chatCredits_${this.user.id}`);
     this.chatCredits = savedCredits !== null ? parseInt(savedCredits, 10) : 10;
-    try {
-      this.owned =
-        JSON.parse(localStorage.getItem(`owned_${this.user.id}`)) || {};
-    } catch {
-      this.owned = {};
-    }
-    try {
-      this.equipped =
-        JSON.parse(localStorage.getItem(`equipped_${this.user.id}`)) || {};
-    } catch {
-      this.equipped = {};
-    }
+    
+    this.owned = StorageHelper.get(`owned_${this.user.id}`, {}, true) || {};
+    this.equipped = StorageHelper.get(`equipped_${this.user.id}`, {}, true) || {};
 
     try {
-      const legacyCol = localStorage.getItem("one_percent_collection");
+      const legacyCol = StorageHelper.get("one_percent_collection");
       if (legacyCol) {
         const parsedLegacy = JSON.parse(legacyCol);
         if (Array.isArray(parsedLegacy)) {
@@ -798,17 +819,14 @@ const AppState = {
         }
       }
     } catch {}
-    try {
-      const savedChannels = JSON.parse(
-        localStorage.getItem(`channels_${this.user.id}`),
-      );
-      if (savedChannels) {
-        for (const k in savedChannels) {
-          if (this.channels[k])
-            this.channels[k].messages = savedChannels[k].messages;
-        }
+
+    const savedChannels = StorageHelper.get(`channels_${this.user.id}`, null, true);
+    if (savedChannels) {
+      for (const k in savedChannels) {
+        if (this.channels[k])
+          this.channels[k].messages = savedChannels[k].messages;
       }
-    } catch {}
+    }
 
     // Seed authentic sovereign messages for any empty channels
     const defaultMessages = {
@@ -942,43 +960,36 @@ const AppState = {
       }
     }
 
-    try {
-      const savedProfile = JSON.parse(
-        localStorage.getItem(`profile_${this.user.id}`),
-      );
-      this.user.bio =
-        this.user.bio || window.t("items.activeMember") || "Active Member";
-      this.user.interests =
-        this.user.interests ||
-        window.t("items.designTech") ||
-        "Design · Technology";
-      this.user.location =
-        this.user.location || window.t("items.dubai") || "Dubai, UAE";
-      this.user.username = this.user.username || "MEMBER";
-      if (savedProfile) {
-        Object.assign(this.user, savedProfile);
-        if (this.user.collectedItems) delete this.user.collectedItems;
-      }
-      if (!Array.isArray(this.user.circles) || this.user.circles.length === 0) {
-        this.user.circles = ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"];
-      }
-    } catch {}
+    const savedProfile = StorageHelper.get(`profile_${this.user.id}`, null, true);
+    this.user.bio =
+      this.user.bio || window.t("items.activeMember") || "Active Member";
+    this.user.interests =
+      this.user.interests ||
+      window.t("items.designTech") ||
+      "Design · Technology";
+    this.user.location =
+      this.user.location || window.t("items.dubai") || "Dubai, UAE";
+    this.user.username = this.user.username || "MEMBER";
+    if (savedProfile) {
+      Object.assign(this.user, savedProfile);
+      if (this.user.collectedItems) delete this.user.collectedItems;
+    }
+    if (!Array.isArray(this.user.circles) || this.user.circles.length === 0) {
+      this.user.circles = ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"];
+    }
 
     this.recalculatePrestige();
   },
 
   save() {
-    localStorage.setItem(`balance_${this.user.id}`, this.balance);
-    localStorage.setItem(`spent_${this.user.id}`, this.totalSpent);
-    localStorage.setItem(`chatCredits_${this.user.id}`, this.chatCredits);
-    localStorage.setItem(`owned_${this.user.id}`, JSON.stringify(this.owned));
-    localStorage.setItem(
-      `equipped_${this.user.id}`,
-      JSON.stringify(this.equipped),
-    );
-    localStorage.setItem(`channels_${this.user.id}`, JSON.stringify(this.channels));
-    localStorage.setItem(`profile_${this.user.id}`, JSON.stringify(this.user));
-    localStorage.setItem("app_theme", this.theme || "dark");
+    StorageHelper.set(`balance_${this.user.id}`, this.balance);
+    StorageHelper.set(`spent_${this.user.id}`, this.totalSpent);
+    StorageHelper.set(`chatCredits_${this.user.id}`, this.chatCredits);
+    StorageHelper.set(`owned_${this.user.id}`, this.owned, true);
+    StorageHelper.set(`equipped_${this.user.id}`, this.equipped, true);
+    StorageHelper.set(`channels_${this.user.id}`, this.channels, true);
+    StorageHelper.set(`profile_${this.user.id}`, this.user, true);
+    StorageHelper.set("app_theme", this.theme || "dark");
     if (typeof window.updateRadarChart === "function")
       window.updateRadarChart();
   },
@@ -2132,11 +2143,11 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     };
 
     card.addEventListener("touchstart", startPress, { passive: true });
-    card.addEventListener("touchend", endPress);
-    card.addEventListener("touchcancel", endPress);
+    card.addEventListener("touchend", endPress, { passive: true });
+    card.addEventListener("touchcancel", endPress, { passive: true });
     card.addEventListener("touchmove", () => {
       clearTimeout(pressTimer);
-    });
+    }, { passive: true });
 
     card.addEventListener("mousedown", startPress);
     card.addEventListener("mouseup", endPress);
@@ -4167,10 +4178,9 @@ function processPurchase(item) {
   return ClubState.purchase(item);
 }
 
-function purchaseItem(item, catKey) {
-  if (processPurchase(item)) {
-    closeInspectionModal();
-    playPurchaseAnimation();
+window.purchase = function(item, source = 'modal', btnElement = null) {
+  const success = ClubState.purchase(item);
+  if (success) {
     if (window.HapticEngine) {
       window.HapticEngine.boutiquePurchase();
     } else if (typeof navigator !== "undefined" && navigator.vibrate) {
@@ -4179,7 +4189,35 @@ function purchaseItem(item, catKey) {
     if (window.AudioEngine) {
       window.AudioEngine.playChime();
     }
+
+    if (source === 'modal') {
+      closeInspectionModal();
+      if (typeof playPurchaseAnimation === 'function') {
+        playPurchaseAnimation();
+      }
+    } else if (source === 'quick') {
+      window.quickPurchasedItems.add(item.id);
+      setTimeout(() => {
+        window.quickPurchasedItems.delete(item.id);
+        const b = document.querySelector(`.boutique-card[data-item-id="${item.id}"] .boutique-own-btn`);
+        if (b) b.innerHTML = window.t("boutique.owned");
+        const c = document.querySelector(`.boutique-card[data-item-id="${item.id}"]`);
+        if (c) c.classList.remove("qp-shimmer-active");
+      }, 1500);
+    }
+    return true;
+  } else {
+    if (source === 'quick' && btnElement) {
+      btnElement.dataset.processing = "";
+      btnElement.classList.add("shake-animation");
+      setTimeout(() => btnElement.classList.remove("shake-animation"), 400);
+    }
+    return false;
   }
+};
+
+function purchaseItem(item, catKey) {
+  return window.purchase(item, 'modal');
 }
 function equipItem(item, catKey) {
   ClubState.toggleEquip(catKey, item.id);
@@ -6734,7 +6772,7 @@ class HapticPreviewManager {
     this.tiltY = 0;
 
     window.addEventListener('touchmove', this.handleMove, { passive: false });
-    window.addEventListener('touchend', this.handleEnd);
+    window.addEventListener('touchend', this.handleEnd, { passive: true });
     window.addEventListener('mousemove', this.handleMove);
     window.addEventListener('mouseup', this.handleEnd);
 
@@ -6858,33 +6896,19 @@ document.addEventListener("scroll", (e) => {
 
 window.quickPurchasedItems = new Set();
 window.handleQuickPurchase = function(event, item, catKey) {
-  event.stopPropagation();
-  event.preventDefault();
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  const btn = event ? event.currentTarget : document.querySelector(`.boutique-card[data-item-id="${item.id}"] .boutique-own-btn`);
+  if (btn) {
+    if (btn.disabled || btn.dataset.processing === "true") return;
+    btn.dataset.processing = "true";
+  }
   
-  const btn = event.currentTarget;
-  if (btn.disabled || btn.dataset.processing === "true") return;
-  btn.dataset.processing = "true";
-  
-  if (ClubState.purchase(item)) {
-    window.quickPurchasedItems.add(item.id);
-    if (window.HapticEngine) {
-      window.HapticEngine.boutiquePurchase();
-    } else if (typeof navigator !== "undefined" && navigator.vibrate) {
-      navigator.vibrate([35, 50, 20]);
-    }
-    if (window.AudioEngine) window.AudioEngine.playChime();
-    
-    setTimeout(() => {
-      window.quickPurchasedItems.delete(item.id);
-      const b = document.querySelector(`.boutique-card[data-item-id="${item.id}"] .boutique-own-btn`);
-      if(b) b.innerHTML = window.t("boutique.owned");
-      const c = document.querySelector(`.boutique-card[data-item-id="${item.id}"]`);
-      if(c) c.classList.remove("qp-shimmer-active");
-    }, 1500);
-  } else {
+  const success = window.purchase(item, 'quick', btn);
+  if (!success && btn) {
     btn.dataset.processing = "";
-    btn.classList.add("shake-animation");
-    setTimeout(() => btn.classList.remove("shake-animation"), 400);
   }
 };
 

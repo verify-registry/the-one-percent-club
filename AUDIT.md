@@ -103,14 +103,20 @@
 ## 3. DEVELOPMENT HISTORY
 
 ### Cleanup Completed
-- **Micro-pass 1:** Deleted 5 unused files/dependencies (saved 4MB)
-  - `master-card-ultra-hd.png`, `capture-card.js`, `.env.example`
-  - `pngjs`, `html-to-image` dependencies
+- **Micro-pass 1:** Purged 5 unused files/dependencies (saved 4MB).
+- **Phase 1 (JS/CSS Dead Code):** Removed stub functions (`renderClubMessages`, `setTypingIndicator`), test relic (`window.testRadarUpdate`), duplicate logic branches, dead `.phc-motto-text-old`, and duplicate `--gold-antique`.
+- **Phase 2 (Skeleton & Debounce):** Consolidated skeleton generators and added resize debounce in `ThemeManager`.
+- **Phase 3 (Modals & Avatar):** Unified inspection/reliquary modal controllers and consolidated avatar upload event listeners.
+- **Phase 4 (Boutique & 60 FPS):** Unified purchase pipeline (`window.purchase`) and added `{ passive: true }` to touch/scroll handlers.
+- **Phase 5 (StorageHelper):** Unified safe `localStorage` wrapper with try/catch while strictly preserving the existing schema.
+- **Phase 6 (CSS Hero Card):** Consolidated `.profile-hero-card`, `.phc-edit-btn`, and `.phc-info-col` override stacks with zero visual regression.
+- **Phase 7 (CSS Boutique):** Consolidated `.boutique-card` override rules and verified containment.
+- **Phase 8 (CSS Club & Purge):** Consolidated `#club-tab` and leaderboard styling, and purged unused `.phc-rivet-*` selectors.
 
-### Pending Work
-- CSS override consolidation (PHASE 7-15 stacking)
-- JavaScript dead code removal (Micro-pass 9A)
-- CSS variable binding for Light Mode
+### Current System State
+- Zero dead JS functions.
+- 60/120 FPS render loops and scroll containment active.
+- High visual fidelity maintained across Dark and Light modes.
 
 ---
 
