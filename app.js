@@ -249,9 +249,10 @@ document.addEventListener("DOMContentLoaded", () => {
       window.dispatchEvent(
         new CustomEvent("themechange", { detail: { theme, isLight } }),
       );
-      requestAnimationFrame(() => {
+      if (this._resizeDebounceTimer) clearTimeout(this._resizeDebounceTimer);
+      this._resizeDebounceTimer = setTimeout(() => {
         window.dispatchEvent(new Event("resize"));
-      });
+      }, 100);
     },
     toggle() {
       const next = this.isLight() ? "dark" : "light";
@@ -1853,33 +1854,76 @@ function applyEquippedToCard(equipped) {
 ========================================================= */
 
 
-function generateBoutiqueSkeleton(categories = ["crowns"]) {
-  const catsToShow = categories.length > 0 ? categories : Object.keys(BOUTIQUE);
-  let html = "";
-  catsToShow.forEach((catKey) => {
-    if (catKey === "widgets") return;
-    html += `
-      <section class="boutique-section boutique-skeleton-section" data-skeleton="true">
-        <div class="boutique-section-head">
-          <div class="skeleton-shimmer-el skeleton-section-title"></div>
-          <div class="skeleton-shimmer-el skeleton-section-subtitle"></div>
+function generateSkeleton(type, param = 4) {
+  if (type === "achievement") {
+    let html = '';
+    for (let i = 0; i < param; i++) {
+      html += `
+        <div class="honor-card profile-achievement-skeleton">
+          <div class="skeleton-shimmer-el skeleton-icon-small"></div>
+          <div class="skeleton-shimmer-el skeleton-name"></div>
+          <div class="skeleton-shimmer-el skeleton-badge"></div>
+          <div class="skeleton-shimmer-el skeleton-progress-wrap"></div>
         </div>
-        <div class="boutique-grid">
-          ${Array(4).fill(0).map(() => `
-            <div class="boutique-card boutique-skeleton">
-              <span class="skeleton-shimmer-el skeleton-badge"></span>
-              <span class="skeleton-shimmer-el skeleton-icon"></span>
-              <span class="skeleton-shimmer-el skeleton-name"></span>
-              <span class="skeleton-shimmer-el skeleton-price"></span>
-              <div class="skeleton-shimmer-el skeleton-progress"></div>
-              <div class="skeleton-shimmer-el skeleton-button"></div>
+      `;
+    }
+    return html;
+  }
+  if (type === "collection") {
+    let html = '';
+    for (let i = 0; i < param; i++) {
+      html += `
+        <div class="pcs-item-card reliquary-pedestal-card reliquary-skeleton">
+          <div class="skeleton-shimmer-el skeleton-reliquary-status"></div>
+          <div class="reliquary-pedestal-cradle">
+            <div class="pcs-artifact-pedestal">
+              <span class="skeleton-shimmer-el skeleton-reliquary-icon"></span>
             </div>
-          `).join("")}
+          </div>
+          <div class="pcs-item-info">
+            <div class="skeleton-shimmer-el skeleton-reliquary-name"></div>
+            <div class="skeleton-shimmer-el skeleton-reliquary-meta"></div>
+            <div class="skeleton-shimmer-el skeleton-reliquary-chip"></div>
+          </div>
         </div>
-      </section>
-    `;
-  });
-  return html;
+      `;
+    }
+    return html;
+  }
+  if (type === "boutique") {
+    const categories = param;
+    const catsToShow = categories.length > 0 ? categories : Object.keys(BOUTIQUE);
+    let html = "";
+    catsToShow.forEach((catKey) => {
+      if (catKey === "widgets") return;
+      html += `
+        <section class="boutique-section boutique-skeleton-section" data-skeleton="true">
+          <div class="boutique-section-head">
+            <div class="skeleton-shimmer-el skeleton-section-title"></div>
+            <div class="skeleton-shimmer-el skeleton-section-subtitle"></div>
+          </div>
+          <div class="boutique-grid">
+            ${Array(4).fill(0).map(() => `
+              <div class="boutique-card boutique-skeleton">
+                <span class="skeleton-shimmer-el skeleton-badge"></span>
+                <span class="skeleton-shimmer-el skeleton-icon"></span>
+                <span class="skeleton-shimmer-el skeleton-name"></span>
+                <span class="skeleton-shimmer-el skeleton-price"></span>
+                <div class="skeleton-shimmer-el skeleton-progress"></div>
+                <div class="skeleton-shimmer-el skeleton-button"></div>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+      `;
+    });
+    return html;
+  }
+  return "";
+}
+
+function generateBoutiqueSkeleton(categories = ["crowns"]) {
+  return generateSkeleton("boutique", categories);
 }
 
 // boutiqueLoadingTimeout hoisted at top-level
@@ -4762,18 +4806,7 @@ function playPurchaseAnimation() {
 // ---------------------------------------------------------
 
 function generateProfileAchievementSkeleton() {
-  let html = '';
-  for (let i = 0; i < 4; i++) {
-    html += `
-      <div class="honor-card profile-achievement-skeleton">
-        <div class="skeleton-shimmer-el skeleton-icon-small"></div>
-        <div class="skeleton-shimmer-el skeleton-name"></div>
-        <div class="skeleton-shimmer-el skeleton-badge"></div>
-        <div class="skeleton-shimmer-el skeleton-progress-wrap"></div>
-      </div>
-    `;
-  }
-  return html;
+  return generateSkeleton("achievement", 4);
 }
 
 function renderProfileAchievements() {
@@ -5073,25 +5106,7 @@ document.getElementById("heraldicCitationModal")?.addEventListener("click", (e) 
 
 
 function generateProfileCollectionSkeleton() {
-  let html = '';
-  for (let i = 0; i < 4; i++) {
-    html += `
-      <div class="pcs-item-card reliquary-pedestal-card reliquary-skeleton">
-        <div class="skeleton-shimmer-el skeleton-reliquary-status"></div>
-        <div class="reliquary-pedestal-cradle">
-          <div class="pcs-artifact-pedestal">
-            <span class="skeleton-shimmer-el skeleton-reliquary-icon"></span>
-          </div>
-        </div>
-        <div class="pcs-item-info">
-          <div class="skeleton-shimmer-el skeleton-reliquary-name"></div>
-          <div class="skeleton-shimmer-el skeleton-reliquary-meta"></div>
-          <div class="skeleton-shimmer-el skeleton-reliquary-chip"></div>
-        </div>
-      </div>
-    `;
-  }
-  return html;
+  return generateSkeleton("collection", 4);
 }
 
 function findItemCategory(itemId) {
