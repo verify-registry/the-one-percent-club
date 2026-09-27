@@ -56,5 +56,6 @@ All temporary scrap scripts, patch utilities, raw asset bloat (`master-card-ultr
 ## 5. Zero-Waste Declaration & Formal Sign-Off
 
 - **Bloat Asset & Scrap Purge:** Complete. `master-card-ultra-hd.png`, `capture-card.js`, `ARCHITECTURE-MAP.md`, `bun.lock`, and all temporary scratch files have been permanently deleted.
+- **Dependency Cleanliness:** Orphaned package reference to `html-to-image` removed from `index.html` script tags, resolving all 404 syntax error exceptions.
 - **Build & Linter Status:** `compile_applet` clean, Node syntax validation clean (zero errors across all modules).
 - **Readiness:** The repository represents a pristine, highly performant, production-grade baseline for THE 1% CLUB.
