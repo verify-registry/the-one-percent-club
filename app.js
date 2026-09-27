@@ -1480,6 +1480,12 @@ document
         urlInput.value = dataUrl;
         urlInput.dispatchEvent(new Event("input"));
       }
+      if (typeof updateEditProfilePreview === "function") {
+        updateEditProfilePreview(dataUrl);
+      }
+      if (typeof saveProfileDraft === "function") {
+        saveProfileDraft();
+      }
     });
   });
 
@@ -5010,6 +5016,54 @@ function renderProfileAchievements() {
   }
 }
 
+// --- Shared Sovereign Modal Controller ---
+function openModalCore(modalId, options = {}) {
+  const modal = document.getElementById(modalId);
+  if (!modal) return;
+  if (options.playAudio !== false) {
+    if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+      window.AudioEngine.playModalOpen();
+    }
+  }
+  if (options.haptic) {
+    if (window.HapticEngine && window.HapticEngine.tap) {
+      window.HapticEngine.tap(options.haptic);
+    }
+  }
+  modal.hidden = false;
+  modal.setAttribute("aria-hidden", "false");
+  modal.classList.add(options.activeClass || "is-open");
+  if (options.bodyClass) {
+    document.body.classList.add(options.bodyClass);
+  }
+  if (typeof options.onOpen === "function") options.onOpen(modal);
+}
+
+function closeModalCore(modalId, options = {}) {
+  const modal = document.getElementById(modalId);
+  if (!modal) return;
+  if (options.playAudio !== false) {
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  }
+  modal.classList.remove(options.activeClass || "is-open", "is-active");
+  if (options.bodyClass) {
+    document.body.classList.remove(options.bodyClass);
+  }
+  const hideDelay = options.hideDelay || 0;
+  if (hideDelay > 0) {
+    setTimeout(() => {
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+    }, hideDelay);
+  } else {
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+  }
+  if (typeof options.onClose === "function") options.onClose(modal);
+}
+
 // Sovereign Heraldic Citation Patent Modal Handlers
 window.openHeraldicCitationModal = function(id) {
   const ach = ACHIEVEMENTS_DATA[id];
@@ -5078,22 +5132,19 @@ window.openHeraldicCitationModal = function(id) {
     `;
   }
 
-  modal.hidden = false;
-  modal.setAttribute("aria-hidden", "false");
-  modal.classList.add("is-open");
-  document.body.classList.add("modal-open");
+  openModalCore("heraldicCitationModal", {
+    activeClass: "is-open",
+    bodyClass: "modal-open",
+    playAudio: false
+  });
 };
 
 window.closeHeraldicCitationModal = function() {
-  const modal = document.getElementById("heraldicCitationModal");
-  if (!modal) return;
-  if (window.AudioEngine && window.AudioEngine.playModalClose) {
-    window.AudioEngine.playModalClose();
-  }
-  modal.classList.remove("is-open");
-  modal.hidden = true;
-  modal.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("modal-open");
+  closeModalCore("heraldicCitationModal", {
+    activeClass: "is-open",
+    bodyClass: "modal-open",
+    playAudio: true
+  });
 };
 
 document.getElementById("closeCitationModalBtn")?.addEventListener("click", window.closeHeraldicCitationModal);
@@ -5230,27 +5281,23 @@ function openReliquaryInspectModal(itemId) {
     };
   }
 
-  modal.hidden = false;
-  modal.classList.add("is-active");
-  if (typeof attachHorologicalScrewHandlers === "function") {
-    attachHorologicalScrewHandlers();
-  }
-  if (window.AudioEngine && window.AudioEngine.playModalOpen) {
-    window.AudioEngine.playModalOpen();
-  }
+  openModalCore("reliquaryInspectModal", {
+    activeClass: "is-active",
+    playAudio: true,
+    onOpen: () => {
+      if (typeof attachHorologicalScrewHandlers === "function") {
+        attachHorologicalScrewHandlers();
+      }
+    }
+  });
 }
 
 function closeReliquaryInspectModal() {
-  const modal = document.getElementById("reliquaryInspectModal");
-  if (modal) {
-    modal.classList.remove("is-active");
-    setTimeout(() => {
-      modal.hidden = true;
-    }, 200);
-    if (window.AudioEngine && window.AudioEngine.playModalClose) {
-      window.AudioEngine.playModalClose();
-    }
-  }
+  closeModalCore("reliquaryInspectModal", {
+    activeClass: "is-active",
+    hideDelay: 200,
+    playAudio: true
+  });
 }
 
 window.openReliquaryInspectModal = openReliquaryInspectModal;
@@ -5449,22 +5496,6 @@ document
   ?.addEventListener("input", (e) => {
     saveProfileDraft();
     updateEditProfilePreview(e.target.value);
-  });
-document
-  .getElementById("editProfileAvatarFile")
-  ?.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const dataUrl = event.target.result;
-        const urlInput = document.getElementById("editProfileAvatarUrl");
-        if (urlInput) urlInput.value = dataUrl;
-        updateEditProfilePreview(dataUrl);
-        saveProfileDraft();
-      };
-      reader.readAsDataURL(file);
-    }
   });
 
 document.getElementById("editAccountBtn")?.addEventListener("click", () => {
