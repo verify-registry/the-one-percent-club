@@ -195,8 +195,14 @@ function initGuilloche() {
   let resizeTimeout;
   let isDirty = false;
 
+  const isTabActive = () => {
+    if (document.hidden) return false;
+    const tab = document.getElementById("membership-tab");
+    return Boolean(tab && tab.classList.contains("is-active"));
+  };
+
   const drawFrame = () => {
-    if (!isDirty) return;
+    if (!isDirty || !isTabActive()) return;
     isDirty = false;
     drawGuilloche(ctx, currentWidth, currentHeight);
   };
@@ -206,7 +212,7 @@ function initGuilloche() {
     if (currentIsLight !== isLight) {
       currentIsLight = isLight;
       isDirty = true;
-      window.requestAnimationFrame(drawFrame);
+      if (isTabActive()) window.requestAnimationFrame(drawFrame);
     }
   };
 
@@ -222,7 +228,7 @@ function initGuilloche() {
 
   const resizeCanvas = () => {
     const parent = canvas.parentElement;
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const rect = parent.getBoundingClientRect();
 
     if (rect.width === 0 || rect.height === 0) return; // Not visible yet
@@ -251,8 +257,14 @@ function initGuilloche() {
     canvas.style.height = `${rect.height}px`;
 
     isDirty = true;
-    window.requestAnimationFrame(drawFrame);
+    if (isTabActive()) window.requestAnimationFrame(drawFrame);
   };
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && isTabActive() && isDirty) {
+      window.requestAnimationFrame(drawFrame);
+    }
+  });
 
   // Debounce the resize event to prevent CPU spikes during window drag/orientation change
   window.addEventListener(
@@ -1331,26 +1343,30 @@ function updateTiltTarget(rx, ry) {
   }
 }
 
+let orientationQueued = false;
 function handleGlobalDeviceOrientation(e) {
   if (isLongPressActive) return; // Prioritize tactile long-press inspection
   if (e.beta === null || e.gamma === null) return;
+  if (orientationQueued) return;
+  orientationQueued = true;
+  requestAnimationFrame(() => {
+    orientationQueued = false;
+    let betaDev = e.beta - 45; // Assume 45deg is normal reading angle
 
-  let betaDev = e.beta - 45; // Assume 45deg is normal reading angle
+    // Bed / Flat Mode Normalization
+    if (e.beta < 15 || e.beta > 165 || e.beta < -165) {
+      betaDev *= 0.15; // Suppress gimbal lock jumpiness
+    }
 
-  // Bed / Flat Mode Normalization
-  // If phone is flat (beta close to 0) or upside down, shrink the effect
-  if (e.beta < 15 || e.beta > 165 || e.beta < -165) {
-    betaDev *= 0.15; // Suppress gimbal lock jumpiness
-  }
+    let rx = -betaDev * 0.3;
+    let ry = e.gamma * 0.3;
 
-  let rx = -betaDev * 0.3;
-  let ry = e.gamma * 0.3;
+    // Apply Deadzone
+    if (Math.abs(rx) < DEADZONE) rx = 0;
+    if (Math.abs(ry) < DEADZONE) ry = 0;
 
-  // Apply Deadzone
-  if (Math.abs(rx) < DEADZONE) rx = 0;
-  if (Math.abs(ry) < DEADZONE) ry = 0;
-
-  updateTiltTarget(rx, ry);
+    updateTiltTarget(rx, ry);
+  });
 }
 
 function initGlobalTilt() {
@@ -1368,6 +1384,7 @@ function initGlobalTilt() {
             window.addEventListener(
               "deviceorientation",
               handleGlobalDeviceOrientation,
+              { passive: true }
             );
         })
         .catch(() => {});
@@ -1375,6 +1392,7 @@ function initGlobalTilt() {
       window.addEventListener(
         "deviceorientation",
         handleGlobalDeviceOrientation,
+        { passive: true }
       );
     }
   };
@@ -1444,20 +1462,26 @@ function initGlobalTilt() {
       lastPointerMoveTime = performance.now();
       updateTiltTarget(-ny * TILT_MAX_DEG, nx * TILT_MAX_DEG);
       startHoverAmbient();
-    });
+    }, { passive: true });
 
+    let moveQueued = false;
     card.addEventListener("pointermove", (e) => {
       if (e.pointerType === "touch") return;
-      lastPointerMoveTime = performance.now();
-      if (!cachedRect) cachedRect = card.getBoundingClientRect();
-      const rect = cachedRect;
-      const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
-      const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
+      if (moveQueued) return;
+      moveQueued = true;
+      requestAnimationFrame(() => {
+        moveQueued = false;
+        lastPointerMoveTime = performance.now();
+        if (!cachedRect) cachedRect = card.getBoundingClientRect();
+        const rect = cachedRect;
+        const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
+        const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
 
-      const rx = -ny * TILT_MAX_DEG;
-      const ry = nx * TILT_MAX_DEG;
-      updateTiltTarget(rx, ry);
-    });
+        const rx = -ny * TILT_MAX_DEG;
+        const ry = nx * TILT_MAX_DEG;
+        updateTiltTarget(rx, ry);
+      });
+    }, { passive: true });
 
     card.addEventListener("pointerleave", (e) => {
       if (e.pointerType === "touch") return;
@@ -1469,7 +1493,7 @@ function initGlobalTilt() {
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(4); // subtle tick on hover leave
       }
-    });
+    }, { passive: true });
 
     // 2. MOBILE LONG-PRESS TACTILE INSPECTION
     let touchStartX = 0;
@@ -1530,6 +1554,7 @@ function initGlobalTilt() {
       }, 350);
     }, { passive: true });
 
+    let touchMoveQueued = false;
     card.addEventListener("touchmove", (e) => {
       if (!e.touches || e.touches.length === 0) return;
       const curX = e.touches[0].clientX;
@@ -1543,16 +1568,18 @@ function initGlobalTilt() {
           longPressTimer = null;
         }
       } else {
-        // Long-press active: allow finger to interactively steer the 3D tilt!
-        if (e.cancelable) e.preventDefault();
         cancelAnimationFrame(longPressAnimFrame); // Direct touch overrides idle orbit
-
-        const rect = card.getBoundingClientRect();
-        const nx = ((curX - rect.left) / rect.width - 0.5) * 2;
-        const ny = ((curY - rect.top) / rect.height - 0.5) * 2;
-        updateTiltTarget(-ny * (TILT_MAX_DEG + 1), nx * (TILT_MAX_DEG + 1));
+        if (touchMoveQueued) return;
+        touchMoveQueued = true;
+        requestAnimationFrame(() => {
+          touchMoveQueued = false;
+          const rect = card.getBoundingClientRect();
+          const nx = ((curX - rect.left) / rect.width - 0.5) * 2;
+          const ny = ((curY - rect.top) / rect.height - 0.5) * 2;
+          updateTiltTarget(-ny * (TILT_MAX_DEG + 1), nx * (TILT_MAX_DEG + 1));
+        });
       }
-    }, { passive: false });
+    }, { passive: true });
 
     const endTouch = () => {
       isTouching = false;

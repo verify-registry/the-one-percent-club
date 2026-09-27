@@ -1237,6 +1237,7 @@ body.light-mode .shield-btn::before {
     inset 0 -24px 40px -20px rgba(0, 0, 0, 0.95);
   border: var(--gold-border-subtle);
   transform-style: preserve-3d;
+  transform: translateZ(0);
 }
 .membership-card::after {
   content: "";
@@ -22704,11 +22705,12 @@ body #profile-tab .ossb-text {
 .luxury-tilt-card {
   perspective: 1200px;
   transform-style: preserve-3d;
+  transform: translateZ(0);
   transition:
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.4s ease;
-  will-change: transform, box-shadow;
+  will-change: transform;
 }
 
 /* Subtle, authentic physical tilt on hover for fine pointer / desktop devices */
