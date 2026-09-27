@@ -194,6 +194,7 @@ function initGuilloche() {
   let currentIsLight = document.body.classList.contains("light-mode");
   let resizeTimeout;
   let isDirty = false;
+  let animFrameId = null;
 
   const isTabActive = () => {
     if (document.hidden) return false;
@@ -202,9 +203,16 @@ function initGuilloche() {
   };
 
   const drawFrame = () => {
+    animFrameId = null;
     if (!isDirty || !isTabActive()) return;
     isDirty = false;
     drawGuilloche(ctx, currentWidth, currentHeight);
+  };
+
+  const requestDraw = () => {
+    if (!isTabActive()) return;
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    animFrameId = window.requestAnimationFrame(drawFrame);
   };
 
   const forceRedraw = () => {
@@ -212,7 +220,7 @@ function initGuilloche() {
     if (currentIsLight !== isLight) {
       currentIsLight = isLight;
       isDirty = true;
-      if (isTabActive()) window.requestAnimationFrame(drawFrame);
+      requestDraw();
     }
   };
 
@@ -225,6 +233,28 @@ function initGuilloche() {
     }
   });
   themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  // Watch for membership tab activation/deactivation
+  const membershipTab = document.getElementById("membership-tab");
+  if (membershipTab) {
+    const tabObserver = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.attributeName === 'class') {
+          if (isTabActive()) {
+            isDirty = true;
+            resizeCanvas();
+            requestDraw();
+          } else {
+            if (animFrameId) {
+              cancelAnimationFrame(animFrameId);
+              animFrameId = null;
+            }
+          }
+        }
+      }
+    });
+    tabObserver.observe(membershipTab, { attributes: true, attributeFilter: ['class'] });
+  }
 
   const resizeCanvas = () => {
     const parent = canvas.parentElement;
@@ -257,12 +287,21 @@ function initGuilloche() {
     canvas.style.height = `${rect.height}px`;
 
     isDirty = true;
-    if (isTabActive()) window.requestAnimationFrame(drawFrame);
+    requestDraw();
   };
 
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && isTabActive() && isDirty) {
-      window.requestAnimationFrame(drawFrame);
+    if (document.hidden) {
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
+      }
+    } else {
+      if (isTabActive()) {
+        isDirty = true;
+        resizeCanvas();
+        requestDraw();
+      }
     }
   });
 

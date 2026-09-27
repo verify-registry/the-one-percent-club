@@ -249,7 +249,9 @@ document.addEventListener("DOMContentLoaded", () => {
       window.dispatchEvent(
         new CustomEvent("themechange", { detail: { theme, isLight } }),
       );
-      window.dispatchEvent(new Event("resize"));
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event("resize"));
+      });
     },
     toggle() {
       const next = this.isLight() ? "dark" : "light";
@@ -3191,7 +3193,6 @@ const ELITE_MEMBERS = [
 
 function processEliteResponse(text) {
   const lower = text.toLowerCase();
-  const isArabic = /[\u0600-\u06FF]/.test(text);
   const userName = AppState.user.name
     ? AppState.user.name.split(" ")[0]
     : "Member";
@@ -5301,9 +5302,7 @@ function renderProfileCollection(forceSkeleton = false) {
     let html = "";
     for (const item of collectedItems) {
       if (!item) continue;
-      const nameText = isAr
-        ? (window.t("items." + item.id) || item.name)
-        : (window.t("items." + item.id) || item.name);
+      const nameText = window.t("items." + item.id) || item.name;
       const isEquipped = AppState.equipped && Object.values(AppState.equipped).includes(item.id);
       const rarityText = item.rarity ? (typeof RARITY_LABELS !== 'undefined' && RARITY_LABELS[item.rarity] ? RARITY_LABELS[item.rarity]() : item.rarity) : '';
 
@@ -6807,7 +6806,7 @@ document.addEventListener("scroll", (e) => {
   el._scrollTimeout = setTimeout(() => {
     el.classList.remove('is-scrolling');
   }, 800);
-}, true); // Use capture phase to catch all scroll events
+}, { passive: true, capture: true });
 
 
 

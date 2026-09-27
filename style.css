@@ -624,29 +624,6 @@ body.light-mode #profile-tab .profile-hero-card {
   border-color: rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
 }
-body.light-mode .phc-name {
-  color: #1a1a1a !important;
-  text-shadow: none !important;
-}
-body.light-mode .phc-tier {
-  color: var(--gold-polished) !important;
-  background: rgba(156, 109, 35, 0.1) !important;
-  border: 1px solid rgba(156, 109, 35, 0.2) !important;
-}
-body.light-mode .phc-quote,
-body.light-mode .phc-meta {
-  color: #666 !important;
-}
-body.light-mode .phc-meta-icon {
-  color: var(--gold-polished) !important;
-}
-body.light-mode .phc-crown-badge {
-  background: #ffffff !important;
-  border-color: rgba(156, 109, 35, 0.5) !important;
-}
-body.light-mode .phc-crown-badge svg path {
-  fill: var(--gold-polished) !important;
-}
 
 /* Profile Stats inside Hero */
 body.light-mode .phc-stats {
@@ -879,7 +856,7 @@ input {
   margin: 0 auto;
   flex-shrink: 0;
   z-index: 90;
-  background: var(--surface-panel) !important;
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0.96) 0%, rgba(5, 5, 5, 0.82) 75%, rgba(5, 5, 5, 0) 100%) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 5px;
@@ -892,6 +869,10 @@ input {
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   will-change: transform, opacity;
+}
+body.light-mode .app-header,
+html.light-mode .app-header {
+  background: linear-gradient(180deg, rgba(253, 251, 247, 0.96) 0%, rgba(253, 251, 247, 0.82) 75%, rgba(253, 251, 247, 0) 100%) !important;
 }
 .app-header.header-hidden {
   transform: translate3d(0, -100%, 0) !important;
@@ -2275,7 +2256,7 @@ body.light-mode .metric-tooltip-icon circle {
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--surface-panel) !important;
+  background: linear-gradient(0deg, rgba(5, 5, 5, 0.98) 0%, rgba(5, 5, 5, 0.88) 70%, rgba(5, 5, 5, 0) 100%) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-subtle) !important;
@@ -2290,6 +2271,10 @@ body.light-mode .metric-tooltip-icon circle {
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
+}
+body.light-mode .bottom-nav,
+html.light-mode .bottom-nav {
+  background: linear-gradient(0deg, rgba(253, 251, 247, 0.98) 0%, rgba(253, 251, 247, 0.88) 70%, rgba(253, 251, 247, 0) 100%) !important;
 }
 .bottom-nav.nav-hidden {
   transform: translate3d(0, 105%, 0) !important;
@@ -2328,12 +2313,66 @@ body.light-mode .metric-tooltip-icon circle {
   transition: color 0.18s ease;
 }
 .nav-item.is-active {
-  color: var(--gold-champagne);
+  color: var(--gold-polished, #d4af6a) !important;
   transform: translateY(-2px) translate3d(0, 0, 0);
 }
-.nav-item.is-active svg {
+.nav-item.is-active svg,
+.nav-item.is-active .nav-icon {
+  color: var(--gold-polished, #d4af6a) !important;
   transform: scale(1.08) translate3d(0, 0, 0);
-  filter: drop-shadow(0 4px 6px rgba(212, 175, 106, 0.25));
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.45)) !important;
+}
+.nav-item.is-active svg [stroke="currentColor"],
+.nav-item.is-active svg path[stroke],
+.nav-item.is-active svg rect[stroke] {
+  stroke: var(--gold-polished, #d4af6a) !important;
+  stroke-width: 1.6px !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+.nav-item.is-active svg [fill="currentColor"],
+.nav-item.is-active svg path[fill]:not([fill="none"]) {
+  fill: var(--gold-polished, #d4af6a) !important;
+}
+.nav-item.is-active span,
+.nav-item.is-active .nav-label {
+  color: var(--gold-polished, #d4af6a) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.35) !important;
+}
+
+/* Light Mode Overrides: Clean, authentic polished gold with zero dark shadows */
+body.light-mode .nav-item.is-active,
+html.light-mode .nav-item.is-active {
+  color: #a87c2d !important;
+}
+body.light-mode .nav-item.is-active svg,
+html.light-mode .nav-item.is-active svg {
+  color: #a87c2d !important;
+  filter: none !important;
+}
+body.light-mode .nav-item.is-active svg [stroke="currentColor"],
+body.light-mode .nav-item.is-active svg path[stroke],
+body.light-mode .nav-item.is-active svg rect[stroke],
+html.light-mode .nav-item.is-active svg [stroke="currentColor"],
+html.light-mode .nav-item.is-active svg path[stroke],
+html.light-mode .nav-item.is-active svg rect[stroke] {
+  stroke: #a87c2d !important;
+}
+body.light-mode .nav-item.is-active svg [fill="currentColor"],
+body.light-mode .nav-item.is-active svg path[fill]:not([fill="none"]),
+html.light-mode .nav-item.is-active svg [fill="currentColor"],
+html.light-mode .nav-item.is-active svg path[fill]:not([fill="none"]) {
+  fill: #a87c2d !important;
+}
+body.light-mode .nav-item.is-active span,
+body.light-mode .nav-item.is-active .nav-label,
+html.light-mode .nav-item.is-active span,
+html.light-mode .nav-item.is-active .nav-label {
+  color: #8f641a !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
 }
 .nav-toast {
   position: fixed;
@@ -5378,6 +5417,9 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 }
 #boutique-tab .boutique-card {
   position: relative;
+  contain: layout style paint;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   border: 1px solid var(--border-subtle) !important;
   border-radius: 14px;
   padding: 14px 12px 12px;
@@ -8175,6 +8217,9 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   width: 105px;
   height: 135px;
   flex-shrink: 0;
+  contain: layout style paint;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   background: var(--surface-card) !important;
   border: 1px solid var(--border-subtle) !important;
   border-radius: 12px !important;
@@ -8831,6 +8876,9 @@ textarea::placeholder {
 .leaderboard-item {
   display: flex;
   align-items: center;
+  contain: layout style paint;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   background: var(--surface-card) !important;
   border: 1px solid var(--border-subtle) !important;
   border-radius: 12px;
