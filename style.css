@@ -71,12 +71,22 @@
   --overlay-bg: rgba(4, 4, 6, 0.82);
   --modal-box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 175, 55, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 
+  --btn-edit-bg: linear-gradient(145deg, #1f1f26 0%, #101014 100%);
+  --btn-edit-border: rgba(212, 175, 106, 0.38);
+  --btn-edit-color: #f0d59d;
+  --btn-edit-shadow: 0 4px 10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 245, 215, 0.22);
+
+  --btn-pill-bg: linear-gradient(180deg, rgba(32, 26, 18, 0.95) 0%, rgba(16, 13, 8, 0.98) 100%);
+  --btn-pill-border: rgba(225, 185, 75, 0.55);
+  --btn-pill-color: #fae4a7;
+  --btn-pill-shadow: 0 2px 6px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 245, 215, 0.22);
+  --btn-pill-icon: #e5c378;
+
   /* THE 1% CLUB — GLOBAL GOLD MATERIAL SYSTEM */
   /* Centralized luxury metal language (Dark Mode Default) */
   --gold-primary: #c9a86a; /* Authentic Champagne Gold */
   --gold-highlight: #eae0c4; /* Polished highlight */
   --gold-deep: #8a6d3b; /* Rich gold body */
-  --gold-antique: #5a4622; /* Dark gold shadow / Engraving */
   --gold-micro: #a68b52; /* Satin / Micro details */
 
   /* Metallic Gradients (Abstracted for reuse) */
@@ -279,6 +289,18 @@ body.light-mode {
     var(--gold-aged) 100%
   );
   --btn-gold-border: var(--gold-pale);
+
+  --btn-edit-bg: linear-gradient(145deg, #ffffff 0%, #f0ebd9 100%);
+  --btn-edit-border: rgba(185, 145, 75, 0.4);
+  --btn-edit-color: #856122;
+  --btn-edit-shadow: 0 3px 8px rgba(60, 45, 20, 0.1), inset 0 1px 0 #ffffff;
+
+  --btn-pill-bg: linear-gradient(180deg, #ffffff 0%, #f6f0e2 100%);
+  --btn-pill-border: rgba(185, 145, 65, 0.65);
+  --btn-pill-color: #4a3410;
+  --btn-pill-shadow: 0 1.5px 4px rgba(70, 50, 20, 0.08), inset 0 1px 0 #ffffff;
+  --btn-pill-icon: #664917;
+
   color-scheme: light;
 }
 
@@ -305,16 +327,7 @@ body.light-mode .app {
     );
 }
 
-body.light-mode .app-header {
-  background: linear-gradient(
-    180deg,
-    rgba(253, 251, 247, 0.98) 0%,
-    rgba(253, 251, 247, 0.96) 60%,
-    rgba(250, 247, 240, 0.85) 82%,
-    rgba(245, 241, 233, 0.45) 100%
-  );
-  border-bottom: none;
-}
+
 
 body.light-mode .section-name,
 body.light-mode .member-name,
@@ -362,16 +375,7 @@ body.light-mode .boutique-card {
   border: 1px solid rgba(156, 109, 35, 0.4);
 }
 
-body.light-mode .bottom-nav {
-  background: linear-gradient(
-    180deg,
-    rgba(245, 241, 233, 0.45) 0%,
-    rgba(250, 247, 240, 0.85) 20%,
-    rgba(253, 251, 247, 0.97) 50%,
-    #fdfbf7 100%
-  );
-  border-top: none;
-}
+
 
 body.light-mode .luxury-modal-box {
   background: radial-gradient(ellipse at center, #fdfbf7, #f4f0e6);
@@ -704,11 +708,7 @@ body.light-mode #boutique-tab .boutique-ownership-toggle {
   background: #f4f0e6 !important;
   border-color: rgba(156, 109, 35, 0.3) !important;
 }
-body.light-mode #boutique-tab .boutique-card {
-  background: #ffffff !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-}
+
 
 /* Modal Inputs */
 body.light-mode .edit-profile-input,
@@ -916,14 +916,14 @@ input {
   margin: 0 auto;
   flex-shrink: 0;
   z-index: 90;
-  background: var(--surface-header);
+  background: var(--surface-panel) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: none;
+  border-bottom: 1px solid var(--border-subtle) !important;
   transform: translate3d(0, 0, 0);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2314,16 +2314,10 @@ body.light-mode .metric-tooltip-icon circle {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(8, 8, 11, 0.45) 0%,
-    rgba(6, 6, 9, 0.85) 20%,
-    rgba(5, 5, 5, 0.97) 50%,
-    #050505 100%
-  );
+  background: var(--surface-panel) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: none;
+  border-top: 1px solid var(--border-subtle) !important;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 10px 6px calc(10px + env(safe-area-inset-bottom));
@@ -2349,7 +2343,7 @@ body.light-mode .metric-tooltip-icon circle {
   align-items: center;
   gap: 5px;
   padding: 4px 0;
-  color: #6e695d;
+  color: var(--text-secondary) !important;
   transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translate3d(0, 0, 0);
   touch-action: manipulation;
@@ -5424,7 +5418,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 }
 #boutique-tab .boutique-card {
   position: relative;
-  border: 1px solid rgba(212, 175, 106, 0.15);
+  border: 1px solid var(--border-subtle) !important;
   border-radius: 14px;
   padding: 14px 12px 12px;
   display: flex;
@@ -5432,12 +5426,8 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   align-items: center;
   gap: 5px;
   text-align: center;
-  background: radial-gradient(
-    circle at 50% -20%,
-    #201c15 0%,
-    #0c0b09 60%,
-    #050403 100%
-  );
+  background: var(--surface-card) !important;
+  color: var(--text-primary) !important;
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.05),
     inset 0 -5px 15px rgba(0, 0, 0, 0.8),
@@ -7858,12 +7848,13 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   align-items: stretch !important;
   padding: 12px 6px 10px 6px !important;
   gap: 0 !important;
-  background: #111111;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: var(--surface-card) !important;
+  border: 1px solid var(--border-subtle) !important;
   border-radius: 16px;
   margin-bottom: 20px;
   box-sizing: border-box !important;
   min-height: 104px !important;
+  color: var(--text-primary) !important;
 }
 
 .psb-col {
@@ -8222,12 +8213,8 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   width: 105px;
   height: 135px;
   flex-shrink: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(212, 175, 55, 0.12) 0%,
-    #141414 70%
-  ) !important;
-  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  background: var(--surface-card) !important;
+  border: 1px solid var(--border-subtle) !important;
   border-radius: 12px !important;
   padding: 16px 8px;
   text-align: center;
@@ -8238,6 +8225,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   justify-content: center;
   transform-style: preserve-3d;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s ease;
+  color: var(--text-primary) !important;
 }
 
 /* Luxurious Auto-Expansion & Focus Pulse for Profile Sections */
@@ -8881,13 +8869,14 @@ textarea::placeholder {
 .leaderboard-item {
   display: flex;
   align-items: center;
-  background: rgba(15, 15, 15, 0.6);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  background: var(--surface-card) !important;
+  border: 1px solid var(--border-subtle) !important;
   border-radius: 12px;
   padding: 12px 16px;
   gap: 16px;
   position: relative;
   overflow: hidden;
+  color: var(--text-primary) !important;
 }
 .leaderboard-item::before {
   content: "";
@@ -8905,7 +8894,7 @@ textarea::placeholder {
 }
 .leaderboard-item.top-three {
   border-color: rgba(212, 175, 55, 0.4);
-  background: rgba(25, 22, 18, 0.8);
+  background: var(--surface-elevated) !important;
 }
 .leaderboard-rank {
   font-family: var(--font-display);
@@ -8949,12 +8938,12 @@ textarea::placeholder {
   font-family: var(--font-display);
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary) !important;
   letter-spacing: 0.05em;
 }
 .leaderboard-meta {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary) !important;
   letter-spacing: 0.05em;
 }
 .leaderboard-wealth {
@@ -10203,28 +10192,7 @@ body.light-mode .achievements-summary-divider {
   background: rgba(156, 109, 35, 0.2) !important;
 }
 
-/* Leaderboard */
-body.light-mode .leaderboard-list {
-  background: #ffffff !important;
-}
-body.light-mode .leader-item {
-  background: #fdfbf7 !important;
-  border: 1px solid rgba(156, 109, 35, 0.3) !important;
-}
-body.light-mode .leader-rank {
-  color: var(--gold-polished) !important;
-}
-body.light-mode .leader-name {
-  color: #1a1a1a !important;
-}
-body.light-mode .leader-tag {
-  background: rgba(156, 109, 35, 0.1) !important;
-  color: var(--gold-polished) !important;
-  border: 1px solid rgba(156, 109, 35, 0.3) !important;
-}
-body.light-mode .leader-score {
-  color: #1a1a1a !important;
-}
+
 
 /* Club Message Credits Bar */
 body.light-mode #club-tab .club-credits-display {
@@ -10749,23 +10717,7 @@ body.light-mode .menu-title {
   color: #1a1a1a !important;
 }
 
-/* Boutique Cards Fixes */
-body.light-mode .boutique-card {
-  background: #ffffff !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
-  border: 1px solid rgba(156, 109, 35, 0.25) !important;
-  border-radius: 16px !important;
-  padding: 18px 14px 14px !important;
-}
-body.light-mode .boutique-card-name {
-  color: #1a1a1a !important;
-}
-body.light-mode .boutique-card-desc {
-  color: #666 !important;
-}
-body.light-mode .boutique-card-price {
-  color: var(--gold-polished) !important;
-}
+
 
 /* FIX 1: PROFILE COLLECTION SVG SIZE */
 body.light-mode .pcs-item-image svg {
@@ -18559,12 +18511,10 @@ body:not([dir="rtl"]) #profile-tab .phc-edit-btn {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: linear-gradient(145deg, #1f1f26 0%, #101014 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.38) !important;
-  box-shadow:
-    0 4px 10px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 245, 215, 0.22) !important;
-  color: var(--gold-champagne, #f0d59d) !important;
+  background: var(--btn-edit-bg) !important;
+  border: 1px solid var(--btn-edit-border) !important;
+  box-shadow: var(--btn-edit-shadow) !important;
+  color: var(--btn-edit-color) !important;
   cursor: pointer !important;
   z-index: 10 !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -18677,15 +18627,7 @@ body.light-mode #profile-tab .phc-id {
   color: #3b2f1e !important;
 }
 
-html body.light-mode #profile-tab .profile-hero-card .phc-edit-btn,
-body.light-mode #profile-tab .phc-edit-btn {
-  background: linear-gradient(145deg, #ffffff 0%, #f0ebd9 100%) !important;
-  border: 1px solid rgba(185, 145, 75, 0.4) !important;
-  box-shadow:
-    0 3px 8px rgba(60, 45, 20, 0.1),
-    inset 0 1px 0 #ffffff !important;
-  color: #856122 !important;
-}
+
 
 
 /* --- 2. PROFILE STATS / LUXURY HOROLOGICAL COMPLICATION PANEL --- */
@@ -20791,27 +20733,14 @@ body.light-mode #logoutConfirmModal.luxury-modal-overlay {
 #helpSupportModal .luxury-modal-box {
   width: 92% !important;
   max-width: 410px !important;
-  background: linear-gradient(175deg, #161310 0%, #0d0b09 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.32) !important;
+  background: var(--surface-modal) !important;
+  border: 1px solid var(--border-medium) !important;
   border-radius: 16px !important;
-  box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.85),
-    inset 0 1px 0 rgba(255, 235, 180, 0.15),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.9) !important;
+  box-shadow: var(--modal-box-shadow) !important;
+  color: var(--text-primary) !important;
   padding: 0 !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
-}
-
-/* Light Mode Modal Box */
-body.light-mode #accountInfoModal .luxury-modal-box,
-body.light-mode #settingsModal .luxury-modal-box,
-body.light-mode #helpSupportModal .luxury-modal-box {
-  background: linear-gradient(175deg, #ffffff 0%, #f7f3ea 100%) !important;
-  border: 1px solid rgba(185, 145, 75, 0.35) !important;
-  box-shadow:
-    0 24px 60px rgba(60, 45, 15, 0.14),
-    inset 0 1px 0 #ffffff !important;
 }
 
 /* Modal Headers */
@@ -27508,13 +27437,11 @@ body #profile-tab #editAccountBtn {
   height: 28px !important;
   padding: 0 11px !important;
   border-radius: 8px !important;
-  background: linear-gradient(180deg, rgba(32, 26, 18, 0.95) 0%, rgba(16, 13, 8, 0.98) 100%) !important;
-  border: 1px solid rgba(225, 185, 75, 0.55) !important;
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.65),
-    inset 0 1px 0 rgba(255, 245, 215, 0.22) !important;
+  background: var(--btn-pill-bg) !important;
+  border: 1px solid var(--btn-pill-border) !important;
+  box-shadow: var(--btn-pill-shadow) !important;
   cursor: pointer !important;
-  color: #fae4a7 !important;
+  color: var(--btn-pill-color) !important;
   font-family: var(--font-display) !important;
   font-size: 11px !important;
   font-weight: 600 !important;
@@ -27529,57 +27456,16 @@ html body #profile-tab .phc-edit-btn .phc-edit-icon,
 body #profile-tab .phc-edit-btn svg {
   width: 12px !important;
   height: 12px !important;
-  stroke: #e5c378 !important;
+  stroke: var(--btn-pill-icon) !important;
   fill: none !important;
   stroke-width: 1.8 !important;
 }
 
 html body #profile-tab .phc-edit-btn .phc-edit-txt,
 body #profile-tab .phc-edit-btn span {
-  color: #fae4a7 !important;
+  color: var(--btn-pill-color) !important;
   font-size: 11px !important;
   font-weight: 600 !important;
-}
-
-/* Light Mode Complete Override: Crisp Warm Silk & Polished Metal Button */
-html.light-mode body #profile-tab .phc-edit-btn,
-body.light-mode #profile-tab .phc-edit-btn,
-body.light-mode #profile-tab #editAccountBtn,
-html.light-mode body #profile-tab .profile-hero-card .phc-edit-btn,
-body.light-mode #profile-tab .profile-hero-card .phc-edit-btn,
-body.light-mode #profile-tab .profile-hero-card #editAccountBtn {
-  background: linear-gradient(180deg, #ffffff 0%, #f6f0e2 100%) !important;
-  border: 1px solid rgba(185, 145, 65, 0.65) !important;
-  color: #4a3410 !important;
-  box-shadow:
-    0 1.5px 4px rgba(70, 50, 20, 0.08),
-    inset 0 1px 0 #ffffff !important;
-}
-
-html.light-mode body #profile-tab .phc-edit-btn:hover,
-body.light-mode #profile-tab .phc-edit-btn:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #ece2cb 100%) !important;
-  border-color: rgba(160, 118, 35, 0.9) !important;
-  color: #2b1d05 !important;
-  box-shadow:
-    0 2.5px 8px rgba(70, 50, 20, 0.12),
-    inset 0 1px 0 #ffffff !important;
-}
-
-html.light-mode body #profile-tab .phc-edit-btn .phc-edit-icon,
-body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon,
-body.light-mode #profile-tab .phc-edit-btn svg,
-body.light-mode #profile-tab .profile-hero-card .phc-edit-btn svg {
-  stroke: #664917 !important;
-  color: #664917 !important;
-  fill: none !important;
-}
-
-html.light-mode body #profile-tab .phc-edit-btn .phc-edit-txt,
-body.light-mode #profile-tab .phc-edit-btn .phc-edit-txt,
-body.light-mode #profile-tab .phc-edit-btn span,
-body.light-mode #profile-tab .profile-hero-card .phc-edit-btn span {
-  color: #4a3410 !important;
 }
 
 /* 4. LIGHT MODE GOLD TEXT & METADATA CONTRAST ENHANCEMENT */
