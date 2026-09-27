@@ -7493,13 +7493,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
     inset 0 1px 0 rgba(255, 245, 220, 0.22),
     inset 0 0 28px rgba(0, 0, 0, 0.75) !important;
   transform-style: preserve-3d;
-}
-
-.profile-hero-card {
-  position: relative;
-  transform-style: preserve-3d;
-  box-sizing: border-box;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
 }
 
 /* Inner Precision Beveled Inset Border */
@@ -7846,21 +7840,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   letter-spacing: 2px !important;
   color: #d4af37 !important;
 }
-.phc-motto-text-old {
-  position: absolute !important;
-  bottom: 12px !important;
-  right: 12px !important;
-  text-align: right !important;
-  display: flex !important;
-  flex-direction: column !important;
-  font-family: var(--font-ui) !important;
-  opacity: 0.25 !important;
-  font-size: 7.5px !important;
-  letter-spacing: 2px !important;
-  line-height: 1.4 !important;
-  color: #d4af37 !important;
-  text-transform: uppercase !important;
-}
+
 
 @media (max-width: 400px) {
   .phc-name {
