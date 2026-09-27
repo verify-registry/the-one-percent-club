@@ -998,12 +998,13 @@ async function captureLiveMasterCardBlob() {
 
   const prevTransform = card.style.transform;
   const prevTransition = card.style.transition;
-  card.style.transform = "none";
-  card.style.transition = "none";
+  card.style.setProperty("transform", "none", "important");
+  card.style.setProperty("transition", "none", "important");
+  card.classList.remove("is-hovered");
 
   try {
     await new Promise((r) => requestAnimationFrame(r));
-    const dpr = Math.max(3, (window.devicePixelRatio || 2) * 1.5);
+    const dpr = Math.min(window.devicePixelRatio || 2, 3);
     const blob = await window.htmlToImage.toBlob(card, {
       pixelRatio: dpr,
       cacheBust: true,
@@ -1048,31 +1049,23 @@ async function shareMasterCard() {
   try {
     let blob = await captureLiveMasterCardBlob();
     if (!blob) {
-      try {
-        const res = await fetch("/master-card-ultra-hd.png?v=" + Date.now());
-        if (res.ok) {
-          blob = await res.blob();
-        }
-      } catch (fetchErr) {
-        console.warn("Could not fetch pre-rendered ultra-HD asset, falling back:", fetchErr);
-      }
-    }
-
-    if (!blob) {
       blob = await renderMasterCardToBlob();
     }
+    if (!blob) {
+      throw new Error("Failed to generate membership card image blob.");
+    }
 
-    const fname = `THE-1-PERCENT-CLUB-MASTER-CARD.png`;
+    const fname = "The-1-Percent-Club-MasterCard.png";
     const file = new File([blob], fname, { type: "image/png" });
 
-    // Try Web Share API with image file (supported on iOS 15+, Android Chrome)
+    // Try Web Share API with image file and exact text motto
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       try {
         await navigator.share({
           files: [file],
-          title: "THE 1% CLUB — MASTER MEMBERSHIP CARD",
-          text: `${ClubState.member.name} — Member Nº${ClubState.member.id} — ${ClubState.member.tier}`,
+          text: "PRIVATE WEALTH. PRIVATE SOCIETY.",
         });
+        showCopyToast("✓ تم مشاركة الماستر كارد بنجاح");
         return;
       } catch (shareErr) {
         if (shareErr.name === "AbortError") return; // User cancelled — do nothing
@@ -1090,36 +1083,11 @@ async function shareMasterCard() {
     setTimeout(() => URL.revokeObjectURL(url), 2000);
     showCopyToast("✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة");
   } catch (err) {
-    // Final fallback: share URL text
-    const shareData = {
-      title: "THE 1% CLUB",
-      text: `${ClubState.member.name} — Member Nº${ClubState.member.id} — ${ClubState.member.tier}`,
-      url: ClubState.member.verifyUrl,
-    };
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-        return;
-      } catch {
-        /* cancelled */
-      }
-    }
-    try {
-      await navigator.clipboard.writeText(ClubState.member.verifyUrl);
-      if (window.showGoldCopyPopup) {
-        window.showGoldCopyPopup("Link Copied to Clipboard", ClubState.member.verifyUrl);
-      } else {
-        showCopyToast("Link Copied to Clipboard");
-      }
-    } catch {
-      if (window.showGoldCopyPopup) {
-        window.showGoldCopyPopup("Link Copied to Clipboard", ClubState.member.verifyUrl);
-      } else {
-        showCopyToast(ClubState.member.verifyUrl);
-      }
-    }
+    console.warn("Share fallback error:", err);
+    showCopyToast("تعذر مشاركة الماستر كارد");
   }
 }
+
 
 document.getElementById("shareBtn")?.addEventListener("click", shareMasterCard);
 document

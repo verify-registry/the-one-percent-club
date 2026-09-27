@@ -45,7 +45,15 @@ All temporary scrap scripts, patch utilities, raw asset bloat (`master-card-ultr
 
 ---
 
-## 4. Zero-Waste Declaration & Formal Sign-Off
+## 4. Live Master Card Share Flow (`luxury.js`)
+
+- **DOM-Based In-Memory Capture:** When clicking "Share Membership" (`#shareCardBtn`), `captureLiveMasterCardBlob()` targets the live DOM element `#membershipCard` directly using `html-to-image`.
+- **Neutralization & Fidelity:** Temporarily flattens 3D tilt/gyroscope transforms (`transform: none !important; transition: none !important;`) during capture at high resolution (`pixelRatio: Math.min(window.devicePixelRatio || 2, 3)`), restoring state immediately in a `finally` block.
+- **In-Memory Web Share Payload:** Generates an in-memory `File` named `The-1-Percent-Club-MasterCard.png` containing the exact motto `"PRIVATE WEALTH. PRIVATE SOCIETY."` (with zero verification URLs or link strings) for Web Share API or automatic download fallback.
+
+---
+
+## 5. Zero-Waste Declaration & Formal Sign-Off
 
 - **Bloat Asset & Scrap Purge:** Complete. `master-card-ultra-hd.png`, `capture-card.js`, `ARCHITECTURE-MAP.md`, `bun.lock`, and all temporary scratch files have been permanently deleted.
 - **Build & Linter Status:** `compile_applet` clean, Node syntax validation clean (zero errors across all modules).
