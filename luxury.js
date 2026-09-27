@@ -1675,7 +1675,7 @@ function initGoldDust() {
     width = rect.width;
     height = rect.height;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
 
@@ -1717,7 +1717,7 @@ function initGoldDust() {
       return;
     }
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     ctx.save();
     ctx.scale(dpr, dpr);
     ctx.clearRect(0, 0, width, height);
@@ -1873,6 +1873,28 @@ function initGoldDust() {
       draw();
     }
   });
+
+  // Tab-aware render loop pausing & resuming
+  const membershipTabEl = document.getElementById("membership-tab");
+  if (membershipTabEl) {
+    const tabObserver = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.attributeName === "class") {
+          if (membershipTabEl.classList.contains("is-active") && !document.hidden) {
+            if (!animId) {
+              draw();
+            }
+          } else {
+            if (animId) {
+              cancelAnimationFrame(animId);
+              animId = null;
+            }
+          }
+        }
+      }
+    });
+    tabObserver.observe(membershipTabEl, { attributes: true, attributeFilter: ["class"] });
+  }
 
   // Initialize after layout settles
   setTimeout(() => {
