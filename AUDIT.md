@@ -141,5 +141,10 @@
 - Bound .pnm-title, .pnm-sub, .pnm-badge, .achievements-summary-value, .pcs-item-name, .pcs-item-type to theme tokens.
 - Pending: visual verification in dark + light modes before push.
 
+### Micro-pass 9E (2026-09-28) — IN PROGRESS
+- Regenerated package-lock.json from package.json (restored after accidental deletion in prior push).
+- No changes to package.json, app code, or assets.
+- Pending: push authorization.
+
 
 
