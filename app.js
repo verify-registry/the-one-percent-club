@@ -1737,133 +1737,9 @@ function applyEquippedToCard(equipped) {
   }
 }
 
-// Sovereign Hallmark Coin Tactile Verification
-(function setupProfileHallmarkInteraction() {
-  function attachCoinHandler() {
-    const coin = document.getElementById("profileCrownCoin");
-    if (!coin || coin.dataset.bound === "true") return;
-    coin.dataset.bound = "true";
-    coin.addEventListener("click", () => {
-      coin.classList.remove("is-coin-mint-active");
-      void coin.offsetWidth;
-      coin.classList.add("is-coin-mint-active");
-      if (window.AudioEngine && window.AudioEngine.playChime) {
-        window.AudioEngine.playChime();
-      }
-      if (window.HapticEngine && window.HapticEngine.tap) {
-        window.HapticEngine.tap(25);
-      }
-      if (typeof showPremiumToast === "function") {
-        const isAr = (typeof AppState !== "undefined" && AppState.language === "ar") || document.documentElement.lang === "ar";
-        showPremiumToast(
-          isAr ? "ختم السيادة الذهبي" : "Sovereign Hallmark AU 999.9",
-          isAr ? "تم التحقق من مطابقة عيار الذهب السيادي والمواصفات الرسمية." : "Verified 24K solid hallmark & official calibre specification."
-        );
-      }
-    });
-  }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", attachCoinHandler);
-  } else {
-    attachCoinHandler();
-  }
-})();
 
-// Sovereign Dossier Hero Card Quick Actions & Medallion Interactions
-(function setupProfileHeroInteractions() {
-  function attachHeroActions() {
-    // 1. Portrait Medallion Tap -> Open Edit Dossier Modal
-    const avatarRing = document.getElementById("profileAvatarRing");
-    if (avatarRing && avatarRing.dataset.bound !== "true") {
-      avatarRing.dataset.bound = "true";
-      avatarRing.addEventListener("click", () => {
-        if (window.AudioEngine && window.AudioEngine.playClick) {
-          window.AudioEngine.playClick();
-        }
-        document.getElementById("editAccountBtn")?.click();
-      });
-    }
 
-    // 2. Add Member Button -> Tactile Feedback & Prompt
-    const btnAdd = document.getElementById("btnProfileAddFriend");
-    if (btnAdd && btnAdd.dataset.bound !== "true") {
-      btnAdd.dataset.bound = "true";
-      btnAdd.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (window.AudioEngine && window.AudioEngine.playClick) {
-          window.AudioEngine.playClick();
-        }
-        if (window.HapticEngine && window.HapticEngine.tap) {
-          window.HapticEngine.tap(15);
-        }
-        const isAr = (typeof AppState !== "undefined" && AppState.language === "ar") || document.documentElement.lang === "ar";
-        const msg = isAr ? "إضافة عضو موثق — قريباً" : "Accredited Member Connection — Coming Soon";
-        if (typeof showNavToast === "function") {
-          showNavToast(msg);
-        } else if (typeof showCopyToast === "function") {
-          showCopyToast(msg);
-        }
-      });
-    }
 
-    // 3. Send Message Button -> Tactile Feedback & Prompt
-    const btnMsg = document.getElementById("btnProfileSendMessage");
-    if (btnMsg && btnMsg.dataset.bound !== "true") {
-      btnMsg.dataset.bound = "true";
-      btnMsg.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (window.AudioEngine && window.AudioEngine.playClick) {
-          window.AudioEngine.playClick();
-        }
-        if (window.HapticEngine && window.HapticEngine.tap) {
-          window.HapticEngine.tap(15);
-        }
-        const isAr = (typeof AppState !== "undefined" && AppState.language === "ar") || document.documentElement.lang === "ar";
-        const msg = isAr ? "المراسلة الدبلوماسية المشفرة — قريباً" : "Encrypted Diplomatic Dispatch — Coming Soon";
-        if (typeof showNavToast === "function") {
-          showNavToast(msg);
-        } else if (typeof showCopyToast === "function") {
-          showCopyToast(msg);
-        }
-      });
-    }
-
-    // 4. Share Dossier Button -> Copy Verification Link & Haptic Chime
-    const btnShare = document.getElementById("btnProfileShareDossier");
-    if (btnShare && btnShare.dataset.bound !== "true") {
-      btnShare.dataset.bound = "true";
-      btnShare.addEventListener("click", async (e) => {
-        e.preventDefault();
-        if (window.AudioEngine && window.AudioEngine.playChime) {
-          window.AudioEngine.playChime();
-        }
-        if (window.HapticEngine && window.HapticEngine.tap) {
-          window.HapticEngine.tap(25);
-        }
-        const memberId = AppState.user?.id || "3426";
-        const shareUrl = `${window.location.origin}${window.location.pathname}?ref=dossier-${memberId}#profile`;
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(shareUrl);
-          }
-        } catch (err) {}
-        const isAr = (typeof AppState !== "undefined" && AppState.language === "ar") || document.documentElement.lang === "ar";
-        const msg = isAr ? "تم نسخ رابط الملف السيادي المعتمد بنجاح" : "Official Sovereign Dossier Link Copied";
-        if (typeof showCopyToast === "function") {
-          showCopyToast(msg);
-        } else if (typeof showNavToast === "function") {
-          showNavToast(msg);
-        }
-      });
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", attachHeroActions);
-  } else {
-    attachHeroActions();
-  }
-})();
 
 /* =========================================================
    THE 1% CLUB — app.js Phase 2
@@ -2165,13 +2041,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 }
 
 /* === 4. VAULT & USER ASSET SYNC === */
-function syncWidgetState() {
-  const masterCard = document.getElementById("membershipCard");
-  const preview = document.querySelector(".widget-card-preview");
-  if (masterCard && preview) {
-    preview.innerHTML = masterCard.innerHTML;
-  }
-}
+
 
 window.handleInstallWidget = function handleInstallWidget(event) {
   if (event) event.stopPropagation();
@@ -2685,9 +2555,7 @@ const Router = {
   },
 };
 
-window.switchTab = function switchTab(tabId) {
-  Router.navigate(tabId);
-};
+;
 
 function goToPage(tab) {
   Router.navigate(tab);
@@ -2723,102 +2591,7 @@ document
   ?.addEventListener("click", () => goToPage("shop"));
 
 // ---------------------------------------------------------
-// LUXURY SWIPE NAVIGATION BETWEEN MAIN TABS
-// ---------------------------------------------------------
-(function initTabSwipeNavigation() {
-  const ORDERED_TABS = ["membership", "club", "profile", "boutique"];
-  const appMain = document.querySelector(".app-main");
-  if (!appMain) return;
 
-  let startX = 0;
-  let startY = 0;
-  let isSwiping = false;
-  let isHorizontalGesture = null;
-
-  appMain.addEventListener(
-    "touchstart",
-    (e) => {
-      if (e.touches.length !== 1) return;
-      // Do not initiate tab swipe if user is interacting with an open modal or horizontal scroll container
-      if (document.querySelector(".luxury-modal-overlay.is-open")) return;
-      if (e.target.closest(".pcs-scroll-container, .horizontal-scroll, input, textarea, select, button, .chat-messages-container")) {
-        return;
-      }
-
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      isSwiping = true;
-      isHorizontalGesture = null;
-    },
-    { passive: true }
-  );
-
-  appMain.addEventListener(
-    "touchmove",
-    (e) => {
-      if (!isSwiping || e.touches.length !== 1) return;
-      const currentX = e.touches[0].clientX;
-      const currentY = e.touches[0].clientY;
-      const diffX = currentX - startX;
-      const diffY = currentY - startY;
-
-      if (isHorizontalGesture === null) {
-        if (Math.abs(diffX) > 10 || Math.abs(diffY) > 10) {
-          isHorizontalGesture = Math.abs(diffX) > Math.abs(diffY) * 1.5;
-        }
-      }
-
-      if (isHorizontalGesture === false) {
-        isSwiping = false;
-      }
-    },
-    { passive: true }
-  );
-
-  appMain.addEventListener(
-    "touchend",
-    (e) => {
-      if (!isSwiping || isHorizontalGesture !== true) {
-        isSwiping = false;
-        isHorizontalGesture = null;
-        return;
-      }
-
-      const endX = e.changedTouches[0].clientX;
-      const diffX = endX - startX;
-      const SWIPE_THRESHOLD = 50;
-
-      if (Math.abs(diffX) >= SWIPE_THRESHOLD) {
-        const isRtl = document.documentElement.dir === "rtl" || document.documentElement.lang === "ar";
-        const currentActiveNav = document.querySelector(".nav-item.is-active");
-        const currentTab = currentActiveNav?.dataset?.tab || "membership";
-        const currentIndex = ORDERED_TABS.indexOf(currentTab);
-
-        if (currentIndex !== -1) {
-          let nextIndex = currentIndex;
-          if (diffX < -SWIPE_THRESHOLD) {
-            // Dragged left
-            nextIndex = isRtl ? currentIndex - 1 : currentIndex + 1;
-          } else if (diffX > SWIPE_THRESHOLD) {
-            // Dragged right
-            nextIndex = isRtl ? currentIndex + 1 : currentIndex - 1;
-          }
-
-          if (nextIndex >= 0 && nextIndex < ORDERED_TABS.length && nextIndex !== currentIndex) {
-            if (window.HapticEngine && window.HapticEngine.tap) {
-              window.HapticEngine.tap(12);
-            }
-            goToPage(ORDERED_TABS[nextIndex]);
-          }
-        }
-      }
-
-      isSwiping = false;
-      isHorizontalGesture = null;
-    },
-    { passive: true }
-  );
-})();
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
@@ -4174,9 +3947,7 @@ document.getElementById("reliquaryInspectModal")?.addEventListener("click", (e) 
   }
 });
 
-function processPurchase(item) {
-  return ClubState.purchase(item);
-}
+
 
 window.purchase = function(item, source = 'modal', btnElement = null) {
   const success = ClubState.purchase(item);
@@ -5198,14 +4969,7 @@ function generateProfileCollectionSkeleton() {
   return generateSkeleton("collection", 4);
 }
 
-function findItemCategory(itemId) {
-  for (const cat in BOUTIQUE) {
-    if (BOUTIQUE[cat].items.some((i) => i.id === itemId)) {
-      return cat;
-    }
-  }
-  return "crowns";
-}
+
 
 function openReliquaryInspectModal(itemId) {
   let item = null;

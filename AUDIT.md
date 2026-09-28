@@ -186,3 +186,13 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 - **App Core:** `index.html`, `style.css`, `app.js`, `translations.js`, `luxury.js`, `Audio.js`
 - **Docs:** `AUDIT.md`
 - **Infrastructure (DO NOT TOUCH):** `server.js`, `metadata.json`, `package.json`, `package-lock.json`, `.env.example`
+
+### Safe-List Pass #2 (2026-09-29) — IN PROGRESS
+- Deleted 7 confirmed dead functions from app.js (F2 evidence: cross-file name count = 1).
+- Deleted dead CSS families .ach-rarity-* and .boutique-skeleton* (F3 evidence: prefix count = 0).
+- Kept: 4 legitimate console.error/warn, handleScroll, dynamic class families, duplicated SVG icon (legitimate reuse).
+- Pending: visual verification before push.
+
+### Safe-List Pass #2b (2026-09-29) — IN PROGRESS
+- Finished deletion of boutique-skeleton family (11 selector lines / 6 blocks) missed by #2 due to #boutique-tab-scoped variants.
+- Lesson logged: nonzero verification counts require immediate grep
