@@ -137,4 +137,9 @@
 - Updated `.phc-edit-btn`, `.psb-value`, and `.psb-label` to use theme variables (`var(--btn-edit-*)`, `var(--text-primary)`, `var(--text-secondary)`).
 - Verified successful build and linting.
 
+### Micro-pass 9D (2026-09-28) — IN PROGRESS
+- Bound .pnm-title, .pnm-sub, .pnm-badge, .achievements-summary-value, .pcs-item-name, .pcs-item-type to theme tokens.
+- Pending: visual verification in dark + light modes before push.
+
+
 

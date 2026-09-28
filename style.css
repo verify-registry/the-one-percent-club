@@ -7939,13 +7939,13 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   font-weight: 600 !important;
   letter-spacing: 0.5px !important;
   text-transform: capitalize !important;
-  color: #ede2cd !important;
+  color: var(--text-primary) !important;
   margin-bottom: 4px;
 }
 
 .pnm-sub {
   font-size: 9.5px !important;
-  color: #7d7568 !important;
+  color: var(--text-muted) !important;
 }
 
 .pnm-chevron {
@@ -7958,9 +7958,9 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 }
 
 .pnm-badge {
-  background: #222;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: #aaa;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-medium);
+  color: var(--text-muted);
   font-size: 9px;
   padding: 4px 8px;
   border-radius: 4px;
@@ -8143,7 +8143,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 .achievements-summary-value {
   font-family: monospace;
   font-size: 16px;
-  color: #d4af6a;
+  color: var(--gold-polished);
   text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
 }
 
@@ -8309,7 +8309,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 }
 
 .pcs-item-name {
-  color: #fff8dc;
+  color: var(--text-primary);
   font-size: 12px;
   margin-bottom: 4px;
   font-weight: 500;
@@ -8317,7 +8317,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 
 .pcs-item-type {
   font-size: 9px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
