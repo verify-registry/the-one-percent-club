@@ -71,10 +71,10 @@
   --overlay-bg: rgba(4, 4, 6, 0.82);
   --modal-box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 175, 55, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 
-  --btn-edit-bg: linear-gradient(145deg, #1f1f26 0%, #101014 100%);
-  --btn-edit-border: rgba(212, 175, 106, 0.38);
-  --btn-edit-color: #f0d59d;
-  --btn-edit-shadow: 0 4px 10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 245, 215, 0.22);
+  --btn-edit-bg: radial-gradient(circle at 35% 35%, #231f18 0%, #12100d 80%, #090807 100%);
+  --btn-edit-border: rgba(212, 175, 106, 0.5);
+  --btn-edit-color: #dfba73;
+  --btn-edit-shadow: 0 6px 14px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(10, 9, 7, 0.9), inset 0 1px 1px rgba(255, 245, 215, 0.3);
 
   --btn-pill-bg: linear-gradient(180deg, rgba(32, 26, 18, 0.95) 0%, rgba(16, 13, 8, 0.98) 100%);
   --btn-pill-border: rgba(225, 185, 75, 0.55);
@@ -287,7 +287,7 @@ body.light-mode {
   );
   --btn-gold-border: var(--gold-pale);
 
-  --btn-edit-bg: linear-gradient(145deg, #ffffff 0%, #f0ebd9 100%);
+  --btn-edit-bg: radial-gradient(circle at 35% 35%, #ffffff 0%, #f0ebd9 100%);
   --btn-edit-border: rgba(185, 145, 75, 0.4);
   --btn-edit-color: #856122;
   --btn-edit-shadow: 0 3px 8px rgba(60, 45, 20, 0.1), inset 0 1px 0 #ffffff;
@@ -7760,15 +7760,12 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   justify-content: center !important;
   width: 34px !important;
   height: 34px !important;
-  background: radial-gradient(circle at 35% 35%, #231f18 0%, #12100d 80%, #090807 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.5) !important;
+  background: var(--btn-edit-bg) !important;
+  border: 1px solid var(--btn-edit-border) !important;
   border-radius: 50% !important;
-  color: #dfba73 !important;
+  color: var(--btn-edit-color) !important;
   cursor: pointer !important;
-  box-shadow:
-    0 6px 14px rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(10, 9, 7, 0.9),
-    inset 0 1px 1px rgba(255, 245, 215, 0.3) !important;
+  box-shadow: var(--btn-edit-shadow) !important;
   transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease !important;
   pointer-events: auto !important;
   z-index: 10 !important;
@@ -7869,7 +7866,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   font-weight: 700 !important;
   white-space: nowrap !important;
   margin: 3px 0 !important;
-  color: #e8d5b5 !important;
+  color: var(--text-primary) !important;
   text-align: center !important;
 }
 
@@ -7880,7 +7877,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   text-transform: uppercase !important;
   white-space: nowrap !important;
   font-family: var(--font-ui) !important;
-  color: #fff;
+  color: var(--text-secondary);
   text-align: center !important;
 }
 

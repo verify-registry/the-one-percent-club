@@ -122,3 +122,19 @@
 
 *Last updated: 2026-09-28*
 *Protected file — do not delete*
+
+### Micro-pass 9B (2026-09-28) — LANDED
+- Removed dead CSS: .phc-corner-rivet, .phc-rivet-tl/tr/bl/br, .phc-motto-text-old, duplicate base .profile-hero-card block.
+- Deleted .env.example from repo.
+- Bound phc/psb/pnm/pcs components to design tokens; added contain: layout style paint + backface-visibility to .pcs-item-card.
+- Commits: e1cca1e, 456d35f, d37b40b. style.css: 776,865 → 776,467 bytes.
+- Visual verification: passed (dark + light, RTL + LTR).
+- Note: package-lock.json removed in same push — regenerate later.
+
+### Micro-pass 9C (2026-09-28) — LANDED
+- Fixed light-mode stuck elements in style.css.
+- Bound `--btn-edit-*` variables to design tokens in `:root` and light-mode.
+- Updated `.phc-edit-btn`, `.psb-value`, and `.psb-label` to use theme variables (`var(--btn-edit-*)`, `var(--text-primary)`, `var(--text-secondary)`).
+- Verified successful build and linting.
+
+
