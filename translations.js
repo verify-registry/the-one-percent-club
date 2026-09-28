@@ -55,10 +55,7 @@ window.I18N = {
     en: "Language, audio, and preferences",
     ar: "اللغة، الصوت، والتفضيلات",
   },
-  modal_account_title: {
-    en: "ACCOUNT INFORMATION",
-    ar: "بيانات الحساب",
-  },
+
   leave_blank: {
     en: "Leave blank to keep current",
     ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية",
@@ -149,18 +146,12 @@ window.I18N = {
         en: "NEW PASSWORD",
         ar: "كلمة المرور الجديدة",
       },
-      passPlaceholder: {
-        en: "Leave blank to keep current",
-        ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية",
-      },
+
       updateAccount: {
         en: "UPDATE ACCOUNT",
         ar: "تحديث الحساب",
       },
-      accountInfoTitleModal: {
-        en: "ACCOUNT INFORMATION",
-        ar: "بيانات الحساب",
-      },
+
       quoteText: {
         en: "Not everyone understands wealth. That's why we have this Club.",
         ar: "ليس الجميع يدرك معنى الثروة الحقيقية.. لهذا وُجد هذا النادي.",

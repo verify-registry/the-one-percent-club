@@ -146,5 +146,59 @@
 - No changes to package.json, app code, or assets.
 - Pending: push authorization.
 
+### Micro-pass 11 (2026-09-28) — IN PROGRESS
+- Removed orphaned duplicate translation keys: modal_account_title, profile.passPlaceholder, profile.accountInfoTitleModal.
+- Canonical survivor: leave_blank (active in index.html).
+- node --check passed; zero call-sites affected.
+- Pending: push authorization.
+
+
+
+---
+
+## 4. AGENT WORKFLOW PROTOCOL (MANDATORY FOR ALL AGENTS)
+
+### 4.1 Roles
+- ORCHESTRATOR: the senior architect AI in the planning chat. Designs passes, writes exact instructions, verifies remotely.
+- HANDS: the workspace agent (Gemini Flash-Lite). Executes ONLY exact instructions; never improvises.
+- GATEKEEPER: the human owner. The only person who presses sync/push, and only on the Orchestrator's explicit word.
+- VERIFIER: the Orchestrator via GitHub API and raw greps after each push.
+
+### 4.2 Micro-pass discipline
+1. Scope: one small named change per pass (e.g. "Micro-pass 9C").
+2. Read-only first: verify targets with raw greps before any write.
+3. Exact edits: instructions carry exact FIND/REPLACE or DELETE blocks; Hands must STOP if a block is not found verbatim.
+4. Raw evidence: Hands replies with verbatim terminal output (grep -n / wc -c / sed -n), never summaries.
+5. Visual check: human checks dark + light + RTL/LTR in preview before push.
+6. Push gate: push ONLY when the Orchestrator says the word; commit message names the pass.
+7. Post-push verification: Orchestrator re-checks remote size/SHA/greps; the pass closes only then.
+8. Ledger: every pass appends a ledger entry to this file.
+
+### 4.3 Workspace & platform facts
+- The AI Studio workspace is NOT a git repository (git commands fail with "not a git repository").
+- Publishing happens via the platform sync button; commits are authored by verify-registry.
+- GitHub API (contents/commits) can serve STALE cached data; cross-check with GitHub UI or raw.githubusercontent, or add a cachebust query param.
+- The workspace can be reset or reverted by the platform; never assume unpushed work survives. Push promptly after verification.
+
+
+
+
+
+## 6. CURRENT STATE & BACKLOG (update every pass)
+Landed on main: 9B, 9C, 9D, 9E. In progress: 11.
+Backlog:
+- 10-Slim-A: delete redundant body.light-mode #profile-tab .phc-edit-btn block (it masks the 9C tokens in light mode).
+- 10-Slim-B onward: per-cluster redundancy hunt (only blocks fully covered by a token-bound base).
+- 11-followup: leaderboardSub vs leaderboardSubtitle disambiguation; optional removal of dead nav.profile.* subkeys (the nav.profile leaf is ALIVE at app.js line 2526).
+- Optional: CSS minification for production payload (separate decision).
+Known intentional: body.light-mode override blocks; stacked override generations; duplicate gradient tokens.
+
+## 7. VERIFICATION CHEATSHEET
+- Remote truth: https://api.github.com/repos/verify-registry/the-one-percent-club/contents/<file>?cachebust=<n>
+- Commit list: https://api.github.com/repos/verify-registry/the-one-percent-club/commits?sha=main&per_page=5
+- Workspace facts: wc -c <file> | grep -nF "<token>" <file> | sed -n 'A,Bp' <file>
+- Dead-key test: grep -cF "<key>" app.js index.html translations.js → usage = app.js + index.html counts.
+- Dead-selector test: grep -nF "<class>" index.html app.js → must be zero AND no dynamic class construction.
+
 
 
