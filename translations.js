@@ -267,10 +267,6 @@ window.I18N = {
       en: "The Sovereign Board",
       ar: "المجلس السيادي",
     },
-    leaderboardSubtitle: {
-      en: "Global Elite of Sovereign Wealth",
-      ar: "النخبة العالمية لأصحاب الثروة السيادية",
-    },
     leaderboardSub: {
       en: "Global Sovereign Wealth Elite",
       ar: "النخبة العالمية لأصحاب الثروة السيادية",

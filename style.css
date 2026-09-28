@@ -75,6 +75,10 @@
   --btn-edit-border: rgba(212, 175, 106, 0.5);
   --btn-edit-color: #dfba73;
   --btn-edit-shadow: 0 6px 14px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(10, 9, 7, 0.9), inset 0 1px 1px rgba(255, 245, 215, 0.3);
+  --btn-edit-hover-bg: radial-gradient(circle at 35% 35%, #2d261e 0%, #1a1712 80%, #0f0d0b 100%);
+  --btn-edit-hover-border: rgba(212, 175, 106, 0.8);
+  --btn-edit-hover-color: #fff1c7;
+  --btn-edit-hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.9), 0 0 12px rgba(212, 175, 106, 0.25), inset 0 1px 2px rgba(255, 245, 215, 0.5);
 
   --btn-pill-bg: linear-gradient(180deg, rgba(32, 26, 18, 0.95) 0%, rgba(16, 13, 8, 0.98) 100%);
   --btn-pill-border: rgba(225, 185, 75, 0.55);
@@ -291,12 +295,22 @@ body.light-mode {
   --btn-edit-border: rgba(185, 145, 75, 0.4);
   --btn-edit-color: #856122;
   --btn-edit-shadow: 0 3px 8px rgba(60, 45, 20, 0.1), inset 0 1px 0 #ffffff;
+  --btn-edit-hover-bg: radial-gradient(circle at 35% 35%, #ffffff 0%, #eee3ce 100%);
+  --btn-edit-hover-border: rgba(175, 130, 40, 0.8);
+  --btn-edit-hover-color: #3b2807;
+  --btn-edit-hover-shadow: 0 2px 8px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff;
 
   --btn-pill-bg: linear-gradient(180deg, #ffffff 0%, #f6f0e2 100%);
   --btn-pill-border: rgba(185, 145, 65, 0.65);
   --btn-pill-color: #4a3410;
   --btn-pill-shadow: 0 1.5px 4px rgba(70, 50, 20, 0.08), inset 0 1px 0 #ffffff;
   --btn-pill-icon: #664917;
+
+  --lm-text-dark: #1a1a1a;
+  --lm-text-muted: #666666;
+  --lm-bg-white: #ffffff;
+  --lm-bg-cream: #fdfbf7;
+  --lm-border-gold: rgba(156, 109, 35, 0.4);
 
   color-scheme: light;
 }
@@ -386,13 +400,13 @@ body.light-mode .stats-bar,
 body.light-mode .lounge-banner,
 body.light-mode .pcs-item-card,
 body.light-mode .club-composer {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
 }
 
 body.light-mode .club-composer input {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .club-composer input::placeholder {
   color: #888 !important;
@@ -400,7 +414,7 @@ body.light-mode .club-composer input::placeholder {
 
 body.light-mode .b-filt-btn.is-active,
 body.light-mode .pill-btn.is-active {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
   border-color: rgba(156, 109, 35, 0.5) !important;
   color: var(--gold-polished) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
@@ -420,7 +434,7 @@ body.light-mode .boutique-card-name,
 body.light-mode .honor-name,
 body.light-mode .pcs-item-name,
 body.light-mode .pcs-item-type {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 body.light-mode .boutique-card-price,
@@ -453,8 +467,8 @@ body.light-mode .honor-card.is-locked {
 
 body.light-mode .club-room:hover,
 body.light-mode .menu-card:hover {
-  background: #fdfbf7 !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  background: var(--lm-bg-cream) !important;
+  border-color: var(--lm-border-gold) !important;
 }
 
 body.light-mode .boutique-card-icon::after {
@@ -471,20 +485,20 @@ body.light-mode .member-number {
 }
 
 body.light-mode .club-composer {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.3) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
 }
 
 body.light-mode .club-composer input {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .club-composer input::placeholder {
   color: #888 !important;
 }
 
 body.light-mode .club-room-btn.is-active {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
   border-color: rgba(156, 109, 35, 0.5) !important;
   color: var(--gold-polished) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
@@ -504,7 +518,7 @@ body.light-mode .nav-item.is-active {
 }
 
 body.light-mode .boutique-section-head h3 {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
   text-shadow: none !important;
 }
 
@@ -513,7 +527,7 @@ body.light-mode .boutique-section-sub {
 }
 
 body.light-mode .luxury-empty-state p {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 body.light-mode .luxury-empty-state span {
@@ -521,12 +535,12 @@ body.light-mode .luxury-empty-state span {
 }
 
 body.light-mode .vault-empty-text {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 body.light-mode .tier-pill {
   background: rgba(156, 109, 35, 0.1) !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
   color: var(--gold-polished) !important;
   box-shadow: inset 0 0 10px rgba(156, 109, 35, 0.1) !important;
 }
@@ -536,7 +550,7 @@ body.light-mode .metric-label {
 }
 
 body.light-mode .metric-val {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 body.light-mode .card-club-name {
@@ -544,14 +558,14 @@ body.light-mode .card-club-name {
 }
 
 body.light-mode .menu-subtitle {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode .pnm-title .menu-title {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 body.light-mode .setting-desc {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 
 body.light-mode .pcs-item-price {
@@ -563,16 +577,16 @@ body.light-mode .pcs-item-price {
 /* Master Card Internal Metrics */
 
 body.light-mode .membership-card .ring-value {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
   text-shadow: none !important;
 }
 body.light-mode .membership-card .ring-label {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 
 /* Honors Summary Header */
 body.light-mode #profile-tab .prestige-honors .achievements-summary {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border-color: rgba(156, 109, 35, 0.3) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
@@ -582,7 +596,7 @@ body.light-mode .achievements-summary-value {
 }
 body.light-mode .achievements-summary-label,
 body.light-mode .pcs-view-all {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode .achievements-summary-divider {
   background: rgba(156, 109, 35, 0.2) !important;
@@ -590,8 +604,8 @@ body.light-mode .achievements-summary-divider {
 
 /* Honor Cards */
 body.light-mode #profile-tab .prestige-honors .honor-card.is-unlocked {
-  background: #ffffff !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  background: var(--lm-bg-white) !important;
+  border-color: var(--lm-border-gold) !important;
   box-shadow: 0 4px 15px rgba(156, 109, 35, 0.1) !important;
 }
 body.light-mode
@@ -605,7 +619,7 @@ body.light-mode
 body.light-mode #profile-tab .prestige-honors .honor-card.is-locked {
   background: #f8f7f4 !important;
   border-style: dashed !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
   box-shadow: none !important;
 }
 body.light-mode
@@ -620,8 +634,8 @@ body.light-mode
 
 /* Profile Hero Card */
 body.light-mode #profile-tab .profile-hero-card {
-  background: #ffffff !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  background: var(--lm-bg-white) !important;
+  border-color: var(--lm-border-gold) !important;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
 }
 
@@ -631,7 +645,7 @@ body.light-mode .phc-stats {
   border-color: rgba(156, 109, 35, 0.2) !important;
 }
 body.light-mode .phc-stat-val {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .phc-stat-label {
   color: #888 !important;
@@ -653,9 +667,9 @@ body.light-mode #boutique-tab .boutique-ownership-toggle {
 /* Modal Inputs */
 body.light-mode .edit-profile-input,
 body.light-mode .luxury-input {
-  background: #fdfbf7 !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
-  color: #1a1a1a !important;
+  background: var(--lm-bg-cream) !important;
+  border-color: var(--lm-border-gold) !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .edit-profile-input::placeholder,
 body.light-mode .luxury-input::placeholder {
@@ -663,19 +677,19 @@ body.light-mode .luxury-input::placeholder {
 }
 body.light-mode .modal-label,
 body.light-mode .input-label {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode .modal-close {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .edit-profile-row span {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 
 /* Club Pinned Sovereign Plaque */
 body.light-mode #club-tab .club-pinned {
   background: linear-gradient(180deg, #fefcf9 0%, #f7f2e7 100%) !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode #club-tab .chamber-plaque-title,
@@ -685,10 +699,10 @@ body.light-mode #club-tab .club-pinned-title {
 }
 body.light-mode #club-tab .chamber-plaque-sub,
 body.light-mode #club-tab .club-pinned-sub {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode #club-tab .chamber-plaque-medallion-inner {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
 }
 body.light-mode #club-tab .chamber-plaque-svg {
   color: var(--gold-polished) !important;
@@ -699,11 +713,11 @@ body.light-mode #club-tab .chamber-security-badge {
 
 body.light-mode .menu-title,
 body.light-mode .pnm-title span {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .menu-subtitle,
 body.light-mode .pnm-sub span {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode .luxury-modal-header h2,
 body.light-mode .luxury-modal-header h3 {
@@ -711,7 +725,7 @@ body.light-mode .luxury-modal-header h3 {
   text-shadow: none !important;
 }
 body.light-mode .edit-profile-label {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode .pcs-item-image {
   background: transparent !important;
@@ -721,7 +735,7 @@ body.light-mode .club-pinned-title {
   color: var(--gold-polished) !important;
 }
 body.light-mode .club-pinned-sub span {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 
 body.light-mode .pcs-item-image svg path,
@@ -2062,7 +2076,7 @@ body.light-mode .metric-tooltip-bezel {
 }
 
 body.light-mode .metric-tooltip::after {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
   border-right: 1px solid rgba(184, 139, 45, 0.55) !important;
   border-bottom: 1px solid rgba(184, 139, 45, 0.55) !important;
   box-shadow: 2px 2px 4px rgba(50, 35, 15, 0.1) !important;
@@ -7780,13 +7794,11 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 }
 
 .phc-edit-btn:hover {
-  border-color: rgba(212, 175, 106, 0.8) !important;
-  color: #fff1c7 !important;
+  background: var(--btn-edit-hover-bg) !important;
+  border-color: var(--btn-edit-hover-border) !important;
+  color: var(--btn-edit-hover-color) !important;
+  box-shadow: var(--btn-edit-hover-shadow) !important;
   transform: scale(1.06) translateY(-1px) !important;
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.9),
-    0 0 12px rgba(212, 175, 106, 0.25),
-    inset 0 1px 2px rgba(255, 245, 215, 0.5) !important;
 }
 
 .phc-edit-btn:active {
@@ -9998,12 +10010,12 @@ body.light-mode .sl-ledger-count {
 
 /* Ledger Cards */
 body.light-mode .sl-ledger-card {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(168, 124, 45, 0.28) !important;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff !important;
 }
 body.light-mode .sl-ledger-card:hover {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
   border-color: rgba(168, 124, 45, 0.5) !important;
   box-shadow: 0 6px 20px rgba(168, 124, 45, 0.15) !important;
 }
@@ -10147,7 +10159,7 @@ body.light-mode .sl-self-cta {
 /* Master Card Labels */
 body.light-mode .membership-card p.ring-label,
 body.light-mode .membership-card .ring-label {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
   font-weight: 600 !important;
 }
 body.light-mode .membership-card .equipped-ring-label {
@@ -10160,12 +10172,12 @@ body.light-mode .membership-card .living-core {
 
 body.light-mode .member-quote,
 body.light-mode .membership-card .card-tagline {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 
 /* Honors Summary Header */
 body.light-mode #profile-tab .prestige-honors .achievements-summary {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
 }
@@ -10175,7 +10187,7 @@ body.light-mode .achievements-summary-value {
 }
 body.light-mode .achievements-summary-label,
 body.light-mode .pcs-view-all {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode .achievements-summary-divider {
   background: rgba(156, 109, 35, 0.2) !important;
@@ -10185,12 +10197,12 @@ body.light-mode .achievements-summary-divider {
 
 /* Club Message Credits Bar */
 body.light-mode #club-tab .club-credits-display {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode #club-tab #clubCreditsText {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode #club-tab .club-credits-buy {
   background: var(--gold-polished) !important;
@@ -10200,7 +10212,7 @@ body.light-mode #club-tab .club-credits-buy {
 
 /* Pinned Banner */
 body.light-mode #club-tab .club-pinned {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
 }
@@ -10210,7 +10222,7 @@ body.light-mode #club-tab .club-pinned-title {
 }
 body.light-mode #club-tab .club-pinned-sub,
 body.light-mode #club-tab .club-pinned-sub span {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode #club-tab .club-pinned-icon {
   background: rgba(156, 109, 35, 0.1) !important;
@@ -10237,7 +10249,7 @@ body.light-mode #club-tab .club-room-btn:hover {
   color: #3b2a09 !important;
 }
 body.light-mode #club-tab .club-room-btn.is-active {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border-color: rgba(156, 109, 35, 0.65) !important;
   color: #8c6014 !important;
   box-shadow: 0 2px 8px rgba(156, 109, 35, 0.12) !important;
@@ -10250,10 +10262,10 @@ body.light-mode #club-tab .club-room-btn.is-active .chamber-icon {
 }
 body.light-mode #club-tab .club-room-btn.chamber-btn-board {
   background: #f1ebd8 !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
 }
 body.light-mode #club-tab .club-room-btn.chamber-btn-board.is-active {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border-color: var(--gold-polished) !important;
 }
 body.light-mode .room-badge {
@@ -10344,7 +10356,7 @@ body.light-mode .ticker-dot-sep {
   color: rgba(168, 124, 45, 0.3) !important;
 }
 body.light-mode .sovereign-dispatch-card {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border-color: rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
 }
@@ -10352,7 +10364,7 @@ body.light-mode .sovereign-dispatch-card:not(.is-personal-dispatch) {
   border-inline-start: 2px solid rgba(156, 109, 35, 0.45) !important;
 }
 body.light-mode .sovereign-dispatch-card.is-personal-dispatch {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
   border-color: rgba(156, 109, 35, 0.45) !important;
   border-inline-end: 2.5px solid var(--gold-polished) !important;
   border-top: 2px solid var(--gold-polished) !important;
@@ -10390,7 +10402,7 @@ body.light-mode .dispatch-seal-mark.is-official-decree .decree-seal-icon {
   color: #6e4c0b !important;
 }
 body.light-mode .dispatch-name {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .dispatch-seat-tag {
   color: #736450 !important;
@@ -10417,7 +10429,7 @@ body.light-mode #club-tab .club-composer-wrap {
   box-shadow: none !important;
 }
 body.light-mode .horological-ledger-gauge {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border-color: rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
 }
@@ -10462,7 +10474,7 @@ body.light-mode .seal-btn-label {
   color: #593e10 !important;
 }
 body.light-mode .obsidian-dispatch-composer {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   box-shadow:
     0 4px 16px rgba(0, 0, 0, 0.05),
     inset 0 1px 2px rgba(255, 255, 255, 0.9),
@@ -10534,7 +10546,7 @@ body.light-mode #clubInput {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .obsidian-dispatch-input:focus,
 body.light-mode #clubInput:focus {
@@ -10543,7 +10555,7 @@ body.light-mode #clubInput:focus {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .obsidian-dispatch-input::placeholder {
   color: #8c8270 !important;
@@ -10576,18 +10588,18 @@ body.light-mode .dispatch-whisper-pill {
   color: #593e10 !important;
 }
 body.light-mode .chat-bubble.is-incoming {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
 }
 body.light-mode .chat-bubble.is-outgoing {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
   border: 1px solid rgba(156, 109, 35, 0.4) !important;
   box-shadow: 0 4px 16px rgba(156, 109, 35, 0.08) !important;
 }
 body.light-mode .chat-bubble.is-incoming .chat-text,
 body.light-mode .chat-bubble.is-outgoing .chat-text {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .chat-bubble.is-incoming .chat-time,
 body.light-mode .chat-bubble.is-outgoing .chat-time {
@@ -10600,22 +10612,22 @@ body.light-mode .chat-sender-header span {
   color: var(--gold-polished) !important;
 }
 body.light-mode .typing-bubble {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode #typingName {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 /* Modals */
 body.light-mode .luxury-modal-box {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.1),
     0 8px 16px rgba(156, 109, 35, 0.05) !important;
 }
 body.light-mode #accountInfoModal .luxury-modal-box {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
 }
 body.light-mode .modal-section-title {
   color: #8f6820 !important;
@@ -10631,24 +10643,24 @@ body.light-mode .outline-upload-btn:hover {
   background: rgba(156, 109, 35, 0.05) !important;
 }
 body.light-mode .modal-header h3 {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .modal-close {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .info-row .info-label,
 body.light-mode .modal-label,
 body.light-mode .input-label {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode .info-row .info-value,
 body.light-mode .setting-desc {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode .luxury-input,
 body.light-mode .edit-profile-input {
-  background: #fdfbf7 !important;
-  color: #1a1a1a !important;
+  background: var(--lm-bg-cream) !important;
+  color: var(--lm-text-dark) !important;
   border-color: rgba(156, 109, 35, 0.3) !important;
 }
 body.light-mode .luxury-input::placeholder,
@@ -10658,7 +10670,7 @@ body.light-mode .edit-profile-input::placeholder {
 
 /* Profile Hero Card */
 body.light-mode #profile-tab .profile-hero-card {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow:
     0 12px 35px rgba(0, 0, 0, 0.06),
@@ -10667,7 +10679,7 @@ body.light-mode #profile-tab .profile-hero-card {
 
 body.light-mode .pnm-title span,
 body.light-mode .menu-title {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 
@@ -10687,13 +10699,13 @@ body.light-mode .pcs-item-image svg {
 
 /* FIX 5: IMPERIAL LIGHT MODE CONTRAST */
 body.light-mode #profile-tab .profile-stats-bar {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.35) !important;
 }
 
 body.light-mode #profile-tab .profile-stats-bar .stat-value,
 body.light-mode #profile-tab .profile-stats-bar .stat-label {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 body.light-mode #boutique-tab .boutique-own-btn {
@@ -10703,14 +10715,14 @@ body.light-mode #boutique-tab .btn-acquire,
 body.light-mode #boutique-tab .btn-equip {
   color: var(--gold-polished) !important;
   background: rgba(156, 109, 35, 0.1) !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
 }
 body.light-mode #boutique-tab .btn-equipped {
   color: #2b733e !important;
   border-color: rgba(43, 115, 62, 0.4) !important;
 }
 body.light-mode #boutique-tab .btn-owned {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
   border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
@@ -11066,7 +11078,7 @@ body.light-mode #accountInfoModal .edit-profile-label {
 body.light-mode #accountInfoModal .edit-profile-input {
   background: rgba(0, 0, 0, 0.02) !important;
   border: 1px solid rgba(156, 109, 35, 0.2) !important;
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 body.light-mode #accountInfoModal .edit-profile-input:focus {
@@ -11105,7 +11117,7 @@ body.light-mode #accountInfoModal .dossier-save-btn {
 body.light-mode #accountInfoModal .edit-profile-textarea {
   background: rgba(0, 0, 0, 0.02) !important;
   border: 1px solid rgba(156, 109, 35, 0.2) !important;
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 /* Quote Presets Container */
@@ -11288,16 +11300,16 @@ body.light-mode #accountInfoModal .luxury-modal-box {
     inset 0 1px 2px #ffffff !important;
 }
 body.light-mode #accountInfoModal .edit-profile-input {
-  background: #fdfbf7 !important;
+  background: var(--lm-bg-cream) !important;
   box-shadow:
     inset 0 2px 5px rgba(0, 0, 0, 0.05),
     inset 0 0 0 1px rgba(156, 109, 35, 0.1),
     0 1px 0 #ffffff !important;
   border: 1px solid rgba(156, 109, 35, 0.2) !important;
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 body.light-mode #accountInfoModal .edit-profile-input:focus {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   box-shadow:
     inset 0 2px 5px rgba(0, 0, 0, 0.05),
     inset 0 0 8px rgba(156, 109, 35, 0.1),
@@ -11309,7 +11321,7 @@ body.light-mode #accountInfoModal .modal-section-title {
   text-shadow: 0 1px 1px #ffffff !important;
 }
 body.light-mode #accountInfoModal .edit-profile-label {
-  color: #666 !important;
+  color: var(--lm-text-muted) !important;
 }
 body.light-mode #accountInfoModal .dossier-save-btn {
   background: linear-gradient(
@@ -11428,7 +11440,7 @@ body.light-mode #profile-tab .phc-quote {
 }
 
 body.light-mode #profile-tab .phc-name {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 /* --- LUXURY COLLECTION GRID HOVER & TILT EFFECT --- */
@@ -11604,7 +11616,7 @@ body.light-mode #profile-tab .profile-hero-card {
 }
 
 body.light-mode #profile-tab .phc-name {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
 }
 
 body.light-mode #profile-tab .phc-quote {
@@ -11617,7 +11629,7 @@ body.light-mode #profile-tab .phc-tier {
     rgba(156, 109, 35, 0.1) 0%,
     rgba(156, 109, 35, 0.02) 100%
   ) !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
 }
 
 /* --- PROFILE HERO CARD DISASTER FIX (FINAL REPAIR) --- */
@@ -11749,7 +11761,7 @@ body.light-mode #profile-tab .profile-hero-card {
     0 20px 40px -10px rgba(0, 0, 0, 0.1),
     inset 0 1px 1px rgba(255, 255, 255, 1),
     inset 0 0 30px rgba(156, 109, 35, 0.05) !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
 }
 body.light-mode #profile-tab .phc-tier {
   background: linear-gradient(
@@ -11883,7 +11895,7 @@ body.light-mode #profile-tab .profile-hero-card {
     inset 0 0 0 1px rgba(156, 109, 35, 0.05) !important;
 }
 body.light-mode #profile-tab .phc-name {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
   text-shadow: none !important;
 }
 body.light-mode #profile-tab .phc-quote {
@@ -12274,7 +12286,7 @@ body.light-mode #profile-tab .phc-edit-btn {
     inset 0 1px 1px rgba(255, 255, 255, 1) !important;
 }
 body.light-mode #profile-tab .phc-edit-btn:hover {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border-color: #aa771c !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
@@ -12588,7 +12600,7 @@ body.light-mode #profile-tab .phc-name {
   text-shadow: none !important;
 }
 body.light-mode #profile-tab .phc-tier {
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border-color: rgba(156, 109, 35, 0.3) !important;
   color: #aa771c !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
@@ -13443,7 +13455,7 @@ body.light-mode #profile-tab .phc-tier {
     rgba(156, 109, 35, 0.08) 0%,
     rgba(255, 255, 255, 0.9) 100%
   ) !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
   color: #8f6820 !important;
   text-shadow: none !important;
 }
@@ -13921,7 +13933,7 @@ body #profile-tab .phc-name {
 body.light-mode .membership-card .card-brand-title,
 body.light-mode .membership-card .member-name,
 body.light-mode #profile-tab .phc-name {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
   text-shadow:
     0 1px 1px rgba(255, 255, 255, 0.8),
     /* Impression highlight */ 0 -1px 1px rgba(0, 0, 0, 0.1) !important; /* Impression shadow */
@@ -14005,7 +14017,7 @@ body #profile-tab .phc-tier {
 body.light-mode .membership-card .badge,
 body.light-mode #profile-tab .phc-tier {
   background: linear-gradient(180deg, #ffffff 0%, #f4f0e6 100%) !important;
-  border-color: rgba(156, 109, 35, 0.4) !important;
+  border-color: var(--lm-border-gold) !important;
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 1),
     inset 0 -1px 1px rgba(0, 0, 0, 0.05),
@@ -14984,7 +14996,7 @@ body.light-mode #membership-tab .ring-progress {
 }
 
 body.light-mode #membership-tab .ring-value {
-  color: #1a1a1a !important; /* Deep obsidian text */
+  color: var(--lm-text-dark) !important; /* Deep obsidian text */
   text-shadow: 0 1px 0px rgba(255, 255, 255, 0.5) !important;
 }
 
@@ -15028,7 +15040,7 @@ body.light-mode #membership-tab .card-actions .btn:hover {
 
 /* 7. Typography (Darker contrast for labels/numbers) */
 body.light-mode #membership-tab .member-name {
-  color: #1a1a1a !important;
+  color: var(--lm-text-dark) !important;
   text-shadow: 0 1px 0px rgba(255, 255, 255, 0.6) !important;
 }
 
@@ -18835,7 +18847,7 @@ body #profile-tab .profile-stats-bar .horo-ruby-core {
   left: 25% !important;
   width: 1.2px !important;
   height: 1.2px !important;
-  background: #ffffff !important;
+  background: var(--lm-bg-white) !important;
   border-radius: 50% !important;
   opacity: 0.9 !important;
 }
@@ -25405,12 +25417,7 @@ body.light-mode #profile-tab .phc-hallmark-tag {
 
 
 
-body.light-mode #profile-tab .phc-edit-btn:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #eee3ce 100%) !important;
-  color: #3b2807 !important;
-  border-color: rgba(175, 130, 40, 0.8) !important;
-  box-shadow: 0 2px 8px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff !important;
-}
+
 
 body.light-mode #profile-tab .phc-edit-icon {
   stroke: #735016 !important;

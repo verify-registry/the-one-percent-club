@@ -206,6 +206,12 @@
 - Kept block 3 (line 12274) which has color: #aa771c (differs from 9C token).
 - Pending: visual verification in light mode before push.
 
+### Batch Pass 1 (2026-09-28) — IN PROGRESS
+- Resolved leaderboardSub/Subtitle duplication (kept the active one).
+- Added --btn-edit-hover-* tokens and bound base .phc-edit-btn:hover to them.
+- Deleted redundant body.light-mode #profile-tab .phc-edit-btn:hover override.
+- Pending: visual verification before push.
+
 ## 6. CURRENT STATE & BACKLOG (update every pass)
 Landed on main: 9B, 9C, 9D, 9E, 11, DOC-1, 10-Slim-A. In progress: 10-Slim-A2.
 Backlog:
@@ -221,5 +227,36 @@ Known intentional: body.light-mode override blocks; stacked override generations
 - Dead-key test: grep -cF "<key>" app.js index.html translations.js → usage = app.js + index.html counts.
 - Dead-selector test: grep -nF "<class>" index.html app.js → must be zero AND no dynamic class construction.
 
+---
 
+## 8. SMART REFACTORING PROTOCOL (MANDATORY FOR ALL EDITS)
+
+Whenever an edit, addition, or design change is requested, the Agent MUST automatically execute this 4-step self-cleaning routine on the affected area:
+
+1. ANALYZE: Identify the target selectors/keys and their current state before modification.
+2. APPLY: Execute the requested change using Design Tokens (CSS variables) or centralized dictionaries (translations.js) whenever possible. Never introduce new hardcoded values if a token exists.
+3. AUTO-CLEAN & MERGE: 
+   - Immediately search for and DELETE any orphaned, dead, or duplicate CSS rules / translation keys that became redundant due to this change.
+   - MERGE any scattered properties of the same selector into a single, clean, logically ordered block.
+4. ORGANIZE: Ensure the modified section is neatly formatted, properly commented, and placed in its correct logical section within the file.
+
+STRICT CONSTRAINTS:
+- Zero visual regression (preserve the exact intended design).
+- No dead code, unused variables, or duplicate blocks shall be left behind after any edit.
+- The Agent must report in its response: [What was changed] + [What was auto-deleted/merged] + [Raw verification output].
+
+### Batch Pass 2 (2026-09-28) — IN PROGRESS
+- Added 5 light-mode tokens (--lm-*).
+- Replaced ~150 hardcoded values with tokens.
+- Auto-cleaned and merged duplicate blocks.
+- Pending: visual verification before push.
+
+---
+
+## 9. FILE MANAGEMENT PROTOCOL (MANDATORY)
+
+- Agents MUST ONLY modify existing project files (style.css, app.js, index.html, translations.js, AUDIT.md, etc.).
+- Creating new files (like refactor.js, temp.js, helper.js, etc.) is STRICTLY FORBIDDEN unless explicitly requested by the owner.
+- Any temporary file created during execution must be deleted immediately before the task is considered complete.
+- If an agent needs to test logic, it must do so within the existing files or in the terminal directly, not by creating new scripts.
 
