@@ -11751,9 +11751,6 @@ body.light-mode #profile-tab .profile-hero-card {
     inset 0 0 30px rgba(156, 109, 35, 0.05) !important;
   border-color: rgba(156, 109, 35, 0.4) !important;
 }
-body.light-mode #profile-tab .phc-edit-btn {
-  background: rgba(255, 255, 255, 0.9) !important;
-}
 body.light-mode #profile-tab .phc-tier {
   background: linear-gradient(
     135deg,
@@ -11884,13 +11881,6 @@ body.light-mode #profile-tab .profile-hero-card {
     0 24px 48px -12px rgba(0, 0, 0, 0.1),
     inset 0 1px 1px rgba(255, 255, 255, 1),
     inset 0 0 0 1px rgba(156, 109, 35, 0.05) !important;
-}
-body.light-mode #profile-tab .phc-edit-btn {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(245, 245, 245, 0.9) 100%
-  ) !important;
 }
 body.light-mode #profile-tab .phc-name {
   color: #1a1a1a !important;
@@ -12610,13 +12600,6 @@ body.light-mode #profile-tab .phc-meta {
   border-top-color: rgba(156, 109, 35, 0.2) !important;
   color: #8c7e63 !important;
 }
-body.light-mode #profile-tab .phc-edit-btn {
-  background: #ffffff !important;
-  border-color: rgba(156, 109, 35, 0.25) !important;
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.05),
-    inset 0 1px 1px rgba(255, 255, 255, 1) !important;
-}
 body.light-mode #profile-tab .phc-edit-btn svg {
   stroke: #aa771c !important;
 }
@@ -12802,17 +12785,6 @@ body[dir="rtl"] #profile-tab .phc-edit-btn {
   z-index: 10 !important;
 }
 
-body.light-mode #profile-tab .phc-edit-btn {
-  background: radial-gradient(
-    circle at center,
-    #ffffff 0%,
-    #f7f4ec 100%
-  ) !important;
-  border-color: rgba(170, 125, 45, 0.25) !important;
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.05),
-    inset 0 1px 1px rgba(255, 255, 255, 1) !important;
-}
 
 html body #profile-tab .phc-edit-btn svg {
   width: 12px !important;
@@ -13490,11 +13462,6 @@ body.light-mode #profile-tab .phc-meta {
   color: #7a6e54 !important;
 }
 
-body.light-mode #profile-tab .phc-edit-btn {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: rgba(156, 109, 35, 0.35) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-}
 
 body.light-mode #profile-tab .phc-edit-btn svg {
   stroke: #9c6d23 !important;
@@ -25436,12 +25403,7 @@ body.light-mode #profile-tab .phc-hallmark-tag {
   color: #826022 !important;
 }
 
-body.light-mode #profile-tab .phc-edit-btn {
-  background: linear-gradient(180deg, #ffffff 0%, #f7f1e4 100%) !important;
-  border-color: rgba(190, 148, 55, 0.5) !important;
-  color: #553b0e !important;
-  box-shadow: 0 1.5px 4px rgba(70, 50, 20, 0.07), inset 0 1px 0 #ffffff !important;
-}
+
 
 body.light-mode #profile-tab .phc-edit-btn:hover {
   background: linear-gradient(180deg, #ffffff 0%, #eee3ce 100%) !important;

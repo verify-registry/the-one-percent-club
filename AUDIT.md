@@ -196,10 +196,19 @@
 9. Summaries are not evidence: Flash-Lite answers with prose when asked for output. Force "reply with ONLY the raw output" and one command per message.
 10. Append loss: an APPENDED reply does not guarantee the append landed. Remote verification after push is the only truth. (DOC-1)
 
+### Micro-pass 10-Slim-A (2026-09-28) — LANDED
+- Deleted redundant body.light-mode #profile-tab .phc-edit-btn block (masked 9C tokens in light mode).
+- Kept :hover block (hover tokens not yet built).
+- Verified successful build and linting.
+
+### Micro-pass 10-Slim-A2 (2026-09-28) — IN PROGRESS
+- Deleted 5 redundant body.light-mode #profile-tab .phc-edit-btn blocks (lines 11754, 11888, 12613, 12805, 13493).
+- Kept block 3 (line 12274) which has color: #aa771c (differs from 9C token).
+- Pending: visual verification in light mode before push.
+
 ## 6. CURRENT STATE & BACKLOG (update every pass)
-Landed on main: 9B, 9C, 9D, 9E, 11, DOC-1. In progress: none.
+Landed on main: 9B, 9C, 9D, 9E, 11, DOC-1, 10-Slim-A. In progress: 10-Slim-A2.
 Backlog:
-- 10-Slim-A: delete redundant body.light-mode #profile-tab .phc-edit-btn block (it masks the 9C tokens in light mode).
 - 10-Slim-B onward: per-cluster redundancy hunt (only blocks fully covered by a token-bound base).
 - 11-followup: leaderboardSub vs leaderboardSubtitle disambiguation; optional removal of dead nav.profile.* subkeys (the nav.profile leaf is ALIVE at app.js line 2526).
 - Optional: CSS minification for production payload (separate decision).
