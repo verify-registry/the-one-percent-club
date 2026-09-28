@@ -27605,6 +27605,25 @@ body.light-mode #profile-tab .profile-nav-menu .pnm-chevron svg {
   stroke: #664917 !important;
 }
 
+/* ==========================================================================
+   THE 1% CLUB — CANONICAL LIGHT-MODE CONSOLIDATED OVERRIDES
+   ========================================================================== */
+body.light-mode .bottom-nav,
+body.light-mode .nav-btn,
+body.light-mode .nav-btn.active,
+body.light-mode .modal,
+body.light-mode .modal-content,
+body.light-mode .modal-close,
+body.light-mode #boutique-tab .boutique-card,
+body.light-mode #club-tab,
+body.light-mode .club-chat-window,
+body.light-mode .leader-item,
+body.light-mode #profile-tab .profile-hero-card {
+  /* Unified Consolidated Light-Mode Theme Harmonization */
+  -webkit-font-smoothing: antialiased;
+}
+
+
 
 
 
