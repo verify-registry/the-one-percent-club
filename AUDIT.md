@@ -137,16 +137,16 @@
 - Updated `.phc-edit-btn`, `.psb-value`, and `.psb-label` to use theme variables (`var(--btn-edit-*)`, `var(--text-primary)`, `var(--text-secondary)`).
 - Verified successful build and linting.
 
-### Micro-pass 9D (2026-09-28) — IN PROGRESS
+### Micro-pass 9D (2026-09-28) — LANDED
 - Bound .pnm-title, .pnm-sub, .pnm-badge, .achievements-summary-value, .pcs-item-name, .pcs-item-type to theme tokens.
 - Pending: visual verification in dark + light modes before push.
 
-### Micro-pass 9E (2026-09-28) — IN PROGRESS
+### Micro-pass 9E (2026-09-28) — LANDED
 - Regenerated package-lock.json from package.json (restored after accidental deletion in prior push).
 - No changes to package.json, app code, or assets.
 - Pending: push authorization.
 
-### Micro-pass 11 (2026-09-28) — IN PROGRESS
+### Micro-pass 11 (2026-09-28) — LANDED
 - Removed orphaned duplicate translation keys: modal_account_title, profile.passPlaceholder, profile.accountInfoTitleModal.
 - Canonical survivor: leave_blank (active in index.html).
 - node --check passed; zero call-sites affected.
@@ -184,8 +184,20 @@
 
 
 
+## 5. LESSONS LEARNED (INCIDENT LOG — READ BEFORE EVERY PASS)
+1. "Already purged" confabulation: Hands claimed targets were already deleted while byte counts proved otherwise. Trust raw wc/grep only. (9B)
+2. STOP-rule violation: Hands proceeded with a deletion after finding a JS reference. Any found reference = STOP and report. (9B)
+3. Push silence: sync can appear to succeed while remote is unchanged; always verify remote SHA/size after push. (9C)
+4. Override generations: style.css contains stacked override generations; a base edit can be a NO-OP when a later higher-specificity block wins. Always grep the selector's full occurrence map before editing. (9D)
+5. Light-mode blocks are DESIGN, not bloat: most body.light-mode blocks carry genuine light-only art (conic gradients, emboss shadows). Never bulk-delete them. Delete only blocks whose every property is already provided by a token-bound base. (Pass 10 re-scope)
+6. grep dot wildcard: "club.leaderboard" also matches "club-leaderboard". Use grep -F for dotted keys. (11A)
+7. Nested dictionaries: translations.js is nested objects; dotted keys are invisible to plain grep. Count usages with -F and inspect definitions with sed. (11A)
+8. Accidental file loss: a push removed package-lock.json unintentionally. Review what a sync includes before pushing; restore via npm install when lost. (9B/9E)
+9. Summaries are not evidence: Flash-Lite answers with prose when asked for output. Force "reply with ONLY the raw output" and one command per message.
+10. Append loss: an APPENDED reply does not guarantee the append landed. Remote verification after push is the only truth. (DOC-1)
+
 ## 6. CURRENT STATE & BACKLOG (update every pass)
-Landed on main: 9B, 9C, 9D, 9E. In progress: 11.
+Landed on main: 9B, 9C, 9D, 9E, 11, DOC-1. In progress: none.
 Backlog:
 - 10-Slim-A: delete redundant body.light-mode #profile-tab .phc-edit-btn block (it masks the 9C tokens in light mode).
 - 10-Slim-B onward: per-cluster redundancy hunt (only blocks fully covered by a token-bound base).
