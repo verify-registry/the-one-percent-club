@@ -260,3 +260,32 @@ STRICT CONSTRAINTS:
 - Any temporary file created during execution must be deleted immediately before the task is considered complete.
 - If an agent needs to test logic, it must do so within the existing files or in the terminal directly, not by creating new scripts.
 
+---
+
+## 10. PROJECT FILE ALLOWLIST (MANDATORY)
+
+The project consists of EXACTLY the following files. Agents MUST ONLY modify files from this list. Creating ANY new file is STRICTLY FORBIDDEN.
+
+### A. Application Core Files (The 6 Files):
+1. `index.html` — Structure, tabs, and modals.
+2. `style.css` — Design, colors, themes, and tokens.
+3. `app.js` — Logic, data, and account management.
+4. `translations.js` — Texts and languages (i18n).
+5. `luxury.js` — Canvas effects and card shimmer.
+6. `Audio.js` — Sounds and audio interaction.
+
+### B. Documentation:
+7. `AUDIT.md` — This file (Agent Operating Manual).
+
+### C. Infrastructure & Platform Files (DO NOT TOUCH unless explicitly requested):
+- `server.js` — Express static server (required for preview).
+- `metadata.json` — AI Studio platform metadata.
+- `package.json` & `package-lock.json` — Dependencies.
+- `.env.example` — Environment template.
+
+STRICT RULES:
+- If an agent needs to test logic, it must run it in the terminal or within an existing file temporarily, then clean it up.
+- Any temporary file (e.g., refactor.js, temp.sh) created during execution MUST be deleted before the task is marked complete.
+- Violating this list is a critical failure.
+
+
