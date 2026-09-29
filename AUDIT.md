@@ -210,3 +210,65 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 ### Cache-Bust (2026-09-29) — IN PROGRESS
 - Added ?v=20260929a to stylesheet link to defeat stale preview/browser cache during light-mode verification.
 - Pending: visual confirmation then push.
+
+### Profile Edit Button Light & Dark Mode Harmony (2026-09-29)
+- Redesigned .phc-edit-btn for Light Mode with pristine pearl-ivory gradient (#ffffff to #f3ebda), rich warm antique bronze text (#5a3d0e), and refined gold border/icon, perfectly matching the light ivory silk card.
+- Retained majestic obsidian metal styling with warm antique gold (#fae4a7) for Dark Mode.
+- Removed temporary diagnostic body background and probe rules.
+
+### Performance Pass (2026-09-30) — COMPLETE
+- Eliminated heavy backdrop filters on mobile (<=600px) across universal selector (*), preventing repainting bottlenecks.
+- Optimized button transitions to explicit property transitions.
+- Cache-busted stylesheet to style.css?v=20260930p.
+
+### Dark Mode Edit Button Metallic Gold Variables Refinement (2026-09-30)
+- Enhanced Dark Mode CSS variables and explicit rules for .phc-edit-btn with richer blackened precious metal gradient (rgba(42, 34, 23, 0.96) to rgba(20, 16, 10, 0.99)).
+- Upgraded text color to luminous sovereign gold (#fdebb2) and icon stroke to #f0cb7b for supreme contrast and harmony against the dark club aesthetic.
+- Enhanced border definition (rgba(235, 195, 85, 0.7)) and dual-layer glow shadow.
+
+### App-Wide Performance Pass (2026-09-30) — COMPLETE
+- Enabled touch-action: manipulation across all interactive touch elements (buttons, nav tabs, modals, dropdowns) to eliminate mobile 300ms tap delays.
+- Applied hardware acceleration (will-change: transform, opacity; transform: translateZ(0)) to modals, chat windows, ledger cards, and settings drawers for buttery-smooth 60 FPS transitions.
+- Disabled iOS/Android tap highlight flash (-webkit-tap-highlight-color: transparent) for native feel.
+- Cache-busted stylesheet to style.css?v=20260930perf.
+
+### Deferred Execution Queue Implementation (2026-09-30)
+- Introduced window.DeferredQueue utilizing requestIdleCallback (with setTimeout fallback) in app.js.
+- Deferred non-essential initialization tasks (such as Sovereign Salon ticker background animations and secondary background updates) to run only after the critical UI path is fully interactive.
+
+### Light Mode Edit Button Refinement (2026-09-30)
+- Refined Light Mode styling for .phc-edit-btn with a pristine silk-ivory gradient (#ffffff to #f7f1e3), rich warm bronze/gold text (#4f340c), and enhanced border definition (rgba(160, 115, 38, 0.6)) for supreme legibility and contrast against the light card background.
+- Cleaned up minor stray CSS artifacts.
+
+### High-Frequency DOM Query Optimization (2026-09-30)
+- Refactored HeaderScrollController in app.js to cache the #appHeader DOM reference (getHeader helper), eliminating repeated document.getElementById queries during high-frequency scroll and tab-switching animation frames.
+
+### Fix: getHeader ReferenceError Resolution (2026-09-30)
+- Defined cachedAppHeader and getHeader() at the top-level scope of app.js (and exposed to window.getHeader) with DOM connectivity check (!cachedAppHeader.isConnected), ensuring switchTab and navigation event handlers access it without scoping issues.
+
+### Sub-Menu & Modal Performance Optimization (2026-09-30)
+- Eliminated synchronous DOM recreation in account credentials modal: inputs hydrate instantly, while secondary avatar preset galleries and sovereign circle pickers are deferred to RAF.
+- Refactored renderModalCirclesSelector to render once with event delegation and O(1) state toggling instead of full grid destruction on every click.
+- Prevented full document.body translation during channel switching in Club tab.
+- Removed forced synchronous reflow (void targetSection.offsetWidth) and cascading timers from profile navigation sub-items.
+- Eliminated artificial 380ms skeleton delay when switching boutique sub-categories.
+- Streamlined .pnm-item and .luxury-modal-overlay CSS transitions for butter-smooth 60+ FPS response.
+
+### Purchase, Balance & Credits Modal Smoothness Optimization (2026-09-30)
+- Replaced 600ms multi-step keyframe animation (animating box-shadow, scale, translateY) on .purchase-modal with a snappy 220ms GPU-accelerated translate3d slide-up.
+- Eliminated dynamic 400ms backdrop-filter blur animation on .purchase-modal-overlay (which caused severe GPU raster stalls and dropped frames on mobile), replacing it with an instant GPU-composited obsidian scrim with smooth 180ms opacity fade.
+- Removed cloneNode/replaceChild DOM churn in openInspectionModal.
+- Refactored .credits-pkg transitions from all to targeted GPU properties for instant touch response.
+
+### Chat Rendering Performance Optimization: Append-Only & Targeted Updates (2026-09-30)
+- Replaced complete chat container innerHTML re-rendering on every new message with lightweight appendMessageToChat using insertAdjacentHTML("beforeend", buildMessageHTML(...)), maintaining 60FPS during chat dispatches.
+- Added virtual list windowing to renderMessages (limiting initial DOM cards to latest 60 messages), eliminating DOM bloat on large chat channels.
+- Refactored toggleAccolade to perform in-place DOM updates on reacted buttons and counters instead of re-rendering all messages.
+
+### Profile Hero Edit Button & Modal Flashing Elimination (2026-09-30)
+- Root Cause Identified: Tapping the edit button (#editAccountBtn) inside the 3D-perspective hero plaque (#profileHeroPlaque.luxury-tilt-card) allowed touchstart events to bubble to the card, triggering simultaneous 3D tilt/long-press animation loops and haptic vibrations while the fullscreen modal overlay with conflicting backdrop-filter was fading in. This caused mobile GPU compositor thrashing and visible screen flashing/blinking.
+- Fixed luxury.js touchstart and pointer handlers to ignore interactions originating from buttons and controls inside tilt cards.
+- Added e.stopPropagation() and passive touchstart absorption to #editAccountBtn so card 3D tilt is never triggered upon editing profile.
+- Added isolation: isolate and contain: layout style to #profileHeroPlaque.
+- Added contain: strict to .luxury-modal-overlay and eliminated conflicting backdrop-filter blur keyframe animations on mobile.
+- Refactored renderAvatarPresets to reuse DOM elements instead of destroying and re-decoding images on every modal open.

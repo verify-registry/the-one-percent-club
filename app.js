@@ -1,4 +1,49 @@
 
+// ==========================================================
+// DEFERRED EXECUTION QUEUE FOR NON-ESSENTIAL RENDER TASKS (2026-09-30)
+// ==========================================================
+
+// Cached DOM reference for high-frequency access
+let cachedAppHeader = null;
+function getHeader() {
+  if (!cachedAppHeader || !cachedAppHeader.isConnected) {
+    cachedAppHeader = document.getElementById("appHeader");
+  }
+  return cachedAppHeader;
+}
+window.getHeader = getHeader;
+
+window.DeferredQueue = {
+  queue: [],
+  isExecuting: false,
+  add(task) {
+    if (typeof task !== "function") return;
+    this.queue.push(task);
+    this.schedule();
+  },
+  schedule() {
+    if (this.isExecuting) return;
+    this.isExecuting = true;
+    const runTasks = () => {
+      while (this.queue.length > 0) {
+        const task = this.queue.shift();
+        try {
+          task();
+        } catch (e) {
+          console.error("Deferred task execution error:", e);
+        }
+      }
+      this.isExecuting = false;
+    };
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(runTasks, { timeout: 1000 });
+    } else {
+      setTimeout(runTasks, 150);
+    }
+  }
+};
+
+
 function renderRing(ringId, valueId, percent) {
   const ring = document.getElementById(ringId);
   const valEl = document.getElementById(valueId);
@@ -2093,7 +2138,7 @@ document.querySelectorAll(".boutique-tab").forEach((tab) => {
       .querySelectorAll(".boutique-tab")
       .forEach((t) => t.classList.remove("is-active"));
     tab.classList.add("is-active");
-    renderBoutique(tab.dataset.cat, true);
+    renderBoutique(tab.dataset.cat, false);
   });
 });
 
@@ -2441,7 +2486,7 @@ const Router = {
     }
     window.scrollTo(0, 0);
 
-    const header = document.getElementById("appHeader");
+    const header = getHeader();
     if (header) {
       header.classList.remove("header-hidden");
     }
@@ -2543,7 +2588,7 @@ const Router = {
     } else if (tab === "boutique") {
       const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
       const activeCat = activeBoutiqueTab ? activeBoutiqueTab.dataset.cat : "all";
-      renderBoutique(activeCat, true);
+      renderBoutique(activeCat, false);
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
         cancelClubWelcomeAutoDismiss();
       }
@@ -3222,9 +3267,9 @@ function switchChannel(channelId) {
   }
 
   if (window.AudioEngine) window.AudioEngine.playRustle();
-  if (window.translateDOM && document.body) {
+  if (window.translateDOM && messagesContainer) {
     const lang = localStorage.getItem("appLang") || "ar";
-    if (lang === "en") window.translateDOM(document.body, lang);
+    if (lang === "en") window.translateDOM(messagesContainer, lang);
   }
 
   const activeTab = document.querySelector(".page.is-active");
@@ -3320,7 +3365,7 @@ function initSovereignSalonTicker() {
 
 document.addEventListener("DOMContentLoaded", () => {
   switchChannel("global-lounge");
-  initSovereignSalonTicker();
+  window.DeferredQueue.add(() => { try { initSovereignSalonTicker(); } catch(e) {} });
   initWhisperToggle();
   updateCreditsUI();
 
@@ -3380,7 +3425,20 @@ window.toggleAccolade = function (channelId, messageIndex, type) {
     );
   } catch (e) {}
 
-  renderMessages();
+  // Targeted in-place DOM update to maintain 60FPS without rebuilding chat container
+  const card = document.querySelector(`.sovereign-dispatch-card[data-msg-idx="${messageIndex}"]`);
+  if (card) {
+    const btn = card.querySelector(`.sovereign-accolade-btn.is-${type}`);
+    if (btn) {
+      btn.classList.toggle("is-conferred", Boolean(msg.userReacted[type]));
+      const tally = btn.querySelector(".accolade-tally");
+      if (tally) {
+        tally.textContent = msg.accolades[type] || 0;
+      }
+    }
+  } else {
+    renderMessages();
+  }
 };
 
 window.toggleDispatchReadMore = function (channelId, messageIndex) {
@@ -3423,15 +3481,8 @@ window.toggleDispatchReadMore = function (channelId, messageIndex) {
   }
 };
 
-function renderMessages() {
-  const container = document.getElementById("clubMessages");
-  if (!container) return;
+function buildMessageHTML(msg, idx, channelId) {
 
-  const channelId = AppState.activeChannelId;
-  const messages = AppState.channels[channelId]?.messages || [];
-
-  container.innerHTML = messages
-    .map((msg, idx) => {
       const isMe = Boolean(
         msg.senderId === AppState.user.id ||
         msg.isMe === true ||
@@ -3676,7 +3727,42 @@ function renderMessages() {
         }
       </div>
       `;
-    })
+
+}
+
+function appendMessageToChat(msg, idx, channelId, smoothScroll = true) {
+  const container = document.getElementById("clubMessages");
+  if (!container || AppState.activeChannelId !== channelId) return;
+
+  const html = buildMessageHTML(msg, idx, channelId);
+  container.insertAdjacentHTML("beforeend", html);
+
+  if (smoothScroll && typeof container.scrollTo === "function") {
+    requestAnimationFrame(() => {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+  } else {
+    container.scrollTop = container.scrollHeight;
+  }
+}
+
+function renderMessages() {
+  const container = document.getElementById("clubMessages");
+  if (!container) return;
+
+  const channelId = AppState.activeChannelId;
+  const messages = AppState.channels[channelId]?.messages || [];
+
+  // Windowing: Render up to the most recent 60 messages to guarantee locked 60FPS fluid scrolling
+  const maxInitial = 60;
+  const startIndex = Math.max(0, messages.length - maxInitial);
+  const visibleMessages = messages.slice(startIndex);
+
+  container.innerHTML = visibleMessages
+    .map((msg, i) => buildMessageHTML(msg, startIndex + i, channelId))
     .join("");
 
   const hasNewArrival = messages.some((m) => m.justDispatched || (Date.now() - (m.timestamp || 0) < 1800));
@@ -3691,6 +3777,8 @@ function renderMessages() {
     container.scrollTop = container.scrollHeight;
   }
 }
+window.renderMessages = renderMessages;
+window.appendMessageToChat = appendMessageToChat;
 
 window.isWhisperMode = false;
 function initWhisperToggle() {
@@ -3794,15 +3882,8 @@ function handleSendMessage() {
       console.warn("Could not save AppState:", e);
     }
 
-    renderMessages();
-
-    const container = document.getElementById("clubMessages");
-    if (container) {
-      container.scrollTop = container.scrollHeight;
-      setTimeout(() => {
-        container.scrollTop = container.scrollHeight;
-      }, 50);
-    }
+    const newIdx = AppState.channels[channelId].messages.length - 1;
+    appendMessageToChat(newMsg, newIdx, channelId, true);
 
     clearTimeout(typingTimeout);
 
@@ -3847,7 +3928,9 @@ function handleSendMessage() {
           } catch (e) {}
 
           if (AppState.activeChannelId === channelId) {
-            renderMessages();
+            const eliteIdx = AppState.channels[channelId].messages.length - 1;
+            const eliteMsg = AppState.channels[channelId].messages[eliteIdx];
+            appendMessageToChat(eliteMsg, eliteIdx, channelId, true);
           }
         },
         1400 + Math.random() * 800,
@@ -3913,23 +3996,22 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   document.getElementById("inspectionImage").innerHTML = mediaContent;
 
   const equipBtn = document.getElementById("inspectionEquipBtn");
-
-  const newBtn = equipBtn.cloneNode(true);
-  equipBtn.parentNode.replaceChild(newBtn, equipBtn);
-
-  if (item.free) {
-    newBtn.textContent = window.t("boutique.freeActivated");
-    newBtn.disabled = true;
-  } else if (isOwned) {
-    newBtn.textContent = isEquipped
-      ? window.t("boutique.unequip")
-      : window.t("dynamic.equipIdentity");
-    newBtn.disabled = false;
-    newBtn.onclick = () => equipItem(item, catKey);
-  } else {
-    newBtn.textContent = `${window.t("dynamic.buy")} — ${item.price.toLocaleString("en-US")}`;
-    newBtn.disabled = false;
-    newBtn.onclick = () => purchaseItem(item, catKey);
+  if (equipBtn) {
+    if (item.free) {
+      equipBtn.textContent = window.t("boutique.freeActivated");
+      equipBtn.disabled = true;
+      equipBtn.onclick = null;
+    } else if (isOwned) {
+      equipBtn.textContent = isEquipped
+        ? window.t("boutique.unequip")
+        : window.t("dynamic.equipIdentity");
+      equipBtn.disabled = false;
+      equipBtn.onclick = () => equipItem(item, catKey);
+    } else {
+      equipBtn.textContent = `${window.t("dynamic.buy")} — ${item.price.toLocaleString("en-US")}`;
+      equipBtn.disabled = false;
+      equipBtn.onclick = () => purchaseItem(item, catKey);
+    }
   }
 }
 
@@ -4158,23 +4240,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         targetSection.scrollIntoView({ behavior: "smooth", block: "center" });
 
-        // Auto-Expansion effect
-        targetSection.classList.remove("profile-section-expanded");
-        void targetSection.offsetWidth;
-        targetSection.classList.add("profile-section-expanded");
-        setTimeout(() => targetSection.classList.remove("profile-section-expanded"), 1300);
-
-        setTimeout(() => {
-          const cards = targetSection.querySelectorAll(".pcs-item-card");
-          cards.forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.add("is-expanded-card");
-              setTimeout(() => {
-                card.classList.remove("is-expanded-card");
-              }, 750);
-            }, index * 90);
-          });
-        }, 350);
+        // Smooth non-blocking sheen highlight
+        requestAnimationFrame(() => {
+          targetSection.classList.add("profile-section-expanded");
+          setTimeout(() => targetSection.classList.remove("profile-section-expanded"), 1200);
+        });
       }
     });
   }
@@ -4187,50 +4257,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  window.openAccountInfoModal = function (e) {
+    if (e) {
+      if (typeof e.stopPropagation === "function") e.stopPropagation();
+      if (typeof e.preventDefault === "function") e.preventDefault();
+    }
+    const accountInfoModal = document.getElementById("accountInfoModal");
+    if (!accountInfoModal) return;
+
+    accountInfoModal.classList.add("is-open");
+    if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+      window.AudioEngine.playModalOpen();
+    }
+
+    let draft = null;
+    try {
+      draft = JSON.parse(localStorage.getItem("profileDraft"));
+    } catch (err) {}
+      
+    let currentAvatarUrl = "";
+    const locInput = document.getElementById("editProfileLocationInput");
+    if (draft) {
+      document.getElementById("editProfileNameInput").value = draft.name || "";
+      document.getElementById("editProfileQuoteInput").value = draft.quote || "";
+      if (locInput) locInput.value = draft.location || "";
+      currentAvatarUrl = draft.avatarUrl || "";
+      document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
+    } else {
+      document.getElementById("editProfileNameInput").value = AppState.user.name || "";
+      document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
+      if (locInput) locInput.value = AppState.user.location || "";
+      currentAvatarUrl = AppState.user.avatarUrl || "";
+      document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
+    }
+
+    document.getElementById("accEmailInput").value = AppState.user.email || "";
+    document.getElementById("accPhoneInput").value = AppState.user.phone || "";
+
+    if (typeof renderAvatarPresets === "function") { renderAvatarPresets(currentAvatarUrl); }
+    if (typeof updateEditProfilePreview === "function") {
+      updateEditProfilePreview(currentAvatarUrl);
+    }
+    if (typeof renderModalCirclesSelector === "function") {
+      renderModalCirclesSelector(AppState.user.circles || ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"]);
+    }
+  };
+
   const menuAccountInfo = document.getElementById("menuAccountInfo");
-  const accountInfoModal = document.getElementById("accountInfoModal");
-  if (menuAccountInfo && accountInfoModal) {
-    menuAccountInfo.addEventListener("click", () => {
-      let draft = null;
-      try {
-        draft = JSON.parse(localStorage.getItem("profileDraft"));
-      } catch (e) {}
-        
-      let currentAvatarUrl = "";
-      const locInput = document.getElementById("editProfileLocationInput");
-      if (draft) {
-        document.getElementById("editProfileNameInput").value = draft.name || "";
-        document.getElementById("editProfileQuoteInput").value = draft.quote || "";
-        if (locInput) locInput.value = draft.location || "";
-        currentAvatarUrl = draft.avatarUrl || "";
-        document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
-      } else {
-        document.getElementById("editProfileNameInput").value = AppState.user.name || "";
-        document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
-        if (locInput) locInput.value = AppState.user.location || "";
-        currentAvatarUrl = AppState.user.avatarUrl || "";
-        document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
-      }
-        
-      if (typeof renderAvatarPresets === "function") { renderAvatarPresets(currentAvatarUrl); }
-      if (typeof updateEditProfilePreview === "function") {
-        updateEditProfilePreview(currentAvatarUrl);
-      }
-
-      document.getElementById("accEmailInput").value =
-        AppState.user.email || "";
-      document.getElementById("accPhoneInput").value =
-        AppState.user.phone || "";
-
-      if (typeof renderModalCirclesSelector === "function") {
-        renderModalCirclesSelector(AppState.user.circles || ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"]);
-      }
-
-      accountInfoModal.classList.add("is-open");
-      if (window.AudioEngine && window.AudioEngine.playModalOpen) {
-        window.AudioEngine.playModalOpen();
-      }
-    });
+  if (menuAccountInfo) {
+    menuAccountInfo.addEventListener("click", window.openAccountInfoModal);
+  }
+  const editAccountBtn = document.getElementById("editAccountBtn");
+  if (editAccountBtn) {
+    editAccountBtn.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
+    editAccountBtn.addEventListener("click", window.openAccountInfoModal);
   }
   document
     .getElementById("closeAccountInfoModal")
@@ -5236,6 +5316,14 @@ const PRESET_AVATARS = [
 function renderAvatarPresets(currentUrl) {
   const gallery = document.getElementById("avatarPresetsGallery");
   if (!gallery) return;
+
+  const existingThumbs = gallery.querySelectorAll(".avatar-preset-thumbnail");
+  if (existingThumbs.length === PRESET_AVATARS.length) {
+    existingThumbs.forEach((thumb) => {
+      thumb.classList.toggle("active", thumb.dataset.url === currentUrl);
+    });
+    return;
+  }
   
   gallery.innerHTML = "";
   PRESET_AVATARS.forEach((url) => {
@@ -5243,17 +5331,21 @@ function renderAvatarPresets(currentUrl) {
     thumb.className = "avatar-preset-thumbnail" + (url === currentUrl ? " active" : "");
     thumb.style.backgroundImage = `url('${url}')`;
     thumb.dataset.url = url;
-    thumb.addEventListener("click", () => {
-      // update hidden input
+    thumb.addEventListener("click", (e) => {
+      e.stopPropagation();
       const urlInput = document.getElementById("editProfileAvatarUrl");
       if (urlInput) {
         urlInput.value = url;
         urlInput.dispatchEvent(new Event("input"));
       }
-      
-      // update active state in gallery
-      document.querySelectorAll(".avatar-preset-thumbnail").forEach(el => el.classList.remove("active"));
+      gallery.querySelectorAll(".avatar-preset-thumbnail").forEach(el => el.classList.remove("active"));
       thumb.classList.add("active");
+      if (typeof updateEditProfilePreview === "function") {
+        updateEditProfilePreview(url);
+      }
+      if (typeof saveProfileDraft === "function") {
+        saveProfileDraft();
+      }
     });
     gallery.appendChild(thumb);
   });
@@ -5300,12 +5392,7 @@ document
     updateEditProfilePreview(e.target.value);
   });
 
-document.getElementById("editAccountBtn")?.addEventListener("click", () => {
-  if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
-    window.AudioEngine.playClick();
-  }
-  document.getElementById("menuAccountInfo")?.click();
-});
+// editAccountBtn wired to window.openAccountInfoModal above
 
 document.querySelector(".phc-medallion-case")?.addEventListener("click", () => {
   if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
@@ -5676,64 +5763,80 @@ function renderModalCirclesSelector(currentSelected) {
     ? [...currentSelected]
     : ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"];
 
-  const updateGridUI = () => {
+  const updateSelectedState = () => {
     if (countBadge) {
       countBadge.textContent = `${window.modalSelectedCircles.length} / 5`;
     }
-
-    grid.innerHTML = SOVEREIGN_CIRCLES_CATALOG.map(item => {
-      const isSelected = window.modalSelectedCircles.includes(item.id);
-      const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
-      return `
-        <div class="modal-circle-item ${isSelected ? "is-selected" : ""}" data-id="${item.id}" role="checkbox" aria-checked="${isSelected}">
-          <div style="display: flex; align-items: center; gap: 9px; min-width: 0; flex: 1 1 auto;">
-            <div class="mci-icon-box" aria-hidden="true">${item.icon}</div>
-            <div style="display: flex; flex-direction: column; min-width: 0; gap: 2px; text-align: start;">
-              <span class="mci-name">${localizedName}</span>
-              <span style="font-size: 7.5px; color: rgba(212, 175, 106, 0.7); letter-spacing: 0.08em; text-transform: uppercase;">${item.badge}</span>
-            </div>
-          </div>
-          <span class="mci-check">✓</span>
-        </div>
-      `;
-    }).join("");
-
-    grid.querySelectorAll(".modal-circle-item").forEach(el => {
-      el.addEventListener("click", () => {
-        const id = el.dataset.id;
-        const idx = window.modalSelectedCircles.indexOf(id);
-
-        if (idx > -1) {
-          if (window.modalSelectedCircles.length <= 1) {
-            if (typeof showNavToast === "function") {
-              showNavToast(isAr ? "يجب الإبقاء على مجال سيادي واحد على الأقل" : "Please keep at least one circle");
-            }
-            return;
-          }
-          window.modalSelectedCircles.splice(idx, 1);
-        } else {
-          if (window.modalSelectedCircles.length >= 5) {
-            if (typeof showNavToast === "function") {
-              showNavToast(isAr ? "الحد الأقصى هو ٥ مجالات سيادية معتمدة" : "Maximum 5 accredited circles allowed");
-            }
-            return;
-          }
-          window.modalSelectedCircles.push(id);
-        }
-
-        if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
-          window.AudioEngine.playClick();
-        }
-        if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
-          window.HapticEngine.tap(10);
-        }
-
-        updateGridUI();
-      });
+    const items = grid.querySelectorAll(".modal-circle-item");
+    items.forEach(el => {
+      const id = el.dataset.id;
+      const isSelected = window.modalSelectedCircles.includes(id);
+      el.classList.toggle("is-selected", isSelected);
+      el.setAttribute("aria-checked", isSelected ? "true" : "false");
     });
   };
 
-  updateGridUI();
+  const existingItems = grid.querySelectorAll(".modal-circle-item");
+  if (existingItems.length === SOVEREIGN_CIRCLES_CATALOG.length) {
+    updateSelectedState();
+    return;
+  }
+
+  if (countBadge) {
+    countBadge.textContent = `${window.modalSelectedCircles.length} / 5`;
+  }
+
+  grid.innerHTML = SOVEREIGN_CIRCLES_CATALOG.map(item => {
+    const isSelected = window.modalSelectedCircles.includes(item.id);
+    const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
+    return `
+      <div class="modal-circle-item ${isSelected ? "is-selected" : ""}" data-id="${item.id}" role="checkbox" aria-checked="${isSelected}">
+        <div style="display: flex; align-items: center; gap: 9px; min-width: 0; flex: 1 1 auto;">
+          <div class="mci-icon-box" aria-hidden="true">${item.icon}</div>
+          <div style="display: flex; flex-direction: column; min-width: 0; gap: 2px; text-align: start;">
+            <span class="mci-name">${localizedName}</span>
+            <span style="font-size: 7.5px; color: rgba(212, 175, 106, 0.7); letter-spacing: 0.08em; text-transform: uppercase;">${item.badge}</span>
+          </div>
+        </div>
+        <span class="mci-check">✓</span>
+      </div>
+    `;
+  }).join("");
+
+  // Use event delegation on grid for ultra-fast, stutter-free selection
+  grid.onclick = (e) => {
+    const el = e.target.closest(".modal-circle-item");
+    if (!el) return;
+    const id = el.dataset.id;
+    const idx = window.modalSelectedCircles.indexOf(id);
+
+    if (idx > -1) {
+      if (window.modalSelectedCircles.length <= 1) {
+        if (typeof showNavToast === "function") {
+          showNavToast(isAr ? "يجب الإبقاء على مجال سيادي واحد على الأقل" : "Please keep at least one circle");
+        }
+        return;
+      }
+      window.modalSelectedCircles.splice(idx, 1);
+    } else {
+      if (window.modalSelectedCircles.length >= 5) {
+        if (typeof showNavToast === "function") {
+          showNavToast(isAr ? "الحد الأقصى هو ٥ مجالات سيادية معتمدة" : "Maximum 5 accredited circles allowed");
+        }
+        return;
+      }
+      window.modalSelectedCircles.push(id);
+    }
+
+    if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+      window.AudioEngine.playClick();
+    }
+    if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+      window.HapticEngine.tap(10);
+    }
+
+    updateSelectedState();
+  };
 }
 
 function renderProfileMembershipDeed() {
@@ -6690,6 +6793,14 @@ window.HeaderScrollController = (function() {
   let lastScrollTop = 0;
   let ticking = false;
   let lastActionTime = 0;
+  let cachedHeader = null;
+
+  function getHeader() {
+    if (!cachedHeader) {
+      cachedHeader = document.getElementById("appHeader");
+    }
+    return cachedHeader;
+  }
 
   function getActivePageEl() {
     return document.querySelector(".page.is-active");
@@ -6704,7 +6815,7 @@ window.HeaderScrollController = (function() {
   }
 
   function updateHeaderHeightVar() {
-    const header = document.getElementById("appHeader");
+    const header = getHeader();
     if (header && !header.classList.contains("header-hidden")) {
       const h = header.offsetHeight;
       if (h > 0) {
@@ -6714,7 +6825,7 @@ window.HeaderScrollController = (function() {
   }
 
   function updateStateForCurrentTab() {
-    const header = document.getElementById("appHeader");
+    const header = getHeader();
     if (!header) return;
 
     const pageEl = getActivePageEl();
@@ -6740,7 +6851,7 @@ window.HeaderScrollController = (function() {
 
   function onTabChangeStart() {
     isNavigating = true;
-    const header = document.getElementById("appHeader");
+    const header = getHeader();
     if (header) {
       header.classList.remove("header-hidden");
     }

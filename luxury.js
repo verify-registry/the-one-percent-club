@@ -1449,7 +1449,8 @@ function initGlobalTilt() {
     let cachedRect = null;
 
     card.addEventListener("pointerenter", (e) => {
-      if (e.pointerType === "touch") return; // Touch is handled separately
+      if (e.pointerType === "touch") return;
+      if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn")) return;
       isHovered = true;
       card.classList.add("is-hovered");
       cachedRect = card.getBoundingClientRect();
@@ -1527,6 +1528,7 @@ function initGlobalTilt() {
 
     card.addEventListener("touchstart", (e) => {
       if (!e.touches || e.touches.length === 0) return;
+      if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn")) return;
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       isTouching = true;

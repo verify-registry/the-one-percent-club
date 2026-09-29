@@ -80,11 +80,11 @@
   --btn-edit-hover-color: #fff1c7;
   --btn-edit-hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.9), 0 0 12px rgba(212, 175, 106, 0.25), inset 0 1px 2px rgba(255, 245, 215, 0.5);
 
-  --btn-pill-bg: linear-gradient(180deg, rgba(32, 26, 18, 0.95) 0%, rgba(16, 13, 8, 0.98) 100%);
-  --btn-pill-border: rgba(225, 185, 75, 0.55);
-  --btn-pill-color: #fae4a7;
-  --btn-pill-shadow: 0 2px 6px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 245, 215, 0.22);
-  --btn-pill-icon: #e5c378;
+  --btn-pill-bg: linear-gradient(180deg, rgba(42, 34, 23, 0.96) 0%, rgba(20, 16, 10, 0.99) 100%);
+  --btn-pill-border: rgba(235, 195, 85, 0.7);
+  --btn-pill-color: #fdebb2;
+  --btn-pill-shadow: 0 3px 10px rgba(0, 0, 0, 0.75), 0 0 8px rgba(212, 175, 106, 0.2), inset 0 1px 1px rgba(255, 248, 225, 0.3);
+  --btn-pill-icon: #f0cb7b;
 
   /* THE 1% CLUB — GLOBAL GOLD MATERIAL SYSTEM */
   /* Centralized luxury metal language (Dark Mode Default) */
@@ -3629,6 +3629,8 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   border-radius: 14px;
   position: relative;
   overflow: hidden;
+  transform: translateZ(0);
+  contain: layout style;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
 }
 
@@ -5660,27 +5662,23 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   align-items: flex-end;
   justify-content: center;
   padding: 0 0 env(safe-area-inset-bottom);
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(6px);
-  will-change: opacity, filter;
+  background: rgba(4, 3, 2, 0.82);
+  transform: translateZ(0);
+  will-change: opacity;
 }
 .purchase-modal-overlay[hidden] {
-  display: none;
+  display: none !important;
 }
 .purchase-modal-overlay:not([hidden]) {
-  animation: overlayFadeIn 0.4s ease forwards;
+  animation: overlayFadeInSnappy 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes overlayFadeIn {
+@keyframes overlayFadeInSnappy {
   from {
     opacity: 0;
-    backdrop-filter: blur(0px);
-    background: rgba(0, 0, 0, 0);
   }
   to {
     opacity: 1;
-    backdrop-filter: blur(6px);
-    background: rgba(0, 0, 0, 0.75);
   }
 }
 
@@ -5692,33 +5690,25 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   border-bottom: none;
   border-radius: 24px 24px 0 0;
   padding: 24px 20px 28px;
-  box-shadow:
-    0 -8px 40px rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(8, 6, 2, 0.9);
+  box-shadow: 0 -8px 36px rgba(0, 0, 0, 0.85);
   transform-origin: bottom center;
   will-change: transform, opacity;
   backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
 .purchase-modal-overlay:not([hidden]) .purchase-modal {
-  animation: modalBloomPurchase 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: modalBloomPurchaseSnappy 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes modalBloomPurchase {
+@keyframes modalBloomPurchaseSnappy {
   0% {
     opacity: 0;
-    transform: scale(0.95) translateY(20px) translateZ(0);
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8), 0 0 0 rgba(212, 175, 55, 0);
-  }
-  35% {
-    opacity: 1;
-    transform: scale(0.985) translateY(5px) translateZ(0);
-    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.9), 0 -20px 40px rgba(212, 175, 55, 0.15);
+    transform: translate3d(0, 36px, 0);
   }
   100% {
     opacity: 1;
-    transform: scale(1) translateY(0) translateZ(0);
-    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(8, 6, 2, 0.9);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -5811,7 +5801,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   border: 1px solid var(--hairline-strong);
   border-radius: 12px;
   background: rgba(10, 8, 2, 0.6);
-  transition: all 0.2s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
   cursor: pointer;
   position: relative;
 }
@@ -8489,9 +8479,8 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 .luxury-modal-overlay {
   position: fixed !important;
   inset: 0 !important;
-  background: rgba(6, 5, 4, 0.82) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  background: rgba(6, 5, 4, 0.88) !important;
+  /* GPU-accelerated solid obsidian glass backdrop */
   z-index: 99999 !important;
   display: flex !important;
   align-items: center !important;
@@ -8499,9 +8488,10 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
-  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s !important;
+  transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.18s !important;
   transform: translate3d(0, 0, 0) !important;
   will-change: opacity;
+  contain: strict;
 }
 .luxury-modal-overlay.is-open {
   opacity: 1 !important;
@@ -17804,8 +17794,7 @@ body.light-mode .oath-signet-seal-btn {
   justify-content: center !important;
   padding: 16px;
   background: radial-gradient(circle at 50% 50%, rgba(12, 10, 7, 0.85) 0%, rgba(0, 0, 0, 0.94) 100%) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  /* GPU-accelerated solid obsidian glass backdrop */
 }
 .sovereign-mini-dossier-card {
   position: relative;
@@ -19118,7 +19107,7 @@ body #profile-tab .profile-circles-card .pcc-curate-btn {
   font-weight: 600 !important;
   cursor: pointer !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 245, 215, 0.15) !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.15s ease, transform 0.12s ease !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   margin-inline-start: 8px !important;
@@ -19257,7 +19246,7 @@ body #profile-tab .pcc-chip-seal-dot {
   background: rgba(25, 23, 31, 0.75) !important;
   border: 1px solid rgba(212, 175, 106, 0.22) !important;
   cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.15s ease, transform 0.12s ease !important;
   min-width: 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
@@ -20055,7 +20044,7 @@ body #profile-tab .pnm-item {
   padding: 13px 16px !important;
   border-bottom: 1px solid rgba(212, 175, 106, 0.1) !important;
   cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.15s ease, transform 0.12s ease !important;
   min-height: 58px !important;
   transform: translateZ(0) !important;
   background: transparent !important;
@@ -20551,8 +20540,7 @@ body.light-mode #profile-tab .pcs-item-price {
 #helpSupportModal.luxury-modal-overlay,
 #logoutConfirmModal.luxury-modal-overlay {
   background: rgba(6, 5, 4, 0.84) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  /* GPU-accelerated solid obsidian glass backdrop */
   z-index: 99999 !important;
 }
 
@@ -20768,7 +20756,7 @@ body.light-mode #accountInfoModal .avatar-overlay-badge {
   border: 1.5px solid rgba(212, 175, 106, 0.28) !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(0, 0, 0, 0.4) !important;
   cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.15s ease, transform 0.12s ease !important;
   opacity: 0.65 !important;
 }
 
@@ -20942,7 +20930,7 @@ body.light-mode #accountInfoModal .quote-preset-chip {
     0 6px 18px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
   cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.15s ease, transform 0.12s ease !important;
   text-shadow: 0 1px 0 rgba(255, 245, 220, 0.4) !important;
 }
 
@@ -21230,7 +21218,7 @@ body.light-mode #helpSupportModal [data-i18n="misc.supportDesc"] {
     0 6px 18px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
   cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.15s ease, transform 0.12s ease !important;
 }
 
 #helpSupportModal #contactConciergeBtn:hover {
@@ -23235,8 +23223,7 @@ body #profile-tab .vhb-status {
   position: fixed !important;
   inset: 0 !important;
   background: rgba(4, 3, 2, 0.82) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  /* GPU-accelerated solid obsidian glass backdrop */
   z-index: 10000 !important;
   display: flex !important;
   align-items: center !important;
@@ -25203,7 +25190,7 @@ html[dir="rtl"] body #profile-tab #editAccountBtn {
   font-weight: 600 !important;
   line-height: 1 !important;
   letter-spacing: 0.3px !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.15s ease, transform 0.12s ease !important;
   user-select: none !important;
   white-space: nowrap !important;
 }
@@ -26085,8 +26072,7 @@ body.light-mode #profile-tab .phc-action-icon {
   position: fixed !important;
   inset: 0 !important;
   background: rgba(4, 4, 6, 0.88) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  /* GPU-accelerated solid obsidian glass backdrop */
   z-index: 10500 !important;
   display: flex !important;
   align-items: center !important;
@@ -27012,6 +26998,8 @@ body.light-mode #profile-tab .phc-world-map-svg path {
 body #profile-tab .profile-hero-card,
 body #profile-tab #profileHeroPlaque.profile-hero-card,
 body #profile-tab #profileHeroPlaque.luxury-tilt-card {
+  isolation: isolate !important;
+  contain: layout style !important;
   position: relative !important;
   width: 100% !important;
   max-width: 100% !important;
@@ -27273,7 +27261,7 @@ body #profile-tab #editAccountBtn {
   line-height: 1 !important;
   letter-spacing: 0.3px !important;
   white-space: nowrap !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: background 0.15s ease, transform 0.12s ease !important;
   user-select: none !important;
 }
 
@@ -27500,16 +27488,81 @@ html body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon {
 }
 
 
-/* === MOBILE PERF: static reduced blur, no animated blur radius (2026-09-29) === */
+/* === MOBILE PERF: Zero GPU Blur on Overlays (Prevents Screen Flashing & Compositor Thrashing) === */
 @media (max-width: 600px) {
   .purchase-modal-overlay,
   .luxury-modal-overlay,
   .reliquary-modal-backdrop {
-    backdrop-filter: blur(3px) !important;
-    -webkit-backdrop-filter: blur(3px) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
-  @keyframes overlayFadeIn {
-    from { opacity: 0; backdrop-filter: blur(3px); background: rgba(0, 0, 0, 0); }
-    to { opacity: 1; backdrop-filter: blur(3px); background: rgba(0, 0, 0, 0.75); }
+}
+
+
+/* === REFINED EDIT BUTTON LIGHT & DARK MODE HARMONY (2026-09-29) === */
+body.light-mode #profile-tab .phc-edit-btn,
+html.light-mode body #profile-tab .phc-edit-btn,
+body.light-mode #profile-tab #editAccountBtn,
+html.light-mode body #profile-tab #editAccountBtn {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f1e3 100%) !important;
+  border: 1px solid rgba(160, 115, 38, 0.6) !important;
+  color: #4f340c !important;
+  box-shadow: 0 2px 6px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff !important;
+}
+body.light-mode #profile-tab .phc-edit-btn:hover,
+html.light-mode body #profile-tab .phc-edit-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #ede3ce 100%) !important;
+  border-color: rgba(145, 100, 28, 0.85) !important;
+  color: #332205 !important;
+  box-shadow: 0 3px 10px rgba(70, 50, 20, 0.18), inset 0 1px 0 #ffffff !important;
+}
+body.light-mode #profile-tab .phc-edit-btn .phc-edit-txt,
+body.light-mode #profile-tab .phc-edit-btn span {
+  color: #4f340c !important;
+}
+body.light-mode #profile-tab .phc-edit-btn svg,
+body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon {
+  stroke: #6e4712 !important;
+}
+
+body:not(.light-mode) #profile-tab .phc-edit-btn,
+html:not(.light-mode) body #profile-tab .phc-edit-btn,
+body:not(.light-mode) #profile-tab #editAccountBtn,
+html:not(.light-mode) body #profile-tab #editAccountBtn {
+  background: linear-gradient(180deg, rgba(42, 34, 23, 0.96) 0%, rgba(20, 16, 10, 0.99) 100%) !important;
+  border: 1px solid rgba(235, 195, 85, 0.7) !important;
+  color: #fdebb2 !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.75), 0 0 8px rgba(212, 175, 106, 0.2), inset 0 1px 1px rgba(255, 248, 225, 0.3) !important;
+}
+body:not(.light-mode) #profile-tab .phc-edit-btn svg,
+body:not(.light-mode) #profile-tab .phc-edit-btn .phc-edit-icon {
+  stroke: #f0cb7b !important;
+}
+body:not(.light-mode) #profile-tab .phc-edit-btn .phc-edit-txt,
+body:not(.light-mode) #profile-tab .phc-edit-btn span {
+  color: #fdebb2 !important;
+}
+
+/* === PERFORMANCE PASS (2026-09-30): MOBILE BLUR ELIMINATION === */
+@media (max-width: 600px) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
+}
+body #profile-tab .phc-edit-btn,
+body #profile-tab #editAccountBtn {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+/* === APP-WIDE PERFORMANCE & RESPONSIVENESS PASS (2026-09-30) === */
+button, a, .nav-btn, .phc-edit-btn, .modal, .modal-content, .dropdown, select, input {
+  touch-action: manipulation;
+}
+.modal, .modal-content, .club-chat-window, .boutique-card, .membership-ledger-card, .settings-modal, #settingsModal {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+* {
+  -webkit-tap-highlight-color: transparent;
 }
