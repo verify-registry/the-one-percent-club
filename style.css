@@ -291,14 +291,14 @@ body.light-mode {
   );
   --btn-gold-border: var(--gold-pale);
 
-  --btn-edit-bg: radial-gradient(circle at 35% 35%, #ffffff 0%, #f0ebd9 100%);
-  --btn-edit-border: rgba(185, 145, 75, 0.4);
-  --btn-edit-color: #856122;
-  --btn-edit-shadow: 0 3px 8px rgba(60, 45, 20, 0.1), inset 0 1px 0 #ffffff;
-  --btn-edit-hover-bg: radial-gradient(circle at 35% 35%, #ffffff 0%, #eee3ce 100%);
+  --btn-edit-bg: linear-gradient(180deg, #ffffff 0%, #f4ecd9 100%);
+  --btn-edit-border: rgba(156, 109, 35, 0.55);
+  --btn-edit-color: #6a4c17;
+  --btn-edit-shadow: 0 2px 8px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff;
+  --btn-edit-hover-bg: linear-gradient(180deg, #ffffff 0%, #eee3ce 100%);
   --btn-edit-hover-border: rgba(175, 130, 40, 0.8);
   --btn-edit-hover-color: #3b2807;
-  --btn-edit-hover-shadow: 0 2px 8px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff;
+  --btn-edit-hover-shadow: 0 2px 8px rgba(70, 50, 20, 0.16), inset 0 1px 0 #ffffff;
 
   --btn-pill-bg: linear-gradient(180deg, #ffffff 0%, #f6f0e2 100%);
   --btn-pill-border: rgba(185, 145, 65, 0.65);
@@ -392,6 +392,14 @@ body.light-mode .luxury-modal-box {
   background: radial-gradient(ellipse at center, #fdfbf7, #f4f0e6);
   border: 1px solid rgba(156, 109, 35, 0.3);
 }
+
+body.light-mode .purchase-modal-overlay { background: rgba(30, 24, 16, 0.52) !important; }
+body.light-mode .purchase-modal { background: var(--surface-modal) !important; border: 1px solid rgba(156, 109, 35, 0.3) !important; color: var(--text-primary) !important; }
+body.light-mode .purchase-modal-name { color: var(--text-primary) !important; }
+body.light-mode .purchase-modal-rarity { color: var(--border-gold) !important; }
+body.light-mode .purchase-modal-details, body.light-mode .purchase-modal-row, body.light-mode .purchase-modal-msg { color: var(--text-secondary) !important; }
+body.light-mode .credits-pkg { background: var(--surface-elevated) !important; border-color: rgba(156, 109, 35, 0.35) !important; color: var(--text-primary) !important; }
+body.light-mode .credits-pkg-price { color: var(--border-gold) !important; }
 
 body.light-mode .vault-card,
 body.light-mode .honor-card,
@@ -11432,9 +11440,9 @@ body.light-mode
   padding: 6px !important;
   width: 28px !important;
   height: 28px !important;
-  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  border: 1px solid var(--btn-edit-border) !important;
   border-radius: 50% !important;
-  background: rgba(0, 0, 0, 0.4) !important;
+  background: var(--btn-edit-bg) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -11590,11 +11598,9 @@ body.light-mode #profile-tab .phc-tier {
   width: 34px !important;
   height: 34px !important;
   border-radius: 50% !important;
-  background: rgba(18, 18, 22, 0.75) !important;
-  border: 1px solid rgba(212, 175, 55, 0.4) !important;
-  box-shadow:
-    0 4px 10px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 223, 128, 0.2) !important;
+  background: var(--btn-edit-bg) !important;
+  border: 1px solid var(--btn-edit-border) !important;
+  box-shadow: var(--btn-edit-shadow) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -11721,15 +11727,9 @@ body.light-mode #profile-tab .phc-tier {
   width: 32px !important;
   height: 32px !important;
   border-radius: 50% !important;
-  background: linear-gradient(
-    135deg,
-    rgba(35, 35, 42, 0.9) 0%,
-    rgba(15, 15, 18, 0.95) 100%
-  ) !important;
-  border: 1px solid rgba(212, 175, 55, 0.45) !important;
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.6),
-    inset 0 1px 1px rgba(255, 223, 128, 0.3) !important;
+  background: var(--btn-edit-bg) !important;
+  border: 1px solid var(--btn-edit-border) !important;
+  box-shadow: var(--btn-edit-shadow) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -12091,19 +12091,13 @@ body.light-mode #profile-tab .profile-hero-card::after {
   width: 26px !important;
   height: 26px !important;
   border-radius: 50% !important;
-  background: radial-gradient(
-    circle at center,
-    rgba(30, 30, 35, 0.8) 0%,
-    rgba(10, 10, 12, 0.8) 100%
-  ) !important;
-  border: 1px solid rgba(212, 175, 55, 0.25) !important;
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.5),
-    inset 0 1px 1px rgba(255, 255, 255, 0.05) !important;
+  background: var(--btn-edit-bg) !important;
+  border: 1px solid var(--btn-edit-border) !important;
+  box-shadow: var(--btn-edit-shadow) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  color: rgba(212, 175, 55, 0.7) !important;
+  color: var(--btn-edit-color) !important;
   transition: all 0.3s ease !important;
   transform: translateZ(0);
   z-index: 10 !important;
@@ -27484,13 +27478,38 @@ body.light-mode #profile-tab .profile-hero-card {
   -webkit-font-smoothing: antialiased;
 }
 
+/* === FINAL LIGHT-MODE CONTRAST GUARD: PROFILE EDIT PILL (2026-09-29) === */
+html body.light-mode #profile-tab .phc-edit-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #f4ecd9 100%) !important;
+  border: 1px solid rgba(156, 109, 35, 0.55) !important;
+  color: #6a4c17 !important;
+  box-shadow: 0 2px 8px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff !important;
+}
+html body.light-mode #profile-tab .phc-edit-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #eee3ce 100%) !important;
+  border-color: rgba(175, 130, 40, 0.8) !important;
+  color: #3b2807 !important;
+}
+html body.light-mode #profile-tab .phc-edit-btn .phc-edit-txt,
+html body.light-mode #profile-tab .phc-edit-btn span {
+  color: #6a4c17 !important;
+}
+html body.light-mode #profile-tab .phc-edit-btn svg,
+html body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon {
+  stroke: #8a6420 !important;
+}
 
 
-
-
-
-
-
-
-
-
+/* === MOBILE PERF: static reduced blur, no animated blur radius (2026-09-29) === */
+@media (max-width: 600px) {
+  .purchase-modal-overlay,
+  .luxury-modal-overlay,
+  .reliquary-modal-backdrop {
+    backdrop-filter: blur(3px) !important;
+    -webkit-backdrop-filter: blur(3px) !important;
+  }
+  @keyframes overlayFadeIn {
+    from { opacity: 0; backdrop-filter: blur(3px); background: rgba(0, 0, 0, 0); }
+    to { opacity: 1; backdrop-filter: blur(3px); background: rgba(0, 0, 0, 0.75); }
+  }
+}

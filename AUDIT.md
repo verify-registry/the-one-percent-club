@@ -196,3 +196,17 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 ### Safe-List Pass #2b (2026-09-29) — IN PROGRESS
 - Finished deletion of boutique-skeleton family (11 selector lines / 6 blocks) missed by #2 due to #boutique-tab-scoped variants.
 - Lesson logged: nonzero verification counts require immediate grep
+
+### Stuck-Dark Fix (2026-09-29) — IN PROGRESS
+- Unified purchase-modal family (5 modals) with existing light tokens (mirrors luxury-modal light look).
+- Harmonized .phc-edit-btn light accent via --btn-edit-* token values + binding 4 override generations.
+- Pending: visual verification (light + dark) before push.
+
+### Final Contrast Guard + Mobile Blur Perf (2026-09-29) — IN PROGRESS
+- Appended end-of-file light-mode guard for .phc-edit-btn pill (defeats legacy --btn-pill-* generation by specificity+order).
+- Mobile (<=600px): static blur(3px) on modal overlays + constant-blur fade keyframes (kills per-frame blur repaint hang).
+- Pending: visual verification (light + dark) before push.
+
+### Cache-Bust (2026-09-29) — IN PROGRESS
+- Added ?v=20260929a to stylesheet link to defeat stale preview/browser cache during light-mode verification.
+- Pending: visual confirmation then push.
