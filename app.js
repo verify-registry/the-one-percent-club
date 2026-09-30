@@ -746,11 +746,11 @@ window.StorageHelper = StorageHelper;
 // ==========================================
 const AppState = {
   user: {
-    id: "3426",
-    name: "ISMAIL ELSAYED",
-    username: "ISMAIL ELSAYED",
+    id: "0001",
+    name: "ALEXANDER",
+    username: "ALEXANDER",
     tier: "SOVEREIGN MEMBER",
-    quote: "Not everyone understands wealth. That's why we have this Club.",
+    quote: "A higher standard in a different world.",
     joined: "AUG 2026",
     est: "EST. 2026",
     avatarUrl:
@@ -1594,17 +1594,13 @@ ClubState.on("change", () => {
 
   const pName = document.getElementById("profileName");
   if (pName) {
-    pName.textContent = isStealth ? stealthMoniker : (AppState.user.username || AppState.user.name);
+    pName.textContent = isStealth ? stealthMoniker : (AppState.user.name || "ALEXANDER");
   }
 
   const pTier = document.getElementById("profileTierName");
   if (pTier) {
     const tier = AppState.user.tier;
-    let heroTierTrans = window.t("profile.heroSovereignTier");
-    if (tier === "Elite" || tier === "نخبة") {
-      heroTierTrans = window.t("profile.heroEliteTier");
-    }
-    pTier.textContent = heroTierTrans;
+    pTier.textContent = (tier === "Elite" || tier === "نخبة") ? "ELITE MEMBER" : "SOVEREIGN MEMBER";
   }
 
   const pBio = document.getElementById("profileBioValue");
@@ -1620,8 +1616,8 @@ ClubState.on("change", () => {
   // Profile Sovereign Hero Card Dynamic Elements
   const pCardId = document.getElementById("profileCardMemberId");
   if (pCardId) {
-    const rawId = AppState.user.id || "3426";
-    pCardId.textContent = `ID #${rawId} · 1P`;
+    const rawId = AppState.user.id || "0001";
+    pCardId.textContent = `ID ${rawId}-1P`;
   }
 
   const pCardLoc = document.getElementById("profileCardLocation");
@@ -1668,15 +1664,13 @@ ClubState.on("change", () => {
 
   const pQuote = document.getElementById("profileQuote");
   if (pQuote) {
-    if (
-      AppState.user.quote ===
-      "Not everyone understands wealth. That's why we have this Club."
-    ) {
-      pQuote.textContent = '"' + window.t("profile.quoteText") + '"';
-    } else {
-      pQuote.textContent =
-        '"' + (AppState.user.quote || AppState.user.bio) + '"';
-    }
+    let quoteStr = (AppState.user.quote &&
+      AppState.user.quote !== "Not everyone understands wealth. That's why we have this Club." &&
+      AppState.user.quote !== "الانضباط. النفوذ. الحرية.")
+      ? AppState.user.quote
+      : "A higher standard in a different world.";
+    // Clean any surrounding quotes since .phc-quote-mark provides decorative typographic quotation marks
+    pQuote.textContent = quoteStr.replace(/^["“']|["”']$/g, "").trim();
   }
 
   const wealthLabel = document.querySelector(
@@ -2446,9 +2440,36 @@ const IMPLEMENTED_TABS = ["membership", "profile", "club", "boutique"];
 // ==========================================
 // ==========================================
 const Router = {
+  currentTab: "membership",
+
   navigate(tab) {
+    if (this.currentTab === tab) {
+      // Idempotent: already on this tab, avoid reinitialization or DOM teardown
+      const activePage = document.getElementById(`${tab}-tab`);
+      if (activePage && activePage.scrollTop > 0) {
+        activePage.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+
     if (typeof window.closeMetricTooltips === "function") window.closeMetricTooltips();
     if (window.AudioEngine) AudioEngine.playRustle();
+
+    // Clear any pending timers from other tabs to prevent background race conditions
+    if (profileCollectionTimeout) {
+      clearTimeout(profileCollectionTimeout);
+      profileCollectionTimeout = null;
+    }
+    if (window.profileAchievementsTimeout) {
+      clearTimeout(window.profileAchievementsTimeout);
+      window.profileAchievementsTimeout = null;
+    }
+    if (window.profileStatsBarTimeout) {
+      clearTimeout(window.profileStatsBarTimeout);
+      window.profileStatsBarTimeout = null;
+    }
+
+    this.currentTab = tab;
     this.switchView(tab);
     this.updateHeader(tab);
     this.triggerEnter(tab);
@@ -2579,7 +2600,7 @@ const Router = {
       if (typeof renderProfileCircles === "function") renderProfileCircles();
       if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
       if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
-      if (typeof renderProfileCollection === "function") renderProfileCollection(true);
+      if (typeof renderProfileCollection === "function") renderProfileCollection(false);
       if (typeof renderProfileAchievements === "function") renderProfileAchievements();
       if (typeof attachHorologicalScrewHandlers === "function") attachHorologicalScrewHandlers();
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
@@ -3592,7 +3613,7 @@ function buildMessageHTML(msg, idx, channelId) {
         <div class="dispatch-header">
           <div class="dispatch-profile-group" onclick="openMemberProfileFromDispatch('${msg.senderId}')">
             <div class="dispatch-medallion-rim">
-              <img src="${avatarUrl}" alt="${safeSenderName}" class="dispatch-avatar-img" onerror="this.src='https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop'" />
+              <img src="${avatarUrl}" alt="${safeSenderName}" class="dispatch-avatar-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=240&auto=format&fit=crop'" />
               <span class="dispatch-online-pip"></span>
             </div>
             <div class="dispatch-credentials">
@@ -4500,7 +4521,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnConfirmLogout) {
     btnConfirmLogout.addEventListener("click", () => {
       // Simulate logout
-      window.location.reload();
+      console.error("Reload loop intercepted by REPAIR PASS", { ts: Date.now(), url: location.href });
     });
   }
   // --- Verified Membership Shield Medallion in Header ---
@@ -4710,15 +4731,10 @@ function renderProfileAchievements() {
   const ribbonRack = document.getElementById("heraldicRibbonRack");
   if (!container) return;
 
-  if (!container.dataset.skeletonShown) {
-    let skeletonHtml = generateProfileAchievementSkeleton();
-    
-    container.innerHTML = skeletonHtml;
-    container.dataset.skeletonShown = "true";
-    setTimeout(() => renderProfileAchievements(), 450);
-    return;
+  if (window.profileAchievementsTimeout) {
+    clearTimeout(window.profileAchievementsTimeout);
+    window.profileAchievementsTimeout = null;
   }
-  container.dataset.skeletonShown = "";
 
   let unlocked = [];
   try {
@@ -5191,19 +5207,13 @@ function renderProfileCollection(forceSkeleton = false) {
   const container = document.getElementById("profileCollectionGrid");
   if (!container) return;
 
-  if (forceSkeleton || !container.dataset.skeletonShown) {
-    if (profileCollectionTimeout) clearTimeout(profileCollectionTimeout);
-    container.innerHTML = generateProfileCollectionSkeleton();
-    container.dataset.skeletonShown = "true";
-    profileCollectionTimeout = setTimeout(() => {
-      container.dataset.skeletonShown = "done";
-      renderProfileCollection(false);
-    }, 380);
-    return;
+  if (profileCollectionTimeout) {
+    clearTimeout(profileCollectionTimeout);
+    profileCollectionTimeout = null;
   }
   container.dataset.skeletonShown = "done";
 
-  const collectedItems = AppState.collectedItems
+  const collectedItems = (AppState.collectedItems || [])
     .map((id) => {
       if (typeof id === "object") return id;
       let found = null;
@@ -5413,29 +5423,11 @@ function renderProfileStatsBar() {
   const container = document.getElementById("profileStatsBar");
   if (!container) return;
 
-  if (!container.dataset.renderedOnce) {
-    let html = `
-      <div class="horo-chassis-header" style="opacity:0.4;">
-        <span class="horo-hallmark-txt">MANUFACTURE D'HORLOGERIE • CALIBRE 1%</span>
-      </div>
-      <div class="horo-dials-row">
-    `;
-    for(let i=0; i<4; i++) {
-      html += `
-        <div class="psb-col horo-subdial profile-stats-skeleton">
-          <div class="skeleton-shimmer-el" style="width:38px; height:38px; border-radius:50%; margin:0 auto 4px auto;"></div>
-          <div class="skeleton-shimmer-el skeleton-name" style="width:32px; height:10px; margin:2px auto;"></div>
-          <div class="skeleton-shimmer-el skeleton-badge" style="width:24px; height:6px; margin:2px auto;"></div>
-        </div>
-      `;
-      if (i < 3) html += '<div class="psb-divider horo-divider"></div>';
-    }
-    html += '</div>';
-    container.innerHTML = html;
-    container.dataset.renderedOnce = "true";
-    setTimeout(() => renderProfileStatsBar(), 180);
-    return;
+  if (window.profileStatsBarTimeout) {
+    clearTimeout(window.profileStatsBarTimeout);
+    window.profileStatsBarTimeout = null;
   }
+  container.dataset.renderedOnce = "true";
 
   const isAr = document.documentElement.dir === "rtl" || document.body.dir === "rtl";
   const isElite = AppState.user.tier === "Elite" || AppState.user.tier === "نخبة";
@@ -5600,6 +5592,10 @@ function renderProfileStatsBar() {
 }
 
 function attachComplicationHandlers() {
+  const container = document.getElementById("profileStatsBar");
+  if (!container || container.dataset.complicationsBound) return;
+  container.dataset.complicationsBound = "true";
+
   const playTactileFeedback = () => {
     if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
       window.AudioEngine.playClick();
@@ -5615,54 +5611,47 @@ function attachComplicationHandlers() {
     }
   };
 
-  const pods = [
-    { id: "compTierPod", action: () => {
+  const handleAction = (id) => {
+    playTactileFeedback();
+    if (id === "compTierPod") {
       const hero = document.getElementById("profileHeroPlaque") || document.querySelector(".profile-hero-card");
       if (hero) {
         hero.scrollIntoView({ behavior: "smooth", block: "center" });
         hero.classList.add("is-highlighted-sheen");
         setTimeout(() => hero.classList.remove("is-highlighted-sheen"), 1200);
       }
-    }},
-    { id: "compVaultPod", action: () => {
+    } else if (id === "compVaultPod") {
       const sec = document.getElementById("profileCollectionSection") || document.querySelector(".profile-collection-section");
-      if (sec) {
-        sec.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }},
-    { id: "compHonorsPod", action: () => {
+      if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (id === "compHonorsPod") {
       const sec = document.getElementById("profileHonorsSection") || document.querySelector(".profile-achievements-section");
-      if (sec) {
-        sec.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }},
-    { id: "compRegistryPod", action: () => {
+      if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (id === "compRegistryPod") {
       const sec = document.getElementById("profileHistorySection") || document.querySelector(".profile-history-section");
-      if (sec) {
-        sec.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }}
-  ];
+      if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
-  pods.forEach(({ id, action }) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    el.addEventListener("mouseenter", playClockworkHover);
-
-    const trigger = (e) => {
+  container.addEventListener("click", (e) => {
+    const pod = e.target.closest(".psb-complication-pod");
+    if (pod && pod.id) {
       e.preventDefault();
-      playTactileFeedback();
-      action();
-    };
-
-    el.addEventListener("click", trigger);
-    el.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        trigger(e);
-      }
-    });
+      handleAction(pod.id);
+    }
   });
+
+  container.addEventListener("keydown", (e) => {
+    const pod = e.target.closest(".psb-complication-pod");
+    if (pod && pod.id && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      handleAction(pod.id);
+    }
+  });
+
+  container.addEventListener("pointerenter", (e) => {
+    const pod = e.target.closest(".psb-complication-pod");
+    if (pod) playClockworkHover();
+  }, true);
 }
 
 // -------------------------------------------------------------
@@ -5733,24 +5722,29 @@ function renderProfileCircles() {
   };
 
   const curateBtn = document.getElementById("btnCurateCircles");
-  if (curateBtn) {
-    curateBtn.onclick = (e) => {
+  if (curateBtn && !curateBtn.dataset.bound) {
+    curateBtn.dataset.bound = "true";
+    curateBtn.addEventListener("click", (e) => {
       e.preventDefault();
       openCirclesEditor();
-    };
+    });
   }
 
-  container.querySelectorAll(".pcc-chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      openCirclesEditor();
+  if (!container.dataset.delegated) {
+    container.dataset.delegated = "true";
+    container.addEventListener("click", (e) => {
+      if (e.target.closest(".pcc-chip")) {
+        openCirclesEditor();
+      }
     });
-    chip.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
+    container.addEventListener("keydown", (e) => {
+      const chip = e.target.closest(".pcc-chip");
+      if (chip && (e.key === "Enter" || e.key === " ")) {
         e.preventDefault();
         openCirclesEditor();
       }
     });
-  });
+  }
 }
 
 function renderModalCirclesSelector(currentSelected) {

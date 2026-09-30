@@ -450,12 +450,12 @@ window.I18N = {
       ar: "خزينة المقتنيات السيادية",
     },
     heroSovereignTier: {
-      en: "SOVEREIGN DOSSIER",
-      ar: "ملف سيادي معتمد",
+      en: "SOVEREIGN MEMBER",
+      ar: "عضوية سيادية معتمدة",
     },
     heroEliteTier: {
-      en: "ELITE DOSSIER",
-      ar: "ملف نخبة معتمد",
+      en: "ELITE MEMBER",
+      ar: "عضوية نخبة معتمدة",
     },
     heroCertifiedDossier: {
       en: "OFFICIAL SEAL",

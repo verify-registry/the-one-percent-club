@@ -10805,83 +10805,17 @@ body.light-mode .dossier-panel {
   padding: 0px 16px;
 }
 
-/* Interactive Avatar Ring (Modal) */
+/* Interactive Avatar Ring (Modal - Canonical rules defined in Section 4) */
 .interactive-avatar-ring {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  border: 1px solid rgba(212, 175, 55, 0.6);
-  box-shadow:
-    0 0 0 4px rgba(212, 175, 55, 0.1),
-    inset 0 0 10px rgba(0, 0, 0, 0.8);
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  display: inline-block;
+  border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
-  transform: translateZ(0);
-  background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
-}
-.interactive-avatar-ring:hover {
-  border-color: rgba(212, 175, 55, 1);
-  box-shadow:
-    0 0 15px rgba(212, 175, 55, 0.4),
-    0 0 0 4px rgba(212, 175, 55, 0.2);
 }
 .interactive-avatar-ring .phc-avatar-photo {
-  width: 100%;
-  height: 100%;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-.avatar-overlay-badge {
-  position: absolute;
-  bottom: 0px;
-  right: -4px;
-  width: 28px;
-  height: 28px;
-  background: #0d0d0d;
-  border: 1px solid rgba(212, 175, 55, 0.8);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #d4af37;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-  transition: all 0.3s ease;
-  transform: translateZ(0);
-}
-.interactive-avatar-ring:hover .avatar-overlay-badge {
-  background: #1a1a1a;
-  transform: scale(1.1);
-  border-color: #d4af37;
-}
-body.light-mode .interactive-avatar-ring {
-  background: #fdfbf7;
-  border-color: rgba(156, 109, 35, 0.4);
-  box-shadow:
-    0 0 0 4px rgba(156, 109, 35, 0.1),
-    inset 0 0 10px rgba(0, 0, 0, 0.1);
-}
-body.light-mode .interactive-avatar-ring:hover {
-  border-color: rgba(156, 109, 35, 0.8);
-  box-shadow:
-    0 0 15px rgba(156, 109, 35, 0.2),
-    0 0 0 4px rgba(156, 109, 35, 0.15);
-}
-body.light-mode .avatar-overlay-badge {
-  background: #f4f0e6;
-  border-color: rgba(156, 109, 35, 0.6);
-  color: #8f6820;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-body.light-mode .interactive-avatar-ring:hover .avatar-overlay-badge {
-  background: #ffffff;
-  border-color: rgba(156, 109, 35, 1);
 }
 
 /* Modal Obsidian Adjustments */
@@ -11144,27 +11078,7 @@ body.light-mode .quote-preset-chip:hover {
   border-color: #d4af37;
 }
 
-/* 4. 3D GOLD MEDALLION AVATARS */
-#accountInfoModal .interactive-avatar-ring {
-  background: linear-gradient(135deg, #d4af37 0%, #8f6820 100%);
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.8),
-    inset 0 2px 4px rgba(255, 255, 255, 0.3),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
-  border: none;
-  padding: 3px;
-}
-#accountInfoModal .interactive-avatar-ring .phc-avatar-photo {
-  border: 2px solid #0d0d0d;
-}
-#accountInfoModal .avatar-overlay-badge {
-  background: linear-gradient(135deg, #d4af37 0%, #8f6820 100%);
-  border: 1px solid #1a1a1a;
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.6),
-    inset 0 1px 2px rgba(255, 255, 255, 0.4);
-  color: #1a1a1a;
-}
+/* 4. AVATAR MEDALLION BASE (Canonical rules defined in Section 4) */
 #accountInfoModal .avatar-preset-thumbnail {
   border: 1px solid #1a1a1a;
   box-shadow:
@@ -12467,11 +12381,12 @@ body #profile-tab .phc-edit-btn svg {
   stroke-width: 1.5 !important;
 }
 
-/* RTL OVERRIDES FOR EDIT BUTTON */
+/* RTL OVERRIDES FOR EDIT BUTTON (LOCKED TO PHYSICAL TOP RIGHT) */
 html[dir="rtl"] body #profile-tab .phc-edit-btn,
 body[dir="rtl"] #profile-tab .phc-edit-btn {
-  right: auto !important;
-  left: 16px !important;
+  right: 14px !important;
+  left: auto !important;
+  top: 12px !important;
 }
 html[dir="rtl"] body #profile-tab .phc-name,
 body[dir="rtl"] #profile-tab .phc-name {
@@ -15538,35 +15453,49 @@ body #membership-tab #membershipCard.membership-card::after {
 
 /* DARK MODE */
 body #membership-tab #membershipCard.membership-card {
-  border: 4px solid transparent !important;
+  border: 4.5px solid transparent !important;
   border-radius: 20px !important;
+  background-origin: padding-box, border-box !important;
+  background-clip: padding-box, border-box !important;
   background-image: 
     /* The main obsidian card background */
-    radial-gradient(circle at 50% 30%, #16161a 0%, #0d0d10 65%, #050507 100%),
-    /* Realistic Polished Gold Metal Reflection */
-    linear-gradient(160deg, 
-      #362507 0%, 
-      #d4af37 15%, 
-      #fffce0 23%, 
-      #c49a2b 35%, 
-      #2e2005 50%, 
-      #a67c00 65%, 
-      #fffce0 75%, 
-      #d4af37 85%, 
-      #1f1402 100%
+    radial-gradient(ellipse at 50% 25%, #15110b 0%, #0d0905 50%, #050403 100%),
+    /* Layer 3: Solid Polished Gold Band with Anisotropic Specular Highlights & Bevel Reflections */
+    linear-gradient(
+      140deg,
+      #ffffff 0%,
+      #fff3d2 3.5%,
+      #caa455 11%,
+      #825d20 22%,
+      #422c0c 34%,
+      #1c1204 44%,
+      #694a17 52%,
+      #c49c44 59%,
+      #fae6b4 63.5%,
+      #ffffff 66%,
+      #f2d080 70%,
+      #966e25 80%,
+      #3f290a 90%,
+      #181003 96%,
+      #9c752c 100%
     ) !important;
-  background-origin: border-box !important;
-  background-clip: padding-box, border-box !important;
-  
-  /* 
-   * Strict removal of outer shadows 
-   * Inner bevel shadow separates the gold frame from the obsidian core
-   */
   box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.1), 
-    inset 0 0 0 1px rgba(0, 0, 0, 0.95),
-    inset 0 10px 30px rgba(0, 0, 0, 0.8) !important;
-    
+    /* Grounding shadow in 3D space — strict zero outer glow / bloom */
+    0 18px 44px -6px rgba(0, 0, 0, 0.96),
+    /* Layer 1: Deep recessed dark-gold edge (anchors physical depth) */
+    0 0 0 1px #120c04,
+    /* Layer 2: Directional bevel highlight & shadow */
+    0 -1px 0 1px rgba(255, 245, 215, 0.4),
+    0 1px 0 1px rgba(10, 6, 2, 0.95),
+    /* Layer 4: Sharp reflective polished-gold ridge along the inner bevel */
+    inset 0 1px 1px 0 rgba(255, 252, 235, 0.85),
+    inset 0 -1px 1px 0 rgba(30, 18, 4, 0.9),
+    /* Layer 5: Dark recessed inner edge step-down */
+    inset 0 0 0 1px #140d04,
+    /* Layer 6: Very fine inner champagne-gold highlight */
+    inset 0 0 0 2px rgba(212, 175, 106, 0.35),
+    /* Recessed obsidian core shadow */
+    inset 0 12px 28px -4px rgba(0, 0, 0, 0.9) !important;
   filter: none !important;
   -webkit-filter: none !important;
   outline: none !important;
@@ -15574,35 +15503,49 @@ body #membership-tab #membershipCard.membership-card {
 
 /* LIGHT MODE */
 body.light-mode #membership-tab #membershipCard.membership-card {
-  border: 4px solid transparent !important;
+  border: 4.5px solid transparent !important;
   border-radius: 20px !important;
+  background-origin: padding-box, border-box !important;
+  background-clip: padding-box, border-box !important;
   background-image: 
     /* The main ivory card background */
-    radial-gradient(circle at 50% 30%, #f7f5ef 0%, #ebe7dc 60%, #ded9cb 100%),
-    /* Realistic Polished Gold Metal Reflection */
-    linear-gradient(160deg, 
-      #59400f 0%, 
-      #d4af37 12%, 
-      #ffffff 22%, 
-      #b38b22 35%, 
-      #4a350e 50%, 
-      #d4af37 65%, 
-      #ffffff 78%, 
-      #c49a2b 88%, 
-      #2e2005 100%
+    radial-gradient(ellipse at 50% 18%, #ffffff 0%, #faf6ee 48%, #f3ead5 100%),
+    /* Layer 3: Solid Polished Gold Band with Anisotropic Specular Highlights & Bevel Reflections */
+    linear-gradient(
+      140deg,
+      #ffffff 0%,
+      #faecc8 3.5%,
+      #d4ae56 11%,
+      #8c6420 22%,
+      #4f360d 34%,
+      #2a1c07 44%,
+      #785317 52%,
+      #caa455 59%,
+      #fae6b4 63.5%,
+      #ffffff 66%,
+      #faecc8 70%,
+      #9e7729 80%,
+      #4d340d 90%,
+      #241705 96%,
+      #be953e 100%
     ) !important;
-  background-origin: border-box !important;
-  background-clip: padding-box, border-box !important;
-  
-  /* 
-   * Strict removal of outer shadows 
-   * Inner bevel separates the gold frame from the ivory core
-   */
   box-shadow: 
-    inset 0 2px 4px rgba(255, 255, 255, 1), 
-    inset 0 0 0 1px rgba(120, 90, 50, 0.4),
-    inset 0 10px 30px rgba(100, 80, 50, 0.1) !important;
-    
+    /* Ground shadow in light space */
+    0 14px 34px -4px rgba(50, 35, 12, 0.22),
+    /* Layer 1: Deep recessed dark-gold baseline */
+    0 0 0 1px #38240a,
+    /* Layer 2: Directional bevel light */
+    0 -1px 0 1px rgba(255, 255, 255, 0.95),
+    0 1px 0 1px rgba(40, 26, 8, 0.6),
+    /* Layer 4: Sharp reflective polished-gold ridge along the inner bevel */
+    inset 0 1px 1.5px 0 #ffffff,
+    inset 0 -1px 1.5px 0 rgba(60, 40, 10, 0.5),
+    /* Layer 5: Dark recessed inner edge */
+    inset 0 0 0 1px #38240a,
+    /* Layer 6: Very fine inner champagne-gold highlight */
+    inset 0 0 0 2px rgba(188, 144, 52, 0.45),
+    /* Recessed ivory core shadow */
+    inset 0 8px 22px -2px rgba(90, 65, 25, 0.14) !important;
   filter: none !important;
   -webkit-filter: none !important;
   outline: none !important;
@@ -18349,19 +18292,12 @@ html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
 body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
 [dir="rtl"] #profile-tab .phc-edit-btn {
   position: absolute !important;
-  top: 16px !important;
-  right: 16px !important;
+  top: 12px !important;
+  right: 14px !important;
   left: auto !important;
   inset-inline-start: auto !important;
-  inset-inline-end: 16px !important;
-  width: 34px !important;
-  height: 34px !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  inset-inline-end: auto !important;
   z-index: 10 !important;
-  padding: 0 !important;
 }
 
 body #profile-tab .phc-edit-btn:hover {
@@ -20551,7 +20487,6 @@ body.light-mode #logoutConfirmModal.luxury-modal-overlay {
   background: rgba(30, 24, 16, 0.52) !important;
 }
 
-#accountInfoModal .luxury-modal-box,
 #settingsModal .luxury-modal-box,
 #helpSupportModal .luxury-modal-box {
   width: 92% !important;
@@ -20567,7 +20502,6 @@ body.light-mode #logoutConfirmModal.luxury-modal-overlay {
 }
 
 /* Modal Headers */
-#accountInfoModal .luxury-modal-header,
 #settingsModal .luxury-modal-header,
 #helpSupportModal .luxury-modal-header {
   padding: 18px 20px !important;
@@ -20579,14 +20513,12 @@ body.light-mode #logoutConfirmModal.luxury-modal-overlay {
   box-sizing: border-box !important;
 }
 
-body.light-mode #accountInfoModal .luxury-modal-header,
 body.light-mode #settingsModal .luxury-modal-header,
 body.light-mode #helpSupportModal .luxury-modal-header {
   background: linear-gradient(180deg, rgba(185, 145, 75, 0.08) 0%, transparent 100%) !important;
   border-bottom: 1px solid rgba(185, 145, 75, 0.2) !important;
 }
 
-#accountInfoModal .luxury-modal-header h2,
 #settingsModal .luxury-modal-header h3,
 #helpSupportModal .luxury-modal-header h3 {
   font-family: var(--font-display, "Cinzel", serif) !important;
@@ -20599,7 +20531,6 @@ body.light-mode #helpSupportModal .luxury-modal-header {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
 }
 
-body.light-mode #accountInfoModal .luxury-modal-header h2,
 body.light-mode #settingsModal .luxury-modal-header h3,
 body.light-mode #helpSupportModal .luxury-modal-header h3 {
   color: #22190e !important;
@@ -20607,7 +20538,6 @@ body.light-mode #helpSupportModal .luxury-modal-header h3 {
 }
 
 /* Refined Metallic Close Button */
-#accountInfoModal .luxury-close-btn,
 #settingsModal .luxury-close-btn,
 #helpSupportModal .luxury-close-btn {
   width: 28px !important;
@@ -20626,7 +20556,6 @@ body.light-mode #helpSupportModal .luxury-modal-header h3 {
   line-height: 1 !important;
 }
 
-#accountInfoModal .luxury-close-btn:hover,
 #settingsModal .luxury-close-btn:hover,
 #helpSupportModal .luxury-close-btn:hover {
   background: rgba(212, 175, 106, 0.2) !important;
@@ -20635,7 +20564,6 @@ body.light-mode #helpSupportModal .luxury-modal-header h3 {
   transform: scale(1.05) !important;
 }
 
-body.light-mode #accountInfoModal .luxury-close-btn,
 body.light-mode #settingsModal .luxury-close-btn,
 body.light-mode #helpSupportModal .luxury-close-btn {
   background: rgba(185, 145, 75, 0.1) !important;
@@ -20657,167 +20585,396 @@ body.light-mode #helpSupportModal .luxury-close-btn {
 /* 4. MEMBER CREDENTIALS MODAL (#accountInfoModal)    */
 /* -------------------------------------------------- */
 
+/* 1. MODAL SURFACE & COMPLEX 3-LAYER METALLIC WATCH-CASE FRAME */
+#accountInfoModal .luxury-modal-box,
+#accountInfoModal .dossier-modal-box {
+  width: 92% !important;
+  max-width: 420px !important;
+  border-radius: 16px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+
+  /* LAYER 2: Middle Rich Gold Bezel & Anisotropic Watch-Case Band */
+  border: 4px solid transparent !important;
+  background-origin: padding-box, border-box !important;
+  background-clip: padding-box, border-box !important;
+  background-image:
+    /* Obsidian dial surface with subtle center luster */
+    radial-gradient(ellipse at 50% 10%, #15110c 0%, #0d0a07 60%, #050403 100%),
+    /* Directional specular watch-case bezel with antique, rich, and champagne gold transitions */
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      var(--gold-pale, #f7e7b9) 3%,
+      var(--gold-champagne, #e9c877) 8%,
+      var(--gold-polished, #d4af6a) 16%,
+      var(--gold-antique, #c79a3e) 26%,
+      var(--gold-aged, #8a6323) 38%,
+      var(--gold-deep, #8a6d3b) 50%,
+      var(--gold-micro, #a68b52) 58%,
+      var(--gold-polished, #d4af6a) 65%,
+      #ffffff 69%,
+      var(--gold-highlight, #eae0c4) 73%,
+      var(--gold-champagne, #e9c877) 78%,
+      var(--gold-antique, #c79a3e) 86%,
+      var(--gold-aged, #8a6323) 94%,
+      var(--gold-deep, #8a6d3b) 100%
+    ) !important;
+
+  box-shadow:
+    /* Atmospheric elevation shadow */
+    0 28px 75px -8px rgba(0, 0, 0, 0.96),
+
+    /* LAYER 1: Outer Stepped Bezel & Antique Gold Chamfer */
+    0 0 0 1px var(--gold-aged, #8a6323),
+    0 0 0 2px #0e0904,
+    0 -1px 0 1px rgba(233, 200, 119, 0.4),
+    0 1.5px 0 1px rgba(14, 9, 4, 0.95),
+
+    /* LAYER 3: Inner Champagne Gold Rehaut & Specular Chapter Ring */
+    inset 0 1px 1.5px 0 var(--gold-highlight, #eae0c4),
+    inset 0 0 0 1px rgba(233, 200, 119, 0.55),
+    inset 0 0 0 2px var(--gold-aged, #8a6323),
+    inset 0 -1.5px 2px 0 rgba(14, 9, 4, 0.9),
+    inset 0 0 0 3px #140d04 !important;
+
+  color: var(--text-primary) !important;
+}
+
+body.light-mode #accountInfoModal .luxury-modal-box,
+body.light-mode #accountInfoModal .dossier-modal-box {
+  /* Warm ivory/champagne luxury substrate with restrained material depth & 3-layer watch-case frame */
+  background-image:
+    /* Warm ivory dial substrate */
+    radial-gradient(ellipse at 50% 10%, #fbf8f1 0%, #f6f0e2 50%, #ede2ce 100%),
+    /* Directional specular watch-case bezel with antique, rich, and champagne gold transitions */
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      var(--gold-pale, #f7e7b9) 3%,
+      var(--gold-champagne, #e9c877) 8%,
+      var(--gold-polished, #d4af6a) 16%,
+      var(--gold-antique, #c79a3e) 26%,
+      var(--gold-aged, #8a6323) 38%,
+      var(--gold-deep, #8a6d3b) 50%,
+      var(--gold-micro, #a68b52) 58%,
+      var(--gold-polished, #d4af6a) 65%,
+      #ffffff 69%,
+      var(--gold-highlight, #eae0c4) 73%,
+      var(--gold-champagne, #e9c877) 78%,
+      var(--gold-antique, #c79a3e) 86%,
+      var(--gold-aged, #8a6323) 94%,
+      var(--gold-deep, #8a6d3b) 100%
+    ) !important;
+
+  box-shadow:
+    /* Atmospheric elevation shadow */
+    0 24px 60px -8px rgba(45, 30, 8, 0.28),
+
+    /* LAYER 1: Outer Stepped Bezel & Antique Gold Chamfer */
+    0 0 0 1px var(--gold-antique, #c79a3e),
+    0 0 0 2px #38240a,
+    0 -1px 0 1px rgba(255, 255, 255, 0.85),
+    0 1.5px 0 1px rgba(56, 36, 10, 0.65),
+
+    /* LAYER 3: Inner Champagne Gold Rehaut & Specular Chapter Ring */
+    inset 0 1px 1.5px 0 #ffffff,
+    inset 0 0 0 1px rgba(233, 200, 119, 0.65),
+    inset 0 0 0 2px var(--gold-antique, #c79a3e),
+    inset 0 -1.5px 2px 0 rgba(70, 48, 14, 0.35),
+    inset 0 0 0 3px #38240a !important;
+}
+
+/* 2. MODAL HEADER: Clean Seamless Integration & Single Precise Metallic Divider */
+#accountInfoModal .luxury-modal-header {
+  padding: 14px 18px !important;
+  background: rgba(18, 14, 9, 0.8) !important;
+  border-bottom: 1.5px solid #7d5b20 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
+}
+
+body.light-mode #accountInfoModal .luxury-modal-header {
+  background: rgba(244, 237, 225, 0.7) !important;
+  border-bottom: 1.5px solid #b88d36 !important;
+}
+
+#accountInfoModal .luxury-modal-header h2 {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: #f5e6be !important;
+  background: none !important;
+  -webkit-text-fill-color: #f5e6be !important;
+  margin: 0 !important;
+  filter: none !important;
+}
+
+body.light-mode #accountInfoModal .luxury-modal-header h2 {
+  color: #241806 !important;
+  background: none !important;
+  -webkit-text-fill-color: #241806 !important;
+  filter: none !important;
+}
+
+/* 3. CLOSE BUTTON: Small Polished-Gold Control */
+#accountInfoModal .luxury-close-btn,
+#accountInfoModal #closeAccountInfoModal {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(135deg, #fff3d2 0%, #caa455 45%, #7a5416 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  color: #1a1206 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  transition: transform 0.15s ease, filter 0.15s ease !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  box-shadow: 0 0 0 1px #38240a, 0 1.5px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+#accountInfoModal .luxury-close-btn:hover,
+#accountInfoModal #closeAccountInfoModal:hover {
+  filter: brightness(1.1) !important;
+  transform: scale(1.05) !important;
+}
+
+body.light-mode #accountInfoModal .luxury-close-btn,
+body.light-mode #accountInfoModal #closeAccountInfoModal {
+  background: linear-gradient(135deg, #ffffff 0%, #caa455 45%, #7a5416 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  color: #1a1206 !important;
+  box-shadow: 0 0 0 1px #38240a, 0 1.5px 4px rgba(45, 30, 8, 0.25) !important;
+}
+
+/* 4. PROFILE PORTRAIT: Clean Symmetrical Machined Gold Bezel (No Crescent / No Halo / No Glow) */
 #accountInfoModal .avatar-selector-wrap {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  margin-bottom: 18px !important;
+  margin-bottom: 12px !important;
 }
 
 #accountInfoModal .interactive-avatar-ring {
   position: relative !important;
   display: inline-block !important;
-  padding: 4px !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 6px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle, #2b2318 0%, #120e0a 100%) !important;
-  border: 1.5px solid rgba(212, 175, 106, 0.55) !important;
+  /* Symmetrical warm rich gold body (rotationally isotropic — zero angular bias/crescent) */
+  background: radial-gradient(circle at center, #d4af58 0%, #c59d45 70%, #9e762c 100%) !important;
+  border: none !important;
+  /* Continuous, concentric 360° antique edge and uniform champagne highlight — NO glow/halo */
   box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 235, 180, 0.3) !important;
+    0 0 0 1px #221708,
+    0 2px 6px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 245, 215, 0.45) !important;
   cursor: pointer !important;
-  transition: all 0.25s ease !important;
+  transition: opacity 0.2s ease !important;
 }
 
 #accountInfoModal .interactive-avatar-ring:hover {
-  border-color: rgba(212, 175, 106, 0.8) !important;
-  transform: scale(1.02) !important;
+  transform: none !important;
+  box-shadow:
+    0 0 0 1px #221708,
+    0 2px 6px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 245, 215, 0.45) !important;
 }
 
 body.light-mode #accountInfoModal .interactive-avatar-ring {
-  background: radial-gradient(circle, #ffffff 0%, #ede3cf 100%) !important;
-  border: 1.5px solid rgba(185, 145, 75, 0.6) !important;
+  background: radial-gradient(circle at center, #dcba68 0%, #cba550 70%, #a47a2a 100%) !important;
   box-shadow:
-    0 4px 14px rgba(60, 45, 15, 0.12),
-    inset 0 1px 0 #ffffff !important;
+    0 0 0 1px #3a270d,
+    0 2px 5px rgba(45, 30, 8, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6) !important;
+}
+
+body.light-mode #accountInfoModal .interactive-avatar-ring:hover {
+  transform: none !important;
+  box-shadow:
+    0 0 0 1px #3a270d,
+    0 2px 5px rgba(45, 30, 8, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6) !important;
 }
 
 #accountInfoModal .phc-avatar-photo {
-  width: 68px !important;
-  height: 68px !important;
+  width: 92px !important;
+  height: 92px !important;
   border-radius: 50% !important;
   background-size: cover !important;
   background-position: center !important;
-  border: 1px solid rgba(0, 0, 0, 0.8) !important;
+  border: 1.5px solid #140d04 !important;
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.45) !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
+/* Explicitly disable any pseudo-elements, glares, halos, or beam reflections over the photo */
+#accountInfoModal .phc-avatar-photo::before,
+#accountInfoModal .phc-avatar-photo::after,
+#accountInfoModal .interactive-avatar-ring::before,
+#accountInfoModal .interactive-avatar-ring::after {
+  display: none !important;
+  content: none !important;
+}
+
+body.light-mode #accountInfoModal .phc-avatar-photo {
+  border: 1.5px solid #1a1206 !important;
+  box-shadow: inset 0 1.5px 3px rgba(60, 42, 14, 0.18) !important;
+}
+
+/* 5. CAMERA CONTROL: Small Precision Metallic Hallmark Emblem */
 #accountInfoModal .avatar-overlay-badge {
   position: absolute !important;
-  bottom: 2px !important;
-  right: 2px !important;
-  width: 24px !important;
-  height: 24px !important;
+  bottom: 4px !important;
+  right: 4px !important;
+  width: 18px !important;
+  height: 18px !important;
   border-radius: 50% !important;
-  background: linear-gradient(145deg, #2b2318 0%, #14100b 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.6) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 235, 180, 0.3) !important;
+  background: linear-gradient(135deg, #fef4dc 0%, #caa455 50%, #7d591a 100%) !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: 0 0 0 1px #221708, 0 1.5px 3px rgba(0, 0, 0, 0.35) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  color: #f0dfb3 !important;
+  color: #1a1206 !important;
+  transition: filter 0.15s ease !important;
+  transform: none !important;
 }
 
 [dir="rtl"] #accountInfoModal .avatar-overlay-badge {
   right: auto !important;
-  left: 2px !important;
+  left: 4px !important;
 }
 
 body.light-mode #accountInfoModal .avatar-overlay-badge {
-  background: linear-gradient(145deg, #ffffff 0%, #ecd8b4 100%) !important;
-  border: 1px solid rgba(185, 145, 75, 0.65) !important;
-  color: #7d5a1b !important;
-  box-shadow: 0 2px 5px rgba(60, 45, 15, 0.15) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #caa455 50%, #7a5416 100%) !important;
+  border: 1px solid #fef4dc !important;
+  color: #1a1206 !important;
+  box-shadow: 0 0 0 1px #38240a, 0 1.5px 3px rgba(45, 30, 8, 0.22) !important;
 }
 
 #accountInfoModal .avatar-overlay-badge svg {
-  width: 12px !important;
-  height: 12px !important;
+  width: 9px !important;
+  height: 9px !important;
   display: block !important;
+  stroke-width: 2 !important;
+}
+
+/* Change Portrait Label */
+#accountInfoModal [data-i18n="profile.changePortrait"] {
+  margin-top: 8px !important;
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: #c49a42 !important;
+}
+
+body.light-mode #accountInfoModal [data-i18n="profile.changePortrait"] {
+  color: #7d5b20 !important;
 }
 
 /* Avatar Presets Gallery */
 #accountInfoModal .avatar-presets-container {
   width: 100% !important;
-  margin-top: 10px !important;
+  margin-top: 8px !important;
 }
 
 #accountInfoModal .avatar-preset-scroll {
   display: flex !important;
   justify-content: center !important;
-  gap: 10px !important;
-  padding: 4px 0 !important;
+  gap: 8px !important;
+  padding: 2px 0 !important;
 }
 
 #accountInfoModal .avatar-preset-thumbnail {
-  width: 40px !important;
-  height: 40px !important;
+  width: 38px !important;
+  height: 38px !important;
   border-radius: 50% !important;
   background-size: cover !important;
   background-position: center !important;
-  border: 1.5px solid rgba(212, 175, 106, 0.28) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(196, 154, 66, 0.35) !important;
+  box-shadow: none !important;
   cursor: pointer !important;
-  transition: background 0.15s ease, transform 0.12s ease !important;
+  transition: border-color 0.15s ease, transform 0.12s ease !important;
   opacity: 0.65 !important;
 }
 
 #accountInfoModal .avatar-preset-thumbnail:hover {
   opacity: 1 !important;
-  border-color: rgba(212, 175, 106, 0.6) !important;
-  transform: translateY(-1px) !important;
+  border-color: #c49a42 !important;
 }
 
 #accountInfoModal .avatar-preset-thumbnail.active {
   opacity: 1 !important;
-  border: 1.5px solid #d4af6a !important;
-  box-shadow:
-    0 0 0 2px rgba(212, 175, 106, 0.35),
-    0 4px 10px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 235, 180, 0.4) !important;
+  border: 2px solid #caa455 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
   transform: scale(1.08) !important;
 }
 
 body.light-mode #accountInfoModal .avatar-preset-thumbnail {
-  border: 1.5px solid rgba(185, 145, 75, 0.35) !important;
-  box-shadow: 0 2px 4px rgba(60, 45, 15, 0.08) !important;
+  border: 1px solid rgba(150, 112, 38, 0.35) !important;
+  box-shadow: none !important;
+  opacity: 0.65 !important;
 }
 
 body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
-  border-color: #8c6724 !important;
-  box-shadow:
-    0 0 0 2px rgba(185, 145, 75, 0.4),
-    0 3px 8px rgba(60, 45, 15, 0.15) !important;
+  opacity: 1 !important;
+  border: 2px solid #8a6420 !important;
+  box-shadow: 0 2px 6px rgba(60, 42, 14, 0.15) !important;
+  transform: scale(1.08) !important;
 }
 
-/* Dossier Panels & Inputs */
+/* 6. SECTION PANEL: One Clean Subtle Recessed Panel Integrated into Modal Surface */
 #accountInfoModal .dossier-panel {
-  background: rgba(0, 0, 0, 0.22) !important;
-  border: 1px solid rgba(212, 175, 106, 0.14) !important;
-  border-radius: 12px !important;
-  padding: 13px 15px !important;
-  margin-bottom: 14px !important;
+  background: rgba(14, 11, 7, 0.6) !important;
+  border: 1px solid rgba(196, 154, 66, 0.28) !important;
+  border-radius: 8px !important;
+  padding: 12px 14px !important;
+  margin-bottom: 12px !important;
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.5) !important;
 }
 
 body.light-mode #accountInfoModal .dossier-panel {
-  background: rgba(185, 145, 75, 0.04) !important;
-  border: 1px solid rgba(185, 145, 75, 0.2) !important;
+  background: rgba(238, 230, 216, 0.45) !important;
+  border: 1px solid rgba(160, 120, 40, 0.32) !important;
+  border-radius: 8px !important;
+  padding: 12px 14px !important;
+  margin-bottom: 12px !important;
+  box-shadow: inset 0 1px 2px rgba(60, 42, 14, 0.04) !important;
 }
 
 #accountInfoModal .modal-section-title {
   font-family: var(--font-display, "Cinzel", serif) !important;
-  font-size: 10px !important;
+  font-size: 9.5px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.14em !important;
+  letter-spacing: 0.16em !important;
   text-transform: uppercase !important;
-  color: #d4af6a !important;
+  color: #d4b060 !important;
   margin: 0 0 10px 0 !important;
+  padding-bottom: 4px !important;
+  border-bottom: 1px solid rgba(196, 154, 66, 0.2) !important;
 }
 
 body.light-mode #accountInfoModal .modal-section-title {
-  color: #8c6724 !important;
+  color: #5c4014 !important;
+  border-bottom: 1px solid rgba(160, 120, 40, 0.22) !important;
 }
 
 #accountInfoModal .edit-profile-section {
-  margin-bottom: 11px !important;
+  margin-bottom: 10px !important;
 }
 
 #accountInfoModal .edit-profile-section:last-child {
@@ -20826,119 +20983,123 @@ body.light-mode #accountInfoModal .modal-section-title {
 
 #accountInfoModal .edit-profile-label {
   font-family: var(--font-ui, -apple-system, sans-serif) !important;
-  font-size: 8.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.1em !important;
+  font-size: 8px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  color: #9c8e79 !important;
+  color: #baa788 !important;
   margin-bottom: 4px !important;
   display: block !important;
 }
 
 body.light-mode #accountInfoModal .edit-profile-label {
-  color: #6d5f4c !important;
+  color: #6e5225 !important;
 }
 
+/* 7. INPUT FIELDS: Warm Ivory / Obsidian Surface, Subtle Recessed Depth, Clear Metallic Edge */
 #accountInfoModal .edit-profile-input,
 #accountInfoModal .edit-profile-textarea {
   width: 100% !important;
   box-sizing: border-box !important;
-  background: #090807 !important;
-  border: 1px solid rgba(212, 175, 106, 0.22) !important;
-  border-radius: 8px !important;
-  padding: 10px 12px !important;
-  font-size: 12.5px !important;
-  color: #f2e8d5 !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7) !important;
-  transition: all 0.2s ease !important;
+  background: #070503 !important;
+  border: 1px solid rgba(196, 154, 66, 0.35) !important;
+  border-radius: 6px !important;
+  padding: 8px 11px !important;
+  font-size: 12px !important;
+  color: #f2e6cb !important;
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.6) !important;
+  transition: border-color 0.15s ease !important;
   font-family: inherit !important;
+  outline: none !important;
 }
 
 #accountInfoModal .edit-profile-input:focus,
 #accountInfoModal .edit-profile-textarea:focus {
-  border-color: rgba(212, 175, 106, 0.65) !important;
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(212, 175, 106, 0.25) !important;
-  outline: none !important;
+  border-color: #caa455 !important;
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.8), 0 0 0 1px #caa455 !important;
 }
 
 body.light-mode #accountInfoModal .edit-profile-input,
 body.light-mode #accountInfoModal .edit-profile-textarea {
-  background: #fcfaf5 !important;
-  border: 1px solid rgba(185, 145, 75, 0.28) !important;
-  color: #20180d !important;
-  box-shadow: inset 0 1.5px 3px rgba(60, 45, 15, 0.08) !important;
+  background: #fbf8f1 !important;
+  border: 1px solid rgba(150, 112, 38, 0.42) !important;
+  color: #1a1206 !important;
+  box-shadow: inset 0 1.5px 3px rgba(60, 42, 14, 0.06) !important;
 }
 
 body.light-mode #accountInfoModal .edit-profile-input:focus,
 body.light-mode #accountInfoModal .edit-profile-textarea:focus {
-  border-color: rgba(185, 145, 75, 0.7) !important;
-  box-shadow:
-    inset 0 1.5px 3px rgba(60, 45, 15, 0.1),
-    0 0 0 1px rgba(185, 145, 75, 0.3) !important;
+  border-color: #8a6420 !important;
+  box-shadow: inset 0 1.5px 3px rgba(60, 42, 14, 0.08), 0 0 0 1px #8a6420 !important;
 }
 
+/* Quote Presets Chips */
 #accountInfoModal .quote-presets-container {
   display: flex !important;
   flex-wrap: wrap !important;
-  gap: 6px !important;
+  gap: 5px !important;
   margin-top: 6px !important;
 }
 
 #accountInfoModal .quote-preset-chip {
   font-family: var(--font-ui, -apple-system, sans-serif) !important;
-  font-size: 8.5px !important;
-  padding: 4px 8px !important;
+  font-size: 8px !important;
+  padding: 3px 7px !important;
   border-radius: 4px !important;
-  background: rgba(212, 175, 106, 0.08) !important;
-  border: 1px solid rgba(212, 175, 106, 0.25) !important;
-  color: #d4af6a !important;
+  background: rgba(196, 154, 66, 0.08) !important;
+  border: 1px solid rgba(196, 154, 66, 0.28) !important;
+  color: #caa455 !important;
   cursor: pointer !important;
-  transition: all 0.2s ease !important;
+  transition: all 0.15s ease !important;
 }
 
 #accountInfoModal .quote-preset-chip:hover {
-  background: rgba(212, 175, 106, 0.18) !important;
-  border-color: rgba(212, 175, 106, 0.5) !important;
-  color: #f5e6b8 !important;
+  background: rgba(196, 154, 66, 0.16) !important;
+  border-color: #caa455 !important;
+  color: #f7eed8 !important;
 }
 
 body.light-mode #accountInfoModal .quote-preset-chip {
-  background: rgba(185, 145, 75, 0.09) !important;
-  border: 1px solid rgba(185, 145, 75, 0.32) !important;
-  color: #7d5a1b !important;
+  background: rgba(168, 128, 48, 0.08) !important;
+  border: 1px solid rgba(160, 120, 40, 0.32) !important;
+  color: #5a3e14 !important;
 }
 
-/* Save Credentials Physical Gold Button */
+/* Clean Divider */
+#accountInfoModal .dossier-divider {
+  border: none !important;
+  height: 1px !important;
+  background: rgba(196, 154, 66, 0.2) !important;
+  margin: 12px 0 !important;
+}
+
+body.light-mode #accountInfoModal .dossier-divider {
+  background: rgba(160, 120, 40, 0.22) !important;
+}
+
+/* 8. SAVE BUTTON: Solid Luxury Precious-Metal Action Control */
 #accountInfoModal #saveAccountInfoBtn,
 #accountInfoModal .dossier-save-btn {
   width: 100% !important;
   box-sizing: border-box !important;
-  margin-top: 6px !important;
-  padding: 13px 16px !important;
-  border-radius: 10px !important;
+  margin-top: 4px !important;
+  padding: 11px 16px !important;
+  border-radius: 8px !important;
   font-family: var(--font-display, "Cinzel", serif) !important;
-  font-size: 11.5px !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.12em !important;
+  letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
-  background: linear-gradient(180deg, #e4c282 0%, #c49d52 50%, #a27c34 100%) !important;
-  border: 1px solid rgba(255, 240, 200, 0.45) !important;
-  color: #171108 !important;
-  box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+  background: linear-gradient(180deg, #d4af6a 0%, #946c24 100%) !important;
+  border: 1px solid #6b4b12 !important;
+  color: #0f0a04 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
   cursor: pointer !important;
-  transition: background 0.15s ease, transform 0.12s ease !important;
-  text-shadow: 0 1px 0 rgba(255, 245, 220, 0.4) !important;
+  transition: filter 0.15s ease, transform 0.12s ease !important;
 }
 
 #accountInfoModal #saveAccountInfoBtn:hover {
-  filter: brightness(1.06) !important;
-  box-shadow:
-    0 8px 22px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  filter: brightness(1.08) !important;
   transform: translateY(-1px) !important;
 }
 
@@ -20948,13 +21109,10 @@ body.light-mode #accountInfoModal .quote-preset-chip {
 
 body.light-mode #accountInfoModal #saveAccountInfoBtn,
 body.light-mode #accountInfoModal .dossier-save-btn {
-  background: linear-gradient(180deg, #d4af6a 0%, #b89146 50%, #916c27 100%) !important;
-  border: 1px solid rgba(255, 245, 220, 0.5) !important;
+  background: linear-gradient(180deg, #c49a42 0%, #855f1c 100%) !important;
+  border: 1px solid #5a3e0f !important;
   color: #ffffff !important;
-  box-shadow:
-    0 4px 14px rgba(60, 45, 15, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(60, 42, 14, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
 }
 
 /* -------------------------------------------------- */
@@ -21311,12 +21469,15 @@ body.light-mode #helpSupportModal [data-i18n^="misc.faq"][data-i18n$="a"] {
     padding: 16px !important;
   }
   #accountInfoModal .phc-avatar-photo {
-    width: 58px !important;
-    height: 58px !important;
+    width: 92px !important;
+    height: 92px !important;
+  }
+  #accountInfoModal .interactive-avatar-ring {
+    padding: 6px !important;
   }
   #accountInfoModal .avatar-preset-thumbnail {
-    width: 34px !important;
-    height: 34px !important;
+    width: 38px !important;
+    height: 38px !important;
   }
   #settingsModal .setting-row {
     padding: 10px 12px !important;
@@ -22178,7 +22339,7 @@ body #profile-tab .ossb-text {
     right: 12px !important;
     left: auto !important;
     inset-inline-start: auto !important;
-    inset-inline-end: 12px !important;
+    inset-inline-end: auto !important;
   }
   body #profile-tab .profile-hero-card .phc-name {
     font-size: 14.5px !important;
@@ -23759,16 +23920,14 @@ body.light-mode .rmc-lore-paragraph {
 /* 1. Sapphire Crystal Lens over Identity Medallions */
 .membership-card .portrait-photo,
 body #profile-tab .phc-avatar-photo,
-.sd-portrait-medallion,
-.interactive-avatar-ring .phc-avatar-photo {
+.sd-portrait-medallion {
   position: relative !important;
   overflow: hidden !important;
 }
 
 .membership-card .portrait-photo::after,
 body #profile-tab .phc-avatar-photo::after,
-.sd-portrait-medallion::after,
-.interactive-avatar-ring .phc-avatar-photo::after {
+.sd-portrait-medallion::after {
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
@@ -25158,9 +25317,9 @@ body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-edit-btn,
 html body #profile-tab #editAccountBtn,
 body[dir="rtl"] #profile-tab #editAccountBtn,
 html[dir="rtl"] body #profile-tab #editAccountBtn {
-  position: relative !important;
-  top: auto !important;
-  right: auto !important;
+  position: absolute !important;
+  top: 12px !important;
+  right: 14px !important;
   bottom: auto !important;
   left: auto !important;
   inset: auto !important;
@@ -25291,9 +25450,9 @@ body.light-mode #profile-tab .phc-specular-sheen {
 }
 
 body.light-mode #profile-tab .phc-tier-badge {
-  background: linear-gradient(180deg, #fffefb 0%, #f6f0e0 100%) !important;
-  border-color: rgba(190, 148, 55, 0.45) !important;
-  box-shadow: 0 1px 2px rgba(80, 55, 20, 0.06), inset 0 1px 0 #ffffff !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 body.light-mode #profile-tab .phc-tier {
@@ -26909,92 +27068,18 @@ html body #profile-tab .phc-loc {
   }
 }
 
-/* 4. LIGHT MODE DOSSIER & PROFILE EDIT BUTTON REAL CONTRAST (Point 3) */
-/* Eliminate any lingering dark/black pill artifacts in Light Mode */
-html body.light-mode #profile-tab .phc-edit-btn,
-body.light-mode #profile-tab .phc-edit-btn,
-body.light-mode #profile-tab #editAccountBtn {
-  background: linear-gradient(180deg, #ffffff 0%, #f6f0e2 100%) !important;
-  border: 1px solid rgba(185, 145, 65, 0.55) !important;
-  color: #4a3410 !important;
-  box-shadow:
-    0 1.5px 4px rgba(70, 50, 20, 0.08),
-    inset 0 1px 0 #ffffff !important;
-}
-
-html body.light-mode #profile-tab .phc-edit-btn:hover,
-body.light-mode #profile-tab .phc-edit-btn:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #ece2cb 100%) !important;
-  border-color: rgba(170, 125, 40, 0.85) !important;
-  color: #2e1e04 !important;
-  box-shadow:
-    0 2.5px 8px rgba(70, 50, 20, 0.14),
-    inset 0 1px 0 #ffffff !important;
-}
-
-html body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon,
-body.light-mode #profile-tab .phc-edit-btn svg {
-  stroke: #735016 !important;
-}
-
-/* Beside edit button: Insignia Pill & Tier Badge in Light Mode */
-body.light-mode #profile-tab .phc-insignia-pill,
-html body.light-mode #profile-tab .phc-insignia-pill {
-  background: rgba(188, 146, 62, 0.12) !important;
-  border: 0.5px solid rgba(188, 146, 62, 0.4) !important;
-  color: #6a4c17 !important;
-}
-
-body.light-mode #profile-tab .phc-tier-badge,
-html body.light-mode #profile-tab .phc-tier-badge {
-  background: linear-gradient(180deg, #fffefc 0%, #f4eee0 100%) !important;
-  border: 1px solid rgba(188, 146, 62, 0.45) !important;
-  color: #6a4c17 !important;
-  box-shadow: 0 1px 2px rgba(80, 55, 20, 0.06), inset 0 1px 0 #ffffff !important;
-}
-
-/* Calibre Specification Strip in Light Mode */
-body.light-mode #profile-tab .phc-watchmaking-strip {
-  border-top: 0.5px solid rgba(185, 145, 75, 0.25) !important;
-}
-
-body.light-mode #profile-tab .phc-strip-line {
-  background: linear-gradient(90deg, transparent, rgba(185, 145, 75, 0.35), transparent) !important;
-}
-
-body.light-mode #profile-tab .phc-strip-text {
-  color: #7d6542 !important;
-  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.9) !important;
-}
-
-/* 5. BACKGROUND WORLD MAP SEPARATION (Point 1 & Point 6) */
-/* The faint world map in the hero card must stay subtly recessed in the background */
-body #profile-tab .phc-world-map-bg {
-  z-index: 1 !important;
-  opacity: 0.45 !important;
-}
-
-body.light-mode #profile-tab .phc-world-map-bg {
-  opacity: 0.25 !important;
-}
-
-body.light-mode #profile-tab .phc-world-map-svg circle,
-body.light-mode #profile-tab .phc-world-map-svg ellipse,
-body.light-mode #profile-tab .phc-world-map-svg line,
-body.light-mode #profile-tab .phc-world-map-svg path {
-  stroke: rgba(160, 120, 50, 0.28) !important;
-}
+/* 4. LIGHT MODE DOSSIER ARCHIVE */
 
 /* ==========================================================================
-   THE 1% CLUB — PROFILE TAB MASTER REFINEMENT SPECIFICATION
-   1. Authentic 3D Precious Metal Outer Frame for Profile Header Card (Polished Champagne / Antique Gold)
-   2. Zero Drop Shadow behind Header Card (Floating via 3D Bevel & Material Depth)
-   3. Sovereign Registry & Sections Full-Width Symmetrical Alignment
-   4. High-Contrast Gold & Text in Light Mode & Dark Mode
-   5. Full Light Mode Adaptability for Edit Button (زر «تعديل»)
+   THE 1% CLUB — PROFILE MASTER IDENTITY CARD (STRICT REFERENCE REFINEMENT)
+   Strict 100% visual alignment with Reference 1 (Light Mode) and Reference 2 (Dark Mode).
    ========================================================================== */
 
-/* 1. PROFILE HEADER CARD: AUTHENTIC 3D PRECIOUS METAL FRAME & PHYSICAL BEVEL */
+/* 1. MASTER CARD CONTAINER & FRAME — DARK MODE (SOVEREIGN PHYSICAL PRECIOUS METAL) */
+html:not(.light-mode) body #profile-tab .profile-hero-card,
+html.dark-mode body #profile-tab .profile-hero-card,
+[data-theme="dark"] #profile-tab .profile-hero-card,
+body:not(.light-mode) #profile-tab .profile-hero-card,
 body #profile-tab .profile-hero-card,
 body #profile-tab #profileHeroPlaque.profile-hero-card,
 body #profile-tab #profileHeroPlaque.luxury-tilt-card {
@@ -27004,155 +27089,939 @@ body #profile-tab #profileHeroPlaque.luxury-tilt-card {
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
-  padding: 16px 16px 12px 16px !important;
+  padding: 14px 16px 16px 16px !important;
   margin: 0 0 16px 0 !important;
-  border-radius: 20px !important;
-  border: 4px solid transparent !important;
-  background-origin: border-box !important;
+  border-radius: 18px !important;
+  /* Layer 3: PRIMARY POLISHED GOLD BAND + Layer 2: Wide antique-gold bevel machined directly into continuous 4.5px solid metal frame */
+  border: 4.5px solid transparent !important;
+  background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   background-image:
-    /* Top ambient specular ray across obsidian dial */
-    radial-gradient(ellipse at 50% -12%, rgba(255, 238, 185, 0.14) 0%, rgba(212, 175, 106, 0.02) 45%, transparent 68%),
+    /* Top specular reflection across obsidian face */
+    radial-gradient(ellipse at 50% -12%, rgba(255, 246, 222, 0.08) 0%, rgba(224, 193, 106, 0.02) 40%, transparent 65%),
     /* Obsidian / Blackened Precious Metal Dial Face */
-    radial-gradient(circle at 50% 25%, #151318 0%, #0e0d11 50%, #060507 100%),
-    /* Authentic Precious Metal Frame: Champagne Gold & Antique Gold with Micro-Reflections & 3D Bevel Facets */
+    radial-gradient(ellipse at 50% 25%, #15110b 0%, #0d0905 50%, #050403 100%),
+    /* Layer 3: Solid Polished Gold Band with Anisotropic Specular Highlights & Bevel Reflections */
     linear-gradient(
-      var(--metal-angle, 140deg),
-      #38290f 0%,     /* Deep antique bronze/gold corner shadow */
-      #9e8140 10%,    /* Warm brushed antique gold */
-      #e0c382 18%,    /* Champagne gold reflection sheen */
-      #fff9ea 24%,    /* Polished metallic specular highlight */
-      #c6a45e 32%,    /* Warm gold midtone */
-      #30220a 46%,    /* Physical 3D bevel core shadow / facet transition */
-      #443213 52%,    /* Bevel groove occlusion */
-      #c2a25c 64%,    /* Secondary warm metallic body reflection */
-      #faeec6 74%,    /* Secondary soft champagne highlight */
-      #8f7030 86%,    /* Antique gold depth */
-      #1e1405 100%    /* Deep edge occlusion */
+      140deg,
+      #ffffff 0%,
+      #fff3d2 3.5%,
+      #caa455 11%,
+      #825d20 22%,
+      #422c0c 34%,
+      #1c1204 44%,
+      #694a17 52%,
+      #c49c44 59%,
+      #fae6b4 63.5%,
+      #ffffff 66%,
+      #f2d080 70%,
+      #966e25 80%,
+      #3f290a 90%,
+      #181003 96%,
+      #9c752c 100%
     ) !important;
   box-shadow:
-    /* Outer Edge: Crisp metallic rim boundary step (ZERO BLUR, ZERO DROP SHADOW) */
-    0 0 0 1px rgba(8, 6, 2, 0.98),
-    /* 3D Bevel: Upper chamfer sharp specular light catch */
-    inset 0 1.5px 1.5px rgba(255, 248, 228, 0.65),
-    /* 3D Bevel: Underside physical bevel groove shadow */
-    inset 0 -1.5px 1.5px rgba(18, 12, 4, 0.98),
-    /* 3D Bevel: Left ambient light catch */
-    inset 1.5px 0 1.5px rgba(255, 248, 228, 0.28),
-    /* 3D Bevel: Right side occlusion shadow */
-    inset -1.5px 0 1.5px rgba(18, 12, 4, 0.85),
-    /* Inner Edge: Precision dividing step seam between frame and dial face */
-    inset 0 0 0 1px rgba(8, 6, 2, 0.98),
-    /* Realistic internal dial depth: Recessed watch dial cavity shadow */
-    inset 0 3px 8px rgba(0, 0, 0, 0.82) !important;
+    /* Grounding shadow in 3D space — strict zero outer glow / bloom */
+    0 18px 44px -6px rgba(0, 0, 0, 0.96),
+    /* Layer 1: Deep recessed dark-gold edge (anchors physical depth) */
+    0 0 0 1px #120c04,
+    /* Layer 2: Directional bevel highlight & shadow */
+    0 -1px 0 1px rgba(255, 245, 215, 0.4),
+    0 1px 0 1px rgba(10, 6, 2, 0.95),
+    /* Layer 4: Sharp reflective polished-gold ridge along the inner bevel */
+    inset 0 1px 1px 0 rgba(255, 252, 235, 0.85),
+    inset 0 -1px 1px 0 rgba(30, 18, 4, 0.9),
+    /* Layer 5: Dark recessed inner edge step-down */
+    inset 0 0 0 1px #140d04,
+    /* Layer 6: Very fine inner champagne-gold highlight */
+    inset 0 0 0 2px rgba(212, 175, 106, 0.35),
+    /* Recessed obsidian core shadow */
+    inset 0 12px 28px -4px rgba(0, 0, 0, 0.9) !important;
   filter: none !important;
   -webkit-filter: none !important;
   outline: none !important;
   transform-style: preserve-3d !important;
 }
 
-/* Recessed Inner Edge: Precision Inlaid Gold Hairline Rehaut Rim */
+/* Precision Inlaid Inner Gold Hairline & Duplicate Borders Eliminated */
+html:not(.light-mode) body #profile-tab .profile-hero-card::after,
+html.dark-mode body #profile-tab .profile-hero-card::after,
+[data-theme="dark"] #profile-tab .profile-hero-card::after,
 body #profile-tab .profile-hero-card::after,
-body #profile-tab #profileHeroPlaque.profile-hero-card::after {
-  content: "" !important;
-  position: absolute !important;
-  inset: 5.5px !important;
-  border-radius: 15px !important;
-  border: 1px solid rgba(212, 175, 106, 0.42) !important;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.95),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.9),
-    inset 0 1.2px 1.5px rgba(255, 248, 225, 0.3) !important;
-  pointer-events: none !important;
-  z-index: 2 !important;
+body #profile-tab #profileHeroPlaque.profile-hero-card::after,
+html.light-mode body #profile-tab .profile-hero-card::after,
+body.light-mode #profile-tab .profile-hero-card::after,
+[data-theme="light"] #profile-tab .profile-hero-card::after,
+html.light-mode body #profile-tab #profileHeroPlaque.profile-hero-card::after,
+body.light-mode #profile-tab #profileHeroPlaque.profile-hero-card::after,
+body #profile-tab .profile-hero-card::before,
+body #profile-tab #profileHeroPlaque::before {
+  display: none !important;
+  border: none !important;
 }
 
-/* Zero Drop-Shadow on Hover / Active: Remains Floating Through 3D Material Alone */
-body #profile-tab .profile-hero-card:hover,
-body #profile-tab .profile-hero-card:active,
-body #profile-tab .profile-hero-card.is-hovered,
-body #profile-tab #profileHeroPlaque:hover,
-body #profile-tab #profileHeroPlaque:active,
-body #profile-tab #profileHeroPlaque.is-hovered {
-  filter: none !important;
-  -webkit-filter: none !important;
-  box-shadow:
-    0 0 0 1px rgba(8, 6, 2, 0.98),
-    inset 0 1.5px 1.5px rgba(255, 248, 228, 0.75),
-    inset 0 -1.5px 1.5px rgba(18, 12, 4, 0.98),
-    inset 1.5px 0 1.5px rgba(255, 248, 228, 0.35),
-    inset -1.5px 0 1.5px rgba(18, 12, 4, 0.85),
-    inset 0 0 0 1px rgba(8, 6, 2, 0.98),
-    inset 0 3px 8px rgba(0, 0, 0, 0.82) !important;
-}
-
-/* Light Mode: Profile Header Card (Precious Metal Champagne/Antique Gold with Luminous Ivory Face) */
+/* 2. MASTER CARD CONTAINER & 3D POLISHED METAL FRAME — LIGHT MODE (WARM IVORY PRECIOUS SUBSTRATE) */
+html.light-mode body #profile-tab .profile-hero-card,
 body.light-mode #profile-tab .profile-hero-card,
+[data-theme="light"] #profile-tab .profile-hero-card,
+html.light-mode body #profile-tab #profileHeroPlaque.profile-hero-card,
 body.light-mode #profile-tab #profileHeroPlaque.profile-hero-card,
+html.light-mode body #profile-tab #profileHeroPlaque.luxury-tilt-card,
 body.light-mode #profile-tab #profileHeroPlaque.luxury-tilt-card {
-  border: 4px solid transparent !important;
-  border-radius: 20px !important;
-  background-origin: border-box !important;
+  padding: 14px 16px 16px 16px !important;
+  margin: 0 0 16px 0 !important;
+  border-radius: 18px !important;
+  /* Layer 3: PRIMARY POLISHED GOLD BAND + Layer 2: Wide antique-gold bevel machined directly into continuous 4.5px solid metal frame */
+  border: 4.5px solid transparent !important;
+  background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   background-image:
-    radial-gradient(ellipse at 50% -12%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 238, 0.4) 45%, transparent 72%),
-    radial-gradient(circle at 50% 28%, #fdfbf7 0%, #f7f2e7 52%, #eee6d5 100%),
+    /* Top champagne specular reflection */
+    radial-gradient(ellipse at 50% -12%, rgba(255, 255, 255, 0.9) 0%, rgba(247, 233, 195, 0.3) 40%, transparent 68%),
+    /* Luminous Warm Ivory Luxury Substrate (#FAF6EE to #F3EAD5) */
+    radial-gradient(ellipse at 50% 18%, #ffffff 0%, #faf6ee 48%, #f3ead5 100%),
+    /* Layer 3: Solid Polished Gold Band with Anisotropic Specular Highlights & Bevel Reflections */
     linear-gradient(
-      var(--metal-angle, 140deg),
-      #523e17 0%,
-      #b89952 11%,
-      #f3dc9f 19%,
-      #ffffff 24%,
-      #c7aa64 32%,
-      #483510 46%,
-      #5c4618 52%,
-      #caa961 64%,
-      #fffcf0 74%,
-      #a1823d 86%,
-      #261a07 100%
+      140deg,
+      #ffffff 0%,
+      #faecc8 3.5%,
+      #d4ae56 11%,
+      #8c6420 22%,
+      #4f360d 34%,
+      #2a1c07 44%,
+      #785317 52%,
+      #caa455 59%,
+      #fae6b4 63.5%,
+      #ffffff 66%,
+      #faecc8 70%,
+      #9e7729 80%,
+      #4d340d 90%,
+      #241705 96%,
+      #be953e 100%
     ) !important;
   box-shadow:
-    /* Outer Edge: Crisp metallic rim boundary step (ZERO BLUR, ZERO DROP SHADOW) */
-    0 0 0 1px rgba(150, 115, 45, 0.4),
-    /* 3D Bevel: Upper chamfer light catch */
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.95),
-    /* 3D Bevel: Underside bevel shadow */
-    inset 0 -1.5px 1.5px rgba(90, 65, 20, 0.28),
-    /* 3D Bevel: Side catches */
-    inset 1.5px 0 1.5px rgba(255, 255, 255, 0.5),
-    inset -1.5px 0 1.5px rgba(90, 65, 20, 0.2),
-    /* Inner Edge: Step seam between frame and dial */
-    inset 0 0 0 1px rgba(175, 135, 55, 0.35),
-    /* Recessed dial depth */
-    inset 0 2px 5px rgba(70, 52, 22, 0.08) !important;
+    /* Ground shadow in light space */
+    0 14px 34px -4px rgba(50, 35, 12, 0.22),
+    /* Layer 1: Deep recessed dark-gold baseline */
+    0 0 0 1px #38240a,
+    /* Layer 2: Directional bevel light */
+    0 -1px 0 1px rgba(255, 255, 255, 0.95),
+    0 1px 0 1px rgba(40, 26, 8, 0.6),
+    /* Layer 4: Sharp reflective polished-gold ridge along the inner bevel */
+    inset 0 1px 1.5px 0 #ffffff,
+    inset 0 -1px 1.5px 0 rgba(60, 40, 10, 0.5),
+    /* Layer 5: Dark recessed inner edge */
+    inset 0 0 0 1px #38240a,
+    /* Layer 6: Very fine inner champagne-gold highlight */
+    inset 0 0 0 2px rgba(188, 144, 52, 0.45),
+    /* Recessed ivory core shadow */
+    inset 0 8px 22px -2px rgba(90, 65, 25, 0.14) !important;
   filter: none !important;
   -webkit-filter: none !important;
+  outline: none !important;
+  transform-style: preserve-3d !important;
 }
 
-body.light-mode #profile-tab .profile-hero-card::after,
-body.light-mode #profile-tab #profileHeroPlaque.profile-hero-card::after {
-  inset: 5.5px !important;
-  border-radius: 15px !important;
-  border: 1px solid rgba(195, 155, 65, 0.42) !important;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.85),
-    inset 0 0 0 1px rgba(150, 110, 35, 0.12),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95) !important;
+/* 3. Discontinued Clasps & Corners — Continuous Machined Precious-Metal Perimeter */
+body #profile-tab .phc-frame-clasp {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
-body.light-mode #profile-tab .profile-hero-card:hover,
-body.light-mode #profile-tab .profile-hero-card:active,
-body.light-mode #profile-tab #profileHeroPlaque:hover,
-body.light-mode #profile-tab #profileHeroPlaque:active {
+body #profile-tab .profile-hero-card .corner,
+body #profile-tab #profileHeroPlaque .corner,
+body #profile-tab .corner-tl,
+body #profile-tab .corner-tr,
+body #profile-tab .corner-bl,
+body #profile-tab .corner-br,
+body #profile-tab .phc-corner-flourish,
+body #profile-tab .phc-specular-sheen,
+body #profile-tab #profileHeroPlaque .phc-specular-sheen,
+body #profile-tab .phc-world-map-bg {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* 3b. STRUCTURED SOVEREIGN GUILLOCHÉ & INTAGLIO ENGRAVING (PRECISION MACHINED HOROLOGY) */
+body #profile-tab .phc-guilloche-pattern {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 13.5px !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  background-image: none !important;
+  background: none !important;
+}
+
+body #profile-tab .phc-guilloche-svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-guilloche-pattern,
+body:not(.light-mode) #profile-tab .phc-guilloche-pattern {
+  color: #caa455 !important;
+  opacity: 0.16 !important;
+}
+
+html.light-mode body #profile-tab .phc-guilloche-pattern,
+body.light-mode #profile-tab .phc-guilloche-pattern,
+[data-theme="light"] #profile-tab .phc-guilloche-pattern {
+  color: #7d591e !important;
+  opacity: 0.13 !important;
+}
+
+/* 5. HORIZONTAL SOVEREIGN CARD COMPOSITION (MOVED DOWN: INDEPENDENT ZONE CLEARLY BELOW EDIT BUTTON) */
+html body #profile-tab .phc-horizontal-layout,
+html[dir="rtl"] body #profile-tab .phc-horizontal-layout,
+body[dir="rtl"] #profile-tab .phc-horizontal-layout,
+body #profile-tab .phc-horizontal-layout {
+  position: relative !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 16px !important;
+  z-index: 3 !important;
+  direction: ltr !important;
+  transform-style: preserve-3d !important;
+  margin-top: 30px !important; /* Clearly below the button: 14px padding + 30px = 44px top, button ends at 35px */
+}
+
+/* 6. LEFT: 3D PORTRAIT MEDALLION & SOVEREIGN CROWN COIN (ENLARGED & MOVED DOWN) */
+body #profile-tab .phc-left-col {
+  flex: 0 0 82px !important;
+  width: 82px !important;
+  height: 82px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  z-index: 5 !important;
+  transform-style: preserve-3d !important;
+}
+
+body #profile-tab .phc-medallion-case {
+  position: relative !important;
+  width: 82px !important;
+  height: 82px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transform-style: preserve-3d !important;
+  transform: translateZ(12px);
+}
+
+html:not(.light-mode) body #profile-tab .phc-avatar-ring,
+html.dark-mode body #profile-tab .phc-avatar-ring,
+[data-theme="dark"] #profile-tab .phc-avatar-ring,
+body:not(.light-mode) #profile-tab .phc-avatar-ring {
+  position: relative !important;
+  width: 82px !important;
+  height: 82px !important;
+  border-radius: 50% !important;
+  padding: 4px !important;
+  box-sizing: border-box !important;
+  background: conic-gradient(
+    from 135deg,
+    #4A3515 0deg,
+    #806126 25deg,
+    #B18A3D 45deg,
+    #D8B65A 70deg,
+    #F7E9C3 85deg,
+    #FFFFFF 90deg,
+    #D8B65A 115deg,
+    #B18A3D 145deg,
+    #4A3515 180deg,
+    #806126 215deg,
+    #B18A3D 235deg,
+    #D8B65A 260deg,
+    #F7E9C3 280deg,
+    #FFFFFF 288deg,
+    #D8B65A 315deg,
+    #4A3515 360deg
+  ) !important;
   box-shadow:
-    0 0 0 1px rgba(150, 115, 45, 0.45),
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.98),
-    inset 0 -1.5px 1.5px rgba(90, 65, 20, 0.28),
-    inset 1.5px 0 1.5px rgba(255, 255, 255, 0.55),
-    inset -1.5px 0 1.5px rgba(90, 65, 20, 0.2),
-    inset 0 0 0 1px rgba(175, 135, 55, 0.4),
-    inset 0 2px 5px rgba(70, 52, 22, 0.08) !important;
-  filter: none !important;
+    0 0 0 1px rgba(0, 0, 0, 0.95),
+    0 0 0 1.5px rgba(235, 195, 95, 0.75),
+    0 7px 20px -2px rgba(0, 0, 0, 0.92),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.85),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.92) !important;
+  transform-style: preserve-3d !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.light-mode body #profile-tab .phc-avatar-ring,
+body.light-mode #profile-tab .phc-avatar-ring,
+[data-theme="light"] #profile-tab .phc-avatar-ring {
+  position: relative !important;
+  width: 82px !important;
+  height: 82px !important;
+  border-radius: 50% !important;
+  padding: 4px !important;
+  box-sizing: border-box !important;
+  background: conic-gradient(
+    from 135deg,
+    #5A4016 0deg,
+    #806126 25deg,
+    #B18A3D 45deg,
+    #D8B65A 70deg,
+    #FFFDF5 85deg,
+    #FFFFFF 90deg,
+    #D8B65A 115deg,
+    #B18A3D 145deg,
+    #5A4016 180deg,
+    #806126 215deg,
+    #B18A3D 235deg,
+    #D8B65A 260deg,
+    #FFFDF5 280deg,
+    #FFFFFF 288deg,
+    #D8B65A 315deg,
+    #5A4016 360deg
+  ) !important;
+  box-shadow:
+    0 0 0 1px rgba(120, 88, 30, 0.4),
+    0 0 0 1.5px rgba(255, 255, 255, 0.95),
+    0 6px 16px -2px rgba(90, 65, 20, 0.24),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.98),
+    inset -1px -1px 2px rgba(100, 70, 20, 0.35) !important;
+  transform-style: preserve-3d !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body #profile-tab .phc-avatar-photo {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* Sovereign Crown Coin Hallmark (Integrated at 4:30 on the Bezel) */
+body #profile-tab .phc-crown-badge {
+  position: absolute !important;
+  bottom: 0px !important;
+  right: 0px !important;
+  inset-inline-end: 0px !important;
+  inset-inline-start: auto !important;
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  padding: 1.5px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 8 !important;
+  transform-style: preserve-3d !important;
+  transform: translateZ(5px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-crown-badge,
+html.dark-mode body #profile-tab .phc-crown-badge,
+[data-theme="dark"] #profile-tab .phc-crown-badge,
+body:not(.light-mode) #profile-tab .phc-crown-badge {
+  background: conic-gradient(
+    from 135deg,
+    #4A3515 0deg,
+    #806126 30deg,
+    #D8B65A 60deg,
+    #F7E9C3 90deg,
+    #B18A3D 145deg,
+    #4A3515 220deg,
+    #D8B65A 270deg,
+    #4A3515 360deg
+  ) !important;
+  box-shadow:
+    0 1.5px 5px rgba(0, 0, 0, 0.8),
+    0 0 0 0.5px rgba(18, 12, 5, 0.9) !important;
+}
+
+html.light-mode body #profile-tab .phc-crown-badge,
+body.light-mode #profile-tab .phc-crown-badge,
+[data-theme="light"] #profile-tab .phc-crown-badge {
+  background: conic-gradient(
+    from 135deg,
+    #5A4016 0deg,
+    #806126 30deg,
+    #D8B65A 60deg,
+    #FFFDF5 90deg,
+    #B18A3D 145deg,
+    #5A4016 220deg,
+    #D8B65A 270deg,
+    #5A4016 360deg
+  ) !important;
+  box-shadow:
+    0 1.5px 4px rgba(80, 55, 20, 0.22),
+    0 0 0 0.5px rgba(120, 88, 30, 0.35) !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-crown-badge .phc-coin-relief,
+body:not(.light-mode) #profile-tab .phc-crown-badge .phc-coin-relief {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: radial-gradient(circle at 35% 30%, #5C4318 0%, #30210A 55%, #150E04 100%) !important;
+  box-shadow: inset 0 0.8px 0.8px rgba(255, 245, 215, 0.3), inset 0 -0.8px 1px rgba(0, 0, 0, 0.9) !important;
+}
+
+html.light-mode body #profile-tab .phc-crown-badge .phc-coin-relief,
+body.light-mode #profile-tab .phc-crown-badge .phc-coin-relief {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: radial-gradient(circle at 35% 30%, #D8B65A 0%, #8A6421 60%, #4A330D 100%) !important;
+  box-shadow: inset 0 0.8px 1px rgba(255, 255, 255, 0.6), inset 0 -0.8px 1px rgba(45, 30, 8, 0.5) !important;
+}
+
+body #profile-tab .phc-crown-badge svg,
+body #profile-tab .phc-crown-coin-svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-crown-badge svg,
+html.dark-mode body #profile-tab .phc-crown-badge svg,
+body:not(.light-mode) #profile-tab .phc-crown-badge svg {
+  color: #F7E9C3 !important;
+  fill: #F7E9C3 !important;
+  filter: drop-shadow(0 0.5px 0.5px rgba(0, 0, 0, 0.8));
+}
+
+html.light-mode body #profile-tab .phc-crown-badge svg,
+body.light-mode #profile-tab .phc-crown-badge svg,
+[data-theme="light"] #profile-tab .phc-crown-badge svg {
+  color: #FFF6D6 !important;
+  fill: #FFF6D6 !important;
+  filter: drop-shadow(0 0.5px 0.5px rgba(35, 22, 6, 0.6));
+}
+
+/* 7. CENTER COLUMN: REFINED IDENTITY HIERARCHY (PROTECTED AGAINST COLLISION) */
+html body #profile-tab .phc-center-col,
+html[dir="rtl"] body #profile-tab .phc-center-col,
+body[dir="rtl"] #profile-tab .phc-center-col,
+body #profile-tab .phc-center-col {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  direction: ltr !important;
+  gap: 0px !important;
+  z-index: 3 !important;
+  overflow: visible !important;
+  padding-top: 0px !important;
+  padding-bottom: 2px !important;
+  padding-right: 4px !important;
+  padding-left: 0px !important;
+}
+
+/* Name — Authentic Polished 24K Sovereign Gold (Full Width, Naturally Wrapping, Never Colliding with Top Button) */
+html:not(.light-mode) body #profile-tab .phc-name,
+html body:not(.light-mode) #profile-tab .phc-name,
+body:not(.light-mode) #profile-tab .phc-name,
+#profileHeroPlaque .phc-name {
+  font-family: 'Cinzel', 'Amiri', var(--font-display, serif) !important;
+  font-size: clamp(1.05rem, 3.4vw, 1.28rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  line-height: 1.22 !important;
+  margin: 0 0 2px 0 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow: visible !important;
+  max-width: 100% !important;
+  /* Authentic Multi-tonal Metallic Gold: Champagne #F7E9C3, Polished #D8B65A, Antique #B18A3D, Deep #806126, Dark #4A3515 */
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7E9C3 20%, #D8B65A 48%, #B18A3D 76%, #4A3515 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 1.5px 3px rgba(0, 0, 0, 0.95)) !important;
+}
+
+html.light-mode body #profile-tab .phc-name,
+html body.light-mode #profile-tab .phc-name,
+body.light-mode #profile-tab .phc-name,
+[data-theme="light"] #profile-tab .phc-name {
+  font-family: 'Cinzel', 'Amiri', var(--font-display, serif) !important;
+  font-size: clamp(1.05rem, 3.4vw, 1.28rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  line-height: 1.22 !important;
+  margin: 0 0 2px 0 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow: visible !important;
+  max-width: 100% !important;
+  /* Ultra-Crisp Antique Burnished Bronze-Gold for Supreme Day-Mode Legibility */
+  background: linear-gradient(180deg, #241604 0%, #4A3515 35%, #806126 70%, #241604 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0.5px 0.5px rgba(255, 255, 255, 0.9)) !important;
+}
+
+/* Tier: High-Contrast Sovereign Insignia Metadata */
+body #profile-tab .phc-tier-badge-row {
+  display: flex !important;
+  align-items: center !important;
+  margin: 1px 0 0 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+html body #profile-tab .phc-tier-badge,
+body #profile-tab .phc-tier-badge,
+#profileHeroPlaque .phc-tier-badge {
+  font-family: 'Cinzel', serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  line-height: 1.2 !important;
+  background: none !important;
+  background-image: none !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-tier-badge,
+html.dark-mode body #profile-tab .phc-tier-badge,
+[data-theme="dark"] #profile-tab .phc-tier-badge,
+body:not(.light-mode) #profile-tab .phc-tier-badge {
+  color: #D8B65A !important;
+  background: none !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
+}
+
+html.light-mode body #profile-tab .phc-tier-badge,
+body.light-mode #profile-tab .phc-tier-badge,
+[data-theme="light"] #profile-tab .phc-tier-badge {
+  color: #6E4E16 !important;
+  background: none !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+body #profile-tab .phc-insignia-pill,
+body #profile-tab .phc-diamond-rule {
+  display: none !important;
+}
+
+/* 7b. Refined Sovereign Ornamental Divider (Thin Gold Line with Central Diamond Insignia) */
+body #profile-tab .phc-ornamental-divider {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  width: 100% !important;
+  max-width: 160px !important;
+  margin: 4px 0 3px 0 !important;
+  opacity: 0.85 !important;
+}
+
+body #profile-tab .phc-od-line {
+  flex: 1 1 0% !important;
+  height: 0.75px !important;
+  border: none !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-od-line,
+body:not(.light-mode) #profile-tab .phc-od-line {
+  background: linear-gradient(90deg, rgba(216, 182, 90, 0.8) 0%, rgba(177, 138, 61, 0.25) 100%) !important;
+}
+
+html.light-mode body #profile-tab .phc-od-line,
+body.light-mode #profile-tab .phc-od-line,
+[data-theme="light"] #profile-tab .phc-od-line {
+  background: linear-gradient(90deg, rgba(160, 115, 35, 0.75) 0%, rgba(180, 140, 50, 0.2) 100%) !important;
+}
+
+body #profile-tab .phc-od-diamond {
+  font-size: 7px !important;
+  line-height: 1 !important;
+  user-select: none !important;
+  flex-shrink: 0 !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-od-diamond,
+body:not(.light-mode) #profile-tab .phc-od-diamond {
+  color: #D8B65A !important;
+  text-shadow: 0 0 3px rgba(247, 233, 195, 0.6) !important;
+}
+
+html.light-mode body #profile-tab .phc-od-diamond,
+body.light-mode #profile-tab .phc-od-diamond,
+[data-theme="light"] #profile-tab .phc-od-diamond {
+  color: #7A571A !important;
+}
+
+/* Quote: High-Clarity Elegant Italic Serif */
+body #profile-tab .phc-quote-wrap {
+  display: inline-flex !important;
+  align-items: baseline !important;
+  gap: 2px !important;
+  max-width: 100% !important;
+  margin: 3px 0 5px 0 !important;
+}
+
+body #profile-tab .phc-quote-mark {
+  font-family: 'Cormorant Garamond', var(--font-display, serif) !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  user-select: none !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-quote-mark,
+body:not(.light-mode) #profile-tab .phc-quote-mark {
+  color: rgba(247, 233, 195, 0.85) !important;
+}
+
+html.light-mode body #profile-tab .phc-quote-mark,
+body.light-mode #profile-tab .phc-quote-mark,
+[data-theme="light"] #profile-tab .phc-quote-mark {
+  color: #6E4E16 !important;
+}
+
+body #profile-tab .phc-quote {
+  font-family: 'Cormorant Garamond', 'Amiri', serif !important;
+  font-style: italic !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.2px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: normal !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-quote,
+body:not(.light-mode) #profile-tab .phc-quote {
+  color: #F0E4D2 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
+}
+
+html.light-mode body #profile-tab .phc-quote,
+body.light-mode #profile-tab .phc-quote,
+[data-theme="light"] #profile-tab .phc-quote {
+  color: #382810 !important;
+  text-shadow: none !important;
+}
+
+/* Metadata Line: High-Precision Coordinates */
+body #profile-tab .phc-meta-line {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-family: 'Cinzel', var(--font-mono, monospace) !important;
+  font-size: 9px !important;
+  letter-spacing: 0.5px !important;
+  white-space: nowrap !important;
+  margin-top: 1px !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+body #profile-tab .phc-meta-globe-icon {
+  width: 12px !important;
+  height: 12px !important;
+  stroke-width: 1.5 !important;
+  flex-shrink: 0 !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-meta-globe-icon,
+body:not(.light-mode) #profile-tab .phc-meta-globe-icon {
+  stroke: #D8B65A !important;
+}
+
+html.light-mode body #profile-tab .phc-meta-globe-icon,
+body.light-mode #profile-tab .phc-meta-globe-icon,
+[data-theme="light"] #profile-tab .phc-meta-globe-icon {
+  stroke: #6E4E16 !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-id,
+body:not(.light-mode) #profile-tab .phc-id {
+  color: #F7E9C3 !important;
+  font-weight: 700 !important;
+}
+
+html.light-mode body #profile-tab .phc-id,
+body.light-mode #profile-tab .phc-id,
+[data-theme="light"] #profile-tab .phc-id {
+  color: #1F1303 !important;
+  font-weight: 700 !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-meta-pipe,
+body:not(.light-mode) #profile-tab .phc-meta-pipe {
+  color: rgba(216, 182, 90, 0.5) !important;
+  font-size: 8px !important;
+}
+
+html.light-mode body #profile-tab .phc-meta-pipe,
+body.light-mode #profile-tab .phc-meta-pipe,
+[data-theme="light"] #profile-tab .phc-meta-pipe {
+  color: rgba(165, 120, 38, 0.5) !important;
+  font-size: 8px !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-est,
+body:not(.light-mode) #profile-tab .phc-est {
+  color: #D8C7AA !important;
+  font-weight: 600 !important;
+}
+
+html.light-mode body #profile-tab .phc-est,
+body.light-mode #profile-tab .phc-est,
+[data-theme="light"] #profile-tab .phc-est {
+  color: #4A3618 !important;
+  font-weight: 600 !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-loc,
+body:not(.light-mode) #profile-tab .phc-loc {
+  color: #D8C7AA !important;
+  font-weight: 600 !important;
+}
+
+html.light-mode body #profile-tab .phc-loc,
+body.light-mode #profile-tab .phc-loc,
+[data-theme="light"] #profile-tab .phc-loc {
+  color: #4A3618 !important;
+  font-weight: 600 !important;
+}
+
+/* 8. TOP-RIGHT SOVEREIGN EDIT PROFILE PLAQUE BUTTON (PHYSICAL METAL PLAQUE) */
+html body #profile-tab .profile-hero-card .phc-edit-btn,
+html body #profile-tab #editAccountBtn,
+body #profile-tab .phc-edit-btn,
+body #profile-tab #editAccountBtn,
+body[dir="rtl"] #profile-tab #editAccountBtn,
+html[dir="rtl"] body #profile-tab #editAccountBtn,
+[dir="rtl"] #profile-tab #editAccountBtn,
+body[dir="rtl"] #profile-tab .phc-edit-btn,
+html[dir="rtl"] body #profile-tab .phc-edit-btn,
+[dir="rtl"] #profile-tab .phc-edit-btn {
+  position: absolute !important;
+  top: 11px !important;
+  right: 15px !important;
+  left: auto !important;
+  bottom: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: 15px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: 24px !important;
+  padding: 0 10px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  font-family: 'Cinzel', 'Readex Pro', sans-serif !important;
+  font-size: 9.2px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.6px !important;
+  white-space: nowrap !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+  user-select: none !important;
+  z-index: 10 !important;
+}
+
+/* Dark Mode Edit Plaque: Polished 24K Gold Rim with Recessed Edge & Blackened Precious-Metal Interior */
+html:not(.light-mode) body #profile-tab .phc-edit-btn,
+html.dark-mode body #profile-tab .phc-edit-btn,
+[data-theme="dark"] #profile-tab .phc-edit-btn,
+body:not(.light-mode) #profile-tab .phc-edit-btn,
+body:not(.light-mode) #profile-tab #editAccountBtn {
+  background: linear-gradient(180deg, #2A2012 0%, #151009 50%, #0C0905 100%) !important;
+  border: 1px solid #C39A43 !important;
+  box-shadow:
+    0 0 0 0.75px #5A4018, /* recessed darker edge */
+    0 2px 8px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(247, 233, 195, 0.45),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.8) !important;
+  color: #F7E9C3 !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-edit-btn svg,
+body:not(.light-mode) #profile-tab .phc-edit-btn svg,
+body:not(.light-mode) #profile-tab .phc-edit-btn .phc-edit-icon {
+  stroke: #E0C16A !important;
+  width: 11px !important;
+  height: 11px !important;
+}
+
+html:not(.light-mode) body #profile-tab .phc-edit-btn .phc-edit-txt,
+body:not(.light-mode) #profile-tab .phc-edit-btn .phc-edit-txt,
+body:not(.light-mode) #profile-tab .phc-edit-btn span {
+  color: #F7E9C3 !important;
+}
+
+/* Light Mode Edit Plaque: Polished Gold Rim with Recessed Edge & Warm Silk Ivory Interior */
+html.light-mode body #profile-tab .phc-edit-btn,
+body.light-mode #profile-tab .phc-edit-btn,
+[data-theme="light"] #profile-tab .phc-edit-btn,
+html.light-mode body #profile-tab #editAccountBtn,
+body.light-mode #profile-tab #editAccountBtn,
+[data-theme="light"] #profile-tab #editAccountBtn {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF6EE 55%, #F0E6D2 100%) !important;
+  border: 1px solid #C39A43 !important;
+  box-shadow:
+    0 0 0 0.75px #7A571A, /* recessed darker edge */
+    0 2px 6px rgba(90, 64, 24, 0.16),
+    inset 0 1px 1px #FFFFFF,
+    inset 0 -1px 1px rgba(122, 87, 26, 0.18) !important;
+  color: #3A280D !important;
+}
+
+html.light-mode body #profile-tab .phc-edit-btn svg,
+body.light-mode #profile-tab .phc-edit-btn svg,
+[data-theme="light"] #profile-tab .phc-edit-btn svg,
+body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon {
+  stroke: #7A571A !important;
+  width: 11px !important;
+  height: 11px !important;
+}
+
+html.light-mode body #profile-tab .phc-edit-btn .phc-edit-txt,
+body.light-mode #profile-tab .phc-edit-btn .phc-edit-txt,
+[data-theme="light"] #profile-tab .phc-edit-btn .phc-edit-txt,
+body.light-mode #profile-tab .phc-edit-btn span {
+  color: #3A280D !important;
+}
+
+body #profile-tab .phc-edit-btn:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+body #profile-tab .phc-edit-btn:active {
+  transform: translateY(0px) scale(0.97) !important;
+}
+
+/* 9. SPECIFICATION STRIP (HIDDEN TO MATCH REFERENCE COMPOSITION) */
+body #profile-tab .phc-watchmaking-strip {
+  display: none !important;
+}
+
+/* 10. RESPONSIVE OPTIMIZATIONS FOR MOBILE VIEWPORTS (GUARANTEED DOWNWARD GAP) */
+@media (max-width: 480px) {
+  body #profile-tab .profile-hero-card {
+    padding: 13px 14px 15px 14px !important;
+  }
+  body #profile-tab .phc-horizontal-layout {
+    gap: 12px !important;
+    margin-top: 28px !important; /* Clearly below button: 13px padding + 28px = 41px, button ends at 34px */
+  }
+  body #profile-tab .phc-left-col {
+    flex: 0 0 76px !important;
+    width: 76px !important;
+    height: 76px !important;
+  }
+  body #profile-tab .phc-medallion-case {
+    width: 76px !important;
+    height: 76px !important;
+  }
+  body #profile-tab .phc-avatar-ring {
+    width: 76px !important;
+    height: 76px !important;
+  }
+  body #profile-tab .phc-center-col {
+    padding-top: 0px !important;
+    padding-right: 2px !important;
+    padding-left: 0 !important;
+  }
+  body #profile-tab .phc-name {
+    font-size: clamp(1.02rem, 3.4vw, 1.2rem) !important;
+    letter-spacing: 0.8px !important;
+  }
+  body #profile-tab .phc-tier-badge {
+    font-size: 9.8px !important;
+  }
+  body #profile-tab .phc-quote {
+    font-size: 11px !important;
+  }
+  body #profile-tab .phc-meta-line {
+    font-size: 8.5px !important;
+    gap: 4px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  body #profile-tab .profile-hero-card {
+    padding: 11px 12px 13px 12px !important;
+  }
+  body #profile-tab .phc-horizontal-layout {
+    gap: 10px !important;
+    margin-top: 26px !important; /* Clearly below button: 11px padding + 26px = 37px, button ends at 31px */
+  }
+  body #profile-tab .phc-left-col {
+    flex: 0 0 70px !important;
+    width: 70px !important;
+    height: 70px !important;
+  }
+  body #profile-tab .phc-medallion-case {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  body #profile-tab .phc-avatar-ring {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  body #profile-tab .phc-crown-badge {
+    width: 19px !important;
+    height: 19px !important;
+  }
+  body #profile-tab .phc-center-col {
+    padding-top: 0px !important;
+    padding-right: 2px !important;
+    padding-left: 0 !important;
+  }
+  body #profile-tab .phc-name {
+    font-size: 0.98rem !important;
+    letter-spacing: 0.6px !important;
+  }
+  body #profile-tab .phc-meta-line {
+    font-size: 7.8px !important;
+    gap: 3.5px !important;
+  }
 }
 
 /* 2. BALANCED FULL-WIDTH ALIGNMENT FOR ALL PROFILE SECTIONS */
@@ -27237,108 +28106,7 @@ body #profile-tab .deed-security-ribbon {
   }
 }
 
-/* 3. EDIT BUTTON: COMPLETE LIGHT MODE & DARK MODE HARMONY */
-/* Dark Mode Base */
-html body #profile-tab .phc-edit-btn,
-body #profile-tab .phc-edit-btn,
-body #profile-tab #editAccountBtn {
-  position: relative !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 5px !important;
-  height: 28px !important;
-  padding: 0 11px !important;
-  border-radius: 8px !important;
-  background: var(--btn-pill-bg) !important;
-  border: 1px solid var(--btn-pill-border) !important;
-  box-shadow: var(--btn-pill-shadow) !important;
-  cursor: pointer !important;
-  color: var(--btn-pill-color) !important;
-  font-family: var(--font-display) !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  line-height: 1 !important;
-  letter-spacing: 0.3px !important;
-  white-space: nowrap !important;
-  transition: background 0.15s ease, transform 0.12s ease !important;
-  user-select: none !important;
-}
-
-html body #profile-tab .phc-edit-btn .phc-edit-icon,
-body #profile-tab .phc-edit-btn svg {
-  width: 12px !important;
-  height: 12px !important;
-  stroke: var(--btn-pill-icon) !important;
-  fill: none !important;
-  stroke-width: 1.8 !important;
-}
-
-html body #profile-tab .phc-edit-btn .phc-edit-txt,
-body #profile-tab .phc-edit-btn span {
-  color: var(--btn-pill-color) !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-}
-
-/* 4. LIGHT MODE GOLD TEXT & METADATA CONTRAST ENHANCEMENT */
-body.light-mode #profile-tab .phc-name {
-  color: #1a150e !important;
-  -webkit-text-fill-color: #1a150e !important;
-  background: none !important;
-  text-shadow: none !important;
-}
-
-body.light-mode #profile-tab .phc-tier-badge {
-  background: linear-gradient(180deg, #ffffff 0%, #f6eee0 100%) !important;
-  border: 1px solid rgba(188, 146, 62, 0.5) !important;
-  color: #553c0d !important;
-  font-weight: 700 !important;
-  box-shadow: 0 1px 2px rgba(80, 55, 20, 0.06), inset 0 1px 0 #ffffff !important;
-}
-
-body.light-mode #profile-tab .phc-insignia-pill {
-  background: rgba(200, 160, 70, 0.12) !important;
-  border: 1px solid rgba(180, 138, 50, 0.45) !important;
-  color: #553c0d !important;
-  font-weight: 600 !important;
-}
-
-body.light-mode #profile-tab .phc-quote {
-  color: #3b3023 !important;
-}
-
-body.light-mode #profile-tab .phc-quote-mark {
-  color: #8c7144 !important;
-}
-
-body.light-mode #profile-tab .phc-meta-line {
-  color: #4c3b24 !important;
-}
-
-body.light-mode #profile-tab .phc-meta-item,
-body.light-mode #profile-tab .phc-id,
-body.light-mode #profile-tab .phc-est,
-body.light-mode #profile-tab .phc-loc {
-  color: #4c3b24 !important;
-}
-
-body.light-mode #profile-tab .phc-meta-globe-icon {
-  stroke: #664917 !important;
-}
-
-body.light-mode #profile-tab .phc-meta-pipe {
-  color: rgba(180, 145, 75, 0.5) !important;
-}
-
-body.light-mode #profile-tab .phc-watchmaking-strip .phc-strip-text {
-  color: #615033 !important;
-  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.9) !important;
-}
-
-body.light-mode #profile-tab .phc-watchmaking-strip .phc-strip-line {
-  background: linear-gradient(90deg, transparent, rgba(185, 145, 75, 0.45), transparent) !important;
-}
+/* 3. LOWER PROFILE SECTIONS: SOVEREIGN DEED LEDGER TEXTS */
 
 /* Light Mode: Sovereign Deed Ledger Texts */
 body.light-mode #profile-tab #historySectionTitle,
@@ -27466,28 +28234,6 @@ body.light-mode #profile-tab .profile-hero-card {
   -webkit-font-smoothing: antialiased;
 }
 
-/* === FINAL LIGHT-MODE CONTRAST GUARD: PROFILE EDIT PILL (2026-09-29) === */
-html body.light-mode #profile-tab .phc-edit-btn {
-  background: linear-gradient(180deg, #ffffff 0%, #f4ecd9 100%) !important;
-  border: 1px solid rgba(156, 109, 35, 0.55) !important;
-  color: #6a4c17 !important;
-  box-shadow: 0 2px 8px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff !important;
-}
-html body.light-mode #profile-tab .phc-edit-btn:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #eee3ce 100%) !important;
-  border-color: rgba(175, 130, 40, 0.8) !important;
-  color: #3b2807 !important;
-}
-html body.light-mode #profile-tab .phc-edit-btn .phc-edit-txt,
-html body.light-mode #profile-tab .phc-edit-btn span {
-  color: #6a4c17 !important;
-}
-html body.light-mode #profile-tab .phc-edit-btn svg,
-html body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon {
-  stroke: #8a6420 !important;
-}
-
-
 /* === MOBILE PERF: Zero GPU Blur on Overlays (Prevents Screen Flashing & Compositor Thrashing) === */
 @media (max-width: 600px) {
   .purchase-modal-overlay,
@@ -27498,50 +28244,6 @@ html body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon {
   }
 }
 
-
-/* === REFINED EDIT BUTTON LIGHT & DARK MODE HARMONY (2026-09-29) === */
-body.light-mode #profile-tab .phc-edit-btn,
-html.light-mode body #profile-tab .phc-edit-btn,
-body.light-mode #profile-tab #editAccountBtn,
-html.light-mode body #profile-tab #editAccountBtn {
-  background: linear-gradient(180deg, #ffffff 0%, #f7f1e3 100%) !important;
-  border: 1px solid rgba(160, 115, 38, 0.6) !important;
-  color: #4f340c !important;
-  box-shadow: 0 2px 6px rgba(70, 50, 20, 0.12), inset 0 1px 0 #ffffff !important;
-}
-body.light-mode #profile-tab .phc-edit-btn:hover,
-html.light-mode body #profile-tab .phc-edit-btn:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #ede3ce 100%) !important;
-  border-color: rgba(145, 100, 28, 0.85) !important;
-  color: #332205 !important;
-  box-shadow: 0 3px 10px rgba(70, 50, 20, 0.18), inset 0 1px 0 #ffffff !important;
-}
-body.light-mode #profile-tab .phc-edit-btn .phc-edit-txt,
-body.light-mode #profile-tab .phc-edit-btn span {
-  color: #4f340c !important;
-}
-body.light-mode #profile-tab .phc-edit-btn svg,
-body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon {
-  stroke: #6e4712 !important;
-}
-
-body:not(.light-mode) #profile-tab .phc-edit-btn,
-html:not(.light-mode) body #profile-tab .phc-edit-btn,
-body:not(.light-mode) #profile-tab #editAccountBtn,
-html:not(.light-mode) body #profile-tab #editAccountBtn {
-  background: linear-gradient(180deg, rgba(42, 34, 23, 0.96) 0%, rgba(20, 16, 10, 0.99) 100%) !important;
-  border: 1px solid rgba(235, 195, 85, 0.7) !important;
-  color: #fdebb2 !important;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.75), 0 0 8px rgba(212, 175, 106, 0.2), inset 0 1px 1px rgba(255, 248, 225, 0.3) !important;
-}
-body:not(.light-mode) #profile-tab .phc-edit-btn svg,
-body:not(.light-mode) #profile-tab .phc-edit-btn .phc-edit-icon {
-  stroke: #f0cb7b !important;
-}
-body:not(.light-mode) #profile-tab .phc-edit-btn .phc-edit-txt,
-body:not(.light-mode) #profile-tab .phc-edit-btn span {
-  color: #fdebb2 !important;
-}
 
 /* === PERFORMANCE PASS (2026-09-30): MOBILE BLUR ELIMINATION === */
 @media (max-width: 600px) {
@@ -27566,3 +28268,81 @@ button, a, .nav-btn, .phc-edit-btn, .modal, .modal-content, .dropdown, select, i
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* === THE 1% CLUB — PROFILE MASTER IDENTITY CARD ART DIRECTION RESTORATION === */
+/* 1. Eliminate crude hand-drawn corners, scribbles, and intrusive globe overlays */
+.phc-corner,
+.phc-globe,
+body #profile-tab .phc-corner,
+body #profile-tab .phc-globe {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* 2. Quiet, Refined Edit Profile Control (Jeweler's Inset Hallmark Plaque — Non-Dominant) */
+html body #profile-tab .profile-hero-card .phc-edit-btn,
+html body #profile-tab #editAccountBtn,
+body #profile-tab .phc-edit-btn,
+body #profile-tab #editAccountBtn {
+  height: 22px !important;
+  padding: 0 8px !important;
+  font-size: 8.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  font-style: normal !important;
+  border-radius: 5px !important;
+  opacity: 0.9 !important;
+  transition: opacity 0.2s ease, transform 0.15s ease !important;
+}
+html body #profile-tab .profile-hero-card .phc-edit-btn:hover,
+body #profile-tab #editAccountBtn:hover {
+  opacity: 1 !important;
+}
+.phc-edit-txt,
+body #profile-tab .phc-edit-txt {
+  font-style: normal !important;
+}
+
+/* 3. Portrait Medallion: Authentic Precious-Metal Bezel & Seamless Physical Integration */
+body #profile-tab .phc-avatar-ring,
+body.light-mode #profile-tab .phc-avatar-ring {
+  width: 82px !important;
+  height: 82px !important;
+  padding: 4px !important;
+  border-radius: 50% !important;
+}
+body #profile-tab .phc-avatar-photo,
+body.light-mode #profile-tab .phc-avatar-photo,
+body.light-mode #profile-tab .portrait-photo {
+  border: none !important;
+  border-width: 0 !important;
+}
+
+/* 4. Sovereign Hallmark Crown Coin: Controlled 22px Horological Scale */
+body #profile-tab .phc-crown-badge,
+body.light-mode #profile-tab .phc-crown-badge,
+body.light-mode #profile-tab .portrait-crown,
+body.light-mode #profile-tab .phc-crown {
+  width: 22px !important;
+  height: 22px !important;
+}
+body #profile-tab .phc-crown-badge svg,
+body.light-mode #profile-tab .phc-crown-badge svg,
+body #profile-tab .phc-crown-coin-svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* 5. Editorial Typography Parity: Quiet Luxury & High Contrast */
+body.light-mode #profile-tab .phc-quote {
+  color: #382810 !important;
+  font-style: italic !important;
+}
+body.light-mode #profile-tab .phc-meta-line {
+  font-size: 9px !important;
+  letter-spacing: 0.5px !important;
+}
+
+
