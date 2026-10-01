@@ -437,12 +437,7 @@ window.applyLanguage = function (lang) {
   if (colTitle)
     colTitle.textContent =
       lang === "ar" ? "خزينة المقتنيات النادرة" : "MY LUXURY COLLECTION";
-  if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
-  if (typeof renderProfileCircles === "function") renderProfileCircles();
-  if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
-  if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
-  if (typeof renderProfileCollection === "function") renderProfileCollection();
-  if (typeof renderProfileAchievements === "function") renderProfileAchievements();
+  if (typeof initProfile === "function") initProfile(true);
   if (typeof window.syncAudioSoundUI === "function" && window.AudioEngine) {
     window.syncAudioSoundUI(window.AudioEngine.isEnabled());
   }
@@ -747,8 +742,8 @@ window.StorageHelper = StorageHelper;
 const AppState = {
   user: {
     id: "0001",
-    name: "ALEXANDER",
-    username: "ALEXANDER",
+    name: "ISMAIL ELSAYED",
+    username: "ISMAIL ELSAYED",
     tier: "SOVEREIGN MEMBER",
     quote: "A higher standard in a different world.",
     joined: "AUG 2026",
@@ -1594,7 +1589,7 @@ ClubState.on("change", () => {
 
   const pName = document.getElementById("profileName");
   if (pName) {
-    pName.textContent = isStealth ? stealthMoniker : (AppState.user.name || "ALEXANDER");
+    pName.textContent = isStealth ? stealthMoniker : (AppState.user.name || "ISMAIL ELSAYED");
   }
 
   const pTier = document.getElementById("profileTierName");
@@ -1696,13 +1691,9 @@ ClubState.on("change", () => {
   const countEl = document.getElementById("profileItemCount");
   if (countEl) countEl.textContent = AppState.collectedItems.length;
 
-  if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
-  if (typeof renderProfileCircles === "function") renderProfileCircles();
-  if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
-  if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
-  if (typeof renderProfileCollection === "function") renderProfileCollection();
-  if (typeof renderProfileAchievements === "function")
-    renderProfileAchievements();
+  if (typeof initProfile === "function" && !window.isProfileInitialized) {
+    initProfile();
+  }
 
   if (typeof renderRing === "function") {
     renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
@@ -2437,6 +2428,14 @@ const PAGE_TITLES = {
 };
 const IMPLEMENTED_TABS = ["membership", "profile", "club", "boutique"];
 
+window.tabScrollPositions = {
+  membership: 0,
+  club: 0,
+  profile: 0,
+  boutique: 0
+};
+window.isProfileInitialized = false;
+
 // ==========================================
 // ==========================================
 const Router = {
@@ -2448,6 +2447,7 @@ const Router = {
       const activePage = document.getElementById(`${tab}-tab`);
       if (activePage && activePage.scrollTop > 0) {
         activePage.scrollTo({ top: 0, behavior: "smooth" });
+        if (window.tabScrollPositions) window.tabScrollPositions[tab] = 0;
       }
       return;
     }
@@ -2467,6 +2467,12 @@ const Router = {
     if (window.profileStatsBarTimeout) {
       clearTimeout(window.profileStatsBarTimeout);
       window.profileStatsBarTimeout = null;
+    }
+
+    // Save scroll position of outgoing tab
+    const previousPage = document.getElementById(`${this.currentTab}-tab`);
+    if (previousPage && window.tabScrollPositions) {
+      window.tabScrollPositions[this.currentTab] = previousPage.scrollTop;
     }
 
     this.currentTab = tab;
@@ -2491,7 +2497,8 @@ const Router = {
       activePage.removeAttribute("hidden");
       activePage.setAttribute("aria-hidden", "false");
       activePage.classList.add("is-active");
-      activePage.scrollTop = 0;
+      const savedScroll = (window.tabScrollPositions && window.tabScrollPositions[tab]) || 0;
+      activePage.scrollTop = savedScroll;
     }
 
     document
@@ -2596,13 +2603,11 @@ const Router = {
         startClubWelcomeAutoDismiss(5000);
       }
     } else if (tab === "profile") {
-      if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
-      if (typeof renderProfileCircles === "function") renderProfileCircles();
-      if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
-      if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
-      if (typeof renderProfileCollection === "function") renderProfileCollection(false);
-      if (typeof renderProfileAchievements === "function") renderProfileAchievements();
-      if (typeof attachHorologicalScrewHandlers === "function") attachHorologicalScrewHandlers();
+      // IDEMPOTENT PROFILE LIFECYCLE:
+      // If Profile is already initialized, reuse existing stable DOM
+      if (!window.isProfileInitialized) {
+        initProfile();
+      }
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
         cancelClubWelcomeAutoDismiss();
       }
@@ -4225,6 +4230,7 @@ if (typeof renderProfileCollection === "function") {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (typeof initProfile === "function") initProfile();
   const savedPortrait = localStorage.getItem(`portrait_${ClubState.member.id}`);
   if (savedPortrait) {
     const portraitPhoto = document.getElementById("portraitPhoto");
@@ -4278,49 +4284,73 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const accountInfoModal = document.getElementById("accountInfoModal");
+
   window.openAccountInfoModal = function (e) {
     if (e) {
       if (typeof e.stopPropagation === "function") e.stopPropagation();
       if (typeof e.preventDefault === "function") e.preventDefault();
     }
-    const accountInfoModal = document.getElementById("accountInfoModal");
-    if (!accountInfoModal) return;
+    const modal = accountInfoModal || document.getElementById("accountInfoModal");
+    if (!modal) return;
 
-    accountInfoModal.classList.add("is-open");
-    if (window.AudioEngine && window.AudioEngine.playModalOpen) {
-      window.AudioEngine.playModalOpen();
-    }
-
-    let draft = null;
     try {
-      draft = JSON.parse(localStorage.getItem("profileDraft"));
-    } catch (err) {}
-      
-    let currentAvatarUrl = "";
-    const locInput = document.getElementById("editProfileLocationInput");
-    if (draft) {
-      document.getElementById("editProfileNameInput").value = draft.name || "";
-      document.getElementById("editProfileQuoteInput").value = draft.quote || "";
-      if (locInput) locInput.value = draft.location || "";
-      currentAvatarUrl = draft.avatarUrl || "";
-      document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
-    } else {
-      document.getElementById("editProfileNameInput").value = AppState.user.name || "";
-      document.getElementById("editProfileQuoteInput").value = AppState.user.quote || AppState.user.bio || "";
-      if (locInput) locInput.value = AppState.user.location || "";
-      currentAvatarUrl = AppState.user.avatarUrl || "";
-      document.getElementById("editProfileAvatarUrl").value = currentAvatarUrl;
-    }
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+        window.AudioEngine.playModalOpen();
+      }
 
-    document.getElementById("accEmailInput").value = AppState.user.email || "";
-    document.getElementById("accPhoneInput").value = AppState.user.phone || "";
+      let draft = null;
+      try {
+        draft = JSON.parse(localStorage.getItem("profileDraft"));
+      } catch (err) {}
+        
+      let currentAvatarUrl = "";
+      const nameInput = document.getElementById("editProfileNameInput");
+      const quoteInput = document.getElementById("editProfileQuoteInput");
+      const locInput = document.getElementById("editProfileLocationInput");
+      const avatarUrlInput = document.getElementById("editProfileAvatarUrl");
 
-    if (typeof renderAvatarPresets === "function") { renderAvatarPresets(currentAvatarUrl); }
-    if (typeof updateEditProfilePreview === "function") {
-      updateEditProfilePreview(currentAvatarUrl);
+      if (draft) {
+        if (nameInput) nameInput.value = draft.name || "";
+        if (quoteInput) quoteInput.value = draft.quote || "";
+        if (locInput) locInput.value = draft.location || "";
+        currentAvatarUrl = draft.avatarUrl || "";
+        if (avatarUrlInput) avatarUrlInput.value = currentAvatarUrl;
+      } else {
+        if (nameInput) nameInput.value = AppState.user.name || "";
+        if (quoteInput) quoteInput.value = AppState.user.quote || AppState.user.bio || "";
+        if (locInput) locInput.value = AppState.user.location || "";
+        currentAvatarUrl = AppState.user.avatarUrl || "";
+        if (avatarUrlInput) avatarUrlInput.value = currentAvatarUrl;
+      }
+
+      const emailInput = document.getElementById("accEmailInput");
+      const phoneInput = document.getElementById("accPhoneInput");
+      if (emailInput) emailInput.value = AppState.user.email || "";
+      if (phoneInput) phoneInput.value = AppState.user.phone || "";
+
+      if (typeof renderAvatarPresets === "function") { renderAvatarPresets(currentAvatarUrl); }
+      if (typeof updateEditProfilePreview === "function") {
+        updateEditProfilePreview(currentAvatarUrl);
+      }
+      if (typeof renderModalCirclesSelector === "function") {
+        renderModalCirclesSelector(AppState.user.circles || ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"]);
+      }
+    } catch (err) {
+      console.error("[Edit Profile Modal Open Error]", err);
     }
-    if (typeof renderModalCirclesSelector === "function") {
-      renderModalCirclesSelector(AppState.user.circles || ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"]);
+  };
+
+  const closeAccountModal = () => {
+    const modal = accountInfoModal || document.getElementById("accountInfoModal");
+    if (modal) {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
     }
   };
 
@@ -4333,14 +4363,31 @@ document.addEventListener("DOMContentLoaded", () => {
     editAccountBtn.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
     editAccountBtn.addEventListener("click", window.openAccountInfoModal);
   }
+
   document
     .getElementById("closeAccountInfoModal")
-    ?.addEventListener("click", () => {
-      accountInfoModal?.classList.remove("is-open");
-      if (window.AudioEngine && window.AudioEngine.playModalClose) {
-        window.AudioEngine.playModalClose();
+    ?.addEventListener("click", (e) => {
+      if (e) e.preventDefault();
+      closeAccountModal();
+    });
+
+  if (accountInfoModal) {
+    accountInfoModal.addEventListener("click", (e) => {
+      if (e.target === accountInfoModal) {
+        closeAccountModal();
       }
     });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const modal = accountInfoModal || document.getElementById("accountInfoModal");
+      if (modal && modal.classList.contains("is-open")) {
+        closeAccountModal();
+      }
+    }
+  });
+
   document.querySelectorAll(".quote-preset-chip").forEach(chip => {
     chip.addEventListener("click", () => {
       const quoteInput = document.getElementById("editProfileQuoteInput");
@@ -4354,11 +4401,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document
     .getElementById("saveAccountInfoBtn")
-    ?.addEventListener("click", () => {
-      const nameInput = document.getElementById("editProfileNameInput").value.trim();
-      const quoteInput = document.getElementById("editProfileQuoteInput").value.trim();
-      const locInput = document.getElementById("editProfileLocationInput")?.value.trim();
-      const avatarUrl = document.getElementById("editProfileAvatarUrl").value.trim();
+    ?.addEventListener("click", (e) => {
+      if (e) e.preventDefault();
+      const nameInput = document.getElementById("editProfileNameInput")?.value.trim() || "";
+      const quoteInput = document.getElementById("editProfileQuoteInput")?.value.trim() || "";
+      const locInput = document.getElementById("editProfileLocationInput")?.value.trim() || "";
+      const avatarUrl = document.getElementById("editProfileAvatarUrl")?.value.trim() || "";
         
       if (nameInput) {
         AppState.user.name = nameInput;
@@ -4375,12 +4423,10 @@ document.addEventListener("DOMContentLoaded", () => {
         AppState.user.avatarUrl = avatarUrl;
       }
 
-      AppState.user.email = document
-        .getElementById("accEmailInput")
-        .value.trim();
-      AppState.user.phone = document
-        .getElementById("accPhoneInput")
-        .value.trim();
+      const emailEl = document.getElementById("accEmailInput");
+      const phoneEl = document.getElementById("accPhoneInput");
+      if (emailEl) AppState.user.email = emailEl.value.trim();
+      if (phoneEl) AppState.user.phone = phoneEl.value.trim();
 
       if (window.modalSelectedCircles && Array.isArray(window.modalSelectedCircles) && window.modalSelectedCircles.length > 0) {
         AppState.user.circles = [...window.modalSelectedCircles];
@@ -4398,7 +4444,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderProfileCircles();
       }
       localStorage.removeItem("profileDraft");
-      accountInfoModal?.classList.remove("is-open");
+      closeAccountModal();
     });
 
   const menuHelp = document.getElementById("menuHelp");
@@ -4847,7 +4893,7 @@ function renderProfileAchievements() {
         .replace("{0}", remainingFormatted);
 
       html += `
-        <div class="honor-card heraldic-order-card is-locked gyro-element skeleton-fade-in" 
+        <div class="honor-card heraldic-order-card is-locked gyro-element" 
              data-tilt 
              data-honor-id="${id}"
              onclick="window.openHeraldicCitationModal('${id}')"
@@ -5276,7 +5322,7 @@ function renderProfileCollection(forceSkeleton = false) {
         : `<div class="reliquary-card-status is-vaulted"><span class="rcs-dot"></span><span>${isAr ? 'بالخزانة' : 'VAULTED'}</span></div>`;
 
       html += `
-        <div class="pcs-item-card reliquary-pedestal-card gyro-element skeleton-fade-in ${isEquipped ? 'is-equipped' : ''}" 
+        <div class="pcs-item-card reliquary-pedestal-card gyro-element ${isEquipped ? 'is-equipped' : ''}" 
              data-tilt
              data-item-id="${item.id}"
              onclick="openReliquaryInspectModal('${item.id}')"
@@ -5480,7 +5526,7 @@ function renderProfileStatsBar() {
 
     <div class="horo-dials-row">
       <!-- 1. SOVEREIGN TIER SUB-DIAL -->
-      <div class="psb-col psb-complication-pod horo-subdial skeleton-fade-in" id="compTierPod" role="button" tabindex="0" title="${tierLabel}: ${tierVal}">
+      <div class="psb-col psb-complication-pod horo-subdial" id="compTierPod" role="button" tabindex="0" title="${tierLabel}: ${tierVal}">
         <div class="horo-bezel-rim">
           <div class="horo-dial-face horo-face-tier">
             <div class="horo-azure-rings" aria-hidden="true"></div>
@@ -5509,7 +5555,7 @@ function renderProfileStatsBar() {
       <div class="psb-divider horo-divider" aria-hidden="true"></div>
 
       <!-- 2. RARE ASSETS / RELIQUARY SUB-DIAL -->
-      <div class="psb-col psb-complication-pod horo-subdial skeleton-fade-in" id="compVaultPod" role="button" tabindex="0" title="${itemsLabel}: ${itemsVal}">
+      <div class="psb-col psb-complication-pod horo-subdial" id="compVaultPod" role="button" tabindex="0" title="${itemsLabel}: ${itemsVal}">
         <div class="horo-bezel-rim">
           <div class="horo-dial-face horo-face-vault">
             <div class="horo-azure-rings" aria-hidden="true"></div>
@@ -5535,7 +5581,7 @@ function renderProfileStatsBar() {
       <div class="psb-divider horo-divider" aria-hidden="true"></div>
 
       <!-- 3. PRESTIGE HONORS QUADRANT SUB-DIAL -->
-      <div class="psb-col psb-complication-pod horo-subdial skeleton-fade-in" id="compHonorsPod" role="button" tabindex="0" title="${honorsLabel}: ${honorsVal}">
+      <div class="psb-col psb-complication-pod horo-subdial" id="compHonorsPod" role="button" tabindex="0" title="${honorsLabel}: ${honorsVal}">
         <div class="horo-bezel-rim">
           <div class="horo-dial-face horo-face-honors">
             <div class="horo-azure-rings" aria-hidden="true"></div>
@@ -5563,7 +5609,7 @@ function renderProfileStatsBar() {
       <div class="psb-divider horo-divider" aria-hidden="true"></div>
 
       <!-- 4. OFFICIAL REGISTRY CHRONOMETER SUB-DIAL -->
-      <div class="psb-col psb-complication-pod horo-subdial skeleton-fade-in" id="compRegistryPod" role="button" tabindex="0" title="${sinceLabel}: ${sinceVal}">
+      <div class="psb-col psb-complication-pod horo-subdial" id="compRegistryPod" role="button" tabindex="0" title="${sinceLabel}: ${sinceVal}">
         <div class="horo-bezel-rim">
           <div class="horo-dial-face horo-face-registry">
             <div class="horo-azure-rings" aria-hidden="true"></div>
@@ -5632,26 +5678,29 @@ function attachComplicationHandlers() {
     }
   };
 
-  container.addEventListener("click", (e) => {
-    const pod = e.target.closest(".psb-complication-pod");
-    if (pod && pod.id) {
-      e.preventDefault();
-      handleAction(pod.id);
-    }
-  });
+  if (!container.dataset.listenersAttached) {
+    container.dataset.listenersAttached = "true";
+    container.addEventListener("click", (e) => {
+      const pod = e.target.closest(".psb-complication-pod");
+      if (pod && pod.id) {
+        e.preventDefault();
+        handleAction(pod.id);
+      }
+    });
 
-  container.addEventListener("keydown", (e) => {
-    const pod = e.target.closest(".psb-complication-pod");
-    if (pod && pod.id && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      handleAction(pod.id);
-    }
-  });
+    container.addEventListener("keydown", (e) => {
+      const pod = e.target.closest(".psb-complication-pod");
+      if (pod && pod.id && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        handleAction(pod.id);
+      }
+    });
 
-  container.addEventListener("pointerenter", (e) => {
-    const pod = e.target.closest(".psb-complication-pod");
-    if (pod) playClockworkHover();
-  }, true);
+    container.addEventListener("pointerenter", (e) => {
+      const pod = e.target.closest(".psb-complication-pod");
+      if (pod) playClockworkHover();
+    }, true);
+  }
 }
 
 // -------------------------------------------------------------
@@ -6099,6 +6148,27 @@ function attachOathInteractiveHandlers() {
 
   attachHorologicalScrewHandlers();
 }
+
+// ==========================================
+// IDEMPOTENT PROFILE INITIALIZATION & LIFECYCLE
+// ==========================================
+function initProfile(forceRefresh = false) {
+  if (window.isProfileInitialized && !forceRefresh) return;
+
+  try {
+    if (typeof renderProfileStatsBar === "function") renderProfileStatsBar();
+    if (typeof renderProfileCircles === "function") renderProfileCircles();
+    if (typeof renderProfileMembershipDeed === "function") renderProfileMembershipDeed();
+    if (typeof renderProfileSovereignOath === "function") renderProfileSovereignOath();
+    if (typeof renderProfileCollection === "function") renderProfileCollection(false);
+    if (typeof renderProfileAchievements === "function") renderProfileAchievements();
+    if (typeof attachHorologicalScrewHandlers === "function") attachHorologicalScrewHandlers();
+    window.isProfileInitialized = true;
+  } catch (err) {
+    console.error("[Profile Init Error]", err);
+  }
+}
+window.initProfile = initProfile;
 
 /* === 5. PRESTIGE, HONORS & METRICS - SOVEREIGN LEADERBOARD === */
 window.leaderboardActiveFilter = window.leaderboardActiveFilter || "all";
@@ -6843,7 +6913,9 @@ window.HeaderScrollController = (function() {
     }
   }
 
+  let navSeq = 0;
   function onTabChangeStart() {
+    navSeq++;
     isNavigating = true;
     const header = getHeader();
     if (header) {
@@ -6852,12 +6924,15 @@ window.HeaderScrollController = (function() {
   }
 
   function onTabChangeComplete() {
+    const currentSeq = ++navSeq;
     updateStateForCurrentTab();
-    // Guard against synthetic scroll events during DOM transitions
+    updateHeaderHeightVar();
     requestAnimationFrame(() => {
+      if (currentSeq !== navSeq) return;
       updateStateForCurrentTab();
       updateHeaderHeightVar();
       setTimeout(() => {
+        if (currentSeq !== navSeq) return;
         isNavigating = false;
         updateStateForCurrentTab();
       }, 50);
