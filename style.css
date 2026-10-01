@@ -519,7 +519,7 @@ body.light-mode .club-room-btn {
 }
 
 body.light-mode .nav-item {
-  color: rgba(0, 0, 0, 0.4);
+  color: #5c4520;
 }
 body.light-mode .nav-item.is-active {
   color: var(--gold-polished);
@@ -878,23 +878,37 @@ input {
   margin: 0 auto;
   flex-shrink: 0;
   z-index: 90;
-  background: linear-gradient(180deg, rgba(5, 5, 5, 0.96) 0%, rgba(5, 5, 5, 0.82) 75%, rgba(5, 5, 5, 0) 100%) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 5px;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0.94) 0%,
+    rgba(5, 5, 5, 0.72) 45%,
+    rgba(5, 5, 5, 0.25) 78%,
+    rgba(5, 5, 5, 0) 100%
+  ) !important;
+  padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border-subtle) !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
   transform: translate3d(0, 0, 0);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   will-change: transform, opacity;
+  pointer-events: auto;
 }
 body.light-mode .app-header,
 html.light-mode .app-header {
-  background: linear-gradient(180deg, rgba(253, 251, 247, 0.96) 0%, rgba(253, 251, 247, 0.82) 75%, rgba(253, 251, 247, 0) 100%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(253, 251, 247, 0.95) 0%,
+    rgba(253, 251, 247, 0.80) 42%,
+    rgba(248, 245, 237, 0.40) 75%,
+    rgba(248, 245, 237, 0) 100%
+  ) !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 .app-header.header-hidden {
   transform: translate3d(0, -100%, 0) !important;
@@ -2278,10 +2292,9 @@ body.light-mode .metric-tooltip-icon circle {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(0deg, rgba(5, 5, 5, 0.98) 0%, rgba(5, 5, 5, 0.88) 70%, rgba(5, 5, 5, 0) 100%) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border-subtle) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 10px 6px calc(10px + env(safe-area-inset-bottom));
@@ -2293,10 +2306,92 @@ body.light-mode .metric-tooltip-icon circle {
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
+  isolation: isolate;
+  pointer-events: auto;
 }
-body.light-mode .bottom-nav,
-html.light-mode .bottom-nav {
-  background: linear-gradient(0deg, rgba(253, 251, 247, 0.98) 0%, rgba(253, 251, 247, 0.88) 70%, rgba(253, 251, 247, 0) 100%) !important;
+
+/* Luxury Liquid Glass Visual Layer — Multi-Axis Continuous Edge Dissolve */
+.bottom-nav::before {
+  content: "";
+  position: absolute;
+  inset: -6px -12px 0 -12px;
+  z-index: -1;
+  pointer-events: none;
+  /* 1. Backdrop Blur & Color Saturation */
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  /* 2. Alpha Masking Gradient: Smooth multi-stop radial fade in ALL directions */
+  mask-image: radial-gradient(
+    ellipse 94% 88% at 50% 65%,
+    black 30%,
+    rgba(0, 0, 0, 0.85) 55%,
+    rgba(0, 0, 0, 0.45) 75%,
+    rgba(0, 0, 0, 0.12) 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 94% 88% at 50% 65%,
+    black 30%,
+    rgba(0, 0, 0, 0.85) 55%,
+    rgba(0, 0, 0, 0.45) 75%,
+    rgba(0, 0, 0, 0.12) 90%,
+    transparent 100%
+  );
+}
+
+/* Dark Mode: Obsidian Liquid Glass with Soft Radial Dissolve */
+body:not(.light-mode) .bottom-nav::before,
+html:not(.light-mode) .bottom-nav::before,
+[data-theme="dark"] .bottom-nav::before {
+  background:
+    /* Layer 1: Subtle translucent gold upper highlight fading out horizontally */
+    radial-gradient(ellipse 65% 1.5px at 50% 4px, rgba(212, 175, 106, 0.55) 0%, rgba(212, 175, 106, 0) 75%),
+    /* Layer 2: Subtle obsidian core sheen */
+    radial-gradient(ellipse 75% 45% at 50% 40%, rgba(45, 35, 22, 0.35) 0%, transparent 80%),
+    /* Layer 3: Warm obsidian liquid glass substrate (50%–65% central opacity) */
+    radial-gradient(
+      ellipse 92% 82% at 50% 60%,
+      rgba(18, 14, 9, 0.68) 0%,
+      rgba(14, 10, 6, 0.58) 42%,
+      rgba(10, 8, 4, 0.36) 72%,
+      rgba(8, 6, 3, 0.10) 90%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(22, 17, 11, 0.60) 0%,
+      rgba(14, 11, 7, 0.70) 50%,
+      rgba(8, 6, 3, 0.55) 100%
+    ) !important;
+  filter: drop-shadow(0 -4px 16px rgba(0, 0, 0, 0.6));
+}
+
+/* Light Mode: Warm Ivory & Champagne Liquid Glass with Soft Radial Dissolve */
+body.light-mode .bottom-nav::before,
+html.light-mode .bottom-nav::before,
+[data-theme="light"] .bottom-nav::before {
+  background:
+    /* Layer 1: Very subtle translucent upper highlight fading out naturally */
+    radial-gradient(ellipse 65% 1.5px at 50% 4px, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 75%),
+    /* Layer 2: Internal warm champagne reflection core */
+    radial-gradient(ellipse 75% 45% at 50% 40%, rgba(255, 252, 246, 0.35) 0%, transparent 80%),
+    /* Layer 3: Warm ivory / champagne translucent glass substrate (48%–58% central opacity) */
+    radial-gradient(
+      ellipse 92% 82% at 50% 60%,
+      rgba(248, 242, 230, 0.56) 0%,
+      rgba(244, 237, 222, 0.46) 42%,
+      rgba(238, 230, 214, 0.28) 72%,
+      rgba(235, 225, 208, 0.08) 90%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(252, 248, 238, 0.42) 0%,
+      rgba(246, 239, 225, 0.52) 50%,
+      rgba(240, 232, 216, 0.40) 100%
+    ) !important;
+  /* Extremely soft depth shadow fading outwards */
+  filter: drop-shadow(0 -3px 14px rgba(60, 42, 14, 0.05));
 }
 .bottom-nav.nav-hidden {
   transform: translate3d(0, 105%, 0) !important;
@@ -27153,15 +27248,15 @@ body.light-mode #profile-tab #profileHeroPlaque.luxury-tilt-card {
     /* Continuous Machined Precious-Metal Beveled Gold Frame (Directional Light at 135deg) */
     linear-gradient(135deg,
       #ffffff 0%,       /* Razor-sharp specular highlight on top-left crest */
-      #faecc5 7%,       /* Bright champagne reflective ridge */
-      #dfba5e 18%,      /* Rich polished gold body */
-      #aa7e28 32%,      /* Antique gold shadow bevel transition */
-      #5c3d10 46%,      /* Deep antique gold shadow recess (real depth, not mud) */
-      #c6993a 58%,      /* Warm gold specular return */
+      #faecc5 8%,       /* Bright champagne reflective ridge */
+      #dcae4a 20%,      /* Rich polished champagne gold body */
+      #a07424 34%,      /* Antique gold shadow bevel transition */
+      #50340c 48%,      /* Deep antique gold shadow recess (structural bevel depth) */
+      #c49436 60%,      /* Warm gold specular return */
       #fef1cf 72%,      /* Bright champagne crest */
-      #aa7c24 85%,      /* Warm antique gold undertone */
-      #462b08 95%,      /* Dark antique gold grounding base */
-      #fae8be 100%      /* Crisp edge catch */
+      #a07424 86%,      /* Warm antique gold undertone */
+      #3a2508 95%,      /* Dark antique gold grounding base */
+      #f8e6b8 100%      /* Crisp edge catch */
     ) !important;
   box-shadow:
     /* 1. Realistic physical ambient drop shadow */
@@ -27223,6 +27318,73 @@ body #profile-tab .phc-intaglio-groove,
   pointer-events: none !important;
 }
 
+/* 4. MASTER CARD LUXURY HOROLOGICAL GUILLOCHÉ ENGRAVING LAYER */
+#profileHeroPlaque .phc-engraving-wrap,
+body #profile-tab .phc-engraving-wrap {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 13.5px !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#profileHeroPlaque .phc-master-engraving,
+body #profile-tab .phc-master-engraving {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+
+/* Light Mode: Intaglio Debossed Two-Tone System (Warm antique gold groove + champagne specular highlight) */
+#profileHeroPlaque .phc-eng-groove,
+body.light-mode #profileHeroPlaque .phc-eng-groove,
+html.light-mode #profileHeroPlaque .phc-eng-groove {
+  stroke: #9e7a36 !important;
+  stroke-width: 0.42 !important;
+  opacity: 0.30 !important;
+  fill: none !important;
+}
+
+#profileHeroPlaque .phc-eng-highlight,
+body.light-mode #profileHeroPlaque .phc-eng-highlight,
+html.light-mode #profileHeroPlaque .phc-eng-highlight {
+  stroke: #ffffff !important;
+  stroke-width: 0.42 !important;
+  opacity: 0.48 !important;
+  fill: none !important;
+}
+
+/* Dark Mode: Luminous warm gold groove + subtle champagne highlight against obsidian */
+html:not(.light-mode) #profileHeroPlaque .phc-eng-groove,
+html.dark-mode #profileHeroPlaque .phc-eng-groove,
+body:not(.light-mode) #profileHeroPlaque .phc-eng-groove,
+[data-theme="dark"] #profileHeroPlaque .phc-eng-groove {
+  stroke: #d4af6a !important;
+  stroke-width: 0.42 !important;
+  opacity: 0.15 !important;
+  fill: none !important;
+}
+
+html:not(.light-mode) #profileHeroPlaque .phc-eng-highlight,
+html.dark-mode #profileHeroPlaque .phc-eng-highlight,
+body:not(.light-mode) #profileHeroPlaque .phc-eng-highlight,
+[data-theme="dark"] #profileHeroPlaque .phc-eng-highlight {
+  stroke: #fef3d6 !important;
+  stroke-width: 0.42 !important;
+  opacity: 0.08 !important;
+  fill: none !important;
+}
+
 /* 5. HORIZONTAL SOVEREIGN CARD COMPOSITION (UNIFIED LOCKUP: PORTRAIT + TYPOGRAPHY AS ONE HARMONIOUS BLOCK) */
 html body #profile-tab .phc-horizontal-layout,
 html[dir="rtl"] body #profile-tab .phc-horizontal-layout,
@@ -27280,26 +27442,30 @@ body:not(.light-mode) #profile-tab .phc-avatar-ring {
   box-sizing: border-box !important;
   background: conic-gradient(
     from 45deg,
-    #d4ab50 0deg,
-    #fae8b8 45deg,
-    #d4ab50 90deg,
-    #8f6722 135deg,
-    #d4ab50 180deg,
-    #fae8b8 225deg,
-    #d4ab50 270deg,
-    #8f6722 315deg,
-    #d4ab50 360deg
+    #ffffff 0deg,
+    #faecc5 22deg,
+    #dcae4a 55deg,
+    #9e7220 105deg,
+    #462b08 135deg,
+    #9e7220 165deg,
+    #dcae4a 195deg,
+    #ffffff 225deg,
+    #faecc5 247deg,
+    #dcae4a 280deg,
+    #9e7220 320deg,
+    #462b08 345deg,
+    #ffffff 360deg
   ) !important;
   box-shadow:
     /* Clean outer dark recessed edge */
     0 0 0 1px #140d05,
     /* Concentric metallic rim step */
-    0 0 0 1.5px rgba(220, 180, 85, 0.65),
+    0 0 0 1.5px rgba(220, 175, 75, 0.7),
     /* Soft grounding drop shadow */
     0 6px 16px -2px rgba(0, 0, 0, 0.92),
     /* Symmetrical concentric inner bevel */
-    inset 0 0 0 1px rgba(255, 248, 225, 0.65),
-    inset 0 0 0 2px rgba(20, 14, 6, 0.8) !important;
+    inset 0 0 0 1px rgba(255, 248, 225, 0.75),
+    inset 0 0 0 2px rgba(20, 14, 6, 0.85) !important;
   transform-style: preserve-3d !important;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -27315,26 +27481,30 @@ body.light-mode #profile-tab .phc-avatar-ring,
   box-sizing: border-box !important;
   background: conic-gradient(
     from 45deg,
-    #dfbb66 0deg,
-    #faecc8 45deg,
-    #dfbb66 90deg,
-    #a0772a 135deg,
-    #dfbb66 180deg,
-    #faecc8 225deg,
-    #dfbb66 270deg,
-    #a0772a 315deg,
-    #dfbb66 360deg
+    #ffffff 0deg,      /* Brilliant specular peak on curved crest */
+    #faecc5 22deg,     /* Warm champagne reflection flare */
+    #dcae4a 55deg,     /* Polished champagne gold body */
+    #a07424 105deg,    /* Antique gold shadow transition */
+    #684514 135deg,    /* Deep antique gold shadow recess */
+    #a07424 165deg,    /* Antique gold return */
+    #dcae4a 195deg,    /* Polished body */
+    #ffffff 225deg,    /* Reciprocal specular highlight catch */
+    #faecc5 247deg,    /* Champagne reflection flare */
+    #dcae4a 280deg,    /* Polished body */
+    #a07424 320deg,    /* Antique shadow transition */
+    #684514 345deg,    /* Deep shadow recess */
+    #ffffff 360deg     /* Seamless close */
   ) !important;
   box-shadow:
     /* Clean outer dark recessed edge */
-    0 0 0 1px rgba(90, 64, 22, 0.65),
+    0 0 0 1px rgba(70, 48, 16, 0.45),
     /* Concentric metallic rim step */
     0 0 0 1.5px rgba(255, 255, 255, 0.95),
     /* Soft grounding drop shadow */
     0 5px 14px -2px rgba(60, 42, 14, 0.22),
     /* Symmetrical concentric inner bevel */
     inset 0 0 0 1px #ffffff,
-    inset 0 0 0 2px rgba(110, 80, 26, 0.35) !important;
+    inset 0 0 0 2px rgba(100, 70, 20, 0.35) !important;
   transform-style: preserve-3d !important;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -27392,14 +27562,16 @@ html.dark-mode body #profile-tab .phc-crown-badge,
 body:not(.light-mode) #profile-tab .phc-crown-badge {
   background: conic-gradient(
     from 135deg,
-    #4A3515 0deg,
-    #806126 30deg,
-    #D8B65A 60deg,
-    #F7E9C3 90deg,
-    #B18A3D 145deg,
-    #4A3515 220deg,
-    #D8B65A 270deg,
-    #4A3515 360deg
+    #462b08 0deg,
+    #9e7220 35deg,
+    #dcae4a 65deg,
+    #ffffff 90deg,
+    #faecc5 115deg,
+    #9e7220 165deg,
+    #3a2005 220deg,
+    #dcae4a 275deg,
+    #faecc5 315deg,
+    #462b08 360deg
   ) !important;
   box-shadow:
     0 1.5px 5px rgba(0, 0, 0, 0.8),
@@ -27411,18 +27583,20 @@ body.light-mode #profile-tab .phc-crown-badge,
 [data-theme="light"] #profile-tab .phc-crown-badge {
   background: conic-gradient(
     from 135deg,
-    #5A4016 0deg,
-    #806126 30deg,
-    #D8B65A 60deg,
-    #FFFDF5 90deg,
-    #B18A3D 145deg,
-    #5A4016 220deg,
-    #D8B65A 270deg,
-    #5A4016 360deg
+    #684514 0deg,
+    #a07424 35deg,
+    #dcae4a 65deg,
+    #ffffff 90deg,
+    #faecc5 115deg,
+    #a07424 165deg,
+    #684514 220deg,
+    #dcae4a 275deg,
+    #faecc5 315deg,
+    #684514 360deg
   ) !important;
   box-shadow:
-    0 1.5px 4px rgba(80, 55, 20, 0.22),
-    0 0 0 0.5px rgba(120, 88, 30, 0.35) !important;
+    0 1.5px 4px rgba(60, 42, 14, 0.22),
+    0 0 0 0.5px rgba(100, 70, 20, 0.35) !important;
 }
 
 html:not(.light-mode) body #profile-tab .phc-crown-badge .phc-coin-relief,
@@ -27433,8 +27607,8 @@ body:not(.light-mode) #profile-tab .phc-crown-badge .phc-coin-relief {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: radial-gradient(circle at 35% 30%, #5C4318 0%, #30210A 55%, #150E04 100%) !important;
-  box-shadow: inset 0 0.8px 0.8px rgba(255, 245, 215, 0.3), inset 0 -0.8px 1px rgba(0, 0, 0, 0.9) !important;
+  background: radial-gradient(circle at 35% 30%, #5c4114 0%, #2e1d08 55%, #120b03 100%) !important;
+  box-shadow: inset 0 0.8px 0.8px rgba(255, 245, 215, 0.4), inset 0 -0.8px 1px rgba(0, 0, 0, 0.9) !important;
 }
 
 html.light-mode body #profile-tab .phc-crown-badge .phc-coin-relief,
@@ -27445,8 +27619,8 @@ body.light-mode #profile-tab .phc-crown-badge .phc-coin-relief {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: radial-gradient(circle at 35% 30%, #D8B65A 0%, #8A6421 60%, #4A330D 100%) !important;
-  box-shadow: inset 0 0.8px 1px rgba(255, 255, 255, 0.6), inset 0 -0.8px 1px rgba(45, 30, 8, 0.5) !important;
+  background: radial-gradient(circle at 35% 30%, #dcae4a 0%, #a07424 55%, #50340c 100%) !important;
+  box-shadow: inset 0 0.8px 1px rgba(255, 255, 255, 0.85), inset 0 -0.8px 1px rgba(50, 32, 10, 0.5) !important;
 }
 
 body #profile-tab .phc-crown-badge svg,
@@ -27458,17 +27632,17 @@ body #profile-tab .phc-crown-coin-svg {
 html:not(.light-mode) body #profile-tab .phc-crown-badge svg,
 html.dark-mode body #profile-tab .phc-crown-badge svg,
 body:not(.light-mode) #profile-tab .phc-crown-badge svg {
-  color: #F7E9C3 !important;
-  fill: #F7E9C3 !important;
+  color: #fef1cf !important;
+  fill: #fef1cf !important;
   filter: drop-shadow(0 0.5px 0.5px rgba(0, 0, 0, 0.8));
 }
 
 html.light-mode body #profile-tab .phc-crown-badge svg,
 body.light-mode #profile-tab .phc-crown-badge svg,
 [data-theme="light"] #profile-tab .phc-crown-badge svg {
-  color: #FFF6D6 !important;
-  fill: #FFF6D6 !important;
-  filter: drop-shadow(0 0.5px 0.5px rgba(35, 22, 6, 0.6));
+  color: #fef1cf !important;
+  fill: #fef1cf !important;
+  filter: drop-shadow(0 0.5px 0.5px rgba(50, 32, 10, 0.65));
 }
 
 /* 7. CENTER COLUMN: REFINED IDENTITY HIERARCHY (PROTECTED AGAINST COLLISION) */
@@ -27772,7 +27946,7 @@ body.light-mode #profile-tab .phc-loc,
   font-weight: 600 !important;
 }
 
-/* 8. TOP-RIGHT SOVEREIGN EDIT PROFILE PLAQUE BUTTON (PHYSICAL METAL PLAQUE) */
+/* 8. TOP-RIGHT SOVEREIGN EDIT PROFILE CONTROL (PRECISION PHYSICAL GOLD PLAQUE) */
 html body #profile-tab .profile-hero-card .phc-edit-btn,
 html body #profile-tab #editAccountBtn,
 body #profile-tab .phc-edit-btn,
@@ -27784,106 +27958,135 @@ body[dir="rtl"] #profile-tab .phc-edit-btn,
 html[dir="rtl"] body #profile-tab .phc-edit-btn,
 [dir="rtl"] #profile-tab .phc-edit-btn {
   position: absolute !important;
-  top: 9px !important;
-  right: 13px !important;
+  top: 10px !important;
+  right: 14px !important;
   left: auto !important;
   bottom: auto !important;
   inset-inline-start: auto !important;
-  inset-inline-end: 13px !important;
+  inset-inline-end: 14px !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 5px !important;
+  gap: 3px !important;
   width: auto !important;
   min-width: 0 !important;
   max-width: none !important;
-  height: 21px !important;
-  padding: 0 8px !important;
-  border-radius: 5px !important;
+  height: 15px !important; /* 15-20% reduction from 18px — restrained, secondary horological scale */
+  padding: 0 5px 0 4.5px !important;
+  border-radius: 2px !important; /* Crisp, architectural metal plaque corners — NOT pill */
   cursor: pointer !important;
-  font-family: 'Cinzel', 'Readex Pro', sans-serif !important;
-  font-size: 8.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.6px !important;
+  font-family: 'Cairo', 'Amiri', 'Readex Pro', sans-serif !important;
+  font-size: 7.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1px !important;
   font-style: normal !important;
   white-space: nowrap !important;
   user-select: none !important;
   z-index: 10 !important;
-  opacity: 0.92 !important;
-  transition: opacity 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease !important;
+  opacity: 0.96 !important;
+  transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease !important;
 }
 
-/* Dark Mode Edit Plaque: Polished Gold Rim with Recessed Edge & Blackened Precious-Metal Interior */
+/* Comfortable Touch Target Expansion for Mobile Usability */
+html body #profile-tab .profile-hero-card .phc-edit-btn::before,
+body #profile-tab #editAccountBtn::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -8px -6px !important;
+  pointer-events: auto !important;
+}
+
+/* Precision Engraved Stylus Icon */
+html body #profile-tab .phc-edit-btn .phc-edit-icon,
+body #profile-tab #editAccountBtn .phc-edit-icon {
+  width: 7.5px !important;
+  height: 7.5px !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+
+/* Dark Mode: Machined Blackened Precious Metal with High-Karat Gold Bezel */
 html:not(.light-mode) body #profile-tab .phc-edit-btn,
 html.dark-mode body #profile-tab .phc-edit-btn,
 [data-theme="dark"] #profile-tab .phc-edit-btn,
 body:not(.light-mode) #profile-tab .phc-edit-btn,
 body:not(.light-mode) #profile-tab #editAccountBtn {
-  background: linear-gradient(180deg, #241c12 0%, #151009 55%, #0d0905 100%) !important;
-  border: 1px solid #c9a04a !important;
+  background: linear-gradient(135deg, #2b2014 0%, #171108 50%, #0d0904 100%) !important;
+  border: 0.65px solid #d4af6a !important;
   box-shadow:
-    0 0 0 0.5px rgba(25, 18, 8, 0.8),
-    0 2px 6px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0.5px rgba(255, 245, 215, 0.4),
-    inset 0 -1px 0.5px rgba(0, 0, 0, 0.8) !important;
-  color: #faecc5 !important;
+    0 0 0 0.5px #050302,
+    0 1px 2.5px rgba(0, 0, 0, 0.8),
+    inset 0 0.65px 0.5px rgba(255, 240, 200, 0.35),
+    inset 0 -0.65px 0.5px rgba(0, 0, 0, 0.85) !important;
+  color: #f6e7be !important;
 }
 
-html:not(.light-mode) body #profile-tab .phc-edit-btn svg,
-body:not(.light-mode) #profile-tab .phc-edit-btn svg,
-body:not(.light-mode) #profile-tab .phc-edit-btn .phc-edit-icon {
-  stroke: #e0c16a !important;
-  width: 10px !important;
-  height: 10px !important;
+html:not(.light-mode) body #profile-tab .phc-edit-btn .phc-edit-icon {
+  stroke: #f6e7be !important;
+  filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.9)) !important;
 }
 
 html:not(.light-mode) body #profile-tab .phc-edit-btn .phc-edit-txt,
 body:not(.light-mode) #profile-tab .phc-edit-btn .phc-edit-txt,
 body:not(.light-mode) #profile-tab .phc-edit-btn span {
-  color: #faecc5 !important;
+  color: #f6e7be !important;
+  text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.9) !important;
 }
 
-/* Light Mode Edit Plaque: Polished Gold Rim with Recessed Edge & Warm Silk Ivory Interior */
+/* Light Mode: Precision Physical Gold Plaque Matching the Master Card Frame Aesthetic */
 html.light-mode body #profile-tab .phc-edit-btn,
 body.light-mode #profile-tab .phc-edit-btn,
 [data-theme="light"] #profile-tab .phc-edit-btn,
 html.light-mode body #profile-tab #editAccountBtn,
 body.light-mode #profile-tab #editAccountBtn,
 [data-theme="light"] #profile-tab #editAccountBtn {
-  background: linear-gradient(180deg, #ffffff 0%, #faf5ec 55%, #f0e5cf 100%) !important;
-  border: 1px solid #c9a04a !important;
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #faecc5 12%, 
+    #dcae4a 32%, 
+    #a07424 50%, 
+    #684514 62%, 
+    #c49436 78%, 
+    #fef1cf 90%, 
+    #d8aa46 100%
+  ) !important;
+  border: 0.65px solid #7c581a !important;
   box-shadow:
-    0 0 0 0.5px rgba(90, 62, 18, 0.5),
-    0 1px 4px rgba(60, 42, 14, 0.12),
-    inset 0 1px 0.5px #ffffff,
-    inset 0 -1px 0.5px rgba(110, 80, 24, 0.18) !important;
-  color: #3e2b0e !important;
+    0 0 0 0.5px rgba(50, 32, 10, 0.35),
+    0 1px 2px rgba(35, 20, 6, 0.12),
+    inset 0 0.65px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -0.65px 0.5px rgba(90, 60, 15, 0.35) !important;
+  color: #2b1a03 !important; /* Dark warm brown / deep antique gold */
 }
 
-html.light-mode body #profile-tab .phc-edit-btn svg,
-body.light-mode #profile-tab .phc-edit-btn svg,
-[data-theme="light"] #profile-tab .phc-edit-btn svg,
-body.light-mode #profile-tab .phc-edit-btn .phc-edit-icon {
-  stroke: #7a571a !important;
-  width: 10px !important;
-  height: 10px !important;
+html.light-mode body #profile-tab .phc-edit-btn .phc-edit-icon {
+  stroke: #2b1a03 !important;
+  filter: drop-shadow(0 0.5px 0 rgba(255, 255, 255, 0.55)) !important;
 }
 
 html.light-mode body #profile-tab .phc-edit-btn .phc-edit-txt,
 body.light-mode #profile-tab .phc-edit-btn .phc-edit-txt,
 [data-theme="light"] #profile-tab .phc-edit-btn .phc-edit-txt,
 body.light-mode #profile-tab .phc-edit-btn span {
-  color: #3e2b0e !important;
+  color: #2b1a03 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.6) !important;
 }
 
 body #profile-tab .phc-edit-btn:hover {
   opacity: 1 !important;
+  filter: brightness(1.03) !important;
   transform: translateY(-0.5px) !important;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 
+    0 0 0 0.5px rgba(50, 32, 10, 0.45),
+    0 1.5px 3.5px rgba(35, 20, 6, 0.18),
+    inset 0 0.65px 0.5px rgba(255, 255, 255, 0.98),
+    inset 0 -0.65px 0.5px rgba(90, 60, 15, 0.4) !important;
 }
 
 body #profile-tab .phc-edit-btn:active {
-  transform: translateY(0px) scale(0.98) !important;
+  transform: translateY(0.5px) scale(0.98) !important;
+  box-shadow:
+    inset 0 1px 1.5px rgba(45, 28, 8, 0.35) !important;
 }
 
 /* 9. SPECIFICATION STRIP (HIDDEN TO MATCH REFERENCE COMPOSITION) */
@@ -28205,7 +28408,7 @@ body.light-mode #profile-tab .profile-hero-card {
 
 /* === PERFORMANCE PASS (2026-09-30): MOBILE BLUR ELIMINATION === */
 @media (max-width: 600px) {
-  * {
+  *:not(.bottom-nav, .bottom-nav *) {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
@@ -28244,15 +28447,16 @@ html body #profile-tab .profile-hero-card .phc-edit-btn,
 html body #profile-tab #editAccountBtn,
 body #profile-tab .phc-edit-btn,
 body #profile-tab #editAccountBtn {
-  height: 22px !important;
-  padding: 0 8px !important;
-  font-size: 8.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.5px !important;
+  height: 15px !important;
+  padding: 0 5px 0 4.5px !important;
+  font-family: 'Cairo', 'Amiri', 'Readex Pro', sans-serif !important;
+  font-size: 7.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1px !important;
   font-style: normal !important;
-  border-radius: 5px !important;
-  opacity: 0.9 !important;
-  transition: opacity 0.2s ease, transform 0.15s ease !important;
+  border-radius: 2px !important;
+  opacity: 0.96 !important;
+  transition: opacity 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease !important;
 }
 html body #profile-tab .profile-hero-card .phc-edit-btn:hover,
 body #profile-tab #editAccountBtn:hover {

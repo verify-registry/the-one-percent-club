@@ -384,3 +384,68 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   3. *Layer 3 (Inner Champagne Gold Rehaut & Specular Chapter Ring)*: Precision inner rehaut step-down surrounding the dial face, featuring a top specular highlight catch (`var(--gold-highlight, #eae0c4)` / `#ffffff`), 1px champagne gold chapter line (`rgba(233, 200, 119, 0.55)`), 2px antique step-down, and a 3px dark seating recess into the obsidian/ivory dial substrate.
 - **Strict Scope Preservation**: 100% of DOM structure, event listeners, form inputs, avatar uploads, and unrelated screens remained completely untouched.
 
+### Master Card Final Luxury Horological Guilloché Engraving (2026-10-01) — COMPLETE
+- **Original Luxury Horological Dial Engraving**: Engineered a lightweight, scalable, single-layer SVG system (`.phc-engraving-wrap`, `.phc-master-engraving`) for `#profileHeroPlaque` inspired by haute horlogerie dial craftsmanship (Breguet/Patek Philippe rose-engine intaglio).
+- **Physical Two-Tone Debossed Intaglio Treatment**: Implemented a physically etched debossed effect using a warm antique-gold recessed line (`.phc-eng-groove`, stroke `#8d6929` in light / `#d4af6a` in dark) paired with a +0.45px shifted champagne specular highlight (`.phc-eng-highlight`, `#ffffff` in light / `#fef3d6` in dark), creating authentic physical depth without glow, blur, or thick lines.
+- **Controlled Density & Typography Protection**: Applied an intaglio density mask (`#phcEngravingDensityMask`) with an attenuated central ellipse, rendering the central text zone (member name, title, quote, metadata) quiet and unobstructed, while providing richer articulation across the perimeter, corner spandrels, medallion halo, and lower empty zone.
+- **Zero Scope Creep**: 100% preservation of gold frame, portrait medallion, edit button, typography, dimensions, event handlers, and navigation.
+
+### Master Card Continuous Guilloché Material Pass (2026-10-01) — COMPLETE
+- **Eradicated All Decorative Borders & Frames**: Completely removed all inner rectangles, corner flourishes, and horizontal/vertical framing ribbons. The guilloché now covers the entire usable ivory surface edge-to-edge as a continuous physical material rather than a separate decorative border.
+- **Continuous Rose-Engine Harmonic Field**: Built an organic continuous field of coupled sinusoidal harmonic curves (Breguet/Patek Philippe "Grain d'Orge" engine-turned guilloché) where intersecting wave families generate microscopic lenticular cells across the entire plate.
+- **Seamless Organic Density Breathing**: Implemented natural amplitude and phase modulation paired with a smooth multi-stop radial gradient mask (`#phcEngravingDensityMask`), smoothly transitioning from calm low-density behind the member typography to rich micro-engraved detail around the portrait and perimeter with zero visible boundary.
+- **Matte Intaglio Physical Depth**: Calibrated the two-tone debossed lines with refined stroke (`0.44px`), warm antique gold groove (`#987432` at 0.32 opacity in light mode) and champagne specular ridge (`#ffffff` at 0.50 opacity with +0.35px directional offset), yielding an authentic matte hand-engraved ivory feel.
+- **Strict Scope Preservation**: 100% preservation of the outer 3D gold frame, portrait medallion, crown hallmark coin, member name, rank, quote, horological metadata, Alexandria, Edit Profile button, dimensions, and business logic.
+
+### Master Card Luxury Material Refinement Pass (2026-10-01) — COMPLETE
+- **Non-Repeating Horological Rose-Engine Guilloché**: Replaced repeating wave rows with a dynamic, non-uniform horological engraving system featuring variable wavelength modulation (34px near portrait expanding to 56px on right), organic vertical row stepping (6-9px margins, 16px center), and subtle macro-lens curvature, eliminating wallpaper repetition.
+- **3-Tier Density Hierarchy**: Engineered a 3-level density distribution: (1) Primary rich flinqué framing around the portrait medallion bed (100% luminance); (2) Secondary delicate micro-engraving across peripheral sectors; (3) Quiet, deeply attenuated zone (15% luminance) providing pristine ivory contrast behind member typography.
+- **Jewelry-Style Engraved Gold Plaque Control**: Completely redesigned `#editAccountBtn` (`.phc-edit-btn`) from a modern UI button into an architectural, authentic gold plaque control integrated into the dial face:
+  - 3px refined architectural corner chamfer (eliminating web pill appearance).
+  - Multi-tier precious metal rim with directional specular highlights and subtle contact grounding shadow.
+  - Recessed intaglio plaque bed (`linear-gradient(175deg, #faeed4, #eddcb9, #e0cda4)`) in Light Mode and blackened metal in Dark Mode.
+  - Arabic typography ("تعديل الملف") in authoritative antique-bronze with engraved intaglio highlight.
+  - Refined 9.5px pencil icon appearing physically engraved into the plaque metal.
+- **Zero Scope Creep**: 100% preservation of outer 3D gold frame, portrait medallion, crown hallmark coin, member name, rank, quote, horological metadata, Alexandria, dimensions, and business logic.
+
+### Master Card Edit Profile Control Final Polish (2026-10-01) — COMPLETE
+- **Removal of Badge Artifacts**: Removed "AU" text, diamond symbol, and extraneous decorative badge elements from `#editAccountBtn`.
+- **Integrated Precision Gold Plaque**:
+  - Restrained horizontal rectangular plaque with architectural precision corners (`border-radius: 2px`, non-pill).
+  - Reduced height by 17% (from 18px to 15px) to achieve authentic watchmaking nameplate proportion, remaining secondary in visual hierarchy to portrait, name, and rank.
+  - Engineered matching anisotropic polished champagne/antique gold metal treatment identical to the Master Card frame (`linear-gradient(135deg, ...)`, `0.65px solid #7c581a`, directional specular highlight catch, recessed shadow bevel, and tiny contact drop shadow).
+  - Dark Mode: Machined blackened precious metal with polished champagne gold rim and gold engraving.
+  - Precision-cut engraved stylus/pencil icon (`phc-edit-icon`, 7.5px) in dark antique-gold tone (`#2b1a03` in Light / `#f6e7be` in Dark).
+  - Preserved comfortable mobile touch target via invisible pseudo-element expansion (`::before`).
+- **Zero Scope Creep**: 100% untouched background guilloché, gold frame, portrait medallion, crown hallmark coin, member name, rank, quote, ID, EST. 2026, Alexandria, dimensions, modal wiring, and business logic.
+
+### Master Card Unified Gold Material System (2026-10-01) — COMPLETE
+- **Unification of Four Key Gold Elements**:
+  1. *Outer Card Frame*: Calibrated light mode directional gold bevel (`linear-gradient(135deg, ...)`) to match the exact champagne gold spectrum (`#dcae4a`, `#a07424`, `#50340c`, `#c49436`, `#fef1cf`, `#3a2508`), maintaining structural bevel depth and deep grounding shadow.
+  2. *Portrait Outer Bezel (`.phc-avatar-ring`)*: Upgraded conical metallic gradient (`conic-gradient(from 45deg, ...)`) to share the exact same champagne gold hue family as Edit Profile, with realistic curved surface metallic lighting featuring two specular peaks at 45deg and 225deg (`#ffffff`, `#faecc5`), warm polished gold body (`#dcae4a`), and deep antique shadow recesses (`#684514`, `#50340c`).
+  3. *Crown Coin Hallmark (`.phc-crown-badge`)*: Re-aligned the coin's outer beveled rim (`conic-gradient`), relief socket bed (`radial-gradient`), and crown SVG glyph (`#fef1cf`) to the unified champagne gold palette, removing yellow/orange color discrepancies.
+  4. *Edit Profile Plaque (`.phc-edit-btn`)*: Serves as the master color reference for the physical champagne/antique gold hue.
+- **Zero Scope Creep**: 100% preserved background guilloché, member portrait, typography, name, rank, quote, metadata, Alexandria, card dimensions, modal functionality, and navigation.
+
+### App-Shell Visual Refinement — Header Merge & Luxury Liquid Glass Bottom Nav (2026-10-01) — COMPLETE
+- **Top Application Header Visual Merge**:
+  - Eliminated hard horizontal dividing border (`border-bottom: none !important; box-shadow: none !important;`).
+  - Implemented smooth vertical tonal fade in Light Mode (`linear-gradient(180deg, rgba(253, 251, 247, 0.95) 0%, rgba(253, 251, 247, 0.80) 42%, rgba(248, 245, 237, 0.40) 75%, rgba(248, 245, 237, 0) 100%)`) seamlessly melting into the ivory application substrate without any white rectangular band.
+  - Dark Mode: Smooth vertical fade to transparent without hard bottom cutoff.
+  - 100% preservation of crown logo, typography, tagline, back/shield buttons, and header spacing.
+- **Bottom Navigation Luxury Liquid Glass Continuous Edge Dissolve**:
+  - Completely eliminated solid panel appearance, hard boundaries, and white rectangular blocks.
+  - Implemented dedicated visual liquid glass layer (`.bottom-nav::before`) with multi-axis alpha masking gradient (`mask-image: radial-gradient(ellipse 94% 88% at 50% 65%, black 30%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.45) 75%, rgba(0, 0, 0, 0.12) 90%, transparent 100%)`) allowing the surface and backdrop blur to softly dissolve into the app background in all directions.
+  - Center glass area tuned to 48%–58% warm ivory/champagne translucency with `backdrop-filter: blur(14px) saturate(140%)` so underlying application content remains faintly visible.
+  - Soft radial micro-highlight at upper crest fading out sideways without creating a hard horizontal rule.
+  - Container `.bottom-nav` has `background: transparent; border: none; box-shadow: none; isolation: isolate;` keeping navigation buttons, SVG icons, active gold highlights, and Arabic labels 100% sharp and readable.
+- **Strict Scope Preservation**: Zero changes to Master Card, portrait, guilloché, typography, frame, Profile content, routing, or modal functionality.
+
+
+
+
+
+
+
+
+
