@@ -1134,11 +1134,10 @@ body.light-mode .shield-btn::before {
 .app-main {
   flex: 1;
   height: 100%;
-  padding: 0 16px 80px;
+  padding: 0 16px 0;
   display: grid;
   overflow: hidden;
   position: relative;
-  contain: layout;
 }
 .page {
   grid-area: 1 / 1;
@@ -1148,6 +1147,7 @@ body.light-mode .shield-btn::before {
   height: 100%;
   min-height: 0;
   padding-top: calc(var(--header-actual-height, 74px) + 8px);
+  padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -1180,13 +1180,17 @@ body.light-mode .shield-btn::before {
   }
 }
 
+.page#membership-tab,
+#membership-tab.is-active,
 #page-card.is-active {
   overflow: visible;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: 2px;
+  padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
 }
+.page#membership-tab::-webkit-scrollbar,
+#membership-tab.is-active::-webkit-scrollbar,
 #page-card.is-active::-webkit-scrollbar {
   display: none;
 }
@@ -2292,106 +2296,56 @@ body.light-mode .metric-tooltip-icon circle {
   bottom: 0;
   left: 0;
   right: 0;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 10px 6px calc(10px + env(safe-area-inset-bottom));
   z-index: 100;
   direction: ltr;
   max-width: 520px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 10px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  pointer-events: auto;
   transform: translate3d(0, 0, 0);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
-  isolation: isolate;
-  pointer-events: auto;
+
+  /* Optical Blur Applied Directly to Navigation Element */
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+
+  /* Linear-Gradient Mask: Smooth Alpha Fade at Top, Bottom, and Side Edges */
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 14px, black calc(100% - 10px), transparent 100%),
+    linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 14px), transparent 100%);
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, black 14px, black calc(100% - 10px), transparent 100%),
+    linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 14px), transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
 }
 
-/* Luxury Liquid Glass Visual Layer — Multi-Axis Continuous Edge Dissolve */
-.bottom-nav::before {
-  content: "";
-  position: absolute;
-  inset: -6px -12px 0 -12px;
-  z-index: -1;
-  pointer-events: none;
-  /* 1. Backdrop Blur & Color Saturation */
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  /* 2. Alpha Masking Gradient: Smooth multi-stop radial fade in ALL directions */
-  mask-image: radial-gradient(
-    ellipse 94% 88% at 50% 65%,
-    black 30%,
-    rgba(0, 0, 0, 0.85) 55%,
-    rgba(0, 0, 0, 0.45) 75%,
-    rgba(0, 0, 0, 0.12) 90%,
-    transparent 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 94% 88% at 50% 65%,
-    black 30%,
-    rgba(0, 0, 0, 0.85) 55%,
-    rgba(0, 0, 0, 0.45) 75%,
-    rgba(0, 0, 0, 0.12) 90%,
-    transparent 100%
-  );
+/* Remove Any Pseudo-Element Overlays */
+.bottom-nav::before,
+.bottom-nav::after {
+  content: none !important;
+  display: none !important;
 }
 
-/* Dark Mode: Obsidian Liquid Glass with Soft Radial Dissolve */
-body:not(.light-mode) .bottom-nav::before,
-html:not(.light-mode) .bottom-nav::before,
-[data-theme="dark"] .bottom-nav::before {
-  background:
-    /* Layer 1: Subtle translucent gold upper highlight fading out horizontally */
-    radial-gradient(ellipse 65% 1.5px at 50% 4px, rgba(212, 175, 106, 0.55) 0%, rgba(212, 175, 106, 0) 75%),
-    /* Layer 2: Subtle obsidian core sheen */
-    radial-gradient(ellipse 75% 45% at 50% 40%, rgba(45, 35, 22, 0.35) 0%, transparent 80%),
-    /* Layer 3: Warm obsidian liquid glass substrate (50%–65% central opacity) */
-    radial-gradient(
-      ellipse 92% 82% at 50% 60%,
-      rgba(18, 14, 9, 0.68) 0%,
-      rgba(14, 10, 6, 0.58) 42%,
-      rgba(10, 8, 4, 0.36) 72%,
-      rgba(8, 6, 3, 0.10) 90%,
-      transparent 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(22, 17, 11, 0.60) 0%,
-      rgba(14, 11, 7, 0.70) 50%,
-      rgba(8, 6, 3, 0.55) 100%
-    ) !important;
-  filter: drop-shadow(0 -4px 16px rgba(0, 0, 0, 0.6));
+/* Dark Mode: Translucent Obsidian Champagne Liquid Glass */
+body:not(.light-mode) .bottom-nav,
+html:not(.light-mode) .bottom-nav,
+[data-theme="dark"] .bottom-nav {
+  background: rgba(14, 11, 7, 0.50) !important;
 }
 
-/* Light Mode: Warm Ivory & Champagne Liquid Glass with Soft Radial Dissolve */
-body.light-mode .bottom-nav::before,
-html.light-mode .bottom-nav::before,
-[data-theme="light"] .bottom-nav::before {
-  background:
-    /* Layer 1: Very subtle translucent upper highlight fading out naturally */
-    radial-gradient(ellipse 65% 1.5px at 50% 4px, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 75%),
-    /* Layer 2: Internal warm champagne reflection core */
-    radial-gradient(ellipse 75% 45% at 50% 40%, rgba(255, 252, 246, 0.35) 0%, transparent 80%),
-    /* Layer 3: Warm ivory / champagne translucent glass substrate (48%–58% central opacity) */
-    radial-gradient(
-      ellipse 92% 82% at 50% 60%,
-      rgba(248, 242, 230, 0.56) 0%,
-      rgba(244, 237, 222, 0.46) 42%,
-      rgba(238, 230, 214, 0.28) 72%,
-      rgba(235, 225, 208, 0.08) 90%,
-      transparent 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(252, 248, 238, 0.42) 0%,
-      rgba(246, 239, 225, 0.52) 50%,
-      rgba(240, 232, 216, 0.40) 100%
-    ) !important;
-  /* Extremely soft depth shadow fading outwards */
-  filter: drop-shadow(0 -3px 14px rgba(60, 42, 14, 0.05));
+/* Light Mode: Translucent Warm-Ivory & Champagne Background Color */
+body.light-mode .bottom-nav,
+html.light-mode .bottom-nav,
+[data-theme="light"] .bottom-nav {
+  background: rgba(247, 241, 230, 0.40) !important;
 }
 .bottom-nav.nav-hidden {
   transform: translate3d(0, 105%, 0) !important;
@@ -2518,10 +2472,8 @@ html.light-mode .nav-item.is-active .nav-label {
    ========================================================================== */
 
 #page-member {
-  padding: 6px 12px 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  z-index: 10;
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -2529,6 +2481,12 @@ html.light-mode .nav-item.is-active .nav-label {
   overflow-y: auto !important;
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch;
+  background: var(--bg-primary, #0c0b0a) !important;
+  display: none;
+}
+
+#page-member[hidden] {
+  display: none !important;
 }
 
 #page-member.is-active {
@@ -2537,6 +2495,25 @@ html.light-mode .nav-item.is-active .nav-label {
   align-items: center;
   overflow-y: auto !important;
   overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  padding-top: calc(var(--header-actual-height, 74px) + 14px) !important;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  background: var(--bg-primary, #0c0b0a) !important;
+}
+
+body.light-mode #page-member,
+body.light-mode #page-member.is-active {
+  background: var(--lm-bg-primary, #faf7ef) !important;
+}
+
+/* Guarantee no floating Club controls appear when viewing member dossier */
+body:has(#page-member.is-active) #club-tab .club-composer-wrap {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .sovereign-dossier-card {
@@ -3240,15 +3217,21 @@ body.light-mode .sd-footer-hallmark {
 }
 
 #club-tab.is-active {
-  overflow: hidden !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
   display: flex !important;
   flex-direction: column !important;
   flex: 1;
   min-height: 0;
   height: 100%;
   padding-top: calc(var(--header-actual-height, 74px) + 8px) !important;
-  padding-bottom: 0 !important;
+  padding-bottom: calc(122px + env(safe-area-inset-bottom, 0px)) !important;
   gap: 0 !important;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+#club-tab.is-active.is-subview-active {
+  padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
 }
 #club-tab .club-pinned {
   flex-shrink: 0;
@@ -3477,13 +3460,12 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  border-radius: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.12);
-  box-shadow:
-    inset 0 1px 3px rgba(0, 0, 0, 0.8),
-    inset 0 0 20px rgba(0, 0, 0, 0.6),
-    0 4px 16px rgba(0, 0, 0, 0.4);
-  background: #09080c;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.08);
+  box-shadow: none;
+  background: rgba(14, 12, 10, 0.40);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 /* LUXURY SOVEREIGN CHAT BACKDROP (OBSIDIAN + REAL GOLD WATERMARK & GUILLOCHÉ) */
@@ -3494,9 +3476,8 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   overflow: hidden;
   z-index: 0;
   background:
-    radial-gradient(ellipse 90% 50% at 50% 0%, rgba(212, 175, 55, 0.055) 0%, transparent 65%),
-    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(184, 134, 11, 0.035) 0%, transparent 60%),
-    linear-gradient(180deg, #110f14 0%, #0c0a0e 40%, #070608 100%);
+    radial-gradient(ellipse 90% 50% at 50% 0%, rgba(212, 175, 55, 0.035) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(184, 134, 11, 0.02) 0%, transparent 60%);
   transition: background 0.3s ease;
 }
 
@@ -3611,7 +3592,7 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   display: flex;
   flex-direction: column;
   gap: 13px;
-  padding: 44px 8px 16px;
+  padding: 44px 8px 52px !important;
   border: none;
   background: transparent;
   scroll-behavior: smooth;
@@ -4628,16 +4609,34 @@ body.light-mode .dispatch-read-more-btn:hover {
    ========================================================================== */
 
 #club-tab .club-composer-wrap {
-  flex-shrink: 0;
+  position: fixed !important;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  left: 0 !important;
+  right: 0 !important;
+  max-width: 520px !important;
+  margin: 0 auto !important;
+  padding: 0 12px 6px !important;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 4px 6px 6px;
-  border-top: none;
+  flex-direction: column !important;
+  gap: 8px !important;
+  z-index: 45 !important;
+  pointer-events: none !important;
   background: transparent !important;
-  position: relative;
-  z-index: 10;
   box-shadow: none !important;
+  border: none !important;
+}
+
+#club-tab .club-composer-wrap.is-hidden,
+#club-tab .club-composer-wrap[hidden],
+#club-tab.is-subview-active .club-composer-wrap {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+#club-tab .club-composer-wrap > * {
+  pointer-events: auto !important;
 }
 
 /* Horological Escapement & Ink Drafting Indicator */
@@ -4755,19 +4754,25 @@ body.light-mode .dispatch-read-more-btn:hover {
   50% { opacity: 1; transform: scale(1.15); }
 }
 
-/* --- 1. Horological Dispatch Gauge & Ledger Allocation --- */
+/* --- 1. Horological Dispatch Gauge & Ledger Allocation (Floating Liquid Glass Overlay) --- */
 .horological-ledger-gauge {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 6px 12px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(20, 17, 12, 0.9) 0%, rgba(10, 8, 6, 0.95) 100%);
-  border: 1px solid rgba(212, 175, 106, 0.22);
-  box-shadow: 
-    inset 0 1px 1px rgba(255, 240, 200, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.45);
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: rgba(18, 14, 10, 0.52) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.20) !important;
+  border-top: 1px solid rgba(255, 240, 190, 0.28) !important;
+  border-bottom: 1px solid rgba(140, 105, 35, 0.16) !important;
+  box-shadow:
+    0 4px 24px -2px rgba(0, 0, 0, 0.45),
+    0 1px 4px rgba(0, 0, 0, 0.30),
+    inset 0 1px 1px rgba(255, 245, 215, 0.12) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gauge-dial-section {
@@ -4976,22 +4981,33 @@ body.light-mode .dispatch-read-more-btn:hover {
   50% { box-shadow: 0 0 12px rgba(212, 175, 106, 0.7); }
 }
 
-/* --- 2. Obsidian Dispatch Composer (Polished Metallic Frame) --- */
+/* --- 2. Obsidian Dispatch Composer (Floating Liquid Glass) --- */
 .obsidian-dispatch-composer {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 8px;
   padding: 5px 6px 5px 10px;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #18140f 0%, #0d0a08 100%);
-  border: 1.5px solid transparent;
-  background-clip: padding-box;
+  border-radius: 26px;
+  min-height: 48px;
+  box-sizing: border-box;
+  background: rgba(18, 14, 10, 0.52) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.20) !important;
+  border-top: 1px solid rgba(255, 240, 190, 0.28) !important;
+  border-bottom: 1px solid rgba(140, 105, 35, 0.16) !important;
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.65),
-    inset 0 1.5px 2px rgba(255, 245, 215, 0.12),
-    inset 0 -1.5px 3px rgba(0, 0, 0, 0.85);
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    0 4px 24px -2px rgba(0, 0, 0, 0.45),
+    0 1px 4px rgba(0, 0, 0, 0.30),
+    inset 0 1px 1px rgba(255, 245, 215, 0.12) !important;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease;
+}
+
+.obsidian-dispatch-composer::before,
+.obsidian-dispatch-composer::after {
+  content: none !important;
+  display: none !important;
 }
 
 html[dir="rtl"] .obsidian-dispatch-composer {
@@ -5102,7 +5118,7 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 4px 9px;
+  padding: 5px 9px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(212, 175, 106, 0.22);
@@ -5112,6 +5128,7 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   flex-shrink: 0;
   position: relative;
   z-index: 2;
+  margin-bottom: 5px;
 }
 .whisper-cipher-toggle:active {
   transform: scale(0.94);
@@ -5142,15 +5159,17 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   flex: 1;
   min-width: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
   z-index: 2;
+  padding: 0;
 }
 .obsidian-dispatch-input,
 #clubInput {
   width: 100% !important;
-  height: 38px !important;
-  min-height: 38px !important;
+  min-height: 34px !important;
+  max-height: 110px !important;
+  height: 34px;
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
@@ -5159,14 +5178,20 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   color: #f7f1e1;
   font-family: inherit;
   font-size: 14px;
-  line-height: normal;
+  line-height: 1.45;
   letter-spacing: 0.01em;
   unicode-bidi: plaintext;
   text-align: start;
-  padding: 0 8px !important;
+  padding: 6px 8px !important;
   margin: 0 !important;
+  resize: none !important;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  word-break: break-word;
+  white-space: pre-wrap;
   -webkit-appearance: none;
   appearance: none;
+  box-sizing: border-box !important;
 }
 .obsidian-dispatch-input:focus,
 #clubInput:focus {
@@ -5204,6 +5229,7 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
   width: 38px;
   height: 38px;
   flex-shrink: 0;
+  margin-bottom: 2px;
   border-radius: 50%;
   border: none;
   background: transparent;
@@ -10287,19 +10313,17 @@ body.light-mode .room-badge {
 
 /* Chat & Sovereign Dispatch */
 body.light-mode .club-chat-viewport {
-  border: 1px solid rgba(156, 109, 35, 0.22) !important;
-  box-shadow:
-    inset 0 1px 3px rgba(0, 0, 0, 0.04),
-    inset 0 0 16px rgba(156, 109, 35, 0.04),
-    0 4px 16px rgba(0, 0, 0, 0.04) !important;
-  background: #faf7ef !important;
+  border: 1px solid rgba(180, 140, 60, 0.10) !important;
+  box-shadow: none !important;
+  background: rgba(248, 244, 236, 0.38) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 body.light-mode .sovereign-chat-backdrop {
   background:
-    radial-gradient(ellipse 90% 48% at 50% 0%, rgba(212, 175, 55, 0.11) 0%, transparent 65%),
-    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(180, 140, 60, 0.06) 0%, transparent 60%),
-    linear-gradient(180deg, #faf7ef 0%, #f5eee1 45%, #ede3cf 100%) !important;
+    radial-gradient(ellipse 90% 48% at 50% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(180, 140, 60, 0.03) 0%, transparent 65%) !important;
 }
 
 body.light-mode .chat-backdrop-mesh {
@@ -10441,9 +10465,16 @@ body.light-mode #club-tab .club-composer-wrap {
   box-shadow: none !important;
 }
 body.light-mode .horological-ledger-gauge {
-  background: var(--lm-bg-white) !important;
-  border-color: rgba(156, 109, 35, 0.25) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+  background: rgba(250, 246, 238, 0.50) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid rgba(190, 150, 75, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.65) !important;
+  border-bottom: 1px solid rgba(150, 115, 45, 0.18) !important;
+  box-shadow:
+    0 4px 20px -2px rgba(90, 65, 20, 0.08),
+    0 1px 3px rgba(90, 65, 20, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.65) !important;
 }
 body.light-mode .gauge-dial-title {
   color: #634f36 !important;
@@ -10486,60 +10517,32 @@ body.light-mode .seal-btn-label {
   color: #593e10 !important;
 }
 body.light-mode .obsidian-dispatch-composer {
-  background: var(--lm-bg-white) !important;
+  background: rgba(250, 246, 238, 0.50) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid rgba(190, 150, 75, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.65) !important;
+  border-bottom: 1px solid rgba(150, 115, 45, 0.18) !important;
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.05),
-    inset 0 1px 2px rgba(255, 255, 255, 0.9),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.05) !important;
+    0 4px 20px -2px rgba(90, 65, 20, 0.08),
+    0 1px 3px rgba(90, 65, 20, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.65) !important;
 }
-body.light-mode .obsidian-dispatch-composer::before {
-  background: linear-gradient(
-    135deg,
-    #cf9f3d 0%,
-    #f5e0a3 25%,
-    #8c6014 50%,
-    #e8c46c 75%,
-    #593e0b 100%
-  ) !important;
-  opacity: 0.95 !important;
-}
+body.light-mode .obsidian-dispatch-composer::before,
 body.light-mode .obsidian-dispatch-composer::after {
-  border-color: rgba(156, 109, 35, 0.2) !important;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  content: none !important;
+  display: none !important;
 }
 body.light-mode .obsidian-dispatch-composer:focus-within {
   transform: translateY(-1px) !important;
+  border-color: rgba(180, 138, 55, 0.45) !important;
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.07),
-    0 0 14px rgba(212, 175, 106, 0.28),
-    inset 0 1px 2px rgba(255, 255, 255, 0.95) !important;
-}
-body.light-mode .obsidian-dispatch-composer:focus-within::before {
-  opacity: 1 !important;
-  background: linear-gradient(
-    135deg,
-    #e5b44c 0%,
-    #fff2c7 25%,
-    #a8771c 50%,
-    #f2d583 75%,
-    #734f0f 100%
-  ) !important;
-  animation: sovereignLightBreathingGlow 3.5s infinite ease-in-out !important;
-}
-body.light-mode .obsidian-dispatch-composer:focus-within::after {
-  border-color: rgba(156, 109, 35, 0.45) !important;
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05), inset 0 0 10px rgba(156, 109, 35, 0.08) !important;
-}
-@keyframes sovereignLightBreathingGlow {
-  0%, 100% {
-    filter: drop-shadow(0 0 5px rgba(156, 109, 35, 0.35));
-  }
-  50% {
-    filter: drop-shadow(0 0 9px rgba(156, 109, 35, 0.55));
-  }
+    0 6px 24px -2px rgba(90, 65, 20, 0.12),
+    0 0 10px rgba(212, 175, 106, 0.18),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.85) !important;
 }
 body.light-mode .obsidian-dispatch-composer.is-whisper-mode {
-  background: #fdfaf2 !important;
+  background: rgba(253, 248, 238, 0.65) !important;
 }
 body.light-mode .whisper-cipher-toggle {
   background: rgba(156, 109, 35, 0.06) !important;
@@ -23840,8 +23843,13 @@ body.light-mode #profile-tab .reliquary-crest-icon {
   box-shadow: 0 4px 10px rgba(60, 45, 15, 0.08) !important;
 }
 
-body.light-mode #profile-tab .reliquary-title-group h3 {
-  color: #211c14 !important;
+body.light-mode #profile-tab .reliquary-title-group h3,
+body.light-mode #collectionSectionTitle,
+body.light-mode .reliquary-empty-title,
+body.light-mode #profile-tab .reliquary-empty-title,
+body.light-mode #boutique-tab .reliquary-empty-title,
+body.light-mode .empty-reliquary-cushion .reliquary-empty-title {
+  color: #7d5a1b !important;
   text-shadow: none !important;
 }
 
@@ -28351,10 +28359,195 @@ body.light-mode #profile-tab .pcc-subtitle {
   color: #5c4b33 !important;
 }
 
-body.light-mode #profile-tab .pcc-accredited-tag {
-  color: #553c0d !important;
-  border-color: rgba(180, 135, 45, 0.45) !important;
-  background: rgba(200, 160, 70, 0.1) !important;
+/* ==========================================================================
+   THE 1% CLUB — GLOBAL SEMANTIC TYPOGRAPHY & CONTRAST SYSTEM
+   ========================================================================== */
+
+/* DARK MODE DEFAULT TOKENS (Obsidian & Liquid Champagne Gold) */
+:root {
+  --txt-primary: #ede7d8;       /* 1. Primary Text: Warm ivory / champagne white (Max title & body readability) */
+  --txt-secondary: #c4ba9f;     /* 2. Secondary Text: Muted warm ivory (Subtitles, metadata, captions) */
+  --txt-gold-premium: #dfc17b;  /* 3. Premium Gold Text: Polished champagne gold (Key metrics, titles, badges) */
+  --txt-gold-muted: rgba(212, 175, 106, 0.65); /* 4. Muted / Decorative Gold: Low-priority markings & hallmarks */
+
+  --lm-approved-badge-gold: #7d5a15;
+  --lm-approved-badge-border: rgba(168, 124, 45, 0.38);
+  --lm-approved-badge-bg: rgba(168, 124, 45, 0.09);
+  --lm-vault-title-gold: #7d5a1b;
+}
+
+/* LIGHT MODE TOKENS (Imperial Ivory & Antique Champagne Gold) */
+body.light-mode {
+  --txt-primary: #1e1913;       /* 1. Primary Text: Deep warm charcoal / espresso (Max readability, noble tone) */
+  --txt-secondary: #5a4b37;     /* 2. Secondary Text: Darker muted warm brown (Clearly distinguishable from ivory) */
+  --txt-gold-premium: #7d5a1b;  /* 3. Premium Gold Text: Rich antique champagne gold (High contrast, never pale) */
+  --txt-gold-muted: #9e7d47;    /* 4. Muted / Decorative Gold: Subtle decorative gold for secondary accents */
+}
+
+/* ==========================================================================
+   SEMANTIC HIERARCHY MAPPING (SYSTEM-WIDE)
+   ========================================================================== */
+
+/* --- 1. PRIMARY TEXT: Important titles, member names, primary headings --- */
+body.light-mode #sectionName,
+body.light-mode .app-header-title,
+body.light-mode .page-title,
+body.light-mode #membershipPageTitle,
+body.light-mode #cardMemberName,
+body.light-mode .member-name,
+body.light-mode #profileMemberName,
+body.light-mode .phc-name,
+body.light-mode .pcs-head h3,
+body.light-mode .history-head-title-wrap h3,
+body.light-mode .oath-decree-title,
+body.light-mode .pcc-title,
+body.light-mode .profile-nav-menu .menu-title,
+body.light-mode .club-header-title,
+body.light-mode .chamber-title,
+body.light-mode .message-author,
+body.light-mode .msg-author,
+body.light-mode .sl-card-name,
+body.light-mode .leader-name,
+body.light-mode .club-msg-user,
+body.light-mode .boutique-card-title,
+body.light-mode .b-card-title,
+body.light-mode .pcs-item-name,
+body.light-mode #memberDossierName,
+body.light-mode .sd-member-name,
+body.light-mode .sd-reg-title,
+body.light-mode .modal-title,
+body.light-mode .luxury-modal-title,
+body.light-mode .rmc-artifact-title,
+body.light-mode .modal-head h3,
+body.light-mode .form-control,
+body.light-mode .chat-input,
+body.light-mode .modal-body,
+body.light-mode .b-bal-num,
+body.light-mode .boutique-balance-amount {
+  color: var(--txt-primary) !important;
+  text-shadow: none !important;
+}
+
+/* --- 2. SECONDARY TEXT: Subtitles, metadata, captions, secondary labels --- */
+body.light-mode .app-header-sub,
+body.light-mode #cardMemberId,
+body.light-mode .member-id-tag,
+body.light-mode .metric-label,
+body.light-mode .metric-sub,
+body.light-mode .phc-bio,
+body.light-mode .phc-meta-line,
+body.light-mode .phc-location,
+body.light-mode .phc-joined,
+body.light-mode .phc-quote,
+body.light-mode .csd-label,
+body.light-mode .csd-sub,
+body.light-mode .pcc-subtitle,
+body.light-mode .heraldic-section-sub,
+body.light-mode .hrr-label,
+body.light-mode .ledger-sub,
+body.light-mode .lrc-label,
+body.light-mode .lss-text,
+body.light-mode .profile-nav-menu .menu-subtitle,
+body.light-mode .reliquary-sub-title,
+body.light-mode .reliquary-empty-desc,
+body.light-mode .club-header-sub,
+body.light-mode .chamber-sub,
+body.light-mode .message-text,
+body.light-mode .msg-text,
+body.light-mode .message-time,
+body.light-mode .msg-time,
+body.light-mode .sl-card-meta,
+body.light-mode .sl-card-city,
+body.light-mode .sl-audit-sub,
+body.light-mode .whisper-banner-label,
+body.light-mode .boutique-card-desc,
+body.light-mode .b-card-desc,
+body.light-mode .boutique-balance-label,
+body.light-mode .b-bal-lbl,
+body.light-mode .boutique-tab:not(.is-active) span,
+body.light-mode .b-filt-btn:not(.is-active) span,
+body.light-mode .sd-reg-label,
+body.light-mode .sd-comp-lbl,
+body.light-mode .sd-registry-desc,
+body.light-mode .modal-desc,
+body.light-mode .luxury-modal-desc,
+body.light-mode .rmc-lore-paragraph,
+body.light-mode .rmc-spec-val,
+body.light-mode .bottom-nav .nav-item:not(.is-active) span {
+  color: var(--txt-secondary) !important;
+  text-shadow: none !important;
+}
+
+/* --- 3. PREMIUM GOLD TEXT: Status badges, key metrics, vault titles, active pills --- */
+body.light-mode .reliquary-empty-title,
+body.light-mode #collectionSectionTitle,
+body.light-mode .reliquary-title-group h3,
+body.light-mode .pcc-accredited-tag,
+body.light-mode .pcc-chip-seal-dot,
+body.light-mode .pcc-chip-seal-dot span,
+body.light-mode .hrr-status,
+body.light-mode #hrrStatusBadge,
+body.light-mode .history-badge-seal .badge,
+body.light-mode #heraldicChancelleryBadge,
+body.light-mode .sl-tier-pill.tier-member,
+body.light-mode .sl-card-tier.tier-member,
+body.light-mode .mini-dossier-tier-text,
+body.light-mode .sd-tier-capsule,
+body.light-mode .sd-tier-capsule.tier-member,
+body.light-mode #page-member #memberDossierCouncilBadge,
+body.light-mode .sd-badge-text,
+body.light-mode .badge-approved,
+body.light-mode .status-badge-approved,
+body.light-mode .accredited-status-tag,
+body.light-mode [data-badge="approved"],
+body.light-mode [data-badge="accredited"],
+body.light-mode .boutique-card-price,
+body.light-mode .b-card-price,
+body.light-mode #boutiqueBalanceVal,
+body.light-mode .pcs-item-price,
+body.light-mode .tier-pill,
+body.light-mode #cardTierText,
+body.light-mode #memberProfileTier,
+body.light-mode .chamber-security-badge,
+body.light-mode .sl-card-id,
+body.light-mode .sl-card-rank bdi,
+body.light-mode .csd-val,
+body.light-mode .metric-unit,
+body.light-mode .reliquary-card-status.is-active span,
+body.light-mode .reliquary-card-status.is-vaulted span,
+body.light-mode .bottom-nav .nav-item.is-active span {
+  color: var(--txt-gold-premium) !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .pcc-accredited-tag,
+body.light-mode .pcc-chip-seal-dot,
+body.light-mode .hrr-status,
+body.light-mode #hrrStatusBadge,
+body.light-mode .history-badge-seal .badge,
+body.light-mode #heraldicChancelleryBadge,
+body.light-mode .sl-tier-pill.tier-member,
+body.light-mode .sl-card-tier.tier-member,
+body.light-mode .mini-dossier-tier-badge,
+body.light-mode .sd-tier-capsule,
+body.light-mode .badge-approved,
+body.light-mode .status-badge-approved,
+body.light-mode .accredited-status-tag {
+  background: var(--lm-approved-badge-bg, rgba(168, 124, 45, 0.09)) !important;
+  border-color: var(--lm-approved-badge-border, rgba(168, 124, 45, 0.38)) !important;
+}
+
+/* --- 4. MUTED / DECORATIVE GOLD: Micro-hallmarks, decorative stamps, non-essential lines --- */
+body.light-mode #cardHallmarkLine text,
+body.light-mode .hallmark-text,
+body.light-mode .vitrine-hallmark-bar span,
+body.light-mode .ledger-org,
+body.light-mode .deed-security-ribbon,
+body.light-mode .metric-dot,
+body.light-mode .sub-dot,
+body.light-mode .bullet-separator {
+  color: var(--txt-gold-muted) !important;
+  text-shadow: none !important;
 }
 
 body.light-mode #profile-tab .pcc-curate-btn {

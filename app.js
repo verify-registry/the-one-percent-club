@@ -2559,6 +2559,9 @@ const Router = {
       window.HeaderScrollController.onTabChangeStart();
     }
     contextReturnTab = returnTab;
+    if (typeof window.setClubFloatingControlsVisibility === "function") {
+      window.setClubFloatingControlsVisibility(false);
+    }
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
       p.setAttribute("aria-hidden", "true");
@@ -2594,6 +2597,10 @@ const Router = {
 
   onEnter(tab) {
     if (tab === "club") {
+      const isLeaderboard = AppState.activeChannelId === "leaderboard";
+      if (typeof window.setClubFloatingControlsVisibility === "function") {
+        window.setClubFloatingControlsVisibility(!isLeaderboard);
+      }
       if (typeof updateCreditsUI === "function") updateCreditsUI();
       requestAnimationFrame(() => {
         const msgs = document.getElementById("clubMessages");
@@ -2603,6 +2610,9 @@ const Router = {
         startClubWelcomeAutoDismiss(5000);
       }
     } else if (tab === "profile") {
+      if (typeof window.setClubFloatingControlsVisibility === "function") {
+        window.setClubFloatingControlsVisibility(false);
+      }
       // IDEMPOTENT PROFILE LIFECYCLE:
       // If Profile is already initialized, reuse existing stable DOM
       if (!window.isProfileInitialized) {
@@ -2612,6 +2622,9 @@ const Router = {
         cancelClubWelcomeAutoDismiss();
       }
     } else if (tab === "boutique") {
+      if (typeof window.setClubFloatingControlsVisibility === "function") {
+        window.setClubFloatingControlsVisibility(false);
+      }
       const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
       const activeCat = activeBoutiqueTab ? activeBoutiqueTab.dataset.cat : "all";
       renderBoutique(activeCat, false);
@@ -2619,6 +2632,9 @@ const Router = {
         cancelClubWelcomeAutoDismiss();
       }
     } else {
+      if (typeof window.setClubFloatingControlsVisibility === "function") {
+        window.setClubFloatingControlsVisibility(false);
+      }
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
         cancelClubWelcomeAutoDismiss();
       }
@@ -2667,10 +2683,15 @@ document
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 let contextReturnTab = "club";
+let contextReturnChannel = "leaderboard";
+let contextReturnScrollTop = 0;
 
 function openContextPage(pageId, title, returnTab) {
   if (window.AudioEngine) AudioEngine.playRustle();
   contextReturnTab = returnTab;
+  if (typeof window.setClubFloatingControlsVisibility === "function") {
+    window.setClubFloatingControlsVisibility(false);
+  }
   document.querySelectorAll(".page").forEach((p) => {
     p.classList.remove("is-active");
     p.hidden = true;
@@ -2792,13 +2813,34 @@ function openMemberProfile(member) {
     oldPhotoEl.style.backgroundImage = `url('${avatarUrl}')`;
   }
 
+  contextReturnTab = "club";
+  contextReturnChannel = AppState.activeChannelId || "leaderboard";
+  const clubTabEl = document.getElementById("club-tab");
+  contextReturnScrollTop = clubTabEl ? clubTabEl.scrollTop : 0;
+  if (!window.tabScrollPositions) window.tabScrollPositions = {};
+  window.tabScrollPositions["club"] = contextReturnScrollTop;
+
   openContextPage("page-member", memberName || (isAr ? "ملف العضو السيادي" : "Member Dossier"), "club");
 }
 window.openMemberProfile = openMemberProfile;
 
 document.getElementById("backBtn").addEventListener("click", () => {
   document.getElementById("backBtn").hidden = true;
-  goToPage(contextReturnTab);
+  const targetTab = contextReturnTab || "club";
+  goToPage(targetTab);
+  if (targetTab === "club") {
+    const returnChannel = contextReturnChannel || "leaderboard";
+    if (typeof switchChannel === "function") {
+      switchChannel(returnChannel);
+    }
+    const savedScroll = contextReturnScrollTop || 0;
+    requestAnimationFrame(() => {
+      const clubTab = document.getElementById("club-tab");
+      if (clubTab) clubTab.scrollTop = savedScroll;
+      const lb = document.getElementById("clubLeaderboardContainer");
+      if (lb && lb.scrollTop !== undefined) lb.scrollTop = savedScroll;
+    });
+  }
 });
 
 document.querySelectorAll("#page-member .card-actions .btn, #page-member .sd-btn").forEach((btn) => {
@@ -3216,6 +3258,28 @@ function processEliteResponse(text) {
     text: responses[Math.floor(Math.random() * responses.length)],
   };
 }
+window.setClubFloatingControlsVisibility = function(visible) {
+  const composerWrap = document.getElementById("clubComposerWrap");
+  const clubTab = document.getElementById("club-tab");
+  if (composerWrap) {
+    if (visible) {
+      composerWrap.classList.remove("is-hidden");
+      composerWrap.removeAttribute("hidden");
+      composerWrap.style.removeProperty("display");
+      composerWrap.style.display = "flex";
+      composerWrap.style.pointerEvents = "none";
+    } else {
+      composerWrap.classList.add("is-hidden");
+      composerWrap.setAttribute("hidden", "");
+      composerWrap.style.setProperty("display", "none", "important");
+      composerWrap.style.pointerEvents = "none";
+    }
+  }
+  if (clubTab) {
+    clubTab.classList.toggle("is-subview-active", !visible);
+  }
+};
+
 function switchChannel(channelId) {
   AppState.activeChannelId = channelId;
   const channelData = AppState.channels[channelId] || {
@@ -3232,7 +3296,6 @@ function switchChannel(channelId) {
   const pinnedSvg = document.getElementById("clubPinnedSvg");
   const chatViewport = document.getElementById("clubChatViewport");
   const messagesContainer = document.getElementById("clubMessages");
-  const composerWrap = document.getElementById("clubComposerWrap");
   const leaderboardContainer = document.getElementById(
     "clubLeaderboardContainer",
   );
@@ -3252,17 +3315,20 @@ function switchChannel(channelId) {
 
   if (channelId === "leaderboard") {
     if (pinnedTitle) {
-      pinnedTitle.textContent = "قائمة المتصدرين";
+      pinnedTitle.textContent = "المجلس السيادي";
       pinnedTitle.setAttribute("data-i18n", "leaderboardTitle");
     }
     if (pinnedSub) {
-      pinnedSub.textContent = "النخبة العالمية لأصحاب الثروة السيادية";
+      pinnedSub.textContent = "لوحة الشرف • النخبة العالمية لأصحاب الثروة السيادية";
       pinnedSub.setAttribute("data-i18n", "leaderboardSub");
     }
 
     if (chatViewport) chatViewport.style.display = "none";
     if (messagesContainer) messagesContainer.style.display = "none";
-    if (composerWrap) composerWrap.style.display = "none";
+
+    // HIDE Club floating controls in sub-view
+    window.setClubFloatingControlsVisibility(false);
+
     if (leaderboardContainer) {
       leaderboardContainer.style.display = "block";
       renderLeaderboard();
@@ -3286,8 +3352,10 @@ function switchChannel(channelId) {
 
     if (chatViewport) chatViewport.style.display = "flex";
     if (messagesContainer) messagesContainer.style.display = "";
-    if (composerWrap) composerWrap.style.display = "";
     if (leaderboardContainer) leaderboardContainer.style.display = "none";
+
+    // RESTORE Club floating controls in main feed
+    window.setClubFloatingControlsVisibility(true);
 
     renderMessages();
   }
@@ -3890,6 +3958,9 @@ function handleSendMessage() {
     if (typeof window.syncClubInputDirection === "function") {
       window.syncClubInputDirection(input);
     }
+    if (typeof window.autoGrowClubInput === "function") {
+      window.autoGrowClubInput(input);
+    }
 
     if (window.AudioEngine && window.AudioEngine.playSend) {
       try {
@@ -3971,24 +4042,56 @@ document
   .getElementById("clubSendBtn")
   ?.addEventListener("click", handleSendMessage);
 
+window.autoGrowClubInput = function (el) {
+  const input = el || document.getElementById("clubInput");
+  if (!input) return;
+  input.style.height = "auto";
+  const scrollH = input.scrollHeight;
+  const newHeight = Math.min(Math.max(scrollH, 34), 110);
+  input.style.height = newHeight + "px";
+  input.style.overflowY = scrollH > 110 ? "auto" : "hidden";
+};
+
 const clubInputEl = document.getElementById("clubInput");
 if (clubInputEl) {
-  clubInputEl.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") handleSendMessage();
+  clubInputEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      if (e.shiftKey) {
+        // Shift+Enter creates a new line
+        setTimeout(() => {
+          if (typeof window.autoGrowClubInput === "function") {
+            window.autoGrowClubInput(clubInputEl);
+          }
+        }, 0);
+      } else {
+        // Enter sends message
+        e.preventDefault();
+        handleSendMessage();
+      }
+    }
   });
   clubInputEl.addEventListener("input", () => {
     if (typeof window.syncClubInputDirection === "function") {
       window.syncClubInputDirection(clubInputEl);
+    }
+    if (typeof window.autoGrowClubInput === "function") {
+      window.autoGrowClubInput(clubInputEl);
     }
   });
   clubInputEl.addEventListener("keyup", () => {
     if (typeof window.syncClubInputDirection === "function") {
       window.syncClubInputDirection(clubInputEl);
     }
+    if (typeof window.autoGrowClubInput === "function") {
+      window.autoGrowClubInput(clubInputEl);
+    }
   });
   clubInputEl.addEventListener("change", () => {
     if (typeof window.syncClubInputDirection === "function") {
       window.syncClubInputDirection(clubInputEl);
+    }
+    if (typeof window.autoGrowClubInput === "function") {
+      window.autoGrowClubInput(clubInputEl);
     }
   });
 }

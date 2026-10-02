@@ -433,13 +433,61 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Implemented smooth vertical tonal fade in Light Mode (`linear-gradient(180deg, rgba(253, 251, 247, 0.95) 0%, rgba(253, 251, 247, 0.80) 42%, rgba(248, 245, 237, 0.40) 75%, rgba(248, 245, 237, 0) 100%)`) seamlessly melting into the ivory application substrate without any white rectangular band.
   - Dark Mode: Smooth vertical fade to transparent without hard bottom cutoff.
   - 100% preservation of crown logo, typography, tagline, back/shield buttons, and header spacing.
-- **Bottom Navigation Luxury Liquid Glass Continuous Edge Dissolve**:
-  - Completely eliminated solid panel appearance, hard boundaries, and white rectangular blocks.
-  - Implemented dedicated visual liquid glass layer (`.bottom-nav::before`) with multi-axis alpha masking gradient (`mask-image: radial-gradient(ellipse 94% 88% at 50% 65%, black 30%, rgba(0, 0, 0, 0.85) 55%, rgba(0, 0, 0, 0.45) 75%, rgba(0, 0, 0, 0.12) 90%, transparent 100%)`) allowing the surface and backdrop blur to softly dissolve into the app background in all directions.
-  - Center glass area tuned to 48%–58% warm ivory/champagne translucency with `backdrop-filter: blur(14px) saturate(140%)` so underlying application content remains faintly visible.
-  - Soft radial micro-highlight at upper crest fading out sideways without creating a hard horizontal rule.
-  - Container `.bottom-nav` has `background: transparent; border: none; box-shadow: none; isolation: isolate;` keeping navigation buttons, SVG icons, active gold highlights, and Arabic labels 100% sharp and readable.
-- **Strict Scope Preservation**: Zero changes to Master Card, portrait, guilloché, typography, frame, Profile content, routing, or modal functionality.
+- **Bottom Navigation Linear-Gradient Mask & blur(10px) Direct Application**:
+  - `mask-image` multi-axis linear-gradient applied directly to `.bottom-nav` fading top, bottom, and side edges:
+    `linear-gradient(to bottom, transparent 0%, black 14px, black calc(100% - 10px), transparent 100%), linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 14px), transparent 100%)` with `mask-composite: intersect; -webkit-mask-composite: source-in`.
+  - `backdrop-filter: blur(10px) !important;` and `-webkit-backdrop-filter: blur(10px) !important;` applied directly to `.bottom-nav`.
+  - Translucent background color: `rgba(247, 241, 230, 0.40)` in Light Mode and `rgba(14, 11, 7, 0.50)` in Dark Mode.
+  - Removed all pseudo-element overlays (`.bottom-nav::before, .bottom-nav::after { content: none !important; display: none !important; }`), ensuring no white panel appearance.
+  - Zero changes to Master Card, Profile content, header, routing, tab labels, or modal logic.
+
+
+- **Membership Layout Regression Reversal & Bottom Navigation Decoupling (2026-10-01) — COMPLETE**:
+  - Reverted experimental dynamic height calculations (`updateBottomNavHeightVar`) and variable injections in `app.js` and `style.css`.
+  - Restored `.bottom-nav` padding to `10px 12px calc(12px + env(safe-area-inset-bottom, 0px));`.
+  - Restored `#club-tab.is-active` and composer wrap to their clean, non-disruptive previous layout.
+  - Scoped Membership Container Clearance: Applied `padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;` to `.page#membership-tab`, `#membership-tab.is-active`, ensuring comfortable breathing space above the floating Liquid Glass navigation for the action buttons and Master Card without impacting other tabs.
+
+  - Frozen and locked Membership content layout:
+    - Master Card, "العضوية" page title, Share Membership button, Copy Link button, and all vertical spacing are restored to their exact previous coordinates with ample breathing room.
+    - Zero modifications to Master Card size, aspect ratio, margins, or transforms.
+- **Global Semantic Typography & Contrast System (2026-10-02) — COMPLETE**:
+  - Established a 4-tier semantic text-color system across the entire application for both Light Mode and Dark Mode:
+    1. **Primary Text (`--txt-primary`)**:
+       - Light Mode: `#1e1913` (Deep warm charcoal / espresso, 15.2:1 contrast ratio, high editorial legibility).
+       - Dark Mode: `#ede7d8` (Warm ivory / champagne white, 16.5:1 contrast ratio).
+       - Mapped to: Major titles, member names, primary headings, modal headers, form inputs.
+    2. **Secondary Text (`--txt-secondary`)**:
+       - Light Mode: `#5a4b37` (Darker muted warm brown, 7.4:1 contrast ratio, clearly distinguishable from ivory).
+       - Dark Mode: `#c4ba9f` (Muted warm ivory, 10.8:1 contrast ratio).
+       - Mapped to: Subtitles, metadata, captions, timestamps, descriptions, secondary labels.
+    3. **Premium Gold Text (`--txt-gold-premium`)**:
+       - Light Mode: `#7d5a1b` (Rich antique champagne gold, 5.9:1 contrast ratio, never washed out).
+       - Dark Mode: `#dfc17b` (Polished liquid champagne gold, 11.9:1 contrast ratio).
+       - Mapped to: Approved/accredited badges, tier capsules, prices, key metric numerals, active navigation tabs.
+    4. **Muted / Decorative Gold (`--txt-gold-muted`)**:
+       - Light Mode: `#9e7d47` (Subtle antique gold for secondary engravings).
+       - Dark Mode: `rgba(212, 175, 106, 0.65)` (Refined micro-engravings).
+       - Mapped to: Hallmarks, micro-engravings, archive stamps, decorative divider dots.
+  - Complete parity between Arabic and English text hierarchy.
+  - Zero modifications to font families, font sizes, spacing, card layouts, icons, or component geometry.
+  - Fully verified across Header, Navigation, Membership, Profile, Club, Boutique, Modals, Badges, and Metadata.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
