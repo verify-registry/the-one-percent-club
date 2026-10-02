@@ -417,6 +417,50 @@ window.I18N = {
     },
   },
   profile: {
+    editProfileTitle: {
+      en: "EDIT PROFILE",
+      ar: "تعديل الملف الشخصي",
+    },
+    accountInfoTitle: {
+      en: "ACCOUNT INFORMATION",
+      ar: "معلومات الحساب",
+    },
+    saveProfile: {
+      en: "SAVE PROFILE",
+      ar: "حفظ الملف الشخصي",
+    },
+    saveAccount: {
+      en: "SAVE ACCOUNT INFORMATION",
+      ar: "حفظ معلومات الحساب",
+    },
+    profileSavedToast: {
+      en: "Profile updated successfully",
+      ar: "تم حفظ وتحديث الملف الشخصي بنجاح",
+    },
+    accountSavedToast: {
+      en: "Account credentials saved successfully",
+      ar: "تم حفظ وتحديث بيانات الحساب بنجاح",
+    },
+    accountDesc: {
+      en: "Official account credentials and private contact information for sovereign members.",
+      ar: "بيانات الحساب ووسائل التواصل المعتمدة لأعضاء النادي السياديين.",
+    },
+    leaveBlankPlaceholder: {
+      en: "Leave blank to keep current",
+      ar: "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية",
+    },
+    memberIdLabel: {
+      en: "MEMBERSHIP IDENTIFIER",
+      ar: "معرّف العضوية الرسمي",
+    },
+    memberStatusLabel: {
+      en: "MEMBERSHIP STATUS",
+      ar: "حالة الاعتماد السيادية",
+    },
+    verifiedActive: {
+      en: "SOVEREIGN · VERIFIED",
+      ar: "سيادي · موثّق معتمد",
+    },
     memberCredentials: {
       en: "MEMBER CREDENTIALS",
       ar: "بيانات العضوية",

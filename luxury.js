@@ -1035,10 +1035,13 @@ async function captureLiveMasterCardBlob() {
   const card = document.getElementById("membershipCard");
   if (!card || !window.htmlToImage) return null;
 
+  window.__masterCardCaptureActive = true;
   const prevTransform = card.style.transform;
   const prevTransition = card.style.transition;
   card.style.setProperty("transform", "none", "important");
   card.style.setProperty("transition", "none", "important");
+  card.style.setProperty("--tiltX", "0");
+  card.style.setProperty("--tiltY", "0");
   card.classList.remove("is-hovered");
 
   try {
@@ -1070,6 +1073,7 @@ async function captureLiveMasterCardBlob() {
     console.warn("Live client-side capture error:", err);
     return null;
   } finally {
+    window.__masterCardCaptureActive = false;
     card.style.transform = prevTransform;
     card.style.transition = prevTransition;
   }
@@ -1168,290 +1172,294 @@ if (document.readyState === "loading") {
 }
 
 // ---------------------------------------------------------
-// 19. UNIFIED 3D TILT ENGINE
+// 19. PROFILE MASTER CARD 3D GYROSCOPE & UNIFIED TILT ENGINE
 // ---------------------------------------------------------
-const TILT_MAX_DEG = 5;
-let globalTiltEnabled = false;
-let isLongPressActive = false;
+const TILT_MAX_DEG = 4.5;       // Restrained, subtle physical rotation
+const TILT_DEADZONE = 1.2;      // Subtle deadzone preventing micro-sensor jitter
+const TILT_LERP_FACTOR = 0.065; // Silk-smooth 60fps physical damping (no snapping, no lag)
+const TILT_EPSILON = 0.005;     // Clean settlement threshold for 0,0 return
 
-// LERP Physics Variables
+// Separate target from rendered tilt values for smooth interpolation
 let targetRotX = 0;
 let targetRotY = 0;
 let currentRotX = 0;
 let currentRotY = 0;
-const lerpFactor = 0.14; // High-refresh 120Hz responsive physics
+
 let tiltLoopActive = false;
-const DEADZONE = 1.5;
+let tiltAnimFrame = null;
+let deviceOrientationAttached = false;
+let isPointerInteracting = false;
+let isLongPressActive = false;
 
-function applyTiltToCards(rx, ry) {
-  const activeInteracting = document.querySelectorAll(".luxury-tilt-card.is-hovered, .luxury-tilt-card.is-long-press-active");
-  const hasActiveCard = activeInteracting.length > 0;
+// Helper: Check if Profile Tab is currently active in the DOM
+function isProfileTabActive() {
+  const profileTab = document.getElementById("profile-tab");
+  if (!profileTab) return false;
+  return !profileTab.hasAttribute("hidden") && profileTab.classList.contains("is-active");
+}
 
-  document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
-    const isMembership = card.id === "membershipCard";
-    const isProfileHero = card.id === "profileHeroPlaque";
-    const isHovered = card.classList.contains("is-hovered");
-    const isLongPressed = card.classList.contains("is-long-press-active");
+// Continuous smooth deadzone: smoothly transitions from zero without discontinuous step-jumps
+function applyDeadzone(val, deadzone) {
+  if (Math.abs(val) <= deadzone) return 0;
+  return val > 0 ? val - deadzone : val + deadzone;
+}
 
-    // If an interaction is actively happening on a specific card, non-interacted cards stay at rest
-    if (hasActiveCard && !isHovered && !isLongPressed) {
-      return;
-    }
+// 2. INPUT SMOOTHING & 7. SENSOR NOISE FILTERING
+function handleDeviceOrientation(e) {
+  // 8. Active for Profile tab only
+  if (!isProfileTabActive()) return;
+  // If user is currently touching/hovering on desktop, pointer interaction takes priority
+  if (isPointerInteracting || isLongPressActive) return;
+  // 12. If card capture is active, keep completely still
+  if (window.__masterCardCaptureActive) return;
 
-    const elevation = isLongPressed ? 22 : (isHovered ? (isMembership || isProfileHero ? 14 : 10) : 0);
-    const translateY = isLongPressed ? -8 : (isHovered ? (isMembership || isProfileHero ? -5 : -4) : 0);
-    const scale = isLongPressed ? 1.025 : (isHovered ? (isMembership || isProfileHero ? 1.015 : 1.008) : 1);
+  // 7. Ignore invalid or non-finite orientation values
+  if (e.beta == null || e.gamma == null) return;
+  if (!Number.isFinite(e.beta) || !Number.isFinite(e.gamma)) return;
 
-    card.style.setProperty('--tilt-rx', `${rx.toFixed(2)}deg`);
-    card.style.setProperty('--tilt-ry', `${ry.toFixed(2)}deg`);
-    card.style.setProperty('--tilt-tz', `${elevation}px`);
-    card.style.setProperty('--tilt-ty', `${translateY}px`);
-    card.style.setProperty('--tilt-scale', `${scale}`);
+  // Assume ~45deg is the natural phone holding posture
+  let betaDev = e.beta - 45;
 
-    if (isMembership || isProfileHero) {
-      // MASTER IDENTITY CARD & PROFILE HERO CARD: Rotates circularly and smoothly from its exact center in 3D
-      card.style.transform = `perspective(1200px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
-      
-      // PROFILE HERO CARD: MULTI-LAYER 3D GYROSCOPE PARALLAX
-      // The portrait photo and its outer golden frame are locked together as ONE unit
-      // moving in coordinated 3D elevation and subtle parallax above the card surface
-      if (isProfileHero) {
-        const medallion = document.getElementById("profileMedallionCase");
-        if (medallion) {
-          const medParallaxX = (ry * 0.42).toFixed(2);
-          const medParallaxY = (-rx * 0.42).toFixed(2);
-          const medTiltRx = (rx * 1.12).toFixed(2);
-          const medTiltRy = (ry * 1.12).toFixed(2);
-          const medElevation = 18 + (isLongPressed ? 10 : (isHovered ? 4 : 0));
-          medallion.style.transform = `translateZ(${medElevation}px) translate3d(${medParallaxX}px, ${medParallaxY}px, 0px) rotateX(${medTiltRx}deg) rotateY(${medTiltRy}deg)`;
-          medallion.style.transition = "none";
+  // Flat / Bed posture normalization to prevent gimbal flip
+  if (e.beta < 15 || e.beta > 165 || e.beta < -165) {
+    betaDev *= 0.2;
+  }
+
+  // Calculate target tilt angles with subtle scale factor
+  let rawRx = -betaDev * 0.25;
+  let rawRy = e.gamma * 0.25;
+
+  // 4. Subtle deadzone
+  let rx = applyDeadzone(rawRx, TILT_DEADZONE);
+  let ry = applyDeadzone(rawRy, TILT_DEADZONE);
+
+  // 5. Limit maximum tilt to restrained physical boundaries
+  rx = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, rx));
+  ry = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, ry));
+
+  // Feed into unified smoothing target
+  updateTiltTarget(rx, ry);
+}
+
+// 1. & 10. IDEMPOTENT PERMISSION & ORIENTATION LISTENER
+function requestTiltPermissionOnce() {
+  if (deviceOrientationAttached) return;
+
+  if (
+    typeof DeviceOrientationEvent !== "undefined" &&
+    typeof DeviceOrientationEvent.requestPermission === "function"
+  ) {
+    DeviceOrientationEvent.requestPermission()
+      .then((state) => {
+        if (state === "granted" && !deviceOrientationAttached) {
+          enableDeviceTilt();
         }
-      }
-    } else {
-      card.style.transform = `perspective(1200px) translateY(${translateY}px) translateZ(${elevation}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
-    }
-    card.style.transition = "none";
-    
-    // Depth-mapping edge glow
-    const glowX = 50 + (ry * 2); // Shift horizontal highlight
-    const glowY = 0 - (rx * 2);  // Shift vertical highlight (starts at 0% top)
-    const angle = 160 + ry + (rx * 0.5);
-    
-    card.style.setProperty('--glow-x', `${glowX}%`);
-    card.style.setProperty('--glow-y', `${glowY}%`);
-    card.style.setProperty('--metal-angle', `${angle}deg`);
-
-    // Dynamic specular sheen reflection on card face
-    const normX = Math.max(-1, Math.min(1, ry / TILT_MAX_DEG));
-    const normY = Math.max(-1, Math.min(1, -rx / TILT_MAX_DEG));
-    card.style.setProperty('--tiltX', normX.toFixed(3));
-    card.style.setProperty('--tiltY', normY.toFixed(3));
-
-    // Dynamic gold foil shimmer coordinates (shifting metallic sheen across micro-textures)
-    const foilAngle = Math.round(135 + ry * 2.5 + rx * 1.5);
-    const foilPosX = Math.round(50 + normX * 35);
-    const foilPosY = Math.round(50 + normY * 35);
-    card.style.setProperty('--gold-foil-angle', `${foilAngle}deg`);
-    card.style.setProperty('--gold-foil-pos', `${foilPosX}% ${foilPosY}%`);
-    card.style.setProperty('--foil-shift-x', `${(normX * 12).toFixed(2)}px`);
-    card.style.setProperty('--foil-shift-y', `${(normY * 12).toFixed(2)}px`);
-
-    // Horological AR Sapphire Crystal Glare & Sheen (Double-AR Coating Optic Beam)
-    const sapphireAngle = Math.round(128 + ry * 3.2 + rx * 2.0);
-    const sapphireSheenX = Math.round(50 + normX * 45);
-    const sapphireSheenY = Math.round(45 + normY * 45);
-    const sapphireBeamPos = Math.round(40 + normX * 50);
-    const sapphireOpacity = Math.min(1, 0.45 + (Math.abs(normX) + Math.abs(normY)) * 0.35);
-
-    card.style.setProperty('--sapphire-glare-angle', `${sapphireAngle}deg`);
-    card.style.setProperty('--sapphire-sheen-x', `${sapphireSheenX}%`);
-    card.style.setProperty('--sapphire-sheen-y', `${sapphireSheenY}%`);
-    card.style.setProperty('--sapphire-beam-pos', `${sapphireBeamPos}%`);
-    card.style.setProperty('--sapphire-opacity', sapphireOpacity.toFixed(2));
-  });
-}
-
-function resetTiltForCard(card) {
-  targetRotX = 0;
-  targetRotY = 0;
-  card.style.setProperty('--tilt-rx', '0deg');
-  card.style.setProperty('--tilt-ry', '0deg');
-  card.style.setProperty('--tilt-tz', '0px');
-  card.style.setProperty('--tilt-ty', '0px');
-  card.style.setProperty('--tilt-scale', '1');
-  const isMembership = card.id === "membershipCard";
-  const isProfileHero = card.id === "profileHeroPlaque";
-  if (isMembership || isProfileHero) {
-    card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) translateY(0px) scale3d(1, 1, 1)`;
-    if (isProfileHero) {
-      const medallion = document.getElementById("profileMedallionCase");
-      if (medallion) {
-        medallion.style.transform = `translateZ(18px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg)`;
-        medallion.style.transition = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)";
-      }
-    }
-  } else {
-    card.style.transform = `perspective(1200px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+      })
+      .catch(() => {});
+  } else if (typeof DeviceOrientationEvent !== "undefined" && !deviceOrientationAttached) {
+    enableDeviceTilt();
   }
-  card.style.transition = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease";
-  
-  card.style.setProperty('--glow-x', '50%');
-  card.style.setProperty('--glow-y', '0%');
-  card.style.setProperty('--metal-angle', '160deg');
-  card.style.setProperty('--tiltX', '0');
-  card.style.setProperty('--tiltY', '0');
-  card.style.setProperty('--gold-foil-angle', '135deg');
-  card.style.setProperty('--gold-foil-pos', '50% 50%');
-  card.style.setProperty('--foil-shift-x', '0px');
-  card.style.setProperty('--foil-shift-y', '0px');
-  card.style.setProperty('--sapphire-glare-angle', '128deg');
-  card.style.setProperty('--sapphire-sheen-x', '50%');
-  card.style.setProperty('--sapphire-sheen-y', '45%');
-  card.style.setProperty('--sapphire-beam-pos', '40%');
-  card.style.setProperty('--sapphire-opacity', '0.45');
 }
 
-function tiltLoop() {
-  const dx = targetRotX - currentRotX;
-  const dy = targetRotY - currentRotY;
-
-  // Once settled within threshold, snap precisely and stop the loop
-  if (Math.abs(dx) < 0.005 && Math.abs(dy) < 0.005) {
-    currentRotX = targetRotX;
-    currentRotY = targetRotY;
-    applyTiltToCards(currentRotX, currentRotY);
-    tiltLoopActive = false;
-    return;
-  }
-
-  currentRotX += dx * lerpFactor;
-  currentRotY += dy * lerpFactor;
-
-  applyTiltToCards(currentRotX, currentRotY);
-  requestAnimationFrame(tiltLoop);
+function enableDeviceTilt() {
+  if (deviceOrientationAttached) return;
+  deviceOrientationAttached = true;
+  window.addEventListener("deviceorientation", handleDeviceOrientation, { passive: true });
 }
 
+// Unified target updater: clamps and starts RAF loop if idle
 function updateTiltTarget(rx, ry) {
-  // Strict Angle Clamping
-  const nextX = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, rx));
-  const nextY = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, ry));
-
-  // Skip if target hasn't meaningfully changed and loop is idle
-  if (Math.abs(nextX - targetRotX) < 0.005 && Math.abs(nextY - targetRotY) < 0.005 && !tiltLoopActive) {
-    return;
-  }
+  const nextX = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, Number.isFinite(rx) ? rx : 0));
+  const nextY = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, Number.isFinite(ry) ? ry : 0));
 
   targetRotX = nextX;
   targetRotY = nextY;
 
   if (!tiltLoopActive) {
     tiltLoopActive = true;
-    requestAnimationFrame(tiltLoop);
+    cancelAnimationFrame(tiltAnimFrame);
+    tiltAnimFrame = requestAnimationFrame(tiltLoop);
   }
 }
 
-let orientationQueued = false;
-function handleGlobalDeviceOrientation(e) {
-  if (isLongPressActive) return; // Prioritize tactile long-press inspection
-  if (e.beta === null || e.gamma === null) return;
-  if (orientationQueued) return;
-  orientationQueued = true;
-  requestAnimationFrame(() => {
-    orientationQueued = false;
-    let betaDev = e.beta - 45; // Assume 45deg is normal reading angle
+// 3. PHYSICAL LERP DAMPING LOOP (60fps)
+function tiltLoop() {
+  if (!tiltLoopActive) return;
 
-    // Bed / Flat Mode Normalization
-    if (e.beta < 15 || e.beta > 165 || e.beta < -165) {
-      betaDev *= 0.15; // Suppress gimbal lock jumpiness
-    }
+  // 9. If document is hidden or Profile tab is left, force target to 0
+  if (document.hidden || !isProfileTabActive()) {
+    targetRotX = 0;
+    targetRotY = 0;
+  }
 
-    let rx = -betaDev * 0.3;
-    let ry = e.gamma * 0.3;
+  const dx = targetRotX - currentRotX;
+  const dy = targetRotY - currentRotY;
 
-    // Apply Deadzone
-    if (Math.abs(rx) < DEADZONE) rx = 0;
-    if (Math.abs(ry) < DEADZONE) ry = 0;
+  // 6. Smooth return to center: when delta is below epsilon, snap cleanly and halt loop
+  if (Math.abs(dx) < TILT_EPSILON && Math.abs(dy) < TILT_EPSILON) {
+    currentRotX = targetRotX;
+    currentRotY = targetRotY;
+    setCardTilt(currentRotX, currentRotY);
+    tiltLoopActive = false;
+    tiltAnimFrame = null;
+    return;
+  }
 
-    updateTiltTarget(rx, ry);
-  });
+  // Stable interpolation/damping factor
+  currentRotX += dx * TILT_LERP_FACTOR;
+  currentRotY += dy * TILT_LERP_FACTOR;
+
+  setCardTilt(currentRotX, currentRotY);
+  tiltAnimFrame = requestAnimationFrame(tiltLoop);
 }
 
-function initGlobalTilt() {
-  // Device Orientation Setup
-  const requestTiltPermissionOnce = () => {
-    if (globalTiltEnabled) return;
-    globalTiltEnabled = true;
-    if (
-      typeof DeviceOrientationEvent !== "undefined" &&
-      typeof DeviceOrientationEvent.requestPermission === "function"
-    ) {
-      DeviceOrientationEvent.requestPermission()
-        .then((state) => {
-          if (state === "granted")
-            window.addEventListener(
-              "deviceorientation",
-              handleGlobalDeviceOrientation,
-              { passive: true }
-            );
-        })
-        .catch(() => {});
-    } else if (typeof DeviceOrientationEvent !== "undefined") {
-      window.addEventListener(
-        "deviceorientation",
-        handleGlobalDeviceOrientation,
-        { passive: true }
-      );
+// Authoritative function: applies rendered tilt to the Profile Master Card & Medallion
+function setCardTilt(rx, ry) {
+  const card = document.getElementById("profileHeroPlaque");
+  if (!card) return;
+
+  // 12. If capture is active, keep card completely flat
+  if (window.__masterCardCaptureActive) {
+    card.style.setProperty('--tiltX', '0');
+    card.style.setProperty('--tiltY', '0');
+    card.style.setProperty('--tilt-rx', '0deg');
+    card.style.setProperty('--tilt-ry', '0deg');
+    card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) translateY(0px) scale3d(1, 1, 1)';
+    return;
+  }
+
+  const isHovered = card.classList.contains("is-hovered");
+  const isLongPressed = card.classList.contains("is-long-press-active");
+
+  const elevation = isLongPressed ? 22 : (isHovered ? 14 : 0);
+  const translateY = isLongPressed ? -8 : (isHovered ? -5 : 0);
+  const scale = isLongPressed ? 1.025 : (isHovered ? 1.015 : 1);
+
+  // Set CSS variables
+  const normX = Math.max(-1, Math.min(1, ry / TILT_MAX_DEG));
+  const normY = Math.max(-1, Math.min(1, -rx / TILT_MAX_DEG));
+  card.style.setProperty('--tiltX', normX.toFixed(3));
+  card.style.setProperty('--tiltY', normY.toFixed(3));
+  card.style.setProperty('--tilt-rx', `${rx.toFixed(2)}deg`);
+  card.style.setProperty('--tilt-ry', `${ry.toFixed(2)}deg`);
+  card.style.setProperty('--tilt-tz', `${elevation}px`);
+  card.style.setProperty('--tilt-ty', `${translateY}px`);
+  card.style.setProperty('--tilt-scale', `${scale}`);
+
+  // 3D Card transform
+  card.style.transform = `perspective(1200px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
+  card.style.transition = "none";
+
+  // Dynamic metallic reflections & foil angles
+  const angle = 160 + ry + (rx * 0.5);
+  const glowX = 50 + (ry * 2);
+  const glowY = 0 - (rx * 2);
+  card.style.setProperty('--glow-x', `${glowX}%`);
+  card.style.setProperty('--glow-y', `${glowY}%`);
+  card.style.setProperty('--metal-angle', `${angle}deg`);
+
+  const foilAngle = Math.round(135 + ry * 2.5 + rx * 1.5);
+  const foilPosX = Math.round(50 + normX * 35);
+  const foilPosY = Math.round(50 + normY * 35);
+  card.style.setProperty('--gold-foil-angle', `${foilAngle}deg`);
+  card.style.setProperty('--gold-foil-pos', `${foilPosX}% ${foilPosY}%`);
+  card.style.setProperty('--foil-shift-x', `${(normX * 8).toFixed(2)}px`);
+  card.style.setProperty('--foil-shift-y', `${(normY * 8).toFixed(2)}px`);
+
+  // PROFILE MEDALLION CASE 3D PARALLAX (Portrait & Bezel locked as one unit)
+  const medallion = document.getElementById("profileMedallionCase");
+  if (medallion) {
+    const medParallaxX = (ry * 0.35).toFixed(2);
+    const medParallaxY = (-rx * 0.35).toFixed(2);
+    const medTiltRx = (rx * 1.08).toFixed(2);
+    const medTiltRy = (ry * 1.08).toFixed(2);
+    const medElevation = 18 + (isLongPressed ? 10 : (isHovered ? 4 : 0));
+    medallion.style.transform = `translateZ(${medElevation}px) translate3d(${medParallaxX}px, ${medParallaxY}px, 0px) rotateX(${medTiltRx}deg) rotateY(${medTiltRy}deg)`;
+    medallion.style.transition = "none";
+  }
+}
+
+// Reset helper
+function resetTiltForCard(card) {
+  targetRotX = 0;
+  targetRotY = 0;
+  if (!tiltLoopActive) {
+    tiltLoopActive = true;
+    cancelAnimationFrame(tiltAnimFrame);
+    tiltAnimFrame = requestAnimationFrame(tiltLoop);
+  }
+}
+
+// 9. VISIBILITY & TAB LIFECYCLE HANDLERS
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    targetRotX = 0;
+    targetRotY = 0;
+  }
+});
+
+// Smoothly return card to neutral when switching away from profile tab
+document.querySelectorAll(".nav-item").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const tabName = btn.dataset.tab;
+    if (tabName !== "profile") {
+      targetRotX = 0;
+      targetRotY = 0;
+      if (!tiltLoopActive && (Math.abs(currentRotX) > 0.01 || Math.abs(currentRotY) > 0.01)) {
+        tiltLoopActive = true;
+        cancelAnimationFrame(tiltAnimFrame);
+        tiltAnimFrame = requestAnimationFrame(tiltLoop);
+      }
     }
-  };
-
-  document.body.addEventListener("click", requestTiltPermissionOnce, {
-    once: true,
   });
-  document.body.addEventListener("touchstart", requestTiltPermissionOnce, {
-    once: true,
-    passive: true,
-  });
+});
 
-  // Setup all tilt cards
+// Expose authoritative API globally
+window.setCardTilt = setCardTilt;
+window.handleDeviceOrientation = handleDeviceOrientation;
+window.enableDeviceTilt = enableDeviceTilt;
+window.requestTiltPermissionOnce = requestTiltPermissionOnce;
+
+function initGlobalTilt() {
+  // Device Orientation Setup on first user gesture
+  document.body.addEventListener("click", requestTiltPermissionOnce, { once: true });
+  document.body.addEventListener("touchstart", requestTiltPermissionOnce, { once: true, passive: true });
+
+  // Setup all tilt cards idempotently
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
     if (card.dataset.tiltBound) return;
     card.dataset.tiltBound = "true";
 
-    const isMembership = card.id === "membershipCard";
+    const isProfileHero = card.id === "profileHeroPlaque";
 
-    // 1. DESKTOP HOVER INTERACTIONS
+    // 11. DESKTOP HOVER INTERACTIONS
     let hoverAmbientFrame = null;
     let isHovered = false;
     let lastPointerMoveTime = 0;
+    let cachedRect = null;
 
     const startHoverAmbient = () => {
       cancelAnimationFrame(hoverAmbientFrame);
       const loop = () => {
         if (!isHovered) return;
         const now = performance.now();
-        // If cursor pauses for >200ms, introduce a gentle living micro-tilt breath (~0.75deg)
+        // If cursor pauses for >200ms, introduce a gentle living micro-tilt breath (~0.5deg)
         if (now - lastPointerMoveTime > 200) {
           const t = (now - lastPointerMoveTime) * 0.0016;
-          const microRx = Math.sin(t) * 0.75;
-          const microRy = Math.cos(t * 0.85) * 0.75;
-          targetRotX = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, targetRotX * 0.96 + microRx * 0.04));
-          targetRotY = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, targetRotY * 0.96 + microRy * 0.04));
-          if (!tiltLoopActive) {
-            tiltLoopActive = true;
-            requestAnimationFrame(tiltLoop);
-          }
+          const microRx = Math.sin(t) * 0.5;
+          const microRy = Math.cos(t * 0.85) * 0.5;
+          updateTiltTarget(targetRotX * 0.97 + microRx * 0.03, targetRotY * 0.97 + microRy * 0.03);
         }
         hoverAmbientFrame = requestAnimationFrame(loop);
       };
       hoverAmbientFrame = requestAnimationFrame(loop);
     };
 
-    let cachedRect = null;
-
     card.addEventListener("pointerenter", (e) => {
       if (e.pointerType === "touch") return;
       if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn")) return;
       isHovered = true;
+      isPointerInteracting = true;
       card.classList.add("is-hovered");
       cachedRect = card.getBoundingClientRect();
 
@@ -1463,7 +1471,6 @@ function initGlobalTilt() {
         window.AudioEngine.playHover();
       }
 
-      // Initial tactile tilt based on entry point
       const rect = cachedRect;
       const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
       const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
@@ -1494,6 +1501,7 @@ function initGlobalTilt() {
     card.addEventListener("pointerleave", (e) => {
       if (e.pointerType === "touch") return;
       isHovered = false;
+      isPointerInteracting = false;
       cachedRect = null;
       card.classList.remove("is-hovered");
       cancelAnimationFrame(hoverAmbientFrame);
@@ -1503,7 +1511,7 @@ function initGlobalTilt() {
       }
     }, { passive: true });
 
-    // 2. MOBILE LONG-PRESS TACTILE INSPECTION
+    // 11. MOBILE LONG-PRESS TACTILE INSPECTION
     let touchStartX = 0;
     let touchStartY = 0;
     let isTouching = false;
@@ -1518,8 +1526,8 @@ function initGlobalTilt() {
         if (!isLongPressActive) return;
         const elapsed = (performance.now() - startTime) * 0.0016;
         // Restrained, continuous luxury 3D tilt orbit while held
-        const orbitRx = Math.sin(elapsed) * 3.2;
-        const orbitRy = Math.cos(elapsed * 0.85) * 3.6;
+        const orbitRx = Math.sin(elapsed) * 2.8;
+        const orbitRy = Math.cos(elapsed * 0.85) * 3.2;
         updateTiltTarget(orbitRx, orbitRy);
         longPressAnimFrame = requestAnimationFrame(loop);
       };
@@ -1537,28 +1545,24 @@ function initGlobalTilt() {
       clearTimeout(longPressTimer);
       cancelAnimationFrame(longPressAnimFrame);
 
-      // Light tactile touch feedback
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(8);
       }
 
-      // Start long-press detection timer (350ms)
       longPressTimer = setTimeout(() => {
         if (!isTouching) return;
         isLongPressActive = true;
+        isPointerInteracting = true;
         wasLongPress = true;
         card.classList.add("is-long-press-active");
 
-        // Enhanced tactile haptics on long-press engagement
         if (window.navigator && window.navigator.vibrate) {
           window.navigator.vibrate([22, 35, 20]);
         }
-        // Soft luxury rustle sound
         if (window.AudioEngine && window.AudioEngine.playRustle) {
           window.AudioEngine.playRustle();
         }
 
-        // Start dynamic 3D inspection tilt animation
         startLongPressTiltOrbit();
       }, 350);
     }, { passive: true });
@@ -1570,22 +1574,22 @@ function initGlobalTilt() {
       const curY = e.touches[0].clientY;
 
       if (!isLongPressActive) {
-        // If user moves finger >8px before long-press activates, cancel timer (it is a scroll)
         const dist = Math.hypot(curX - touchStartX, curY - touchStartY);
         if (dist > 8) {
           clearTimeout(longPressTimer);
           longPressTimer = null;
         }
       } else {
-        cancelAnimationFrame(longPressAnimFrame); // Direct touch overrides idle orbit
+        cancelAnimationFrame(longPressAnimFrame);
         if (touchMoveQueued) return;
         touchMoveQueued = true;
         requestAnimationFrame(() => {
           touchMoveQueued = false;
-          const rect = card.getBoundingClientRect();
-          const nx = ((curX - rect.left) / rect.width - 0.5) * 2;
-          const ny = ((curY - rect.top) / rect.height - 0.5) * 2;
-          updateTiltTarget(-ny * (TILT_MAX_DEG + 1), nx * (TILT_MAX_DEG + 1));
+          if (!cachedRect) cachedRect = card.getBoundingClientRect();
+          const rect = cachedRect;
+          const nx = Math.max(-1, Math.min(1, ((curX - rect.left) / rect.width - 0.5) * 2));
+          const ny = Math.max(-1, Math.min(1, ((curY - rect.top) / rect.height - 0.5) * 2));
+          updateTiltTarget(-ny * TILT_MAX_DEG, nx * TILT_MAX_DEG);
         });
       }
     }, { passive: true });
@@ -1598,9 +1602,10 @@ function initGlobalTilt() {
 
       if (isLongPressActive) {
         isLongPressActive = false;
+        isPointerInteracting = false;
         card.classList.remove("is-long-press-active");
         if (window.navigator && window.navigator.vibrate) {
-          window.navigator.vibrate(10); // subtle release tick
+          window.navigator.vibrate(10);
         }
         resetTiltForCard(card);
       }
@@ -1609,7 +1614,6 @@ function initGlobalTilt() {
     card.addEventListener("touchend", endTouch, { passive: true });
     card.addEventListener("touchcancel", endTouch, { passive: true });
 
-    // Prevent accidental click triggering when finishing a long-press
     card.addEventListener("click", (e) => {
       if (wasLongPress) {
         e.preventDefault();

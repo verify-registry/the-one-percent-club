@@ -13449,23 +13449,10 @@ body #profile-tab .phc-name {
    PHASE 18: MASTER CARD VISUAL OVERHAUL - THE 1% CLUB STANDARD
    ========================================================================== */
 
-/* 1. The Muddy Shadow Fix -> Warm Umber Radiance */
-body .membership-card .portrait-ring {
-  box-shadow:
-    0 25px 35px -10px rgba(45, 30, 10, 0.65),
-    /* Deep warm umber shadow */ 0 10px 15px -5px rgba(212, 175, 55, 0.1),
-    /* Subtle gold reflection */ inset 0 -2px 10px rgba(0, 0, 0, 0.8),
-    /* Inner depth */ inset 0 4px 6px rgba(255, 245, 200, 0.6) !important; /* Top light bounce */
-}
-
-/* Ensure Light Mode gets an even cleaner warm shadow, not muddy black */
+/* 1. Portrait Ring Shadow and Bezel Architecture handled by canonical 5-layer system */
+body .membership-card .portrait-ring,
 body.light-mode .membership-card .portrait-ring {
-  box-shadow:
-    0 25px 35px -10px rgba(110, 80, 40, 0.25),
-    /* Lighter, warm shadow for ivory */ 0 10px 15px -5px
-      rgba(212, 175, 55, 0.15),
-    inset 0 -2px 10px rgba(80, 50, 15, 0.4),
-    inset 0 4px 6px rgba(255, 255, 255, 0.9) !important;
+  animation: none !important;
 }
 
 /* Cinematic Spotlight for Dark Mode */
@@ -13652,12 +13639,9 @@ body.light-mode .membership-card .card-actions .btn {
   }
 }
 
-body .membership-card .portrait-ring {
-  animation: luxuryPulse 4s ease-in-out infinite !important;
-}
-
+body .membership-card .portrait-ring,
 body.light-mode .membership-card .portrait-ring {
-  animation: luxuryPulseLight 4s ease-in-out infinite !important;
+  animation: none !important;
 }
 
 /* 2. Fix the Stats Rings (Progress Bars) */
@@ -13855,8 +13839,7 @@ body.light-mode #profile-tab .phc-name {
     /* Impression highlight */ 0 -1px 1px rgba(0, 0, 0, 0.1) !important; /* Impression shadow */
 }
 
-/* 3. The Medallion Setting (Machined Metal Look) */
-body .membership-card .portrait-ring,
+/* 3. Profile Avatar Medallion Setting */
 body #profile-tab .phc-avatar-ring {
   background: conic-gradient(
     from 180deg,
@@ -14726,25 +14709,7 @@ body.light-mode #membership-tab .membership-card {
     0 15px 35px -10px rgba(40, 30, 10, 0.15) !important;
 }
 
-/* 2. PORTRAIT RING (Sharp conic reflection) */
-#membership-tab .portrait-ring {
-  background: conic-gradient(
-    from 135deg,
-    var(--gold-shadow) 0deg,
-    var(--gold-primary) 45deg,
-    var(--gold-highlight) 60deg,
-    var(--gold-primary) 75deg,
-    var(--gold-shadow) 150deg,
-    var(--gold-midtone) 220deg,
-    var(--gold-highlight) 240deg,
-    var(--gold-midtone) 260deg,
-    var(--gold-shadow) 360deg
-  ) !important;
-  box-shadow:
-    0 15px 25px -5px rgba(0, 0, 0, 0.8),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.25),
-    inset -1px -1px 2px rgba(10, 5, 0, 0.9) !important;
-}
+/* 2. Portrait Ring is consolidated in canonical watch bezel section */
 
 /* 3. BUTTONS & TIER PILL (Brushed/Satin metal) */
 #membership-tab .card-actions .btn,
@@ -14921,13 +14886,7 @@ body.light-mode #membership-tab .ring-label {
   text-shadow: 0 1px 0px rgba(255, 255, 255, 0.4) !important;
 }
 
-/* 5. Portrait Ring / Crown / Central Seal (Integration) */
-body.light-mode #membership-tab .portrait-ring {
-  box-shadow:
-    0 10px 20px -5px rgba(0, 0, 0, 0.15),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.6),
-    inset -1px -1px 2px rgba(50, 40, 20, 0.3) !important;
-}
+/* 5. Crown & Central Seal Integration */
 
 body.light-mode #membership-tab .living-core svg path,
 body.light-mode #membership-tab #equippedCrownSlot svg path {
@@ -16285,41 +16244,43 @@ body.light-mode #membership-tab #membershipCard.membership-card {
   outline: none !important;
 }
 
-/* 2. TEXT: THE 1% CLUB - Embossed Metallic Lettering */
-#membership-tab .card-club-name {
+/* 2. TEXT: THE 1% CLUB - Engraved & Embossed Luxury Marking inside Master Card */
+#membership-tab .card-club-name,
+#membershipCard .card-club-name {
   background: linear-gradient(
-    170deg,
-    #FDF2D0 0%,      /* Bright upper edge */
-    #D4B56A 30%,     /* Main champagne gold */
-    #8C7335 65%,     /* Metal core shadow */
-    #C9AA62 85%,     /* Lower reflection */
-    #4A3B1B 100%     /* Bottom edge depth */
-  ) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  
-  /* Embossed metal illusion: light catches top edge, shadow drops below */
-  filter: 
-    drop-shadow(0 -0.5px 0px rgba(253, 242, 208, 0.5))
-    drop-shadow(0 1.5px 1.5px rgba(10, 8, 4, 0.9)) !important;
-}
-
-body.light-mode #membership-tab .card-club-name {
-  background: linear-gradient(
-    170deg,
-    #FFFFFF 0%,
-    #E3C57B 30%,
-    #9C7C33 65%,
-    #D4B56A 85%,
-    #3B2D12 100%
+    180deg,
+    #fff2ce 0%,      /* Crisp champagne upper highlight */
+    #deb86e 35%,     /* Radiant metallic gold body */
+    #b68f3e 70%,     /* Deep gold midtone */
+    #75551c 100%     /* Shadowed groove depth */
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   
+  /* Physical engraved relief on obsidian: subtle light catch on top edge, crisp recessed groove shadow */
   filter: 
-    drop-shadow(0 -0.5px 0px rgba(255, 255, 255, 0.8))
-    drop-shadow(0 1.5px 1.5px rgba(60, 45, 15, 0.5)) !important;
+    drop-shadow(0 -0.5px 0.5px rgba(255, 245, 215, 0.45))
+    drop-shadow(0 1.5px 1.5px rgba(5, 4, 2, 0.95)) !important;
+}
+
+body.light-mode #membership-tab .card-club-name,
+body.light-mode #membershipCard .card-club-name {
+  background: linear-gradient(
+    180deg,
+    #44300f 0%,      /* Deep recessed upper groove shadow */
+    #684a17 35%,     /* Rich antique gold body */
+    #7e5a1c 70%,     /* Warm champagne gold tone */
+    #9a7126 100%     /* Ambient metallic catch inside groove */
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  
+  /* Physical engraved relief on ivory: crisp white porcelain lip highlight below, recessed shadow above */
+  filter: 
+    drop-shadow(0 1px 0px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 -0.5px 0.5px rgba(55, 38, 12, 0.7)) !important;
 }
 
 
@@ -20543,6 +20504,7 @@ body.light-mode #profile-tab .pcs-item-price {
 /* 3. LUXURY MODAL CORES (UNIFIED PROFILE DIALOGS)   */
 /* -------------------------------------------------- */
 
+#editProfileModal.luxury-modal-overlay,
 #accountInfoModal.luxury-modal-overlay,
 #settingsModal.luxury-modal-overlay,
 #helpSupportModal.luxury-modal-overlay,
@@ -20552,6 +20514,7 @@ body.light-mode #profile-tab .pcs-item-price {
   z-index: 99999 !important;
 }
 
+body.light-mode #editProfileModal.luxury-modal-overlay,
 body.light-mode #accountInfoModal.luxury-modal-overlay,
 body.light-mode #settingsModal.luxury-modal-overlay,
 body.light-mode #helpSupportModal.luxury-modal-overlay,
@@ -20658,6 +20621,8 @@ body.light-mode #helpSupportModal .luxury-close-btn {
 /* -------------------------------------------------- */
 
 /* 1. MODAL SURFACE & COMPLEX 3-LAYER METALLIC WATCH-CASE FRAME */
+#editProfileModal .luxury-modal-box,
+#editProfileModal .dossier-modal-box,
 #accountInfoModal .luxury-modal-box,
 #accountInfoModal .dossier-modal-box {
   width: 92% !important;
@@ -20714,6 +20679,8 @@ body.light-mode #helpSupportModal .luxury-close-btn {
   color: var(--text-primary) !important;
 }
 
+body.light-mode #editProfileModal .luxury-modal-box,
+body.light-mode #editProfileModal .dossier-modal-box,
 body.light-mode #accountInfoModal .luxury-modal-box,
 body.light-mode #accountInfoModal .dossier-modal-box {
   /* Warm ivory/champagne luxury substrate with restrained material depth & 3-layer watch-case frame */
@@ -20759,6 +20726,7 @@ body.light-mode #accountInfoModal .dossier-modal-box {
 }
 
 /* 2. MODAL HEADER: Clean Seamless Integration & Single Precise Metallic Divider */
+#editProfileModal .luxury-modal-header,
 #accountInfoModal .luxury-modal-header {
   padding: 14px 18px !important;
   background: rgba(18, 14, 9, 0.8) !important;
@@ -20769,11 +20737,13 @@ body.light-mode #accountInfoModal .dossier-modal-box {
   box-sizing: border-box !important;
 }
 
+body.light-mode #editProfileModal .luxury-modal-header,
 body.light-mode #accountInfoModal .luxury-modal-header {
   background: rgba(244, 237, 225, 0.7) !important;
   border-bottom: 1.5px solid #b88d36 !important;
 }
 
+#editProfileModal .luxury-modal-header h2,
 #accountInfoModal .luxury-modal-header h2 {
   font-family: var(--font-display, "Cinzel", serif) !important;
   font-size: 13px !important;
@@ -20787,6 +20757,7 @@ body.light-mode #accountInfoModal .luxury-modal-header {
   filter: none !important;
 }
 
+body.light-mode #editProfileModal .luxury-modal-header h2,
 body.light-mode #accountInfoModal .luxury-modal-header h2 {
   color: #241806 !important;
   background: none !important;
@@ -20795,6 +20766,8 @@ body.light-mode #accountInfoModal .luxury-modal-header h2 {
 }
 
 /* 3. CLOSE BUTTON: Small Polished-Gold Control */
+#editProfileModal .luxury-close-btn,
+#editProfileModal #closeEditProfileModal,
 #accountInfoModal .luxury-close-btn,
 #accountInfoModal #closeAccountInfoModal {
   width: 24px !important;
@@ -26968,85 +26941,145 @@ body.light-mode #membershipCard .hallmark-layer {
   pointer-events: none !important;
 }
 
-/* 2. REALISTIC 3D PRECIOUS METAL PORTRAIT RING (Point 5) */
-/* Multiple subtle metallic tones, Champagne Gold, inner & outer bevel, recessed edge */
+/* ==========================================================================
+   MASTER MEMBERSHIP CARD — PRECIOUS METAL WATCH / JEWELRY BEZEL
+   5-Layer Physical Architecture:
+   1. OUTER RECESSED EDGE (Dark antique-gold recessed channel around outside)
+   2. MAIN BEVEL (Substantial beveled gold surface with anisotropic lathe reflection)
+   3. POLISHED HIGHLIGHT RIDGE (Thin, bright champagne-gold reflective ridge)
+   4. INNER BEZEL (Second refined metallic ring immediately around portrait)
+   5. MICRO-DETAIL (Fine precision-machined horological micro-groove)
+   + Physical contact shadows where metal meets portrait
+   ========================================================================== */
+
+/* ==========================================================================
+   MASTER MEMBERSHIP CARD — REFINED MACHINED GOLD WATCH BEZEL
+   Single Authoritative Implementation:
+   PORTRAIT
+   → thin dark recessed lip
+   → polished champagne-gold bezel
+   → narrow bright polished-gold highlight
+   → subtle antique-gold outer bevel
+   ========================================================================== */
+
+/* Eliminate flat SVG outline circle behind bezel */
+#membershipCard .bezel-ticks circle[r="48.5"],
+#membership-tab .bezel-ticks circle[r="48.5"] {
+  display: none !important;
+}
+
+/* Remove all pseudo-element overlays (no multiple rings) */
+body #membership-tab .portrait-ring::before,
+body #membership-tab .portrait-ring::after,
+#membershipCard.membership-card .portrait-ring::before,
+#membershipCard.membership-card .portrait-ring::after,
+#membershipCard .portrait-ring::before,
+#membershipCard .portrait-ring::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* DARK MODE: Machined Champagne-Gold Bezel */
 body #membership-tab .portrait-ring,
-#membershipCard.membership-card .portrait-ring {
-  padding: 4.5px !important;
+#membershipCard.membership-card .portrait-ring,
+#membershipCard .portrait-ring {
+  position: relative !important;
+  padding: 5px !important;
   box-sizing: border-box !important;
+  border-radius: 50% !important;
+  animation: none !important;
+  
+  /* Polished Champagne-Gold Bezel with narrow controlled specular highlights */
   background: conic-gradient(
-    from 195deg,
-    #2c1f0d 0deg,
-    #7d5d24 25deg,
-    #caa455 55deg,
-    #fff8e2 85deg,
-    #ffffff 92deg,
-    #f4dfa2 118deg,
-    #caa455 152deg,
-    #7d5d24 185deg,
-    #33230d 220deg,
-    #694c1a 255deg,
-    #caa455 290deg,
-    #fff5d6 325deg,
-    #caa455 348deg,
-    #2c1f0d 360deg
+    from 145deg,
+    #4a3311 0deg,
+    #8a6d3b 30deg,
+    #c9a86a 65deg,
+    #eae0c4 73deg,
+    #c9a86a 81deg,
+    #8a6d3b 120deg,
+    #4a3311 165deg,
+    #3a2408 180deg,
+    #8a6d3b 210deg,
+    #c9a86a 245deg,
+    #eae0c4 253deg,
+    #c9a86a 261deg,
+    #8a6d3b 300deg,
+    #4a3311 345deg,
+    #4a3311 360deg
   ) !important;
+  
+  /* Subtle antique-gold outer bevel (1px) + narrow polished highlight + controlled bevel depth */
   box-shadow:
-    0 0 0 1px rgba(10, 8, 4, 0.95),
-    0 0 0 2px rgba(205, 168, 92, 0.7),
-    0 12px 28px -4px rgba(0, 0, 0, 0.95),
-    inset 1.5px 2px 2.5px rgba(255, 255, 255, 0.8),
-    inset -1.5px -2px 3.5px rgba(18, 12, 4, 0.95),
-    inset 0 0 1px 1px rgba(212, 175, 106, 0.3) !important;
+    0 0 0 1px #8a6d3b,                           /* Subtle antique-gold outer bevel */
+    0 4px 14px -2px rgba(0, 0, 0, 0.75),         /* Small contact shadow */
+    inset 0 1px 1px #eae0c4,                     /* Narrow bright polished-gold highlight */
+    inset 0 -1px 1px #4a3311 !important;         /* Controlled bevel depth */
   transform-style: preserve-3d !important;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
+/* DARK MODE: Thin dark recessed lip & small contact shadow cradling portrait */
 body #membership-tab .portrait-photo,
-#membershipCard.membership-card .portrait-photo {
-  border: 1.5px solid rgba(0, 0, 0, 0.95) !important;
+#membershipCard.membership-card .portrait-photo,
+#membershipCard .portrait-photo {
+  position: relative !important;
+  border-radius: 50% !important;
+  border: 1px solid #4a3311 !important;          /* Thin dark recessed lip */
   box-shadow:
-    inset 0 4px 10px rgba(0, 0, 0, 0.95),
-    inset 0 -2px 6px rgba(0, 0, 0, 0.85),
-    inset 0 0 15px rgba(0, 0, 0, 0.75),
-    0 1px 1px rgba(255, 255, 255, 0.12) !important;
+    inset 0 2px 5px rgba(0, 0, 0, 0.65),        /* Small contact shadow where metal meets portrait */
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Light Mode 3D Precious Metal Portrait Ring */
+/* ==========================================================================
+   LIGHT MODE: Machined Champagne-Gold Bezel (Imperial Ivory Surface)
+   ========================================================================== */
+
 body.light-mode #membership-tab .portrait-ring,
-body.light-mode #membershipCard.membership-card .portrait-ring {
+body.light-mode #membershipCard.membership-card .portrait-ring,
+body.light-mode #membershipCard .portrait-ring {
+  padding: 5px !important;
+  box-sizing: border-box !important;
+  border-radius: 50% !important;
+  animation: none !important;
+  
+  /* Warm Polished Champagne/Antique Gold Bezel */
   background: conic-gradient(
-    from 195deg,
-    #5c4013 0deg,
-    #9e7529 28deg,
-    #caa455 58deg,
-    #fff8e0 88deg,
-    #ffffff 94deg,
-    #fae8b4 120deg,
-    #caa455 155deg,
-    #8f6720 188deg,
-    #4a320b 222deg,
-    #825b18 258deg,
-    #caa455 292deg,
-    #fff5d2 328deg,
-    #caa455 350deg,
-    #5c4013 360deg
+    from 145deg,
+    #664917 0deg,
+    #8a6d3b 30deg,
+    #b8944d 65deg,
+    #f5eedc 73deg,
+    #b8944d 81deg,
+    #8a6d3b 120deg,
+    #664917 165deg,
+    #4a3311 180deg,
+    #8a6d3b 210deg,
+    #b8944d 245deg,
+    #f5eedc 253deg,
+    #b8944d 261deg,
+    #8a6d3b 300deg,
+    #664917 345deg,
+    #664917 360deg
   ) !important;
+  
+  /* Subtle antique-gold outer bevel (1px) + narrow bright highlight on ivory */
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.95),
-    0 0 0 2px rgba(188, 144, 52, 0.65),
-    0 8px 22px -3px rgba(75, 52, 18, 0.16),
-    inset 1.5px 2px 3px rgba(255, 255, 255, 0.95),
-    inset -1.5px -2px 3.5px rgba(115, 80, 22, 0.28) !important;
+    0 0 0 1px #8a6d3b,                           /* Subtle antique-gold outer bevel */
+    0 3px 8px -2px rgba(70, 50, 18, 0.2),        /* Small contact shadow */
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),   /* Narrow bright polished-gold highlight */
+    inset 0 -1px 1px #664917 !important;         /* Controlled bevel depth */
 }
 
+/* LIGHT MODE: Thin dark recessed lip & small contact shadow */
 body.light-mode #membership-tab .portrait-photo,
-body.light-mode #membershipCard.membership-card .portrait-photo {
-  background-color: #faf8f2 !important;
-  border: 1px solid rgba(165, 125, 45, 0.4) !important;
+body.light-mode #membershipCard.membership-card .portrait-photo,
+body.light-mode #membershipCard .portrait-photo {
+  border-radius: 50% !important;
+  border: 1px solid #664917 !important;          /* Thin dark recessed lip */
   box-shadow:
-    inset 0 3px 6px rgba(45, 30, 10, 0.12),
-    inset 0 -1.5px 3px rgba(255, 255, 255, 0.85) !important;
+    inset 0 2px 4px rgba(70, 45, 15, 0.25),      /* Small contact shadow */
+    inset 0 -1px 2px rgba(255, 255, 255, 0.6) !important;
 }
 
 /* 3. EST. 2026 LAYOUT, WIDTH & OVERFLOW RESOLUTION (Point 2) */

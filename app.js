@@ -4380,21 +4380,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  const editIconFloating = document.querySelector(".edit-icon-floating");
-  if (editIconFloating) {
-    editIconFloating.addEventListener("click", () => {
-      document.getElementById("editAccountBtn")?.click();
-    });
-  }
+  // =========================================================================
+  // 1. EDIT PROFILE MODAL (Public Identity Only)
+  // =========================================================================
+  const editProfileModal = document.getElementById("editProfileModal");
 
-  const accountInfoModal = document.getElementById("accountInfoModal");
-
-  window.openAccountInfoModal = function (e) {
+  window.openEditProfileModal = function (e) {
     if (e) {
       if (typeof e.stopPropagation === "function") e.stopPropagation();
       if (typeof e.preventDefault === "function") e.preventDefault();
     }
-    const modal = accountInfoModal || document.getElementById("accountInfoModal");
+    if (window.closeAccountInfoModal) window.closeAccountInfoModal();
+
+    const modal = editProfileModal || document.getElementById("editProfileModal");
     if (!modal) return;
 
     try {
@@ -4429,11 +4427,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (avatarUrlInput) avatarUrlInput.value = currentAvatarUrl;
       }
 
-      const emailInput = document.getElementById("accEmailInput");
-      const phoneInput = document.getElementById("accPhoneInput");
-      if (emailInput) emailInput.value = AppState.user.email || "";
-      if (phoneInput) phoneInput.value = AppState.user.phone || "";
-
       if (typeof renderAvatarPresets === "function") { renderAvatarPresets(currentAvatarUrl); }
       if (typeof updateEditProfilePreview === "function") {
         updateEditProfilePreview(currentAvatarUrl);
@@ -4446,8 +4439,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const closeAccountModal = () => {
-    const modal = accountInfoModal || document.getElementById("accountInfoModal");
+  window.closeEditProfileModal = function () {
+    const modal = editProfileModal || document.getElementById("editProfileModal");
     if (modal) {
       modal.classList.remove("is-open");
       modal.setAttribute("aria-hidden", "true");
@@ -4457,39 +4450,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const menuAccountInfo = document.getElementById("menuAccountInfo");
-  if (menuAccountInfo) {
-    menuAccountInfo.addEventListener("click", window.openAccountInfoModal);
-  }
+  // Wire Edit Profile Trigger Buttons
   const editAccountBtn = document.getElementById("editAccountBtn");
   if (editAccountBtn) {
     editAccountBtn.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
-    editAccountBtn.addEventListener("click", window.openAccountInfoModal);
+    editAccountBtn.addEventListener("click", window.openEditProfileModal);
+  }
+
+  const editIconFloating = document.querySelector(".edit-icon-floating");
+  if (editIconFloating) {
+    editIconFloating.addEventListener("click", window.openEditProfileModal);
   }
 
   document
-    .getElementById("closeAccountInfoModal")
+    .getElementById("closeEditProfileModal")
     ?.addEventListener("click", (e) => {
       if (e) e.preventDefault();
-      closeAccountModal();
+      window.closeEditProfileModal();
     });
 
-  if (accountInfoModal) {
-    accountInfoModal.addEventListener("click", (e) => {
-      if (e.target === accountInfoModal) {
-        closeAccountModal();
+  if (editProfileModal) {
+    editProfileModal.addEventListener("click", (e) => {
+      if (e.target === editProfileModal) {
+        window.closeEditProfileModal();
       }
     });
   }
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      const modal = accountInfoModal || document.getElementById("accountInfoModal");
-      if (modal && modal.classList.contains("is-open")) {
-        closeAccountModal();
-      }
-    }
-  });
 
   document.querySelectorAll(".quote-preset-chip").forEach(chip => {
     chip.addEventListener("click", () => {
@@ -4502,8 +4488,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Save Edit Profile Button
   document
-    .getElementById("saveAccountInfoBtn")
+    .getElementById("saveEditProfileBtn")
     ?.addEventListener("click", (e) => {
       if (e) e.preventDefault();
       const nameInput = document.getElementById("editProfileNameInput")?.value.trim() || "";
@@ -4526,11 +4513,6 @@ document.addEventListener("DOMContentLoaded", () => {
         AppState.user.avatarUrl = avatarUrl;
       }
 
-      const emailEl = document.getElementById("accEmailInput");
-      const phoneEl = document.getElementById("accPhoneInput");
-      if (emailEl) AppState.user.email = emailEl.value.trim();
-      if (phoneEl) AppState.user.phone = phoneEl.value.trim();
-
       if (window.modalSelectedCircles && Array.isArray(window.modalSelectedCircles) && window.modalSelectedCircles.length > 0) {
         AppState.user.circles = [...window.modalSelectedCircles];
         const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl";
@@ -4547,8 +4529,111 @@ document.addEventListener("DOMContentLoaded", () => {
         renderProfileCircles();
       }
       localStorage.removeItem("profileDraft");
-      closeAccountModal();
+      showNavToast(window.t("profile.profileSavedToast") || (window.currentLang === "ar" ? "تم حفظ وتحديث الملف الشخصي بنجاح" : "Profile updated successfully"));
+      window.closeEditProfileModal();
     });
+
+  // =========================================================================
+  // 2. ACCOUNT INFORMATION MODAL (Private Credentials & Security Only)
+  // =========================================================================
+  const accountInfoModal = document.getElementById("accountInfoModal");
+
+  window.openAccountInfoModal = function (e) {
+    if (e) {
+      if (typeof e.stopPropagation === "function") e.stopPropagation();
+      if (typeof e.preventDefault === "function") e.preventDefault();
+    }
+    if (window.closeEditProfileModal) window.closeEditProfileModal();
+
+    const modal = accountInfoModal || document.getElementById("accountInfoModal");
+    if (!modal) return;
+
+    try {
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+        window.AudioEngine.playModalOpen();
+      }
+
+      const emailInput = document.getElementById("accEmailInput");
+      const phoneInput = document.getElementById("accPhoneInput");
+      const passInput = document.getElementById("accPasswordInput");
+
+      if (emailInput) emailInput.value = AppState.user.email || "";
+      if (phoneInput) phoneInput.value = AppState.user.phone || "";
+      if (passInput) passInput.value = "";
+
+      const memberIdBadge = document.getElementById("accMemberIdBadge");
+      if (memberIdBadge) {
+        const mid = (typeof ClubState !== "undefined" && ClubState?.member?.id) ? ClubState.member.id : "3426";
+        memberIdBadge.textContent = `MEMBER-${mid}`;
+      }
+    } catch (err) {
+      console.error("[Account Info Modal Open Error]", err);
+    }
+  };
+
+  window.closeAccountInfoModal = function () {
+    const modal = accountInfoModal || document.getElementById("accountInfoModal");
+    if (modal) {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  };
+
+  // Wire Account Information Menu Row
+  const menuAccountInfo = document.getElementById("menuAccountInfo");
+  if (menuAccountInfo) {
+    menuAccountInfo.addEventListener("click", window.openAccountInfoModal);
+  }
+
+  document
+    .getElementById("closeAccountInfoModal")
+    ?.addEventListener("click", (e) => {
+      if (e) e.preventDefault();
+      window.closeAccountInfoModal();
+    });
+
+  if (accountInfoModal) {
+    accountInfoModal.addEventListener("click", (e) => {
+      if (e.target === accountInfoModal) {
+        window.closeAccountInfoModal();
+      }
+    });
+  }
+
+  // Save Account Information Button
+  document
+    .getElementById("saveAccountInfoBtn")
+    ?.addEventListener("click", (e) => {
+      if (e) e.preventDefault();
+      const emailEl = document.getElementById("accEmailInput");
+      const phoneEl = document.getElementById("accPhoneInput");
+
+      if (emailEl) AppState.user.email = emailEl.value.trim();
+      if (phoneEl) AppState.user.phone = phoneEl.value.trim();
+
+      AppState.save();
+      showNavToast(window.t("profile.accountSavedToast") || (window.currentLang === "ar" ? "تم حفظ وتحديث بيانات الحساب بنجاح" : "Account credentials saved successfully"));
+      window.closeAccountInfoModal();
+    });
+
+  // Global Escape Key Listener for Modals
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const pModal = document.getElementById("editProfileModal");
+      if (pModal && pModal.classList.contains("is-open")) {
+        window.closeEditProfileModal();
+      }
+      const aModal = document.getElementById("accountInfoModal");
+      if (aModal && aModal.classList.contains("is-open")) {
+        window.closeAccountInfoModal();
+      }
+    }
+  });
 
   const menuHelp = document.getElementById("menuHelp");
   const helpSupportModal = document.getElementById("helpSupportModal");
@@ -5551,13 +5636,14 @@ document
     updateEditProfilePreview(e.target.value);
   });
 
-// editAccountBtn wired to window.openAccountInfoModal above
-
+// Medallion case and photo edit badge trigger Edit Profile
 document.querySelector(".phc-medallion-case")?.addEventListener("click", () => {
   if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
     window.AudioEngine.playClick();
   }
-  document.getElementById("menuAccountInfo")?.click();
+  if (typeof window.openEditProfileModal === "function") {
+    window.openEditProfileModal();
+  }
 });
 
 document.getElementById("phcPhotoEditBadge")?.addEventListener("click", (e) => {
@@ -5565,7 +5651,9 @@ document.getElementById("phcPhotoEditBadge")?.addEventListener("click", (e) => {
   if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
     window.AudioEngine.playClick();
   }
-  document.getElementById("menuAccountInfo")?.click();
+  if (typeof window.openEditProfileModal === "function") {
+    window.openEditProfileModal();
+  }
 });
 
 function renderProfileStatsBar() {

@@ -451,27 +451,28 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Frozen and locked Membership content layout:
     - Master Card, "العضوية" page title, Share Membership button, Copy Link button, and all vertical spacing are restored to their exact previous coordinates with ample breathing room.
     - Zero modifications to Master Card size, aspect ratio, margins, or transforms.
-- **Global Semantic Typography & Contrast System (2026-10-02) — COMPLETE**:
-  - Established a 4-tier semantic text-color system across the entire application for both Light Mode and Dark Mode:
-    1. **Primary Text (`--txt-primary`)**:
-       - Light Mode: `#1e1913` (Deep warm charcoal / espresso, 15.2:1 contrast ratio, high editorial legibility).
-       - Dark Mode: `#ede7d8` (Warm ivory / champagne white, 16.5:1 contrast ratio).
-       - Mapped to: Major titles, member names, primary headings, modal headers, form inputs.
-    2. **Secondary Text (`--txt-secondary`)**:
-       - Light Mode: `#5a4b37` (Darker muted warm brown, 7.4:1 contrast ratio, clearly distinguishable from ivory).
-       - Dark Mode: `#c4ba9f` (Muted warm ivory, 10.8:1 contrast ratio).
-       - Mapped to: Subtitles, metadata, captions, timestamps, descriptions, secondary labels.
-    3. **Premium Gold Text (`--txt-gold-premium`)**:
-       - Light Mode: `#7d5a1b` (Rich antique champagne gold, 5.9:1 contrast ratio, never washed out).
-       - Dark Mode: `#dfc17b` (Polished liquid champagne gold, 11.9:1 contrast ratio).
-       - Mapped to: Approved/accredited badges, tier capsules, prices, key metric numerals, active navigation tabs.
-    4. **Muted / Decorative Gold (`--txt-gold-muted`)**:
-       - Light Mode: `#9e7d47` (Subtle antique gold for secondary engravings).
-       - Dark Mode: `rgba(212, 175, 106, 0.65)` (Refined micro-engravings).
-       - Mapped to: Hallmarks, micro-engravings, archive stamps, decorative divider dots.
-  - Complete parity between Arabic and English text hierarchy.
-  - Zero modifications to font families, font sizes, spacing, card layouts, icons, or component geometry.
-  - Fully verified across Header, Navigation, Membership, Profile, Club, Boutique, Modals, Badges, and Metadata.
+- **Separation of Profile Editing & Account Information (2026-10-02) — COMPLETE**:
+  - Fully decoupled Profile Editing from Account/Security credentials into two completely distinct modals and flows:
+    1. **Edit Profile (`#editProfileModal`)**:
+       - Triggered by "Edit Profile" plaque button (`#editAccountBtn`), floating edit icon, and portrait medallion/badge clicks.
+       - Contains **ONLY public identity fields**: Portrait photo/avatar preview, custom photo upload, luxury preset avatars gallery, Display Name, Profile Quote with 4 preset quote chips, Location, and Accredited Sovereign Circles selector.
+       - Zero presence of Email, Phone, Password, or security credentials.
+       - Saves via `#saveEditProfileBtn` ("SAVE PROFILE") and cleanly closes back to the Profile tab.
+    2. **Account Information (`#accountInfoModal`)**:
+       - Triggered by "Account Information" menu item (`#menuAccountInfo`).
+       - Contains **ONLY private account & security fields**: Official Security & Contact notice, Email Address, Phone Number, New Password (optional change with leave-blank placeholder), and Readonly Official Membership Identifier (`MEMBER-3426`) with Verified Active Sovereign status.
+       - Zero presence of avatar presets, display name, bio/quote, location, or circles.
+       - Saves via `#saveAccountInfoBtn` ("SAVE ACCOUNT INFORMATION") and cleanly closes back to the Profile tab.
+    3. **Lifecycle & UX**:
+       - Opening one modal cleanly ensures the other is closed; closing either returns to Profile without reload, scroll jump, or reinitialization.
+       - Supports Escape key and backdrop clicks.
+       - Full Arabic/English localization integration in `translations.js` (`profile.editProfileTitle`, `profile.accountInfoTitle`, `profile.saveProfile`, `profile.saveAccount`, toasts).
+  - Zero modifications to Master Card, card design, typography, navigation, or unrelated Profile functionality.
+
+
+
+
+
 
 
 
