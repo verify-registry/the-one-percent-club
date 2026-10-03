@@ -893,6 +893,22 @@ window.I18N = {
       en: "Enter your quote",
       ar: "أدخل نبذة عنك",
     },
+    quotePreset1: {
+      en: "Discipline. Network. Freedom.",
+      ar: "الانضباط. النفوذ. الحرية.",
+    },
+    quotePreset2: {
+      en: "Silence is the ultimate luxury.",
+      ar: "الصمت هو الفخامة المطلقة.",
+    },
+    quotePreset3: {
+      en: "True wealth is private.",
+      ar: "الثروة الحقيقية تظل سرية.",
+    },
+    quotePreset4: {
+      en: "Aut vincere aut mori.",
+      ar: "إما النصر وإما الخلود.",
+    },
     avatarLabel: {
       en: "AVATAR URL (OR UPLOAD)",
       ar: "صورة العرض (رابط أو رفع)",
@@ -935,35 +951,67 @@ window.I18N = {
     },
     circle_pe_venture: {
       en: "Private Equity & Venture",
-      ar: "الاستثمار الخاص ورأس المال الجريء",
+      ar: "الاستثمار ورأس المال الجريء",
+    },
+    circle_badge_pe_venture: {
+      en: "ALPHA • VENTURE",
+      ar: "عوائد سيادية • استثمار مباشر",
     },
     circle_haute_horlogerie: {
       en: "Haute Horlogerie & Rarities",
-      ar: "الساعات الفاخرة والمقتنيات النادرة",
+      ar: "الساعات الفاخرة والمقتنيات",
+    },
+    circle_badge_haute_horlogerie: {
+      en: "HOROLOGY • RARITY",
+      ar: "علم الساعات • نوادر القطع",
     },
     circle_sovereign_ai: {
       en: "Sovereign AI & Deep Tech",
-      ar: "الذكاء الاصطناعي والتكنولوجيا السيادية",
+      ar: "الذكاء الاصطناعي والتكنولوجيا",
+    },
+    circle_badge_sovereign_ai: {
+      en: "DEEP TECH • AI",
+      ar: "تكنولوجيا عميقة • ذكاء سيادي",
     },
     circle_aviation_yachts: {
       en: "Private Aviation & Superyachts",
-      ar: "الطيران الخاص واليخوت الفاخرة",
+      ar: "الطيران الخاص واليخوت",
+    },
+    circle_badge_aviation_yachts: {
+      en: "FLEET • AERONAUTICS",
+      ar: "طيران خاص • أساطيل بحرية",
     },
     circle_prime_estates: {
       en: "Prime Architectural Estates",
-      ar: "الأصول العقارية والقصور الفاخرة",
+      ar: "العقارات والقصور الفاخرة",
+    },
+    circle_badge_prime_estates: {
+      en: "ESTATE • ASSETS",
+      ar: "أصول عقارية • قصور استثنائية",
     },
     circle_fine_art: {
       en: "High Art & Historic Curations",
-      ar: "الفنون التشكيلية والمقتنيات التاريخية",
+      ar: "الفنون والمقتنيات التاريخية",
+    },
+    circle_badge_fine_art: {
+      en: "FINE ART • CURATION",
+      ar: "فنون رفيعة • اقتناء تاريخي",
     },
     circle_macro_strategy: {
       en: "Global Macro & Sovereign Strategy",
-      ar: "الاستراتيجيات الكبرى والاقتصاد الكلي",
+      ar: "الاستراتيجية والاقتصاد الكلي",
+    },
+    circle_badge_macro_strategy: {
+      en: "SOVEREIGN MACRO",
+      ar: "اقتصاد كلي • استراتيجية سيادية",
     },
     circle_royal_equestrian: {
       en: "Thoroughbred & Purebred Equine",
-      ar: "الخيول الأصيلة والفروسية الملكية",
+      ar: "الخيول والفروسية الملكية",
+    },
+    circle_badge_royal_equestrian: {
+      en: "EQUINE • ROYAL",
+      ar: "فروسية ملكية • سلالات أصيلة",
     },
     infoTitle: {
       en: "Member Info",

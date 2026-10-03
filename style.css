@@ -11258,9 +11258,22 @@ body.light-mode #profile-tab .prestige-honors .is-unlocked .honor-pill {
   font-size: 10px;
   letter-spacing: 1.5px;
 }
-.dossier-field .edit-profile-input {
+.dossier-field input.edit-profile-input {
   height: 44px;
   box-sizing: border-box;
+}
+.dossier-field textarea.edit-profile-input,
+.dossier-field textarea.edit-profile-textarea,
+.dossier-field .edit-profile-textarea {
+  min-height: 76px !important;
+  max-height: 220px !important;
+  box-sizing: border-box !important;
+  line-height: 1.55 !important;
+  padding: 10px 12px !important;
+  font-size: 13px !important;
+  resize: vertical !important;
+  overflow-y: auto !important;
+  font-family: inherit !important;
 }
 .dossier-upload-btn {
   width: 48px;
@@ -19380,12 +19393,21 @@ body #profile-tab .profile-circles-card .pcc-head,
 body #profile-tab .profile-circles-card .pcc-header {
   display: flex !important;
   flex-direction: column !important;
-  align-items: stretch !important;
-  gap: 8px !important;
-  padding-bottom: 8px !important;
-  margin-bottom: 8px !important;
-  border-bottom: 1px solid rgba(212, 175, 106, 0.16) !important;
+  gap: 3px !important;
+  padding: 0 2px 9px 2px !important;
+  margin-bottom: 9px !important;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.2) !important;
   position: relative !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .profile-circles-card .pcc-header-top-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
@@ -19393,25 +19415,25 @@ body #profile-tab .profile-circles-card .pcc-header {
 body #profile-tab .profile-circles-card .pcc-head-left,
 body #profile-tab .profile-circles-card .pcc-header-title-wrap {
   display: flex !important;
-  align-items: flex-start !important;
-  gap: 10px !important;
+  align-items: center !important;
+  gap: 8px !important;
   min-width: 0 !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
+  flex: 1 1 auto !important;
 }
 
 body #profile-tab .profile-circles-card .pcc-crest-badge {
   width: 28px !important;
   height: 28px !important;
+  min-width: 28px !important;
   flex-shrink: 0 !important;
-  margin-top: 1px !important;
   border-radius: 50% !important;
-  background: linear-gradient(135deg, rgba(212, 175, 106, 0.22) 0%, rgba(35, 30, 20, 0.8) 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  background: radial-gradient(circle at 35% 30%, #3a2e1c 0%, #1c160e 70%, #0d0a06 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.5) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  box-shadow: inset 0 1px 2px rgba(255, 245, 215, 0.2), 0 2px 5px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: inset 0 1px 2px rgba(255, 245, 215, 0.25), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+  margin: 0 !important;
 }
 
 body #profile-tab .profile-circles-card .pcc-crest-icon {
@@ -19422,65 +19444,58 @@ body #profile-tab .profile-circles-card .pcc-crest-icon {
 body #profile-tab .profile-circles-card .pcc-title-group {
   display: flex !important;
   flex-direction: column !important;
-  gap: 3px !important;
+  gap: 2px !important;
   min-width: 0 !important;
   flex: 1 1 auto !important;
 }
 
-body #profile-tab .profile-circles-card .pcc-title-row {
-  display: flex !important;
-  align-items: center !important;
-  gap: 7px !important;
-  flex-wrap: wrap !important;
-  min-width: 0 !important;
-}
-
 body #profile-tab .profile-circles-card .pcc-title {
   font-family: var(--font-display, "Cinzel", "Amiri", serif) !important;
-  font-size: 11.5px !important;
+  font-size: clamp(9px, 2.7vw, 10.5px) !important;
   font-weight: 700 !important;
-  letter-spacing: 0.08em !important;
+  letter-spacing: 0.05em !important;
   color: #fae8be !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
   margin: 0 !important;
-  line-height: 1.35 !important;
+  line-height: 1.25 !important;
   white-space: normal !important;
   word-break: break-word !important;
-  overflow-wrap: break-word !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
-body #profile-tab .profile-circles-card .pcc-accredited-tag {
-  font-size: 7.5px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.05em !important;
-  padding: 1.5px 5.5px !important;
-  border-radius: 10px !important;
-  background: linear-gradient(135deg, rgba(212, 175, 106, 0.25) 0%, rgba(138, 105, 36, 0.2) 100%) !important;
-  border: 0.5px solid rgba(212, 175, 106, 0.45) !important;
-  color: #fae298 !important;
-  white-space: nowrap !important;
-  flex-shrink: 0 !important;
-  align-self: center !important;
+body #profile-tab .profile-circles-card .pcc-subtitle-row {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding-inline-start: 36px !important;
+  box-sizing: border-box !important;
+  margin-top: 1px !important;
 }
 
 body #profile-tab .profile-circles-card .pcc-subtitle {
-  font-size: 8.5px !important;
-  color: rgba(210, 190, 155, 0.72) !important;
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8px !important;
+  font-weight: 500 !important;
+  color: rgba(210, 190, 155, 0.75) !important;
   margin: 0 !important;
   white-space: normal !important;
+  word-break: break-word !important;
   overflow: visible !important;
   text-overflow: clip !important;
-  line-height: 1.4 !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.01em !important;
 }
 
+body #profile-tab .profile-circles-card .pcc-header-action-wrap,
 body #profile-tab .profile-circles-card .pcc-header-action-row {
   display: flex !important;
   align-items: center !important;
-  justify-content: flex-start !important;
-  width: 100% !important;
-  padding-inline-start: 38px !important;
+  justify-content: flex-end !important;
+  flex-shrink: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: auto !important;
   box-sizing: border-box !important;
 }
 
@@ -19489,17 +19504,18 @@ body #profile-tab #btnCurateCircles {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 5px !important;
-  padding: 5px 11px !important;
-  border-radius: 14px !important;
-  background: linear-gradient(135deg, rgba(212, 175, 106, 0.16) 0%, rgba(60, 45, 20, 0.4) 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.38) !important;
+  gap: 4px !important;
+  padding: 3.5px 8px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, rgba(212, 175, 106, 0.18) 0%, rgba(60, 45, 20, 0.45) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.42) !important;
   color: #f7dfa7 !important;
-  font-size: 9px !important;
+  font-family: var(--font-ui, -apple-system, sans-serif) !important;
+  font-size: 8px !important;
   font-weight: 600 !important;
   cursor: pointer !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 245, 215, 0.15) !important;
-  transition: background 0.15s ease, transform 0.12s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 245, 215, 0.2) !important;
+  transition: all 0.18s ease !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   margin: 0 !important;
@@ -19509,9 +19525,9 @@ body #profile-tab #btnCurateCircles {
 
 body #profile-tab .profile-circles-card .pcc-curate-btn:hover,
 body #profile-tab #btnCurateCircles:hover {
-  background: linear-gradient(135deg, rgba(212, 175, 106, 0.3) 0%, rgba(90, 70, 30, 0.6) 100%) !important;
-  border-color: rgba(245, 215, 145, 0.7) !important;
-  color: #fff8e8 !important;
+  background: linear-gradient(135deg, rgba(212, 175, 106, 0.32) 0%, rgba(90, 70, 30, 0.65) 100%) !important;
+  border-color: rgba(245, 215, 145, 0.75) !important;
+  color: #ffffff !important;
   transform: translateY(-1px) !important;
 }
 
@@ -19605,7 +19621,7 @@ body #profile-tab .pcc-chip-text-group {
   justify-content: center !important;
   min-width: 0 !important;
   flex: 1 1 auto !important;
-  gap: 1.5px !important;
+  gap: 2px !important;
   text-align: start !important;
   overflow: hidden !important;
   margin: 0 !important;
@@ -19613,45 +19629,52 @@ body #profile-tab .pcc-chip-text-group {
 }
 
 body #profile-tab .pcc-chip-name {
-  font-size: 11px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
   color: #fae5be !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  line-height: 1.25 !important;
+  line-height: 1.35 !important;
   letter-spacing: 0.01em !important;
   margin: 0 !important;
   padding: 0 !important;
 }
 
 body #profile-tab .pcc-chip-domain {
-  font-size: 7.5px !important;
+  font-size: 9.5px !important;
   font-weight: 600 !important;
-  color: rgba(212, 175, 106, 0.75) !important;
-  letter-spacing: 0.08em !important;
+  color: rgba(225, 195, 135, 0.85) !important;
+  letter-spacing: 0.06em !important;
   text-transform: uppercase !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  line-height: 1.15 !important;
+  line-height: 1.25 !important;
   margin: 0 !important;
   padding: 0 !important;
+}
+
+html[lang="ar"] body #profile-tab .pcc-chip-domain,
+body[dir="rtl"] #profile-tab .pcc-chip-domain {
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
 }
 
 body #profile-tab .pcc-chip-seal-dot {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 4px !important;
-  padding: 0 8px !important;
-  height: 20px !important;
-  min-height: 20px !important;
-  max-height: 20px !important;
+  gap: 4.5px !important;
+  padding: 0 9px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
   border-radius: 6px !important;
-  background: rgba(212, 175, 106, 0.1) !important;
-  border: 0.5px solid rgba(212, 175, 106, 0.3) !important;
-  font-size: 8px !important;
+  background: rgba(212, 175, 106, 0.12) !important;
+  border: 0.5px solid rgba(212, 175, 106, 0.35) !important;
+  font-size: 9px !important;
   font-weight: 700 !important;
   color: #fae298 !important;
   flex-shrink: 0 !important;
@@ -19663,7 +19686,7 @@ body #profile-tab .pcc-chip-seal-dot {
 
 body #profile-tab .pcc-seal-star {
   color: #d4af37;
-  font-size: 8.5px;
+  font-size: 9px;
   line-height: 1;
 }
 
@@ -19672,12 +19695,78 @@ html.light-mode #profile-tab .pcc-seal-star {
   color: #9e7422 !important;
 }
 
-/* Modal Selector Grid for Sovereign Circles */
+/* Modal Selector Header and Grid for Sovereign Circles */
+.modal-circles-header-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-bottom: 6px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#editProfileModal .modal-circles-title,
+#accountInfoModal .modal-circles-title,
+.modal-circles-title {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #d4af37 !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+html[lang="ar"] #editProfileModal .modal-circles-title,
+html[lang="ar"] #accountInfoModal .modal-circles-title,
+html[lang="ar"] .modal-circles-title,
+body[dir="rtl"] #editProfileModal .modal-circles-title,
+body[dir="rtl"] #accountInfoModal .modal-circles-title,
+body[dir="rtl"] .modal-circles-title {
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  font-size: 12px !important;
+  font-family: var(--font-body, system-ui, -apple-system, sans-serif) !important;
+}
+
+.modal-counter-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  padding: 3px 9px !important;
+  border-radius: 12px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1 !important;
+  color: #fae298 !important;
+  background: rgba(212, 175, 106, 0.15) !important;
+  border: 1px solid rgba(212, 175, 106, 0.4) !important;
+  box-sizing: border-box !important;
+}
+
+#editProfileModal .modal-circles-desc,
+.modal-circles-desc {
+  font-size: 11px !important;
+  line-height: 1.55 !important;
+  margin: 0 0 12px 0 !important;
+  color: rgba(225, 205, 165, 0.78) !important;
+}
+
 .modal-circles-selector-grid {
   display: flex !important;
   flex-direction: column !important;
-  gap: 7px !important;
-  margin-top: 6px !important;
+  gap: 8px !important;
+  margin-top: 4px !important;
   box-sizing: border-box !important;
   width: 100% !important;
 }
@@ -19686,13 +19775,14 @@ html.light-mode #profile-tab .pcc-seal-star {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 10px !important;
-  padding: 9px 12px !important;
-  border-radius: 10px !important;
-  background: rgba(25, 23, 31, 0.75) !important;
-  border: 1px solid rgba(212, 175, 106, 0.22) !important;
+  gap: 12px !important;
+  padding: 10px 14px !important;
+  min-height: 52px !important;
+  border-radius: 11px !important;
+  background: rgba(25, 23, 31, 0.85) !important;
+  border: 1px solid rgba(212, 175, 106, 0.25) !important;
   cursor: pointer !important;
-  transition: background 0.15s ease, transform 0.12s ease !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
   min-width: 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
@@ -19700,69 +19790,122 @@ html.light-mode #profile-tab .pcc-seal-star {
 }
 
 .modal-circle-item:hover {
-  border-color: rgba(212, 175, 106, 0.45) !important;
-  background: rgba(35, 32, 44, 0.9) !important;
+  border-color: rgba(212, 175, 106, 0.5) !important;
+  background: rgba(35, 32, 44, 0.95) !important;
+  transform: translateY(-1px) !important;
 }
 
 .modal-circle-item.is-selected {
-  background: linear-gradient(145deg, rgba(45, 38, 24, 0.75) 0%, rgba(25, 22, 15, 0.85) 100%) !important;
+  background: linear-gradient(145deg, rgba(48, 38, 20, 0.88) 0%, rgba(26, 22, 14, 0.95) 100%) !important;
   border-color: #d4af37 !important;
-  box-shadow: 0 0 10px rgba(212, 175, 106, 0.2), inset 0 1px 0 rgba(255, 245, 215, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 12px rgba(212, 175, 106, 0.25), inset 0 1px 0 rgba(255, 245, 215, 0.25) !important;
 }
 
 .modal-circle-item .mci-icon-box {
-  width: 26px !important;
-  height: 26px !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
   flex-shrink: 0 !important;
   border-radius: 50% !important;
   background: rgba(212, 175, 106, 0.12) !important;
-  border: 1px solid rgba(212, 175, 106, 0.35) !important;
+  border: 1px solid rgba(212, 175, 106, 0.38) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   color: #fae4b5 !important;
 }
 
-.modal-circle-item.is-selected .mci-icon-box {
-  background: linear-gradient(135deg, #d4af37 0%, #8a6924 100%) !important;
-  color: #121008 !important;
+.modal-circle-item .mci-icon-box svg {
+  width: 15px !important;
+  height: 15px !important;
+  display: block !important;
 }
 
-.modal-circle-item .mci-name {
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  color: #e8d9b8 !important;
-  white-space: nowrap !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
+.modal-circle-item.is-selected .mci-icon-box {
+  background: linear-gradient(135deg, #d4af37 0%, #8a6924 100%) !important;
+  border-color: #f7dfa4 !important;
+  color: #121008 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+.modal-circle-item .mci-text-group {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 2.5px !important;
+  min-width: 0 !important;
   flex: 1 1 auto !important;
-  line-height: 1.3 !important;
   text-align: start !important;
 }
 
+.modal-circle-item .mci-name {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #fae5be !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.01em !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .modal-circle-item.is-selected .mci-name {
-  color: #fff3d2 !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-circle-item .mci-domain {
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  color: rgba(225, 195, 135, 0.8) !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html[lang="ar"] .modal-circle-item .mci-domain,
+body[dir="rtl"] .modal-circle-item .mci-domain {
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+}
+
+.modal-circle-item.is-selected .mci-domain {
+  color: #fae298 !important;
 }
 
 .modal-circle-item .mci-check {
-  font-size: 11px !important;
-  color: #68d391 !important;
   display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  border-radius: 50% !important;
+  background: rgba(212, 175, 106, 0.18) !important;
+  border: 1px solid rgba(212, 175, 106, 0.5) !important;
+  color: #fae298 !important;
   flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.modal-circle-item .mci-check svg {
+  width: 12px !important;
+  height: 12px !important;
+  display: block !important;
 }
 
 .modal-circle-item.is-selected .mci-check {
-  display: inline-block !important;
-}
-
-.modal-counter-badge {
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  color: #d4af37 !important;
-  background: rgba(212, 175, 106, 0.12) !important;
-  border: 1px solid rgba(212, 175, 106, 0.3) !important;
-  padding: 2px 7px !important;
-  border-radius: 12px !important;
+  display: inline-flex !important;
 }
 
 /* Light Mode Overrides for Sovereign Circles */
@@ -19781,37 +19924,47 @@ body.light-mode #profile-tab .profile-circles-card .pcc-corner-rivet {
 }
 
 body.light-mode #profile-tab .profile-circles-card .pcc-head,
-body.light-mode #profile-tab .profile-circles-card .pcc-header {
-  border-bottom: 1px solid rgba(185, 145, 75, 0.22) !important;
+body.light-mode #profile-tab .profile-circles-card .pcc-header,
+html.light-mode #profile-tab .profile-circles-card .pcc-head,
+html.light-mode #profile-tab .profile-circles-card .pcc-header {
+  border-bottom: 1px solid rgba(185, 145, 75, 0.28) !important;
 }
 
-body.light-mode #profile-tab .profile-circles-card .pcc-title {
-  color: #382914 !important;
+body.light-mode #profile-tab .profile-circles-card .pcc-title,
+html.light-mode #profile-tab .profile-circles-card .pcc-title {
+  color: #241a0b !important;
   text-shadow: none !important;
 }
 
-body.light-mode #profile-tab .profile-circles-card .pcc-subtitle {
-  color: #78644a !important;
+body.light-mode #profile-tab .profile-circles-card .pcc-subtitle,
+html.light-mode #profile-tab .profile-circles-card .pcc-subtitle {
+  color: #6d5b43 !important;
 }
 
-body.light-mode #profile-tab .profile-circles-card .pcc-crest-badge {
-  background: linear-gradient(135deg, #ffffff 0%, #ede3cf 100%) !important;
-  border-color: rgba(185, 145, 75, 0.5) !important;
-  box-shadow: 0 2px 5px rgba(60, 45, 20, 0.1) !important;
+body.light-mode #profile-tab .profile-circles-card .pcc-crest-badge,
+html.light-mode #profile-tab .profile-circles-card .pcc-crest-badge {
+  background: radial-gradient(circle at 35% 30%, #fefcf8 0%, #f4ede0 70%, #e6d8c2 100%) !important;
+  border-color: rgba(185, 145, 75, 0.55) !important;
+  box-shadow: inset 0 1px 2px #ffffff, 0 2px 5px rgba(60, 45, 20, 0.12) !important;
 }
 
 body.light-mode #profile-tab .profile-circles-card .pcc-curate-btn,
-body.light-mode #profile-tab #btnCurateCircles {
-  background: linear-gradient(135deg, #ffffff 0%, #f3ece0 100%) !important;
-  border-color: rgba(185, 145, 75, 0.45) !important;
-  color: #7a5a22 !important;
-  box-shadow: 0 2px 4px rgba(60, 45, 20, 0.08) !important;
+body.light-mode #profile-tab #btnCurateCircles,
+html.light-mode #profile-tab .profile-circles-card .pcc-curate-btn,
+html.light-mode #profile-tab #btnCurateCircles {
+  background: linear-gradient(135deg, #ffffff 0%, #f5efe3 100%) !important;
+  border: 1px solid rgba(165, 125, 45, 0.5) !important;
+  color: #4a340c !important;
+  box-shadow: 0 1.5px 4px rgba(60, 45, 20, 0.1), inset 0 1px 0 #ffffff !important;
 }
 
 body.light-mode #profile-tab .profile-circles-card .pcc-curate-btn:hover,
-body.light-mode #profile-tab #btnCurateCircles:hover {
-  background: linear-gradient(135deg, #f7f1e4 0%, #ebdcc2 100%) !important;
-  color: #3b2c12 !important;
+body.light-mode #profile-tab #btnCurateCircles:hover,
+html.light-mode #profile-tab .profile-circles-card .pcc-curate-btn:hover,
+html.light-mode #profile-tab #btnCurateCircles:hover {
+  background: linear-gradient(135deg, #faf5eb 0%, #ede2ce 100%) !important;
+  border-color: rgba(145, 105, 30, 0.7) !important;
+  color: #2b1d06 !important;
 }
 
 body.light-mode #profile-tab .pcc-chip,
@@ -19849,54 +20002,143 @@ html.light-mode #profile-tab .pcc-chip-name {
 
 body.light-mode #profile-tab .pcc-chip-domain,
 html.light-mode #profile-tab .pcc-chip-domain {
-  color: #8c6e33 !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.08em !important;
+  color: #78561d !important;
+  font-weight: 600 !important;
 }
 
+body.light-mode .modal-circle-item .mci-domain {
+  color: #78561d !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .modal-circle-item.is-selected .mci-domain {
+  color: #5c4010 !important;
+}
+
+/* HIGH CONTRAST ACCREDITED BADGE IN LIGHT MODE (Deep rich antique bronze - 100% visible) */
 body.light-mode #profile-tab .pcc-chip-seal-dot,
-html.light-mode #profile-tab .pcc-chip-seal-dot {
-  background: rgba(185, 145, 75, 0.12) !important;
-  border: 0.5px solid rgba(185, 145, 75, 0.45) !important;
-  color: #6f5018 !important;
+html.light-mode #profile-tab .pcc-chip-seal-dot,
+body.light-mode .pcc-chip-seal-dot,
+html.light-mode .pcc-chip-seal-dot {
+  background: rgba(135, 95, 25, 0.12) !important;
+  border: 1px solid rgba(135, 95, 25, 0.5) !important;
+  color: #3a2605 !important;
   font-weight: 700 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(60, 45, 15, 0.08) !important;
 }
 
 body.light-mode #profile-tab .pcc-chip-seal-dot span,
-html.light-mode #profile-tab .pcc-chip-seal-dot span {
-  color: #6f5018 !important;
+html.light-mode #profile-tab .pcc-chip-seal-dot span,
+body.light-mode .pcc-chip-seal-dot span,
+html.light-mode .pcc-chip-seal-dot span {
+  color: #3a2605 !important;
   font-weight: 700 !important;
 }
 
-body.light-mode #profile-tab .pcc-chip-seal-dot span:last-child,
-html.light-mode #profile-tab .pcc-chip-seal-dot span:last-child {
-  color: #9e7422 !important;
+body.light-mode #profile-tab .pcc-chip-seal-dot .pcc-seal-star,
+body.light-mode #profile-tab .pcc-seal-star,
+html.light-mode #profile-tab .pcc-seal-star,
+body.light-mode .pcc-seal-star,
+html.light-mode .pcc-seal-star {
+  color: #7d5a1b !important;
 }
 
-body.light-mode .modal-circle-item {
-  background: #f7f3ea !important;
-  border-color: rgba(185, 145, 75, 0.3) !important;
+body.light-mode #profile-tab .pcc-accredited-tag,
+html.light-mode #profile-tab .pcc-accredited-tag,
+body.light-mode .pcc-accredited-tag,
+html.light-mode .pcc-accredited-tag {
+  background: rgba(135, 95, 25, 0.12) !important;
+  border: 1px solid rgba(135, 95, 25, 0.5) !important;
+  color: #3a2605 !important;
+  font-weight: 700 !important;
 }
 
-body.light-mode .modal-circle-item.is-selected {
-  background: linear-gradient(145deg, #faeed4 0%, #f5e2b9 100%) !important;
-  border-color: #b58b38 !important;
+body.light-mode #editProfileModal .modal-circles-title,
+body.light-mode #accountInfoModal .modal-circles-title,
+html.light-mode #editProfileModal .modal-circles-title,
+html.light-mode #accountInfoModal .modal-circles-title,
+body.light-mode .modal-circles-title,
+html.light-mode .modal-circles-title {
+  color: #2e1d05 !important;
 }
 
-body.light-mode .modal-circle-item .mci-name {
-  color: #3b2c15 !important;
+body.light-mode #editProfileModal .modal-circles-desc,
+html.light-mode #editProfileModal .modal-circles-desc,
+body.light-mode .modal-circles-desc,
+html.light-mode .modal-circles-desc {
+  color: #5c4520 !important;
 }
 
-body.light-mode .modal-circle-item .mci-icon-box {
-  background: rgba(185, 145, 75, 0.15) !important;
-  border-color: rgba(185, 145, 75, 0.4) !important;
-  color: #7d5e25 !important;
+body.light-mode .modal-counter-badge,
+html.light-mode .modal-counter-badge {
+  color: #382405 !important;
+  background: rgba(140, 95, 25, 0.12) !important;
+  border: 1px solid rgba(140, 95, 25, 0.45) !important;
+  box-shadow: inset 0 1px 0 #ffffff !important;
 }
 
-body.light-mode .modal-counter-badge {
-  color: #7d5e25 !important;
-  background: rgba(185, 145, 75, 0.12) !important;
+body.light-mode .modal-circle-item,
+html.light-mode .modal-circle-item {
+  background: #fbf8f0 !important;
   border-color: rgba(185, 145, 75, 0.35) !important;
+  box-shadow: 0 1px 3px rgba(60, 45, 15, 0.05) !important;
+}
+
+body.light-mode .modal-circle-item:hover,
+html.light-mode .modal-circle-item:hover {
+  background: #ffffff !important;
+  border-color: rgba(185, 145, 75, 0.6) !important;
+}
+
+body.light-mode .modal-circle-item.is-selected,
+html.light-mode .modal-circle-item.is-selected {
+  background: linear-gradient(145deg, #faeed4 0%, #f3dec0 100%) !important;
+  border-color: #b58b38 !important;
+  box-shadow: 0 3px 8px rgba(60, 45, 15, 0.1), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode .modal-circle-item .mci-icon-box,
+html.light-mode .modal-circle-item .mci-icon-box {
+  background: rgba(185, 145, 75, 0.14) !important;
+  border-color: rgba(185, 145, 75, 0.45) !important;
+  color: #6d4e1a !important;
+}
+
+body.light-mode .modal-circle-item.is-selected .mci-icon-box,
+html.light-mode .modal-circle-item.is-selected .mci-icon-box {
+  background: linear-gradient(135deg, #f5d487 0%, #c4953c 100%) !important;
+  border-color: #8c6720 !important;
+  color: #241400 !important;
+}
+
+body.light-mode .modal-circle-item .mci-name,
+html.light-mode .modal-circle-item .mci-name {
+  color: #1f180e !important;
+}
+
+body.light-mode .modal-circle-item.is-selected .mci-name,
+html.light-mode .modal-circle-item.is-selected .mci-name {
+  color: #1a1004 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .modal-circle-item .mci-domain,
+html.light-mode .modal-circle-item .mci-domain {
+  color: #6e4e1a !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .modal-circle-item.is-selected .mci-domain,
+html.light-mode .modal-circle-item.is-selected .mci-domain {
+  color: #4a3412 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .modal-circle-item .mci-check,
+html.light-mode .modal-circle-item .mci-check {
+  background: rgba(140, 95, 25, 0.15) !important;
+  border: 1px solid rgba(140, 95, 25, 0.5) !important;
+  color: #382405 !important;
 }
 
 /* Small screen responsive adjustments */
@@ -21313,119 +21555,182 @@ body.light-mode #accountInfoModal #closeAccountInfoModal {
   box-shadow: 0 0 0 1px #38240a, 0 1.5px 4px rgba(45, 30, 8, 0.25) !important;
 }
 
-/* 4. PROFILE PORTRAIT: Clean Symmetrical Machined Gold Bezel (No Crescent / No Halo / No Glow) */
-#accountInfoModal .avatar-selector-wrap {
+/* 4. PROFILE PORTRAIT: Authentic Sovereign 24K Machined Gold Frame Medallion */
+#editProfileModal .avatar-selector-wrap,
+#accountInfoModal .avatar-selector-wrap,
+.avatar-selector-wrap {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   margin-bottom: 12px !important;
 }
 
-#accountInfoModal .interactive-avatar-ring {
+#editProfileModal .interactive-avatar-ring,
+#accountInfoModal .interactive-avatar-ring,
+.interactive-avatar-ring {
   position: relative !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   width: 104px !important;
   height: 104px !important;
-  padding: 0 !important;
+  padding: 5px !important;
   border-radius: 50% !important;
   box-sizing: border-box !important;
-  /* Restrained machined warm gold rim (concentric & symmetrical - zero crescent or halo) */
-  background: #c5a059 !important;
-  border: 1px solid #36250e !important;
+  /* Authentic sovereign 24K machined gold frame */
+  background: conic-gradient(
+    from 180deg,
+    #8f6a25 0deg,
+    #d4af50 45deg,
+    #fff3c4 90deg,
+    #c49838 135deg,
+    #734f16 180deg,
+    #d4af50 225deg,
+    #fff3c4 270deg,
+    #b88b2e 315deg,
+    #8f6a25 360deg
+  ) !important;
+  border: 1.5px solid #2e1e0a !important;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 245, 215, 0.45),
-    0 1px 3px rgba(0, 0, 0, 0.35) !important;
+    0 8px 20px rgba(0, 0, 0, 0.7),
+    inset 0 1.5px 2px rgba(255, 245, 215, 0.65),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.8) !important;
   cursor: pointer !important;
-  transition: opacity 0.15s ease !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 
-#accountInfoModal .interactive-avatar-ring:hover {
-  transform: none !important;
-  opacity: 0.95 !important;
-}
-
-body.light-mode #accountInfoModal .interactive-avatar-ring {
-  background: #caa45a !important;
-  border: 1px solid #4a3416 !important;
+#editProfileModal .interactive-avatar-ring:hover,
+#accountInfoModal .interactive-avatar-ring:hover,
+.interactive-avatar-ring:hover {
+  transform: scale(1.02) !important;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.65),
-    0 1px 3px rgba(45, 30, 8, 0.2) !important;
+    0 10px 24px rgba(0, 0, 0, 0.8),
+    0 0 14px rgba(212, 175, 55, 0.3),
+    inset 0 1.5px 2px rgba(255, 245, 215, 0.8) !important;
 }
 
-body.light-mode #accountInfoModal .interactive-avatar-ring:hover {
-  transform: none !important;
-  opacity: 0.95 !important;
+#editProfileModal .interactive-avatar-ring::before,
+#accountInfoModal .interactive-avatar-ring::before,
+.interactive-avatar-ring::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 2.5px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 240, 190, 0.5) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
 }
 
-#accountInfoModal .phc-avatar-photo {
-  width: 92px !important;
-  height: 92px !important;
+#editProfileModal .interactive-avatar-ring::after,
+#accountInfoModal .interactive-avatar-ring::after,
+.interactive-avatar-ring::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 4px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(28, 18, 5, 0.85) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+body.light-mode #editProfileModal .interactive-avatar-ring,
+body.light-mode #accountInfoModal .interactive-avatar-ring,
+body.light-mode .interactive-avatar-ring {
+  background: conic-gradient(
+    from 180deg,
+    #7a561c 0deg,
+    #caa24e 45deg,
+    #fff7db 90deg,
+    #bd9337 135deg,
+    #634412 180deg,
+    #caa24e 225deg,
+    #fff7db 270deg,
+    #ad8328 315deg,
+    #7a561c 360deg
+  ) !important;
+  border: 1.5px solid #4a3416 !important;
+  box-shadow:
+    0 6px 16px rgba(45, 30, 8, 0.22),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
+    inset 0 -1.5px 2px rgba(60, 42, 14, 0.35) !important;
+}
+
+body.light-mode #editProfileModal .interactive-avatar-ring::before,
+body.light-mode #accountInfoModal .interactive-avatar-ring::before,
+body.light-mode .interactive-avatar-ring::before {
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+#editProfileModal .phc-avatar-photo,
+#accountInfoModal .phc-avatar-photo,
+.interactive-avatar-ring .phc-avatar-photo {
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 50% !important;
   background-size: cover !important;
   background-position: center !important;
-  border: 1.5px solid #140d04 !important;
+  border: 2px solid #140d04 !important;
   box-sizing: border-box !important;
   position: relative !important;
   overflow: hidden !important;
-  box-shadow: none !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7) !important;
+  z-index: 0 !important;
 }
 
-/* Explicitly disable any pseudo-elements, glares, halos, or beam reflections over the photo */
-#accountInfoModal .phc-avatar-photo::before,
-#accountInfoModal .phc-avatar-photo::after,
-#accountInfoModal .interactive-avatar-ring::before,
-#accountInfoModal .interactive-avatar-ring::after {
-  display: none !important;
-  content: none !important;
-}
-
-body.light-mode #accountInfoModal .phc-avatar-photo {
-  border: 1.5px solid #1a1206 !important;
-  box-shadow: none !important;
+body.light-mode #editProfileModal .phc-avatar-photo,
+body.light-mode #accountInfoModal .phc-avatar-photo,
+body.light-mode .interactive-avatar-ring .phc-avatar-photo {
+  border: 2px solid #1a1206 !important;
+  box-shadow: inset 0 2px 5px rgba(45, 30, 8, 0.35) !important;
 }
 
 /* 5. CAMERA CONTROL: Small Integrated Camera Badge */
+#editProfileModal .avatar-overlay-badge,
 #accountInfoModal .avatar-overlay-badge {
   position: absolute !important;
   bottom: 2px !important;
   right: 6px !important;
-  width: 20px !important;
-  height: 20px !important;
+  width: 22px !important;
+  height: 22px !important;
   border-radius: 50% !important;
   background: #14100a !important;
   border: 1px solid #c5a059 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   color: #d4af58 !important;
-  transition: opacity 0.15s ease !important;
+  transition: opacity 0.15s ease, transform 0.15s ease !important;
   transform: none !important;
-  z-index: 2 !important;
+  z-index: 3 !important;
 }
 
+[dir="rtl"] #editProfileModal .avatar-overlay-badge,
 [dir="rtl"] #accountInfoModal .avatar-overlay-badge {
   right: auto !important;
   left: 6px !important;
 }
 
+body.light-mode #editProfileModal .avatar-overlay-badge,
 body.light-mode #accountInfoModal .avatar-overlay-badge {
   background: #2a1c0a !important;
   border: 1px solid #caa45a !important;
   color: #fdf6e2 !important;
-  box-shadow: 0 1px 3px rgba(45, 30, 8, 0.25) !important;
+  box-shadow: 0 1px 4px rgba(45, 30, 8, 0.3) !important;
 }
 
+#editProfileModal .avatar-overlay-badge svg,
 #accountInfoModal .avatar-overlay-badge svg {
-  width: 10px !important;
-  height: 10px !important;
+  width: 11px !important;
+  height: 11px !important;
   display: block !important;
   stroke-width: 1.8 !important;
 }
 
 /* Change Portrait Label */
+#editProfileModal [data-i18n="profile.changePortrait"],
 #accountInfoModal [data-i18n="profile.changePortrait"] {
   margin-top: 8px !important;
   font-family: var(--font-ui, -apple-system, sans-serif) !important;
@@ -21436,62 +21741,88 @@ body.light-mode #accountInfoModal .avatar-overlay-badge {
   color: #c49a42 !important;
 }
 
+body.light-mode #editProfileModal [data-i18n="profile.changePortrait"],
 body.light-mode #accountInfoModal [data-i18n="profile.changePortrait"] {
   color: #7d5b20 !important;
 }
 
 /* Avatar Presets Gallery */
-#accountInfoModal .avatar-presets-container {
+#editProfileModal .avatar-presets-container,
+#accountInfoModal .avatar-presets-container,
+.avatar-presets-container {
   width: 100% !important;
   margin-top: 8px !important;
 }
 
-#accountInfoModal .avatar-preset-scroll {
+#editProfileModal .avatar-preset-scroll,
+#accountInfoModal .avatar-preset-scroll,
+.avatar-preset-scroll {
   display: flex !important;
   justify-content: center !important;
   gap: 8px !important;
-  padding: 2px 0 !important;
+  padding: 3px 0 !important;
 }
 
-#accountInfoModal .avatar-preset-thumbnail {
-  width: 38px !important;
-  height: 38px !important;
+#editProfileModal .avatar-preset-thumbnail,
+#accountInfoModal .avatar-preset-thumbnail,
+.avatar-preset-thumbnail {
+  width: 40px !important;
+  height: 40px !important;
   border-radius: 50% !important;
   background-size: cover !important;
   background-position: center !important;
-  border: 1px solid rgba(196, 154, 66, 0.35) !important;
-  box-shadow: none !important;
+  border: 1.5px solid rgba(196, 154, 66, 0.4) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
   cursor: pointer !important;
-  transition: border-color 0.15s ease, transform 0.12s ease !important;
-  opacity: 0.65 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  opacity: 0.7 !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
 }
 
-#accountInfoModal .avatar-preset-thumbnail:hover {
+#editProfileModal .avatar-preset-thumbnail:hover,
+#accountInfoModal .avatar-preset-thumbnail:hover,
+.avatar-preset-thumbnail:hover {
   opacity: 1 !important;
-  border-color: #c49a42 !important;
+  border-color: #dfba66 !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), 0 0 8px rgba(212, 175, 55, 0.3) !important;
 }
 
-#accountInfoModal .avatar-preset-thumbnail.active {
+#editProfileModal .avatar-preset-thumbnail.active,
+#accountInfoModal .avatar-preset-thumbnail.active,
+.avatar-preset-thumbnail.active {
   opacity: 1 !important;
   border: 2px solid #caa455 !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
-  transform: scale(1.08) !important;
+  box-shadow:
+    0 0 0 2px #100b05,
+    0 0 0 3.5px #dfba66,
+    0 4px 12px rgba(0, 0, 0, 0.6) !important;
+  transform: scale(1.12) !important;
 }
 
-body.light-mode #accountInfoModal .avatar-preset-thumbnail {
-  border: 1px solid rgba(150, 112, 38, 0.35) !important;
-  box-shadow: none !important;
-  opacity: 0.65 !important;
+body.light-mode #editProfileModal .avatar-preset-thumbnail,
+body.light-mode #accountInfoModal .avatar-preset-thumbnail,
+body.light-mode .avatar-preset-thumbnail {
+  border: 1.5px solid rgba(150, 112, 38, 0.45) !important;
+  box-shadow: 0 2px 5px rgba(60, 42, 14, 0.12) !important;
+  opacity: 0.72 !important;
 }
 
-body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
+body.light-mode #editProfileModal .avatar-preset-thumbnail.active,
+body.light-mode #accountInfoModal .avatar-preset-thumbnail.active,
+body.light-mode .avatar-preset-thumbnail.active {
   opacity: 1 !important;
-  border: 2px solid #8a6420 !important;
-  box-shadow: 0 2px 6px rgba(60, 42, 14, 0.15) !important;
-  transform: scale(1.08) !important;
+  border: 2px solid #94691e !important;
+  box-shadow:
+    0 0 0 2px #faf7ef,
+    0 0 0 3.5px #b3852b,
+    0 4px 10px rgba(60, 42, 14, 0.22) !important;
+  transform: scale(1.12) !important;
 }
 
-/* 6. SECTION PANEL: One Clean Subtle Recessed Panel Integrated into Modal Surface */
+/* 6. SECTION PANEL: Clean Subtle Recessed Panel Integrated into Modal Surface */
+#editProfileModal .dossier-panel,
 #accountInfoModal .dossier-panel {
   background: rgba(14, 11, 7, 0.6) !important;
   border: 1px solid rgba(196, 154, 66, 0.28) !important;
@@ -21501,6 +21832,7 @@ body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
   box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.5) !important;
 }
 
+body.light-mode #editProfileModal .dossier-panel,
 body.light-mode #accountInfoModal .dossier-panel {
   background: rgba(238, 230, 216, 0.45) !important;
   border: 1px solid rgba(160, 120, 40, 0.32) !important;
@@ -21510,6 +21842,7 @@ body.light-mode #accountInfoModal .dossier-panel {
   box-shadow: inset 0 1px 2px rgba(60, 42, 14, 0.04) !important;
 }
 
+#editProfileModal .modal-section-title,
 #accountInfoModal .modal-section-title {
   font-family: var(--font-display, "Cinzel", serif) !important;
   font-size: 9.5px !important;
@@ -21522,19 +21855,23 @@ body.light-mode #accountInfoModal .dossier-panel {
   border-bottom: 1px solid rgba(196, 154, 66, 0.2) !important;
 }
 
+body.light-mode #editProfileModal .modal-section-title,
 body.light-mode #accountInfoModal .modal-section-title {
   color: #5c4014 !important;
   border-bottom: 1px solid rgba(160, 120, 40, 0.22) !important;
 }
 
+#editProfileModal .edit-profile-section,
 #accountInfoModal .edit-profile-section {
   margin-bottom: 10px !important;
 }
 
+#editProfileModal .edit-profile-section:last-child,
 #accountInfoModal .edit-profile-section:last-child {
   margin-bottom: 0 !important;
 }
 
+#editProfileModal .edit-profile-label,
 #accountInfoModal .edit-profile-label {
   font-family: var(--font-ui, -apple-system, sans-serif) !important;
   font-size: 8px !important;
@@ -21546,88 +21883,151 @@ body.light-mode #accountInfoModal .modal-section-title {
   display: block !important;
 }
 
+body.light-mode #editProfileModal .edit-profile-label,
 body.light-mode #accountInfoModal .edit-profile-label {
   color: #6e5225 !important;
 }
 
-/* 7. INPUT FIELDS: Warm Ivory / Obsidian Surface, Subtle Recessed Depth, Clear Metallic Edge */
-#accountInfoModal .edit-profile-input,
-#accountInfoModal .edit-profile-textarea {
+/* 7. INPUT FIELDS & PROFILE QUOTE ELASTIC TEXTAREA */
+#editProfileModal .edit-profile-input,
+#accountInfoModal .edit-profile-input {
   width: 100% !important;
   box-sizing: border-box !important;
   background: #070503 !important;
   border: 1px solid rgba(196, 154, 66, 0.35) !important;
-  border-radius: 6px !important;
-  padding: 8px 11px !important;
-  font-size: 12px !important;
+  border-radius: 8px !important;
+  padding: 10px 12px !important;
+  font-size: 13px !important;
   color: #f2e6cb !important;
   box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.6) !important;
-  transition: border-color 0.15s ease !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
   font-family: inherit !important;
   outline: none !important;
 }
 
+/* Highly Elastic, Self-Expanding, Fluid Profile Quote Textarea */
+#editProfileModal .edit-profile-textarea,
+#accountInfoModal .edit-profile-textarea,
+.edit-profile-textarea {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: #070503 !important;
+  border: 1px solid rgba(196, 154, 66, 0.35) !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  color: #f2e6cb !important;
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.6) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  font-family: inherit !important;
+  outline: none !important;
+  min-height: 56px !important;
+  max-height: 220px !important;
+  field-sizing: content;
+  resize: none !important;
+  overflow-y: auto !important;
+  word-break: break-word !important;
+  white-space: pre-wrap !important;
+  text-align: start !important;
+}
+
+#editProfileModal .edit-profile-input:focus,
 #accountInfoModal .edit-profile-input:focus,
-#accountInfoModal .edit-profile-textarea:focus {
+#editProfileModal .edit-profile-textarea:focus,
+#accountInfoModal .edit-profile-textarea:focus,
+.edit-profile-textarea:focus {
   border-color: #caa455 !important;
   box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.8), 0 0 0 1px #caa455 !important;
 }
 
-body.light-mode #accountInfoModal .edit-profile-input,
-body.light-mode #accountInfoModal .edit-profile-textarea {
+body.light-mode #editProfileModal .edit-profile-input,
+body.light-mode #accountInfoModal .edit-profile-input {
   background: #fbf8f1 !important;
   border: 1px solid rgba(150, 112, 38, 0.42) !important;
   color: #1a1206 !important;
   box-shadow: inset 0 1.5px 3px rgba(60, 42, 14, 0.06) !important;
 }
 
+body.light-mode #editProfileModal .edit-profile-textarea,
+body.light-mode #accountInfoModal .edit-profile-textarea,
+body.light-mode .edit-profile-textarea {
+  background: #fbf8f1 !important;
+  border: 1px solid rgba(150, 112, 38, 0.42) !important;
+  color: #1a1206 !important;
+  box-shadow: inset 0 1.5px 3px rgba(60, 42, 14, 0.06) !important;
+}
+
+body.light-mode #editProfileModal .edit-profile-input:focus,
 body.light-mode #accountInfoModal .edit-profile-input:focus,
+body.light-mode #editProfileModal .edit-profile-textarea:focus,
 body.light-mode #accountInfoModal .edit-profile-textarea:focus {
   border-color: #8a6420 !important;
   box-shadow: inset 0 1.5px 3px rgba(60, 42, 14, 0.08), 0 0 0 1px #8a6420 !important;
 }
 
 /* Quote Presets Chips */
-#accountInfoModal .quote-presets-container {
+#editProfileModal .quote-presets-container,
+#accountInfoModal .quote-presets-container,
+.quote-presets-container {
   display: flex !important;
   flex-wrap: wrap !important;
-  gap: 5px !important;
-  margin-top: 6px !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
 }
 
-#accountInfoModal .quote-preset-chip {
+#editProfileModal .quote-preset-chip,
+#accountInfoModal .quote-preset-chip,
+.quote-preset-chip {
   font-family: var(--font-ui, -apple-system, sans-serif) !important;
-  font-size: 8px !important;
-  padding: 3px 7px !important;
-  border-radius: 4px !important;
-  background: rgba(196, 154, 66, 0.08) !important;
-  border: 1px solid rgba(196, 154, 66, 0.28) !important;
-  color: #caa455 !important;
+  font-size: 10px !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  background: rgba(196, 154, 66, 0.1) !important;
+  border: 1px solid rgba(196, 154, 66, 0.3) !important;
+  color: #d4af37 !important;
   cursor: pointer !important;
   transition: all 0.15s ease !important;
 }
 
-#accountInfoModal .quote-preset-chip:hover {
-  background: rgba(196, 154, 66, 0.16) !important;
+#editProfileModal .quote-preset-chip:hover,
+#accountInfoModal .quote-preset-chip:hover,
+.quote-preset-chip:hover {
+  background: rgba(196, 154, 66, 0.22) !important;
   border-color: #caa455 !important;
   color: #f7eed8 !important;
+  transform: translateY(-1px) !important;
 }
 
-body.light-mode #accountInfoModal .quote-preset-chip {
-  background: rgba(168, 128, 48, 0.08) !important;
-  border: 1px solid rgba(160, 120, 40, 0.32) !important;
-  color: #5a3e14 !important;
+body.light-mode #editProfileModal .quote-preset-chip,
+body.light-mode #accountInfoModal .quote-preset-chip,
+body.light-mode .quote-preset-chip {
+  background: rgba(168, 128, 48, 0.1) !important;
+  border: 1px solid rgba(160, 120, 40, 0.35) !important;
+  color: #4a3412 !important;
+}
+
+body.light-mode #editProfileModal .quote-preset-chip:hover,
+body.light-mode #accountInfoModal .quote-preset-chip:hover,
+body.light-mode .quote-preset-chip:hover {
+  background: rgba(168, 128, 48, 0.18) !important;
+  border-color: rgba(160, 120, 40, 0.6) !important;
+  color: #241400 !important;
 }
 
 /* Clean Divider */
-#accountInfoModal .dossier-divider {
+#editProfileModal .dossier-divider,
+#accountInfoModal .dossier-divider,
+.dossier-divider {
   border: none !important;
   height: 1px !important;
   background: rgba(196, 154, 66, 0.2) !important;
   margin: 12px 0 !important;
 }
 
-body.light-mode #accountInfoModal .dossier-divider {
+body.light-mode #editProfileModal .dossier-divider,
+body.light-mode #accountInfoModal .dossier-divider,
+body.light-mode .dossier-divider {
   background: rgba(160, 120, 40, 0.22) !important;
 }
 
@@ -22959,7 +23359,7 @@ body #profile-tab .ossb-text {
   }
   body #profile-tab .profile-circles-card .pcc-head,
   body #profile-tab .profile-circles-card .pcc-header {
-    gap: 8px !important;
+    gap: 4px !important;
     padding-bottom: 8px !important;
     margin-bottom: 8px !important;
   }
@@ -29136,9 +29536,6 @@ body.light-mode .bottom-nav .nav-item:not(.is-active) span {
 body.light-mode .reliquary-empty-title,
 body.light-mode #collectionSectionTitle,
 body.light-mode .reliquary-title-group h3,
-body.light-mode .pcc-accredited-tag,
-body.light-mode .pcc-chip-seal-dot,
-body.light-mode .pcc-chip-seal-dot span,
 body.light-mode .hrr-status,
 body.light-mode #hrrStatusBadge,
 body.light-mode .history-badge-seal .badge,
@@ -29174,8 +29571,6 @@ body.light-mode .bottom-nav .nav-item.is-active span {
   text-shadow: none !important;
 }
 
-body.light-mode .pcc-accredited-tag,
-body.light-mode .pcc-chip-seal-dot,
 body.light-mode .hrr-status,
 body.light-mode #hrrStatusBadge,
 body.light-mode .history-badge-seal .badge,
@@ -29189,6 +29584,38 @@ body.light-mode .status-badge-approved,
 body.light-mode .accredited-status-tag {
   background: var(--lm-approved-badge-bg, rgba(168, 124, 45, 0.09)) !important;
   border-color: var(--lm-approved-badge-border, rgba(168, 124, 45, 0.38)) !important;
+}
+
+/* High-Contrast Sovereign Accreditation Badge in Light Mode */
+body.light-mode #profile-tab .pcc-chip-seal-dot,
+body.light-mode .pcc-chip-seal-dot,
+html.light-mode .pcc-chip-seal-dot {
+  background: rgba(145, 105, 30, 0.14) !important;
+  border: 1px solid rgba(145, 105, 30, 0.55) !important;
+  color: #382405 !important;
+  font-weight: 700 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(60, 45, 15, 0.08) !important;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot span,
+body.light-mode .pcc-chip-seal-dot span,
+html.light-mode .pcc-chip-seal-dot span {
+  color: #382405 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot .pcc-seal-star,
+body.light-mode .pcc-seal-star,
+html.light-mode .pcc-seal-star {
+  color: #7d5a1b !important;
+}
+
+body.light-mode .pcc-accredited-tag,
+html.light-mode .pcc-accredited-tag {
+  background: rgba(145, 105, 30, 0.14) !important;
+  border: 1px solid rgba(145, 105, 30, 0.55) !important;
+  color: #382405 !important;
+  font-weight: 700 !important;
 }
 
 /* --- 4. MUTED / DECORATIVE GOLD: Micro-hallmarks, decorative stamps, non-essential lines --- */

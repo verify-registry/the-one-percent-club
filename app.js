@@ -643,65 +643,89 @@ const SOVEREIGN_CIRCLES_CATALOG = [
   {
     id: "pe_venture",
     nameKey: "profile.circle_pe_venture",
+    badgeKey: "profile.circle_badge_pe_venture",
     enName: "Private Equity & Venture",
     arName: "الاستثمار ورأس المال الجريء",
     badge: "ALPHA • VENTURE",
+    badgeEn: "ALPHA • VENTURE",
+    badgeAr: "عوائد سيادية • استثمار مباشر",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="8" x2="13" y2="8"></line><line x1="7" y1="16" x2="11" y2="16"></line><circle cx="16" cy="15" r="2"></circle></svg>`
   },
   {
     id: "haute_horlogerie",
     nameKey: "profile.circle_haute_horlogerie",
+    badgeKey: "profile.circle_badge_haute_horlogerie",
     enName: "Haute Horlogerie & Rarities",
     arName: "الساعات الفاخرة والمقتنيات",
     badge: "HOROLOGY • RARITY",
+    badgeEn: "HOROLOGY • RARITY",
+    badgeAr: "علم الساعات • نوادر القطع",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 14.5 13.5"></polyline><path d="M9 2h6M9 22h6M12 2v3M12 19v3"></path></svg>`
   },
   {
     id: "sovereign_ai",
     nameKey: "profile.circle_sovereign_ai",
+    badgeKey: "profile.circle_badge_sovereign_ai",
     enName: "Sovereign AI & Deep Tech",
     arName: "الذكاء الاصطناعي والتكنولوجيا",
     badge: "DEEP TECH • AI",
+    badgeEn: "DEEP TECH • AI",
+    badgeAr: "تكنولوجيا عميقة • ذكاء سيادي",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"></rect><circle cx="9" cy="9" r="1.5" fill="currentColor"></circle><circle cx="15" cy="9" r="1.5" fill="currentColor"></circle><path d="M8 15h8M12 4V2M12 22v-2M2 12h2M20 12h2"></path></svg>`
   },
   {
     id: "aviation_yachts",
     nameKey: "profile.circle_aviation_yachts",
+    badgeKey: "profile.circle_badge_aviation_yachts",
     enName: "Private Aviation & Superyachts",
     arName: "الطيران الخاص واليخوت",
     badge: "FLEET • AERONAUTICS",
+    badgeEn: "FLEET • AERONAUTICS",
+    badgeAr: "طيران خاص • أساطيل بحرية",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>`
   },
   {
     id: "prime_estates",
     nameKey: "profile.circle_prime_estates",
+    badgeKey: "profile.circle_badge_prime_estates",
     enName: "Prime Architectural Estates",
     arName: "العقارات والقصور الفاخرة",
     badge: "ESTATE • ASSETS",
+    badgeEn: "ESTATE • ASSETS",
+    badgeAr: "أصول عقارية • قصور استثنائية",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h2M13 10h2M9 14h2M13 14h2M10 21v-4h4v4"></path></svg>`
   },
   {
     id: "fine_art",
     nameKey: "profile.circle_fine_art",
+    badgeKey: "profile.circle_badge_fine_art",
     enName: "High Art & Historic Curations",
     arName: "الفنون والمقتنيات التاريخية",
     badge: "FINE ART • CURATION",
+    badgeEn: "FINE ART • CURATION",
+    badgeAr: "فنون رفيعة • اقتناء تاريخي",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
   },
   {
     id: "macro_strategy",
     nameKey: "profile.circle_macro_strategy",
+    badgeKey: "profile.circle_badge_macro_strategy",
     enName: "Global Macro & Sovereign Strategy",
     arName: "الاستراتيجية والاقتصاد الكلي",
     badge: "SOVEREIGN MACRO",
+    badgeEn: "SOVEREIGN MACRO",
+    badgeAr: "اقتصاد كلي • استراتيجية سيادية",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`
   },
   {
     id: "royal_equestrian",
     nameKey: "profile.circle_royal_equestrian",
+    badgeKey: "profile.circle_badge_royal_equestrian",
     enName: "Thoroughbred & Purebred Equine",
     arName: "الخيول والفروسية الملكية",
     badge: "EQUINE • ROYAL",
+    badgeEn: "EQUINE • ROYAL",
+    badgeAr: "فروسية ملكية • سلالات أصيلة",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19h16M19 19a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4M12 3l3 4 5 1-4 4 1 5-5-3-5 3 1-5-4-4 5-1 3-4z"></path></svg>`
   }
 ];
@@ -4614,6 +4638,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (typeof updateEditProfilePreview === "function") {
         updateEditProfilePreview(currentAvatarUrl);
       }
+      if (quoteInput && typeof adjustQuoteTextareaHeight === "function") {
+        adjustQuoteTextareaHeight(quoteInput);
+        requestAnimationFrame(() => adjustQuoteTextareaHeight(quoteInput));
+        setTimeout(() => adjustQuoteTextareaHeight(quoteInput), 80);
+      }
       if (typeof renderModalCirclesSelector === "function") {
         renderModalCirclesSelector(AppState.user.circles || ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"]);
       }
@@ -4664,9 +4693,16 @@ document.addEventListener("DOMContentLoaded", () => {
     chip.addEventListener("click", () => {
       const quoteInput = document.getElementById("editProfileQuoteInput");
       if (quoteInput) {
-        quoteInput.value = chip.dataset.quote;
-        quoteInput.dispatchEvent(new Event("input"));
-        saveProfileDraft();
+        const isAr = (window.AppState && window.AppState.language === "ar") || document.documentElement.lang === "ar";
+        const qVal = (isAr && chip.dataset.quoteAr) ? chip.dataset.quoteAr : (chip.dataset.quote || chip.textContent.trim());
+        quoteInput.value = qVal;
+        if (typeof adjustQuoteTextareaHeight === "function") {
+          adjustQuoteTextareaHeight(quoteInput);
+        }
+        quoteInput.dispatchEvent(new Event("input", { bubbles: true }));
+        if (typeof saveProfileDraft === "function") {
+          saveProfileDraft();
+        }
       }
     });
   });
@@ -5806,12 +5842,29 @@ function saveProfileDraft() {
   localStorage.setItem("profileDraft", JSON.stringify(draft));
 }
 
+function adjustQuoteTextareaHeight(textarea) {
+  const el = textarea || document.getElementById("editProfileQuoteInput");
+  if (!el) return;
+  el.style.height = "auto";
+  const scrollH = el.scrollHeight;
+  const targetH = Math.max(56, Math.min(scrollH, 220));
+  el.style.height = targetH + "px";
+}
+window.adjustQuoteTextareaHeight = adjustQuoteTextareaHeight;
+
 document
   .getElementById("editProfileNameInput")
   ?.addEventListener("input", saveProfileDraft);
-document
-  .getElementById("editProfileQuoteInput")
-  ?.addEventListener("input", saveProfileDraft);
+
+const quoteInputEl = document.getElementById("editProfileQuoteInput");
+if (quoteInputEl) {
+  ["input", "change", "keyup", "paste"].forEach((evt) => {
+    quoteInputEl.addEventListener(evt, (e) => {
+      saveProfileDraft();
+      adjustQuoteTextareaHeight(e.target);
+    });
+  });
+}
 document
   .getElementById("editProfileLocationInput")
   ?.addEventListener("input", saveProfileDraft);
@@ -6103,6 +6156,7 @@ function renderProfileCircles() {
   let html = "";
   items.forEach(item => {
     const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
+    const localizedBadge = (window.t && item.badgeKey && window.t(item.badgeKey)) || (isAr ? (item.badgeAr || item.badge) : (item.badgeEn || item.badge));
     const statusText = isAr ? "معتمد" : "ACCREDITED";
     html += `
       <div class="pcc-chip" data-circle-id="${item.id}" role="button" tabindex="0" title="${localizedName}">
@@ -6112,7 +6166,7 @@ function renderProfileCircles() {
           </div>
           <div class="pcc-chip-text-group">
             <span class="pcc-chip-name">${localizedName}</span>
-            <span class="pcc-chip-domain">${item.badge}</span>
+            <span class="pcc-chip-domain">${localizedBadge}</span>
           </div>
         </div>
         <div class="pcc-chip-seal-dot" aria-hidden="true">
@@ -6198,12 +6252,6 @@ function renderModalCirclesSelector(currentSelected) {
     });
   };
 
-  const existingItems = grid.querySelectorAll(".modal-circle-item");
-  if (existingItems.length === SOVEREIGN_CIRCLES_CATALOG.length) {
-    updateSelectedState();
-    return;
-  }
-
   if (countBadge) {
     countBadge.textContent = `${window.modalSelectedCircles.length} / 5`;
   }
@@ -6211,19 +6259,26 @@ function renderModalCirclesSelector(currentSelected) {
   grid.innerHTML = SOVEREIGN_CIRCLES_CATALOG.map(item => {
     const isSelected = window.modalSelectedCircles.includes(item.id);
     const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
+    const localizedBadge = (window.t && item.badgeKey && window.t(item.badgeKey)) || (isAr ? (item.badgeAr || item.badge) : (item.badgeEn || item.badge));
     return `
       <div class="modal-circle-item ${isSelected ? "is-selected" : ""}" data-id="${item.id}" role="checkbox" aria-checked="${isSelected}">
-        <div style="display: flex; align-items: center; gap: 9px; min-width: 0; flex: 1 1 auto;">
+        <div style="display: flex; align-items: center; gap: 11px; min-width: 0; flex: 1 1 auto;">
           <div class="mci-icon-box" aria-hidden="true">${item.icon}</div>
-          <div style="display: flex; flex-direction: column; min-width: 0; gap: 2px; text-align: start;">
+          <div class="mci-text-group">
             <span class="mci-name">${localizedName}</span>
-            <span style="font-size: 7.5px; color: rgba(212, 175, 106, 0.7); letter-spacing: 0.08em; text-transform: uppercase;">${item.badge}</span>
+            <span class="mci-domain">${localizedBadge}</span>
           </div>
         </div>
-        <span class="mci-check">✓</span>
+        <span class="mci-check" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
       </div>
     `;
   }).join("");
+
+  updateSelectedState();
 
   // Use event delegation on grid for ultra-fast, stutter-free selection
   grid.onclick = (e) => {

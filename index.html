@@ -2057,25 +2057,22 @@
 
             <div class="pcc-inner">
               <div class="pcc-header">
-                <div class="pcc-header-title-wrap">
-                  <div class="pcc-crest-badge">
-                    <span class="pcc-crest-icon">⚜️</span>
-                  </div>
-                  <div class="pcc-title-group">
-                    <div class="pcc-title-row">
-                      <h3 class="pcc-title" data-i18n="profile.circlesTitle">الدوائر والمجالات السيادية</h3>
-                      <span class="pcc-accredited-tag" data-i18n="profile.circlesBadge">معتمد ✦</span>
+                <div class="pcc-header-top-row">
+                  <div class="pcc-header-title-wrap">
+                    <div class="pcc-crest-badge" aria-hidden="true">
+                      <span class="pcc-crest-icon">⚜️</span>
                     </div>
-                    <span class="pcc-subtitle" data-i18n="profile.circlesSub">دوائر الشغف والتأثير المعتمدة لصاحب السيادة</span>
+                    <h3 class="pcc-title" data-i18n="profile.circlesTitle">الدوائر والمجالات السيادية</h3>
                   </div>
-                </div>
-                <div class="pcc-header-action-row">
                   <button type="button" class="pcc-curate-btn" id="btnCurateCircles" title="تعديل الدوائر والمجالات" aria-label="Curate Circles">
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8">
                       <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
                     </svg>
                     <span data-i18n="profile.circlesEditBtn">تعديل الدوائر</span>
                   </button>
+                </div>
+                <div class="pcc-subtitle-row">
+                  <span class="pcc-subtitle" data-i18n="profile.circlesSub">دوائر الشغف والتأثير المعتمدة لصاحب السيادة</span>
                 </div>
               </div>
 
@@ -3206,7 +3203,7 @@
         <div class="luxury-modal-body dossier-modal-body">
           
           <!-- AVATAR CENTERPIECE -->
-          <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 12px; margin-top: 4px;">
+          <div class="avatar-selector-wrap" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 12px; margin-top: 4px;">
             <label class="interactive-avatar-ring">
               <div
                 class="phc-avatar-photo"
@@ -3252,15 +3249,15 @@
               <textarea
                 class="edit-profile-input edit-profile-textarea"
                 id="editProfileQuoteInput"
-                rows="3"
+                rows="2"
                 placeholder="Enter your quote"
                 data-i18n-placeholder="profile.quotePlaceholder"
               ></textarea>
-              <div class="quote-presets-container">
-                <span class="quote-preset-chip" data-quote="Discipline. Network. Freedom.">Discipline. Network. Freedom.</span>
-                <span class="quote-preset-chip" data-quote="Silence is the ultimate luxury.">Silence is the ultimate luxury.</span>
-                <span class="quote-preset-chip" data-quote="True wealth is private.">True wealth is private.</span>
-                <span class="quote-preset-chip" data-quote="Aut vincere aut mori.">Aut vincere aut mori.</span>
+              <div class="quote-presets-container" id="quotePresetsContainer">
+                <span class="quote-preset-chip" data-i18n="profile.quotePreset1" data-quote-en="Discipline. Network. Freedom." data-quote-ar="الانضباط. النفوذ. الحرية." data-quote="Discipline. Network. Freedom.">Discipline. Network. Freedom.</span>
+                <span class="quote-preset-chip" data-i18n="profile.quotePreset2" data-quote-en="Silence is the ultimate luxury." data-quote-ar="الصمت هو الفخامة المطلقة." data-quote="Silence is the ultimate luxury.">Silence is the ultimate luxury.</span>
+                <span class="quote-preset-chip" data-i18n="profile.quotePreset3" data-quote-en="True wealth is private." data-quote-ar="الثروة الحقيقية تظل سرية." data-quote="True wealth is private.">True wealth is private.</span>
+                <span class="quote-preset-chip" data-i18n="profile.quotePreset4" data-quote-en="Aut vincere aut mori." data-quote-ar="إما النصر وإما الخلود." data-quote="Aut vincere aut mori.">Aut vincere aut mori.</span>
               </div>
             </div>
 
@@ -3280,11 +3277,11 @@
 
           <!-- SOVEREIGN CIRCLES SELECTOR PANEL -->
           <div class="dossier-panel" id="modalCirclesPanel">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-              <h4 class="modal-section-title" data-i18n="profile.circlesModalTitle" style="margin-bottom: 0;">ACCREDITED SOVEREIGN CIRCLES</h4>
-              <span id="modalCirclesCountBadge" class="modal-counter-badge">4 / 5</span>
+            <div class="modal-circles-header-row">
+              <h4 class="modal-section-title modal-circles-title" data-i18n="profile.circlesModalTitle">ACCREDITED SOVEREIGN CIRCLES</h4>
+              <span id="modalCirclesCountBadge" class="modal-counter-badge" aria-label="Selected circles counter">4 / 5</span>
             </div>
-            <p class="dossier-panel-desc" data-i18n="profile.circlesModalDesc" style="font-size: 11px; color: #a39580; margin-bottom: 12px; line-height: 1.5;">
+            <p class="dossier-panel-desc modal-circles-desc" data-i18n="profile.circlesModalDesc">
               حدد حتى ٥ مجالات تعكس مكانتك السيادية واستثماراتك واهتماماتك الخاصة.
             </p>
             <div class="modal-circles-selector-grid" id="modalCirclesSelectorGrid">
