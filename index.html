@@ -1238,7 +1238,18 @@
                 <span class="sd-badge-text" id="memberDossierCouncilBadge">المجلس السيادي • لوحة الشرف</span>
                 <span class="sd-crest-fleur">⚜️</span>
               </div>
-              <div class="sd-corner-rivet" title="Sovereign Seal Rivet"></div>
+              <button
+                class="sd-close-btn"
+                id="memberProfileCloseBtn"
+                type="button"
+                aria-label="Close Member Profile"
+                title="إغلاق الملف والعودة إلى لوحة الشرف"
+                onclick="closeMemberProfile()"
+              >
+                <svg viewBox="0 0 14 14" width="10" height="10" fill="none" aria-hidden="true">
+                  <path d="M3 3L11 11M11 3L3 11" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
+                </svg>
+              </button>
             </div>
 
             <!-- Hero Portrait & Emblem Centerpiece -->
@@ -1385,7 +1396,7 @@
             <!-- Bottom Rivets & Guarantee Mark -->
             <div class="sd-card-footer">
               <div class="sd-corner-rivet" title="Sovereign Seal Rivet"></div>
-              <div class="sd-footer-hallmark">THE 1% CLUB • SOVEREIGN PRIVATE DOSSIER</div>
+              <div class="sd-footer-hallmark">THE 1% CLUB · SOVEREIGN PRIVATE DOSSIER</div>
               <div class="sd-corner-rivet" title="Sovereign Seal Rivet"></div>
             </div>
 

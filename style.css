@@ -2448,24 +2448,55 @@ html.light-mode .nav-item.is-active .nav-label {
   text-shadow: none !important;
 }
 .nav-toast {
-  position: fixed;
-  left: 50%;
-  bottom: 78px;
-  transform: translateX(-50%) translateZ(0);
-  font-size: 11px;
-  color: #ede7d8;
-  background: rgba(20, 18, 14, 0.96);
-  border: 1px solid var(--hairline-strong);
-  padding: 8px 16px;
-  border-radius: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-  white-space: nowrap;
-  z-index: 200;
+  position: fixed !important;
+  left: 50% !important;
+  bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+  transform: translate(-50%, 8px) scale(0.96) translateZ(0) !important;
+  width: auto !important;
+  max-width: min(320px, 86vw) !important;
+  box-sizing: border-box !important;
+  font-family: var(--font-sans, "Montserrat", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  text-align: center !important;
+  color: #f3ede2 !important;
+  background: radial-gradient(circle at 50% 0%, rgba(35, 30, 24, 0.95) 0%, rgba(14, 12, 16, 0.97) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(212, 175, 106, 0.35) !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.75),
+    0 2px 8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 245, 215, 0.18) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition:
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.28s !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  z-index: 1000 !important;
 }
+
 .nav-toast.is-visible {
-  opacity: 1;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translate(-50%, 0) scale(1) translateZ(0) !important;
+}
+
+body.light-mode .nav-toast {
+  background: linear-gradient(135deg, rgba(255, 252, 246, 0.96) 0%, rgba(246, 239, 227, 0.97) 100%) !important;
+  border-color: rgba(185, 145, 75, 0.45) !important;
+  color: #3b2c14 !important;
+  box-shadow:
+    0 8px 24px rgba(80, 60, 20, 0.16),
+    inset 0 1px 1px #ffffff !important;
 }
 
 /* ==========================================================================
@@ -2511,6 +2542,16 @@ body.light-mode #page-member.is-active {
 
 /* Guarantee no floating Club controls appear when viewing member dossier */
 body:has(#page-member.is-active) #club-tab .club-composer-wrap {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Strictly suppress top back button in Member Profile view (Use ONLY the X close control) */
+body:has(#page-member.is-active) #backBtn,
+.app:has(#page-member.is-active) #backBtn,
+#backBtn.is-member-dossier-active {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -2566,10 +2607,71 @@ body.light-mode .sovereign-dossier-card {
 .sd-card-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px 14px 6px;
   position: relative;
-  z-index: 1;
+  z-index: 5;
+}
+
+.sd-card-header .sd-corner-rivet:first-child {
+  position: absolute;
+  top: 17px;
+  left: 14px;
+}
+
+.sd-close-btn {
+  position: absolute !important;
+  top: 8px !important;
+  right: 12px !important;
+  left: auto !important;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: radial-gradient(circle at 40% 40%, rgba(212, 175, 106, 0.14) 0%, rgba(18, 16, 20, 0.9) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.35) !important;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.65), 
+    inset 0 1px 1px rgba(255, 245, 215, 0.18) !important;
+  color: #dfcaa0 !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  z-index: 10 !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sd-close-btn:hover {
+  background: radial-gradient(circle at 40% 40%, rgba(212, 175, 106, 0.25) 0%, rgba(28, 24, 32, 0.95) 100%) !important;
+  border-color: rgba(212, 175, 106, 0.65) !important;
+  color: #ffffff !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.75), 
+    0 0 8px rgba(212, 175, 106, 0.25), 
+    inset 0 1px 1px rgba(255, 245, 215, 0.3) !important;
+  transform: scale(1.05);
+}
+
+.sd-close-btn:active {
+  transform: scale(0.92);
+}
+
+body.light-mode .sd-close-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #f4eee2 100%) !important;
+  border-color: rgba(168, 124, 45, 0.4) !important;
+  color: #694406 !important;
+  box-shadow: 0 2px 6px rgba(168, 124, 45, 0.12), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode .sd-close-btn:hover {
+  border-color: rgba(168, 124, 45, 0.7) !important;
+  color: #3d2602 !important;
+  box-shadow: 0 3px 10px rgba(168, 124, 45, 0.22) !important;
 }
 
 .sd-corner-rivet {
@@ -3205,16 +3307,21 @@ body.light-mode .sd-artifact-name {
 
 .sd-footer-hallmark {
   font-family: var(--font-display, "Cinzel", serif);
-  font-size: 8px;
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: rgba(212, 175, 55, 0.6);
+  letter-spacing: 0.14em;
+  color: #c5a868;
   text-align: center;
   flex: 1;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 -0.5px 0.5px rgba(255, 235, 185, 0.18);
+  opacity: 0.88;
 }
 
 body.light-mode .sd-footer-hallmark {
-  color: rgba(168, 124, 45, 0.7);
+  color: #7a5818;
+  opacity: 0.9;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 #club-tab.is-active {
@@ -9538,7 +9645,7 @@ html[dir="rtl"] .phc-motto-text span {
 .sl-ledger-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .sl-ledger-card,
@@ -9550,32 +9657,32 @@ html[dir="rtl"] .phc-motto-text span {
   align-items: center !important;
   justify-content: space-between !important;
   border-radius: 6px !important;
-  background: linear-gradient(180deg, #161519 0%, #0e0d10 100%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  padding: 11px 13px 11px 11px !important;
-  margin-bottom: 8px !important;
-  gap: 8px !important;
+  background: linear-gradient(180deg, #151418 0%, #0d0c0f 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.2) !important;
+  padding: 7px 8px !important;
+  margin-bottom: 0 !important;
+  gap: 0 !important;
   box-sizing: border-box !important;
   width: 100% !important;
   cursor: pointer;
-  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.65), 
-    inset 0 1px 0 rgba(255, 235, 185, 0.08), 
-    inset 0 0 0 1px rgba(0, 0, 0, 0.5) !important;
+    0 3px 12px rgba(0, 0, 0, 0.6), 
+    inset 0 1px 0 rgba(230, 205, 145, 0.07), 
+    inset 0 0 0 1px rgba(20, 18, 22, 0.5) !important;
 }
 
 .sl-ledger-card:hover,
 .sl-registry-plaque:hover,
 .sovereign-ledger-item:hover,
 .leaderboard-item:hover {
-  transform: translateY(-1.5px);
-  border-color: rgba(212, 175, 55, 0.45) !important;
-  background: linear-gradient(180deg, #1a181e 0%, #111014 100%) !important;
+  transform: translateY(-1px);
+  border-color: rgba(212, 175, 106, 0.4) !important;
+  background: linear-gradient(180deg, #19171d 0%, #100f13 100%) !important;
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.75), 
-    inset 0 1px 0 rgba(255, 235, 185, 0.16), 
-    0 0 16px rgba(212, 175, 55, 0.1) !important;
+    0 6px 18px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0 rgba(230, 205, 145, 0.14), 
+    0 0 8px rgba(212, 175, 106, 0.08) !important;
 }
 
 .sl-ledger-card:active,
@@ -9585,40 +9692,41 @@ html[dir="rtl"] .phc-motto-text span {
   transform: scale(0.99);
 }
 
-/* Subtle Architectural Corner Brackets (Engraved Metal Plaque Mounts) */
+/* Subtle Architectural Corner Brackets (Engraved Intaglio Metal Plaque Mounts) */
 .sl-plaque-bracket {
   position: absolute;
-  width: 6px;
-  height: 6px;
-  border: 1px solid rgba(212, 175, 55, 0.38);
+  width: 5px;
+  height: 5px;
+  border: 0.75px solid rgba(212, 175, 106, 0.3);
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 0.65;
+  filter: drop-shadow(0 0.5px 0.5px rgba(0, 0, 0, 0.9));
 }
 
 .sl-plaque-bracket.top-left {
-  top: 2px;
-  left: 2px;
+  top: 3px;
+  left: 3px;
   border-right: none;
   border-bottom: none;
 }
 
 .sl-plaque-bracket.top-right {
-  top: 2px;
-  right: 2px;
+  top: 3px;
+  right: 3px;
   border-left: none;
   border-bottom: none;
 }
 
 .sl-plaque-bracket.bottom-left {
-  bottom: 2px;
-  left: 2px;
+  bottom: 3px;
+  left: 3px;
   border-right: none;
   border-top: none;
 }
 
 .sl-plaque-bracket.bottom-right {
-  bottom: 2px;
-  right: 2px;
+  bottom: 3px;
+  right: 3px;
   border-left: none;
   border-top: none;
 }
@@ -9635,6 +9743,7 @@ html[dir="rtl"] .phc-motto-text span {
   min-width: 0 !important;
   max-width: none !important;
   width: auto !important;
+  overflow: hidden !important;
 }
 
 /* ENGRAVED SOVEREIGN REGISTRY INDEX COLUMN */
@@ -9646,8 +9755,8 @@ html[dir="rtl"] .phc-motto-text span {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 28px !important;
-  min-width: 28px !important;
+  width: 22px !important;
+  min-width: 22px !important;
   height: auto !important;
   background: transparent !important;
   border: none !important;
@@ -9662,22 +9771,22 @@ html[dir="rtl"] .phc-motto-text span {
 
 .sl-registry-order-prefix {
   font-family: var(--font-display, "Cinzel", serif);
-  font-size: 8px !important;
+  font-size: 7px !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
-  letter-spacing: 1px !important;
-  color: rgba(212, 175, 55, 0.65) !important;
+  letter-spacing: 0.5px !important;
+  color: rgba(212, 175, 106, 0.6) !important;
   line-height: 1 !important;
 }
 
 .sl-registry-rank-num {
   font-family: var(--font-display, "Cinzel", serif);
-  font-size: 13.5px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
-  color: #ebd188 !important;
-  letter-spacing: 0.05em !important;
+  color: #dfcaa0 !important;
+  letter-spacing: 0.03em !important;
   line-height: 1.1 !important;
-  margin-top: 2px !important;
+  margin-top: 1px !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
@@ -9691,15 +9800,15 @@ html[dir="rtl"] .phc-motto-text span {
 /* VERTICAL ARCHITECTURAL REGISTRY LINE */
 .sl-registry-divider {
   width: 1px !important;
-  height: 32px !important;
+  height: 26px !important;
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(212, 175, 55, 0.35) 25%,
-    rgba(212, 175, 55, 0.35) 75%,
+    rgba(212, 175, 106, 0.28) 25%,
+    rgba(212, 175, 106, 0.28) 75%,
     transparent 100%
   ) !important;
-  margin: 0 9px !important;
+  margin: 0 5px !important;
   flex-shrink: 0 !important;
   flex-grow: 0 !important;
 }
@@ -9708,24 +9817,25 @@ html[dir="rtl"] .phc-motto-text span {
 .sl-card-avatar-wrap,
 .sl-registry-cameo-wrap,
 .sovereign-ledger-avatar-wrap {
-  width: 38px !important;
-  height: 38px !important;
-  min-width: 38px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
   position: relative !important;
   flex-shrink: 0 !important;
   flex-grow: 0 !important;
+  margin-inline-end: 6px !important;
 }
 
 .sl-cameo-bezel {
-  width: 38px !important;
-  height: 38px !important;
+  width: 32px !important;
+  height: 32px !important;
   border-radius: 50% !important;
-  padding: 1.5px !important;
+  padding: 1px !important;
   box-sizing: border-box !important;
-  background: linear-gradient(135deg, rgba(255, 235, 170, 0.55) 0%, rgba(145, 110, 40, 0.35) 50%, rgba(255, 235, 170, 0.4) 100%) !important;
+  background: linear-gradient(135deg, rgba(230, 205, 145, 0.55) 0%, rgba(140, 105, 40, 0.3) 50%, rgba(200, 165, 95, 0.4) 100%) !important;
   box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.6), 
-    inset 0 1px 1px rgba(0, 0, 0, 0.7) !important;
+    0 1.5px 6px rgba(0, 0, 0, 0.65), 
+    inset 0 0.5px 1px rgba(255, 245, 215, 0.25) !important;
 }
 
 .sl-card-avatar,
@@ -9736,33 +9846,34 @@ html[dir="rtl"] .phc-motto-text span {
   width: 100% !important;
   height: 100% !important;
   border-radius: 50% !important;
-  border: 1px solid rgba(14, 13, 16, 0.95) !important;
+  border: 1px solid rgba(16, 14, 18, 0.95) !important;
   flex-shrink: 0 !important;
   flex-grow: 0 !important;
   object-fit: cover !important;
   display: block;
 }
 
+/* DISCREET SOVEREIGN ACTIVE SEAL */
 .sl-card-status-jewel,
 .sl-cameo-seal-dot {
   position: absolute !important;
-  bottom: 0 !important;
-  right: 0 !important;
-  width: 7.5px !important;
-  height: 7.5px !important;
+  bottom: 0px !important;
+  right: 0px !important;
+  width: 5px !important;
+  height: 5px !important;
   border-radius: 50% !important;
-  background: #4cc66e !important;
-  border: 1.5px solid #0e0d10 !important;
-  box-shadow: 0 0 5px rgba(76, 198, 110, 0.7) !important;
+  background: radial-gradient(circle at 35% 35%, #58b87e 0%, #20633b 65%, #0f301b 100%) !important;
+  border: 1px solid #141216 !important;
+  box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.8), 0 0 2px rgba(50, 140, 80, 0.3) !important;
 }
 
 html[dir="rtl"] .sl-card-status-jewel,
 html[dir="rtl"] .sl-cameo-seal-dot {
   right: auto !important;
-  left: 0 !important;
+  left: 0px !important;
 }
 
-/* 3. MEMBER DOSSIER DETAILS (DOMINANT TYPOGRAPHY) */
+/* 3. MEMBER DOSSIER DETAILS (DOMINANT COHERENT IDENTITY BLOCK) */
 .sl-card-info,
 .sl-registry-dossier,
 .sovereign-ledger-info,
@@ -9776,10 +9887,11 @@ html[dir="rtl"] .sl-cameo-seal-dot {
   min-width: 0 !important;
   max-width: none !important;
   width: auto !important;
-  margin: 0 12px !important;
+  margin: 0 !important;
   padding: 0 !important;
   text-align: left !important;
-  overflow: visible !important;
+  overflow: hidden !important;
+  gap: 1.5px !important;
 }
 
 html[dir="rtl"] .sl-card-info,
@@ -9796,30 +9908,52 @@ html[dir="rtl"] .member-details {
   width: 100% !important;
   max-width: none !important;
   min-width: 0 !important;
+  overflow: hidden !important;
 }
 
-/* Dominant Member Name (Ceremonial Stature) */
+/* Dominant Member Name (STRICT SINGLE HORIZONTAL LINE) */
 .sl-card-name,
 .sl-registry-name,
 .sovereign-ledger-name,
 .leaderboard-name,
 .member-name {
   font-family: var(--font-display, "Cinzel", serif) !important;
-  word-break: normal !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
   overflow-wrap: normal !important;
   hyphens: none !important;
   -webkit-hyphens: none !important;
-  white-space: normal !important;
-  line-height: 1.25 !important;
-  font-size: 14.5px !important;
+  line-height: 1.15 !important;
+  font-size: 13.5px !important;
   font-weight: 600 !important;
   display: block !important;
-  color: #f6f1e7 !important;
+  color: #f7f3eb !important;
   overflow: visible !important;
-  text-overflow: clip !important;
-  letter-spacing: 0.025em !important;
+  letter-spacing: 0.015em !important;
   margin: 0 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 395px) {
+  .sl-card-name,
+  .sl-registry-name,
+  .sovereign-ledger-name,
+  .leaderboard-name,
+  .member-name {
+    font-size: 12.5px !important;
+    letter-spacing: 0.01em !important;
+  }
+}
+
+@media (max-width: 365px) {
+  .sl-card-name,
+  .sl-registry-name,
+  .sovereign-ledger-name,
+  .leaderboard-name,
+  .member-name {
+    font-size: 11.5px !important;
+    letter-spacing: 0.005em !important;
+  }
 }
 
 .sl-tier-pill {
@@ -9835,18 +9969,15 @@ html[dir="rtl"] .member-details {
 .member-meta {
   display: flex !important;
   align-items: center !important;
-  flex-wrap: wrap !important;
-  gap: 5px !important;
-  word-break: normal !important;
-  overflow-wrap: normal !important;
-  white-space: normal !important;
-  margin-top: 3px !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  font-size: 10.5px !important;
-  color: rgba(212, 175, 55, 0.72) !important;
-  line-height: 1.25 !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  gap: 3.5px !important;
+  margin-top: 1px !important;
+  font-size: 9px !important;
+  color: rgba(212, 175, 106, 0.7) !important;
+  line-height: 1.15 !important;
   font-family: var(--font-sans, "Montserrat", sans-serif) !important;
+  overflow: hidden !important;
 }
 
 .sl-card-meta *,
@@ -9857,45 +9988,45 @@ html[dir="rtl"] .member-details {
 .member-meta * {
   word-break: normal !important;
   overflow-wrap: normal !important;
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
+  white-space: nowrap !important;
 }
 
 .sl-card-id,
 .sl-registry-id,
 .sovereign-ledger-id {
   font-family: 'SF Mono', Monaco, monospace, sans-serif !important;
-  font-size: 9.5px !important;
+  font-size: 8.5px !important;
   font-weight: 600 !important;
-  color: rgba(235, 209, 136, 0.85) !important;
+  color: rgba(225, 200, 130, 0.85) !important;
   direction: ltr !important;
   unicode-bidi: isolate;
   display: inline !important;
-  letter-spacing: 0.05em !important;
+  white-space: nowrap !important;
+  letter-spacing: 0.03em !important;
+  flex-shrink: 0 !important;
 }
 
 .sl-meta-sep,
 .sl-registry-sep {
-  opacity: 0.65 !important;
-  font-size: 6px !important;
-  color: #d4af37 !important;
+  opacity: 0.5 !important;
+  font-size: 4px !important;
+  color: #c9a86a !important;
   display: inline !important;
-  margin: 0 1px !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
 }
 
 .sl-card-city,
 .sl-registry-city,
 .sovereign-ledger-city {
-  word-break: normal !important;
-  overflow-wrap: normal !important;
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  color: rgba(212, 175, 55, 0.72) !important;
+  white-space: nowrap !important;
+  color: rgba(212, 175, 106, 0.65) !important;
   font-weight: 500 !important;
+  font-size: 9px !important;
   display: inline !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: 0.01em !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 /* 4. CEREMONIAL ALLOCATION HALLMARK & REGISTRY SIGIL */
@@ -9904,20 +10035,26 @@ html[dir="rtl"] .member-details {
 .sovereign-ledger-right {
   display: flex !important;
   align-items: center !important;
-  gap: 9px !important;
+  gap: 5px !important;
   flex-shrink: 0 !important;
   flex-grow: 0 !important;
-  margin-left: auto !important;
-  margin-inline-start: auto !important;
-  border-inline-start: 1px solid rgba(212, 175, 55, 0.16) !important;
-  padding-inline-start: 9px !important;
+  margin-left: 6px !important;
+  margin-inline-start: 6px !important;
+  border-left: 1px solid rgba(212, 175, 106, 0.16) !important;
+  border-inline-start: 1px solid rgba(212, 175, 106, 0.16) !important;
+  padding-left: 5px !important;
+  padding-inline-start: 5px !important;
 }
 
 html[dir="rtl"] .sl-card-right,
 html[dir="rtl"] .sl-registry-hallmark,
 html[dir="rtl"] .sovereign-ledger-right {
   margin-left: 0 !important;
-  margin-right: auto !important;
+  margin-right: 6px !important;
+  border-left: none !important;
+  border-right: 1px solid rgba(212, 175, 106, 0.16) !important;
+  padding-left: 0 !important;
+  padding-right: 5px !important;
 }
 
 .sl-card-wealth,
@@ -9931,8 +10068,8 @@ html[dir="rtl"] .sovereign-ledger-right {
   flex-shrink: 0 !important;
   flex-grow: 0 !important;
   text-align: right !important;
-  min-width: 64px !important;
-  gap: 2px !important;
+  min-width: auto !important;
+  gap: 1.5px !important;
 }
 
 html[dir="rtl"] .sl-card-wealth,
@@ -9946,9 +10083,9 @@ html[dir="rtl"] .leaderboard-wealth {
 .sl-wealth-number,
 .sl-registry-percent,
 .sovereign-ledger-percentage {
-  font-size: 13.5px !important;
-  font-weight: 700 !important;
-  color: #ebd188 !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #dfcaa0 !important;
   font-feature-settings: "tnum" !important;
   font-variant-numeric: tabular-nums !important;
   line-height: 1 !important;
@@ -9956,34 +10093,37 @@ html[dir="rtl"] .leaderboard-wealth {
   unicode-bidi: isolate;
   white-space: nowrap !important;
   font-family: var(--font-display, "Cinzel", serif);
-  letter-spacing: 0.03em !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.02em !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .sl-wealth-label,
 .sl-registry-label {
-  font-size: 7.5px !important;
+  font-size: 6.5px !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
-  letter-spacing: 1.2px !important;
-  color: rgba(255, 255, 255, 0.38) !important;
+  letter-spacing: 0.6px !important;
+  color: rgba(212, 175, 106, 0.45) !important;
   margin: 0 !important;
   line-height: 1 !important;
   white-space: nowrap !important;
 }
 
-/* Sovereign Record Sigil (Ceremonial Registry Record Indicator) */
+/* Sovereign Record Sigil (Engraved Navigation Mark) */
 .sl-card-chevron,
 .sl-registry-sigil {
-  width: 19px !important;
-  height: 19px !important;
+  width: 15px !important;
+  height: 15px !important;
+  min-width: 15px !important;
+  min-height: 15px !important;
   border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: rgba(212, 175, 55, 0.05) !important;
-  border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  color: rgba(212, 175, 55, 0.6) !important;
+  background: radial-gradient(circle at 40% 40%, rgba(212, 175, 106, 0.08) 0%, rgba(18, 16, 20, 0.6) 100%) !important;
+  border: 0.75px solid rgba(212, 175, 106, 0.22) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.7), 0 0.5px 1px rgba(212, 175, 106, 0.08) !important;
+  color: rgba(212, 175, 106, 0.55) !important;
   flex-shrink: 0 !important;
   flex-grow: 0 !important;
   transition: all 0.22s ease !important;
@@ -9993,17 +10133,18 @@ html[dir="rtl"] .leaderboard-wealth {
 .sl-ledger-card:hover .sl-registry-sigil,
 .sl-registry-plaque:hover .sl-registry-sigil,
 .sovereign-ledger-item:hover .sl-card-chevron {
-  background: rgba(212, 175, 55, 0.15) !important;
-  border-color: rgba(212, 175, 55, 0.55) !important;
+  border-color: rgba(212, 175, 106, 0.45) !important;
   color: #ebd188 !important;
-  transform: translateX(1.5px);
+  background: radial-gradient(circle at 40% 40%, rgba(212, 175, 106, 0.16) 0%, rgba(24, 20, 26, 0.7) 100%) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 4px rgba(212, 175, 106, 0.18) !important;
+  transform: translateX(1px);
 }
 
 html[dir="rtl"] .sl-ledger-card:hover .sl-card-chevron,
 html[dir="rtl"] .sl-ledger-card:hover .sl-registry-sigil,
 html[dir="rtl"] .sl-registry-plaque:hover .sl-registry-sigil,
 html[dir="rtl"] .sovereign-ledger-item:hover .sl-card-chevron {
-  transform: translateX(-1.5px);
+  transform: translateX(-1px);
 }
 
 /* PERSONAL STANDING STICKY / BOTTOM CARD */
@@ -10261,20 +10402,21 @@ body.light-mode .sl-ledger-card,
 body.light-mode .sl-registry-plaque,
 body.light-mode .sovereign-ledger-item,
 body.light-mode .leaderboard-item {
-  background: linear-gradient(180deg, #fdfbf7 0%, #f4eee1 100%) !important;
-  border: 1px solid rgba(168, 124, 45, 0.3) !important;
-  box-shadow: 0 3px 14px rgba(90, 60, 20, 0.06), inset 0 1px 0 #ffffff !important;
+  background: linear-gradient(180deg, #fbf8f2 0%, #f1ebdc 100%) !important;
+  border: 1px solid rgba(168, 124, 45, 0.28) !important;
+  box-shadow: 0 2px 10px rgba(90, 60, 20, 0.05), inset 0 1px 0 #ffffff !important;
 }
 body.light-mode .sl-ledger-card:hover,
 body.light-mode .sl-registry-plaque:hover,
 body.light-mode .sovereign-ledger-item:hover,
 body.light-mode .leaderboard-item:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #f8f3ea 100%) !important;
-  border-color: rgba(168, 124, 45, 0.6) !important;
-  box-shadow: 0 6px 20px rgba(168, 124, 45, 0.16), inset 0 1px 0 #ffffff !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f0e4 100%) !important;
+  border-color: rgba(168, 124, 45, 0.5) !important;
+  box-shadow: 0 4px 14px rgba(168, 124, 45, 0.12), inset 0 1px 0 #ffffff !important;
 }
 body.light-mode .sl-plaque-bracket {
-  border-color: rgba(168, 124, 45, 0.45) !important;
+  border-color: rgba(168, 124, 45, 0.38) !important;
+  filter: drop-shadow(0 0.5px 0.5px rgba(255, 255, 255, 0.8));
 }
 body.light-mode .sl-registry-order-prefix {
   color: #8c6a2e !important;
@@ -10284,14 +10426,20 @@ body.light-mode .sl-registry-rank-num {
   text-shadow: none !important;
 }
 body.light-mode .sl-registry-divider {
-  background: linear-gradient(180deg, transparent 0%, rgba(168, 124, 45, 0.4) 25%, rgba(168, 124, 45, 0.4) 75%, transparent 100%) !important;
+  background: linear-gradient(180deg, transparent 0%, rgba(168, 124, 45, 0.3) 25%, rgba(168, 124, 45, 0.3) 75%, transparent 100%) !important;
 }
 body.light-mode .sl-cameo-bezel {
-  background: linear-gradient(135deg, #ebd6a7 0%, #b88f3a 50%, #e6cf9c 100%) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+  background: linear-gradient(135deg, #e6cf9c 0%, #b88f3a 50%, #e6cf9c 100%) !important;
+  box-shadow: 0 1.5px 5px rgba(0, 0, 0, 0.1) !important;
 }
 body.light-mode .sl-cameo-portrait {
   border-color: #ffffff !important;
+}
+body.light-mode .sl-card-status-jewel,
+body.light-mode .sl-cameo-seal-dot {
+  background: radial-gradient(circle at 35% 35%, #4caf70 0%, #1e6b37 65%, #0f401f 100%) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.2), 0 0 2px rgba(40, 140, 70, 0.2) !important;
 }
 body.light-mode .sl-card-name,
 body.light-mode .sl-registry-name {
@@ -10339,30 +10487,34 @@ body.light-mode .sl-registry-city {
 }
 
 /* Wealth Numbers in Light Mode */
-body.light-mode .sl-registry-hallmark {
-  border-inline-start-color: rgba(168, 124, 45, 0.22) !important;
+body.light-mode .sl-card-right,
+body.light-mode .sl-registry-hallmark,
+body.light-mode .sovereign-ledger-right {
+  border-left-color: rgba(168, 124, 45, 0.2) !important;
+  border-inline-start-color: rgba(168, 124, 45, 0.2) !important;
 }
 body.light-mode .sl-wealth-number,
 body.light-mode .sl-registry-percent {
-  color: #6f4705 !important;
-  font-weight: 800 !important;
+  color: #694406 !important;
+  font-weight: 600 !important;
   text-shadow: none !important;
 }
 body.light-mode .sl-wealth-label,
 body.light-mode .sl-registry-label {
   color: #7a6a55 !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
 }
 body.light-mode .sl-card-chevron,
 body.light-mode .sl-registry-sigil {
-  background: rgba(168, 124, 45, 0.08) !important;
-  border-color: rgba(168, 124, 45, 0.3) !important;
+  background: rgba(168, 124, 45, 0.06) !important;
+  border-color: rgba(168, 124, 45, 0.25) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08) !important;
   color: #694406 !important;
 }
 body.light-mode .sl-ledger-card:hover .sl-registry-sigil,
 body.light-mode .sl-registry-plaque:hover .sl-registry-sigil {
-  background: rgba(168, 124, 45, 0.18) !important;
-  border-color: rgba(168, 124, 45, 0.6) !important;
+  background: rgba(168, 124, 45, 0.14) !important;
+  border-color: rgba(168, 124, 45, 0.5) !important;
   color: #4a2f02 !important;
 }
 
@@ -19229,9 +19381,9 @@ body #profile-tab .profile-circles-card .pcc-header {
   display: flex !important;
   flex-direction: column !important;
   align-items: stretch !important;
-  gap: 10px !important;
-  padding-bottom: 12px !important;
-  margin-bottom: 12px !important;
+  gap: 8px !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 8px !important;
   border-bottom: 1px solid rgba(212, 175, 106, 0.16) !important;
   position: relative !important;
   width: 100% !important;
@@ -19369,6 +19521,8 @@ body #profile-tab .profile-circles-card .pcc-chips-grid {
   gap: 8px !important;
   width: 100% !important;
   box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body #profile-tab .pcc-chip {
@@ -19376,7 +19530,11 @@ body #profile-tab .pcc-chip {
   align-items: center !important;
   justify-content: space-between !important;
   gap: 10px !important;
-  padding: 8px 12px !important;
+  padding: 0 12px !important;
+  height: 50px !important;
+  min-height: 50px !important;
+  max-height: 50px !important;
+  margin: 0 !important;
   border-radius: 12px !important;
   background: linear-gradient(145deg, rgba(24, 23, 31, 0.95) 0%, rgba(13, 12, 17, 0.98) 100%) !important;
   border: 1px solid rgba(212, 175, 106, 0.28) !important;
@@ -19387,10 +19545,9 @@ body #profile-tab .pcc-chip {
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
   min-width: 0 !important;
   width: 100% !important;
-  min-height: 52px !important;
   box-sizing: border-box !important;
   position: relative !important;
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 
 body #profile-tab .pcc-chip:hover {
@@ -19409,11 +19566,18 @@ body #profile-tab .pcc-chip-main {
   gap: 10px !important;
   min-width: 0 !important;
   flex: 1 1 auto !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body #profile-tab .pcc-chip-icon-box {
   width: 28px !important;
   height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
   flex-shrink: 0 !important;
   border-radius: 50% !important;
   background: linear-gradient(135deg, #2a2316 0%, #14110b 100%) !important;
@@ -19425,34 +19589,40 @@ body #profile-tab .pcc-chip-icon-box {
   box-shadow:
     inset 0 1px 1.5px rgba(255, 245, 215, 0.25),
     0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  margin: 0 !important;
 }
 
 body #profile-tab .pcc-chip-icon-box svg {
   width: 14px !important;
   height: 14px !important;
+  display: block !important;
+  margin: auto !important;
 }
 
 body #profile-tab .pcc-chip-text-group {
   display: flex !important;
   flex-direction: column !important;
+  justify-content: center !important;
   min-width: 0 !important;
   flex: 1 1 auto !important;
-  gap: 2px !important;
+  gap: 1.5px !important;
   text-align: start !important;
-  overflow: visible !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body #profile-tab .pcc-chip-name {
   font-size: 11px !important;
   font-weight: 700 !important;
   color: #fae5be !important;
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  line-height: 1.35 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.25 !important;
   letter-spacing: 0.01em !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body #profile-tab .pcc-chip-domain {
@@ -19461,28 +19631,45 @@ body #profile-tab .pcc-chip-domain {
   color: rgba(212, 175, 106, 0.75) !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  line-height: 1.25 !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.15 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body #profile-tab .pcc-chip-seal-dot {
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 4px !important;
-  padding: 2.5px 8px !important;
-  border-radius: 8px !important;
+  padding: 0 8px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  max-height: 20px !important;
+  border-radius: 6px !important;
   background: rgba(212, 175, 106, 0.1) !important;
   border: 0.5px solid rgba(212, 175, 106, 0.3) !important;
-  font-size: 8.5px !important;
+  font-size: 8px !important;
   font-weight: 700 !important;
   color: #fae298 !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
   align-self: center !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .pcc-seal-star {
+  color: #d4af37;
+  font-size: 8.5px;
+  line-height: 1;
+}
+
+body.light-mode #profile-tab .pcc-seal-star,
+html.light-mode #profile-tab .pcc-seal-star {
+  color: #9e7422 !important;
 }
 
 /* Modal Selector Grid for Sovereign Circles */
@@ -19627,31 +19814,63 @@ body.light-mode #profile-tab #btnCurateCircles:hover {
   color: #3b2c12 !important;
 }
 
-body.light-mode #profile-tab .pcc-chip {
+body.light-mode #profile-tab .pcc-chip,
+html.light-mode #profile-tab .pcc-chip {
   background: linear-gradient(145deg, #ffffff 0%, #f8f4ec 100%) !important;
-  border: 1px solid rgba(185, 145, 75, 0.36) !important;
-  box-shadow: 0 3px 8px rgba(60, 45, 20, 0.06), inset 0 1px 0 #ffffff !important;
+  border: 1px solid rgba(185, 145, 75, 0.38) !important;
+  box-shadow: 0 2px 6px rgba(60, 45, 20, 0.06), inset 0 1px 0 #ffffff !important;
+  height: 50px !important;
+  min-height: 50px !important;
+  max-height: 50px !important;
+  padding: 0 12px !important;
+  margin: 0 !important;
 }
 
-body.light-mode #profile-tab .pcc-chip:hover {
+body.light-mode #profile-tab .pcc-chip:hover,
+html.light-mode #profile-tab .pcc-chip:hover {
   background: linear-gradient(145deg, #fefdfa 0%, #f1e9d8 100%) !important;
   border-color: rgba(185, 145, 75, 0.65) !important;
-  box-shadow: 0 5px 12px rgba(60, 45, 20, 0.12), inset 0 1px 0 #ffffff !important;
+  box-shadow: 0 4px 10px rgba(60, 45, 20, 0.1), inset 0 1px 0 #ffffff !important;
 }
 
-body.light-mode #profile-tab .pcc-chip-icon-box {
+body.light-mode #profile-tab .pcc-chip-icon-box,
+html.light-mode #profile-tab .pcc-chip-icon-box {
   background: linear-gradient(135deg, #fdf9f0 0%, #ecdfc8 100%) !important;
-  border-color: rgba(185, 145, 75, 0.5) !important;
+  border: 1px solid rgba(185, 145, 75, 0.5) !important;
   color: #7d5e25 !important;
   box-shadow: inset 0 1px 1px #fff, 0 1px 3px rgba(60, 45, 20, 0.12) !important;
 }
 
-body.light-mode #profile-tab .pcc-chip-name {
-  color: #2b1f10 !important;
+body.light-mode #profile-tab .pcc-chip-name,
+html.light-mode #profile-tab .pcc-chip-name {
+  color: #1f180e !important;
+  font-weight: 700 !important;
 }
 
-body.light-mode #profile-tab .pcc-chip-domain {
+body.light-mode #profile-tab .pcc-chip-domain,
+html.light-mode #profile-tab .pcc-chip-domain {
   color: #8c6e33 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot,
+html.light-mode #profile-tab .pcc-chip-seal-dot {
+  background: rgba(185, 145, 75, 0.12) !important;
+  border: 0.5px solid rgba(185, 145, 75, 0.45) !important;
+  color: #6f5018 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot span,
+html.light-mode #profile-tab .pcc-chip-seal-dot span {
+  color: #6f5018 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot span:last-child,
+html.light-mode #profile-tab .pcc-chip-seal-dot span:last-child {
+  color: #9e7422 !important;
 }
 
 body.light-mode .modal-circle-item {
@@ -19683,7 +19902,7 @@ body.light-mode .modal-counter-badge {
 /* Small screen responsive adjustments */
 @media (max-width: 380px) {
   body #profile-tab .pcc-chips-grid {
-    grid-template-columns: 1fr !important;
+    gap: 8px !important;
   }
 }
 
@@ -22738,15 +22957,43 @@ body #profile-tab .ossb-text {
     padding: 11px 9px 12px 9px !important;
     margin-bottom: 12px !important;
   }
+  body #profile-tab .profile-circles-card .pcc-head,
+  body #profile-tab .profile-circles-card .pcc-header {
+    gap: 8px !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 8px !important;
+  }
+  body #profile-tab .profile-circles-card .pcc-chips-grid {
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
   body #profile-tab .pcc-chip {
-    padding: 7px 10px !important;
+    padding: 0 10px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin: 0 !important;
+  }
+  body.light-mode #profile-tab .pcc-chip,
+  html.light-mode #profile-tab .pcc-chip {
+    padding: 0 10px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin: 0 !important;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f4ec 100%) !important;
   }
   body #profile-tab .pcc-chip-icon-box {
     width: 26px !important;
     height: 26px !important;
+    min-width: 26px !important;
+    min-height: 26px !important;
+    max-width: 26px !important;
+    max-height: 26px !important;
   }
   body #profile-tab .pcc-chip-name {
-    font-size: 10px !important;
+    font-size: 10.5px !important;
   }
   body #profile-tab .profile-nav-menu {
     margin-bottom: 12px !important;

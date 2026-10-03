@@ -2411,12 +2411,13 @@ let navToastTimer = null;
 // ==========================================
 
 function showNavToast(msg) {
+  if (!navToast) return;
   navToast.textContent = msg;
   navToast.classList.add("is-visible");
   clearTimeout(navToastTimer);
   navToastTimer = setTimeout(
     () => navToast.classList.remove("is-visible"),
-    1800,
+    2400,
   );
 }
 
@@ -2715,7 +2716,19 @@ function openContextPage(pageId, title, returnTab) {
   if (typeof window.resetHeaderScrollTracking === "function") {
     window.resetHeaderScrollTracking();
   }
-  document.getElementById("backBtn").hidden = false;
+  const backBtn = document.getElementById("backBtn");
+  if (backBtn) {
+    if (pageId === "page-member") {
+      backBtn.hidden = true;
+      backBtn.classList.add("is-member-dossier-active");
+    } else {
+      backBtn.hidden = false;
+      backBtn.classList.remove("is-member-dossier-active");
+    }
+  }
+  if (typeof Router !== "undefined") {
+    Router.currentTab = pageId;
+  }
   document.querySelector(".app-main").scrollTop = 0;
   window.scrollTo(0, 0);
     window.dispatchEvent(new Event("resize"));
@@ -2817,34 +2830,154 @@ function openMemberProfile(member) {
   }
 
   contextReturnTab = "club";
-  contextReturnChannel = AppState.activeChannelId || "leaderboard";
+  contextReturnChannel = "leaderboard";
+  const lbContainer = document.getElementById("clubLeaderboardContainer");
   const clubTabEl = document.getElementById("club-tab");
-  contextReturnScrollTop = clubTabEl ? clubTabEl.scrollTop : 0;
+  const lbScroll = lbContainer ? lbContainer.scrollTop : 0;
+  const tabScroll = clubTabEl ? clubTabEl.scrollTop : 0;
+  contextReturnScrollTop = lbScroll > 0 ? lbScroll : tabScroll;
+  window.contextReturnLbScroll = lbScroll;
+  window.contextReturnClubTabScroll = tabScroll;
   if (!window.tabScrollPositions) window.tabScrollPositions = {};
-  window.tabScrollPositions["club"] = contextReturnScrollTop;
+  window.tabScrollPositions["club"] = tabScroll;
+  window.tabScrollPositions["leaderboard"] = lbScroll;
 
   openContextPage("page-member", memberName || (isAr ? "ملف العضو السيادي" : "Member Dossier"), "club");
+
+  // REQUIREMENT 1: Ensure top back button is strictly hidden for Member Profile
+  const backBtn = document.getElementById("backBtn");
+  if (backBtn) {
+    backBtn.hidden = true;
+    backBtn.classList.add("is-member-dossier-active");
+  }
 }
 window.openMemberProfile = openMemberProfile;
 
-document.getElementById("backBtn").addEventListener("click", () => {
-  document.getElementById("backBtn").hidden = true;
-  const targetTab = contextReturnTab || "club";
-  goToPage(targetTab);
-  if (targetTab === "club") {
-    const returnChannel = contextReturnChannel || "leaderboard";
-    if (typeof switchChannel === "function") {
-      switchChannel(returnChannel);
-    }
-    const savedScroll = contextReturnScrollTop || 0;
-    requestAnimationFrame(() => {
-      const clubTab = document.getElementById("club-tab");
-      if (clubTab) clubTab.scrollTop = savedScroll;
-      const lb = document.getElementById("clubLeaderboardContainer");
-      if (lb && lb.scrollTop !== undefined) lb.scrollTop = savedScroll;
-    });
+function closeMemberProfile() {
+  if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
+  if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(12);
+
+  // 1. Hide the top back button
+  const backBtn = document.getElementById("backBtn");
+  if (backBtn) {
+    backBtn.hidden = true;
+    backBtn.classList.remove("is-member-dossier-active");
   }
-});
+
+  // 2. Hide member profile page
+  const pageMember = document.getElementById("page-member");
+  if (pageMember) {
+    pageMember.classList.remove("is-active");
+    pageMember.setAttribute("hidden", "");
+    pageMember.hidden = true;
+    pageMember.setAttribute("aria-hidden", "true");
+  }
+
+  // 3. Make sure all other pages are hidden and club-tab is active
+  document.querySelectorAll(".page").forEach((p) => {
+    if (p.id !== "club-tab") {
+      p.classList.remove("is-active");
+      p.setAttribute("hidden", "");
+      p.hidden = true;
+      p.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  const clubTab = document.getElementById("club-tab");
+  if (clubTab) {
+    clubTab.removeAttribute("hidden");
+    clubTab.hidden = false;
+    clubTab.setAttribute("aria-hidden", "false");
+    clubTab.classList.add("is-active");
+  }
+
+  // 4. Update router tab & bottom navigation bar
+  if (typeof Router !== "undefined") {
+    Router.currentTab = "club";
+  }
+  document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("is-active"));
+  const clubNav = document.querySelector('.nav-item[data-tab="club"]');
+  if (clubNav) clubNav.classList.add("is-active");
+
+  const header = document.getElementById("appHeader");
+  if (header) {
+    header.classList.remove("header-hidden");
+    header.classList.add("header-compact");
+    if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
+  }
+
+  const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
+  const sectionName = document.getElementById("sectionName");
+  if (sectionName) {
+    sectionName.textContent = isAr ? "النادي" : "Club";
+  }
+
+  // 5. Explicitly activate and restore the Sovereign Hall of Honor (leaderboard)
+  AppState.activeChannelId = "leaderboard";
+
+  document.querySelectorAll(".club-room-btn").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.channel === "leaderboard");
+  });
+
+  const chatViewport = document.getElementById("clubChatViewport");
+  const messagesContainer = document.getElementById("clubMessages");
+  const leaderboardContainer = document.getElementById("clubLeaderboardContainer");
+
+  if (chatViewport) chatViewport.style.display = "none";
+  if (messagesContainer) messagesContainer.style.display = "none";
+
+  if (typeof window.setClubFloatingControlsVisibility === "function") {
+    window.setClubFloatingControlsVisibility(false);
+  }
+
+  if (leaderboardContainer) {
+    leaderboardContainer.style.display = "block";
+    // If not yet populated, render leaderboard
+    if (!leaderboardContainer.hasChildNodes() || leaderboardContainer.children.length === 0) {
+      if (typeof renderLeaderboard === "function") {
+        renderLeaderboard();
+      }
+    }
+  }
+
+  const pinnedTitle = document.getElementById("clubPinnedTitle");
+  const pinnedSub = document.getElementById("clubPinnedSub");
+  const pinnedSvg = document.getElementById("clubPinnedSvg");
+  if (pinnedTitle) {
+    pinnedTitle.textContent = isAr ? "المجلس السيادي" : "Sovereign Council";
+  }
+  if (pinnedSub) {
+    pinnedSub.textContent = isAr ? "لوحة الشرف • النخبة العالمية لأصحاب الثروة السيادية" : "Roll of Honor • Global Sovereign Wealth Elite";
+  }
+  if (pinnedSvg) {
+    pinnedSvg.innerHTML = '<path d="M7 11.5a5.5 5.5 0 0110 0c0 4-3 6.5-5 8-2-1.5-5-4-5-8z" stroke="currentColor" stroke-width="1.3"/><path d="M12 6l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4L12 6z" fill="currentColor"/>';
+  }
+
+  // 6. Restore previous scroll position faithfully
+  const savedLbScroll = (typeof window.contextReturnLbScroll !== "undefined") ? window.contextReturnLbScroll : 0;
+  const savedTabScroll = (typeof window.contextReturnClubTabScroll !== "undefined") ? window.contextReturnClubTabScroll : 0;
+
+  const restoreScroll = () => {
+    const lb = document.getElementById("clubLeaderboardContainer");
+    if (lb && savedLbScroll > 0) {
+      lb.scrollTop = savedLbScroll;
+    }
+    const ct = document.getElementById("club-tab");
+    if (ct && savedTabScroll > 0) {
+      ct.scrollTop = savedTabScroll;
+    }
+  };
+
+  restoreScroll();
+  requestAnimationFrame(restoreScroll);
+  setTimeout(restoreScroll, 20);
+  setTimeout(restoreScroll, 60);
+  setTimeout(restoreScroll, 150);
+}
+window.closeMemberProfile = closeMemberProfile;
+
+document.getElementById("backBtn")?.addEventListener("click", closeMemberProfile);
+document.getElementById("memberProfileCloseBtn")?.addEventListener("click", closeMemberProfile);
 
 document.querySelectorAll("#page-member .card-actions .btn, #page-member .sd-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -5984,7 +6117,7 @@ function renderProfileCircles() {
         </div>
         <div class="pcc-chip-seal-dot" aria-hidden="true">
           <span>${statusText}</span>
-          <span style="color: #d4af37; font-size: 8.5px;">✦</span>
+          <span class="pcc-seal-star">✦</span>
         </div>
       </div>
     `;
@@ -6012,14 +6145,7 @@ function renderProfileCircles() {
           ? "قريبًا • تخصيص الدوائر والمجالات السيادية قيد الإعداد الدبلوماسي"
           : "Coming Soon • Sovereign Circles curation pending diplomatic clearance");
 
-    const toastTitle = isAr ? "الدوائر والمجالات السيادية" : "SOVEREIGN CIRCLES & DOMAINS";
-
-    // Use global premium toast at the top of the viewport so it never obscures Account Information or bottom controls
-    if (typeof showPremiumToast === "function") {
-      showPremiumToast(toastTitle, noticeText);
-    } else if (typeof showCopyToast === "function") {
-      showCopyToast(noticeText);
-    } else if (typeof showNavToast === "function") {
+    if (typeof showNavToast === "function") {
       showNavToast(noticeText);
     }
   };
@@ -6804,8 +6930,8 @@ function renderLeaderboard() {
             <span class="sl-wealth-label sl-registry-label">${isAr ? "تخصيص" : "ALLOCATION"}</span>
           </div>
           <div class="sl-card-chevron sl-registry-sigil" aria-hidden="true" title="${isAr ? 'عرض السجل' : 'Inspect Record'}">
-            <svg viewBox="0 0 16 16" width="10" height="10" fill="none">
-              <path d="${isAr ? "M10 12L6 8l4-4" : "M6 12l4-4-4-4"}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg viewBox="0 0 16 16" width="7.5" height="7.5" fill="none">
+              <path d="${isAr ? "M10 12L6 8l4-4" : "M6 12l4-4-4-4"}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
         </div>
