@@ -174,12 +174,12 @@ window.I18N = {
       ar: "المجلس السيادي",
     },
     leaderboardTitle: {
-      en: "The Sovereign Board",
-      ar: "المجلس السيادي",
+      en: "Sovereign Roll of Honor",
+      ar: "لوحة الشرف السيادية",
     },
     leaderboardSub: {
-      en: "Global Sovereign Wealth Elite",
-      ar: "النخبة العالمية لأصحاب الثروة السيادية",
+      en: "Global League of Sovereign Titans",
+      ar: "الرابطة العالمية لرواد السيادة المالية",
     },
     leaderboardPodium: {
       en: "Sovereign Triumvirate",
@@ -360,8 +360,8 @@ window.I18N = {
       ar: "برقية سرية مشفرة",
     },
     whisperPlaceholder: {
-      en: "Inscribe confidential sovereign dispatch...",
-      ar: "صياغة برقية سيادية مشفرة ومحمية…",
+      en: "Confidential dispatch...",
+      ar: "برقية مشفرة…",
     },
     whisperActiveNotice: {
       en: "Sovereign Whisper Active • End-to-End Chamber Seal",
@@ -376,7 +376,7 @@ window.I18N = {
       ar: "رصيد",
     },
     typeMessage: {
-      en: "Type a message to the club...",
+      en: "Dispatch message...",
       ar: "اكتب رسالة للنادي…",
     },
     send: {
@@ -920,6 +920,10 @@ window.I18N = {
     circlesEditBtn: {
       en: "Curate Circles",
       ar: "تعديل الدوائر",
+    },
+    circlesEditNotice: {
+      en: "Coming Soon • Sovereign Circles curation pending diplomatic clearance",
+      ar: "قريبًا • تخصيص الدوائر والمجالات السيادية قيد الإعداد الدبلوماسي",
     },
     circlesModalTitle: {
       en: "ACCREDITED SOVEREIGN CIRCLES",

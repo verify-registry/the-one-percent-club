@@ -880,9 +880,9 @@ input {
   z-index: 90;
   background: linear-gradient(
     180deg,
-    rgba(5, 5, 5, 0.94) 0%,
-    rgba(5, 5, 5, 0.72) 45%,
-    rgba(5, 5, 5, 0.25) 78%,
+    rgba(5, 5, 5, 0.96) 0%,
+    rgba(5, 5, 5, 0.88) 55%,
+    rgba(5, 5, 5, 0.65) 82%,
     rgba(5, 5, 5, 0) 100%
   ) !important;
   padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 8px;
@@ -891,6 +891,8 @@ input {
   justify-content: space-between;
   border-bottom: none !important;
   box-shadow: none !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
   transform: translate3d(0, 0, 0);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2449,7 +2451,7 @@ html.light-mode .nav-item.is-active .nav-label {
   position: fixed;
   left: 50%;
   bottom: 78px;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateZ(0);
   font-size: 11px;
   color: #ede7d8;
   background: rgba(20, 18, 14, 0.96);
@@ -2459,7 +2461,6 @@ html.light-mode .nav-item.is-active .nav-label {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
-  transform: translateZ(0);
   white-space: nowrap;
   z-index: 200;
 }
@@ -4985,11 +4986,12 @@ body.light-mode .dispatch-read-more-btn:hover {
 .obsidian-dispatch-composer {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 8px;
-  padding: 5px 6px 5px 10px;
+  padding: 4px 6px 4px 10px;
   border-radius: 26px;
-  min-height: 48px;
+  min-height: 46px;
+  height: 46px;
   box-sizing: border-box;
   background: rgba(18, 14, 10, 0.52) !important;
   backdrop-filter: blur(20px) saturate(150%) !important;
@@ -5011,7 +5013,7 @@ body.light-mode .dispatch-read-more-btn:hover {
 }
 
 html[dir="rtl"] .obsidian-dispatch-composer {
-  padding: 5px 10px 5px 6px;
+  padding: 4px 10px 4px 6px;
 }
 
 /* Polished Metallic Bezel Casing (Frame) */
@@ -5118,7 +5120,7 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 5px 9px;
+  padding: 4px 8px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(212, 175, 106, 0.22);
@@ -5128,7 +5130,7 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   flex-shrink: 0;
   position: relative;
   z-index: 2;
-  margin-bottom: 5px;
+  margin: 0 !important;
 }
 .whisper-cipher-toggle:active {
   transform: scale(0.94);
@@ -5159,17 +5161,20 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   flex: 1;
   min-width: 0;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   position: relative;
   z-index: 2;
   padding: 0;
+  height: 100%;
 }
 .obsidian-dispatch-input,
 #clubInput {
+  flex: 1;
+  min-width: 0;
   width: 100% !important;
-  min-height: 34px !important;
-  max-height: 110px !important;
-  height: 34px;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
@@ -5177,18 +5182,18 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   box-shadow: none !important;
   color: #f7f1e1;
   font-family: inherit;
-  font-size: 14px;
-  line-height: 1.45;
+  font-size: 13.5px;
+  line-height: 36px !important;
   letter-spacing: 0.01em;
   unicode-bidi: plaintext;
   text-align: start;
-  padding: 6px 8px !important;
+  padding: 0 8px !important;
   margin: 0 !important;
   resize: none !important;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  word-break: break-word;
-  white-space: pre-wrap;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  vertical-align: middle !important;
   -webkit-appearance: none;
   appearance: none;
   box-sizing: border-box !important;
@@ -5216,6 +5221,9 @@ html[dir="rtl"] .obsidian-dispatch-composer {
 .obsidian-dispatch-input::placeholder {
   color: #8c8371;
   font-size: 13px;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 html[dir="rtl"] .obsidian-dispatch-input::placeholder {
   text-align: right;
@@ -5226,10 +5234,10 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
 
 /* Sovereign Seal Send Button: Classic Gold Arrow with Club Monogram */
 .sovereign-seal-send-btn {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
-  margin-bottom: 2px;
+  margin: 0 !important;
   border-radius: 50%;
   border: none;
   background: transparent;
@@ -5242,6 +5250,43 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 480px) {
+  .obsidian-dispatch-composer {
+    gap: 6px;
+    padding: 3px 5px 3px 8px;
+    min-height: 44px;
+    height: 44px;
+  }
+  html[dir="rtl"] .obsidian-dispatch-composer {
+    padding: 3px 8px 3px 5px;
+  }
+  .whisper-cipher-toggle {
+    padding: 3.5px 6px;
+    gap: 3px;
+  }
+  .whisper-cipher-svg {
+    width: 11px;
+    height: 11px;
+  }
+  .whisper-cipher-text {
+    font-size: 8.5px;
+    letter-spacing: 0;
+  }
+  .sovereign-seal-send-btn {
+    width: 34px;
+    height: 34px;
+  }
+  .obsidian-dispatch-input,
+  #clubInput {
+    font-size: 13px;
+    padding: 0 6px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    max-height: 34px !important;
+    line-height: 34px !important;
+  }
 }
 .sovereign-seal-send-btn:hover {
   transform: scale(1.05);
@@ -9069,7 +9114,7 @@ html[dir="rtl"] .phc-motto-text span {
   z-index: 10;
 }
 
-/* === 6. Prestige & Honors - SOVEREIGN HONOR BOARD LEADERBOARD === */
+/* === 6. Prestige & Honors - SOVEREIGN ROLL OF HONOR (QUIET LUXURY OVERHAUL) === */
 #clubLeaderboardContainer,
 .club-leaderboard-container {
   flex: 1;
@@ -9080,18 +9125,20 @@ html[dir="rtl"] .phc-motto-text span {
   position: relative;
   border-radius: 20px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.12) 0%, transparent 65%),
-    linear-gradient(180deg, rgba(22, 19, 14, 0.98) 0%, rgba(13, 11, 8, 0.99) 100%);
-  border: 1.5px solid rgba(212, 175, 55, 0.48);
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(16, 14, 12, 0.94) 0%, rgba(9, 8, 7, 0.98) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.22);
   box-shadow:
-    inset 0 0 0 1px rgba(212, 175, 55, 0.22),
-    inset 0 2px 5px rgba(255, 235, 170, 0.18),
-    0 12px 36px rgba(0, 0, 0, 0.6);
-  padding: 16px 12px 32px;
-  margin: 4px 6px 20px;
+    inset 0 1px 1px rgba(255, 240, 180, 0.1),
+    0 16px 40px rgba(0, 0, 0, 0.65);
+  padding: 16px 14px 28px;
+  margin: 4px 6px 16px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  box-sizing: border-box;
 }
 #clubLeaderboardContainer::before,
 .club-leaderboard-container::before {
@@ -9101,170 +9148,81 @@ html[dir="rtl"] .phc-motto-text span {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 240, 180, 0.6) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 223, 139, 0.45) 50%, transparent 100%);
   pointer-events: none;
 }
 
-/* SOVEREIGN HONOR BOARD HEADER */
-.sl-honor-board-header {
-  text-align: center;
-  padding: 8px 10px 12px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.28);
-  margin-bottom: 2px;
-  position: relative;
-}
-.sl-honor-rivets-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.sl-plaque-rivet {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #d4af37 45%, #4d3d12 100%);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), inset 0 0.5px 1px rgba(255, 255, 255, 0.9);
-  border: 0.5px solid rgba(255, 255, 255, 0.35);
-  flex-shrink: 0;
-}
-.sl-honor-crest-title {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.sl-crest-fleur {
-  font-size: 13px;
-  color: #f5df8b;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
-}
-.sl-crest-text {
-  font-family: var(--font-display, "Cinzel", serif);
-  font-size: 13.5px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--gold-champagne, #f5df8b);
-  text-transform: uppercase;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-.sl-honor-motto {
-  font-size: 9.5px;
-  letter-spacing: 0.1em;
-  color: #b0a28f;
-  margin-top: 3px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-/* AUDIT PLAQUE */
-.sl-audit-plaque {
-  position: relative;
-  background: linear-gradient(135deg, rgba(24, 21, 16, 0.95) 0%, rgba(12, 11, 9, 0.98) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 14px;
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 240, 180, 0.15);
-  overflow: hidden;
-}
-.sl-audit-plaque::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-.sl-audit-info {
+/* STREAMLINED SOVEREIGN ROLL OF HONOR HEADER */
+.sl-honor-header {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  z-index: 1;
+  gap: 4px;
+  padding: 4px 2px 12px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.14);
 }
-.sl-audit-title {
+.sl-honor-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.sl-honor-title {
   font-family: var(--font-display, "Cinzel", serif);
   font-size: 13.5px;
   font-weight: 700;
-  color: var(--gold-champagne, #e9c877);
-  letter-spacing: 0.03em;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  letter-spacing: 2px;
+  color: var(--gold-champagne, #f5df8b);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.25;
 }
-.sl-audit-sub {
+.sl-honor-subtitle {
   font-size: 10.5px;
-  color: #9d917f;
+  color: #9c907e;
+  letter-spacing: 0.02em;
+  margin: 0;
   line-height: 1.4;
+  font-weight: 400;
 }
 .sl-audit-badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 9px;
-  border-radius: 20px;
-  background: rgba(80, 184, 106, 0.12);
-  border: 1px solid rgba(80, 184, 106, 0.35);
-  font-size: 9.5px;
-  font-weight: 600;
+  padding: 2.5px 8px;
+  border-radius: 9999px;
+  background: rgba(80, 184, 106, 0.08);
+  border: 1px solid rgba(80, 184, 106, 0.28);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   color: #62cf7f;
   white-space: nowrap;
   flex-shrink: 0;
-  z-index: 1;
 }
 .sl-audit-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #50b86a;
-  box-shadow: 0 0 8px #50b86a;
+  box-shadow: 0 0 6px #50b86a;
+  animation: gentlePulseGreen 2.5s ease-in-out infinite;
+}
+@keyframes gentlePulseGreen {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(0.95);
+    box-shadow: 0 0 3px rgba(80, 184, 106, 0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+    box-shadow: 0 0 7px rgba(80, 184, 106, 0.9);
+  }
 }
 
-/* FILTER BAR */
+/* REFACTORED CATEGORY FILTERS - HIDDEN / REMOVED PER SPEC */
 .sl-filter-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 2px 2px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.sl-filter-bar::-webkit-scrollbar {
-  display: none;
-}
-.sl-filter-btn {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 7px 12px;
-  background: linear-gradient(180deg, #18161c 0%, #0e0d12 100%);
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  border-radius: 20px;
-  color: #a49782;
-  font-size: 11px;
-  font-weight: 500;
-  font-family: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.sl-filter-btn:hover {
-  border-color: rgba(212, 175, 55, 0.38);
-  color: var(--gold-champagne, #e9c877);
-}
-.sl-filter-btn.is-active {
-  background: linear-gradient(135deg, rgba(46, 38, 25, 0.95) 0%, rgba(20, 17, 12, 0.98) 100%);
-  border: 1px solid var(--gold-metallic, #d4af37);
-  color: #fff;
-  font-weight: 700;
-  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.25), inset 0 1px 1px rgba(255, 240, 180, 0.2);
+  display: none !important;
 }
 
 /* THE SOVEREIGN TRIUMVIRATE PODIUM */
@@ -9274,8 +9232,9 @@ html[dir="rtl"] .phc-motto-text span {
   align-items: flex-end;
   justify-content: center;
   gap: 8px;
-  padding: 24px 6px 10px;
+  padding: 16px 4px 6px;
   margin-top: 4px;
+  direction: ltr !important;
 }
 .sl-podium-col {
   flex: 1;
@@ -9292,6 +9251,10 @@ html[dir="rtl"] .phc-motto-text span {
 .sl-podium-col.rank-1 {
   order: 2;
   z-index: 3;
+  transform: translateY(-6px);
+}
+.sl-podium-col.rank-1:hover {
+  transform: translateY(-10px);
 }
 .sl-podium-col.rank-2 {
   order: 1;
@@ -9309,15 +9272,56 @@ html[dir="rtl"] .phc-motto-text span {
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
+  border-radius: 50%;
 }
+/* Center champion (Rank 1): Elevate slightly higher, wrapped in an intricate double-ring gold halo with the crown emblem sitting gracefully above it */
 .sl-podium-col.rank-1 .sl-podium-avatar-wrap {
-  width: 72px;
-  height: 72px;
+  width: 74px;
+  height: 74px;
+  padding: 3px;
+  background: conic-gradient(from 180deg at 50% 50%, #f5df8b 0%, #b8860b 25%, #fff0b3 50%, #8c6a1e 75%, #f5df8b 100%);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.35),
+    0 0 18px rgba(212, 175, 55, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.7);
 }
-.sl-podium-col.rank-2 .sl-podium-avatar-wrap,
+.sl-podium-col.rank-1 .sl-podium-avatar-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px dashed rgba(245, 223, 139, 0.45);
+  pointer-events: none;
+}
+.sl-podium-col.rank-1 .sl-podium-avatar {
+  border: 2px solid #14120e;
+}
+
+/* Ranks 2 & 3: Clean platinum and bronze ring accents with subtle depth */
+.sl-podium-col.rank-2 .sl-podium-avatar-wrap {
+  width: 58px;
+  height: 58px;
+  padding: 2.5px;
+  background: conic-gradient(from 180deg, #dce4ec 0%, #8899a8 50%, #eef3f8 100%);
+  box-shadow:
+    0 0 0 1px rgba(184, 196, 208, 0.35),
+    0 6px 18px rgba(0, 0, 0, 0.6);
+}
+.sl-podium-col.rank-2 .sl-podium-avatar {
+  border: 2px solid #101418;
+}
+
 .sl-podium-col.rank-3 .sl-podium-avatar-wrap {
   width: 58px;
   height: 58px;
+  padding: 2.5px;
+  background: conic-gradient(from 180deg, #e5a468 0%, #8f5527 50%, #f7c396 100%);
+  box-shadow:
+    0 0 0 1px rgba(205, 143, 82, 0.35),
+    0 6px 18px rgba(0, 0, 0, 0.6);
+}
+.sl-podium-col.rank-3 .sl-podium-avatar {
+  border: 2px solid #16100b;
 }
 
 .sl-podium-avatar {
@@ -9327,44 +9331,28 @@ html[dir="rtl"] .phc-motto-text span {
   object-fit: cover;
   display: block;
 }
-.sl-podium-col.rank-1 .sl-podium-avatar {
-  border: 2.5px solid var(--gold-metallic, #d4af37);
-  box-shadow:
-    0 0 16px rgba(212, 175, 55, 0.45),
-    0 8px 24px rgba(0, 0, 0, 0.8),
-    inset 0 0 8px rgba(0, 0, 0, 0.7);
-}
-.sl-podium-col.rank-2 .sl-podium-avatar {
-  border: 2px solid #b8c4d0;
-  box-shadow:
-    0 0 12px rgba(184, 196, 208, 0.35),
-    0 6px 18px rgba(0, 0, 0, 0.7);
-}
-.sl-podium-col.rank-3 .sl-podium-avatar {
-  border: 2px solid #cd8f52;
-  box-shadow:
-    0 0 12px rgba(205, 143, 82, 0.35),
-    0 6px 18px rgba(0, 0, 0, 0.7);
-}
 
 .sl-crown-floating {
   position: absolute;
-  top: -18px;
+  top: -19px;
   left: 50%;
   transform: translateX(-50%);
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.6));
   animation: floatCrown 3s ease-in-out infinite;
+  z-index: 4;
 }
 @keyframes floatCrown {
   0%, 100% { transform: translate(-50%, 0); }
   50% { transform: translate(-50%, -3px); }
 }
 
+/* Elegant numerical badges (#1, #2, #3) below the avatars with crisp typography */
+.sl-podium-rank-badge,
 .sl-podium-rank-tag {
   position: absolute;
-  bottom: -6px;
+  bottom: -7px;
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;
@@ -9372,26 +9360,33 @@ html[dir="rtl"] .phc-motto-text span {
   justify-content: center;
   font-family: var(--font-display, "Cinzel", serif);
   font-weight: 800;
-  font-size: 11px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 1.5px 7px;
+  min-width: 22px;
+  height: 18px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+  z-index: 3;
+  line-height: 1;
 }
+.sl-podium-col.rank-1 .sl-podium-rank-badge,
 .sl-podium-col.rank-1 .sl-podium-rank-tag {
   background: linear-gradient(135deg, #f5df8b 0%, #b8860b 100%);
   color: #121008;
-  border: 1px solid #ffe9a6;
+  border: 1px solid rgba(255, 235, 170, 0.85);
 }
+.sl-podium-col.rank-2 .sl-podium-rank-badge,
 .sl-podium-col.rank-2 .sl-podium-rank-tag {
   background: linear-gradient(135deg, #e4ecf4 0%, #8c9ba8 100%);
   color: #10161b;
-  border: 1px solid #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.85);
 }
+.sl-podium-col.rank-3 .sl-podium-rank-badge,
 .sl-podium-col.rank-3 .sl-podium-rank-tag {
   background: linear-gradient(135deg, #f2ad76 0%, #995c26 100%);
   color: #1a0e05;
-  border: 1px solid #ffd4b0;
+  border: 1px solid rgba(255, 212, 176, 0.85);
 }
 
 .sl-podium-name {
@@ -9455,10 +9450,10 @@ html[dir="rtl"] .phc-motto-text span {
   box-shadow: 0 0 10px rgba(205, 143, 82, 0.2);
 }
 
-/* PODIUM PEDESTAL BASE */
+/* PODIUM PEDESTAL BASE (REFINED BASES RATHER THAN HEAVY MONOLITHS) */
 .sl-pedestal-base {
   width: 100%;
-  border-radius: 10px 10px 4px 4px;
+  border-radius: 6px 6px 3px 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9466,31 +9461,31 @@ html[dir="rtl"] .phc-motto-text span {
   overflow: hidden;
 }
 .sl-podium-col.rank-1 .sl-pedestal-base {
-  height: 60px;
+  height: 26px;
   background: linear-gradient(180deg, rgba(46, 38, 26, 0.98) 0%, rgba(18, 15, 11, 0.99) 100%);
   border: 1px solid rgba(212, 175, 55, 0.45);
   border-bottom: none;
-  box-shadow: 0 0 18px rgba(212, 175, 55, 0.2), inset 0 1px 2px rgba(255, 240, 180, 0.35);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.15), inset 0 1px 2px rgba(255, 240, 180, 0.25);
 }
 .sl-podium-col.rank-2 .sl-pedestal-base {
-  height: 44px;
+  height: 20px;
   background: linear-gradient(180deg, rgba(34, 38, 44, 0.98) 0%, rgba(16, 18, 22, 0.99) 100%);
   border: 1px solid rgba(184, 196, 208, 0.35);
   border-bottom: none;
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15);
 }
 .sl-podium-col.rank-3 .sl-pedestal-base {
-  height: 34px;
+  height: 16px;
   background: linear-gradient(180deg, rgba(40, 30, 22, 0.98) 0%, rgba(18, 13, 10, 0.99) 100%);
   border: 1px solid rgba(205, 143, 82, 0.35);
   border-bottom: none;
-  box-shadow: inset 0 1px 2px rgba(255, 220, 190, 0.2);
+  box-shadow: inset 0 1px 2px rgba(255, 220, 190, 0.15);
 }
 .sl-pedestal-roman {
   font-family: var(--font-display, "Cinzel", serif);
-  font-size: 17px;
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   line-height: 1;
 }
 .sl-podium-col.rank-1 .sl-pedestal-roman {
@@ -9530,257 +9525,485 @@ html[dir="rtl"] .phc-motto-text span {
   color: #8c8170;
 }
 
-/* SOVEREIGN LEDGER LIST & CARDS */
+/* SOVEREIGN LEDGER LIST & CARDS (RE-ENGINEERED LUXURY) */
+.sl-ledger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   SOVEREIGN PRIVATE REGISTRY / HALL OF HONOR PLAQUES
+   ========================================================================== */
 .sl-ledger-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.sl-ledger-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
-  background: linear-gradient(135deg, rgba(22, 19, 15, 0.92) 0%, rgba(12, 11, 9, 0.98) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow:
-    0 4px 14px rgba(0, 0, 0, 0.5),
-    inset 0 1px 1px rgba(255, 240, 180, 0.08);
+
+.sl-ledger-card,
+.sl-registry-plaque,
+.sovereign-ledger-item,
+.leaderboard-item {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-radius: 6px !important;
+  background: linear-gradient(180deg, #161519 0%, #0e0d10 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.22) !important;
+  padding: 11px 13px 11px 11px !important;
+  margin-bottom: 8px !important;
+  gap: 8px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
   cursor: pointer;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  box-sizing: border-box;
-  width: 100%;
-  direction: ltr;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.65), 
+    inset 0 1px 0 rgba(255, 235, 185, 0.08), 
+    inset 0 0 0 1px rgba(0, 0, 0, 0.5) !important;
 }
-html[dir="rtl"] .sl-ledger-card {
-  direction: rtl;
-}
-.sl-ledger-card:hover {
+
+.sl-ledger-card:hover,
+.sl-registry-plaque:hover,
+.sovereign-ledger-item:hover,
+.leaderboard-item:hover {
   transform: translateY(-1.5px);
-  border-color: rgba(212, 175, 55, 0.42);
-  background: linear-gradient(135deg, rgba(28, 24, 18, 0.96) 0%, rgba(16, 14, 11, 0.99) 100%);
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.65),
-    0 0 10px rgba(212, 175, 55, 0.2);
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  background: linear-gradient(180deg, #1a181e 0%, #111014 100%) !important;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0 rgba(255, 235, 185, 0.16), 
+    0 0 16px rgba(212, 175, 55, 0.1) !important;
 }
-.sl-ledger-card:active {
+
+.sl-ledger-card:active,
+.sl-registry-plaque:active,
+.sovereign-ledger-item:active,
+.leaderboard-item:active {
   transform: scale(0.99);
 }
 
-.sl-card-rank {
-  width: 30px;
-  height: 30px;
-  min-width: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display, "Cinzel", serif);
-  font-size: 12px;
-  font-weight: 800;
-  color: #fae69e;
-  border-radius: 7px;
-  background: linear-gradient(135deg, rgba(28, 24, 18, 0.95) 0%, rgba(14, 12, 9, 0.98) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 235, 170, 0.2);
-  flex-shrink: 0;
-  direction: ltr;
-  unicode-bidi: isolate;
-  line-height: 1;
+/* Subtle Architectural Corner Brackets (Engraved Metal Plaque Mounts) */
+.sl-plaque-bracket {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  pointer-events: none;
+  opacity: 0.7;
 }
+
+.sl-plaque-bracket.top-left {
+  top: 2px;
+  left: 2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.sl-plaque-bracket.top-right {
+  top: 2px;
+  right: 2px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.sl-plaque-bracket.bottom-left {
+  bottom: 2px;
+  left: 2px;
+  border-right: none;
+  border-top: none;
+}
+
+.sl-plaque-bracket.bottom-right {
+  bottom: 2px;
+  right: 2px;
+  border-left: none;
+  border-top: none;
+}
+
+/* 2. LEFT ASSEMBLY (INDEX + DIVIDER + CAMEO + DOSSIER) */
+.sl-card-left,
+.sl-registry-left,
+.sovereign-ledger-left,
+.leaderboard-item-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  width: auto !important;
+}
+
+/* ENGRAVED SOVEREIGN REGISTRY INDEX COLUMN */
+.sl-card-rank,
+.sl-registry-index-col,
+.sovereign-ledger-rank,
+.leaderboard-rank {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  min-width: 28px !important;
+  height: auto !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  text-align: center !important;
+}
+
+.sl-registry-order-prefix {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 8px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  color: rgba(212, 175, 55, 0.65) !important;
+  line-height: 1 !important;
+}
+
+.sl-registry-rank-num {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: #ebd188 !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.1 !important;
+  margin-top: 2px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.sl-registry-rank-num bdi,
 .sl-card-rank bdi {
   direction: ltr;
   unicode-bidi: isolate;
   font-variant-numeric: tabular-nums;
 }
-.sl-ledger-card.tier-sovereign .sl-card-rank {
-  color: var(--gold-champagne, #f5df8b);
-  border-color: rgba(212, 175, 55, 0.55);
-  background: linear-gradient(135deg, rgba(38, 30, 18, 0.98) 0%, rgba(20, 16, 11, 0.99) 100%);
-  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2), inset 0 1px 2px rgba(255, 235, 170, 0.3);
-}
-.sl-ledger-card.tier-elite .sl-card-rank {
-  color: #e2eaf2;
-  border-color: rgba(184, 196, 208, 0.45);
-  background: linear-gradient(135deg, rgba(24, 28, 34, 0.98) 0%, rgba(14, 16, 20, 0.99) 100%);
-  box-shadow: 0 2px 8px rgba(184, 196, 208, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+
+/* VERTICAL ARCHITECTURAL REGISTRY LINE */
+.sl-registry-divider {
+  width: 1px !important;
+  height: 32px !important;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.35) 25%,
+    rgba(212, 175, 55, 0.35) 75%,
+    transparent 100%
+  ) !important;
+  margin: 0 9px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
 }
 
-.sl-card-avatar-wrap {
-  width: 38px;
-  height: 38px;
-  min-width: 38px;
-  border-radius: 50%;
-  position: relative;
-  flex-shrink: 0;
-}
-.sl-card-avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1.5px solid rgba(212, 175, 55, 0.4);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-}
-.sl-card-status-jewel {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #50b86a;
-  border: 1.5px solid #0f0d0b;
-  box-shadow: 0 0 6px #50b86a;
-}
-html[dir="rtl"] .sl-card-status-jewel {
-  right: auto;
-  left: 0;
+/* CAMEO PORTRAIT MEDALLION */
+.sl-card-avatar-wrap,
+.sl-registry-cameo-wrap,
+.sovereign-ledger-avatar-wrap {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
 }
 
-.sl-card-info {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2.5px;
+.sl-cameo-bezel {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  padding: 1.5px !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(135deg, rgba(255, 235, 170, 0.55) 0%, rgba(145, 110, 40, 0.35) 50%, rgba(255, 235, 170, 0.4) 100%) !important;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.6), 
+    inset 0 1px 1px rgba(0, 0, 0, 0.7) !important;
 }
+
+.sl-card-avatar,
+.sl-cameo-portrait,
+.sovereign-ledger-avatar,
+.leaderboard-avatar,
+.leaderboard-avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(14, 13, 16, 0.95) !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+.sl-card-status-jewel,
+.sl-cameo-seal-dot {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 7.5px !important;
+  height: 7.5px !important;
+  border-radius: 50% !important;
+  background: #4cc66e !important;
+  border: 1.5px solid #0e0d10 !important;
+  box-shadow: 0 0 5px rgba(76, 198, 110, 0.7) !important;
+}
+
+html[dir="rtl"] .sl-card-status-jewel,
+html[dir="rtl"] .sl-cameo-seal-dot {
+  right: auto !important;
+  left: 0 !important;
+}
+
+/* 3. MEMBER DOSSIER DETAILS (DOMINANT TYPOGRAPHY) */
+.sl-card-info,
+.sl-registry-dossier,
+.sovereign-ledger-info,
+.leaderboard-item-info,
+.leaderboard-info,
+.member-details {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  width: auto !important;
+  margin: 0 12px !important;
+  padding: 0 !important;
+  text-align: left !important;
+  overflow: visible !important;
+}
+
+html[dir="rtl"] .sl-card-info,
+html[dir="rtl"] .sl-registry-dossier,
+html[dir="rtl"] .sovereign-ledger-info,
+html[dir="rtl"] .leaderboard-item-info,
+html[dir="rtl"] .leaderboard-info,
+html[dir="rtl"] .member-details {
+  text-align: right !important;
+}
+
 .sl-card-name-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
 }
-.sl-card-name {
-  font-family: var(--font-display, "Cinzel", serif);
-  font-size: 13.5px;
-  font-weight: 700;
-  color: #ffffff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-shrink: 0;
-  max-width: calc(100% - 48px);
-  letter-spacing: 0.01em;
+
+/* Dominant Member Name (Ceremonial Stature) */
+.sl-card-name,
+.sl-registry-name,
+.sovereign-ledger-name,
+.leaderboard-name,
+.member-name {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+  white-space: normal !important;
+  line-height: 1.25 !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  display: block !important;
+  color: #f6f1e7 !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  letter-spacing: 0.025em !important;
+  margin: 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
 }
+
 .sl-tier-pill {
-  font-size: 8.5px;
-  padding: 1.5px 5.5px;
-  border-radius: 6px;
-  white-space: nowrap;
-  font-weight: 700;
-  flex-shrink: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.2;
-}
-.sl-tier-pill.tier-sovereign {
-  background: rgba(212, 175, 55, 0.18);
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  color: #fae69e;
-}
-.sl-tier-pill.tier-elite {
-  background: rgba(140, 175, 205, 0.18);
-  border: 1px solid rgba(140, 175, 205, 0.45);
-  color: #d6e8f7;
-}
-.sl-tier-pill.tier-member {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #b8ac97;
+  display: none !important;
 }
 
-.sl-card-meta {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 10px;
-  color: #a49782;
-  min-width: 0;
-  line-height: 1;
+/* Secondary Metadata (Code & Sovereign Location) */
+.sl-card-meta,
+.sl-registry-meta,
+.sovereign-ledger-meta,
+.leaderboard-meta,
+.leaderboard-subtitle,
+.member-meta {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 5px !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  white-space: normal !important;
+  margin-top: 3px !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  font-size: 10.5px !important;
+  color: rgba(212, 175, 55, 0.72) !important;
+  line-height: 1.25 !important;
+  font-family: var(--font-sans, "Montserrat", sans-serif) !important;
 }
-.sl-card-id {
-  font-family: 'SF Mono', Monaco, monospace, sans-serif;
-  font-size: 9.5px;
-  font-weight: 700;
-  color: #f5df8b;
-  direction: ltr;
+
+.sl-card-meta *,
+.sl-registry-meta *,
+.sovereign-ledger-meta *,
+.leaderboard-meta *,
+.leaderboard-subtitle *,
+.member-meta * {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+.sl-card-id,
+.sl-registry-id,
+.sovereign-ledger-id {
+  font-family: 'SF Mono', Monaco, monospace, sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  color: rgba(235, 209, 136, 0.85) !important;
+  direction: ltr !important;
   unicode-bidi: isolate;
-  display: inline-block;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: rgba(212, 175, 55, 0.14);
-  border: 1px solid rgba(212, 175, 55, 0.32);
-  letter-spacing: 0.03em;
-  flex-shrink: 0;
-}
-.sl-meta-sep {
-  opacity: 0.5;
-  font-size: 8px;
-  flex-shrink: 0;
-}
-.sl-card-city {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 0;
-  font-weight: 500;
-  font-size: 10px;
+  display: inline !important;
+  letter-spacing: 0.05em !important;
 }
 
-.sl-card-wealth {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: end;
-  flex-shrink: 0;
-  margin-inline-start: auto;
-  padding-inline-start: 4px;
+.sl-meta-sep,
+.sl-registry-sep {
+  opacity: 0.65 !important;
+  font-size: 6px !important;
+  color: #d4af37 !important;
+  display: inline !important;
+  margin: 0 1px !important;
 }
-html[dir="rtl"] .sl-card-wealth {
-  align-items: flex-end;
-  text-align: end;
+
+.sl-card-city,
+.sl-registry-city,
+.sovereign-ledger-city {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  color: rgba(212, 175, 55, 0.72) !important;
+  font-weight: 500 !important;
+  display: inline !important;
+  letter-spacing: 0.02em !important;
 }
-.sl-wealth-number {
+
+/* 4. CEREMONIAL ALLOCATION HALLMARK & REGISTRY SIGIL */
+.sl-card-right,
+.sl-registry-hallmark,
+.sovereign-ledger-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  margin-left: auto !important;
+  margin-inline-start: auto !important;
+  border-inline-start: 1px solid rgba(212, 175, 55, 0.16) !important;
+  padding-inline-start: 9px !important;
+}
+
+html[dir="rtl"] .sl-card-right,
+html[dir="rtl"] .sl-registry-hallmark,
+html[dir="rtl"] .sovereign-ledger-right {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.sl-card-wealth,
+.sl-registry-metric,
+.sovereign-ledger-wealth,
+.leaderboard-wealth {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  text-align: right !important;
+  min-width: 64px !important;
+  gap: 2px !important;
+}
+
+html[dir="rtl"] .sl-card-wealth,
+html[dir="rtl"] .sl-registry-metric,
+html[dir="rtl"] .sovereign-ledger-wealth,
+html[dir="rtl"] .leaderboard-wealth {
+  align-items: flex-end !important;
+  text-align: right !important;
+}
+
+.sl-wealth-number,
+.sl-registry-percent,
+.sovereign-ledger-percentage {
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: #ebd188 !important;
+  font-feature-settings: "tnum" !important;
+  font-variant-numeric: tabular-nums !important;
+  line-height: 1 !important;
+  direction: ltr !important;
+  unicode-bidi: isolate;
+  white-space: nowrap !important;
   font-family: var(--font-display, "Cinzel", serif);
-  font-size: 14.5px;
-  font-weight: 800;
-  color: var(--gold-champagne, #f5df8b);
-  letter-spacing: 0.02em;
-  direction: ltr;
-  unicode-bidi: isolate;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.15;
-}
-.sl-wealth-label {
-  font-size: 8px;
-  color: #b0a28f;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-weight: 700;
-  margin-top: 1px;
-  white-space: nowrap;
+  letter-spacing: 0.03em !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.sl-card-chevron {
-  color: #7d7260;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 14px;
-  height: 14px;
-  transition: transform 0.2s ease, color 0.2s ease;
+.sl-wealth-label,
+.sl-registry-label {
+  font-size: 7.5px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  color: rgba(255, 255, 255, 0.38) !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
 }
-.sl-ledger-card:hover .sl-card-chevron {
-  color: var(--gold-champagne, #e9c877);
-  transform: translateX(-2px);
+
+/* Sovereign Record Sigil (Ceremonial Registry Record Indicator) */
+.sl-card-chevron,
+.sl-registry-sigil {
+  width: 19px !important;
+  height: 19px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(212, 175, 55, 0.05) !important;
+  border: 1px solid rgba(212, 175, 55, 0.22) !important;
+  color: rgba(212, 175, 55, 0.6) !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  transition: all 0.22s ease !important;
 }
-html[dir="ltr"] .sl-ledger-card:hover .sl-card-chevron {
-  transform: translateX(2px);
+
+.sl-ledger-card:hover .sl-card-chevron,
+.sl-ledger-card:hover .sl-registry-sigil,
+.sl-registry-plaque:hover .sl-registry-sigil,
+.sovereign-ledger-item:hover .sl-card-chevron {
+  background: rgba(212, 175, 55, 0.15) !important;
+  border-color: rgba(212, 175, 55, 0.55) !important;
+  color: #ebd188 !important;
+  transform: translateX(1.5px);
+}
+
+html[dir="rtl"] .sl-ledger-card:hover .sl-card-chevron,
+html[dir="rtl"] .sl-ledger-card:hover .sl-registry-sigil,
+html[dir="rtl"] .sl-registry-plaque:hover .sl-registry-sigil,
+html[dir="rtl"] .sovereign-ledger-item:hover .sl-card-chevron {
+  transform: translateX(-1.5px);
 }
 
 /* PERSONAL STANDING STICKY / BOTTOM CARD */
@@ -9887,75 +10110,56 @@ html[dir="ltr"] .sl-ledger-card:hover .sl-card-chevron {
 body.light-mode #clubLeaderboardContainer,
 body.light-mode .club-leaderboard-container {
   background:
-    radial-gradient(circle at 50% 0%, rgba(180, 140, 50, 0.1) 0%, transparent 65%),
-    linear-gradient(180deg, #fdfbf7 0%, #f6efe2 100%) !important;
-  border: 1.5px solid rgba(168, 124, 45, 0.55) !important;
+    radial-gradient(circle at 50% 0%, rgba(180, 140, 50, 0.06) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(253, 251, 247, 0.95) 0%, rgba(246, 239, 226, 0.98) 100%) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(168, 124, 45, 0.28) !important;
   box-shadow:
-    inset 0 0 0 1px rgba(168, 124, 45, 0.3),
-    inset 0 2px 4px #ffffff,
-    0 10px 32px rgba(168, 124, 45, 0.14) !important;
+    inset 0 1px 2px #ffffff,
+    0 12px 32px rgba(168, 124, 45, 0.1) !important;
 }
-body.light-mode .sl-honor-board-header {
-  border-bottom-color: rgba(168, 124, 45, 0.3) !important;
+body.light-mode .sl-honor-header {
+  border-bottom-color: rgba(168, 124, 45, 0.18) !important;
 }
-body.light-mode .sl-crest-text {
-  color: #6f4705 !important;
+body.light-mode .sl-honor-title {
+  color: #5c3b06 !important;
   text-shadow: none !important;
 }
-body.light-mode .sl-honor-motto {
-  color: #574b3a !important;
-}
-body.light-mode .sl-plaque-rivet {
-  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #d4af37 55%, #8f6e1f 100%) !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), inset 0 0.5px 1px #ffffff !important;
-  border: 0.5px solid rgba(168, 124, 45, 0.4) !important;
-}
-
-body.light-mode .sl-audit-plaque {
-  background: linear-gradient(135deg, #fdfbf7 0%, #f5eee2 100%) !important;
-  border-color: rgba(168, 124, 45, 0.35) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff !important;
-}
-body.light-mode .sl-audit-title {
-  color: #1a1309 !important;
-  font-weight: 800 !important;
-}
-body.light-mode .sl-audit-sub {
-  color: #4b3e2e !important;
-  font-weight: 500 !important;
-  font-size: 11px !important;
-  line-height: 1.45 !important;
+body.light-mode .sl-honor-subtitle {
+  color: #635544 !important;
 }
 body.light-mode .sl-audit-badge {
-  background: rgba(34, 139, 64, 0.12) !important;
-  border-color: rgba(34, 139, 64, 0.4) !important;
-  color: #15662f !important;
-  font-weight: 700 !important;
-  font-size: 10px !important;
+  background: rgba(34, 139, 64, 0.08) !important;
+  border-color: rgba(34, 139, 64, 0.3) !important;
+  color: #176d33 !important;
 }
 body.light-mode .sl-audit-dot {
   background: #188a3e !important;
-  box-shadow: 0 0 6px rgba(24, 138, 62, 0.6) !important;
+  box-shadow: 0 0 6px rgba(24, 138, 62, 0.5) !important;
 }
 
 /* Filter Bar Buttons */
+body.light-mode .sl-filter-bar {
+  background: #f0e9dc !important;
+  border-color: rgba(168, 124, 45, 0.2) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+}
 body.light-mode .sl-filter-btn {
-  background: #fdfaf4 !important;
-  border-color: rgba(168, 124, 45, 0.28) !important;
-  color: #483c2d !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #6d5f4d !important;
   font-weight: 600 !important;
 }
 body.light-mode .sl-filter-btn:hover {
-  background: #f7f1e4 !important;
-  border-color: rgba(168, 124, 45, 0.48) !important;
   color: #21190d !important;
 }
 body.light-mode .sl-filter-btn.is-active {
-  background: #231c13 !important;
-  border-color: #c99c30 !important;
-  color: #fae69e !important;
+  background: #ffffff !important;
+  border-color: rgba(168, 124, 45, 0.5) !important;
+  color: #5c3b06 !important;
   font-weight: 700 !important;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.22) !important;
+  box-shadow: 0 1px 6px rgba(168, 124, 45, 0.14) !important;
 }
 
 /* Podium Names & Cities */
@@ -9994,6 +10198,7 @@ body.light-mode .sl-podium-col.rank-3 .sl-podium-score {
 
 /* Podium Pedestals (Sculpted Ivory & Precious Metal Slabs) */
 body.light-mode .sl-podium-col.rank-1 .sl-pedestal-base {
+  height: 26px !important;
   background: linear-gradient(180deg, #fdf8eb 0%, #ebd7af 100%) !important;
   border: 1px solid #c99c30 !important;
   border-bottom: none !important;
@@ -10002,11 +10207,13 @@ body.light-mode .sl-podium-col.rank-1 .sl-pedestal-base {
 body.light-mode .sl-podium-col.rank-1 .sl-pedestal-roman {
   color: #694306 !important;
   font-weight: 800 !important;
+  font-size: 11px !important;
   opacity: 1 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
 }
 
 body.light-mode .sl-podium-col.rank-2 .sl-pedestal-base {
+  height: 20px !important;
   background: linear-gradient(180deg, #f3f7fa 0%, #d5e0ea 100%) !important;
   border: 1px solid #8c9fae !important;
   border-bottom: none !important;
@@ -10015,11 +10222,13 @@ body.light-mode .sl-podium-col.rank-2 .sl-pedestal-base {
 body.light-mode .sl-podium-col.rank-2 .sl-pedestal-roman {
   color: #1e3547 !important;
   font-weight: 800 !important;
+  font-size: 11px !important;
   opacity: 1 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
 }
 
 body.light-mode .sl-podium-col.rank-3 .sl-pedestal-base {
+  height: 16px !important;
   background: linear-gradient(180deg, #fbf2ea 0%, #e8cfbc 100%) !important;
   border: 1px solid #bf7d4a !important;
   border-bottom: none !important;
@@ -10028,6 +10237,7 @@ body.light-mode .sl-podium-col.rank-3 .sl-pedestal-base {
 body.light-mode .sl-podium-col.rank-3 .sl-pedestal-roman {
   color: #572909 !important;
   font-weight: 800 !important;
+  font-size: 11px !important;
   opacity: 1 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
 }
@@ -10046,30 +10256,47 @@ body.light-mode .sl-ledger-count {
   font-size: 11px !important;
 }
 
-/* Ledger Cards */
-body.light-mode .sl-ledger-card {
-  background: var(--lm-bg-white) !important;
-  border: 1px solid rgba(168, 124, 45, 0.28) !important;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff !important;
+/* Ledger Cards / Sovereign Registry Plaques */
+body.light-mode .sl-ledger-card,
+body.light-mode .sl-registry-plaque,
+body.light-mode .sovereign-ledger-item,
+body.light-mode .leaderboard-item {
+  background: linear-gradient(180deg, #fdfbf7 0%, #f4eee1 100%) !important;
+  border: 1px solid rgba(168, 124, 45, 0.3) !important;
+  box-shadow: 0 3px 14px rgba(90, 60, 20, 0.06), inset 0 1px 0 #ffffff !important;
 }
-body.light-mode .sl-ledger-card:hover {
-  background: var(--lm-bg-cream) !important;
-  border-color: rgba(168, 124, 45, 0.5) !important;
-  box-shadow: 0 6px 20px rgba(168, 124, 45, 0.15) !important;
+body.light-mode .sl-ledger-card:hover,
+body.light-mode .sl-registry-plaque:hover,
+body.light-mode .sovereign-ledger-item:hover,
+body.light-mode .leaderboard-item:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f8f3ea 100%) !important;
+  border-color: rgba(168, 124, 45, 0.6) !important;
+  box-shadow: 0 6px 20px rgba(168, 124, 45, 0.16), inset 0 1px 0 #ffffff !important;
 }
-body.light-mode .sl-card-rank {
-  background: #fdfaf3 !important;
-  color: #21190d !important;
-  border: 1px solid rgba(168, 124, 45, 0.35) !important;
-  font-weight: 800 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+body.light-mode .sl-plaque-bracket {
+  border-color: rgba(168, 124, 45, 0.45) !important;
 }
-body.light-mode .sl-card-avatar {
-  border: 1.5px solid rgba(168, 124, 45, 0.4) !important;
+body.light-mode .sl-registry-order-prefix {
+  color: #8c6a2e !important;
 }
-body.light-mode .sl-card-name {
+body.light-mode .sl-registry-rank-num {
+  color: #5c3b06 !important;
+  text-shadow: none !important;
+}
+body.light-mode .sl-registry-divider {
+  background: linear-gradient(180deg, transparent 0%, rgba(168, 124, 45, 0.4) 25%, rgba(168, 124, 45, 0.4) 75%, transparent 100%) !important;
+}
+body.light-mode .sl-cameo-bezel {
+  background: linear-gradient(135deg, #ebd6a7 0%, #b88f3a 50%, #e6cf9c 100%) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+}
+body.light-mode .sl-cameo-portrait {
+  border-color: #ffffff !important;
+}
+body.light-mode .sl-card-name,
+body.light-mode .sl-registry-name {
   color: #171410 !important;
-  font-weight: 800 !important;
+  text-shadow: none !important;
 }
 
 /* Tier Pills in Light Mode */
@@ -10093,35 +10320,50 @@ body.light-mode .sl-tier-pill.tier-member {
 }
 
 /* Card Metadata & ID */
-body.light-mode .sl-card-meta {
-  color: #574b3a !important;
+body.light-mode .sl-card-meta,
+body.light-mode .sl-registry-meta {
+  color: #63533e !important;
 }
-body.light-mode .sl-card-id {
-  background: #f5ede0 !important;
-  border: 1px solid rgba(168, 124, 45, 0.35) !important;
-  color: #2e2417 !important;
-  font-weight: 700 !important;
+body.light-mode .sl-card-id,
+body.light-mode .sl-registry-id {
+  color: #4a3b25 !important;
 }
-body.light-mode .sl-meta-sep {
+body.light-mode .sl-meta-sep,
+body.light-mode .sl-registry-sep {
   color: #8c7c67 !important;
   opacity: 0.7 !important;
 }
-body.light-mode .sl-card-city {
-  color: #524535 !important;
-  font-weight: 600 !important;
+body.light-mode .sl-card-city,
+body.light-mode .sl-registry-city {
+  color: #63533e !important;
 }
 
 /* Wealth Numbers in Light Mode */
-body.light-mode .sl-wealth-number {
+body.light-mode .sl-registry-hallmark {
+  border-inline-start-color: rgba(168, 124, 45, 0.22) !important;
+}
+body.light-mode .sl-wealth-number,
+body.light-mode .sl-registry-percent {
   color: #6f4705 !important;
   font-weight: 800 !important;
+  text-shadow: none !important;
 }
-body.light-mode .sl-wealth-label {
-  color: #574a38 !important;
+body.light-mode .sl-wealth-label,
+body.light-mode .sl-registry-label {
+  color: #7a6a55 !important;
   font-weight: 700 !important;
 }
-body.light-mode .sl-card-chevron {
-  color: #6f5f4b !important;
+body.light-mode .sl-card-chevron,
+body.light-mode .sl-registry-sigil {
+  background: rgba(168, 124, 45, 0.08) !important;
+  border-color: rgba(168, 124, 45, 0.3) !important;
+  color: #694406 !important;
+}
+body.light-mode .sl-ledger-card:hover .sl-registry-sigil,
+body.light-mode .sl-registry-plaque:hover .sl-registry-sigil {
+  background: rgba(168, 124, 45, 0.18) !important;
+  border-color: rgba(168, 124, 45, 0.6) !important;
+  color: #4a2f02 !important;
 }
 
 /* Self Standing Bottom Card */
@@ -18972,36 +19214,45 @@ body #profile-tab .profile-circles-card .pcc-specular-glare {
   z-index: 1 !important;
 }
 
+body #profile-tab .profile-circles-card .pcc-card-inner,
 body #profile-tab .profile-circles-card .pcc-inner {
   position: relative !important;
   z-index: 2 !important;
   display: flex !important;
   flex-direction: column !important;
   width: 100% !important;
+  box-sizing: border-box !important;
 }
 
+body #profile-tab .profile-circles-card .pcc-head,
 body #profile-tab .profile-circles-card .pcc-header {
   display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding-bottom: 9px !important;
-  margin-bottom: 10px !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 12px !important;
   border-bottom: 1px solid rgba(212, 175, 106, 0.16) !important;
   position: relative !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
+body #profile-tab .profile-circles-card .pcc-head-left,
 body #profile-tab .profile-circles-card .pcc-header-title-wrap {
   display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
   min-width: 0 !important;
-  flex: 1 1 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 body #profile-tab .profile-circles-card .pcc-crest-badge {
-  width: 26px !important;
-  height: 26px !important;
+  width: 28px !important;
+  height: 28px !important;
   flex-shrink: 0 !important;
+  margin-top: 1px !important;
   border-radius: 50% !important;
   background: linear-gradient(135deg, rgba(212, 175, 106, 0.22) 0%, rgba(35, 30, 20, 0.8) 100%) !important;
   border: 1px solid rgba(212, 175, 106, 0.45) !important;
@@ -19019,14 +19270,17 @@ body #profile-tab .profile-circles-card .pcc-crest-icon {
 body #profile-tab .profile-circles-card .pcc-title-group {
   display: flex !important;
   flex-direction: column !important;
+  gap: 3px !important;
   min-width: 0 !important;
+  flex: 1 1 auto !important;
 }
 
 body #profile-tab .profile-circles-card .pcc-title-row {
   display: flex !important;
   align-items: center !important;
-  gap: 6px !important;
+  gap: 7px !important;
   flex-wrap: wrap !important;
+  min-width: 0 !important;
 }
 
 body #profile-tab .profile-circles-card .pcc-title {
@@ -19037,20 +19291,24 @@ body #profile-tab .profile-circles-card .pcc-title {
   color: #fae8be !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
   margin: 0 !important;
-  line-height: 1.3 !important;
-  white-space: nowrap !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
 }
 
 body #profile-tab .profile-circles-card .pcc-accredited-tag {
   font-size: 7.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.05em !important;
-  padding: 1.5px 5px !important;
+  padding: 1.5px 5.5px !important;
   border-radius: 10px !important;
   background: linear-gradient(135deg, rgba(212, 175, 106, 0.25) 0%, rgba(138, 105, 36, 0.2) 100%) !important;
   border: 0.5px solid rgba(212, 175, 106, 0.45) !important;
   color: #fae298 !important;
   white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  align-self: center !important;
 }
 
 body #profile-tab .profile-circles-card .pcc-subtitle {
@@ -19060,14 +19318,27 @@ body #profile-tab .profile-circles-card .pcc-subtitle {
   white-space: normal !important;
   overflow: visible !important;
   text-overflow: clip !important;
-  line-height: 1.35 !important;
+  line-height: 1.4 !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
 }
 
-body #profile-tab .profile-circles-card .pcc-curate-btn {
+body #profile-tab .profile-circles-card .pcc-header-action-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  padding-inline-start: 38px !important;
+  box-sizing: border-box !important;
+}
+
+body #profile-tab .profile-circles-card .pcc-curate-btn,
+body #profile-tab #btnCurateCircles {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 4px !important;
-  padding: 4px 8px !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  padding: 5px 11px !important;
   border-radius: 14px !important;
   background: linear-gradient(135deg, rgba(212, 175, 106, 0.16) 0%, rgba(60, 45, 20, 0.4) 100%) !important;
   border: 1px solid rgba(212, 175, 106, 0.38) !important;
@@ -19079,10 +19350,13 @@ body #profile-tab .profile-circles-card .pcc-curate-btn {
   transition: background 0.15s ease, transform 0.12s ease !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  margin-inline-start: 8px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  position: static !important;
 }
 
-body #profile-tab .profile-circles-card .pcc-curate-btn:hover {
+body #profile-tab .profile-circles-card .pcc-curate-btn:hover,
+body #profile-tab #btnCurateCircles:hover {
   background: linear-gradient(135deg, rgba(212, 175, 106, 0.3) 0%, rgba(90, 70, 30, 0.6) 100%) !important;
   border-color: rgba(245, 215, 145, 0.7) !important;
   color: #fff8e8 !important;
@@ -19092,7 +19366,7 @@ body #profile-tab .profile-circles-card .pcc-curate-btn:hover {
 body #profile-tab .profile-circles-card .pcc-chips-grid {
   display: flex !important;
   flex-direction: column !important;
-  gap: 7px !important;
+  gap: 8px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
@@ -19113,8 +19387,10 @@ body #profile-tab .pcc-chip {
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
   min-width: 0 !important;
   width: 100% !important;
+  min-height: 52px !important;
   box-sizing: border-box !important;
   position: relative !important;
+  overflow: visible !important;
 }
 
 body #profile-tab .pcc-chip:hover {
@@ -19125,6 +19401,14 @@ body #profile-tab .pcc-chip:hover {
     0 6px 14px rgba(0, 0, 0, 0.6),
     0 0 10px rgba(212, 175, 106, 0.25),
     inset 0 1px 0 rgba(255, 245, 215, 0.2) !important;
+}
+
+body #profile-tab .pcc-chip-main {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
 }
 
 body #profile-tab .pcc-chip-icon-box {
@@ -19155,17 +19439,20 @@ body #profile-tab .pcc-chip-text-group {
   flex: 1 1 auto !important;
   gap: 2px !important;
   text-align: start !important;
+  overflow: visible !important;
 }
 
 body #profile-tab .pcc-chip-name {
   font-size: 11px !important;
   font-weight: 700 !important;
   color: #fae5be !important;
-  white-space: nowrap !important;
+  white-space: normal !important;
   overflow: visible !important;
   text-overflow: clip !important;
-  line-height: 1.3 !important;
+  line-height: 1.35 !important;
   letter-spacing: 0.01em !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
 }
 
 body #profile-tab .pcc-chip-domain {
@@ -19174,10 +19461,12 @@ body #profile-tab .pcc-chip-domain {
   color: rgba(212, 175, 106, 0.75) !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
-  white-space: nowrap !important;
+  white-space: normal !important;
   overflow: visible !important;
   text-overflow: clip !important;
-  line-height: 1.2 !important;
+  line-height: 1.25 !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
 }
 
 body #profile-tab .pcc-chip-seal-dot {
@@ -19193,6 +19482,7 @@ body #profile-tab .pcc-chip-seal-dot {
   color: #fae298 !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
+  align-self: center !important;
 }
 
 /* Modal Selector Grid for Sovereign Circles */
@@ -19303,6 +19593,7 @@ body.light-mode #profile-tab .profile-circles-card .pcc-corner-rivet {
   box-shadow: 0 1px 2px rgba(60, 45, 20, 0.3) !important;
 }
 
+body.light-mode #profile-tab .profile-circles-card .pcc-head,
 body.light-mode #profile-tab .profile-circles-card .pcc-header {
   border-bottom: 1px solid rgba(185, 145, 75, 0.22) !important;
 }
@@ -19322,14 +19613,16 @@ body.light-mode #profile-tab .profile-circles-card .pcc-crest-badge {
   box-shadow: 0 2px 5px rgba(60, 45, 20, 0.1) !important;
 }
 
-body.light-mode #profile-tab .profile-circles-card .pcc-curate-btn {
+body.light-mode #profile-tab .profile-circles-card .pcc-curate-btn,
+body.light-mode #profile-tab #btnCurateCircles {
   background: linear-gradient(135deg, #ffffff 0%, #f3ece0 100%) !important;
   border-color: rgba(185, 145, 75, 0.45) !important;
   color: #7a5a22 !important;
   box-shadow: 0 2px 4px rgba(60, 45, 20, 0.08) !important;
 }
 
-body.light-mode #profile-tab .profile-circles-card .pcc-curate-btn:hover {
+body.light-mode #profile-tab .profile-circles-card .pcc-curate-btn:hover,
+body.light-mode #profile-tab #btnCurateCircles:hover {
   background: linear-gradient(135deg, #f7f1e4 0%, #ebdcc2 100%) !important;
   color: #3b2c12 !important;
 }
@@ -21552,7 +21845,7 @@ body #profile-tab {
   width: 100% !important;
   max-width: 430px !important;
   margin: 0 auto !important;
-  padding: calc(var(--header-actual-height, 74px) + 8px) 4px calc(96px + env(safe-area-inset-bottom, 24px)) 4px !important;
+  padding: calc(var(--header-actual-height, 82px) + 14px) 4px calc(118px + env(safe-area-inset-bottom, 34px)) 4px !important;
   box-sizing: border-box !important;
   overflow-x: hidden !important;
   overflow-y: auto !important;
@@ -22090,22 +22383,28 @@ body #profile-tab .profile-collection-section#profileHonorsSection {
 }
 
 body #profile-tab #profileHonorsSection .pcs-head {
-  margin-bottom: 8px !important;
-  padding: 0 2px !important;
+  margin-bottom: 10px !important;
+  padding: 0 4px !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px 12px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
 body #profile-tab #profileHonorsSection .honors-section-title {
   font-size: 11.5px !important;
-  letter-spacing: 0.12em !important;
+  letter-spacing: 0.1em !important;
   margin: 0 !important;
   min-width: 0 !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.3 !important;
 }
 
 body #profile-tab #profileHonorsSection .achievements-summary {
@@ -22134,9 +22433,9 @@ body #profile-tab #profileHonorsSection .achievements-summary-divider {
 body #profile-tab #profileHonorsSection .achievements-summary-label {
   font-size: 7.5px !important;
   letter-spacing: 0.08em !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
 }
 
 body #profile-tab #profileHonorsSection .achievements-summary-value {
@@ -22147,23 +22446,28 @@ body #profile-tab #profileHonorsSection .achievements-summary-value {
 body #profile-tab #profileAchievementsGrid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
-  gap: 8px !important;
+  gap: 10px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
 body #profile-tab #profileAchievementsGrid .honor-card {
-  padding: 12px 6px 10px 6px !important;
-  min-height: 165px !important;
+  padding: 12px 8px 12px 8px !important;
+  min-height: 220px !important;
+  height: auto !important;
   min-width: 0 !important;
   box-sizing: border-box !important;
-  border-radius: 11px !important;
-  overflow: hidden !important;
+  border-radius: 12px !important;
+  overflow: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
 }
 
 body #profile-tab #profileAchievementsGrid .honor-insignia-pedestal {
-  width: 42px !important;
-  height: 42px !important;
+  width: 44px !important;
+  height: 44px !important;
   margin-bottom: 7px !important;
   flex-shrink: 0 !important;
 }
@@ -22175,36 +22479,50 @@ body #profile-tab #profileAchievementsGrid .honor-icon svg {
 }
 
 body #profile-tab #profileAchievementsGrid .honor-name {
-  font-size: 9.5px !important;
-  line-height: 1.25 !important;
+  font-size: 10px !important;
+  line-height: 1.3 !important;
   margin-bottom: 3px !important;
   word-break: break-word !important;
   overflow-wrap: break-word !important;
   text-align: center !important;
   max-width: 100% !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
 body #profile-tab #profileAchievementsGrid .honor-title {
   font-size: 7.5px !important;
-  line-height: 1.2 !important;
+  line-height: 1.25 !important;
   margin-bottom: 8px !important;
   word-break: break-word !important;
   overflow-wrap: break-word !important;
   text-align: center !important;
   max-width: 100% !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
 body #profile-tab #profileAchievementsGrid .honor-pill {
   font-size: 7.5px !important;
-  padding: 2.5px 6px !important;
-  letter-spacing: 0.08em !important;
-  white-space: nowrap !important;
+  padding: 3px 6px !important;
+  letter-spacing: 0.06em !important;
+  white-space: normal !important;
+  text-align: center !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.25 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 body #profile-tab #profileAchievementsGrid .honor-progress-wrap {
   width: 100% !important;
   box-sizing: border-box !important;
   gap: 4px !important;
+  margin-top: auto !important;
+  margin-bottom: 6px !important;
 }
 
 body #profile-tab #profileAchievementsGrid .honor-progress-bar {
@@ -22215,10 +22533,13 @@ body #profile-tab #profileAchievementsGrid .honor-progress-bar {
 body #profile-tab #profileAchievementsGrid .honor-progress-text {
   font-size: 7.5px !important;
   text-align: center !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
   max-width: 100% !important;
+  line-height: 1.25 !important;
 }
 
 /* 6.5. Sovereign Oath of Secrecy Folio Precision Spacing */
@@ -26012,16 +26333,21 @@ body.light-mode #profile-tab .phc-action-icon {
 /* Horizontal Gilded Brooch Bar (شريط التثبيت المعدني) */
 #profile-tab .honor-brooch-bar {
   position: relative !important;
-  width: 44px !important;
-  height: 8px !important;
+  width: auto !important;
+  min-width: 62px !important;
+  max-width: 90% !important;
+  height: auto !important;
+  min-height: 12px !important;
   background: linear-gradient(180deg, #fff3c4 0%, #d4af37 40%, #997527 100%) !important;
   border-radius: 2px !important;
   border: 1px solid rgba(80, 55, 10, 0.5) !important;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
-  padding: 0 4px !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  padding: 1.5px 5px !important;
+  box-sizing: border-box !important;
   z-index: 3 !important;
 }
 
@@ -26036,15 +26362,22 @@ body.light-mode #profile-tab .phc-action-icon {
   border-radius: 50% !important;
   background: #2a1f0a !important;
   box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.4) !important;
+  flex-shrink: 0 !important;
 }
 
 #profile-tab .brooch-hallmark {
   font-family: var(--font-mono, monospace) !important;
-  font-size: 5px !important;
+  font-size: 5.5px !important;
+  line-height: 1 !important;
   letter-spacing: 0.08em !important;
   color: #2b1f09 !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  display: inline-block !important;
+  direction: ltr !important;
+  unicode-bidi: isolate !important;
 }
 
 #profile-tab .honor-brooch-bar.is-muted .brooch-hallmark {
@@ -26055,8 +26388,8 @@ body.light-mode #profile-tab .phc-action-icon {
 #profile-tab .honor-moire-ribbon {
   position: relative !important;
   width: 38px !important;
-  height: 26px !important;
-  margin-top: -1px !important;
+  height: 25px !important;
+  margin-top: 1px !important;
   border-radius: 0 0 2px 2px !important;
   overflow: hidden !important;
   border: 1px solid rgba(212, 175, 55, 0.3) !important;
@@ -26213,15 +26546,19 @@ body.light-mode #profile-tab .phc-action-icon {
 /* Order Class Badge */
 #profile-tab .honor-order-badge {
   font-family: var(--font-mono, monospace) !important;
-  font-size: 7px !important;
-  letter-spacing: 0.12em !important;
-  color: rgba(212, 175, 55, 0.7) !important;
+  font-size: 7.5px !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(212, 175, 55, 0.75) !important;
   text-transform: uppercase !important;
-  margin-bottom: 2px !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  max-width: 95% !important;
+  margin-bottom: 3px !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.25 !important;
+  max-width: 100% !important;
+  text-align: center !important;
 }
 
 #profile-tab .honor-name {
@@ -26229,30 +26566,53 @@ body.light-mode #profile-tab .phc-action-icon {
   font-size: 11px !important;
   font-weight: 700 !important;
   color: #f7eed8 !important;
-  line-height: 1.25 !important;
-  margin-bottom: 2px !important;
+  line-height: 1.3 !important;
+  margin-bottom: 3px !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  text-align: center !important;
+  max-width: 100% !important;
 }
 
 #profile-tab .honor-title {
   font-family: var(--font-mono, monospace) !important;
   font-size: 8px !important;
-  letter-spacing: 0.08em !important;
+  letter-spacing: 0.06em !important;
   color: rgba(212, 175, 55, 0.8) !important;
   margin-bottom: 6px !important;
+  line-height: 1.3 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  text-align: center !important;
+  max-width: 100% !important;
 }
 
 #profile-tab .honor-bestowed-pill {
   background: rgba(212, 175, 55, 0.12) !important;
   border: 1px solid rgba(212, 175, 55, 0.4) !important;
   border-radius: 12px !important;
-  padding: 2px 8px !important;
+  padding: 3px 8px !important;
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 4px !important;
-  font-size: 8.5px !important;
+  font-size: 8px !important;
   color: #d4af37 !important;
   font-weight: 600 !important;
   margin-bottom: 6px !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  text-align: center !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.25 !important;
+  box-sizing: border-box !important;
 }
 
 #profile-tab .honor-citation-hint {
@@ -26265,6 +26625,11 @@ body.light-mode #profile-tab .phc-action-icon {
   border-top: 1px dashed rgba(212, 175, 55, 0.15) !important;
   padding-top: 5px !important;
   width: 100% !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
 }
 
 /* ==========================================================================
@@ -26669,14 +27034,21 @@ body.light-mode .hcc-stamp-txt {
   #profile-tab .heraldic-order-card {
     padding: 10px 6px 12px 6px !important;
     min-height: 220px !important;
+    height: auto !important;
+    overflow: visible !important;
   }
   #profile-tab .honor-brooch-bar {
-    width: 36px !important;
-    height: 7px !important;
+    width: auto !important;
+    min-width: 58px !important;
+    max-width: 90% !important;
+    min-height: 11px !important;
+    height: auto !important;
+    padding: 1px 4px !important;
   }
   #profile-tab .honor-moire-ribbon {
-    width: 32px !important;
+    width: 34px !important;
     height: 22px !important;
+    margin-top: 1px !important;
   }
   #profile-tab .honor-cloisonne-medal {
     width: 42px !important;
@@ -26686,7 +27058,7 @@ body.light-mode .hcc-stamp-txt {
     font-size: 10px !important;
   }
   #profile-tab .honor-order-badge {
-    font-size: 6.5px !important;
+    font-size: 7px !important;
   }
 }
 
@@ -28270,6 +28642,8 @@ body #profile-tab .pcs-head {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px 12px !important;
   padding: 0 4px !important;
   margin-bottom: 8px !important;
   width: 100% !important;
@@ -28731,6 +29105,309 @@ body.light-mode #profile-tab .phc-quote {
 body.light-mode #profile-tab .phc-meta-line {
   font-size: 9px !important;
   letter-spacing: 0.5px !important;
+}
+
+/* ========================================================================== */
+/* MICRO-PASS: PROFILE TAB RESPONSIVE TYPOGRAPHY & OVERFLOW HARMONIZATION      */
+/* ========================================================================== */
+
+/* 1. Header Safe Spacing & Content Flow */
+body #profile-tab {
+  padding-top: calc(var(--header-actual-height, 82px) + 14px) !important;
+  padding-bottom: calc(118px + env(safe-area-inset-bottom, 34px)) !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure header has solid frosted separation over scrolling profile items */
+body:has(#profile-tab.is-active) .app-header {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+/* 2. Section Headings & Badges Containment ("DIPLOMATIC IMMUNITY" & "BESTOWED & CONFERRED") */
+body #profile-tab .pcs-head,
+body #profile-tab .heraldic-orders-head,
+body #profile-tab #profileOathSection .pcs-head,
+body #profile-tab #profileHonorsSection .pcs-head {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-bottom: 12px !important;
+}
+
+body #profile-tab .history-head-title-wrap,
+body #profile-tab .heraldic-head-title-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  flex: 1 1 190px !important;
+}
+
+body #profile-tab .heraldic-titles-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+body #profile-tab .history-badge-seal {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .history-badge-seal .badge,
+body #profile-tab #oathSectionBadge,
+body #profile-tab #heraldicChancelleryBadge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  text-align: center !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  box-sizing: border-box !important;
+  line-height: 1.25 !important;
+  padding: 3.5px 8px !important;
+  unicode-bidi: isolate !important;
+}
+
+body #profile-tab .honors-section-title,
+body #profile-tab #honorsSectionTitle,
+body #profile-tab #oathSectionTitle,
+body #profile-tab .heraldic-section-sub {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.3 !important;
+}
+
+/* 3. Heraldic Medals & Suspension Assembly ("CHANCELLERIE" & Ribbon Predictable Geometry) */
+body #profile-tab .honor-suspension-assembly {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: 4px !important;
+}
+
+body #profile-tab .honor-brooch-bar {
+  position: relative !important;
+  width: auto !important;
+  min-width: 62px !important;
+  max-width: 90% !important;
+  height: auto !important;
+  min-height: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  padding: 1.5px 6px !important;
+  box-sizing: border-box !important;
+  z-index: 3 !important;
+}
+
+body #profile-tab .brooch-hallmark {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 5.5px !important;
+  line-height: 1 !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  display: inline-block !important;
+  direction: ltr !important;
+  unicode-bidi: isolate !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+}
+
+body #profile-tab .honor-moire-ribbon {
+  position: relative !important;
+  width: 38px !important;
+  height: 25px !important;
+  margin-top: 1px !important;
+  border-radius: 0 0 2px 2px !important;
+  overflow: hidden !important;
+  z-index: 2 !important;
+}
+
+body #profile-tab .honor-suspension-ring {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  margin-top: -2px !important;
+  z-index: 1 !important;
+}
+
+body #profile-tab .honor-insignia-pedestal {
+  width: 44px !important;
+  height: 44px !important;
+  margin: 2px 0 8px 0 !important;
+  flex-shrink: 0 !important;
+}
+
+/* 4. Honor Cards Responsive Auto-Height & Typography Unclipping */
+body #profile-tab .heraldic-order-card,
+body #profile-tab .honor-card,
+body #profile-tab #profileAchievementsGrid .honor-card {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 12px 8px 12px 8px !important;
+  min-height: 220px !important;
+  height: auto !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+body #profile-tab .honor-order-badge,
+body #profile-tab #profileAchievementsGrid .honor-order-badge {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 7.5px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 3px !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.25 !important;
+  max-width: 100% !important;
+  text-align: center !important;
+}
+
+body #profile-tab .honor-name,
+body #profile-tab #profileAchievementsGrid .honor-name {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  margin-bottom: 3px !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  text-align: center !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .honor-title,
+body #profile-tab #profileAchievementsGrid .honor-title {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 7.5px !important;
+  letter-spacing: 0.06em !important;
+  margin-bottom: 8px !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  text-align: center !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .honor-bestowed-pill,
+body #profile-tab #profileAchievementsGrid .honor-pill {
+  max-width: 100% !important;
+  white-space: normal !important;
+  text-align: center !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.25 !important;
+  padding: 3px 6px !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body #profile-tab .honor-progress-wrap,
+body #profile-tab #profileAchievementsGrid .honor-progress-wrap {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: auto !important;
+  margin-bottom: 6px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+body #profile-tab .honor-progress-text,
+body #profile-tab #profileAchievementsGrid .honor-progress-text {
+  font-size: 7.5px !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
+}
+
+body #profile-tab .honor-citation-hint {
+  margin-top: auto !important;
+  width: 100% !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+}
+
+/* 5. Mobile Narrow Screen Adaptations (360px - 390px) */
+@media (max-width: 390px) {
+  body #profile-tab .history-head-title-wrap,
+  body #profile-tab .heraldic-head-title-wrap {
+    flex: 1 1 100% !important;
+  }
+  body #profile-tab .history-badge-seal {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+  body #profile-tab .profile-circles-card .pcc-header-title-wrap {
+    flex: 1 1 100% !important;
+  }
+  body #profile-tab .profile-circles-card .pcc-curate-btn,
+  body #profile-tab #btnCurateCircles {
+    margin-inline-start: auto !important;
+  }
+  body #profile-tab .honor-brooch-bar {
+    min-width: 58px !important;
+    padding: 1px 4px !important;
+  }
+  body #profile-tab .honor-moire-ribbon {
+    width: 34px !important;
+    height: 22px !important;
+  }
+  body #profile-tab .honor-insignia-pedestal {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  body #profile-tab #profileAchievementsGrid {
+    gap: 8px !important;
+  }
+  body #profile-tab #profileAchievementsGrid .honor-card {
+    padding: 10px 6px 10px 6px !important;
+  }
 }
 
 

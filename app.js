@@ -2605,6 +2605,9 @@ const Router = {
       requestAnimationFrame(() => {
         const msgs = document.getElementById("clubMessages");
         if (msgs) msgs.scrollTop = msgs.scrollHeight;
+        if (typeof window.autoGrowClubInput === "function") {
+          window.autoGrowClubInput();
+        }
       });
       if (typeof startClubWelcomeAutoDismiss === "function") {
         startClubWelcomeAutoDismiss(5000);
@@ -4045,11 +4048,9 @@ document
 window.autoGrowClubInput = function (el) {
   const input = el || document.getElementById("clubInput");
   if (!input) return;
-  input.style.height = "auto";
-  const scrollH = input.scrollHeight;
-  const newHeight = Math.min(Math.max(scrollH, 34), 110);
-  input.style.height = newHeight + "px";
-  input.style.overflowY = scrollH > 110 ? "auto" : "hidden";
+  // Sleek single-line layout: keep clean without inline height overrides
+  input.style.height = "";
+  input.style.overflowY = "";
 };
 
 const clubInputEl = document.getElementById("clubInput");
@@ -4094,6 +4095,29 @@ if (clubInputEl) {
       window.autoGrowClubInput(clubInputEl);
     }
   });
+  clubInputEl.addEventListener("paste", () => {
+    setTimeout(() => {
+      if (typeof window.syncClubInputDirection === "function") {
+        window.syncClubInputDirection(clubInputEl);
+      }
+      if (typeof window.autoGrowClubInput === "function") {
+        window.autoGrowClubInput(clubInputEl);
+      }
+    }, 0);
+  });
+  clubInputEl.addEventListener("cut", () => {
+    setTimeout(() => {
+      if (typeof window.syncClubInputDirection === "function") {
+        window.syncClubInputDirection(clubInputEl);
+      }
+      if (typeof window.autoGrowClubInput === "function") {
+        window.autoGrowClubInput(clubInputEl);
+      }
+    }, 0);
+  });
+
+  // Run on initial binding to ensure pristine vertical alignment
+  window.autoGrowClubInput(clubInputEl);
 }
 
 /* === 6. MODALS & SETTINGS LOGIC === */
@@ -4348,6 +4372,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  const btnCurateCirclesInit = document.getElementById("btnCurateCircles");
+  if (btnCurateCirclesInit) {
+    btnCurateCirclesInit.onclick = function (e) {
+      if (e) {
+        if (typeof e.preventDefault === "function") e.preventDefault();
+        if (typeof e.stopPropagation === "function") e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+      }
+      if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+        window.AudioEngine.playClick();
+      }
+      if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(12);
+      }
+      const noticeText = window.t && typeof window.t === "function" && window.t("profile.circlesEditNotice")
+        ? window.t("profile.circlesEditNotice")
+        : (window.currentLang === "ar" || document.documentElement.lang === "ar"
+            ? "قريبًا • تخصيص الدوائر والمجالات السيادية قيد الإعداد الدبلوماسي"
+            : "Coming Soon • Sovereign Circles curation pending diplomatic clearance");
+      if (typeof showNavToast === "function") {
+        showNavToast(noticeText);
+      }
+      return false;
+    };
+  }
+
   const menuAddFriend = document.getElementById("menuAddFriend");
   if (menuAddFriend) {
     menuAddFriend.addEventListener("click", () => {
@@ -4540,6 +4590,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.openAccountInfoModal = function (e) {
     if (e) {
+      if (e.target && (e.target.closest("#btnCurateCircles") || e.target.closest(".pcc-curate-btn"))) {
+        return;
+      }
       if (typeof e.stopPropagation === "function") e.stopPropagation();
       if (typeof e.preventDefault === "function") e.preventDefault();
     }
@@ -5920,7 +5973,7 @@ function renderProfileCircles() {
     const statusText = isAr ? "معتمد" : "ACCREDITED";
     html += `
       <div class="pcc-chip" data-circle-id="${item.id}" role="button" tabindex="0" title="${localizedName}">
-        <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1 1 auto;">
+        <div class="pcc-chip-main">
           <div class="pcc-chip-icon-box" aria-hidden="true">
             ${item.icon}
           </div>
@@ -5939,35 +5992,44 @@ function renderProfileCircles() {
 
   container.innerHTML = html;
 
-  const openCirclesEditor = () => {
+  const openCirclesEditor = (e) => {
+    if (e) {
+      if (typeof e.preventDefault === "function") e.preventDefault();
+      if (typeof e.stopPropagation === "function") e.stopPropagation();
+      if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+    }
+
     if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
       window.AudioEngine.playClick();
     }
     if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
       window.HapticEngine.tap(12);
     }
-    const menuAcc = document.getElementById("menuAccountInfo");
-    if (menuAcc) {
-      menuAcc.click();
-      setTimeout(() => {
-        const panel = document.getElementById("modalCirclesPanel");
-        if (panel) {
-          panel.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      }, 150);
-    } else {
-      const accModal = document.getElementById("accountInfoModal");
-      if (accModal) accModal.classList.add("is-open");
+
+    const noticeText = window.t && typeof window.t === "function" && window.t("profile.circlesEditNotice")
+      ? window.t("profile.circlesEditNotice")
+      : (isAr
+          ? "قريبًا • تخصيص الدوائر والمجالات السيادية قيد الإعداد الدبلوماسي"
+          : "Coming Soon • Sovereign Circles curation pending diplomatic clearance");
+
+    const toastTitle = isAr ? "الدوائر والمجالات السيادية" : "SOVEREIGN CIRCLES & DOMAINS";
+
+    // Use global premium toast at the top of the viewport so it never obscures Account Information or bottom controls
+    if (typeof showPremiumToast === "function") {
+      showPremiumToast(toastTitle, noticeText);
+    } else if (typeof showCopyToast === "function") {
+      showCopyToast(noticeText);
+    } else if (typeof showNavToast === "function") {
+      showNavToast(noticeText);
     }
   };
 
   const curateBtn = document.getElementById("btnCurateCircles");
-  if (curateBtn && !curateBtn.dataset.bound) {
-    curateBtn.dataset.bound = "true";
-    curateBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      openCirclesEditor();
-    });
+  if (curateBtn) {
+    curateBtn.onclick = function (e) {
+      openCirclesEditor(e);
+      return false;
+    };
   }
 
   if (!container.dataset.delegated) {
@@ -6386,13 +6448,13 @@ function renderLeaderboard() {
     {
       rank: 1,
       id: "SV-0001",
-      name: "A. Al Maktoum",
-      nameAr: "أ. آل مكتوم",
+      name: "Ahmed Al Maktoum",
+      nameAr: "أحمد آل مكتوم",
       wealth: "99.9%",
       priv: "99.8%",
       tier: "Sovereign",
-      city: "دبي • الإمارات",
-      cityEn: "Dubai • UAE",
+      city: "دبي، الإمارات",
+      cityEn: "Dubai, UAE",
       quote: "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة التاريخية.",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -6400,13 +6462,13 @@ function renderLeaderboard() {
     {
       rank: 2,
       id: "SV-0822",
-      name: "E. Rothschild",
-      nameAr: "إ. روتشيلد",
+      name: "Edouard Rothschild",
+      nameAr: "إدوارد روتشيلد",
       wealth: "99.7%",
       priv: "99.5%",
       tier: "Sovereign",
-      city: "جنيف • سويسرا",
-      cityEn: "Geneva • Switzerland",
+      city: "جنيف، سويسرا",
+      cityEn: "Geneva, Switzerland",
       quote: "الذهب الحقيقي هو الثقة والسرية المتوارثة عبر الأجيال.",
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -6414,13 +6476,13 @@ function renderLeaderboard() {
     {
       rank: 3,
       id: "SV-1105",
-      name: "M. Windsor",
-      nameAr: "م. ويندسور",
+      name: "Maximilian Windsor",
+      nameAr: "ماكسيميليان ويندسور",
       wealth: "99.5%",
       priv: "99.2%",
       tier: "Elite",
-      city: "لندن • المملكة المتحدة",
-      cityEn: "London • UK",
+      city: "لندن، المملكة المتحدة",
+      cityEn: "London, UK",
       quote: "التقاليد العريقة هي الحصن المنيع للمكانة والجاه الرفيع.",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -6428,13 +6490,13 @@ function renderLeaderboard() {
     {
       rank: 4,
       id: "SV-0344",
-      name: "J. Rockefeller",
-      nameAr: "ج. روكفلر",
+      name: "Julian Rockefeller",
+      nameAr: "جوليان روكفلر",
       wealth: "99.2%",
       priv: "98.9%",
       tier: "Elite",
-      city: "نيويورك • الولايات المتحدة",
-      cityEn: "New York • USA",
+      city: "نيويورك، الولايات المتحدة",
+      cityEn: "New York, USA",
       quote: "القوة تكمن في البصيرة الهادئة وراء كل قرار استراتيجي.",
       avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -6442,13 +6504,13 @@ function renderLeaderboard() {
     {
       rank: 5,
       id: "SV-2211",
-      name: "K. Arnault",
-      nameAr: "ك. أرنو",
+      name: "Killian Arnault",
+      nameAr: "كيليان أرنو",
       wealth: "98.9%",
       priv: "98.6%",
       tier: "Elite",
-      city: "باريس • فرنسا",
-      cityEn: "Paris • France",
+      city: "باريس، فرنسا",
+      cityEn: "Paris, France",
       quote: "الفخامة المطلقة هي الجمع بين الفن والخلود المادي.",
       avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -6456,13 +6518,13 @@ function renderLeaderboard() {
     {
       rank: 6,
       id: "SV-3091",
-      name: "L. Bettencourt",
-      nameAr: "ل. بيتنكور",
+      name: "Liliane Bettencourt",
+      nameAr: "ليليان بيتنكور",
       wealth: "98.5%",
       priv: "98.2%",
       tier: "Member",
-      city: "باريس • فرنسا",
-      cityEn: "Paris • France",
+      city: "باريس، فرنسا",
+      cityEn: "Paris, France",
       quote: "الجمال والرفعة إرث يتجاوز حدود الزمن والحدود.",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -6470,13 +6532,13 @@ function renderLeaderboard() {
     {
       rank: 7,
       id: "SV-4402",
-      name: "F. Pinault",
-      nameAr: "ف. بينو",
+      name: "François Pinault",
+      nameAr: "فرانسوا بينو",
       wealth: "98.1%",
       priv: "97.9%",
       tier: "Member",
-      city: "موناكو • فرنسا",
-      cityEn: "Monaco • France",
+      city: "موناكو، فرنسا",
+      cityEn: "Monaco, France",
       quote: "اقتناء النوادر هو الشغف الذي يميز النخبة الحقيقية.",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -6484,13 +6546,13 @@ function renderLeaderboard() {
     {
       rank: 8,
       id: "SV-5510",
-      name: "D. Wertheimer",
-      nameAr: "د. ويرثايمر",
+      name: "David Wertheimer",
+      nameAr: "ديفيد ويرثايمر",
       wealth: "97.8%",
       priv: "97.5%",
       tier: "Member",
-      city: "زيورخ • سويسرا",
-      cityEn: "Zurich • Switzerland",
+      city: "زيورخ، سويسرا",
+      cityEn: "Zurich, Switzerland",
       quote: "الوقت أغلى من أي مقتنى، والكمال في كل تفصيلة متناهية.",
       avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -6498,13 +6560,13 @@ function renderLeaderboard() {
     {
       rank: 9,
       id: "SV-6623",
-      name: "G. Armani",
-      nameAr: "ج. أرماني",
+      name: "Giorgio Armani",
+      nameAr: "جورجيو أرماني",
       wealth: "97.5%",
       priv: "97.2%",
       tier: "Member",
-      city: "ميلانو • إيطاليا",
-      cityEn: "Milan • Italy",
+      city: "ميلانو، إيطاليا",
+      cityEn: "Milan, Italy",
       quote: "الأناقة ليست لفت الأنظار، بل البقاء في الذاكرة الحية.",
       avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -6512,13 +6574,13 @@ function renderLeaderboard() {
     {
       rank: 10,
       id: "SV-7734",
-      name: "S. Ortega",
-      nameAr: "س. أورتيغا",
+      name: "Santiago Ortega",
+      nameAr: "سانتياغو أورتيغا",
       wealth: "97.0%",
       priv: "96.8%",
       tier: "Member",
-      city: "مدريد • إسبانيا",
-      cityEn: "Madrid • Spain",
+      city: "مدريد، إسبانيا",
+      cityEn: "Madrid, Spain",
       quote: "الامبراطوريات تُبنى بالصمت والعمل والإنجاز المتواصل.",
       avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -6527,71 +6589,28 @@ function renderLeaderboard() {
 
   const currentFilter = window.leaderboardActiveFilter || "all";
 
-  // Filter members according to active tab
-  let filteredMembers = mockTopMembers;
-  if (currentFilter === "sovereign") {
-    filteredMembers = mockTopMembers.filter((m) => m.tier === "Sovereign");
-  } else if (currentFilter === "elite") {
-    filteredMembers = mockTopMembers.filter((m) => m.tier === "Elite");
-  }
-
   // Top 3 (Podium) and remaining (Ledger)
   const podiumMembers = mockTopMembers.slice(0, 3);
-  const ledgerMembers = currentFilter === "all" ? mockTopMembers.slice(3) : filteredMembers;
+  const ledgerMembers = mockTopMembers.slice(3);
 
   let html = `
-    <!-- SOVEREIGN HONOR BOARD METALLIC HEADER -->
-    <div class="sl-honor-board-header">
-      <div class="sl-honor-rivets-row">
-        <span class="sl-plaque-rivet" title="Sovereign Seal Rivet"></span>
-        <div class="sl-honor-crest-title">
-          <span class="sl-crest-fleur">⚜️</span>
-          <span class="sl-crest-text">${isAr ? "لوحة الشرف السيادية للمجلس" : "SOVEREIGN ROLL OF HONOR"}</span>
-          <span class="sl-crest-fleur">⚜️</span>
-        </div>
-        <span class="sl-plaque-rivet" title="Sovereign Seal Rivet"></span>
-      </div>
-      <div class="sl-honor-motto">${isAr ? "مجلس النخبة • السجل المعتمد لأصحاب الأصول السيادية" : "ACCREDITED TITANS OF SOVEREIGN WEALTH & EMINENCE"}</div>
-    </div>
-
-    <!-- AUDIT PLAQUE -->
-    <div class="sl-audit-plaque">
-      <div class="sl-audit-info">
-        <div class="sl-audit-title">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-linecap="round" stroke-linejoin="round" fill="rgba(212,175,55,0.2)"/>
-          </svg>
-          <span>${isAr ? "السجل السيادي العام للأعضاء" : "SOVEREIGN BENCHMARK LEDGER"}</span>
-        </div>
-        <div class="sl-audit-sub">
-          ${isAr ? "تصنيف النخبة العالمية لأصحاب الثروة والأصول السيادية المعتمدة" : "Global ranking of accredited sovereign wealth holdings"}
+    <!-- STREAMLINED SOVEREIGN ROLL OF HONOR HEADER -->
+    <div class="sl-honor-header">
+      <div class="sl-honor-title-row">
+        <h2 class="sl-honor-title">${isAr ? "لوحة الشرف السيادية" : "SOVEREIGN ROLL OF HONOR"}</h2>
+        <div class="sl-audit-badge" title="${isAr ? "سجل مدقق وموثق" : "Audited and verified registry"}">
+          <span class="sl-audit-dot" aria-hidden="true"></span>
+          <span>${isAr ? "مدقق" : "AUDITED"}</span>
         </div>
       </div>
-      <div class="sl-audit-badge">
-        <span class="sl-audit-dot"></span>
-        <span>${isAr ? "تدقيق محكم" : "AUDITED"}</span>
-      </div>
-    </div>
-
-    <!-- FILTER BAR -->
-    <div class="sl-filter-bar">
-      <button class="sl-filter-btn ${currentFilter === 'all' ? 'is-active' : ''}" onclick="window.setLeaderboardFilter('all')">
-        <span>${isAr ? "الترتيب العام (10)" : "All Titans (10)"}</span>
-      </button>
-      <button class="sl-filter-btn ${currentFilter === 'sovereign' ? 'is-active' : ''}" onclick="window.setLeaderboardFilter('sovereign')">
-        <span>${isAr ? "فئة السيادة" : "Sovereign Tier"}</span>
-      </button>
-      <button class="sl-filter-btn ${currentFilter === 'elite' ? 'is-active' : ''}" onclick="window.setLeaderboardFilter('elite')">
-        <span>${isAr ? "فئة النخبة" : "Elite Tier"}</span>
-      </button>
+      <p class="sl-honor-subtitle">${isAr ? "الرابطة العالمية لرواد السيادة المالية" : "Global League of Sovereign Titans"}</p>
     </div>
   `;
 
-  // RENDER PODIUM (Only in 'all' view or if sovereign tier is selected)
-  if (currentFilter === "all" || currentFilter === "sovereign") {
-    const rank1 = podiumMembers[0];
-    const rank2 = podiumMembers[1];
-    const rank3 = podiumMembers[2];
+  // RENDER SOVEREIGN TRIUMVIRATE PODIUM
+  const rank1 = podiumMembers[0];
+  const rank2 = podiumMembers[1];
+  const rank3 = podiumMembers[2];
 
     const p1Payload = JSON.stringify({
       id: rank1.id,
@@ -6644,11 +6663,11 @@ function renderLeaderboard() {
     html += `
       <!-- SOVEREIGN TRIUMVIRATE PODIUM -->
       <div class="sl-podium">
-        <!-- RANK 2 (SILVER / PLATINUM) -->
+        <!-- RANK 2 (PLATINUM - LEFT) -->
         <div class="sl-podium-col rank-2" onclick="openMemberProfile(${p2Payload})" title="${isAr ? rank2.nameAr : rank2.name}">
           <div class="sl-podium-avatar-wrap">
             <img src="${rank2.avatar}" alt="${rank2.name}" class="sl-podium-avatar" />
-            <span class="sl-podium-rank-tag"><bdi>2</bdi></span>
+            <span class="sl-podium-rank-badge rank-2-badge sl-podium-rank-tag"><bdi>#2</bdi></span>
           </div>
           <div class="sl-podium-name">${isAr ? rank2.nameAr : rank2.name}</div>
           <div class="sl-podium-city">${isAr ? rank2.city : rank2.cityEn}</div>
@@ -6660,33 +6679,32 @@ function renderLeaderboard() {
           </div>
         </div>
 
-        <!-- RANK 1 (SOVEREIGN CHAMPION - GOLD) -->
+        <!-- RANK 1 (SOVEREIGN CHAMPION - GOLD - CENTER) -->
         <div class="sl-podium-col rank-1" onclick="openMemberProfile(${p1Payload})" title="${isAr ? rank1.nameAr : rank1.name}">
           <div class="sl-podium-avatar-wrap">
-            <div class="sl-crown-floating">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
-                <path d="M4 18h16M5 15l2-8 5 5 5-5 2 8H5z" stroke="#f5df8b" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="rgba(212, 175, 55, 0.35)"/>
+            <div class="sl-crown-floating" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                <path d="M4 18h16M5 15l2-8 5 5 5-5 2 8H5z" stroke="#f5df8b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(212, 175, 55, 0.4)"/>
               </svg>
             </div>
             <img src="${rank1.avatar}" alt="${rank1.name}" class="sl-podium-avatar" />
-            <span class="sl-podium-rank-tag"><bdi>1</bdi></span>
+            <span class="sl-podium-rank-badge rank-1-badge sl-podium-rank-tag"><bdi>#1</bdi></span>
           </div>
           <div class="sl-podium-name">${isAr ? rank1.nameAr : rank1.name}</div>
           <div class="sl-podium-city">${isAr ? rank1.city : rank1.cityEn}</div>
           <div class="sl-podium-score">
             <bdi class="sl-podium-score-num">${rank1.wealth}</bdi>
-            <span class="sl-score-symbol">⚜️</span>
           </div>
           <div class="sl-pedestal-base">
             <span class="sl-pedestal-roman">I</span>
           </div>
         </div>
 
-        <!-- RANK 3 (ANTIQUE BRONZE) -->
+        <!-- RANK 3 (ANTIQUE BRONZE - RIGHT) -->
         <div class="sl-podium-col rank-3" onclick="openMemberProfile(${p3Payload})" title="${isAr ? rank3.nameAr : rank3.name}">
           <div class="sl-podium-avatar-wrap">
             <img src="${rank3.avatar}" alt="${rank3.name}" class="sl-podium-avatar" />
-            <span class="sl-podium-rank-tag"><bdi>3</bdi></span>
+            <span class="sl-podium-rank-badge rank-3-badge sl-podium-rank-tag"><bdi>#3</bdi></span>
           </div>
           <div class="sl-podium-name">${isAr ? rank3.nameAr : rank3.name}</div>
           <div class="sl-podium-city">${isAr ? rank3.city : rank3.cityEn}</div>
@@ -6699,7 +6717,6 @@ function renderLeaderboard() {
         </div>
       </div>
     `;
-  }
 
   // RENDER SOVEREIGN LEDGER SECTION
   html += `
@@ -6742,34 +6759,55 @@ function renderLeaderboard() {
     }).replace(/"/g, "&quot;");
 
     html += `
-      <div class="sl-ledger-card ${tierClass}" onclick="openMemberProfile(${payload})" title="${memberName}">
-        <div class="sl-card-rank">
-          <bdi>#${member.rank}</bdi>
-        </div>
-        <div class="sl-card-avatar-wrap">
-          <img src="${member.avatar}" alt="${memberName}" class="sl-card-avatar" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-          <span class="avatar-fallback" style="display:none;">${memberName.charAt(0)}</span>
-          ${member.isOnline ? '<span class="sl-card-status-jewel" title="Active"></span>' : ""}
-        </div>
-        <div class="sl-card-info">
-          <div class="sl-card-name-row">
-            <span class="sl-card-name">${memberName}</span>
-            <span class="sl-tier-pill ${tierClass}">${tierText}</span>
+      <div class="sl-ledger-card sl-registry-plaque ${tierClass}" onclick="openMemberProfile(${payload})" title="${memberName}">
+        <!-- Architectural Sovereign Corner Hallmarks -->
+        <span class="sl-plaque-bracket top-left" aria-hidden="true"></span>
+        <span class="sl-plaque-bracket top-right" aria-hidden="true"></span>
+        <span class="sl-plaque-bracket bottom-left" aria-hidden="true"></span>
+        <span class="sl-plaque-bracket bottom-right" aria-hidden="true"></span>
+
+        <!-- Left Registry Assembly (Pillar Index + Divider + Cameo Portrait + Dossier) -->
+        <div class="sl-card-left sl-registry-left">
+          <!-- Sovereign Registry Index Column -->
+          <div class="sl-card-rank sl-registry-index-col">
+            <span class="sl-registry-order-prefix">${isAr ? "رتبة" : "Nº"}</span>
+            <span class="sl-registry-rank-num"><bdi>${member.rank < 10 ? '0' + member.rank : member.rank}</bdi></span>
           </div>
-          <div class="sl-card-meta">
-            <bdi class="sl-card-id">${member.id}</bdi>
-            <span class="sl-meta-sep">•</span>
-            <span class="sl-card-city" title="${memberCity}">${memberCity}</span>
+
+          <!-- Vertical Architectural Registry Line -->
+          <div class="sl-registry-divider" aria-hidden="true"></div>
+
+          <!-- Cameo Portrait Medallion -->
+          <div class="sl-card-avatar-wrap sl-registry-cameo-wrap">
+            <div class="sl-cameo-bezel">
+              <img src="${member.avatar}" alt="${memberName}" class="sl-card-avatar sl-cameo-portrait" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+              <span class="avatar-fallback" style="display:none;">${memberName.charAt(0)}</span>
+            </div>
+            ${member.isOnline ? '<span class="sl-card-status-jewel sl-cameo-seal-dot" title="Sovereign Active"></span>' : ""}
+          </div>
+
+          <!-- Member Dossier Details -->
+          <div class="sl-card-info sl-registry-dossier">
+            <div class="sl-card-name sl-registry-name">${memberName}</div>
+            <div class="sl-card-meta sl-registry-meta">
+              <span class="sl-card-id sl-registry-id">${member.id}</span>
+              <span class="sl-meta-sep sl-registry-sep">◆</span>
+              <span class="sl-card-city sl-registry-city">${memberCity}</span>
+            </div>
           </div>
         </div>
-        <div class="sl-card-wealth">
-          <bdi class="sl-wealth-number">${member.wealth}</bdi>
-          <span class="sl-wealth-label">${isAr ? "تخصيص" : "ALLOCATION"}</span>
-        </div>
-        <div class="sl-card-chevron">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="${isAr ? "M15 18l-6-6 6-6" : "M9 18l6-6-6-6"}" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+
+        <!-- Ceremonial Allocation Hallmark & Sigil -->
+        <div class="sl-card-right sl-registry-hallmark">
+          <div class="sl-card-wealth sl-registry-metric">
+            <bdi class="sl-wealth-number sl-registry-percent">${member.wealth}</bdi>
+            <span class="sl-wealth-label sl-registry-label">${isAr ? "تخصيص" : "ALLOCATION"}</span>
+          </div>
+          <div class="sl-card-chevron sl-registry-sigil" aria-hidden="true" title="${isAr ? 'عرض السجل' : 'Inspect Record'}">
+            <svg viewBox="0 0 16 16" width="10" height="10" fill="none">
+              <path d="${isAr ? "M10 12L6 8l4-4" : "M6 12l4-4-4-4"}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
         </div>
       </div>
     `;
@@ -6782,7 +6820,6 @@ function renderLeaderboard() {
     <div class="sl-self-card" onclick="goToPage('profile')" title="${isAr ? 'الانتقال إلى ملفك التعريفي' : 'Open your profile dossier'}">
       <div class="sl-self-info">
         <div class="sl-self-rank-row">
-          <span class="sl-self-star">✦</span>
           <span class="sl-self-title">${isAr ? "ترتيبك في المجلس: المرتبة <bdi>#11</bdi>" : "Council Standing: Rank <bdi>#11</bdi>"}</span>
         </div>
         <div class="sl-self-desc">

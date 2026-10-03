@@ -451,23 +451,19 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Frozen and locked Membership content layout:
     - Master Card, "العضوية" page title, Share Membership button, Copy Link button, and all vertical spacing are restored to their exact previous coordinates with ample breathing room.
     - Zero modifications to Master Card size, aspect ratio, margins, or transforms.
-- **Separation of Profile Editing & Account Information (2026-10-02) — COMPLETE**:
-  - Fully decoupled Profile Editing from Account/Security credentials into two completely distinct modals and flows:
-    1. **Edit Profile (`#editProfileModal`)**:
-       - Triggered by "Edit Profile" plaque button (`#editAccountBtn`), floating edit icon, and portrait medallion/badge clicks.
-       - Contains **ONLY public identity fields**: Portrait photo/avatar preview, custom photo upload, luxury preset avatars gallery, Display Name, Profile Quote with 4 preset quote chips, Location, and Accredited Sovereign Circles selector.
-       - Zero presence of Email, Phone, Password, or security credentials.
-       - Saves via `#saveEditProfileBtn` ("SAVE PROFILE") and cleanly closes back to the Profile tab.
-    2. **Account Information (`#accountInfoModal`)**:
-       - Triggered by "Account Information" menu item (`#menuAccountInfo`).
-       - Contains **ONLY private account & security fields**: Official Security & Contact notice, Email Address, Phone Number, New Password (optional change with leave-blank placeholder), and Readonly Official Membership Identifier (`MEMBER-3426`) with Verified Active Sovereign status.
-       - Zero presence of avatar presets, display name, bio/quote, location, or circles.
-       - Saves via `#saveAccountInfoBtn` ("SAVE ACCOUNT INFORMATION") and cleanly closes back to the Profile tab.
-    3. **Lifecycle & UX**:
-       - Opening one modal cleanly ensures the other is closed; closing either returns to Profile without reload, scroll jump, or reinitialization.
-       - Supports Escape key and backdrop clicks.
-       - Full Arabic/English localization integration in `translations.js` (`profile.editProfileTitle`, `profile.accountInfoTitle`, `profile.saveProfile`, `profile.saveAccount`, toasts).
-  - Zero modifications to Master Card, card design, typography, navigation, or unrelated Profile functionality.
+- **Micro-Pass: Fix Curate Circles Button Layout & Action (2026-10-02) — COMPLETE**:
+  - **Issue 1 (Visual Positioning)**:
+    - Fixed the flex alignment and containment of `.pcc-header` (`align-items: flex-start !important; flex-wrap: wrap !important; gap: 8px 12px !important;`).
+    - Adjusted `.pcc-header-title-wrap` to `align-items: flex-start !important; flex: 1 1 180px !important;` with `.pcc-crest-badge` aligned to the top title line (`margin-top: 1px`).
+    - Positioned `.pcc-curate-btn` / `#btnCurateCircles` with `align-self: flex-start !important; margin-inline-start: auto !important;` so it aligns cleanly with the section title.
+    - Added narrow screen adaptation (`@media (max-width: 390px)`): `.pcc-header-title-wrap` expands to `100%`, and the button wraps cleanly below the title and subtitle, fully inside `.pcc-header` and above the header border with zero overlap.
+  - **Issue 2 (Wrong Click Action)**:
+    - Decoupled and guarded `btnCurateCircles` so it NEVER triggers `openAccountInfoModal` or opens `#accountInfoModal`.
+    - Added an explicit target guard in `window.openAccountInfoModal` to reject events originating from `#btnCurateCircles` or `.pcc-curate-btn`.
+    - Hardened `#btnCurateCircles` event handling on `DOMContentLoaded` and in `renderProfileCircles` with `.onclick`, calling `e.stopPropagation()` and `e.stopImmediatePropagation()`.
+    - Verified that no separate Curate Circles modal exists in the application; the button safely shows the diplomatic clearance notice toast (`profile.circlesEditNotice`) without opening Account Information.
+    - Verified `#menuAccountInfo` continues opening Account Information modal normally.
+    - Zero modifications to other tabs, Master Card, colors, materials, or global typography.
 
 
 
