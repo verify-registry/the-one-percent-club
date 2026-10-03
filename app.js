@@ -383,6 +383,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // --- Gyroscope 3D Tilt Setting Toggle ---
+  const gyroscopeToggle = document.getElementById("gyroscopeToggle");
+  if (gyroscopeToggle) {
+    const savedGyro = localStorage.getItem("club_gyroscope_enabled");
+    const isGyroOn = savedGyro !== "false";
+    gyroscopeToggle.checked = isGyroOn;
+    gyroscopeToggle.addEventListener("change", (e) => {
+      const isEnabled = e.target.checked;
+      localStorage.setItem("club_gyroscope_enabled", isEnabled ? "true" : "false");
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(20);
+      }
+      if (window.AudioEngine && window.AudioEngine.playHover) {
+        window.AudioEngine.playHover();
+      }
+      if (isEnabled) {
+        if (window.requestTiltPermissionOnce) {
+          window.requestTiltPermissionOnce();
+        }
+      } else {
+        if (window.resetAllCardTransforms) {
+          window.resetAllCardTransforms();
+        }
+      }
+      const msg = isEnabled
+        ? (window.t ? window.t("settings.gyroscope_enabled") : "تم تفعيل استجابة الجايروسكوب ثلاثية الأبعاد")
+        : (window.t ? window.t("settings.gyroscope_disabled") : "تم تعطيل استجابة الجايروسكوب (الوضع الثابت)");
+      if (typeof showNavToast === "function") {
+        showNavToast(msg);
+      }
+    });
+  }
+
   // --- VIP Notifications Toggle ---
   const vipNotifToggle = document.getElementById("vipNotifToggle");
   if (vipNotifToggle) {
@@ -2332,15 +2365,18 @@ function initMetricTooltips() {
         window.HapticEngine.tap(18);
       }
 
-      // Automatically disappear after 15 seconds (15000 ms)
+      // Automatically disappear after 4.5 seconds (4500 ms) so it doesn't linger
       autoDismissTimer = setTimeout(() => {
         closeAllTooltips(true);
-      }, 15000);
+      }, 4500);
     }
 
     function toggleRingTooltip(e) {
       if (e) {
-        if (e.target.closest(".metric-tooltip")) return;
+        if (e.target.closest(".metric-tooltip")) {
+          closeAllTooltips();
+          return;
+        }
         e.stopPropagation();
       }
 
@@ -2556,6 +2592,11 @@ const Router = {
 
     if (tab === "membership" && typeof window.resumeGoldDustCanvas === "function") {
       window.resumeGoldDustCanvas();
+    }
+    if (tab === "club" && typeof window.autoGrowClubInput === "function") {
+      setTimeout(() => {
+        window.autoGrowClubInput();
+      }, 50);
     }
   },
 
@@ -3126,14 +3167,22 @@ updateCreditsUI();
 let premiumToastTimer = null;
 function showPremiumToast(title, msg) {
   const toast = document.getElementById("premiumToast");
-  document.getElementById("premiumToastTitle").textContent = title;
-  document.getElementById("premiumToastMsg").textContent = msg;
+  if (!toast) return;
+  const titleEl = document.getElementById("premiumToastTitle");
+  const msgEl = document.getElementById("premiumToastMsg");
+  const sepEl = document.getElementById("premiumToastSep");
+
+  if (titleEl) titleEl.textContent = title || "";
+  if (msgEl) msgEl.textContent = msg || "";
+  if (sepEl) {
+    sepEl.style.display = (title && msg) ? "inline-block" : "none";
+  }
+
   toast.classList.add("is-visible");
-  if (window.AudioEngine) AudioEngine.playChime();
   clearTimeout(premiumToastTimer);
   premiumToastTimer = setTimeout(
     () => toast.classList.remove("is-visible"),
-    3000,
+    2500,
   );
 }
 
@@ -4205,9 +4254,20 @@ document
 window.autoGrowClubInput = function (el) {
   const input = el || document.getElementById("clubInput");
   if (!input) return;
-  // Sleek single-line layout: keep clean without inline height overrides
-  input.style.height = "";
-  input.style.overflowY = "";
+  // WhatsApp-style auto-expanding: reset to auto, then clamp between min and max height
+  input.style.height = "auto";
+  const minH = 26;
+  const maxH = 120; // Max ~5-6 lines
+  const scrollH = input.scrollHeight;
+
+  if (scrollH > maxH) {
+    input.style.height = maxH + "px";
+    input.style.overflowY = "auto";
+  } else {
+    const targetH = Math.max(minH, scrollH);
+    input.style.height = targetH + "px";
+    input.style.overflowY = "hidden";
+  }
 };
 
 const clubInputEl = document.getElementById("clubInput");
@@ -4271,6 +4331,15 @@ if (clubInputEl) {
         window.autoGrowClubInput(clubInputEl);
       }
     }, 0);
+  });
+
+  clubInputEl.addEventListener("focus", () => {
+    if (typeof window.syncClubInputDirection === "function") {
+      window.syncClubInputDirection(clubInputEl);
+    }
+    if (typeof window.autoGrowClubInput === "function") {
+      window.autoGrowClubInput(clubInputEl);
+    }
   });
 
   // Run on initial binding to ensure pristine vertical alignment
@@ -4532,26 +4601,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCurateCirclesInit = document.getElementById("btnCurateCircles");
   if (btnCurateCirclesInit) {
     btnCurateCirclesInit.onclick = function (e) {
-      if (e) {
-        if (typeof e.preventDefault === "function") e.preventDefault();
-        if (typeof e.stopPropagation === "function") e.stopPropagation();
-        if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+      if (typeof window.openCirclesEditor === "function") {
+        return window.openCirclesEditor(e);
       }
-      if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
-        window.AudioEngine.playClick();
-      }
-      if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
-        window.HapticEngine.tap(12);
-      }
-      const noticeText = window.t && typeof window.t === "function" && window.t("profile.circlesEditNotice")
-        ? window.t("profile.circlesEditNotice")
-        : (window.currentLang === "ar" || document.documentElement.lang === "ar"
-            ? "قريبًا • تخصيص الدوائر والمجالات السيادية قيد الإعداد الدبلوماسي"
-            : "Coming Soon • Sovereign Circles curation pending diplomatic clearance");
-      if (typeof showNavToast === "function") {
-        showNavToast(noticeText);
-      }
-      return false;
     };
   }
 
@@ -6179,7 +6231,7 @@ function renderProfileCircles() {
 
   container.innerHTML = html;
 
-  const openCirclesEditor = (e) => {
+  window.openCirclesEditor = function (e) {
     if (e) {
       if (typeof e.preventDefault === "function") e.preventDefault();
       if (typeof e.stopPropagation === "function") e.stopPropagation();
@@ -6193,37 +6245,98 @@ function renderProfileCircles() {
       window.HapticEngine.tap(12);
     }
 
-    const noticeText = window.t && typeof window.t === "function" && window.t("profile.circlesEditNotice")
-      ? window.t("profile.circlesEditNotice")
-      : (isAr
-          ? "قريبًا • تخصيص الدوائر والمجالات السيادية قيد الإعداد الدبلوماسي"
-          : "Coming Soon • Sovereign Circles curation pending diplomatic clearance");
-
-    if (typeof showNavToast === "function") {
-      showNavToast(noticeText);
+    if (typeof window.openEditProfileModal === "function") {
+      window.openEditProfileModal();
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          const circlesPanel = document.getElementById("modalCirclesPanel");
+          if (circlesPanel) {
+            circlesPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+            circlesPanel.classList.add("pulse-highlight");
+            setTimeout(() => {
+              circlesPanel.classList.remove("pulse-highlight");
+            }, 1500);
+          }
+        }, 80);
+      });
     }
+    return false;
   };
 
   const curateBtn = document.getElementById("btnCurateCircles");
   if (curateBtn) {
     curateBtn.onclick = function (e) {
-      openCirclesEditor(e);
-      return false;
+      return window.openCirclesEditor(e);
     };
   }
+
+  const verifyCircleAccreditation = (chipEl) => {
+    if (!chipEl) return;
+    const circleId = chipEl.dataset.circleId;
+    const item = (typeof SOVEREIGN_CIRCLES_CATALOG !== "undefined")
+      ? SOVEREIGN_CIRCLES_CATALOG.find(c => c.id === circleId)
+      : null;
+    const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl";
+    const localizedName = item
+      ? ((window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName))
+      : (isAr ? "المجال السيادي" : "Sovereign Domain");
+
+    // Play sovereign verification audio (Heavy brass stamp / UV chime)
+    if (window.AudioEngine) {
+      if (typeof window.AudioEngine.playHeavyBrassStamp === "function") {
+        window.AudioEngine.playHeavyBrassStamp();
+      } else if (typeof window.AudioEngine.playUvForensicChime === "function") {
+        window.AudioEngine.playUvForensicChime();
+      } else if (typeof window.AudioEngine.playChime === "function") {
+        window.AudioEngine.playChime();
+      }
+    }
+
+    // Tactile haptic stamp
+    if (window.HapticEngine) {
+      if (typeof window.HapticEngine.vibrate === "function") {
+        window.HapticEngine.vibrate([18, 30, 42]);
+      } else if (typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(28);
+      }
+    }
+
+    // In-place tactile badge stamp directly on the row
+    const sealDot = chipEl.querySelector(".pcc-chip-seal-dot");
+    if (sealDot && !sealDot.dataset.stamping) {
+      sealDot.dataset.stamping = "true";
+      const originalHtml = sealDot.innerHTML;
+      sealDot.classList.add("is-stamping");
+      sealDot.innerHTML = `<span>${isAr ? "موثّق بالسجل" : "VERIFIED"}</span><span class="pcc-seal-star">✦</span>`;
+      setTimeout(() => {
+        sealDot.classList.remove("is-stamping");
+        sealDot.innerHTML = originalHtml;
+        delete sealDot.dataset.stamping;
+      }, 1900);
+    }
+
+    // Visual pulse & seal gleam on the row
+    chipEl.classList.remove("is-verified-pulse");
+    void chipEl.offsetWidth; // trigger reflow
+    chipEl.classList.add("is-verified-pulse");
+    setTimeout(() => {
+      chipEl.classList.remove("is-verified-pulse");
+    }, 1100);
+  };
 
   if (!container.dataset.delegated) {
     container.dataset.delegated = "true";
     container.addEventListener("click", (e) => {
-      if (e.target.closest(".pcc-chip")) {
-        openCirclesEditor();
+      const chip = e.target.closest(".pcc-chip");
+      if (chip) {
+        verifyCircleAccreditation(chip);
       }
     });
     container.addEventListener("keydown", (e) => {
       const chip = e.target.closest(".pcc-chip");
       if (chip && (e.key === "Enter" || e.key === " ")) {
         e.preventDefault();
-        openCirclesEditor();
+        verifyCircleAccreditation(chip);
       }
     });
   }

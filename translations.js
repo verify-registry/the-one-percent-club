@@ -937,6 +937,14 @@ window.I18N = {
       en: "Curate Circles",
       ar: "تعديل الدوائر",
     },
+    circleAccreditedTitle: {
+      en: "SOVEREIGN ACCREDITATION ✦",
+      ar: "اعتماد سيادي موثّق ✦",
+    },
+    circleAccreditedToast: {
+      en: "Officially authenticated & recorded in The 1% Club Sovereign Ledger.",
+      ar: "مجال معتمد وموثّق رسميًا في السجل السيادي لنادي الـ 1%.",
+    },
     circlesEditNotice: {
       en: "Coming Soon • Sovereign Circles curation pending diplomatic clearance",
       ar: "قريبًا • تخصيص الدوائر والمجالات السيادية قيد الإعداد الدبلوماسي",
@@ -1410,6 +1418,22 @@ window.I18N = {
     soundToggleUnmute: {
       en: "Unmute Soundscape",
       ar: "تشغيل الصوت",
+    },
+    gyroscope_title: {
+      en: "Gyroscope 3D Tilt",
+      ar: "استجابة الجايروسكوب (3D Tilt)",
+    },
+    gyroscope_desc: {
+      en: "Physical tilt response for cards & glass plaques",
+      ar: "تفاعل حركة وإمالة الهاتف مع كروت العضوية واللوحات الزجاجية",
+    },
+    gyroscope_enabled: {
+      en: "Gyroscope 3D tilt activated",
+      ar: "تم تفعيل استجابة الجايروسكوب ثلاثية الأبعاد",
+    },
+    gyroscope_disabled: {
+      en: "Gyroscope 3D tilt disabled",
+      ar: "تم تعطيل استجابة الجايروسكوب (الوضع الثابت)",
     },
     stealth: {
       en: "Stealth Mode",

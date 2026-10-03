@@ -306,11 +306,11 @@ body.light-mode {
   --btn-pill-shadow: 0 1.5px 4px rgba(70, 50, 20, 0.08), inset 0 1px 0 #ffffff;
   --btn-pill-icon: #664917;
 
-  --lm-text-dark: #1a1a1a;
-  --lm-text-muted: #666666;
-  --lm-bg-white: #ffffff;
-  --lm-bg-cream: #fdfbf7;
-  --lm-border-gold: rgba(156, 109, 35, 0.4);
+  --lm-text-dark: #140f09;
+  --lm-text-muted: #685233;
+  --lm-bg-white: #fdfcf9;
+  --lm-bg-cream: #f7f2e6;
+  --lm-border-gold: rgba(165, 122, 45, 0.42);
 
   color-scheme: light;
 }
@@ -502,20 +502,29 @@ body.light-mode .club-composer input {
   color: var(--lm-text-dark) !important;
 }
 body.light-mode .club-composer input::placeholder {
-  color: #888 !important;
+  color: #8c734b !important;
 }
 
 body.light-mode .club-room-btn.is-active {
-  background: var(--lm-bg-cream) !important;
-  border-color: rgba(156, 109, 35, 0.5) !important;
-  color: var(--gold-polished) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f6edd9 100%) !important;
+  border-color: #b38836 !important;
+  color: #382405 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(70, 48, 15, 0.1), inset 0 1px 0 #ffffff !important;
+}
+body.light-mode .club-room-btn.is-active .chamber-icon {
+  color: #8c631e !important;
 }
 
 body.light-mode .club-room-btn {
-  background: #f4f0e6 !important;
-  border-color: rgba(0, 0, 0, 0.05) !important;
-  color: #4a4a4a !important;
+  background: linear-gradient(180deg, #fdfbf7 0%, #f3ece0 100%) !important;
+  border-color: rgba(165, 122, 45, 0.28) !important;
+  color: #4a3618 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(60, 40, 10, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+body.light-mode .club-room-btn .chamber-icon {
+  color: #7a6035 !important;
 }
 
 body.light-mode .nav-item {
@@ -1127,10 +1136,27 @@ body.light-mode .shield-btn::before {
 }
 .section-name {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 11.5px;
   letter-spacing: 0.24em;
   color: #f1eada;
+}
+body.light-mode .section-name {
+  color: #362204 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+body.light-mode .tagline {
+  color: #634819 !important;
+  font-weight: 600 !important;
+}
+body.light-mode .section-rule .diamond {
+  background: #a87c2b !important;
+}
+body.light-mode .section-rule span {
+  background: linear-gradient(90deg, transparent, rgba(165, 122, 45, 0.45)) !important;
+}
+body.light-mode .section-rule span:last-child {
+  background: linear-gradient(90deg, rgba(165, 122, 45, 0.45), transparent) !important;
 }
 
 .app-main {
@@ -1892,9 +1918,9 @@ body.light-mode .milestone-badge.tier-exarch .crystal-core {
 
 .metric-tooltip {
   position: absolute;
-  bottom: calc(100% + 12px);
-  width: 220px;
-  max-width: min(226px, calc(100vw - 44px));
+  bottom: calc(100% + 8px);
+  width: 180px;
+  max-width: min(186px, calc(100vw - 44px));
   z-index: 500 !important;
   pointer-events: none;
   opacity: 0;
@@ -1916,7 +1942,7 @@ body.light-mode .milestone-badge.tier-exarch .crystal-core {
   top: 100%;
   left: 0;
   right: 0;
-  height: 18px;
+  height: 14px;
   pointer-events: auto;
 }
 
@@ -1924,15 +1950,15 @@ body.light-mode .milestone-badge.tier-exarch .crystal-core {
 .metric-tooltip::after {
   content: "";
   position: absolute;
-  bottom: -5px;
-  width: 10px;
-  height: 10px;
-  background: #13100c;
-  border-right: 1px solid rgba(201, 168, 106, 0.5);
-  border-bottom: 1px solid rgba(201, 168, 106, 0.5);
+  bottom: -4px;
+  width: 8px;
+  height: 8px;
+  background: #141009;
+  border-right: 1px solid rgba(245, 206, 93, 0.65);
+  border-bottom: 1px solid rgba(245, 206, 93, 0.65);
   transform: rotate(45deg);
   z-index: 2;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* Robust Tooltip Alignment for Master Card:
@@ -1982,7 +2008,7 @@ html[dir="ltr"] .metric-tooltip {
   overflow: visible !important;
 }
 
-/* Reveal states: Controlled via is-tooltip-open (with 15s auto-dismiss) and desktop hover */
+/* Reveal states: Controlled via is-tooltip-open (with auto-dismiss) and desktop hover */
 .membership-card .metric-ring.is-tooltip-open .metric-tooltip {
   opacity: 1 !important;
   visibility: visible !important;
@@ -2001,22 +2027,21 @@ html[dir="ltr"] .metric-tooltip {
 }
 
 .metric-tooltip-bezel {
-  padding: 10px 12px 9px;
-  border-radius: 12px;
-  background: radial-gradient(
-    ellipse at 50% -20%,
-    rgba(212, 175, 106, 0.18) 0%,
-    rgba(19, 16, 12, 0.98) 60%,
-    rgba(9, 8, 6, 0.99) 100%
+  padding: 7px 9px 6px;
+  border-radius: 9px;
+  background: linear-gradient(
+    155deg,
+    rgba(22, 17, 10, 0.97) 0%,
+    rgba(12, 10, 7, 0.99) 100%
   );
-  border: 1px solid rgba(201, 168, 106, 0.4);
+  border: 1px solid rgba(245, 206, 93, 0.55);
   box-shadow:
-    0 16px 36px -4px rgba(0, 0, 0, 0.95),
-    0 4px 12px rgba(0, 0, 0, 0.7),
-    inset 0 1px 1px rgba(255, 248, 231, 0.3),
+    0 12px 28px -3px rgba(0, 0, 0, 0.95),
+    0 0 10px rgba(226, 174, 51, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
     inset 0 -1px 2px rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   text-align: start;
   cursor: default;
   position: relative;
@@ -2026,44 +2051,44 @@ html[dir="ltr"] .metric-tooltip {
 .metric-tooltip-header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 5px;
+  gap: 5px;
+  margin-bottom: 3px;
 }
 
 .metric-tooltip-icon {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   flex: none;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
 }
 
 .metric-tooltip-title {
   font-family: var(--font-display, "Cinzel", "Cormorant Garamond", serif);
-  font-size: 10.5px;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   background: linear-gradient(
     180deg,
     #ffffff 0%,
-    #fff4d0 25%,
-    #dfb76c 60%,
-    #b88b35 100%
+    #fff4d0 30%,
+    #f2c542 70%,
+    #c48f1f 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: #dfb76c;
-  line-height: 1.25;
+  color: #f2c542;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
 .metric-tooltip-body {
   font-family: var(--font-ui, "Cairo", "Inter", sans-serif);
-  font-size: 9px;
-  line-height: 1.45;
-  color: #c9bea9;
-  margin: 0 0 6px 0;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  font-size: 7.8px;
+  line-height: 1.35;
+  color: #f3ebdb;
+  margin: 0 0 4px 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95);
 }
 
 .metric-tooltip-formula {
@@ -2073,16 +2098,16 @@ html[dir="ltr"] .metric-tooltip {
 
 .metric-tooltip-formula .formula-tag {
   font-family: var(--font-number, "Montserrat", "Cairo", sans-serif);
-  font-size: 8px;
+  font-size: 7.2px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--gold-champagne, #e9c877);
-  background: rgba(201, 168, 106, 0.12);
-  border: 1px solid rgba(201, 168, 106, 0.28);
-  padding: 2px 7px;
-  border-radius: 6px;
+  letter-spacing: 0.03em;
+  color: #ffe694;
+  background: rgba(226, 174, 51, 0.18);
+  border: 1px solid rgba(226, 174, 51, 0.45);
+  padding: 1.5px 5.5px;
+  border-radius: 4px;
   white-space: nowrap;
-  box-shadow: inset 0 1px 0 rgba(255, 248, 231, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 /* Light Mode Sovereign Ivory & Gold Artifact Tooltip */
@@ -3361,6 +3386,9 @@ body.light-mode .sd-footer-hallmark {
   overflow: hidden;
   max-height: 120px;
   opacity: 1;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
   transform: translateY(0);
   transition:
     opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -3368,8 +3396,12 @@ body.light-mode .sd-footer-hallmark {
     margin 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     padding 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.5s ease,
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     visibility 0.6s;
+}
+
+#club-tab .chamber-plaque-medallion {
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 #club-tab .club-pinned.is-collapsed {
@@ -3746,13 +3778,13 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.45);
   animation: pulseTicker 2.6s infinite ease-in-out;
 }
 @keyframes pulseTicker {
   0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 8px rgba(74, 222, 128, 0.85); }
+  50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 8px rgba(16, 185, 129, 0.7); }
 }
 .ticker-pulse-text {
   font-size: 9px;
@@ -3789,9 +3821,9 @@ body.light-mode .chamber-plaque-dismiss-btn:hover {
   border: 1px solid transparent;
 }
 .ticker-status-tag.live {
-  color: #4ade80;
-  background: rgba(74, 222, 128, 0.08);
-  border-color: rgba(74, 222, 128, 0.22);
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.28);
 }
 .ticker-status-tag.monitor {
   color: #d4af37;
@@ -5093,12 +5125,12 @@ body.light-mode .dispatch-read-more-btn:hover {
 .obsidian-dispatch-composer {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 8px;
-  padding: 4px 6px 4px 10px;
-  border-radius: 26px;
+  padding: 5px 6px 5px 10px;
+  border-radius: 24px;
   min-height: 46px;
-  height: 46px;
+  height: auto;
   box-sizing: border-box;
   background: rgba(18, 14, 10, 0.52) !important;
   backdrop-filter: blur(20px) saturate(150%) !important;
@@ -5120,7 +5152,7 @@ body.light-mode .dispatch-read-more-btn:hover {
 }
 
 html[dir="rtl"] .obsidian-dispatch-composer {
-  padding: 4px 10px 4px 6px;
+  padding: 5px 10px 5px 6px;
 }
 
 /* Polished Metallic Bezel Casing (Frame) */
@@ -5238,6 +5270,8 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   position: relative;
   z-index: 2;
   margin: 0 !important;
+  margin-bottom: 4px !important;
+  align-self: flex-end;
 }
 .whisper-cipher-toggle:active {
   transform: scale(0.94);
@@ -5268,20 +5302,20 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   flex: 1;
   min-width: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   position: relative;
   z-index: 2;
-  padding: 0;
-  height: 100%;
+  padding: 0 4px 2px;
+  min-height: 32px;
 }
 .obsidian-dispatch-input,
 #clubInput {
   flex: 1;
   min-width: 0;
   width: 100% !important;
-  height: 36px !important;
-  min-height: 36px !important;
-  max-height: 36px !important;
+  min-height: 26px !important;
+  max-height: 120px !important;
+  height: auto;
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
@@ -5290,20 +5324,32 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   color: #f7f1e1;
   font-family: inherit;
   font-size: 13.5px;
-  line-height: 36px !important;
+  line-height: 1.45 !important;
   letter-spacing: 0.01em;
   unicode-bidi: plaintext;
   text-align: start;
-  padding: 0 8px !important;
+  padding: 4px 6px !important;
   margin: 0 !important;
   resize: none !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  overflow-y: auto !important;
   vertical-align: middle !important;
   -webkit-appearance: none;
   appearance: none;
   box-sizing: border-box !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 106, 0.35) transparent;
+}
+.obsidian-dispatch-input::-webkit-scrollbar,
+#clubInput::-webkit-scrollbar {
+  width: 3px;
+}
+.obsidian-dispatch-input::-webkit-scrollbar-thumb,
+#clubInput::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 106, 0.4);
+  border-radius: 4px;
 }
 .obsidian-dispatch-input:focus,
 #clubInput:focus {
@@ -5345,6 +5391,8 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
   height: 36px;
   flex-shrink: 0;
   margin: 0 !important;
+  margin-bottom: 2px !important;
+  align-self: flex-end;
   border-radius: 50%;
   border: none;
   background: transparent;
@@ -5362,16 +5410,17 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
 @media (max-width: 480px) {
   .obsidian-dispatch-composer {
     gap: 6px;
-    padding: 3px 5px 3px 8px;
+    padding: 4px 5px 4px 8px;
     min-height: 44px;
-    height: 44px;
+    height: auto;
   }
   html[dir="rtl"] .obsidian-dispatch-composer {
-    padding: 3px 8px 3px 5px;
+    padding: 4px 8px 4px 5px;
   }
   .whisper-cipher-toggle {
     padding: 3.5px 6px;
     gap: 3px;
+    margin-bottom: 3px !important;
   }
   .whisper-cipher-svg {
     width: 11px;
@@ -5384,15 +5433,15 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
   .sovereign-seal-send-btn {
     width: 34px;
     height: 34px;
+    margin-bottom: 2px !important;
   }
   .obsidian-dispatch-input,
   #clubInput {
     font-size: 13px;
-    padding: 0 6px !important;
-    height: 34px !important;
-    min-height: 34px !important;
-    max-height: 34px !important;
-    line-height: 34px !important;
+    padding: 4px 5px !important;
+    min-height: 24px !important;
+    max-height: 115px !important;
+    line-height: 1.45 !important;
   }
 }
 .sovereign-seal-send-btn:hover {
@@ -5766,26 +5815,68 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   backdrop-filter: blur(4px);
 }
 .rarity-rare {
-  color: #d9cba3;
+  color: #dfdbd2;
+  border-color: rgba(223, 219, 210, 0.35);
+  background: rgba(28, 26, 24, 0.85) !important;
 }
 .rarity-epic {
-  color: #e9c877;
+  color: #e5cb88;
+  border-color: rgba(229, 203, 136, 0.45);
+  background: rgba(34, 28, 18, 0.88) !important;
 }
 .rarity-legendary {
-  color: #f2b84b;
-  border-color: rgba(242, 184, 75, 0.5);
+  color: #f5d47e;
+  border-color: rgba(212, 175, 55, 0.65);
+  background: rgba(40, 32, 16, 0.9) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 235, 175, 0.2);
 }
 .rarity-mythic {
-  color: #f76b5e;
-  border-color: rgba(247, 107, 94, 0.5);
+  color: #e09ba5;
+  border-color: rgba(200, 110, 125, 0.45);
+  background: rgba(36, 20, 24, 0.88) !important;
 }
 .rarity-unique {
-  color: #7fd1f0;
-  border-color: rgba(127, 209, 240, 0.5);
+  color: #aed0ee;
+  border-color: rgba(140, 185, 225, 0.45);
+  background: rgba(18, 26, 36, 0.88) !important;
 }
 .rarity-free {
-  color: #7fbe8c;
-  border-color: rgba(127, 190, 140, 0.5);
+  color: #a3d2b2;
+  border-color: rgba(110, 175, 130, 0.4);
+  background: rgba(20, 30, 24, 0.85) !important;
+}
+
+/* Light Mode Luxury Material Parity for Rarity Badges */
+body.light-mode .rarity-rare {
+  color: #3d3934 !important;
+  border-color: rgba(110, 100, 90, 0.35) !important;
+  background: #f4efe7 !important;
+}
+body.light-mode .rarity-epic {
+  color: #5c4114 !important;
+  border-color: rgba(165, 122, 45, 0.45) !important;
+  background: #faf3e4 !important;
+}
+body.light-mode .rarity-legendary {
+  color: #382405 !important;
+  border-color: #b38836 !important;
+  background: #fff8e6 !important;
+  font-weight: 700 !important;
+}
+body.light-mode .rarity-mythic {
+  color: #631f28 !important;
+  border-color: rgba(165, 65, 80, 0.38) !important;
+  background: #fdf2f4 !important;
+}
+body.light-mode .rarity-unique {
+  color: #173d5c !important;
+  border-color: rgba(60, 115, 165, 0.38) !important;
+  background: #f0f6fc !important;
+}
+body.light-mode .rarity-free {
+  color: #1a472a !important;
+  border-color: rgba(55, 130, 80, 0.35) !important;
+  background: #f0f7f2 !important;
 }
 #boutique-tab .boutique-card-icon,
 #profileCollectionGrid .boutique-card-icon {
@@ -6686,78 +6777,231 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   }
 }
 
+/* =========================================================
+   THE 1% CLUB — SOVEREIGN DIPLOMATIC COMPLICATION CAPSULE
+   ========================================================= */
 .premium-toast {
-  position: fixed;
-  top: 40px;
-  left: 50%;
-  transform: translate(-50%, -20px) scale(0.95);
-  width: 90%;
-  max-width: 380px;
-  background: rgba(12, 10, 8, 0.92);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 106, 0.3);
-  border-radius: 12px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.8),
-    inset 0 1px 1px rgba(255, 246, 214, 0.1);
-  z-index: 10000;
-  opacity: 0;
-  visibility: hidden;
+  position: fixed !important;
+  left: 50% !important;
+  bottom: calc(72px + env(safe-area-inset-bottom, 8px)) !important;
+  top: auto !important;
+  transform: translate(-50%, 14px) scale(0.96) !important;
+  width: auto !important;
+  max-width: min(360px, calc(100vw - 28px)) !important;
+  z-index: 10005 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
   transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.4s ease,
-    visibility 0.4s;
-  pointer-events: none;
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.26s ease,
+    visibility 0.26s ease !important;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
+
 .premium-toast.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, 0) scale(1);
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translate(-50%, 0) scale(1) !important;
+  pointer-events: auto !important;
 }
-.premium-toast-icon {
-  flex: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+
+.premium-toast-rim {
+  padding: 1px;
+  border-radius: 9999px;
   background: linear-gradient(
     135deg,
-    rgba(212, 175, 106, 0.15),
-    rgba(143, 104, 38, 0.1)
+    #fff9eb 0%,
+    #e8cd94 25%,
+    #9e7734 55%,
+    #3a2a12 80%,
+    #c9a86a 100%
   );
-  border: 1px solid rgba(212, 175, 106, 0.4);
+  box-shadow:
+    0 10px 24px -2px rgba(0, 0, 0, 0.85),
+    0 2px 8px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(201, 168, 106, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-toast-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px 5px 10px;
+  height: 36px;
+  box-sizing: border-box;
+  border-radius: 9999px;
+  background: radial-gradient(
+    ellipse at 50% -20%,
+    rgba(212, 175, 106, 0.22) 0%,
+    rgba(20, 17, 14, 0.98) 65%,
+    rgba(10, 8, 7, 0.99) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 249, 235, 0.35),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+}
+
+.premium-toast-icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold-champagne);
 }
-.premium-toast-icon svg {
-  width: 14px;
-  height: 14px;
+
+.premium-toast-seal-svg {
+  width: 19px;
+  height: 19px;
+  display: block;
 }
-.premium-toast-content {
-  flex: 1;
+
+.premium-toast-body {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   min-width: 0;
-  text-align: end;
+  overflow: hidden;
 }
+
 .premium-toast-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #f1eada;
-  margin: 0 0 2px 0;
-  font-family: "Inter", sans-serif;
-}
-.premium-toast-msg {
+  font-family: "Cinzel", "Cormorant Garamond", "Cairo", serif;
   font-size: 11px;
-  color: #948c7c;
-  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff6d6;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.premium-toast-separator {
+  color: rgba(212, 175, 106, 0.6);
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.premium-toast-msg {
+  font-family: var(--font-sans, "Montserrat", "Cairo", sans-serif);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--gold-champagne, #e9c877);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: "Inter", sans-serif;
+  max-width: 220px;
+}
+
+.premium-toast-hallmark {
+  flex: none;
+  display: flex;
+  align-items: center;
+  margin-inline-start: 2px;
+}
+
+.premium-toast-star {
+  font-size: 10px;
+  color: #d4af37;
+  text-shadow: 0 0 6px rgba(212, 175, 55, 0.7);
+  display: inline-block;
+}
+
+/* Light mode luxury porcelain complication */
+body.light-mode .premium-toast-rim,
+html.light-mode .premium-toast-rim {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #ebd4a5 30%,
+    #a8782a 70%,
+    #ebd4a5 100%
+  ) !important;
+  box-shadow:
+    0 8px 20px rgba(60, 40, 15, 0.16),
+    0 2px 6px rgba(60, 40, 15, 0.1),
+    0 0 0 1px rgba(185, 145, 75, 0.4) !important;
+}
+
+body.light-mode .premium-toast-inner,
+html.light-mode .premium-toast-inner {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 254, 250, 0.98) 0%,
+    rgba(247, 241, 230, 0.98) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 1.5px #ffffff,
+    inset 0 -1px 1px rgba(185, 145, 75, 0.15) !important;
+}
+
+body.light-mode .premium-toast-title,
+html.light-mode .premium-toast-title {
+  color: #2b1d06 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .premium-toast-separator,
+html.light-mode .premium-toast-separator {
+  color: #9e7422 !important;
+}
+
+body.light-mode .premium-toast-msg,
+html.light-mode .premium-toast-msg {
+  color: #5a4116 !important;
+  font-weight: 600 !important;
+}
+
+body.light-mode .premium-toast-star,
+html.light-mode .premium-toast-star {
+  color: #8c6720 !important;
+  text-shadow: 0 0 5px rgba(140, 103, 32, 0.4) !important;
+}
+
+/* In-place Sovereign Stamp on Badge */
+body #profile-tab .pcc-chip-seal-dot.is-stamping {
+  background: linear-gradient(135deg, #f7dfa4 0%, #d4af37 50%, #8a6924 100%) !important;
+  border-color: #ffffff !important;
+  color: #121008 !important;
+  box-shadow:
+    0 0 14px rgba(212, 175, 106, 0.8),
+    inset 0 1px 1.5px #ffffff !important;
+  transform: scale(1.05) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body #profile-tab .pcc-chip-seal-dot.is-stamping span {
+  color: #121008 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+}
+
+body #profile-tab .pcc-chip-seal-dot.is-stamping .pcc-seal-star {
+  color: #121008 !important;
+  transform: rotate(90deg) scale(1.2);
+  transition: transform 0.4s ease;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping,
+html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping {
+  background: linear-gradient(135deg, #fcebc7 0%, #d8a846 60%, #9e7422 100%) !important;
+  border-color: #8c6720 !important;
+  color: #1a1004 !important;
+  box-shadow: 0 2px 10px rgba(120, 85, 25, 0.35), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span,
+html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
+  color: #1a1004 !important;
+  font-weight: 800 !important;
 }
 
 /* =========================================================
@@ -14830,30 +15074,35 @@ body.light-mode #membership-tab #cardHallmarkLine svg path {
 
 /* 1. Global Gold Variables Refinement for Polished Metal */
 :root {
-  --gold-primary: #c9a86a;
-  --gold-highlight: #fff1d0; /* Brighter, narrower specular highlight */
-  --gold-midtone: #b6924b;
-  --gold-deep: #705524;
-  --gold-shadow: #2b210d; /* Almost black-brown for realistic metal shadow */
-  --gold-micro: #9a7c40;
+  --gold-primary: #e2ae33;
+  --gold-highlight: #ffffff; /* Brighter, pure specular highlight */
+  --gold-champagne: #fde895;
+  --gold-midtone: #c58f20;
+  --gold-deep: #4d3005;
+  --gold-shadow: #1a1002; /* Deep obsidian shadow for realistic contrast */
+  --gold-micro: #b88523;
+  --gold-antique: #dfba6b;
+  --gold-satin: #f0c558;
 
   /* The Realistic Polished Gradient (Directional Light: Top-Left) */
   --gold-metal-polished: linear-gradient(
     135deg,
-    var(--gold-deep) 0%,
-    var(--gold-highlight) 15%,
-    /* Specular */ var(--gold-primary) 35%,
-    var(--gold-midtone) 65%,
-    var(--gold-deep) 85%,
-    var(--gold-shadow) 100%
+    #1a1002 0%,
+    #e2ae33 22%,
+    #fde895 38%,
+    #ffffff 42%,
+    #c58f20 62%,
+    #120a02 100%
   );
 
   /* Satin/Brushed Metal */
   --gold-metal-brushed: linear-gradient(
     145deg,
-    var(--gold-midtone) 0%,
-    var(--gold-micro) 50%,
-    var(--gold-deep) 100%
+    #1a1002 0%,
+    #e2ae33 25%,
+    #f0c558 50%,
+    #e2ae33 75%,
+    #1a1002 100%
   );
 }
 
@@ -15028,47 +15277,47 @@ body.light-mode #membership-tab .ring-progress {
 
 :root {
   /* Core Realistic Physical Metal Palette */
-  --gold-primary: #c9a86a;
-  --gold-highlight: #fff8e7; /* Sharp, narrow specular */
-  --gold-champagne: #f0d59d;
-  --gold-midtone: #a68442;
-  --gold-shadow: #3a2a12; /* Dark valley */
-  --gold-deep: #1a1205; /* Recessed edge */
-  --gold-antique: #7d6133;
-  --gold-satin: #b39459;
+  --gold-primary: #e2ae33;
+  --gold-highlight: #ffffff; /* Sharp, narrow specular */
+  --gold-champagne: #fde895;
+  --gold-midtone: #c58f20;
+  --gold-shadow: #231604; /* Dark valley */
+  --gold-deep: #120a02; /* Recessed edge */
+  --gold-antique: #dfba6b;
+  --gold-satin: #f0c558;
 
   /* Physical Metal Polished Gradient (Matches SVG structure) */
   --gold-metal-polished: linear-gradient(
     135deg,
-    var(--gold-shadow) 0%,
-    var(--gold-primary) 25%,
-    var(--gold-champagne) 38%,
-    var(--gold-highlight) 42%,
-    var(--gold-midtone) 65%,
-    var(--gold-deep) 100%
+    #231604 0%,
+    #e2ae33 22%,
+    #fde895 38%,
+    #ffffff 42%,
+    #c58f20 62%,
+    #120a02 100%
   );
 
   /* Horizontal Micro-brush / Satin Gradient */
   --gold-metal-brushed: linear-gradient(
     90deg,
-    var(--gold-shadow) 0%,
-    var(--gold-primary) 20%,
-    var(--gold-satin) 50%,
-    var(--gold-primary) 80%,
-    var(--gold-shadow) 100%
+    #231604 0%,
+    #e2ae33 20%,
+    #f0c558 50%,
+    #e2ae33 80%,
+    #231604 100%
   );
 }
 
 body.light-mode {
   /* Deeper contrast for Ivory backgrounds */
-  --gold-primary: #a47b33;
-  --gold-highlight: #f5e2bb;
-  --gold-champagne: #d4ad66;
-  --gold-midtone: #7a571b;
+  --gold-primary: #b8892f;
+  --gold-highlight: #fff6d9;
+  --gold-champagne: #e5be6b;
+  --gold-midtone: #8f671f;
   --gold-shadow: #38250a;
   --gold-deep: #1f1400;
-  --gold-antique: #664917;
-  --gold-satin: #8f6926;
+  --gold-antique: #7a5416;
+  --gold-satin: #a67b28;
 }
 
 /* 1. OUTER CARD FRAME (Thin physical metal edge via background-clip) */
@@ -15077,7 +15326,7 @@ body.light-mode {
   background:
     linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0.05) 0%,
         rgba(255, 255, 255, 0) 40%
       )
       padding-box,
@@ -15091,9 +15340,10 @@ body.light-mode {
 
   /* 1-2px depth shadow stack (Inner bevel + Drop shadow) */
   box-shadow:
-    inset 1px 1px 1px rgba(255, 255, 255, 0.08),
-    /* Inner bevel light catch */ inset -1px -1px 1px rgba(0, 0, 0, 0.9),
-    /* Inner bevel shadow */ 0 15px 35px -10px rgba(0, 0, 0, 0.95) !important; /* Physical contact shadow */
+    inset 1px 1px 1.5px rgba(255, 255, 255, 0.22),
+    inset -1px -1px 1.5px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(226, 174, 51, 0.35),
+    0 16px 36px -8px rgba(0, 0, 0, 0.95) !important; /* Physical contact shadow */
 
   filter: none !important;
 }
@@ -15126,7 +15376,7 @@ body.light-mode #membership-tab .membership-card {
     linear-gradient(rgba(18, 16, 14, 0.95), rgba(10, 8, 6, 0.98)) padding-box,
     var(--gold-metal-brushed) border-box !important;
   box-shadow:
-    inset 0 1px 0px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0px rgba(255, 255, 255, 0.08),
     0 1px 3px rgba(0, 0, 0, 0.6) !important;
 }
 body.light-mode #membership-tab .card-actions .btn,
@@ -15148,13 +15398,13 @@ body.light-mode #membership-tab .tier-pill {
     var(--gold-metal-polished) border-box !important;
 }
 
-/* 4. ANTIQUE / ENGRAVED GOLD (Microtext & Labels) */
-#membership-tab .member-label,
-#membership-tab .ring-label,
-#membership-tab .card-tagline,
-#membership-tab .card-tagline span {
-  color: var(--gold-antique) !important;
-  text-shadow: none !important; /* Extremely subtle deboss */
+/* 4. ANTIQUE / ENGRAVED GOLD (Microtext & Labels) - DARK MODE */
+body:not(.light-mode) #membership-tab .member-label,
+body:not(.light-mode) #membership-tab .ring-label,
+body:not(.light-mode) #membership-tab .card-tagline,
+body:not(.light-mode) #membership-tab .card-tagline span {
+  color: #e5c378 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95) !important;
 }
 body.light-mode #membership-tab .member-label,
 body.light-mode #membership-tab .ring-label {
@@ -15165,8 +15415,28 @@ body.light-mode #membership-tab .card-tagline,
 body.light-mode #membership-tab .card-tagline span {
   text-shadow: none !important;
 }
-#membership-tab .member-number {
-  color: var(--gold-satin) !important;
+body:not(.light-mode) #membership-tab .member-number {
+  color: #fff4cb !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95) !important;
+}
+body:not(.light-mode) #membership-tab .member-name {
+  color: #fffaf0 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 1px rgba(226, 174, 51, 0.35) !important;
+}
+body:not(.light-mode) #membership-tab .tier-pill {
+  color: #ffe694 !important;
+  border-color: rgba(226, 174, 51, 0.5) !important;
+}
+body:not(.light-mode) #membership-tab #tierName {
+  color: #ffe694 !important;
+}
+body:not(.light-mode) #membership-tab .member-quote {
+  color: #f7eedb !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95) !important;
+}
+body:not(.light-mode) #membership-tab .ring-value {
+  color: #fde28e !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95) !important;
 }
 
 /* 5. METRIC RINGS (Precision Machined Edges) */
@@ -15850,25 +16120,52 @@ body.light-mode .membership-card .card-tagline span {
 
 /* DARK MODE */
 body #membership-tab #membershipCard.membership-card {
-  border: 3px solid transparent !important;
+  border: 3.5px solid transparent !important;
   border-radius: 20px !important;
+  background-origin: padding-box, border-box !important;
+  background-clip: padding-box, border-box !important;
   background-image: 
     /* The main obsidian card background */
     radial-gradient(circle at 50% 30%, #16161a 0%, #0d0d10 65%, #050507 100%),
-    /* The 3D precious gold metal border */
-    linear-gradient(145deg, #f5d688 0%, #8b6214 20%, #fcebb6 50%, #4a3003 80%, #d4b257 100%) !important;
-  background-origin: border-box !important;
-  background-clip: padding-box, border-box !important;
-  
-  /* 
-   * Strict removal of outer shadows 
-   * Keep only inner inset shadows for depth 
-   */
+    /* Ultra-realistic 3D Anisotropic Lathe-Turned Royal Gold Bezel */
+    conic-gradient(
+      from calc(135deg + var(--tiltX, 0) * 20deg) at 50% 50%,
+      #664917 0deg,
+      #b38b37 24deg,
+      #fef5db 40deg,
+      #ffffff 45deg,
+      #e2bb62 50deg,
+      #946c1e 74deg,
+      #593e0f 90deg,
+      #a67e2e 114deg,
+      #faeed0 130deg,
+      #ffffff 135deg,
+      #dfb85e 140deg,
+      #8c631a 164deg,
+      #4f360c 180deg,
+      #ab8333 204deg,
+      #fef5db 220deg,
+      #ffffff 225deg,
+      #dfb85e 230deg,
+      #946c1e 254deg,
+      #593e0f 270deg,
+      #a67e2e 294deg,
+      #faeed0 310deg,
+      #ffffff 315deg,
+      #dfb85e 320deg,
+      #8c631a 344deg,
+      #664917 360deg
+    ) !important;
   box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.15), 
-    inset 0 0 0 1px rgba(0, 0, 0, 0.9),
-    inset 0 10px 30px rgba(0, 0, 0, 0.8) !important;
-    
+    0 18px 44px -6px rgba(0, 0, 0, 0.96),
+    0 0 0 1px #120c04,
+    0 -1px 0 1px rgba(255, 245, 215, 0.4),
+    0 1px 0 1px rgba(10, 6, 2, 0.95),
+    inset 0 1.5px 1px 0 rgba(255, 252, 235, 0.85),
+    inset 0 -1.5px 1px 0 rgba(30, 18, 4, 0.9),
+    inset 0 0 0 1px #140d04,
+    inset 0 0 0 2px rgba(212, 175, 106, 0.35),
+    inset 0 12px 28px -4px rgba(0, 0, 0, 0.9) !important;
   filter: none !important;
   -webkit-filter: none !important;
   outline: none !important;
@@ -19695,6 +19992,129 @@ html.light-mode #profile-tab .pcc-seal-star {
   color: #9e7422 !important;
 }
 
+/* =========================================================
+   SOVEREIGN ROYAL GOLD SHIMMER MICRO-INTERACTION (ACCREDITED)
+   ========================================================= */
+@keyframes royalGoldCardShimmer {
+  0% {
+    transform: translateX(-140%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.95;
+  }
+  50% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(240%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+body #profile-tab .pcc-chip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 246, 214, 0.12) 25%,
+    rgba(212, 175, 106, 0.65) 46%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(212, 175, 106, 0.65) 54%,
+    rgba(255, 246, 214, 0.12) 75%,
+    transparent 100%
+  );
+  transform: translateX(-140%) skewX(-20deg);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 4;
+}
+
+body #profile-tab .pcc-chip.is-verified-pulse::after {
+  animation: royalGoldCardShimmer 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Sovereign Accreditation Card Elevation & Royal Gold Aura */
+body #profile-tab .pcc-chip.is-verified-pulse {
+  border-color: #fcebc7 !important;
+  background: linear-gradient(145deg, rgba(46, 38, 22, 0.98) 0%, rgba(24, 20, 14, 1) 100%) !important;
+  transform: translateY(-1.5px) scale(1.01) !important;
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.75),
+    0 0 22px rgba(212, 175, 106, 0.65),
+    inset 0 0 16px rgba(212, 175, 106, 0.35),
+    inset 0 1px 0 rgba(255, 248, 225, 0.7) !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.light-mode #profile-tab .pcc-chip.is-verified-pulse,
+html.light-mode #profile-tab .pcc-chip.is-verified-pulse {
+  border-color: #b88628 !important;
+  background: linear-gradient(145deg, #fffdf8 0%, #f7edd8 100%) !important;
+  box-shadow:
+    0 8px 22px rgba(60, 45, 15, 0.16),
+    0 0 20px rgba(200, 155, 55, 0.55),
+    inset 0 0 14px rgba(212, 175, 106, 0.3),
+    inset 0 1px 0 #ffffff !important;
+  transform: translateY(-1.5px) scale(1.01) !important;
+}
+
+/* In-place 24K Mirror Gold Stamp on Badge */
+body #profile-tab .pcc-chip-seal-dot.is-stamping {
+  background: linear-gradient(135deg, #fff2cf 0%, #d4af37 50%, #87621f 100%) !important;
+  border-color: #ffffff !important;
+  color: #121008 !important;
+  box-shadow:
+    0 0 16px rgba(212, 175, 106, 0.95),
+    inset 0 1px 1.5px #ffffff !important;
+  transform: scale(1.06) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body #profile-tab .pcc-chip-seal-dot.is-stamping span {
+  color: #121008 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+}
+
+body #profile-tab .pcc-chip-seal-dot.is-stamping .pcc-seal-star {
+  color: #121008 !important;
+  display: inline-block;
+  transform: rotate(180deg) scale(1.25);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 0 4px #ffffff;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping,
+html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping {
+  background: linear-gradient(135deg, #fff3d6 0%, #dfb24c 55%, #9e7422 100%) !important;
+  border-color: #8c6720 !important;
+  color: #1a1004 !important;
+  box-shadow:
+    0 2px 14px rgba(160, 115, 30, 0.5),
+    inset 0 1px 1px #ffffff !important;
+  transform: scale(1.06) !important;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span,
+html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
+  color: #1a1004 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping .pcc-seal-star,
+html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping .pcc-seal-star {
+  color: #1a1004 !important;
+}
+
 /* Modal Selector Header and Grid for Sovereign Circles */
 .modal-circles-header-row {
   display: flex !important;
@@ -19760,6 +20180,12 @@ body[dir="rtl"] .modal-circles-title {
   line-height: 1.55 !important;
   margin: 0 0 12px 0 !important;
   color: rgba(225, 205, 165, 0.78) !important;
+}
+
+#modalCirclesPanel.pulse-highlight {
+  border-color: rgba(212, 175, 106, 0.95) !important;
+  box-shadow: 0 0 0 1.5px rgba(212, 175, 106, 0.75), 0 6px 24px rgba(212, 175, 106, 0.25) !important;
+  transition: all 0.35s ease-in-out !important;
 }
 
 .modal-circles-selector-grid {
@@ -25083,26 +25509,18 @@ body.light-mode .sd-portrait-medallion::after {
 }
 
 body.light-mode #membershipCard.membership-card .card-inner-frame::after {
-  background:
-    linear-gradient(
-      var(--sapphire-glare-angle, 128deg),
-      transparent calc(var(--sapphire-beam-pos, 40%) - 24%),
-      rgba(255, 255, 255, 0) calc(var(--sapphire-beam-pos, 40%) - 14%),
-      rgba(255, 255, 255, 0.18) calc(var(--sapphire-beam-pos, 40%) - 3%),
-      rgba(220, 240, 255, 0.22) var(--sapphire-beam-pos, 40%),
-      rgba(255, 255, 255, 0.14) calc(var(--sapphire-beam-pos, 40%) + 3%),
-      transparent calc(var(--sapphire-beam-pos, 40%) + 24%)
-    ),
-    radial-gradient(
-      circle at var(--sapphire-sheen-x, 50%) var(--sapphire-sheen-y, 45%),
-      rgba(215, 235, 255, 0.12) 0%,
-      rgba(100, 150, 220, 0.04) 40%,
-      transparent 70%
-    ) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -1px 0 rgba(140, 110, 60, 0.2),
-    inset 0 0 16px rgba(80, 130, 200, 0.06) !important;
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+body.light-mode #membershipCard .card-sheen,
+body.light-mode .membership-card .card-sheen {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
 }
 
 /* =========================================================
@@ -30083,5 +30501,237 @@ body #profile-tab .honor-citation-hint {
     padding: 10px 6px 10px 6px !important;
   }
 }
+
+/* ==========================================================================
+   AUTHORITATIVE LIGHT MODE: SOVEREIGN MASTER CARD (IMPERIAL PORCELAIN & GOLD)
+   Resolves text readability (SOVEREIGN MEMBER), eliminates milky washed-out
+   fog/reflections, and establishes deep luxury contrast and material realism.
+   ========================================================================== */
+
+/* 1. Master Card Chassis & High-Definition Machined Gold Border */
+body.light-mode #membership-tab #membershipCard.membership-card,
+body.light-mode #membershipCard.membership-card,
+body.light-mode .membership-card {
+  border: 3.5px solid transparent !important;
+  border-radius: 20px !important;
+  background-origin: padding-box, border-box !important;
+  background-clip: padding-box, border-box !important;
+  background-image: 
+    /* Warm, rich imperial porcelain & ivory artifact surface */
+    radial-gradient(ellipse at 50% 16%, #ffffff 0%, #faf6ec 42%, #f1e8d6 82%, #e5dcbe 100%),
+    /* Ultra-realistic 3D Anisotropic Lathe-Turned 18k Champagne & Royal Gold Bezel */
+    conic-gradient(
+      from calc(135deg + var(--tiltX, 0) * 20deg) at 50% 50%,
+      #855e1a 0deg,
+      #c49d44 24deg,
+      #fcf4dd 40deg,
+      #ffffff 45deg,
+      #e8c168 50deg,
+      #a67c29 74deg,
+      #785314 90deg,
+      #b38b37 114deg,
+      #faf0d2 130deg,
+      #ffffff 135deg,
+      #e8c168 140deg,
+      #9a7021 164deg,
+      #734f12 180deg,
+      #b8903c 204deg,
+      #fcf4dd 220deg,
+      #ffffff 225deg,
+      #e2bb62 230deg,
+      #a67c29 254deg,
+      #785314 270deg,
+      #b38b37 294deg,
+      #faf0d2 310deg,
+      #ffffff 315deg,
+      #e2bb62 320deg,
+      #9a7021 344deg,
+      #855e1a 360deg
+    ) !important;
+  box-shadow: 
+    /* Soft ambient grounding shadow */
+    0 20px 45px -8px rgba(50, 32, 10, 0.22),
+    0 6px 16px -2px rgba(70, 48, 15, 0.14),
+    /* Outer razor-thin 1px chamfer rim */
+    0 0 0 1px rgba(145, 105, 32, 0.6),
+    /* Top outer specular highlight catch */
+    0 -1px 0 1px rgba(255, 255, 255, 0.95),
+    /* Bottom edge micro-bevel */
+    0 1px 1px rgba(90, 60, 15, 0.35),
+    /* Sharp polished-gold inner reflective ridge */
+    inset 0 1.5px 1px 0 #ffffff,
+    inset 0 -1.5px 1px 0 rgba(110, 75, 20, 0.45),
+    /* Precision engraved metal step-down rim */
+    inset 0 0 0 1px rgba(145, 105, 32, 0.38),
+    /* Soft contact shadow cast by the gold bezel onto the porcelain face */
+    inset 0 2px 6px -1px rgba(70, 45, 12, 0.12) !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* Eliminate all duplicate concentric inner frame borders and shadows */
+body.light-mode #membership-tab .membership-card .card-inner-frame,
+body.light-mode #membershipCard.membership-card .card-inner-frame,
+body.light-mode .card-inner-frame {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Eliminate corner SVG clutter on Master Card so the frame remains pristine */
+body #membershipCard .corner,
+body.light-mode #membershipCard .corner,
+#membershipCard .corner {
+  display: none !important;
+}
+
+/* Remove any pseudo-element boxes inside the card */
+body.light-mode #membershipCard.membership-card::after,
+body.light-mode #membershipCard.membership-card::before,
+body.light-mode .membership-card::after,
+body.light-mode .membership-card::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 2. Absolute suppression of bleaching, milky overlays & glare veil */
+body.light-mode #membershipCard.membership-card .card-inner-frame::after,
+body.light-mode .membership-card .card-inner-frame::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+body.light-mode #membershipCard .card-sheen,
+body.light-mode .membership-card .card-sheen {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
+}
+
+body.light-mode #membershipCard #goldDustCanvas {
+  opacity: 0.28 !important;
+}
+
+/* 3. SOVEREIGN MEMBER Pill Badge: High-Contrast Metal Plate & Sharp Typography */
+body.light-mode #membership-tab #tierName,
+body.light-mode #membershipCard #tierName,
+body.light-mode #tierName,
+body.light-mode .tier-pill #tierName {
+  color: #362204 !important; /* Deep, sharp, commanding dark antique bronze */
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+body.light-mode #membership-tab .tier-pill,
+body.light-mode #membershipCard .tier-pill,
+body.light-mode .tier-pill {
+  background: linear-gradient(180deg, #fffdf8 0%, #eee3cb 100%) !important;
+  border: 1.2px solid #b38836 !important;
+  box-shadow: 
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 0 rgba(110, 80, 25, 0.2),
+    0 2px 5px rgba(60, 40, 10, 0.14) !important;
+  color: #362204 !important;
+}
+
+/* 4. Engraved Club Header Title: "THE 1% CLUB" */
+body.light-mode #membership-tab .card-club-name,
+body.light-mode #membershipCard .card-club-name {
+  background: linear-gradient(180deg, #3d2a06 0%, #7d5918 50%, #291a04 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85)) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.28em !important;
+}
+
+/* 5. Member Identification: Number & Name */
+body.light-mode #membership-tab .member-label {
+  color: #5c4114 !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+body.light-mode #membership-tab .member-number {
+  color: #241703 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+body.light-mode #membership-tab .member-name,
+body.light-mode #membershipCard .member-name {
+  color: #120d06 !important; /* Commanding sculpted obsidian typography */
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+body.light-mode #membership-tab .member-quote {
+  color: #4a3614 !important;
+  font-style: italic !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+}
+body.light-mode #membership-tab .equipped-ring-label {
+  color: #5c4114 !important;
+  font-weight: 600 !important;
+}
+
+/* 6. Wealth & Privileges Metrics: Crisp Luxury Chronograph Feel */
+body.light-mode #membership-tab .ring-value {
+  color: #120d06 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+body.light-mode #membership-tab .ring-label,
+body.light-mode .membership-card .ring-label {
+  color: #362204 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+body.light-mode #membership-tab .ring-info-icon {
+  color: #8c641f !important;
+  opacity: 0.85 !important;
+}
+body.light-mode #membership-tab .ring-track {
+  stroke: rgba(90, 65, 20, 0.18) !important;
+}
+body.light-mode #membership-tab .ring-progress {
+  stroke: url(#ringGoldGrad) !important;
+  filter: drop-shadow(0 1px 2px rgba(80, 50, 15, 0.28)) !important;
+}
+
+/* 7. Central Living Core Emblem */
+body.light-mode #membership-tab .living-core {
+  background: radial-gradient(circle, #fffdf8 0%, #ede2ca 100%) !important;
+  border: 1.2px solid #b88d3b !important;
+  box-shadow: 0 2px 6px rgba(60, 40, 10, 0.18), inset 0 1px 0 #ffffff !important;
+}
+body.light-mode #membership-tab .living-core svg path {
+  fill: #5a3f12 !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85)) !important;
+}
+
+/* 8. Footer Hallmark & Legal Taglines */
+body.light-mode #membership-tab .card-hallmark-line span {
+  background: linear-gradient(90deg, transparent, rgba(130, 95, 30, 0.5), transparent) !important;
+}
+body.light-mode #membership-tab .card-tagline {
+  color: #362204 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+body.light-mode #membership-tab .card-tagline span {
+  color: #5c4114 !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.14em !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+}
+
 
 

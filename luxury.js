@@ -315,8 +315,22 @@ function initGuilloche() {
     { passive: true },
   );
 
-  // Initial draw with a slight delay to ensure layout is computed
-  setTimeout(resizeCanvas, 100);
+  // Deterministic initialization via ResizeObserver synchronized with requestAnimationFrame
+  if (typeof ResizeObserver !== "undefined" && canvas.parentElement) {
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const cr = entry.contentRect;
+        if (cr.width > 0 && cr.height > 0) {
+          requestAnimationFrame(() => {
+            resizeCanvas();
+            requestDraw();
+          });
+          break;
+        }
+      }
+    });
+    ro.observe(canvas.parentElement);
+  }
 }
 
 function drawGuilloche(ctx, width, height) {
@@ -376,22 +390,22 @@ function drawGuilloche(ctx, width, height) {
   // --- 3. ANISOTROPIC SPECULAR HIGHLIGHT (THE REAL METAL SECRET) ---
   // Catches the grooves with controlled specular metallic highlights
   ctx.save();
-  ctx.globalCompositeOperation = isLight ? "screen" : "color-dodge";
+  ctx.globalCompositeOperation = isLight ? "source-over" : "color-dodge";
   ctx.translate(-0.5, -0.5); // Opposing sub-pixel shift
-  ctx.lineWidth = 0.75; // Razor-crisp intaglio bevel catch
+  ctx.lineWidth = isLight ? 0.65 : 0.75; // Razor-crisp intaglio bevel catch
 
   // Directional Light Band relative to the rotated canvas
   const specGrad = ctx.createLinearGradient(-width, -height, width, height);
 
   if (isLight) {
-    specGrad.addColorStop(0.0, "rgba(255, 255, 255, 0.0)");
-    specGrad.addColorStop(0.28, "rgba(255, 255, 255, 0.0)");
-    specGrad.addColorStop(0.38, "rgba(255, 250, 235, 0.85)"); // Crisp champagne light catch
-    specGrad.addColorStop(0.44, "rgba(255, 255, 255, 0.05)"); // Falls back into shadow
-    specGrad.addColorStop(0.56, "rgba(255, 255, 255, 0.0)"); 
-    specGrad.addColorStop(0.66, "rgba(255, 248, 225, 0.65)"); // Secondary ambient catch
-    specGrad.addColorStop(0.72, "rgba(255, 255, 255, 0.0)");
-    specGrad.addColorStop(1.0, "rgba(255, 255, 255, 0.0)");
+    specGrad.addColorStop(0.0, "rgba(175, 135, 50, 0.0)");
+    specGrad.addColorStop(0.28, "rgba(175, 135, 50, 0.0)");
+    specGrad.addColorStop(0.38, "rgba(205, 165, 75, 0.35)"); // Refined warm gold intaglio catch
+    specGrad.addColorStop(0.44, "rgba(175, 135, 50, 0.05)");
+    specGrad.addColorStop(0.56, "rgba(175, 135, 50, 0.0)"); 
+    specGrad.addColorStop(0.66, "rgba(205, 165, 75, 0.25)"); // Secondary warm accent
+    specGrad.addColorStop(0.72, "rgba(175, 135, 50, 0.0)");
+    specGrad.addColorStop(1.0, "rgba(175, 135, 50, 0.0)");
   } else {
     specGrad.addColorStop(0.0, "rgba(201, 168, 106, 0.0)");
     specGrad.addColorStop(0.28, "rgba(201, 168, 106, 0.0)");
@@ -1172,12 +1186,12 @@ if (document.readyState === "loading") {
 }
 
 // ---------------------------------------------------------
-// 19. PROFILE MASTER CARD 3D GYROSCOPE & UNIFIED TILT ENGINE
-// ---------------------------------------------------------
-const TILT_MAX_DEG = 4.5;       // Restrained, subtle physical rotation
-const TILT_DEADZONE = 1.2;      // Subtle deadzone preventing micro-sensor jitter
-const TILT_LERP_FACTOR = 0.065; // Silk-smooth 60fps physical damping (no snapping, no lag)
-const TILT_EPSILON = 0.005;     // Clean settlement threshold for 0,0 return
+// 19. MASTER CARD, SOVEREIGN CHAMBER PLAQUE & UNIFIED 3D GYROSCOPE TILT ENGINE
+// ----------------------------------------------------------------------------
+const TILT_MAX_DEG = 5.5;        // Restrained, subtle physical rotation
+const TILT_DEADZONE = 0.35;      // Clean deadzone preventing sensor jitter while keeping fluid response
+const TILT_LERP_FACTOR = 0.085;  // Silk-smooth 60fps physical damping (no snapping, no lag)
+const TILT_EPSILON = 0.005;      // Clean settlement threshold for 0,0 return
 
 // Separate target from rendered tilt values for smooth interpolation
 let targetRotX = 0;
@@ -1191,11 +1205,25 @@ let deviceOrientationAttached = false;
 let isPointerInteracting = false;
 let isLongPressActive = false;
 
-// Helper: Check if Profile Tab is currently active in the DOM
-function isProfileTabActive() {
-  const profileTab = document.getElementById("profile-tab");
-  if (!profileTab) return false;
-  return !profileTab.hasAttribute("hidden") && profileTab.classList.contains("is-active");
+// Check if Gyroscope 3D Tilt is enabled in user settings (defaults to true)
+function isGyroscopeEnabled() {
+  try {
+    return localStorage.getItem("club_gyroscope_enabled") !== "false";
+  } catch (e) {
+    return true;
+  }
+}
+
+// Helper: Check which page tab is currently active
+function getActiveTabName() {
+  const activePage = document.querySelector(".page.is-active");
+  if (activePage) {
+    if (activePage.id === "membership-tab") return "membership";
+    if (activePage.id === "club-tab") return "club";
+    if (activePage.id === "profile-tab") return "profile";
+    if (activePage.id === "boutique-tab") return "boutique";
+  }
+  return "membership";
 }
 
 // Continuous smooth deadzone: smoothly transitions from zero without discontinuous step-jumps
@@ -1206,8 +1234,8 @@ function applyDeadzone(val, deadzone) {
 
 // 2. INPUT SMOOTHING & 7. SENSOR NOISE FILTERING
 function handleDeviceOrientation(e) {
-  // 8. Active for Profile tab only
-  if (!isProfileTabActive()) return;
+  // Respect Settings toggle
+  if (!isGyroscopeEnabled()) return;
   // If user is currently touching/hovering on desktop, pointer interaction takes priority
   if (isPointerInteracting || isLongPressActive) return;
   // 12. If card capture is active, keep completely still
@@ -1217,7 +1245,7 @@ function handleDeviceOrientation(e) {
   if (e.beta == null || e.gamma == null) return;
   if (!Number.isFinite(e.beta) || !Number.isFinite(e.gamma)) return;
 
-  // Assume ~45deg is the natural phone holding posture
+  // Natural holding posture normalization: assume ~45deg is normal phone angle
   let betaDev = e.beta - 45;
 
   // Flat / Bed posture normalization to prevent gimbal flip
@@ -1225,15 +1253,15 @@ function handleDeviceOrientation(e) {
     betaDev *= 0.2;
   }
 
-  // Calculate target tilt angles with subtle scale factor
-  let rawRx = -betaDev * 0.25;
-  let rawRy = e.gamma * 0.25;
+  // Calculate target tilt angles (Beta = pitch = rotX, Gamma = roll = rotY)
+  let rawRx = -betaDev * 0.32;
+  let rawRy = e.gamma * 0.32;
 
-  // 4. Subtle deadzone
+  // Subtle deadzone
   let rx = applyDeadzone(rawRx, TILT_DEADZONE);
   let ry = applyDeadzone(rawRy, TILT_DEADZONE);
 
-  // 5. Limit maximum tilt to restrained physical boundaries
+  // Limit maximum tilt to restrained physical boundaries
   rx = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, rx));
   ry = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, ry));
 
@@ -1241,9 +1269,10 @@ function handleDeviceOrientation(e) {
   updateTiltTarget(rx, ry);
 }
 
-// 1. & 10. IDEMPOTENT PERMISSION & ORIENTATION LISTENER
+// 1. & 10. IDEMPOTENT PERMISSION & ORIENTATION LISTENER (iOS 13+ & Android)
 function requestTiltPermissionOnce() {
   if (deviceOrientationAttached) return;
+  if (!isGyroscopeEnabled()) return;
 
   if (
     typeof DeviceOrientationEvent !== "undefined" &&
@@ -1255,7 +1284,9 @@ function requestTiltPermissionOnce() {
           enableDeviceTilt();
         }
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.warn("DeviceOrientation requestPermission error:", err);
+      });
   } else if (typeof DeviceOrientationEvent !== "undefined" && !deviceOrientationAttached) {
     enableDeviceTilt();
   }
@@ -1286,8 +1317,8 @@ function updateTiltTarget(rx, ry) {
 function tiltLoop() {
   if (!tiltLoopActive) return;
 
-  // 9. If document is hidden or Profile tab is left, force target to 0
-  if (document.hidden || !isProfileTabActive()) {
+  // If document is hidden, force target to 0
+  if (document.hidden) {
     targetRotX = 0;
     targetRotY = 0;
   }
@@ -1313,73 +1344,189 @@ function tiltLoop() {
   tiltAnimFrame = requestAnimationFrame(tiltLoop);
 }
 
-// Authoritative function: applies rendered tilt to the Profile Master Card & Medallion
+// Authoritative function: applies rendered tilt to Master Card, Club Chamber Plaque & Profile Dossier
 function setCardTilt(rx, ry) {
-  const card = document.getElementById("profileHeroPlaque");
-  if (!card) return;
+  // If capture is active or gyro disabled, keep cards flat
+  if (window.__masterCardCaptureActive || !isGyroscopeEnabled()) {
+    resetAllCardTransforms();
+    return;
+  }
 
-  // 12. If capture is active, keep card completely flat
-  if (window.__masterCardCaptureActive) {
+  const activeTab = getActiveTabName();
+  const normX = Math.max(-1, Math.min(1, ry / TILT_MAX_DEG));
+  const normY = Math.max(-1, Math.min(1, -rx / TILT_MAX_DEG));
+
+  // 1. MEMBERSHIP TAB: Master Identity Card (#membershipCard)
+  if (activeTab === "membership") {
+    const card = document.getElementById("membershipCard");
+    if (card) {
+      const isHovered = card.classList.contains("is-hovered");
+      const isLongPressed = card.classList.contains("is-long-press-active");
+
+      const elevation = isLongPressed ? 22 : (isHovered ? 14 : 0);
+      const translateY = isLongPressed ? -7 : (isHovered ? -4 : 0);
+      const scale = isLongPressed ? 1.02 : (isHovered ? 1.012 : 1);
+
+      card.style.setProperty('--tiltX', normX.toFixed(3));
+      card.style.setProperty('--tiltY', normY.toFixed(3));
+      card.style.setProperty('--tilt-rx', `${rx.toFixed(2)}deg`);
+      card.style.setProperty('--tilt-ry', `${ry.toFixed(2)}deg`);
+      card.style.setProperty('--tilt-tz', `${elevation}px`);
+      card.style.setProperty('--tilt-ty', `${translateY}px`);
+      card.style.setProperty('--tilt-scale', `${scale}`);
+
+      card.style.transform = `perspective(1200px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
+      card.style.transition = "none";
+
+      // Dynamic metallic reflections & foil angles
+      const foilAngle = Math.round(135 + ry * 2.5 + rx * 1.5);
+      const foilPosX = Math.round(50 + normX * 35);
+      const foilPosY = Math.round(50 + normY * 35);
+      card.style.setProperty('--gold-foil-angle', `${foilAngle}deg`);
+      card.style.setProperty('--gold-foil-pos', `${foilPosX}% ${foilPosY}%`);
+      card.style.setProperty('--foil-shift-x', `${(normX * 8).toFixed(2)}px`);
+      card.style.setProperty('--foil-shift-y', `${(normY * 8).toFixed(2)}px`);
+
+      // Master Card Medallion Parallax
+      const portraitWrap = card.querySelector(".portrait-wrap");
+      if (portraitWrap) {
+        const pX = (ry * 0.4).toFixed(2);
+        const pY = (-rx * 0.4).toFixed(2);
+        const pRx = (rx * 1.08).toFixed(2);
+        const pRy = (ry * 1.08).toFixed(2);
+        portraitWrap.style.transform = `translateZ(24px) translate3d(${pX}px, ${pY}px, 0px) rotateX(${pRx}deg) rotateY(${pRy}deg)`;
+        portraitWrap.style.transition = "none";
+      }
+    }
+  }
+
+  // 2. CLUB TAB: Sovereign Chamber Glass Plaque (#clubPinnedInfo)
+  else if (activeTab === "club") {
+    const plaque = document.getElementById("clubPinnedInfo");
+    if (plaque && !plaque.classList.contains("is-collapsed")) {
+      const plaqueRx = (rx * 0.65).toFixed(2);
+      const plaqueRy = (ry * 0.65).toFixed(2);
+      plaque.style.setProperty('--tiltX', normX.toFixed(3));
+      plaque.style.setProperty('--tiltY', normY.toFixed(3));
+      plaque.style.transform = `perspective(1000px) rotateX(${plaqueRx}deg) rotateY(${plaqueRy}deg) translateZ(4px)`;
+      plaque.style.transition = "none";
+
+      const medallion = plaque.querySelector(".chamber-plaque-medallion");
+      if (medallion) {
+        const mX = (ry * 0.3).toFixed(2);
+        const mY = (-rx * 0.3).toFixed(2);
+        medallion.style.transform = `translateZ(14px) translate3d(${mX}px, ${mY}px, 0px)`;
+        medallion.style.transition = "none";
+      }
+    }
+  }
+
+  // 3. PROFILE TAB: Profile Hero Plaque & Medallion
+  else if (activeTab === "profile") {
+    const card = document.getElementById("profileHeroPlaque");
+    if (card) {
+      const isHovered = card.classList.contains("is-hovered");
+      const isLongPressed = card.classList.contains("is-long-press-active");
+
+      const elevation = isLongPressed ? 22 : (isHovered ? 14 : 0);
+      const translateY = isLongPressed ? -8 : (isHovered ? -5 : 0);
+      const scale = isLongPressed ? 1.025 : (isHovered ? 1.015 : 1);
+
+      card.style.setProperty('--tiltX', normX.toFixed(3));
+      card.style.setProperty('--tiltY', normY.toFixed(3));
+      card.style.setProperty('--tilt-rx', `${rx.toFixed(2)}deg`);
+      card.style.setProperty('--tilt-ry', `${ry.toFixed(2)}deg`);
+      card.style.setProperty('--tilt-tz', `${elevation}px`);
+      card.style.setProperty('--tilt-ty', `${translateY}px`);
+      card.style.setProperty('--tilt-scale', `${scale}`);
+
+      card.style.transform = `perspective(1200px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
+      card.style.transition = "none";
+
+      const angle = 160 + ry + (rx * 0.5);
+      const glowX = 50 + (ry * 2);
+      const glowY = 0 - (rx * 2);
+      card.style.setProperty('--glow-x', `${glowX}%`);
+      card.style.setProperty('--glow-y', `${glowY}%`);
+      card.style.setProperty('--metal-angle', `${angle}deg`);
+
+      const foilAngle = Math.round(135 + ry * 2.5 + rx * 1.5);
+      const foilPosX = Math.round(50 + normX * 35);
+      const foilPosY = Math.round(50 + normY * 35);
+      card.style.setProperty('--gold-foil-angle', `${foilAngle}deg`);
+      card.style.setProperty('--gold-foil-pos', `${foilPosX}% ${foilPosY}%`);
+      card.style.setProperty('--foil-shift-x', `${(normX * 8).toFixed(2)}px`);
+      card.style.setProperty('--foil-shift-y', `${(normY * 8).toFixed(2)}px`);
+
+      const medallion = document.getElementById("profileMedallionCase");
+      if (medallion) {
+        const medParallaxX = (ry * 0.35).toFixed(2);
+        const medParallaxY = (-rx * 0.35).toFixed(2);
+        const medTiltRx = (rx * 1.08).toFixed(2);
+        const medTiltRy = (ry * 1.08).toFixed(2);
+        const medElevation = 18 + (isLongPressed ? 10 : (isHovered ? 4 : 0));
+        medallion.style.transform = `translateZ(${medElevation}px) translate3d(${medParallaxX}px, ${medParallaxY}px, 0px) rotateX(${medTiltRx}deg) rotateY(${medTiltRy}deg)`;
+        medallion.style.transition = "none";
+      }
+    }
+  }
+
+  // 4. BOUTIQUE / RELIQUARY & HONORS: any visible .gyro-element
+  const gyroElements = document.querySelectorAll(".page.is-active .gyro-element");
+  if (gyroElements.length > 0) {
+    const elemRx = (rx * 0.45).toFixed(2);
+    const elemRy = (ry * 0.45).toFixed(2);
+    gyroElements.forEach((el) => {
+      el.style.transform = `perspective(800px) rotateX(${elemRx}deg) rotateY(${elemRy}deg) translateZ(4px)`;
+      el.style.transition = "none";
+    });
+  }
+}
+
+// Reset helper: smoothly zeroes transforms for all cards and plaques
+function resetAllCardTransforms() {
+  const cards = [
+    document.getElementById("membershipCard"),
+    document.getElementById("profileHeroPlaque"),
+    document.getElementById("clubPinnedInfo")
+  ];
+  cards.forEach((card) => {
+    if (!card) return;
     card.style.setProperty('--tiltX', '0');
     card.style.setProperty('--tiltY', '0');
     card.style.setProperty('--tilt-rx', '0deg');
     card.style.setProperty('--tilt-ry', '0deg');
-    card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) translateY(0px) scale3d(1, 1, 1)';
-    return;
+    card.style.setProperty('--tilt-tz', '0px');
+    card.style.setProperty('--tilt-ty', '0px');
+    card.style.setProperty('--tilt-scale', '1');
+    card.style.transform = '';
+    card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
+
+  const pWrap = document.querySelector("#membershipCard .portrait-wrap");
+  if (pWrap) {
+    pWrap.style.transform = '';
+    pWrap.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
   }
 
-  const isHovered = card.classList.contains("is-hovered");
-  const isLongPressed = card.classList.contains("is-long-press-active");
-
-  const elevation = isLongPressed ? 22 : (isHovered ? 14 : 0);
-  const translateY = isLongPressed ? -8 : (isHovered ? -5 : 0);
-  const scale = isLongPressed ? 1.025 : (isHovered ? 1.015 : 1);
-
-  // Set CSS variables
-  const normX = Math.max(-1, Math.min(1, ry / TILT_MAX_DEG));
-  const normY = Math.max(-1, Math.min(1, -rx / TILT_MAX_DEG));
-  card.style.setProperty('--tiltX', normX.toFixed(3));
-  card.style.setProperty('--tiltY', normY.toFixed(3));
-  card.style.setProperty('--tilt-rx', `${rx.toFixed(2)}deg`);
-  card.style.setProperty('--tilt-ry', `${ry.toFixed(2)}deg`);
-  card.style.setProperty('--tilt-tz', `${elevation}px`);
-  card.style.setProperty('--tilt-ty', `${translateY}px`);
-  card.style.setProperty('--tilt-scale', `${scale}`);
-
-  // 3D Card transform
-  card.style.transform = `perspective(1200px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
-  card.style.transition = "none";
-
-  // Dynamic metallic reflections & foil angles
-  const angle = 160 + ry + (rx * 0.5);
-  const glowX = 50 + (ry * 2);
-  const glowY = 0 - (rx * 2);
-  card.style.setProperty('--glow-x', `${glowX}%`);
-  card.style.setProperty('--glow-y', `${glowY}%`);
-  card.style.setProperty('--metal-angle', `${angle}deg`);
-
-  const foilAngle = Math.round(135 + ry * 2.5 + rx * 1.5);
-  const foilPosX = Math.round(50 + normX * 35);
-  const foilPosY = Math.round(50 + normY * 35);
-  card.style.setProperty('--gold-foil-angle', `${foilAngle}deg`);
-  card.style.setProperty('--gold-foil-pos', `${foilPosX}% ${foilPosY}%`);
-  card.style.setProperty('--foil-shift-x', `${(normX * 8).toFixed(2)}px`);
-  card.style.setProperty('--foil-shift-y', `${(normY * 8).toFixed(2)}px`);
-
-  // PROFILE MEDALLION CASE 3D PARALLAX (Portrait & Bezel locked as one unit)
-  const medallion = document.getElementById("profileMedallionCase");
-  if (medallion) {
-    const medParallaxX = (ry * 0.35).toFixed(2);
-    const medParallaxY = (-rx * 0.35).toFixed(2);
-    const medTiltRx = (rx * 1.08).toFixed(2);
-    const medTiltRy = (ry * 1.08).toFixed(2);
-    const medElevation = 18 + (isLongPressed ? 10 : (isHovered ? 4 : 0));
-    medallion.style.transform = `translateZ(${medElevation}px) translate3d(${medParallaxX}px, ${medParallaxY}px, 0px) rotateX(${medTiltRx}deg) rotateY(${medTiltRy}deg)`;
-    medallion.style.transition = "none";
+  const pMed = document.getElementById("profileMedallionCase");
+  if (pMed) {
+    pMed.style.transform = '';
+    pMed.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
   }
+
+  const cMed = document.querySelector("#clubPinnedInfo .chamber-plaque-medallion");
+  if (cMed) {
+    cMed.style.transform = '';
+    cMed.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+  }
+
+  document.querySelectorAll(".gyro-element").forEach((el) => {
+    el.style.transform = '';
+    el.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
 }
 
-// Reset helper
 function resetTiltForCard(card) {
   targetRotX = 0;
   targetRotY = 0;
@@ -1398,32 +1545,48 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-// Smoothly return card to neutral when switching away from profile tab
+// Smoothly return card to neutral when switching tabs
 document.querySelectorAll(".nav-item").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const tabName = btn.dataset.tab;
-    if (tabName !== "profile") {
-      targetRotX = 0;
-      targetRotY = 0;
-      if (!tiltLoopActive && (Math.abs(currentRotX) > 0.01 || Math.abs(currentRotY) > 0.01)) {
-        tiltLoopActive = true;
-        cancelAnimationFrame(tiltAnimFrame);
-        tiltAnimFrame = requestAnimationFrame(tiltLoop);
-      }
+    targetRotX = 0;
+    targetRotY = 0;
+    resetAllCardTransforms();
+    if (!tiltLoopActive) {
+      tiltLoopActive = true;
+      cancelAnimationFrame(tiltAnimFrame);
+      tiltAnimFrame = requestAnimationFrame(tiltLoop);
     }
   });
 });
+
+// Initialize gyro elements hook
+window.initGyroElements = function() {
+  document.querySelectorAll(".gyro-element").forEach((el) => {
+    if (el.dataset.gyroBound) return;
+    el.dataset.gyroBound = "true";
+    el.style.willChange = "transform";
+    el.style.transformStyle = "preserve-3d";
+  });
+};
 
 // Expose authoritative API globally
 window.setCardTilt = setCardTilt;
 window.handleDeviceOrientation = handleDeviceOrientation;
 window.enableDeviceTilt = enableDeviceTilt;
 window.requestTiltPermissionOnce = requestTiltPermissionOnce;
+window.resetAllCardTransforms = resetAllCardTransforms;
+window.isGyroscopeEnabled = isGyroscopeEnabled;
 
 function initGlobalTilt() {
-  // Device Orientation Setup on first user gesture
-  document.body.addEventListener("click", requestTiltPermissionOnce, { once: true });
-  document.body.addEventListener("touchstart", requestTiltPermissionOnce, { once: true, passive: true });
+  // Device Orientation Setup on user gestures (iOS 13+ & Android)
+  const tryAttachOrientation = () => {
+    if (!deviceOrientationAttached && isGyroscopeEnabled()) {
+      requestTiltPermissionOnce();
+    }
+  };
+  document.addEventListener("click", tryAttachOrientation, { passive: true });
+  document.addEventListener("touchend", tryAttachOrientation, { passive: true });
+  tryAttachOrientation();
 
   // Setup all tilt cards idempotently
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
