@@ -148,7 +148,7 @@
 
 ## 6. CURRENT STATE & BACKLOG
 
-- **Landed on main:** Phases 1–8, 9B–9E, 11, 10-Slim, Batch Passes 1–2, Translations dead subkey purge.
+- **Landed on main:** Phases 1–8, 9B–9E, 11, 10-Slim, Batch Passes 1–2, Safe-List Pass #2 + #2b, Translations dead subkey purge, REPAIR PASS (profile reload loop disabled), Art Direction Restoration (ROYAL HERO CARD elements removed — design decision), Performance Pass + App-Wide Performance Pass (2026-09-30), App-Shell Visual Refinement: header melt + luxury liquid glass bottom nav (2026-10-01), plus 9 minor commits (2026-10-02 to 2026-10-04).
 - **Backlog:**
   - Optional CSS minification for production payload.
   - Ongoing visual polish and accessibility audits.
