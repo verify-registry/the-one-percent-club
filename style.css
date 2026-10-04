@@ -5762,6 +5762,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   flex-direction: column;
   gap: 22px;
   width: 100%;
+  padding-bottom: calc(110px + env(safe-area-inset-bottom, 30px));
 }
 
 #boutique-tab .boutique-section {
@@ -6164,21 +6165,22 @@ body.light-mode .rarity-free {
 #boutique-tab .boutique-own-btn {
   margin-top: auto;
   width: 100%;
-  height: 32px;
-  min-height: 32px;
-  padding: 0 8px;
+  height: auto;
+  min-height: 34px;
+  padding: 5px 6px;
   border-radius: 7px;
   border: 1px solid transparent;
-  font-size: 10px;
+  font-size: 8.5px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  display: inline-flex;
+  letter-spacing: 0.03em;
+  display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2;
+  overflow: visible;
+  text-overflow: clip;
   box-sizing: border-box;
   cursor: pointer;
   position: relative;
@@ -6207,7 +6209,7 @@ body.light-mode .rarity-free {
   color: #c7a77b;
   border: 1px solid rgba(165, 130, 75, 0.3);
   background: rgba(16, 13, 9, 0.88);
-  font-size: 9.5px;
+  font-size: 8.5px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.7);
 }
 
@@ -31441,6 +31443,26 @@ body.light-mode #boutique-tab .boutique-own-btn.btn-equip {
   background: #faf4e8 !important;
   border-color: rgba(165, 125, 45, 0.4) !important;
   color: #4a340e !important;
+}
+
+/* === BOUTIQUE COLLECTIBLES REFINEMENT (2026-10-04) === */
+.boutique-card .btn-gold,
+.boutique-card .btn,
+.boutique-card button {
+  white-space: normal !important;
+  line-height: 1.25 !important;
+  font-size: 11px !important;
+  height: auto !important;
+  min-height: 34px !important;
+  padding: 8px 10px !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+body.light-mode .boutique-card-icon,
+body.light-mode .boutique-card-fallback {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6efdd 45%, #e6d7b4 100%) !important;
+  border: 1px solid rgba(156, 109, 35, 0.45) !important;
+  box-shadow: inset 0 2px 6px rgba(120, 90, 30, 0.18), inset 0 -2px 5px rgba(255, 255, 255, 0.9), 0 4px 12px rgba(70, 50, 20, 0.12) !important;
 }
 
 

@@ -585,6 +585,16 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - **Luxury Acquisition CTA**: Reimagined `.boutique-own-btn` with unified 32px height, chamfered metallic bezel, and distinct states for acquire, tier-locked, equip, equipped, owned, and free items.
   - **Obsidian / Ivory / Antique Gold Balance**: Maintained authentic material realism using the existing gold system, Cormorant/Cinzel display typography, and ivory titles without altering business logic or catalog data.
   - Bumped stylesheet cache-buster to `style.css?v=20261004q` and `app.js?v=70`.
+- **Micro-Pass: Boutique Product Cards Corrective Pass (2026-10-04) — COMPLETE**:
+  - **CTA Button Clipping Resolution**: Updated `.boutique-own-btn` to use `white-space: normal`, flexible height, and adjusted padding/font sizing (`8.5px`, line-height `1.2`), allowing long tier requirements like `SOVEREIGN LUMINARY` and `SOVEREIGN EXARCH` to wrap fully across 2 lines without horizontal clipping.
+  - **Bottom Navigation Overlap Prevention**: Added bottom safe area padding (`padding-bottom: calc(110px + env(safe-area-inset-bottom, 30px))`) to `#boutiqueSections`, ensuring the final row of Product Cards is fully visible and scrollable above the bottom navigation bar.
+  - **Internal Alignment & Vertical Hierarchy**: Validated and standardized stable vertical stacking (`Badge → Collectible Medallion → Name → Price → Purchasing Gauge → CTA Button`) across all product cards while preserving Ivory luxury card styling, light/dark modes, and all business logic.
+  - **Verification**: Linted and compiled successfully (`style.css?v=20261004r`).
+
+### Sovereign Artefacts Redraw Pass — Option B (2026-10-04) — IN PROGRESS
+- Redrew all 20 collectible ICONS as tangible antique artefacts: metallic gradients, ground shadows, gem radial gradients, guilloche halos, specular highlights.
+- Cache-busted all script tags to defeat stale JS.
+- Pending: visual verification before push.
 
 
 
