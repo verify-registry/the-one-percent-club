@@ -1070,15 +1070,15 @@ const AppState = {
     est: "EST. 2026",
     avatarUrl:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-    wealthIndex: "98%",
+    wealthIndex: "60.0%",
     location: "ALEXANDRIA",
     email: "ism6il.x@gmail.com",
     phone: "+20 12 345 6789",
     interests: "DESIGN · CRAFT · TECHNOLOGY",
     status: "ACTIVE",
-    wealthIndexValue: 92,
-    privilegesValue: 84,
-    connectionsValue: 75,
+    wealthIndexValue: 60.0,
+    privilegesValue: 60.0,
+    connectionsValue: 60.0,
     verifyUrl: "https://1percent.club/verify/3426",
   },
   get member() {
@@ -1151,7 +1151,7 @@ const AppState = {
     this.chatCredits = savedCredits !== null ? parseInt(savedCredits, 10) : 10;
     
     this.owned = StorageHelper.get(`owned_${this.user.id}`, {}, true) || {};
-    this.equipped = StorageHelper.get(`equipped_${this.user.id}`, {}, true) || {};
+    this.equipped = {}; // Collectibles are permanently owned and never equipped to identity
 
     try {
       const legacyCol = StorageHelper.get("one_percent_collection");
@@ -1361,22 +1361,58 @@ const AppState = {
     let maxRarity = 0;
 
     for (const catKey in BOUTIQUE) {
+      if (!BOUTIQUE[catKey] || !Array.isArray(BOUTIQUE[catKey].items)) continue;
       for (const item of BOUTIQUE[catKey].items) {
         if (this.owned[item.id]) {
           totalItems++;
-          addedWealth += item.wealthImpact || item.rarity * 2;
-          addedPrivilege += item.privilegeImpact || item.rarity * 1.5;
+          
+          // 1. Economic Wealth Impact (based on item price)
+          // Low-value items ($1k-$3k) yield subtle increments (+0.3% - +0.6%)
+          // Mid-value items ($7.5k-$15k) yield moderate increments (+1.2% - +1.9%)
+          // High-value items ($25k-$75k) yield substantial increments (+2.6% - +5.3%)
+          // Top-tier items ($100k) yield highest increments (+6.3%)
+          const price = Number(item.price) || 0;
+          if (price > 0) {
+            addedWealth += Math.pow(price, 0.62) / 200;
+          }
+
+          // 2. Privileges Impact (based on rarity, sovereign tier standing, and artifact prestige)
+          // Rarity scale:
+          let rImpact = 0.6;
+          if (item.rarity === 2) rImpact = 1.4;
+          else if (item.rarity === 3) rImpact = 2.8;
+          else if (item.rarity >= 4) rImpact = 4.8;
+
+          // Standing tier scale:
+          let tierImpact = 0.5;
+          if (item.requiredTier === "SOVEREIGN EXARCH") tierImpact = 2.5;
+          else if (item.requiredTier === "SOVEREIGN LUMINARY") tierImpact = 1.4;
+
+          // Category Prestige weight:
+          const catPrestige = catKey === "artifacts" ? 1.2
+            : catKey === "crowns" ? 1.0
+            : catKey === "jewelry" ? 0.7
+            : catKey === "auras" ? 0.5
+            : catKey === "stars" ? 0.4
+            : 0.2;
+
+          addedPrivilege += rImpact + tierImpact + catPrestige;
+
           if (item.rarity > maxRarity) maxRarity = item.rarity;
         }
       }
     }
 
-    this.member.wealthIndexValue = Math.min(99, Math.floor(82 + addedWealth));
-    this.member.privilegesValue = Math.min(99, Math.floor(70 + addedPrivilege));
-    this.member.connectionsValue = Math.min(
-      99,
-      Math.floor(65 + totalItems * 2),
-    );
+    // Base standard starts from 60.0%
+    const baseStandard = 60.0;
+    const computedWealth = Math.min(99.8, +(baseStandard + addedWealth).toFixed(1));
+    const computedPrivilege = Math.min(99.8, +(baseStandard + addedPrivilege).toFixed(1));
+
+    this.member.wealthIndexValue = computedWealth;
+    this.member.privilegesValue = computedPrivilege;
+    this.member.wealthIndex = computedWealth.toFixed(1) + "%";
+    this.member.privileges = computedPrivilege.toFixed(1) + "%";
+    this.member.connectionsValue = Math.min(99, Math.floor(60 + totalItems * 2));
     
     const oldTier = this.member.tier;
 
@@ -1452,6 +1488,10 @@ const AppState = {
       this.save();
       this.notify();
 
+      if (typeof renderProfileCollection === "function") {
+        renderProfileCollection(false);
+      }
+
       // Subtle tactile haptic impulse for successful Boutique transaction
       if (window.HapticEngine) {
         window.HapticEngine.boutiquePurchase();
@@ -1480,13 +1520,8 @@ const AppState = {
   },
 
   toggleEquip(catKey, itemId) {
-    if (this.equipped[catKey] === itemId) {
-      delete this.equipped[catKey];
-    } else {
-      this.equipped[catKey] = itemId;
-    }
-    this.save();
-    if (typeof updateUI === "function") updateUI();
+    // Collectibles are permanently owned and never equipped/imitated on identity
+    return;
   },
 };
 const ClubState = AppState;
@@ -2040,6 +2075,10 @@ ClubState.on("change", () => {
     initProfile();
   }
 
+  if (typeof renderProfileCollection === "function") {
+    renderProfileCollection(false);
+  }
+
   if (typeof renderRing === "function") {
     renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
     renderRing("privRing", "privValue", AppState.user.privilegesValue);
@@ -2068,61 +2107,12 @@ ClubState.on("change", () => {
   }
 });
 
-function applyEquippedToCard(equipped) {
+function applyEquippedToCard() {
   for (const catKey in EQUIP_CATEGORIES) {
     const slotId = EQUIP_CATEGORIES[catKey];
     const slotEl = document.getElementById(slotId);
-    if (!slotEl) continue;
-    const itemId = equipped[catKey];
-    if (itemId) {
-      const itemDef = BOUTIQUE[catKey]?.items?.find((i) => i.id === itemId);
-      if (itemDef) {
-        if (catKey === "jewelry") {
-          slotEl.innerHTML = `
-            <span class="equipped-ring-icon" style="display:inline-flex; width:16px; height:16px; align-items:center; justify-content:center;">${ICONS[itemDef.icon] || ICONS["ring"]}</span>
-            <span class="equipped-ring-label" id="equippedRingLabel">${window.t(itemDef.name)}</span>
-          `;
-          slotEl.classList.add("active");
-          slotEl.style.display = "inline-flex";
-          slotEl.style.opacity = "1";
-          slotEl.style.height = "auto";
-        } else {
-          slotEl.innerHTML = ICONS[itemDef.icon] || ICONS["star"];
-          slotEl.style.display = (catKey === "stars") ? "inline-flex" : "flex";
-
-          // Aura special glowing aura treatment around the medallion
-          if (catKey === "auras") {
-            slotEl.className = `equipped-aura-slot active-aura-radiant aura-${itemDef.id}`;
-            slotEl.style.opacity = "1";
-          }
-        }
-      } else {
-        slotEl.style.display = "none";
-        if (catKey === "auras") {
-          slotEl.className = "equipped-aura-slot";
-          slotEl.style.opacity = "0";
-        }
-        if (catKey === "jewelry") {
-          slotEl.classList.remove("active");
-          slotEl.style.opacity = "0";
-          slotEl.style.height = "0";
-        }
-      }
-    } else {
-      slotEl.style.display = "none";
-      if (catKey === "auras") {
-        slotEl.className = "equipped-aura-slot";
-        slotEl.style.opacity = "0";
-      }
-      if (catKey === "jewelry") {
-        slotEl.classList.remove("active");
-        slotEl.style.opacity = "0";
-        slotEl.style.height = "0";
-      }
-    }
+    if (slotEl) slotEl.style.display = "none";
   }
-
-  // Synchronize equipped luxury assets on Profile Hero Plaque
   const profileEquipMap = {
     crowns: "profileEquippedCrownSlot",
     auras: "profileEquippedAuraSlot",
@@ -2131,19 +2121,7 @@ function applyEquippedToCard(equipped) {
   for (const catKey in profileEquipMap) {
     const pSlotId = profileEquipMap[catKey];
     const pSlotEl = document.getElementById(pSlotId);
-    if (!pSlotEl) continue;
-    const itemId = equipped[catKey];
-    if (itemId) {
-      const itemDef = BOUTIQUE[catKey]?.items?.find((i) => i.id === itemId);
-      if (itemDef) {
-        pSlotEl.innerHTML = ICONS[itemDef.icon] || ICONS["star"];
-        pSlotEl.style.display = "flex";
-      } else {
-        pSlotEl.style.display = "none";
-      }
-    } else {
-      pSlotEl.style.display = "none";
-    }
+    if (pSlotEl) pSlotEl.style.display = "none";
   }
 }
 
@@ -2291,20 +2269,12 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             btnText = window.t("boutique.freeActivated") || "مُفعَّل ومثبت ✓";
             btnClass = "btn-free";
             btnPointerEvents = "pointer-events: none;";
-          } else if (isEquipped) {
-            btnText = (window.t("boutique.equippedCheck") || "مجهّز بالهوية ✓");
-            btnClass = "btn-equipped";
-            btnOnClick = `onclick='handleQuickEquip(event, ${JSON.stringify(item)}, "${catKey}")'`;
           } else if (isOwned) {
-            if (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) {
-              btnText = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-end: 4px; vertical-align: middle;"><polyline points="20 6 9 17 4 12"></polyline></svg> ` + (window.t("boutique.owned") || "مملوك");
-              btnClass = "btn-owned qp-success-btn";
-              extraCardClass = " qp-shimmer-active";
-            } else {
-              btnText = window.t("boutique.equip") || "تجهيز";
-              btnClass = "btn-equip";
-              btnOnClick = `onclick='handleQuickEquip(event, ${JSON.stringify(item)}, "${catKey}")'`;
-            }
+            btnText = `<span class="ownership-seal-mark" aria-hidden="true">✓</span><span class="ownership-seal-text">${window.t("boutique.owned") || "مملوك"}</span>`;
+            btnClass = "btn-owned boutique-ownership-plaque" + (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id) ? " qp-success-btn" : "");
+            extraCardClass = (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) ? " qp-shimmer-active" : "";
+            btnPointerEvents = "pointer-events: none;";
+            btnOnClick = "";
           } else if (!tierEligible) {
             btnText = isAr ? `يتطلب ${item.requiredTier}` : `Requires ${item.requiredTier}`;
             btnClass = "btn-locked";
@@ -2315,7 +2285,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
           }
 
-          const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`;
+          const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`.trim();
           const priceHtml = item.free
             ? `<span class="boutique-card-price is-free">مجاني</span>`
             : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
@@ -2350,7 +2320,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             : "";
 
           return `
-          <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" data-equipped="${isEquipped ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned}, ${isEquipped})' style="cursor: pointer;">
+          <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned})' style="cursor: pointer;">
             <div class="boutique-card-header">
               <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "نادر"}</span>
               ${tierPillHtml}
@@ -2361,9 +2331,11 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             <span class="boutique-card-name">${window.t(item.name)}</span>
             ${priceHtml}
             ${progressHtml}
-            <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick}>
-              ${btnText}
-            </button>
+            <div class="boutique-card-footer">
+              <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick} ${isOwned ? 'tabindex="-1" aria-label="' + (window.t("boutique.owned") || "مملوك") + '"' : ''}>
+                ${btnText}
+              </button>
+            </div>
           </div>
         `;
         })
@@ -2372,8 +2344,15 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       return `
       <section class="boutique-section skeleton-fade-in" data-category="${catKey}">
         <div class="boutique-section-head">
-          <h3>${window.t(cat.title)}</h3>
-          ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${cat.sub}</span>` : ""}
+          <div class="boutique-section-title-wrap">
+            <h3 class="boutique-section-title">${window.t(cat.title)}</h3>
+            ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${cat.sub}</span>` : ""}
+          </div>
+          <div class="boutique-section-divider" aria-hidden="true">
+            <span class="bsd-line"></span>
+            <span class="bsd-mark">✦</span>
+            <span class="bsd-line"></span>
+          </div>
         </div>
         <div class="boutique-grid">${cards}</div>
       </section>
@@ -2394,77 +2373,8 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     `;
   }
 
-  root.querySelectorAll(".boutique-card").forEach((card) => {
-    let pressTimer;
-    let isLongPress = false;
-
-    const itemId = card.dataset.itemId;
-    const catKey = card.dataset.cat;
-    const isOwned = card.dataset.owned === "1";
-    const isEquipped = card.dataset.equipped === "1";
-    const cat = BOUTIQUE[catKey];
-    if (!cat) return;
-    const item = cat.items.find((i) => i.id === itemId);
-    if (!item) return;
-
-    const startPress = (e) => {
-      isLongPress = false;
-      pressTimer = setTimeout(() => {
-        isLongPress = true;
-
-        const currentEquipped = ClubState.equipped;
-        let wasAutoEquipped = false;
-        if (
-          isOwned &&
-          !isEquipped &&
-          !currentEquipped[catKey] &&
-          EQUIP_CATEGORIES[catKey]
-        ) {
-          equipItem(item, catKey);
-          wasAutoEquipped = true;
-        }
-
-        if (!isOwned) {
-          // Onboarding gesture hint overlay completely disabled
-        } else {
-          showQuickPreview(item, wasAutoEquipped);
-          if (navigator.vibrate) navigator.vibrate(50);
-          if (window.AudioEngine) window.AudioEngine.playRustle();
-        }
-      }, 400); // 400ms for long press
-    };
-
-    const endPress = (e) => {
-      clearTimeout(pressTimer);
-      if (isLongPress) {
-        if (!isOwned && window.hapticPreviewMgr) {
-          // Handled by manager's own events, but safe to call
-        } else {
-          hideQuickPreview();
-        }
-      }
-    };
-
-    card.addEventListener("touchstart", startPress, { passive: true });
-    card.addEventListener("touchend", endPress, { passive: true });
-    card.addEventListener("touchcancel", endPress, { passive: true });
-    card.addEventListener("touchmove", () => {
-      clearTimeout(pressTimer);
-    }, { passive: true });
-
-    card.addEventListener("mousedown", startPress);
-    card.addEventListener("mouseup", endPress);
-    card.addEventListener("mouseleave", endPress);
-
-    card.addEventListener("click", (e) => {
-      if (isLongPress) {
-        e.preventDefault();
-        e.stopPropagation();
-        return;
-      }
-      openInspectionModal(item, catKey, isOwned, isEquipped);
-    });
-  });
+  // Removed secondary square preview popup modal.
+  // Tap on any boutique card opens exclusively the primary curatorial inspection modal via onclick.
 }
 
 /* === 4. VAULT & USER ASSET SYNC === */
@@ -3063,9 +2973,13 @@ const Router = {
         window.setClubFloatingControlsVisibility(false);
       }
       // IDEMPOTENT PROFILE LIFECYCLE:
-      // If Profile is already initialized, reuse existing stable DOM
+      // If Profile is already initialized, ensure collection stays in sync with purchased items
       if (!window.isProfileInitialized) {
         initProfile();
+      } else {
+        if (typeof renderProfileCollection === "function") {
+          renderProfileCollection(false);
+        }
       }
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
         cancelClubWelcomeAutoDismiss();
@@ -4753,8 +4667,13 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const statusBadge = document.getElementById("inspectionStatusBadge");
   const statusText = document.getElementById("inspectionStatusText");
   if (statusBadge && statusText) {
-    statusText.textContent = rarityText;
-    statusBadge.className = "rmc-status-badge " + (isEquipped ? "is-equipped" : (isOwned ? "is-vaulted" : (tierEligible ? "is-eligible" : "is-locked")));
+    if (isOwned) {
+      statusText.textContent = isAr ? "مملوك" : "OWNED";
+      statusBadge.className = "rmc-status-badge is-vaulted";
+    } else {
+      statusText.textContent = rarityText;
+      statusBadge.className = "rmc-status-badge " + (tierEligible ? "is-eligible" : "is-locked");
+    }
   }
 
   const alloyEl = document.getElementById("inspectionAlloy");
@@ -4802,34 +4721,14 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   };
 
   if (equipBtn) {
-    if (item.free) {
-      setBtnText(window.t("boutique.freeActivated") || "مُفعَّل ومثبت ✓");
+    if (isOwned || item.free) {
+      // Collectible is already owned: display-only inspection mode.
+      // Absolutely NO imitation, equip, or unequip buttons/actions.
+      equipBtn.style.display = "none";
       equipBtn.disabled = true;
       equipBtn.onclick = null;
-      equipBtn.className = "rmc-equip-btn btn-free";
-    } else if (isOwned) {
-      if (isEquipped) {
-        setBtnText(window.t("boutique.unequipAction") || (isAr ? "فك التجهيز عن بطاقة الهوية" : "Unequip from Master Card"));
-        equipBtn.disabled = false;
-        equipBtn.className = "rmc-equip-btn is-unequip";
-        equipBtn.onclick = () => {
-          ClubState.toggleEquip(catKey, item.id);
-          closeInspectionModal();
-          if (window.AudioEngine && window.AudioEngine.playEquip) window.AudioEngine.playEquip();
-          renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
-        };
-      } else {
-        setBtnText(window.t("boutique.equipAction") || (isAr ? "تقليد على بطاقة الهوية" : "Equip to Master Card"));
-        equipBtn.disabled = false;
-        equipBtn.className = "rmc-equip-btn is-equip";
-        equipBtn.onclick = () => {
-          ClubState.toggleEquip(catKey, item.id);
-          closeInspectionModal();
-          if (window.AudioEngine && window.AudioEngine.playEquip) window.AudioEngine.playEquip();
-          renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
-        };
-      }
     } else if (!tierEligible) {
+      equipBtn.style.display = "flex";
       setBtnText(isAr ? `يتطلب رتبة ${item.requiredTier}` : `Requires ${item.requiredTier}`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn is-locked";
@@ -4840,6 +4739,7 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
         showNavToast(msg);
       };
     } else if (ClubState.balance < item.price) {
+      equipBtn.style.display = "flex";
       setBtnText(isAr ? `رصيد غير كافٍ — إيداع رصيد ($${item.price.toLocaleString()})` : `Insufficient Balance — Deposit ($${item.price.toLocaleString()})`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn needs-balance";
@@ -4850,6 +4750,7 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
         }
       };
     } else {
+      equipBtn.style.display = "flex";
       setBtnText(`${window.t("boutique.acquireAction") || (isAr ? "اقتناء التحفة السيادية" : "Acquire Artifact")} — $${item.price.toLocaleString("en-US")}`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn btn-gold";
@@ -4865,20 +4766,6 @@ window.handleQuickEquip = function(event, item, catKey) {
     event.stopPropagation();
     event.preventDefault();
   }
-  ClubState.toggleEquip(catKey, item.id);
-  if (window.AudioEngine && window.AudioEngine.playEquip) {
-    window.AudioEngine.playEquip();
-  }
-  if (window.HapticEngine && window.HapticEngine.boutiquePurchase) {
-    window.HapticEngine.boutiquePurchase();
-  }
-  const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
-  const isNowEquipped = ClubState.equipped[catKey] === item.id;
-  const msg = isNowEquipped
-    ? (isAr ? `تم تقليد ${window.t(item.name)} على بطاقة الهوية السيادية!` : `Equipped ${window.t(item.name)} to your Master Card!`)
-    : (isAr ? `تم فك تجهيز ${window.t(item.name)} وحفظها في الخزانة.` : `Returned ${window.t(item.name)} to your Sovereign Vault.`);
-  showNavToast(msg);
-  renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
 };
 
 document.getElementById("inspectionCloseBtn")?.addEventListener("click", () => {
@@ -4919,9 +4806,18 @@ window.purchase = function(item, source = 'modal', btnElement = null) {
       setTimeout(() => {
         window.quickPurchasedItems.delete(item.id);
         const b = document.querySelector(`.boutique-card[data-item-id="${item.id}"] .boutique-own-btn`);
-        if (b) b.innerHTML = window.t("boutique.owned");
+        if (b) {
+          b.className = "boutique-own-btn btn-owned boutique-ownership-plaque";
+          b.setAttribute("tabindex", "-1");
+          b.setAttribute("aria-label", window.t("boutique.owned") || "مملوك");
+          b.innerHTML = `<span class="ownership-seal-mark" aria-hidden="true">✓</span><span class="ownership-seal-text">${window.t("boutique.owned") || "مملوك"}</span>`;
+        }
         const c = document.querySelector(`.boutique-card[data-item-id="${item.id}"]`);
-        if (c) c.classList.remove("qp-shimmer-active");
+        if (c) {
+          c.classList.remove("qp-shimmer-active");
+          c.classList.add("is-owned");
+          c.dataset.owned = "1";
+        }
       }, 1500);
     }
     return true;
@@ -4939,11 +4835,8 @@ function purchaseItem(item, catKey) {
   return window.purchase(item, 'modal');
 }
 function equipItem(item, catKey) {
-  ClubState.toggleEquip(catKey, item.id);
-  closeInspectionModal();
-  if (window.AudioEngine && window.AudioEngine.playEquip) {
-    window.AudioEngine.playEquip();
-  }
+  // Collectibles are permanently owned and never equipped/imitated
+  return;
 }
 function updateMasterCard() {
   const pmItems = document.getElementById("pmItemsCollected");
@@ -4951,20 +4844,9 @@ function updateMasterCard() {
     pmItems.textContent = AppState.collectedItems.length;
   }
 
-  const wealthValueEl = document.getElementById("wealthValue");
-  const privValueEl = document.getElementById("privValue");
-  if (wealthValueEl && privValueEl) {
-    const totalSpent = AppState.user.totalSpent || 0;
-    const itemsCount = AppState.collectedItems.length;
-
-    let wealth = 90.0 + (totalSpent / 1000) * 0.1;
-    if (wealth > 99.9) wealth = 99.9;
-
-    let priv = 80 + itemsCount * 5;
-    if (priv > 100) priv = 100;
-
-    wealthValueEl.textContent = wealth.toFixed(1) + "%";
-    privValueEl.textContent = priv + "%";
+  if (typeof renderRing === "function") {
+    renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
+    renderRing("privRing", "privValue", AppState.user.privilegesValue);
   }
 
   if (window.renderMembershipTab) window.renderMembershipTab();
@@ -4990,58 +4872,17 @@ function closeInspectionModal() {
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
+// Secondary square preview tooltip removed in favor of canonical curatorial chamber
 function showQuickPreview(item, wasAutoEquipped = false) {
-  let tooltip = document.getElementById("quickPreviewTooltip");
-  if (!tooltip) {
-    tooltip = document.createElement("div");
-    tooltip.id = "quickPreviewTooltip";
-    tooltip.className = "quick-preview-tooltip";
-    tooltip.innerHTML = `
-      <div class="qp-content">
-        <div id="qpIcon" class="qp-icon-wrapper"></div>
-        <h4 id="qpName"></h4>
-        <span id="qpRarity" class="rarity-badge"></span>
-        <p id="qpLore"></p>
-        <div id="qpAutoEquipMsg" class="qp-auto-equip-msg" style="display:none; color: var(--gold-champagne); font-size: 11px; margin-top: 10px; font-weight: 600;">✨ تم التجهيز تلقائياً</div>
-        <div class="qp-hint">أفلت للإغلاق</div>
-      </div>
-    `;
-    document.body.appendChild(tooltip);
-  }
-
-  document.getElementById("qpName").textContent = window.t(item.name);
-
-  const autoEquipMsg = document.getElementById("qpAutoEquipMsg");
-  if (autoEquipMsg) {
-    autoEquipMsg.style.display = wasAutoEquipped ? "block" : "none";
-  }
-
-  const rarityEl = document.getElementById("qpRarity");
-  rarityEl.textContent = RARITY_LABEL[item.rarity]();
-  rarityEl.className = `rarity-badge rarity-${item.rarity}`;
-
-  let lore = item.lore;
-  if (!lore) {
-    if (item.icon === "crown") lore = window.t("dynamic.loreCrown");
-    else if (item.icon === "aura") lore = window.t("dynamic.loreAura");
-    else if (item.icon === "ring") lore = window.t("dynamic.loreRing");
-    else if (item.icon === "pendant") lore = window.t("dynamic.lorePendant");
-    else if (item.icon === "artifact") lore = window.t("dynamic.loreArtifact");
-    else if (item.icon === "star") lore = window.t("dynamic.loreStar");
-    else lore = window.t("dynamic.loreDefault");
-  }
-  document.getElementById("qpLore").textContent = (item.lore ? window.t(lore) : lore);
-
-  const iconSvg = ICONS[item.icon] || ICONS["star"];
-  document.getElementById("qpIcon").innerHTML = iconSvg;
-
-  tooltip.classList.add("is-visible");
+  const existing = document.getElementById("quickPreviewTooltip");
+  if (existing) existing.remove();
 }
 
 function hideQuickPreview() {
   const tooltip = document.getElementById("quickPreviewTooltip");
   if (tooltip) {
     tooltip.classList.remove("is-visible");
+    tooltip.remove();
   }
 }
 
@@ -6149,29 +5990,11 @@ function openReliquaryInspectModal(itemId) {
     loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || (isAr ? "تحفة ملكية مسبوكة يدوياً من الذهب السيادي الخالص، معتمدة من المجلس التأسيسي الأعلى." : "Handcrafted sovereign artifact forged from solid gold and obsidian."));
   }
 
-  // Toggle Equip Button
+  // Toggle Equip Button removed in favor of permanent read-only vault display
   const toggleBtn = document.getElementById("reliquaryToggleEquipBtn");
-  const toggleText = document.getElementById("reliquaryToggleEquipBtnText");
-  if (toggleBtn && toggleText) {
-    toggleBtn.className = "rmc-equip-btn " + (isEquipped ? "is-unequip" : "is-equip");
-    toggleText.textContent = isEquipped
-      ? (window.t("profile.unequipAction") || (isAr ? "إعادة وحفظ في الخزانة" : "Return to Sovereign Vault"))
-      : (window.t("profile.equipAction") || (isAr ? "تقليد على بطاقة الماستر كارد" : "Equip to Master Card"));
-
-    toggleBtn.onclick = () => {
-      ClubState.toggleEquip(catKey, item.id);
-      if (window.AudioEngine && window.AudioEngine.playEquip) {
-        window.AudioEngine.playEquip();
-      }
-      if (window.HapticEngine && window.HapticEngine.boutiquePurchase) {
-        window.HapticEngine.boutiquePurchase();
-      } else if (typeof navigator !== "undefined" && navigator.vibrate) {
-        navigator.vibrate([25, 40, 15]);
-      }
-      renderProfileCollection();
-      if (typeof updateMasterCard === "function") updateMasterCard();
-      openReliquaryInspectModal(item.id);
-    };
+  if (toggleBtn) {
+    toggleBtn.style.display = "none";
+    toggleBtn.onclick = null;
   }
 
   openModalCore("reliquaryInspectModal", {
@@ -6252,7 +6075,6 @@ function renderProfileCollection(forceSkeleton = false) {
     for (const item of collectedItems) {
       if (!item) continue;
       const nameText = window.t("items." + item.id) || item.name;
-      const isEquipped = AppState.equipped && Object.values(AppState.equipped).includes(item.id);
       const rarityText = item.rarity ? (typeof RARITY_LABELS !== 'undefined' && RARITY_LABELS[item.rarity] ? RARITY_LABELS[item.rarity]() : item.rarity) : '';
 
       let iconHtml = "";
@@ -6266,12 +6088,10 @@ function renderProfileCollection(forceSkeleton = false) {
         iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
       }
 
-      const statusTag = isEquipped
-        ? `<div class="reliquary-card-status is-active"><span class="rcs-dot"></span><span>${isAr ? 'مُقَلَّد' : 'EQUIPPED'}</span></div>`
-        : `<div class="reliquary-card-status is-vaulted"><span class="rcs-dot"></span><span>${isAr ? 'بالخزانة' : 'VAULTED'}</span></div>`;
+      const statusTag = `<div class="reliquary-card-status is-vaulted"><span class="rcs-dot"></span><span>${isAr ? 'مملوك' : 'PURCHASED'}</span></div>`;
 
       html += `
-        <div class="pcs-item-card reliquary-pedestal-card gyro-element ${isEquipped ? 'is-equipped' : ''}" 
+        <div class="pcs-item-card reliquary-pedestal-card gyro-element" 
              data-tilt
              data-item-id="${item.id}"
              onclick="openReliquaryInspectModal('${item.id}')"

@@ -5612,42 +5612,108 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   margin-top: 4px;
 }
 
+/* ==========================================================================
+   THE SOVEREIGN SALON & HAUTE BOUTIQUE COLLECTION
+   Refined luxury auction house / private curatorial gallery styling
+   ========================================================================== */
+
+#boutique-tab .boutique-curatorial-header {
+  width: 100%;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#boutique-tab .boutique-header-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold-pale, #c5a872);
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+#boutique-tab .boutique-header-eyebrow .bhe-mark {
+  color: var(--gold-deep, #9c732c);
+  font-size: 8px;
+}
+
 #boutique-tab .boutique-balance {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid var(--hairline-strong);
-  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 106, 0.38) !important;
+  border-radius: 14px;
   padding: 12px 16px;
-  background: rgba(199, 154, 62, 0.03);
+  background: linear-gradient(
+    165deg,
+    rgba(26, 20, 13, 0.98) 0%,
+    rgba(16, 12, 8, 0.99) 55%,
+    rgba(9, 7, 5, 1) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 240, 205, 0.18),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.85),
+    0 6px 18px -4px rgba(0, 0, 0, 0.7);
   width: 100%;
   box-sizing: border-box;
 }
-#boutique-tab .boutique-balance-icon svg {
-  width: 22px;
-  height: 22px;
-  display: block;
+
+#boutique-tab .boutique-balance-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
+
+#boutique-tab .boutique-balance-label {
+  font-size: 10px;
+  color: #a89a85;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
 #boutique-tab .boutique-balance-value {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--gold-champagne);
-  letter-spacing: 0.05em;
+  font-family: var(--font-display, "Cinzel", serif);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--gold-champagne, #e5cb88);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
+
 #boutique-tab .boutique-balance-add {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid var(--gold-antique);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 106, 0.45);
+  background: linear-gradient(180deg, rgba(38, 30, 18, 0.95) 0%, rgba(18, 14, 8, 0.98) 100%);
   color: var(--gold-champagne);
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.2), 0 2px 6px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
+
+#boutique-tab .boutique-balance-add:hover {
+  border-color: rgba(229, 203, 136, 0.7);
+  background: linear-gradient(180deg, rgba(50, 40, 24, 0.98) 0%, rgba(26, 20, 12, 1) 100%);
+  transform: translateY(-1px);
+}
+
+#boutique-tab .boutique-balance-add:active {
+  transform: scale(0.96);
+}
+
 @keyframes pulseGoldAlert {
   0% {
     box-shadow: 0 0 0 0 rgba(212, 175, 106, 0.4);
@@ -5666,29 +5732,26 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   background: var(--gold-champagne);
 }
 
+/* Category Navigation: Luxury Department Index */
 #boutique-tab .boutique-tabs {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  background: var(--surface-secondary) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-bottom: 1px solid rgba(212, 175, 106, 0.3);
-  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(20, 16, 11, 0.92) 0%, rgba(12, 9, 6, 0.96) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.25) !important;
+  border-radius: 10px;
   padding: 4px;
   gap: 4px;
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
   direction: ltr;
   box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.5),
-    0 8px 16px -4px rgba(0, 0, 0, 0.7);
+    inset 0 2px 5px rgba(0, 0, 0, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.5);
   width: 100%;
   box-sizing: border-box;
-  min-height: 40px;
-}
-#boutique-tab .boutique-tabs::after {
-  display: none;
+  min-height: 42px;
 }
 #boutique-tab .boutique-tabs::-webkit-scrollbar {
   display: none;
@@ -5696,71 +5759,100 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 #boutique-tab .boutique-tab {
   flex: 0 0 auto;
   background: transparent;
-  border: none;
-  color: var(--text-secondary) !important;
-  font-family: var(--font-ui);
+  border: 1px solid transparent;
+  color: #9d917f !important;
+  font-family: var(--font-ui, system-ui, sans-serif);
   font-size: 11px;
   font-weight: 500;
-  padding: 8px 18px;
-  border-radius: 20px;
+  padding: 7px 14px;
+  border-radius: 7px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   transform: translateZ(0);
   line-height: normal;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  letter-spacing: 0.03em;
+}
+#boutique-tab .boutique-tab:hover {
+  color: #cfc4b2 !important;
 }
 #boutique-tab .boutique-tab:active {
-  transform: translateY(2px);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.8),
-    inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  transform: translateY(1px);
 }
 #boutique-tab .boutique-tab.is-active {
-  background: var(--surface-primary) !important;
-  color: var(--gold-polished) !important;
-  box-shadow: inset 0 1px 2px rgba(212, 175, 106, 0.1);
-  font-weight: 600;
-  border: none;
-  transform: none;
-  text-shadow: none;
+  background: linear-gradient(180deg, rgba(38, 30, 18, 0.98) 0%, rgba(20, 16, 10, 1) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.48) !important;
+  color: var(--gold-champagne, #d4af6a) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.22), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+  font-weight: 600 !important;
 }
-#boutique-tab .boutique-tab.is-active:active {
-  transform: scale(0.97);
-}
-#boutique-tab .boutique-tab.is-active::after {
-  display: none;
-}
+
 #boutique-tab .boutique-section {
-  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 0;
 }
 #boutique-tab .boutique-section-head {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin-bottom: 16px;
-  direction: rtl;
-  text-align: end;
+  align-items: stretch;
+  margin-bottom: 2px;
   gap: 6px;
+  width: 100%;
 }
-#boutique-tab .boutique-section-head h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 16px;
-  color: #f1eada;
+#boutique-tab .boutique-section-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  direction: rtl;
+  text-align: start;
+}
+#boutique-tab .boutique-section-title {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-weight: 700;
+  font-size: 15.5px;
+  letter-spacing: 0.03em;
+  color: #f5eedf;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 #boutique-tab .boutique-section-sub {
-  font-size: 11px;
-  color: #8a8172;
+  font-size: 10.5px;
+  color: #9d917f;
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
   direction: rtl;
   unicode-bidi: isolate;
+}
+#boutique-tab .boutique-section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 6px 0 2px;
+  width: 100%;
+}
+#boutique-tab .boutique-section-divider .bsd-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 106, 0.35) 50%, transparent 100%);
+}
+#boutique-tab .boutique-section-divider .bsd-mark {
+  color: var(--gold-deep, #9c732c);
+  font-size: 9px;
+  line-height: 1;
+  opacity: 0.85;
 }
 #boutiqueSections {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 24px;
   width: 100%;
   padding-bottom: calc(110px + env(safe-area-inset-bottom, 30px));
 }
@@ -5798,44 +5890,60 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   contain: layout style paint;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  border: 1px solid rgba(212, 175, 106, 0.28) !important;
-  border-radius: 12px;
-  padding: 10px 10px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
+  border: 1px solid rgba(212, 175, 106, 0.38) !important;
+  border-radius: 14px !important;
+  padding: 12px 10px 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: center !important;
   cursor: pointer;
-  background: linear-gradient(
-    165deg,
-    rgba(22, 17, 12, 0.96) 0%,
-    rgba(14, 11, 8, 0.98) 60%,
-    rgba(8, 6, 4, 1) 100%
-  ) !important;
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(212, 175, 106, 0.09) 0%, transparent 65%),
+    linear-gradient(165deg, rgba(26, 21, 15, 0.98) 0%, rgba(15, 12, 8, 0.99) 55%, rgba(8, 6, 4, 1) 100%) !important;
   color: var(--text-primary) !important;
   box-shadow:
-    inset 0 1px 1px rgba(255, 240, 205, 0.1),
-    inset 0 -4px 12px rgba(0, 0, 0, 0.85),
-    0 8px 18px -4px rgba(0, 0, 0, 0.65);
+    inset 0 1px 1.5px rgba(255, 240, 205, 0.22),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.9),
+    0 8px 24px -4px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.85) !important;
   transition:
-    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.25s ease,
-    background 0.25s ease;
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.25s ease !important;
   will-change: transform, box-shadow;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
+  height: 100% !important;
+  min-height: 268px !important;
+}
+
+/* Inner engraved frame for physical craftsmanship depth */
+#boutique-tab .boutique-card::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(212, 175, 106, 0.16);
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.25s ease;
 }
 
 /* Subtle, refined luxury hover effect */
 #boutique-tab .boutique-card:hover {
   transform: translateY(-2px) translateZ(0);
-  border-color: rgba(212, 175, 106, 0.5) !important;
+  border-color: rgba(212, 175, 106, 0.6) !important;
   box-shadow:
-    inset 0 1px 1px rgba(255, 245, 220, 0.2),
-    inset 0 -4px 12px rgba(0, 0, 0, 0.85),
-    0 12px 24px -5px rgba(0, 0, 0, 0.75),
-    0 0 12px rgba(212, 175, 106, 0.15) !important;
+    inset 0 1px 1.5px rgba(255, 245, 220, 0.28),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.9),
+    0 12px 28px -4px rgba(0, 0, 0, 0.85),
+    0 0 14px rgba(212, 175, 106, 0.18) !important;
+}
+
+#boutique-tab .boutique-card:hover::before {
+  border-color: rgba(212, 175, 106, 0.32);
 }
 
 #boutique-tab .boutique-card:active {
@@ -5846,11 +5954,11 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 /* Light Mode Hover refinement */
 body.light-mode #boutique-tab .boutique-card:hover {
   transform: translateY(-2px) translateZ(0);
-  border-color: rgba(184, 141, 56, 0.55) !important;
+  border-color: rgba(184, 141, 56, 0.65) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 10px 22px -4px rgba(90, 65, 20, 0.12),
-    0 0 0 1px rgba(184, 141, 56, 0.25) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 12px 26px -4px rgba(90, 65, 20, 0.16),
+    0 0 0 1px rgba(184, 141, 56, 0.3) !important;
 }
 
 body.light-mode #boutique-tab .boutique-card:active {
@@ -5859,32 +5967,22 @@ body.light-mode #boutique-tab .boutique-card:active {
 }
 
 #boutique-tab .boutique-card.is-owned {
-  border-color: rgba(212, 175, 106, 0.38) !important;
-}
-#boutique-tab .boutique-card.is-equipped {
-  border-color: rgba(212, 175, 106, 0.65) !important;
-  background: linear-gradient(
-    165deg,
-    rgba(26, 20, 12, 0.98) 0%,
-    rgba(14, 11, 7, 1) 100%
-  ) !important;
-  box-shadow:
-    inset 0 1px 1px rgba(255, 235, 180, 0.2),
-    0 0 14px rgba(212, 175, 106, 0.15),
-    0 8px 20px rgba(0, 0, 0, 0.7) !important;
+  border-color: rgba(212, 175, 106, 0.42) !important;
 }
 
 /* Classification & Rarity Meta Bar */
 #boutique-tab .boutique-card-header {
-  width: 100%;
-  min-height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2px;
-  position: relative;
-  z-index: 2;
-  box-sizing: border-box;
+  width: 100% !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  max-height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin: 0 0 4px 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  box-sizing: border-box !important;
 }
 
 #boutique-tab .boutique-card .rarity-badge {
@@ -6026,28 +6124,35 @@ body.light-mode .rarity-free {
 /* Visual Hero: Medallion Artifact Chamber */
 #boutique-tab .boutique-card-icon,
 #profileCollectionGrid .boutique-card-icon {
-  margin: 6px auto 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 82px;
-  height: 82px;
-  border-radius: 50%;
-  position: relative;
+  margin: 5px auto 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 80px !important;
+  height: 80px !important;
+  min-width: 80px !important;
+  min-height: 80px !important;
+  max-width: 80px !important;
+  max-height: 80px !important;
+  border-radius: 50% !important;
+  position: relative !important;
   background: radial-gradient(
     circle at 35% 25%,
     rgba(255, 235, 185, 0.22) 0%,
-    rgba(212, 175, 106, 0.14) 28%,
-    rgba(32, 24, 16, 0.45) 65%,
-    rgba(10, 8, 6, 0.75) 100%
-  );
-  border: 1px solid rgba(212, 175, 106, 0.45);
+    rgba(212, 175, 106, 0.12) 30%,
+    rgba(28, 20, 12, 0.55) 65%,
+    rgba(8, 6, 4, 0.95) 100%
+  ) !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.55) !important;
   box-shadow:
-    inset 0 1.5px 2px rgba(255, 240, 205, 0.25),
-    inset 0 -2px 6px rgba(0, 0, 0, 0.8),
-    0 6px 16px -2px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(0, 0, 0, 0.8);
+    inset 0 0 0 2px rgba(12, 9, 6, 0.9),
+    inset 0 0 0 3px rgba(212, 175, 106, 0.3),
+    inset 0 2px 6px rgba(255, 240, 205, 0.2),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.95),
+    0 6px 16px -2px rgba(0, 0, 0, 0.75) !important;
+  box-sizing: border-box !important;
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
+  z-index: 2;
 }
 
 #boutique-tab .boutique-card-icon::after,
@@ -6070,47 +6175,60 @@ body.light-mode .rarity-free {
 
 #boutique-tab .boutique-card-icon img,
 #profileCollectionGrid .boutique-card-icon img {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-  position: relative;
-  z-index: 1;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85));
+  width: 58px !important;
+  height: 58px !important;
+  object-fit: contain !important;
+  position: relative !important;
+  z-index: 2 !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.9)) !important;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
-#boutique-tab .boutique-card-fallback,
 #profileCollectionGrid .boutique-card-fallback {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+  width: 58px !important;
+  height: 58px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 2 !important;
   background: radial-gradient(
     circle at 35% 28%,
     rgba(38, 30, 20, 0.98) 0%,
     rgba(18, 14, 10, 1) 60%,
     rgba(8, 6, 4, 1) 100%
-  );
-  border: 1px solid rgba(212, 175, 106, 0.32);
+  ) !important;
+  border: 1px solid rgba(212, 175, 106, 0.3) !important;
   box-shadow:
-    inset 0 1px 1.5px rgba(255, 240, 205, 0.2),
+    inset 0 1px 1.5px rgba(255, 240, 205, 0.18),
     inset 0 -3px 8px rgba(0, 0, 0, 0.95),
-    0 2px 6px rgba(0, 0, 0, 0.5);
-  transform: translateZ(10px);
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
+    0 2px 5px rgba(0, 0, 0, 0.5) !important;
+}
+
+#boutique-tab .boutique-card-fallback {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 #boutique-tab .boutique-card-fallback svg,
 #profileCollectionGrid .boutique-card-fallback svg {
-  width: 52px !important;
-  height: 52px !important;
-  display: block;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 6px rgba(212, 175, 106, 0.22));
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 44px !important;
+  height: 44px !important;
+  display: block !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 5px rgba(212, 175, 106, 0.22)) !important;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
 }
 
 #boutique-tab .boutique-card:hover .boutique-card-fallback svg,
@@ -6120,34 +6238,46 @@ body.light-mode .rarity-free {
 
 /* Product Typography Hierarchy */
 #boutique-tab .boutique-card-name {
-  font-size: 12.5px;
-  margin: 5px 0 2px;
-  font-weight: 600;
-  color: #f7f3ea;
-  line-height: 1.35;
-  min-height: 34px;
-  max-height: 34px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  font-size: 12px !important;
+  margin: 4px 0 2px !important;
+  font-weight: 600 !important;
+  color: #f7f3ea !important;
+  line-height: 1.35 !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  position: relative !important;
+  z-index: 2 !important;
 }
 
 #boutique-tab .boutique-card-price {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display, "Cinzel", serif);
-  font-weight: 600;
-  font-size: 13.5px;
-  letter-spacing: 0.04em;
-  color: var(--gold-champagne);
-  margin: 2px 0 3px;
-  height: 18px;
-  line-height: 18px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-weight: 700 !important;
+  font-size: 13.5px !important;
+  letter-spacing: 0.05em !important;
+  color: var(--gold-champagne, #e5cb88) !important;
+  margin: 2px 0 3px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  max-height: 18px !important;
+  line-height: 18px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  position: relative !important;
+  z-index: 2 !important;
 }
 
 #boutique-tab .boutique-card-price svg {
@@ -6161,30 +6291,46 @@ body.light-mode .rarity-free {
   font-size: 12px;
 }
 
-/* Luxury Acquisition Button */
+/* Fixed Footer Container for Strict Alignment Across All Cards */
+#boutique-tab .boutique-card-footer {
+  width: 100% !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  margin-top: auto !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Luxury Acquisition Button: Authentic Polished Gold Ingot */
 #boutique-tab .boutique-own-btn {
-  margin-top: auto;
-  width: 100%;
-  height: auto;
-  min-height: 34px;
-  padding: 5px 6px;
-  border-radius: 7px;
+  margin-top: 0 !important;
+  width: 100% !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  padding: 5px 8px !important;
+  border-radius: 7px !important;
   border: 1px solid transparent;
-  font-size: 8.5px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  white-space: normal;
-  line-height: 1.2;
-  overflow: visible;
-  text-overflow: clip;
-  box-sizing: border-box;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  box-sizing: border-box !important;
   cursor: pointer;
-  position: relative;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  position: relative !important;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease !important;
 }
 
 #boutique-tab .boutique-own-btn:active {
@@ -6192,17 +6338,26 @@ body.light-mode .rarity-free {
 }
 
 #boutique-tab .boutique-own-btn.btn-acquire {
-  color: var(--gold-champagne);
-  border: 1px solid rgba(212, 175, 106, 0.45);
-  background: linear-gradient(180deg, rgba(38, 30, 16, 0.95) 0%, rgba(18, 14, 8, 0.98) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.2), 0 2px 6px rgba(0, 0, 0, 0.5);
+  color: #1c1305 !important;
+  font-weight: 700 !important;
+  font-size: 9.5px !important;
+  letter-spacing: 0.05em !important;
+  background: linear-gradient(145deg, #f0d599 0%, #d8b264 35%, #be9444 75%, #9e762c 100%) !important;
+  border: 1px solid #b88d38 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 240, 0.75),
+    inset 0 -1px 0 rgba(110, 80, 20, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.6) !important;
+  text-shadow: 0 1px 0 rgba(255, 250, 235, 0.45) !important;
 }
 
 #boutique-tab .boutique-own-btn.btn-acquire:hover {
-  background: linear-gradient(180deg, rgba(54, 42, 22, 0.98) 0%, rgba(26, 20, 12, 1) 100%);
-  border-color: rgba(229, 203, 136, 0.7);
-  color: #fcf6ea;
-  box-shadow: inset 0 1px 0 rgba(255, 245, 210, 0.3), 0 4px 10px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(145deg, #f5ddaa 0%, #dfbc72 35%, #c89e4c 75%, #a87e32 100%) !important;
+  border-color: #d4ae60 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 4px 10px rgba(0, 0, 0, 0.65) !important;
+  color: #1a1306 !important;
 }
 
 #boutique-tab .boutique-own-btn.btn-locked {
@@ -6218,36 +6373,62 @@ body.light-mode .rarity-free {
   border-color: rgba(199, 167, 123, 0.45);
 }
 
-#boutique-tab .boutique-own-btn.btn-equip {
-  color: var(--gold-pale);
+#boutique-tab .boutique-own-btn.btn-free {
+  color: var(--gold-champagne);
   border: 1px solid rgba(212, 175, 106, 0.45);
-  background: linear-gradient(180deg, rgba(32, 26, 16, 0.88) 0%, rgba(16, 13, 8, 0.95) 100%);
+  background: linear-gradient(180deg, rgba(28, 22, 14, 0.95) 0%, rgba(14, 11, 7, 0.98) 100%);
   box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.15);
 }
 
-#boutique-tab .boutique-own-btn.btn-equip:hover {
-  border-color: rgba(229, 203, 136, 0.7);
-  background: linear-gradient(180deg, rgba(46, 36, 20, 0.95) 0%, rgba(22, 18, 10, 1) 100%);
-  color: #fff;
+/* ==========================================================================
+   LUXURY OWNERSHIP STATUS PLAQUE (REPLACES DISABLED BUTTON)
+   Deep obsidian metal base, fine antique gold hairline, authentic gold seal mark
+   ========================================================================== */
+#boutique-tab .boutique-own-btn.btn-owned,
+#boutique-tab .boutique-ownership-plaque {
+  width: 100% !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  box-sizing: border-box !important;
+  cursor: default !important;
+  pointer-events: none !important;
+  border-radius: 7px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 0 10px !important;
+  background: linear-gradient(180deg, rgba(28, 22, 14, 0.96) 0%, rgba(14, 11, 7, 0.99) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.42) !important;
+  color: #eedcc0 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 185, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.75),
+    0 2px 6px rgba(0, 0, 0, 0.5) !important;
+  opacity: 1 !important;
 }
 
-#boutique-tab .boutique-own-btn.btn-equipped {
-  color: #8ecba0;
-  border: 1px solid rgba(127, 190, 140, 0.45);
-  background: rgba(18, 30, 22, 0.8);
-  box-shadow: inset 0 1px 0 rgba(140, 210, 155, 0.15);
+#boutique-tab .boutique-own-btn.btn-owned .ownership-seal-mark,
+#boutique-tab .boutique-ownership-plaque .ownership-seal-mark {
+  color: var(--gold-champagne, #d4af6a) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8)) !important;
 }
 
-#boutique-tab .boutique-own-btn.btn-owned {
-  color: #9e9686;
-  border: 1px solid rgba(160, 145, 120, 0.25);
-  background: rgba(18, 16, 14, 0.75);
-}
-
-#boutique-tab .boutique-own-btn.btn-free {
-  color: #8ecba0;
-  border: 1px solid rgba(127, 190, 140, 0.45);
-  background: rgba(18, 30, 22, 0.8);
+#boutique-tab .boutique-own-btn.btn-owned .ownership-seal-text,
+#boutique-tab .boutique-ownership-plaque .ownership-seal-text {
+  color: #f3e9d7 !important;
+  font-family: var(--font-body, system-ui, sans-serif) !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
 }
 
 .artifact-svg {
@@ -6262,22 +6443,53 @@ body.light-mode .rarity-free {
   transform: scale(1.08) translateY(-1px);
 }
 
+#inspectionModal {
+  align-items: flex-end !important;
+  justify-content: center !important;
+  padding: 0 0 env(safe-area-inset-bottom, 0px) !important;
+  background: rgba(6, 4, 3, 0.78) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 9999 !important;
+}
+
+body.light-mode #inspectionModal {
+  background: rgba(30, 22, 12, 0.48) !important;
+}
+
 .boutique-curatorial-modal {
-  padding: 0 !important;
-  max-width: 540px !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  margin: 0 auto !important;
   border-radius: 20px 20px 0 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
+  border: 1px solid rgba(212, 175, 106, 0.42) !important;
+  border-bottom: none !important;
+  background: linear-gradient(175deg, #181410 0%, #100d0a 60%, #060504 100%) !important;
+  box-shadow: 0 -12px 38px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 240, 205, 0.28) !important;
+  padding: 14px 16px max(14px, env(safe-area-inset-bottom, 14px)) !important;
+  box-sizing: border-box !important;
+  max-height: calc(100dvh - 36px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+body.light-mode .boutique-curatorial-modal {
+  background: linear-gradient(175deg, #fdfbf7 0%, #f6efe2 60%, #ece0cb 100%) !important;
+  border: 1px solid rgba(175, 133, 50, 0.42) !important;
+  border-bottom: none !important;
+  box-shadow: 0 -10px 36px rgba(80, 55, 20, 0.16), inset 0 1px 0 #ffffff !important;
 }
 
 .boutique-curatorial-modal .rmc-document-frame {
+  position: relative !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
   margin: 0 !important;
-  border-bottom: none !important;
-  border-radius: 20px 20px 0 0 !important;
-  max-height: 85vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  padding: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 .rmc-status-badge.is-eligible {
@@ -6994,30 +7206,32 @@ body.light-mode .rarity-free {
   }
   #boutique-tab .boutique-card {
     position: relative;
-    border: 1px solid var(--hairline);
-    border-radius: 14px;
-    padding: 14px 12px 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    text-align: center;
-    background: linear-gradient(160deg, #181510, #0a0906);
-    box-shadow: inset 0 0 15px rgba(212, 175, 106, 0.02);
+    border: 1px solid rgba(212, 175, 106, 0.32) !important;
+    border-radius: 14px !important;
+    padding: 10px 8px 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    background: linear-gradient(
+      165deg,
+      rgba(24, 19, 13, 0.98) 0%,
+      rgba(14, 11, 8, 0.99) 60%,
+      rgba(8, 6, 4, 1) 100%
+    ) !important;
+    box-shadow:
+      inset 0 1px 1px rgba(255, 240, 205, 0.12),
+      inset 0 -3px 8px rgba(0, 0, 0, 0.8),
+      0 6px 16px -2px rgba(0, 0, 0, 0.65) !important;
   }
   #boutique-tab .boutique-card-icon,
   #profileCollectionGrid .boutique-card-icon {
-    margin: 10px 0 6px;
+    margin: 4px 0 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(
-      circle at center,
-      rgba(212, 175, 106, 0.1) 0%,
-      transparent 60%
-    );
+    width: 66px;
+    height: 66px;
     border-radius: 50%;
   }
   #page-member .info-row {
@@ -8169,34 +8383,37 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
 #boutique-tab .boutique-filters-row {
   display: flex;
   justify-content: center;
-  margin: -4px 0 20px 0;
+  margin: 0 0 10px 0;
+  width: 100%;
 }
 #boutique-tab .boutique-ownership-toggle {
   display: flex;
-  background: rgba(10, 8, 5, 0.6);
-  border: 1px solid rgba(212, 175, 106, 0.15);
-  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(20, 16, 11, 0.92) 0%, rgba(12, 9, 6, 0.96) 100%);
+  border: 1px solid rgba(212, 175, 106, 0.25);
+  border-radius: 9px;
   padding: 3px;
   gap: 2px;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 .b-filt-btn {
   background: transparent;
-  border: none;
-  color: #8a8172;
-  font-family: var(--font-ui);
+  border: 1px solid transparent;
+  color: #9d917f;
+  font-family: var(--font-ui, system-ui, sans-serif);
   font-size: 10px;
   font-weight: 500;
   padding: 6px 14px;
-  border-radius: 16px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   transform: translateZ(0);
 }
 .b-filt-btn.is-active {
-  background: rgba(212, 175, 106, 0.1);
-  color: #c8a951;
-  box-shadow: inset 0 1px 2px rgba(212, 175, 106, 0.1);
+  background: linear-gradient(180deg, rgba(38, 30, 18, 0.98) 0%, rgba(20, 16, 10, 1) 100%) !important;
+  border-color: rgba(212, 175, 106, 0.42) !important;
+  color: var(--gold-champagne, #d4af6a) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.22), 0 2px 5px rgba(0, 0, 0, 0.5) !important;
+  font-weight: 600 !important;
 }
 
 @keyframes shimmer {
@@ -11682,9 +11899,28 @@ body.light-mode #boutique-tab .btn-equipped {
   color: #2b733e !important;
   border-color: rgba(43, 115, 62, 0.4) !important;
 }
-body.light-mode #boutique-tab .btn-owned {
-  color: var(--lm-text-muted) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
+body.light-mode #boutique-tab .btn-owned,
+body.light-mode #boutique-tab .boutique-ownership-plaque {
+  background: linear-gradient(180deg, #fdf8ee 0%, #ede1cb 100%) !important;
+  border: 1px solid rgba(175, 133, 50, 0.5) !important;
+  color: #3d2b0f !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(110, 80, 20, 0.15),
+    0 2px 6px rgba(80, 55, 20, 0.08) !important;
+  opacity: 1 !important;
+}
+
+body.light-mode #boutique-tab .btn-owned .ownership-seal-mark,
+body.light-mode #boutique-tab .boutique-ownership-plaque .ownership-seal-mark {
+  color: #8c6721 !important;
+  filter: none !important;
+}
+
+body.light-mode #boutique-tab .btn-owned .ownership-seal-text,
+body.light-mode #boutique-tab .boutique-ownership-plaque .ownership-seal-text {
+  color: #382405 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
 }
 
 body.light-mode #profile-tab .prestige-honors .is-unlocked .honor-pill {
@@ -25248,50 +25484,77 @@ body #profile-tab .vhb-status {
 .rmc-screw-br .rmc-screw-slot { transform: rotate(225deg) !important; }
 .rmc-screw-bl .rmc-screw-slot { transform: rotate(315deg) !important; }
 
-/* Modal Close Button */
+/* Modal Close Button: Compact Sovereign Circular Seal */
 .rmc-close-btn {
   position: absolute !important;
-  top: 10px !important;
-  left: 10px !important;
+  top: 0 !important;
+  inset-inline-end: auto !important;
+  inset-inline-start: 0 !important;
   width: 28px !important;
   height: 28px !important;
   border-radius: 50% !important;
-  background: rgba(25, 20, 15, 0.85) !important;
-  border: 1px solid rgba(212, 175, 106, 0.3) !important;
-  color: #cbb07a !important;
+  background: rgba(30, 22, 14, 0.9) !important;
+  border: 1px solid rgba(212, 175, 106, 0.42) !important;
+  color: #eedcc0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  transition: all 0.2s ease !important;
   z-index: 10 !important;
   padding: 0 !important;
-}
-
-.rmc-close-btn svg {
-  width: 14px !important;
-  height: 14px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
 }
 
 .rmc-close-btn:hover {
-  background: rgba(45, 36, 26, 0.95) !important;
-  border-color: rgba(212, 175, 106, 0.6) !important;
+  background: rgba(48, 36, 22, 1) !important;
+  border-color: rgba(240, 205, 130, 0.8) !important;
   color: #ffffff !important;
+  transform: scale(1.05);
+}
+
+body.light-mode .rmc-close-btn {
+  background: #ffffff !important;
+  border: 1px solid rgba(175, 133, 50, 0.42) !important;
+  color: #5c4114 !important;
+  box-shadow: 0 2px 6px rgba(80, 55, 20, 0.12) !important;
+}
+
+body.light-mode .rmc-close-btn:hover {
+  background: #faf4e8 !important;
+  border-color: #b88d38 !important;
+  color: #241b0b !important;
 }
 
 /* Top Header & Sovereign Seal */
 .rmc-header {
   display: flex !important;
   align-items: center !important;
-  gap: 12px !important;
-  padding-bottom: 12px !important;
-  border-bottom: 1px solid rgba(212, 175, 106, 0.2) !important;
+  gap: 10px !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 8px !important;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.22) !important;
+  padding-inline-start: 34px !important; /* Space for the close button */
+  box-sizing: border-box !important;
+}
+
+body.light-mode .rmc-header {
+  border-bottom-color: rgba(175, 133, 50, 0.25) !important;
 }
 
 .rmc-seal-wrap {
-  width: 42px !important;
-  height: 42px !important;
+  width: 36px !important;
+  height: 36px !important;
   flex-shrink: 0 !important;
+}
+
+.rmc-seal-mark {
+  width: 30px !important;
+  height: 30px !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .rmc-seal-svg {
@@ -25303,8 +25566,9 @@ body #profile-tab .vhb-status {
 .rmc-header-texts {
   display: flex !important;
   flex-direction: column !important;
-  gap: 2px !important;
+  gap: 1.5px !important;
   overflow: hidden !important;
+  text-align: start !important;
 }
 
 .rmc-eyebrow {
@@ -25313,6 +25577,11 @@ body #profile-tab .vhb-status {
   letter-spacing: 0.08em !important;
   color: #d4af6a !important;
   text-transform: uppercase !important;
+  line-height: 1.1 !important;
+}
+
+body.light-mode .rmc-eyebrow {
+  color: #8c6721 !important;
 }
 
 .rmc-artifact-title {
@@ -25321,31 +25590,51 @@ body #profile-tab .vhb-status {
   font-weight: 700 !important;
   color: #f7eed7 !important;
   margin: 0 !important;
+  line-height: 1.25 !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
 
+body.light-mode .rmc-artifact-title {
+  color: #241b0b !important;
+}
+
 .rmc-serial {
   font-family: monospace !important;
-  font-size: 8px !important;
-  color: #8c7a62 !important;
-  letter-spacing: 0.06em !important;
+  font-size: 7.5px !important;
+  color: #9d8c75 !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.1 !important;
+}
+
+body.light-mode .rmc-serial {
+  color: #7d6b53 !important;
 }
 
 /* Turntable Pedestal Chamber */
 .rmc-turntable-chamber {
   position: relative !important;
-  margin: 14px 0 !important;
+  margin: 0 0 8px 0 !important;
   border-radius: 12px !important;
-  background: radial-gradient(ellipse at 50% 30%, #1e1914 0%, #100d0a 60%, #060504 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.22) !important;
-  box-shadow: inset 0 6px 18px rgba(0, 0, 0, 0.9) !important;
-  padding: 16px 10px !important;
+  background: radial-gradient(ellipse at 50% 25%, #221b14 0%, #120e0a 60%, #060504 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.8) !important;
+  padding: 8px !important;
+  height: 98px !important;
+  min-height: 98px !important;
+  max-height: 98px !important;
+  box-sizing: border-box !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
+}
+
+body.light-mode .rmc-turntable-chamber {
+  background: radial-gradient(ellipse at 50% 25%, #fdfbf7 0%, #f4ede0 60%, #e6dac5 100%) !important;
+  border: 1px solid rgba(175, 133, 50, 0.3) !important;
+  box-shadow: inset 0 2px 8px rgba(80, 55, 20, 0.08) !important;
 }
 
 .rmc-spotlight-cone {
@@ -25353,15 +25642,15 @@ body #profile-tab .vhb-status {
   top: 0 !important;
   left: 25% !important;
   right: 25% !important;
-  height: 50px !important;
+  height: 38px !important;
   background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 106, 0.22) 0%, transparent 100%) !important;
   pointer-events: none !important;
 }
 
 .rmc-turntable-pedestal {
   position: relative !important;
-  width: 76px !important;
-  height: 76px !important;
+  width: 56px !important;
+  height: 56px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -25369,36 +25658,61 @@ body #profile-tab .vhb-status {
 
 .rmc-pedestal-bezel {
   position: absolute !important;
-  inset: -3px !important;
+  inset: -2px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle, rgba(212, 175, 106, 0.25) 0%, transparent 70%) !important;
+  background: radial-gradient(circle, rgba(212, 175, 106, 0.28) 0%, transparent 70%) !important;
 }
 
 .rmc-pedestal-velvet {
-  width: 68px !important;
-  height: 68px !important;
+  width: 52px !important;
+  height: 52px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle at 40% 35%, #231c15 0%, #120e0b 65%, #080605 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.45) !important;
-  box-shadow:
-    inset 0 4px 10px rgba(0, 0, 0, 0.95),
-    0 4px 12px rgba(0, 0, 0, 0.7) !important;
+  background: radial-gradient(circle at 40% 35%, #2a2016 0%, #140f0c 65%, #080605 100%) !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.5) !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9), 0 3px 8px rgba(0, 0, 0, 0.6) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 10px !important;
+  padding: 4px !important;
+  box-sizing: border-box !important;
+}
+
+body.light-mode .rmc-pedestal-velvet {
+  background: radial-gradient(circle at 40% 35%, #ffffff 0%, #f7f1e6 65%, #ebdcc9 100%) !important;
+  border: 1.5px solid rgba(175, 133, 50, 0.45) !important;
+  box-shadow: inset 0 2px 5px rgba(80, 55, 20, 0.12), 0 2px 6px rgba(80, 55, 20, 0.1) !important;
+}
+
+.rmc-pedestal-velvet img {
+  width: 38px !important;
+  height: 38px !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.8)) !important;
+}
+
+.rmc-pedestal-velvet svg {
+  width: 32px !important;
+  height: 32px !important;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.75)) !important;
+  color: var(--gold-champagne, #d4af6a) !important;
+}
+
+body.light-mode .rmc-pedestal-velvet svg {
+  color: #8c6721 !important;
+  filter: drop-shadow(0 2px 4px rgba(80, 55, 20, 0.2)) !important;
 }
 
 .rmc-status-badge {
   display: flex !important;
   align-items: center !important;
-  gap: 5px !important;
-  font-size: 8.5px !important;
+  gap: 4px !important;
+  font-size: 7.5px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.05em !important;
-  padding: 3.5px 8px !important;
-  border-radius: 20px !important;
-  margin-top: 10px !important;
+  letter-spacing: 0.04em !important;
+  padding: 2px 8px !important;
+  border-radius: 12px !important;
+  margin-top: 4px !important;
+  line-height: 1.2 !important;
 }
 
 .rmc-status-badge.is-equipped {
@@ -25432,66 +25746,188 @@ body #profile-tab .vhb-status {
 .rmc-spec-grid {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
-  gap: 8px !important;
-  margin-bottom: 12px !important;
+  gap: 5px !important;
+  margin-bottom: 7px !important;
 }
 
 .rmc-spec-cell {
-  background: rgba(18, 15, 12, 0.6) !important;
-  border: 1px solid rgba(212, 175, 106, 0.16) !important;
-  border-radius: 8px !important;
-  padding: 8px 9px !important;
+  background: rgba(22, 17, 12, 0.7) !important;
+  border: 1px solid rgba(212, 175, 106, 0.2) !important;
+  border-radius: 6px !important;
+  padding: 5px 8px !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 2px !important;
+  gap: 1.5px !important;
+  box-sizing: border-box !important;
+  text-align: start !important;
+}
+
+body.light-mode .rmc-spec-cell {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(175, 133, 50, 0.28) !important;
+  box-shadow: 0 1px 3px rgba(80, 55, 20, 0.04) !important;
 }
 
 .rmc-spec-lbl {
-  font-size: 8px !important;
-  color: #8c7a62 !important;
+  font-size: 7.5px !important;
+  color: #a8947a !important;
   letter-spacing: 0.03em !important;
+  font-weight: 500 !important;
+}
+
+body.light-mode .rmc-spec-lbl {
+  color: #7d653f !important;
 }
 
 .rmc-spec-val {
-  font-size: 10px !important;
+  font-size: 9.5px !important;
   font-weight: 700 !important;
   color: #f7eed7 !important;
+  line-height: 1.2 !important;
+}
+
+body.light-mode .rmc-spec-val {
+  color: #241b0b !important;
 }
 
 /* Historical Lore Paragraph */
 .rmc-lore-box {
-  background: rgba(14, 12, 10, 0.65) !important;
-  border-left: 2px solid rgba(212, 175, 106, 0.5) !important;
-  border-radius: 0 6px 6px 0 !important;
-  padding: 8px 10px !important;
-  margin-bottom: 14px !important;
+  background: rgba(18, 14, 10, 0.7) !important;
+  border-inline-start: 2.5px solid var(--gold-champagne, #d4af6a) !important;
+  border-left: none !important;
+  border-radius: 4px !important;
+  padding: 6px 9px !important;
+  margin-bottom: 8px !important;
+  text-align: start !important;
+}
+
+body.light-mode .rmc-lore-box {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-inline-start-color: #b88d38 !important;
 }
 
 .rmc-lore-paragraph {
-  font-size: 9.5px !important;
-  line-height: 1.45 !important;
-  color: #baa78b !important;
+  font-size: 8.5px !important;
+  line-height: 1.4 !important;
+  color: #c4b59f !important;
   margin: 0 !important;
 }
 
-/* Action Button */
+body.light-mode .rmc-lore-paragraph {
+  color: #4a3e2e !important;
+}
+
+/* Action Buttons */
 .rmc-actions {
   width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  margin-top: 2px !important;
 }
 
 .rmc-equip-btn {
   width: 100% !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  border-radius: 7px !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 7px !important;
-  padding: 10px 14px !important;
-  border-radius: 8px !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.04em !important;
+  gap: 6px !important;
+  padding: 0 12px !important;
+  box-sizing: border-box !important;
   cursor: pointer !important;
-  transition: all 0.25s ease !important;
+  line-height: 1 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 240, 0.8),
+    0 2px 6px rgba(0, 0, 0, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+
+.rmc-equip-btn.btn-gold {
+  background: linear-gradient(145deg, #f0d599 0%, #d8b264 35%, #be9444 75%, #9e762c 100%) !important;
+  border: 1px solid #b88d38 !important;
+  color: #1a1306 !important;
+  text-shadow: 0 1px 0 rgba(255, 250, 235, 0.45) !important;
+}
+
+.rmc-equip-btn.btn-gold:hover {
+  background: linear-gradient(145deg, #f5ddaa 0%, #dfbc72 35%, #c89e4c 75%, #a87e32 100%) !important;
+  border-color: #d4ae60 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+.rmc-equip-btn.is-locked {
+  background: rgba(22, 17, 12, 0.9) !important;
+  border: 1px solid rgba(165, 130, 75, 0.35) !important;
+  color: #c7a77b !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.6) !important;
+}
+
+.rmc-equip-btn.needs-balance {
+  background: linear-gradient(135deg, rgba(212, 175, 106, 0.18), rgba(184, 134, 11, 0.35)) !important;
+  border: 1px solid var(--gold-champagne) !important;
+  color: var(--gold-champagne) !important;
+}
+
+/* Secondary Compact Close Control (High Luxury, Sleek, Zero Hanging) */
+.rmc-dismiss-btn {
+  width: 100% !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 6px !important;
+  color: #a8947a !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  padding: 0 8px !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+}
+
+.rmc-dismiss-btn:hover {
+  background: rgba(212, 175, 106, 0.08) !important;
+  border-color: rgba(212, 175, 106, 0.3) !important;
+  color: #eedcc0 !important;
+}
+
+body.light-mode .rmc-dismiss-btn {
+  color: #7d653f !important;
+}
+
+body.light-mode .rmc-dismiss-btn:hover {
+  background: rgba(175, 133, 50, 0.08) !important;
+  border-color: rgba(175, 133, 50, 0.3) !important;
+  color: #241b0b !important;
+}
+
+/* When the item is ALREADY OWNED, the acquire button is hidden, so rmc-dismiss-btn serves as sole prominent close button */
+.rmc-actions .rmc-equip-btn[style*="display: none"] + .rmc-dismiss-btn,
+.rmc-actions .rmc-equip-btn[style*="display:none"] + .rmc-dismiss-btn {
+  height: 34px !important;
+  min-height: 34px !important;
+  border: 1px solid rgba(212, 175, 106, 0.4) !important;
+  background: rgba(28, 22, 16, 0.8) !important;
+  color: #f7eed7 !important;
+}
+
+body.light-mode .rmc-actions .rmc-equip-btn[style*="display: none"] + .rmc-dismiss-btn,
+body.light-mode .rmc-actions .rmc-equip-btn[style*="display:none"] + .rmc-dismiss-btn {
+  border: 1px solid rgba(175, 133, 50, 0.4) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #3b2a0c !important;
 }
 
 .rmc-equip-btn.is-equip {
@@ -25610,7 +26046,8 @@ body.light-mode .rmc-spec-val {
 
 body.light-mode .rmc-lore-box {
   background: rgba(255, 255, 255, 0.65) !important;
-  border-left-color: #967026 !important;
+  border-inline-start: 2.5px solid #967026 !important;
+  border-left: none !important;
 }
 
 body.light-mode .rmc-lore-paragraph {
@@ -31323,7 +31760,6 @@ body.light-mode .b-filt-btn.is-active svg {
 }
 
 /* 2. Unified Gold Borders & Architectural Bezels */
-body.light-mode #boutique-tab .boutique-card,
 body.light-mode #profile-tab .membership-ledger-card,
 body.light-mode #profile-tab .profile-curation-card,
 body.light-mode #profile-tab .reliquary-card,
@@ -31400,14 +31836,81 @@ body.light-mode .deed-security-ribbon {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) !important;
 }
 
-/* Light Mode Boutique Collector Cards Parity */
-body.light-mode #boutique-tab .boutique-card {
-  background: linear-gradient(165deg, #fdfbf7 0%, #f5eee2 100%) !important;
-  border-color: rgba(165, 125, 45, 0.35) !important;
+/* Light Mode Boutique Collector Cards Parity: Warm Ivory / Fine Parchment Surface */
+body.light-mode #boutique-tab .boutique-curatorial-header .boutique-header-eyebrow {
+  color: #7a5a1f !important;
+}
+
+body.light-mode #boutique-tab .boutique-balance {
+  background: linear-gradient(165deg, #fdfbf7 0%, #f6eee0 60%, #ede1cc 100%) !important;
+  border: 1px solid rgba(175, 133, 50, 0.45) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -3px 8px rgba(165, 125, 45, 0.08),
-    0 4px 12px rgba(80, 55, 20, 0.06) !important;
+    inset 0 -2px 6px rgba(165, 125, 45, 0.06),
+    0 4px 14px rgba(80, 55, 20, 0.08) !important;
+}
+
+body.light-mode #boutique-tab .boutique-balance-label {
+  color: #7a5a1f !important;
+}
+
+body.light-mode #boutique-tab .boutique-balance-value {
+  color: #382405 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #boutique-tab .boutique-balance-add {
+  background: linear-gradient(180deg, #fefbf4 0%, #f4e8d0 100%) !important;
+  border: 1px solid rgba(175, 133, 50, 0.5) !important;
+  color: #4a340e !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 5px rgba(80, 55, 20, 0.1) !important;
+}
+
+body.light-mode #boutique-tab .boutique-ownership-toggle,
+body.light-mode #boutique-tab .boutique-tabs {
+  background: linear-gradient(180deg, #f7f1e6 0%, #ebe0cd 100%) !important;
+  border-color: rgba(175, 133, 50, 0.35) !important;
+  box-shadow: inset 0 1px 3px rgba(80, 55, 20, 0.08), 0 2px 6px rgba(80, 55, 20, 0.05) !important;
+}
+
+body.light-mode .b-filt-btn,
+body.light-mode #boutique-tab .boutique-tab {
+  color: #6a573d !important;
+}
+
+body.light-mode .b-filt-btn.is-active,
+body.light-mode #boutique-tab .boutique-tab.is-active {
+  background: linear-gradient(180deg, #fffdf8 0%, #f4e8d3 100%) !important;
+  border-color: rgba(175, 133, 50, 0.55) !important;
+  color: #3f2a09 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 5px rgba(80, 55, 20, 0.1) !important;
+}
+
+body.light-mode #boutique-tab .boutique-section-title {
+  color: #2b1f0c !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #boutique-tab .boutique-section-sub {
+  color: #725e44 !important;
+}
+
+body.light-mode #boutique-tab .boutique-section-divider .bsd-line {
+  background: linear-gradient(90deg, transparent 0%, rgba(175, 133, 50, 0.4) 50%, transparent 100%) !important;
+}
+
+body.light-mode #boutique-tab .boutique-section-divider .bsd-mark {
+  color: #8c6721 !important;
+}
+
+body.light-mode #boutique-tab .boutique-card {
+  background: linear-gradient(165deg, #fdfbf7 0%, #f7f0e4 55%, #eee3cf 100%) !important;
+  border: 1px solid rgba(175, 133, 50, 0.42) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -2px 6px rgba(165, 125, 45, 0.08),
+    0 6px 16px -2px rgba(80, 55, 20, 0.09) !important;
 }
 
 body.light-mode #boutique-tab .boutique-card-name {
@@ -31445,24 +31948,79 @@ body.light-mode #boutique-tab .boutique-own-btn.btn-equip {
   color: #4a340e !important;
 }
 
-/* === BOUTIQUE COLLECTIBLES REFINEMENT (2026-10-04) === */
-.boutique-card .btn-gold,
-.boutique-card .btn,
-.boutique-card button {
-  white-space: normal !important;
-  line-height: 1.25 !important;
-  font-size: 11px !important;
-  height: auto !important;
+/* === BOUTIQUE COLLECTIBLES UNIFIED ARCHITECTURE (2026-10-04) === */
+#boutique-tab .boutique-card-footer {
+  width: 100% !important;
+  height: 34px !important;
   min-height: 34px !important;
-  padding: 8px 10px !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
+  max-height: 34px !important;
+  margin-top: auto !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  box-sizing: border-box !important;
 }
-body.light-mode .boutique-card-icon,
-body.light-mode .boutique-card-fallback {
+
+#boutique-tab .boutique-card .boutique-own-btn {
+  width: 100% !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  padding: 0 8px !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  border-radius: 7px !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-icon {
   background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6efdd 45%, #e6d7b4 100%) !important;
-  border: 1px solid rgba(156, 109, 35, 0.45) !important;
-  box-shadow: inset 0 2px 6px rgba(120, 90, 30, 0.18), inset 0 -2px 5px rgba(255, 255, 255, 0.9), 0 4px 12px rgba(70, 50, 20, 0.12) !important;
+  border: 1.5px solid rgba(175, 133, 50, 0.5) !important;
+  box-shadow:
+    inset 0 0 0 2px #fdfbf7,
+    inset 0 2px 6px rgba(120, 90, 30, 0.16),
+    inset 0 -2px 6px rgba(255, 255, 255, 0.95),
+    0 4px 12px rgba(70, 50, 20, 0.12) !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-fallback {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-fallback svg {
+  color: #8c6721 !important;
+  filter: drop-shadow(0 2px 4px rgba(80, 55, 20, 0.22)) !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn.btn-owned,
+body.light-mode #boutique-tab .boutique-ownership-plaque {
+  background: linear-gradient(180deg, #f7f2e7 0%, #ebe2ce 100%) !important;
+  border: 1px solid rgba(175, 133, 50, 0.45) !important;
+  color: #3b2c12 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 4px rgba(80, 55, 20, 0.08) !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-mark,
+body.light-mode #boutique-tab .boutique-ownership-plaque .ownership-seal-mark {
+  color: #8c6721 !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8)) !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-text,
+body.light-mode #boutique-tab .boutique-ownership-plaque .ownership-seal-text {
+  color: #3b2c12 !important;
+  text-shadow: none !important;
 }
 
 

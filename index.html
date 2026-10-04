@@ -560,7 +560,7 @@
                       ></circle>
                     </svg>
                     <div class="ring-center">
-                      <span class="ring-value" id="wealthValue">90.0%</span>
+                      <span class="ring-value" id="wealthValue">60.0%</span>
                     </div>
                     <p class="ring-label">
                       <span data-i18n="membership.wealthIndex">مؤشر الثروة</span>
@@ -581,10 +581,10 @@
                           <span class="metric-tooltip-title" data-i18n="membership.wealthTooltipTitle">مؤشر الثروة السيادية</span>
                         </div>
                         <p class="metric-tooltip-body" data-i18n="membership.wealthTooltipDesc">
-                          يُحسب بقاعدة أساسية 82% ويرتفع تدريجياً حتى 99% باقتناء التحف والقطع النادرة والأصول السيادية من البوتيك.
+                          يُحسب بقاعدة أساسية 60% ويرتفع تدريجياً بناءً على القيمة الاقتصادية الإجمالية للمقتنيات المملوكة من البوتيك.
                         </p>
                         <div class="metric-tooltip-formula">
-                          <span class="formula-tag" data-i18n="membership.wealthTooltipFormula">الأساس (82%) + ندرة المقتنيات</span>
+                          <span class="formula-tag" data-i18n="membership.wealthTooltipFormula">الأساس (60%) + القيمة الاقتصادية</span>
                         </div>
                       </div>
                     </div>
@@ -623,7 +623,7 @@
                       ></circle>
                     </svg>
                     <div class="ring-center">
-                      <span class="ring-value" id="privValue">80.0%</span>
+                      <span class="ring-value" id="privValue">60.0%</span>
                     </div>
                     <p class="ring-label">
                       <span data-i18n="membership.privileges">الامتيازات</span>
@@ -644,10 +644,10 @@
                           <span class="metric-tooltip-title" data-i18n="membership.privilegesTooltipTitle">مؤشر الامتيازات السيادية</span>
                         </div>
                         <p class="metric-tooltip-body" data-i18n="membership.privilegesTooltipDesc">
-                          يُحسب بقاعدة أساسية 70% ويتوسع حتى 99% وفق رتبة العضوية، نشاط النادي الحصري، ومقتنيات التيجان.
+                          يُحسب بقاعدة أساسية 60% ويتطور بناءً على الندرة والرتبة والمكانة الرفيعة للمقتنيات السيادية المملوكة.
                         </p>
                         <div class="metric-tooltip-formula">
-                          <span class="formula-tag" data-i18n="membership.privilegesTooltipFormula">الأساس (70%) + الرتبة والتيجان</span>
+                          <span class="formula-tag" data-i18n="membership.privilegesTooltipFormula">الأساس (60%) + الندرة والرتبة والمكانة</span>
                         </div>
                       </div>
                     </div>
@@ -2432,11 +2432,10 @@
                   </p>
                 </div>
 
-                <!-- Actions: Equip/Unequip Toggle -->
+                <!-- Actions: Close -->
                 <div class="rmc-actions">
-                  <button type="button" class="rmc-equip-btn" id="reliquaryToggleEquipBtn">
-                    <span class="rmc-btn-icon">✦</span>
-                    <span id="reliquaryToggleEquipBtnText" data-i18n="profile.equipAction">تقليد على بطاقة الماستر كارد</span>
+                  <button type="button" class="btn btn-outline" onclick="closeReliquaryInspectModal()" style="width: 100%;">
+                    <span data-i18n="boutique.close">إغلاق</span>
                   </button>
                 </div>
               </div>
@@ -2445,35 +2444,43 @@
         </section>
         <!-- PAGE: BOUTIQUE -->
         <section class="page" id="boutique-tab" hidden="">
-          <div class="boutique-balance">
-            <div>
-              <div style="font-size: 10px; color: #8a8172; margin-bottom: 2px">
-                <span data-i18n="profile.accountBalance">رصيد الحساب</span>
-              </div>
-              <div class="boutique-balance-value" id="boutiqueBalanceDisplay">
-                24,750
-              </div>
+          <div class="boutique-curatorial-header">
+            <div class="boutique-header-eyebrow">
+              <span class="bhe-mark">✦</span>
+              <span class="bhe-title">THE PRIVATE COLLECTION · صالون المقتنيات السيادية</span>
+              <span class="bhe-mark">✦</span>
             </div>
-            <button
-              class="boutique-balance-add"
-              type="button"
-              id="boutiqueAddBalanceBtn"
-              aria-label="Add Balance"
-              data-i18n-aria-label="profile.addBalance"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                style="width: 14px; height: 14px"
+            <div class="boutique-balance">
+              <div class="boutique-balance-info">
+                <div class="boutique-balance-label">
+                  <span data-i18n="profile.accountBalance">رصيد الحساب</span>
+                </div>
+                <div class="boutique-balance-value" id="boutiqueBalanceDisplay">
+                  24,750
+                </div>
+              </div>
+              <button
+                class="boutique-balance-add"
+                type="button"
+                id="boutiqueAddBalanceBtn"
+                aria-label="Add Balance"
+                data-i18n-aria-label="profile.addBalance"
+                title="إيداع رصيد"
               >
-                <path
-                  d="M12 5v14M5 12h14"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                ></path>
-              </svg>
-            </button>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  style="width: 14px; height: 14px"
+                >
+                  <path
+                    d="M12 5v14M5 12h14"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
+              </button>
+            </div>
           </div>
           <div class="boutique-filters-row">
             <div class="boutique-ownership-toggle" id="boutiqueFilterToggle">
@@ -2580,12 +2587,12 @@
 
     <div id="modals-container">
       <!-- BOUTIQUE INSPECTION MODAL (PRIVATE CURATORIAL CHAMBER) -->
-      <div class="purchase-modal-overlay" id="inspectionModal" hidden="">
+      <div class="purchase-modal-overlay" id="inspectionModal" hidden="" onclick="if (event.target === this) closeInspectionModal()">
         <div class="purchase-modal boutique-curatorial-modal" role="dialog" aria-modal="true" aria-labelledby="inspectionTitle">
           <div class="rmc-document-frame">
             <!-- Modal Close Button -->
             <button type="button" class="rmc-close-btn" id="inspectionCloseBtn" onclick="closeInspectionModal()" aria-label="Close">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -2594,14 +2601,14 @@
             <!-- Curatorial Header with Seal -->
             <div class="rmc-header">
               <div class="rmc-seal-mark" aria-hidden="true">
-                <svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+                <svg viewBox="0 0 36 36" width="30" height="30" fill="none">
                   <circle cx="18" cy="18" r="16.5" stroke="url(#phcGoldRimGrad)" stroke-width="1.2" stroke-dasharray="2 1.5"></circle>
                   <circle cx="18" cy="18" r="14" fill="rgba(212,175,106,0.06)" stroke="url(#ringGoldGrad)" stroke-width="0.8"></circle>
                   <path d="M18 8l2.5 5.5 6 .9-4.5 4.2 1 6-5-2.8-5 2.8 1-6-4.5-4.2 6-.9L18 8z" fill="url(#goldText)"></path>
                 </svg>
               </div>
               <div class="rmc-header-texts">
-                <span class="rmc-eyebrow" data-i18n="boutique.curatorialTitle">PRIVATE CURATORIAL CHAMBER</span>
+                <span class="rmc-eyebrow" data-i18n="boutique.curatorialTitle">معاينة وفحص التحفة السيادية</span>
                 <h4 class="rmc-artifact-title" id="inspectionTitle">—</h4>
                 <span class="rmc-serial" id="inspectionSerial">SER: ARC-2026-SOV</span>
               </div>
@@ -2650,13 +2657,13 @@
             </div>
 
             <!-- Actions: Acquire / Equip / Close -->
-            <div class="rmc-actions" style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
-              <button class="rmc-equip-btn btn-gold" id="inspectionEquipBtn" type="button" style="width: 100%;">
+            <div class="rmc-actions">
+              <button class="rmc-equip-btn btn-gold" id="inspectionEquipBtn" type="button">
                 <span class="rmc-btn-icon">✦</span>
                 <span id="inspectionEquipBtnText" data-i18n="boutique.acquire">اقتناء</span>
               </button>
-              <button class="btn btn-outline" id="inspectionCancelBtn" type="button" onclick="closeInspectionModal()" style="width: 100%;" data-i18n="boutique.close">
-                <span data-i18n="boutique.close">إغلاق</span>
+              <button class="rmc-dismiss-btn" id="inspectionCancelBtn" type="button" onclick="closeInspectionModal()">
+                <span data-i18n="boutique.close">إغلاق المعاينة</span>
               </button>
             </div>
           </div>

@@ -96,12 +96,12 @@ window.I18N = {
       ar: "مؤشر الثروة السيادية",
     },
     wealthTooltipDesc: {
-      en: "Calculated from a base of 82%, scaling up to 99% through boutique acquisitions and high-rarity sovereign artifacts.",
-      ar: "يُحسب بقاعدة أساسية 82% ويرتفع تدريجياً حتى 99% باقتناء التحف والقطع النادرة والأصول السيادية من البوتيك.",
+      en: "Calculated from a standard base of 60%, scaling up gradually based on the total economic value of acquired boutique collectibles.",
+      ar: "يُحسب بقاعدة أساسية 60% ويرتفع تدريجياً بناءً على القيمة الاقتصادية الإجمالية للمقتنيات المملوكة من البوتيك.",
     },
     wealthTooltipFormula: {
-      en: "Base (82%) + Rarity Impact",
-      ar: "الأساس (82%) + ندرة المقتنيات",
+      en: "Base (60%) + Economic Value",
+      ar: "الأساس (60%) + القيمة الاقتصادية",
     },
     privileges: {
       en: "Privileges",
@@ -112,12 +112,12 @@ window.I18N = {
       ar: "مؤشر الامتيازات السيادية",
     },
     privilegesTooltipDesc: {
-      en: "Calculated from a base of 70%, expanding up to 99% via membership tier, club activity, and equipped regalia.",
-      ar: "يُحسب بقاعدة أساسية 70% ويتوسع حتى 99% وفق رتبة العضوية، نشاط النادي الحصري، ومقتنيات التيجان.",
+      en: "Calculated from a standard base of 60%, expanding based on rarity, standing tier, and prestige of acquired sovereign collectibles.",
+      ar: "يُحسب بقاعدة أساسية 60% ويتطور بناءً على الندرة والرتبة والمكانة الرفيعة للمقتنيات السيادية المملوكة.",
     },
     privilegesTooltipFormula: {
-      en: "Base (70%) + Tier & Regalia Influence",
-      ar: "الأساس (70%) + الرتبة والتيجان",
+      en: "Base (60%) + Rarity & Standing",
+      ar: "الأساس (60%) + الندرة والرتبة والمكانة",
     },
     shareMembership: {
       en: "Share Membership",
