@@ -1123,6 +1123,70 @@ window.I18N = {
       en: "Widgets",
       ar: "الودجت",
     },
+    rarity1: {
+      en: "Exceptional",
+      ar: "مقتنى استثنائي",
+    },
+    rarity2: {
+      en: "Masterpiece",
+      ar: "تحفة نادرة",
+    },
+    rarity3: {
+      en: "Sovereign Relic",
+      ar: "إرث سيادي",
+    },
+    rarity4: {
+      en: "Apex Singular",
+      ar: "درة القمة المطلقة",
+    },
+    curatorialTitle: {
+      en: "Private Curatorial Chamber",
+      ar: "معاينة وفحص التحفة السيادية",
+    },
+    metalAlloy: {
+      en: "Alloy & Material",
+      ar: "الصياغة والمعدن",
+    },
+    sovereignWeight: {
+      en: "Sovereign Weight",
+      ar: "الوزن والعيار",
+    },
+    requiredStanding: {
+      en: "Required Standing",
+      ar: "الرتبة المطلوبة",
+    },
+    tierQualified: {
+      en: "Eligible Standing ✓",
+      ar: "مستوفٍ لرتبة العضوية ✓",
+    },
+    tierLocked: {
+      en: "Requires {0}",
+      ar: "يتطلب رتبة {0}",
+    },
+    tierRestrictedToast: {
+      en: "This artifact is reserved for {0} standing and above.",
+      ar: "هذه التحفة مخصصة حصرياً لأعضاء رتبة {0} فأعلى.",
+    },
+    equipAction: {
+      en: "Equip to Master Card",
+      ar: "تقليد على بطاقة الهوية",
+    },
+    unequipAction: {
+      en: "Unequip from Identity",
+      ar: "إلغاء التقليد وحفظ بالخزانة",
+    },
+    valuation: {
+      en: "Valuation",
+      ar: "القيمة السيادية",
+    },
+    provenance: {
+      en: "Historical Provenance",
+      ar: "السجل الوثائقي للتحفة",
+    },
+    acquireAction: {
+      en: "Acquire Artifact",
+      ar: "اقتناء التحفة السيادية",
+    },
     equip: {
       en: "Equip",
       ar: "تجهيز",
@@ -1502,20 +1566,20 @@ window.I18N = {
       ar: "عضو",
     },
     rarity1: {
-      en: "Rare",
-      ar: "نادر",
+      en: "Exceptional",
+      ar: "مقتنى استثنائي",
     },
     rarity2: {
-      en: "Epic",
-      ar: "ملحمي",
+      en: "Masterpiece",
+      ar: "تحفة نادرة",
     },
     rarity3: {
-      en: "Legendary",
-      ar: "أسطوري",
+      en: "Sovereign Relic",
+      ar: "إرث سيادي",
     },
     rarity4: {
-      en: "Sovereign",
-      ar: "سيادي",
+      en: "Apex Singular",
+      ar: "درة القمة المطلقة",
     },
     supportDesc: {
       en: "Welcome to the Sovereign Concierge. Our private desk is available 24/7 for members.",
@@ -1721,93 +1785,210 @@ window.I18N = {
       en: "Dubai, UAE",
       ar: "دبي، الإمارات",
     },
-    star1: {
-      en: "Elite Star",
-      ar: "نجمة النخبة",
-    },
-    star2: {
-      en: "Diamond Star",
-      ar: "نجمة ماسية",
-    },
-    star3: {
-      en: "Sovereign Star",
-      ar: "نجمة السيادة",
-    },
-    star4: {
-      en: "Golden Star",
-      ar: "نجمة ذهبية",
-    },
+    // --- CROWNS ---
     crown1: {
-      en: "Sovereign Crown",
-      ar: "تاج سيادي",
+      en: "Imperial Obsidian Crown",
+      ar: "تاج الأوبسيديان الإمبراطوري",
+    },
+    crown1_lore: {
+      en: "Forged in darkened titanium with hand-burnished 24k gold acanthus leaves and set with a raw Brazilian onyx cabochon at the brow. A symbol of impenetrable authority.",
+      ar: "تحفة مسبوكة من التيتانيوم المؤكسد المعتق مع أوراق الغار المصقولة من الذهب عيار 24، يتوسطها فص كابوشون من الأوبسيديان الأسود. رمز للسيادة الراسخة التي لا تلين.",
     },
     crown2: {
-      en: "King's Crown",
-      ar: "تاج الملك",
+      en: "Diadem of the Sovereign Sol",
+      ar: "إكليل الشمس السيادي",
+    },
+    crown2_lore: {
+      en: "Engine-turned radial fluting crafted from antique gold alloys. Captures the sovereign dawn over private estates, set with micro-pavé diamonds along the interior rim.",
+      ar: "إكليل مضلع هندسياً مسكوب من سبائك الذهب المعتق، يحاكي بزوغ شمس السيادة فوق الممتلكات الخاصة، مرصع بصف دقيق من الماسات النقية على الحافة الداخلية.",
     },
     crown3: {
-      en: "Emperor's Crown",
-      ar: "تاج الإمبراطور",
+      en: "Apex St. Moritz Coronet",
+      ar: "تاج سانت مورتيز للقمة",
+    },
+    crown3_lore: {
+      en: "Haute joaillerie frosted platinum coronet with architectural spires. Commissioned for Alpine summits and closed winter galas of the Founding Circle.",
+      ar: "تاج أرستقراطي من البلاتين المثلج الشامباني مع أروقة هندسية شامخة. صُمم خصيصاً لقمم الألب والاحتفالات المغلقة للمجلس التأسيسي للنادي.",
     },
     crown4: {
-      en: "Unique Crown",
-      ar: "تاج فريد",
+      en: "Celestial Zenith Imperial Crown",
+      ar: "تاج ذروة السيادة الفلكية",
     },
-    aura1: {
-      en: "Royal Aura",
-      ar: "هالة ملكية",
+    crown4_lore: {
+      en: "The paramount imperial artifact of THE 1% CLUB. Double sovereign arches carved in 24k gold, bearing the Sovereign Eagle crest and cabochon Colombian emeralds.",
+      ar: "التاج الإمبراطوري الأسمى في صرح THE 1% CLUB. قوسان سياديان مزدوجان منحوتان من الذهب الخالص عيار 24، يحملان وسم الصقر الإمبراطوري وأحجار الزمرد الكولومبي.",
     },
-    aura2: {
-      en: "Aura of Power",
-      ar: "هالة القوة",
-    },
-    aura3: {
-      en: "Elite Aura",
-      ar: "هالة النخبة",
-    },
-    aura4: {
-      en: "Mysterious Aura",
-      ar: "هالة غامضة",
-    },
+
+    // --- RINGS & SIGNETS ---
     ring1: {
-      en: "Ring of Power",
-      ar: "خاتم السلطة",
+      en: "Sovereign Monogram Signet",
+      ar: "خاتم الختم السيادي",
+    },
+    ring1_lore: {
+      en: "A heavyweight octagonal signet ring in solid 18k yellow gold. The face is hand-engraved with the 1% Sovereign Monogram and mirror-beveled flanks.",
+      ar: "خاتم ختم ثماني الأضلاع مصمت من الذهب الأصفر عيار 18. وجه الخاتم محفور يدوياً بمونوغرام الـ 1% السيادي مع حواف مشطوفة عاكسة للضوء.",
     },
     ring2: {
-      en: "Precious Ring",
-      ar: "خاتم ثمين",
+      en: "Black Onyx Intaglio Signet",
+      ar: "خاتم العقيق الأسود المحفور",
+    },
+    ring2_lore: {
+      en: "Cushion-cut Brazilian black onyx intaglio framed by a fluted champagne gold bezel. Bears the covert seal used to authenticate private sovereign contracts.",
+      ar: "عقيق أسود برازيلي وسائدي مقطوع بدقة، محاط بإطار مذهب مضلع من ذهب الشمبانيا. يحمل الختم الغائر المعتمد للتصديق على الصفقات السيادية المغلقة.",
     },
     ring3: {
-      en: "Elite Ring",
-      ar: "خاتم النخبة",
+      en: "Falcon Emerald Sovereign Signet",
+      ar: "خاتم الصقر الزمردي",
+    },
+    ring3_lore: {
+      en: "Deep forest octagonal emerald-cut gem held by sovereign gold claws, flanked by hand-chiseled heraldic falcon wings with realistic depth.",
+      ar: "حجر زمردي ثماني الأوجه بلون الغابات العميقة، محمول بأربعة مخالب ذهبية صلبة وتحيط به أجنحة الصقر الإمبراطوري المنحوتة بدقة بارزة.",
     },
     ring4: {
-      en: "Legendary Ring",
-      ar: "خاتم أسطوري",
+      en: "Apex Chrono Horology Band",
+      ar: "طوق الساعات التوربيون المذهب",
     },
+    ring4_lore: {
+      en: "Horology-grade knurled 18k rose gold ring with a polished obsidian core and micro-engraved Roman numerals. Inspired by grand complication bezels.",
+      ar: "طوق فاخر مستوحى من كبريات دور صناعة الساعات، مصنوع من الذهب الوردي عيار 18 المخرش مع قلب من الأوبسيديان الأسود وأرقام رومانية دقيقة.",
+    },
+
+    // --- AURAS ---
+    aura1: {
+      en: "Champagne Radial Halo",
+      ar: "هالة الشمبانيا الشعاعية",
+    },
+    aura1_lore: {
+      en: "A subtle concentric micro-etched gold halo with radiating tick lines and warm specular backlight, projecting quiet prestige around the portrait.",
+      ar: "هالة سيادية دقيقة من أشعة الذهب الشامباني المحفورة بنعومة، تشع بضوء استوديو دافئ يضفي هيبة استثنائية حول بورتريه الماستر كارد.",
+    },
+    aura2: {
+      en: "Guilloché Solar Corona",
+      ar: "إكليل الغيوشيه الشمسي",
+    },
+    aura2_lore: {
+      en: "Engine-turned interlocking concentric guilloché wave emanating like fine watch dial craftsmanship, ringed by a polished golden perimeter.",
+      ar: "إكليل غيوشيه هندسي متداخل يحاكي دقة صفائح الساعات السويسرية الفاخرة، يحيط بالهوية بحلقات دقيقة متدفقة وحافة ذهبية لامعة.",
+    },
+    aura3: {
+      en: "Obsidian Eclipse Crest",
+      ar: "طيف الكسوف الأوبسيدياني",
+    },
+    aura3_lore: {
+      en: "Deep obsidian shadow core framed by razor-sharp gold edge refraction. Gives your sovereign card an imposing presence of impenetrable wealth.",
+      ar: "طيف معتم من الأوبسيديان الأسود تحيط به حلقة ذهبية حادة الانكسار تحاكي كسوف الشمس الكلي، يمنح بطاقتك هيبة سيادية لا تضاهى.",
+    },
+    aura4: {
+      en: "Celestial Apex Radiance",
+      ar: "ضياء القمة السديمي",
+    },
+    aura4_lore: {
+      en: "Dual-ring sovereign gold corona infused with clusters of golden stardust and slow breathing luminescence. The highest visual distinction of the Club.",
+      ar: "إشعاع سديمي مزدوج من ذهب عيار 24 مطعم بجزيئات غبار الذهب المتلألئة بنبض هادئ مدروس. الوسام البصري الأسمى لأصحاب القمة.",
+    },
+
+    // --- STARS ---
+    star1: {
+      en: "Order of the Sovereign Star",
+      ar: "وسام النجمة السيادية",
+    },
+    star1_lore: {
+      en: "An 8-pointed multi-beveled faceted 24k gold star with polished specular facets and central 1% diamond seal. The foundational insignia of merit.",
+      ar: "نجمة ثمانية الأوجه مشطوفة من الذهب الخالص عيار 24 مع أوجه عاكسة للضوء وختم الـ 1% المركزي. الشارة التأسيسية للجدارة السيادية.",
+    },
+    star2: {
+      en: "Grand Cross Medallion Star",
+      ar: "نجمة الصليب الملكي الكبرى",
+    },
+    star2_lore: {
+      en: "A 12-pointed heraldic star with an engraved sunburst and polished gold central orb, layered over frosted silver rays with sovereign hallmarks.",
+      ar: "نجمة ملكية من 12 شعاعاً بنمط الصليب الإمبراطوري مع كرة مركزية مصقولة ووسوم دار الصك، ترتكز على أشعة بلاتينية معالجة بالرمل.",
+    },
+    star3: {
+      en: "Constellation of the One",
+      ar: "نجمة النخبة المطلقة",
+    },
+    star3_lore: {
+      en: "Geometric pierced gold star with hand-finished chamfered edges, brushed face, and a central royal sapphire cabochon accent.",
+      ar: "نجمة هندسية مفرغة مشغولة يدوياً بحواف مشطوفة بدقة متناهية، يتوسطها حجر من الياقوت الأزرق الملكي المصقول.",
+    },
+    star4: {
+      en: "Zenith Diamond Star",
+      ar: "نجمة القمة الماسية",
+    },
+    star4_lore: {
+      en: "Multi-faceted diamond-cut platinum star with champagne gold rim and radiant specular sparkles, reserved strictly for executive leaders.",
+      ar: "نجمة بلاتينية بقطع ماسي براق محاطة بإطار من ذهب الشمبانيا، مخصصة حصرياً لكبار القادة وأصحاب القرار في النادي.",
+    },
+
+    // --- RARE ARTIFACTS & RELICS ---
+    art1: {
+      en: "Haute Horlogerie Pocket Relic",
+      ar: "ساعة الجيب السيادية التوربيون",
+    },
+    art1_lore: {
+      en: "Openwork sovereign tourbillon movement with engraved gold bridges, blued Breguet hands, guilloché chapter ring, and heavy ribbed onion crown.",
+      ar: "ساعة جيب مفرغة بتوربيون طائر وجسور ذهبية منقوشة يدوياً، مع عقارب بريغيه الزرقاء وميناء غيوشيه وتاج مضلع من الذهب الوردي عيار 18.",
+    },
+    art2: {
+      en: "The Sovereign Golden Seal",
+      ar: "الختم السيادي المصمت",
+    },
+    art2_lore: {
+      en: "Heavyweight desktop seal cast in solid brass and obsidian with the 1% crest engraved in reverse on the base. Destined to stamp immutable decrees.",
+      ar: "ختم مكتبي ثقيل مصبوب من النحاس البرونزي المصمت وحجر الأوبسيديان الأسود، يحمل شعار النادي محفوراً في قاعدته لختم المعاهدات والقرارات.",
+    },
+    art3: {
+      en: "Imperial Falcon Medallion",
+      ar: "مدالية الصقر الإمبراطوري",
+    },
+    art3_lore: {
+      en: "Solid 24k gold medallion featuring the sovereign falcon with outstretched wings, suspended from a woven silk ribbon with a fluted gold clasp.",
+      ar: "مدالية ثقيلة من الذهب الخالص عيار 24 تخلد الصقر الإمبراطوري بأجنحة ممتدة، معلقة بوشاح حريري فاخر ومشبك ذهبي مضلع.",
+    },
+    art4: {
+      en: "Sovereign Scepter of Authority",
+      ar: "صولجان السيادة المصغر",
+    },
+    art4_lore: {
+      en: "Solid obsidian shaft with 24k chiseled gold capitulum and natural sapphire apex. The definitive symbol of supreme authority inside THE 1% CLUB.",
+      ar: "صولجان سيادي من حجر الأوبسيديان المصمت مع قمة منحوتة من الذهب عيار 24 تتوجها جوهرة ياقوتية زرقاء. الرمز الأسمى للسلطة في صرح الـ 1%.",
+    },
+
+    // --- WIDGET ---
+    wid1: {
+      en: "Sovereign Master Card Widget",
+      ar: "ودجت بطاقة الهوية السيادية",
+    },
+    wid1_lore: {
+      en: "The Master Card adapted into an authentic mobile widget with obsidian surface, guilloché engraving, and physical gold bezel.",
+      ar: "بطاقة الماستر كارد السيادية مصممة خصيصاً كودجت لشاشة هاتفك الرئيسية، بسطح الأوبسيديان ونقوش الغيوشيه وإطار الذهب الطبيعي.",
+    },
+
+    // Legacy backwards compatibility aliases
     rare1: {
-      en: "Rare Artifact",
-      ar: "تحفة نادرة",
+      en: "Haute Horlogerie Pocket Relic",
+      ar: "ساعة الجيب السيادية التوربيون",
     },
     rare2: {
-      en: "Rare Piece",
-      ar: "قطعة نادرة",
+      en: "The Sovereign Golden Seal",
+      ar: "الختم السيادي المصمت",
     },
     rare3: {
-      en: "Sovereign Pendant",
-      ar: "قلادة السيادة",
+      en: "Imperial Falcon Medallion",
+      ar: "مدالية الصقر الإمبراطوري",
     },
     rare4: {
-      en: "Unique Pendant",
-      ar: "قلادة فريدة",
+      en: "Sovereign Scepter of Authority",
+      ar: "صولجان السيادة المصغر",
     },
     widget1: {
-      en: "Golden Widget",
-      ar: "الودجت الذهبي",
+      en: "Sovereign Master Card Widget",
+      ar: "ودجت بطاقة الهوية السيادية",
     },
     widget2: {
-      en: "Free Widget",
-      ar: "ودجت مجاني",
+      en: "Master Card Widget",
+      ar: "ودجت الماستر كارد",
     },
   },
 };

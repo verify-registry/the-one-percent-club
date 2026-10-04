@@ -555,6 +555,36 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Implemented subtle, quiet-luxury hover effect on `.boutique-card`: gentle elevation (`translateY(-3px)`), brushed gold rim catch (`rgba(212, 175, 106, 0.48)` in Dark Mode, `rgba(184, 141, 56, 0.55)` in Light Mode), soft ground shadow expansion, and micro-scale on the collectible pedestal (`scale(1.04)`).
   - Maintained complete preservation of Main Membership Card, Profile Hero Card, click events, and business logic.
   - Bumped stylesheet cache-buster to `style.css?v=20261004l`.
+- **Pass: High-Fidelity Sovereign Boutique Catalog & Display Calibration (2026-10-04) — COMPLETE**:
+  - **Catalog & Artifact Models**: Expanded full 21 sovereign collectibles across crowns, jewelry/signets, auras, stars, artifacts, and widget with realistic multi-stop gold gradients, obsidian/onyx, gemstones, and horological guilloché.
+  - **Curatorial Chamber Inspection Modal**: Upgraded inspection modal into an authentic private curatorial chamber with velvet turntable pedestal, archival specifications (alloy, weight, required tier standing, sovereign valuation), historical lore, and dynamic equip/acquire controls.
+  - **Card Pedestal & Display Fix**: Resolved CSS selector typos where `.boutique-card-icon` was accidentally overridden with `width: 100%` and `.boutique-card-fallback` was shrunk to `34px`. Sized artifact pedestals to a commanding 72px diameter with 48px SVG models and realistic soft ground shadows.
+  - **Master Card & Profile Synchronization**: Hardened `applyEquippedToCard` to properly activate the equipped ring slot with icon and name label on the Master Card, and synchronized `profileEquipMap` with `jewelry` key for full profile hero plaque alignment.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004m`.
+- **Micro-Pass: Direct Master Card Component Reuse for Boutique Primary Widget (2026-10-04) — COMPLETE**:
+  - **Exact Component Reuse**: Refactored `renderWidgetSection()` in `app.js` to reuse the existing `<section class="membership-card luxury-tilt-card">` component markup directly from the Master Card.
+  - **Zero Duplicate CSS / Zero Redesign**: Purged `.widget-card-preview` and its conflicting override styles (`max-width: 200px`, custom background/border/shadows, inline `scale(0.9)`), restoring 100% identical materials, dimensions, borders, and shadows.
+  - **Typography & Responsive Parity**: Unified typography rules in `style.css` (Cormorant Garamond, Cinzel, Inter, Arabic RTL rules, and light-mode debossed intaglio) across `.membership-card` so any instance inherits the identical luxury horological hierarchy.
+  - **Canvas & Visual Synchronization**: Added bitmap transfer from `#guillocheCanvas` to the widget instance for perfect visual parity.
+  - **100% Preservation**: Zero modifications to `#membershipCard` on the main screen, zero changes to the Gold System, and zero alterations to surrounding screens.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004n`.
+- **Micro-Pass: Complete Deactivation of Onboarding Gesture Hint Overlay (2026-10-04) — COMPLETE**:
+  - **Identified Responsible Code**: Traced message «حرّك إصبعك للمعاينة • أفلت للإغلاق» to `.haptic-hint` inside `#haptic3DOverlay` managed by `HapticPreviewManager` in `app.js` and `.haptic-3d-overlay` in `style.css`.
+  - **Complete Deactivation & Elimination**:
+    - Removed overlay DOM generation in `HapticPreviewManager.initDOM()` and cleaned up any existing `#haptic3DOverlay`.
+    - Made `open()` an immediate no-op, preventing overlay activation, touch event blocking, vibration, audio rustle, or canvas allocations.
+    - Disabled triggering of `window.hapticPreviewMgr.open` on touch/swipe interactions in `app.js`.
+    - Enforced CSS suppression with `display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; backdrop-filter: none !important;` on `.haptic-3d-overlay`, `#haptic3DOverlay`, and `.haptic-hint`.
+  - **100% Preservation**: Swipe gestures, touch interactions, scrolling, product inspection modal, card interactions, Gold System, UI layout, and business logic remain completely intact.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004p`.
+- **Micro-Pass: Luxury Private Collector's Product Card Redesign (2026-10-04) — COMPLETE**:
+  - **Hero Medallion & Artifact Chamber**: Re-engineered `.boutique-card-icon` and `.boutique-card-fallback` into a commanding 82px coin-edge fluted gold bezel with deep multi-layered radial lighting, velvet obsidian pedestal, 52px high-definition SVG artifacts with metallic contact drop shadows, and subtle 3D elevation.
+  - **Unified Compact Geometry & Height Parity**: Standardized all cards to an identical ~240px vertical profile across all rows with consistent internal padding (`10px`), ensuring no staggered alignment or jitter.
+  - **Rarity & Classification Hierarchy**: Transformed bulky, overlapping pills into `.boutique-card-header` containing a refined micro intaglio rarity hallmark and a small engraved prerequisite plaque (`.boutique-tier-plaque`, e.g. `✦ LUMINARY`, `✦ EXARCH`) with zero text collision.
+  - **Prestige Hairline Gauge**: Replaced the chunky e-commerce progress bar with an ultra-delicate 2px horological hairline purchasing power gauge with gold champagne beam and reserve space parity for owned items.
+  - **Luxury Acquisition CTA**: Reimagined `.boutique-own-btn` with unified 32px height, chamfered metallic bezel, and distinct states for acquire, tier-locked, equip, equipped, owned, and free items.
+  - **Obsidian / Ivory / Antique Gold Balance**: Maintained authentic material realism using the existing gold system, Cormorant/Cinzel display typography, and ivory titles without altering business logic or catalog data.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004q` and `app.js?v=70`.
 
 
 

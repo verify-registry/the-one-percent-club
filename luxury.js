@@ -207,6 +207,22 @@ function initGuilloche() {
     if (!isDirty || !isTabActive()) return;
     isDirty = false;
     drawGuilloche(ctx, currentWidth, currentHeight);
+
+    // Sync Boutique Primary Widget canvas if present
+    const boutiqueCanvas = document.querySelector("#boutique-tab .guilloche-canvas");
+    if (boutiqueCanvas && boutiqueCanvas.parentElement) {
+      const bRect = boutiqueCanvas.parentElement.getBoundingClientRect();
+      if (bRect.width > 0 && bRect.height > 0) {
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        boutiqueCanvas.width = bRect.width * dpr;
+        boutiqueCanvas.height = bRect.height * dpr;
+        const bCtx = boutiqueCanvas.getContext("2d");
+        if (bCtx) {
+          bCtx.scale(dpr, dpr);
+          drawGuilloche(bCtx, bRect.width, bRect.height);
+        }
+      }
+    }
   };
 
   const requestDraw = () => {
@@ -229,6 +245,22 @@ function initGuilloche() {
     for (const mutation of mutations) {
       if (mutation.attributeName === 'class') {
         forceRedraw();
+
+        // Also refresh boutique widget canvas on theme change
+        const boutiqueCanvas = document.querySelector("#boutique-tab .guilloche-canvas");
+        if (boutiqueCanvas && boutiqueCanvas.parentElement) {
+          const bRect = boutiqueCanvas.parentElement.getBoundingClientRect();
+          if (bRect.width > 0 && bRect.height > 0) {
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            boutiqueCanvas.width = bRect.width * dpr;
+            boutiqueCanvas.height = bRect.height * dpr;
+            const bCtx = boutiqueCanvas.getContext("2d");
+            if (bCtx) {
+              bCtx.scale(dpr, dpr);
+              drawGuilloche(bCtx, bRect.width, bRect.height);
+            }
+          }
+        }
       }
     }
   });
@@ -436,6 +468,7 @@ function drawGuilloche(ctx, width, height) {
   ctx.fillRect(0, 0, width, height);
   ctx.restore();
 }
+window.drawGuilloche = drawGuilloche;
 
 // ---------------------------------------------------------
 // 16. SHARE — HIGH-RES MASTER MEMBERSHIP CARD (CANVAS 2D PNG)

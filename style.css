@@ -5797,52 +5797,54 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   contain: layout style paint;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 14px;
-  padding: 14px 12px 12px;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  border-radius: 12px;
+  padding: 10px 10px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  justify-content: space-between;
   text-align: center;
   cursor: pointer;
-  background: var(--surface-card) !important;
+  background: linear-gradient(
+    165deg,
+    rgba(22, 17, 12, 0.96) 0%,
+    rgba(14, 11, 8, 0.98) 60%,
+    rgba(8, 6, 4, 1) 100%
+  ) !important;
   color: var(--text-primary) !important;
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.05),
-    inset 0 -5px 15px rgba(0, 0, 0, 0.8),
-    0 8px 18px -4px rgba(0, 0, 0, 0.5);
+    inset 0 1px 1px rgba(255, 240, 205, 0.1),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.85),
+    0 8px 18px -4px rgba(0, 0, 0, 0.65);
   transition:
     transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.25s ease,
     background 0.25s ease;
   will-change: transform, box-shadow;
+  box-sizing: border-box;
 }
 
 /* Subtle, refined luxury hover effect */
 #boutique-tab .boutique-card:hover {
-  transform: translateY(-3px) translateZ(0);
-  border-color: rgba(212, 175, 106, 0.48) !important;
+  transform: translateY(-2px) translateZ(0);
+  border-color: rgba(212, 175, 106, 0.5) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 240, 200, 0.12),
-    inset 0 -4px 12px rgba(0, 0, 0, 0.6),
-    0 12px 24px -5px rgba(0, 0, 0, 0.65),
-    0 0 0 1px rgba(212, 175, 106, 0.18) !important;
-}
-
-#boutique-tab .boutique-card:hover .boutique-card-icon {
-  transform: scale(1.04);
+    inset 0 1px 1px rgba(255, 245, 220, 0.2),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.85),
+    0 12px 24px -5px rgba(0, 0, 0, 0.75),
+    0 0 12px rgba(212, 175, 106, 0.15) !important;
 }
 
 #boutique-tab .boutique-card:active {
-  transform: translateY(-1px) scale(0.99) translateZ(0);
+  transform: translateY(0) scale(0.99) translateZ(0);
   transition: transform 0.08s ease;
 }
 
 /* Light Mode Hover refinement */
 body.light-mode #boutique-tab .boutique-card:hover {
-  transform: translateY(-3px) translateZ(0);
+  transform: translateY(-2px) translateZ(0);
   border-color: rgba(184, 141, 56, 0.55) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
@@ -5851,20 +5853,91 @@ body.light-mode #boutique-tab .boutique-card:hover {
 }
 
 body.light-mode #boutique-tab .boutique-card:active {
-  transform: translateY(-1px) scale(0.99) translateZ(0);
+  transform: translateY(0) scale(0.99) translateZ(0);
   transition: transform 0.08s ease;
 }
+
 #boutique-tab .boutique-card.is-owned {
-  border-color: rgba(212, 175, 106, 0.4);
+  border-color: rgba(212, 175, 106, 0.38) !important;
 }
 #boutique-tab .boutique-card.is-equipped {
-  border-color: rgba(212, 175, 106, 0.7);
+  border-color: rgba(212, 175, 106, 0.65) !important;
   background: linear-gradient(
-    160deg,
-    rgba(20, 15, 4, 0.9),
-    rgba(12, 9, 2, 0.95)
-  );
+    165deg,
+    rgba(26, 20, 12, 0.98) 0%,
+    rgba(14, 11, 7, 1) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 235, 180, 0.2),
+    0 0 14px rgba(212, 175, 106, 0.15),
+    0 8px 20px rgba(0, 0, 0, 0.7) !important;
 }
+
+/* Classification & Rarity Meta Bar */
+#boutique-tab .boutique-card-header {
+  width: 100%;
+  min-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+#boutique-tab .boutique-card .rarity-badge {
+  position: static;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  padding: 2.5px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#boutique-tab .boutique-tier-plaque {
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(32, 24, 14, 0.95) 0%, rgba(16, 12, 8, 0.98) 100%);
+  border: 1px solid rgba(212, 175, 106, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.15), 0 2px 5px rgba(0, 0, 0, 0.5);
+  color: var(--gold-champagne);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+#boutique-tab .boutique-tier-plaque .tier-plaque-mark {
+  color: var(--gold-deep);
+  font-size: 7px;
+}
+
+#boutique-tab .boutique-tier-pill {
+  position: static;
+  font-size: 7.5px;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 106, 0.35);
+  background: rgba(18, 14, 8, 0.9);
+  color: var(--gold-champagne);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
 .rarity-badge {
   position: absolute;
   top: 8px;
@@ -5948,144 +6021,310 @@ body.light-mode .rarity-free {
   border-color: rgba(55, 130, 80, 0.35) !important;
   background: #f0f7f2 !important;
 }
+
+/* Visual Hero: Medallion Artifact Chamber */
 #boutique-tab .boutique-card-icon,
 #profileCollectionGrid .boutique-card-icon {
-  margin: 10px 0 6px;
+  margin: 6px auto 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
-  height: 70px;
-  background: radial-gradient(
-    ellipse at top,
-    rgba(212, 175, 106, 0.15) 0%,
-    transparent 70%
-  );
+  width: 82px;
+  height: 82px;
   border-radius: 50%;
   position: relative;
+  background: radial-gradient(
+    circle at 35% 25%,
+    rgba(255, 235, 185, 0.22) 0%,
+    rgba(212, 175, 106, 0.14) 28%,
+    rgba(32, 24, 16, 0.45) 65%,
+    rgba(10, 8, 6, 0.75) 100%
+  );
+  border: 1px solid rgba(212, 175, 106, 0.45);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 240, 205, 0.25),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.8),
+    0 6px 16px -2px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(0, 0, 0, 0.8);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
 }
-#boutique-tab .boutique-card-icon,
+
+#boutique-tab .boutique-card-icon::after,
 #profileCollectionGrid .boutique-card-icon::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  width: 50px;
-  height: 12px;
+  bottom: -4px;
+  width: 60px;
+  height: 10px;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(0, 0, 0, 0.8) 0%,
-    transparent 70%
+    rgba(0, 0, 0, 0.9) 0%,
+    transparent 75%
   );
-  filter: blur(2px);
+  filter: blur(3px);
   z-index: 0;
+  pointer-events: none;
 }
-#boutique-tab .boutique-card-icon,
-#profileCollectionGrid .boutique-card-icon img,
-#boutique-tab .boutique-card-fallback,
-#profileCollectionGrid .boutique-card-fallback {
+
+#boutique-tab .boutique-card-icon img,
+#profileCollectionGrid .boutique-card-icon img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
   position: relative;
   z-index: 1;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85));
 }
-#boutique-tab .boutique-card-icon,
-#profileCollectionGrid .boutique-card-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+
 #boutique-tab .boutique-card-fallback,
 #profileCollectionGrid .boutique-card-fallback {
-  border: 1px solid rgba(212, 175, 106, 0.3);
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  width: 56px;
-  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
   background: radial-gradient(
-    circle at 30% 30%,
-    rgba(255, 255, 255, 0.05),
-    transparent 60%
+    circle at 35% 28%,
+    rgba(38, 30, 20, 0.98) 0%,
+    rgba(18, 14, 10, 1) 60%,
+    rgba(8, 6, 4, 1) 100%
   );
+  border: 1px solid rgba(212, 175, 106, 0.32);
   box-shadow:
-    inset 0 1px 3px rgba(212, 175, 106, 0.2),
-    0 4px 10px rgba(0, 0, 0, 0.5);
+    inset 0 1px 1.5px rgba(255, 240, 205, 0.2),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.95),
+    0 2px 6px rgba(0, 0, 0, 0.5);
   transform: translateZ(10px);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
 }
-#boutique-tab .boutique-card-fallback,
+
+#boutique-tab .boutique-card-fallback svg,
 #profileCollectionGrid .boutique-card-fallback svg {
-  width: 34px !important;
-  height: 34px !important;
+  width: 52px !important;
+  height: 52px !important;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 6px rgba(212, 175, 106, 0.22));
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
+#boutique-tab .boutique-card:hover .boutique-card-fallback svg,
+#boutique-tab .boutique-card:hover .boutique-card-icon img {
+  transform: scale(1.06) translateY(-1px);
+}
+
+/* Product Typography Hierarchy */
 #boutique-tab .boutique-card-name {
-  font-size: 12px;
-  margin-top: 8px;
+  font-size: 12.5px;
+  margin: 5px 0 2px;
   font-weight: 600;
-  color: #f1eada;
-  line-height: 1.3;
+  color: #f7f3ea;
+  line-height: 1.35;
+  min-height: 34px;
+  max-height: 34px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
+
 #boutique-tab .boutique-card-price {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
+  font-family: var(--font-display, "Cinzel", serif);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13.5px;
+  letter-spacing: 0.04em;
   color: var(--gold-champagne);
-  margin-top: 2px;
+  margin: 2px 0 3px;
+  height: 18px;
+  line-height: 18px;
 }
+
 #boutique-tab .boutique-card-price svg {
   width: 11px;
   height: 11px;
 }
+
 #boutique-tab .boutique-card-price.is-free {
-  color: #7fbe8c;
+  color: #8ecba0;
+  font-family: inherit;
+  font-size: 12px;
 }
+
+/* Luxury Acquisition Button */
 #boutique-tab .boutique-own-btn {
-  margin-top: 6px;
+  margin-top: auto;
   width: 100%;
-  padding: 7px;
-  border-radius: 8px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0 8px;
+  border-radius: 7px;
   border: 1px solid transparent;
   font-size: 10px;
-  letter-spacing: 0.05em;
-  color: var(--gold-champagne);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  cursor: pointer;
   position: relative;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
 }
-#boutique-tab .boutique-own-btn::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: var(--gold-grad-antique);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
+
 #boutique-tab .boutique-own-btn:active {
-  background: rgba(199, 154, 62, 0.1);
+  transform: scale(0.98);
 }
-#boutique-tab .boutique-own-btn.btn-owned {
-  color: #948c7c;
-  border-color: var(--hairline);
+
+#boutique-tab .boutique-own-btn.btn-acquire {
+  color: var(--gold-champagne);
+  border: 1px solid rgba(212, 175, 106, 0.45);
+  background: linear-gradient(180deg, rgba(38, 30, 16, 0.95) 0%, rgba(18, 14, 8, 0.98) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.2), 0 2px 6px rgba(0, 0, 0, 0.5);
 }
+
+#boutique-tab .boutique-own-btn.btn-acquire:hover {
+  background: linear-gradient(180deg, rgba(54, 42, 22, 0.98) 0%, rgba(26, 20, 12, 1) 100%);
+  border-color: rgba(229, 203, 136, 0.7);
+  color: #fcf6ea;
+  box-shadow: inset 0 1px 0 rgba(255, 245, 210, 0.3), 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+#boutique-tab .boutique-own-btn.btn-locked {
+  color: #c7a77b;
+  border: 1px solid rgba(165, 130, 75, 0.3);
+  background: rgba(16, 13, 9, 0.88);
+  font-size: 9.5px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+#boutique-tab .boutique-own-btn.btn-locked:hover {
+  background: rgba(24, 18, 12, 0.95);
+  border-color: rgba(199, 167, 123, 0.45);
+}
+
 #boutique-tab .boutique-own-btn.btn-equip {
   color: var(--gold-pale);
-  border-color: rgba(212, 175, 106, 0.5);
-  background: rgba(120, 90, 20, 0.15);
+  border: 1px solid rgba(212, 175, 106, 0.45);
+  background: linear-gradient(180deg, rgba(32, 26, 16, 0.88) 0%, rgba(16, 13, 8, 0.95) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.15);
 }
+
+#boutique-tab .boutique-own-btn.btn-equip:hover {
+  border-color: rgba(229, 203, 136, 0.7);
+  background: linear-gradient(180deg, rgba(46, 36, 20, 0.95) 0%, rgba(22, 18, 10, 1) 100%);
+  color: #fff;
+}
+
 #boutique-tab .boutique-own-btn.btn-equipped {
-  color: #7fbe8c;
-  border-color: rgba(127, 190, 140, 0.4);
+  color: #8ecba0;
+  border: 1px solid rgba(127, 190, 140, 0.45);
+  background: rgba(18, 30, 22, 0.8);
+  box-shadow: inset 0 1px 0 rgba(140, 210, 155, 0.15);
 }
+
+#boutique-tab .boutique-own-btn.btn-owned {
+  color: #9e9686;
+  border: 1px solid rgba(160, 145, 120, 0.25);
+  background: rgba(18, 16, 14, 0.75);
+}
+
 #boutique-tab .boutique-own-btn.btn-free {
-  color: #7fbe8c;
-  border-color: rgba(127, 190, 140, 0.4);
+  color: #8ecba0;
+  border: 1px solid rgba(127, 190, 140, 0.45);
+  background: rgba(18, 30, 22, 0.8);
+}
+
+.artifact-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.75));
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#boutique-tab .boutique-card:hover .artifact-svg {
+  transform: scale(1.08) translateY(-1px);
+}
+
+.boutique-curatorial-modal {
+  padding: 0 !important;
+  max-width: 540px !important;
+  border-radius: 20px 20px 0 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.boutique-curatorial-modal .rmc-document-frame {
+  margin: 0 !important;
+  border-bottom: none !important;
+  border-radius: 20px 20px 0 0 !important;
+  max-height: 85vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rmc-status-badge.is-eligible {
+  background: rgba(16, 40, 24, 0.88);
+  border-color: rgba(74, 222, 128, 0.4);
+  color: #86efac;
+}
+.rmc-status-badge.is-eligible .rsb-dot {
+  background: #4ade80;
+  box-shadow: 0 0 6px #4ade80;
+}
+.rmc-status-badge.is-locked {
+  background: rgba(45, 20, 24, 0.88);
+  border-color: rgba(248, 113, 113, 0.4);
+  color: #fca5a5;
+}
+.rmc-status-badge.is-locked .rsb-dot {
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+
+.rmc-equip-btn.needs-balance {
+  background: linear-gradient(135deg, rgba(212, 175, 106, 0.15), rgba(184, 134, 11, 0.3)) !important;
+  border-color: var(--gold-champagne) !important;
+  color: var(--gold-champagne) !important;
+  animation: pulseGoldAlert 2s infinite;
+}
+
+.membership-card .equipped-aura-slot.active-aura-radiant {
+  opacity: 1 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.membership-card .equipped-aura-slot.active-aura-radiant svg {
+  width: 100%;
+  height: 100%;
+  animation: auraSlowPulse 8s ease-in-out infinite;
+}
+@keyframes auraSlowPulse {
+  0%, 100% {
+    transform: scale(1.02);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
 }
 
 .purchase-modal-overlay {
@@ -6303,29 +6542,37 @@ body.light-mode .rarity-free {
   direction: rtl;
   unicode-bidi: isolate;
 }
-.widget-card-preview {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  background: linear-gradient(160deg, #161410 0%, #0b0a08 50%, #161410 100%);
-  border: 1px solid #c49f5a;
-  box-shadow:
-    0 0 0 4px rgba(15, 12, 8, 0.95),
-    0 0 0 5px rgba(196, 159, 90, 0.4),
-    0 24px 48px -12px rgba(0, 0, 0, 0.95),
-    inset 0 0 40px rgba(196, 159, 90, 0.08);
-  margin: 0 auto 20px;
-  max-width: 200px;
-  padding: 20px 14px 16px;
-  text-align: center;
+#boutique-tab .id-widget-container {
+  width: 100%;
+  margin: 0 auto 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
-.widget-card-preview::before {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(196, 159, 90, 0.3);
-  pointer-events: none;
+
+#boutique-tab .id-widget-container .membership-card {
+  width: 84% !important;
+  max-width: 326px !important;
+  min-width: 278px !important;
+  flex: none !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+#boutique-tab .widget-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#boutique-tab .widget-add-btn {
+  width: 84% !important;
+  max-width: 326px !important;
+  margin: 14px auto 0 !important;
+  display: block !important;
+  box-sizing: border-box !important;
 }
 .widget-portrait-ring {
   width: 72px;
@@ -7777,43 +8024,32 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
 }
 
 .purchase-progress-wrap {
-  width: 90%;
-  height: 2.5px;
-  background: rgba(10, 8, 5, 0.8);
-  border-radius: 3px;
-  margin: 8px auto 12px;
+  width: 75%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  margin: 4px auto 8px;
   overflow: hidden;
   position: relative;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.8);
   display: block;
+  box-sizing: border-box;
 }
 .purchase-progress-wrap.is-transparent {
   background: transparent;
   box-shadow: none;
+  visibility: hidden;
 }
 .purchase-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #8a733f, #b49650);
-  border-radius: 3px;
-  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: linear-gradient(90deg, rgba(165, 125, 45, 0.4) 0%, rgba(212, 175, 106, 0.8) 100%);
+  border-radius: 2px;
+  transition: width 0.5s ease;
   transform: translateZ(0);
 }
 .purchase-progress-fill.is-ready {
-  background: linear-gradient(90deg, #c8a951, #e6c27a);
-  box-shadow: 0 0 4px rgba(212, 175, 106, 0.4);
-  animation: pulseProgressReady 3s infinite alternate;
-}
-@keyframes pulseProgressReady {
-  0% {
-    box-shadow: 0 0 3px rgba(212, 175, 106, 0.4);
-    opacity: 0.8;
-  }
-  100% {
-    box-shadow:
-      0 0 8px rgba(212, 175, 106, 0.9),
-      0 0 12px rgba(255, 244, 208, 0.4);
-    opacity: 1;
-  }
+  background: linear-gradient(90deg, #c79a3e, #e8c87c);
+  box-shadow: 0 0 4px rgba(212, 175, 106, 0.5);
 }
 
 .chat-bubble.is-incoming {
@@ -14732,7 +14968,8 @@ body.light-mode #profile-tab .phc-quote {
    ========================================================================== */
 
 /* 1. MEMBER NAME (Strongest typographic element) */
-#membership-tab .member-name {
+#membership-tab .member-name,
+.membership-card .member-name {
   font-family:
     "Cormorant Garamond", "Cinzel", "Playfair Display", serif !important;
   font-weight: 500 !important;
@@ -14743,7 +14980,8 @@ body.light-mode #profile-tab .phc-quote {
 }
 
 /* 2. MEMBERSHIP STATUS (Refined sans-serif) */
-#membership-tab .tier-pill {
+#membership-tab .tier-pill,
+.membership-card .tier-pill {
   font-family: "Inter", sans-serif !important;
   font-weight: 500 !important;
   font-size: 0.55rem !important;
@@ -14752,14 +14990,16 @@ body.light-mode #profile-tab .phc-quote {
   line-height: 1.1 !important;
 }
 
-#membership-tab #tierName {
+#membership-tab #tierName,
+.membership-card #tierName {
   font-family: "Inter", sans-serif !important;
   font-weight: 500 !important;
   letter-spacing: 0.15em !important;
 }
 
 /* 3. MEMBER NUMBER (Precision micro-typography) */
-#membership-tab .member-label {
+#membership-tab .member-label,
+.membership-card .member-label {
   font-family: "Inter", sans-serif !important;
   font-weight: 400 !important;
   font-size: 0.5rem !important;
@@ -14767,7 +15007,8 @@ body.light-mode #profile-tab .phc-quote {
   text-transform: uppercase !important;
 }
 
-#membership-tab .member-number {
+#membership-tab .member-number,
+.membership-card .member-number {
   font-family: "Inter", sans-serif !important;
   font-weight: 400 !important;
   font-size: 0.55rem !important;
@@ -14775,7 +15016,8 @@ body.light-mode #profile-tab .phc-quote {
 }
 
 /* 4. METRIC NUMBERS (Premium display numerals) */
-#membership-tab .ring-value {
+#membership-tab .ring-value,
+.membership-card .ring-value {
   font-family: "Cormorant Garamond", "Cinzel", serif !important;
   font-weight: 500 !important;
   font-size: 0.85rem !important;
@@ -14783,7 +15025,8 @@ body.light-mode #profile-tab .phc-quote {
 }
 
 /* 5. METRIC LABELS (Secondary luxury instrument labels) */
-#membership-tab .ring-label {
+#membership-tab .ring-label,
+.membership-card .ring-label {
   font-family: "Inter", sans-serif !important;
   font-weight: 400 !important;
   font-size: 0.45rem !important;
@@ -14792,7 +15035,8 @@ body.light-mode #profile-tab .phc-quote {
 }
 
 /* 6. THE 1% CLUB (Internal branding inside card) */
-#membership-tab .card-club-name {
+#membership-tab .card-club-name,
+.membership-card .card-club-name {
   font-family: "Cormorant Garamond", "Cinzel", serif !important;
   font-weight: 500 !important;
   font-size: 0.85rem !important;
@@ -14800,7 +15044,8 @@ body.light-mode #profile-tab .phc-quote {
 }
 
 /* 7. FOOTER / MICROTEXT (Disclaimer) */
-#membership-tab .card-tagline {
+#membership-tab .card-tagline,
+.membership-card .card-tagline {
   font-family: "Inter", sans-serif !important;
   font-weight: 400 !important;
   font-size: 0.55rem !important;
@@ -14808,7 +15053,8 @@ body.light-mode #profile-tab .phc-quote {
   line-height: 1.4 !important;
   display: block !important;
 }
-#membership-tab .card-tagline span {
+#membership-tab .card-tagline span,
+.membership-card .card-tagline span {
   font-size: 0.45rem !important;
   letter-spacing: 0.15em !important;
   display: block !important;
@@ -14830,15 +15076,25 @@ body.light-mode #profile-tab .phc-quote {
    ARABIC / RTL (Natural elegance, no excessive tracking)
    ========================================================================== */
 html[dir="rtl"] #membership-tab .member-name,
+html[dir="rtl"] .membership-card .member-name,
 html[dir="rtl"] #membership-tab .tier-pill,
+html[dir="rtl"] .membership-card .tier-pill,
 html[dir="rtl"] #membership-tab #tierName,
+html[dir="rtl"] .membership-card #tierName,
 html[dir="rtl"] #membership-tab .member-label,
+html[dir="rtl"] .membership-card .member-label,
 html[dir="rtl"] #membership-tab .member-number,
+html[dir="rtl"] .membership-card .member-number,
 html[dir="rtl"] #membership-tab .ring-value,
+html[dir="rtl"] .membership-card .ring-value,
 html[dir="rtl"] #membership-tab .ring-label,
+html[dir="rtl"] .membership-card .ring-label,
 html[dir="rtl"] #membership-tab .card-club-name,
+html[dir="rtl"] .membership-card .card-club-name,
 html[dir="rtl"] #membership-tab .card-tagline,
+html[dir="rtl"] .membership-card .card-tagline,
 html[dir="rtl"] #membership-tab .card-tagline span,
+html[dir="rtl"] .membership-card .card-tagline span,
 html[dir="rtl"] #membership-tab .card-actions .btn,
 html[dir="rtl"] #membership-tab .card-actions .btn span {
   letter-spacing: 0 !important;
@@ -15802,7 +16058,8 @@ body.light-mode #membershipCard {
    ========================================================================== */
 
 /* DARK MODE CHASSIS OVERRIDE */
-body #membership-tab #membershipCard.membership-card {
+body #membership-tab #membershipCard.membership-card,
+body #boutique-tab .id-widget-container .membership-card {
   background: radial-gradient(
     circle at 50% 30%,
     #16161a 0%,
@@ -15816,7 +16073,8 @@ body #membership-tab #membershipCard.membership-card {
 }
 
 /* LIGHT MODE CHASSIS OVERRIDE */
-body.light-mode #membership-tab #membershipCard.membership-card {
+body.light-mode #membership-tab #membershipCard.membership-card,
+body.light-mode #boutique-tab .id-widget-container .membership-card {
   background: radial-gradient(
     circle at 50% 30%,
     #f7f5ef 0%,
@@ -15830,10 +16088,9 @@ body.light-mode #membership-tab #membershipCard.membership-card {
 }
 
 body #membership-tab #membershipCard.membership-card .card-inner-frame,
-body.light-mode
-  #membership-tab
-  #membershipCard.membership-card
-  .card-inner-frame {
+body #boutique-tab .id-widget-container .membership-card .card-inner-frame,
+body.light-mode #membership-tab #membershipCard.membership-card .card-inner-frame,
+body.light-mode #boutique-tab .id-widget-container .membership-card .card-inner-frame {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
@@ -15863,14 +16120,21 @@ body.light-mode
 #membershipCard .card-identity-section,
 #membershipCard .card-metrics-footer,
 #membershipCard .card-hallmark-line,
-#membershipCard .card-tagline {
+#membershipCard .card-tagline,
+#boutique-tab .id-widget-container .card-top-bar,
+#boutique-tab .id-widget-container .portrait-wrap,
+#boutique-tab .id-widget-container .card-identity-section,
+#boutique-tab .id-widget-container .card-metrics-footer,
+#boutique-tab .id-widget-container .card-hallmark-line,
+#boutique-tab .id-widget-container .card-tagline {
   position: relative !important;
   z-index: 2 !important;
 }
 
 /* 3. Target #membershipCard background */
 /* Default (Dark Mode) */
-body #membership-tab #membershipCard {
+body #membership-tab #membershipCard,
+body #boutique-tab .id-widget-container .membership-card {
   background: radial-gradient(
     circle at 50% 30%,
     #16161a 0%,
@@ -15880,7 +16144,8 @@ body #membership-tab #membershipCard {
 }
 
 /* Light Mode */
-body.light-mode #membership-tab #membershipCard {
+body.light-mode #membership-tab #membershipCard,
+body.light-mode #boutique-tab .id-widget-container .membership-card {
   background: radial-gradient(
     circle at 50% 30%,
     #f7f5ef 0%,
@@ -15891,10 +16156,9 @@ body.light-mode #membership-tab #membershipCard {
 
 /* Clear card-inner-frame from overriding the outer background */
 body #membership-tab #membershipCard.membership-card .card-inner-frame,
-body.light-mode
-  #membership-tab
-  #membershipCard.membership-card
-  .card-inner-frame {
+body #boutique-tab .id-widget-container .membership-card .card-inner-frame,
+body.light-mode #membership-tab #membershipCard.membership-card .card-inner-frame,
+body.light-mode #boutique-tab .id-widget-container .membership-card .card-inner-frame {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
@@ -16189,7 +16453,8 @@ body.light-mode .membership-card .card-tagline span {
    ========================================================================== */
 
 /* DARK MODE */
-body #membership-tab #membershipCard.membership-card {
+body #membership-tab #membershipCard.membership-card,
+body #boutique-tab .id-widget-container .membership-card {
   border: 3.5px solid transparent !important;
   border-radius: 20px !important;
   background-origin: padding-box, border-box !important;
@@ -16242,7 +16507,8 @@ body #membership-tab #membershipCard.membership-card {
 }
 
 /* LIGHT MODE */
-body.light-mode #membership-tab #membershipCard.membership-card {
+body.light-mode #membership-tab #membershipCard.membership-card,
+body.light-mode #boutique-tab .id-widget-container .membership-card {
   border: 3px solid transparent !important;
   border-radius: 20px !important;
   background-image: 
@@ -16269,7 +16535,9 @@ body.light-mode #membership-tab #membershipCard.membership-card {
 
 /* Ensure no pseudo-elements are injecting shadows or glows */
 body #membership-tab #membershipCard.membership-card::before,
-body #membership-tab #membershipCard.membership-card::after {
+body #membership-tab #membershipCard.membership-card::after,
+body #boutique-tab .id-widget-container .membership-card::before,
+body #boutique-tab .id-widget-container .membership-card::after {
   box-shadow: none !important;
   filter: none !important;
   background: none !important;
@@ -16281,7 +16549,8 @@ body #membership-tab #membershipCard.membership-card::after {
    ========================================================================== */
 
 /* DARK MODE */
-body #membership-tab #membershipCard.membership-card {
+body #membership-tab #membershipCard.membership-card,
+body #boutique-tab .id-widget-container .membership-card {
   border: 4.5px solid transparent !important;
   border-radius: 20px !important;
   background-origin: padding-box, border-box !important;
@@ -16331,7 +16600,8 @@ body #membership-tab #membershipCard.membership-card {
 }
 
 /* LIGHT MODE */
-body.light-mode #membership-tab #membershipCard.membership-card {
+body.light-mode #membership-tab #membershipCard.membership-card,
+body.light-mode #boutique-tab .id-widget-container .membership-card {
   border: 4.5px solid transparent !important;
   border-radius: 20px !important;
   background-origin: padding-box, border-box !important;
@@ -16390,7 +16660,11 @@ body #membership-tab #membershipCard.membership-card::after,
 body.light-mode #membership-tab #membershipCard.membership-card::before,
 body.light-mode #membership-tab #membershipCard.membership-card::after,
 #membershipCard.membership-card::before,
-#membershipCard.membership-card::after {
+#membershipCard.membership-card::after,
+body #boutique-tab .id-widget-container .membership-card::before,
+body #boutique-tab .id-widget-container .membership-card::after,
+body.light-mode #boutique-tab .id-widget-container .membership-card::before,
+body.light-mode #boutique-tab .id-widget-container .membership-card::after {
   content: none !important;
   display: none !important;
   background: none !important;
@@ -16502,7 +16776,8 @@ body.light-mode #membership-tab #membershipCard.membership-card::after,
 
 /* Hover & Long-Press: Physical elevation via 3D Perspective & Material Bevel ONLY - ZERO Drop Shadow */
 @media (hover: hover) and (pointer: fine) {
-  #membershipCard.membership-card:hover {
+  #membershipCard.membership-card:hover,
+  #boutique-tab .id-widget-container .membership-card:hover {
     --tilt-ty: -5px;
     --tilt-tz: 14px;
     --tilt-scale: 1.015;
@@ -16518,7 +16793,8 @@ body.light-mode #membership-tab #membershipCard.membership-card::after,
   }
 }
 
-#membershipCard.membership-card.is-hovered {
+#membershipCard.membership-card.is-hovered,
+#boutique-tab .id-widget-container .membership-card.is-hovered {
   --tilt-ty: -5px;
   --tilt-tz: 14px;
   --tilt-scale: 1.015;
@@ -16533,7 +16809,8 @@ body.light-mode #membership-tab #membershipCard.membership-card::after,
   -webkit-filter: none !important;
 }
 
-#membershipCard.membership-card.is-long-press-active {
+#membershipCard.membership-card.is-long-press-active,
+#boutique-tab .id-widget-container .membership-card.is-long-press-active {
   --tilt-ty: -8px;
   --tilt-tz: 22px;
   --tilt-scale: 1.025;
@@ -16552,7 +16829,9 @@ body.light-mode #membership-tab #membershipCard.membership-card::after,
 }
 
 body.light-mode #membershipCard.membership-card:hover,
-body.light-mode #membershipCard.membership-card.is-hovered {
+body.light-mode #membershipCard.membership-card.is-hovered,
+body.light-mode #boutique-tab .id-widget-container .membership-card:hover,
+body.light-mode #boutique-tab .id-widget-container .membership-card.is-hovered {
   box-shadow: 
     inset 0 1.5px 1.5px rgba(255, 255, 255, 1),
     inset 0 -1.5px 1.5px rgba(65, 48, 18, 0.6),
@@ -16564,7 +16843,8 @@ body.light-mode #membershipCard.membership-card.is-hovered {
   -webkit-filter: none !important;
 }
 
-body.light-mode #membershipCard.membership-card.is-long-press-active {
+body.light-mode #membershipCard.membership-card.is-long-press-active,
+body.light-mode #boutique-tab .id-widget-container .membership-card.is-long-press-active {
   box-shadow: 
     inset 0 1.5px 1.5px rgba(255, 255, 255, 1),
     inset 0 -1.5px 1.5px rgba(65, 48, 18, 0.6),
@@ -16575,65 +16855,16 @@ body.light-mode #membershipCard.membership-card.is-long-press-active {
   filter: none !important;
   -webkit-filter: none !important;
 }
-.haptic-3d-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(5, 5, 5, 0.85);
-  backdrop-filter: blur(25px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateZ(0);
-}
-.haptic-3d-overlay.is-active {
-  opacity: 1;
-}
-.haptic-3d-canvas-container {
-  width: 280px;
-  height: 280px;
-  perspective: 1000px;
-  margin-bottom: 40px;
-}
-#haptic3DCanvas {
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.15));
-}
-.haptic-3d-info {
-  text-align: center;
-  transform: translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transform: translateZ(0);
-}
-.haptic-3d-overlay.is-active .haptic-3d-info {
-  transform: translateY(0);
-}
-.haptic-3d-info h3 {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 600;
-  background: var(--gold-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 8px;
-}
-.haptic-3d-info p {
-  font-size: 14px;
-  color: #a69c8a;
-}
-.haptic-3d-info .haptic-hint {
-  margin-top: 32px;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: rgba(212, 175, 55, 0.4);
-  text-transform: uppercase;
+.haptic-3d-overlay,
+#haptic3DOverlay,
+.haptic-hint {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* ==========================================================================
@@ -16984,7 +17215,8 @@ body #membership-tab #membershipCard.membership-card {
   outline: none !important;
 }
 
-body.light-mode #membership-tab #membershipCard.membership-card {
+body.light-mode #membership-tab #membershipCard.membership-card,
+body.light-mode #boutique-tab .id-widget-container .membership-card {
   border: 4px solid transparent !important;
   border-radius: 20px !important;
   background-origin: border-box !important;
@@ -17020,7 +17252,8 @@ body.light-mode #membership-tab #membershipCard.membership-card {
 
 /* 2. TEXT: THE 1% CLUB - Engraved & Embossed Luxury Marking inside Master Card */
 #membership-tab .card-club-name,
-#membershipCard .card-club-name {
+#membershipCard .card-club-name,
+#boutique-tab .id-widget-container .card-club-name {
   background: linear-gradient(
     180deg,
     #fff2ce 0%,      /* Crisp champagne upper highlight */
@@ -17039,7 +17272,8 @@ body.light-mode #membership-tab #membershipCard.membership-card {
 }
 
 body.light-mode #membership-tab .card-club-name,
-body.light-mode #membershipCard .card-club-name {
+body.light-mode #membershipCard .card-club-name,
+body.light-mode #boutique-tab .id-widget-container .card-club-name {
   background: linear-gradient(
     180deg,
     #44300f 0%,      /* Deep recessed upper groove shadow */
@@ -25495,7 +25729,8 @@ body #profile-tab .phc-avatar-photo::after,
 }
 
 /* 2. Master Card Sapphire Dial Face Cover (وجه البطاقة الأوبسيديان المعالج بياقوت مضاد للانعكاس) */
-#membershipCard.membership-card .card-inner-frame::after {
+#membershipCard.membership-card .card-inner-frame::after,
+#boutique-tab .id-widget-container .membership-card .card-inner-frame::after {
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
@@ -25528,7 +25763,10 @@ body #profile-tab .phc-avatar-photo::after,
 
 #membershipCard.membership-card:hover .card-inner-frame::after,
 #membershipCard.membership-card.is-hovered .card-inner-frame::after,
-#membershipCard.membership-card.is-long-press-active .card-inner-frame::after {
+#membershipCard.membership-card.is-long-press-active .card-inner-frame::after,
+#boutique-tab .id-widget-container .membership-card:hover .card-inner-frame::after,
+#boutique-tab .id-widget-container .membership-card.is-hovered .card-inner-frame::after,
+#boutique-tab .id-widget-container .membership-card.is-long-press-active .card-inner-frame::after {
   opacity: 0.82 !important;
 }
 
@@ -28375,12 +28613,14 @@ body.light-mode #copyBtn.is-pressed {
    ========================================================================== */
 
 /* 1. MASTER CARD STRICT VISUAL LAYERING (Point 1 & Point 7) */
-#membershipCard.membership-card {
+#membershipCard.membership-card,
+#boutique-tab .id-widget-container .membership-card {
   position: relative !important;
   isolation: isolate !important;
 }
 
-#membershipCard .hallmark-layer {
+#membershipCard .hallmark-layer,
+#boutique-tab .id-widget-container .hallmark-layer {
   position: absolute !important;
   inset: 0 !important;
   z-index: 1 !important;
@@ -28389,19 +28629,22 @@ body.light-mode #copyBtn.is-pressed {
   pointer-events: none !important;
 }
 
-body.light-mode #membershipCard .hallmark-layer {
+body.light-mode #membershipCard .hallmark-layer,
+body.light-mode #boutique-tab .id-widget-container .hallmark-layer {
   opacity: 0.03 !important;
   mix-blend-mode: multiply !important;
 }
 
-#membershipCard .card-inner-frame {
+#membershipCard .card-inner-frame,
+#boutique-tab .id-widget-container .card-inner-frame {
   position: relative !important;
   z-index: 2 !important;
   isolation: isolate !important;
 }
 
 #membershipCard #guillocheCanvas,
-#membershipCard .guilloche-canvas {
+#membershipCard .guilloche-canvas,
+#boutique-tab .id-widget-container .guilloche-canvas {
   position: absolute !important;
   inset: 0 !important;
   z-index: 1 !important;
@@ -28411,7 +28654,8 @@ body.light-mode #membershipCard .hallmark-layer {
 }
 
 #membershipCard #goldDustCanvas,
-#membershipCard .gold-dust-canvas {
+#membershipCard .gold-dust-canvas,
+#boutique-tab .id-widget-container .gold-dust-canvas {
   position: absolute !important;
   inset: 0 !important;
   z-index: 2 !important;
@@ -28419,7 +28663,8 @@ body.light-mode #membershipCard .hallmark-layer {
   transform: translateZ(1px) !important;
 }
 
-#membershipCard .card-sheen {
+#membershipCard .card-sheen,
+#boutique-tab .id-widget-container .card-sheen {
   position: absolute !important;
   inset: 0 !important;
   z-index: 3 !important;
@@ -28428,31 +28673,36 @@ body.light-mode #membershipCard .hallmark-layer {
 }
 
 /* Primary text & controls elevated in visual layer stack */
-#membershipCard .card-top-bar {
+#membershipCard .card-top-bar,
+#boutique-tab .id-widget-container .card-top-bar {
   position: relative !important;
   z-index: 5 !important;
   transform: translateZ(12px) !important;
 }
 
-#membershipCard .portrait-wrap {
+#membershipCard .portrait-wrap,
+#boutique-tab .id-widget-container .portrait-wrap {
   position: relative !important;
   z-index: 6 !important;
   transform: translateZ(22px) !important;
 }
 
-#membershipCard .card-identity-section {
+#membershipCard .card-identity-section,
+#boutique-tab .id-widget-container .card-identity-section {
   position: relative !important;
   z-index: 7 !important;
   transform: translateZ(16px) !important;
 }
 
-#membershipCard .card-metrics-footer {
+#membershipCard .card-metrics-footer,
+#boutique-tab .id-widget-container .card-metrics-footer {
   position: relative !important;
   z-index: 8 !important;
   transform: translateZ(14px) !important;
 }
 
-#membershipCard .corner {
+#membershipCard .corner,
+#boutique-tab .id-widget-container .corner {
   z-index: 10 !important;
   pointer-events: none !important;
 }
@@ -28480,7 +28730,8 @@ body.light-mode #membershipCard .hallmark-layer {
 
 /* Eliminate flat SVG outline circle behind bezel */
 #membershipCard .bezel-ticks circle[r="48.5"],
-#membership-tab .bezel-ticks circle[r="48.5"] {
+#membership-tab .bezel-ticks circle[r="48.5"],
+#boutique-tab .id-widget-container .bezel-ticks circle[r="48.5"] {
   display: none !important;
 }
 
@@ -28490,7 +28741,9 @@ body #membership-tab .portrait-ring::after,
 #membershipCard.membership-card .portrait-ring::before,
 #membershipCard.membership-card .portrait-ring::after,
 #membershipCard .portrait-ring::before,
-#membershipCard .portrait-ring::after {
+#membershipCard .portrait-ring::after,
+#boutique-tab .id-widget-container .portrait-ring::before,
+#boutique-tab .id-widget-container .portrait-ring::after {
   display: none !important;
   content: none !important;
 }
@@ -28498,7 +28751,8 @@ body #membership-tab .portrait-ring::after,
 /* DARK MODE: Machined Champagne-Gold Bezel */
 body #membership-tab .portrait-ring,
 #membershipCard.membership-card .portrait-ring,
-#membershipCard .portrait-ring {
+#membershipCard .portrait-ring,
+#boutique-tab .id-widget-container .portrait-ring {
   position: relative !important;
   padding: 5px !important;
   box-sizing: border-box !important;
@@ -28538,7 +28792,8 @@ body #membership-tab .portrait-ring,
 /* DARK MODE: Thin dark recessed lip & small contact shadow cradling portrait */
 body #membership-tab .portrait-photo,
 #membershipCard.membership-card .portrait-photo,
-#membershipCard .portrait-photo {
+#membershipCard .portrait-photo,
+#boutique-tab .id-widget-container .portrait-photo {
   position: relative !important;
   border-radius: 50% !important;
   border: 1px solid #4a3311 !important;          /* Thin dark recessed lip */
@@ -28553,7 +28808,8 @@ body #membership-tab .portrait-photo,
 
 body.light-mode #membership-tab .portrait-ring,
 body.light-mode #membershipCard.membership-card .portrait-ring,
-body.light-mode #membershipCard .portrait-ring {
+body.light-mode #membershipCard .portrait-ring,
+body.light-mode #boutique-tab .id-widget-container .portrait-ring {
   padding: 5px !important;
   box-sizing: border-box !important;
   border-radius: 50% !important;
@@ -28590,7 +28846,8 @@ body.light-mode #membershipCard .portrait-ring {
 /* LIGHT MODE: Thin dark recessed lip & small contact shadow */
 body.light-mode #membership-tab .portrait-photo,
 body.light-mode #membershipCard.membership-card .portrait-photo,
-body.light-mode #membershipCard .portrait-photo {
+body.light-mode #membershipCard .portrait-photo,
+body.light-mode #boutique-tab .id-widget-container .portrait-photo {
   border-radius: 50% !important;
   border: 1px solid #664917 !important;          /* Thin dark recessed lip */
   box-shadow:
@@ -30664,7 +30921,8 @@ body.light-mode .card-inner-frame {
 /* Eliminate corner SVG clutter on Master Card so the frame remains pristine */
 body #membershipCard .corner,
 body.light-mode #membershipCard .corner,
-#membershipCard .corner {
+#membershipCard .corner,
+#boutique-tab .id-widget-container .membership-card .corner {
   display: none !important;
 }
 
@@ -30738,12 +30996,14 @@ body.light-mode #membershipCard .card-club-name {
 }
 
 /* 5. Member Identification: Number & Name */
-body.light-mode #membership-tab .member-label {
+body.light-mode #membership-tab .member-label,
+body.light-mode .membership-card .member-label {
   color: #5c4114 !important;
   font-weight: 600 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) !important;
 }
-body.light-mode #membership-tab .member-number {
+body.light-mode #membership-tab .member-number,
+body.light-mode .membership-card .member-number {
   color: #241703 !important;
   font-weight: 700 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
@@ -30751,7 +31011,8 @@ body.light-mode #membership-tab .member-number {
 body.light-mode #membershipCard #memberName,
 body.light-mode #membership-tab #memberName,
 body.light-mode #membershipCard .member-name,
-body.light-mode #membership-tab .member-name {
+body.light-mode #membership-tab .member-name,
+body.light-mode .membership-card .member-name {
   font-family: "Cinzel", "Amiri", serif !important;
   font-size: clamp(1.05rem, 3.4vw, 1.28rem) !important;
   font-weight: 500 !important;
@@ -30769,7 +31030,8 @@ body.light-mode #membership-tab .member-name {
     -0.5px -0.5px 0px rgba(255, 255, 255, 0.9),
     0.6px 0.6px 0.4px rgba(70, 48, 18, 0.42) !important;
 }
-body.light-mode #membership-tab .member-quote {
+body.light-mode #membership-tab .member-quote,
+body.light-mode .membership-card .member-quote {
   color: #4a3614 !important;
   font-style: italic !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
@@ -30780,50 +31042,60 @@ body.light-mode #membership-tab .equipped-ring-label {
 }
 
 /* 6. Wealth & Privileges Metrics: Crisp Luxury Chronograph Feel */
-body.light-mode #membership-tab .ring-value {
+body.light-mode #membership-tab .ring-value,
+body.light-mode #boutique-tab .id-widget-container .ring-value {
   color: #120d06 !important;
   font-weight: 700 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
 }
 body.light-mode #membership-tab .ring-label,
-body.light-mode .membership-card .ring-label {
+body.light-mode .membership-card .ring-label,
+body.light-mode #boutique-tab .id-widget-container .ring-label {
   color: #362204 !important;
   font-weight: 700 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) !important;
 }
-body.light-mode #membership-tab .ring-info-icon {
+body.light-mode #membership-tab .ring-info-icon,
+body.light-mode #boutique-tab .id-widget-container .ring-info-icon {
   color: #8c641f !important;
   opacity: 0.85 !important;
 }
-body.light-mode #membership-tab .ring-track {
+body.light-mode #membership-tab .ring-track,
+body.light-mode #boutique-tab .id-widget-container .ring-track {
   stroke: rgba(90, 65, 20, 0.18) !important;
 }
-body.light-mode #membership-tab .ring-progress {
+body.light-mode #membership-tab .ring-progress,
+body.light-mode #boutique-tab .id-widget-container .ring-progress {
   stroke: url(#ringGoldGrad) !important;
   filter: drop-shadow(0 1px 2px rgba(80, 50, 15, 0.28)) !important;
 }
 
 /* 7. Central Living Core Emblem */
-body.light-mode #membership-tab .living-core {
+body.light-mode #membership-tab .living-core,
+body.light-mode #boutique-tab .id-widget-container .living-core {
   background: radial-gradient(circle, #fffdf8 0%, #ede2ca 100%) !important;
   border: 1.2px solid #b88d3b !important;
   box-shadow: 0 2px 6px rgba(60, 40, 10, 0.18), inset 0 1px 0 #ffffff !important;
 }
-body.light-mode #membership-tab .living-core svg path {
+body.light-mode #membership-tab .living-core svg path,
+body.light-mode #boutique-tab .id-widget-container .living-core svg path {
   fill: #5a3f12 !important;
   filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85)) !important;
 }
 
 /* 8. Footer Hallmark & Legal Taglines */
-body.light-mode #membership-tab .card-hallmark-line span {
+body.light-mode #membership-tab .card-hallmark-line span,
+body.light-mode #boutique-tab .id-widget-container .card-hallmark-line span {
   background: linear-gradient(90deg, transparent, rgba(130, 95, 30, 0.5), transparent) !important;
 }
-body.light-mode #membership-tab .card-tagline {
+body.light-mode #membership-tab .card-tagline,
+body.light-mode #boutique-tab .id-widget-container .card-tagline {
   color: #362204 !important;
   font-weight: 700 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
 }
-body.light-mode #membership-tab .card-tagline span {
+body.light-mode #membership-tab .card-tagline span,
+body.light-mode #boutique-tab .id-widget-container .card-tagline span {
   color: #5c4114 !important;
   font-weight: 600 !important;
   letter-spacing: 0.14em !important;
@@ -31125,6 +31397,52 @@ body.light-mode .deed-security-ribbon {
   color: #78561d !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) !important;
 }
+
+/* Light Mode Boutique Collector Cards Parity */
+body.light-mode #boutique-tab .boutique-card {
+  background: linear-gradient(165deg, #fdfbf7 0%, #f5eee2 100%) !important;
+  border-color: rgba(165, 125, 45, 0.35) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -3px 8px rgba(165, 125, 45, 0.08),
+    0 4px 12px rgba(80, 55, 20, 0.06) !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-name {
+  color: #2a2216 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-price {
+  color: #8c6721 !important;
+}
+
+body.light-mode #boutique-tab .boutique-tier-plaque {
+  background: linear-gradient(180deg, #fbf7ee 0%, #f1e7d4 100%) !important;
+  border-color: rgba(165, 125, 45, 0.45) !important;
+  color: #4a340e !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 3px rgba(80, 55, 20, 0.08) !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn.btn-acquire {
+  background: linear-gradient(180deg, #fefbf4 0%, #f4e8d0 100%) !important;
+  border-color: rgba(165, 125, 45, 0.5) !important;
+  color: #4a340e !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 5px rgba(80, 55, 20, 0.08) !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn.btn-locked {
+  background: #f7f3ea !important;
+  border-color: rgba(165, 125, 45, 0.3) !important;
+  color: #634b22 !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn.btn-equip {
+  background: #faf4e8 !important;
+  border-color: rgba(165, 125, 45, 0.4) !important;
+  color: #4a340e !important;
+}
+
 
 
 

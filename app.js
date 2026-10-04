@@ -476,19 +476,519 @@ window.applyLanguage = function (lang) {
   }
 };
 let currentOwnershipFilter = "all";
+
+// =========================================================
+// 1. HIGH-FIDELITY PHYSICAL ARTIFACTS SVG REPOSITORY
+// Realistic multi-gradient metallic reflections, gemstones,
+// bevels, and guilloché horology details.
+// =========================================================
 const ICONS = {
-  star: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 16.9 6.2 20l1.1-6.5L2.5 8.9l6.6-.9L12 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  crown: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 20l1-9 4 3 3-7 3 7 4-3 1 9z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  aura: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C79A3E" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#C79A3E" stroke-width="0.6" opacity="0.5"/></svg>`,
-  ring: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="14" r="6" stroke="#C79A3E" stroke-width="1.8"/><path d="M9 8l3-5 3 5-3 2z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
-  pendant: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v6" stroke="#C79A3E" stroke-width="1.6"/><path d="M8 9h8l-4 12z" fill="#C79A3E" stroke="#8F6B2B" stroke-width="1.2"/></svg>`,
+  // --- CROWNS ---
+  crown_imperial: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <radialGradient id="ci-onyx" cx="40%" cy="35%" r="65%">
+        <stop offset="0%" stop-color="#3a3835"/>
+        <stop offset="45%" stop-color="#141312"/>
+        <stop offset="100%" stop-color="#020202"/>
+      </radialGradient>
+      <linearGradient id="ci-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF2"/>
+        <stop offset="25%" stop-color="#F3C644"/>
+        <stop offset="50%" stop-color="#845912"/>
+        <stop offset="75%" stop-color="#EAA620"/>
+        <stop offset="100%" stop-color="#261702"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="52" rx="24" ry="4" fill="rgba(0,0,0,0.6)"/>
+    <path d="M10 48 C 20 53, 44 53, 54 48 L 52 43 C 42 47, 22 47, 12 43 Z" fill="url(#ci-gold)" stroke="#593704" stroke-width="0.8"/>
+    <ellipse cx="32" cy="45.5" rx="20" ry="2.5" fill="none" stroke="#FFF7D6" stroke-width="0.5" opacity="0.6"/>
+    <path d="M12 43 L 8 26 L 20 35 L 32 14 L 44 35 L 56 26 L 52 43 C 42 47, 22 47, 12 43 Z" fill="url(#ci-gold)" stroke="#3A2203" stroke-width="1" stroke-linejoin="round"/>
+    <path d="M15 42 L 12 29 L 21 36 L 32 18 L 43 36 L 52 29 L 49 42 C 41 45, 23 45, 15 42 Z" fill="#0D0B08" opacity="0.85"/>
+    <path d="M32 18 L 32 44 M26 36 Q 32 30 38 36 M22 40 Q 32 34 42 40" stroke="url(#ci-gold)" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <circle cx="32" cy="14" r="3" fill="url(#ci-gold)" stroke="#FFFFFF" stroke-width="0.5"/>
+    <circle cx="8" cy="26" r="2.2" fill="url(#ci-gold)"/>
+    <circle cx="56" cy="26" r="2.2" fill="url(#ci-gold)"/>
+    <circle cx="20" cy="35" r="1.8" fill="url(#ci-gold)"/>
+    <circle cx="44" cy="35" r="1.8" fill="url(#ci-gold)"/>
+    <ellipse cx="32" cy="35" rx="5" ry="6.5" fill="url(#ci-onyx)" stroke="url(#ci-gold)" stroke-width="1.2"/>
+    <ellipse cx="30.5" cy="33" rx="1.5" ry="2.5" fill="#FFFFFF" opacity="0.5"/>
+  </svg>`,
+
+  crown_sol: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="cs-sun" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="30%" stop-color="#F7D35E"/>
+        <stop offset="70%" stop-color="#B88219"/>
+        <stop offset="100%" stop-color="#382103"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="53" rx="22" ry="3.5" fill="rgba(0,0,0,0.5)"/>
+    <path d="M32 8 L 34 40 L 30 40 Z" fill="url(#cs-sun)"/>
+    <path d="M23 13 L 28 41 L 25 41 Z" fill="url(#cs-sun)"/>
+    <path d="M41 13 L 39 41 L 36 41 Z" fill="url(#cs-sun)"/>
+    <path d="M15 20 L 22 43 L 19 43 Z" fill="url(#cs-sun)"/>
+    <path d="M49 20 L 45 43 L 42 43 Z" fill="url(#cs-sun)"/>
+    <path d="M9 30 L 17 45 L 14 45 Z" fill="url(#cs-sun)"/>
+    <path d="M55 30 L 50 45 L 47 45 Z" fill="url(#cs-sun)"/>
+    <path d="M8 46 C 20 52, 44 52, 56 46 L 54 41 C 42 46, 22 46, 10 41 Z" fill="url(#cs-sun)" stroke="#5A3A05" stroke-width="0.8"/>
+    <circle cx="32" cy="41" r="5" fill="url(#cs-sun)" stroke="#FFF9E0" stroke-width="0.8"/>
+    <circle cx="32" cy="41" r="2.5" fill="#FFFDF0"/>
+    <circle cx="32" cy="8" r="1.5" fill="#FFFDF5"/>
+  </svg>`,
+
+  crown_moritz: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="cm-plat" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="35%" stop-color="#E2E8F0"/>
+        <stop offset="70%" stop-color="#94A3B8"/>
+        <stop offset="100%" stop-color="#475569"/>
+      </linearGradient>
+      <linearGradient id="cm-champ" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="50%" stop-color="#E9D5A1"/>
+        <stop offset="100%" stop-color="#8C6E2D"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="52" rx="22" ry="3.5" fill="rgba(0,0,0,0.6)"/>
+    <polygon points="32,10 38,36 32,44 26,36" fill="url(#cm-plat)" stroke="url(#cm-champ)" stroke-width="0.8"/>
+    <polygon points="18,18 25,38 20,44 14,34" fill="url(#cm-plat)" stroke="url(#cm-champ)" stroke-width="0.8"/>
+    <polygon points="46,18 50,34 44,44 39,38" fill="url(#cm-plat)" stroke="url(#cm-champ)" stroke-width="0.8"/>
+    <polygon points="8,28 15,40 10,46 6,38" fill="url(#cm-plat)" stroke="url(#cm-champ)" stroke-width="0.8"/>
+    <polygon points="56,28 58,38 54,46 49,40" fill="url(#cm-plat)" stroke="url(#cm-champ)" stroke-width="0.8"/>
+    <path d="M6 46 C 18 52, 46 52, 58 46 L 56 42 C 44 47, 20 47, 8 42 Z" fill="url(#cm-champ)" stroke="#59441B" stroke-width="0.8"/>
+    <circle cx="32" cy="10" r="2.2" fill="#FFFFFF"/>
+    <circle cx="18" cy="18" r="1.8" fill="#FFFFFF"/>
+    <circle cx="46" cy="18" r="1.8" fill="#FFFFFF"/>
+    <circle cx="32" cy="38" r="3" fill="#FFFFFF" stroke="url(#cm-champ)" stroke-width="0.8"/>
+  </svg>`,
+
+  crown_zenith: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="cz-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="25%" stop-color="#FAD058"/>
+        <stop offset="55%" stop-color="#BF8516"/>
+        <stop offset="85%" stop-color="#EAA620"/>
+        <stop offset="100%" stop-color="#2D1902"/>
+      </linearGradient>
+      <radialGradient id="cz-emerald" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#55E69C"/>
+        <stop offset="45%" stop-color="#0E8A4A"/>
+        <stop offset="100%" stop-color="#023018"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="32" cy="53" rx="24" ry="4" fill="rgba(0,0,0,0.6)"/>
+    <path d="M12 44 C 12 25, 52 25, 52 44 Z" fill="#1A0D02" opacity="0.9"/>
+    <path d="M14 44 C 16 20, 32 14, 32 14 C 32 14, 48 20, 50 44" stroke="url(#cz-gold)" stroke-width="3" fill="none"/>
+    <path d="M10 44 L 8 28 L 18 36 L 24 24 L 32 34 L 40 24 L 46 36 L 56 28 L 54 44 C 42 49, 22 49, 10 44 Z" fill="url(#cz-gold)" stroke="#593603" stroke-width="0.8"/>
+    <path d="M8 48 C 20 54, 44 54, 56 48 L 54 44 C 42 49, 22 49, 10 44 Z" fill="url(#cz-gold)"/>
+    <circle cx="32" cy="13" r="2.8" fill="url(#cz-gold)"/>
+    <path d="M32 5 L 32 11 M29 8 L 35 8" stroke="url(#cz-gold)" stroke-width="1.8" stroke-linecap="round"/>
+    <ellipse cx="32" cy="46" rx="3" ry="2.2" fill="url(#cz-emerald)" stroke="url(#cz-gold)" stroke-width="0.6"/>
+    <circle cx="20" cy="46.5" r="1.8" fill="url(#cz-emerald)"/>
+    <circle cx="44" cy="46.5" r="1.8" fill="url(#cz-emerald)"/>
+  </svg>`,
+
+  // --- RINGS & SIGNETS ---
+  ring_monogram: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="rm-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="25%" stop-color="#E5B238"/>
+        <stop offset="60%" stop-color="#875E16"/>
+        <stop offset="85%" stop-color="#FDE895"/>
+        <stop offset="100%" stop-color="#231604"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="56" rx="18" ry="3.5" fill="rgba(0,0,0,0.5)"/>
+    <!-- Outer Shank Ring -->
+    <ellipse cx="32" cy="38" rx="19" ry="16" stroke="url(#rm-gold)" stroke-width="5" fill="none"/>
+    <ellipse cx="32" cy="38" rx="14" ry="11" stroke="#120A02" stroke-width="1" fill="#0A0806"/>
+    <!-- Heavy Octagonal Signet Table -->
+    <polygon points="23,10 41,10 49,18 49,30 41,38 23,38 15,30 15,18" fill="url(#rm-gold)" stroke="#5E4008" stroke-width="1.2"/>
+    <polygon points="25,13 39,13 45,19 45,29 39,35 25,35 19,29 19,19" fill="#1C1405" stroke="url(#rm-gold)" stroke-width="0.8"/>
+    <!-- 1% Sovereign Seal Monogram -->
+    <text x="32" y="27" text-anchor="middle" font-family="'Cinzel', serif" font-weight="700" font-size="12" fill="url(#rm-gold)" letter-spacing="-0.5">1%</text>
+  </svg>`,
+
+  ring_onyx: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <radialGradient id="ro-gem" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#2B2926"/>
+        <stop offset="50%" stop-color="#0F0E0C"/>
+        <stop offset="100%" stop-color="#000000"/>
+      </radialGradient>
+      <linearGradient id="ro-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="30%" stop-color="#F2C758"/>
+        <stop offset="70%" stop-color="#A67319"/>
+        <stop offset="100%" stop-color="#2A1803"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="56" rx="18" ry="3.5" fill="rgba(0,0,0,0.5)"/>
+    <ellipse cx="32" cy="38" rx="18" ry="15" stroke="url(#ro-gold)" stroke-width="4.5" fill="none"/>
+    <ellipse cx="32" cy="38" rx="13.5" ry="10.5" stroke="#120A02" stroke-width="1" fill="#0A0806"/>
+    <!-- Fluted Gold Bezel -->
+    <rect x="18" y="11" width="28" height="26" rx="7" fill="url(#ro-gold)" stroke="#523608" stroke-width="1"/>
+    <!-- Black Onyx Cushion Cut Stone -->
+    <rect x="21" y="14" width="22" height="20" rx="5" fill="url(#ro-gem)" stroke="#453B2A" stroke-width="0.8"/>
+    <!-- Intaglio Falcon Emblem in stone -->
+    <path d="M26 24 C 29 20, 35 20, 38 24 C 36 26, 34 29, 32 31 C 30 29, 28 26, 26 24 Z" fill="none" stroke="url(#ro-gold)" stroke-width="1"/>
+    <circle cx="32" cy="23" r="1.5" fill="url(#ro-gold)"/>
+    <line x1="22" y1="15" x2="25" y2="18" stroke="#FFFFFF" stroke-width="0.8" opacity="0.6"/>
+  </svg>`,
+
+  ring_falcon: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="rf-emerald" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#6EE7B7"/>
+        <stop offset="30%" stop-color="#10B981"/>
+        <stop offset="70%" stop-color="#047857"/>
+        <stop offset="100%" stop-color="#064E3B"/>
+      </linearGradient>
+      <linearGradient id="rf-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="30%" stop-color="#E8B838"/>
+        <stop offset="70%" stop-color="#8F6211"/>
+        <stop offset="100%" stop-color="#241402"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="56" rx="18" ry="3.5" fill="rgba(0,0,0,0.5)"/>
+    <ellipse cx="32" cy="38" rx="18" ry="15" stroke="url(#rf-gold)" stroke-width="5" fill="none"/>
+    <ellipse cx="32" cy="38" rx="13" ry="10" stroke="#0F0902" stroke-width="1" fill="#0A0806"/>
+    <!-- Chiseled Falcon Wings on Shoulders -->
+    <path d="M12 28 C 12 18, 20 16, 24 16 L 24 30 Z" fill="url(#rf-gold)"/>
+    <path d="M52 28 C 52 18, 44 16, 40 16 L 40 30 Z" fill="url(#rf-gold)"/>
+    <!-- Octagonal Emerald Gemstone -->
+    <polygon points="26,13 38,13 43,18 43,28 38,33 26,33 21,28 21,18" fill="url(#rf-emerald)" stroke="url(#rf-gold)" stroke-width="1.2"/>
+    <polygon points="28,15 36,15 40,19 40,27 36,31 28,31 24,27 24,19" fill="none" stroke="#A7F3D0" stroke-width="0.8" opacity="0.6"/>
+  </svg>`,
+
+  ring_chrono: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="rc-rose" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFF7F2"/>
+        <stop offset="30%" stop-color="#F4A261"/>
+        <stop offset="70%" stop-color="#B25D25"/>
+        <stop offset="100%" stop-color="#3D1804"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="56" rx="18" ry="3.5" fill="rgba(0,0,0,0.5)"/>
+    <!-- Knurled Outer Bezel Ring -->
+    <circle cx="32" cy="30" r="22" stroke="url(#rc-rose)" stroke-width="5" stroke-dasharray="2 1" fill="none"/>
+    <circle cx="32" cy="30" r="18" stroke="#1F0E05" stroke-width="4" fill="#0D0602"/>
+    <!-- Polished Inset Obsidian Core -->
+    <circle cx="32" cy="30" r="14" fill="#050302" stroke="url(#rc-rose)" stroke-width="1"/>
+    <!-- Roman Numerals Horology Marks -->
+    <text x="32" y="22" text-anchor="middle" font-family="'Cinzel', serif" font-size="6" fill="url(#rc-rose)" font-weight="600">XII</text>
+    <text x="32" y="42" text-anchor="middle" font-family="'Cinzel', serif" font-size="6" fill="url(#rc-rose)" font-weight="600">VI</text>
+    <text x="42" y="32" text-anchor="middle" font-family="'Cinzel', serif" font-size="6" fill="url(#rc-rose)" font-weight="600">III</text>
+    <text x="22" y="32" text-anchor="middle" font-family="'Cinzel', serif" font-size="6" fill="url(#rc-rose)" font-weight="600">IX</text>
+    <circle cx="32" cy="30" r="2" fill="url(#rc-rose)"/>
+  </svg>`,
+
+  // --- AURAS ---
+  aura_radial: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <radialGradient id="ar-grad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFDF5" stop-opacity="0.8"/>
+        <stop offset="45%" stop-color="#F3C644" stop-opacity="0.5"/>
+        <stop offset="80%" stop-color="#C58F20" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#231604" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="32" cy="32" r="30" fill="url(#ar-grad)"/>
+    <circle cx="32" cy="32" r="26" stroke="#FDE895" stroke-width="0.8" stroke-dasharray="1 2.5" opacity="0.8"/>
+    <circle cx="32" cy="32" r="20" stroke="#F3C644" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+    <circle cx="32" cy="32" r="14" stroke="#FFFDF5" stroke-width="1.2" opacity="0.75"/>
+    <circle cx="32" cy="32" r="8" fill="#FFFDF2" opacity="0.3"/>
+  </svg>`,
+
+  aura_guilloche: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="ag-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFCE8"/>
+        <stop offset="40%" stop-color="#E2AE33"/>
+        <stop offset="80%" stop-color="#875E16"/>
+        <stop offset="100%" stop-color="#1F1303"/>
+      </linearGradient>
+    </defs>
+    <circle cx="32" cy="32" r="28" stroke="url(#ag-grad)" stroke-width="1.2" fill="none"/>
+    <path d="M32 4 A 28 28 0 0 1 60 32 A 28 28 0 0 1 32 60 A 28 28 0 0 1 4 32 A 28 28 0 0 1 32 4" stroke="url(#ag-grad)" stroke-width="0.5" stroke-dasharray="2 1"/>
+    <circle cx="32" cy="32" r="22" stroke="url(#ag-grad)" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+    <circle cx="32" cy="32" r="16" stroke="url(#ag-grad)" stroke-width="1.2"/>
+    <path d="M16 16 L 48 48 M16 48 L 48 16 M32 10 L 32 54 M10 32 L 54 32" stroke="url(#ag-grad)" stroke-width="0.4" opacity="0.6"/>
+  </svg>`,
+
+  aura_eclipse: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <radialGradient id="ae-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="65%" stop-color="#000000"/>
+        <stop offset="78%" stop-color="#FFDD55" stop-opacity="0.9"/>
+        <stop offset="85%" stop-color="#E8A825" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#1A0D02" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="32" cy="32" r="30" fill="url(#ae-glow)"/>
+    <!-- Deep Obsidian Disc -->
+    <circle cx="32" cy="32" r="20" fill="#050505" stroke="#FDE895" stroke-width="1.4"/>
+    <circle cx="32" cy="32" r="23" stroke="#E2AE33" stroke-width="0.6" stroke-dasharray="4 2" opacity="0.8"/>
+  </svg>`,
+
+  aura_celestial: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <radialGradient id="ac-nebula" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFDF5" stop-opacity="0.9"/>
+        <stop offset="30%" stop-color="#F7D266" stop-opacity="0.6"/>
+        <stop offset="70%" stop-color="#A8771A" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="32" cy="32" r="30" fill="url(#ac-nebula)"/>
+    <circle cx="32" cy="32" r="25" stroke="#FFFFFF" stroke-width="0.8" opacity="0.7"/>
+    <circle cx="32" cy="32" r="18" stroke="#F3C644" stroke-width="1.4" opacity="0.9"/>
+    <!-- Stardust clusters -->
+    <circle cx="16" cy="20" r="1.2" fill="#FFFDF0"/>
+    <circle cx="48" cy="22" r="1.4" fill="#FFFDF0"/>
+    <circle cx="20" cy="44" r="1" fill="#FFFDF0"/>
+    <circle cx="44" cy="44" r="1.2" fill="#FFFDF0"/>
+    <circle cx="32" cy="12" r="1.5" fill="#FFFFFF"/>
+    <circle cx="32" cy="52" r="1.5" fill="#FFFFFF"/>
+  </svg>`,
+
+  // --- STARS ---
+  star_sovereign: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="ss-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="25%" stop-color="#F2C656"/>
+        <stop offset="55%" stop-color="#9C6F19"/>
+        <stop offset="85%" stop-color="#EAA620"/>
+        <stop offset="100%" stop-color="#2D1902"/>
+      </linearGradient>
+    </defs>
+    <polygon points="32,4 37,23 56,12 45,28 60,32 45,36 56,52 37,41 32,60 27,41 8,52 19,36 4,32 19,28 8,12 27,23" fill="url(#ss-gold)" stroke="#5E4008" stroke-width="0.8"/>
+    <circle cx="32" cy="32" r="9" fill="#1C1405" stroke="url(#ss-gold)" stroke-width="1.2"/>
+    <polygon points="32,26 34,30 38,32 34,34 32,38 30,34 26,32 30,30" fill="#FFFDF5"/>
+  </svg>`,
+
+  star_grand_cross: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="sgc-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="30%" stop-color="#E8B838"/>
+        <stop offset="70%" stop-color="#7A500C"/>
+        <stop offset="100%" stop-color="#1A0D02"/>
+      </linearGradient>
+    </defs>
+    <!-- Silver background rays -->
+    <circle cx="32" cy="32" r="26" stroke="#94A3B8" stroke-width="1" stroke-dasharray="2 1" opacity="0.6"/>
+    <!-- 8-point Grand Heraldic Cross -->
+    <path d="M28 8 L 36 8 L 36 28 L 56 28 L 56 36 L 36 36 L 36 56 L 28 56 L 28 36 L 8 36 L 8 28 L 28 28 Z" fill="url(#sgc-gold)" stroke="#523608" stroke-width="1"/>
+    <circle cx="32" cy="32" r="8" fill="url(#sgc-gold)" stroke="#FFFFFF" stroke-width="0.8"/>
+    <circle cx="32" cy="32" r="4" fill="#FFFDF5"/>
+  </svg>`,
+
+  star_constellation: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="sc-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="35%" stop-color="#D9A52B"/>
+        <stop offset="75%" stop-color="#6E4407"/>
+        <stop offset="100%" stop-color="#241302"/>
+      </linearGradient>
+      <radialGradient id="sc-sapphire" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#93C5FD"/>
+        <stop offset="45%" stop-color="#2563EB"/>
+        <stop offset="100%" stop-color="#1E3A8A"/>
+      </radialGradient>
+    </defs>
+    <polygon points="32,6 38,22 54,16 44,28 58,40 40,40 32,58 24,40 6,40 20,28 10,16 26,22" fill="url(#sc-gold)" stroke="#4A3105" stroke-width="1"/>
+    <polygon points="32,15 36,25 46,21 40,29 48,36 37,36 32,47 27,36 16,36 24,29 18,21 28,25" fill="#140E05"/>
+    <circle cx="32" cy="31" r="5" fill="url(#sc-sapphire)" stroke="url(#sc-gold)" stroke-width="1"/>
+    <circle cx="30.5" cy="29.5" r="1.2" fill="#FFFFFF" opacity="0.7"/>
+  </svg>`,
+
+  star_zenith: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="sz-plat" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="25%" stop-color="#E2E8F0"/>
+        <stop offset="60%" stop-color="#94A3B8"/>
+        <stop offset="100%" stop-color="#334155"/>
+      </linearGradient>
+      <linearGradient id="sz-champ" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="40%" stop-color="#F2C758"/>
+        <stop offset="100%" stop-color="#734B0B"/>
+      </linearGradient>
+    </defs>
+    <!-- Faceted Diamond Star -->
+    <polygon points="32,2 40,24 62,32 40,40 32,62 24,40 2,32 24,24" fill="url(#sz-plat)" stroke="url(#sz-champ)" stroke-width="1.2"/>
+    <polygon points="32,12 37,27 52,32 37,37 32,52 27,37 12,32 27,27" fill="#FFFFFF" opacity="0.6"/>
+    <circle cx="32" cy="32" r="4.5" fill="url(#sz-champ)" stroke="#FFFFFF" stroke-width="0.8"/>
+    <circle cx="32" cy="32" r="2" fill="#FFFFFF"/>
+  </svg>`,
+
+  // --- RARE ARTIFACTS & RELICS ---
+  art_tourbillon: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="at-rose" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFF7ED"/>
+        <stop offset="35%" stop-color="#FDBA74"/>
+        <stop offset="70%" stop-color="#C2410C"/>
+        <stop offset="100%" stop-color="#431407"/>
+      </linearGradient>
+      <linearGradient id="at-steel" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="50%" stop-color="#94A3B8"/>
+        <stop offset="100%" stop-color="#334155"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="58" rx="16" ry="3" fill="rgba(0,0,0,0.5)"/>
+    <!-- Pocket Watch Casing -->
+    <circle cx="32" cy="35" r="22" fill="#0C0A09" stroke="url(#at-rose)" stroke-width="3"/>
+    <!-- Onion Crown & Bow Top -->
+    <path d="M26 13 C 26 8, 38 8, 38 13" stroke="url(#at-rose)" stroke-width="2.5" fill="none"/>
+    <rect x="29" y="11" width="6" height="4" rx="1" fill="url(#at-rose)"/>
+    <!-- Openwork Tourbillon Cage -->
+    <circle cx="32" cy="35" r="16" stroke="url(#at-steel)" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+    <circle cx="32" cy="37" r="8" stroke="url(#at-rose)" stroke-width="1.5" fill="#1C1917"/>
+    <!-- Balance Wheel & Bridge -->
+    <line x1="24" y1="37" x2="40" y2="37" stroke="url(#at-steel)" stroke-width="1.5"/>
+    <line x1="32" y1="29" x2="32" y2="45" stroke="url(#at-steel)" stroke-width="1.5"/>
+    <circle cx="32" cy="37" r="2.5" fill="#3B82F6"/>
+    <!-- Blued Breguet Hands -->
+    <line x1="32" y1="35" x2="32" y2="24" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="32" y1="35" x2="40" y2="30" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>`,
+
+  art_seal: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="as-brass" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="30%" stop-color="#EAB308"/>
+        <stop offset="65%" stop-color="#854D0E"/>
+        <stop offset="100%" stop-color="#1F1303"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="32" cy="56" rx="20" ry="4" fill="rgba(0,0,0,0.6)"/>
+    <!-- Base Plate -->
+    <ellipse cx="32" cy="50" rx="18" ry="5" fill="url(#as-brass)" stroke="#593603" stroke-width="1"/>
+    <!-- Cylindrical Column Body with Obsidian Inlay -->
+    <path d="M22 50 L 25 24 L 39 24 L 42 50 Z" fill="#0D0C0A" stroke="url(#as-brass)" stroke-width="1.2"/>
+    <!-- Knurled Grip Rings -->
+    <rect x="24" y="24" width="16" height="5" fill="url(#as-brass)" stroke="#593603" stroke-width="0.8"/>
+    <rect x="23" y="34" width="18" height="3" fill="url(#as-brass)"/>
+    <!-- Heavy Sovereign Capitulum Orb -->
+    <circle cx="32" cy="18" r="9" fill="url(#as-brass)" stroke="#FFFFFF" stroke-width="0.6"/>
+    <circle cx="32" cy="18" r="4" fill="#0D0C0A"/>
+  </svg>`,
+
+  art_falcon_medallion: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="af-ribbon" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#1E1B18"/>
+        <stop offset="50%" stop-color="#78350F"/>
+        <stop offset="100%" stop-color="#1E1B18"/>
+      </linearGradient>
+      <linearGradient id="af-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="30%" stop-color="#F59E0B"/>
+        <stop offset="70%" stop-color="#92400E"/>
+        <stop offset="100%" stop-color="#271103"/>
+      </linearGradient>
+    </defs>
+    <!-- Silk Ribbon -->
+    <polygon points="26,4 38,4 36,24 28,24" fill="url(#af-ribbon)" stroke="#D97706" stroke-width="0.8"/>
+    <!-- Gold Medallion Suspension Clasp -->
+    <rect x="26" y="22" width="12" height="4" rx="1.5" fill="url(#af-gold)" stroke="#5E2A06" stroke-width="0.8"/>
+    <!-- Heavy Circular Medallion -->
+    <circle cx="32" cy="42" r="17" fill="url(#af-gold)" stroke="#5E2A06" stroke-width="1.2"/>
+    <circle cx="32" cy="42" r="14.5" fill="#1C1405" stroke="url(#af-gold)" stroke-width="0.8"/>
+    <!-- Sovereign Falcon with Outstretched Wings -->
+    <path d="M32 32 C 34 35, 42 36, 44 42 C 40 43, 36 41, 32 46 C 28 41, 24 43, 20 42 C 22 36, 30 35, 32 32 Z" fill="url(#af-gold)"/>
+    <circle cx="32" cy="34" r="1.5" fill="#FFFDF0"/>
+  </svg>`,
+
+  art_scepter: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="as-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="35%" stop-color="#EAB308"/>
+        <stop offset="75%" stop-color="#854D0E"/>
+        <stop offset="100%" stop-color="#241302"/>
+      </linearGradient>
+      <radialGradient id="as-gem" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#93C5FD"/>
+        <stop offset="50%" stop-color="#2563EB"/>
+        <stop offset="100%" stop-color="#1E3A8A"/>
+      </radialGradient>
+    </defs>
+    <!-- Diagonal Scepter Shaft in Solid Obsidian -->
+    <line x1="16" y1="52" x2="44" y2="20" stroke="#0F0D0A" stroke-width="5" stroke-linecap="round"/>
+    <line x1="16" y1="52" x2="44" y2="20" stroke="url(#as-gold)" stroke-width="1" stroke-dasharray="2 3"/>
+    <!-- Fluted Gold Grip End -->
+    <circle cx="15" cy="53" r="4.5" fill="url(#as-gold)" stroke="#593603" stroke-width="1"/>
+    <!-- 24k Chiseled Capitulum -->
+    <rect x="38" y="16" width="10" height="10" rx="3" transform="rotate(45 43 21)" fill="url(#as-gold)" stroke="#593603" stroke-width="1"/>
+    <!-- Blue Sapphire Finial Apex -->
+    <circle cx="48" cy="15" r="4" fill="url(#as-gem)" stroke="url(#as-gold)" stroke-width="0.8"/>
+  </svg>`,
+
+  // --- WIDGET ---
+  wid_mastercard: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
+    <defs>
+      <linearGradient id="wm-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#FFFDF5"/>
+        <stop offset="30%" stop-color="#E2AE33"/>
+        <stop offset="70%" stop-color="#875E16"/>
+        <stop offset="100%" stop-color="#1A0D02"/>
+      </linearGradient>
+    </defs>
+    <rect x="8" y="14" width="48" height="36" rx="4" fill="#0A0907" stroke="url(#wm-gold)" stroke-width="1.5"/>
+    <rect x="11" y="17" width="42" height="30" rx="2" fill="none" stroke="url(#wm-gold)" stroke-width="0.6" stroke-dasharray="2 1" opacity="0.6"/>
+    <!-- Mini Portrait Medallion -->
+    <circle cx="20" cy="28" r="6" fill="#1A150D" stroke="url(#wm-gold)" stroke-width="1"/>
+    <!-- Member Info Bars -->
+    <rect x="29" y="24" width="20" height="2" rx="1" fill="url(#wm-gold)"/>
+    <rect x="29" y="29" width="14" height="2" rx="1" fill="#78716C"/>
+    <!-- Hallmark Crown bottom -->
+    <polygon points="44,38 46,42 42,42" fill="url(#wm-gold)"/>
+  </svg>`,
+
+  // Backward compatibility fallback keys
+  star: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><linearGradient id="fb-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFDF5"/><stop offset="30%" stop-color="#F2C656"/><stop offset="70%" stop-color="#9C6F19"/><stop offset="100%" stop-color="#2D1902"/></linearGradient></defs><polygon points="32,6 38,23 56,14 46,30 60,34 46,38 56,54 38,43 32,60 26,43 8,54 18,38 4,34 18,30 8,14 26,23" fill="url(#fb-gold)" stroke="#5E4008" stroke-width="1"/><circle cx="32" cy="33" r="8" fill="#1C1405" stroke="url(#fb-gold)" stroke-width="1"/></svg>`,
+  crown: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><linearGradient id="fb-cgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFDF5"/><stop offset="30%" stop-color="#E8B838"/><stop offset="70%" stop-color="#8F6211"/><stop offset="100%" stop-color="#241402"/></linearGradient></defs><path d="M10 46 C 20 51, 44 51, 54 46 L 52 42 C 42 45, 22 45, 12 42 Z" fill="url(#fb-cgold)" stroke="#593704" stroke-width="0.8"/><path d="M12 42 L 8 26 L 20 34 L 32 14 L 44 34 L 56 26 L 52 42 C 42 45, 22 45, 12 42 Z" fill="url(#fb-cgold)" stroke="#3A2203" stroke-width="1"/><circle cx="32" cy="14" r="2.5" fill="#FFFDF0"/><circle cx="8" cy="26" r="2" fill="#FFFDF0"/><circle cx="56" cy="26" r="2" fill="#FFFDF0"/></svg>`,
+  aura: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><radialGradient id="fb-aglow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFFDF5" stop-opacity="0.8"/><stop offset="50%" stop-color="#E2AE33" stop-opacity="0.4"/><stop offset="100%" stop-color="#000000" stop-opacity="0"/></radialGradient></defs><circle cx="32" cy="32" r="28" fill="url(#fb-aglow)"/><circle cx="32" cy="32" r="22" stroke="#FDE895" stroke-width="1.2" stroke-dasharray="2 2"/></svg>`,
+  ring: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><linearGradient id="fb-rgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFDF5"/><stop offset="30%" stop-color="#E5B238"/><stop offset="70%" stop-color="#875E16"/><stop offset="100%" stop-color="#231604"/></linearGradient></defs><ellipse cx="32" cy="36" rx="18" ry="15" stroke="url(#fb-rgold)" stroke-width="4.5" fill="none"/><polygon points="24,12 40,12 46,20 46,28 40,34 24,34 18,28 18,20" fill="url(#fb-rgold)" stroke="#523608" stroke-width="1"/><circle cx="32" cy="23" r="5" fill="#140F04"/></svg>`,
+  pendant: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><linearGradient id="fb-pgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFDF5"/><stop offset="30%" stop-color="#F59E0B"/><stop offset="70%" stop-color="#92400E"/><stop offset="100%" stop-color="#271103"/></linearGradient></defs><circle cx="32" cy="38" r="16" fill="url(#fb-pgold)" stroke="#5E2A06" stroke-width="1.2"/><circle cx="32" cy="38" r="12" fill="#140F04"/><circle cx="32" cy="18" r="3" stroke="url(#fb-pgold)" stroke-width="2" fill="none"/></svg>`,
 };
+
 const RARITY_LABEL = {
-  1: () => window.t("misc.rarity1"),
-  2: () => window.t("misc.rarity2"),
-  3: () => window.t("misc.rarity3"),
-  4: () => window.t("misc.rarity4"),
+  1: () => window.t("boutique.rarity1") || "مقتنى استثنائي",
+  2: () => window.t("boutique.rarity2") || "تحفة نادرة",
+  3: () => window.t("boutique.rarity3") || "إرث سيادي",
+  4: () => window.t("boutique.rarity4") || "درة القمة المطلقة",
 };
+
+const TIER_HIERARCHY = {
+  "SOVEREIGN MEMBER": 1,
+  "SOVEREIGN LUMINARY": 2,
+  "SOVEREIGN EXARCH": 3,
+  "APEX TITAN": 4,
+  "FOUNDER": 5,
+};
+
+function isTierEligible(userTier, requiredTier) {
+  if (!requiredTier || requiredTier === "SOVEREIGN MEMBER") return true;
+  const uRank = TIER_HIERARCHY[(userTier || "SOVEREIGN MEMBER").toUpperCase()] || 1;
+  const reqRank = TIER_HIERARCHY[requiredTier.toUpperCase()] || 1;
+  return uRank >= reqRank;
+}
+
 const EQUIP_CATEGORIES = {
   stars: "equippedStarsSlot",
   crowns: "equippedCrownSlot",
@@ -547,123 +1047,319 @@ const ACHIEVEMENTS_DATA = {
   },
 };
 
+// =========================================================
+// 2. EXPANDED SOVEREIGN BOUTIQUE CATALOG
+// Full 21 Master Collectibles with real metal specifications,
+// authentic weights, required membership tiers, and provenance.
+// =========================================================
 const BOUTIQUE = {
-  stars: {
-    title: "boutique.stars",
-    items: [
-      {
-        id: "star1",
-        name: "items.star1",
-        icon: "star",
-        rarity: 1,
-        price: 1000,
-        lore: "items.star2",
-      },
-      {
-        id: "star2",
-        name: "items.star3",
-        icon: "star",
-        rarity: 2,
-        price: 2500,
-        lore: "items.star4",
-      },
-    ],
-  },
   crowns: {
     title: "boutique.crowns",
+    sub: "التيجان والأكاليل الإمبراطورية المعتمَدة",
     items: [
       {
         id: "crown1",
         name: "items.crown1",
-        icon: "crown",
-        rarity: 3,
+        icon: "crown_imperial",
+        rarity: 2,
         price: 5000,
-        lore: "items.crown2",
+        lore: "items.crown1_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "Blackened Titanium & 24k Gold",
+        metalAr: "تيتانيوم مؤكسد معتق وذهب عيار 24",
+        weight: "142g Solid",
+        weightAr: "١٤٢ غرام ذهب ومعدن صلب",
       },
       {
         id: "crown2",
-        name: "items.crown3",
-        icon: "crown",
-        rarity: 4,
-        price: 15000,
-        lore: "items.crown4",
-      },
-    ],
-  },
-  auras: {
-    title: "boutique.auras",
-    items: [
-      {
-        id: "aura1",
-        name: "items.aura1",
-        icon: "aura",
-        rarity: 2,
-        price: 2000,
-        lore: "items.aura2",
-      },
-      {
-        id: "aura2",
-        name: "items.aura3",
-        icon: "aura",
+        name: "items.crown2",
+        icon: "crown_sol",
         rarity: 3,
-        price: 8000,
-        lore: "items.aura4",
+        price: 15000,
+        lore: "items.crown2_lore",
+        requiredTier: "SOVEREIGN LUMINARY",
+        metal: "Fluted Antique Gold & Pavé Diamonds",
+        metalAr: "ذهب معتق مضلع وماس نقي",
+        weight: "185g Solid",
+        weightAr: "١٨٥ غرام سبائك معتقة",
+      },
+      {
+        id: "crown3",
+        name: "items.crown3",
+        icon: "crown_moritz",
+        rarity: 3,
+        price: 35000,
+        lore: "items.crown3_lore",
+        requiredTier: "SOVEREIGN LUMINARY",
+        metal: "Frosted White Gold & Platinum",
+        metalAr: "ذهب أبيض مثلج وبلاتين شامبانيا",
+        weight: "210g Solid",
+        weightAr: "٢١٠ غرام بلاتين مثلج",
+      },
+      {
+        id: "crown4",
+        name: "items.crown4",
+        icon: "crown_zenith",
+        rarity: 4,
+        price: 75000,
+        lore: "items.crown4_lore",
+        requiredTier: "SOVEREIGN EXARCH",
+        metal: "Chiseled 24k Gold & Colombian Emeralds",
+        metalAr: "ذهب عيار 24 منحوت وزمرد كولومبي",
+        weight: "290g Sovereign",
+        weightAr: "٢٩٠ غرام ذهب خالص وزمرد",
       },
     ],
   },
   jewelry: {
     title: "boutique.jewelry",
+    sub: "الخواتم وأختام السيادة الشخصية",
     items: [
       {
         id: "ring1",
         name: "items.ring1",
-        icon: "ring",
-        rarity: 2,
+        icon: "ring_monogram",
+        rarity: 1,
         price: 3000,
-        lore: "items.ring2",
+        lore: "items.ring1_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "Solid 18k Yellow Gold",
+        metalAr: "ذهب أصفر عيار 18 مصمت",
+        weight: "28g Fine",
+        weightAr: "٢٨ غرام ذهب مصمت",
       },
       {
         id: "ring2",
-        name: "items.ring3",
-        icon: "ring",
-        rarity: 3,
+        name: "items.ring2",
+        icon: "ring_onyx",
+        rarity: 2,
         price: 7500,
-        lore: "items.ring4",
+        lore: "items.ring2_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "Brazilian Onyx & Fluted Gold",
+        metalAr: "عقيق أسود برازيلي وإطار مذهب",
+        weight: "34g Fine",
+        weightAr: "٣٤ غرام عقيق وذهب",
+      },
+      {
+        id: "ring3",
+        name: "items.ring3",
+        icon: "ring_falcon",
+        rarity: 3,
+        price: 18000,
+        lore: "items.ring3_lore",
+        requiredTier: "SOVEREIGN LUMINARY",
+        metal: "Hand-Carved Gold & Octagonal Emerald",
+        metalAr: "ذهب منحوت يدوياً وزمرد ثماني الأوجه",
+        weight: "42g Solid",
+        weightAr: "٤٢ غرام ذهب وزمرد",
+      },
+      {
+        id: "ring4",
+        name: "items.ring4",
+        icon: "ring_chrono",
+        rarity: 4,
+        price: 40000,
+        lore: "items.ring4_lore",
+        requiredTier: "SOVEREIGN EXARCH",
+        metal: "Knurled 18k Rose Gold & Obsidian Core",
+        metalAr: "ذهب وردي عيار 18 مخرش وقلب أوبسيديان",
+        weight: "39g Precision",
+        weightAr: "٣٩ غرام ذهب وردي وأوبسيديان",
+      },
+    ],
+  },
+  auras: {
+    title: "boutique.auras",
+    sub: "الهالات الإشعاعية لتعزيز حضور الهوية",
+    items: [
+      {
+        id: "aura1",
+        name: "items.aura1",
+        icon: "aura_radial",
+        rarity: 1,
+        price: 2000,
+        lore: "items.aura1_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "Engine-Turned Champagne Luster",
+        metalAr: "بريق الشمبانيا المخرط هندسياً",
+        weight: "Atmospheric",
+        weightAr: "إشعاع استوديو دافئ",
+      },
+      {
+        id: "aura2",
+        name: "items.aura2",
+        icon: "aura_guilloche",
+        rarity: 2,
+        price: 8000,
+        lore: "items.aura2_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "Horological Wave Frequency",
+        metalAr: "موجات الغيوشيه الدقيقة لصفائح الساعات",
+        weight: "Atmospheric",
+        weightAr: "موجات غيوشيه هندسية",
+      },
+      {
+        id: "aura3",
+        name: "items.aura3",
+        icon: "aura_eclipse",
+        rarity: 3,
+        price: 22000,
+        lore: "items.aura3_lore",
+        requiredTier: "SOVEREIGN LUMINARY",
+        metal: "Deep Eclipse Shadow & Specular Rim",
+        metalAr: "ظلال الكسوف الحالك بحافة ذهبية عاكسة",
+        weight: "Atmospheric",
+        weightAr: "طيف كسوف أوبسيدياني",
+      },
+      {
+        id: "aura4",
+        name: "items.aura4",
+        icon: "aura_celestial",
+        rarity: 4,
+        price: 60000,
+        lore: "items.aura4_lore",
+        requiredTier: "SOVEREIGN EXARCH",
+        metal: "Golden Stardust & Dual Ion Rings",
+        metalAr: "غبار الذهب السديمي وحلقات أيونية مضاعفة",
+        weight: "Atmospheric",
+        weightAr: "إشعاع سديمي نبضي",
+      },
+    ],
+  },
+  stars: {
+    title: "boutique.stars",
+    sub: "أوسمة وشارات الجدارة السيادية",
+    items: [
+      {
+        id: "star1",
+        name: "items.star1",
+        icon: "star_sovereign",
+        rarity: 1,
+        price: 1000,
+        lore: "items.star1_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "8-Point Beveled 24k Gold",
+        metalAr: "ذهب عيار 24 ثماني الأوجه المشطوفة",
+        weight: "18g Ingot",
+        weightAr: "١٨ غرام سبيكة ذهبية",
+      },
+      {
+        id: "star2",
+        name: "items.star2",
+        icon: "star_grand_cross",
+        rarity: 2,
+        price: 2500,
+        lore: "items.star2_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "Layered Frosted Gold & Sunburst",
+        metalAr: "ذهب معالج بالرمل وشعاع شمسي",
+        weight: "24g Ingot",
+        weightAr: "٢٤ غرام سبيكة شمسية",
+      },
+      {
+        id: "star3",
+        name: "items.star3",
+        icon: "star_constellation",
+        rarity: 3,
+        price: 12000,
+        lore: "items.star3_lore",
+        requiredTier: "SOVEREIGN LUMINARY",
+        metal: "Hand-Chamfered Gold & Sapphire Center",
+        metalAr: "ذهب مشطوف يدوياً ومركز من الياقوت الأزرق",
+        weight: "32g Ingot",
+        weightAr: "٣٢ غرام ذهب وياقوت أزرق",
+      },
+      {
+        id: "star4",
+        name: "items.star4",
+        icon: "star_zenith",
+        rarity: 4,
+        price: 30000,
+        lore: "items.star4_lore",
+        requiredTier: "SOVEREIGN EXARCH",
+        metal: "Faceted Platinum & Champagne Accents",
+        metalAr: "بلاتين مصقول متلألئ ولمسات شامبانيا",
+        weight: "45g Ingot",
+        weightAr: "٤٥ غرام بلاتين ماسي",
       },
     ],
   },
   artifacts: {
     title: "boutique.rare",
+    sub: "نوادر التحف والمقتنيات الكبرى المعتمَدة",
     items: [
       {
         id: "art1",
-        name: "items.rare1",
-        icon: "pendant",
-        rarity: 3,
+        name: "items.art1",
+        icon: "art_tourbillon",
+        rarity: 2,
         price: 10000,
-        lore: "items.rare2",
+        lore: "items.art1_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "Skeletonized 18k Rose Gold Case",
+        metalAr: "هيكل مفرغ من الذهب الوردي عيار 18",
+        weight: "128g Precision Horology",
+        weightAr: "١٢٨ غرام ميكانيكا سويسرية دقيقة",
       },
       {
         id: "art2",
-        name: "items.rare3",
-        icon: "pendant",
-        rarity: 4,
+        name: "items.art2",
+        icon: "art_seal",
+        rarity: 3,
         price: 25000,
-        lore: "items.rare4",
+        lore: "items.art2_lore",
+        requiredTier: "SOVEREIGN LUMINARY",
+        metal: "Solid Cast Brass & Black Obsidian",
+        metalAr: "نحاس برونزي مصبوب وأوبسيديان أسود",
+        weight: "380g Desk Artifact",
+        weightAr: "٣٨٠ غرام ختم برونزي مصمت",
+      },
+      {
+        id: "art3",
+        name: "items.art3",
+        icon: "art_falcon_medallion",
+        rarity: 3,
+        price: 50000,
+        lore: "items.art3_lore",
+        requiredTier: "SOVEREIGN LUMINARY",
+        metal: "Heavy Gold Medallion & Silk Ribbon",
+        metalAr: "مدالية ذهبية ثقيلة ووشاح حريري مذهب",
+        weight: "215g Sovereign",
+        weightAr: "٢١٥ غرام ذهب خالص عيار 24",
+      },
+      {
+        id: "art4",
+        name: "items.art4",
+        icon: "art_scepter",
+        rarity: 4,
+        price: 100000,
+        lore: "items.art4_lore",
+        requiredTier: "SOVEREIGN EXARCH",
+        metal: "Obsidian Shaft & Chiseled 24k Gold Finial",
+        metalAr: "قضيب أوبسيديان نقي وقمة مذهبة محفورة عيار 24",
+        weight: "450g Sovereign Regalia",
+        weightAr: "٤٥٠ غرام صولجان أوبسيديان وياقوت",
       },
     ],
   },
   widgets: {
     title: "boutique.widgets",
+    sub: "ودجت الهوية السيادية لشاشة جهازك",
     items: [
       {
         id: "wid1",
-        name: "items.widget1",
-        icon: "star",
+        name: "items.wid1",
+        icon: "wid_mastercard",
         rarity: 1,
         price: 0,
         free: true,
-        lore: "items.widget2",
+        lore: "items.wid1_lore",
+        requiredTier: "SOVEREIGN MEMBER",
+        metal: "Digital Horological Obsidian Frame",
+        metalAr: "إطار أوبسيديان وذهب رقمي للشاشة الرئيسية",
+        weight: "Native Widget",
+        weightAr: "ودجت رسمي متوافق مع iOS وأندرويد",
       },
     ],
   },
@@ -1156,6 +1852,31 @@ const AppState = {
   },
 
   purchase(item) {
+    if (!item) return false;
+    const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
+
+    // 1. Enforce sovereign membership standing requirement
+    if (item.requiredTier && typeof isTierEligible === "function" && !isTierEligible(this.user.tier, item.requiredTier)) {
+      const msg = isAr 
+        ? `هذه التحفة مخصصة حصرياً لأعضاء رتبة ${item.requiredTier} فأعلى.`
+        : `This artifact requires ${item.requiredTier} standing or above.`;
+      if (typeof showNavToast === "function") showNavToast(msg);
+      if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([40, 60, 40]);
+      return false;
+    }
+
+    // 2. Check liquidity balance
+    if (this.balance < item.price) {
+      const msg = isAr
+        ? `رصيدك الحالي ($${this.balance.toLocaleString()}) لا يكفي لاقتناء هذه التحفة ($${item.price.toLocaleString()}).`
+        : `Insufficient balance ($${this.balance.toLocaleString()}) to acquire this piece ($${item.price.toLocaleString()}).`;
+      if (typeof showNavToast === "function") showNavToast(msg);
+      if (typeof window.openDepositModal === "function") {
+        setTimeout(() => window.openDepositModal(), 500);
+      }
+      return false;
+    }
+
     if (this.balance >= item.price && !this.owned[item.id]) {
       this.balance -= item.price;
       this.totalSpent = (this.totalSpent || 0) + item.price;
@@ -1787,15 +2508,50 @@ function applyEquippedToCard(equipped) {
     if (!slotEl) continue;
     const itemId = equipped[catKey];
     if (itemId) {
-      const itemDef = BOUTIQUE[catKey].items.find((i) => i.id === itemId);
+      const itemDef = BOUTIQUE[catKey]?.items?.find((i) => i.id === itemId);
       if (itemDef) {
-        slotEl.innerHTML = ICONS[itemDef.icon] || ICONS["star"];
-        slotEl.style.display = "flex";
+        if (catKey === "jewelry") {
+          slotEl.innerHTML = `
+            <span class="equipped-ring-icon" style="display:inline-flex; width:16px; height:16px; align-items:center; justify-content:center;">${ICONS[itemDef.icon] || ICONS["ring"]}</span>
+            <span class="equipped-ring-label" id="equippedRingLabel">${window.t(itemDef.name)}</span>
+          `;
+          slotEl.classList.add("active");
+          slotEl.style.display = "inline-flex";
+          slotEl.style.opacity = "1";
+          slotEl.style.height = "auto";
+        } else {
+          slotEl.innerHTML = ICONS[itemDef.icon] || ICONS["star"];
+          slotEl.style.display = (catKey === "stars") ? "inline-flex" : "flex";
+
+          // Aura special glowing aura treatment around the medallion
+          if (catKey === "auras") {
+            slotEl.className = `equipped-aura-slot active-aura-radiant aura-${itemDef.id}`;
+            slotEl.style.opacity = "1";
+          }
+        }
       } else {
         slotEl.style.display = "none";
+        if (catKey === "auras") {
+          slotEl.className = "equipped-aura-slot";
+          slotEl.style.opacity = "0";
+        }
+        if (catKey === "jewelry") {
+          slotEl.classList.remove("active");
+          slotEl.style.opacity = "0";
+          slotEl.style.height = "0";
+        }
       }
     } else {
       slotEl.style.display = "none";
+      if (catKey === "auras") {
+        slotEl.className = "equipped-aura-slot";
+        slotEl.style.opacity = "0";
+      }
+      if (catKey === "jewelry") {
+        slotEl.classList.remove("active");
+        slotEl.style.opacity = "0";
+        slotEl.style.height = "0";
+      }
     }
   }
 
@@ -1803,7 +2559,7 @@ function applyEquippedToCard(equipped) {
   const profileEquipMap = {
     crowns: "profileEquippedCrownSlot",
     auras: "profileEquippedAuraSlot",
-    rings: "profileEquippedRingSlot",
+    jewelry: "profileEquippedRingSlot",
   };
   for (const catKey in profileEquipMap) {
     const pSlotId = profileEquipMap[catKey];
@@ -1930,6 +2686,9 @@ function renderBoutique(filter = "all", showSkeleton = false) {
 }
 
 function renderBoutiqueContent(filter, root, owned, equipped, categories) {
+  const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
+  const userTier = (ClubState.member && ClubState.member.tier) || "SOVEREIGN MEMBER";
+
   root.innerHTML = categories
     .map((catKey) => {
       const cat = BOUTIQUE[catKey];
@@ -1951,39 +2710,45 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 
       const cards = filteredItems
         .map((item) => {
-          const isOwned = ClubState.owned[item.id];
+          const isOwned = !!ClubState.owned[item.id];
           const isEquipped = ClubState.equipped[catKey] === item.id;
-          const canEquip = EQUIP_CATEGORIES[catKey] !== undefined;
+          const tierEligible = typeof isTierEligible === "function" ? isTierEligible(userTier, item.requiredTier) : true;
 
           let btnText = "";
           let btnClass = "";
           let btnOnClick = "";
-          let btnPointerEvents = "pointer-events: none;";
+          let btnPointerEvents = "pointer-events: auto;";
           let extraCardClass = "";
           
           if (item.free) {
-            btnText = window.t("boutique.ownedCheck");
+            btnText = window.t("boutique.freeActivated") || "مُفعَّل ومثبت ✓";
             btnClass = "btn-free";
+            btnPointerEvents = "pointer-events: none;";
           } else if (isEquipped) {
-            btnText = window.t("boutique.equip");
-            btnClass = "btn-equip";
+            btnText = (window.t("boutique.equippedCheck") || "مجهّز بالهوية ✓");
+            btnClass = "btn-equipped";
+            btnOnClick = `onclick='handleQuickEquip(event, ${JSON.stringify(item)}, "${catKey}")'`;
           } else if (isOwned) {
             if (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) {
-              btnText = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-end: 4px; vertical-align: middle;"><polyline points="20 6 9 17 4 12"></polyline></svg> ` + window.t("boutique.owned");
+              btnText = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-end: 4px; vertical-align: middle;"><polyline points="20 6 9 17 4 12"></polyline></svg> ` + (window.t("boutique.owned") || "مملوك");
               btnClass = "btn-owned qp-success-btn";
               extraCardClass = " qp-shimmer-active";
             } else {
-              btnText = window.t("boutique.owned");
-              btnClass = "btn-owned";
+              btnText = window.t("boutique.equip") || "تجهيز";
+              btnClass = "btn-equip";
+              btnOnClick = `onclick='handleQuickEquip(event, ${JSON.stringify(item)}, "${catKey}")'`;
             }
+          } else if (!tierEligible) {
+            btnText = isAr ? `يتطلب ${item.requiredTier}` : `Requires ${item.requiredTier}`;
+            btnClass = "btn-locked";
+            btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
           } else {
-            btnText = window.t("boutique.acquire");
-            btnClass = "";
-            btnPointerEvents = "pointer-events: auto;";
+            btnText = window.t("boutique.acquire") || "امتلك";
+            btnClass = "btn-acquire";
             btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
           }
 
-          const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}${extraCardClass}`;
+          const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${isEquipped ? " is-equipped" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`;
           const priceHtml = item.free
             ? `<span class="boutique-card-price is-free">مجاني</span>`
             : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
@@ -1993,7 +2758,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             const pct = Math.min((currentBalance / item.price) * 100, 100);
             const isReady = pct >= 100;
             progressHtml = `
-          <div class="purchase-progress-wrap" aria-label=window.t("dynamic.affordability") title="${Math.floor(pct)}%">
+          <div class="purchase-progress-wrap" aria-label="مدى القدرة على الشراء" title="${Math.floor(pct)}%">
             <div class="purchase-progress-fill ${isReady ? "is-ready" : ""}" style="width: ${pct}%"></div>
           </div>
         `;
@@ -2002,30 +2767,38 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           }
 
           let iconHtml = "";
-        if (item.image) {
-          iconHtml = `<img src="${item.image}" alt="${window.t(item.name)}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-                      <span class="boutique-card-fallback" style="display:none">${ICONS[item.icon] || ICONS["star"]}</span>`;
-        } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
-          iconHtml = `<img src="${item.icon}" alt="${window.t(item.name)}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-                      <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
-        } else {
-          iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
-        }
+          if (item.image) {
+            iconHtml = `<img src="${item.image}" alt="${window.t(item.name)}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                        <span class="boutique-card-fallback" style="display:none">${ICONS[item.icon] || ICONS["star"]}</span>`;
+          } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
+            iconHtml = `<img src="${item.icon}" alt="${window.t(item.name)}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
+                        <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
+          } else {
+            iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
+          }
 
-        return `
-        <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" data-equipped="${isEquipped ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned}, ${isEquipped})' style="cursor: pointer;">
-          <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity]()}</span>
-          <span class="boutique-card-icon">
-            ${iconHtml}
-          </span>
-          <span class="boutique-card-name">${window.t(item.name)}</span>
-          ${priceHtml}
-          ${progressHtml}
-          <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick}>
-            ${btnText}
-          </button>
-        </div>
-      `;
+          const tierShort = item.requiredTier ? item.requiredTier.replace(/^SOVEREIGN\s+/i, "") : "";
+          const tierPillHtml = (!isOwned && !tierEligible && item.requiredTier)
+            ? `<span class="boutique-tier-plaque" title="${item.requiredTier}"><span class="tier-plaque-mark">✦</span> ${tierShort}</span>`
+            : "";
+
+          return `
+          <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" data-equipped="${isEquipped ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned}, ${isEquipped})' style="cursor: pointer;">
+            <div class="boutique-card-header">
+              <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "نادر"}</span>
+              ${tierPillHtml}
+            </div>
+            <span class="boutique-card-icon">
+              ${iconHtml}
+            </span>
+            <span class="boutique-card-name">${window.t(item.name)}</span>
+            ${priceHtml}
+            ${progressHtml}
+            <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick}>
+              ${btnText}
+            </button>
+          </div>
+        `;
         })
         .join("");
 
@@ -2085,7 +2858,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         }
 
         if (!isOwned) {
-          if (window.hapticPreviewMgr) window.hapticPreviewMgr.open(item, e);
+          // Onboarding gesture hint overlay completely disabled
         } else {
           showQuickPreview(item, wasAutoEquipped);
           if (navigator.vibrate) navigator.vibrate(50);
@@ -2153,6 +2926,46 @@ function renderWidgetSection() {
     ? `✓ ${window.t("boutique.freeActivated") || "مفعل ومثبت"}`
     : `+ ${window.t("boutique.id_widget_status") || "تثبيت الودجت"}`;
 
+  setTimeout(() => {
+    const boutiqueCard = document.querySelector("#boutique-tab .membership-card");
+    const masterCardEl = document.getElementById("membershipCard");
+    if (!boutiqueCard || !masterCardEl) return;
+    
+    // 1. Synchronize guilloche canvas
+    const mainCanvas = masterCardEl.querySelector(".guilloche-canvas");
+    const widgetCanvas = boutiqueCard.querySelector(".guilloche-canvas");
+    if (widgetCanvas) {
+      if (mainCanvas && mainCanvas.width > 0 && mainCanvas.height > 0) {
+        widgetCanvas.width = mainCanvas.width;
+        widgetCanvas.height = mainCanvas.height;
+        const ctx = widgetCanvas.getContext("2d");
+        if (ctx) ctx.drawImage(mainCanvas, 0, 0);
+      } else if (typeof window.drawGuilloche === "function" && widgetCanvas.parentElement) {
+        const bRect = widgetCanvas.parentElement.getBoundingClientRect();
+        if (bRect.width > 0 && bRect.height > 0) {
+          const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+          widgetCanvas.width = bRect.width * dpr;
+          widgetCanvas.height = bRect.height * dpr;
+          const ctx = widgetCanvas.getContext("2d");
+          if (ctx) {
+            ctx.scale(dpr, dpr);
+            window.drawGuilloche(ctx, bRect.width, bRect.height);
+          }
+        }
+      }
+    }
+
+    // 2. Synchronize gold dust particles canvas
+    const mainGoldDust = masterCardEl.querySelector(".gold-dust-canvas");
+    const widgetGoldDust = boutiqueCard.querySelector(".gold-dust-canvas");
+    if (mainGoldDust && widgetGoldDust && mainGoldDust.width > 0 && mainGoldDust.height > 0) {
+      widgetGoldDust.width = mainGoldDust.width;
+      widgetGoldDust.height = mainGoldDust.height;
+      const gdCtx = widgetGoldDust.getContext("2d");
+      if (gdCtx) gdCtx.drawImage(mainGoldDust, 0, 0);
+    }
+  }, 20);
+
   return `
     <section class="boutique-section widget-section" data-category="widgets">
       <div class="boutique-section-head">
@@ -2162,9 +2975,9 @@ function renderWidgetSection() {
       <p class="widget-preview-label">${window.t("boutique.id_widget_title")}</p>
 
       <div class="id-widget-container">
-        <div class="membership-card widget-card-preview" style="transform: scale(0.9); transform-origin: top center; margin-bottom: -10%;">
+        <section class="membership-card luxury-tilt-card boutique-primary-widget" id="boutiqueMembershipWidget" aria-label="Membership card">
           ${cardHTML}
-        </div>
+        </section>
       </div>
 
       <button class="widget-add-btn ${isInstalled ? "is-installed" : ""}" type="button" onclick="handleInstallWidget(event)">
@@ -4356,43 +5169,150 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
     window.AudioEngine.playModalOpen();
   }
 
-  document.getElementById("inspectionTitle").textContent = window.t(item.name);
-  document.getElementById("inspectionRarity").textContent =
-    RARITY_LABEL[item.rarity]();
-  document.getElementById("inspectionLore").textContent =
-    (item.lore ? window.t(item.lore) : window.t("dynamic.loreDefault"));
+  const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
+  const userTier = (ClubState.member && ClubState.member.tier) || "SOVEREIGN MEMBER";
+  const tierEligible = typeof isTierEligible === "function" ? isTierEligible(userTier, item.requiredTier) : true;
 
-  let mediaContent = "";
-  if (item.image) {
-    mediaContent = `<img src="${item.image}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
-                    <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS[item.icon] || ICONS["crown"]}</div>`;
-  } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
-    mediaContent = `<img src="${item.icon}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
-                    <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS["crown"]}</div>`;
-  } else {
-    mediaContent = ICONS[item.icon] || ICONS["crown"];
+  const titleEl = document.getElementById("inspectionTitle");
+  if (titleEl) titleEl.textContent = window.t(item.name);
+
+  const serialEl = document.getElementById("inspectionSerial");
+  if (serialEl) serialEl.textContent = `SER: ARC-2026-SOV-${item.id.toUpperCase()}-${item.rarity || 1}`;
+
+  const rarityText = (typeof RARITY_LABEL !== "undefined" && RARITY_LABEL[item.rarity]) 
+    ? RARITY_LABEL[item.rarity]() 
+    : (isAr ? "إرث سيادي" : "SOVEREIGN RELIC");
+
+  const statusBadge = document.getElementById("inspectionStatusBadge");
+  const statusText = document.getElementById("inspectionStatusText");
+  if (statusBadge && statusText) {
+    statusText.textContent = rarityText;
+    statusBadge.className = "rmc-status-badge " + (isEquipped ? "is-equipped" : (isOwned ? "is-vaulted" : (tierEligible ? "is-eligible" : "is-locked")));
   }
-  document.getElementById("inspectionImage").innerHTML = mediaContent;
+
+  const alloyEl = document.getElementById("inspectionAlloy");
+  if (alloyEl) alloyEl.textContent = isAr ? (item.metalAr || item.metal || "ذهب خالص وأوبسيديان") : (item.metal || item.metalAr || "Solid Gold & Obsidian");
+
+  const weightEl = document.getElementById("inspectionWeight");
+  if (weightEl) weightEl.textContent = isAr ? (item.weightAr || item.weight || "معيار سيادي خاص") : (item.weight || item.weightAr || "Sovereign Standard");
+
+  const tierEl = document.getElementById("inspectionRequiredTier");
+  if (tierEl) {
+    const tierName = item.requiredTier || "SOVEREIGN MEMBER";
+    tierEl.innerHTML = tierEligible 
+      ? `<span style="color: #7fbe8c;">✓ ${tierName}</span>` 
+      : `<span style="color: #e5989b;">🔒 ${tierName}</span>`;
+  }
+
+  const priceEl = document.getElementById("inspectionPrice");
+  if (priceEl) priceEl.textContent = item.free ? (isAr ? "مشمول مجاناً" : "Included Free") : `$${item.price.toLocaleString("en-US")}`;
+
+  const loreEl = document.getElementById("inspectionLore");
+  if (loreEl) {
+    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || "تحفة ملكية مسبوكة يدوياً من الذهب الخالص والأوبسيديان المعتق.");
+  }
+
+  const imgEl = document.getElementById("inspectionImage");
+  if (imgEl) {
+    let mediaContent = "";
+    if (item.image) {
+      mediaContent = `<img src="${item.image}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
+                      <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS[item.icon] || ICONS["crown"]}</div>`;
+    } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
+      mediaContent = `<img src="${item.icon}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
+                      <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS["crown"]}</div>`;
+    } else {
+      mediaContent = ICONS[item.icon] || ICONS["crown"];
+    }
+    imgEl.innerHTML = mediaContent;
+  }
 
   const equipBtn = document.getElementById("inspectionEquipBtn");
+  const equipBtnText = document.getElementById("inspectionEquipBtnText");
+  const setBtnText = (txt) => {
+    if (equipBtnText) equipBtnText.textContent = txt;
+    else if (equipBtn) equipBtn.textContent = txt;
+  };
+
   if (equipBtn) {
     if (item.free) {
-      equipBtn.textContent = window.t("boutique.freeActivated");
+      setBtnText(window.t("boutique.freeActivated") || "مُفعَّل ومثبت ✓");
       equipBtn.disabled = true;
       equipBtn.onclick = null;
+      equipBtn.className = "rmc-equip-btn btn-free";
     } else if (isOwned) {
-      equipBtn.textContent = isEquipped
-        ? window.t("boutique.unequip")
-        : window.t("dynamic.equipIdentity");
+      if (isEquipped) {
+        setBtnText(window.t("boutique.unequipAction") || (isAr ? "فك التجهيز عن بطاقة الهوية" : "Unequip from Master Card"));
+        equipBtn.disabled = false;
+        equipBtn.className = "rmc-equip-btn is-unequip";
+        equipBtn.onclick = () => {
+          ClubState.toggleEquip(catKey, item.id);
+          closeInspectionModal();
+          if (window.AudioEngine && window.AudioEngine.playEquip) window.AudioEngine.playEquip();
+          renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
+        };
+      } else {
+        setBtnText(window.t("boutique.equipAction") || (isAr ? "تقليد على بطاقة الهوية" : "Equip to Master Card"));
+        equipBtn.disabled = false;
+        equipBtn.className = "rmc-equip-btn is-equip";
+        equipBtn.onclick = () => {
+          ClubState.toggleEquip(catKey, item.id);
+          closeInspectionModal();
+          if (window.AudioEngine && window.AudioEngine.playEquip) window.AudioEngine.playEquip();
+          renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
+        };
+      }
+    } else if (!tierEligible) {
+      setBtnText(isAr ? `يتطلب رتبة ${item.requiredTier}` : `Requires ${item.requiredTier}`);
       equipBtn.disabled = false;
-      equipBtn.onclick = () => equipItem(item, catKey);
+      equipBtn.className = "rmc-equip-btn is-locked";
+      equipBtn.onclick = () => {
+        const msg = isAr 
+          ? `هذه التحفة مخصصة حصرياً لأعضاء رتبة ${item.requiredTier} فأعلى.`
+          : `This artifact requires ${item.requiredTier} standing or above.`;
+        showNavToast(msg);
+      };
+    } else if (ClubState.balance < item.price) {
+      setBtnText(isAr ? `رصيد غير كافٍ — إيداع رصيد ($${item.price.toLocaleString()})` : `Insufficient Balance — Deposit ($${item.price.toLocaleString()})`);
+      equipBtn.disabled = false;
+      equipBtn.className = "rmc-equip-btn needs-balance";
+      equipBtn.onclick = () => {
+        closeInspectionModal();
+        if (typeof window.openDepositModal === "function") {
+          setTimeout(() => window.openDepositModal(), 200);
+        }
+      };
     } else {
-      equipBtn.textContent = `${window.t("dynamic.buy")} — ${item.price.toLocaleString("en-US")}`;
+      setBtnText(`${window.t("boutique.acquireAction") || (isAr ? "اقتناء التحفة السيادية" : "Acquire Artifact")} — $${item.price.toLocaleString("en-US")}`);
       equipBtn.disabled = false;
-      equipBtn.onclick = () => purchaseItem(item, catKey);
+      equipBtn.className = "rmc-equip-btn btn-gold";
+      equipBtn.onclick = () => {
+        purchaseItem(item, catKey);
+      };
     }
   }
 }
+
+window.handleQuickEquip = function(event, item, catKey) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  ClubState.toggleEquip(catKey, item.id);
+  if (window.AudioEngine && window.AudioEngine.playEquip) {
+    window.AudioEngine.playEquip();
+  }
+  if (window.HapticEngine && window.HapticEngine.boutiquePurchase) {
+    window.HapticEngine.boutiquePurchase();
+  }
+  const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
+  const isNowEquipped = ClubState.equipped[catKey] === item.id;
+  const msg = isNowEquipped
+    ? (isAr ? `تم تقليد ${window.t(item.name)} على بطاقة الهوية السيادية!` : `Equipped ${window.t(item.name)} to your Master Card!`)
+    : (isAr ? `تم فك تجهيز ${window.t(item.name)} وحفظها في الخزانة.` : `Returned ${window.t(item.name)} to your Sovereign Vault.`);
+  showNavToast(msg);
+  renderBoutique(document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all");
+};
 
 document.getElementById("inspectionCloseBtn")?.addEventListener("click", () => {
   closeInspectionModal();
@@ -7172,28 +8092,8 @@ class HapticPreviewManager {
   }
 
   initDOM() {
-    if (document.getElementById('haptic3DOverlay')) return;
-    
-    const overlay = document.createElement('div');
-    overlay.id = 'haptic3DOverlay';
-    overlay.className = 'haptic-3d-overlay';
-    overlay.innerHTML = `
-      <div class="haptic-3d-canvas-container">
-        <canvas id="haptic3DCanvas" width="600" height="600"></canvas>
-      </div>
-      <div class="haptic-3d-info">
-        <h3 id="haptic3DName"></h3>
-        <p id="haptic3DRarity" class="rarity-badge" style="margin: 0 auto; display: inline-block;"></p>
-        <div class="haptic-hint" data-i18n="boutique.hapticHint">حرّك إصبعك للمعاينة • أفلت للإغلاق</div>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-    
-    this.overlay = overlay;
-    this.canvas = document.getElementById('haptic3DCanvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.nameEl = document.getElementById('haptic3DName');
-    this.rarityEl = document.getElementById('haptic3DRarity');
+    const existing = document.getElementById('haptic3DOverlay');
+    if (existing) existing.remove();
   }
 
   bindEvents() {
@@ -7203,34 +8103,8 @@ class HapticPreviewManager {
   }
 
   open(item, startEvent) {
-    if (this.isActive) return;
-    this.isActive = true;
-    
-    if (navigator.vibrate) navigator.vibrate([15, 40, 15]);
-    if (window.AudioEngine) window.AudioEngine.playRustle();
-
-    this.nameEl.textContent = window.t(item.name);
-    this.rarityEl.className = `rarity-badge rarity-${item.rarity}`;
-    this.rarityEl.textContent = RARITY_LABEL[item.rarity]();
-
-    this.overlay.classList.add('is-active');
-
-    // Extract start coordinates
-    const touch = startEvent.touches ? startEvent.touches[0] : startEvent;
-    this.startX = touch.clientX;
-    this.startY = touch.clientY;
-    this.targetTiltX = 0;
-    this.targetTiltY = 0;
-    this.tiltX = 0;
-    this.tiltY = 0;
-
-    window.addEventListener('touchmove', this.handleMove, { passive: false });
-    window.addEventListener('touchend', this.handleEnd, { passive: true });
-    window.addEventListener('mousemove', this.handleMove);
-    window.addEventListener('mouseup', this.handleEnd);
-
-    this.prepareCanvas(item);
-    this.renderLoop();
+    // Onboarding gesture hint overlay completely disabled
+    return;
   }
 
   close() {

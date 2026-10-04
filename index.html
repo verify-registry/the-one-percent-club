@@ -23,7 +23,7 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css?v=20261004l" />
+    <link rel="stylesheet" href="style.css?v=20261004q" />
     <script>
       (function () {
         try {
@@ -2579,66 +2579,86 @@
     </div>
 
     <div id="modals-container">
-      <!-- INSPECTION MODAL -->
+      <!-- BOUTIQUE INSPECTION MODAL (PRIVATE CURATORIAL CHAMBER) -->
       <div class="purchase-modal-overlay" id="inspectionModal" hidden="">
-        <div
-          class="purchase-modal"
-          style="
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          "
-        >
-          <div
-            id="inspectionImage"
-            style="
-              width: 120px;
-              height: 120px;
-              margin: 0 auto 16px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
-          ></div>
-          <h3 class="purchase-modal-name" id="inspectionTitle">—</h3>
-          <span
-            class="purchase-modal-rarity"
-            id="inspectionRarity"
-            style="margin-bottom: 16px"
-            >—</span
-          >
-          <p
-            id="inspectionLore"
-            style="
-              font-size: 12px;
-              color: #948c7c;
-              line-height: 1.6;
-              margin-bottom: 24px;
-              padding: 0 16px;
-              text-align: center;
-              direction: rtl;
-            "
-          ></p>
+        <div class="purchase-modal boutique-curatorial-modal" role="dialog" aria-modal="true" aria-labelledby="inspectionTitle">
+          <div class="rmc-document-frame">
+            <!-- Modal Close Button -->
+            <button type="button" class="rmc-close-btn" id="inspectionCloseBtn" onclick="closeInspectionModal()" aria-label="Close">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
 
-          <div class="purchase-modal-actions" style="width: 100%">
-            <button
-              class="btn btn-gold"
-              id="inspectionEquipBtn"
-              type="button"
-              data-i18n="boutique.equip"
-            >
-              <span data-i18n="boutique.equip">تجهيز</span>
-            </button>
-            <button
-              class="btn btn-outline"
-              id="inspectionCancelBtn"
-              type="button"
-              onclick="closeInspectionModal()"
-              data-i18n="boutique.close"
-            >
-              <span data-i18n="boutique.close">إغلاق</span>
-            </button>
+            <!-- Curatorial Header with Seal -->
+            <div class="rmc-header">
+              <div class="rmc-seal-mark" aria-hidden="true">
+                <svg viewBox="0 0 36 36" width="36" height="36" fill="none">
+                  <circle cx="18" cy="18" r="16.5" stroke="url(#phcGoldRimGrad)" stroke-width="1.2" stroke-dasharray="2 1.5"></circle>
+                  <circle cx="18" cy="18" r="14" fill="rgba(212,175,106,0.06)" stroke="url(#ringGoldGrad)" stroke-width="0.8"></circle>
+                  <path d="M18 8l2.5 5.5 6 .9-4.5 4.2 1 6-5-2.8-5 2.8 1-6-4.5-4.2 6-.9L18 8z" fill="url(#goldText)"></path>
+                </svg>
+              </div>
+              <div class="rmc-header-texts">
+                <span class="rmc-eyebrow" data-i18n="boutique.curatorialTitle">PRIVATE CURATORIAL CHAMBER</span>
+                <h4 class="rmc-artifact-title" id="inspectionTitle">—</h4>
+                <span class="rmc-serial" id="inspectionSerial">SER: ARC-2026-SOV</span>
+              </div>
+            </div>
+
+            <!-- Showcase Turntable on Velvet Cushion -->
+            <div class="rmc-turntable-chamber">
+              <div class="rmc-spotlight-cone" aria-hidden="true"></div>
+              <div class="rmc-turntable-pedestal">
+                <div class="rmc-pedestal-bezel"></div>
+                <div class="rmc-pedestal-velvet" id="inspectionImage">
+                  <!-- Injected high-fidelity metallic artifact -->
+                </div>
+              </div>
+              <div class="rmc-status-badge is-vaulted" id="inspectionStatusBadge">
+                <span class="rsb-dot"></span>
+                <span id="inspectionStatusText" class="purchase-modal-rarity">SOVEREIGN</span>
+              </div>
+            </div>
+
+            <!-- Archival Specifications Grid -->
+            <div class="rmc-spec-grid">
+              <div class="rmc-spec-cell">
+                <span class="rmc-spec-lbl" data-i18n="boutique.metalAlloy">الصياغة والمعدن</span>
+                <span class="rmc-spec-val" id="inspectionAlloy">ذهب عيار 24</span>
+              </div>
+              <div class="rmc-spec-cell">
+                <span class="rmc-spec-lbl" data-i18n="boutique.sovereignWeight">الوزن والعيار</span>
+                <span class="rmc-spec-val" id="inspectionWeight">142g Solid</span>
+              </div>
+              <div class="rmc-spec-cell">
+                <span class="rmc-spec-lbl" data-i18n="boutique.requiredStanding">الرتبة المطلوبة</span>
+                <span class="rmc-spec-val" id="inspectionRequiredTier">SOVEREIGN MEMBER</span>
+              </div>
+              <div class="rmc-spec-cell">
+                <span class="rmc-spec-lbl" data-i18n="boutique.valuation">القيمة السيادية</span>
+                <span class="rmc-spec-val" id="inspectionPrice">$5,000</span>
+              </div>
+            </div>
+
+            <!-- Historical Lore Description -->
+            <div class="rmc-lore-box">
+              <p class="rmc-lore-paragraph" id="inspectionLore">
+                تحفة مسبوكة يدوياً من الذهب الخالص والأوبسيديان المعتق...
+              </p>
+            </div>
+
+            <!-- Actions: Acquire / Equip / Close -->
+            <div class="rmc-actions" style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+              <button class="rmc-equip-btn btn-gold" id="inspectionEquipBtn" type="button" style="width: 100%;">
+                <span class="rmc-btn-icon">✦</span>
+                <span id="inspectionEquipBtnText" data-i18n="boutique.acquire">اقتناء</span>
+              </button>
+              <button class="btn btn-outline" id="inspectionCancelBtn" type="button" onclick="closeInspectionModal()" style="width: 100%;" data-i18n="boutique.close">
+                <span data-i18n="boutique.close">إغلاق</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -3513,7 +3533,7 @@
     <script src="Audio.js?v=66"></script>
     <script src="luxury.js?v=71"></script>
     <script src="translations.js?v=67"></script>
-    <script src="app.js?v=69"></script>
+    <script src="app.js?v=70"></script>
 
     <input
       type="file"
