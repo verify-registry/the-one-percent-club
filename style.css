@@ -260,13 +260,14 @@ body.light-mode {
   );
   --hairline: rgba(156, 109, 35, 0.25);
   --hairline-strong: rgba(156, 109, 35, 0.5);
-  --gold-pale: #c4923e;
-  --gold-champagne: #b38031;
-  --gold-polished: #9c6d23;
-  --gold-antique: #855a1a;
-  --gold-aged: #664311;
-  --gold-dark: #472f0b;
-  --gold-line: var(--gold-antique);
+  --gold-primary: #664917;
+  --gold-pale: #e8cc8f;
+  --gold-champagne: #caa052;
+  --gold-polished: #b88d38;
+  --gold-antique: #5a3f12;
+  --gold-aged: #4a340e;
+  --gold-dark: #241603;
+  --gold-line: rgba(164, 122, 48, 0.38);
   --gold-text: linear-gradient(
     180deg,
     var(--gold-polished) 0%,
@@ -5756,11 +5757,41 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   direction: rtl;
   unicode-bidi: isolate;
 }
+#boutiqueSections {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+}
+
+#boutique-tab .boutique-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
 #boutique-tab .boutique-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+  width: 100%;
 }
+
+@media (min-width: 600px) {
+  #boutique-tab .boutique-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+  }
+}
+
+@media (min-width: 900px) {
+  #boutique-tab .boutique-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
 #boutique-tab .boutique-card {
   position: relative;
   contain: layout style paint;
@@ -5774,15 +5805,54 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   align-items: center;
   gap: 5px;
   text-align: center;
+  cursor: pointer;
   background: var(--surface-card) !important;
   color: var(--text-primary) !important;
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.05),
     inset 0 -5px 15px rgba(0, 0, 0, 0.8),
-    0 10px 20px -5px rgba(0, 0, 0, 0.6);
+    0 8px 18px -4px rgba(0, 0, 0, 0.5);
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    background 0.25s ease;
+  will-change: transform, box-shadow;
+}
+
+/* Subtle, refined luxury hover effect */
+#boutique-tab .boutique-card:hover {
+  transform: translateY(-3px) translateZ(0);
+  border-color: rgba(212, 175, 106, 0.48) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 200, 0.12),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.6),
+    0 12px 24px -5px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(212, 175, 106, 0.18) !important;
+}
+
+#boutique-tab .boutique-card:hover .boutique-card-icon {
+  transform: scale(1.04);
+}
+
+#boutique-tab .boutique-card:active {
+  transform: translateY(-1px) scale(0.99) translateZ(0);
+  transition: transform 0.08s ease;
+}
+
+/* Light Mode Hover refinement */
+body.light-mode #boutique-tab .boutique-card:hover {
+  transform: translateY(-3px) translateZ(0);
+  border-color: rgba(184, 141, 56, 0.55) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 22px -4px rgba(90, 65, 20, 0.12),
+    0 0 0 1px rgba(184, 141, 56, 0.25) !important;
+}
+
+body.light-mode #boutique-tab .boutique-card:active {
+  transform: translateY(-1px) scale(0.99) translateZ(0);
+  transition: transform 0.08s ease;
 }
 #boutique-tab .boutique-card.is-owned {
   border-color: rgba(212, 175, 106, 0.4);
@@ -17574,7 +17644,7 @@ body.light-mode .deed-security-text {
 
 .ledger-divider-seal {
   font-size: 9px;
-  color: #ecd5a5;
+  color: var(--txt-gold-muted, #ecd5a5);
   text-shadow: 0 0 6px rgba(212, 175, 106, 0.7);
 }
 
@@ -17679,7 +17749,7 @@ body.light-mode .deed-security-text {
 .ledger-timeline-title {
   font-family: var(--font-display, "Cinzel", serif);
   font-size: 9.5px;
-  color: #ecd5a5;
+  color: var(--txt-gold-premium, #ecd5a5);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 600;
@@ -18012,6 +18082,15 @@ body.light-mode .lrc-value {
   color: #2a1f10;
 }
 
+body.light-mode .ledger-timeline-title {
+  color: var(--txt-gold-premium, #7d5a1b) !important;
+}
+
+body.light-mode .ledger-divider-seal {
+  color: var(--txt-gold-muted, #856025) !important;
+  text-shadow: none !important;
+}
+
 body.light-mode .lti-title {
   color: #2b2011;
 }
@@ -18236,7 +18315,7 @@ body.light-mode .deed-verify-btn {
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.18em;
-  color: #ecd5a5;
+  color: var(--txt-gold-premium, #ecd5a5);
   text-transform: uppercase;
   margin-bottom: 8px;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
@@ -18424,7 +18503,7 @@ body.light-mode .deed-verify-btn {
 }
 
 .ossb-star {
-  color: #ecd5a5;
+  color: var(--txt-gold-muted, #ecd5a5);
   font-size: 9px;
 }
 
@@ -29852,8 +29931,8 @@ body.light-mode #profile-tab .pcc-subtitle {
 body.light-mode {
   --txt-primary: #1e1913;       /* 1. Primary Text: Deep warm charcoal / espresso (Max readability, noble tone) */
   --txt-secondary: #5a4b37;     /* 2. Secondary Text: Darker muted warm brown (Clearly distinguishable from ivory) */
-  --txt-gold-premium: #7d5a1b;  /* 3. Premium Gold Text: Rich antique champagne gold (High contrast, never pale) */
-  --txt-gold-muted: #9e7d47;    /* 4. Muted / Decorative Gold: Subtle decorative gold for secondary accents */
+  --txt-gold-premium: #664917;  /* 3. Premium Gold Text: Deep antique champagne gold (7.2:1 contrast against ivory) */
+  --txt-gold-muted: #73531b;    /* 4. Muted / Decorative Gold: Refined antique gold for secondary accents & hallmarks */
 }
 
 /* ==========================================================================
@@ -29951,6 +30030,7 @@ body.light-mode .bottom-nav .nav-item:not(.is-active) span {
 }
 
 /* --- 3. PREMIUM GOLD TEXT: Status badges, key metrics, vault titles, active pills --- */
+body.light-mode .ledger-timeline-title,
 body.light-mode .reliquary-empty-title,
 body.light-mode #collectionSectionTitle,
 body.light-mode .reliquary-title-group h3,
@@ -30037,6 +30117,8 @@ html.light-mode .pcc-accredited-tag {
 }
 
 /* --- 4. MUTED / DECORATIVE GOLD: Micro-hallmarks, decorative stamps, non-essential lines --- */
+body.light-mode .ledger-divider-seal,
+body.light-mode .ossb-star,
 body.light-mode #cardHallmarkLine text,
 body.light-mode .hallmark-text,
 body.light-mode .vitrine-hallmark-bar span,
@@ -30666,11 +30748,26 @@ body.light-mode #membership-tab .member-number {
   font-weight: 700 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
 }
-body.light-mode #membership-tab .member-name,
-body.light-mode #membershipCard .member-name {
-  color: #120d06 !important; /* Commanding sculpted obsidian typography */
-  font-weight: 700 !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+body.light-mode #membershipCard #memberName,
+body.light-mode #membership-tab #memberName,
+body.light-mode #membershipCard .member-name,
+body.light-mode #membership-tab .member-name {
+  font-family: "Cinzel", "Amiri", serif !important;
+  font-size: clamp(1.05rem, 3.4vw, 1.28rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  color: #563d1c !important; /* Quiet Antique Champagne / Burnished Bronze */
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #563d1c !important;
+  filter: none !important;
+  text-shadow:
+    -0.5px -0.5px 0px rgba(255, 255, 255, 0.9),
+    0.6px 0.6px 0.4px rgba(70, 48, 18, 0.42) !important;
 }
 body.light-mode #membership-tab .member-quote {
   color: #4a3614 !important;
@@ -30732,6 +30829,305 @@ body.light-mode #membership-tab .card-tagline span {
   letter-spacing: 0.14em !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) !important;
 }
+
+/* ==========================================================================
+   AUTHENTIC METALLIC GOLD CTA BUTTONS & CONTROLS (LIGHT MODE ONLY)
+   Exclusively applies outside Main Membership Card & Profile Hero Card.
+   ========================================================================== */
+
+/* 1. Primary Metallic Gold CTA Action Buttons */
+body.light-mode .btn-gold,
+body.light-mode #boutique-tab .btn-acquire,
+body.light-mode #boutique-tab .btn-equip,
+body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned),
+body.light-mode .rmc-equip-btn,
+body.light-mode .reliquary-boutique-btn,
+body.light-mode .reliquary-empty-action-btn,
+body.light-mode .sd-btn-add,
+body.light-mode .mini-dossier-btn.is-toast-primary,
+body.light-mode .edit-profile-save-btn,
+body.light-mode #accountInfoModal .dossier-save-btn,
+body.light-mode .oath-signet-seal-btn {
+  background: linear-gradient(145deg, #e8cc8f 0%, #d4ae60 30%, #be9444 70%, #a47a2e 100%) !important;
+  border: 1px solid #b88d38 !important;
+  color: #241603 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 252, 240, 0.5) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 240, 0.7),
+    inset 0 -1px 0 rgba(110, 80, 20, 0.25),
+    0 2px 6px rgba(110, 80, 20, 0.16) !important;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease !important;
+}
+
+body.light-mode .btn-gold:hover,
+body.light-mode #boutique-tab .btn-acquire:hover,
+body.light-mode #boutique-tab .btn-equip:hover,
+body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):hover,
+body.light-mode .rmc-equip-btn:hover,
+body.light-mode .reliquary-boutique-btn:hover,
+body.light-mode .reliquary-empty-action-btn:hover,
+body.light-mode .sd-btn-add:hover,
+body.light-mode .mini-dossier-btn.is-toast-primary:hover,
+body.light-mode .edit-profile-save-btn:hover,
+body.light-mode #accountInfoModal .dossier-save-btn:hover,
+body.light-mode .oath-signet-seal-btn:hover {
+  background: linear-gradient(145deg, #edd49b 0%, #dbb76c 30%, #c69c4c 70%, #ac8236 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 3px 8px rgba(110, 80, 20, 0.2) !important;
+}
+
+body.light-mode .btn-gold:active,
+body.light-mode #boutique-tab .btn-acquire:active,
+body.light-mode #boutique-tab .btn-equip:active,
+body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):active,
+body.light-mode .rmc-equip-btn:active,
+body.light-mode .reliquary-boutique-btn:active,
+body.light-mode .reliquary-empty-action-btn:active,
+body.light-mode .sd-btn-add:active,
+body.light-mode .mini-dossier-btn.is-toast-primary:active,
+body.light-mode .edit-profile-save-btn:active,
+body.light-mode #accountInfoModal .dossier-save-btn:active,
+body.light-mode .oath-signet-seal-btn:active {
+  background: linear-gradient(145deg, #caa052 0%, #b58c3e 45%, #9c732c 100%) !important;
+  box-shadow:
+    inset 0 1.5px 3px rgba(60, 40, 10, 0.35),
+    0 1px 2px rgba(110, 80, 20, 0.12) !important;
+  transform: scale(0.97) !important;
+}
+
+/* 2. Metallic Gold Active Controls & Category Filter Pills */
+body.light-mode .b-filt-btn.is-active,
+body.light-mode .pill-btn.is-active,
+body.light-mode .club-room-btn.is-active,
+body.light-mode #club-tab .club-room-btn.is-active,
+body.light-mode .sl-filter-btn.is-active,
+body.light-mode .sovereign-accolade-btn.is-conferred,
+body.light-mode .pcc-curate-btn,
+body.light-mode .deed-verify-btn {
+  background: linear-gradient(145deg, #f2deaf 0%, #dfbe76 45%, #cfae64 100%) !important;
+  border: 1px solid #b89246 !important;
+  color: #241603 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 0 rgba(120, 85, 25, 0.2),
+    0 2px 5px rgba(100, 70, 20, 0.12) !important;
+}
+
+/* 3. Club Sovereign Seal Send Button Bezel */
+body.light-mode .sovereign-seal-send-btn {
+  box-shadow: 0 2px 8px rgba(110, 80, 20, 0.22) !important;
+}
+body.light-mode .sovereign-arrow-monogram-svg .btn-bezel-outer {
+  fill: url(#ringGoldGrad) !important;
+  stroke: #a3792b !important;
+  filter: drop-shadow(0 1px 2px rgba(110, 80, 20, 0.2)) !important;
+}
+body.light-mode .sovereign-arrow-monogram-svg .arrow-monogram-badge ellipse {
+  fill: #fffdf8 !important;
+  stroke: #b88d37 !important;
+}
+body.light-mode .sovereign-arrow-monogram-svg .arrow-monogram-badge text {
+  fill: #241603 !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   AUTHENTIC ANTIQUE BURNISHED GOLD HEADINGS & LABELS (LIGHT MODE ONLY)
+   Exclusively applies outside Main Membership Card & Profile Hero Card.
+   ========================================================================== */
+
+/* 1. Historical Provenance Heading & Clock Badge */
+body.light-mode .ledger-timeline-title {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  color: #5a3f12 !important; /* Commanding Antique Burnished Champagne Gold */
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+body.light-mode .ledger-timeline-icon circle,
+body.light-mode .ledger-timeline-icon polyline {
+  stroke: #7a581a !important;
+}
+
+body.light-mode .ledger-timeline-head-badge {
+  background: rgba(145, 105, 30, 0.12) !important;
+  border: 1px solid rgba(145, 105, 30, 0.45) !important;
+}
+
+/* 2. Certificate & Reliquary Eyebrows / Headings */
+body.light-mode .rmc-eyebrow {
+  color: #5c4214 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 3. Section Subtitles, Eyebrows & Category Labels */
+body.light-mode .section-subtitle,
+body.light-mode .category-title,
+body.light-mode .pcs-curation-eyebrow,
+body.light-mode .pcs-eyebrow,
+body.light-mode .boutique-card-rarity,
+body.light-mode .boutique-card-type,
+body.light-mode .b-card-rarity,
+body.light-mode .boutique-balance-label,
+body.light-mode .chamber-badge,
+body.light-mode .chamber-security-badge,
+body.light-mode .chamber-plaque-subtitle,
+body.light-mode .whisper-banner-label,
+body.light-mode .sovereign-allocation-badge,
+body.light-mode .sl-registry-eyebrow,
+body.light-mode .sd-eyebrow,
+body.light-mode .hcc-eyebrow,
+body.light-mode .modal-eyebrow,
+body.light-mode .deed-cell-label,
+body.light-mode .lrc-label,
+body.light-mode .lti-date {
+  color: #634714 !important; /* High-contrast Antique Burnished Champagne Gold */
+  font-weight: 600 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) !important;
+}
+
+/* 4. Status Badges, Hallmarks & Accredited Seals */
+body.light-mode .badge-approved,
+body.light-mode .status-badge-approved,
+body.light-mode .accredited-status-tag,
+body.light-mode .hrr-status,
+body.light-mode .history-badge-seal .badge,
+body.light-mode .sd-tier-capsule,
+body.light-mode .sl-tier-pill.tier-member {
+  background: rgba(145, 105, 30, 0.12) !important;
+  border-color: rgba(145, 105, 30, 0.45) !important;
+  color: #4a340e !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+body.light-mode .ledger-divider-seal,
+body.light-mode .ledger-org,
+body.light-mode .deed-seal-text,
+body.light-mode .archive-hallmark-text {
+  color: #6d501a !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) !important;
+}
+
+/* ==========================================================================
+   CANONICAL UNIFIED GOLD MATERIAL SYSTEM (LIGHT MODE ONLY)
+   Strictly applies outside Main Membership Card & Profile Hero Card.
+   Unifies: Icons, Borders, Badges, Dividers, Decorative Accents.
+   ========================================================================== */
+
+/* 1. Unified Gold Icons (Warm Antique Brushed Gold) */
+body.light-mode #club-tab .chamber-icon,
+body.light-mode #club-tab .chamber-icon svg,
+body.light-mode .whisper-cipher-svg,
+body.light-mode #profile-tab .profile-nav-menu .pnm-icon svg,
+body.light-mode #profile-tab .profile-nav-menu .pnm-chevron svg,
+body.light-mode .deed-btn-icon svg,
+body.light-mode .pcc-curate-btn svg,
+body.light-mode #boutique-tab .b-filt-btn svg,
+body.light-mode .reliquary-card .reliquary-icon svg,
+body.light-mode .reliquary-empty-icon svg,
+body.light-mode .honor-icon svg,
+body.light-mode .sd-reg-badge svg {
+  stroke: #8a6322 !important;
+  color: #8a6322 !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8)) !important;
+}
+
+body.light-mode #club-tab .club-room-btn.is-active .chamber-icon svg,
+body.light-mode .b-filt-btn.is-active svg {
+  stroke: #241603 !important;
+  color: #241603 !important;
+}
+
+/* 2. Unified Gold Borders & Architectural Bezels */
+body.light-mode #boutique-tab .boutique-card,
+body.light-mode #profile-tab .membership-ledger-card,
+body.light-mode #profile-tab .profile-curation-card,
+body.light-mode #profile-tab .reliquary-card,
+body.light-mode #profile-tab .prestige-honors-card,
+body.light-mode .sovereign-dispatch-card,
+body.light-mode .modal-content,
+body.light-mode .purchase-modal,
+body.light-mode .sd-registry-card {
+  border: 1px solid rgba(164, 122, 48, 0.28) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 240, 0.8),
+    0 2px 8px rgba(80, 55, 20, 0.05) !important;
+}
+
+body.light-mode .sovereign-dispatch-card.is-whisper-dispatch {
+  border: 1px solid rgba(164, 122, 48, 0.45) !important;
+}
+
+/* 3. Unified Gold Badges, Status Tags & Accredited Seals */
+body.light-mode .chamber-badge,
+body.light-mode .chamber-security-badge,
+body.light-mode .sovereign-allocation-badge,
+body.light-mode .sovereign-dispatch-tier,
+body.light-mode .sl-registry-eyebrow,
+body.light-mode .sd-tier-capsule,
+body.light-mode .sl-tier-pill.tier-member,
+body.light-mode .badge-approved,
+body.light-mode .status-badge-approved,
+body.light-mode .accredited-status-tag,
+body.light-mode .hrr-status,
+body.light-mode .history-badge-seal .badge,
+body.light-mode #profile-tab .prestige-honors .is-unlocked .honor-pill {
+  background: linear-gradient(135deg, rgba(232, 204, 143, 0.18) 0%, rgba(184, 141, 56, 0.09) 100%) !important;
+  border: 1px solid rgba(164, 122, 48, 0.45) !important;
+  color: #4a340e !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 1px 3px rgba(80, 55, 20, 0.06) !important;
+}
+
+/* 4. Unified Gold Dividers & Hairline Separators */
+body.light-mode .divider,
+body.light-mode .gold-divider,
+body.light-mode .section-divider,
+body.light-mode .ledger-divider,
+body.light-mode .sl-ledger-divider,
+body.light-mode .dossier-divider,
+body.light-mode .modal-divider,
+body.light-mode .card-hallmark-line span {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(164, 122, 48, 0.3) 15%,
+    rgba(164, 122, 48, 0.5) 50%,
+    rgba(164, 122, 48, 0.3) 85%,
+    transparent 100%
+  ) !important;
+}
+
+/* 5. Unified Decorative Gold Accents & Seals */
+body.light-mode .modal-corner,
+body.light-mode .sd-corner {
+  stroke: #b88d38 !important;
+}
+
+body.light-mode .ossb-star,
+body.light-mode .pcc-seal-star,
+body.light-mode .hallmark-text,
+body.light-mode .vitrine-hallmark-bar span,
+body.light-mode .deed-security-ribbon {
+  color: #78561d !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) !important;
+}
+
+
+
 
 
 

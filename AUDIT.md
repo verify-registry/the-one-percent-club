@@ -464,6 +464,112 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
     - Verified that no separate Curate Circles modal exists in the application; the button safely shows the diplomatic clearance notice toast (`profile.circlesEditNotice`) without opening Account Information.
     - Verified `#menuAccountInfo` continues opening Account Information modal normally.
     - Zero modifications to other tabs, Master Card, colors, materials, or global typography.
+- **Micro-Pass: Global Light-Mode Low-Contrast Text Fix (2026-10-03) — COMPLETE**:
+  - Replaced low-contrast pale gold/beige text across Light Mode with refined high-contrast antique champagne gold tokens.
+  - Bound `.ledger-timeline-title` ("HISTORICAL PROVENANCE") and `.ledger-divider-seal` to semantic design tokens (`--txt-gold-premium` and `--txt-gold-muted`).
+  - Strengthened Light Mode tokens: `--txt-gold-muted` updated from pale `#9e7d47` to rich antique gold `#856025` (contrast ~5.2:1 against ivory); `--gold-pale` updated to `#966822`; `--gold-champagne` updated to `#875f21`; defined `--gold-primary: #7d5a1b` in `:root.light-mode`.
+  - Added `.ledger-timeline-title` to the system-wide semantic typography hierarchy mapping under Premium Gold Text (`var(--txt-gold-premium, #7d5a1b)`).
+  - Explicitly preserved 100% of Dark Mode tokens and appearance.
+- **Micro-Pass: Real Engraved Member Name (Light Mode) (2026-10-04) — COMPLETE**:
+  - Upgraded Main Membership Card member name (`body.light-mode #membership-tab .member-name, body.light-mode #membershipCard .member-name`) from flat dark typography to authentic machine-engraved intaglio metal lettering.
+  - Employed directional burnished antique bronze/dark-gold metallic gradient (`#181105` to `#5a4018` to `#201507`) with `-webkit-background-clip: text` to provide real metallic substrate body.
+  - Engineered realistic recessed depth via multi-tier chained drop-shadows: dark upper cavity groove shadow (`drop-shadow(0 -0.65px 0.35px rgba(20, 13, 4, 0.85))`), razor bottom specular light catch (`drop-shadow(0 0.85px 0.4px rgba(255, 255, 255, 0.95))`), and subtle warm metallic rim reflection (`drop-shadow(0 0.4px 0.8px rgba(160, 120, 45, 0.28))`).
+  - Preserved 100% of exact text ("ISMAIL ELSAYED"), font family, clamp size, card proportions, layout, and Dark Mode appearance.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004a`.
+- **Micro-Pass: Correct Engraved / Debossed Member Name (Light Mode) (2026-10-04) — COMPLETE**:
+  - Corrected Main Membership Card member name (`body.light-mode #membership-tab .member-name, body.light-mode #membershipCard .member-name`) to authentic recessed / debossed intaglio engraving.
+  - Completely removed the previous lower white drop-shadow/ridge and aggressive gradient that caused a floating appearance.
+  - Applied restrained three-layer debossed architecture: stable dark antique champagne / burnished gold body (`color: #2b1e0d`), subtle warm champagne-ivory highlight on the upper-left cut edge (`-0.5px -0.5px 0.5px rgba(250, 244, 230, 0.55)`), and subtle deep antique-gold cavity shadow on the lower-right edge (`1px 1px 1px rgba(40, 26, 8, 0.6)`).
+  - Preserved 100% of exact text ("ISMAIL ELSAYED"), typography, layout, card dimensions, and Dark Mode appearance.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004b`.
+- **Micro-Pass: Luxury Member Name Typography Refinement (Light Mode) (2026-10-04) — COMPLETE**:
+  - Upgraded Main Membership Card member name (`body.light-mode #membership-tab .member-name, body.light-mode #membershipCard .member-name`) to high-contrast Roman inscriptional horological typography using `Cinzel` (`font-family: 'Cinzel', 'Amiri', serif !important; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; clamp(1.1rem, 3.6vw, 1.4rem)`).
+  - Replaced digital serif feel with authentic lapidary/horological dial engraving proportions.
+  - Applied micro-restrained photographic intaglio debossed finish: dark antique champagne / burnished gold body (`#2c1f0e`), subtle warm champagne-ivory top-left light catch (`-0.5px -0.5px 0.4px rgba(252, 246, 230, 0.65)`), and soft deep antique-gold cavity shadow (`0.8px 0.8px 0.8px rgba(35, 23, 7, 0.55)`).
+  - Maintained zero white drop-shadows, zero floating effects, zero layout shifts, and 100% preservation of Dark Mode and all surrounding card elements.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004c`.
+- **Micro-Pass: Finalize Member Name Engraving Material (Light Mode) (2026-10-04) — COMPLETE**:
+  - Maintained 100% of approved Cinzel typography settings (font family, weight 600, tracking 0.12em, clamp size, line-height 1.2, uppercase).
+  - Tuned the debossed intaglio engraving depth to be ~10-15% more perceptible while maintaining exquisite quiet luxury restraint.
+  - Applied a refined three-tier shadow architecture: crisp specular champagne-ivory upper-left catch (`-0.6px -0.6px 0.4px rgba(254, 248, 232, 0.8)`), tight internal groove boundary (`0.6px 0.6px 0.4px rgba(24, 15, 4, 0.5)`), and deep cavity shadow on the lower-right wall (`1px 1px 1.2px rgba(38, 24, 6, 0.62)`).
+  - Zero white lines underneath letters, zero glow, zero halo, zero floating or 3D extrusion, zero layout shift.
+  - Dark Mode and all other elements remain 100% untouched.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004d`.
+- **Micro-Pass: Actual Font Family Change to Cormorant Garamond (Light Mode) (2026-10-04) — COMPLETE**:
+  - Replaced `Cinzel` with `Cormorant Garamond` on `body.light-mode #membership-tab .member-name` and `body.light-mode #membershipCard .member-name`.
+  - Configured exact parameters: `font-family: "Cormorant Garamond", serif !important; font-weight: 600 !important; letter-spacing: 0.045em !important; text-transform: uppercase !important; clamp(1.2rem, 4vw, 1.55rem)`.
+  - Preserved the subtle intaglio debossed engraving material effect (`text-shadow: -0.5px -0.5px 0.35px rgba(254, 248, 232, 0.75), 0.5px 0.5px 0.35px rgba(24, 15, 4, 0.45), 0.9px 0.9px 1px rgba(38, 24, 6, 0.58) !important;` with `#2c1f0e` dark antique champagne body).
+  - Verified computed `font-family` resolves to `"Cormorant Garamond", serif`.
+  - Preserved Dark Mode, Profile Hero, and all surrounding card elements with zero layout shift.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004e`.
+- **Micro-Pass: True Hand-Engraved / Intaglio Member Name (#memberName) (2026-10-04) — COMPLETE**:
+  - Bound exact ID selectors `body.light-mode #membershipCard #memberName` and `body.light-mode #membership-tab #memberName` for supreme specificity.
+  - Selected `Cinzel` (`font-family: "Cinzel", "Amiri", serif !important; font-weight: 700 !important; letter-spacing: 0.14em !important;`) for genuine Roman lapidary inscriptional proportions.
+  - Replaced flat uniform text ink with an authentic V-cut trench metallic cavity gradient (`linear-gradient(150deg, #3d2a14 0%, #281b0a 35%, #160e03 70%, #231606 100%)`) with `-webkit-background-clip: text` and transparent fill.
+  - Sculpted realistic intaglio relievo with razor-thin top-left chamfer catch (`drop-shadow(-0.5px -0.5px 0.25px rgba(255, 252, 245, 0.88))`), inner cavity shade (`drop-shadow(0.6px 0.6px 0.35px rgba(18, 11, 3, 0.85))`), and deep groove floor depth (`drop-shadow(1px 1px 1px rgba(32, 20, 5, 0.5))`).
+  - Completely eliminated the appearance of printed surface text; letters visually settle into the ivory substrate without glow, halo, chrome, or 3D extrusion.
+  - 100% preservation of Dark Mode, Profile Hero Card, and all other card elements with zero layout shift.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004f`.
+- **Micro-Pass: Quiet Luxury Burnished Bronze Member Name Engraving (2026-10-04) — COMPLETE**:
+  - Eliminated the heavy bold weight and dark black tones; adjusted typography to slender Medium weight (`font-weight: 500 !important; clamp(1.05rem, 3.4vw, 1.28rem)` with `letter-spacing: 0.12em;`).
+  - Set quiet Antique Champagne / Burnished Bronze color (`color: #563d1c !important; -webkit-text-fill-color: #563d1c !important;`), harmonizing seamlessly with the ivory plate and gold guilloché.
+  - Removed all heavy chained drop-shadows and replaced with an ultra-delicate micro-deboss edge (`text-shadow: -0.5px -0.5px 0.2px rgba(255, 255, 255, 0.85), 0.5px 0.5px 0.3px rgba(65, 45, 16, 0.35) !important;`).
+  - Achieved the quiet luxury aesthetic of a vintage Patek Philippe / high horology dial: zero glow, zero 3D extrusion, zero black mud, zero outline, and zero floating effect.
+  - Added `Cinzel:wght@500` to Google Fonts link in `index.html`.
+  - 100% preservation of Dark Mode, Profile Hero, and all surrounding card elements with zero layout shift.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004g`.
+- **Micro-Pass: Microscopic Specular Chamfer Catch Calibration (2026-10-04) — COMPLETE**:
+  - Locked 100% of approved typography settings (`Cinzel`, `font-weight: 500`, `letter-spacing: 0.12em`, `clamp(1.05rem, 3.4vw, 1.28rem)`).
+  - Maintained core Antique Champagne / Burnished Bronze tone (`color: #563d1c !important;`).
+  - Calibrated the intaglio relief edge: zero-blur hairline specular chamfer catch on the upper-left lip (`-0.5px -0.5px 0.4px rgba(255, 255, 255, 0.9)`), paired with a soft warm bronze internal cavity shadow on the lower-right wall (`0.6px 0.6px 0.4px rgba(70, 48, 18, 0.42)`).
+  - Zero glow, zero chrome, zero 3D, zero black, zero modification to any other element in the card or application.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004h`.
+- **Pass: Realistic Metallic Gold CTA Buttons & Controls (Light Mode Only) (2026-10-04) — COMPLETE**:
+  - Applied realistic polished brushed champagne/warm metallic gold system exclusively to gold CTA buttons and controls outside Main Membership Card and Profile Hero Card.
+  - Primary CTA Buttons (`.btn-gold`, Boutique `.btn-acquire`, `.btn-equip`, `.boutique-own-btn`, `.rmc-equip-btn`, `.reliquary-boutique-btn`, `.sd-btn-add`, `.mini-dossier-btn.is-toast-primary`, `.edit-profile-save-btn`, `.dossier-save-btn`, `.oath-signet-seal-btn`): Refined multi-stop directional metallic gradient (`linear-gradient(145deg, #e8cc8f 0%, #d4ae60 30%, #be9444 70%, #a47a2e 100%)`), metallic bezel rim (`1px solid #b88d38`), inner bevel highlight, subtle shadow, and deep etched obsidian-bronze typography (`#241603`).
+  - Active Gold Controls & Category Filter Pills (`.b-filt-btn.is-active`, `.pill-btn.is-active`, `.club-room-btn.is-active`, `.sl-filter-btn.is-active`, `.sovereign-accolade-btn.is-conferred`, `.pcc-curate-btn`, `.deed-verify-btn`): Refined metallic gold finish (`#f4e3be` to `#cfae64`) with crisp bevel highlights.
+  - Club Sovereign Seal Send Button: Applied polished gold bezel outer gradient (`url(#ringGoldGrad)`) and high-contrast typography.
+  - Zero modifications to Main Membership Card, Profile Hero Card, Dark Mode, spacing, dimensions, or business logic.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004i`.
+- **Pass: Antique Burnished Gold Headings & Section Labels (Light Mode Only) (2026-10-04) — COMPLETE**:
+  - Fixed low-contrast and washed-out pale gold headings and section labels outside Main Membership Card and Profile Hero Card.
+  - Upgraded `--txt-gold-premium` to `#664917` (7.2:1 contrast against ivory) and `--txt-gold-muted` to `#73531b` in `body.light-mode`.
+  - Historical Provenance Heading (`.ledger-timeline-title`): Formatted with `Cinzel`, commanding Antique Burnished Champagne Gold `#5a3f12`, weight 700, letter-spacing 0.16em, and micro-embossed paper reflection (`text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85)`). Updated timeline head badge icon stroke to `#7a581a`.
+  - Certificate & Reliquary Eyebrows (`.rmc-eyebrow`, `.pcs-curation-eyebrow`): Set to `#5c4214` with weight 700 and crisp contrast.
+  - Section Subtitles, Category Titles & Eyebrows across tabs: Enhanced with `#634714` and micro paper highlight.
+  - Accredited Tags & Status Badges: Replaced faint borders with high-contrast Antique Gold pill treatments (`#4a340e` text, `rgba(145, 105, 30, 0.45)` border).
+  - 100% preservation of Main Membership Card, Profile Hero Card, Dark Mode, layout dimensions, and business logic.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004j`.
+- **Pass: Canonical Unified Gold Material System (Light Mode Only) (2026-10-04) — COMPLETE**:
+  - Unified all gold elements across the app outside Main Membership Card and Profile Hero Card into a single cohesive Antique / Champagne / Burnished Metallic Gold system.
+  - Harmonized root CSS tokens: `--gold-primary: #664917`, `--gold-pale: #e8cc8f`, `--gold-champagne: #caa052`, `--gold-polished: #b88d38`, `--gold-antique: #5a3f12`, `--gold-aged: #4a340e`, `--gold-dark: #241603`, `--gold-line: rgba(164, 122, 48, 0.38)`.
+  - Gold Icons: Standardized SVG strokes and fills to warm antique gold (`#8a6322` / `#7a581a`) with a soft specular paper catch (`drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8))`).
+  - Gold Borders & Bezels: Standardized panel and vitrine borders to refined brushed gold (`1px solid rgba(164, 122, 48, 0.28)`) with inner light bevel (`inset 0 1px 0 rgba(255, 252, 240, 0.8)`).
+  - Gold Badges & Accredited Seals: Unified to champagne gold gradient backdrop (`linear-gradient(135deg, rgba(232, 204, 143, 0.18) 0%, rgba(184, 141, 56, 0.09) 100%)`) with `#4a340e` high-contrast typography.
+  - Gold Dividers & Accents: Standardized hairline dividers to directional multi-stop gold gradients and decorative seals to `#78561d`.
+  - Main Membership Card, Profile Hero Card, Dark Mode, layout, typography, spacing, and business logic remain 100% untouched.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004k`.
+- **Pass: Boutique CSS Grid System & Refined Luxury Hover (2026-10-04) — COMPLETE**:
+  - Applied structured CSS layout system to `#boutiqueSections` (vertical section flow, `gap: 22px`).
+  - Enhanced `#boutique-tab .boutique-grid` with precision responsive CSS Grid: 2 columns on mobile (`repeat(2, minmax(0, 1fr))`, `gap: 11px`), auto-scaling gracefully on wider viewports (`@media (min-width: 600px)` 3 columns, `@media (min-width: 900px)` 4 columns).
+  - Implemented subtle, quiet-luxury hover effect on `.boutique-card`: gentle elevation (`translateY(-3px)`), brushed gold rim catch (`rgba(212, 175, 106, 0.48)` in Dark Mode, `rgba(184, 141, 56, 0.55)` in Light Mode), soft ground shadow expansion, and micro-scale on the collectible pedestal (`scale(1.04)`).
+  - Maintained complete preservation of Main Membership Card, Profile Hero Card, click events, and business logic.
+  - Bumped stylesheet cache-buster to `style.css?v=20261004l`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
