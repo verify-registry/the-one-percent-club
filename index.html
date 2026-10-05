@@ -23,7 +23,7 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css?v=20261004a" />
+    <link rel="stylesheet" href="style.css?v=20261006_cloche_ref" />
     <script>
       (function () {
         try {
@@ -125,6 +125,63 @@
           <stop offset="0.5" stop-color="#B27E1C"></stop>
           <stop offset="1" stop-color="#1C1002"></stop>
         </linearGradient>
+
+        <!-- MASTER SOVEREIGN ARTIFACT MATERIALS -->
+        <linearGradient id="sov_gold_24k" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="14%" stop-color="#faecc5"/>
+          <stop offset="34%" stop-color="#dcae4a"/>
+          <stop offset="56%" stop-color="#a07424"/>
+          <stop offset="78%" stop-color="#684514"/>
+          <stop offset="90%" stop-color="#c49436"/>
+          <stop offset="100%" stop-color="#3a2205"/>
+        </linearGradient>
+        <linearGradient id="sov_titanium" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#5a5652"/>
+          <stop offset="30%" stop-color="#3c3835"/>
+          <stop offset="70%" stop-color="#22201e"/>
+          <stop offset="100%" stop-color="#100e0d"/>
+        </linearGradient>
+        <radialGradient id="sov_onyx" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#555350"/>
+          <stop offset="45%" stop-color="#1e1c1b"/>
+          <stop offset="100%" stop-color="#080808"/>
+        </radialGradient>
+        <linearGradient id="sov_platinum" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="35%" stop-color="#e2e8f0"/>
+          <stop offset="70%" stop-color="#94a3b8"/>
+          <stop offset="100%" stop-color="#475569"/>
+        </linearGradient>
+        <radialGradient id="sov_emerald" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#a7f3d0"/>
+          <stop offset="35%" stop-color="#10b981"/>
+          <stop offset="75%" stop-color="#047857"/>
+          <stop offset="100%" stop-color="#022c22"/>
+        </radialGradient>
+        <radialGradient id="sov_ruby" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fecdd3"/>
+          <stop offset="40%" stop-color="#e11d48"/>
+          <stop offset="75%" stop-color="#881337"/>
+          <stop offset="100%" stop-color="#4c0519"/>
+        </radialGradient>
+        <radialGradient id="sov_sapphire" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#bae6fd"/>
+          <stop offset="40%" stop-color="#2563eb"/>
+          <stop offset="75%" stop-color="#1e3a8a"/>
+          <stop offset="100%" stop-color="#08143a"/>
+        </radialGradient>
+        <linearGradient id="sov_rose_gold" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fff1f2"/>
+          <stop offset="25%" stop-color="#fecdd3"/>
+          <stop offset="55%" stop-color="#e17b87"/>
+          <stop offset="85%" stop-color="#9f3a46"/>
+          <stop offset="100%" stop-color="#4c131a"/>
+        </linearGradient>
+        <radialGradient id="sov_shadow" cx="50%" cy="85%" r="45%">
+          <stop offset="0%" stop-color="#000000" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+        </radialGradient>
       </defs>
     </svg>
 
@@ -2640,7 +2697,7 @@
                 <span class="rmc-spec-val" id="inspectionWeight">142g Solid</span>
               </div>
               <div class="rmc-spec-cell">
-                <span class="rmc-spec-lbl" data-i18n="boutique.requiredStanding">الرتبة المطلوبة</span>
+                <span class="rmc-spec-lbl" id="inspectionTierLabel" data-i18n="boutique.requiredStanding">الرتبة المطلوبة</span>
                 <span class="rmc-spec-val" id="inspectionRequiredTier">SOVEREIGN MEMBER</span>
               </div>
               <div class="rmc-spec-cell">
@@ -3540,7 +3597,8 @@
     <script src="Audio.js?v=20261004b"></script>
     <script src="luxury.js?v=20261004b"></script>
     <script src="translations.js?v=20261004b"></script>
-    <script src="app.js?v=20261004b"></script>
+    <script src="artifacts.js?v=20261006_text_polish"></script>
+    <script src="app.js?v=20261006_text_polish"></script>
 
     <input
       type="file"

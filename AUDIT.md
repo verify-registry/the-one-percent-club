@@ -596,6 +596,69 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 - Cache-busted all script tags to defeat stale JS.
 - Pending: visual verification before push.
 
+### Boutique Vitrine Pass (2026-10-06) — IN PROGRESS
+- Collectibles now displayed in obsidian velvet vitrines with double gold rim + spotlight depth.
+- Prices rendered as engraved serif gold gradient text.
+- Cards framed with gold border + inner hairline.
+- Pending: visual verification before push.
+
+### Sovereign Realistic Metallic Collectibles Pass (2026-10-06) — COMPLETED
+- Architected and implemented realistic 3D metallic physical artifacts across all 20 collectibles in `artifacts.js`.
+- Upgraded crowns, rings, auras, stars, and rare artifacts with true multi-stop metallic gradients (24k Gold, Blackened Titanium, Frosted Platinum, Rose Gold, Colombian Emeralds, Royal Blue Sapphires, Brazilian Onyx, Rubies).
+- Added multi-faceted 3D geometry, chamfered bevels, specular reflections, velvet vitrine ambient ground shadows, and horological guilloché.
+- Cleared destructive CSS stroke/fill overrides in `#inspectionImage` to allow pristine high-resolution gemstone and metal rendering up to 110px.
+- Verified build and compilation with green lint and compile checks.
+
+### Header Transparency & Gradient Fade Restoration (2026-10-06) — COMPLETED
+- Restored smooth downward transparency gradient for light mode (`linear-gradient(180deg, rgba(253,251,247,0.96) 0%, rgba(253,251,247,0.82) 50%, rgba(253,251,247,0.45) 78%, rgba(253,251,247,0) 100%)`).
+- Eliminated solid opaque `#fdfbf7` fill, harsh cut-off bottom border (`border-bottom: none`), and box shadow.
+- Restrained `.section-rule` golden hairline divider from oversized 65% width to compact and elegant 46% (`max-width: 160px`).
+- Preserved seamless floating header identity matching dark mode and sovereign design guidelines.
+
+### Inspection Modal Owned Item Acquire Button & SVG Render Fix (2026-10-06) — COMPLETED
+- Identified and eliminated CSS `display: flex !important` on `.rmc-equip-btn` which prevented JS from hiding the acquire button on already-owned items.
+- Fixed stale button text retention: when an item is already owned, `openInspectionModal` sets text to safe "تحفة سيادية مقتناة ومحفوظة بالخزينة" and hides the button with `display: none !important`, `hidden=true`, and `.is-hidden` class.
+- Only the clean, prominent "إغلاق" (Close) button is displayed when an owned artifact is inspected.
+- Integrated master sovereign material gradients (`sov_gold_24k`, `sov_titanium`, `sov_onyx`, etc.) into global `<svg>` in `index.html` to eliminate SVG gradient invisibility across duplicate DOM instances.
+- Bumped script cache versions to `?v=20261006_sovereign_fix`.
+
+### Deed Validity Authentication & Sovereign Oath Reaffirmation Visual Fix (2026-10-06) — COMPLETED
+- Removed duplicate iconography from button text transitions (`✓ ✓` and `✦ ✦` eliminated; buttons now maintain single clean SVG/star glyph with prestigious Arabic text).
+- Re-styled `.deed-verify-btn` and `.oath-signet-seal-btn` with multi-stop 24K gold minted gradients, deep engraved typography, and rich physical bevels instead of flat unstyled boxes.
+- Fixed corner screw text overlap on Deed card by adding `padding-inline-end: 22px` and `padding-bottom: 6px` to `.deed-seal-actions`.
+- Restrained `.oath-signet-seal-btn` on mobile from bloated 100% full-width pill to elegant centered sovereign seal button (`max-width: 290px`, `border-radius: 9px`).
+- Connected authentic ceremonial toast notifications (`showNavToast`) to both actions to give members clear, prestigious feedback of archival certification and immutable standing.
+
+### Inspection Modal Owned Item Custody Status Spec Cell Fix (2026-10-06) — COMPLETED
+- Addressed user feedback regarding "الرتبة المطلوبة ✓ SOVEREIGN MEMBER" showing on already-owned items.
+- When an artifact is owned, the spec cell label dynamically updates from "الرتبة المطلوبة" (Required Standing) to "حالة الحيازة" (Custody Status).
+- The value displays "✓ مقتناة في الخزينة" (Vaulted & Acquired) in noble emerald green (#1e7e34), eliminating redundant tier requirement prompts on owned items.
+- When unowned, the label seamlessly retains "الرتبة المطلوبة" with eligibility indicator.
+
+### Unowned Artifacts Tier Eligibility Arabic Localization & Clarity (2026-10-06) — COMPLETED
+- Addressed user query regarding "الرتبة المطلوبة" on unowned artifacts.
+- Localized cell title to "أهلية الاقتناء" (Acquisition Eligibility).
+- Displayed clear localized tier status in Arabic:
+  - When qualified: "✓ مؤهل للاقتناء (عضو سيادي - SOVEREIGN)"
+  - When locked for higher ranks: "🔒 غير مؤهل • يتطلب رتبة الوجاهة (LUMINARY) / الحاكم التنفيذي (EXARCH)"
+- Bumped script cache versions to `?v=20261006_tier_clarity`.
+
+### Inspection Modal Typography & Text Polish (2026-10-06) — COMPLETED
+- Eliminated awkward double parentheses and verbose text wrapping in eligibility spec cell (`✓ مؤهل • الحاكم التنفيذي` / `🔒 يتطلب • الحاكم التنفيذي`).
+- Wrapped currency valuations in `<bdi dir="ltr">` to guarantee proper symbol placement (`$60,000` rather than reversed `60,000$`).
+- Formatted button text with inline directional isolation (`اقتناء التحفة السيادية • $60,000`).
+- Upgraded `.rmc-dismiss-btn` ("إغلاق") to a dignified luxury outline button with proper height, borders, and tactile hover states.
+- Enhanced `.rmc-spec-cell` padding, min-height, and label hierarchy for harmonious, high-contrast readability.
+- Bumped script cache versions to `?v=20261006_text_polish`.
+
+
+
+
+
+
+
+
+
 
 
 

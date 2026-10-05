@@ -675,13 +675,6 @@ body.light-mode .phc-stat-divider {
   background: rgba(0, 0, 0, 0.05) !important;
 }
 
-
-body.light-mode #boutique-tab .boutique-ownership-toggle {
-  background: #f4f0e6 !important;
-  border-color: rgba(156, 109, 35, 0.3) !important;
-}
-
-
 /* Modal Inputs */
 body.light-mode .edit-profile-input,
 body.light-mode .luxury-input {
@@ -914,10 +907,10 @@ body.light-mode .app-header,
 html.light-mode .app-header {
   background: linear-gradient(
     180deg,
-    rgba(253, 251, 247, 0.95) 0%,
-    rgba(253, 251, 247, 0.80) 42%,
-    rgba(248, 245, 237, 0.40) 75%,
-    rgba(248, 245, 237, 0) 100%
+    rgba(253, 251, 247, 0.96) 0%,
+    rgba(253, 251, 247, 0.82) 50%,
+    rgba(253, 251, 247, 0.45) 78%,
+    rgba(253, 251, 247, 0) 100%
   ) !important;
   border-bottom: none !important;
   box-shadow: none !important;
@@ -1117,8 +1110,9 @@ body.light-mode .shield-btn::before {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin: 4px auto 3px;
-  width: 65%;
+  margin: 3px auto 2px;
+  width: 46%;
+  max-width: 160px;
 }
 .section-rule span {
   flex: 1;
@@ -5781,7 +5775,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
 #boutique-tab .boutique-tab:active {
   transform: translateY(1px);
 }
-#boutique-tab .boutique-tab.is-active {
+body:not(.light-mode) #boutique-tab .boutique-tab.is-active {
   background: linear-gradient(180deg, rgba(38, 30, 18, 0.98) 0%, rgba(20, 16, 10, 1) 100%) !important;
   border: 1px solid rgba(212, 175, 106, 0.48) !important;
   color: var(--gold-champagne, #d4af6a) !important;
@@ -6955,26 +6949,86 @@ body.light-mode .boutique-curatorial-modal {
   margin-top: 14px;
   width: 100%;
   padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  background: rgba(212, 175, 55, 0.08);
+  border-radius: 6px;
+  border: 1px solid rgba(212, 175, 106, 0.48);
+  background: linear-gradient(180deg, rgba(32, 25, 16, 0.95) 0%, rgba(16, 12, 8, 0.98) 100%);
   font-size: 11px;
-  letter-spacing: 0.08em;
-  color: #d4af37;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #f3e5c8;
   cursor: pointer;
   transition: all 0.25s ease;
-  font-family: var(--font-display, "Cinzel", serif);
+  font-family: var(--font-display, "Cinzel", "Cairo", serif);
   text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 235, 180, 0.15);
 }
 .widget-add-btn:hover {
-  background: rgba(212, 175, 55, 0.16);
-  border-color: rgba(212, 175, 55, 0.7);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(180deg, rgba(45, 36, 22, 0.98) 0%, rgba(24, 18, 11, 1) 100%);
+  border-color: rgba(235, 205, 130, 0.8);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 16px rgba(212, 175, 106, 0.25);
 }
 .widget-add-btn.is-installed {
-  border-color: rgba(127, 190, 140, 0.5);
-  background: rgba(127, 190, 140, 0.1);
-  color: #7fbe8c;
+  border: 0.8px solid #7c581a !important;
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #faecc5 12%, 
+    #dcae4a 32%, 
+    #a07424 50%, 
+    #684514 62%, 
+    #c49436 78%, 
+    #7a5218 90%, 
+    #ffffff 100%
+  ) !important;
+  color: #2b1a03 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0.5px rgba(255, 255, 255, 0.9) !important;
+}
+
+body.light-mode .widget-add-btn,
+body.light-mode #boutique-tab .widget-add-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 55%, #f6eee0 100%) !important;
+  border: 0.8px solid #7c581a !important;
+  color: #2b1a03 !important; /* Authentic Dark Antique Gold, crystal clear contrast */
+  font-weight: 800 !important;
+  font-size: 11px !important;
+  box-shadow: 
+    0 2px 6px rgba(45, 30, 8, 0.08), 
+    inset 0 1px 0 #ffffff !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+body.light-mode .widget-add-btn:hover,
+body.light-mode #boutique-tab .widget-add-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #faecc5 30%, #f1e4ce 100%) !important;
+  border-color: #5d4212 !important;
+  color: #1a0f02 !important;
+  box-shadow: 
+    0 4px 12px rgba(45, 30, 8, 0.14), 
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode .widget-add-btn.is-installed,
+body.light-mode #boutique-tab .widget-add-btn.is-installed {
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #faecc5 12%, 
+    #dcae4a 32%, 
+    #a07424 50%, 
+    #684514 62%, 
+    #c49436 78%, 
+    #7a5218 90%, 
+    #ffffff 100%
+  ) !important;
+  border: 0.8px solid #7c581a !important;
+  color: #2b1a03 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.6) !important;
+  box-shadow:
+    0 0 0 0.5px rgba(50, 32, 10, 0.35),
+    0 2px 6px rgba(35, 20, 6, 0.16),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0.5px rgba(90, 60, 15, 0.35) !important;
 }
 
 .wreath.sm {
@@ -7311,16 +7365,20 @@ body.light-mode .boutique-curatorial-modal {
 }
 
 /* =========================================================
-   THE 1% CLUB — SOVEREIGN DIPLOMATIC COMPLICATION CAPSULE
+   THE 1% CLUB — SOVEREIGN DIPLOMATIC COMPLICATION PLAQUE
+   - Positioned at the TOP below the header (never covers bottom navigation)
+   - Zero-Pill Architectural Bezel Form with precision gold rim
+   - Multi-line crisp Arabic typography with zero ellipsis truncation
+   - Matches the authentic physical gold palette of THE 1% CLUB
    ========================================================= */
 .premium-toast {
   position: fixed !important;
   left: 50% !important;
-  bottom: calc(72px + env(safe-area-inset-bottom, 8px)) !important;
-  top: auto !important;
-  transform: translate(-50%, 14px) scale(0.96) !important;
-  width: auto !important;
-  max-width: min(360px, calc(100vw - 28px)) !important;
+  top: calc(var(--header-actual-height, 74px) + 12px) !important;
+  bottom: auto !important;
+  transform: translate(-50%, -12px) scale(0.96) !important;
+  width: calc(100% - 32px) !important;
+  max-width: 440px !important;
   z-index: 10005 !important;
   opacity: 0 !important;
   visibility: hidden !important;
@@ -7332,6 +7390,7 @@ body.light-mode .boutique-curatorial-modal {
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box !important;
 }
 
 .premium-toast.is-visible {
@@ -7343,160 +7402,164 @@ body.light-mode .boutique-curatorial-modal {
 
 .premium-toast-rim {
   padding: 1px;
-  border-radius: 9999px;
+  border-radius: 6px !important; /* Zero-pill luxury architectural form */
   background: linear-gradient(
     135deg,
-    #fff9eb 0%,
-    #e8cd94 25%,
-    #9e7734 55%,
-    #3a2a12 80%,
-    #c9a86a 100%
-  );
+    #ffffff 0%,
+    #faecc5 20%,
+    #a07424 50%,
+    #684514 70%,
+    #c49436 85%,
+    #ffffff 100%
+  ) !important;
+  border: 0.8px solid #7c581a !important;
   box-shadow:
-    0 10px 24px -2px rgba(0, 0, 0, 0.85),
-    0 2px 8px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(201, 168, 106, 0.35);
+    0 12px 32px -4px rgba(45, 30, 8, 0.2),
+    0 4px 12px rgba(45, 30, 8, 0.1),
+    inset 0 1px 0 #ffffff !important;
   position: relative;
   overflow: hidden;
 }
 
 .premium-toast-inner {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 14px 5px 10px;
-  height: 36px;
-  box-sizing: border-box;
-  border-radius: 9999px;
-  background: radial-gradient(
-    ellipse at 50% -20%,
-    rgba(212, 175, 106, 0.22) 0%,
-    rgba(20, 17, 14, 0.98) 65%,
-    rgba(10, 8, 7, 0.99) 100%
-  );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 249, 235, 0.35),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.9);
-  white-space: nowrap;
-}
-
-.premium-toast-icon {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.premium-toast-seal-svg {
-  width: 19px;
-  height: 19px;
-  display: block;
-}
-
-.premium-toast-body {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-  overflow: hidden;
-}
-
-.premium-toast-title {
-  font-family: "Cinzel", "Cormorant Garamond", "Cairo", serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #fff6d6;
-  text-transform: uppercase;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.premium-toast-separator {
-  color: rgba(212, 175, 106, 0.6);
-  font-size: 11px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.premium-toast-msg {
-  font-family: var(--font-sans, "Montserrat", "Cairo", sans-serif);
-  font-size: 10.5px;
-  font-weight: 500;
-  color: var(--gold-champagne, #e9c877);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 220px;
-}
-
-.premium-toast-hallmark {
-  flex: none;
-  display: flex;
-  align-items: center;
-  margin-inline-start: 2px;
-}
-
-.premium-toast-star {
-  font-size: 10px;
-  color: #d4af37;
-  text-shadow: 0 0 6px rgba(212, 175, 55, 0.7);
-  display: inline-block;
-}
-
-/* Light mode luxury porcelain complication */
-body.light-mode .premium-toast-rim,
-html.light-mode .premium-toast-rim {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 10px 14px !important;
+  min-height: 48px !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+  border-radius: 5px !important;
   background: linear-gradient(
-    135deg,
+    180deg,
     #ffffff 0%,
-    #ebd4a5 30%,
-    #a8782a 70%,
-    #ebd4a5 100%
-  ) !important;
-  box-shadow:
-    0 8px 20px rgba(60, 40, 15, 0.16),
-    0 2px 6px rgba(60, 40, 15, 0.1),
-    0 0 0 1px rgba(185, 145, 75, 0.4) !important;
-}
-
-body.light-mode .premium-toast-inner,
-html.light-mode .premium-toast-inner {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 254, 250, 0.98) 0%,
-    rgba(247, 241, 230, 0.98) 100%
+    #fdfbf7 50%,
+    #f6eee0 100%
   ) !important;
   box-shadow:
     inset 0 1px 1.5px #ffffff,
-    inset 0 -1px 1px rgba(185, 145, 75, 0.15) !important;
+    inset 0 -1px 1px rgba(124, 88, 26, 0.12) !important;
+  white-space: normal !important;
 }
 
-body.light-mode .premium-toast-title,
-html.light-mode .premium-toast-title {
-  color: #2b1d06 !important;
+.premium-toast-icon {
+  flex: none !important;
+  width: 26px !important;
+  height: 26px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 25%, #ffffff 0%, #faecc5 40%, #dcae4a 100%) !important;
+  border: 0.8px solid #7c581a !important;
+  box-shadow: 0 1px 3px rgba(45, 30, 8, 0.15) !important;
+}
+
+.premium-toast-seal-svg {
+  width: 16px !important;
+  height: 16px !important;
+  display: block !important;
+}
+
+.premium-toast-body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  text-align: start !important;
+  overflow: visible !important;
+}
+
+[dir="rtl"] .premium-toast-body {
+  align-items: flex-start !important;
+  text-align: start !important;
+}
+
+.premium-toast-title {
+  font-family: var(--font-display, "Cinzel", "Cairo", serif) !important;
+  font-size: 11px !important;
   font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  color: #2b1a03 !important; /* Exact Edit Profile dark gold */
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  display: block !important;
 }
 
-body.light-mode .premium-toast-separator,
-html.light-mode .premium-toast-separator {
-  color: #9e7422 !important;
+.premium-toast-separator {
+  display: none !important; /* Eliminate the awkward separator dot */
 }
 
-body.light-mode .premium-toast-msg,
-html.light-mode .premium-toast-msg {
-  color: #5a4116 !important;
+.premium-toast-msg {
+  font-family: var(--font-ui, system-ui, -apple-system, sans-serif) !important;
+  font-size: 11px !important;
   font-weight: 600 !important;
+  color: #4a3618 !important; /* Clear Dark Bronze */
+  line-height: 1.35 !important;
+  white-space: normal !important; /* No truncation, full Arabic clarity */
+  overflow: visible !important;
+  text-overflow: clip !important;
+  max-width: 100% !important;
+  display: block !important;
 }
 
-body.light-mode .premium-toast-star,
-html.light-mode .premium-toast-star {
-  color: #8c6720 !important;
-  text-shadow: 0 0 5px rgba(140, 103, 32, 0.4) !important;
+.premium-toast-hallmark {
+  flex: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.premium-toast-star {
+  font-size: 11px !important;
+  color: #7c581a !important; /* Physical gold star */
+  filter: drop-shadow(0 0.5px 1px rgba(255, 255, 255, 0.8)) !important;
+  display: inline-block !important;
+}
+
+/* Dark mode sovereign porcelain complication */
+body:not(.light-mode) .premium-toast-rim {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e8cd94 25%,
+    #9e7734 55%,
+    #3a2a12 80%,
+    #c9a86a 100%
+  ) !important;
+  border: 0.8px solid #d4af6a !important;
+  box-shadow:
+    0 16px 36px -4px rgba(0, 0, 0, 0.9),
+    0 4px 12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 235, 180, 0.3) !important;
+}
+
+body:not(.light-mode) .premium-toast-inner {
+  background: linear-gradient(
+    180deg,
+    #18140f 0%,
+    #110d09 60%,
+    #0a0805 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 240, 200, 0.2),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.9) !important;
+}
+
+body:not(.light-mode) .premium-toast-title {
+  color: #f6e7be !important;
+}
+
+body:not(.light-mode) .premium-toast-msg {
+  color: #d4af6a !important;
+}
+
+body:not(.light-mode) .premium-toast-star {
+  color: #d4af6a !important;
+  text-shadow: 0 0 6px rgba(212, 175, 55, 0.6) !important;
 }
 
 /* In-place Sovereign Stamp on Badge */
@@ -8027,20 +8090,12 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   stroke: none !important;
 }
 
-#inspectionImage svg path,
-#inspectionImage svg circle,
-#inspectionImage svg rect {
-  stroke: #c79a3e !important;
-}
-#inspectionImage svg [fill="url(#ringGoldGrad)"],
-#inspectionImage svg [fill="#C79A3E"] {
-  fill: #c79a3e !important;
-  stroke: none !important;
-}
 #inspectionImage svg {
-  width: 64px !important;
-  height: 64px !important;
-  filter: drop-shadow(0 0 10px rgba(199, 154, 62, 0.3));
+  width: 110px !important;
+  height: 110px !important;
+  max-width: 90% !important;
+  max-height: 90% !important;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 16px rgba(212, 175, 106, 0.25));
 }
 
 .purchase-modal-overlay[hidden] {
@@ -8408,7 +8463,7 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   transform: translateZ(0);
 }
-.b-filt-btn.is-active {
+body:not(.light-mode) .b-filt-btn.is-active {
   background: linear-gradient(180deg, rgba(38, 30, 18, 0.98) 0%, rgba(20, 16, 10, 1) 100%) !important;
   border-color: rgba(212, 175, 106, 0.42) !important;
   color: var(--gold-champagne, #d4af6a) !important;
@@ -17645,6 +17700,27 @@ body.light-mode #boutique-tab .id-widget-container .card-club-name {
   }
 }
 
+body.light-mode .membership-ledger-card.is-deed-verified-flash {
+  animation: deedVerifiedEngravedFlashLight 1.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes deedVerifiedEngravedFlashLight {
+  0% {
+    box-shadow: 0 4px 20px rgba(50, 35, 12, 0.08);
+  }
+  30% {
+    border-color: #7c581a !important;
+    box-shadow: 
+      0 0 0 1px #7c581a,
+      0 10px 32px rgba(60, 40, 12, 0.16),
+      inset 0 2px 8px rgba(60, 40, 10, 0.14),
+      inset 0 0 0 1px rgba(124, 88, 26, 0.35) !important;
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(50, 35, 12, 0.08);
+  }
+}
+
 /* Physical Archival Corner Screws / Horological Anglage Rivets */
 .deed-screw {
   position: absolute;
@@ -18265,21 +18341,21 @@ body.light-mode .deed-security-text {
 }
 
 .lti-dot.is-pulsing {
-  border-color: #50b86a;
-  background: #50b86a;
-  box-shadow: 0 0 8px rgba(80, 184, 106, 0.85);
+  border-color: #7c581a;
+  background: radial-gradient(circle, #ffffff 0%, #faecc5 40%, #c49436 80%, #7a5218 100%);
+  box-shadow: 0 0 8px rgba(196, 148, 54, 0.75);
   animation: pulseBeacon 2s infinite ease-in-out;
 }
 
 @keyframes pulseBeacon {
   0% {
-    box-shadow: 0 0 0 0 rgba(80, 184, 106, 0.7);
+    box-shadow: 0 0 0 0 rgba(196, 148, 54, 0.7);
   }
   70% {
-    box-shadow: 0 0 0 6px rgba(80, 184, 106, 0);
+    box-shadow: 0 0 0 6px rgba(196, 148, 54, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(80, 184, 106, 0);
+    box-shadow: 0 0 0 0 rgba(196, 148, 54, 0);
   }
 }
 
@@ -18319,13 +18395,22 @@ body.light-mode .deed-security-text {
 }
 
 .lti-current-tag {
-  background: rgba(80, 184, 106, 0.12);
-  border: 1px solid rgba(80, 184, 106, 0.4);
-  color: #7fbe8c;
-  padding: 1px 6px;
+  background: rgba(212, 175, 106, 0.12);
+  border: 1px solid rgba(212, 175, 106, 0.45);
+  color: #f3e5c8;
+  padding: 1px 7px;
   border-radius: 4px;
   font-size: 8px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+body.light-mode .lti-current-tag {
+  background: linear-gradient(180deg, #ffffff 0%, #f6eee0 100%) !important;
+  border: 0.8px solid #7c581a !important;
+  color: #2b1a03 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 1px 3px rgba(45, 30, 8, 0.08), inset 0 1px 0 #ffffff !important;
 }
 
 .lti-desc {
@@ -18636,6 +18721,27 @@ body.light-mode .deed-verify-btn {
   }
   100% {
     border-color: rgba(212, 175, 106, 0.38);
+  }
+}
+
+body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
+  animation: oathRatifiedEngravedFlashLight 1.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes oathRatifiedEngravedFlashLight {
+  0% {
+    box-shadow: 0 4px 20px rgba(50, 35, 12, 0.08);
+  }
+  30% {
+    border-color: #7c581a !important;
+    box-shadow: 
+      0 0 0 1px #7c581a,
+      0 10px 32px rgba(60, 40, 12, 0.16),
+      inset 0 2px 8px rgba(60, 40, 10, 0.14),
+      inset 0 0 0 1px rgba(124, 88, 26, 0.35) !important;
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(50, 35, 12, 0.08);
   }
 }
 
@@ -23872,20 +23978,28 @@ body #profile-tab .membership-ledger-card .deed-wax-seal .dws-text {
 body #profile-tab .membership-ledger-card .deed-seal-actions {
   flex: 1 1 auto !important;
   align-items: flex-end !important;
-  gap: 3px !important;
+  gap: 4px !important;
+  padding-bottom: 6px !important;
+  padding-inline-end: 22px !important;
+  box-sizing: border-box !important;
 }
 
 body #profile-tab .membership-ledger-card .deed-verify-btn {
-  padding: 5px 10px !important;
-  font-size: 8px !important;
+  padding: 6px 14px !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  letter-spacing: 0.04em !important;
 }
 
 body #profile-tab .membership-ledger-card .lss-text {
   font-size: 7px !important;
-  letter-spacing: 0.06em !important;
-  line-height: 1.25 !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.3 !important;
   word-break: break-word !important;
   text-align: end !important;
+  opacity: 0.8 !important;
+  margin-top: 1px !important;
 }
 
 /* 5. My Luxury Collection Showcase */
@@ -24828,7 +24942,11 @@ body #profile-tab .ossb-text {
     justify-content: center !important;
   }
   body #profile-tab .oath-signet-seal-btn {
-    width: 100% !important;
+    width: auto !important;
+    min-width: 220px !important;
+    max-width: 290px !important;
+    margin: 0 auto !important;
+    border-radius: 9px !important;
     justify-content: center !important;
   }
 }
@@ -25762,33 +25880,37 @@ body.light-mode .rmc-pedestal-velvet svg {
 .rmc-spec-grid {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
-  gap: 5px !important;
-  margin-bottom: 7px !important;
+  gap: 6px !important;
+  margin-bottom: 8px !important;
 }
 
 .rmc-spec-cell {
   background: rgba(22, 17, 12, 0.7) !important;
-  border: 1px solid rgba(212, 175, 106, 0.2) !important;
-  border-radius: 6px !important;
-  padding: 5px 8px !important;
+  border: 1px solid rgba(212, 175, 106, 0.22) !important;
+  border-radius: 7px !important;
+  padding: 6px 10px !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 1.5px !important;
+  justify-content: center !important;
+  gap: 2px !important;
   box-sizing: border-box !important;
   text-align: start !important;
+  min-height: 48px !important;
 }
 
 body.light-mode .rmc-spec-cell {
-  background: rgba(255, 255, 255, 0.8) !important;
-  border: 1px solid rgba(175, 133, 50, 0.28) !important;
-  box-shadow: 0 1px 3px rgba(80, 55, 20, 0.04) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(175, 133, 50, 0.3) !important;
+  box-shadow: 0 1px 3px rgba(80, 55, 20, 0.05) !important;
 }
 
 .rmc-spec-lbl {
-  font-size: 7.5px !important;
+  font-size: 8px !important;
   color: #a8947a !important;
-  letter-spacing: 0.03em !important;
-  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 1px !important;
 }
 
 body.light-mode .rmc-spec-lbl {
@@ -25796,10 +25918,10 @@ body.light-mode .rmc-spec-lbl {
 }
 
 .rmc-spec-val {
-  font-size: 9.5px !important;
+  font-size: 10px !important;
   font-weight: 700 !important;
   color: #f7eed7 !important;
-  line-height: 1.2 !important;
+  line-height: 1.35 !important;
 }
 
 body.light-mode .rmc-spec-val {
@@ -25843,26 +25965,31 @@ body.light-mode .rmc-lore-paragraph {
 }
 
 .rmc-equip-btn {
-  width: 100% !important;
-  height: 36px !important;
-  min-height: 36px !important;
-  max-height: 36px !important;
-  border-radius: 7px !important;
-  font-size: 10.5px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.04em !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 6px !important;
-  padding: 0 12px !important;
-  box-sizing: border-box !important;
-  cursor: pointer !important;
-  line-height: 1 !important;
+  width: 100%;
+  height: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  border-radius: 7px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  line-height: 1;
   box-shadow:
     inset 0 1px 0 rgba(255, 252, 240, 0.8),
-    0 2px 6px rgba(0, 0, 0, 0.35) !important;
-  transition: all 0.2s ease !important;
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
+}
+
+.rmc-equip-btn.is-hidden,
+.rmc-equip-btn[hidden] {
+  display: none !important;
 }
 
 .rmc-equip-btn.btn-gold {
@@ -25894,44 +26021,49 @@ body.light-mode .rmc-lore-paragraph {
 /* Secondary Compact Close Control (High Luxury, Sleek, Zero Hanging) */
 .rmc-dismiss-btn {
   width: 100% !important;
-  height: 28px !important;
-  min-height: 28px !important;
-  max-height: 28px !important;
-  background: transparent !important;
-  border: 1px solid transparent !important;
-  border-radius: 6px !important;
-  color: #a8947a !important;
-  font-size: 9.5px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  background: rgba(25, 20, 15, 0.5) !important;
+  border: 1px solid rgba(212, 175, 106, 0.25) !important;
+  border-radius: 7px !important;
+  color: #eedcc0 !important;
+  font-size: 10px !important;
   font-weight: 600 !important;
   letter-spacing: 0.04em !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  padding: 0 8px !important;
+  padding: 0 12px !important;
   box-sizing: border-box !important;
   transition: all 0.2s ease !important;
 }
 
 .rmc-dismiss-btn:hover {
-  background: rgba(212, 175, 106, 0.08) !important;
-  border-color: rgba(212, 175, 106, 0.3) !important;
-  color: #eedcc0 !important;
+  background: rgba(212, 175, 106, 0.15) !important;
+  border-color: rgba(212, 175, 106, 0.45) !important;
+  color: #ffffff !important;
 }
 
 body.light-mode .rmc-dismiss-btn {
-  color: #7d653f !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(175, 133, 50, 0.35) !important;
+  color: #4a3619 !important;
+  box-shadow: 0 1px 3px rgba(80, 55, 20, 0.05) !important;
 }
 
 body.light-mode .rmc-dismiss-btn:hover {
-  background: rgba(175, 133, 50, 0.08) !important;
-  border-color: rgba(175, 133, 50, 0.3) !important;
-  color: #241b0b !important;
+  background: #ffffff !important;
+  border-color: #9e762c !important;
+  color: #1a1205 !important;
 }
 
 /* When the item is ALREADY OWNED, the acquire button is hidden, so rmc-dismiss-btn serves as sole prominent close button */
 .rmc-actions .rmc-equip-btn[style*="display: none"] + .rmc-dismiss-btn,
-.rmc-actions .rmc-equip-btn[style*="display:none"] + .rmc-dismiss-btn {
+.rmc-actions .rmc-equip-btn[style*="display:none"] + .rmc-dismiss-btn,
+.rmc-actions .rmc-equip-btn.is-hidden + .rmc-dismiss-btn,
+.rmc-actions .rmc-equip-btn[hidden] + .rmc-dismiss-btn {
   height: 34px !important;
   min-height: 34px !important;
   border: 1px solid rgba(212, 175, 106, 0.4) !important;
@@ -25940,7 +26072,9 @@ body.light-mode .rmc-dismiss-btn:hover {
 }
 
 body.light-mode .rmc-actions .rmc-equip-btn[style*="display: none"] + .rmc-dismiss-btn,
-body.light-mode .rmc-actions .rmc-equip-btn[style*="display:none"] + .rmc-dismiss-btn {
+body.light-mode .rmc-actions .rmc-equip-btn[style*="display:none"] + .rmc-dismiss-btn,
+body.light-mode .rmc-actions .rmc-equip-btn.is-hidden + .rmc-dismiss-btn,
+body.light-mode .rmc-actions .rmc-equip-btn[hidden] + .rmc-dismiss-btn {
   border: 1px solid rgba(175, 133, 50, 0.4) !important;
   background: rgba(255, 255, 255, 0.9) !important;
   color: #3b2a0c !important;
@@ -26778,10 +26912,28 @@ body.light-mode .is-screw-torqued {
   z-index: 10;
 }
 
-/* Active Verification State (UV Fluorescence Sweep) */
+/* =========================================================
+   SOVEREIGN ARCHIVAL INTAGLIO ENGRAVED AUTHENTICATION OVERLAY
+   Transforms verification sweep into an authentic hot-stamped
+   engraved relief etched into the sovereign parchment
+   ========================================================= */
+
+/* Warm Horological Illumination Beam */
 .sovereign-deed-folio.is-uv-scanning .deed-uv-scanner-ray {
   opacity: 1;
   animation: uvBeamTraverse 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  background: linear-gradient(
+    180deg,
+    rgba(212, 175, 106, 0.25) 0%,
+    rgba(255, 245, 220, 0.45) 40%,
+    rgba(124, 88, 26, 0.65) 100%
+  ) !important;
+  border-top: 1.5px solid #dcae4a !important;
+  box-shadow:
+    0 0 16px rgba(196, 148, 54, 0.45),
+    0 0 28px rgba(255, 235, 180, 0.25) !important;
+  pointer-events: none;
+  z-index: 10;
 }
 
 @keyframes uvBeamTraverse {
@@ -26801,13 +26953,17 @@ body.light-mode .is-screw-torqued {
   }
 }
 
+/* Deep Intaglio Engraved Watermark Matrix (Dark Mode) */
 .sovereign-deed-folio.is-uv-scanning .deed-ghost-watermark,
 .deed-ghost-watermark.is-uv-active {
-  color: rgba(216, 180, 254, 0.45) !important;
+  color: #d4af6a !important;
+  opacity: 0.85 !important;
   filter:
-    drop-shadow(0 0 20px rgba(192, 132, 252, 0.6))
-    drop-shadow(0 0 35px rgba(56, 189, 248, 0.35)) !important;
-  transform: translate(-50%, -50%) scale(1.04);
+    drop-shadow(0 1px 0 rgba(255, 240, 200, 0.4))
+    drop-shadow(0 -1px 0.5px rgba(0, 0, 0, 0.95))
+    drop-shadow(0 0 12px rgba(212, 175, 106, 0.25)) !important;
+  transform: translate(-50%, -50%) scale(1.01) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .sovereign-deed-folio.is-uv-scanning .uv-fiber,
@@ -26817,18 +26973,99 @@ body.light-mode .is-screw-torqued {
   transform: scale(1.2);
 }
 
+/* Cryptographic Archival Hash Strip - Etched Hallmark (Dark Mode) */
 .sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip,
 .deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip {
-  color: #c084fc !important;
-  text-shadow: 0 0 8px rgba(192, 132, 252, 0.8);
+  color: #f3e5c8 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25), 0 -1px 0.5px rgba(0, 0, 0, 0.9) !important;
 }
 
 .sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip .dch-indicator,
 .deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip .dch-indicator {
-  background: rgba(192, 132, 252, 0.25);
-  border-color: rgba(192, 132, 252, 0.7);
-  color: #f3e8ff;
-  box-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+  background: linear-gradient(180deg, rgba(38, 30, 18, 0.95) 0%, rgba(18, 14, 9, 1) 100%) !important;
+  border-color: rgba(212, 175, 106, 0.6) !important;
+  color: #f6e7be !important;
+  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.3), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Deep Intaglio Engraved Watermark Matrix (Light Mode Parchment) */
+body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-ghost-watermark,
+body.light-mode .deed-ghost-watermark.is-uv-active {
+  color: #6d4e1a !important; /* Deep antique intaglio ink */
+  opacity: 0.82 !important;
+  filter:
+    drop-shadow(0 1.2px 0 #ffffff)
+    drop-shadow(0 -1px 0.5px rgba(50, 32, 10, 0.65))
+    drop-shadow(0 0 8px rgba(124, 88, 26, 0.18)) !important;
+  transform: translate(-50%, -50%) scale(1.01) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Light Mode Scanner Ray - Amber/Gold Parchment Laser */
+body.light-mode .deed-uv-scanner-ray {
+  background: linear-gradient(
+    180deg,
+    rgba(196, 148, 54, 0.18) 0%,
+    rgba(250, 236, 197, 0.45) 45%,
+    rgba(124, 88, 26, 0.65) 100%
+  ) !important;
+  border-top: 1.5px solid #7c581a !important;
+  box-shadow:
+    0 0 12px rgba(124, 88, 26, 0.35),
+    0 0 24px rgba(212, 175, 106, 0.2) !important;
+}
+
+body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip,
+body.light-mode .deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip {
+  color: #2b1a03 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 0 #ffffff, 0 -0.8px 0.5px rgba(60, 40, 10, 0.5) !important;
+}
+
+body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip .dch-indicator,
+body.light-mode .deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip .dch-indicator {
+  background: linear-gradient(180deg, #ffffff 0%, #f6eee0 100%) !important;
+  border-color: #7c581a !important;
+  color: #2b1a03 !important;
+  font-weight: 800 !important;
+  box-shadow: inset 0 1px 0 #ffffff, 0 1px 4px rgba(45, 30, 8, 0.12) !important;
+  text-shadow: none !important;
+}
+
+/* Subtle Intaglio Indentation on the Entire Parchment Folio */
+.sovereign-deed-folio.is-uv-scanning .ledger-card-inner {
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.35),
+    inset 0 -1px 2px rgba(255, 240, 200, 0.15) !important;
+  transition: box-shadow 0.4s ease !important;
+}
+
+body.light-mode .sovereign-deed-folio.is-uv-scanning .ledger-card-inner {
+  box-shadow:
+    inset 0 2px 6px rgba(50, 32, 10, 0.12),
+    inset 0 -1px 1px #ffffff !important;
+  transition: box-shadow 0.4s ease !important;
+}
+
+/* Sovereign Covenant Oath Etched Feedback */
+.sovereign-oath-card.is-oath-ratified-flash .oath-card-inner {
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.35),
+    inset 0 -1px 2px rgba(255, 240, 200, 0.15) !important;
+  transition: box-shadow 0.4s ease !important;
+}
+
+body.light-mode .sovereign-oath-card.is-oath-ratified-flash .oath-card-inner {
+  box-shadow:
+    inset 0 2px 6px rgba(50, 32, 10, 0.12),
+    inset 0 -1px 1px #ffffff !important;
+  transition: box-shadow 0.4s ease !important;
+}
+
+.sovereign-oath-card.is-oath-ratified-flash .oath-signature-text,
+.sovereign-oath-card.is-oath-ratified-flash .oath-crypt-id {
+  text-shadow: 0 1px 0.5px rgba(255, 255, 255, 0.9), 0 -0.8px 0.5px rgba(60, 40, 10, 0.5) !important;
+  transition: text-shadow 0.3s ease !important;
 }
 
 /* Interactive Watermark Glint Pulse on Tap */
@@ -26893,33 +27130,6 @@ body.light-mode .deed-crypto-hash-strip {
 body.light-mode .deed-crypto-hash-strip .dch-indicator {
   background: rgba(185, 145, 75, 0.12) !important;
   border-color: rgba(185, 145, 75, 0.35) !important;
-}
-
-body.light-mode .deed-uv-scanner-ray {
-  background: linear-gradient(
-    180deg,
-    rgba(147, 51, 234, 0.45) 0%,
-    rgba(2, 132, 199, 0.25) 30%,
-    transparent 100%
-  ) !important;
-  border-top-color: #9333ea !important;
-  box-shadow:
-    0 0 16px rgba(147, 51, 234, 0.65),
-    0 0 30px rgba(2, 132, 199, 0.4) !important;
-}
-
-body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-ghost-watermark,
-body.light-mode .deed-ghost-watermark.is-uv-active {
-  color: rgba(126, 34, 206, 0.55) !important;
-  filter:
-    drop-shadow(0 0 18px rgba(147, 51, 234, 0.55))
-    drop-shadow(0 0 28px rgba(2, 132, 199, 0.35)) !important;
-}
-
-body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip,
-body.light-mode .deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip {
-  color: #7e22ce !important;
-  text-shadow: 0 0 6px rgba(147, 51, 234, 0.6) !important;
 }
 
 /* =========================================================
@@ -30727,8 +30937,6 @@ body.light-mode .boutique-card-desc,
 body.light-mode .b-card-desc,
 body.light-mode .boutique-balance-label,
 body.light-mode .b-bal-lbl,
-body.light-mode .boutique-tab:not(.is-active) span,
-body.light-mode .b-filt-btn:not(.is-active) span,
 body.light-mode .sd-reg-label,
 body.light-mode .sd-comp-lbl,
 body.light-mode .sd-registry-desc,
@@ -31566,7 +31774,7 @@ body.light-mode #boutique-tab .id-widget-container .card-tagline span {
 body.light-mode .btn-gold,
 body.light-mode #boutique-tab .btn-acquire,
 body.light-mode #boutique-tab .btn-equip,
-body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned),
+body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):not(.btn-locked):not(.btn-free):not(.boutique-tier-req-badge):not(.boutique-free-status-badge),
 body.light-mode .rmc-equip-btn,
 body.light-mode .reliquary-boutique-btn,
 body.light-mode .reliquary-empty-action-btn,
@@ -31575,22 +31783,32 @@ body.light-mode .mini-dossier-btn.is-toast-primary,
 body.light-mode .edit-profile-save-btn,
 body.light-mode #accountInfoModal .dossier-save-btn,
 body.light-mode .oath-signet-seal-btn {
-  background: linear-gradient(145deg, #e8cc8f 0%, #d4ae60 30%, #be9444 70%, #a47a2e 100%) !important;
-  border: 1px solid #b88d38 !important;
-  color: #241603 !important;
-  font-weight: 700 !important;
-  text-shadow: 0 1px 0 rgba(255, 252, 240, 0.5) !important;
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #faecc5 12%, 
+    #dcae4a 32%, 
+    #a07424 50%, 
+    #684514 62%, 
+    #c49436 78%, 
+    #7a5218 90%, 
+    #ffffff 100%
+  ) !important;
+  border: 0.8px solid #7c581a !important;
+  color: #2b1a03 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.6) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 252, 240, 0.7),
-    inset 0 -1px 0 rgba(110, 80, 20, 0.25),
-    0 2px 6px rgba(110, 80, 20, 0.16) !important;
-  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease !important;
+    0 0 0 0.5px rgba(50, 32, 10, 0.35),
+    0 2px 5px rgba(35, 20, 6, 0.16),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0.5px rgba(90, 60, 15, 0.35) !important;
+  transition: filter 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease !important;
 }
 
 body.light-mode .btn-gold:hover,
 body.light-mode #boutique-tab .btn-acquire:hover,
 body.light-mode #boutique-tab .btn-equip:hover,
-body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):hover,
+body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):not(.btn-locked):not(.btn-free):not(.boutique-tier-req-badge):not(.boutique-free-status-badge):hover,
 body.light-mode .rmc-equip-btn:hover,
 body.light-mode .reliquary-boutique-btn:hover,
 body.light-mode .reliquary-empty-action-btn:hover,
@@ -31599,16 +31817,18 @@ body.light-mode .mini-dossier-btn.is-toast-primary:hover,
 body.light-mode .edit-profile-save-btn:hover,
 body.light-mode #accountInfoModal .dossier-save-btn:hover,
 body.light-mode .oath-signet-seal-btn:hover {
-  background: linear-gradient(145deg, #edd49b 0%, #dbb76c 30%, #c69c4c 70%, #ac8236 100%) !important;
+  filter: brightness(1.04) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    0 3px 8px rgba(110, 80, 20, 0.2) !important;
+    0 0 0 0.5px rgba(50, 32, 10, 0.45),
+    0 3px 8px rgba(35, 20, 6, 0.22),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.98),
+    inset 0 -1px 0.5px rgba(90, 60, 15, 0.4) !important;
 }
 
 body.light-mode .btn-gold:active,
 body.light-mode #boutique-tab .btn-acquire:active,
 body.light-mode #boutique-tab .btn-equip:active,
-body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):active,
+body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):not(.btn-locked):not(.btn-free):not(.boutique-tier-req-badge):not(.boutique-free-status-badge):active,
 body.light-mode .rmc-equip-btn:active,
 body.light-mode .reliquary-boutique-btn:active,
 body.light-mode .reliquary-empty-action-btn:active,
@@ -31617,15 +31837,11 @@ body.light-mode .mini-dossier-btn.is-toast-primary:active,
 body.light-mode .edit-profile-save-btn:active,
 body.light-mode #accountInfoModal .dossier-save-btn:active,
 body.light-mode .oath-signet-seal-btn:active {
-  background: linear-gradient(145deg, #caa052 0%, #b58c3e 45%, #9c732c 100%) !important;
-  box-shadow:
-    inset 0 1.5px 3px rgba(60, 40, 10, 0.35),
-    0 1px 2px rgba(110, 80, 20, 0.12) !important;
-  transform: scale(0.97) !important;
+  transform: scale(0.98) !important;
+  filter: brightness(0.96) !important;
 }
 
 /* 2. Metallic Gold Active Controls & Category Filter Pills */
-body.light-mode .b-filt-btn.is-active,
 body.light-mode .pill-btn.is-active,
 body.light-mode .club-room-btn.is-active,
 body.light-mode #club-tab .club-room-btn.is-active,
@@ -31633,15 +31849,51 @@ body.light-mode .sl-filter-btn.is-active,
 body.light-mode .sovereign-accolade-btn.is-conferred,
 body.light-mode .pcc-curate-btn,
 body.light-mode .deed-verify-btn {
-  background: linear-gradient(145deg, #f2deaf 0%, #dfbe76 45%, #cfae64 100%) !important;
-  border: 1px solid #b89246 !important;
-  color: #241603 !important;
-  font-weight: 700 !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #faecc5 12%, 
+    #dcae4a 32%, 
+    #a07424 50%, 
+    #684514 62%, 
+    #c49436 78%, 
+    #7a5218 90%, 
+    #ffffff 100%
+  ) !important;
+  border: 0.8px solid #7c581a !important;
+  color: #2b1a03 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.6) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -1px 0 rgba(120, 85, 25, 0.2),
-    0 2px 5px rgba(100, 70, 20, 0.12) !important;
+    0 0 0 0.5px rgba(50, 32, 10, 0.35),
+    0 2px 5px rgba(35, 20, 6, 0.16),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0.5px rgba(90, 60, 15, 0.35) !important;
+}
+
+body .deed-verify-btn.is-confirmed-stamp,
+body #profile-tab .deed-verify-btn.is-confirmed-stamp,
+body .oath-signet-seal-btn.is-signet-pressed {
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #faecc5 15%, 
+    #dcae4a 35%, 
+    #a07424 55%, 
+    #c49436 80%, 
+    #7a5218 100%
+  ) !important;
+  border-color: #7c581a !important;
+  color: #120b02 !important;
+  font-weight: 800 !important;
+  box-shadow:
+    0 0 0 1px rgba(124, 88, 26, 0.5),
+    0 4px 14px rgba(120, 80, 20, 0.28),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.98) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body .deed-verify-btn.is-confirmed-stamp .deed-btn-icon {
+  color: #120b02 !important;
+  transform: scale(1.15);
 }
 
 /* 3. Club Sovereign Seal Send Button Bezel */
@@ -31867,39 +32119,166 @@ body.light-mode #boutique-tab .boutique-balance {
 }
 
 body.light-mode #boutique-tab .boutique-balance-label {
-  color: #7a5a1f !important;
+  color: #4a3618 !important;
 }
 
 body.light-mode #boutique-tab .boutique-balance-value {
-  color: #382405 !important;
+  color: #2b1a03 !important;
   text-shadow: none !important;
 }
 
 body.light-mode #boutique-tab .boutique-balance-add {
-  background: linear-gradient(180deg, #fefbf4 0%, #f4e8d0 100%) !important;
-  border: 1px solid rgba(175, 133, 50, 0.5) !important;
-  color: #4a340e !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 5px rgba(80, 55, 20, 0.1) !important;
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #faecc5 12%, 
+    #dcae4a 32%, 
+    #a07424 50%, 
+    #684514 62%, 
+    #c49436 78%, 
+    #7a5218 90%, 
+    #ffffff 100%
+  ) !important;
+  border: 0.8px solid #7c581a !important;
+  color: #2b1a03 !important;
+  box-shadow: 0 1px 3px rgba(35, 20, 6, 0.12), inset 0 1px 0.5px rgba(255, 255, 255, 0.95) !important;
 }
 
-body.light-mode #boutique-tab .boutique-ownership-toggle,
-body.light-mode #boutique-tab .boutique-tabs {
-  background: linear-gradient(180deg, #f7f1e6 0%, #ebe0cd 100%) !important;
-  border-color: rgba(175, 133, 50, 0.35) !important;
-  box-shadow: inset 0 1px 3px rgba(80, 55, 20, 0.08), 0 2px 6px rgba(80, 55, 20, 0.05) !important;
+/* ==========================================================================
+   THE 1% CLUB — BOUTIQUE FILTERS (LIGHT MODE ONLY)
+   Bar 1: Luxury Segmented Control (Ownership / Status Filter)
+   Bar 2: Haute Joaillerie Catalogue Index (Category Filter)
+   ========================================================================== */
+
+/* --- BAR 1: LUXURY SEGMENTED CONTROL (STATUS: جميع المقتنيات / المملوكة / المتاحة) --- */
+body.light-mode #boutique-tab .boutique-ownership-toggle {
+  background: linear-gradient(180deg, #fbf7ee 0%, #f3ebdb 100%) !important;
+  border: 1px solid rgba(124, 88, 26, 0.35) !important; /* Fine Gold outer border matching Edit Profile token */
+  border-radius: 9px !important;
+  padding: 3px !important;
+  gap: 3px !important;
+  box-shadow:
+    inset 0 1px 2.5px rgba(70, 48, 14, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+    0 2px 6px rgba(70, 50, 18, 0.06) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 body.light-mode .b-filt-btn,
-body.light-mode #boutique-tab .boutique-tab {
-  color: #6a573d !important;
+body.light-mode #boutique-tab .b-filt-btn,
+body.light-mode .b-filt-btn span,
+body.light-mode #boutique-tab .b-filt-btn span {
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: #4a3618 !important; /* Specific dark gold/bronze from Edit Profile */
+  font-family: var(--font-ui, system-ui, sans-serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  line-height: normal !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
 }
 
-body.light-mode .b-filt-btn.is-active,
-body.light-mode #boutique-tab .boutique-tab.is-active {
-  background: linear-gradient(180deg, #fffdf8 0%, #f4e8d3 100%) !important;
-  border-color: rgba(175, 133, 50, 0.55) !important;
-  color: #3f2a09 !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 5px rgba(80, 55, 20, 0.1) !important;
+body.light-mode .b-filt-btn:hover,
+body.light-mode #boutique-tab .b-filt-btn:hover,
+body.light-mode .b-filt-btn:hover span,
+body.light-mode #boutique-tab .b-filt-btn:hover span {
+  color: #2b1a03 !important;
+  background: rgba(124, 88, 26, 0.06) !important;
+}
+
+/* Inserted / engraved segment for active status */
+body.light-mode .b-filt-btn.is-active {
+  background: radial-gradient(ellipse at 50% 0%, #ffffff 0%, #fdfaf4 55%, #f4ebd9 100%) !important;
+  border: 0.8px solid #7c581a !important;
+  color: #2b1a03 !important; /* Dark warm brown / deep antique gold */
+  font-weight: 800 !important;
+  border-radius: 6px !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 1px 3px rgba(35, 20, 6, 0.12),
+    0 0 0 0.5px rgba(50, 32, 10, 0.25) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* --- BAR 2: CATALOGUE INDEX (CATEGORIES: الكل / المجوهرات / الهالات / التيجان / النجوم) --- */
+body.light-mode #boutique-tab .boutique-tabs {
+  background: linear-gradient(180deg, #fdfbf7 0%, #f7f2e8 100%) !important; /* Semi-flat warm Ivory */
+  border: 1px solid rgba(124, 88, 26, 0.28) !important; /* Fine gold hairline matching Edit Profile token */
+  border-radius: 8px !important;
+  padding: 2px 4px !important;
+  gap: 3px !important;
+  box-shadow: 0 1px 3px rgba(70, 50, 18, 0.04) !important;
+  min-height: 38px !important;
+  margin: 0 0 16px 0 !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  box-sizing: border-box !important;
+}
+
+body.light-mode #boutique-tab .boutique-tab,
+body.light-mode .boutique-tab,
+body.light-mode #boutique-tab .boutique-tab span,
+body.light-mode .boutique-tab span {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  color: #4a3618 !important; /* Specific dark gold/bronze from Edit Profile */
+  font-family: var(--font-ui, system-ui, sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 12px !important;
+  border-radius: 4px 4px 0 0 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  line-height: normal !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  letter-spacing: 0.02em !important;
+  white-space: nowrap !important;
+}
+
+body.light-mode #boutique-tab .boutique-tab:hover,
+body.light-mode .boutique-tab:hover,
+body.light-mode #boutique-tab .boutique-tab:hover span,
+body.light-mode .boutique-tab:hover span {
+  color: #2b1a03 !important; /* Exact Edit Profile dark gold */
+  background: rgba(124, 88, 26, 0.06) !important;
+}
+
+/* Active Category: Exact Physical Gold accent from Edit Profile button */
+body.light-mode #boutique-tab .boutique-tab.is-active,
+body.light-mode .boutique-tab.is-active,
+body.light-mode #boutique-tab .boutique-tab.is-active span,
+body.light-mode .boutique-tab.is-active span {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(250, 236, 197, 0.45) 25%, 
+    rgba(220, 174, 74, 0.22) 65%, 
+    rgba(124, 88, 26, 0.12) 100%
+  ) !important;
+  border: none !important;
+  border-bottom: 2.5px solid #7c581a !important; /* Physical Gold underline from Edit Profile button */
+  border-radius: 4px 4px 0 0 !important;
+  color: #2b1a03 !important; /* Physical gold dark text */
+  font-weight: 800 !important;
+  box-shadow: none !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.85) !important;
 }
 
 body.light-mode #boutique-tab .boutique-section-title {
@@ -31908,102 +32287,74 @@ body.light-mode #boutique-tab .boutique-section-title {
 }
 
 body.light-mode #boutique-tab .boutique-section-sub {
-  color: #725e44 !important;
+  color: #4a3618 !important;
 }
 
 body.light-mode #boutique-tab .boutique-section-divider .bsd-line {
-  background: linear-gradient(90deg, transparent 0%, rgba(175, 133, 50, 0.4) 50%, transparent 100%) !important;
+  background: linear-gradient(90deg, transparent 0%, rgba(124, 88, 26, 0.35) 50%, transparent 100%) !important;
 }
 
 body.light-mode #boutique-tab .boutique-section-divider .bsd-mark {
-  color: #8c6721 !important;
+  color: #7c581a !important;
 }
 
+/* ==========================================================================
+   THE 1% CLUB — BOUTIQUE LUXURY DISPLAY CASE & POLISH (LIGHT MODE ONLY)
+   Exclusively applies to Boutique collectible cards in Light Mode.
+   Preserves all logic, prices, assets, and dark mode styling.
+   ========================================================================== */
+
+/* 1. PRODUCT CARDS AS LUXURY DISPLAY CASES */
 body.light-mode #boutique-tab .boutique-card {
-  background: linear-gradient(165deg, #fdfbf7 0%, #f7f0e4 55%, #eee3cf 100%) !important;
-  border: 1px solid rgba(175, 133, 50, 0.42) !important;
+  position: relative !important;
+  background: radial-gradient(ellipse at 50% 6%, #ffffff 0%, #fdfbf7 38%, #f6f0e3 100%) !important;
+  border: 1px solid rgba(184, 141, 56, 0.48) !important; /* Champagne Gold outer border */
   border-radius: 14px !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 -2px 6px rgba(165, 125, 45, 0.08),
-    0 6px 16px -2px rgba(80, 55, 20, 0.09) !important;
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 3px rgba(150, 110, 35, 0.07),
+    0 4px 16px -2px rgba(60, 42, 16, 0.08),
+    0 1px 3px rgba(60, 42, 16, 0.04) !important; /* Subtle dimensional bevel & soft controlled shadow */
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease !important;
 }
 
-body.light-mode #boutique-tab .boutique-card-name {
-  color: #2a2216 !important;
-  text-shadow: none !important;
+/* Antique Gold inner detailing & craftsmanship frame */
+body.light-mode #boutique-tab .boutique-card::before {
+  border: 1px solid rgba(184, 141, 56, 0.26) !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), inset 0 1px 2px rgba(165, 125, 45, 0.05) !important;
 }
 
-body.light-mode #boutique-tab .boutique-card-price {
-  color: #8c6721 !important;
-}
-
-body.light-mode #boutique-tab .boutique-tier-plaque {
-  background: linear-gradient(180deg, #fbf7ee 0%, #f1e7d4 100%) !important;
-  border-color: rgba(165, 125, 45, 0.45) !important;
-  color: #4a340e !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 3px rgba(80, 55, 20, 0.08) !important;
-}
-
-body.light-mode #boutique-tab .boutique-own-btn.btn-acquire {
-  background: linear-gradient(180deg, #fefbf4 0%, #f4e8d0 100%) !important;
-  border-color: rgba(165, 125, 45, 0.5) !important;
-  color: #4a340e !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 5px rgba(80, 55, 20, 0.08) !important;
-}
-
-body.light-mode #boutique-tab .boutique-own-btn.btn-locked {
-  background: #f7f3ea !important;
-  border-color: rgba(165, 125, 45, 0.3) !important;
-  color: #634b22 !important;
-}
-
-body.light-mode #boutique-tab .boutique-own-btn.btn-equip {
-  background: #faf4e8 !important;
-  border-color: rgba(165, 125, 45, 0.4) !important;
-  color: #4a340e !important;
-}
-
-/* === BOUTIQUE COLLECTIBLES UNIFIED ARCHITECTURE (2026-10-04) === */
-#boutique-tab .boutique-card-footer {
-  width: 100% !important;
-  height: 34px !important;
-  min-height: 34px !important;
-  max-height: 34px !important;
-  margin-top: auto !important;
-  display: flex !important;
-  align-items: stretch !important;
-  justify-content: stretch !important;
-  box-sizing: border-box !important;
-}
-
-#boutique-tab .boutique-card .boutique-own-btn {
-  width: 100% !important;
-  height: 34px !important;
-  min-height: 34px !important;
-  max-height: 34px !important;
-  padding: 0 8px !important;
-  font-size: 9.5px !important;
-  font-weight: 700 !important;
-  border-radius: 7px !important;
-  box-sizing: border-box !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  line-height: 1 !important;
-}
-
-body.light-mode #boutique-tab .boutique-card-icon {
-  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6efdd 45%, #e6d7b4 100%) !important;
-  border: 1.5px solid rgba(175, 133, 50, 0.5) !important;
+body.light-mode #boutique-tab .boutique-card:hover {
+  transform: translateY(-2px) translateZ(0) !important;
+  border-color: rgba(184, 141, 56, 0.72) !important;
   box-shadow:
-    inset 0 0 0 2px #fdfbf7,
-    inset 0 2px 6px rgba(120, 90, 30, 0.16),
+    inset 0 1px 0 #ffffff,
+    0 8px 24px -4px rgba(70, 48, 18, 0.14),
+    0 0 0 1px rgba(184, 141, 56, 0.35) !important;
+}
+
+body.light-mode #boutique-tab .boutique-card:hover::before {
+  border-color: rgba(184, 141, 56, 0.45) !important;
+}
+
+/* 2. PREMIUM DISPLAY AREA FOR HERO ITEM (CHAMBER / SHOWCASE) */
+body.light-mode #boutique-tab .boutique-card-icon {
+  background: radial-gradient(circle at 35% 26%, #ffffff 0%, #fdfaf4 40%, #f1e6ce 100%) !important;
+  border: 1.5px solid rgba(184, 141, 56, 0.52) !important;
+  box-shadow:
+    inset 0 0 0 2px #fefcf8,
+    inset 0 2px 5px rgba(130, 95, 30, 0.12),
     inset 0 -2px 6px rgba(255, 255, 255, 0.95),
-    0 4px 12px rgba(70, 50, 20, 0.12) !important;
+    0 4px 12px rgba(65, 45, 16, 0.08) !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-icon::after {
+  background: radial-gradient(ellipse at center, rgba(160, 115, 40, 0.22) 0%, transparent 70%) !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-icon img {
+  filter: drop-shadow(0 4px 8px rgba(60, 40, 15, 0.26)) !important;
 }
 
 body.light-mode #boutique-tab .boutique-card-fallback {
@@ -32013,31 +32364,363 @@ body.light-mode #boutique-tab .boutique-card-fallback {
 }
 
 body.light-mode #boutique-tab .boutique-card-fallback svg {
-  color: #8c6721 !important;
+  color: #634714 !important;
   filter: drop-shadow(0 2px 4px rgba(80, 55, 20, 0.22)) !important;
 }
 
+/* 3. COLLECTIBLE NAME & FINE ENGRAVED GOLD DIVIDER */
+body.light-mode #boutique-tab .boutique-card-name {
+  color: #241a0d !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-name::after {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 1px;
+  margin: 3px auto 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(124, 88, 26, 0.45) 50%, transparent 100%) !important;
+}
+
+/* 4. PRICES: HERO VISUAL ELEMENT AFTER NAME */
+body.light-mode #boutique-tab .boutique-card-price {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  color: #2b1a03 !important; /* Authentic physical gold dark text */
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.85) !important;
+  margin: 3px 0 4px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  line-height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+body.light-mode #boutique-tab .boutique-card-price.is-free {
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #2b1a03 !important;
+}
+
+body.light-mode #boutique-tab .purchase-progress-wrap:not(.is-transparent) {
+  background: rgba(124, 88, 26, 0.16) !important;
+  box-shadow: inset 0 1px 1px rgba(70, 48, 14, 0.1) !important;
+}
+
+body.light-mode #boutique-tab .purchase-progress-fill {
+  background: linear-gradient(90deg, #ffffff 0%, #faecc5 20%, #dcae4a 50%, #a07424 80%, #684514 100%) !important;
+}
+
+/* 5. RARITY BADGE & TIER PLAQUE AT TOP */
+body.light-mode #boutique-tab .boutique-card .rarity-badge {
+  background: rgba(184, 141, 56, 0.09) !important;
+  border: 1px solid rgba(184, 141, 56, 0.35) !important;
+  color: #5a4014 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode #boutique-tab .boutique-tier-plaque {
+  background: linear-gradient(180deg, #fdfbf7 0%, #f4eee2 100%) !important;
+  border: 1px solid rgba(184, 141, 56, 0.45) !important;
+  color: #4a340e !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 2px rgba(80, 55, 20, 0.05) !important;
+}
+
+body.light-mode #boutique-tab .boutique-tier-plaque .tier-plaque-mark {
+  color: #8c6721 !important;
+}
+
+/* 6. FREE STATUS BADGE («مجاني — مفعّل») */
+body.light-mode #boutique-tab .boutique-own-btn.btn-free,
+body.light-mode #boutique-tab .boutique-free-status-badge {
+  background: linear-gradient(180deg, #fdfbf7 0%, #f5efe3 100%) !important;
+  border: 0.8px solid #7c581a !important;
+  border-radius: 7px !important;
+  color: #2b1a03 !important; /* Premium Dark Gold, high contrast */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 1px 3px rgba(45, 30, 8, 0.08) !important;
+  pointer-events: none !important;
+  cursor: default !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  padding: 0 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #boutique-tab .boutique-free-status-badge .boutique-free-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+}
+
+body.light-mode #boutique-tab .boutique-free-status-badge .free-mark {
+  color: #7c581a !important;
+  font-weight: 800 !important;
+  font-size: 11px !important;
+}
+
+body.light-mode #boutique-tab .boutique-free-status-badge .free-text {
+  color: #2b1a03 !important; /* High contrast Dark Gold, crystal clear Arabic text */
+  font-weight: 800 !important;
+  font-size: 10px !important;
+  letter-spacing: 0.03em !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 7. LUXURY REQUIREMENT BADGE («يتطلب رتبة SOVEREIGN LUMINARY / SOVEREIGN EXARCH») */
+body.light-mode #boutique-tab .boutique-own-btn.btn-locked,
+body.light-mode #boutique-tab .boutique-tier-req-badge {
+  background: linear-gradient(180deg, #fdfbf7 0%, #f6efe2 100%) !important;
+  border: 0.8px solid #7c581a !important; /* Exact gold border from edit-profile button */
+  border-radius: 7px !important;
+  box-shadow:
+    0 0 0 0.5px rgba(50, 32, 10, 0.25),
+    0 1px 3px rgba(35, 20, 6, 0.08),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -0.5px 0.5px rgba(90, 60, 15, 0.15) !important;
+  color: #2b1a03 !important;
+  cursor: pointer !important;
+  padding: 3px 6px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-shadow: none !important;
+  outline: none !important;
+  white-space: normal !important;
+}
+
+body.light-mode #boutique-tab .boutique-tier-req-badge .boutique-req-badge {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  line-height: 1 !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+body.light-mode #boutique-tab .boutique-tier-req-badge .req-prefix {
+  font-size: 7.5px !important;
+  font-weight: 700 !important;
+  color: #5c4118 !important; /* Clear Dark Bronze */
+  letter-spacing: 0.02em !important;
+  line-height: 1.1 !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+body.light-mode #boutique-tab .boutique-tier-req-badge .req-tier {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 7.5px !important;
+  font-weight: 800 !important;
+  color: #2b1a03 !important; /* Authentic physical gold dark accent */
+  letter-spacing: 0.05em !important;
+  white-space: nowrap !important;
+  line-height: 1.1 !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+/* 8. LUXURY ACQUISITION BUTTON («امتلك») — EXACT EDIT-PROFILE PHYSICAL GOLD */
+body.light-mode #boutique-tab .boutique-own-btn.btn-acquire {
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #faecc5 12%, 
+    #dcae4a 32%, 
+    #a07424 50%, 
+    #684514 62%, 
+    #c49436 78%, 
+    #7a5218 90%, 
+    #ffffff 100%
+  ) !important;
+  border: 0.8px solid #7c581a !important;
+  color: #2b1a03 !important; /* Dark warm brown / deep antique gold */
+  font-weight: 800 !important;
+  font-size: 10.5px !important;
+  letter-spacing: 0.04em !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.6) !important;
+  box-shadow:
+    0 0 0 0.5px rgba(50, 32, 10, 0.35),
+    0 2px 5px rgba(35, 20, 6, 0.16),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0.5px rgba(90, 60, 15, 0.35) !important;
+  height: 34px !important;
+  border-radius: 7px !important;
+  cursor: pointer !important;
+  transition: filter 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn.btn-acquire:hover {
+  filter: brightness(1.04) !important;
+  box-shadow:
+    0 0 0 0.5px rgba(50, 32, 10, 0.45),
+    0 3px 8px rgba(35, 20, 6, 0.22),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.98),
+    inset 0 -1px 0.5px rgba(90, 60, 15, 0.4) !important;
+  color: #2b1a03 !important;
+}
+
+body.light-mode #boutique-tab .boutique-own-btn.btn-acquire:active {
+  transform: scale(0.98) !important;
+  filter: brightness(0.96) !important;
+}
+
+/* 9. OWNERSHIP SEAL («مملوك») */
 body.light-mode #boutique-tab .boutique-own-btn.btn-owned,
 body.light-mode #boutique-tab .boutique-ownership-plaque {
-  background: linear-gradient(180deg, #f7f2e7 0%, #ebe2ce 100%) !important;
-  border: 1px solid rgba(175, 133, 50, 0.45) !important;
-  color: #3b2c12 !important;
+  background: linear-gradient(180deg, #fdfbf7 0%, #f6eee2 100%) !important; /* Ivory/Champagne serene background */
+  border: 0.8px solid #7c581a !important; /* Physical Gold fine border */
+  border-radius: 7px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 0 10px !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 1px 4px rgba(80, 55, 20, 0.08) !important;
+    0 0 0 0.5px rgba(50, 32, 10, 0.2),
+    0 1px 3px rgba(35, 20, 6, 0.06),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -0.5px 0.5px rgba(90, 60, 15, 0.15) !important;
+  pointer-events: none !important;
+  cursor: default !important;
 }
 
 body.light-mode #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-mark,
 body.light-mode #boutique-tab .boutique-ownership-plaque .ownership-seal-mark {
-  color: #8c6721 !important;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8)) !important;
+  color: #7c581a !important; /* Clear physical gold checkmark */
+  font-size: 11.5px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  filter: none !important;
 }
 
 body.light-mode #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-text,
 body.light-mode #boutique-tab .boutique-ownership-plaque .ownership-seal-text {
-  color: #3b2c12 !important;
-  text-shadow: none !important;
+  color: #2b1a03 !important; /* Dark warm brown / deep antique gold */
+  font-weight: 700 !important;
+  font-size: 10px !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.8) !important;
 }
+
+/* Dark Mode Support for Neutral/Unified Badges (Zero regressions) */
+#boutique-tab .boutique-tier-req-badge .boutique-req-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.15;
+  width: 100%;
+}
+
+#boutique-tab .boutique-tier-req-badge .req-prefix {
+  font-size: 8px;
+  font-weight: 600;
+  color: #a8885c;
+  letter-spacing: 0.02em;
+}
+
+#boutique-tab .boutique-tier-req-badge .req-tier {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--gold-champagne, #e5cb88);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+#boutique-tab .boutique-free-status-badge .boutique-free-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+#boutique-tab .boutique-free-status-badge .free-mark {
+  color: var(--gold-champagne, #d4af6a);
+  font-weight: 800;
+  font-size: 11px;
+}
+
+#boutique-tab .boutique-free-status-badge .free-text {
+  color: #eedcc0;
+  font-weight: 600;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+}
+
+/* === BOUTIQUE VITRINE PASS (2026-10-06) === */
+.boutique-card-icon,
+.boutique-card-fallback {
+  width: 112px !important;
+  height: 112px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 50% 32%, #3a3128 0%, #1c1712 48%, #0b0906 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.65), 0 0 0 4px rgba(156, 109, 35, 0.45), inset 0 12px 22px rgba(0, 0, 0, 0.65), inset 0 -8px 16px rgba(0, 0, 0, 0.7), 0 10px 24px rgba(60, 40, 10, 0.25) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+.boutique-card-icon svg,
+.boutique-card-fallback svg,
+.boutique-card-icon img,
+.boutique-card-fallback img {
+  width: 78px !important;
+  height: 78px !important;
+}
+body.light-mode .boutique-card-icon,
+body.light-mode .boutique-card-fallback {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 4px rgba(156, 109, 35, 0.5), inset 0 12px 22px rgba(0, 0, 0, 0.65), inset 0 -8px 16px rgba(0, 0, 0, 0.7), 0 10px 24px rgba(60, 40, 10, 0.18) !important;
+}
+.boutique-card-price,
+.pcs-item-price {
+  font-family: var(--font-display) !important;
+  font-size: 17px !important;
+  letter-spacing: 1px !important;
+  font-weight: 700 !important;
+  background-image: linear-gradient(180deg, #b8860b 0%, #8a6420 55%, #6b4a1c 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+body.dark-mode .boutique-card-price,
+body.dark-mode .pcs-item-price {
+  background-image: linear-gradient(180deg, #f6e7b9 0%, #d4af37 55%, #a9761f 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+.boutique-card {
+  border: 1px solid rgba(156, 109, 35, 0.42) !important;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.18) !important;
+}
+body.light-mode .boutique-card {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), 0 8px 26px rgba(70, 50, 20, 0.12) !important;
+}
+
+
 
 
 

@@ -482,57 +482,18 @@ let currentOwnershipFilter = "all";
 // Realistic multi-gradient metallic reflections, gemstones,
 // bevels, and guilloché horology details.
 // =========================================================
-const ICONS = {
-  // --- CROWNS ---
-  crown_imperial: "<svg viewBox='0 0 64 64'><defs><linearGradient id='cr1g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.45' stop-color='#d4af37'/><stop offset='1' stop-color='#7a5210'/></linearGradient></defs><ellipse cx='32' cy='55' rx='17' ry='4' fill='#000' opacity='.28'/><path d='M14 44l3-16 7 8 8-14 8 14 7-8 3 16z' fill='url(#cr1g)' stroke='#5f4210' stroke-width='1'/><rect x='14' y='43' width='36' height='7' rx='3' fill='url(#cr1g)' stroke='#5f4210' stroke-width='1'/><circle cx='32' cy='46.5' r='3.4' fill='#15100c'/><circle cx='31' cy='45.4' r='1' fill='#fff' opacity='.55'/><circle cx='17' cy='28' r='2' fill='#f6e7b8'/><circle cx='47' cy='28' r='2' fill='#f6e7b8'/><circle cx='32' cy='22' r='2.2' fill='#f6e7b8'/></svg>",
-  crown_sol: "<svg viewBox='0 0 64 64'><defs><linearGradient id='cr2g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fdf6d8'/><stop offset='.5' stop-color='#d9b45f'/><stop offset='1' stop-color='#8a6420'/></linearGradient></defs><ellipse cx='32' cy='55' rx='16' ry='4' fill='#000' opacity='.28'/><g fill='url(#cr2g)' stroke='#6b4a1c' stroke-width='.8'><path d='M32 8l2 20h-4z'/><path d='M20 12l4 18-3 1z'/><path d='M44 12l-4 18 3 1z'/><path d='M12 20l6 14-2 2z'/><path d='M52 20l-6 14 2 2z'/></g><path d='M14 44q18-8 36 0v6h-36z' fill='url(#cr2g)' stroke='#6b4a1c' stroke-width='1'/><g stroke='#6b4a1c' stroke-width='.6' opacity='.6' fill='none'><path d='M16 46q16-6 32 0'/><path d='M16 48q16-6 32 0'/></g></svg>",
-  crown_moritz: "<svg viewBox='0 0 64 64'><defs><linearGradient id='cr3g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#ffffff'/><stop offset='.5' stop-color='#c9ced6'/><stop offset='1' stop-color='#878e98'/></linearGradient></defs><ellipse cx='32' cy='55' rx='16' ry='4' fill='#000' opacity='.25'/><g fill='url(#cr3g)' stroke='#6d747e' stroke-width='.8'><path d='M16 44l4-18 4 12 4-16 4 16 4-12 4 18z'/></g><rect x='15' y='43' width='34' height='7' rx='3' fill='url(#cr3g)' stroke='#6d747e' stroke-width='1'/><circle cx='20' cy='25' r='2' fill='#fff'/><circle cx='32' cy='21' r='2' fill='#fff'/><circle cx='44' cy='25' r='2' fill='#fff'/></svg>",
-  crown_zenith: "<svg viewBox='0 0 64 64'><defs><linearGradient id='cr4g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#6b4a1c'/></linearGradient><radialGradient id='cr4e'><stop offset='0' stop-color='#7fe0a8'/><stop offset='1' stop-color='#0d6b3f'/></radialGradient></defs><ellipse cx='32' cy='55' rx='17' ry='4' fill='#000' opacity='.28'/><path d='M15 44q2-18 17-20 15 2 17 20z' fill='url(#cr4g)' stroke='#5f4210' stroke-width='1'/><path d='M15 44q17-10 34 0' fill='none' stroke='#f6e7b8' stroke-width='1.4' opacity='.8'/><rect x='14' y='43' width='36' height='7' rx='3' fill='url(#cr4g)' stroke='#5f4210' stroke-width='1'/><ellipse cx='32' cy='46.5' rx='3.4' ry='3' fill='url(#cr4e)'/><circle cx='31' cy='45.5' r='.9' fill='#fff' opacity='.7'/><path d='M32 20l3 4h-6z' fill='#f6e7b8'/></svg>",
-  ring_monogram: "<svg viewBox='0 0 64 64'><defs><linearGradient id='rg1g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#7a5210'/></linearGradient></defs><ellipse cx='32' cy='56' rx='14' ry='3.5' fill='#000' opacity='.28'/><circle cx='32' cy='38' r='12' fill='none' stroke='url(#rg1g)' stroke-width='7'/><path d='M24 22h16l4 6-4 6H24l-4-6z' fill='url(#rg1g)' stroke='#5f4210' stroke-width='1'/><text x='32' y='31' font-size='8' text-anchor='middle' fill='#3b2807' font-family='serif' font-weight='bold'>1%</text></svg>",
-  ring_onyx: "<svg viewBox='0 0 64 64'><defs><linearGradient id='rg2g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#7a5210'/></linearGradient><radialGradient id='rg2o'><stop offset='0' stop-color='#3a3a42'/><stop offset='1' stop-color='#08080c'/></radialGradient></defs><ellipse cx='32' cy='56' rx='14' ry='3.5' fill='#000' opacity='.28'/><circle cx='32' cy='38' r='12' fill='none' stroke='url(#rg2g)' stroke-width='6'/><rect x='22' y='14' width='20' height='16' rx='4' fill='url(#rg2o)' stroke='url(#rg2g)' stroke-width='2.5'/><path d='M25 17l6 4-4 5' fill='none' stroke='#fff' stroke-width='1.2' opacity='.35'/></svg>",
-  ring_falcon: "<svg viewBox='0 0 64 64'><defs><linearGradient id='rg3g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#7a5210'/></linearGradient><radialGradient id='rg3e'><stop offset='0' stop-color='#8ff0b8'/><stop offset='1' stop-color='#0d6b3f'/></radialGradient></defs><ellipse cx='32' cy='56' rx='14' ry='3.5' fill='#000' opacity='.28'/><circle cx='32' cy='40' r='11' fill='none' stroke='url(#rg3g)' stroke-width='6'/><path d='M18 26q8-8 14-4 6-4 14 4-8-2-14 2-6-4-14-2z' fill='url(#rg3g)' stroke='#5f4210' stroke-width='.8'/><rect x='26' y='18' width='12' height='10' rx='2' fill='url(#rg3e)' stroke='#f6e7b8' stroke-width='1'/></svg>",
-  ring_chrono: "<svg viewBox='0 0 64 64'><defs><linearGradient id='rg4g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#f6d8a8'/><stop offset='.5' stop-color='#c98f4a'/><stop offset='1' stop-color='#6b4a1c'/></linearGradient></defs><ellipse cx='32' cy='56' rx='14' ry='3.5' fill='#000' opacity='.28'/><circle cx='32' cy='36' r='14' fill='none' stroke='url(#rg4g)' stroke-width='8'/><g stroke='#5f4210' stroke-width='.7' opacity='.7'><line x1='32' y1='22' x2='32' y2='26'/><line x1='46' y1='36' x2='42' y2='36'/><line x1='32' y1='50' x2='32' y2='46'/><line x1='18' y1='36' x2='22' y2='36'/></g><circle cx='32' cy='36' r='6' fill='#171310'/><circle cx='32' cy='36' r='6' fill='none' stroke='#f6e7b8' stroke-width='.8'/></svg>",
-  aura_radial: "<svg viewBox='0 0 64 64'><defs><radialGradient id='au1g'><stop offset='0' stop-color='#fff8e0' stop-opacity='.9'/><stop offset='.6' stop-color='#e9c877' stop-opacity='.35'/><stop offset='1' stop-color='#e9c877' stop-opacity='0'/></radialGradient></defs><circle cx='32' cy='32' r='26' fill='url(#au1g)'/><g stroke='#c9a24a' stroke-width='1.4' opacity='.85'><line x1='32' y1='6' x2='32' y2='14'/><line x1='32' y1='50' x2='32' y2='58'/><line x1='6' y1='32' x2='14' y2='32'/><line x1='50' y1='32' x2='58' y2='32'/><line x1='13' y1='13' x2='19' y2='19'/><line x1='45' y1='45' x2='51' y2='51'/><line x1='45' y1='19' x2='51' y2='13'/><line x1='13' y1='51' x2='19' y2='45'/></g><circle cx='32' cy='32' r='12' fill='none' stroke='#d4af37' stroke-width='2.5'/><circle cx='32' cy='32' r='8' fill='none' stroke='#f6e7b8' stroke-width='1' opacity='.8'/></svg>",
-  aura_guilloche: "<svg viewBox='0 0 64 64'><defs><radialGradient id='au2g'><stop offset='0' stop-color='#fff8e0' stop-opacity='.8'/><stop offset='1' stop-color='#e9c877' stop-opacity='0'/></radialGradient></defs><circle cx='32' cy='32' r='26' fill='url(#au2g)'/><g fill='none' stroke='#b8860b' stroke-width='1'><ellipse cx='32' cy='32' rx='22' ry='8'/><ellipse cx='32' cy='32' rx='22' ry='8' transform='rotate(30 32 32)'/><ellipse cx='32' cy='32' rx='22' ry='8' transform='rotate(60 32 32)'/><ellipse cx='32' cy='32' rx='22' ry='8' transform='rotate(90 32 32)'/><ellipse cx='32' cy='32' rx='22' ry='8' transform='rotate(120 32 32)'/><ellipse cx='32' cy='32' rx='22' ry='8' transform='rotate(150 32 32)'/></g><circle cx='32' cy='32' r='24' fill='none' stroke='#d4af37' stroke-width='2'/></svg>",
-  aura_eclipse: "<svg viewBox='0 0 64 64'><defs><radialGradient id='au3g'><stop offset='0' stop-color='#e9c877' stop-opacity='.5'/><stop offset='1' stop-color='#e9c877' stop-opacity='0'/></radialGradient><radialGradient id='au3d'><stop offset='0' stop-color='#241c14'/><stop offset='1' stop-color='#0a0806'/></radialGradient></defs><circle cx='32' cy='32' r='27' fill='url(#au3g)'/><circle cx='32' cy='32' r='17' fill='url(#au3d)'/><path d='M15 32a17 17 0 0 1 34 0' fill='none' stroke='#f6e7b8' stroke-width='2.4' opacity='.95'/><path d='M15 32a17 17 0 0 0 34 0' fill='none' stroke='#8a6420' stroke-width='1.2' opacity='.8'/></svg>",
-  aura_celestial: "<svg viewBox='0 0 64 64'><defs><radialGradient id='au4g'><stop offset='0' stop-color='#fff8e0' stop-opacity='.85'/><stop offset='.7' stop-color='#e9c877' stop-opacity='.25'/><stop offset='1' stop-color='#e9c877' stop-opacity='0'/></radialGradient></defs><circle cx='32' cy='32' r='27' fill='url(#au4g)'/><circle cx='32' cy='32' r='20' fill='none' stroke='#d4af37' stroke-width='2.2'/><circle cx='32' cy='32' r='15' fill='none' stroke='#f6e7b8' stroke-width='1' opacity='.85'/><g fill='#fff8e0'><circle cx='16' cy='20' r='1.6'/><circle cx='48' cy='18' r='1.2'/><circle cx='52' cy='40' r='1.7'/><circle cx='20' cy='46' r='1.2'/><circle cx='32' cy='8' r='1.4'/><circle cx='42' cy='52' r='1.1'/></g><circle cx='32' cy='32' r='6' fill='#e9c877'/></svg>",
-  star_sovereign: "<svg viewBox='0 0 64 64'><defs><linearGradient id='st1g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#fdf6d8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#8a6420'/></linearGradient></defs><ellipse cx='32' cy='56' rx='13' ry='3' fill='#000' opacity='.25'/><path d='M32 6l4 18 14-8-8 14 18 4-18 4 8 14-14-8-4 18-4-18-14 8 8-14-18-4 18-4-8-14 14 8z' fill='url(#st1g)' stroke='#5f4210' stroke-width='.8'/><circle cx='32' cy='32' r='4' fill='#fff8e0'/></svg>",
-  star_grand_cross: "<svg viewBox='0 0 64 64'><defs><linearGradient id='st2g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#fdf6d8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#8a6420'/></linearGradient></defs><ellipse cx='32' cy='56' rx='13' ry='3' fill='#000' opacity='.25'/><g fill='url(#st2g)' stroke='#5f4210' stroke-width='.8'><path d='M32 8l5 16h-10z'/><path d='M32 56l5-16h-10z'/><path d='M8 32l16-5v10z'/><path d='M56 32l-16-5v10z'/><path d='M15 15l12 9-7 7z'/><path d='M49 15l-12 9 7 7z'/><path d='M15 49l12-9-7-7z'/><path d='M49 49l-12-9 7-7z'/></g><circle cx='32' cy='32' r='7' fill='url(#st2g)' stroke='#5f4210' stroke-width='.8'/><circle cx='30' cy='30' r='2' fill='#fff8e0' opacity='.8'/></svg>",
-  star_constellation: "<svg viewBox='0 0 64 64'><defs><linearGradient id='st3g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#fdf6d8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#8a6420'/></linearGradient><radialGradient id='st3s'><stop offset='0' stop-color='#7fb8ff'/><stop offset='1' stop-color='#123a7a'/></radialGradient></defs><ellipse cx='32' cy='56' rx='13' ry='3' fill='#000' opacity='.25'/><path d='M32 8l6 18 18 6-18 6-6 18-6-18-18-6 18-6z' fill='url(#st3g)' stroke='#5f4210' stroke-width='.8'/><path d='M32 20l3 9 9 3-9 3-3 9-3-9-9-3 9-3z' fill='#f6ead0' opacity='.55'/><circle cx='32' cy='32' r='4.5' fill='url(#st3s)'/><circle cx='31' cy='31' r='1.2' fill='#fff' opacity='.75'/></svg>",
-  star_zenith: "<svg viewBox='0 0 64 64'><defs><linearGradient id='st4g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#ffffff'/><stop offset='.5' stop-color='#c9ced6'/><stop offset='1' stop-color='#878e98'/></linearGradient></defs><ellipse cx='32' cy='56' rx='13' ry='3' fill='#000' opacity='.25'/><path d='M32 6l5 21 21 5-21 5-5 21-5-21-21-5 21-5z' fill='url(#st4g)' stroke='#6d747e' stroke-width='.8'/><path d='M32 6l5 21-5 5-5-5z' fill='#ffffff' opacity='.7'/><circle cx='32' cy='32' r='4' fill='#e9c877'/></svg>",
-  art_tourbillon: "<svg viewBox='0 0 64 64'><defs><linearGradient id='ar1g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#7a5210'/></linearGradient><radialGradient id='ar1d'><stop offset='0' stop-color='#fdfaf2'/><stop offset='1' stop-color='#e8dcc0'/></radialGradient></defs><ellipse cx='32' cy='57' rx='14' ry='3' fill='#000' opacity='.28'/><circle cx='32' cy='37' r='17' fill='url(#ar1d)' stroke='url(#ar1g)' stroke-width='4'/><circle cx='32' cy='37' r='12' fill='none' stroke='#b8965a' stroke-width='.7' opacity='.7'/><g stroke='#3b2807' stroke-width='.8' opacity='.8'><line x1='32' y1='27' x2='32' y2='29'/><line x1='42' y1='37' x2='40' y2='37'/><line x1='32' y1='47' x2='32' y2='45'/><line x1='22' y1='37' x2='24' y2='37'/></g><line x1='32' y1='37' x2='32' y2='29' stroke='#1a3a8a' stroke-width='1.6'/><line x1='32' y1='37' x2='39' y2='41' stroke='#1a3a8a' stroke-width='1.6'/><circle cx='32' cy='37' r='1.6' fill='#d4af37'/><rect x='29' y='14' width='6' height='5' rx='2' fill='url(#ar1g)'/><circle cx='32' cy='12' r='3' fill='url(#ar1g)'/></svg>",
-  art_seal: "<svg viewBox='0 0 64 64'><defs><linearGradient id='ar2g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.5' stop-color='#c9a24a'/><stop offset='1' stop-color='#6b4a1c'/></linearGradient><linearGradient id='ar2o' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#2c2620'/><stop offset='1' stop-color='#0c0a08'/></linearGradient></defs><ellipse cx='32' cy='57' rx='16' ry='3.5' fill='#000' opacity='.3'/><rect x='14' y='46' width='36' height='9' rx='2' fill='url(#ar2o)' stroke='#000' stroke-width='.6'/><rect x='18' y='42' width='28' height='5' rx='2' fill='url(#ar2g)'/><rect x='29' y='24' width='6' height='18' rx='2' fill='url(#ar2g)'/><path d='M24 24q8-10 16 0v4H24z' fill='url(#ar2g)' stroke='#5f4210' stroke-width='.7'/><circle cx='32' cy='50' r='2.4' fill='#d4af37' opacity='.85'/></svg>",
-  art_falcon_medallion: "<svg viewBox='0 0 64 64'><defs><linearGradient id='ar3g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#7a5210'/></linearGradient><linearGradient id='ar3r' x1='0' y1='0' x2='1' y2='0'><stop offset='0' stop-color='#7a1f1f'/><stop offset='1' stop-color='#4a1010'/></linearGradient></defs><path d='M26 6h12v14H26z' fill='url(#ar3r)'/><circle cx='32' cy='38' r='15' fill='url(#ar3g)' stroke='#5f4210' stroke-width='1'/><circle cx='32' cy='38' r='11' fill='none' stroke='#f6e7b8' stroke-width='.9' opacity='.8'/><path d='M32 30l-7 8h4l-2 6 5-4 5 4-2-6h4z' fill='#5f4210'/><circle cx='30' cy='34' r='1.2' fill='#fff8e0' opacity='.8'/></svg>",
-  art_scepter: "<svg viewBox='0 0 64 64'><defs><linearGradient id='ar4g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='#f8ecc8'/><stop offset='.5' stop-color='#d4af37'/><stop offset='1' stop-color='#6b4a1c'/></linearGradient><linearGradient id='ar4o' x1='0' y1='0' x2='1' y2='0'><stop offset='0' stop-color='#2c2620'/><stop offset='.5' stop-color='#0c0a08'/><stop offset='1' stop-color='#241e18'/></linearGradient><radialGradient id='ar4s'><stop offset='0' stop-color='#7fb8ff'/><stop offset='1' stop-color='#123a7a'/></radialGradient></defs><ellipse cx='32' cy='57' rx='10' ry='3' fill='#000' opacity='.3'/><rect x='29' y='22' width='6' height='34' rx='3' fill='url(#ar4o)'/><rect x='26' y='16' width='12' height='7' rx='2' fill='url(#ar4g)'/><circle cx='32' cy='11' r='5' fill='url(#ar4s)'/><circle cx='30.5' cy='9.5' r='1.4' fill='#fff' opacity='.8'/><rect x='27' y='30' width='10' height='3' rx='1.5' fill='url(#ar4g)'/></svg>",
+const ICONS = Object.assign({}, window.SOVEREIGN_ARTIFACTS || {});
 
-  // --- WIDGET ---
-  wid_mastercard: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg">
-    <defs>
-      <linearGradient id="wm-gold" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#FFFDF5"/>
-        <stop offset="30%" stop-color="#E2AE33"/>
-        <stop offset="70%" stop-color="#875E16"/>
-        <stop offset="100%" stop-color="#1A0D02"/>
-      </linearGradient>
-    </defs>
-    <rect x="8" y="14" width="48" height="36" rx="4" fill="#0A0907" stroke="url(#wm-gold)" stroke-width="1.5"/>
-    <rect x="11" y="17" width="42" height="30" rx="2" fill="none" stroke="url(#wm-gold)" stroke-width="0.6" stroke-dasharray="2 1" opacity="0.6"/>
-    <!-- Mini Portrait Medallion -->
-    <circle cx="20" cy="28" r="6" fill="#1A150D" stroke="url(#wm-gold)" stroke-width="1"/>
-    <!-- Member Info Bars -->
-    <rect x="29" y="24" width="20" height="2" rx="1" fill="url(#wm-gold)"/>
-    <rect x="29" y="29" width="14" height="2" rx="1" fill="#78716C"/>
-    <!-- Hallmark Crown bottom -->
-    <polygon points="44,38 46,42 42,42" fill="url(#wm-gold)"/>
-  </svg>`,
+function getSovereignArtifact(iconKey) {
+  if (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[iconKey]) {
+    return window.SOVEREIGN_ARTIFACTS[iconKey];
+  }
+  if (typeof ICONS !== "undefined" && ICONS && ICONS[iconKey]) {
+    return ICONS[iconKey];
+  }
+  return (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.star) || "";
+}
 
-  // Backward compatibility fallback keys
-  star: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><linearGradient id="fb-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFDF5"/><stop offset="30%" stop-color="#F2C656"/><stop offset="70%" stop-color="#9C6F19"/><stop offset="100%" stop-color="#2D1902"/></linearGradient></defs><polygon points="32,6 38,23 56,14 46,30 60,34 46,38 56,54 38,43 32,60 26,43 8,54 18,38 4,34 18,30 8,14 26,23" fill="url(#fb-gold)" stroke="#5E4008" stroke-width="1"/><circle cx="32" cy="33" r="8" fill="#1C1405" stroke="url(#fb-gold)" stroke-width="1"/></svg>`,
-  crown: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><linearGradient id="fb-cgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFDF5"/><stop offset="30%" stop-color="#E8B838"/><stop offset="70%" stop-color="#8F6211"/><stop offset="100%" stop-color="#241402"/></linearGradient></defs><path d="M10 46 C 20 51, 44 51, 54 46 L 52 42 C 42 45, 22 45, 12 42 Z" fill="url(#fb-cgold)" stroke="#593704" stroke-width="0.8"/><path d="M12 42 L 8 26 L 20 34 L 32 14 L 44 34 L 56 26 L 52 42 C 42 45, 22 45, 12 42 Z" fill="url(#fb-cgold)" stroke="#3A2203" stroke-width="1"/><circle cx="32" cy="14" r="2.5" fill="#FFFDF0"/><circle cx="8" cy="26" r="2" fill="#FFFDF0"/><circle cx="56" cy="26" r="2" fill="#FFFDF0"/></svg>`,
-  aura: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><radialGradient id="fb-aglow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FFFDF5" stop-opacity="0.8"/><stop offset="50%" stop-color="#E2AE33" stop-opacity="0.4"/><stop offset="100%" stop-color="#000000" stop-opacity="0"/></radialGradient></defs><circle cx="32" cy="32" r="28" fill="url(#fb-aglow)"/><circle cx="32" cy="32" r="22" stroke="#FDE895" stroke-width="1.2" stroke-dasharray="2 2"/></svg>`,
-  ring: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><linearGradient id="fb-rgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFDF5"/><stop offset="30%" stop-color="#E5B238"/><stop offset="70%" stop-color="#875E16"/><stop offset="100%" stop-color="#231604"/></linearGradient></defs><ellipse cx="32" cy="36" rx="18" ry="15" stroke="url(#fb-rgold)" stroke-width="4.5" fill="none"/><polygon points="24,12 40,12 46,20 46,28 40,34 24,34 18,28 18,20" fill="url(#fb-rgold)" stroke="#523608" stroke-width="1"/><circle cx="32" cy="23" r="5" fill="#140F04"/></svg>`,
-  pendant: `<svg viewBox="0 0 64 64" fill="none" class="artifact-svg"><defs><linearGradient id="fb-pgold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFDF5"/><stop offset="30%" stop-color="#F59E0B"/><stop offset="70%" stop-color="#92400E"/><stop offset="100%" stop-color="#271103"/></linearGradient></defs><circle cx="32" cy="38" r="16" fill="url(#fb-pgold)" stroke="#5E2A06" stroke-width="1.2"/><circle cx="32" cy="38" r="12" fill="#140F04"/><circle cx="32" cy="18" r="3" stroke="url(#fb-pgold)" stroke-width="2" fill="none"/></svg>`,
-};
 
 const RARITY_LABEL = {
   1: () => window.t("boutique.rarity1") || "مقتنى استثنائي",
@@ -2272,32 +2233,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           const isOwned = !!ClubState.owned[item.id];
           const isEquipped = ClubState.equipped[catKey] === item.id;
           const tierEligible = typeof isTierEligible === "function" ? isTierEligible(userTier, item.requiredTier) : true;
-
-          let btnText = "";
-          let btnClass = "";
-          let btnOnClick = "";
-          let btnPointerEvents = "pointer-events: auto;";
-          let extraCardClass = "";
-          
-          if (item.free) {
-            btnText = window.t("boutique.freeActivated") || "مُفعَّل ومثبت ✓";
-            btnClass = "btn-free";
-            btnPointerEvents = "pointer-events: none;";
-          } else if (isOwned) {
-            btnText = `<span class="ownership-seal-mark" aria-hidden="true">✓</span><span class="ownership-seal-text">${window.t("boutique.owned") || "مملوك"}</span>`;
-            btnClass = "btn-owned boutique-ownership-plaque" + (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id) ? " qp-success-btn" : "");
-            extraCardClass = (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) ? " qp-shimmer-active" : "";
-            btnPointerEvents = "pointer-events: none;";
-            btnOnClick = "";
-          } else if (!tierEligible) {
-            btnText = isAr ? `يتطلب ${item.requiredTier}` : `Requires ${item.requiredTier}`;
-            btnClass = "btn-locked";
-            btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
-          } else {
-            btnText = window.t("boutique.acquire") || "امتلك";
-            btnClass = "btn-acquire";
-            btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
-          }
+          const extraCardClass = (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) ? " qp-shimmer-active" : "";
 
           const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`.trim();
           const priceHtml = item.free
@@ -2317,37 +2253,65 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             progressHtml = `<div class="purchase-progress-wrap is-transparent"></div>`;
           }
 
-          let iconHtml = "";
-          if (item.image) {
-            iconHtml = `<img src="${item.image}" alt="${window.t(item.name)}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-                        <span class="boutique-card-fallback" style="display:none">${ICONS[item.icon] || ICONS["star"]}</span>`;
-          } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
-            iconHtml = `<img src="${item.icon}" alt="${window.t(item.name)}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-                        <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
-          } else {
-            iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
-          }
+          const isObsidianBase = (item.requiredTier === "SOVEREIGN EXARCH" || item.rarity >= 4 || item.id === "crown4" || item.id === "star4");
+          const artifactSvg = getSovereignArtifact(item.icon);
+          const clocheHtml = (typeof window.renderClocheVitrine === "function")
+            ? window.renderClocheVitrine(artifactSvg, isObsidianBase, item.id)
+            : `<span class="boutique-card-fallback" style="display:flex">${artifactSvg}</span>`;
 
           const tierShort = item.requiredTier ? item.requiredTier.replace(/^SOVEREIGN\s+/i, "") : "";
           const tierPillHtml = (!isOwned && !tierEligible && item.requiredTier)
-            ? `<span class="boutique-tier-plaque" title="${item.requiredTier}"><span class="tier-plaque-mark">✦</span> ${tierShort}</span>`
+            ? `<span class="boutique-tier-plaque" title="${item.requiredTier}"><span class="tier-plaque-mark">❖</span> ${tierShort}</span>`
             : "";
+
+          let btnContent = "";
+          let btnClass = "";
+          let btnOnClick = "";
+          let btnPointerEvents = "pointer-events: auto;";
+
+          if (item.free) {
+            btnContent = `<span class="boutique-free-badge">✓ ${isAr ? "مشمول مجاناً" : "Included Free"}</span>`;
+            btnClass = "btn-free";
+            btnPointerEvents = "pointer-events: none;";
+          } else if (isOwned) {
+            btnContent = `<span class="btn-owned-text">✓ ${window.t("boutique.owned") || "مملوك"}</span>`;
+            btnClass = "btn-owned";
+            btnPointerEvents = "pointer-events: none;";
+          } else if (!tierEligible) {
+            const reqLabel = isAr ? `رتبة ${item.requiredTier}` : `${item.requiredTier} Tier`;
+            btnContent = `<svg class="btn-lock-svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 5a3 3 0 016 0v3H9V7z"/></svg> <span>${reqLabel}</span>`;
+            btnClass = "btn-locked";
+            btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
+          } else {
+            btnContent = `<span>${window.t("boutique.acquire") || (isAr ? "امتلك" : "Acquire")}</span> <svg class="btn-bag-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`;
+            btnClass = "btn-acquire";
+            btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
+          }
 
           return `
           <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned})' style="cursor: pointer;">
+            <!-- Ornate Golden Corners -->
+            <span class="b-card-corner tl" aria-hidden="true"></span>
+            <span class="b-card-corner tr" aria-hidden="true"></span>
+            <span class="b-card-corner bl" aria-hidden="true"></span>
+            <span class="b-card-corner br" aria-hidden="true"></span>
+
             <div class="boutique-card-header">
               <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "نادر"}</span>
               ${tierPillHtml}
             </div>
-            <span class="boutique-card-icon">
-              ${iconHtml}
-            </span>
+            
+            <div class="boutique-cloche-stage">
+              ${clocheHtml}
+            </div>
+
             <span class="boutique-card-name">${window.t(item.name)}</span>
             ${priceHtml}
-            ${progressHtml}
+            <div class="boutique-card-gold-bar" aria-hidden="true"></div>
+
             <div class="boutique-card-footer">
-              <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick} ${isOwned ? 'tabindex="-1" aria-label="' + (window.t("boutique.owned") || "مملوك") + '"' : ''}>
-                ${btnText}
+              <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick}>
+                ${btnContent}
               </button>
             </div>
           </div>
@@ -3490,7 +3454,7 @@ function showPremiumToast(title, msg) {
   clearTimeout(premiumToastTimer);
   premiumToastTimer = setTimeout(
     () => toast.classList.remove("is-visible"),
-    2500,
+    3600,
   );
 }
 
@@ -4667,6 +4631,7 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
   const userTier = (ClubState.member && ClubState.member.tier) || "SOVEREIGN MEMBER";
   const tierEligible = typeof isTierEligible === "function" ? isTierEligible(userTier, item.requiredTier) : true;
+  const isActuallyOwned = !!(isOwned || (ClubState && ClubState.owned && ClubState.owned[item.id]));
 
   const titleEl = document.getElementById("inspectionTitle");
   if (titleEl) titleEl.textContent = window.t(item.name);
@@ -4681,7 +4646,7 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const statusBadge = document.getElementById("inspectionStatusBadge");
   const statusText = document.getElementById("inspectionStatusText");
   if (statusBadge && statusText) {
-    if (isOwned) {
+    if (isActuallyOwned) {
       statusText.textContent = isAr ? "مملوك" : "OWNED";
       statusBadge.className = "rmc-status-badge is-vaulted";
     } else {
@@ -4696,16 +4661,44 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const weightEl = document.getElementById("inspectionWeight");
   if (weightEl) weightEl.textContent = isAr ? (item.weightAr || item.weight || "معيار سيادي خاص") : (item.weight || item.weightAr || "Sovereign Standard");
 
+  const tierLabelEl = document.getElementById("inspectionTierLabel");
   const tierEl = document.getElementById("inspectionRequiredTier");
   if (tierEl) {
-    const tierName = item.requiredTier || "SOVEREIGN MEMBER";
-    tierEl.innerHTML = tierEligible 
-      ? `<span style="color: #7fbe8c;">✓ ${tierName}</span>` 
-      : `<span style="color: #e5989b;">🔒 ${tierName}</span>`;
+    if (isActuallyOwned) {
+      if (tierLabelEl) {
+        tierLabelEl.textContent = isAr ? "حالة الحيازة" : "Custody Status";
+      }
+      tierEl.innerHTML = isAr 
+        ? `<span class="spec-owned-tag" style="color: #1b7a36; font-weight: 700;">✓ مقتناة في الخزينة</span>` 
+        : `<span class="spec-owned-tag" style="color: #1b7a36; font-weight: 700;">✓ Vaulted & Acquired</span>`;
+    } else {
+      if (tierLabelEl) {
+        tierLabelEl.textContent = isAr ? "أهلية الاقتناء" : "Acquisition Eligibility";
+      }
+      const rawTier = item.requiredTier || "SOVEREIGN MEMBER";
+      let shortTier = "عضو سيادي";
+      if (/LUMINARY/i.test(rawTier)) shortTier = "رتبة الوجاهة";
+      else if (/EXARCH/i.test(rawTier)) shortTier = "الحاكم التنفيذي";
+
+      if (isAr) {
+        tierEl.innerHTML = tierEligible 
+          ? `<span style="color: #1b7a36; font-weight: 700;">✓ مؤهل • ${shortTier}</span>` 
+          : `<span style="color: #b91c1c; font-weight: 700;">🔒 يتطلب • ${shortTier}</span>`;
+      } else {
+        const engShort = /LUMINARY/i.test(rawTier) ? "Luminary" : (/EXARCH/i.test(rawTier) ? "Exarch" : "Sovereign");
+        tierEl.innerHTML = tierEligible 
+          ? `<span style="color: #1b7a36; font-weight: 700;">✓ Eligible • ${engShort}</span>` 
+          : `<span style="color: #b91c1c; font-weight: 700;">🔒 Requires • ${engShort}</span>`;
+      }
+    }
   }
 
   const priceEl = document.getElementById("inspectionPrice");
-  if (priceEl) priceEl.textContent = item.free ? (isAr ? "مشمول مجاناً" : "Included Free") : `$${item.price.toLocaleString("en-US")}`;
+  if (priceEl) {
+    priceEl.innerHTML = item.free 
+      ? (isAr ? "مشمول مجاناً" : "Included Free") 
+      : `<bdi dir="ltr" style="font-variant-numeric: tabular-nums;">$${item.price.toLocaleString("en-US")}</bdi>`;
+  }
 
   const loreEl = document.getElementById("inspectionLore");
   if (loreEl) {
@@ -4715,14 +4708,15 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const imgEl = document.getElementById("inspectionImage");
   if (imgEl) {
     let mediaContent = "";
+    const artSvg = getSovereignArtifact(item.icon);
     if (item.image) {
       mediaContent = `<img src="${item.image}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
-                      <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS[item.icon] || ICONS["crown"]}</div>`;
+                      <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${artSvg}</div>`;
     } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
       mediaContent = `<img src="${item.icon}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
-                      <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${ICONS["crown"]}</div>`;
+                      <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${artSvg}</div>`;
     } else {
-      mediaContent = ICONS[item.icon] || ICONS["crown"];
+      mediaContent = artSvg;
     }
     imgEl.innerHTML = mediaContent;
   }
@@ -4730,31 +4724,44 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const equipBtn = document.getElementById("inspectionEquipBtn");
   const equipBtnText = document.getElementById("inspectionEquipBtnText");
   const setBtnText = (txt) => {
-    if (equipBtnText) equipBtnText.textContent = txt;
-    else if (equipBtn) equipBtn.textContent = txt;
+    if (equipBtnText) equipBtnText.innerHTML = txt;
+    else if (equipBtn) equipBtn.innerHTML = txt;
   };
 
   if (equipBtn) {
-    if (isOwned || item.free) {
+    if (isActuallyOwned || item.free) {
       // Collectible is already owned: display-only inspection mode.
-      // Absolutely NO imitation, equip, or unequip buttons/actions.
-      equipBtn.style.display = "none";
+      // Hide acquire action completely so only "Close" is present.
+      equipBtn.style.setProperty("display", "none", "important");
+      equipBtn.classList.add("is-hidden");
+      equipBtn.hidden = true;
       equipBtn.disabled = true;
       equipBtn.onclick = null;
+      setBtnText(isAr ? "تحفة سيادية مقتناة ومحفوظة بالخزينة" : "Acquired & Preserved in Vault");
     } else if (!tierEligible) {
-      equipBtn.style.display = "flex";
-      setBtnText(isAr ? `يتطلب رتبة ${item.requiredTier}` : `Requires ${item.requiredTier}`);
+      equipBtn.hidden = false;
+      equipBtn.classList.remove("is-hidden");
+      equipBtn.style.setProperty("display", "flex", "important");
+      let shortReq = "عضو سيادي";
+      if (/LUMINARY/i.test(item.requiredTier)) shortReq = "رتبة الوجاهة";
+      else if (/EXARCH/i.test(item.requiredTier)) shortReq = "الحاكم التنفيذي";
+      setBtnText(isAr ? `يتطلب رتبة (${shortReq})` : `Requires ${item.requiredTier}`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn is-locked";
       equipBtn.onclick = () => {
         const msg = isAr 
-          ? `هذه التحفة مخصصة حصرياً لأعضاء رتبة ${item.requiredTier} فأعلى.`
+          ? `هذه التحفة مخصصة حصرياً لأصحاب ${shortReq} فأعلى.`
           : `This artifact requires ${item.requiredTier} standing or above.`;
         showNavToast(msg);
       };
     } else if (ClubState.balance < item.price) {
-      equipBtn.style.display = "flex";
-      setBtnText(isAr ? `رصيد غير كافٍ — إيداع رصيد ($${item.price.toLocaleString()})` : `Insufficient Balance — Deposit ($${item.price.toLocaleString()})`);
+      equipBtn.hidden = false;
+      equipBtn.classList.remove("is-hidden");
+      equipBtn.style.setProperty("display", "flex", "important");
+      const fmtP = item.price.toLocaleString("en-US");
+      setBtnText(isAr 
+        ? `رصيد غير كافٍ — إيداع <bdi dir="ltr">$${fmtP}</bdi>` 
+        : `Insufficient Balance — Deposit <bdi dir="ltr">$${fmtP}</bdi>`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn needs-balance";
       equipBtn.onclick = () => {
@@ -4764,8 +4771,13 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
         }
       };
     } else {
-      equipBtn.style.display = "flex";
-      setBtnText(`${window.t("boutique.acquireAction") || (isAr ? "اقتناء التحفة السيادية" : "Acquire Artifact")} — $${item.price.toLocaleString("en-US")}`);
+      equipBtn.hidden = false;
+      equipBtn.classList.remove("is-hidden");
+      equipBtn.style.setProperty("display", "flex", "important");
+      const fmtP = item.price.toLocaleString("en-US");
+      setBtnText(isAr 
+        ? `اقتناء التحفة السيادية • <bdi dir="ltr" style="font-variant-numeric: tabular-nums;">$${fmtP}</bdi>` 
+        : `Acquire Sovereign Artifact • <bdi dir="ltr">$${fmtP}</bdi>`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn btn-gold";
       equipBtn.onclick = () => {
@@ -6820,12 +6832,31 @@ function attachDeedInteractiveHandlers() {
       setTimeout(() => waxSeal.classList.remove("is-wax-pressed"), 650);
     }
 
-    const title = window.t("profile.authenticatedSeal") || "AUTHENTICATED ARCHIVE";
-    const toastMsg = window.t("profile.deedVerifiedToast") || "Sovereign Deed verified against immutable Club Ledger.";
-    if (typeof showPremiumToast === "function") {
-      showPremiumToast(title, toastMsg);
-    } else if (typeof showCopyToast === "function") {
-      showCopyToast(toastMsg);
+    if (verifyBtn) {
+      const span = verifyBtn.querySelector("span");
+      const originalText = span ? span.textContent : "";
+      verifyBtn.classList.add("is-confirmed-stamp");
+      const isAr = window.AppState?.lang === "ar" || !window.AppState?.lang;
+      if (span) {
+        span.textContent = isAr 
+          ? "صك معتمد وموثق سيادياً" 
+          : "OFFICIALLY AUTHENTICATED";
+      }
+      if (typeof showNavToast === "function") {
+        showNavToast(isAr 
+          ? "❖ صك السيادة معتمد وغير قابل للتحوير • الأرشيف السيادي ❖" 
+          : "❖ SOVEREIGN DEED VALIDATED • IMMUTABLE GENESIS RECORD ❖");
+      }
+      setTimeout(() => {
+        verifyBtn.classList.remove("is-confirmed-stamp");
+        if (span && originalText) {
+          span.textContent = originalText;
+        }
+      }, 3500);
+    }
+
+    if (typeof spawnGoldenConfetti === "function") {
+      spawnGoldenConfetti();
     }
   };
 
@@ -7001,15 +7032,28 @@ function attachOathInteractiveHandlers() {
       }
 
       signetBtn.classList.add("is-signet-pressed");
-      setTimeout(() => signetBtn.classList.remove("is-signet-pressed"), 600);
+      const textEl = signetBtn.querySelector(".ossb-text");
+      const originalText = textEl ? textEl.textContent : "";
+      const isAr = window.AppState?.lang === "ar" || !window.AppState?.lang;
+      if (textEl) {
+        textEl.textContent = isAr
+          ? "تم تجديد وتوثيق القَسَم في الأرشيف"
+          : "OATH REAFFIRMED & ARCHIVED";
+      }
+      if (typeof showNavToast === "function") {
+        showNavToast(isAr 
+          ? "❖ جرى توثيق وتجديد ميثاق السيادة في السجل الدائم ❖" 
+          : "❖ SOVEREIGN OATH REAFFIRMED & PERMANENTLY RECORDED ❖");
+      }
+      setTimeout(() => {
+        signetBtn.classList.remove("is-signet-pressed");
+        if (textEl && originalText) {
+          textEl.textContent = originalText;
+        }
+      }, 3500);
 
-      const title = (window.t && window.t("profile.oathSectionTitle")) || "SOVEREIGN DECREE";
-      const toastMsg = (window.t && window.t("profile.oathReaffirmedToast")) || "The Sovereign Oath of Discretion has been solemnly reaffirmed in the Club Archives.";
-
-      if (typeof showPremiumToast === "function") {
-        showPremiumToast(title, toastMsg);
-      } else if (typeof showCopyToast === "function") {
-        showCopyToast(toastMsg);
+      if (typeof spawnGoldenConfetti === "function") {
+        spawnGoldenConfetti();
       }
     });
   }
