@@ -1078,6 +1078,7 @@ const AppState = {
     status: "ACTIVE",
     wealthIndexValue: 60.0,
     privilegesValue: 60.0,
+    privileges: "60.0%",
     connectionsValue: 60.0,
     verifyUrl: "https://1percent.club/verify/3426",
   },
@@ -1366,35 +1367,38 @@ const AppState = {
         if (this.owned[item.id]) {
           totalItems++;
           
-          // 1. Economic Wealth Impact (based on item price)
-          // Low-value items ($1k-$3k) yield subtle increments (+0.3% - +0.6%)
-          // Mid-value items ($7.5k-$15k) yield moderate increments (+1.2% - +1.9%)
-          // High-value items ($25k-$75k) yield substantial increments (+2.6% - +5.3%)
-          // Top-tier items ($100k) yield highest increments (+6.3%)
+          // 1. Economic Wealth Impact (based on total economic valuation of collectibles)
+          // Low-value purchases ($1k-$3k) yield subtle gradual increments (+0.4% - +0.8%)
+          // Mid-value purchases ($7.5k-$15k) yield moderate increments (+1.5% - +2.4%)
+          // High-value purchases ($35k-$75k) yield substantial increments (+4.1% - +6.7%)
+          // Apex purchases ($100k) yield highest economic increments (+8.1%)
+          // Progressive power curve ensures measured evolution without jumping to 100% abruptly.
           const price = Number(item.price) || 0;
           if (price > 0) {
-            addedWealth += Math.pow(price, 0.62) / 200;
+            addedWealth += Math.pow(price, 0.65) / 220;
           }
 
           // 2. Privileges Impact (based on rarity, sovereign tier standing, and artifact prestige)
-          // Rarity scale:
-          let rImpact = 0.6;
-          if (item.rarity === 2) rImpact = 1.4;
-          else if (item.rarity === 3) rImpact = 2.8;
-          else if (item.rarity >= 4) rImpact = 4.8;
+          // Independent of price: rare and elevated sovereign-standing items have a significantly higher weight.
+          
+          // Rarity Weight:
+          let rImpact = 0.5; // Rarity 1 (Entry/Common)
+          if (item.rarity === 2) rImpact = 1.4; // Rarity 2 (Rare)
+          else if (item.rarity === 3) rImpact = 3.0; // Rarity 3 (Ultra-Rare)
+          else if (item.rarity >= 4) rImpact = 5.4; // Rarity 4 (Apex Sovereign)
 
-          // Standing tier scale:
-          let tierImpact = 0.5;
-          if (item.requiredTier === "SOVEREIGN EXARCH") tierImpact = 2.5;
-          else if (item.requiredTier === "SOVEREIGN LUMINARY") tierImpact = 1.4;
+          // Required Membership Standing Tier Weight:
+          let tierImpact = 0.4; // SOVEREIGN MEMBER
+          if (item.requiredTier === "SOVEREIGN LUMINARY") tierImpact = 2.2;
+          else if (item.requiredTier === "SOVEREIGN EXARCH") tierImpact = 4.5;
 
-          // Category Prestige weight:
-          const catPrestige = catKey === "artifacts" ? 1.2
-            : catKey === "crowns" ? 1.0
-            : catKey === "jewelry" ? 0.7
-            : catKey === "auras" ? 0.5
-            : catKey === "stars" ? 0.4
-            : 0.2;
+          // Category Prestige Weight:
+          const catPrestige = catKey === "artifacts" ? 1.8
+            : catKey === "crowns" ? 1.5
+            : catKey === "jewelry" ? 1.0
+            : catKey === "auras" ? 0.8
+            : catKey === "stars" ? 0.6
+            : 0.4;
 
           addedPrivilege += rImpact + tierImpact + catPrestige;
 
@@ -2012,12 +2016,22 @@ ClubState.on("change", () => {
 
   const pCardWealth = document.getElementById("profileCardWealthVal");
   if (pCardWealth) {
-    pCardWealth.textContent = AppState.user.wealthIndex || "98%";
+    pCardWealth.textContent = AppState.user.wealthIndex || "60.0%";
   }
 
   const pCardWealthFill = document.getElementById("profileCardWealthFill");
   if (pCardWealthFill) {
-    pCardWealthFill.style.width = AppState.user.wealthIndex || "98%";
+    pCardWealthFill.style.width = AppState.user.wealthIndex || "60.0%";
+  }
+
+  const memberProfileWealthEl = document.getElementById("memberProfileWealth");
+  if (memberProfileWealthEl) {
+    memberProfileWealthEl.textContent = AppState.user.wealthIndex || "60.0%";
+  }
+
+  const memberProfilePrivEl = document.getElementById("memberProfilePriv");
+  if (memberProfilePrivEl) {
+    memberProfilePrivEl.textContent = AppState.user.privileges || "60.0%";
   }
 
   const shareBtn = document.getElementById("shareBtn");
@@ -3130,10 +3144,10 @@ function openMemberProfile(member) {
 
   // Wealth & Privileges
   const wealthEl = document.getElementById("memberProfileWealth");
-  if (wealthEl) wealthEl.textContent = member.wealth || "99.4%";
+  if (wealthEl) wealthEl.textContent = member.wealthIndex || member.wealth || "60.0%";
 
   const privEl = document.getElementById("memberProfilePriv");
-  if (privEl) privEl.textContent = member.priv || "98.2%";
+  if (privEl) privEl.textContent = member.privileges || member.priv || "60.0%";
 
   // Sovereign ID
   const idEl = document.getElementById("memberDossierId");

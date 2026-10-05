@@ -25484,12 +25484,12 @@ body #profile-tab .vhb-status {
 .rmc-screw-br .rmc-screw-slot { transform: rotate(225deg) !important; }
 .rmc-screw-bl .rmc-screw-slot { transform: rotate(315deg) !important; }
 
-/* Modal Close Button: Compact Sovereign Circular Seal */
+/* Modal Close Button: Positioned in top corner */
 .rmc-close-btn {
   position: absolute !important;
-  top: 0 !important;
-  inset-inline-end: auto !important;
-  inset-inline-start: 0 !important;
+  top: 10px !important;
+  inset-inline-end: 10px !important;
+  inset-inline-start: auto !important;
   width: 28px !important;
   height: 28px !important;
   border-radius: 50% !important;
@@ -25500,7 +25500,7 @@ body #profile-tab .vhb-status {
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  z-index: 10 !important;
+  z-index: 20 !important;
   padding: 0 !important;
   transition: all 0.2s ease !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
@@ -25526,16 +25526,22 @@ body.light-mode .rmc-close-btn:hover {
   color: #241b0b !important;
 }
 
-/* Top Header & Sovereign Seal */
+/* Top Header & Sovereign Seal (Centered) */
 .rmc-header {
   display: flex !important;
+  flex-direction: column !important;
   align-items: center !important;
-  gap: 10px !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 3px !important;
   padding-bottom: 8px !important;
   margin-bottom: 8px !important;
   border-bottom: 1px solid rgba(212, 175, 106, 0.22) !important;
-  padding-inline-start: 34px !important; /* Space for the close button */
+  padding-inline-start: 0 !important;
+  padding-inline-end: 0 !important;
+  width: 100% !important;
   box-sizing: border-box !important;
+  position: relative !important;
 }
 
 body.light-mode .rmc-header {
@@ -25543,18 +25549,19 @@ body.light-mode .rmc-header {
 }
 
 .rmc-seal-wrap {
-  width: 36px !important;
-  height: 36px !important;
+  width: 32px !important;
+  height: 32px !important;
   flex-shrink: 0 !important;
 }
 
 .rmc-seal-mark {
-  width: 30px !important;
-  height: 30px !important;
+  width: 26px !important;
+  height: 26px !important;
   flex-shrink: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  margin: 0 auto !important;
 }
 
 .rmc-seal-svg {
@@ -25566,18 +25573,23 @@ body.light-mode .rmc-header {
 .rmc-header-texts {
   display: flex !important;
   flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
   gap: 1.5px !important;
+  width: 100% !important;
   overflow: hidden !important;
-  text-align: start !important;
 }
 
 .rmc-eyebrow {
-  font-size: 8px !important;
+  font-size: 8.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.08em !important;
   color: #d4af6a !important;
   text-transform: uppercase !important;
-  line-height: 1.1 !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  margin: 0 auto !important;
 }
 
 body.light-mode .rmc-eyebrow {
@@ -25586,14 +25598,16 @@ body.light-mode .rmc-eyebrow {
 
 .rmc-artifact-title {
   font-family: var(--font-heading, "Cinzel", serif) !important;
-  font-size: 14px !important;
+  font-size: 15px !important;
   font-weight: 700 !important;
   color: #f7eed7 !important;
-  margin: 0 !important;
+  margin: 1px auto !important;
   line-height: 1.25 !important;
+  text-align: center !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
+  max-width: 90% !important;
 }
 
 body.light-mode .rmc-artifact-title {
@@ -25604,26 +25618,28 @@ body.light-mode .rmc-artifact-title {
   font-family: monospace !important;
   font-size: 7.5px !important;
   color: #9d8c75 !important;
-  letter-spacing: 0.05em !important;
+  letter-spacing: 0.06em !important;
   line-height: 1.1 !important;
+  text-align: center !important;
+  margin: 0 auto !important;
 }
 
 body.light-mode .rmc-serial {
   color: #7d6b53 !important;
 }
 
-/* Turntable Pedestal Chamber */
+/* Enlarged Turntable Pedestal Chamber */
 .rmc-turntable-chamber {
   position: relative !important;
   margin: 0 0 8px 0 !important;
   border-radius: 12px !important;
   background: radial-gradient(ellipse at 50% 25%, #221b14 0%, #120e0a 60%, #060504 100%) !important;
   border: 1px solid rgba(212, 175, 106, 0.28) !important;
-  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.8) !important;
-  padding: 8px !important;
-  height: 98px !important;
-  min-height: 98px !important;
-  max-height: 98px !important;
+  box-shadow: inset 0 3px 12px rgba(0, 0, 0, 0.8) !important;
+  padding: 10px !important;
+  height: 136px !important;
+  min-height: 136px !important;
+  max-height: 136px !important;
   box-sizing: border-box !important;
   display: flex !important;
   flex-direction: column !important;
@@ -25640,17 +25656,17 @@ body.light-mode .rmc-turntable-chamber {
 .rmc-spotlight-cone {
   position: absolute !important;
   top: 0 !important;
-  left: 25% !important;
-  right: 25% !important;
-  height: 38px !important;
-  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 106, 0.22) 0%, transparent 100%) !important;
+  left: 20% !important;
+  right: 20% !important;
+  height: 55px !important;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 106, 0.25) 0%, transparent 100%) !important;
   pointer-events: none !important;
 }
 
 .rmc-turntable-pedestal {
   position: relative !important;
-  width: 56px !important;
-  height: 56px !important;
+  width: 82px !important;
+  height: 82px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -25658,60 +25674,60 @@ body.light-mode .rmc-turntable-chamber {
 
 .rmc-pedestal-bezel {
   position: absolute !important;
-  inset: -2px !important;
+  inset: -3px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle, rgba(212, 175, 106, 0.28) 0%, transparent 70%) !important;
+  background: radial-gradient(circle, rgba(212, 175, 106, 0.32) 0%, transparent 70%) !important;
 }
 
 .rmc-pedestal-velvet {
-  width: 52px !important;
-  height: 52px !important;
+  width: 76px !important;
+  height: 76px !important;
   border-radius: 50% !important;
   background: radial-gradient(circle at 40% 35%, #2a2016 0%, #140f0c 65%, #080605 100%) !important;
-  border: 1.5px solid rgba(212, 175, 106, 0.5) !important;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9), 0 3px 8px rgba(0, 0, 0, 0.6) !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.55) !important;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.95), 0 4px 12px rgba(0, 0, 0, 0.6) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 4px !important;
+  padding: 6px !important;
   box-sizing: border-box !important;
 }
 
 body.light-mode .rmc-pedestal-velvet {
   background: radial-gradient(circle at 40% 35%, #ffffff 0%, #f7f1e6 65%, #ebdcc9 100%) !important;
-  border: 1.5px solid rgba(175, 133, 50, 0.45) !important;
-  box-shadow: inset 0 2px 5px rgba(80, 55, 20, 0.12), 0 2px 6px rgba(80, 55, 20, 0.1) !important;
+  border: 1.5px solid rgba(175, 133, 50, 0.5) !important;
+  box-shadow: inset 0 2px 6px rgba(80, 55, 20, 0.15), 0 3px 8px rgba(80, 55, 20, 0.12) !important;
 }
 
 .rmc-pedestal-velvet img {
-  width: 38px !important;
-  height: 38px !important;
+  width: 56px !important;
+  height: 56px !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.8)) !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.85)) !important;
 }
 
 .rmc-pedestal-velvet svg {
-  width: 32px !important;
-  height: 32px !important;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.75)) !important;
+  width: 48px !important;
+  height: 48px !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8)) !important;
   color: var(--gold-champagne, #d4af6a) !important;
 }
 
 body.light-mode .rmc-pedestal-velvet svg {
   color: #8c6721 !important;
-  filter: drop-shadow(0 2px 4px rgba(80, 55, 20, 0.2)) !important;
+  filter: drop-shadow(0 3px 6px rgba(80, 55, 20, 0.22)) !important;
 }
 
 .rmc-status-badge {
   display: flex !important;
   align-items: center !important;
-  gap: 4px !important;
-  font-size: 7.5px !important;
+  gap: 5px !important;
+  font-size: 8px !important;
   font-weight: 700 !important;
   letter-spacing: 0.04em !important;
-  padding: 2px 8px !important;
+  padding: 2.5px 10px !important;
   border-radius: 12px !important;
-  margin-top: 4px !important;
+  margin-top: 6px !important;
   line-height: 1.2 !important;
 }
 
