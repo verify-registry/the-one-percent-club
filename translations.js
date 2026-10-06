@@ -774,24 +774,56 @@ window.I18N = {
       ar: "تم تجديد القَسَم السيادي بنجاح وتوثيقه في الأرشيف الدبلوماسي للنادي.",
     },
     reliquaryTitle: {
-      en: "SOVEREIGN RELIQUARY & ARTIFACTS",
-      ar: "خزانة المقتنيات والتحف السيادية",
+      en: "THE IMPERIAL MUSEUM OF SOVEREIGN ARTIFACTS",
+      ar: "متحف المقتنيات والخزانة السيادية",
     },
     reliquarySub: {
-      en: "Obsidian Velvet • Aristocratic Archival Guard",
-      ar: "مخمل أوبسيدياني • حفظ وحراسة أرستقراطية",
+      en: "Royal Conservatory · Curated Provenance Archives",
+      ar: "الأروقة الرسمية لتوثيق وحفظ المقتنيات والآثار النادرة",
     },
     reliquaryCountLabel: {
       en: "Artifacts",
       ar: "تحف سيادية",
     },
     reliquaryStatusSecured: {
-      en: "VAULT INTEGRITY: 100% SECURED ✦",
-      ar: "حالة الحفظ: مؤمنة بالكامل ✦",
+      en: "CONSERVATORY INTEGRITY: 100% SECURED ✦",
+      ar: "حالة الحفظ: مؤمنة بالكامل بالختم السيادي ✦",
     },
     certTitle: {
-      en: "CERTIFICATE OF SOVEREIGN PROVENANCE",
-      ar: "شهادة الملكية والتوثيق السيادي",
+      en: "OFFICIAL PATENT OF SOVEREIGN PROVENANCE",
+      ar: "براءة التوثيق والملكية السيادية",
+    },
+    certSubTitle: {
+      en: "IMPERIAL CURATORIAL ARCHIVES · GENEVA & ST. MORITZ",
+      ar: "دار الأرشيف الإمبراطوري السيادي • جنيف وسانت موريتز",
+    },
+    museumExhibitLabel: {
+      en: "EXHIBIT №",
+      ar: "معروضة رقم",
+    },
+    museumInspectBtn: {
+      en: "Inspect Sovereign Patent",
+      ar: "فحص براءة التوثيق السيادية",
+    },
+    museumClosePatent: {
+      en: "Seal & Close Patent ✦",
+      ar: "ختم وإغلاق براءة التوثيق ✦",
+    },
+    museumCopySerial: {
+      en: "Copy Provenance ID",
+      ar: "نسخ رقم التوثيق",
+    },
+    museumCopied: {
+      en: "Provenance ID Copied",
+      ar: "تم نسخ رقم التوثيق بنجاح",
+    },
+    museumEmptyTitle: {
+      en: "The Sovereign Conservatory Awaits Your First Exhibit",
+      ar: "الرواق السيادي في انتظار أولى مقتنياتك الفاخرة",
+    },
+    museumEmptyDesc: {
+      en: "Acquire your first rare sovereign artifact from the Boutique to be archived with an immutable patent of provenance.",
+      ar: "تفضل باقتناء أول أثر سيادي موثق من البوتيك ليُعرض في رواقك الخاص مصحوباً ببراءة ملكية معتمدة.",
     },
     alloyLabel: {
       en: "Alloy & Material",

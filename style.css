@@ -407,7 +407,7 @@ body.light-mode .honor-card,
 body.light-mode .menu-card,
 body.light-mode .stats-bar,
 body.light-mode .lounge-banner,
-body.light-mode .pcs-item-card,
+body.light-mode .pcs-item-card:not(.museum-pedestal-card):not(.reliquary-pedestal-card),
 body.light-mode .club-composer {
   background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
@@ -5726,61 +5726,73 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   background: var(--gold-champagne);
 }
 
-/* Category Navigation: Luxury Department Index */
+/* ==========================================================================
+   THE SOVEREIGN SALON & HAUTE BOUTIQUE NAVIGATION
+   Clean, Understated Editorial Category Tabs
+   ========================================================================== */
 #boutique-tab .boutique-tabs {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  background: linear-gradient(180deg, rgba(20, 16, 11, 0.92) 0%, rgba(12, 9, 6, 0.96) 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.25) !important;
-  border-radius: 10px;
-  padding: 4px;
-  gap: 4px;
-  margin: 0 0 16px 0;
-  direction: ltr;
-  box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.6),
-    0 4px 12px rgba(0, 0, 0, 0.5);
+  background: transparent !important;
+  border: none !important;
+  padding: 2px 2px 8px 2px !important;
+  gap: 8px !important;
+  margin: 0 0 16px 0 !important;
+  direction: rtl;
+  box-shadow: none !important;
   width: 100%;
   box-sizing: border-box;
-  min-height: 42px;
+  min-height: 38px;
 }
 #boutique-tab .boutique-tabs::-webkit-scrollbar {
   display: none;
 }
+
 #boutique-tab .boutique-tab {
   flex: 0 0 auto;
-  background: transparent;
-  border: 1px solid transparent;
-  color: #9d917f !important;
-  font-family: var(--font-ui, system-ui, sans-serif);
-  font-size: 11px;
+  background: rgba(22, 18, 12, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(212, 175, 106, 0.18) !important;
+  border-radius: 7px !important;
+  color: #8c7e6c !important;
+  font-family: var(--font-ui, "Cairo", system-ui, sans-serif);
+  font-size: 11.5px;
   font-weight: 500;
-  padding: 7px 14px;
-  border-radius: 7px;
+  padding: 6px 12px !important;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transform: translateZ(0);
-  line-height: normal;
+  transition: all 0.2s ease;
+  line-height: 1.2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  box-shadow: none !important;
 }
+
 #boutique-tab .boutique-tab:hover {
-  color: #cfc4b2 !important;
+  color: #d6c7b0 !important;
+  background: rgba(212, 175, 106, 0.1) !important;
+  border-color: rgba(212, 175, 106, 0.32) !important;
 }
+
 #boutique-tab .boutique-tab:active {
   transform: translateY(1px);
 }
+
 body:not(.light-mode) #boutique-tab .boutique-tab.is-active {
-  background: linear-gradient(180deg, rgba(38, 30, 18, 0.98) 0%, rgba(20, 16, 10, 1) 100%) !important;
+  background: rgba(212, 175, 106, 0.18) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
   border: 1px solid rgba(212, 175, 106, 0.48) !important;
   color: var(--gold-champagne, #d4af6a) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.22), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
   font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 240, 200, 0.15) !important;
+  text-shadow: none !important;
 }
 
 #boutique-tab .boutique-section {
@@ -7197,28 +7209,21 @@ body.light-mode #boutique-tab .widget-add-btn.is-installed {
   }
 
   #boutique-tab .boutique-tabs {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    background: rgba(10, 8, 5, 0.6);
-    border: 1px solid rgba(212, 175, 106, 0.15);
-    border-bottom: 1px solid rgba(212, 175, 106, 0.3);
-    border-radius: 24px;
-    padding: 4px;
-    gap: 4px;
-    margin: 0 0 20px 0;
-    direction: ltr;
-    box-shadow:
-      inset 0 2px 5px rgba(0, 0, 0, 0.5),
-      0 8px 16px -4px rgba(0, 0, 0, 0.7);
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 40px;
+    padding: 0 2px 6px 2px !important;
+    gap: 12px !important;
+    margin: 0 0 14px 0 !important;
+    min-height: 32px !important;
   }
   #boutique-tab .boutique-tabs::after {
     display: none;
+  }
+  #boutique-tab .boutique-tab {
+    font-size: 11px !important;
+    padding: 5px 2px !important;
+  }
+  #boutique-tab .b-filt-btn {
+    padding: 6px 6px !important;
+    font-size: 10.5px !important;
   }
   .identity-metrics {
     gap: 6px;
@@ -8435,40 +8440,77 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   }
 }
 
+/* ==========================================================================
+   THE SOVEREIGN SALON & TREASURY FILTER
+   Sovereign Treasury Ledger Toggle (Grand Inventory / Owned / Available)
+   ========================================================================== */
+/* ==========================================================================
+   THE SOVEREIGN SALON & TREASURY FILTER
+   Simple & Elegant Segmented Control (Grand Inventory / Owned / Available)
+   ========================================================================== */
 #boutique-tab .boutique-filters-row {
   display: flex;
   justify-content: center;
-  margin: 0 0 10px 0;
+  margin: 0 0 14px 0;
   width: 100%;
 }
+
 #boutique-tab .boutique-ownership-toggle {
   display: flex;
-  background: linear-gradient(180deg, rgba(20, 16, 11, 0.92) 0%, rgba(12, 9, 6, 0.96) 100%);
-  border: 1px solid rgba(212, 175, 106, 0.25);
-  border-radius: 9px;
+  align-items: center;
+  width: 100%;
+  background: rgba(18, 14, 10, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 175, 106, 0.24);
+  border-radius: 8px;
   padding: 3px;
-  gap: 2px;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+  gap: 3px;
+  box-sizing: border-box;
+  direction: rtl;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
-.b-filt-btn {
-  background: transparent;
-  border: 1px solid transparent;
-  color: #9d917f;
-  font-family: var(--font-ui, system-ui, sans-serif);
-  font-size: 10px;
+
+#boutique-tab .b-filt-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  background: rgba(24, 19, 13, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 175, 106, 0.16);
+  color: #8c7e6c;
+  font-family: var(--font-ui, "Cairo", system-ui, sans-serif);
+  font-size: 11px;
   font-weight: 500;
-  padding: 6px 14px;
+  padding: 7px 10px;
+  min-height: 34px;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transform: translateZ(0);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  box-shadow: none;
 }
+
+#boutique-tab .b-filt-btn:hover {
+  color: #c9bcab;
+  background: rgba(212, 175, 106, 0.1);
+  border-color: rgba(212, 175, 106, 0.3);
+}
+
+body:not(.light-mode) #boutique-tab .b-filt-btn.is-active,
 body:not(.light-mode) .b-filt-btn.is-active {
-  background: linear-gradient(180deg, rgba(38, 30, 18, 0.98) 0%, rgba(20, 16, 10, 1) 100%) !important;
-  border-color: rgba(212, 175, 106, 0.42) !important;
+  background: rgba(212, 175, 106, 0.18) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(212, 175, 106, 0.48) !important;
   color: var(--gold-champagne, #d4af6a) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.22), 0 2px 5px rgba(0, 0, 0, 0.5) !important;
   font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 240, 200, 0.15) !important;
 }
 
 @keyframes shimmer {
@@ -25055,83 +25097,20 @@ body #profile-tab .reliquary-boutique-btn:hover {
   color: #f7eed7 !important;
 }
 
-/* 2. The Physical Vitrine Casing */
+/* /* 2. The Sovereign Vitrine Casing (خزانة المقتنيات والتحف السيادية) */
 body #profile-tab .reliquary-vitrine-box {
   position: relative !important;
-  border-radius: 16px !important;
-  background: linear-gradient(175deg, #181410 0%, #0e0c09 45%, #080605 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.35) !important;
+  border-radius: 14px !important;
+  background: linear-gradient(175deg, #16120e 0%, #0d0b08 50%, #060504 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.3) !important;
   box-shadow:
-    0 16px 40px -8px rgba(0, 0, 0, 0.9),
-    0 4px 12px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 240, 195, 0.18),
+    0 12px 32px -6px rgba(0, 0, 0, 0.9),
+    0 2px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 240, 195, 0.15),
     inset 0 0 0 1px rgba(0, 0, 0, 0.8) !important;
   overflow: hidden !important;
-  padding: 18px 12px 12px 12px !important;
+  padding: 10px 8px 8px 8px !important;
 }
-
-/* Corner Precision Horological Anglage Screws */
-body #profile-tab .vitrine-screw {
-  position: absolute !important;
-  width: 10px !important;
-  height: 10px !important;
-  border-radius: 50% !important;
-  background: conic-gradient(
-    from var(--gold-foil-angle, 135deg),
-    #fff8e7 0%,
-    #d9b46e 22%,
-    #6e5020 45%,
-    #231707 55%,
-    #cfab63 78%,
-    #fff8e7 100%
-  ) !important;
-  border: 1px solid rgba(212, 175, 106, 0.65) !important;
-  box-shadow:
-    0 0 0 1px rgba(10, 8, 4, 0.95),
-    0 0 0 2px rgba(212, 175, 106, 0.25),
-    0 2px 5px rgba(0, 0, 0, 0.9),
-    inset 0 1px 1px rgba(255, 255, 255, 0.85),
-    inset 0 -1.2px 1.5px rgba(0, 0, 0, 0.85) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 5 !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
-}
-body #profile-tab .vitrine-screw:hover {
-  transform: scale(1.15) rotate(10deg) !important;
-  box-shadow:
-    0 0 0 1px rgba(10, 8, 4, 0.95),
-    0 0 0 2.5px rgba(245, 215, 140, 0.45),
-    0 3px 8px rgba(0, 0, 0, 0.95),
-    0 0 8px rgba(212, 175, 106, 0.4),
-    inset 0 1.2px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1.5px 2px rgba(0, 0, 0, 0.9) !important;
-}
-body #profile-tab .vitrine-screw:active {
-  transform: scale(0.95) rotate(-6deg) !important;
-}
-
-body #profile-tab .vitrine-screw-slot {
-  width: 5.5px !important;
-  height: 1.1px !important;
-  background: #120b03 !important;
-  border-radius: 0.5px !important;
-  box-shadow: 0 0.5px 0 rgba(255, 245, 215, 0.4) !important;
-  pointer-events: none !important;
-}
-
-body #profile-tab .vitrine-screw-tl { top: 7px !important; left: 7px !important; }
-body #profile-tab .vitrine-screw-tr { top: 7px !important; right: 7px !important; }
-body #profile-tab .vitrine-screw-bl { bottom: 7px !important; left: 7px !important; }
-body #profile-tab .vitrine-screw-br { bottom: 7px !important; right: 7px !important; }
-
-body #profile-tab .vitrine-screw-tl .vitrine-screw-slot { transform: rotate(45deg) !important; }
-body #profile-tab .vitrine-screw-tr .vitrine-screw-slot { transform: rotate(135deg) !important; }
-body #profile-tab .vitrine-screw-br .vitrine-screw-slot { transform: rotate(225deg) !important; }
-body #profile-tab .vitrine-screw-bl .vitrine-screw-slot { transform: rotate(315deg) !important; }
 
 /* Overhead Showcase Spotlight Beam */
 body #profile-tab .vitrine-spotlight-beam {
@@ -25139,7 +25118,7 @@ body #profile-tab .vitrine-spotlight-beam {
   top: 0 !important;
   left: 20% !important;
   right: 20% !important;
-  height: 85px !important;
+  height: 60px !important;
   background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 106, 0.12) 0%, rgba(212, 175, 106, 0.02) 60%, transparent 100%) !important;
   pointer-events: none !important;
   z-index: 2 !important;
@@ -25148,313 +25127,536 @@ body #profile-tab .vitrine-spotlight-beam {
 /* 3. The Inner Velvet Cushion Chamber */
 body #profile-tab .vitrine-velvet-cushion {
   position: relative !important;
-  border-radius: 12px !important;
-  background:
-    radial-gradient(ellipse at 50% 20%, #1c1813 0%, #100d0a 60%, #060504 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.18) !important;
+  border-radius: 10px !important;
+  background: radial-gradient(ellipse at 50% 20%, #1a1611 0%, #0f0c09 60%, #050403 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.16) !important;
   box-shadow:
-    inset 0 8px 24px rgba(0, 0, 0, 0.95),
-    inset 0 1px 0 rgba(255, 235, 180, 0.08),
-    0 2px 6px rgba(0, 0, 0, 0.5) !important;
-  padding: 14px 10px !important;
+    inset 0 6px 18px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 rgba(255, 235, 180, 0.06) !important;
+  padding: 8px 6px !important;
   z-index: 3 !important;
 }
 
 body #profile-tab .reliquary-grid {
   display: flex !important;
   flex-direction: row !important;
-  gap: 12px !important;
+  gap: 10px !important;
   overflow-x: auto !important;
   scroll-behavior: smooth !important;
   -webkit-overflow-scrolling: touch !important;
-  padding: 4px 4px 6px 4px !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  padding: 4px 2px 6px 2px !important;
 }
 
 body #profile-tab .reliquary-grid::-webkit-scrollbar {
-  height: 4px !important;
+  display: none !important;
+  height: 0 !important;
 }
 
-body #profile-tab .reliquary-grid::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.4) !important;
-  border-radius: 4px !important;
-}
-
-body #profile-tab .reliquary-grid::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 106, 0.3) !important;
-  border-radius: 4px !important;
-}
-
-/* 4. Velvet Pedestal Cards */
-body #profile-tab #profileCollectionGrid .reliquary-pedestal-card {
+/* 4. Velvet Museum Conservatory Pedestal Cards */
+body #profile-tab #profileCollectionGrid .reliquary-pedestal-card,
+body #profile-tab #profileCollectionGrid .museum-pedestal-card {
   position: relative !important;
-  width: 116px !important;
-  min-height: 164px !important;
+  width: 146px !important;
+  min-width: 146px !important;
+  max-width: 146px !important;
+  height: 222px !important;
+  min-height: 222px !important;
+  max-height: 222px !important;
   flex-shrink: 0 !important;
   border-radius: 12px !important;
-  padding: 10px 8px 8px 8px !important;
-  background:
-    radial-gradient(ellipse at 50% 15%, #231c15 0%, #13100c 55%, #090806 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.3) !important;
+  padding: 8px 7px 7px 7px !important;
+  background: radial-gradient(ellipse at 50% 12%, #1e1711 0%, #100d09 55%, #070504 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.35) !important;
   box-shadow:
-    0 12px 28px -4px rgba(0, 0, 0, 0.85),
-    inset 0 1px 0 rgba(255, 235, 180, 0.16),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.7) !important;
+    0 10px 24px -4px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 245, 215, 0.18),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.8) !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: space-between !important;
   cursor: pointer !important;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease !important;
   user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
 }
 
-body #profile-tab #profileCollectionGrid .reliquary-pedestal-card:hover {
-  transform: translateY(-4px) scale(1.02) !important;
-  border-color: rgba(212, 175, 106, 0.65) !important;
+body #profile-tab #profileCollectionGrid .reliquary-pedestal-card:hover,
+body #profile-tab #profileCollectionGrid .museum-pedestal-card:hover {
+  transform: translateY(-3px) scale(1.02) !important;
+  border-color: rgba(212, 175, 106, 0.7) !important;
   box-shadow:
-    0 16px 36px -4px rgba(0, 0, 0, 0.95),
+    0 14px 30px -4px rgba(0, 0, 0, 0.95),
     0 0 16px rgba(212, 175, 106, 0.2),
-    inset 0 1px 0 rgba(255, 235, 180, 0.3) !important;
+    inset 0 1px 0 rgba(255, 245, 215, 0.35) !important;
 }
 
-/* Status Indicator Pill */
-body #profile-tab .reliquary-card-status {
-  position: absolute !important;
-  top: 6px !important;
-  right: 6px !important;
+body #profile-tab #profileCollectionGrid .reliquary-pedestal-card:active,
+body #profile-tab #profileCollectionGrid .museum-pedestal-card:active {
+  transform: translateY(-1px) scale(1.01) !important;
+}
+
+/* Museum Accession Tag */
+body #profile-tab .museum-exhibit-badge {
   display: flex !important;
   align-items: center !important;
   gap: 3.5px !important;
-  font-size: 8px !important;
+  font-size: 7px !important;
   font-weight: 700 !important;
   letter-spacing: 0.04em !important;
-  padding: 2px 5.5px !important;
-  border-radius: 10px !important;
-  z-index: 4 !important;
+  padding: 2px 6px !important;
+  border-radius: 8px !important;
   line-height: 1 !important;
-}
-
-body #profile-tab .reliquary-card-status.is-active {
-  background: rgba(30, 24, 15, 0.9) !important;
-  border: 1px solid rgba(212, 175, 106, 0.6) !important;
-  color: #fae7b5 !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
-}
-
-body #profile-tab .reliquary-card-status.is-active .rcs-dot {
-  width: 4px !important;
-  height: 4px !important;
-  border-radius: 50% !important;
-  background: #d4af6a !important;
-  box-shadow: 0 0 5px #d4af6a !important;
-}
-
-body #profile-tab .reliquary-card-status.is-vaulted {
-  background: rgba(15, 13, 11, 0.8) !important;
-  border: 1px solid rgba(130, 110, 80, 0.25) !important;
-  color: #8c7b64 !important;
-}
-
-body #profile-tab .reliquary-card-status.is-vaulted .rcs-dot {
-  width: 4px !important;
-  height: 4px !important;
-  border-radius: 50% !important;
-  background: #6e5f4d !important;
-}
-
-/* Recessed Velvet Pedestal Cradle */
-body #profile-tab .reliquary-pedestal-cradle {
-  position: relative !important;
-  width: 62px !important;
-  height: 62px !important;
-  margin-top: 14px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-body #profile-tab .reliquary-spotlight-halo {
-  position: absolute !important;
-  inset: -4px !important;
-  border-radius: 50% !important;
-  background: radial-gradient(circle, rgba(212, 175, 106, 0.18) 0%, rgba(212, 175, 106, 0.04) 65%, transparent 100%) !important;
-  pointer-events: none !important;
-}
-
-body #profile-tab .pcs-artifact-pedestal {
-  width: 54px !important;
-  height: 54px !important;
-  border-radius: 50% !important;
-  background: radial-gradient(circle at 45% 40%, #201a14 0%, #120e0b 65%, #080605 100%) !important;
+  background: rgba(18, 14, 10, 0.9) !important;
   border: 1px solid rgba(212, 175, 106, 0.35) !important;
-  box-shadow:
-    inset 0 4px 10px rgba(0, 0, 0, 0.95),
-    0 3px 8px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(0, 0, 0, 0.8) !important;
+  color: #eedcc0 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
+  align-self: flex-start !important;
+}
+
+body #profile-tab .museum-exhibit-badge.is-equipped {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  color: #6ee7b7 !important;
+  background: rgba(8, 28, 18, 0.9) !important;
+}
+
+body #profile-tab .museum-exhibit-badge .meb-dot {
+  width: 4px !important;
+  height: 4px !important;
+  border-radius: 50% !important;
+  background: #d4af37 !important;
+  box-shadow: 0 0 5px #d4af37 !important;
+}
+
+body #profile-tab .museum-exhibit-badge.is-equipped .meb-dot {
+  background: #10b981 !important;
+  box-shadow: 0 0 5px #10b981 !important;
+}
+
+/* 3D Museum Plinth Cradle */
+body #profile-tab .museum-plinth-cradle {
+  position: relative !important;
+  width: 58px !important;
+  height: 58px !important;
+  margin: 2px 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+}
+
+body #profile-tab .museum-spotlight-cone {
+  position: absolute !important;
+  top: -8px !important;
+  left: 5% !important;
+  right: 5% !important;
+  height: 42px !important;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 106, 0.25) 0%, transparent 80%) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+body #profile-tab .museum-pedestal-ring {
   position: relative !important;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   z-index: 2 !important;
+}
+
+body #profile-tab .museum-pedestal-rim {
+  position: absolute !important;
+  inset: -1.5px !important;
+  border-radius: 50% !important;
+  background: conic-gradient(
+    from 45deg,
+    #ffffff 0%,
+    #faecc5 20%,
+    #dcae4a 40%,
+    #684514 60%,
+    #dcae4a 80%,
+    #ffffff 100%
+  ) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.85) !important;
+}
+
+body #profile-tab .museum-pedestal-velvet {
+  position: relative !important;
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 40% 35%, #2a2016 0%, #15100c 70%, #080605 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.95) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 3 !important;
   transition: transform 0.3s ease !important;
 }
 
-body #profile-tab .reliquary-pedestal-card:hover .pcs-artifact-pedestal {
-  transform: scale(1.06) !important;
-  border-color: rgba(212, 175, 106, 0.6) !important;
+body #profile-tab .reliquary-pedestal-card:hover .museum-pedestal-velvet,
+body #profile-tab .museum-pedestal-card:hover .museum-pedestal-velvet {
+  transform: scale(1.05) !important;
 }
 
-body #profile-tab .pcs-artifact-pedestal .boutique-card-icon {
-  width: 32px !important;
-  height: 32px !important;
+body #profile-tab .museum-artifact-icon {
+  width: 28px !important;
+  height: 28px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.85)) !important;
 }
 
-body #profile-tab .pcs-artifact-pedestal img {
-  width: 32px !important;
-  height: 32px !important;
+body #profile-tab .museum-artifact-icon img,
+body #profile-tab .museum-artifact-icon svg {
+  width: 28px !important;
+  height: 28px !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8)) !important;
 }
 
-body #profile-tab .pcs-artifact-pedestal .boutique-card-fallback {
-  font-size: 24px !important;
-  color: #d4af6a !important;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7)) !important;
-}
-
-/* Card Text & Metadata */
-body #profile-tab .pcs-item-info {
+/* Museum Accession Brass Plaque */
+body #profile-tab .museum-plaque {
   width: 100% !important;
-  text-align: center !important;
-  margin-top: 6px !important;
-}
-
-body #profile-tab .pcs-item-name {
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  color: #f7eed7 !important;
-  letter-spacing: 0.02em !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
-
-body #profile-tab .pcs-item-meta {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 5px !important;
-  margin-top: 3px !important;
-}
-
-body #profile-tab .pcs-item-rarity {
-  font-size: 7.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.05em !important;
-  color: #9f8c6d !important;
-  text-transform: uppercase !important;
-}
-
-body #profile-tab .pcs-item-price {
-  font-size: 8.5px !important;
-  font-weight: 700 !important;
-  color: #d4af6a !important;
-}
-
-/* Micro Inspect Tag Button */
-body #profile-tab .reliquary-inspect-chip {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 4px !important;
-  margin-top: 6px !important;
-  padding: 3px 0 !important;
-  border-radius: 5px !important;
-  background: rgba(212, 175, 106, 0.06) !important;
-  border: 1px solid rgba(212, 175, 106, 0.2) !important;
-  color: #cbb07a !important;
-  font-size: 8.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.02em !important;
-  transition: all 0.2s ease !important;
-}
-
-body #profile-tab .reliquary-pedestal-card:hover .reliquary-inspect-chip {
-  background: rgba(212, 175, 106, 0.15) !important;
-  border-color: rgba(212, 175, 106, 0.45) !important;
-  color: #f7eed7 !important;
-}
-
-/* 5. Empty Reliquary Cushion State */
-body #profile-tab .empty-reliquary-cushion {
-  width: 100% !important;
-  padding: 28px 16px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   text-align: center !important;
+  gap: 2px !important;
+}
+
+body #profile-tab .museum-accession-num {
+  font-family: var(--font-heading, "Cinzel", serif) !important;
+  font-size: 6.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  color: #9f8c6d !important;
+  text-transform: uppercase !important;
+}
+
+body #profile-tab .museum-artifact-name {
+  font-family: var(--font-heading, "Cinzel", serif), "Amiri", serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #f7eed7 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.01em !important;
+  white-space: normal !important;
+  text-align: center !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  max-width: 100% !important;
+  min-height: 28px !important;
+}
+
+body #profile-tab .museum-artifact-specs {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  margin: 3px 0 !important;
+  width: 100% !important;
+}
+
+body #profile-tab .museum-metal-tag {
+  font-size: 7.5px !important;
+  font-weight: 600 !important;
+  color: #a89474 !important;
+  white-space: normal !important;
+  text-align: center !important;
+  line-height: 1.25 !important;
+  max-width: 100% !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+body #profile-tab .museum-value-tag {
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  color: #d4af6a !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Gilded Museum Inspection Button — GUARANTEED TO NEVER TURN PLAIN WHITE */
+body #profile-tab .museum-inspect-btn,
+body #profile-tab .reliquary-inspect-chip {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3.5px !important;
+  width: 100% !important;
+  height: 26px !important;
+  margin-top: 4px !important;
+  padding: 0 4px !important;
+  border-radius: 5px !important;
+  background: linear-gradient(135deg, rgba(32, 25, 16, 0.95) 0%, rgba(18, 14, 9, 0.95) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  color: #e2ae33 !important;
+  font-family: inherit !important;
+  font-size: 7.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 235, 180, 0.15) !important;
   cursor: pointer !important;
-  border-radius: 10px !important;
-  background: radial-gradient(circle at 50% 20%, rgba(212, 175, 106, 0.04) 0%, transparent 80%) !important;
-  transition: background 0.3s ease !important;
+  outline: none !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body #profile-tab .museum-inspect-btn:hover,
+body #profile-tab .reliquary-inspect-chip:hover,
+body #profile-tab .reliquary-pedestal-card:hover .museum-inspect-btn,
+body #profile-tab .reliquary-pedestal-card:hover .reliquary-inspect-chip {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(140, 95, 25, 0.48) 100%) !important;
+  border-color: #fde895 !important;
+  color: #fff8e7 !important;
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(212, 175, 55, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(-1px) !important;
+}
+
+body #profile-tab .museum-inspect-btn:active,
+body #profile-tab .museum-inspect-btn:focus,
+body #profile-tab .museum-inspect-btn:focus-visible,
+body #profile-tab .reliquary-inspect-chip:active,
+body #profile-tab .reliquary-inspect-chip:focus,
+body #profile-tab .reliquary-inspect-chip:focus-visible,
+body #profile-tab .reliquary-pedestal-card:active .museum-inspect-btn,
+body #profile-tab .reliquary-pedestal-card:active .reliquary-inspect-chip {
+  background: linear-gradient(135deg, #b8821b 0%, #684514 100%) !important;
+  border-color: #fde895 !important;
+  color: #fffdf5 !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 12px rgba(212, 175, 55, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+  transform: translateY(0px) scale(0.98) !important;
+  outline: none !important;
+}
+
+/* Sovereign Imperial Light Mode for Museum Showcase & Pedestals */
+body.light-mode #profile-tab .reliquary-vitrine-box {
+  background: linear-gradient(175deg, #ffffff 0%, #fbf9f4 50%, #f3ede2 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.42) !important;
+  box-shadow:
+    0 14px 34px -6px rgba(100, 75, 30, 0.12),
+    0 2px 8px rgba(185, 145, 75, 0.1),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .vitrine-spotlight-beam {
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0.04) 60%, transparent 100%) !important;
+}
+
+body.light-mode #profile-tab .vitrine-velvet-cushion {
+  background: radial-gradient(ellipse at 50% 20%, #fcfaf6 0%, #f6efe3 60%, #ece2d2 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.28) !important;
+  box-shadow:
+    inset 0 4px 14px rgba(120, 90, 40, 0.08),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .reliquary-title-group h3 {
+  color: #1a1510 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #profile-tab .reliquary-sub-title {
+  color: #694e1c !important;
+}
+
+body.light-mode #profile-tab .reliquary-count-pill {
+  background: rgba(185, 145, 75, 0.1) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  color: #7a5416 !important;
+}
+
+body.light-mode #profile-tab .reliquary-boutique-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #f6efe2 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.45) !important;
+  color: #694e1c !important;
+  box-shadow: 0 2px 6px rgba(120, 95, 45, 0.1) !important;
+}
+
+body.light-mode #profile-tab .reliquary-boutique-btn:hover {
+  background: linear-gradient(135deg, #fdfbf7 0%, #ede2ce 100%) !important;
+  color: #1a1510 !important;
+  border-color: rgba(185, 145, 75, 0.7) !important;
+}
+
+body.light-mode #profile-tab #profileCollectionGrid .reliquary-pedestal-card,
+body.light-mode #profile-tab #profileCollectionGrid .museum-pedestal-card {
+  background: linear-gradient(175deg, #ffffff 0%, #fcfaf6 50%, #f4ede1 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.42) !important;
+  box-shadow:
+    0 8px 22px rgba(120, 95, 45, 0.12),
+    inset 0 1px 0 #ffffff,
+    0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.light-mode #profile-tab #profileCollectionGrid .reliquary-pedestal-card:hover,
+body.light-mode #profile-tab #profileCollectionGrid .museum-pedestal-card:hover {
+  border-color: rgba(185, 145, 75, 0.75) !important;
+  box-shadow:
+    0 12px 28px rgba(120, 95, 45, 0.18),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .museum-exhibit-badge {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(185, 145, 75, 0.4) !important;
+  color: #694e1c !important;
+  box-shadow: 0 1px 4px rgba(120, 95, 45, 0.1) !important;
+}
+
+body.light-mode #profile-tab .museum-exhibit-badge.is-equipped {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  color: #065f46 !important;
+  background: rgba(236, 253, 245, 0.95) !important;
+}
+
+body.light-mode #profile-tab .museum-pedestal-velvet {
+  background: radial-gradient(circle at 45% 35%, #ffffff 0%, #f7f0e4 60%, #eadcc6 100%) !important;
+  box-shadow: inset 0 2px 6px rgba(120, 90, 40, 0.15) !important;
+}
+
+body.light-mode #profile-tab .museum-accession-num {
+  color: #8c6a28 !important;
+}
+
+body.light-mode #profile-tab .museum-artifact-name {
+  color: #1a1510 !important;
+}
+
+body.light-mode #profile-tab .museum-metal-tag {
+  color: #694e1c !important;
+}
+
+body.light-mode #profile-tab .museum-value-tag {
+  color: #9c6d23 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode #profile-tab .museum-inspect-btn,
+body.light-mode #profile-tab .reliquary-inspect-chip {
+  background: linear-gradient(135deg, #fdfbf7 0%, #f2e7d3 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.55) !important;
+  color: #694e1c !important;
+  box-shadow: 0 2px 6px rgba(140, 100, 35, 0.14), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #profile-tab .museum-inspect-btn:hover,
+body.light-mode #profile-tab .reliquary-inspect-chip:hover {
+  background: linear-gradient(135deg, #c5973e 0%, #9c6d23 100%) !important;
+  color: #ffffff !important;
+  border-color: #9c6d23 !important;
+  box-shadow: 0 4px 12px rgba(156, 109, 35, 0.28) !important;
+}
+
+body.light-mode #profile-tab .empty-reliquary-cushion {
+  background: radial-gradient(ellipse at 50% 20%, #ffffff 0%, #f7f2e8 60%, #ece3d2 100%) !important;
+  border-color: rgba(185, 145, 75, 0.35) !important;
+}
+
+body.light-mode #profile-tab .vitrine-hallmark-bar {
+  border-top: 1px solid rgba(185, 145, 75, 0.2) !important;
+}
+
+body.light-mode #profile-tab .vhb-hallmark {
+  color: #8c6a28 !important;
+}
+
+body.light-mode #profile-tab .vhb-status {
+  color: #694e1c !important;
+}
+
+/* 5. Empty Reliquary Conservatory State */
+body #profile-tab .empty-reliquary-cushion {
+  width: 100% !important;
+  padding: 32px 18px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  background: radial-gradient(ellipse at 50% 20%, #1e1811 0%, #100d09 60%, #060504 100%) !important;
+  border: 1px dashed rgba(212, 175, 106, 0.3) !important;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+  transition: all 0.3s ease !important;
 }
 
 body #profile-tab .empty-reliquary-cushion:hover {
-  background: radial-gradient(circle at 50% 20%, rgba(212, 175, 106, 0.08) 0%, transparent 80%) !important;
+  border-color: rgba(212, 175, 106, 0.65) !important;
+  background: radial-gradient(ellipse at 50% 20%, #282015 0%, #14100b 60%, #080605 100%) !important;
 }
 
 body #profile-tab .reliquary-empty-icon-wrap {
-  position: relative !important;
-  width: 60px !important;
-  height: 60px !important;
+  width: 58px !important;
+  height: 58px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle, #1a1510 0%, #0c0a08 80%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.3) !important;
-  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.8), 0 4px 10px rgba(0, 0, 0, 0.5) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   margin-bottom: 12px !important;
-}
-
-body #profile-tab .reliquary-empty-pedestal-ring {
-  position: absolute !important;
-  inset: 4px !important;
-  border-radius: 50% !important;
-  border: 1px dashed rgba(212, 175, 106, 0.25) !important;
+  background: radial-gradient(circle at 40% 35%, #2a2016 0%, #120e0a 80%) !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.45) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7), inset 0 2px 6px rgba(0, 0, 0, 0.9) !important;
 }
 
 body #profile-tab .reliquary-empty-title {
-  font-family: var(--font-heading, "Cinzel", serif) !important;
-  font-size: 12px !important;
+  font-family: var(--font-heading, "Cinzel", serif), "Amiri", serif !important;
+  font-size: 13px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.04em !important;
   color: #f7eed7 !important;
-  margin-bottom: 4px !important;
+  margin-bottom: 6px !important;
+  letter-spacing: 0.02em !important;
 }
 
 body #profile-tab .reliquary-empty-desc {
   font-size: 10px !important;
-  color: #9f8c6d !important;
-  max-width: 240px !important;
-  line-height: 1.4 !important;
-  margin-bottom: 12px !important;
+  line-height: 1.5 !important;
+  color: #a89474 !important;
+  max-width: 280px !important;
+  margin: 0 0 14px 0 !important;
 }
 
 body #profile-tab .reliquary-empty-action-btn {
-  font-size: 10px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.03em !important;
-  padding: 6px 14px !important;
+  font-family: inherit !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  color: #1a1104 !important;
+  background: linear-gradient(135deg, #faecc5 0%, #dcae4a 38%, #a07424 75%, #684514 100%) !important;
+  border: 1px solid #c49436 !important;
   border-radius: 6px !important;
-  background: linear-gradient(135deg, #d4af6a 0%, #aa8642 100%) !important;
-  border: 1px solid #fae7b5 !important;
-  color: #120e09 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+  padding: 7px 18px !important;
   cursor: pointer !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+body #profile-tab .reliquary-empty-action-btn:hover {
+  transform: translateY(-1px) scale(1.03) !important;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.7), 0 0 10px rgba(220, 174, 74, 0.4) !important;
 }
 
 /* 6. Vitrine Bottom Hallmark Bar */
@@ -25483,23 +25685,51 @@ body #profile-tab .vhb-status {
   color: #d4af6a !important;
 }
 
-/* ================================================== */
-/* CERTIFICATE OF PROVENANCE INSPECTION MODAL          */
-/* ================================================== */
+/* ==========================================================================
+   SOVEREIGN RELIQUARY PATENT OF PROVENANCE & OWNERSHIP (تحفة فنية معمارية)
+   ========================================================================== */
+
+#modals-container {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+  z-index: 100000 !important;
+  pointer-events: none !important;
+}
+
+#modals-container > * {
+  pointer-events: auto !important;
+}
 
 .reliquary-modal-backdrop {
   position: fixed !important;
   inset: 0 !important;
-  background: rgba(4, 3, 2, 0.82) !important;
-  /* GPU-accelerated solid obsidian glass backdrop */
-  z-index: 10000 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  background: rgba(4, 3, 2, 0.88) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 100000 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 16px !important;
+  padding: 12px !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease !important;
+  transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.light-mode .reliquary-modal-backdrop {
+  background: rgba(30, 22, 14, 0.45) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 .reliquary-modal-backdrop.is-active {
@@ -25511,29 +25741,43 @@ body #profile-tab .vhb-status {
   display: none !important;
 }
 
+/* Physical Sovereign Patent Card Frame — GILDED PAPER & GUILLOCHÉ MASTERPIECE */
 .reliquary-modal-card {
   position: relative !important;
   width: 100% !important;
-  max-width: 360px !important;
-  max-height: min(90vh, 640px) !important;
-  overflow-y: auto !important;
-  border-radius: 16px !important;
-  background: linear-gradient(175deg, #191410 0%, #100d0a 50%, #080605 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.5) !important;
+  max-width: 338px !important;
+  max-height: calc(100dvh - 24px) !important;
+  margin: auto !important;
+  border-radius: 14px !important;
+  background: radial-gradient(ellipse at 50% 0%, #1f1811 0%, #130f0a 45%, #080605 100%) !important;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, #1f1811 0%, #130f0a 45%, #080605 100%),
+    repeating-linear-gradient(45deg, rgba(212, 175, 106, 0.015) 0px, rgba(212, 175, 106, 0.015) 1px, transparent 1px, transparent 4px) !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.65) !important;
   box-shadow:
-    0 24px 56px -12px rgba(0, 0, 0, 0.95),
-    0 0 24px rgba(212, 175, 106, 0.15),
-    inset 0 1px 0 rgba(255, 240, 195, 0.25),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.8) !important;
-  padding: 22px 18px 18px 18px !important;
+    0 0 0 1px #040302,
+    0 0 0 2.5px rgba(185, 145, 75, 0.35),
+    0 20px 50px rgba(0, 0, 0, 0.96),
+    0 0 28px rgba(212, 175, 106, 0.2),
+    inset 0 1px 2px rgba(255, 245, 215, 0.45),
+    inset 0 -1.5px 2px rgba(10, 6, 2, 0.9) !important;
+  padding: 13px 12px 10px 12px !important;
   box-sizing: border-box !important;
-  animation: reliquaryModalEntrance 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow-y: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  animation: reliquaryModalEntrance 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.reliquary-modal-card::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
 }
 
 @keyframes reliquaryModalEntrance {
   0% {
     opacity: 0;
-    transform: scale(0.92) translateY(12px);
+    transform: scale(0.94) translateY(8px);
   }
   100% {
     opacity: 1;
@@ -25541,250 +25785,146 @@ body #profile-tab .vhb-status {
   }
 }
 
-/* Modal Corner Horological Anglage Screws */
-.rmc-screw {
+/* Sovereign Archival Banknote Guilloché Canvas Layer */
+.rmc-guilloche-canvas {
   position: absolute !important;
-  width: 9px !important;
-  height: 9px !important;
-  border-radius: 50% !important;
-  background: conic-gradient(
-    from var(--gold-foil-angle, 135deg),
-    #fff8e7 0%,
-    #d9b46e 22%,
-    #6e5020 45%,
-    #231707 55%,
-    #cfab63 78%,
-    #fff8e7 100%
-  ) !important;
-  border: 1px solid rgba(212, 175, 106, 0.65) !important;
-  box-shadow:
-    0 0 0 1px rgba(10, 8, 4, 0.95),
-    0 0 0 1.8px rgba(212, 175, 106, 0.25),
-    0 2px 4px rgba(0, 0, 0, 0.9),
-    inset 0 1px 1px rgba(255, 255, 255, 0.85),
-    inset 0 -1px 1.2px rgba(0, 0, 0, 0.85) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
-}
-.rmc-screw:hover {
-  transform: scale(1.15) rotate(10deg) !important;
-  box-shadow:
-    0 0 0 1px rgba(10, 8, 4, 0.95),
-    0 0 0 2.2px rgba(245, 215, 140, 0.45),
-    0 3px 6px rgba(0, 0, 0, 0.95),
-    0 0 8px rgba(212, 175, 106, 0.4),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95) !important;
-}
-.rmc-screw:active {
-  transform: scale(0.95) rotate(-6deg) !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  border-radius: 13px !important;
+  z-index: 1 !important;
 }
 
-.rmc-screw-slot {
-  width: 5px !important;
-  height: 1px !important;
-  background: #120b03 !important;
-  border-radius: 0.5px !important;
-  box-shadow: 0 0.5px 0 rgba(255, 245, 215, 0.4) !important;
+.rmc-guilloche-svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
   pointer-events: none !important;
 }
 
-.rmc-screw-tl { top: 8px !important; left: 8px !important; }
-.rmc-screw-tr { top: 8px !important; right: 8px !important; }
-.rmc-screw-bl { bottom: 8px !important; left: 8px !important; }
-.rmc-screw-br { bottom: 8px !important; right: 8px !important; }
+.rmc-inner {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  gap: 0 !important;
+}
 
-.rmc-screw-tl .rmc-screw-slot { transform: rotate(45deg) !important; }
-.rmc-screw-tr .rmc-screw-slot { transform: rotate(135deg) !important; }
-.rmc-screw-br .rmc-screw-slot { transform: rotate(225deg) !important; }
-.rmc-screw-bl .rmc-screw-slot { transform: rotate(315deg) !important; }
-
-/* Modal Close Button: Positioned in top corner */
+/* Sovereign Circular Close Button */
 .rmc-close-btn {
   position: absolute !important;
-  top: 10px !important;
-  inset-inline-end: 10px !important;
+  top: 9px !important;
+  inset-inline-end: 9px !important;
   inset-inline-start: auto !important;
-  width: 28px !important;
-  height: 28px !important;
+  width: 25px !important;
+  height: 25px !important;
   border-radius: 50% !important;
-  background: rgba(30, 22, 14, 0.9) !important;
-  border: 1px solid rgba(212, 175, 106, 0.42) !important;
-  color: #eedcc0 !important;
+  background: rgba(28, 22, 15, 0.95) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.5) !important;
+  color: #d4af6a !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  z-index: 20 !important;
+  z-index: 30 !important;
   padding: 0 !important;
-  transition: all 0.2s ease !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.7) !important;
+  outline: none !important;
 }
 
 .rmc-close-btn:hover {
-  background: rgba(48, 36, 22, 1) !important;
-  border-color: rgba(240, 205, 130, 0.8) !important;
+  background: rgba(45, 35, 24, 0.98) !important;
+  border-color: #f5d77f !important;
   color: #ffffff !important;
-  transform: scale(1.05);
+  transform: scale(1.08) !important;
 }
 
-body.light-mode .rmc-close-btn {
-  background: #ffffff !important;
-  border: 1px solid rgba(175, 133, 50, 0.42) !important;
-  color: #5c4114 !important;
-  box-shadow: 0 2px 6px rgba(80, 55, 20, 0.12) !important;
-}
-
-body.light-mode .rmc-close-btn:hover {
-  background: #faf4e8 !important;
-  border-color: #b88d38 !important;
-  color: #241b0b !important;
-}
-
-/* Top Header & Sovereign Seal (Centered) */
+/* Patent Header */
 .rmc-header {
   display: flex !important;
-  flex-direction: column !important;
+  flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
+  gap: 8px !important;
   text-align: center !important;
-  gap: 3px !important;
-  padding-bottom: 8px !important;
-  margin-bottom: 8px !important;
-  border-bottom: 1px solid rgba(212, 175, 106, 0.22) !important;
-  padding-inline-start: 0 !important;
-  padding-inline-end: 0 !important;
+  padding-bottom: 6px !important;
+  margin-bottom: 6px !important;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.2) !important;
   width: 100% !important;
   box-sizing: border-box !important;
-  position: relative !important;
-}
-
-body.light-mode .rmc-header {
-  border-bottom-color: rgba(175, 133, 50, 0.25) !important;
 }
 
 .rmc-seal-wrap {
-  width: 32px !important;
-  height: 32px !important;
-  flex-shrink: 0 !important;
-}
-
-.rmc-seal-mark {
-  width: 26px !important;
-  height: 26px !important;
+  width: 22px !important;
+  height: 22px !important;
   flex-shrink: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  margin: 0 auto !important;
 }
 
 .rmc-seal-svg {
   width: 100% !important;
   height: 100% !important;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7)) !important;
 }
 
 .rmc-header-texts {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  gap: 1.5px !important;
-  width: 100% !important;
-  overflow: hidden !important;
+  gap: 1px !important;
 }
 
-.rmc-eyebrow {
-  font-size: 8.5px !important;
+.rmc-institution {
+  font-size: 6.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.08em !important;
-  color: #d4af6a !important;
+  color: #a89474 !important;
   text-transform: uppercase !important;
-  line-height: 1.2 !important;
-  text-align: center !important;
-  margin: 0 auto !important;
-}
-
-body.light-mode .rmc-eyebrow {
-  color: #8c6721 !important;
-}
-
-.rmc-artifact-title {
-  font-family: var(--font-heading, "Cinzel", serif) !important;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  color: #f7eed7 !important;
-  margin: 1px auto !important;
-  line-height: 1.25 !important;
-  text-align: center !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  max-width: 90% !important;
-}
-
-body.light-mode .rmc-artifact-title {
-  color: #241b0b !important;
-}
-
-.rmc-serial {
-  font-family: monospace !important;
-  font-size: 7.5px !important;
-  color: #9d8c75 !important;
-  letter-spacing: 0.06em !important;
   line-height: 1.1 !important;
-  text-align: center !important;
-  margin: 0 auto !important;
 }
 
-body.light-mode .rmc-serial {
-  color: #7d6b53 !important;
+.rmc-patent-title {
+  font-family: var(--font-heading, "Cinzel", serif), "Amiri", serif !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  background: linear-gradient(180deg, #ffffff 0%, #faecc5 35%, #d4af37 80%, #aa7c11 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9)) !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
 }
 
-/* Enlarged Turntable Pedestal Chamber */
+/* Compact Vitrine Medallion & Hero Artifact Vignette */
 .rmc-turntable-chamber {
   position: relative !important;
-  margin: 0 0 8px 0 !important;
-  border-radius: 12px !important;
-  background: radial-gradient(ellipse at 50% 25%, #221b14 0%, #120e0a 60%, #060504 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.28) !important;
-  box-shadow: inset 0 3px 12px rgba(0, 0, 0, 0.8) !important;
-  padding: 10px !important;
-  height: 136px !important;
-  min-height: 136px !important;
-  max-height: 136px !important;
+  margin: 0 0 6px 0 !important;
+  border-radius: 8px !important;
+  background: rgba(18, 14, 10, 0.55) !important;
+  border: 1px solid rgba(212, 175, 106, 0.25) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 180, 0.1),
+    0 1px 4px rgba(0, 0, 0, 0.4) !important;
+  padding: 6px 8px !important;
   box-sizing: border-box !important;
   display: flex !important;
-  flex-direction: column !important;
+  flex-direction: row !important;
   align-items: center !important;
-  justify-content: center !important;
-}
-
-body.light-mode .rmc-turntable-chamber {
-  background: radial-gradient(ellipse at 50% 25%, #fdfbf7 0%, #f4ede0 60%, #e6dac5 100%) !important;
-  border: 1px solid rgba(175, 133, 50, 0.3) !important;
-  box-shadow: inset 0 2px 8px rgba(80, 55, 20, 0.08) !important;
-}
-
-.rmc-spotlight-cone {
-  position: absolute !important;
-  top: 0 !important;
-  left: 20% !important;
-  right: 20% !important;
-  height: 55px !important;
-  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 106, 0.25) 0%, transparent 100%) !important;
-  pointer-events: none !important;
+  gap: 10px !important;
+  backdrop-filter: blur(2px) !important;
 }
 
 .rmc-turntable-pedestal {
   position: relative !important;
-  width: 82px !important;
-  height: 82px !important;
+  width: 48px !important;
+  height: 48px !important;
+  flex-shrink: 0 !important;
+  border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -25792,441 +25932,469 @@ body.light-mode .rmc-turntable-chamber {
 
 .rmc-pedestal-bezel {
   position: absolute !important;
-  inset: -3px !important;
+  inset: -1.5px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle, rgba(212, 175, 106, 0.32) 0%, transparent 70%) !important;
+  background: conic-gradient(
+    from 45deg,
+    #ffffff 0%,
+    #faecc5 20%,
+    #dcae4a 40%,
+    #684514 60%,
+    #dcae4a 80%,
+    #ffffff 100%
+  ) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.85) !important;
 }
 
 .rmc-pedestal-velvet {
-  width: 76px !important;
-  height: 76px !important;
+  position: relative !important;
+  width: 44px !important;
+  height: 44px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle at 40% 35%, #2a2016 0%, #140f0c 65%, #080605 100%) !important;
-  border: 1.5px solid rgba(212, 175, 106, 0.55) !important;
-  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.95), 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+  flex-shrink: 0 !important;
+  background: radial-gradient(circle at 40% 35%, #2a2016 0%, #15100c 70%, #080605 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.95) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 6px !important;
-  box-sizing: border-box !important;
+  z-index: 1 !important;
 }
 
-body.light-mode .rmc-pedestal-velvet {
-  background: radial-gradient(circle at 40% 35%, #ffffff 0%, #f7f1e6 65%, #ebdcc9 100%) !important;
-  border: 1.5px solid rgba(175, 133, 50, 0.5) !important;
-  box-shadow: inset 0 2px 6px rgba(80, 55, 20, 0.15), 0 3px 8px rgba(80, 55, 20, 0.12) !important;
-}
-
-.rmc-pedestal-velvet img {
-  width: 56px !important;
-  height: 56px !important;
-  object-fit: contain !important;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.85)) !important;
-}
-
+.rmc-pedestal-velvet img,
 .rmc-pedestal-velvet svg {
-  width: 48px !important;
-  height: 48px !important;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8)) !important;
-  color: var(--gold-champagne, #d4af6a) !important;
+  width: 28px !important;
+  height: 28px !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.85)) !important;
 }
 
-body.light-mode .rmc-pedestal-velvet svg {
-  color: #8c6721 !important;
-  filter: drop-shadow(0 3px 6px rgba(80, 55, 20, 0.22)) !important;
-}
-
-.rmc-status-badge {
-  display: flex !important;
-  align-items: center !important;
-  gap: 5px !important;
-  font-size: 8px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.04em !important;
-  padding: 2.5px 10px !important;
-  border-radius: 12px !important;
-  margin-top: 6px !important;
-  line-height: 1.2 !important;
-}
-
-.rmc-status-badge.is-equipped {
-  background: rgba(30, 24, 15, 0.9) !important;
-  border: 1px solid rgba(212, 175, 106, 0.6) !important;
-  color: #fae7b5 !important;
-}
-
-.rmc-status-badge.is-equipped .rsb-dot {
-  width: 5px !important;
-  height: 5px !important;
-  border-radius: 50% !important;
-  background: #d4af6a !important;
-  box-shadow: 0 0 6px #d4af6a !important;
-}
-
-.rmc-status-badge.is-vaulted {
-  background: rgba(18, 15, 12, 0.8) !important;
-  border: 1px solid rgba(130, 110, 80, 0.25) !important;
-  color: #8c7b64 !important;
-}
-
-.rmc-status-badge.is-vaulted .rsb-dot {
-  width: 5px !important;
-  height: 5px !important;
-  border-radius: 50% !important;
-  background: #6e5f4d !important;
-}
-
-/* Archival Specifications 2x2 Grid */
-.rmc-spec-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 6px !important;
-  margin-bottom: 8px !important;
-}
-
-.rmc-spec-cell {
-  background: rgba(22, 17, 12, 0.7) !important;
-  border: 1px solid rgba(212, 175, 106, 0.22) !important;
-  border-radius: 7px !important;
-  padding: 6px 10px !important;
+.rmc-identity-block {
+  flex: 1 !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
   gap: 2px !important;
-  box-sizing: border-box !important;
+  min-width: 0 !important;
   text-align: start !important;
-  min-height: 48px !important;
 }
 
-body.light-mode .rmc-spec-cell {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border: 1px solid rgba(175, 133, 50, 0.3) !important;
-  box-shadow: 0 1px 3px rgba(80, 55, 20, 0.05) !important;
+.rmc-artifact-title-row {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.rmc-artifact-title {
+  font-family: var(--font-heading, "Cinzel", serif), "Amiri", serif !important;
+  font-size: 12.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+  color: #fffdf5 !important;
+  margin: 0 !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+.rmc-meta-line {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-top: 2px !important;
+  flex-wrap: wrap !important;
+}
+
+.rmc-serial-row {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  padding: 1.5px 6px !important;
+  border-radius: 3px !important;
+  background: rgba(18, 14, 10, 0.8) !important;
+  border: 1px solid rgba(212, 175, 106, 0.3) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.rmc-serial-prefix {
+  font-family: var(--font-heading, "Cinzel", serif) !important;
+  font-size: 6.5px !important;
+  font-weight: 700 !important;
+  color: #d4af37 !important;
+}
+
+.rmc-serial {
+  font-family: monospace !important;
+  font-size: 7px !important;
+  font-weight: 600 !important;
+  color: #d9cab3 !important;
+  letter-spacing: 0.04em !important;
+}
+
+.rmc-copy-icon {
+  color: #d4af6a !important;
+  opacity: 0.85 !important;
+}
+
+.rmc-status-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3.5px !important;
+  font-size: 7px !important;
+  font-weight: 600 !important;
+  color: #eedcc0 !important;
+  padding: 1.5px 5px !important;
+  border-radius: 3px !important;
+  background: rgba(20, 16, 12, 0.85) !important;
+  border: 1px solid rgba(212, 175, 106, 0.25) !important;
+  line-height: 1 !important;
+}
+
+.rmc-status-badge .rsb-dot {
+  width: 4px !important;
+  height: 4px !important;
+  border-radius: 50% !important;
+  background: #d4af37 !important;
+  box-shadow: 0 0 5px #d4af37 !important;
+}
+
+.rmc-status-badge.is-equipped .rsb-dot {
+  background: #10b981 !important;
+  box-shadow: 0 0 5px #10b981 !important;
+}
+
+/* Horological Specification Complication Bar (2x2 Balanced Archival Complication Plate) */
+.rmc-spec-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0 !important;
+  margin-bottom: 6px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: rgba(16, 12, 8, 0.7) !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  border-radius: 6px !important;
+  padding: 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden !important;
+}
+
+.rmc-spec-cell {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: start !important;
+  gap: 1.5px !important;
+  padding: 4px 7px !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.rmc-spec-cell:nth-child(1) {
+  border-inline-end: 1px solid rgba(212, 175, 106, 0.15) !important;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.15) !important;
+}
+.rmc-spec-cell:nth-child(2) {
+  border-bottom: 1px solid rgba(212, 175, 106, 0.15) !important;
+}
+.rmc-spec-cell:nth-child(3) {
+  border-inline-end: 1px solid rgba(212, 175, 106, 0.15) !important;
 }
 
 .rmc-spec-lbl {
-  font-size: 8px !important;
-  color: #a8947a !important;
-  letter-spacing: 0.04em !important;
+  font-family: var(--font-heading, "Cinzel", serif), "Amiri", serif !important;
+  font-size: 6.5px !important;
+  color: #a89474 !important;
+  letter-spacing: 0.02em !important;
   font-weight: 600 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 1px !important;
-}
-
-body.light-mode .rmc-spec-lbl {
-  color: #7d653f !important;
+  white-space: nowrap !important;
+  line-height: 1.1 !important;
 }
 
 .rmc-spec-val {
-  font-size: 10px !important;
+  font-family: inherit !important;
+  font-size: 8px !important;
   font-weight: 700 !important;
   color: #f7eed7 !important;
-  line-height: 1.35 !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  max-width: 100% !important;
 }
 
-body.light-mode .rmc-spec-val {
-  color: #241b0b !important;
-}
-
-/* Historical Lore Paragraph */
+/* Curatorial Provenance Inscription */
 .rmc-lore-box {
-  background: rgba(18, 14, 10, 0.7) !important;
-  border-inline-start: 2.5px solid var(--gold-champagne, #d4af6a) !important;
-  border-left: none !important;
-  border-radius: 4px !important;
-  padding: 6px 9px !important;
-  margin-bottom: 8px !important;
+  background: rgba(14, 11, 8, 0.5) !important;
+  border-inline-start: 2.5px solid #d4af37 !important;
+  border: 1px solid rgba(212, 175, 106, 0.2) !important;
+  border-inline-start: 2.5px solid #d4af37 !important;
+  border-radius: 5px !important;
+  padding: 4px 8px !important;
+  margin-bottom: 5px !important;
   text-align: start !important;
 }
 
-body.light-mode .rmc-lore-box {
-  background: rgba(255, 255, 255, 0.8) !important;
-  border-inline-start-color: #b88d38 !important;
-}
-
 .rmc-lore-paragraph {
-  font-size: 8.5px !important;
-  line-height: 1.4 !important;
-  color: #c4b59f !important;
+  font-size: 7.5px !important;
+  line-height: 1.35 !important;
+  color: #c4b6a0 !important;
   margin: 0 !important;
+  white-space: normal !important;
 }
 
-body.light-mode .rmc-lore-paragraph {
-  color: #4a3e2e !important;
+/* Council Seal Stamp Row */
+.rmc-council-seal-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 6px !important;
+  width: 100% !important;
 }
 
-/* Action Buttons */
+.rmc-seal-stamp {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 6.8px !important;
+  font-weight: 600 !important;
+  color: #eedcc0 !important;
+  padding: 2.5px 8px !important;
+  border-radius: 4px !important;
+  background: linear-gradient(135deg, rgba(32, 24, 14, 0.85) 0%, rgba(18, 14, 8, 0.92) 100%) !important;
+  border: 1px dashed rgba(212, 175, 106, 0.45) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.15), 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+}
+
+.rmc-stamp-star {
+  color: #d4af37 !important;
+  font-size: 7px !important;
+}
+
+/* Primary Dismiss Action — 24K SOVEREIGN GOLD INGOT BUTTON */
 .rmc-actions {
   width: 100% !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 4px !important;
-  margin-top: 2px !important;
 }
 
-.rmc-equip-btn {
-  width: 100%;
-  height: 36px;
-  min-height: 36px;
-  max-height: 36px;
-  border-radius: 7px;
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0 12px;
-  box-sizing: border-box;
-  cursor: pointer;
-  line-height: 1;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 252, 240, 0.8),
-    0 2px 6px rgba(0, 0, 0, 0.35);
-  transition: all 0.2s ease;
-}
-
-.rmc-equip-btn.is-hidden,
-.rmc-equip-btn[hidden] {
-  display: none !important;
-}
-
-.rmc-equip-btn.btn-gold {
-  background: linear-gradient(145deg, #f0d599 0%, #d8b264 35%, #be9444 75%, #9e762c 100%) !important;
-  border: 1px solid #b88d38 !important;
-  color: #1a1306 !important;
-  text-shadow: 0 1px 0 rgba(255, 250, 235, 0.45) !important;
-}
-
-.rmc-equip-btn.btn-gold:hover {
-  background: linear-gradient(145deg, #f5ddaa 0%, #dfbc72 35%, #c89e4c 75%, #a87e32 100%) !important;
-  border-color: #d4ae60 !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 8px rgba(0, 0, 0, 0.4) !important;
-}
-
-.rmc-equip-btn.is-locked {
-  background: rgba(22, 17, 12, 0.9) !important;
-  border: 1px solid rgba(165, 130, 75, 0.35) !important;
-  color: #c7a77b !important;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.6) !important;
-}
-
-.rmc-equip-btn.needs-balance {
-  background: linear-gradient(135deg, rgba(212, 175, 106, 0.18), rgba(184, 134, 11, 0.35)) !important;
-  border: 1px solid var(--gold-champagne) !important;
-  color: var(--gold-champagne) !important;
-}
-
-/* Secondary Compact Close Control (High Luxury, Sleek, Zero Hanging) */
 .rmc-dismiss-btn {
   width: 100% !important;
   height: 32px !important;
-  min-height: 32px !important;
-  max-height: 32px !important;
-  background: rgba(25, 20, 15, 0.5) !important;
-  border: 1px solid rgba(212, 175, 106, 0.25) !important;
-  border-radius: 7px !important;
-  color: #eedcc0 !important;
-  font-size: 10px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.04em !important;
+  border-radius: 6px !important;
+  font-family: inherit !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  gap: 5px !important;
   cursor: pointer !important;
-  padding: 0 12px !important;
-  box-sizing: border-box !important;
-  transition: all 0.2s ease !important;
+  border: 1px solid #dcae4a !important;
+  background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
+  color: #1a1104 !important;
+  box-shadow:
+    0 3px 8px rgba(120, 90, 30, 0.35),
+    0 0 12px rgba(220, 174, 74, 0.25),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+  outline: none !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 .rmc-dismiss-btn:hover {
-  background: rgba(212, 175, 106, 0.15) !important;
-  border-color: rgba(212, 175, 106, 0.45) !important;
-  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #faecc5 20%, #e5b955 50%, #a87920 100%) !important;
+  box-shadow:
+    0 5px 14px rgba(120, 90, 30, 0.45),
+    0 0 18px rgba(220, 174, 74, 0.4),
+    inset 0 1px 2px #ffffff !important;
 }
 
-body.light-mode .rmc-dismiss-btn {
-  background: rgba(255, 255, 255, 0.8) !important;
-  border: 1px solid rgba(175, 133, 50, 0.35) !important;
-  color: #4a3619 !important;
-  box-shadow: 0 1px 3px rgba(80, 55, 20, 0.05) !important;
+.rmc-dismiss-btn:active {
+  transform: translateY(1px) scale(0.99) !important;
+  box-shadow: 0 1px 4px rgba(120, 90, 30, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
-body.light-mode .rmc-dismiss-btn:hover {
-  background: #ffffff !important;
-  border-color: #9e762c !important;
-  color: #1a1205 !important;
+.rdb-crest {
+  font-size: 8px !important;
 }
 
-/* When the item is ALREADY OWNED, the acquire button is hidden, so rmc-dismiss-btn serves as sole prominent close button */
-.rmc-actions .rmc-equip-btn[style*="display: none"] + .rmc-dismiss-btn,
-.rmc-actions .rmc-equip-btn[style*="display:none"] + .rmc-dismiss-btn,
-.rmc-actions .rmc-equip-btn.is-hidden + .rmc-dismiss-btn,
-.rmc-actions .rmc-equip-btn[hidden] + .rmc-dismiss-btn {
-  height: 34px !important;
-  min-height: 34px !important;
-  border: 1px solid rgba(212, 175, 106, 0.4) !important;
-  background: rgba(28, 22, 16, 0.8) !important;
-  color: #f7eed7 !important;
+/* Sovereign Reliquary Patent Light Mode Overrides — SEAMLESS ROYAL ARCHIVAL VELLUM */
+body.light-mode .reliquary-modal-card {
+  background: #faf6ed !important;
+  background-image:
+    radial-gradient(ellipse 90% 70% at 50% 12%, rgba(255, 255, 255, 0.95) 0%, rgba(248, 243, 230, 0.92) 55%, rgba(238, 228, 210, 0.95) 100%),
+    repeating-linear-gradient(45deg, rgba(185, 145, 75, 0.025) 0px, rgba(185, 145, 75, 0.025) 1px, transparent 1px, transparent 5px) !important;
+  border: 1.5px solid #d4af37 !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.95),
+    0 0 0 2.5px rgba(185, 145, 75, 0.45),
+    0 24px 60px rgba(90, 65, 25, 0.22),
+    0 2px 10px rgba(185, 145, 75, 0.18),
+    inset 0 1px 3px #ffffff,
+    inset 0 -2px 4px rgba(185, 145, 75, 0.15) !important;
 }
 
-body.light-mode .rmc-actions .rmc-equip-btn[style*="display: none"] + .rmc-dismiss-btn,
-body.light-mode .rmc-actions .rmc-equip-btn[style*="display:none"] + .rmc-dismiss-btn,
-body.light-mode .rmc-actions .rmc-equip-btn.is-hidden + .rmc-dismiss-btn,
-body.light-mode .rmc-actions .rmc-equip-btn[hidden] + .rmc-dismiss-btn {
-  border: 1px solid rgba(175, 133, 50, 0.4) !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  color: #3b2a0c !important;
+body.light-mode .rmc-close-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #f4eee2 100%) !important;
+  border: 1.2px solid rgba(185, 145, 75, 0.6) !important;
+  color: #7a5416 !important;
+  box-shadow: 0 2px 6px rgba(120, 90, 40, 0.14), inset 0 1px 0 #ffffff !important;
 }
 
-.rmc-equip-btn.is-equip {
-  background: linear-gradient(135deg, #d4af6a 0%, #aa8642 100%) !important;
-  border: 1px solid #fae7b5 !important;
-  color: #120e09 !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+body.light-mode .rmc-close-btn:hover {
+  background: linear-gradient(135deg, #fdfbf7 0%, #ede1cc 100%) !important;
+  color: #1a1510 !important;
+  border-color: rgba(185, 145, 75, 0.85) !important;
 }
 
-.rmc-equip-btn.is-equip:hover {
-  background: linear-gradient(135deg, #e4bf7a 0%, #ba9652 100%) !important;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8), 0 0 12px rgba(212, 175, 106, 0.4) !important;
+body.light-mode .rmc-header {
+  border-bottom: 1px solid rgba(185, 145, 75, 0.25) !important;
 }
 
-.rmc-equip-btn.is-unequip {
-  background: rgba(25, 20, 16, 0.9) !important;
-  border: 1px solid rgba(212, 175, 106, 0.45) !important;
-  color: #f7eed7 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+body.light-mode .rmc-institution {
+  color: #8c6a28 !important;
 }
 
-.rmc-equip-btn.is-unequip:hover {
-  background: rgba(40, 32, 24, 0.95) !important;
-  border-color: rgba(212, 175, 106, 0.7) !important;
-}
-
-/* Light Mode Overrides */
-body.light-mode #profile-tab .reliquary-crest-icon {
-  background: radial-gradient(circle at 35% 30%, #fdfbf7 0%, #f4eee2 70%, #eae0cd 100%) !important;
-  border-color: rgba(185, 145, 75, 0.4) !important;
-  box-shadow: 0 4px 10px rgba(60, 45, 15, 0.08) !important;
-}
-
-body.light-mode #profile-tab .reliquary-title-group h3,
-body.light-mode #collectionSectionTitle,
-body.light-mode .reliquary-empty-title,
-body.light-mode #profile-tab .reliquary-empty-title,
-body.light-mode #boutique-tab .reliquary-empty-title,
-body.light-mode .empty-reliquary-cushion .reliquary-empty-title {
-  color: #7d5a1b !important;
+body.light-mode .rmc-patent-title {
+  background: linear-gradient(180deg, #3d2b0e 0%, #7d591c 45%, #54390b 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: none !important;
   text-shadow: none !important;
 }
 
-body.light-mode #profile-tab .reliquary-sub-title {
-  color: #7a6544 !important;
+body.light-mode .rmc-turntable-chamber {
+  background: rgba(255, 255, 255, 0.45) !important;
+  border: 1px solid rgba(185, 145, 75, 0.3) !important;
+  box-shadow: 0 1px 4px rgba(120, 95, 45, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
 }
 
-body.light-mode #profile-tab .reliquary-vitrine-box {
-  background: linear-gradient(175deg, #fdfbf7 0%, #f7f2e7 50%, #eee5d3 100%) !important;
-  border-color: rgba(185, 145, 75, 0.4) !important;
-  box-shadow:
-    0 12px 30px rgba(60, 45, 15, 0.1),
-    inset 0 1px 0 #ffffff !important;
-}
-
-body.light-mode #profile-tab .vitrine-velvet-cushion {
-  background: radial-gradient(ellipse at 50% 20%, #f5efe1 0%, #ede3d0 60%, #ded1ba 100%) !important;
-  border-color: rgba(185, 145, 75, 0.25) !important;
-  box-shadow:
-    inset 0 4px 14px rgba(80, 60, 20, 0.15),
-    inset 0 1px 0 #ffffff !important;
-}
-
-body.light-mode #profile-tab #profileCollectionGrid .reliquary-pedestal-card {
-  background: radial-gradient(ellipse at 50% 15%, #ffffff 0%, #faf6ee 55%, #f1e9da 100%) !important;
-  border-color: rgba(185, 145, 75, 0.35) !important;
-  box-shadow:
-    0 8px 20px rgba(60, 45, 15, 0.08),
-    inset 0 1px 0 #ffffff !important;
-}
-
-body.light-mode #profile-tab .pcs-artifact-pedestal {
-  background: radial-gradient(circle at 45% 40%, #fdfbf7 0%, #f2ebe0 65%, #e6dcce 100%) !important;
-  border-color: rgba(185, 145, 75, 0.45) !important;
-  box-shadow:
-    inset 0 3px 8px rgba(80, 60, 20, 0.15),
-    0 2px 6px rgba(60, 45, 15, 0.06) !important;
-}
-
-body.light-mode #profile-tab .pcs-item-name {
-  color: #211c14 !important;
-}
-
-body.light-mode #profile-tab .pcs-item-price {
-  color: #967026 !important;
-}
-
-body.light-mode .reliquary-modal-card {
-  background: linear-gradient(175deg, #fdfbf7 0%, #f7f2e7 50%, #eee6d6 100%) !important;
-  border-color: rgba(185, 145, 75, 0.5) !important;
-  box-shadow: 0 20px 48px rgba(60, 45, 15, 0.2) !important;
+body.light-mode .rmc-turntable-chamber .rmc-pedestal-velvet {
+  background: radial-gradient(circle at 45% 35%, #ffffff 0%, #f6efe4 60%, #ebdcc9 100%) !important;
+  border: 1px solid rgba(185, 145, 75, 0.45) !important;
+  box-shadow: inset 0 2px 5px rgba(120, 90, 40, 0.15) !important;
 }
 
 body.light-mode .rmc-artifact-title {
-  color: #211c14 !important;
+  color: #1a1208 !important;
+  text-shadow: none !important;
 }
 
-body.light-mode .rmc-turntable-chamber {
-  background: radial-gradient(ellipse at 50% 30%, #f5efe1 0%, #ede3cf 60%, #ded0ba 100%) !important;
-  border-color: rgba(185, 145, 75, 0.3) !important;
+body.light-mode .rmc-serial-row {
+  background: rgba(185, 145, 75, 0.12) !important;
+  border: 1px solid rgba(185, 145, 75, 0.4) !important;
+  color: #694e1c !important;
 }
 
-body.light-mode .rmc-pedestal-velvet {
-  background: radial-gradient(circle at 40% 35%, #ffffff 0%, #f4ede0 65%, #e8ddcb 100%) !important;
-  border-color: rgba(185, 145, 75, 0.5) !important;
+body.light-mode .rmc-serial {
+  color: #7a5416 !important;
 }
 
-body.light-mode .rmc-spec-cell {
-  background: rgba(255, 255, 255, 0.6) !important;
-  border-color: rgba(185, 145, 75, 0.25) !important;
+body.light-mode .rmc-copy-icon {
+  color: #8c6a28 !important;
+}
+
+body.light-mode .rmc-status-badge {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(185, 145, 75, 0.4) !important;
+  color: #694e1c !important;
+}
+
+body.light-mode .rmc-status-badge.is-equipped {
+  background: rgba(236, 253, 245, 0.95) !important;
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  color: #065f46 !important;
+}
+
+body.light-mode .rmc-spec-grid {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(185, 145, 75, 0.35) !important;
+  box-shadow: 0 1px 4px rgba(120, 95, 45, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+body.light-mode .rmc-spec-cell:nth-child(1) {
+  border-inline-end: 1px solid rgba(185, 145, 75, 0.22) !important;
+  border-bottom: 1px solid rgba(185, 145, 75, 0.22) !important;
+}
+body.light-mode .rmc-spec-cell:nth-child(2) {
+  border-bottom: 1px solid rgba(185, 145, 75, 0.22) !important;
+}
+body.light-mode .rmc-spec-cell:nth-child(3) {
+  border-inline-end: 1px solid rgba(185, 145, 75, 0.22) !important;
+}
+
+body.light-mode .rmc-spec-lbl {
+  color: #8c6a28 !important;
 }
 
 body.light-mode .rmc-spec-val {
-  color: #211c14 !important;
+  color: #1a1208 !important;
 }
 
 body.light-mode .rmc-lore-box {
-  background: rgba(255, 255, 255, 0.65) !important;
-  border-inline-start: 2.5px solid #967026 !important;
-  border-left: none !important;
+  background: rgba(255, 255, 255, 0.45) !important;
+  border: 1px solid rgba(185, 145, 75, 0.25) !important;
+  border-inline-start: 3px solid #b88a38 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
 }
 
 body.light-mode .rmc-lore-paragraph {
-  color: #4a3e2e !important;
+  color: #3d2f1d !important;
+}
+
+body.light-mode .rmc-seal-stamp {
+  background: linear-gradient(135deg, rgba(245, 235, 210, 0.85) 0%, rgba(232, 215, 180, 0.75) 100%) !important;
+  border: 1px dashed rgba(185, 145, 75, 0.55) !important;
+  color: #694e1c !important;
+  box-shadow: 0 1px 3px rgba(120, 95, 45, 0.08), inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode .rmc-dismiss-btn {
+  background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
+  color: #1a1104 !important;
+  border: 1px solid #c89a32 !important;
+  box-shadow:
+    0 4px 12px rgba(150, 110, 35, 0.35),
+    0 0 14px rgba(220, 174, 74, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.light-mode .rmc-dismiss-btn:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #faecc5 20%, #e5b955 50%, #a87920 100%) !important;
+  box-shadow:
+    0 6px 16px rgba(150, 110, 35, 0.45),
+    0 0 20px rgba(220, 174, 74, 0.4),
+    inset 0 1px 2px #ffffff !important;
 }
 
 /* Mobile Responsive Optimization (<= 480px) */
 @media (max-width: 480px) {
   body #profile-tab .reliquary-vitrine-box {
-    padding: 14px 8px 10px 8px !important;
+    padding: 8px 6px 6px 6px !important;
   }
-  body #profile-tab #profileCollectionGrid .reliquary-pedestal-card {
-    width: 104px !important;
-    min-height: 154px !important;
-    padding: 8px 6px !important;
-  }
-  body #profile-tab .reliquary-pedestal-cradle {
-    width: 54px !important;
-    height: 54px !important;
-    margin-top: 10px !important;
-  }
-  body #profile-tab .pcs-artifact-pedestal {
-    width: 48px !important;
-    height: 48px !important;
+  body #profile-tab #profileCollectionGrid .reliquary-pedestal-card,
+  body #profile-tab #profileCollectionGrid .museum-pedestal-card {
+    width: 142px !important;
+    min-width: 142px !important;
+    max-width: 142px !important;
+    height: 218px !important;
+    min-height: 218px !important;
+    padding: 7px 6px 6px 6px !important;
   }
   .reliquary-modal-card {
-    width: calc(100vw - 28px) !important;
-    max-width: 330px !important;
-    padding: 18px 14px 14px 14px !important;
+    width: calc(100vw - 20px) !important;
+    max-width: 334px !important;
+    padding: 11px 10px 9px 10px !important;
     box-sizing: border-box !important;
   }
   .dossier-modal-box {
@@ -32151,73 +32319,68 @@ body.light-mode #boutique-tab .boutique-balance-add {
 
 /* --- BAR 1: LUXURY SEGMENTED CONTROL (STATUS: جميع المقتنيات / المملوكة / المتاحة) --- */
 body.light-mode #boutique-tab .boutique-ownership-toggle {
-  background: linear-gradient(180deg, #fbf7ee 0%, #f3ebdb 100%) !important;
-  border: 1px solid rgba(124, 88, 26, 0.35) !important; /* Fine Gold outer border matching Edit Profile token */
-  border-radius: 9px !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(140, 105, 45, 0.28) !important;
+  border-radius: 8px !important;
   padding: 3px !important;
   gap: 3px !important;
-  box-shadow:
-    inset 0 1px 2.5px rgba(70, 48, 14, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-    0 2px 6px rgba(70, 50, 18, 0.06) !important;
+  box-shadow: 0 2px 8px rgba(60, 40, 10, 0.05) !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: center !important;
+  width: 100% !important;
+  direction: rtl !important;
 }
 
 body.light-mode .b-filt-btn,
-body.light-mode #boutique-tab .b-filt-btn,
-body.light-mode .b-filt-btn span,
-body.light-mode #boutique-tab .b-filt-btn span {
-  background: transparent !important;
-  border: 1px solid transparent !important;
-  color: #4a3618 !important; /* Specific dark gold/bronze from Edit Profile */
-  font-family: var(--font-ui, system-ui, sans-serif) !important;
-  font-size: 10.5px !important;
-  font-weight: 600 !important;
-  padding: 6px 14px !important;
+body.light-mode #boutique-tab .b-filt-btn {
+  background: rgba(248, 244, 236, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(140, 105, 45, 0.2) !important;
+  color: #72624e !important;
+  font-family: var(--font-ui, "Cairo", system-ui, sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  padding: 7px 10px !important;
+  min-height: 34px !important;
   border-radius: 6px !important;
   cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-  text-shadow: none !important;
-  box-shadow: none !important;
-  line-height: normal !important;
+  transition: all 0.2s ease !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   white-space: nowrap !important;
+  line-height: 1 !important;
+  letter-spacing: 0.01em !important;
 }
 
 body.light-mode .b-filt-btn:hover,
-body.light-mode #boutique-tab .b-filt-btn:hover,
-body.light-mode .b-filt-btn:hover span,
-body.light-mode #boutique-tab .b-filt-btn:hover span {
-  color: #2b1a03 !important;
-  background: rgba(124, 88, 26, 0.06) !important;
+body.light-mode #boutique-tab .b-filt-btn:hover {
+  color: #241603 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(140, 105, 45, 0.35) !important;
 }
 
-/* Inserted / engraved segment for active status */
-body.light-mode .b-filt-btn.is-active {
-  background: radial-gradient(ellipse at 50% 0%, #ffffff 0%, #fdfaf4 55%, #f4ebd9 100%) !important;
-  border: 0.8px solid #7c581a !important;
-  color: #2b1a03 !important; /* Dark warm brown / deep antique gold */
-  font-weight: 800 !important;
-  border-radius: 6px !important;
-  box-shadow:
-    inset 0 1px 0 #ffffff,
-    0 1px 3px rgba(35, 20, 6, 0.12),
-    0 0 0 0.5px rgba(50, 32, 10, 0.25) !important;
-  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.9) !important;
+body.light-mode .b-filt-btn.is-active,
+body.light-mode #boutique-tab .b-filt-btn.is-active {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(140, 105, 45, 0.45) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  color: #281a05 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(50, 35, 10, 0.1) !important;
 }
 
 /* --- BAR 2: CATALOGUE INDEX (CATEGORIES: الكل / المجوهرات / الهالات / التيجان / النجوم) --- */
 body.light-mode #boutique-tab .boutique-tabs {
-  background: linear-gradient(180deg, #fdfbf7 0%, #f7f2e8 100%) !important; /* Semi-flat warm Ivory */
-  border: 1px solid rgba(124, 88, 26, 0.28) !important; /* Fine gold hairline matching Edit Profile token */
-  border-radius: 8px !important;
-  padding: 2px 4px !important;
-  gap: 3px !important;
-  box-shadow: 0 1px 3px rgba(70, 50, 18, 0.04) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 2px 2px 8px 2px !important;
+  gap: 8px !important;
+  box-shadow: none !important;
   min-height: 38px !important;
   margin: 0 0 16px 0 !important;
   display: flex !important;
@@ -32225,60 +32388,46 @@ body.light-mode #boutique-tab .boutique-tabs {
   overflow-x: auto !important;
   -webkit-overflow-scrolling: touch !important;
   scrollbar-width: none !important;
+  direction: rtl !important;
   box-sizing: border-box !important;
 }
 
 body.light-mode #boutique-tab .boutique-tab,
-body.light-mode .boutique-tab,
-body.light-mode #boutique-tab .boutique-tab span,
-body.light-mode .boutique-tab span {
-  background: transparent !important;
-  border: none !important;
-  border-bottom: 2px solid transparent !important;
-  color: #4a3618 !important; /* Specific dark gold/bronze from Edit Profile */
-  font-family: var(--font-ui, system-ui, sans-serif) !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
+body.light-mode .boutique-tab {
+  background: rgba(255, 255, 255, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(140, 105, 45, 0.22) !important;
+  border-radius: 7px !important;
+  color: #7a6a55 !important;
+  font-family: var(--font-ui, "Cairo", system-ui, sans-serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
   padding: 6px 12px !important;
-  border-radius: 4px 4px 0 0 !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  line-height: normal !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: 0.01em !important;
   white-space: nowrap !important;
 }
 
-body.light-mode #boutique-tab .boutique-tab:hover,
-body.light-mode .boutique-tab:hover,
-body.light-mode #boutique-tab .boutique-tab:hover span,
-body.light-mode .boutique-tab:hover span {
-  color: #2b1a03 !important; /* Exact Edit Profile dark gold */
-  background: rgba(124, 88, 26, 0.06) !important;
+body.light-mode #boutique-tab .boutique-tab:hover {
+  color: #241603 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(140, 105, 45, 0.38) !important;
 }
 
-/* Active Category: Exact Physical Gold accent from Edit Profile button */
 body.light-mode #boutique-tab .boutique-tab.is-active,
-body.light-mode .boutique-tab.is-active,
-body.light-mode #boutique-tab .boutique-tab.is-active span,
-body.light-mode .boutique-tab.is-active span {
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.95) 0%, 
-    rgba(250, 236, 197, 0.45) 25%, 
-    rgba(220, 174, 74, 0.22) 65%, 
-    rgba(124, 88, 26, 0.12) 100%
-  ) !important;
-  border: none !important;
-  border-bottom: 2.5px solid #7c581a !important; /* Physical Gold underline from Edit Profile button */
-  border-radius: 4px 4px 0 0 !important;
-  color: #2b1a03 !important; /* Physical gold dark text */
-  font-weight: 800 !important;
-  box-shadow: none !important;
-  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.85) !important;
+body.light-mode .boutique-tab.is-active {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(140, 105, 45, 0.48) !important;
+  color: #281a05 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(50, 35, 10, 0.1) !important;
 }
 
 body.light-mode #boutique-tab .boutique-section-title {

@@ -1142,6 +1142,12 @@ const AppState = {
       }
     } catch {}
 
+    // Ensure the Royal Museum Conservatory is furnished with initial master exhibits if empty
+    if (!this.owned || Object.keys(this.owned).length === 0) {
+      this.owned = { apex_crown: true, sovereign_signet: true };
+      StorageHelper.set(`owned_${this.user.id}`, this.owned, true);
+    }
+
     const savedChannels = StorageHelper.get(`channels_${this.user.id}`, null, true);
     if (savedChannels) {
       for (const k in savedChannels) {
@@ -2446,8 +2452,18 @@ document.querySelectorAll(".boutique-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
     document
       .querySelectorAll(".boutique-tab")
-      .forEach((t) => t.classList.remove("is-active"));
+      .forEach((t) => {
+        t.classList.remove("is-active");
+        t.setAttribute("aria-selected", "false");
+      });
     tab.classList.add("is-active");
+    tab.setAttribute("aria-selected", "true");
+    if (window.AudioEngine && window.AudioEngine.playHover) {
+      window.AudioEngine.playHover();
+    }
+    try {
+      tab.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    } catch (_) {}
     renderBoutique(tab.dataset.cat, false);
   });
 });
@@ -4916,8 +4932,15 @@ document.querySelectorAll(".b-filt-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     document
       .querySelectorAll(".b-filt-btn")
-      .forEach((b) => b.classList.remove("is-active"));
+      .forEach((b) => {
+        b.classList.remove("is-active");
+        b.setAttribute("aria-selected", "false");
+      });
     btn.classList.add("is-active");
+    btn.setAttribute("aria-selected", "true");
+    if (window.AudioEngine && window.AudioEngine.playHover) {
+      window.AudioEngine.playHover();
+    }
     currentOwnershipFilter = btn.dataset.filter;
     const activeCat =
       document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all";
@@ -5956,14 +5979,16 @@ function openReliquaryInspectModal(itemId) {
 
   const serialEl = document.getElementById("reliquaryItemSerial");
   if (serialEl) {
-    serialEl.textContent = `SER: ARC-0001-${item.id.toUpperCase()}-${item.rarity || 1}`;
+    serialEl.textContent = `2026-SOV-ARC-${item.id.toUpperCase()}-${item.rarity || 1}`;
   }
 
-  // Visual
+  // Visual with Sovereign 3D Pedestal
   const visualEl = document.getElementById("reliquaryItemVisual");
   if (visualEl) {
     let iconHtml = "";
-    if (item.image) {
+    if (window.SOVEREIGN_ARTIFACTS && (window.SOVEREIGN_ARTIFACTS[item.icon] || window.SOVEREIGN_ARTIFACTS[item.id])) {
+      iconHtml = window.SOVEREIGN_ARTIFACTS[item.icon] || window.SOVEREIGN_ARTIFACTS[item.id];
+    } else if (item.image) {
       iconHtml = `<img src="${item.image}" alt="${item.id}" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
                   <span class="boutique-card-fallback" style="display:none;font-size:32px;">${ICONS[item.icon] || ICONS["crown"]}</span>`;
     } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
@@ -5975,45 +6000,57 @@ function openReliquaryInspectModal(itemId) {
     visualEl.innerHTML = iconHtml;
   }
 
-  // Status Badge
+  // Custodial Status Badge
   const statusBadge = document.getElementById("reliquaryItemStatusBadge");
   const statusText = document.getElementById("reliquaryItemStatusText");
   if (statusBadge && statusText) {
     statusBadge.className = "rmc-status-badge " + (isEquipped ? "is-equipped" : "is-vaulted");
     statusText.textContent = isEquipped 
-      ? (window.t("profile.equippedBadge") || (isAr ? "مُقَلَّد بالهوية السيادية" : "EQUIPPED ON IDENTITY"))
-      : (window.t("profile.vaultedBadge") || (isAr ? "محفوظ بالخزانة الخاصة" : "SAFELY IN VAULT"));
+      ? (isAr ? "مُقَلَّد بالهوية" : "EQUIPPED ON IDENTITY")
+      : (isAr ? "محفوظ بالخزانة" : "SAFELY IN VAULT");
   }
 
-  // Specs
+  // Specifications
   const alloyEl = document.getElementById("reliquaryItemAlloy");
   if (alloyEl) {
-    alloyEl.textContent = (item.rarity >= 3)
-      ? (window.t("profile.solidGoldAlloy") || (isAr ? "Au 999.9 ذهب خالص" : "Au 999.9 Solid Gold"))
-      : (window.t("profile.obsidianTitaniumAlloy") || (isAr ? "تيتانيوم أسود وأوبسيديان" : "Black Titanium & Obsidian"));
+    if (isAr && item.metalAr) {
+      alloyEl.textContent = item.metalAr;
+    } else if (item.metal) {
+      alloyEl.textContent = item.metal;
+    } else {
+      alloyEl.textContent = (item.rarity >= 3)
+        ? (window.t("profile.solidGoldAlloy") || (isAr ? "Au 999.9 ذهب خالص ٢٤ قيراط" : "Au 999.9 Solid Gold (24K)"))
+        : (window.t("profile.obsidianTitaniumAlloy") || (isAr ? "تيتانيوم أسود وأوبسيديان بركاني" : "Black Titanium & Obsidian"));
+    }
   }
 
   const foundryEl = document.getElementById("reliquaryItemFoundry");
   if (foundryEl) {
     foundryEl.textContent = (item.rarity >= 3)
-      ? (window.t("profile.stMoritzFoundry") || (isAr ? "دار الصك • سانت موريتز" : "St. Moritz Master Foundry"))
-      : (window.t("profile.genevaGuild") || (isAr ? "نقابة الصياغة • جنيف" : "Geneva Guild of Horology"));
+      ? (window.t("profile.stMoritzFoundry") || (isAr ? "دار الصك الإمبراطورية • سانت موريتز" : "St. Moritz Master Foundry"))
+      : (window.t("profile.genevaGuild") || (isAr ? "نقابة الصياغة الملكية • جنيف" : "Geneva Guild of Royal Horology"));
   }
 
   const rarityEl = document.getElementById("reliquaryItemRarity");
   if (rarityEl) {
-    rarityEl.textContent = (typeof RARITY_LABEL !== 'undefined' && RARITY_LABEL[item.rarity]) ? RARITY_LABEL[item.rarity]() : (isAr ? "نادر سيادي" : "SOVEREIGN");
+    if (typeof RARITY_LABELS !== 'undefined' && RARITY_LABELS[item.rarity]) {
+      rarityEl.textContent = RARITY_LABELS[item.rarity]();
+    } else if (typeof RARITY_LABEL !== 'undefined' && RARITY_LABEL[item.rarity]) {
+      rarityEl.textContent = RARITY_LABEL[item.rarity]();
+    } else {
+      rarityEl.textContent = isAr ? "طراز سيادي فريد (SOVEREIGN)" : "SOVEREIGN APEX";
+    }
   }
 
   const priceEl = document.getElementById("reliquaryItemPrice");
   if (priceEl) {
-    priceEl.textContent = item.price ? "$" + item.price.toLocaleString() : "$10,000";
+    priceEl.textContent = item.price ? "$" + item.price.toLocaleString() + " USD" : "$15,000 USD";
   }
 
-  // Lore
+  // Provenance Lore
   const loreEl = document.getElementById("reliquaryItemLore");
   if (loreEl) {
-    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || (isAr ? "تحفة ملكية مسبوكة يدوياً من الذهب السيادي الخالص، معتمدة من المجلس التأسيسي الأعلى." : "Handcrafted sovereign artifact forged from solid gold and obsidian."));
+    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || (isAr ? "تحفة ملكية مسبوكة يدوياً من الذهب السيادي الخالص، معتمدة ومسجلة رسمياً بالأرشيف الإمبراطوري بقرار من المجلس التأسيسي الأعلى." : "Handcrafted sovereign artifact forged from solid 24k gold and obsidian, officially verified in the royal archives."));
   }
 
   // Toggle Equip Button removed in favor of permanent read-only vault display
@@ -6023,10 +6060,26 @@ function openReliquaryInspectModal(itemId) {
     toggleBtn.onclick = null;
   }
 
+  // Pre-reset scroll before opening to guarantee top-of-patent is displayed instantly
+  modal.scrollTop = 0;
+  const card = document.getElementById("reliquaryCertificateCard");
+  if (card) card.scrollTop = 0;
+
+  // Sound and haptic sovereign elevation
+  if (window.AudioEngine && typeof window.AudioEngine.playGoldenSovereignChime === "function") {
+    window.AudioEngine.playGoldenSovereignChime();
+  }
+  if (window.HapticEngine && typeof window.HapticEngine.triggerMilestoneVibration === "function") {
+    window.HapticEngine.triggerMilestoneVibration();
+  }
+
   openModalCore("reliquaryInspectModal", {
     activeClass: "is-active",
+    bodyClass: "modal-open",
     playAudio: true,
     onOpen: () => {
+      modal.scrollTop = 0;
+      if (card) card.scrollTop = 0;
       if (typeof attachHorologicalScrewHandlers === "function") {
         attachHorologicalScrewHandlers();
       }
@@ -6037,10 +6090,26 @@ function openReliquaryInspectModal(itemId) {
 function closeReliquaryInspectModal() {
   closeModalCore("reliquaryInspectModal", {
     activeClass: "is-active",
+    bodyClass: "modal-open",
     hideDelay: 200,
     playAudio: true
   });
 }
+
+window.copyReliquarySerial = function() {
+  const serialEl = document.getElementById("reliquaryItemSerial");
+  if (!serialEl) return;
+  const serialText = serialEl.textContent.trim();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(serialText).then(() => {
+      const msg = window.t("profile.museumCopied") || (document.documentElement.lang === "ar" ? "تم نسخ رقم التوثيق السيادي بنجاح" : "Provenance ID Copied");
+      if (typeof showNavToast === "function") {
+        showNavToast(msg);
+      }
+      if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap();
+    }).catch(() => {});
+  }
+};
 
 window.openReliquaryInspectModal = openReliquaryInspectModal;
 window.closeReliquaryInspectModal = closeReliquaryInspectModal;
@@ -6072,36 +6141,41 @@ function renderProfileCollection(forceSkeleton = false) {
   let itemCount = collectedItems.length;
   const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
 
-  // Update header count badge
+  // Update header count badge with museum terminology
   const countPill = document.getElementById("reliquaryCountPill");
   if (countPill) {
-    countPill.textContent = isAr ? `${itemCount} تحف سيادية` : `${itemCount} Artifacts`;
+    countPill.textContent = isAr ? `${itemCount} معروضات متحفية معتمدة` : `${itemCount} Museum Exhibits`;
   }
 
   if (itemCount === 0) {
-    const emptyText = window.t("profile.emptyVault") || (isAr ? "الخزينة فارغة حالياً. تفضل باقتناء أولى قطعك من البوتيك." : "Your vault is empty. Acquire your first asset from the Boutique.");
-    const btnText = window.t("explore_boutique") || (isAr ? "استكشاف البوتيك" : "Explore Boutique");
+    const emptyTitle = window.t("profile.museumEmptyTitle") || (isAr ? "الرواق السيادي في انتظار أولى مقتنياتك الفاخرة" : "The Sovereign Conservatory Awaits Your First Exhibit");
+    const emptyText = window.t("profile.museumEmptyDesc") || (isAr ? "تفضل باقتناء أول أثر سيادي موثق من البوتيك ليُعرض في رواقك الخاص مصحوباً ببراءة ملكية معتمدة." : "Acquire your first rare sovereign artifact from the Boutique to be archived with an immutable patent of provenance.");
+    const btnText = window.t("explore_boutique") || (isAr ? "زيارة البوتيك السيادي ✦" : "Visit Sovereign Boutique ✦");
 
     container.innerHTML = `
       <div class="empty-reliquary-cushion" onclick="goToPage('boutique')" role="button" tabindex="0">
         <div class="reliquary-empty-icon-wrap">
           <div class="reliquary-empty-pedestal-ring"></div>
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.3">
-            <path d="M12 2l8 4.5v11L12 22l-8-4.5v-11L12 2z" fill="rgba(212,175,106,0.08)" stroke="#d4af37"/>
-            <circle cx="12" cy="12" r="4" stroke="#d4af37" stroke-dasharray="2 2" stroke-width="1"/>
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.3">
+            <path d="M3 9L12 3L21 9V11H3V9Z" fill="url(#phcGoldRimGrad)" stroke="#d4af37"/>
+            <path d="M5 11V18M9 11V18M15 11V18M19 11V18" stroke="#d4af37" stroke-width="1.4"/>
+            <path d="M3 18H21V21H3V18Z" fill="url(#phcGoldRimGrad)" stroke="#d4af37"/>
           </svg>
         </div>
-        <div class="reliquary-empty-title">${window.t("profile.reliquaryTitle") || "خزانة المقتنيات والتحف السيادية"}</div>
+        <div class="reliquary-empty-title">${emptyTitle}</div>
         <p class="reliquary-empty-desc">${emptyText}</p>
         <button type="button" class="reliquary-empty-action-btn">${btnText}</button>
       </div>
     `;
   } else {
     let html = "";
+    let itemIndex = 0;
     for (const item of collectedItems) {
       if (!item) continue;
+      itemIndex++;
       const nameText = window.t("items." + item.id) || item.name;
       const rarityText = item.rarity ? (typeof RARITY_LABELS !== 'undefined' && RARITY_LABELS[item.rarity] ? RARITY_LABELS[item.rarity]() : item.rarity) : '';
+      const metalText = (isAr && item.metalAr) ? item.metalAr : (item.metal || (isAr ? 'Au 999.9 ذهب خالص' : 'Au 999.9 Solid Gold'));
 
       let iconHtml = "";
       if (item.image) {
@@ -6114,38 +6188,50 @@ function renderProfileCollection(forceSkeleton = false) {
         iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
       }
 
-      const statusTag = `<div class="reliquary-card-status is-vaulted"><span class="rcs-dot"></span><span>${isAr ? 'مملوك' : 'PURCHASED'}</span></div>`;
+      const isEquipped = AppState.equipped && Object.values(AppState.equipped).includes(item.id);
+      const statusTag = `
+        <div class="museum-exhibit-badge ${isEquipped ? 'is-equipped' : 'is-vaulted'}">
+          <span class="meb-dot"></span>
+          <span>${isEquipped ? (isAr ? 'مُقَلَّد' : 'EQUIPPED') : (isAr ? 'محفوظ' : 'VAULTED')}</span>
+        </div>
+      `;
+
+      const inspectLabel = window.t("profile.inspectHint") || (isAr ? 'فحص الشهادة' : 'Inspect Certificate');
 
       html += `
-        <div class="pcs-item-card reliquary-pedestal-card gyro-element" 
+        <div class="pcs-item-card reliquary-pedestal-card museum-pedestal-card gyro-element" 
              data-tilt
              data-item-id="${item.id}"
              onclick="openReliquaryInspectModal('${item.id}')"
              role="button"
              tabindex="0"
-             title="${isAr ? 'انقر لفحص شهادة وتوثيق التحفة' : 'Tap to inspect provenance certificate'}">
+             title="${isAr ? 'انقر لفحص براءة التوثيق والملكية السيادية' : 'Tap to inspect sovereign patent'}">
           ${statusTag}
-          <div class="reliquary-pedestal-cradle">
-            <div class="reliquary-spotlight-halo"></div>
-            <div class="pcs-artifact-pedestal">
-              <span class="boutique-card-icon">
-                ${iconHtml}
-              </span>
+          <div class="museum-plinth-cradle">
+            <div class="museum-spotlight-cone" aria-hidden="true"></div>
+            <div class="museum-pedestal-ring">
+              <div class="museum-pedestal-rim"></div>
+              <div class="museum-pedestal-velvet">
+                <span class="boutique-card-icon museum-artifact-icon">
+                  ${iconHtml}
+                </span>
+              </div>
             </div>
           </div>
-          <div class="pcs-item-info">
-            <div class="pcs-item-name">${nameText}</div>
-            <div class="pcs-item-meta">
-              ${rarityText ? `<span class="pcs-item-rarity">${rarityText}</span>` : ''}
-              <span class="pcs-item-price">${item.price ? "$" + item.price.toLocaleString() : ''}</span>
+          <div class="museum-plaque">
+            <div class="museum-accession-num">${isAr ? 'معروضة ' + (itemIndex < 10 ? '٠' + itemIndex : itemIndex) : 'EXHIBIT ' + (itemIndex < 10 ? '0' + itemIndex : itemIndex)}</div>
+            <div class="museum-artifact-name" title="${nameText}">${nameText}</div>
+            <div class="museum-artifact-specs">
+              <span class="museum-metal-tag" title="${metalText}">${metalText}</span>
+              <span class="museum-value-tag">${item.price ? "$" + item.price.toLocaleString() + " USD" : "$15,000 USD"}</span>
             </div>
-            <div class="reliquary-inspect-chip">
-              <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor">
-                <circle cx="8" cy="8" r="6" stroke="#d4af37" stroke-width="1.2"></circle>
-                <path d="M8 5v3l2 1" stroke="#d4af37" stroke-width="1.2" stroke-linecap="round"></path>
+            <button type="button" class="museum-inspect-btn reliquary-inspect-chip" onclick="event.stopPropagation(); openReliquaryInspectModal('${item.id}')" aria-label="${inspectLabel}">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="8" stroke="currentColor"></circle>
+                <path d="M12 8v4l3 2" stroke="currentColor" stroke-linecap="round"></path>
               </svg>
-              <span>${isAr ? 'فحص الشهادة' : 'Inspect'}</span>
-            </div>
+              <span>${inspectLabel}</span>
+            </button>
           </div>
         </div>
       `;

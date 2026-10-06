@@ -651,6 +651,22 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 - Enhanced `.rmc-spec-cell` padding, min-height, and label hierarchy for harmonious, high-contrast readability.
 - Bumped script cache versions to `?v=20261006_text_polish`.
 
+### Sovereign Provenance Certificate Modal & Inspect Chip Fix (2026-10-06) — COMPLETED
+- Resolved issue where clicking "فحص الشهادة" in Profile collections turned the button white/invisible:
+  - Added dedicated Light Mode styling for `.reliquary-inspect-chip` so text remains authoritative deep bronze (`#4a320c` / `#241704`) and never turns white on click, hover, or active mobile states.
+  - Converted SVG icon stroke in `.reliquary-inspect-chip` to `currentColor` for cohesive contrast across themes.
+- Fixed root cause of certificate modal appearing at the top requiring scrolling:
+  - Moved `#reliquaryInspectModal` from inside `<section class="page" id="profile-tab">` into top-level `#modals-container`.
+  - Eliminated bounding-box hijacking by `.page` 3D CSS transforms, restoring true `position: fixed` viewport centering.
+- Complete haute-horlogerie aesthetic overhaul of the Certificate of Provenance modal:
+  - Built 4-tier machined precious-metal frame with anisotropic gold gradient bevel and deep grounding edge.
+  - Embedded banknote security guilloché intaglio watermark into card substrate.
+  - Re-architected showcase vitrine chamber with a true circular medallion pedestal and soft spotlight cone; artifact vectors now display with realistic 3D metallic depth from `artifacts.js`.
+  - Moved `.rmc-status-badge` to a dedicated `.rmc-status-row` below the chamber, completely eliminating vertical squeezing and pedestal collision/overlap.
+  - Upgraded 2x2 specification grid (`rmc-spec-cell`) with beveled watch-certification panels in ivory (light) and blackened metal (dark).
+  - Enhanced archival lore paragraph and crafted prominent solid-metal dismiss action button (`.rmc-dismiss-btn`).
+  - Cache-busted stylesheet and scripts to `?v=20261006_cert_sovereign`.
+
 
 
 

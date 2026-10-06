@@ -23,7 +23,7 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css?v=20261006_cloche_ref" />
+    <link rel="stylesheet" href="style.css?v=20261006_cert_sovereign" />
     <script>
       (function () {
         try {
@@ -2038,14 +2038,15 @@
               <div class="reliquary-head-title-wrap">
                 <div class="reliquary-crest-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
-                    <path d="M12 2l8 4.5v11L12 22l-8-4.5v-11L12 2z" stroke="#d4af37" fill="rgba(212,175,55,0.15)"></path>
-                    <circle cx="12" cy="12" r="3.5" stroke="#d4af37" fill="rgba(212,175,55,0.3)"></circle>
-                    <path d="M12 2v20M4 6.5l16 9M4 17.5l16-9" stroke="rgba(212,175,55,0.4)" stroke-width="0.75"></path>
+                    <path d="M3 9L12 3L21 9V11H3V9Z" fill="url(#phcGoldRimGrad)" stroke="#d4af37"></path>
+                    <path d="M5 11V18M9 11V18M15 11V18M19 11V18" stroke="#d4af37" stroke-width="1.4"></path>
+                    <path d="M3 18H21V21H3V18Z" fill="url(#phcGoldRimGrad)" stroke="#d4af37"></path>
+                    <circle cx="12" cy="7" r="1.2" fill="#fff"></circle>
                   </svg>
                 </div>
                 <div class="reliquary-title-group">
-                  <h3 id="collectionSectionTitle" data-i18n="profile.reliquaryTitle">خزانة المقتنيات والتحف السيادية</h3>
-                  <span class="reliquary-sub-title" data-i18n="profile.reliquarySub">مخمل أوبسيدياني • حفظ وحراسة أرستقراطية</span>
+                  <h3 id="collectionSectionTitle" data-i18n="profile.reliquaryTitle">متحف المقتنيات والخزانة السيادية</h3>
+                  <span class="reliquary-sub-title" data-i18n="profile.reliquarySub">الأروقة الرسمية لتوثيق وحفظ المقتنيات والآثار النادرة</span>
                 </div>
               </div>
               <div class="reliquary-head-actions">
@@ -2073,12 +2074,6 @@
 
             <!-- The Velvet Reliquary Vitrine Box -->
             <div class="reliquary-vitrine-box" id="reliquaryVitrineBox">
-              <!-- Physical Archival Corner Rivets -->
-              <div class="vitrine-screw vitrine-screw-tl"><div class="vitrine-screw-slot"></div></div>
-              <div class="vitrine-screw vitrine-screw-tr"><div class="vitrine-screw-slot"></div></div>
-              <div class="vitrine-screw vitrine-screw-bl"><div class="vitrine-screw-slot"></div></div>
-              <div class="vitrine-screw vitrine-screw-br"><div class="vitrine-screw-slot"></div></div>
-
               <!-- Vitrine Gallery Overhead Spotlight Cone -->
               <div class="vitrine-spotlight-beam" aria-hidden="true"></div>
 
@@ -2086,15 +2081,15 @@
               <div class="vitrine-velvet-cushion">
                 <div class="pcs-scroll-container">
                   <div class="pcs-grid reliquary-grid" id="profileCollectionGrid">
-                    <!-- JS injected items -->
+                    <!-- JS injected museum exhibits -->
                   </div>
                 </div>
               </div>
 
               <!-- Vitrine Bottom Hallmark & Security Ledger Bar -->
               <div class="vitrine-hallmark-bar">
-                <span class="vhb-hallmark">AU 999.9 • MASTER RELIQUARY • IMMUTABLE GENESIS VAULT</span>
-                <span class="vhb-status" id="reliquaryActiveStatus" data-i18n="profile.reliquaryStatusSecured">حالة الحفظ: مؤمنة بالكامل ✦</span>
+                <span class="vhb-hallmark">AU 999.9 • THE IMPERIAL MUSEUM ARCHIVES • IMMUTABLE GENESIS VAULT</span>
+                <span class="vhb-status" id="reliquaryActiveStatus" data-i18n="profile.reliquaryStatusSecured">حالة الحفظ: مؤمنة بالكامل بالختم السيادي ✦</span>
               </div>
             </div>
           </div>
@@ -2404,100 +2399,6 @@
               <p class="ach-toast-msg" id="achToastMsg"></p>
             </div>
           </div>
-
-          <!-- 7. SOVEREIGN RELIQUARY CERTIFICATE OF PROVENANCE MODAL -->
-          <div class="reliquary-modal-backdrop" id="reliquaryInspectModal" hidden="" aria-hidden="true">
-            <div class="reliquary-modal-card luxury-tilt-card" id="reliquaryCertificateCard">
-              <!-- Physical Archival Corner Rivets -->
-              <div class="rmc-screw rmc-screw-tl"><div class="rmc-screw-slot"></div></div>
-              <div class="rmc-screw rmc-screw-tr"><div class="rmc-screw-slot"></div></div>
-              <div class="rmc-screw rmc-screw-bl"><div class="rmc-screw-slot"></div></div>
-              <div class="rmc-screw rmc-screw-br"><div class="rmc-screw-slot"></div></div>
-
-              <!-- Close Button -->
-              <button type="button" class="rmc-close-btn" id="reliquaryModalCloseBtn" aria-label="Close">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-
-              <div class="rmc-inner">
-                <!-- Top Sovereign Certificate Seal & Header -->
-                <div class="rmc-header">
-                  <div class="rmc-seal-wrap">
-                    <svg viewBox="0 0 44 44" fill="none" class="rmc-seal-svg">
-                      <circle cx="22" cy="22" r="20" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="2 1.5"></circle>
-                      <circle cx="22" cy="22" r="17.5" stroke="rgba(212,175,55,0.5)" stroke-width="0.8"></circle>
-                      <circle cx="22" cy="22" r="14" fill="rgba(212,175,55,0.08)" stroke="#d4af37" stroke-width="1"></circle>
-                      <path d="M16 16l3 3.5 3-5 3 5 3-3.5v10h-12v-10z" fill="url(#rmcGoldGrad)" stroke="#c8a35f" stroke-width="0.6"></path>
-                      <defs>
-                        <linearGradient id="rmcGoldGrad" x1="16" y1="14" x2="28" y2="26" gradientUnits="userSpaceOnUse">
-                          <stop stop-color="#FFF8D6"></stop>
-                          <stop offset="0.5" stop-color="#E8BA38"></stop>
-                          <stop offset="1" stop-color="#593704"></stop>
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                  </div>
-                  <div class="rmc-header-texts">
-                    <span class="rmc-eyebrow" data-i18n="profile.certTitle">CERTIFICATE OF SOVEREIGN PROVENANCE</span>
-                    <h4 class="rmc-artifact-title" id="reliquaryItemTitle">ARTIFACT TITLE</h4>
-                    <span class="rmc-serial" id="reliquaryItemSerial">SER: ARC-0001-GOLD</span>
-                  </div>
-                </div>
-
-                <!-- Showcase Turntable on Velvet Cushion -->
-                <div class="rmc-turntable-chamber">
-                  <div class="rmc-spotlight-cone" aria-hidden="true"></div>
-                  <div class="rmc-turntable-pedestal">
-                    <div class="rmc-pedestal-bezel"></div>
-                    <div class="rmc-pedestal-velvet" id="reliquaryItemVisual">
-                      <!-- Injected item icon or image -->
-                    </div>
-                  </div>
-                  <div class="rmc-status-badge" id="reliquaryItemStatusBadge">
-                    <span class="rsb-dot"></span>
-                    <span id="reliquaryItemStatusText" data-i18n="profile.equippedBadge">مُقَلَّد بالهوية السيادية</span>
-                  </div>
-                </div>
-
-                <!-- Archival Specifications Grid -->
-                <div class="rmc-spec-grid">
-                  <div class="rmc-spec-cell">
-                    <span class="rmc-spec-lbl" data-i18n="profile.alloyLabel">العيار والمعدن</span>
-                    <span class="rmc-spec-val" id="reliquaryItemAlloy">Au 999.9 خالص</span>
-                  </div>
-                  <div class="rmc-spec-cell">
-                    <span class="rmc-spec-lbl" data-i18n="profile.foundryLabel">دار الصك والاعتماد</span>
-                    <span class="rmc-spec-val" id="reliquaryItemFoundry">St. Moritz Foundry</span>
-                  </div>
-                  <div class="rmc-spec-cell">
-                    <span class="rmc-spec-lbl" data-i18n="profile.rarityLabel">رتبة الندرة</span>
-                    <span class="rmc-spec-val" id="reliquaryItemRarity">SOVEREIGN APEX</span>
-                  </div>
-                  <div class="rmc-spec-cell">
-                    <span class="rmc-spec-lbl" data-i18n="profile.valueLabel">القيمة التقديرية</span>
-                    <span class="rmc-spec-val" id="reliquaryItemPrice">$15,000</span>
-                  </div>
-                </div>
-
-                <!-- Historical Lore Description -->
-                <div class="rmc-lore-box">
-                  <p class="rmc-lore-paragraph" id="reliquaryItemLore">
-                    تحفة مسبوكة يدوياً من الذهب الخالص والأوبسيديان المعتق...
-                  </p>
-                </div>
-
-                <!-- Actions: Close -->
-                <div class="rmc-actions">
-                  <button type="button" class="btn btn-outline" onclick="closeReliquaryInspectModal()" style="width: 100%;">
-                    <span data-i18n="boutique.close">إغلاق</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </section>
         <!-- PAGE: BOUTIQUE -->
         <section class="page" id="boutique-tab" hidden="">
@@ -2541,13 +2442,13 @@
           </div>
           <div class="boutique-filters-row">
             <div class="boutique-ownership-toggle" id="boutiqueFilterToggle">
-              <button class="b-filt-btn is-active" data-filter="all">
+              <button class="b-filt-btn is-active" data-filter="all" type="button">
                 <span data-i18n="boutique.allColl">جميع المقتنيات</span>
               </button>
-              <button class="b-filt-btn" data-filter="owned">
+              <button class="b-filt-btn" data-filter="owned" type="button">
                 <span data-i18n="boutique.ownedColl">المملوكة</span>
               </button>
-              <button class="b-filt-btn" data-filter="unowned">
+              <button class="b-filt-btn" data-filter="unowned" type="button">
                 <span data-i18n="boutique.available">المتاحة</span>
               </button>
             </div>
@@ -2643,6 +2544,173 @@
     </div>
 
     <div id="modals-container">
+      <!-- 7. SOVEREIGN RELIQUARY PATENT OF PROVENANCE & OWNERSHIP (براءة التوثيق والملكية السيادية) -->
+      <div class="reliquary-modal-backdrop" id="reliquaryInspectModal" hidden="" aria-hidden="true" onclick="if (event.target === this) closeReliquaryInspectModal()">
+        <div class="reliquary-modal-card luxury-tilt-card" id="reliquaryCertificateCard" role="dialog" aria-modal="true" aria-labelledby="reliquaryItemTitle">
+          <!-- Top Sovereign Circular Close Button -->
+          <button type="button" class="rmc-close-btn" id="reliquaryModalCloseBtn" onclick="closeReliquaryInspectModal()" aria-label="إغلاق">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <!-- Sovereign Archival Guilloché & Gilded Paper Security Engraving -->
+          <div class="rmc-guilloche-canvas" aria-hidden="true">
+            <svg viewBox="0 0 340 440" preserveAspectRatio="none" class="rmc-guilloche-svg">
+              <defs>
+                <linearGradient id="rmcGoldFoilGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fff8e7" stop-opacity="0.95"/>
+                  <stop offset="25%" stop-color="#dfb758" stop-opacity="0.85"/>
+                  <stop offset="50%" stop-color="#8c6014" stop-opacity="0.6"/>
+                  <stop offset="75%" stop-color="#dfb758" stop-opacity="0.85"/>
+                  <stop offset="100%" stop-color="#fff8e7" stop-opacity="0.95"/>
+                </linearGradient>
+                <pattern id="rmcBanknoteBorderPat" x="0" y="0" width="16" height="6" patternUnits="userSpaceOnUse">
+                  <path d="M 0 3 Q 4 0, 8 3 T 16 3" fill="none" stroke="url(#rmcGoldFoilGrad)" stroke-width="0.5"/>
+                  <path d="M 0 3 Q 4 6, 8 3 T 16 3" fill="none" stroke="rgba(212,175,55,0.4)" stroke-width="0.35"/>
+                </pattern>
+              </defs>
+              <!-- Outer Precision Archival Deckle Border -->
+              <rect x="5" y="5" width="330" height="430" rx="9" fill="none" stroke="url(#rmcGoldFoilGrad)" stroke-width="1.2"/>
+              <rect x="8" y="8" width="324" height="424" rx="7" fill="none" stroke="rgba(212,175,55,0.4)" stroke-width="0.6" stroke-dasharray="4 2"/>
+              <rect x="11" y="11" width="318" height="418" rx="5" fill="none" stroke="url(#rmcGoldFoilGrad)" stroke-width="0.5"/>
+              
+              <!-- Corner Banknote Guilloché Rosettes -->
+              <g stroke="url(#rmcGoldFoilGrad)" stroke-width="0.6" fill="none">
+                <!-- TL Corner Rosette -->
+                <circle cx="20" cy="20" r="10" stroke-width="0.6"/>
+                <circle cx="20" cy="20" r="6" stroke="rgba(212,175,55,0.5)" stroke-width="0.4"/>
+                <path d="M 10 20 Q 20 10, 30 20 Q 20 30, 10 20 M 20 10 Q 30 20, 20 30 Q 10 20, 20 10"/>
+                <!-- TR Corner Rosette -->
+                <circle cx="320" cy="20" r="10" stroke-width="0.6"/>
+                <circle cx="320" cy="20" r="6" stroke="rgba(212,175,55,0.5)" stroke-width="0.4"/>
+                <path d="M 310 20 Q 320 10, 330 20 Q 320 30, 310 20 M 320 10 Q 330 20, 320 30 Q 310 20, 320 10"/>
+                <!-- BL Corner Rosette -->
+                <circle cx="20" cy="420" r="10" stroke-width="0.6"/>
+                <circle cx="20" cy="420" r="6" stroke="rgba(212,175,55,0.5)" stroke-width="0.4"/>
+                <path d="M 10 420 Q 20 410, 30 420 Q 20 430, 10 420 M 20 410 Q 30 420, 20 430 Q 10 420, 20 410"/>
+                <!-- BR Corner Rosette -->
+                <circle cx="320" cy="420" r="10" stroke-width="0.6"/>
+                <circle cx="320" cy="420" r="6" stroke="rgba(212,175,55,0.5)" stroke-width="0.4"/>
+                <path d="M 310 420 Q 320 410, 330 420 Q 320 430, 310 420 M 320 410 Q 330 420, 320 430 Q 310 420, 320 410"/>
+              </g>
+
+              <!-- Center Horological Guilloché Spirograph Lathe (Engraved Banknote Watermark) -->
+              <g stroke="rgba(212,175,55,0.32)" stroke-width="0.5" fill="none" transform="translate(170, 190)">
+                <circle cx="0" cy="0" r="78" stroke-dasharray="3 2"/>
+                <circle cx="0" cy="0" r="58" stroke="url(#rmcGoldFoilGrad)" stroke-width="0.6"/>
+                <ellipse cx="0" cy="0" rx="92" ry="68"/>
+                <ellipse cx="0" cy="0" rx="68" ry="92"/>
+                <ellipse cx="0" cy="0" rx="84" ry="60" transform="rotate(30)"/>
+                <ellipse cx="0" cy="0" rx="60" ry="84" transform="rotate(30)"/>
+                <ellipse cx="0" cy="0" rx="84" ry="60" transform="rotate(60)"/>
+                <ellipse cx="0" cy="0" rx="60" ry="84" transform="rotate(60)"/>
+                <ellipse cx="0" cy="0" rx="88" ry="64" transform="rotate(45)"/>
+                <ellipse cx="0" cy="0" rx="64" ry="88" transform="rotate(45)"/>
+              </g>
+
+              <!-- Archival Micro-Hallmark Borders -->
+              <text x="170" y="10" text-anchor="middle" font-family="'Cinzel', serif" font-size="4.5" fill="rgba(185,145,75,0.6)" letter-spacing="1.5">AU 999.9 • THE 1% CLUB • SOVEREIGN CURATORIAL ARCHIVES</text>
+              <text x="170" y="434" text-anchor="middle" font-family="'Amiri', serif" font-size="5" fill="rgba(185,145,75,0.65)" letter-spacing="1">✦ وثيقة ملكية واعتماد سيادي غير قابلة للنقض • جنيف وسانت موريتز ✦</text>
+            </svg>
+          </div>
+
+          <div class="rmc-inner">
+            <!-- Sovereign Archival Header -->
+            <div class="rmc-header">
+              <div class="rmc-seal-wrap">
+                <svg viewBox="0 0 40 40" fill="none" class="rmc-seal-svg" aria-hidden="true">
+                  <circle cx="20" cy="20" r="18" stroke="url(#phcGoldRimGrad)" stroke-width="1.2"></circle>
+                  <circle cx="20" cy="20" r="15" stroke="rgba(212,175,55,0.35)" stroke-width="0.7" stroke-dasharray="2 1.5"></circle>
+                  <path d="M12 26 C10 20 12 14 16 10 C14 14 15 19 18 22" stroke="url(#phcGoldRimGrad)" stroke-width="1" stroke-linecap="round" fill="none"></path>
+                  <path d="M28 26 C30 20 28 14 24 10 C26 14 25 19 22 22" stroke="url(#phcGoldRimGrad)" stroke-width="1" stroke-linecap="round" fill="none"></path>
+                  <path d="M14 24 L15 17 L18 20 L20 15 L22 20 L25 17 L26 24 Z" fill="url(#phcGoldRimGrad)"></path>
+                  <circle cx="20" cy="14" r="1" fill="#ffffff"></circle>
+                </svg>
+              </div>
+              <div class="rmc-header-texts">
+                <span class="rmc-institution" data-i18n="profile.certSubTitle">THE 1% CLUB • SOVEREIGN CURATORIAL ARCHIVES</span>
+                <h4 class="rmc-patent-title" data-i18n="profile.certTitle">براءة التوثيق والملكية السيادية</h4>
+              </div>
+            </div>
+
+            <!-- Compact Vitrine Medallion & Hero Artifact -->
+            <div class="rmc-turntable-chamber">
+              <div class="rmc-turntable-pedestal">
+                <div class="rmc-pedestal-bezel"></div>
+                <div class="rmc-pedestal-velvet" id="reliquaryItemVisual">
+                  <!-- Injected artifact visual -->
+                </div>
+              </div>
+              <div class="rmc-identity-block">
+                <div class="rmc-artifact-title-row">
+                  <h3 class="rmc-artifact-title" id="reliquaryItemTitle">ARTIFACT TITLE</h3>
+                </div>
+                <div class="rmc-meta-line">
+                  <div class="rmc-serial-row" onclick="window.copyReliquarySerial()" title="انقر لنسخ رقم التوثيق" role="button" tabindex="0">
+                    <span class="rmc-serial-prefix">№</span>
+                    <span class="rmc-serial" id="reliquaryItemSerial">ARC-0001-GOLD</span>
+                    <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.8" class="rmc-copy-icon">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                  </div>
+                  <div class="rmc-status-badge is-vaulted" id="reliquaryItemStatusBadge">
+                    <span class="rsb-dot"></span>
+                    <span id="reliquaryItemStatusText" data-i18n="profile.vaultedBadge">محفوظ بالخزانة</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Horological Specification Complication Bar (Single seamless horological plate) -->
+            <div class="rmc-spec-grid">
+              <div class="rmc-spec-cell">
+                <span class="rmc-spec-lbl" data-i18n="profile.alloyLabel">العيار والمعدن</span>
+                <span class="rmc-spec-val" id="reliquaryItemAlloy">Au 999.9 خالص</span>
+              </div>
+              <div class="rmc-spec-cell">
+                <span class="rmc-spec-lbl" data-i18n="profile.foundryLabel">دار الصك والاعتماد</span>
+                <span class="rmc-spec-val" id="reliquaryItemFoundry">St. Moritz Foundry</span>
+              </div>
+              <div class="rmc-spec-cell">
+                <span class="rmc-spec-lbl" data-i18n="profile.rarityLabel">رتبة الندرة</span>
+                <span class="rmc-spec-val" id="reliquaryItemRarity">SOVEREIGN APEX</span>
+              </div>
+              <div class="rmc-spec-cell">
+                <span class="rmc-spec-lbl" data-i18n="profile.valueLabel">القيمة التقديرية</span>
+                <span class="rmc-spec-val" id="reliquaryItemPrice">$15,000</span>
+              </div>
+            </div>
+
+            <!-- Curatorial Provenance Inscription -->
+            <div class="rmc-lore-box">
+              <p class="rmc-lore-paragraph" id="reliquaryItemLore">
+                تحفة ملكية مسبوكة يدوياً من الذهب السيادي الخالص، معتمدة وموثقة من المجلس التأسيسي الأعلى.
+              </p>
+            </div>
+
+            <!-- Sovereign Council Seal of Authenticity -->
+            <div class="rmc-council-seal-row">
+              <div class="rmc-seal-stamp">
+                <span class="rmc-stamp-star">✦</span>
+                <span>سجل سيادي موثق غير قابل للنقض • المجلس الأعلى</span>
+                <span class="rmc-stamp-star">✦</span>
+              </div>
+            </div>
+
+            <!-- Primary Dismiss Action (ختم وإغلاق الشهادة) -->
+            <div class="rmc-actions">
+              <button type="button" class="rmc-dismiss-btn" onclick="closeReliquaryInspectModal()">
+                <span class="rdb-crest">✦</span>
+                <span data-i18n="profile.museumClosePatent">ختم وإغلاق براءة التوثيق ✦</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- BOUTIQUE INSPECTION MODAL (PRIVATE CURATORIAL CHAMBER) -->
       <div class="purchase-modal-overlay" id="inspectionModal" hidden="" onclick="if (event.target === this) closeInspectionModal()">
         <div class="purchase-modal boutique-curatorial-modal" role="dialog" aria-modal="true" aria-labelledby="inspectionTitle">
@@ -3598,7 +3666,7 @@
     <script src="luxury.js?v=20261004b"></script>
     <script src="translations.js?v=20261004b"></script>
     <script src="artifacts.js?v=20261006_text_polish"></script>
-    <script src="app.js?v=20261006_text_polish"></script>
+    <script src="app.js?v=20261006_cert_sovereign"></script>
 
     <input
       type="file"
