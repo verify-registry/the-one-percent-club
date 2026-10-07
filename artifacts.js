@@ -1051,9 +1051,9 @@ window.renderClocheVitrine = function(artifactSvg, isObsidianBase = false, uid =
     <circle cx="80" cy="68" r="48" fill="url(#cloche_glass_${uid})"/>
     <circle cx="80" cy="68" r="48" stroke="url(#cloche_gold_${uid})" stroke-width="1.2" opacity="0.85"/>
 
-    <!-- 4. The 3D Sovereign Artifact Suspended Inside -->
-    <g transform="translate(32, 20) scale(0.96)">
-      ${artifactSvg}
+    <!-- 4. The 3D Sovereign Artifact Suspended Inside (Centered in 96px dome) -->
+    <g class="cloche-artifact-wrap" transform="translate(32, 20)">
+      ${artifactSvg ? artifactSvg.replace(/<svg\b([^>]*)>/, '<svg width="96" height="96" $1>') : ""}
     </g>
 
     <!-- 5. Glass Curved Highlights & Specular Reflections -->

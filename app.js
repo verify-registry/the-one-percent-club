@@ -48,7 +48,7 @@ function renderRing(ringId, valueId, percent) {
   const ring = document.getElementById(ringId);
   const valEl = document.getElementById(valueId);
   if (!ring || !valEl) return;
-  const radius = ring.r.baseVal.value;
+  const radius = (ring.r && ring.r.baseVal ? ring.r.baseVal.value : parseFloat(ring.getAttribute("r"))) || 40;
   const circumference = radius * 2 * Math.PI;
   ring.style.strokeDasharray = `${circumference} ${circumference}`;
   const offset = circumference - (percent / 100) * circumference;
@@ -80,7 +80,12 @@ function getNestedValue(obj, path) {
 }
 
 window.t = function (key, lang = currentLang) {
-  const item = getNestedValue(window.I18N, key);
+  if (!key) return "";
+  let item = getNestedValue(window.I18N, key);
+  if (!item && typeof key === "string" && key.startsWith("items.")) {
+    const stripped = key.replace(/^items\./, "");
+    item = getNestedValue(window.I18N, stripped);
+  }
   if (item && item[lang]) return item[lang];
   return key; // fallback
 };
@@ -2191,24 +2196,46 @@ function generateBoutiqueSkeleton(categories = ["crowns"]) {
 // boutiqueLoadingTimeout hoisted at top-level
 
 /* === 3. BOUTIQUE & STORE RENDERING === */
+window.resetBoutiqueOwnershipFilter = function () {
+  currentOwnershipFilter = "all";
+  document.querySelectorAll(".b-filt-btn").forEach((b) => {
+    const isAll = b.dataset.filter === "all";
+    b.classList.toggle("is-active", isAll);
+    b.setAttribute("aria-selected", isAll ? "true" : "false");
+  });
+  window.updateBoutiqueGliders?.(false);
+  const activeCat =
+    document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all";
+  renderBoutique(activeCat, false);
+};
+
 function renderBoutique(filter = "all", showSkeleton = false) {
   const root = document.getElementById("boutiqueSections");
   if (!root) return;
-  const owned = ClubState.owned;
-  const equipped = ClubState.equipped;
+  const owned = ClubState.owned || {};
+  const equipped = ClubState.equipped || {};
   const categories = filter === "all" ? Object.keys(BOUTIQUE) : [filter];
 
-  if (showSkeleton || !root.dataset.skeletonShown) {
+  if (showSkeleton && !root.dataset.skeletonShown) {
     if (boutiqueLoadingTimeout) clearTimeout(boutiqueLoadingTimeout);
     root.innerHTML = generateBoutiqueSkeleton(categories);
     root.dataset.skeletonShown = "true";
     boutiqueLoadingTimeout = setTimeout(() => {
-      renderBoutiqueContent(filter, root, owned, equipped, categories);
-    }, 380);
+      try {
+        renderBoutiqueContent(filter, root, owned, equipped, categories);
+      } catch (e) {
+        console.error("Error rendering boutique content:", e);
+      }
+    }, 240);
     return;
   }
 
-  renderBoutiqueContent(filter, root, owned, equipped, categories);
+  try {
+    renderBoutiqueContent(filter, root, owned, equipped, categories);
+    root.dataset.skeletonShown = "true";
+  } catch (e) {
+    console.error("Error rendering boutique content directly:", e);
+  }
 }
 
 function renderBoutiqueContent(filter, root, owned, equipped, categories) {
@@ -2346,13 +2373,26 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     .join("");
 
   if (root.innerHTML.trim() === "") {
+    const isOwnedFilter = currentOwnershipFilter === "owned";
+    const title = isOwnedFilter
+      ? (isAr ? "لم تقتنِ أي قطعة بعد" : "No Owned Collectibles Yet")
+      : (window.t("boutique.noItems") || (isAr ? "لا توجد مقتنيات" : "No Collectibles"));
+    const desc = isOwnedFilter
+      ? (isAr ? "تفضل باستعراض المقتنيات المتاحة في الصالون للاقتناء والضم لخزانتك الخاصة." : "Browse the available pieces in the Sovereign Boutique to acquire and add to your collection.")
+      : (window.t("boutique.noFilterMatch") || (isAr ? "لا توجد عناصر مطابقة للتصفية الحالية" : "No items match the current filter."));
+
     root.innerHTML = `
-      <div class="luxury-empty-state" style="margin-top: 40px; padding: 60px 20px;">
-        <div class="empty-icon-wrapper">
-            <svg viewBox="0 0 24 24" fill="none" class="empty-icon"><path d="M4 8h16l-1.3 10.2A2 2 0 0116.7 20H7.3a2 2 0 01-2-1.8L4 8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.2"/></svg>
+      <div class="luxury-empty-state" style="margin-top: 36px; padding: 48px 20px; text-align: center;">
+        <div class="empty-icon-wrapper" style="margin: 0 auto 16px; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, rgba(212, 175, 106, 0.15) 0%, rgba(20, 16, 12, 0.9) 100%); border: 1px solid rgba(212, 175, 106, 0.4);">
+            <svg viewBox="0 0 24 24" fill="none" style="width: 28px; height: 28px; color: #d4af37;"><path d="M4 8h16l-1.3 10.2A2 2 0 0116.7 20H7.3a2 2 0 01-2-1.8L4 8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M8 8V6a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.2"/></svg>
         </div>
-        <p>${window.t("boutique.noItems")}</p>
-        <span style="max-width: 280px; margin-bottom: 0;">${window.t("boutique.noFilterMatch")}</span>
+        <p style="font-family: var(--font-display, 'Cinzel', serif); font-size: 15px; font-weight: 700; color: #f7f0df; margin: 0 0 6px;">${title}</p>
+        <span style="display: block; font-size: 11.5px; color: #a89478; max-width: 290px; margin: 0 auto 16px; line-height: 1.5;">${desc}</span>
+        ${isOwnedFilter ? `
+          <button type="button" onclick="window.resetBoutiqueOwnershipFilter()" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 20px; border-radius: 20px; background: linear-gradient(135deg, #dfb758 0%, #b88628 100%); color: #1a1003; font-weight: 700; font-size: 11.5px; border: 1px solid #ecc678; cursor: pointer; box-shadow: 0 4px 14px rgba(184, 134, 40, 0.35);">
+            ✦ ${isAr ? "استعراض جميع المقتنيات" : "View All Collectibles"}
+          </button>
+        ` : ""}
       </div>
     `;
   }
@@ -2448,6 +2488,52 @@ function renderWidgetSection() {
   `;
 }
 
+window.updateBoutiqueGliders = function (instant = false) {
+  // 1. Status Filter Glider
+  const statusCont = document.getElementById("boutiqueFilterToggle");
+  const statusGlider = document.getElementById("boutiqueStatusGlider");
+  const activeStatusBtn = statusCont?.querySelector(".b-filt-btn.is-active");
+
+  if (statusCont && statusGlider && activeStatusBtn) {
+    if (instant) {
+      statusGlider.style.transition = "none";
+    }
+    const offsetLeft = activeStatusBtn.offsetLeft;
+    const width = activeStatusBtn.offsetWidth;
+    statusGlider.style.width = width + "px";
+    statusGlider.style.transform = `translateX(${offsetLeft}px)`;
+    statusGlider.style.opacity = "1";
+    if (instant) {
+      statusGlider.offsetHeight; // trigger reflow
+      statusGlider.style.transition = "";
+    }
+  }
+
+  // 2. Category Tab Glider
+  const tabCont = document.getElementById("boutiqueTabs");
+  const tabGlider = document.getElementById("boutiqueTabGlider");
+  const activeTab = tabCont?.querySelector(".boutique-tab.is-active");
+
+  if (tabCont && tabGlider && activeTab) {
+    if (instant) {
+      tabGlider.style.transition = "none";
+    }
+    const offsetLeft = activeTab.offsetLeft;
+    const width = activeTab.offsetWidth;
+    tabGlider.style.width = width + "px";
+    tabGlider.style.transform = `translateX(${offsetLeft}px)`;
+    tabGlider.style.opacity = "1";
+    if (instant) {
+      tabGlider.offsetHeight; // trigger reflow
+      tabGlider.style.transition = "";
+    }
+  }
+};
+
+window.addEventListener("resize", () => {
+  window.updateBoutiqueGliders?.(true);
+});
+
 document.querySelectorAll(".boutique-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
     document
@@ -2464,11 +2550,13 @@ document.querySelectorAll(".boutique-tab").forEach((tab) => {
     try {
       tab.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     } catch (_) {}
+    window.updateBoutiqueGliders?.(false);
     renderBoutique(tab.dataset.cat, false);
   });
 });
 
 renderBoutique();
+window.updateBoutiqueGliders?.(true);
 
 const balanceDisplay = document.getElementById("boutiqueBalanceDisplay");
 if (balanceDisplay) {
@@ -2882,6 +2970,11 @@ const Router = {
         window.autoGrowClubInput();
       }, 50);
     }
+    if (tab === "boutique") {
+      setTimeout(() => {
+        window.updateBoutiqueGliders?.(true);
+      }, 30);
+    }
   },
 
   updateHeader(tab) {
@@ -3030,18 +3123,12 @@ document.querySelectorAll(".nav-item").forEach((item) => {
   });
 });
 
-document
-  .getElementById("goToShopBtn")
-  ?.addEventListener("click", () => goToPage("shop"));
-
 // ---------------------------------------------------------
 
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 let contextReturnTab = "club";
-let contextReturnChannel = "leaderboard";
-let contextReturnScrollTop = 0;
 
 function openContextPage(pageId, title, returnTab) {
   if (window.AudioEngine) AudioEngine.playRustle();
@@ -3177,18 +3264,12 @@ function openMemberProfile(member) {
     imgEl.style.display = "block";
     if (fallbackEl) fallbackEl.style.display = "none";
   }
-  const oldPhotoEl = document.getElementById("memberPortraitPhoto");
-  if (oldPhotoEl) {
-    oldPhotoEl.style.backgroundImage = `url('${avatarUrl}')`;
-  }
 
   contextReturnTab = "club";
-  contextReturnChannel = "leaderboard";
   const lbContainer = document.getElementById("clubLeaderboardContainer");
   const clubTabEl = document.getElementById("club-tab");
   const lbScroll = lbContainer ? lbContainer.scrollTop : 0;
   const tabScroll = clubTabEl ? clubTabEl.scrollTop : 0;
-  contextReturnScrollTop = lbScroll > 0 ? lbScroll : tabScroll;
   window.contextReturnLbScroll = lbScroll;
   window.contextReturnClubTabScroll = tabScroll;
   if (!window.tabScrollPositions) window.tabScrollPositions = {};
@@ -3340,7 +3421,7 @@ document.querySelectorAll("#page-member .card-actions .btn, #page-member .sd-btn
   });
 });
 
-document.getElementById("editAccountForm").addEventListener("submit", (e) => {
+document.getElementById("editAccountForm")?.addEventListener("submit", (e) => {
   e.preventDefault();
 
   ClubState.member.name = document.getElementById("editName").value;
@@ -4107,7 +4188,6 @@ function buildMessageHTML(msg, idx, channelId) {
       const seconds = String(msgDate.getSeconds()).padStart(2, "0");
       const preciseTimeStr = `${hours}:${minutes}:${seconds}`;
       const fullDateIso = msgDate.toLocaleString();
-      const timeStr = `${hours}:${minutes}`;
 
       const senderName = isMe
         ? AppState.user.name || "Member"
@@ -4803,13 +4883,6 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   }
 }
 
-window.handleQuickEquip = function(event, item, catKey) {
-  if (event) {
-    event.stopPropagation();
-    event.preventDefault();
-  }
-};
-
 document.getElementById("inspectionCloseBtn")?.addEventListener("click", () => {
   closeInspectionModal();
 });
@@ -4876,10 +4949,6 @@ window.purchase = function(item, source = 'modal', btnElement = null) {
 function purchaseItem(item, catKey) {
   return window.purchase(item, 'modal');
 }
-function equipItem(item, catKey) {
-  // Collectibles are permanently owned and never equipped/imitated
-  return;
-}
 function updateMasterCard() {
   const pmItems = document.getElementById("pmItemsCollected");
   if (pmItems) {
@@ -4912,22 +4981,6 @@ function closeInspectionModal() {
   }
 }
 
-// ---------------------------------------------------------
-// ---------------------------------------------------------
-// Secondary square preview tooltip removed in favor of canonical curatorial chamber
-function showQuickPreview(item, wasAutoEquipped = false) {
-  const existing = document.getElementById("quickPreviewTooltip");
-  if (existing) existing.remove();
-}
-
-function hideQuickPreview() {
-  const tooltip = document.getElementById("quickPreviewTooltip");
-  if (tooltip) {
-    tooltip.classList.remove("is-visible");
-    tooltip.remove();
-  }
-}
-
 document.querySelectorAll(".b-filt-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     document
@@ -4941,6 +4994,7 @@ document.querySelectorAll(".b-filt-btn").forEach((btn) => {
     if (window.AudioEngine && window.AudioEngine.playHover) {
       window.AudioEngine.playHover();
     }
+    window.updateBoutiqueGliders?.(false);
     currentOwnershipFilter = btn.dataset.filter;
     const activeCat =
       document.querySelector(".boutique-tab.is-active")?.dataset.cat || "all";
@@ -5096,11 +5150,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (editAccountBtn) {
     editAccountBtn.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
     editAccountBtn.addEventListener("click", window.openEditProfileModal);
-  }
-
-  const editIconFloating = document.querySelector(".edit-icon-floating");
-  if (editIconFloating) {
-    editIconFloating.addEventListener("click", window.openEditProfileModal);
   }
 
   document
@@ -5606,10 +5655,6 @@ function playPurchaseAnimation() {
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 
-function generateProfileAchievementSkeleton() {
-  return generateSkeleton("achievement", 4);
-}
-
 function renderProfileAchievements() {
   const container = document.getElementById("profileAchievementsGrid");
   const summaryContainer = document.getElementById("achievementsSummary");
@@ -5667,7 +5712,6 @@ function renderProfileAchievements() {
     const nameText = window.t("honors." + id);
     const titleText = window.t("honors.title_" + id);
     const orderTag = window.t("honors.ord_" + id) || id.toUpperCase();
-    const descText = window.t("honors.desc_" + id);
 
     if (isUnlocked) {
       html += `
@@ -5945,13 +5989,6 @@ document.getElementById("heraldicCitationModal")?.addEventListener("click", (e) 
   }
 });
 
-
-function generateProfileCollectionSkeleton() {
-  return generateSkeleton("collection", 4);
-}
-
-
-
 function openReliquaryInspectModal(itemId) {
   let item = null;
   let catKey = "crowns";
@@ -6051,13 +6088,6 @@ function openReliquaryInspectModal(itemId) {
   const loreEl = document.getElementById("reliquaryItemLore");
   if (loreEl) {
     loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || (isAr ? "تحفة ملكية مسبوكة يدوياً من الذهب السيادي الخالص، معتمدة ومسجلة رسمياً بالأرشيف الإمبراطوري بقرار من المجلس التأسيسي الأعلى." : "Handcrafted sovereign artifact forged from solid 24k gold and obsidian, officially verified in the royal archives."));
-  }
-
-  // Toggle Equip Button removed in favor of permanent read-only vault display
-  const toggleBtn = document.getElementById("reliquaryToggleEquipBtn");
-  if (toggleBtn) {
-    toggleBtn.style.display = "none";
-    toggleBtn.onclick = null;
   }
 
   // Pre-reset scroll before opening to guarantee top-of-patent is displayed instantly
@@ -6356,16 +6386,6 @@ document.querySelector(".phc-medallion-case")?.addEventListener("click", () => {
   }
 });
 
-document.getElementById("phcPhotoEditBadge")?.addEventListener("click", (e) => {
-  e.stopPropagation();
-  if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
-    window.AudioEngine.playClick();
-  }
-  if (typeof window.openEditProfileModal === "function") {
-    window.openEditProfileModal();
-  }
-});
-
 function renderProfileStatsBar() {
   const container = document.getElementById("profileStatsBar");
   if (!container) return;
@@ -6376,15 +6396,13 @@ function renderProfileStatsBar() {
   }
   container.dataset.renderedOnce = "true";
 
-  const isAr = document.documentElement.dir === "rtl" || document.body.dir === "rtl";
+  const isAr = (document.documentElement && document.documentElement.dir === "rtl") || (document.body && document.body.dir === "rtl") || window.currentLang === "ar";
   const isElite = AppState.user.tier === "Elite" || AppState.user.tier === "نخبة";
   const tierVal = isElite ? window.t("profile.compTierElite") : window.t("profile.compTierSovereign");
   const tierLabel = window.t("profile.compTierLabel");
-  const tierSubCalibre = window.t("profile.horoSubdialTier") || (isAr ? "عيار السيادة" : "Apex Calibre");
 
   const itemsVal = AppState.collectedItems.length;
   const itemsLabel = window.t("profile.compVaultLabel");
-  const vaultSubCalibre = window.t("profile.horoSubdialVault") || (isAr ? "عداد الخزانة" : "Vault Chrono");
 
   // Calculate actual earned honors
   let earnedHonors = 0;
@@ -6399,11 +6417,9 @@ function renderProfileStatsBar() {
   }
   const honorsVal = `${earnedHonors} / 4`;
   const honorsLabel = window.t("profile.compHonorsLabel");
-  const honorsSubCalibre = window.t("profile.horoSubdialHonors") || (isAr ? "ميزان الأوسمة" : "Honors Quad");
 
   const sinceVal = window.t("profile.compRegistryVal") || (isAr ? "2024" : "EST. 2024");
   const sinceLabel = window.t("profile.compRegistryLabel");
-  const registrySubCalibre = window.t("profile.horoSubdialRegistry") || (isAr ? "ميناء الانتساب" : "Genesis Dial");
 
   // Needle Rotations (Horological Degrees)
   const tierNeedleDeg = isElite ? 45 : 0;
@@ -7332,8 +7348,6 @@ function renderLeaderboard() {
     },
   ];
 
-  const currentFilter = window.leaderboardActiveFilter || "all";
-
   // Top 3 (Podium) and remaining (Ledger)
   const podiumMembers = mockTopMembers.slice(0, 3);
   const ledgerMembers = mockTopMembers.slice(3);
@@ -7584,159 +7598,8 @@ function renderLeaderboard() {
 }
 
 /* ==========================================================================
-   PARALLAX CONTROLLER (LUXURY DEPTH)
-   ========================================================================== */
-class ParallaxController {
-  constructor() {
-    this.ticking = false;
-  }
-
-  init() {
-    // Parallax disabled to guarantee locked 120 FPS buttery-smooth native scrolling with zero layout thrashing
-  }
-
-  updateParallax() {
-    // Zero-overhead no-op for stutter-free scrolling stability
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  window.parallaxController = new ParallaxController();
-});
-
-/* ==========================================================================
-   HAPTIC 3D PREVIEW MANAGER
-   ========================================================================== */
-class HapticPreviewManager {
-  constructor() {
-    this.isActive = false;
-    this.imgSrc = null;
-    this.animationFrame = null;
-    this.tiltX = 0;
-    this.tiltY = 0;
-    this.targetTiltX = 0;
-    this.targetTiltY = 0;
-    this.startX = 0;
-    this.startY = 0;
-    this.initDOM();
-    this.bindEvents();
-  }
-
-  initDOM() {
-    const existing = document.getElementById('haptic3DOverlay');
-    if (existing) existing.remove();
-  }
-
-  bindEvents() {
-    this.handleMove = this.handleMove.bind(this);
-    this.handleEnd = this.handleEnd.bind(this);
-    this.renderLoop = this.renderLoop.bind(this);
-  }
-
-  open(item, startEvent) {
-    // Onboarding gesture hint overlay completely disabled
-    return;
-  }
-
-  close() {
-    if (!this.isActive) return;
-    this.isActive = false;
-    this.overlay.classList.remove('is-active');
-    
-    window.removeEventListener('touchmove', this.handleMove);
-    window.removeEventListener('touchend', this.handleEnd);
-    window.removeEventListener('mousemove', this.handleMove);
-    window.removeEventListener('mouseup', this.handleEnd);
-    
-    cancelAnimationFrame(this.animationFrame);
-    if (navigator.vibrate) navigator.vibrate(10);
-  }
-
-  handleMove(e) {
-    if (!this.isActive) return;
-    e.preventDefault(); // Prevent scrolling while previewing
-    
-    const touch = e.touches ? e.touches[0] : e;
-    const deltaX = touch.clientX - this.startX;
-    const deltaY = touch.clientY - this.startY;
-    
-    // Convert drag distance to tilt angles (max 40 degrees)
-    this.targetTiltY = Math.max(-40, Math.min(40, deltaX * 0.2));
-    this.targetTiltX = Math.max(-40, Math.min(40, -deltaY * 0.2));
-  }
-
-  handleEnd() {
-    this.close();
-  }
-
-  prepareCanvas(item) {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.cachedImage = new Image();
-    
-    let svgString = "";
-    if (item.image) {
-       this.cachedImage.src = item.image;
-    } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
-       this.cachedImage.src = item.icon;
-    } else {
-       svgString = ICONS[item.icon] || ICONS["star"];
-       // Convert SVG to data URL to draw on canvas
-       const svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
-       const url = URL.createObjectURL(svgBlob);
-       this.cachedImage.src = url;
-    }
-  }
-
-  renderLoop() {
-    if (!this.isActive) return;
-
-    // Smooth interpolation (lerp)
-    this.tiltX += (this.targetTiltX - this.tiltX) * 0.1;
-    this.tiltY += (this.targetTiltY - this.tiltY) * 0.1;
-
-    // Apply 3D CSS transform to the canvas
-    this.canvas.style.transform = `scale(1.1) rotateX(${this.tiltX}deg) rotateY(${this.tiltY}deg)`;
-
-    // Draw frame
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
-    if (this.cachedImage.complete && this.cachedImage.naturalWidth > 0) {
-      const padding = 100;
-      const drawSize = this.canvas.width - (padding * 2);
-      
-      // Draw Base Image
-      this.ctx.globalCompositeOperation = 'source-over';
-      this.ctx.drawImage(this.cachedImage, padding, padding, drawSize, drawSize);
-
-      // Create Dynamic Metallic Reflection Mask
-      this.ctx.globalCompositeOperation = 'source-atop';
-      
-      const gradX = this.canvas.width / 2 + (this.tiltY * 5);
-      const gradY = this.canvas.height / 2 - (this.tiltX * 5);
-      
-      const gradient = this.ctx.createRadialGradient(
-        gradX, gradY, 0,
-        this.canvas.width / 2, this.canvas.height / 2, this.canvas.width
-      );
-      
-      gradient.addColorStop(0, 'rgba(255, 255, 255, 0.4)');
-      gradient.addColorStop(0.3, 'rgba(212, 175, 55, 0.1)');
-      gradient.addColorStop(1, 'rgba(0, 0, 0, 0.6)');
-      
-      this.ctx.fillStyle = gradient;
-      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    }
-
-    this.animationFrame = requestAnimationFrame(this.renderLoop);
-  }
-}
-
-window.hapticPreviewMgr = new HapticPreviewManager();
-
-/* ==========================================================================
    SMART SCROLLBAR AUTO-HIDE
    ========================================================================== */
-let globalScrollTimeout;
 document.addEventListener("scroll", (e) => {
   const el = e.target;
   if (!el || !el.classList) return;
@@ -7780,7 +7643,6 @@ window.handleQuickPurchase = function(event, item, catKey) {
 window.HeaderScrollController = (function() {
   let isLockedVisible = false;
   let isNavigating = false;
-  let activeScrollEl = null;
   let lastScrollTop = 0;
   let ticking = false;
   let lastActionTime = 0;
@@ -7820,7 +7682,6 @@ window.HeaderScrollController = (function() {
     if (!header) return;
 
     const pageEl = getActivePageEl();
-    activeScrollEl = pageEl;
     lastScrollTop = Math.max(0, pageEl ? pageEl.scrollTop : 0);
 
     // If page is not scrollable, header MUST remain permanently visible

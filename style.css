@@ -1204,8 +1204,7 @@ body.light-mode .section-rule span:last-child {
 }
 
 .page#membership-tab,
-#membership-tab.is-active,
-#page-card.is-active {
+#membership-tab.is-active {
   overflow: visible;
   display: flex;
   flex-direction: column;
@@ -1213,8 +1212,7 @@ body.light-mode .section-rule span:last-child {
   padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
 }
 .page#membership-tab::-webkit-scrollbar,
-#membership-tab.is-active::-webkit-scrollbar,
-#page-card.is-active::-webkit-scrollbar {
+#membership-tab.is-active::-webkit-scrollbar {
   display: none;
 }
 
@@ -5730,6 +5728,7 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
    THE SOVEREIGN SALON & HAUTE BOUTIQUE NAVIGATION
    Clean, Understated Editorial Category Tabs
    ========================================================================== */
+/* --- HAUTE JOAILLERIE CATEGORY STRIP (DARK MODE) --- */
 #boutique-tab .boutique-tabs {
   display: flex;
   flex-wrap: nowrap;
@@ -5738,61 +5737,90 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   scrollbar-width: none;
   background: transparent !important;
   border: none !important;
-  padding: 2px 2px 8px 2px !important;
-  gap: 8px !important;
+  border-bottom: 0.5px solid rgba(212, 175, 106, 0.22) !important;
+  padding: 0 2px 2px 2px !important;
+  gap: 0 !important;
   margin: 0 0 16px 0 !important;
   direction: rtl;
   box-shadow: none !important;
   width: 100%;
   box-sizing: border-box;
   min-height: 38px;
+  height: 38px;
 }
 #boutique-tab .boutique-tabs::-webkit-scrollbar {
   display: none;
 }
 
 #boutique-tab .boutique-tab {
+  position: relative;
   flex: 0 0 auto;
-  background: rgba(22, 18, 12, 0.5) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(212, 175, 106, 0.18) !important;
-  border-radius: 7px !important;
-  color: #8c7e6c !important;
+  min-width: max-content;
+  height: 100%;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: #9a886f !important;
   font-family: var(--font-ui, "Cairo", system-ui, sans-serif);
   font-size: 11.5px;
-  font-weight: 500;
-  padding: 6px 12px !important;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 5px 15px 9px 15px !important;
   cursor: pointer;
-  transition: all 0.2s ease;
-  line-height: 1.2;
+  transition:
+    color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  letter-spacing: 0.01em;
   white-space: nowrap;
   box-shadow: none !important;
+  border-inline-end: 0.5px solid rgba(212, 175, 106, 0.18) !important;
+}
+
+#boutique-tab .boutique-tab:last-child {
+  border-inline-end: none !important;
 }
 
 #boutique-tab .boutique-tab:hover {
-  color: #d6c7b0 !important;
-  background: rgba(212, 175, 106, 0.1) !important;
-  border-color: rgba(212, 175, 106, 0.32) !important;
+  color: #faecc5 !important;
+  background: transparent !important;
 }
 
-#boutique-tab .boutique-tab:active {
-  transform: translateY(1px);
+body:not(.light-mode) #boutique-tab .boutique-tab.is-active,
+body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"] {
+  background: transparent !important;
+  border: none !important;
+  border-inline-end: 0.5px solid rgba(212, 175, 106, 0.18) !important;
+  color: #faecc5 !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
 }
 
-body:not(.light-mode) #boutique-tab .boutique-tab.is-active {
-  background: rgba(212, 175, 106, 0.18) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(212, 175, 106, 0.48) !important;
-  color: var(--gold-champagne, #d4af6a) !important;
-  font-weight: 600 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 240, 200, 0.15) !important;
-  text-shadow: none !important;
+body:not(.light-mode) #boutique-tab .boutique-tab.is-active:last-child,
+body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]:last-child {
+  border-inline-end: none !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-tab.is-active::after,
+body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 0px !important;
+  inset-inline-start: 18% !important;
+  inset-inline-end: 18% !important;
+  height: 2px !important;
+  border-radius: 1px !important;
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 106, 0.1) 0%,
+    #e2ae33 20%,
+    #fff5d6 50%,
+    #e2ae33 80%,
+    rgba(212, 175, 106, 0.1) 100%
+  ) !important;
+  box-shadow: 0 1px 3px rgba(212, 175, 106, 0.4) !important;
+  transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
 }
 
 #boutique-tab .boutique-section {
@@ -8107,66 +8135,6 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   display: none !important;
 }
 
-.quick-preview-tooltip {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
-  z-index: 10000;
-  background: rgba(10, 8, 5, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 106, 0.4);
-  border-radius: 16px;
-  padding: 20px;
-  width: 260px;
-  text-align: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transform: translateZ(0);
-  pointer-events: none;
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.9),
-    inset 0 1px 1px rgba(255, 255, 255, 0.1);
-}
-.quick-preview-tooltip.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
-}
-.quick-preview-tooltip h4 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 16px;
-  color: #f1eada;
-  margin-bottom: 12px;
-}
-.quick-preview-tooltip p {
-  font-size: 11.5px;
-  color: #b8af9b;
-  line-height: 1.5;
-  margin-top: 16px;
-}
-.quick-preview-tooltip .rarity-badge {
-  position: absolute;
-  top: 8px;
-  inset-inline-start: 8px;
-  font-size: 8.5px;
-  letter-spacing: 0.04em;
-  padding: 4px 6px 2px;
-  border-radius: 6px;
-  border: 1px solid var(--hairline-strong);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-weight: 500;
-  line-height: 1;
-  background: rgba(10, 8, 6, 0.7);
-  backdrop-filter: blur(4px);
-}
-
 .luxury-empty-state {
   display: flex;
   flex-direction: column;
@@ -8459,58 +8427,56 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   display: flex;
   align-items: center;
   width: 100%;
-  background: rgba(18, 14, 10, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(212, 175, 106, 0.24);
-  border-radius: 8px;
+  min-height: 40px;
+  height: 40px;
+  background: linear-gradient(180deg, #18140f 0%, #0e0c09 100%);
+  border: 0.5px solid rgba(212, 175, 106, 0.28);
+  border-radius: 20px;
   padding: 3px;
-  gap: 3px;
+  gap: 2px;
   box-sizing: border-box;
   direction: rtl;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 235, 180, 0.08);
 }
 
 #boutique-tab .b-filt-btn {
   flex: 1 1 0;
   min-width: 0;
-  background: rgba(24, 19, 13, 0.45);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(212, 175, 106, 0.16);
-  color: #8c7e6c;
+  height: 100%;
+  background: transparent;
+  border: 0.5px solid transparent;
+  color: #9c8b73;
   font-family: var(--font-ui, "Cairo", system-ui, sans-serif);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 7px 10px;
-  min-height: 34px;
-  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 6px 10px;
+  border-radius: 17px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
   white-space: nowrap;
-  letter-spacing: 0.01em;
   box-shadow: none;
 }
 
 #boutique-tab .b-filt-btn:hover {
-  color: #c9bcab;
-  background: rgba(212, 175, 106, 0.1);
-  border-color: rgba(212, 175, 106, 0.3);
+  color: #faecc5;
+  background: rgba(212, 175, 106, 0.08);
 }
 
 body:not(.light-mode) #boutique-tab .b-filt-btn.is-active,
-body:not(.light-mode) .b-filt-btn.is-active {
-  background: rgba(212, 175, 106, 0.18) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(212, 175, 106, 0.48) !important;
-  color: var(--gold-champagne, #d4af6a) !important;
-  font-weight: 600 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 240, 200, 0.15) !important;
+body:not(.light-mode) #boutique-tab .b-filt-btn[aria-selected="true"],
+body:not(.light-mode) .b-filt-btn.is-active,
+body:not(.light-mode) .b-filt-btn[aria-selected="true"] {
+  background: linear-gradient(180deg, #2b2112 0%, #1c150b 100%) !important;
+  border: 0.5px solid rgba(212, 175, 106, 0.5) !important;
+  color: #faecc5 !important;
+  font-weight: 700 !important;
+  border-radius: 17px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 235, 180, 0.15) !important;
 }
 
 @keyframes shimmer {
@@ -12593,7 +12559,6 @@ body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
 
 
 /* Any dropdown panels or tooltips */
-.quick-preview-tooltip,
 .chat-reactions-display,
 .achievement-toast,
 .copy-toast,
@@ -17190,17 +17155,6 @@ body.light-mode #boutique-tab .id-widget-container .membership-card.is-long-pres
   filter: none !important;
   -webkit-filter: none !important;
 }
-.haptic-3d-overlay,
-#haptic3DOverlay,
-.haptic-hint {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
 
 /* ==========================================================================
    ACTIVE MEMBER GLOW (PULSATING GOLD RING)
@@ -19533,7 +19487,6 @@ body #profile-tab .profile-hero-card::after {
   display: none !important;
   content: none !important;
   background: none !important;
-}
 }
 
 body #profile-tab .phc-inner {
@@ -32317,117 +32270,249 @@ body.light-mode #boutique-tab .boutique-balance-add {
    Bar 2: Haute Joaillerie Catalogue Index (Category Filter)
    ========================================================================== */
 
-/* --- BAR 1: LUXURY SEGMENTED CONTROL (STATUS: جميع المقتنيات / المملوكة / المتاحة) --- */
-body.light-mode #boutique-tab .boutique-ownership-toggle {
-  background: rgba(255, 255, 255, 0.72) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(140, 105, 45, 0.28) !important;
-  border-radius: 8px !important;
-  padding: 3px !important;
-  gap: 3px !important;
-  box-shadow: 0 2px 8px rgba(60, 40, 10, 0.05) !important;
+/* ==========================================================================
+   THE 1% CLUB — HAUTE JOAILLERIE BOUTIQUE FILTERS
+   Refined luxury layout with micro-thin gold strokes, editorial typography,
+   and polished jewelry physical transitions.
+   ========================================================================== */
+
+/* ==========================================================================
+   THE 1% CLUB — VISIONOS / LUXURY OS LIQUID GLASS FILTERS & SLIDING GLIDER
+   Magic Gliding Lens with fluid spring physics, tactile micro-press, and frosted glass.
+   ========================================================================== */
+
+/* --- BAR 1 & BAR 2: SOVEREIGN GOLD & OBSIDIAN CAPSULE STRIPS --- */
+.boutique-status-filter,
+#boutique-tab .boutique-ownership-toggle,
+.boutique-category-filter,
+#boutique-tab .boutique-tabs {
+  position: relative !important;
   display: flex !important;
   align-items: center !important;
   width: 100% !important;
+  min-height: 28px !important;
+  height: 28px !important;
+  padding: 2px !important;
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  gap: 2px !important;
   direction: rtl !important;
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.92) 0%, rgba(247, 240, 226, 0.88) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(197, 160, 89, 0.6) !important;
+  box-shadow:
+    0 3px 12px -2px rgba(90, 60, 15, 0.09),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 0 rgba(184, 141, 56, 0.25),
+    inset 0 0 0 0.5px rgba(220, 185, 115, 0.4) !important;
 }
 
-body.light-mode .b-filt-btn,
-body.light-mode #boutique-tab .b-filt-btn {
-  background: rgba(248, 244, 236, 0.65) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(140, 105, 45, 0.2) !important;
-  color: #72624e !important;
-  font-family: var(--font-ui, "Cairo", system-ui, sans-serif) !important;
-  font-size: 11px !important;
-  font-weight: 500 !important;
-  padding: 7px 10px !important;
-  min-height: 34px !important;
-  border-radius: 6px !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
+.boutique-status-filter,
+#boutique-tab .boutique-ownership-toggle {
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+.boutique-category-filter,
+#boutique-tab .boutique-tabs {
+  margin: 0 0 12px 0 !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  flex-wrap: nowrap !important;
+}
+
+.boutique-category-filter::-webkit-scrollbar,
+#boutique-tab .boutique-tabs::-webkit-scrollbar {
+  display: none !important;
+}
+
+body:not(.light-mode) .boutique-status-filter,
+body:not(.light-mode) #boutique-tab .boutique-ownership-toggle,
+body:not(.light-mode) .boutique-category-filter,
+body:not(.light-mode) #boutique-tab .boutique-tabs {
+  background: linear-gradient(180deg, rgba(26, 20, 14, 0.94) 0%, rgba(15, 11, 7, 0.96) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.48) !important;
+  box-shadow:
+    0 4px 18px -2px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 235, 180, 0.25),
+    inset 0 -1px 0 rgba(130, 95, 30, 0.3),
+    inset 0 0 0 0.5px rgba(212, 175, 106, 0.2) !important;
+}
+
+/* --- AUTHENTIC GOLD INGOT GLIDERS (BAR 1 & BAR 2) --- */
+.boutique-status-glider,
+.boutique-tab-glider {
+  position: absolute !important;
+  top: 2px !important;
+  bottom: 2px !important;
+  height: 24px !important;
+  left: 0 !important;
+  right: auto !important;
+  border-radius: 12px !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), width 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease !important;
+  will-change: transform, width !important;
+  background: linear-gradient(180deg, #fff2d3 0%, #fae2a9 26%, #ecc577 68%, #dea94b 100%) !important;
+  border: 1px solid #b78a35 !important;
+  box-shadow:
+    0 2px 7px rgba(135, 90, 20, 0.28),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(145, 95, 18, 0.3),
+    0 0 8px rgba(212, 175, 106, 0.25) !important;
+}
+
+body:not(.light-mode) .boutique-status-glider,
+body:not(.light-mode) .boutique-tab-glider {
+  background: linear-gradient(180deg, #563f1a 0%, #3a2910 50%, #221707 100%) !important;
+  border: 1px solid rgba(238, 204, 133, 0.9) !important;
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 242, 205, 0.5),
+    inset 0 -1px 0 rgba(135, 95, 25, 0.4),
+    0 0 12px rgba(212, 175, 106, 0.3) !important;
+}
+
+/* --- SEAMLESS SEGMENTS INSIDE THE STRIPS (BAR 1 & BAR 2) --- */
+.boutique-status-filter .b-filt-btn,
+#boutique-tab .b-filt-btn,
+.boutique-category-filter .boutique-tab,
+#boutique-tab .boutique-tab {
+  position: relative !important;
+  z-index: 2 !important;
+  height: 100% !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #7b6038 !important;
+  font-family: var(--font-ui, "Cairo", system-ui, sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
   white-space: nowrap !important;
   line-height: 1 !important;
-  letter-spacing: 0.01em !important;
-}
-
-body.light-mode .b-filt-btn:hover,
-body.light-mode #boutique-tab .b-filt-btn:hover {
-  color: #241603 !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(140, 105, 45, 0.35) !important;
-}
-
-body.light-mode .b-filt-btn.is-active,
-body.light-mode #boutique-tab .b-filt-btn.is-active {
-  background: rgba(255, 255, 255, 0.92) !important;
-  border: 1px solid rgba(140, 105, 45, 0.45) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  color: #281a05 !important;
-  font-weight: 700 !important;
-  box-shadow: 0 2px 6px rgba(50, 35, 10, 0.1) !important;
-}
-
-/* --- BAR 2: CATALOGUE INDEX (CATEGORIES: الكل / المجوهرات / الهالات / التيجان / النجوم) --- */
-body.light-mode #boutique-tab .boutique-tabs {
-  background: transparent !important;
-  border: none !important;
-  padding: 2px 2px 8px 2px !important;
-  gap: 8px !important;
-  box-shadow: none !important;
-  min-height: 38px !important;
-  margin: 0 0 16px 0 !important;
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  scrollbar-width: none !important;
-  direction: rtl !important;
+  cursor: pointer !important;
+  border-radius: 12px !important;
+  transition: color 0.22s ease, transform 0.1s ease !important;
   box-sizing: border-box !important;
 }
 
-body.light-mode #boutique-tab .boutique-tab,
-body.light-mode .boutique-tab {
-  background: rgba(255, 255, 255, 0.65) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(140, 105, 45, 0.22) !important;
-  border-radius: 7px !important;
-  color: #7a6a55 !important;
-  font-family: var(--font-ui, "Cairo", system-ui, sans-serif) !important;
-  font-size: 11.5px !important;
-  font-weight: 500 !important;
-  padding: 6px 12px !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  letter-spacing: 0.01em !important;
-  white-space: nowrap !important;
+/* Bar 1 distributes equally */
+.boutique-status-filter .b-filt-btn,
+#boutique-tab .b-filt-btn {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  padding: 0 6px !important;
 }
 
-body.light-mode #boutique-tab .boutique-tab:hover {
-  color: #241603 !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(140, 105, 45, 0.38) !important;
+/* Bar 2 flows smoothly across categories */
+.boutique-category-filter .boutique-tab,
+#boutique-tab .boutique-tab {
+  flex: 0 0 auto !important;
+  min-width: max-content !important;
+  padding: 0 10px !important;
 }
 
-body.light-mode #boutique-tab .boutique-tab.is-active,
-body.light-mode .boutique-tab.is-active {
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(140, 105, 45, 0.48) !important;
-  color: #281a05 !important;
+body:not(.light-mode) .boutique-status-filter .b-filt-btn,
+body:not(.light-mode) #boutique-tab .b-filt-btn,
+body:not(.light-mode) .boutique-category-filter .boutique-tab,
+body:not(.light-mode) #boutique-tab .boutique-tab {
+  color: #a89578 !important;
+}
+
+.boutique-status-filter .b-filt-btn:hover,
+#boutique-tab .b-filt-btn:hover,
+.boutique-category-filter .boutique-tab:hover,
+#boutique-tab .boutique-tab:hover {
+  color: #2b1803 !important;
+  text-shadow: 0 0 6px rgba(212, 175, 106, 0.35) !important;
+}
+
+body:not(.light-mode) .boutique-status-filter .b-filt-btn:hover,
+body:not(.light-mode) #boutique-tab .b-filt-btn:hover,
+body:not(.light-mode) .boutique-category-filter .boutique-tab:hover,
+body:not(.light-mode) #boutique-tab .boutique-tab:hover {
+  color: #faecc5 !important;
+  text-shadow: 0 0 8px rgba(212, 175, 106, 0.4) !important;
+}
+
+.boutique-status-filter .b-filt-btn:active,
+#boutique-tab .b-filt-btn:active,
+.boutique-category-filter .boutique-tab:active,
+#boutique-tab .boutique-tab:active {
+  transform: scale(0.96) !important;
+}
+
+/* Active State: Razor-sharp Contrast on the Gold Ingot */
+.boutique-status-filter .b-filt-btn.is-active,
+.boutique-status-filter .b-filt-btn[aria-selected="true"],
+#boutique-tab .b-filt-btn.is-active,
+#boutique-tab .b-filt-btn[aria-selected="true"],
+.boutique-category-filter .boutique-tab.is-active,
+.boutique-category-filter .boutique-tab[aria-selected="true"],
+#boutique-tab .boutique-tab.is-active,
+#boutique-tab .boutique-tab[aria-selected="true"] {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: #1a0f02 !important;
   font-weight: 700 !important;
-  box-shadow: 0 2px 6px rgba(50, 35, 10, 0.1) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 245, 220, 0.8) !important;
+}
+
+body:not(.light-mode) .boutique-status-filter .b-filt-btn.is-active,
+body:not(.light-mode) .boutique-status-filter .b-filt-btn[aria-selected="true"],
+body:not(.light-mode) #boutique-tab .b-filt-btn.is-active,
+body:not(.light-mode) #boutique-tab .b-filt-btn[aria-selected="true"],
+body:not(.light-mode) .boutique-category-filter .boutique-tab.is-active,
+body:not(.light-mode) .boutique-category-filter .boutique-tab[aria-selected="true"],
+body:not(.light-mode) #boutique-tab .boutique-tab.is-active,
+body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"] {
+  color: #fff4d4 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 8px rgba(230, 195, 120, 0.45) !important;
+}
+
+.boutique-category-filter .boutique-tab::after,
+#boutique-tab .boutique-tab::after {
+  display: none !important;
+  content: none !important;
+}
+
+@media (max-width: 430px) {
+  .boutique-status-filter,
+  #boutique-tab .boutique-ownership-toggle,
+  .boutique-category-filter,
+  #boutique-tab .boutique-tabs {
+    min-height: 27px !important;
+    height: 27px !important;
+    border-radius: 13.5px !important;
+    padding: 2px !important;
+  }
+  .boutique-status-glider,
+  .boutique-tab-glider {
+    top: 2px !important;
+    bottom: 2px !important;
+    height: 23px !important;
+    border-radius: 11.5px !important;
+  }
+  .boutique-status-filter .b-filt-btn,
+  #boutique-tab .b-filt-btn,
+  .boutique-category-filter .boutique-tab,
+  #boutique-tab .boutique-tab {
+    font-size: 10.5px !important;
+    border-radius: 11.5px !important;
+  }
+  .boutique-category-filter .boutique-tab,
+  #boutique-tab .boutique-tab {
+    padding: 0 8px !important;
+  }
 }
 
 body.light-mode #boutique-tab .boutique-section-title {
@@ -32445,6 +32530,80 @@ body.light-mode #boutique-tab .boutique-section-divider .bsd-line {
 
 body.light-mode #boutique-tab .boutique-section-divider .bsd-mark {
   color: #7c581a !important;
+}
+
+/* --- SOVEREIGN ARTIFACT VITRINE & CLOCHE CHAMBER --- */
+.boutique-cloche-stage {
+  position: relative !important;
+  width: 100% !important;
+  height: 124px !important;
+  min-height: 124px !important;
+  max-height: 124px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 4px auto 6px !important;
+  overflow: visible !important;
+  z-index: 2 !important;
+}
+
+.cloche-vitrine-chamber {
+  position: relative !important;
+  width: 114px !important;
+  height: 124px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cloche-vitrine-svg {
+  width: 114px !important;
+  height: 124px !important;
+  display: block !important;
+  overflow: visible !important;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.65)) !important;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+#boutique-tab .boutique-card:hover .cloche-vitrine-svg {
+  transform: translateY(-2px) scale(1.04) !important;
+}
+
+.cloche-vitrine-svg svg.artifact-svg {
+  width: 96px !important;
+  height: 96px !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+body.light-mode .cloche-vitrine-svg {
+  filter: drop-shadow(0 6px 14px rgba(70, 48, 18, 0.18)) !important;
+}
+
+.boutique-cloche-stage .boutique-card-fallback {
+  width: 82px !important;
+  height: 82px !important;
+  min-width: 82px !important;
+  min-height: 82px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: radial-gradient(circle at 35% 25%, rgba(255, 235, 185, 0.22) 0%, rgba(212, 175, 106, 0.12) 30%, rgba(28, 20, 12, 0.55) 65%, rgba(8, 6, 4, 0.95) 100%) !important;
+  border: 1.5px solid rgba(212, 175, 106, 0.55) !important;
+  box-shadow: inset 0 0 0 2px rgba(12, 9, 6, 0.9), 0 6px 16px -2px rgba(0, 0, 0, 0.75) !important;
+}
+
+body.light-mode .boutique-cloche-stage .boutique-card-fallback {
+  background: radial-gradient(circle at 35% 26%, #ffffff 0%, #fdfaf4 40%, #f1e6ce 100%) !important;
+  border: 1.5px solid rgba(184, 141, 56, 0.52) !important;
+  box-shadow: inset 0 0 0 2px #fefcf8, 0 4px 12px rgba(65, 45, 16, 0.08) !important;
+}
+
+.boutique-cloche-stage .boutique-card-fallback svg {
+  width: 52px !important;
+  height: 52px !important;
+  display: block !important;
 }
 
 /* ==========================================================================

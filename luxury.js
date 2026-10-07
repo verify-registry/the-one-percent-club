@@ -1180,13 +1180,10 @@ async function shareMasterCard() {
 
 
 document.getElementById("shareBtn")?.addEventListener("click", shareMasterCard);
-document
-  .getElementById("profileShareBtn")
-  ?.addEventListener("click", shareMasterCard);
 
 function initActionButtonsTactileFeedback() {
   const buttons = document.querySelectorAll(
-    "#membership-tab .card-actions .btn, #shareBtn, #copyBtn, #profileShareBtn"
+    "#membership-tab .card-actions .btn, #shareBtn, #copyBtn"
   );
   buttons.forEach((btn) => {
     const handleDown = () => {
@@ -1625,8 +1622,6 @@ function initGlobalTilt() {
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
     if (card.dataset.tiltBound) return;
     card.dataset.tiltBound = "true";
-
-    const isProfileHero = card.id === "profileHeroPlaque";
 
     // 11. DESKTOP HOVER INTERACTIONS
     let hoverAmbientFrame = null;
