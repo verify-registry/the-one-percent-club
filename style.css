@@ -1185,21 +1185,21 @@ body.light-mode .section-rule span:last-child {
   opacity: 1;
   pointer-events: auto;
   z-index: 2;
-  animation: pageStabilizeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: luxuryFadeSlide 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .page[hidden] {
   display: none !important;
 }
 
-@keyframes pageStabilizeIn {
+@keyframes luxuryFadeSlide {
   0% {
     opacity: 0;
-    transform: translate3d(0, 4px, 0);
+    transform: translateY(14px) scale(0.995);
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -2639,57 +2639,66 @@ body.light-mode .sovereign-dossier-card {
 
 .sd-close-btn {
   position: absolute !important;
-  top: 8px !important;
-  right: 12px !important;
-  left: auto !important;
-  width: 26px !important;
-  height: 26px !important;
-  min-width: 26px !important;
-  min-height: 26px !important;
+  top: 12px !important;
+  left: 12px !important;
+  right: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
   border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: radial-gradient(circle at 40% 40%, rgba(212, 175, 106, 0.14) 0%, rgba(18, 16, 20, 0.9) 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.35) !important;
+  background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
   box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.65), 
-    inset 0 1px 1px rgba(255, 245, 215, 0.18) !important;
-  color: #dfcaa0 !important;
+    0 0 0 1px #050403, 
+    0 2px 8px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0.5px rgba(255, 245, 215, 0.35) !important;
+  color: #f7e8c4 !important;
   cursor: pointer !important;
   padding: 0 !important;
   margin: 0 !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  z-index: 10 !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  z-index: 30 !important;
   -webkit-tap-highlight-color: transparent;
 }
 
 .sd-close-btn:hover {
-  background: radial-gradient(circle at 40% 40%, rgba(212, 175, 106, 0.25) 0%, rgba(28, 24, 32, 0.95) 100%) !important;
-  border-color: rgba(212, 175, 106, 0.65) !important;
+  background: radial-gradient(circle at 35% 30%, rgba(56, 44, 28, 0.98) 0%, rgba(24, 18, 11, 1) 100%) !important;
+  border-color: #f5d77f !important;
   color: #ffffff !important;
   box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.75), 
-    0 0 8px rgba(212, 175, 106, 0.25), 
-    inset 0 1px 1px rgba(255, 245, 215, 0.3) !important;
-  transform: scale(1.05);
+    0 0 0 1px #050403, 
+    0 4px 12px rgba(0, 0, 0, 0.85), 
+    0 0 8px rgba(212, 175, 106, 0.3), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  transform: scale(1.06);
 }
 
 .sd-close-btn:active {
-  transform: scale(0.92);
+  transform: scale(0.96);
 }
 
 body.light-mode .sd-close-btn {
-  background: linear-gradient(135deg, #ffffff 0%, #f4eee2 100%) !important;
-  border-color: rgba(168, 124, 45, 0.4) !important;
-  color: #694406 !important;
-  box-shadow: 0 2px 6px rgba(168, 124, 45, 0.12), inset 0 1px 0 #ffffff !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6eee2 70%, #ede0cb 100%) !important;
+  border: 1.2px solid rgba(175, 133, 50, 0.7) !important;
+  color: #3d280a !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.25), 
+    0 2px 6px rgba(90, 60, 20, 0.15), 
+    inset 0 1px 0.5px #ffffff !important;
 }
 
 body.light-mode .sd-close-btn:hover {
-  border-color: rgba(168, 124, 45, 0.7) !important;
-  color: #3d2602 !important;
-  box-shadow: 0 3px 10px rgba(168, 124, 45, 0.22) !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbf7ee 60%, #e8d7be 100%) !important;
+  border-color: #b88628 !important;
+  color: #1a1003 !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.35), 
+    0 3px 10px rgba(90, 60, 20, 0.22), 
+    inset 0 1px 1px #ffffff !important;
 }
 
 .sd-corner-rivet {
@@ -6526,6 +6535,56 @@ body.light-mode .boutique-curatorial-modal {
   overflow: visible !important;
 }
 
+/* Header in Curatorial Inspection Modal with guaranteed clearance for Close Button and Seal */
+.boutique-curatorial-modal .rmc-header {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 2px 46px 8px 46px !important;
+  margin-bottom: 8px !important;
+  border-bottom: 1px solid rgba(212, 175, 106, 0.22) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.boutique-curatorial-modal .rmc-header-texts {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  gap: 2px !important;
+}
+
+.boutique-curatorial-modal .rmc-seal-mark {
+  position: absolute !important;
+  top: 4px !important;
+  right: 8px !important;
+  left: auto !important;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+}
+
+/* Actions in Curatorial Inspection Modal with guaranteed separation */
+.boutique-curatorial-modal .rmc-actions,
+.reliquary-modal-card .rmc-actions {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  margin-top: 14px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
 .rmc-status-badge.is-eligible {
   background: rgba(16, 40, 24, 0.88);
   border-color: rgba(74, 222, 128, 0.4);
@@ -9641,43 +9700,89 @@ body.light-mode .luxury-modal-overlay.is-open .luxury-modal-box {
   }
 }
 .luxury-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 20px;
+  position: relative !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  padding: 14px 20px 14px 48px !important;
   border-bottom: 1px solid var(--border-subtle);
+  box-sizing: border-box !important;
 }
 .luxury-modal-header h2,
 .luxury-modal-header h3 {
   margin: 0;
   color: var(--text-primary);
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: 1.5px;
 }
 .luxury-close-btn {
-  background: var(--control-bg);
-  border: 1px solid var(--control-border);
-  color: var(--control-text);
-  cursor: pointer;
-  padding: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  transform: translateZ(0);
+  position: absolute !important;
+  top: 12px !important;
+  left: 12px !important;
+  right: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
+  color: #f7e8c4 !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 2px 8px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0.5px rgba(255, 245, 215, 0.35) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  z-index: 35 !important;
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 .luxury-close-btn:hover {
-  background: var(--control-bg-hover);
-  border-color: var(--border-gold);
-  color: var(--text-primary);
+  background: radial-gradient(circle at 35% 30%, rgba(56, 44, 28, 0.98) 0%, rgba(24, 18, 11, 1) 100%) !important;
+  border-color: #f5d77f !important;
+  color: #ffffff !important;
+  transform: scale(1.06) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 4px 12px rgba(0, 0, 0, 0.85), 
+    0 0 8px rgba(212, 175, 106, 0.3), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+}
+.luxury-close-btn:active {
+  transform: scale(0.96) !important;
 }
 .luxury-close-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 13px !important;
+  height: 13px !important;
+  stroke: currentColor !important;
+  stroke-width: 2.2 !important;
+  display: block !important;
+}
+body.light-mode .luxury-close-btn {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6eee2 70%, #ede0cb 100%) !important;
+  border: 1.2px solid rgba(175, 133, 50, 0.7) !important;
+  color: #3d280a !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.25), 
+    0 2px 6px rgba(90, 60, 20, 0.15), 
+    inset 0 1px 0.5px #ffffff !important;
+}
+body.light-mode .luxury-close-btn:hover {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbf7ee 60%, #e8d7be 100%) !important;
+  border-color: #b88628 !important;
+  color: #1a1003 !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.35), 
+    0 3px 10px rgba(90, 60, 20, 0.22), 
+    inset 0 1px 1px #ffffff !important;
 }
 .luxury-modal-body {
   padding: 20px;
@@ -19183,27 +19288,55 @@ body.light-mode .oath-signet-seal-btn {
   pointer-events: none;
 }
 .mini-dossier-close-btn {
-  position: absolute;
-  top: 12px;
-  inset-inline-end: 12px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid rgba(212, 175, 106, 0.25);
-  background: rgba(255, 255, 255, 0.04);
-  color: #c9bfab;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  z-index: 10;
+  position: absolute !important;
+  top: 12px !important;
+  left: 12px !important;
+  right: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
+  background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 2px 8px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0.5px rgba(255, 245, 215, 0.35) !important;
+  color: #f7e8c4 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease !important;
+  z-index: 30 !important;
 }
 .mini-dossier-close-btn:hover {
-  background: rgba(212, 175, 106, 0.18);
-  border-color: var(--gold-champagne);
-  color: #fff;
-  transform: scale(1.05);
+  background: radial-gradient(circle at 35% 30%, rgba(56, 44, 28, 0.98) 0%, rgba(24, 18, 11, 1) 100%) !important;
+  border-color: #f5d77f !important;
+  color: #fff !important;
+  transform: scale(1.06) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 4px 12px rgba(0, 0, 0, 0.85), 
+    0 0 8px rgba(212, 175, 106, 0.3), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+}
+body.light-mode .mini-dossier-close-btn {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6eee2 70%, #ede0cb 100%) !important;
+  border: 1.2px solid rgba(175, 133, 50, 0.7) !important;
+  color: #3d280a !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.25), 
+    0 2px 6px rgba(90, 60, 20, 0.15), 
+    inset 0 1px 0.5px #ffffff !important;
+}
+body.light-mode .mini-dossier-close-btn:hover {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbf7ee 60%, #e8d7be 100%) !important;
+  border-color: #b88628 !important;
+  color: #1a1003 !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.35), 
+    0 3px 10px rgba(90, 60, 20, 0.22), 
+    inset 0 1px 1px #ffffff !important;
 }
 .mini-dossier-hallmark-bar {
   display: flex;
@@ -22404,38 +22537,69 @@ body.light-mode #helpSupportModal .luxury-modal-header h3 {
   text-shadow: none !important;
 }
 
-/* Refined Metallic Close Button */
+/* Refined Metallic Close Button — Unified Top-Left Sovereign Medallion */
 #settingsModal .luxury-close-btn,
 #helpSupportModal .luxury-close-btn {
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  right: auto !important;
   width: 28px !important;
   height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
   border-radius: 50% !important;
-  background: rgba(212, 175, 106, 0.08) !important;
-  border: 1px solid rgba(212, 175, 106, 0.28) !important;
-  color: #d4af6a !important;
+  background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
+  color: #f7e8c4 !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 2px 8px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0.5px rgba(255, 245, 215, 0.35) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 14px !important;
   cursor: pointer !important;
-  transition: all 0.2s ease !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
   padding: 0 !important;
+  margin: 0 !important;
   line-height: 1 !important;
+  z-index: 30 !important;
 }
 
 #settingsModal .luxury-close-btn:hover,
 #helpSupportModal .luxury-close-btn:hover {
-  background: rgba(212, 175, 106, 0.2) !important;
-  border-color: rgba(212, 175, 106, 0.6) !important;
-  color: #f5e6b8 !important;
-  transform: scale(1.05) !important;
+  background: radial-gradient(circle at 35% 30%, rgba(56, 44, 28, 0.98) 0%, rgba(24, 18, 11, 1) 100%) !important;
+  border-color: #f5d77f !important;
+  color: #ffffff !important;
+  transform: scale(1.06) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 4px 12px rgba(0, 0, 0, 0.85), 
+    0 0 8px rgba(212, 175, 106, 0.3), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
 }
 
 body.light-mode #settingsModal .luxury-close-btn,
 body.light-mode #helpSupportModal .luxury-close-btn {
-  background: rgba(185, 145, 75, 0.1) !important;
-  border: 1px solid rgba(185, 145, 75, 0.35) !important;
-  color: #7d5a1b !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6eee2 70%, #ede0cb 100%) !important;
+  border: 1.2px solid rgba(175, 133, 50, 0.7) !important;
+  color: #3d280a !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.25), 
+    0 2px 6px rgba(90, 60, 20, 0.15), 
+    inset 0 1px 0.5px #ffffff !important;
+}
+
+body.light-mode #settingsModal .luxury-close-btn:hover,
+body.light-mode #helpSupportModal .luxury-close-btn:hover {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbf7ee 60%, #e8d7be 100%) !important;
+  border-color: #b88628 !important;
+  color: #1a1003 !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.35), 
+    0 3px 10px rgba(90, 60, 20, 0.22), 
+    inset 0 1px 1px #ffffff !important;
 }
 
 /* Modal Body Padding */
@@ -22597,40 +22761,77 @@ body.light-mode #accountInfoModal .luxury-modal-header h2 {
   filter: none !important;
 }
 
-/* 3. CLOSE BUTTON: Small Polished-Gold Control */
+/* 3. CLOSE BUTTON: Standardized Top-Left Sovereign Medallion */
 #editProfileModal .luxury-close-btn,
 #editProfileModal #closeEditProfileModal,
 #accountInfoModal .luxury-close-btn,
 #accountInfoModal #closeAccountInfoModal {
-  width: 24px !important;
-  height: 24px !important;
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  right: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
   border-radius: 50% !important;
-  background: linear-gradient(135deg, #fff3d2 0%, #caa455 45%, #7a5416 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.8) !important;
-  color: #1a1206 !important;
+  background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
+  color: #f7e8c4 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 12px !important;
   cursor: pointer !important;
-  transition: transform 0.15s ease, filter 0.15s ease !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
   padding: 0 !important;
+  margin: 0 !important;
   line-height: 1 !important;
-  box-shadow: 0 0 0 1px #38240a, 0 1.5px 4px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 2px 8px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0.5px rgba(255, 245, 215, 0.35) !important;
+  z-index: 30 !important;
 }
 
+#editProfileModal .luxury-close-btn:hover,
+#editProfileModal #closeEditProfileModal:hover,
 #accountInfoModal .luxury-close-btn:hover,
 #accountInfoModal #closeAccountInfoModal:hover {
-  filter: brightness(1.1) !important;
-  transform: scale(1.05) !important;
+  background: radial-gradient(circle at 35% 30%, rgba(56, 44, 28, 0.98) 0%, rgba(24, 18, 11, 1) 100%) !important;
+  border-color: #f5d77f !important;
+  color: #ffffff !important;
+  transform: scale(1.06) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 4px 12px rgba(0, 0, 0, 0.85), 
+    0 0 8px rgba(212, 175, 106, 0.3), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
 }
 
+body.light-mode #editProfileModal .luxury-close-btn,
+body.light-mode #editProfileModal #closeEditProfileModal,
 body.light-mode #accountInfoModal .luxury-close-btn,
 body.light-mode #accountInfoModal #closeAccountInfoModal {
-  background: linear-gradient(135deg, #ffffff 0%, #caa455 45%, #7a5416 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.9) !important;
-  color: #1a1206 !important;
-  box-shadow: 0 0 0 1px #38240a, 0 1.5px 4px rgba(45, 30, 8, 0.25) !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6eee2 70%, #ede0cb 100%) !important;
+  border: 1.2px solid rgba(175, 133, 50, 0.7) !important;
+  color: #3d280a !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.25), 
+    0 2px 6px rgba(90, 60, 20, 0.15), 
+    inset 0 1px 0.5px #ffffff !important;
+}
+
+body.light-mode #editProfileModal .luxury-close-btn:hover,
+body.light-mode #editProfileModal #closeEditProfileModal:hover,
+body.light-mode #accountInfoModal .luxury-close-btn:hover,
+body.light-mode #accountInfoModal #closeAccountInfoModal:hover {
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbf7ee 60%, #e8d7be 100%) !important;
+  border-color: #b88628 !important;
+  color: #1a1003 !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.35), 
+    0 3px 10px rgba(90, 60, 20, 0.22), 
+    inset 0 1px 1px #ffffff !important;
 }
 
 /* 4. PROFILE PORTRAIT: Authentic Sovereign 24K Machined Gold Frame Medallion */
@@ -25764,58 +25965,87 @@ body.light-mode .reliquary-modal-backdrop {
   gap: 0 !important;
 }
 
-/* Sovereign Circular Close Button */
+/* Sovereign Circular Close Button — Standardized Top-Left Placement */
 .rmc-close-btn {
   position: absolute !important;
-  top: 9px !important;
-  inset-inline-end: 9px !important;
-  inset-inline-start: auto !important;
-  width: 25px !important;
-  height: 25px !important;
+  top: 12px !important;
+  left: 12px !important;
+  right: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
   border-radius: 50% !important;
-  background: rgba(28, 22, 15, 0.95) !important;
-  border: 1.2px solid rgba(212, 175, 106, 0.5) !important;
-  color: #d4af6a !important;
+  background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
+  color: #f7e8c4 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  z-index: 30 !important;
+  z-index: 35 !important;
   padding: 0 !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.7) !important;
+  margin: 0 !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 2px 8px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0.5px rgba(255, 245, 215, 0.35) !important;
   outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 .rmc-close-btn:hover {
-  background: rgba(45, 35, 24, 0.98) !important;
+  background: radial-gradient(circle at 35% 30%, rgba(56, 44, 28, 0.98) 0%, rgba(24, 18, 11, 1) 100%) !important;
   border-color: #f5d77f !important;
   color: #ffffff !important;
-  transform: scale(1.08) !important;
+  transform: scale(1.06) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 4px 12px rgba(0, 0, 0, 0.85), 
+    0 0 8px rgba(212, 175, 106, 0.3), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Patent Header */
+.rmc-close-btn:active {
+  transform: scale(0.96) !important;
+}
+
+.rmc-close-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke: currentColor !important;
+  stroke-width: 2.2 !important;
+  display: block !important;
+}
+
+/* Patent Header with Symmetrical Padding preventing any overlap with Close Button or Seal */
 .rmc-header {
+  position: relative !important;
   display: flex !important;
-  flex-direction: row !important;
+  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 8px !important;
   text-align: center !important;
-  padding-bottom: 6px !important;
-  margin-bottom: 6px !important;
+  padding: 4px 46px 8px 46px !important;
+  margin-bottom: 8px !important;
   border-bottom: 1px solid rgba(212, 175, 106, 0.2) !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
 .rmc-seal-wrap {
-  width: 22px !important;
-  height: 22px !important;
+  position: absolute !important;
+  top: 6px !important;
+  right: 8px !important;
+  left: auto !important;
+  width: 26px !important;
+  height: 26px !important;
   flex-shrink: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  margin: 0 !important;
 }
 
 .rmc-seal-svg {
@@ -25828,7 +26058,10 @@ body.light-mode .reliquary-modal-backdrop {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 1px !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  gap: 2px !important;
 }
 
 .rmc-institution {
@@ -26128,41 +26361,73 @@ body.light-mode .reliquary-modal-backdrop {
   font-size: 7px !important;
 }
 
-/* Primary Dismiss Action — 24K SOVEREIGN GOLD INGOT BUTTON */
+/* Primary Actions Container with guaranteed 12px vertical separation */
 .rmc-actions {
   width: 100% !important;
   display: flex !important;
   flex-direction: column !important;
+  gap: 12px !important;
+  margin-top: 14px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
 }
 
-.rmc-dismiss-btn {
+/* Secondary Button / Requirement Standing Status Badge */
+.rmc-equip-btn {
   width: 100% !important;
-  height: 32px !important;
-  border-radius: 6px !important;
-  font-family: inherit !important;
-  font-size: 9.5px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.03em !important;
+  min-height: 40px !important;
+  border-radius: 8px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 5px !important;
+  gap: 6px !important;
+  font-family: var(--font-ui, "Cairo", system-ui, sans-serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.35 !important;
+  text-align: center !important;
+  padding: 8px 14px !important;
+  box-sizing: border-box !important;
   cursor: pointer !important;
-  border: 1px solid #dcae4a !important;
-  background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
-  color: #1a1104 !important;
-  box-shadow:
-    0 3px 8px rgba(120, 90, 30, 0.35),
-    0 0 12px rgba(220, 174, 74, 0.25),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease !important;
   outline: none !important;
   user-select: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
 
-.rmc-dismiss-btn:hover {
+/* Informative Status Badge for Required Rank (واضح كحالة/معلومة مستقلة تماماً) */
+.rmc-equip-btn.is-locked {
+  cursor: default !important;
+  background: linear-gradient(135deg, rgba(38, 28, 16, 0.95) 0%, rgba(22, 16, 10, 0.98) 100%) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.5) !important;
+  color: #fae4a8 !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 240, 205, 0.18) !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+.rmc-equip-btn.is-locked:hover {
+  filter: none !important;
+  transform: none !important;
+}
+
+/* Active Acquisition Button (اقتناء كإجراء شراء نشط) */
+.rmc-equip-btn:not(.is-locked) {
+  background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
+  border: 1px solid #dcae4a !important;
+  color: #1a1104 !important;
+  font-weight: 800 !important;
+  box-shadow:
+    0 3px 8px rgba(120, 90, 30, 0.35),
+    0 0 12px rgba(220, 174, 74, 0.25),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
+}
+
+.rmc-equip-btn:not(.is-locked):hover {
   transform: translateY(-1px) !important;
   background: linear-gradient(135deg, #ffffff 0%, #faecc5 20%, #e5b955 50%, #a87920 100%) !important;
   box-shadow:
@@ -26171,9 +26436,49 @@ body.light-mode .reliquary-modal-backdrop {
     inset 0 1px 2px #ffffff !important;
 }
 
+/* Primary Action Button (إغلاق / إغلاق المعاينة كإجراء أساسي مستقل في الأسفل) */
+.rmc-dismiss-btn {
+  width: 100% !important;
+  min-height: 42px !important;
+  height: 42px !important;
+  border-radius: 8px !important;
+  font-family: var(--font-ui, "Cairo", system-ui, sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, filter 0.15s ease !important;
+  border: 1px solid #dcae4a !important;
+  background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
+  color: #140d02 !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    0 0 12px rgba(220, 174, 74, 0.25),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.25) !important;
+}
+
+.rmc-dismiss-btn:hover {
+  transform: translateY(-1px) !important;
+  filter: brightness(1.04) !important;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.7),
+    0 0 18px rgba(220, 174, 74, 0.4),
+    inset 0 1px 2px #ffffff !important;
+}
+
 .rmc-dismiss-btn:active {
   transform: translateY(1px) scale(0.99) !important;
-  box-shadow: 0 1px 4px rgba(120, 90, 30, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
 .rdb-crest {
@@ -26197,16 +26502,17 @@ body.light-mode .reliquary-modal-card {
 }
 
 body.light-mode .rmc-close-btn {
-  background: linear-gradient(135deg, #ffffff 0%, #f4eee2 100%) !important;
-  border: 1.2px solid rgba(185, 145, 75, 0.6) !important;
-  color: #7a5416 !important;
-  box-shadow: 0 2px 6px rgba(120, 90, 40, 0.14), inset 0 1px 0 #ffffff !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6eee2 70%, #ede0cb 100%) !important;
+  border: 1.2px solid rgba(175, 133, 50, 0.7) !important;
+  color: #3d280a !important;
+  box-shadow: 0 0 0 1px rgba(90, 60, 15, 0.25), 0 2px 6px rgba(90, 60, 20, 0.15), inset 0 1px 0.5px #ffffff !important;
 }
 
 body.light-mode .rmc-close-btn:hover {
-  background: linear-gradient(135deg, #fdfbf7 0%, #ede1cc 100%) !important;
-  color: #1a1510 !important;
-  border-color: rgba(185, 145, 75, 0.85) !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbf7ee 60%, #e8d7be 100%) !important;
+  color: #1a1003 !important;
+  border-color: #b88628 !important;
+  box-shadow: 0 0 0 1px rgba(90, 60, 15, 0.35), 0 3px 10px rgba(90, 60, 20, 0.22), inset 0 1px 1px #ffffff !important;
 }
 
 body.light-mode .rmc-header {
@@ -26311,23 +26617,42 @@ body.light-mode .rmc-seal-stamp {
   box-shadow: 0 1px 3px rgba(120, 95, 45, 0.08), inset 0 1px 0 #ffffff !important;
 }
 
+body.light-mode .rmc-equip-btn.is-locked {
+  background: linear-gradient(135deg, #f7f1e4 0%, #ede1cc 100%) !important;
+  border: 1.2px solid rgba(165, 120, 45, 0.6) !important;
+  color: #4a320c !important; /* Deep antique bronze text: crisp and legible */
+  font-weight: 700 !important;
+  box-shadow: 0 2px 5px rgba(90, 60, 20, 0.08), inset 0 1px 0 #ffffff !important;
+  text-shadow: none !important;
+}
+
 body.light-mode .rmc-dismiss-btn {
-  background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
-  color: #1a1104 !important;
-  border: 1px solid #c89a32 !important;
+  width: 100% !important;
+  min-height: 42px !important;
+  height: 42px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, #ffffff 0%, #faecc5 18%, #dcae4a 45%, #b88628 80%, #916315 100%) !important;
+  color: #1a1002 !important; /* Authoritative dark bronze: 100% readable, never pale */
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  border: 1px solid #9e7223 !important;
   box-shadow:
-    0 4px 12px rgba(150, 110, 35, 0.35),
-    0 0 14px rgba(220, 174, 74, 0.25),
-    inset 0 1px 2px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
+    0 4px 14px rgba(110, 80, 25, 0.22),
+    inset 0 1px 1.5px #ffffff,
+    inset 0 -1px 1px rgba(90, 60, 15, 0.3) !important;
+  text-shadow: none !important;
 }
 
 body.light-mode .rmc-dismiss-btn:hover {
-  background: linear-gradient(135deg, #ffffff 0%, #faecc5 20%, #e5b955 50%, #a87920 100%) !important;
+  transform: translateY(-1px) !important;
+  filter: brightness(1.04) !important;
   box-shadow:
-    0 6px 16px rgba(150, 110, 35, 0.45),
-    0 0 20px rgba(220, 174, 74, 0.4),
+    0 6px 18px rgba(110, 80, 25, 0.3),
     inset 0 1px 2px #ffffff !important;
+}
+
+body.light-mode .rmc-dismiss-btn:active {
+  transform: translateY(1px) scale(0.99) !important;
 }
 
 /* Mobile Responsive Optimization (<= 480px) */
@@ -28855,33 +29180,53 @@ body.light-mode #profile-tab .phc-action-icon {
 
 .hcc-close-btn {
   position: absolute !important;
-  top: 10px !important;
-  right: 12px !important;
+  top: 12px !important;
+  left: 12px !important;
+  right: auto !important;
   width: 28px !important;
   height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
   border-radius: 50% !important;
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(212, 175, 55, 0.25) !important;
-  color: #dfc17b !important;
+  background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 2px 8px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0.5px rgba(255, 245, 215, 0.35) !important;
+  color: #f7e8c4 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  z-index: 10 !important;
-  transition: all 0.2s ease !important;
+  z-index: 30 !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 .hcc-close-btn:hover {
-  background: rgba(212, 175, 55, 0.15) !important;
-  border-color: rgba(212, 175, 55, 0.6) !important;
-  color: #fff !important;
+  background: radial-gradient(circle at 35% 30%, rgba(56, 44, 28, 0.98) 0%, rgba(24, 18, 11, 1) 100%) !important;
+  border-color: #f5d77f !important;
+  color: #ffffff !important;
+  transform: scale(1.06) !important;
+  box-shadow: 
+    0 0 0 1px #050403, 
+    0 4px 12px rgba(0, 0, 0, 0.85), 
+    0 0 8px rgba(212, 175, 106, 0.3), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
 }
 
 .hcc-inner {
+  position: relative !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   text-align: center !important;
+  padding-top: 14px !important;
 }
 
 .hcc-head {
@@ -33027,6 +33372,608 @@ body.dark-mode .pcs-item-price {
 body.light-mode .boutique-card {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), 0 8px 26px rgba(70, 50, 20, 0.12) !important;
 }
+
+/* Unified Close Buttons Positioning & Safe Area Rules */
+.rmc-close-btn,
+.sd-close-btn,
+.mini-dossier-close-btn,
+.hcc-close-btn,
+.luxury-close-btn,
+.chamber-plaque-dismiss-btn {
+  position: absolute !important;
+  left: 16px !important;
+  right: auto !important;
+}
+
+.rmc-header,
+.sd-card-header,
+.mini-dossier-header,
+.heraldic-citation-card,
+.luxury-modal-header,
+.purchase-modal-header,
+.chamber-plaque-content,
+.sovereign-mini-dossier-card {
+  position: relative !important;
+  padding-top: 42px !important;
+}
+
+/* ========================================================
+   SOVEREIGN AUTHENTICATION PORTAL (IMMUTABLE OBSIDIAN & GOLD)
+   ======================================================== */
+#authLoginOverlay,
+body.light-mode #authLoginOverlay {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100% !important;
+  min-height: 100dvh !important;
+  z-index: 9999999 !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: radial-gradient(circle at 50% 25%, #18171d 0%, #0c0b0e 65%, #050507 100%) !important;
+  padding: 12px 14px !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+#authLoginOverlay.is-open,
+#authLoginOverlay.is-active,
+body.light-mode #authLoginOverlay.is-open,
+body.light-mode #authLoginOverlay.is-active {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+#authLoginOverlay:not(.is-open):not(.is-active) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#authLoginOverlay .luxury-modal-box.auth-login-card,
+#authLoginOverlay .luxury-modal-box,
+body.light-mode #authLoginOverlay .luxury-modal-box {
+  width: 92% !important;
+  max-width: 345px !important;
+  max-height: calc(100dvh - 20px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: linear-gradient(180deg, #18171d 0%, #0d0c10 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 220, 130, 0.22) !important;
+  color: #f3efe6 !important;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  margin: auto !important;
+}
+
+#authLoginOverlay .luxury-modal-header,
+#authLoginOverlay .auth-modal-header,
+body.light-mode #authLoginOverlay .luxury-modal-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
+  padding: 12px 16px 8px 16px !important;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.06) 0%, transparent 100%) !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#authLoginOverlay .auth-hallmark-crown {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 3px !important;
+}
+
+#authLoginOverlay .auth-brand-title {
+  font-family: 'Cinzel', serif !important;
+  font-size: 15.5px !important;
+  color: #f3d882 !important;
+  letter-spacing: 0.16em !important;
+  font-weight: 700 !important;
+  margin: 0 0 2px 0 !important;
+  text-shadow: 0 2px 10px rgba(212, 175, 55, 0.25) !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+#authLoginOverlay .auth-brand-tagline {
+  font-size: 7.5px !important;
+  color: #9f9689 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  font-family: 'Inter', sans-serif !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+#authLoginOverlay .luxury-modal-body,
+#authLoginOverlay .auth-modal-body,
+body.light-mode #authLoginOverlay .luxury-modal-body {
+  padding: 10px 14px 12px 14px !important;
+  background: transparent !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  flex: 1 1 auto !important;
+  overscroll-behavior: contain !important;
+  box-sizing: border-box !important;
+}
+
+#authLoginOverlay .luxury-modal-body::-webkit-scrollbar,
+#authRecoveryModal .luxury-modal-body::-webkit-scrollbar {
+  width: 3px !important;
+}
+
+#authLoginOverlay .luxury-modal-body::-webkit-scrollbar-thumb,
+#authRecoveryModal .luxury-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.25) !important;
+  border-radius: 3px !important;
+}
+
+#authLoginOverlay .auth-tabs-row {
+  display: flex !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(212, 175, 55, 0.22) !important;
+  border-radius: 8px !important;
+  padding: 2px !important;
+  margin-bottom: 7px !important;
+  gap: 2px !important;
+  box-sizing: border-box !important;
+}
+
+#authLoginOverlay .auth-tab-btn {
+  flex: 1 !important;
+  height: 27px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 6px !important;
+  color: #9f9689 !important;
+  font-family: 'Cairo', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  letter-spacing: 0 !important;
+}
+
+#authLoginOverlay .auth-tab-btn.is-active {
+  background: linear-gradient(135deg, #d4af37 0%, #aa8228 100%) !important;
+  color: #0c0b0e !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+#authLoginOverlay .auth-title-container {
+  text-align: center !important;
+  margin-bottom: 7px !important;
+}
+
+#authLoginOverlay .auth-section-title {
+  color: #f3efe6 !important;
+  font-family: 'Cairo', 'Cinzel', serif !important;
+  font-size: 13px !important;
+  margin: 0 0 2px 0 !important;
+  letter-spacing: 0 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+}
+
+#authLoginOverlay .auth-section-desc {
+  color: #9c9384 !important;
+  font-size: 10px !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+  font-family: 'Cairo', sans-serif !important;
+  text-align: center !important;
+  letter-spacing: 0 !important;
+}
+
+#authLoginOverlay .auth-oauth-wrap {
+  margin-bottom: 2px !important;
+}
+
+#authLoginOverlay .auth-google-btn,
+body.light-mode #authLoginOverlay .auth-google-btn {
+  width: 100% !important;
+  height: 35px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  color: #f3efe6 !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  font-family: 'Cairo', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  cursor: pointer !important;
+  padding: 0 12px !important;
+  border-radius: 7px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+}
+
+#authLoginOverlay .auth-google-btn:hover {
+  background: rgba(212, 175, 55, 0.08) !important;
+  border-color: rgba(212, 175, 55, 0.55) !important;
+}
+
+#authLoginOverlay .auth-divider {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 6px 0 !important;
+}
+
+#authLoginOverlay .auth-divider-line {
+  flex: 1 !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent) !important;
+}
+
+#authLoginOverlay .auth-divider-text {
+  color: #8c8273 !important;
+  font-size: 9px !important;
+  letter-spacing: 0 !important;
+  font-family: 'Cairo', sans-serif !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+}
+
+#authLoginOverlay .auth-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+#authLoginOverlay .auth-field-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+#authLoginOverlay .auth-label-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 1px !important;
+}
+
+#authLoginOverlay .auth-input-label {
+  display: block !important;
+  font-size: 9.5px !important;
+  color: #d4af37 !important;
+  letter-spacing: 0 !important;
+  margin: 0 !important;
+  font-family: 'Cairo', sans-serif !important;
+  font-weight: 600 !important;
+  text-align: right !important;
+}
+
+html[dir="ltr"] #authLoginOverlay .auth-input-label {
+  text-align: left !important;
+}
+
+#authLoginOverlay .auth-text-input,
+body.light-mode #authLoginOverlay .auth-text-input {
+  width: 100% !important;
+  height: 33px !important;
+  background: #09090c !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 6px !important;
+  padding: 0 9px !important;
+  color: #ffffff !important;
+  font-size: 11.5px !important;
+  font-family: 'Cairo', sans-serif !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  text-align: right !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+html[dir="ltr"] #authLoginOverlay .auth-text-input {
+  text-align: left !important;
+}
+
+#authLoginOverlay .auth-text-input:focus,
+body.light-mode #authLoginOverlay .auth-text-input:focus {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.4), 0 0 8px rgba(212, 175, 55, 0.2) !important;
+}
+
+#authLoginOverlay .auth-text-input::placeholder {
+  color: rgba(168, 159, 145, 0.4) !important;
+  font-size: 10.5px !important;
+}
+
+#authLoginOverlay .auth-forgot-link {
+  background: none !important;
+  border: none !important;
+  color: #c9a440 !important;
+  font-size: 9.5px !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.35) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: 'Cairo', sans-serif !important;
+  letter-spacing: 0 !important;
+  transition: color 0.2s !important;
+  line-height: 1 !important;
+}
+
+#authLoginOverlay .auth-forgot-link:hover {
+  color: #f5df97 !important;
+  border-bottom-color: #f5df97 !important;
+}
+
+#authLoginOverlay .auth-error-msg {
+  color: #ff453a !important;
+  font-size: 10px !important;
+  text-align: center !important;
+  font-family: 'Cairo', sans-serif !important;
+  margin: 2px 0 !important;
+}
+
+#authLoginOverlay .auth-submit-btn,
+body.light-mode #authLoginOverlay .auth-submit-btn,
+#authRecoveryModal .auth-submit-btn,
+body.light-mode #authRecoveryModal .auth-submit-btn {
+  margin-top: 3px !important;
+  width: 100% !important;
+  height: 35px !important;
+  background: linear-gradient(135deg, #d4af37 0%, #aa8228 100%) !important;
+  color: #0c0b0e !important;
+  font-family: 'Cairo', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  font-size: 12px !important;
+  padding: 0 14px !important;
+  border-radius: 6px !important;
+  border: 1px solid #f3d882 !important;
+  box-shadow: 0 3px 12px rgba(212, 175, 55, 0.25) !important;
+  cursor: pointer !important;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#authLoginOverlay .auth-submit-btn:active,
+#authRecoveryModal .auth-submit-btn:active {
+  transform: scale(0.98) !important;
+}
+
+#authLoginOverlay .auth-toggle-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  margin-top: 6px !important;
+}
+
+#authLoginOverlay .auth-toggle-text {
+  color: #9f9689 !important;
+  font-size: 10px !important;
+  font-family: 'Cairo', sans-serif !important;
+}
+
+#authLoginOverlay .auth-toggle-link {
+  background: none !important;
+  border: none !important;
+  color: #d4af37 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.4) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: 'Cairo', sans-serif !important;
+  letter-spacing: 0 !important;
+  transition: color 0.2s !important;
+}
+
+#authLoginOverlay .auth-toggle-link:hover {
+  color: #f5df97 !important;
+  border-bottom-color: #f5df97 !important;
+}
+
+#authLoginOverlay .auth-footer-wrap {
+  margin-top: 7px !important;
+  padding-top: 6px !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.14) !important;
+  text-align: center !important;
+}
+
+#authLoginOverlay .auth-footer-notice {
+  color: #7d7568 !important;
+  font-size: 8.5px !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+  font-family: 'Cairo', sans-serif !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+}
+
+#authLoginOverlay .auth-footer-icon {
+  color: #d4af37 !important;
+  font-size: 8px !important;
+  margin-left: 3px !important;
+}
+
+/* Password Recovery Modal */
+#authRecoveryModal,
+body.light-mode #authRecoveryModal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000000 !important;
+  background: rgba(0, 0, 0, 0.88) !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 14px !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+#authRecoveryModal.is-open,
+#authRecoveryModal.is-active,
+body.light-mode #authRecoveryModal.is-open,
+body.light-mode #authRecoveryModal.is-active {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+#authRecoveryModal:not(.is-open):not(.is-active) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#authRecoveryModal .luxury-modal-box.auth-recovery-box,
+#authRecoveryModal .luxury-modal-box,
+body.light-mode #authRecoveryModal .luxury-modal-box {
+  width: 92% !important;
+  max-width: 345px !important;
+  max-height: calc(100dvh - 30px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: linear-gradient(180deg, #18171d 0%, #0d0c10 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 220, 130, 0.22) !important;
+  color: #f3efe6 !important;
+  overflow: hidden !important;
+  margin: auto !important;
+  box-sizing: border-box !important;
+}
+
+#authRecoveryModal .luxury-modal-header,
+#authRecoveryModal .auth-recovery-header,
+body.light-mode #authRecoveryModal .luxury-modal-header {
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.06) 0%, transparent 100%) !important;
+  padding: 12px 16px !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#authRecoveryModal .auth-recovery-title {
+  color: #d4af37 !important;
+  font-family: 'Cairo', sans-serif !important;
+  font-size: 13px !important;
+  margin: 0 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+}
+
+#authRecoveryModal .luxury-close-btn {
+  position: absolute !important;
+  top: 9px !important;
+  left: 12px !important;
+  right: auto !important;
+  width: 24px !important;
+  height: 24px !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(212,175,55,0.3) !important;
+  border-radius: 50% !important;
+  color: #d4af37 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+}
+
+html[dir="ltr"] #authRecoveryModal .luxury-close-btn {
+  left: auto !important;
+  right: 12px !important;
+}
+
+#authRecoveryModal .luxury-modal-body,
+#authRecoveryModal .auth-recovery-body,
+body.light-mode #authRecoveryModal .luxury-modal-body {
+  padding: 12px 14px 14px 14px !important;
+  background: transparent !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+}
+
+#authRecoveryModal .auth-section-desc {
+  color: #9c9384 !important;
+  font-size: 10.5px !important;
+  line-height: 1.35 !important;
+  margin: 0 0 10px 0 !important;
+  text-align: center !important;
+  font-family: 'Cairo', sans-serif !important;
+}
+
+#authRecoveryModal .auth-success-msg {
+  color: #34c759 !important;
+  font-size: 10.5px !important;
+  display: none;
+  text-align: center !important;
+  font-weight: 600 !important;
+  font-family: 'Cairo', sans-serif !important;
+  margin: 3px 0 !important;
+}
+
+#authRecoveryModal .auth-text-input,
+body.light-mode #authRecoveryModal .auth-text-input {
+  width: 100% !important;
+  height: 33px !important;
+  background: #09090c !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  border-radius: 6px !important;
+  padding: 0 9px !important;
+  color: #ffffff !important;
+  font-size: 11.5px !important;
+  font-family: 'Cairo', sans-serif !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  text-align: right !important;
+}
+
+html[dir="ltr"] #authRecoveryModal .auth-text-input {
+  text-align: left !important;
+}
+
 
 
 

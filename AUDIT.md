@@ -667,6 +667,22 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Enhanced archival lore paragraph and crafted prominent solid-metal dismiss action button (`.rmc-dismiss-btn`).
   - Cache-busted stylesheet and scripts to `?v=20261006_cert_sovereign`.
 
+### Unified Modal System, Header Clearance & Inspection Buttons Separation (2026-10-07) — COMPLETED
+- **Header Title & Close Button Collision Elimination**:
+  - Anchored `.rmc-close-btn` and all modal close buttons to a fixed, standardized **Top-Left** placement (`left: 12px !important; top: 12px !important; right: auto !important`).
+  - Added dedicated symmetrical `padding: 4px 46px 8px 46px !important` to `.rmc-header`, ensuring the eyebrow title ("معاينة وفحص التحفة السيادية"), artifact title, and serial are centered with guaranteed breathing room, eliminating any text collision with the close button or seal badge.
+  - Positioned the heraldic seal badge (`.rmc-seal-mark`, `.rmc-seal-wrap`) symmetrically in the top-right corner (`top: 6px; right: 8px`).
+- **App-Wide Unified Close Button (X)**:
+  - Standardized `.rmc-close-btn`, `.luxury-close-btn`, `.mini-dossier-close-btn`, and `.sd-close-btn` across all modals (`#inspectionModal`, `#reliquaryInspectModal`, `#settingsModal`, `#helpSupportModal`, `#editProfileModal`, `#accountInfoModal`, `#logoutConfirmModal`, `#memberMiniDossierModal`, `#creditsModal`, `#depositModal`, and `#page-member`).
+  - Built a uniform 28px sovereign circular beveled medallion button with radial gradient, 1.2px gold rim, bevel shadows, and crisp 13px X icon.
+  - Light Mode: Rich pearl-ivory radial gradient with authoritative dark antique bronze X (`#3d280a`), completely sharp, high contrast, and never pale.
+  - Dark Mode: Velvety obsidian/blackened metal with polished champagne gold rim and gold X (`#f7e8c4`).
+- **Inspection Modal Buttons Separation & Independent Geometry**:
+  - Enforced a clean 12px vertical gap (`gap: 12px !important; margin-top: 14px !important`) in `.rmc-actions`, completely preventing the two bottom buttons from touching or overlapping.
+  - Upgraded `.rmc-equip-btn.is-locked` into a distinct informative luxury status/requirement badge (`min-height: 40px`, rounded-8px, dark obsidian-amber in dark mode; warm ivory-parchment with `#4a320c` high-contrast bronze text in light mode).
+  - Upgraded `.rmc-dismiss-btn` ("إغلاق" / "إغلاق المعاينة") into the primary independent solid 24K gold ingot action button at the bottom (`height: 42px !important`, 8px border-radius, high-contrast `#140d02` dark / `#1a1002` light text).
+  - Cache-busted stylesheet to `?v=20261007_unified_modals_v9`.
+
 
 
 

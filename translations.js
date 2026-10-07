@@ -64,6 +64,12 @@ window.I18N = {
     en: "Explore Boutique",
     ar: "استكشاف البوتيك",
   },
+  common: {
+    close: {
+      en: "Close Decree",
+      ar: "إغلاق البراءة",
+    },
+  },
   nav: {
     membership: {
       en: "Membership",
@@ -414,6 +420,14 @@ window.I18N = {
     insufficientBalanceDesc: {
       en: "Your current balance is insufficient to complete this transaction.",
       ar: "رصيدك الحالي لا يكفي لإتمام هذه العملية.",
+    },
+    isDrafting: {
+      en: "is drafting a sovereign decree",
+      ar: "يصوغ مرسوماً سيادياً",
+    },
+    popular: {
+      en: "Most Popular",
+      ar: "الأكثر طلبًا",
     },
   },
   profile: {

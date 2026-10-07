@@ -48,21 +48,40 @@ function renderRing(ringId, valueId, percent) {
   const ring = document.getElementById(ringId);
   const valEl = document.getElementById(valueId);
   if (!ring || !valEl) return;
-  const radius = (ring.r && ring.r.baseVal ? ring.r.baseVal.value : parseFloat(ring.getAttribute("r"))) || 40;
+  const radius = (ring.r && ring.r.baseVal ? ring.r.baseVal.value : parseFloat(ring.getAttribute("r"))) || 52;
   const circumference = radius * 2 * Math.PI;
-  ring.style.strokeDasharray = `${circumference} ${circumference}`;
-  const offset = circumference - (percent / 100) * circumference;
-  ring.style.strokeDashoffset = circumference;
-  
-  // Set value immediately
-  valEl.textContent = parseFloat(percent).toFixed(1) + "%";
-  
-  // Animate with a tiny delay to ensure transition triggers
-  requestAnimationFrame(() => {
+
+  const targetOffset = circumference - (percent / 100) * circumference;
+
+  if (typeof d3 !== "undefined") {
+    d3.select(ring)
+      .style("stroke-dasharray", `${circumference} ${circumference}`)
+      .style("stroke-dashoffset", circumference)
+      .transition()
+      .duration(1200)
+      .ease(d3.easeCubicOut)
+      .style("stroke-dashoffset", targetOffset);
+
+    d3.select(valEl)
+      .transition()
+      .duration(1200)
+      .tween("text", function() {
+        const i = d3.interpolate(0, percent);
+        return function(t) {
+          valEl.textContent = i(t).toFixed(1) + "%";
+        };
+      });
+  } else {
+    ring.style.strokeDasharray = `${circumference} ${circumference}`;
+    ring.style.strokeDashoffset = circumference;
+    valEl.textContent = "0.0%";
     requestAnimationFrame(() => {
-      ring.style.strokeDashoffset = offset;
+      requestAnimationFrame(() => {
+        ring.style.strokeDashoffset = targetOffset;
+        valEl.textContent = parseFloat(percent).toFixed(1) + "%";
+      });
     });
-  });
+  }
 }
 
 /* === 1. CONFIG & GLOBAL STATE === */
@@ -71,7 +90,8 @@ function renderRing(ringId, valueId, percent) {
 // ==========================================
 
 const savedLang = localStorage.getItem("one_percent_lang");
-let currentLang = (savedLang === "ar" || savedLang === "en") ? savedLang : "ar";
+let currentLang = (savedLang === "ar" || savedLang === "en") ? savedLang : "en";
+window.currentLang = currentLang;
 var boutiqueLoadingTimeout = null;
 var profileCollectionTimeout = null;
 
@@ -117,6 +137,7 @@ window.syncClubInputDirection = function (inputEl) {
 window.setLanguage = function (lang) {
   if (lang !== "en" && lang !== "ar") return;
   currentLang = lang;
+  window.currentLang = lang;
   localStorage.setItem("one_percent_lang", lang);
   if (typeof AppState !== "undefined") AppState.language = lang;
 
@@ -202,6 +223,9 @@ window.setLanguage = function (lang) {
   if (typeof window.renderMessages === "function") window.renderMessages();
   if (typeof window.renderLeaderboard === "function")
     window.renderLeaderboard();
+  if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
+    window.ThemeManager.syncModalUI();
+  }
 
   // Update Profile strings if they rely on UI text
   const profileLevel = document.getElementById("profileMembershipLevel");
@@ -235,7 +259,11 @@ document.addEventListener("DOMContentLoaded", () => {
   window.ThemeManager = {
     getTheme() {
       try {
-        return localStorage.getItem("app_theme") || "dark";
+        const saved = localStorage.getItem("app_theme");
+        if (saved === "light" || saved === "dark") {
+          return saved;
+        }
+        return "dark";
       } catch {
         return "dark";
       }
@@ -244,7 +272,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return this.getTheme() === "light";
     },
     setTheme(theme, save = true) {
-      const isLight = theme === "light";
+      const validTheme = (theme === "light" || theme === "dark") ? theme : "dark";
+      const isLight = validTheme === "light";
       const root = document.documentElement;
       const body = document.body;
 
@@ -258,46 +287,34 @@ document.addEventListener("DOMContentLoaded", () => {
       // Toggle dark-mode / light-mode classes on document root element (<html>)
       root.classList.toggle("light-mode", isLight);
       root.classList.toggle("dark-mode", !isLight);
-      root.setAttribute("data-theme", theme);
+      root.setAttribute("data-theme", validTheme);
 
       // Keep body synchronized for backwards compatibility
       if (body) {
         body.classList.toggle("light-mode", isLight);
         body.classList.toggle("dark-mode", !isLight);
-        body.setAttribute("data-theme", theme);
+        body.setAttribute("data-theme", validTheme);
       }
 
+      // Persist theme choice in localStorage when explicitly requested
       if (save) {
         try {
-          localStorage.setItem("app_theme", theme);
-        } catch (e) {}
+          localStorage.setItem("app_theme", validTheme);
+        } catch (e) {
+          console.warn("Error saving app_theme preference:", e);
+        }
       }
 
       if (typeof AppState !== "undefined" && AppState) {
-        AppState.theme = theme;
+        AppState.theme = validTheme;
       }
 
-      // Sync settings toggle input
-      const themeToggle = document.getElementById("themeToggle");
-      if (themeToggle && themeToggle.checked !== isLight) {
-        themeToggle.checked = isLight;
-      }
-
-      // Sync settings description text
-      const themeDesc = document.getElementById("themeDesc");
-      if (themeDesc) {
-        const key = isLight ? "settings.theme_light" : "settings.theme_dark";
-        themeDesc.setAttribute("data-i18n", key);
-        themeDesc.textContent = window.t
-          ? window.t(key, currentLang)
-          : isLight
-            ? "الفاتح الملكي"
-            : "الداكن الملكي (الافتراضي)";
-      }
+      // Synchronize Settings Modal controls & descriptions
+      this.syncModalUI();
 
       // Trigger redraws for dynamic luxury elements (Guilloche canvas)
       window.dispatchEvent(
-        new CustomEvent("themechange", { detail: { theme, isLight } }),
+        new CustomEvent("themechange", { detail: { theme: validTheme, isLight } }),
       );
       if (this._resizeDebounceTimer) clearTimeout(this._resizeDebounceTimer);
       this._resizeDebounceTimer = setTimeout(() => {
@@ -306,24 +323,49 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     toggle() {
       const next = this.isLight() ? "dark" : "light";
-      this.setTheme(next);
+      this.setTheme(next, true);
       return next;
     },
-    init() {
-      const initial = this.getTheme();
-      this.setTheme(initial, false);
-
+    syncModalUI() {
+      const currentTheme = this.getTheme();
+      const isLight = currentTheme === "light";
       const themeToggle = document.getElementById("themeToggle");
-      if (themeToggle) {
-        themeToggle.checked = initial === "light";
+      if (themeToggle && themeToggle.checked !== isLight) {
+        themeToggle.checked = isLight;
+      }
+
+      const themeDesc = document.getElementById("themeDesc");
+      if (themeDesc) {
+        const key = isLight ? "settings.theme_light" : "settings.theme_dark";
+        themeDesc.setAttribute("data-i18n", key);
+        const lang = window.currentLang || (document.documentElement.getAttribute("lang")) || "en";
+        themeDesc.textContent = window.t
+          ? window.t(key, lang)
+          : isLight
+            ? (lang === "ar" ? "الفاتح الإمبراطوري" : "Imperial Light")
+            : (lang === "ar" ? "الداكن الملكي (الافتراضي)" : "Obsidian Dark");
+      }
+    },
+    bindToggle() {
+      const themeToggle = document.getElementById("themeToggle");
+      if (themeToggle && !themeToggle._themeBound) {
+        themeToggle._themeBound = true;
+        themeToggle.checked = this.isLight();
         themeToggle.addEventListener("change", (e) => {
           const next = e.target.checked ? "light" : "dark";
-          this.setTheme(next);
+          this.setTheme(next, true);
           if (window.AudioEngine && window.AudioEngine.playHover) {
             window.AudioEngine.playHover();
           }
         });
       }
+    },
+    init() {
+      const initial = this.getTheme();
+      // Apply initial theme without overwriting existing localStorage preferences
+      this.setTheme(initial, false);
+      this.bindToggle();
+      this.syncModalUI();
     },
   };
 
@@ -1322,7 +1364,11 @@ const AppState = {
     StorageHelper.set(`equipped_${this.user.id}`, this.equipped, true);
     StorageHelper.set(`channels_${this.user.id}`, this.channels, true);
     StorageHelper.set(`profile_${this.user.id}`, this.user, true);
-    StorageHelper.set("app_theme", this.theme || "dark");
+    const activeTheme = (window.ThemeManager && typeof window.ThemeManager.getTheme === "function")
+      ? window.ThemeManager.getTheme()
+      : (this.theme || localStorage.getItem("app_theme") || "dark");
+    this.theme = activeTheme;
+    StorageHelper.set("app_theme", activeTheme);
     if (typeof window.updateRadarChart === "function")
       window.updateRadarChart();
   },
@@ -3081,6 +3127,17 @@ const Router = {
       if (typeof cancelClubWelcomeAutoDismiss === "function") {
         cancelClubWelcomeAutoDismiss();
       }
+    } else if (tab === "membership" || !tab || document.getElementById("membership-tab")?.classList.contains("is-active")) {
+      if (typeof window.setClubFloatingControlsVisibility === "function") {
+        window.setClubFloatingControlsVisibility(false);
+      }
+      if (typeof cancelClubWelcomeAutoDismiss === "function") {
+        cancelClubWelcomeAutoDismiss();
+      }
+      if (typeof renderRing === "function") {
+        renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
+        renderRing("privRing", "privValue", AppState.user.privilegesValue);
+      }
     } else {
       if (typeof window.setClubFloatingControlsVisibility === "function") {
         window.setClubFloatingControlsVisibility(false);
@@ -3940,7 +3997,7 @@ function switchChannel(channelId) {
 
   if (window.AudioEngine) window.AudioEngine.playRustle();
   if (window.translateDOM && messagesContainer) {
-    const lang = localStorage.getItem("appLang") || "ar";
+    const lang = window.currentLang || localStorage.getItem("one_percent_lang") || "en";
     if (lang === "en") window.translateDOM(messagesContainer, lang);
   }
 
@@ -5401,6 +5458,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeSettingsModal = document.getElementById("closeSettingsModal");
   if (menuSettings && settingsModal) {
     menuSettings.addEventListener("click", () => {
+      if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
+        window.ThemeManager.bindToggle();
+        window.ThemeManager.syncModalUI();
+      }
       settingsModal.classList.add("is-open");
       if (window.AudioEngine && window.AudioEngine.playModalOpen) {
         window.AudioEngine.playModalOpen();
@@ -5454,8 +5515,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (btnConfirmLogout) {
     btnConfirmLogout.addEventListener("click", () => {
-      // Simulate logout
-      console.error("Reload loop intercepted by REPAIR PASS", { ts: Date.now(), url: location.href });
+      if (typeof window.AuthBoundary !== "undefined" && typeof window.AuthBoundary.logout === "function") {
+        window.AuthBoundary.logout();
+      } else {
+        sessionStorage.removeItem("1percent_sovereign_session");
+        const settingsModal = document.getElementById("settingsModal");
+        if (settingsModal) settingsModal.classList.remove("is-open");
+        const logoutConfirmModal = document.getElementById("logoutConfirmModal");
+        if (logoutConfirmModal) logoutConfirmModal.classList.remove("is-open");
+        const overlay = document.getElementById("authLoginOverlay");
+        if (overlay) {
+          overlay.classList.add("is-open", "is-active");
+          overlay.style.display = "flex";
+        }
+      }
     });
   }
   // --- Verified Membership Shield Medallion in Header ---
@@ -7843,5 +7916,241 @@ window.HeaderScrollController = (function() {
 window.HeaderScrollController.init();
 window.updateHeaderHeightVar = window.HeaderScrollController.updateHeaderHeightVar;
 window.resetHeaderScrollTracking = window.HeaderScrollController.updateStateForCurrentTab;
+
+// ==========================================
+// AUTHENTICATION INTEGRATION BOUNDARY
+// ==========================================
+window.AuthBoundary = {
+  currentMode: "login",
+
+  getSession() {
+    return sessionStorage.getItem("1percent_sovereign_session");
+  },
+
+  setMode(mode) {
+    this.currentMode = mode;
+    const tabLogin = document.getElementById("authTabLogin");
+    const tabRegister = document.getElementById("authTabRegister");
+    const titleEl = document.getElementById("authSectionTitle");
+    const descEl = document.getElementById("authSectionDesc");
+    const submitText = document.getElementById("authSubmitText");
+    const googleText = document.getElementById("authGoogleText");
+    const forgotLink = document.getElementById("forgotPasswordLink");
+    const togglePrompt = document.getElementById("authTogglePrompt");
+    const toggleBtn = document.getElementById("authToggleModeBtn");
+    const errorMsg = document.getElementById("authErrorMsg");
+    if (errorMsg) errorMsg.style.display = "none";
+
+    if (mode === "signup") {
+      if (tabLogin) {
+        tabLogin.classList.remove("is-active");
+        tabLogin.setAttribute("aria-selected", "false");
+      }
+      if (tabRegister) {
+        tabRegister.classList.add("is-active");
+        tabRegister.setAttribute("aria-selected", "true");
+      }
+      if (titleEl) titleEl.textContent = "إنشاء حساب سيادي";
+      if (descEl) descEl.textContent = "انضم إلى نخبة الأعضاء وأنشئ هويتك السيادية";
+      if (submitText) submitText.textContent = "إنشاء حساب والانضمام";
+      if (googleText) googleText.textContent = "التسجيل باستخدام Google";
+      if (forgotLink) forgotLink.style.display = "none";
+      if (togglePrompt) togglePrompt.textContent = "لديك حساب بالفعل؟";
+      if (toggleBtn) toggleBtn.textContent = "تسجيل الدخول";
+    } else {
+      if (tabLogin) {
+        tabLogin.classList.add("is-active");
+        tabLogin.setAttribute("aria-selected", "true");
+      }
+      if (tabRegister) {
+        tabRegister.classList.remove("is-active");
+        tabRegister.setAttribute("aria-selected", "false");
+      }
+      if (titleEl) titleEl.textContent = "تسجيل الدخول";
+      if (descEl) descEl.textContent = "بوابة الدخول الحصرية لأعضاء النادي السيادي";
+      if (submitText) submitText.textContent = "تسجيل الدخول";
+      if (googleText) googleText.textContent = "المتابعة باستخدام Google";
+      if (forgotLink) forgotLink.style.display = "";
+      if (togglePrompt) togglePrompt.textContent = "ليس لديك حساب؟";
+      if (toggleBtn) toggleBtn.textContent = "إنشاء حساب جديد";
+    }
+  },
+
+  showLoginOverlay() {
+    const overlay = document.getElementById("authLoginOverlay");
+    if (overlay) {
+      overlay.classList.add("is-open", "is-active");
+      overlay.style.display = "flex";
+      overlay.style.opacity = "1";
+      overlay.style.visibility = "visible";
+      overlay.style.pointerEvents = "auto";
+    }
+    const header = document.getElementById("appHeader");
+    if (header) header.style.display = "none";
+    const bottomNav = document.querySelector(".app-bottom-nav");
+    if (bottomNav) bottomNav.style.display = "none";
+  },
+
+  hideLoginOverlay() {
+    const overlay = document.getElementById("authLoginOverlay");
+    if (overlay) {
+      overlay.classList.remove("is-open", "is-active");
+      overlay.style.display = "none";
+      overlay.style.opacity = "0";
+      overlay.style.visibility = "hidden";
+      overlay.style.pointerEvents = "none";
+    }
+    const header = document.getElementById("appHeader");
+    if (header) header.style.display = "";
+    const bottomNav = document.querySelector(".app-bottom-nav");
+    if (bottomNav) bottomNav.style.display = "";
+  },
+  
+  login(email, provider = "credentials") {
+    sessionStorage.setItem("1percent_sovereign_session", JSON.stringify({ email, provider, timestamp: Date.now() }));
+    
+    this.hideLoginOverlay();
+
+    if (typeof goToPage === "function") {
+      goToPage("membership");
+    }
+  },
+
+  logout() {
+    sessionStorage.removeItem("1percent_sovereign_session");
+    if (typeof cancelClubWelcomeAutoDismiss === "function") {
+      cancelClubWelcomeAutoDismiss();
+    }
+    if (typeof profileCollectionTimeout !== "undefined" && profileCollectionTimeout) {
+      clearTimeout(profileCollectionTimeout);
+    }
+    if (typeof window.profileAchievementsTimeout !== "undefined" && window.profileAchievementsTimeout) {
+      clearTimeout(window.profileAchievementsTimeout);
+    }
+
+    const settingsModal = document.getElementById("settingsModal");
+    if (settingsModal) settingsModal.classList.remove("is-open");
+    const logoutModal = document.getElementById("logoutConfirmModal");
+    if (logoutModal) logoutModal.classList.remove("is-open");
+    const recoveryModal = document.getElementById("authRecoveryModal");
+    if (recoveryModal) recoveryModal.classList.remove("is-open", "is-active");
+
+    document.querySelectorAll(".page").forEach((p) => {
+      p.classList.remove("is-active");
+      p.setAttribute("hidden", "");
+      p.hidden = true;
+    });
+
+    this.showLoginOverlay();
+  },
+
+  init() {
+    const session = this.getSession();
+    if (session) {
+      this.hideLoginOverlay();
+    } else {
+      this.showLoginOverlay();
+    }
+
+    const tabLogin = document.getElementById("authTabLogin");
+    if (tabLogin && !tabLogin.dataset.bound) {
+      tabLogin.dataset.bound = "true";
+      tabLogin.addEventListener("click", () => this.setMode("login"));
+    }
+
+    const tabRegister = document.getElementById("authTabRegister");
+    if (tabRegister && !tabRegister.dataset.bound) {
+      tabRegister.dataset.bound = "true";
+      tabRegister.addEventListener("click", () => this.setMode("signup"));
+    }
+
+    const toggleBtn = document.getElementById("authToggleModeBtn");
+    if (toggleBtn && !toggleBtn.dataset.bound) {
+      toggleBtn.dataset.bound = "true";
+      toggleBtn.addEventListener("click", () => {
+        this.setMode(this.currentMode === "login" ? "signup" : "login");
+      });
+    }
+
+    const emailForm = document.getElementById("authEmailForm");
+    if (emailForm && !emailForm.dataset.bound) {
+      emailForm.dataset.bound = "true";
+      emailForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("authEmailInput")?.value || "member@the1percent.club";
+        window.AuthBoundary.login(email, window.AuthBoundary.currentMode === "signup" ? "signup" : "email_password");
+      });
+    }
+
+    const googleBtn = document.getElementById("authGoogleBtn");
+    if (googleBtn && !googleBtn.dataset.bound) {
+      googleBtn.dataset.bound = "true";
+      googleBtn.addEventListener("click", () => {
+        window.AuthBoundary.login("sovereign.google@the1percent.club", "google");
+      });
+    }
+
+    const forgotLink = document.getElementById("forgotPasswordLink");
+    if (forgotLink && !forgotLink.dataset.bound) {
+      forgotLink.dataset.bound = "true";
+      forgotLink.addEventListener("click", () => {
+        window.AuthBoundary.openRecovery();
+      });
+    }
+
+    const closeRecoveryBtn = document.getElementById("closeAuthRecoveryModal");
+    if (closeRecoveryBtn && !closeRecoveryBtn.dataset.bound) {
+      closeRecoveryBtn.dataset.bound = "true";
+      closeRecoveryBtn.addEventListener("click", () => {
+        window.AuthBoundary.closeRecovery();
+      });
+    }
+
+    const recoveryForm = document.getElementById("authRecoveryForm");
+    if (recoveryForm && !recoveryForm.dataset.bound) {
+      recoveryForm.dataset.bound = "true";
+      recoveryForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("recoveryEmailInput")?.value || "member@the1percent.club";
+        window.AuthBoundary.sendRecovery(email);
+      });
+    }
+  },
+
+  openRecovery() {
+    const modal = document.getElementById("authRecoveryModal");
+    if (modal) {
+      modal.style.display = "flex";
+      modal.classList.add("is-open", "is-active");
+      const successMsg = document.getElementById("recoverySuccessMsg");
+      if (successMsg) successMsg.style.display = "none";
+    }
+  },
+
+  closeRecovery() {
+    const modal = document.getElementById("authRecoveryModal");
+    if (modal) {
+      modal.style.display = "none";
+      modal.classList.remove("is-open", "is-active");
+    }
+  },
+
+  sendRecovery(email) {
+    const successMsg = document.getElementById("recoverySuccessMsg");
+    if (successMsg) {
+      successMsg.textContent = `تم إرسال تعليمات استعادة كلمة المرور إلى ${email} بنجاح`;
+      successMsg.style.display = "block";
+    }
+    setTimeout(() => {
+      this.closeRecovery();
+    }, 2500);
+  }
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => window.AuthBoundary.init());
+} else {
+  window.AuthBoundary.init();
+}
 
 
