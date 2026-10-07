@@ -150,7 +150,7 @@ window.setLanguage = function (lang) {
   const root = document.documentElement;
   if (lang === "en") {
     root.style.setProperty("--font-display", '"Cormorant Garamond", serif');
-    root.style.setProperty("--font-ui", '"Inter", -apple-system, sans-serif');
+    root.style.setProperty("--font-ui", '"Manrope", -apple-system, sans-serif');
     root.style.fontFamily = "var(--font-ui)";
   } else {
     root.style.setProperty(
@@ -159,7 +159,7 @@ window.setLanguage = function (lang) {
     );
     root.style.setProperty(
       "--font-ui",
-      '"Readex Pro", "Cairo", "Inter", sans-serif',
+      '"Readex Pro", "Cairo", "Manrope", sans-serif',
     );
     root.style.fontFamily = "var(--font-ui)";
   }
@@ -4308,7 +4308,7 @@ function buildMessageHTML(msg, idx, channelId) {
                      <circle cx="38" cy="35" r="1.2" fill="currentColor"/>
                      <circle cx="62" cy="35" r="1.2" fill="currentColor"/>
                      <text x="50" y="56" text-anchor="middle" font-family="'Cormorant Garamond', 'Amiri', serif" font-size="7.5" font-weight="700" fill="currentColor" letter-spacing="1">THE 1% CLUB</text>
-                     <text x="50" y="63" text-anchor="middle" font-family="'Inter', 'Cairo', sans-serif" font-size="3.8" font-weight="700" fill="currentColor" letter-spacing="0.6">DECREE</text>
+                     <text x="50" y="63" text-anchor="middle" font-family="'Manrope', 'Cairo', sans-serif" font-size="3.8" font-weight="700" fill="currentColor" letter-spacing="0.6">DECREE</text>
                      <path d="M34 68 C 40 74, 45 76, 50 76 C 55 76, 60 74, 66 68" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.75"/>
                      <circle cx="50" cy="76" r="1" fill="currentColor" opacity="0.8"/>
                    </svg>

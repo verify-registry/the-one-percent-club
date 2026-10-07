@@ -1,5 +1,5 @@
 /* === 1. Root Variables === */
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Montserrat:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@300;400;500;600;700&display=swap");
 
 :root {
   --header-actual-height: 82px;
@@ -167,7 +167,10 @@
   --core-color: hsl(var(--core-hue) 80% 62%);
   --core-glow: hsl(var(--core-hue) 90% 55%);
   --font-display: "Cormorant Garamond", "Amiri", serif;
-  --font-ui: "Inter", "Cairo", -apple-system, sans-serif;
+  --font-ui: "Manrope", "Cairo", -apple-system, sans-serif;
+  --font-sans: "Manrope", sans-serif;
+  --font-body: "Manrope", -apple-system, sans-serif;
+  --font-number: "Manrope", "Cairo", sans-serif;
   color-scheme: dark;
 }
 
@@ -2076,7 +2079,7 @@ html[dir="ltr"] .metric-tooltip {
 }
 
 .metric-tooltip-body {
-  font-family: var(--font-ui, "Cairo", "Inter", sans-serif);
+  font-family: var(--font-ui, "Cairo", "Manrope", sans-serif);
   font-size: 7.8px;
   line-height: 1.35;
   color: #f3ebdb;
@@ -2090,7 +2093,7 @@ html[dir="ltr"] .metric-tooltip {
 }
 
 .metric-tooltip-formula .formula-tag {
-  font-family: var(--font-number, "Montserrat", "Cairo", sans-serif);
+  font-family: var(--font-number, "Manrope", "Cairo", sans-serif);
   font-size: 7.2px;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -2473,7 +2476,7 @@ html.light-mode .nav-item.is-active .nav-label {
   width: auto !important;
   max-width: min(320px, 86vw) !important;
   box-sizing: border-box !important;
-  font-family: var(--font-sans, "Montserrat", sans-serif) !important;
+  font-family: var(--font-sans, "Manrope", sans-serif) !important;
   font-size: 11px !important;
   font-weight: 500 !important;
   line-height: 1.35 !important;
@@ -6466,7 +6469,7 @@ body.light-mode .rarity-free {
 #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-text,
 #boutique-tab .boutique-ownership-plaque .ownership-seal-text {
   color: #f3e9d7 !important;
-  font-family: var(--font-body, system-ui, sans-serif) !important;
+  font-family: var(--font-body, "Manrope", system-ui, sans-serif) !important;
   font-size: 9.5px !important;
   font-weight: 600 !important;
   letter-spacing: 0.05em !important;
@@ -7586,7 +7589,7 @@ body.light-mode #boutique-tab .widget-add-btn.is-installed {
 }
 
 .premium-toast-msg {
-  font-family: var(--font-ui, system-ui, -apple-system, sans-serif) !important;
+  font-family: var(--font-ui, "Manrope", system-ui, -apple-system, sans-serif) !important;
   font-size: 11px !important;
   font-weight: 600 !important;
   color: #4a3618 !important; /* Clear Dark Bronze */
@@ -7840,7 +7843,7 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
 }
 
 .gold-copy-popup-subtitle {
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 8.5px;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -9704,7 +9707,7 @@ body.light-mode .luxury-modal-overlay.is-open .luxury-modal-box {
   display: flex !important;
   justify-content: flex-start !important;
   align-items: center !important;
-  padding: 14px 20px 14px 48px !important;
+  padding: 14px 20px 14px 56px !important;
   border-bottom: 1px solid var(--border-subtle);
   box-sizing: border-box !important;
 }
@@ -9712,14 +9715,14 @@ body.light-mode .luxury-modal-overlay.is-open .luxury-modal-box {
 .luxury-modal-header h3 {
   margin: 0;
   color: var(--text-primary);
-  font-family: var(--font-display);
+  font-family: "Manrope", "Cairo", sans-serif !important;
   font-size: 15px;
   letter-spacing: 1.5px;
 }
 .luxury-close-btn {
   position: absolute !important;
-  top: 12px !important;
-  left: 12px !important;
+  top: 14px !important;
+  left: 14px !important;
   right: auto !important;
   width: 28px !important;
   height: 28px !important;
@@ -9806,6 +9809,7 @@ body.light-mode .luxury-close-btn:hover {
 }
 .setting-title {
   color: var(--text-primary);
+  font-family: "Manrope", "Cairo", sans-serif !important;
   font-size: 13px;
   letter-spacing: 0.5px;
   font-weight: 500;
@@ -10913,7 +10917,7 @@ html[dir="rtl"] .member-details {
   font-size: 9px !important;
   color: rgba(212, 175, 106, 0.7) !important;
   line-height: 1.15 !important;
-  font-family: var(--font-sans, "Montserrat", sans-serif) !important;
+  font-family: var(--font-sans, "Manrope", sans-serif) !important;
   overflow: hidden !important;
 }
 
@@ -12261,7 +12265,7 @@ body.light-mode .dossier-panel {
 }
 
 #accountInfoModal .luxury-modal-header {
-  padding: 0px 16px;
+  padding: 14px 18px 14px 56px !important;
 }
 
 /* Interactive Avatar Ring (Modal - Canonical rules defined in Section 4) */
@@ -12297,7 +12301,7 @@ body.light-mode #accountInfoModal .edit-profile-label {
 
 /* --- Modal High-End Dossier Updates --- */
 #accountInfoModal .luxury-modal-header h2 {
-  font-family: var(--font-display), "Playfair Display", serif;
+  font-family: "Manrope", "Cairo", sans-serif !important;
   letter-spacing: 0.12em;
   font-size: 14px;
   font-weight: 500;
@@ -15467,7 +15471,7 @@ body.light-mode #profile-tab .phc-quote {
 
 /* 8. BUTTON TYPOGRAPHY (Private banking controls) */
 #membership-tab .card-actions .btn {
-  font-family: "Inter", sans-serif !important;
+  font-family: "Manrope", sans-serif !important;
   font-weight: 500 !important;
   font-size: 0.65rem !important;
   letter-spacing: 0.08em !important;
@@ -15550,12 +15554,15 @@ html[dir="rtl"] #membership-tab .card-actions .btn span {
 #membership-tab .member-number,
 #membership-tab .ring-label,
 #membership-tab .card-tagline,
-#membership-tab .card-tagline span,
+#membership-tab .card-tagline span {
+  font-family: "Inter", sans-serif !important;
+}
+
 #membership-tab .card-actions .btn,
 #membership-tab .card-actions .btn span,
 #membership-tab .section-name,
 #membership-tab .tagline {
-  font-family: "Inter", sans-serif !important;
+  font-family: "Manrope", sans-serif !important;
 }
 
 /* Precise editorial-grade letter-spacing and line-heights (LTR) */
@@ -18227,7 +18234,7 @@ body.light-mode .deed-security-text {
 
 .deed-beneficiary-label {
   display: block;
-  font-family: var(--font-ui, "Montserrat", sans-serif);
+  font-family: var(--font-ui, "Manrope", sans-serif);
   font-size: 7.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -19091,7 +19098,7 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
 
 .oath-sig-label {
   display: block;
-  font-family: var(--font-ui, "Montserrat", sans-serif);
+  font-family: var(--font-ui, "Manrope", sans-serif);
   font-size: 7.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -19994,7 +20001,7 @@ body #profile-tab .profile-stats-bar .horo-chassis-header::after {
   background: linear-gradient(90deg, transparent, rgba(212, 175, 106, 0.45), transparent) !important;
 }
 body #profile-tab .profile-stats-bar .horo-hallmark-txt {
-  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-family: var(--font-ui, "Manrope", sans-serif) !important;
   font-size: 6.8px !important;
   font-weight: 600 !important;
   letter-spacing: 0.18em !important;
@@ -20246,7 +20253,7 @@ body[dir="rtl"] #profile-tab .profile-stats-bar .psb-value.horo-dial-val {
 }
 
 body #profile-tab .profile-stats-bar .psb-label.horo-dial-lbl {
-  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-family: var(--font-ui, "Manrope", sans-serif) !important;
   font-size: 8px !important;
   font-weight: 600 !important;
   letter-spacing: 0.08em !important;
@@ -21383,7 +21390,7 @@ body #profile-tab #profileCollectionSection .pcs-head h3 {
 }
 
 body #profile-tab #profileCollectionSection .pcs-view-all {
-  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-family: var(--font-ui, "Manrope", sans-serif) !important;
   font-size: 10.5px !important;
   font-weight: 600 !important;
   letter-spacing: 0.05em !important;
@@ -21523,7 +21530,7 @@ body #profile-tab .pcs-item-meta {
 }
 
 body #profile-tab .pcs-item-rarity {
-  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-family: var(--font-ui, "Manrope", sans-serif) !important;
   font-size: 7px !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
@@ -21551,7 +21558,7 @@ body #profile-tab .pcs-equipped-hallmark {
   position: absolute !important;
   top: 6px !important;
   right: 6px !important;
-  font-family: var(--font-ui, "Montserrat", sans-serif) !important;
+  font-family: var(--font-ui, "Manrope", sans-serif) !important;
   font-size: 6.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.1em !important;
@@ -22504,12 +22511,12 @@ body.light-mode #logoutConfirmModal.luxury-modal-overlay {
 /* Modal Headers */
 #settingsModal .luxury-modal-header,
 #helpSupportModal .luxury-modal-header {
-  padding: 18px 20px !important;
+  padding: 16px 20px 16px 56px !important;
   background: linear-gradient(180deg, rgba(212, 175, 106, 0.07) 0%, transparent 100%) !important;
   border-bottom: 1px solid rgba(212, 175, 106, 0.18) !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
+  justify-content: flex-start !important;
   box-sizing: border-box !important;
 }
 
@@ -22521,7 +22528,7 @@ body.light-mode #helpSupportModal .luxury-modal-header {
 
 #settingsModal .luxury-modal-header h3,
 #helpSupportModal .luxury-modal-header h3 {
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: "Manrope", "Cairo", sans-serif !important;
   font-size: 13.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.12em !important;
@@ -22724,12 +22731,12 @@ body.light-mode #accountInfoModal .dossier-modal-box {
 /* 2. MODAL HEADER: Clean Seamless Integration & Single Precise Metallic Divider */
 #editProfileModal .luxury-modal-header,
 #accountInfoModal .luxury-modal-header {
-  padding: 14px 18px !important;
+  padding: 14px 18px 14px 56px !important;
   background: rgba(18, 14, 9, 0.8) !important;
   border-bottom: 1.5px solid #7d5b20 !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
+  justify-content: flex-start !important;
   box-sizing: border-box !important;
 }
 
@@ -22741,7 +22748,7 @@ body.light-mode #accountInfoModal .luxury-modal-header {
 
 #editProfileModal .luxury-modal-header h2,
 #accountInfoModal .luxury-modal-header h2 {
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: "Manrope", "Cairo", sans-serif !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   letter-spacing: 0.16em !important;
@@ -23123,7 +23130,7 @@ body.light-mode #accountInfoModal .dossier-panel {
 
 #editProfileModal .modal-section-title,
 #accountInfoModal .modal-section-title {
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: "Manrope", "Cairo", sans-serif !important;
   font-size: 9.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.16em !important;
@@ -23388,7 +23395,7 @@ body.light-mode #settingsModal .setting-row {
 }
 
 #settingsModal .setting-title {
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: "Manrope", "Cairo", sans-serif !important;
   font-size: 11.5px !important;
   font-weight: 600 !important;
   color: #f2e8d5 !important;
@@ -23689,7 +23696,7 @@ body.light-mode #helpSupportModal [data-i18n^="misc.faq"][data-i18n$="a"] {
   #accountInfoModal .luxury-modal-header,
   #settingsModal .luxury-modal-header,
   #helpSupportModal .luxury-modal-header {
-    padding: 14px 16px !important;
+    padding: 14px 16px 14px 56px !important;
   }
   #accountInfoModal .luxury-modal-header h2,
   #settingsModal .luxury-modal-header h3,
@@ -33498,7 +33505,7 @@ body.light-mode #authLoginOverlay .luxury-modal-header {
   color: #9f9689 !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Manrope', sans-serif !important;
   margin: 0 !important;
   line-height: 1.2 !important;
   text-align: center !important;
@@ -33884,11 +33891,11 @@ body.light-mode #authRecoveryModal .luxury-modal-box {
 body.light-mode #authRecoveryModal .luxury-modal-header {
   border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
   background: linear-gradient(180deg, rgba(212, 175, 55, 0.06) 0%, transparent 100%) !important;
-  padding: 12px 16px !important;
+  padding: 12px 16px 12px 52px !important;
   position: relative !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: center !important;
+  justify-content: flex-start !important;
   flex-shrink: 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
@@ -33896,11 +33903,11 @@ body.light-mode #authRecoveryModal .luxury-modal-header {
 
 #authRecoveryModal .auth-recovery-title {
   color: #d4af37 !important;
-  font-family: 'Cairo', sans-serif !important;
+  font-family: 'Cairo', 'Manrope', sans-serif !important;
   font-size: 13px !important;
   margin: 0 !important;
   font-weight: 700 !important;
-  text-align: center !important;
+  text-align: left !important;
 }
 
 #authRecoveryModal .luxury-close-btn {
@@ -33922,8 +33929,8 @@ body.light-mode #authRecoveryModal .luxury-modal-header {
 }
 
 html[dir="ltr"] #authRecoveryModal .luxury-close-btn {
-  left: auto !important;
-  right: 12px !important;
+  left: 12px !important;
+  right: auto !important;
 }
 
 #authRecoveryModal .luxury-modal-body,
@@ -33973,6 +33980,242 @@ body.light-mode #authRecoveryModal .auth-text-input {
 html[dir="ltr"] #authRecoveryModal .auth-text-input {
   text-align: left !important;
 }
+
+/* ==========================================================================
+   THE 1% CLUB — UNIFIED ENGLISH UI TYPOGRAPHY PASS (MANROPE)
+   Strictly excludes Master Membership Card & Profile Hero Card
+   ========================================================================== */
+html[lang="en"],
+html[dir="ltr"] {
+  --font-ui: "Manrope", -apple-system, sans-serif !important;
+  --font-sans: "Manrope", sans-serif !important;
+  --font-body: "Manrope", -apple-system, sans-serif !important;
+  --font-number: "Manrope", sans-serif !important;
+}
+
+html[lang="en"] body,
+html[dir="ltr"] body {
+  font-family: "Manrope", -apple-system, sans-serif !important;
+}
+
+/* Ensure all buttons, inputs, labels, badges, filters, modals, navigation, and English UI text use Manrope */
+html[lang="en"] .luxury-modal-header h2,
+html[lang="en"] .luxury-modal-header h3,
+html[lang="en"] .luxury-modal-header h4,
+html[lang="en"] #modal-account-title,
+html[lang="en"] #settingsModal .luxury-modal-header h3,
+html[lang="en"] #helpSupportModal .luxury-modal-header h3,
+html[lang="en"] #editProfileModal .luxury-modal-header h2,
+html[lang="en"] #accountInfoModal .luxury-modal-header h2,
+html[lang="en"] #settingsModal .setting-title,
+html[lang="en"] .setting-title,
+html[lang="en"] #accountInfoModal .modal-section-title,
+html[lang="en"] #editProfileModal .modal-section-title,
+html[lang="en"] .modal-section-title,
+html[lang="en"] #settingsModal .setting-desc,
+html[lang="en"] .setting-desc,
+html[lang="en"] .dossier-save-btn,
+html[lang="en"] .edit-profile-save-btn,
+html[lang="en"] #saveAccountInfoBtn,
+html[lang="en"] #saveEditProfileBtn,
+html[lang="en"] #contactConciergeBtn,
+html[lang="en"] .lang-btn,
+html[lang="en"] #btnSettingsLogout,
+html[lang="en"] button:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[dir="ltr"] button:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[lang="en"] input:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[dir="ltr"] input:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[lang="en"] textarea:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[dir="ltr"] textarea:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[lang="en"] select:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[dir="ltr"] select:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[lang="en"] label:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[dir="ltr"] label:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[lang="en"] .btn:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[dir="ltr"] .btn:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[lang="en"] .bottom-nav,
+html[dir="ltr"] .bottom-nav,
+html[lang="en"] .bottom-nav span,
+html[dir="ltr"] .bottom-nav span,
+html[lang="en"] .nav-item,
+html[dir="ltr"] .nav-item,
+html[lang="en"] .nav-item span,
+html[dir="ltr"] .nav-item span,
+html[lang="en"] .app-header .tagline,
+html[dir="ltr"] .app-header .tagline,
+html[lang="en"] .section-name,
+html[dir="ltr"] .section-name,
+html[lang="en"] .club-room-card,
+html[dir="ltr"] .club-room-card,
+html[lang="en"] .club-room-title,
+html[dir="ltr"] .club-room-title,
+html[lang="en"] .club-room-desc,
+html[dir="ltr"] .club-room-desc,
+html[lang="en"] .chat-bubble,
+html[dir="ltr"] .chat-bubble,
+html[lang="en"] .chat-author-name,
+html[dir="ltr"] .chat-author-name,
+html[lang="en"] .chat-msg-time,
+html[dir="ltr"] .chat-msg-time,
+html[lang="en"] .chat-input,
+html[dir="ltr"] .chat-input,
+html[lang="en"] .club-allowance-box,
+html[dir="ltr"] .club-allowance-box,
+html[lang="en"] .club-allowance-text,
+html[dir="ltr"] .club-allowance-text,
+html[lang="en"] .club-allowance-val,
+html[dir="ltr"] .club-allowance-val,
+html[lang="en"] #boutique-tab .b-filt-btn,
+html[dir="ltr"] #boutique-tab .b-filt-btn,
+html[lang="en"] #boutique-tab .boutique-tab,
+html[dir="ltr"] #boutique-tab .boutique-tab,
+html[lang="en"] #boutique-tab .boutique-card-title,
+html[dir="ltr"] #boutique-tab .boutique-card-title,
+html[lang="en"] #boutique-tab .boutique-card-desc,
+html[dir="ltr"] #boutique-tab .boutique-card-desc,
+html[lang="en"] #boutique-tab .boutique-rarity-badge,
+html[dir="ltr"] #boutique-tab .boutique-rarity-badge,
+html[lang="en"] #boutique-tab .boutique-own-btn,
+html[dir="ltr"] #boutique-tab .boutique-own-btn,
+html[lang="en"] #profile-tab .profile-section-title,
+html[dir="ltr"] #profile-tab .profile-section-title,
+html[lang="en"] #profile-tab .profile-stats-bar,
+html[dir="ltr"] #profile-tab .profile-stats-bar,
+html[lang="en"] #profile-tab .profile-interest-pill,
+html[dir="ltr"] #profile-tab .profile-interest-pill,
+html[lang="en"] #profile-tab .prestige-honors,
+html[dir="ltr"] #profile-tab .prestige-honors,
+html[lang="en"] #profile-tab .pcs-view-all,
+html[dir="ltr"] #profile-tab .pcs-view-all,
+html[lang="en"] #profile-tab .pcs-item-rarity,
+html[dir="ltr"] #profile-tab .pcs-item-rarity,
+html[lang="en"] #profile-tab .pcs-equipped-hallmark,
+html[dir="ltr"] #profile-tab .pcs-equipped-hallmark,
+html[lang="en"] .luxury-modal-box,
+html[dir="ltr"] .luxury-modal-box,
+html[lang="en"] .auth-modal-body,
+html[dir="ltr"] .auth-modal-body,
+html[lang="en"] .auth-text-input,
+html[dir="ltr"] .auth-text-input,
+html[lang="en"] .auth-submit-btn,
+html[dir="ltr"] .auth-submit-btn,
+html[lang="en"] .auth-tab-btn,
+html[dir="ltr"] .auth-tab-btn,
+html[lang="en"] .auth-section-title,
+html[dir="ltr"] .auth-section-title,
+html[lang="en"] .auth-section-desc,
+html[dir="ltr"] .auth-section-desc,
+html[lang="en"] .auth-brand-tagline,
+html[dir="ltr"] .auth-brand-tagline,
+html[lang="en"] .auth-input-label,
+html[dir="ltr"] .auth-input-label,
+html[lang="en"] .auth-forgot-link,
+html[dir="ltr"] .auth-forgot-link,
+html[lang="en"] .auth-toggle-link,
+html[dir="ltr"] .auth-toggle-link,
+html[lang="en"] .auth-toggle-text,
+html[dir="ltr"] .auth-toggle-text,
+html[lang="en"] .auth-divider-text,
+html[dir="ltr"] .auth-divider-text,
+html[lang="en"] .auth-footer-notice,
+html[dir="ltr"] .auth-footer-notice,
+html[lang="en"] .auth-recovery-title,
+html[dir="ltr"] .auth-recovery-title,
+html[lang="en"] .auth-google-btn,
+html[dir="ltr"] .auth-google-btn,
+html[lang="en"] .settings-modal,
+html[dir="ltr"] .settings-modal,
+html[lang="en"] .setting-title,
+html[dir="ltr"] .setting-title,
+html[lang="en"] .setting-desc,
+html[dir="ltr"] .setting-desc,
+html[lang="en"] .edit-profile-label,
+html[dir="ltr"] .edit-profile-label,
+html[lang="en"] .quote-preset-chip,
+html[dir="ltr"] .quote-preset-chip,
+html[lang="en"] .badge:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *),
+html[dir="ltr"] .badge:not(.membership-card *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(#membershipCard *) {
+  font-family: "Manrope", -apple-system, sans-serif !important;
+}
+
+/* ==========================================================================
+   2. STANDARDIZED MODAL TOP-LEFT CLOSE BUTTON (X) & PERMANENT SAFE AREA
+   ========================================================================== */
+.luxury-modal-header,
+#settingsModal .luxury-modal-header,
+#helpSupportModal .luxury-modal-header,
+#editProfileModal .luxury-modal-header,
+#accountInfoModal .luxury-modal-header,
+#authRecoveryModal .luxury-modal-header,
+.dossier-modal-box .luxury-modal-header {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding-left: 56px !important;
+  padding-right: 20px !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+  min-height: 56px !important;
+  box-sizing: border-box !important;
+}
+
+/* X Button permanently pinned to Top-Left */
+.luxury-close-btn,
+.luxury-modal-header .luxury-close-btn,
+.luxury-modal-box .luxury-close-btn,
+#settingsModal .luxury-close-btn,
+#helpSupportModal .luxury-close-btn,
+#editProfileModal .luxury-close-btn,
+#accountInfoModal .luxury-close-btn,
+#authRecoveryModal .luxury-close-btn {
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  right: auto !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  z-index: 20 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Modal Title: Begins after the safe area with clear separation */
+.luxury-modal-header h2,
+.luxury-modal-header h3,
+.luxury-modal-header h4,
+#modal-account-title,
+#settingsModal .luxury-modal-header h3,
+#helpSupportModal .luxury-modal-header h3,
+#editProfileModal .luxury-modal-header h2,
+#accountInfoModal .luxury-modal-header h2,
+#authRecoveryModal .auth-recovery-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.25 !important;
+  max-width: calc(100% - 10px) !important;
+  word-break: break-word !important;
+  display: block !important;
+}
+
+html[dir="ltr"] .luxury-modal-header h2,
+html[dir="ltr"] .luxury-modal-header h3,
+html[dir="ltr"] #modal-account-title {
+  text-align: left !important;
+}
+
+html[dir="rtl"] .luxury-modal-header h2,
+html[dir="rtl"] .luxury-modal-header h3,
+html[dir="rtl"] #modal-account-title {
+  text-align: right !important;
+  margin-left: auto !important;
+}
+
 
 
 
