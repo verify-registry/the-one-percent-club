@@ -4849,7 +4849,7 @@ body.light-mode .dispatch-read-more-btn:hover {
   align-items: center !important;
   gap: 6px !important;
   min-width: 0 !important;
-  flex: 1 1 auto !important;
+  flex: 0 1 auto !important;
 }
 
 .club-credits-crown {
@@ -4865,7 +4865,8 @@ body.light-mode .dispatch-read-more-btn:hover {
   letter-spacing: 0.02em !important;
   color: #c9bea9 !important;
   white-space: nowrap !important;
-  flex-shrink: 0 !important;
+  flex-shrink: 1 !important;
+  min-width: 0 !important;
   line-height: 1 !important;
 }
 
@@ -4887,6 +4888,7 @@ body.light-mode .dispatch-read-more-btn:hover {
   align-items: center !important;
   justify-content: center !important;
   font-variant-numeric: tabular-nums !important;
+  margin-inline-start: 1px !important;
 }
 
 #club-tab #clubCreditsText.is-ticked,
@@ -4908,46 +4910,74 @@ body.light-mode .dispatch-read-more-btn:hover {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  gap: 4.5px !important;
   margin-inline-start: auto !important;
-  padding: 4.5px 12px 4.5px 10px !important;
-  font-family: var(--font-ui, system-ui, sans-serif) !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  padding: 0 10px 0 8px !important;
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
   font-size: 9.5px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.025em !important;
+  letter-spacing: 0.02em !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   cursor: pointer !important;
-  line-height: 1.25 !important;
-  border-radius: 9999px !important;
+  line-height: 1 !important;
+  border-radius: 12px !important;
   overflow: hidden !important;
   user-select: none !important;
   -webkit-tap-highlight-color: transparent !important;
-  /* Translucent Liquid Glass Material */
+  box-sizing: border-box !important;
+  /* Premium Liquid Glass Material */
   background: linear-gradient(
     135deg,
-    rgba(255, 235, 175, 0.22) 0%,
-    rgba(212, 175, 106, 0.12) 36%,
-    rgba(140, 100, 30, 0.20) 70%,
-    rgba(20, 15, 10, 0.45) 100%
+    rgba(255, 238, 195, 0.16) 0%,
+    rgba(212, 175, 106, 0.08) 38%,
+    rgba(140, 100, 30, 0.15) 72%,
+    rgba(26, 19, 12, 0.45) 100%
   ) !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  border: 1px solid rgba(220, 185, 115, 0.45) !important;
-  border-top: 1px solid rgba(255, 248, 225, 0.75) !important;
-  border-bottom: 1px solid rgba(130, 95, 25, 0.35) !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  border: 0.85px solid rgba(220, 185, 115, 0.45) !important;
+  border-top: 0.85px solid rgba(255, 248, 225, 0.82) !important;
+  border-bottom: 0.85px solid rgba(130, 95, 25, 0.38) !important;
   box-shadow:
-    0 2px 8px -1px rgba(0, 0, 0, 0.45),
-    0 1px 3px rgba(212, 175, 106, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    inset 0 -1px 0.5px rgba(0, 0, 0, 0.35) !important;
+    0 2px 7px -1px rgba(0, 0, 0, 0.48),
+    0 1px 3px rgba(212, 175, 106, 0.16),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.42),
+    inset 0 -1px 0.5px rgba(0, 0, 0, 0.32) !important;
   color: #fff8e8 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), 0 0 8px rgba(212, 175, 106, 0.4) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), 0 0 8px rgba(212, 175, 106, 0.35) !important;
   transition:
     transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
     background 0.25s ease,
     border-color 0.25s ease,
     box-shadow 0.25s ease,
     color 0.2s ease !important;
+}
+
+/* Dedicated Plus Icon Glyph */
+.club-credits-buy .alloc-plus-glyph,
+#clubCreditsBuyBtn .alloc-plus-glyph {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: var(--gold-champagne, #f5dfa0) !important;
+  text-shadow: 0 0 6px rgba(212, 175, 106, 0.45) !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.2s ease !important;
+}
+
+/* Button Text Label */
+.club-credits-buy .alloc-btn-label,
+#clubCreditsBuyBtn .alloc-btn-label {
+  display: inline-block !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
 }
 
 /* Glass Surface Curvature / Specular Reflection Cap */
@@ -4964,11 +4994,11 @@ body.light-mode .dispatch-read-more-btn:hover {
   height: 48% !important;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.30) 0%,
-    rgba(255, 255, 255, 0.05) 80%,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.04) 78%,
     transparent 100%
   ) !important;
-  border-radius: 9999px 9999px 0 0 !important;
+  border-radius: 12px 12px 0 0 !important;
   pointer-events: none !important;
 }
 
@@ -5003,20 +5033,25 @@ body.light-mode .dispatch-read-more-btn:hover {
 .liquid-glass-btn:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 242, 195, 0.32) 0%,
-    rgba(225, 190, 115, 0.22) 40%,
-    rgba(160, 115, 35, 0.30) 75%,
-    rgba(25, 18, 12, 0.50) 100%
+    rgba(255, 244, 205, 0.26) 0%,
+    rgba(225, 190, 115, 0.16) 40%,
+    rgba(160, 115, 35, 0.25) 75%,
+    rgba(32, 23, 14, 0.52) 100%
   ) !important;
-  border-color: rgba(240, 205, 130, 0.7) !important;
+  border-color: rgba(240, 205, 130, 0.65) !important;
   border-top-color: rgba(255, 255, 255, 0.95) !important;
   box-shadow:
-    0 4px 14px -1px rgba(212, 175, 106, 0.45),
-    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 3px 12px -1px rgba(212, 175, 106, 0.40),
+    0 1px 4px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 #ffffff,
-    inset 0 -1px 1px rgba(0, 0, 0, 0.3) !important;
+    inset 0 -1px 1px rgba(0, 0, 0, 0.28) !important;
   color: #ffffff !important;
   transform: translateY(-0.5px) !important;
+}
+
+#club-tab .club-credits-buy:hover .alloc-plus-glyph,
+#clubCreditsBuyBtn:hover .alloc-plus-glyph {
+  transform: rotate(90deg) !important;
 }
 
 #club-tab .club-credits-buy:hover::after,
@@ -6007,20 +6042,6 @@ body.light-mode #boutique-tab .boutique-card:active {
   font-size: 7px;
 }
 
-#boutique-tab .boutique-tier-pill {
-  position: static;
-  font-size: 7.5px;
-  letter-spacing: 0.05em;
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(212, 175, 106, 0.35);
-  background: rgba(18, 14, 8, 0.9);
-  color: var(--gold-champagne);
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-}
-
 .rarity-badge {
   position: absolute;
   top: 8px;
@@ -6822,169 +6843,6 @@ body.light-mode .boutique-curatorial-modal {
   display: block !important;
   box-sizing: border-box !important;
 }
-.widget-portrait-ring {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  margin: 0 auto 12px;
-  padding: 3px;
-  background: linear-gradient(
-    45deg,
-    rgba(196, 159, 90, 0.4),
-    rgba(255, 245, 215, 0.8),
-    rgba(196, 159, 90, 0.4)
-  );
-  box-shadow:
-    inset 0 0 10px rgba(0, 0, 0, 0.8),
-    0 4px 12px rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.widget-portrait-photo {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: #090909;
-  background-size: cover;
-  background-position: center;
-}
-.widget-portrait-photo svg {
-  width: 22px;
-  height: 22px;
-  opacity: 0.4;
-}
-.widget-member-number {
-  font-family: var(--font-display);
-  font-size: 10px;
-  color: var(--gold-champagne);
-  letter-spacing: 0.18em;
-  margin-bottom: 4px;
-}
-.widget-member-name {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 600;
-  background: var(--gold-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
-}
-.widget-tier {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 12px;
-  background: #050505;
-  border: 1px solid rgba(196, 159, 90, 0.5);
-  font-family: var(--font-display);
-  font-size: 8px;
-  color: var(--gold-champagne);
-  letter-spacing: 0.18em;
-}
-.widget-living-core {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  margin: 6px auto 0;
-  background: radial-gradient(circle at 35% 30%, #262218, #0a0906 70%);
-  box-shadow: 0 0 0 1px rgba(201, 164, 92, 0.25);
-  padding: 3px;
-  animation: core-pulse 2.6s ease-in-out infinite;
-}
-.widget-living-core svg {
-  width: 100%;
-  height: 100%;
-}
-.widget-living-core path {
-  fill: var(--core-color);
-  filter: drop-shadow(0 0 3px var(--core-glow));
-}
-.widget-corner {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-}
-.widget-corner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(212, 175, 106, 0.6);
-}
-.widget-corner-tl {
-  top: 6px;
-  left: 6px;
-}
-.widget-corner-tl::before {
-  border-right: none;
-  border-bottom: none;
-  border-top-left-radius: 6px;
-}
-.widget-corner-tr {
-  top: 6px;
-  right: 6px;
-}
-.widget-corner-tr::before {
-  border-left: none;
-  border-bottom: none;
-  border-top-right-radius: 6px;
-}
-.widget-corner-bl {
-  bottom: 6px;
-  left: 6px;
-}
-.widget-corner-bl::before {
-  border-right: none;
-  border-top: none;
-  border-bottom-left-radius: 6px;
-}
-.widget-corner-br {
-  bottom: 6px;
-  right: 6px;
-}
-.widget-corner-br::before {
-  border-left: none;
-  border-top: none;
-  border-bottom-right-radius: 6px;
-}
-.widget-hallmark-line {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 8px;
-  opacity: 0.75;
-}
-.widget-hallmark-line span {
-  flex: 1;
-  height: 0.5px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(212, 175, 106, 0.5),
-    transparent
-  );
-}
-.widget-shield-pill {
-  font-family: var(--font-display);
-  font-size: 7.5px;
-  font-weight: 700;
-  color: var(--gold-champagne);
-  padding: 1px 5px;
-  border-radius: 4px;
-  border: 0.5px solid rgba(212, 175, 106, 0.5);
-  background: #070707;
-  letter-spacing: 0.04em;
-}
-.widget-tagline {
-  font-size: 5.5px;
-  letter-spacing: 0.2em;
-  color: #877c6a;
-  margin-top: 4px;
-  font-family: var(--font-display);
-}
 .widget-add-btn {
   margin-top: 14px;
   width: 100%;
@@ -7086,108 +6944,6 @@ body.light-mode #boutique-tab .widget-add-btn.is-installed {
 .portrait-ring.sm {
   width: 96px;
   height: 96px;
-}
-.prestige-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-.prestige-strip::-webkit-scrollbar {
-  display: none;
-}
-.prestige-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 11px 4px;
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
-}
-.prestige-item svg {
-  width: 18px;
-  height: 18px;
-}
-.prestige-item span {
-  font-size: 8.5px;
-  letter-spacing: 0.04em;
-  color: #b8af9b;
-  text-align: center;
-}
-.section-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.section-head h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 15px;
-  color: #f1eada;
-}
-.see-all {
-  font-size: 10.5px;
-  color: var(--gold-antique);
-  cursor: pointer;
-}
-.collection-preview {
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  padding: 14px;
-}
-.collection-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-.collection-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  padding: 10px 4px;
-  border: 1px solid var(--hairline);
-  border-radius: 10px;
-}
-.collection-item svg {
-  width: 18px;
-  height: 18px;
-}
-.collection-item span {
-  font-size: 7.5px;
-  color: #b8af9b;
-  text-align: center;
-}
-.collection-more {
-  color: var(--gold-champagne);
-  justify-content: center;
-}
-.collection-more span {
-  font-family: var(--font-display);
-  font-size: 14px;
-  color: var(--gold-champagne);
-}
-.collection-more small {
-  font-size: 7px;
-  color: #8a8172;
-}
-.about-panel {
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  padding: 16px;
-}
-.about-panel h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 15px;
-  color: #f1eada;
-  margin-bottom: 10px;
-}
-.about-line {
-  font-size: 12px;
-  color: #c9c0ac;
-  line-height: 1.9;
 }
 
 .app-main,
@@ -7325,15 +7081,72 @@ body.light-mode #boutique-tab .widget-add-btn.is-installed {
     padding: 10px 12px;
     font-size: 11.5px;
   }
-  #club-tab .club-credits-display {
-    padding: 4px 10px;
+  #club-tab .club-credits-display,
+  .club-credits-display,
+  #clubCreditsDisplay {
+    padding: 3.5px 7px !important;
+    gap: 5px !important;
   }
-  #club-tab #clubCreditsText {
-    font-size: 9.5px;
+  .club-credits-info {
+    gap: 4px !important;
+  }
+  .club-credits-crown {
+    font-size: 9px !important;
+  }
+  .club-credits-label {
+    font-size: 8.5px !important;
+  }
+  #club-tab #clubCreditsText,
+  .club-credits-readout {
+    font-size: 9px !important;
+    padding: 1px 4.5px !important;
+  }
+  #club-tab .club-credits-buy,
+  .club-credits-buy,
+  #clubCreditsBuyBtn {
+    height: 21.5px !important;
+    min-height: 21.5px !important;
+    padding: 0 7px 0 6px !important;
+    font-size: 8.5px !important;
+    gap: 3.5px !important;
+  }
+  .club-credits-buy .alloc-plus-glyph,
+  #clubCreditsBuyBtn .alloc-plus-glyph {
+    font-size: 10px !important;
   }
 }
 
 @media (max-width: 365px) {
+  #club-tab .club-credits-display,
+  .club-credits-display,
+  #clubCreditsDisplay {
+    padding: 3px 6px !important;
+    gap: 4px !important;
+  }
+  .club-credits-info {
+    gap: 3.5px !important;
+  }
+  .club-credits-label {
+    font-size: 8px !important;
+  }
+  #club-tab #clubCreditsText,
+  .club-credits-readout {
+    font-size: 8.5px !important;
+    padding: 1px 4px !important;
+  }
+  #club-tab .club-credits-buy,
+  .club-credits-buy,
+  #clubCreditsBuyBtn {
+    height: 20px !important;
+    min-height: 20px !important;
+    padding: 0 6px 0 5px !important;
+    font-size: 8px !important;
+    gap: 3px !important;
+  }
+  .club-credits-buy .alloc-plus-glyph,
+  #clubCreditsBuyBtn .alloc-plus-glyph {
+    font-size: 9.5px !important;
+  }
   .member-name {
     font-size: 20px;
   }
@@ -11532,21 +11345,27 @@ body.light-mode .sovereign-allocation-seal-btn,
 body.light-mode .liquid-glass-btn {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.88) 0%,
-    rgba(250, 244, 232, 0.75) 45%,
-    rgba(238, 226, 204, 0.65) 100%
+    rgba(255, 255, 255, 0.86) 0%,
+    rgba(252, 246, 234, 0.74) 45%,
+    rgba(242, 230, 208, 0.62) 100%
   ) !important;
   backdrop-filter: blur(14px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
-  border: 1px solid rgba(197, 160, 89, 0.6) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
-  border-bottom: 1px solid rgba(160, 120, 45, 0.42) !important;
+  border: 0.85px solid rgba(197, 160, 89, 0.58) !important;
+  border-top: 0.85px solid rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 0.85px solid rgba(160, 120, 45, 0.40) !important;
   box-shadow:
-    0 2px 8px -2px rgba(90, 60, 15, 0.16),
-    inset 0 1px 0 #ffffff,
-    inset 0 -1px 0.5px rgba(184, 141, 56, 0.22) !important;
-  color: #5c4112 !important;
+    0 2px 7px -2px rgba(90, 60, 15, 0.15),
+    inset 0 1px 0.5px #ffffff,
+    inset 0 -1px 0.5px rgba(184, 141, 56, 0.20) !important;
+  color: #583c10 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+body.light-mode .club-credits-buy .alloc-plus-glyph,
+body.light-mode #clubCreditsBuyBtn .alloc-plus-glyph {
+  color: #8c631e !important;
+  text-shadow: none !important;
 }
 
 body.light-mode #club-tab .club-credits-buy::before,
@@ -11570,13 +11389,13 @@ body.light-mode .liquid-glass-btn:hover {
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.96) 0%,
-    rgba(250, 242, 226, 0.88) 50%,
-    rgba(240, 228, 206, 0.80) 100%
+    rgba(250, 242, 226, 0.86) 50%,
+    rgba(240, 228, 206, 0.78) 100%
   ) !important;
-  border-color: rgba(180, 138, 55, 0.8) !important;
+  border-color: rgba(180, 138, 55, 0.78) !important;
   border-top-color: #ffffff !important;
   box-shadow:
-    0 3px 12px -1px rgba(184, 141, 56, 0.32),
+    0 3px 10px -1px rgba(184, 141, 56, 0.28),
     inset 0 1px 0 #ffffff !important;
   color: #2b1c06 !important;
 }

@@ -1756,6 +1756,7 @@ window.openMemberMiniDossier = function (member) {
       window.AudioEngine.playModalClose();
     }
   };
+  window.closeMemberMiniDossierModal = closeModal;
   if (closeBtn) closeBtn.onclick = closeModal;
   modal.onclick = (e) => {
     if (e.target === modal) closeModal();
@@ -2711,6 +2712,72 @@ if (copyBtn) {
   });
 }
 
+const shareBtn = document.getElementById("shareBtn");
+if (shareBtn) {
+  shareBtn.addEventListener("click", async () => {
+    if (window.AudioEngine && window.AudioEngine.playChime) {
+      window.AudioEngine.playChime();
+    } else if (window.AudioEngine && window.AudioEngine.playSend) {
+      window.AudioEngine.playSend();
+    }
+    if (window.HapticEngine && window.HapticEngine.tap) {
+      window.HapticEngine.tap(12);
+    }
+
+    shareBtn.blur();
+    shareBtn.classList.remove("is-pressed");
+
+    const verifyUrl = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl)
+      ? ClubState.member.verifyUrl
+      : "https://1percent.club/verify/3426";
+
+    const memberId = (typeof AppState !== "undefined" && AppState?.user?.id)
+      ? AppState.user.id
+      : "0001";
+
+    const isAr = (window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl");
+
+    const shareData = {
+      title: isAr ? "THE 1% CLUB — العضوية السيادية" : "THE 1% CLUB — Sovereign Membership",
+      text: isAr
+        ? `عضوية موثقة ومعتمدة في THE 1% CLUB • #${memberId}`
+        : `Verified Sovereign Membership in THE 1% CLUB • #${memberId}`,
+      url: verifyUrl,
+    };
+
+    if (navigator.share) {
+      try {
+        if (!navigator.canShare || navigator.canShare(shareData)) {
+          await navigator.share(shareData);
+          return;
+        }
+      } catch (err) {
+        if (err && (err.name === "AbortError" || err.name === "Abort" || String(err).includes("AbortError"))) {
+          return;
+        }
+      }
+    }
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(verifyUrl);
+      } else {
+        const tempInput = document.createElement("textarea");
+        tempInput.value = verifyUrl;
+        tempInput.style.position = "fixed";
+        tempInput.style.opacity = "0";
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+      }
+      showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
+    } catch {
+      showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
+    }
+  });
+}
+
 const goldPopup = document.getElementById("goldCopyPopup");
 if (goldPopup) {
   goldPopup.addEventListener("click", () => {
@@ -3470,13 +3537,25 @@ window.closeMemberProfile = closeMemberProfile;
 document.getElementById("backBtn")?.addEventListener("click", closeMemberProfile);
 document.getElementById("memberProfileCloseBtn")?.addEventListener("click", closeMemberProfile);
 
-document.querySelectorAll("#page-member .card-actions .btn, #page-member .sd-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
+const memberActionMsgBtn = document.getElementById("memberActionMessageBtn");
+if (memberActionMsgBtn) {
+  memberActionMsgBtn.addEventListener("click", () => {
     if (window.AudioEngine && window.AudioEngine.playChime) window.AudioEngine.playChime();
     if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(20);
-    showNavToast(window.t("profile.comingSoon") || "قريباً");
+    const isAr = (window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl" || (typeof AppState !== "undefined" && AppState.language === "ar"));
+    showNavToast(isAr ? (window.t("profile.comingSoon") || "قريبًا") : (window.t("coming_soon") || "Coming Soon"));
   });
-});
+}
+
+const memberActionAddFriendBtn = document.getElementById("memberActionAddFriendBtn");
+if (memberActionAddFriendBtn) {
+  memberActionAddFriendBtn.addEventListener("click", () => {
+    if (window.AudioEngine && window.AudioEngine.playChime) window.AudioEngine.playChime();
+    if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(20);
+    const isAr = (window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl" || (typeof AppState !== "undefined" && AppState.language === "ar"));
+    showNavToast(isAr ? (window.t("profile.comingSoon") || "قريبًا") : (window.t("coming_soon") || "Coming Soon"));
+  });
+}
 
 document.getElementById("editAccountForm")?.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -5021,6 +5100,7 @@ function closeInspectionModal() {
     }
   }
 }
+window.closeInspectionModal = closeInspectionModal;
 
 document.querySelectorAll(".b-filt-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -5193,6 +5273,12 @@ document.addEventListener("DOMContentLoaded", () => {
     editAccountBtn.addEventListener("click", window.openEditProfileModal);
   }
 
+  const profileMedallionCase = document.getElementById("profileMedallionCase");
+  if (profileMedallionCase) {
+    profileMedallionCase.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
+    profileMedallionCase.addEventListener("click", window.openEditProfileModal);
+  }
+
   document
     .getElementById("closeEditProfileModal")
     ?.addEventListener("click", (e) => {
@@ -5362,18 +5448,161 @@ document.addEventListener("DOMContentLoaded", () => {
       window.closeAccountInfoModal();
     });
 
-  // Global Escape Key Listener for Modals
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      const pModal = document.getElementById("editProfileModal");
-      if (pModal && pModal.classList.contains("is-open")) {
-        window.closeEditProfileModal();
-      }
-      const aModal = document.getElementById("accountInfoModal");
-      if (aModal && aModal.classList.contains("is-open")) {
-        window.closeAccountInfoModal();
+  // =========================================================================
+  // UNIFIED MODAL ARCHITECTURE: DEFINITIONS, ESCAPE & BACKDROP CONTROLLERS
+  // =========================================================================
+
+  function closeSettingsModal() {
+    const modal = document.getElementById("settingsModal");
+    if (!modal || !modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  }
+  window.closeSettingsModal = closeSettingsModal;
+
+  function closeHelpSupportModal() {
+    const modal = document.getElementById("helpSupportModal");
+    if (!modal || !modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  }
+  window.closeHelpSupportModal = closeHelpSupportModal;
+
+  function closeLogoutConfirmModal() {
+    const modal = document.getElementById("logoutConfirmModal");
+    if (!modal || !modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  }
+  window.closeLogoutConfirmModal = closeLogoutConfirmModal;
+
+  function closeAuthRecoveryModal() {
+    if (window.AuthBoundary && typeof window.AuthBoundary.closeRecovery === "function") {
+      window.AuthBoundary.closeRecovery();
+    } else {
+      const modal = document.getElementById("authRecoveryModal");
+      if (modal) {
+        modal.style.display = "none";
+        modal.classList.remove("is-open", "is-active");
       }
     }
+  }
+  window.closeAuthRecoveryModal = closeAuthRecoveryModal;
+
+  function closeMemberMiniDossierModal() {
+    const modal = document.getElementById("memberMiniDossierModal");
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    if (window.AudioEngine && window.AudioEngine.playModalClose) {
+      window.AudioEngine.playModalClose();
+    }
+  }
+  window.closeMemberMiniDossierModal = closeMemberMiniDossierModal;
+
+  const UNIFIED_MODALS = [
+    // Layer 3 (Highest overlay layer):
+    {
+      id: "logoutConfirmModal",
+      isOpen: (el) => el.classList.contains("is-open"),
+      close: () => window.closeLogoutConfirmModal?.()
+    },
+    {
+      id: "authRecoveryModal",
+      isOpen: (el) => el.classList.contains("is-open") || el.classList.contains("is-active") || el.style.display === "flex",
+      close: () => window.closeAuthRecoveryModal?.()
+    },
+    // Layer 2 (Transaction / Detail overlays):
+    {
+      id: "creditsModal",
+      isOpen: (el) => !el.hidden && el.style.display !== "none",
+      close: () => window.closeCreditsModal?.()
+    },
+    {
+      id: "depositModal",
+      isOpen: (el) => !el.hidden && el.style.display !== "none",
+      close: () => window.closeDepositModal?.()
+    },
+    {
+      id: "reliquaryInspectModal",
+      isOpen: (el) => el.classList.contains("is-active") || (!el.hidden && el.getAttribute("aria-hidden") !== "true"),
+      close: () => (typeof closeReliquaryInspectModal === "function" ? closeReliquaryInspectModal() : window.closeReliquaryInspectModal?.())
+    },
+    {
+      id: "inspectionModal",
+      isOpen: (el) => !el.hidden && el.style.display !== "none",
+      close: () => (typeof closeInspectionModal === "function" ? closeInspectionModal() : window.closeInspectionModal?.())
+    },
+    {
+      id: "heraldicCitationModal",
+      isOpen: (el) => el.classList.contains("is-open") || (!el.hidden && el.getAttribute("aria-hidden") !== "true"),
+      close: () => window.closeHeraldicCitationModal?.()
+    },
+    {
+      id: "memberMiniDossierModal",
+      isOpen: (el) => !el.hidden && el.getAttribute("aria-hidden") !== "true",
+      close: () => window.closeMemberMiniDossierModal?.()
+    },
+    // Layer 1 (Base Dialogs):
+    {
+      id: "editProfileModal",
+      isOpen: (el) => el.classList.contains("is-open"),
+      close: () => window.closeEditProfileModal?.()
+    },
+    {
+      id: "accountInfoModal",
+      isOpen: (el) => el.classList.contains("is-open"),
+      close: () => window.closeAccountInfoModal?.()
+    },
+    {
+      id: "helpSupportModal",
+      isOpen: (el) => el.classList.contains("is-open"),
+      close: () => window.closeHelpSupportModal?.()
+    },
+    {
+      id: "settingsModal",
+      isOpen: (el) => el.classList.contains("is-open"),
+      close: () => window.closeSettingsModal?.()
+    }
+  ];
+
+  function closeTopmostModal() {
+    for (const entry of UNIFIED_MODALS) {
+      const el = document.getElementById(entry.id);
+      if (el && entry.isOpen(el)) {
+        entry.close();
+        return true; // Closes ONLY the topmost layer
+      }
+    }
+    return false;
+  }
+  window.closeTopmostModal = closeTopmostModal;
+
+  // 1. Unified Global Escape Key Listener (closes topmost active modal only)
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeTopmostModal();
+    }
+  });
+
+  // 2. Unified Backdrop Click Listeners (only closes when clicking directly on overlay backdrop)
+  UNIFIED_MODALS.forEach((entry) => {
+    const el = document.getElementById(entry.id);
+    if (!el) return;
+    if (el.dataset.backdropBound === "true") return;
+    el.dataset.backdropBound = "true";
+    el.addEventListener("click", (e) => {
+      // Must be direct click on backdrop overlay itself, NOT inside content card
+      if (e.target === el) {
+        entry.close();
+      }
+    });
   });
 
   const menuHelp = document.getElementById("menuHelp");
@@ -5389,10 +5618,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("closeHelpSupportModal")
     ?.addEventListener("click", () => {
-      helpSupportModal?.classList.remove("is-open");
-      if (window.AudioEngine && window.AudioEngine.playModalClose) {
-        window.AudioEngine.playModalClose();
-      }
+      window.closeHelpSupportModal();
     });
 
   const contactConciergeBtn = document.getElementById("contactConciergeBtn");
@@ -5404,7 +5630,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (window.HapticEngine && window.HapticEngine.tap) {
         window.HapticEngine.tap(25);
       }
-      helpSupportModal?.classList.remove("is-open");
+      window.closeHelpSupportModal();
       showNavToast(window.t("misc.conciergeSuccess") || "تم إرسال طلب الكونسيرج بنجاح. سيتواصل معك المساعد الخاص قريباً.");
     });
   }
@@ -5439,7 +5665,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const menuSettings = document.getElementById("menuSettings");
   const settingsModal = document.getElementById("settingsModal");
-  const closeSettingsModal = document.getElementById("closeSettingsModal");
+  const closeSettingsBtn = document.getElementById("closeSettingsModal");
   if (menuSettings && settingsModal) {
     menuSettings.addEventListener("click", () => {
       if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
@@ -5452,19 +5678,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  if (closeSettingsModal && settingsModal) {
-    closeSettingsModal.addEventListener("click", () => {
-      settingsModal.classList.remove("is-open");
-      if (window.AudioEngine && window.AudioEngine.playModalClose) {
-        window.AudioEngine.playModalClose();
-      }
+  if (closeSettingsBtn) {
+    closeSettingsBtn.addEventListener("click", () => {
+      window.closeSettingsModal();
     });
   }
 
-
   const btnSettingsLogout = document.getElementById("btnSettingsLogout");
   const logoutConfirmModal = document.getElementById("logoutConfirmModal");
-  const closeLogoutConfirmModal = document.getElementById(
+  const closeLogoutConfirmBtn = document.getElementById(
     "closeLogoutConfirmModal",
   );
   const btnCancelLogout = document.getElementById("btnCancelLogout");
@@ -5479,21 +5701,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (closeLogoutConfirmModal && logoutConfirmModal) {
-    closeLogoutConfirmModal.addEventListener("click", () => {
-      logoutConfirmModal.classList.remove("is-open");
-      if (window.AudioEngine && window.AudioEngine.playModalClose) {
-        window.AudioEngine.playModalClose();
-      }
+  if (closeLogoutConfirmBtn) {
+    closeLogoutConfirmBtn.addEventListener("click", () => {
+      window.closeLogoutConfirmModal();
     });
   }
 
-  if (btnCancelLogout && logoutConfirmModal) {
+  if (btnCancelLogout) {
     btnCancelLogout.addEventListener("click", () => {
-      logoutConfirmModal.classList.remove("is-open");
-      if (window.AudioEngine && window.AudioEngine.playModalClose) {
-        window.AudioEngine.playModalClose();
-      }
+      window.closeLogoutConfirmModal();
     });
   }
 
@@ -6182,6 +6398,7 @@ function closeReliquaryInspectModal() {
     playAudio: true
   });
 }
+window.closeReliquaryInspectModal = closeReliquaryInspectModal;
 
 window.copyReliquarySerial = function() {
   const serialEl = document.getElementById("reliquaryItemSerial");

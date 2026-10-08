@@ -354,8 +354,8 @@ window.I18N = {
       ar: "مخصص المراسلات",
     },
     requestAllocation: {
-      en: "+ Request Allocation",
-      ar: "+ طلب اعتماد رصيد",
+      en: "Request Allocation",
+      ar: "طلب اعتماد رصيد",
     },
     whisperToggle: {
       en: "Encrypted Dispatch",

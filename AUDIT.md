@@ -683,6 +683,14 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Upgraded `.rmc-dismiss-btn` ("إغلاق" / "إغلاق المعاينة") into the primary independent solid 24K gold ingot action button at the bottom (`height: 42px !important`, 8px border-radius, high-contrast `#140d02` dark / `#1a1002` light text).
   - Cache-busted stylesheet to `?v=20261007_unified_modals_v9`.
 
+### Dead Code & Duplicate CSS Cleanup Pass (2026-10-08) — COMPLETED
+- **Eliminated 318 Lines of Duplicate CSS**: Removed `<style id="boutique-os-liquid-filters">` from `index.html` head, which was a 100% duplicate of canonical rules already present in `style.css` (lines 32667 to 32990).
+- **Purged 166 Lines of Dead Widget Mock CSS**: Deleted obsolete `.widget-portrait-ring`, `.widget-portrait-photo`, `.widget-member-number`, `.widget-member-name`, `.widget-tier`, `.widget-living-core`, `.widget-corner*`, `.widget-hallmark-line`, `.widget-shield-pill`, and `.widget-tagline` from `style.css`. The widget directly reuses `<section class="membership-card">`.
+- **Purged 102 Lines of Dead Early Profile Mock CSS**: Deleted orphaned `.prestige-strip`, `.prestige-item`, `.section-head`, `.see-all`, `.collection-preview`, `.collection-grid`, `.collection-item`, `.collection-more`, `.about-panel`, and `.about-line` from `style.css`.
+- **Purged Obsolete `.boutique-tier-pill`**: Removed legacy selector superseded by `.boutique-tier-plaque`.
+- **Zero Regressions & Invariant Preservation**: 100% preservation of Master Membership Card, Profile Hero Card, Club dispatch, modals, authentication, dark/light themes, and RTL/LTR layout.
+- Cache-busted stylesheet to `?v=20261008_cleanup_v1`.
+
 
 
 
