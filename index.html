@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&amp;family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Inter:wght@400;500;600&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Amiri:wght@400;700&amp;family=Cairo:wght@400;500;600;700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&amp;family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&amp;family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Amiri:wght@400;700&amp;family=Cairo:wght@400;500;600;700&amp;family=Readex+Pro:wght@400;500;600;700&amp;display=swap"
       rel="stylesheet"
       crossorigin="anonymous"
     />
@@ -1275,56 +1275,35 @@
             </button>
           </div>
 
-          <!-- ENGRAVED SOVEREIGN CHAMBER PLAQUE -->
-          <div class="club-pinned club-chamber-plaque luxury-tilt-card" id="clubPinnedInfo">
-            <div class="chamber-plaque-guilloche"></div>
-            <div class="chamber-plaque-corner corner-tl"></div>
-            <div class="chamber-plaque-corner corner-tr"></div>
-            <div class="chamber-plaque-corner corner-bl"></div>
-            <div class="chamber-plaque-corner corner-br"></div>
-            
-            <div class="chamber-plaque-medallion" id="clubPinnedIconWrap">
-              <div class="chamber-plaque-medallion-inner">
-                <svg viewBox="0 0 24 24" fill="none" class="chamber-plaque-svg" id="clubPinnedSvg">
-                  <path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
+          <!-- SOVEREIGN CHAMBER WELCOME BANNER (CLEAN, MINIMAL, LUXURY) -->
+          <div class="club-pinned club-chamber-plaque" id="clubPinnedInfo">
+            <div class="chamber-plaque-icon-wrap" id="clubPinnedIconWrap">
+              <svg viewBox="0 0 24 24" fill="none" class="chamber-plaque-svg" id="clubPinnedSvg">
+                <path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
 
-            <div class="chamber-plaque-content">
-              <div class="chamber-plaque-meta-row">
-                <span class="chamber-security-badge" id="clubPinnedProtocol">
-                  <span class="plaque-secure-dot"></span>
-                  <span data-i18n="club.chamberSecureProtocol">تشفير سيادي مغلق • جلسة سرية</span>
-                </span>
-                <button
-                  class="chamber-plaque-dismiss-btn"
-                  id="clubPinnedDismissBtn"
-                  type="button"
-                  title="إخفاء العبارة الترحيبية"
-                  aria-label="إخفاء"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </button>
-              </div>
-              <p
-                class="chamber-plaque-title"
-                id="clubPinnedTitle"
-                data-i18n="club.welcomeTitle"
-              >
-                أهلًا بك في صالة الأعضاء السيادية
-              </p>
-              <p
-                class="chamber-plaque-sub"
-                id="clubPinnedSub"
-                data-i18n="club.welcomeSub"
-              >
+            <div class="chamber-plaque-body">
+              <h4 class="chamber-plaque-title" id="clubPinnedTitle" data-i18n="club.welcomeTitle">
+                أهلًا بك في صالة الأعضاء
+              </h4>
+              <p class="chamber-plaque-sub" id="clubPinnedSub" data-i18n="club.welcomeSub">
                 مساحة الأعضاء السياديين. تواصل بثقة.
               </p>
             </div>
+
+            <button
+              class="chamber-plaque-close-btn chamber-plaque-dismiss-btn"
+              id="clubPinnedDismissBtn"
+              type="button"
+              title="إخفاء الترحيب"
+              aria-label="إغلاق"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
           </div>
 
           <div
@@ -1472,37 +1451,21 @@
               </div>
             </div>
 
-            <!-- HOROLOGICAL DISPATCH GAUGE & LEDGER ALLOCATION -->
-            <div class="horological-ledger-gauge" id="clubCreditsDisplay">
-              <div class="gauge-dial-section">
-                <div class="gauge-dial-header">
-                  <span class="gauge-dial-crown-icon">⚜️</span>
-                  <span class="gauge-dial-title" data-i18n="club.ledgerAllocationTitle">مخصص المراسلات</span>
-                  <span class="gauge-tally-readout" id="clubCreditsText">10 / 10</span>
-                </div>
-                <div class="gauge-pips-strip" id="gaugePipsStrip" aria-label="10 Sovereign Dispatch Allocations">
-                  <span class="gauge-pip is-filled" data-idx="1"></span>
-                  <span class="gauge-pip is-filled" data-idx="2"></span>
-                  <span class="gauge-pip is-filled" data-idx="3"></span>
-                  <span class="gauge-pip is-filled" data-idx="4"></span>
-                  <span class="gauge-pip is-filled" data-idx="5"></span>
-                  <span class="gauge-pip is-filled" data-idx="6"></span>
-                  <span class="gauge-pip is-filled" data-idx="7"></span>
-                  <span class="gauge-pip is-filled" data-idx="8"></span>
-                  <span class="gauge-pip is-filled" data-idx="9"></span>
-                  <span class="gauge-pip is-filled" data-idx="10"></span>
-                </div>
+            <!-- CLUB MESSAGE CREDITS BAR (SOVEREIGN DISPATCH ALLOCATION) -->
+            <div class="club-credits-display" id="clubCreditsDisplay">
+              <div class="club-credits-info">
+                <span class="club-credits-crown">⚜️</span>
+                <span class="club-credits-label" data-i18n="club.ledgerAllocationTitle">مخصص المراسلات</span>
+                <span class="club-credits-readout" id="clubCreditsText"><bdi>10</bdi> / <bdi>10</bdi></span>
               </div>
-
               <button
-                class="sovereign-allocation-seal-btn"
+                class="club-credits-buy sovereign-allocation-seal-btn liquid-glass-btn"
                 id="clubCreditsBuyBtn"
                 type="button"
                 data-i18n="club.requestAllocation"
                 title="طلب اعتماد رصيد مراسلات إضافي"
               >
-                <span class="seal-btn-gold-sheen"></span>
-                <span class="seal-btn-label" data-i18n="club.requestAllocation">+ طلب اعتماد رصيد</span>
+                + طلب اعتماد رصيد
               </button>
             </div>
 

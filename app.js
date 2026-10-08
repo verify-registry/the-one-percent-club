@@ -4298,22 +4298,6 @@ function buildMessageHTML(msg, idx, channelId) {
           isMe
             ? `<div class="dispatch-golden-ink-layer" aria-hidden="true">
                  <div class="golden-ink-wash"></div>
-                 <div class="golden-seal-watermark">
-                   <svg viewBox="0 0 100 100" class="golden-seal-watermark-svg" fill="none">
-                     <circle cx="50" cy="50" r="46" stroke="currentColor" stroke-width="1" stroke-dasharray="2.5 1.5" opacity="0.6"/>
-                     <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="0.8" opacity="0.8"/>
-                     <circle cx="50" cy="50" r="39" stroke="currentColor" stroke-width="1.2"/>
-                     <path d="M40 45 L38 36 L43 40 L50 32 L57 40 L62 36 L60 45 Z" fill="currentColor" opacity="0.9"/>
-                     <circle cx="50" cy="31" r="1.5" fill="currentColor"/>
-                     <circle cx="38" cy="35" r="1.2" fill="currentColor"/>
-                     <circle cx="62" cy="35" r="1.2" fill="currentColor"/>
-                     <text x="50" y="56" text-anchor="middle" font-family="'Cormorant Garamond', 'Amiri', serif" font-size="7.5" font-weight="700" fill="currentColor" letter-spacing="1">THE 1% CLUB</text>
-                     <text x="50" y="63" text-anchor="middle" font-family="'Manrope', 'Cairo', sans-serif" font-size="3.8" font-weight="700" fill="currentColor" letter-spacing="0.6">DECREE</text>
-                     <path d="M34 68 C 40 74, 45 76, 50 76 C 55 76, 60 74, 66 68" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.75"/>
-                     <circle cx="50" cy="76" r="1" fill="currentColor" opacity="0.8"/>
-                   </svg>
-                 </div>
-                 <div class="golden-ink-quill-trace"></div>
                </div>`
             : ""
         }
@@ -4326,13 +4310,6 @@ function buildMessageHTML(msg, idx, channelId) {
             <div class="dispatch-credentials">
               <div class="dispatch-primary-row">
                 <span class="dispatch-name" style="color: ${msg.senderColor || "#e6c27a"}"><bdi dir="auto">${safeSenderName}</bdi></span>
-                <span class="dispatch-sovereign-timestamp" title="${fullDateIso}">
-                  <svg class="sovereign-time-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                    <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="0.95" opacity="0.85"/>
-                    <path d="M6 3.2v2.8l1.6 1" stroke="currentColor" stroke-width="0.95" stroke-linecap="round"/>
-                  </svg>
-                  <span class="timestamp-precise-val">${preciseTimeStr}</span>
-                </span>
                 <span class="dispatch-tier-hallmark">${displayTier}</span>
               </div>
               <div class="dispatch-secondary-row">
@@ -4343,6 +4320,13 @@ function buildMessageHTML(msg, idx, channelId) {
             </div>
           </div>
           <div class="dispatch-chronometer">
+            <span class="dispatch-sovereign-timestamp" title="${fullDateIso}">
+              <svg class="sovereign-time-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="0.95" opacity="0.85"/>
+                <path d="M6 3.2v2.8l1.6 1" stroke="currentColor" stroke-width="0.95" stroke-linecap="round"/>
+              </svg>
+              <span class="timestamp-precise-val">${preciseTimeStr}</span>
+            </span>
             ${
               isMe
                 ? `<span class="dispatch-seal-mark is-official-decree" title="${window.t("club.sealedDecree") || "وثيقة مختومة"}">
