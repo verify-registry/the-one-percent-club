@@ -113,7 +113,7 @@ window.t = function (key, lang = currentLang) {
 window.syncClubInputDirection = function (inputEl) {
   const input = inputEl || document.getElementById("clubInput");
   if (!input) return;
-  const val = input.value;
+  const val = (input && input.value) ? String(input.value) : "";
   // Match first strong character (Arabic/Hebrew vs Latin)
   const firstStrong = val.match(/[\u0590-\u08FF\uFB1D-\uFDFD\uFE70-\uFEFC]|[A-Za-z]/);
   if (firstStrong) {
@@ -3409,6 +3409,10 @@ function openMemberProfile(member) {
     backBtn.hidden = true;
     backBtn.classList.add("is-member-dossier-active");
   }
+
+  if (typeof initMemberDossierActionButtons === "function") {
+    initMemberDossierActionButtons();
+  }
 }
 window.openMemberProfile = openMemberProfile;
 
@@ -3540,25 +3544,54 @@ window.closeMemberProfile = closeMemberProfile;
 document.getElementById("backBtn")?.addEventListener("click", closeMemberProfile);
 document.getElementById("memberProfileCloseBtn")?.addEventListener("click", closeMemberProfile);
 
-const memberActionMsgBtn = document.getElementById("memberActionMessageBtn");
-if (memberActionMsgBtn) {
-  memberActionMsgBtn.addEventListener("click", () => {
-    if (window.AudioEngine && window.AudioEngine.playChime) window.AudioEngine.playChime();
-    if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(20);
-    const isAr = (window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl" || (typeof AppState !== "undefined" && AppState.language === "ar"));
-    showNavToast(isAr ? (window.t("profile.comingSoon") || "قريبًا") : (window.t("coming_soon") || "Coming Soon"));
-  });
-}
+function initMemberDossierActionButtons() {
+  const handleAction = (e) => {
+    if (e) {
+      if (typeof e.preventDefault === "function") e.preventDefault();
+      if (typeof e.stopPropagation === "function") e.stopPropagation();
+    }
+    if (window.AudioEngine && window.AudioEngine.playChime) {
+      window.AudioEngine.playChime();
+    } else if (window.AudioEngine && window.AudioEngine.playRustle) {
+      window.AudioEngine.playRustle();
+    }
+    if (window.HapticEngine && window.HapticEngine.tap) {
+      window.HapticEngine.tap(20);
+    }
+    const isAr = Boolean(
+      window.currentLang === "ar" ||
+      document.documentElement.lang === "ar" ||
+      document.documentElement.dir === "rtl" ||
+      (typeof AppState !== "undefined" && AppState.language === "ar")
+    );
+    const comingSoonText = isAr
+      ? (window.t ? window.t("profile.comingSoon") : "قريبًا")
+      : (window.t ? window.t("coming_soon") : "Coming Soon");
+    const safeText = comingSoonText || (isAr ? "قريبًا" : "Coming Soon");
 
-const memberActionAddFriendBtn = document.getElementById("memberActionAddFriendBtn");
-if (memberActionAddFriendBtn) {
-  memberActionAddFriendBtn.addEventListener("click", () => {
-    if (window.AudioEngine && window.AudioEngine.playChime) window.AudioEngine.playChime();
-    if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(20);
-    const isAr = (window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl" || (typeof AppState !== "undefined" && AppState.language === "ar"));
-    showNavToast(isAr ? (window.t("profile.comingSoon") || "قريبًا") : (window.t("coming_soon") || "Coming Soon"));
-  });
+    if (typeof showNavToast === "function") {
+      showNavToast(safeText);
+    } else if (typeof showPremiumToast === "function") {
+      showPremiumToast(isAr ? "إشعار" : "Notice", safeText);
+    }
+  };
+
+  const msgBtn = document.getElementById("memberActionMessageBtn");
+  if (msgBtn && !msgBtn.dataset.boundAction) {
+    msgBtn.dataset.boundAction = "true";
+    msgBtn.addEventListener("click", handleAction);
+    msgBtn.onclick = handleAction;
+  }
+
+  const addFriendBtn = document.getElementById("memberActionAddFriendBtn");
+  if (addFriendBtn && !addFriendBtn.dataset.boundAction) {
+    addFriendBtn.dataset.boundAction = "true";
+    addFriendBtn.addEventListener("click", handleAction);
+    addFriendBtn.onclick = handleAction;
+  }
 }
+window.initMemberDossierActionButtons = initMemberDossierActionButtons;
+initMemberDossierActionButtons();
 
 document.getElementById("editAccountForm")?.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -5014,11 +5047,7 @@ document.getElementById("reliquaryModalCloseBtn")?.addEventListener("click", () 
   if (typeof closeReliquaryInspectModal === "function") closeReliquaryInspectModal();
 });
 
-document.getElementById("reliquaryInspectModal")?.addEventListener("click", (e) => {
-  if (e.target.id === "reliquaryInspectModal") {
-    if (typeof closeReliquaryInspectModal === "function") closeReliquaryInspectModal();
-  }
-});
+// Reliquary modal backdrop is unified and managed by initUnifiedModalBackdrops
 
 
 
@@ -5095,12 +5124,11 @@ function updateMasterCard() {
 
 function closeInspectionModal() {
   const modal = document.getElementById("inspectionModal");
-  if (modal) {
-    modal.hidden = true;
-    modal.classList.remove("is-active");
-    if (window.AudioEngine && window.AudioEngine.playModalClose) {
-      window.AudioEngine.playModalClose();
-    }
+  if (!modal || modal.hidden) return;
+  modal.hidden = true;
+  modal.classList.remove("is-active");
+  if (window.AudioEngine && window.AudioEngine.playModalClose) {
+    window.AudioEngine.playModalClose();
   }
 }
 window.closeInspectionModal = closeInspectionModal;
@@ -5137,7 +5165,7 @@ if (typeof updateMasterCard === "function") {
 if (typeof renderProfileCollection === "function") {
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+const initProfileAndModals = () => {
   if (typeof initProfile === "function") initProfile();
   const savedPortrait = localStorage.getItem(`portrait_${ClubState.member.id}`);
   if (savedPortrait) {
@@ -5260,10 +5288,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.closeEditProfileModal = function () {
     const modal = editProfileModal || document.getElementById("editProfileModal");
-    if (modal) {
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
-    }
+    if (!modal || !modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
     if (window.AudioEngine && window.AudioEngine.playModalClose) {
       window.AudioEngine.playModalClose();
     }
@@ -5288,14 +5315,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e) e.preventDefault();
       window.closeEditProfileModal();
     });
-
-  if (editProfileModal) {
-    editProfileModal.addEventListener("click", (e) => {
-      if (e.target === editProfileModal) {
-        window.closeEditProfileModal();
-      }
-    });
-  }
 
   document.querySelectorAll(".quote-preset-chip").forEach(chip => {
     chip.addEventListener("click", () => {
@@ -5405,10 +5424,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.closeAccountInfoModal = function () {
     const modal = accountInfoModal || document.getElementById("accountInfoModal");
-    if (modal) {
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
-    }
+    if (!modal || !modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
     if (window.AudioEngine && window.AudioEngine.playModalClose) {
       window.AudioEngine.playModalClose();
     }
@@ -5426,14 +5444,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e) e.preventDefault();
       window.closeAccountInfoModal();
     });
-
-  if (accountInfoModal) {
-    accountInfoModal.addEventListener("click", (e) => {
-      if (e.target === accountInfoModal) {
-        window.closeAccountInfoModal();
-      }
-    });
-  }
 
   // Save Account Information Button
   document
@@ -5518,7 +5528,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       id: "authRecoveryModal",
-      isOpen: (el) => el.classList.contains("is-open") || el.classList.contains("is-active") || el.style.display === "flex",
+      isOpen: (el) => (el.classList.contains("is-open") || el.classList.contains("is-active")) && el.style.display !== "none",
       close: () => window.closeAuthRecoveryModal?.()
     },
     // Layer 2 (Transaction / Detail overlays):
@@ -5534,7 +5544,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       id: "reliquaryInspectModal",
-      isOpen: (el) => el.classList.contains("is-active") || (!el.hidden && el.getAttribute("aria-hidden") !== "true"),
+      isOpen: (el) => el.classList.contains("is-active") && !el.hidden,
       close: () => (typeof closeReliquaryInspectModal === "function" ? closeReliquaryInspectModal() : window.closeReliquaryInspectModal?.())
     },
     {
@@ -5544,7 +5554,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       id: "heraldicCitationModal",
-      isOpen: (el) => el.classList.contains("is-open") || (!el.hidden && el.getAttribute("aria-hidden") !== "true"),
+      isOpen: (el) => el.classList.contains("is-open") && !el.hidden,
       close: () => window.closeHeraldicCitationModal?.()
     },
     {
@@ -5554,9 +5564,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     // Layer 1 (Base Dialogs):
     {
-      id: "editProfileModal",
+      id: "helpSupportModal",
       isOpen: (el) => el.classList.contains("is-open"),
-      close: () => window.closeEditProfileModal?.()
+      close: () => window.closeHelpSupportModal?.()
     },
     {
       id: "accountInfoModal",
@@ -5564,9 +5574,9 @@ document.addEventListener("DOMContentLoaded", () => {
       close: () => window.closeAccountInfoModal?.()
     },
     {
-      id: "helpSupportModal",
+      id: "editProfileModal",
       isOpen: (el) => el.classList.contains("is-open"),
-      close: () => window.closeHelpSupportModal?.()
+      close: () => window.closeEditProfileModal?.()
     },
     {
       id: "settingsModal",
@@ -5574,6 +5584,7 @@ document.addEventListener("DOMContentLoaded", () => {
       close: () => window.closeSettingsModal?.()
     }
   ];
+  window.UNIFIED_MODALS = UNIFIED_MODALS;
 
   function closeTopmostModal() {
     for (const entry of UNIFIED_MODALS) {
@@ -5588,25 +5599,38 @@ document.addEventListener("DOMContentLoaded", () => {
   window.closeTopmostModal = closeTopmostModal;
 
   // 1. Unified Global Escape Key Listener (closes topmost active modal only)
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeTopmostModal();
-    }
-  });
-
-  // 2. Unified Backdrop Click Listeners (only closes when clicking directly on overlay backdrop)
-  UNIFIED_MODALS.forEach((entry) => {
-    const el = document.getElementById(entry.id);
-    if (!el) return;
-    if (el.dataset.backdropBound === "true") return;
-    el.dataset.backdropBound = "true";
-    el.addEventListener("click", (e) => {
-      // Must be direct click on backdrop overlay itself, NOT inside content card
-      if (e.target === el) {
-        entry.close();
+  if (!window._unifiedEscapeBound) {
+    window._unifiedEscapeBound = true;
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" || e.key === "Esc" || e.keyCode === 27) {
+        if (typeof window.closeTopmostModal === "function") {
+          const closed = window.closeTopmostModal();
+          if (closed) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }
       }
     });
-  });
+  }
+
+  // 2. Unified Backdrop Click Listeners (only closes when clicking directly on overlay backdrop)
+  function initUnifiedModalBackdrops() {
+    UNIFIED_MODALS.forEach((entry) => {
+      const el = document.getElementById(entry.id);
+      if (!el) return;
+      if (el.dataset.backdropBound === "true") return;
+      el.dataset.backdropBound = "true";
+      el.addEventListener("click", (e) => {
+        // Must be direct click on backdrop overlay itself, NOT inside content card
+        if (e.target === el) {
+          entry.close();
+        }
+      });
+    });
+  }
+  window.initUnifiedModalBackdrops = initUnifiedModalBackdrops;
+  initUnifiedModalBackdrops();
 
   const menuHelp = document.getElementById("menuHelp");
   const helpSupportModal = document.getElementById("helpSupportModal");
@@ -5770,8 +5794,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   window.closeDepositModal = function() {
-    if (!depositModal) return;
-    depositModal.hidden = true;
+    const modal = depositModal || document.getElementById("depositModal");
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
     if (window.AudioEngine && window.AudioEngine.playModalClose) {
       window.AudioEngine.playModalClose();
     }
@@ -5786,14 +5811,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (depositCancelBtn) {
     depositCancelBtn.addEventListener("click", window.closeDepositModal);
-  }
-
-  if (depositModal) {
-    depositModal.addEventListener("click", (e) => {
-      if (e.target === depositModal) {
-        window.closeDepositModal();
-      }
-    });
   }
 
   document.querySelectorAll(".deposit-pkg").forEach((btn) => {
@@ -5850,8 +5867,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   window.closeCreditsModal = function() {
-    if (!creditsModal) return;
-    creditsModal.hidden = true;
+    const modal = creditsModal || document.getElementById("creditsModal");
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
     if (window.AudioEngine && window.AudioEngine.playModalClose) {
       window.AudioEngine.playModalClose();
     }
@@ -5865,14 +5883,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (creditsCancelBtn) {
     creditsCancelBtn.addEventListener("click", window.closeCreditsModal);
-  }
-
-  if (creditsModal) {
-    creditsModal.addEventListener("click", (e) => {
-      if (e.target === creditsModal) {
-        window.closeCreditsModal();
-      }
-    });
   }
 
   document.querySelectorAll("#creditsModal .credits-pkg").forEach((btn) => {
@@ -5908,7 +5918,13 @@ document.addEventListener("DOMContentLoaded", () => {
       window.closeCreditsModal();
     });
   });
-});
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initProfileAndModals);
+} else {
+  initProfileAndModals();
+}
 
 function playPurchaseAnimation() {
   const flash = document.createElement("div");
@@ -6152,6 +6168,7 @@ function openModalCore(modalId, options = {}) {
 function closeModalCore(modalId, options = {}) {
   const modal = document.getElementById(modalId);
   if (!modal) return;
+  if (modal.hidden && !modal.classList.contains(options.activeClass || "is-open") && !modal.classList.contains("is-active")) return;
   if (options.playAudio !== false) {
     if (window.AudioEngine && window.AudioEngine.playModalClose) {
       window.AudioEngine.playModalClose();
@@ -6259,11 +6276,6 @@ window.closeHeraldicCitationModal = function() {
 
 document.getElementById("closeCitationModalBtn")?.addEventListener("click", window.closeHeraldicCitationModal);
 document.getElementById("citationDismissBtn")?.addEventListener("click", window.closeHeraldicCitationModal);
-document.getElementById("heraldicCitationModal")?.addEventListener("click", (e) => {
-  if (e.target.id === "heraldicCitationModal") {
-    window.closeHeraldicCitationModal();
-  }
-});
 
 function openReliquaryInspectModal(itemId) {
   let item = null;

@@ -2915,7 +2915,7 @@
       </div>
 
       <!-- SOVEREIGN MEMBER DOSSIER MINI-CARD MODAL -->
-      <div class="purchase-modal-overlay sovereign-dossier-overlay" id="memberMiniDossierModal" hidden aria-hidden="true" role="dialog" aria-labelledby="miniDossierName">
+      <div class="purchase-modal-overlay sovereign-dossier-overlay" id="memberMiniDossierModal" hidden aria-hidden="true" role="dialog" aria-labelledby="miniDossierName" onclick="if (event.target === this) window.closeMemberMiniDossierModal()">
         <div class="purchase-modal sovereign-mini-dossier-card">
           <button class="mini-dossier-close-btn" id="closeMiniDossierBtn" type="button" aria-label="Close">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -3011,7 +3011,7 @@
       </div>
 
       <!-- SOVEREIGN CITATION & HERALDIC DECREE MODAL -->
-      <div class="purchase-modal-overlay heraldic-citation-overlay" id="heraldicCitationModal" hidden aria-hidden="true" role="dialog" aria-labelledby="citationMedalName">
+      <div class="purchase-modal-overlay heraldic-citation-overlay" id="heraldicCitationModal" hidden aria-hidden="true" role="dialog" aria-labelledby="citationMedalName" onclick="if (event.target === this) window.closeHeraldicCitationModal()">
         <div class="purchase-modal heraldic-citation-card">
           <div class="hcc-corner-screw hcc-screw-tl" aria-hidden="true"></div>
           <div class="hcc-corner-screw hcc-screw-tr" aria-hidden="true"></div>
@@ -3136,7 +3136,7 @@
     </div>
 
     <!-- SETTINGS MODAL -->
-    <div id="settingsModal" class="luxury-modal-overlay">
+    <div id="settingsModal" class="luxury-modal-overlay" onclick="if (event.target === this) window.closeSettingsModal()">
       <div class="luxury-modal-box">
         <div class="luxury-modal-header">
           <h3 data-i18n="settings.title">الإعدادات</h3>
@@ -3298,7 +3298,7 @@
     </div>
 
     <!-- LOGOUT CONFIRM MODAL -->
-    <div id="logoutConfirmModal" class="luxury-modal-overlay">
+    <div id="logoutConfirmModal" class="luxury-modal-overlay" onclick="if (event.target === this) window.closeLogoutConfirmModal()">
       <div class="luxury-modal-box">
         <div class="luxury-modal-header">
           <h3 data-i18n="settings.logoutConfirmTitle">Confirm Logout</h3>
@@ -3355,7 +3355,7 @@
     </div>
 
     <!-- 1. EDIT PROFILE MODAL (PUBLIC IDENTITY ONLY) -->
-    <div id="editProfileModal" class="luxury-modal-overlay">
+    <div id="editProfileModal" class="luxury-modal-overlay" onclick="if (event.target === this) window.closeEditProfileModal()">
       <div class="luxury-modal-box dossier-modal-box">
         <div class="luxury-modal-header">
           <h2 id="modal-edit-profile-title" data-i18n="profile.editProfileTitle">
@@ -3474,7 +3474,7 @@
     </div>
 
     <!-- 2. ACCOUNT INFO MODAL (PRIVATE CREDENTIALS & SECURITY ONLY) -->
-    <div id="accountInfoModal" class="luxury-modal-overlay">
+    <div id="accountInfoModal" class="luxury-modal-overlay" onclick="if (event.target === this) window.closeAccountInfoModal()">
       <div class="luxury-modal-box dossier-modal-box">
         <div class="luxury-modal-header">
           <h2 id="modal-account-title" data-i18n="profile.accountInfoTitle">
@@ -3559,7 +3559,7 @@
     </div>
 
     <!-- HELP & SUPPORT MODAL -->
-    <div id="helpSupportModal" class="luxury-modal-overlay">
+    <div id="helpSupportModal" class="luxury-modal-overlay" onclick="if (event.target === this) window.closeHelpSupportModal()">
       <div class="luxury-modal-box">
         <div class="luxury-modal-header">
           <h3 data-i18n="misc.supportTitle">CONCIERGE &amp; SUPPORT</h3>
@@ -3669,7 +3669,7 @@
     <script src="luxury.js?v=20261004b"></script>
     <script src="translations.js?v=20261004b"></script>
     <script src="artifacts.js?v=20261006_vitrine_restored_v8"></script>
-    <script src="app.js?v=20261006_vitrine_restored_v8"></script>
+    <script src="app.js?v=20261009_unified_modals_v2"></script>
 
     <!-- AUTHENTICATION LOGIN OVERLAY -->
     <div id="authLoginOverlay" class="luxury-modal-overlay">
@@ -3754,7 +3754,7 @@
     </div>
 
     <!-- AUTHENTICATION RECOVERY MODAL -->
-    <div id="authRecoveryModal" class="luxury-modal-overlay">
+    <div id="authRecoveryModal" class="luxury-modal-overlay" onclick="if (event.target === this) window.closeAuthRecoveryModal()">
       <div class="luxury-modal-box auth-recovery-box">
         <div class="luxury-modal-header auth-recovery-header">
           <button type="button" class="luxury-close-btn" id="closeAuthRecoveryModal" aria-label="إغلاق">
