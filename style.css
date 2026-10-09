@@ -32400,7 +32400,7 @@ body.light-mode #boutique-tab .boutique-balance-add {
   box-sizing: border-box !important;
   border-radius: 14px !important;
   gap: 2px !important;
-  direction: rtl !important;
+  direction: inherit !important;
   background: linear-gradient(180deg, rgba(255, 253, 248, 0.92) 0%, rgba(247, 240, 226, 0.88) 100%) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;

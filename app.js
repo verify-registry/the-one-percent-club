@@ -220,6 +220,7 @@ window.setLanguage = function (lang) {
     window.updateUI();
   }
   if (typeof window.renderBoutique === "function") window.renderBoutique();
+  if (typeof window.updateBoutiqueGliders === "function") window.updateBoutiqueGliders(true);
   if (typeof window.renderMessages === "function") window.renderMessages();
   if (typeof window.renderLeaderboard === "function")
     window.renderLeaderboard();
@@ -3502,10 +3503,12 @@ function closeMemberProfile() {
   const pinnedSub = document.getElementById("clubPinnedSub");
   const pinnedSvg = document.getElementById("clubPinnedSvg");
   if (pinnedTitle) {
-    pinnedTitle.textContent = isAr ? "المجلس السيادي" : "Sovereign Council";
+    pinnedTitle.textContent = window.t("club.leaderboardTitle");
+    pinnedTitle.setAttribute("data-i18n", "club.leaderboardTitle");
   }
   if (pinnedSub) {
-    pinnedSub.textContent = isAr ? "لوحة الشرف • النخبة العالمية لأصحاب الثروة السيادية" : "Roll of Honor • Global Sovereign Wealth Elite";
+    pinnedSub.textContent = window.t("club.leaderboardSub");
+    pinnedSub.setAttribute("data-i18n", "club.leaderboardSub");
   }
   if (pinnedSvg) {
     pinnedSvg.innerHTML = '<path d="M7 11.5a5.5 5.5 0 0110 0c0 4-3 6.5-5 8-2-1.5-5-4-5-8z" stroke="currentColor" stroke-width="1.3"/><path d="M12 6l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4L12 6z" fill="currentColor"/>';
@@ -4029,12 +4032,12 @@ function switchChannel(channelId) {
 
   if (channelId === "leaderboard") {
     if (pinnedTitle) {
-      pinnedTitle.textContent = "المجلس السيادي";
-      pinnedTitle.setAttribute("data-i18n", "leaderboardTitle");
+      pinnedTitle.textContent = window.t("club.leaderboardTitle");
+      pinnedTitle.setAttribute("data-i18n", "club.leaderboardTitle");
     }
     if (pinnedSub) {
-      pinnedSub.textContent = "لوحة الشرف • النخبة العالمية لأصحاب الثروة السيادية";
-      pinnedSub.setAttribute("data-i18n", "leaderboardSub");
+      pinnedSub.textContent = window.t("club.leaderboardSub");
+      pinnedSub.setAttribute("data-i18n", "club.leaderboardSub");
     }
 
     if (chatViewport) chatViewport.style.display = "none";
@@ -8188,7 +8191,7 @@ window.AuthBoundary = {
     }
     const header = document.getElementById("appHeader");
     if (header) header.style.display = "none";
-    const bottomNav = document.querySelector(".app-bottom-nav");
+    const bottomNav = document.querySelector(".bottom-nav, .app-bottom-nav");
     if (bottomNav) bottomNav.style.display = "none";
   },
 
@@ -8203,7 +8206,7 @@ window.AuthBoundary = {
     }
     const header = document.getElementById("appHeader");
     if (header) header.style.display = "";
-    const bottomNav = document.querySelector(".app-bottom-nav");
+    const bottomNav = document.querySelector(".bottom-nav, .app-bottom-nav");
     if (bottomNav) bottomNav.style.display = "";
   },
   
