@@ -183,6 +183,12 @@ window.setLanguage = function (lang) {
             break;
           }
         }
+        if (!textReplaced) {
+          const innerSpan = el.querySelector("span:not([data-i18n]), bdi:not([data-i18n]), .btn-text:not([data-i18n])");
+          if (innerSpan && innerSpan.children.length === 0) {
+            innerSpan.textContent = translated;
+          }
+        }
         // Do NOT append/prepend new text nodes here to prevent duplication bugs!
       }
     }
@@ -544,10 +550,10 @@ function getSovereignArtifact(iconKey) {
 
 
 const RARITY_LABEL = {
-  1: () => window.t("boutique.rarity1") || "مقتنى استثنائي",
-  2: () => window.t("boutique.rarity2") || "تحفة نادرة",
-  3: () => window.t("boutique.rarity3") || "إرث سيادي",
-  4: () => window.t("boutique.rarity4") || "درة القمة المطلقة",
+  1: () => window.t("boutique.rarity1") || (window.currentLang === "ar" ? "مقتنى استثنائي" : "Exceptional"),
+  2: () => window.t("boutique.rarity2") || (window.currentLang === "ar" ? "تحفة نادرة" : "Masterpiece"),
+  3: () => window.t("boutique.rarity3") || (window.currentLang === "ar" ? "إرث سيادي" : "Sovereign Relic"),
+  4: () => window.t("boutique.rarity4") || (window.currentLang === "ar" ? "درة القمة المطلقة" : "Apex Singular"),
 };
 
 const TIER_HIERARCHY = {
@@ -2318,15 +2324,16 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 
           const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`.trim();
           const priceHtml = item.free
-            ? `<span class="boutique-card-price is-free">مجاني</span>`
+            ? `<span class="boutique-card-price is-free">${window.t("boutique.free") || (isAr ? "مجاني" : "Free")}</span>`
             : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
 
           let progressHtml = "";
           if (!isOwned && !item.free) {
             const pct = Math.min((currentBalance / item.price) * 100, 100);
             const isReady = pct >= 100;
+            const affordLabel = window.t("boutique.affordability") || (isAr ? "مدى القدرة على الشراء" : "Purchasing Power");
             progressHtml = `
-          <div class="purchase-progress-wrap" aria-label="مدى القدرة على الشراء" title="${Math.floor(pct)}%">
+          <div class="purchase-progress-wrap" aria-label="${affordLabel}" title="${Math.floor(pct)}%">
             <div class="purchase-progress-fill ${isReady ? "is-ready" : ""}" style="width: ${pct}%"></div>
           </div>
         `;
@@ -2351,7 +2358,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           let btnPointerEvents = "pointer-events: auto;";
 
           if (item.free) {
-            btnContent = `<span class="boutique-free-badge">✓ ${isAr ? "مشمول مجاناً" : "Included Free"}</span>`;
+            btnContent = `<span class="boutique-free-badge">✓ ${window.t("boutique.includedFree") || (isAr ? "مشمول مجاناً" : "Included Free")}</span>`;
             btnClass = "btn-free";
             btnPointerEvents = "pointer-events: none;";
           } else if (isOwned) {
@@ -3236,7 +3243,7 @@ document.querySelectorAll(".nav-item").forEach((item) => {
       .querySelectorAll(".nav-item")
       .forEach((n) => n.classList.remove("is-active"));
     item.classList.add("is-active");
-    showNavToast(`${item.querySelector("span").textContent} — قريبًا`);
+    showNavToast(`${item.querySelector("span").textContent} — ${window.t("coming_soon") || (window.currentLang === "ar" ? "قريباً" : "Coming Soon")}`);
     clearTimeout(navToastTimer);
     navToastTimer = setTimeout(() => {
       navToast.classList.remove("is-visible");
@@ -4948,13 +4955,13 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const priceEl = document.getElementById("inspectionPrice");
   if (priceEl) {
     priceEl.innerHTML = item.free 
-      ? (isAr ? "مشمول مجاناً" : "Included Free") 
+      ? (window.t("boutique.includedFree") || (isAr ? "مشمول مجاناً" : "Included Free")) 
       : `<bdi dir="ltr" style="font-variant-numeric: tabular-nums;">$${item.price.toLocaleString("en-US")}</bdi>`;
   }
 
   const loreEl = document.getElementById("inspectionLore");
   if (loreEl) {
-    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || "تحفة ملكية مسبوكة يدوياً من الذهب الخالص والأوبسيديان المعتق.");
+    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || (isAr ? "تحفة ملكية مسبوكة يدوياً من الذهب الخالص والأوبسيديان المعتق." : "Handcrafted royal masterpiece forged from solid gold and aged obsidian."));
   }
 
   const imgEl = document.getElementById("inspectionImage");
@@ -5306,7 +5313,11 @@ const initProfileAndModals = () => {
   const profileMedallionCase = document.getElementById("profileMedallionCase");
   if (profileMedallionCase) {
     profileMedallionCase.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
-    profileMedallionCase.addEventListener("click", window.openEditProfileModal);
+    profileMedallionCase.addEventListener("click", (e) => {
+      if (typeof window.openEditProfileModal === "function") {
+        window.openEditProfileModal(e);
+      }
+    });
   }
 
   document
@@ -6665,15 +6676,6 @@ document
     updateEditProfilePreview(e.target.value);
   });
 
-// Medallion case and photo edit badge trigger Edit Profile
-document.querySelector(".phc-medallion-case")?.addEventListener("click", () => {
-  if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
-    window.AudioEngine.playClick();
-  }
-  if (typeof window.openEditProfileModal === "function") {
-    window.openEditProfileModal();
-  }
-});
 
 function renderProfileStatsBar() {
   const container = document.getElementById("profileStatsBar");
@@ -8166,13 +8168,13 @@ window.AuthBoundary = {
         tabRegister.classList.add("is-active");
         tabRegister.setAttribute("aria-selected", "true");
       }
-      if (titleEl) titleEl.textContent = "إنشاء حساب سيادي";
-      if (descEl) descEl.textContent = "انضم إلى نخبة الأعضاء وأنشئ هويتك السيادية";
-      if (submitText) submitText.textContent = "إنشاء حساب والانضمام";
-      if (googleText) googleText.textContent = "التسجيل باستخدام Google";
+      if (titleEl) titleEl.textContent = window.t("auth.registerTitle") || (window.currentLang === "ar" ? "إنشاء حساب سيادي" : "Create Sovereign Account");
+      if (descEl) descEl.textContent = window.t("auth.registerDesc") || (window.currentLang === "ar" ? "انضم إلى نخبة الأعضاء وأنشئ هويتك السيادية" : "Join the elite circle and establish your sovereign identity");
+      if (submitText) submitText.textContent = window.t("auth.registerSubmit") || (window.currentLang === "ar" ? "إنشاء حساب والانضمام" : "Create Account & Join");
+      if (googleText) googleText.textContent = window.t("auth.registerGoogle") || (window.currentLang === "ar" ? "التسجيل باستخدام Google" : "Sign Up with Google");
       if (forgotLink) forgotLink.style.display = "none";
-      if (togglePrompt) togglePrompt.textContent = "لديك حساب بالفعل؟";
-      if (toggleBtn) toggleBtn.textContent = "تسجيل الدخول";
+      if (togglePrompt) togglePrompt.textContent = window.t("auth.haveAccountPrompt") || (window.currentLang === "ar" ? "لديك حساب بالفعل؟" : "Already have an account?");
+      if (toggleBtn) toggleBtn.textContent = window.t("auth.loginLink") || (window.currentLang === "ar" ? "تسجيل الدخول" : "Sign In");
     } else {
       if (tabLogin) {
         tabLogin.classList.add("is-active");
@@ -8182,13 +8184,13 @@ window.AuthBoundary = {
         tabRegister.classList.remove("is-active");
         tabRegister.setAttribute("aria-selected", "false");
       }
-      if (titleEl) titleEl.textContent = "تسجيل الدخول";
-      if (descEl) descEl.textContent = "بوابة الدخول الحصرية لأعضاء النادي السيادي";
-      if (submitText) submitText.textContent = "تسجيل الدخول";
-      if (googleText) googleText.textContent = "المتابعة باستخدام Google";
+      if (titleEl) titleEl.textContent = window.t("auth.loginTitle") || (window.currentLang === "ar" ? "تسجيل الدخول" : "Sign In");
+      if (descEl) descEl.textContent = window.t("auth.loginDesc") || (window.currentLang === "ar" ? "بوابة الدخول الحصرية لأعضاء النادي السيادي" : "Exclusive access portal for Sovereign Club members");
+      if (submitText) submitText.textContent = window.t("auth.loginSubmit") || (window.currentLang === "ar" ? "تسجيل الدخول" : "Sign In");
+      if (googleText) googleText.textContent = window.t("auth.continueGoogle") || (window.currentLang === "ar" ? "المتابعة باستخدام Google" : "Continue with Google");
       if (forgotLink) forgotLink.style.display = "";
-      if (togglePrompt) togglePrompt.textContent = "ليس لديك حساب؟";
-      if (toggleBtn) toggleBtn.textContent = "إنشاء حساب جديد";
+      if (togglePrompt) togglePrompt.textContent = window.t("auth.noAccountPrompt") || (window.currentLang === "ar" ? "ليس لديك حساب؟" : "Don't have an account?");
+      if (toggleBtn) toggleBtn.textContent = window.t("auth.createAccountLink") || (window.currentLang === "ar" ? "إنشاء حساب جديد" : "Create New Account");
     }
   },
 
@@ -8354,7 +8356,10 @@ window.AuthBoundary = {
   sendRecovery(email) {
     const successMsg = document.getElementById("recoverySuccessMsg");
     if (successMsg) {
-      successMsg.textContent = `تم إرسال تعليمات استعادة كلمة المرور إلى ${email} بنجاح`;
+      const isRecoveryAr = (window.currentLang === "ar");
+      successMsg.textContent = isRecoveryAr
+        ? `تم إرسال تعليمات استعادة كلمة المرور إلى ${email} بنجاح`
+        : `Password recovery instructions sent to ${email} successfully`;
       successMsg.style.display = "block";
     }
     setTimeout(() => {

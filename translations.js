@@ -149,6 +149,22 @@ window.I18N = {
       en: "Membership Level",
       ar: "رتبة العضوية",
     },
+    exportingToast: {
+      en: "Exporting ultra-high-definition Master Card…",
+      ar: "جارٍ تصدير الماستر كارد الملكي فائق الدقة…",
+    },
+    shareSuccessToast: {
+      en: "✓ Master Card shared successfully",
+      ar: "✓ تم مشاركة الماستر كارد بنجاح",
+    },
+    saveSuccessToast: {
+      en: "✓ Master Card saved as high-res PNG",
+      ar: "✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة",
+    },
+    shareFailToast: {
+      en: "Unable to share Master Card",
+      ar: "تعذر مشاركة الماستر كارد",
+    },
   },
   club: {
     lounge: {
@@ -428,6 +444,22 @@ window.I18N = {
     popular: {
       en: "Most Popular",
       ar: "الأكثر طلبًا",
+    },
+    dismissWelcome: {
+      en: "Dismiss Welcome",
+      ar: "إخفاء الترحيب",
+    },
+    buyCreditsTip: {
+      en: "Request additional message allocation",
+      ar: "طلب اعتماد رصيد مراسلات إضافي",
+    },
+    whisperTip: {
+      en: "Enable encrypted cipher dispatch",
+      ar: "تفعيل البرقية المشفرة / السرية",
+    },
+    sendTip: {
+      en: "Seal & dispatch via sovereign channels",
+      ar: "ختم وإرسال عبر القنوات السيادية",
     },
   },
   profile: {
@@ -1119,6 +1151,26 @@ window.I18N = {
       en: "UPDATE ACCOUNT",
       ar: "تحديث الحساب",
     },
+    editMedallionTip: {
+      en: "Click to edit photo and credentials",
+      ar: "انقر لتعديل الصورة والبيانات",
+    },
+    circlesEditTitle: {
+      en: "Curate Sovereign Circles",
+      ar: "تعديل الدوائر والمجالات",
+    },
+    copySerialTip: {
+      en: "Click to copy authentication serial",
+      ar: "انقر لنسخ رقم التوثيق",
+    },
+    certCouncilSeal: {
+      en: "Irrevocable Authenticated Sovereign Record • Supreme Council",
+      ar: "سجل سيادي موثق غير قابل للنقض • المجلس الأعلى",
+    },
+    beneficiaryLabel: {
+      en: "SOVEREIGN BENEFICIARY",
+      ar: "صاحب السيادة والانتساب",
+    },
   },
   boutique: {
     id_widget_title: {
@@ -1309,8 +1361,28 @@ window.I18N = {
       en: "Payment applied. Your new balance:",
       ar: "تم الدفع. رصيدك الجديد:",
     },
+    free: {
+      en: "Free",
+      ar: "مجاني",
+    },
+    includedFree: {
+      en: "Included Free",
+      ar: "مشمول مجاناً",
+    },
+    affordability: {
+      en: "Purchasing Power",
+      ar: "مدى القدرة على الشراء",
+    },
+    curatorialEyebrow: {
+      en: "THE PRIVATE COLLECTION · SOVEREIGN SALON",
+      ar: "THE PRIVATE COLLECTION · صالون المقتنيات السيادية",
+    },
   },
   honors: {
+    officialStatusBadge: {
+      en: "✦ Officially Authenticated",
+      ar: "✦ معتمد رسميًا",
+    },
     locked: {
       en: "LOCKED",
       ar: "مغلق",
@@ -2035,6 +2107,166 @@ window.I18N = {
     widget2: {
       en: "Master Card Widget",
       ar: "ودجت الماستر كارد",
+    },
+  },
+  memberDossier: {
+    councilBadge: {
+      en: "Sovereign Council • Roll of Honor",
+      ar: "المجلس السيادي • لوحة الشرف",
+    },
+    closeTip: {
+      en: "Close dossier & return to honor roll",
+      ar: "إغلاق الملف والعودة إلى لوحة الشرف",
+    },
+    standingTier: {
+      en: "Sovereign Standing",
+      ar: "الرتبة السيادية",
+    },
+    registryTitle: {
+      en: "Certified Sovereign Registry Records",
+      ar: "بيانات السجل السيادي المعتمد",
+    },
+    charterLabel: {
+      en: "Membership Charter",
+      ar: "ميثاق العضوية",
+    },
+    charterValue: {
+      en: "Special Sovereign Charter • Perpetual",
+      ar: "ميثاق سيادي خاص • دائم",
+    },
+    inaugurationDateLabel: {
+      en: "Induction Date",
+      ar: "تاريخ التدشين",
+    },
+    inaugurationDateValue: {
+      en: "EST. 2024 • Founding Member",
+      ar: "EST. 2024 • عضو مؤسس",
+    },
+    verificationProtocol: {
+      en: "Verification Protocol",
+      ar: "بروتوكول التحقق",
+    },
+    chamberAccess: {
+      en: "Council Access Standing",
+      ar: "صلاحية دخول المجلس",
+    },
+    chamberAccessValue: {
+      en: "Unrestricted Access to Private Salons",
+      ar: "وصول كامل للصالونات الخاصة",
+    },
+    honorsTitle: {
+      en: "Insignia & Sovereign Honors Regalia",
+      ar: "أوسمة ومقتنيات الشرف السيادية",
+    },
+    crownArtifact: {
+      en: "Sovereign Crown",
+      ar: "تاج السيادة",
+    },
+    ringArtifact: {
+      en: "Gold Signet",
+      ar: "خاتم الذهب",
+    },
+    medalArtifact: {
+      en: "Medal of Honor",
+      ar: "وسام الشرف",
+    },
+    sealArtifact: {
+      en: "Sovereign Seal",
+      ar: "الختم السيادي",
+    },
+  },
+  auth: {
+    loginTab: {
+      en: "Sign In",
+      ar: "تسجيل الدخول",
+    },
+    registerTab: {
+      en: "Create Account",
+      ar: "إنشاء حساب",
+    },
+    loginTitle: {
+      en: "Sign In",
+      ar: "تسجيل الدخول",
+    },
+    loginDesc: {
+      en: "Exclusive access portal for Sovereign Club members",
+      ar: "بوابة الدخول الحصرية لأعضاء النادي السيادي",
+    },
+    registerTitle: {
+      en: "Create Sovereign Account",
+      ar: "إنشاء حساب سيادي",
+    },
+    registerDesc: {
+      en: "Join the elite circle and establish your sovereign identity",
+      ar: "انضم إلى نخبة الأعضاء وأنشئ هويتك السيادية",
+    },
+    continueGoogle: {
+      en: "Continue with Google",
+      ar: "المتابعة باستخدام Google",
+    },
+    registerGoogle: {
+      en: "Sign Up with Google",
+      ar: "التسجيل باستخدام Google",
+    },
+    orEmail: {
+      en: "Or via email",
+      ar: "أو عبر البريد الإلكتروني",
+    },
+    emailLabel: {
+      en: "Email Address",
+      ar: "البريد الإلكتروني",
+    },
+    passwordLabel: {
+      en: "Password",
+      ar: "كلمة المرور",
+    },
+    forgotPassword: {
+      en: "Forgot password?",
+      ar: "نسيت كلمة المرور؟",
+    },
+    loginSubmit: {
+      en: "Sign In",
+      ar: "تسجيل الدخول",
+    },
+    registerSubmit: {
+      en: "Create Account & Join",
+      ar: "إنشاء حساب والانضمام",
+    },
+    noAccountPrompt: {
+      en: "Don't have an account?",
+      ar: "ليس لديك حساب؟",
+    },
+    haveAccountPrompt: {
+      en: "Already have an account?",
+      ar: "لديك حساب بالفعل؟",
+    },
+    createAccountLink: {
+      en: "Create New Account",
+      ar: "إنشاء حساب جديد",
+    },
+    loginLink: {
+      en: "Sign In",
+      ar: "تسجيل الدخول",
+    },
+    footerTag: {
+      en: "❖ Encrypted Sovereign Verification • The 1% Club",
+      ar: "❖ نظام التوثيق السيادي المشفّر • The 1% Club",
+    },
+    recoveryTitle: {
+      en: "Password Recovery",
+      ar: "استعادة كلمة المرور",
+    },
+    recoveryDesc: {
+      en: "Enter your registered email and we will send a password reset link immediately.",
+      ar: "أدخل بريدك الإلكتروني المسجل وسنقوم بإرسال رابط إعادة تعيين كلمة المرور فوراً.",
+    },
+    sendRecoveryLink: {
+      en: "Send Recovery Link",
+      ar: "إرسال رابط الاستعادة",
+    },
+    recoverySentSuccess: {
+      en: "Password recovery instructions sent to your email successfully.",
+      ar: "تم إرسال تعليمات الاستعادة إلى بريدك الإلكتروني بنجاح.",
     },
   },
 };

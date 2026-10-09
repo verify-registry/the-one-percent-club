@@ -963,8 +963,12 @@ async function renderMasterCardToBlob() {
     ctx.fillText(label, gx, gy + gr + 26);
   }
 
-  drawMetricGauge(cardX + 175, metricsY, "مؤشر الثروة", wealthVal);
-  drawMetricGauge(cardX + cardW - 175, metricsY, "الامتيازات", privVal);
+  const isCardAr = (window.currentLang === "ar") || (document.documentElement.lang === "ar");
+  const wealthGaugeLabel = (window.t ? window.t("membership.wealthIndex") : null) || (isCardAr ? "مؤشر الثروة" : "Wealth Index");
+  const privGaugeLabel = (window.t ? window.t("membership.privileges") : null) || (isCardAr ? "الامتيازات" : "Privileges");
+
+  drawMetricGauge(cardX + 175, metricsY, wealthGaugeLabel, wealthVal);
+  drawMetricGauge(cardX + cardW - 175, metricsY, privGaugeLabel, privVal);
 
   // Center: The Living Core (Pulsing Star Emblem)
   ctx.save();
@@ -1134,7 +1138,8 @@ async function shareMasterCard() {
   if (window.AudioEngine && window.AudioEngine.playSend) {
     window.AudioEngine.playSend();
   }
-  showCopyToast("جارٍ تصدير الماستر كارد الملكي فائق الدقة…");
+  const isToastAr = (window.currentLang === "ar") || (document.documentElement.lang === "ar");
+  showCopyToast(window.t("membership.exportingToast") || (isToastAr ? "جارٍ تصدير الماستر كارد الملكي فائق الدقة…" : "Exporting ultra-high-definition Master Card…"));
 
   try {
     let blob = await captureLiveMasterCardBlob();
@@ -1155,7 +1160,7 @@ async function shareMasterCard() {
           files: [file],
           text: "PRIVATE WEALTH. PRIVATE SOCIETY.",
         });
-        showCopyToast("✓ تم مشاركة الماستر كارد بنجاح");
+        showCopyToast(window.t("membership.shareSuccessToast") || (isToastAr ? "✓ تم مشاركة الماستر كارد بنجاح" : "✓ Master Card shared successfully"));
         return;
       } catch (shareErr) {
         if (shareErr.name === "AbortError") return; // User cancelled — do nothing
@@ -1171,10 +1176,10 @@ async function shareMasterCard() {
     a.click();
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 2000);
-    showCopyToast("✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة");
+    showCopyToast(window.t("membership.saveSuccessToast") || (isToastAr ? "✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة" : "✓ Master Card saved as high-res PNG"));
   } catch (err) {
     console.warn("Share fallback error:", err);
-    showCopyToast("تعذر مشاركة الماستر كارد");
+    showCopyToast(window.t("membership.shareFailToast") || (isToastAr ? "تعذر مشاركة الماستر كارد" : "Unable to share Master Card"));
   }
 }
 
@@ -1645,7 +1650,7 @@ function initGlobalTilt() {
 
     card.addEventListener("pointerenter", (e) => {
       if (e.pointerType === "touch") return;
-      if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn")) return;
+      if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn, #profileMedallionCase")) return;
       isHovered = true;
       isPointerInteracting = true;
       card.classList.add("is-hovered");
@@ -1724,7 +1729,7 @@ function initGlobalTilt() {
 
     card.addEventListener("touchstart", (e) => {
       if (!e.touches || e.touches.length === 0) return;
-      if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn")) return;
+      if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn, #profileMedallionCase")) return;
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       isTouching = true;

@@ -626,6 +626,7 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                     aria-label="مؤشر الثروة"
+                    data-i18n-aria-label="membership.wealthIndex"
                   >
                     <svg class="ring-svg" viewBox="0 0 120 120">
                       <circle
@@ -689,6 +690,7 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                     aria-label="الامتيازات"
+                    data-i18n-aria-label="membership.privileges"
                   >
                     <svg class="ring-svg" viewBox="0 0 120 120">
                       <circle
@@ -979,7 +981,9 @@
               id="clubPinnedDismissBtn"
               type="button"
               title="إخفاء الترحيب"
+              data-i18n-title="club.dismissWelcome"
               aria-label="إغلاق"
+              data-i18n-aria-label="common.close"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -1145,6 +1149,7 @@
                 id="clubCreditsBuyBtn"
                 type="button"
                 title="طلب اعتماد رصيد مراسلات إضافي"
+                data-i18n-title="club.buyCreditsTip"
               >
                 <span class="alloc-plus-glyph" aria-hidden="true">+</span>
                 <span class="alloc-btn-label" data-i18n="club.requestAllocation">طلب اعتماد رصيد</span>
@@ -1159,6 +1164,7 @@
                 class="whisper-cipher-toggle"
                 id="whisperCipherToggle"
                 title="تفعيل البرقية المشفرة / السرية"
+                data-i18n-title="club.whisperTip"
                 aria-pressed="false"
               >
                 <svg class="whisper-cipher-svg" viewBox="0 0 24 24" fill="none">
@@ -1187,6 +1193,7 @@
                 aria-label="إرسال"
                 data-i18n-aria-label="club.send"
                 title="ختم وإرسال عبر القنوات السيادية"
+                data-i18n-title="club.sendTip"
               >
                 <svg
                   class="sovereign-arrow-monogram-svg"
@@ -1280,7 +1287,7 @@
               <div class="sd-corner-rivet" title="Sovereign Seal Rivet"></div>
               <div class="sd-crest-badge">
                 <span class="sd-crest-fleur">⚜️</span>
-                <span class="sd-badge-text" id="memberDossierCouncilBadge">المجلس السيادي • لوحة الشرف</span>
+                <span class="sd-badge-text" id="memberDossierCouncilBadge" data-i18n="memberDossier.councilBadge">المجلس السيادي • لوحة الشرف</span>
                 <span class="sd-crest-fleur">⚜️</span>
               </div>
               <button
@@ -1288,7 +1295,9 @@
                 id="memberProfileCloseBtn"
                 type="button"
                 aria-label="Close Member Profile"
+                data-i18n-aria-label="common.close"
                 title="إغلاق الملف والعودة إلى لوحة الشرف"
+                data-i18n-title="memberDossier.closeTip"
                 onclick="closeMemberProfile()"
               >
                 <svg viewBox="0 0 14 14" width="10" height="10" fill="none" aria-hidden="true">
@@ -1363,14 +1372,14 @@
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H7.5"></path><path d="M14 14.66V17c0 .55.45 1 1 1h1.5"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
                 </div>
                 <div class="sd-comp-val" id="memberDossierRankStat">#1</div>
-                <div class="sd-comp-label" id="memberDossierRankLabel">الرتبة السيادية</div>
+                <div class="sd-comp-label" id="memberDossierRankLabel" data-i18n="memberDossier.standingTier">الرتبة السيادية</div>
               </div>
               <div class="sd-comp-divider"></div>
               <div class="sd-comp-dial">
                 <div class="sd-comp-icon">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#68d391" stroke-width="1.6"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                 </div>
-                <div class="sd-comp-val status-active" id="memberDossierStatusStat">نشط</div>
+                <div class="sd-comp-val status-active" id="memberDossierStatusStat" data-i18n="membership.activeStatus">نشط</div>
                 <div class="sd-comp-label" data-i18n="membership.statusLabel">حالة الاعتماد</div>
               </div>
             </div>
@@ -1390,25 +1399,25 @@
             <!-- Official Sovereign Registry / Charter Details -->
             <div class="sd-registry-card">
               <div class="sd-registry-header">
-                <span class="sd-reg-title">بيانات السجل السيادي المعتمد</span>
+                <span class="sd-reg-title" data-i18n="memberDossier.registryTitle">بيانات السجل السيادي المعتمد</span>
                 <span class="sd-reg-vault-tag">VERIFIED</span>
               </div>
               <div class="sd-registry-grid">
                 <div class="sd-reg-row">
-                  <span class="sd-reg-label">ميثاق العضوية</span>
-                  <span class="sd-reg-value" id="memberDossierCharter">ميثاق سيادي خاص • دائم</span>
+                  <span class="sd-reg-label" data-i18n="memberDossier.charterLabel">ميثاق العضوية</span>
+                  <span class="sd-reg-value" id="memberDossierCharter" data-i18n="memberDossier.charterValue">ميثاق سيادي خاص • دائم</span>
                 </div>
                 <div class="sd-reg-row">
-                  <span class="sd-reg-label">تاريخ التدشين</span>
-                  <span class="sd-reg-value">EST. 2024 • عضو مؤسس</span>
+                  <span class="sd-reg-label" data-i18n="memberDossier.inaugurationDateLabel">تاريخ التدشين</span>
+                  <span class="sd-reg-value" data-i18n="memberDossier.inaugurationDateValue">EST. 2024 • عضو مؤسس</span>
                 </div>
                 <div class="sd-reg-row">
-                  <span class="sd-reg-label">بروتوكول التحقق</span>
+                  <span class="sd-reg-label" data-i18n="memberDossier.verificationProtocol">بروتوكول التحقق</span>
                   <span class="sd-reg-value"><bdi class="sd-code-text">SHA-256 VAULT VERIFIED</bdi></span>
                 </div>
                 <div class="sd-reg-row">
-                  <span class="sd-reg-label">صلاحية دخول المجلس</span>
-                  <span class="sd-reg-value" id="memberDossierAccess">وصول كامل للصالونات الخاصة</span>
+                  <span class="sd-reg-label" data-i18n="memberDossier.chamberAccess">صلاحية دخول المجلس</span>
+                  <span class="sd-reg-value" id="memberDossierAccess" data-i18n="memberDossier.chamberAccessValue">وصول كامل للصالونات الخاصة</span>
                 </div>
               </div>
             </div>
@@ -1416,24 +1425,24 @@
             <!-- Sovereign Prestige Artifacts -->
             <div class="sd-artifacts-panel">
               <div class="sd-artifacts-title">
-                <span>أوسمة ومقتنيات الشرف السيادية</span>
+                <span data-i18n="memberDossier.honorsTitle">أوسمة ومقتنيات الشرف السيادية</span>
               </div>
               <div class="sd-artifacts-row">
-                <div class="sd-artifact-item" title="تاج السيادة">
+                <div class="sd-artifact-item" title="تاج السيادة" data-i18n-title="memberDossier.crownArtifact">
                   <div class="sd-artifact-emblem">👑</div>
-                  <span class="sd-artifact-name">تاج السيادة</span>
+                  <span class="sd-artifact-name" data-i18n="memberDossier.crownArtifact">تاج السيادة</span>
                 </div>
-                <div class="sd-artifact-item" title="خاتم الذهب المعتق">
+                <div class="sd-artifact-item" title="خاتم الذهب المعتق" data-i18n-title="memberDossier.ringArtifact">
                   <div class="sd-artifact-emblem">💍</div>
-                  <span class="sd-artifact-name">خاتم الذهب</span>
+                  <span class="sd-artifact-name" data-i18n="memberDossier.ringArtifact">خاتم الذهب</span>
                 </div>
-                <div class="sd-artifact-item" title="وسام الشرف المذهب">
+                <div class="sd-artifact-item" title="وسام الشرف المذهب" data-i18n-title="memberDossier.medalArtifact">
                   <div class="sd-artifact-emblem">⚜️</div>
-                  <span class="sd-artifact-name">وسام الشرف</span>
+                  <span class="sd-artifact-name" data-i18n="memberDossier.medalArtifact">وسام الشرف</span>
                 </div>
-                <div class="sd-artifact-item" title="الختم المشفر">
+                <div class="sd-artifact-item" title="الختم المشفر" data-i18n-title="memberDossier.sealArtifact">
                   <div class="sd-artifact-emblem">🛡️</div>
-                  <span class="sd-artifact-name">الختم السيادي</span>
+                  <span class="sd-artifact-name" data-i18n="memberDossier.sealArtifact">الختم السيادي</span>
                 </div>
               </div>
             </div>
@@ -1506,6 +1515,8 @@
               id="editAccountBtn"
               title="تعديل الملف"
               aria-label="تعديل الملف"
+              data-i18n-title="profile.editProfile"
+              data-i18n-aria-label="profile.editProfile"
             >
               <svg viewBox="0 0 14 14" fill="none" class="phc-edit-icon" aria-hidden="true">
                 <path d="M10 2.2 L11.8 4 L4.5 11.3 L2.2 11.8 L2.7 9.5 Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" />
@@ -1518,7 +1529,7 @@
             <div class="phc-horizontal-layout">
               <!-- 1. LEFT: Floating 3D Portrait Medallion -->
               <div class="phc-left-col">
-                <div class="phc-medallion-case" id="profileMedallionCase" title="انقر لتعديل الصورة والبيانات">
+                <div class="phc-medallion-case" id="profileMedallionCase" title="انقر لتعديل الصورة والبيانات" data-i18n-title="profile.editMedallionTip">
                   <!-- Equipped Collectible Slots -->
                   <div class="phc-equipped-aura-slot" id="profileEquippedAuraSlot" aria-hidden="true"></div>
                   <div class="phc-equipped-crown-slot" id="profileEquippedCrownSlot" aria-hidden="true"></div>
@@ -1738,7 +1749,7 @@
                 <!-- Induction Beneficiary & Sovereign Date Block -->
                 <div class="ledger-hero-date-block">
                   <div class="deed-member-plaque">
-                    <span class="deed-beneficiary-label">SOVEREIGN BENEFICIARY / صاحب السيادة</span>
+                    <span class="deed-beneficiary-label" data-i18n="profile.beneficiaryLabel">SOVEREIGN BENEFICIARY / صاحب السيادة</span>
                     <div class="deed-member-name" id="profileLedgerMemberName">MEMBER NAME</div>
                   </div>
                   <div class="ledger-hero-label" data-i18n="profile.inductionDateLabel">تاريخ الانضمام والانتساب</div>
@@ -2006,7 +2017,7 @@
                   <span class="hrr-emblem">🎖️</span>
                   <span class="hrr-label" data-i18n="honors.ribbonRackLabel">شريط الأوسمة الدبلوماسي • SERVICE BAR</span>
                 </div>
-                <span class="hrr-status" id="hrrStatusBadge">✦ معتمد رسميًا</span>
+                <span class="hrr-status" id="hrrStatusBadge" data-i18n="honors.officialStatusBadge">✦ معتمد رسميًا</span>
               </div>
               <div class="hrr-rack-bar" id="heraldicRibbonRack">
                 <!-- Injected dynamically by JS -->
@@ -2048,7 +2059,7 @@
                   "
                   data-i18n="profile.viewAll"
                 >
-                  <span>استكشاف البوتيك</span>
+                  <span data-i18n="profile.viewAll">استكشاف البوتيك</span>
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -2104,7 +2115,7 @@
                     </div>
                     <h3 class="pcc-title" data-i18n="profile.circlesTitle">الدوائر والمجالات السيادية</h3>
                   </div>
-                  <button type="button" class="pcc-curate-btn" id="btnCurateCircles" title="تعديل الدوائر والمجالات" aria-label="Curate Circles">
+                  <button type="button" class="pcc-curate-btn" id="btnCurateCircles" title="تعديل الدوائر والمجالات" data-i18n-title="profile.circlesEditTitle" aria-label="Curate Circles" data-i18n-aria-label="profile.circlesEditTitle">
                     <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8">
                       <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
                     </svg>
@@ -2394,7 +2405,7 @@
           <div class="boutique-curatorial-header">
             <div class="boutique-header-eyebrow">
               <span class="bhe-mark">✦</span>
-              <span class="bhe-title">THE PRIVATE COLLECTION · صالون المقتنيات السيادية</span>
+              <span class="bhe-title" data-i18n="boutique.curatorialEyebrow">THE PRIVATE COLLECTION · صالون المقتنيات السيادية</span>
               <span class="bhe-mark">✦</span>
             </div>
             <div class="boutique-balance">
@@ -2413,6 +2424,7 @@
                 aria-label="Add Balance"
                 data-i18n-aria-label="profile.addBalance"
                 title="إيداع رصيد"
+                data-i18n-title="boutique.depositTitle"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -2539,7 +2551,7 @@
       <div class="reliquary-modal-backdrop" id="reliquaryInspectModal" hidden="" aria-hidden="true" onclick="if (event.target === this) closeReliquaryInspectModal()">
         <div class="reliquary-modal-card luxury-tilt-card" id="reliquaryCertificateCard" role="dialog" aria-modal="true" aria-labelledby="reliquaryItemTitle">
           <!-- Top Sovereign Circular Close Button -->
-          <button type="button" class="rmc-close-btn" id="reliquaryModalCloseBtn" onclick="closeReliquaryInspectModal()" aria-label="إغلاق">
+          <button type="button" class="rmc-close-btn" id="reliquaryModalCloseBtn" onclick="closeReliquaryInspectModal()" aria-label="إغلاق" data-i18n-aria-label="common.close">
             <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -2639,7 +2651,7 @@
                   <h3 class="rmc-artifact-title" id="reliquaryItemTitle">ARTIFACT TITLE</h3>
                 </div>
                 <div class="rmc-meta-line">
-                  <div class="rmc-serial-row" onclick="window.copyReliquarySerial()" title="انقر لنسخ رقم التوثيق" role="button" tabindex="0">
+                  <div class="rmc-serial-row" onclick="window.copyReliquarySerial()" title="انقر لنسخ رقم التوثيق" data-i18n-title="profile.copySerialTip" role="button" tabindex="0">
                     <span class="rmc-serial-prefix">№</span>
                     <span class="rmc-serial" id="reliquaryItemSerial">ARC-0001-GOLD</span>
                     <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.8" class="rmc-copy-icon">
@@ -2686,7 +2698,7 @@
             <div class="rmc-council-seal-row">
               <div class="rmc-seal-stamp">
                 <span class="rmc-stamp-star">✦</span>
-                <span>سجل سيادي موثق غير قابل للنقض • المجلس الأعلى</span>
+                <span data-i18n="profile.certCouncilSeal">سجل سيادي موثق غير قابل للنقض • المجلس الأعلى</span>
                 <span class="rmc-stamp-star">✦</span>
               </div>
             </div>
@@ -3693,40 +3705,40 @@
         <div class="luxury-modal-body auth-modal-body">
           <!-- Auth Mode Tabs (تسجيل الدخول / إنشاء حساب) -->
           <div class="auth-tabs-row" role="tablist">
-            <button type="button" class="auth-tab-btn is-active" id="authTabLogin" role="tab" aria-selected="true">تسجيل الدخول</button>
-            <button type="button" class="auth-tab-btn" id="authTabRegister" role="tab" aria-selected="false">إنشاء حساب</button>
+            <button type="button" class="auth-tab-btn is-active" id="authTabLogin" role="tab" aria-selected="true" data-i18n="auth.loginTab">تسجيل الدخول</button>
+            <button type="button" class="auth-tab-btn" id="authTabRegister" role="tab" aria-selected="false" data-i18n="auth.registerTab">إنشاء حساب</button>
           </div>
 
           <div class="auth-title-container">
-            <h3 class="auth-section-title" id="authSectionTitle">تسجيل الدخول</h3>
-            <p class="auth-section-desc" id="authSectionDesc">بوابة الدخول الحصرية لأعضاء النادي السيادي</p>
+            <h3 class="auth-section-title" id="authSectionTitle" data-i18n="auth.loginTitle">تسجيل الدخول</h3>
+            <p class="auth-section-desc" id="authSectionDesc" data-i18n="auth.loginDesc">بوابة الدخول الحصرية لأعضاء النادي السيادي</p>
           </div>
 
           <!-- OAuth Provider -->
           <div class="auth-oauth-wrap">
             <button id="authGoogleBtn" type="button" class="auth-google-btn">
               <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.1 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.7s.2-2 .4-2.7L1.6 6.4C.6 8.4 0 10.6 0 13s.6 4.6 1.6 6.6l3.7-2.9z"/><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5.3L1.6 15.9C3.5 19.7 7.4 23 12 23z"/></svg>
-              <span id="authGoogleText">المتابعة باستخدام Google</span>
+              <span id="authGoogleText" data-i18n="auth.continueGoogle">المتابعة باستخدام Google</span>
             </button>
           </div>
 
           <div class="auth-divider">
             <span class="auth-divider-line"></span>
-            <span class="auth-divider-text">أو عبر البريد الإلكتروني</span>
+            <span class="auth-divider-text" data-i18n="auth.orEmail">أو عبر البريد الإلكتروني</span>
             <span class="auth-divider-line"></span>
           </div>
 
           <!-- Credentials Form -->
           <form id="authEmailForm" class="auth-form">
             <div class="auth-field-group">
-              <label for="authEmailInput" class="auth-input-label">البريد الإلكتروني</label>
+              <label for="authEmailInput" class="auth-input-label" data-i18n="auth.emailLabel">البريد الإلكتروني</label>
               <input type="email" id="authEmailInput" class="auth-text-input" required placeholder="member@the1percent.club" autocomplete="username" />
             </div>
 
             <div class="auth-field-group">
               <div class="auth-label-row">
-                <label for="authPasswordInput" class="auth-input-label">كلمة المرور</label>
-                <button type="button" id="forgotPasswordLink" class="auth-forgot-link">نسيت كلمة المرور؟</button>
+                <label for="authPasswordInput" class="auth-input-label" data-i18n="auth.passwordLabel">كلمة المرور</label>
+                <button type="button" id="forgotPasswordLink" class="auth-forgot-link" data-i18n="auth.forgotPassword">نسيت كلمة المرور؟</button>
               </div>
               <input type="password" id="authPasswordInput" class="auth-text-input" required placeholder="••••••••••••" autocomplete="current-password" />
             </div>
@@ -3734,18 +3746,18 @@
             <div id="authErrorMsg" class="auth-error-msg" style="display: none;"></div>
 
             <button type="submit" class="auth-submit-btn" id="authSubmitBtn">
-              <span id="authSubmitText">تسجيل الدخول</span>
+              <span id="authSubmitText" data-i18n="auth.loginSubmit">تسجيل الدخول</span>
             </button>
           </form>
 
           <!-- Toggle between login and register -->
           <div class="auth-toggle-row">
-            <span class="auth-toggle-text" id="authTogglePrompt">ليس لديك حساب؟</span>
-            <button type="button" id="authToggleModeBtn" class="auth-toggle-link">إنشاء حساب جديد</button>
+            <span class="auth-toggle-text" id="authTogglePrompt" data-i18n="auth.noAccountPrompt">ليس لديك حساب؟</span>
+            <button type="button" id="authToggleModeBtn" class="auth-toggle-link" data-i18n="auth.createAccountLink">إنشاء حساب جديد</button>
           </div>
 
           <div class="auth-footer-wrap">
-            <p class="auth-footer-notice">
+            <p class="auth-footer-notice" data-i18n="auth.footerTag">
               <span class="auth-footer-icon">❖</span> نظام التوثيق السيادي المشفّر • The 1% Club
             </p>
           </div>
@@ -3757,25 +3769,25 @@
     <div id="authRecoveryModal" class="luxury-modal-overlay" onclick="if (event.target === this) window.closeAuthRecoveryModal()">
       <div class="luxury-modal-box auth-recovery-box">
         <div class="luxury-modal-header auth-recovery-header">
-          <button type="button" class="luxury-close-btn" id="closeAuthRecoveryModal" aria-label="إغلاق">
+          <button type="button" class="luxury-close-btn" id="closeAuthRecoveryModal" aria-label="إغلاق" data-i18n-aria-label="common.close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="13" height="13"><path d="M18 6L6 18M6 6l12 12"></path></svg>
           </button>
-          <h3 class="auth-recovery-title">استعادة كلمة المرور</h3>
+          <h3 class="auth-recovery-title" data-i18n="auth.recoveryTitle">استعادة كلمة المرور</h3>
         </div>
         <div class="luxury-modal-body auth-recovery-body">
-          <p class="auth-section-desc" style="text-align: center; margin-bottom: 12px;">
+          <p class="auth-section-desc" style="text-align: center; margin-bottom: 12px;" data-i18n="auth.recoveryDesc">
             أدخل بريدك الإلكتروني المسجل وسنقوم بإرسال رابط إعادة تعيين كلمة المرور فوراً.
           </p>
           <form id="authRecoveryForm" class="auth-form">
             <div class="auth-field-group">
-              <label for="recoveryEmailInput" class="auth-input-label">البريد الإلكتروني</label>
+              <label for="recoveryEmailInput" class="auth-input-label" data-i18n="auth.emailLabel">البريد الإلكتروني</label>
               <input type="email" id="recoveryEmailInput" class="auth-text-input" required placeholder="member@the1percent.club" />
             </div>
-            <div id="recoverySuccessMsg" class="auth-success-msg" style="display: none;">
+            <div id="recoverySuccessMsg" class="auth-success-msg" style="display: none;" data-i18n="auth.recoverySentSuccess">
               تم إرسال تعليمات الاستعادة إلى بريدك الإلكتروني بنجاح.
             </div>
             <button type="submit" class="auth-submit-btn">
-              <span>إرسال رابط الاستعادة</span>
+              <span data-i18n="auth.sendRecoveryLink">إرسال رابط الاستعادة</span>
             </button>
           </form>
         </div>
