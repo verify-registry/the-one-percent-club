@@ -463,6 +463,10 @@ window.I18N = {
     },
   },
   profile: {
+    stealthMoniker: {
+      en: "SOVEREIGN SHADOW • 001",
+      ar: "الظل السيادي • 001",
+    },
     editProfileTitle: {
       en: "EDIT PROFILE",
       ar: "تعديل الملف الشخصي",
@@ -1372,6 +1376,10 @@ window.I18N = {
     affordability: {
       en: "Purchasing Power",
       ar: "مدى القدرة على الشراء",
+    },
+    bheTitle: {
+      en: "THE PRIVATE COLLECTION · SOVEREIGN SALON",
+      ar: "THE PRIVATE COLLECTION · صالون المقتنيات السيادية",
     },
     curatorialEyebrow: {
       en: "THE PRIVATE COLLECTION · SOVEREIGN SALON",
