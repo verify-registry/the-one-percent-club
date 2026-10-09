@@ -3697,7 +3697,7 @@ body.light-mode #clubPinnedDismissBtn:hover {
   display: flex;
   flex-direction: column;
   gap: 13px;
-  padding: 44px 8px 145px !important;
+  padding: 44px 8px calc(160px + env(safe-area-inset-bottom, 0px)) !important;
   border: none;
   background: transparent;
   scroll-behavior: smooth;
@@ -34374,6 +34374,27 @@ html[dir="rtl"] #modal-account-title {
   text-align: right !important;
   margin-left: auto !important;
 }
+
+/* ==========================================================================
+   QA AUDIT TARGETED FIXES
+   ========================================================================== */
+/* 2. Light Mode Logout Confirmation Text Invisibility Fix */
+body.light-mode #logoutConfirmModal p {
+  color: #5a4422 !important;
+}
+
+/* 3. Sovereign Salon Ticker Responsive Overlap Fix (Hide secondary hubs on narrow screens) */
+@media (max-width: 390px) {
+  .ticker-hubs-row {
+    display: none !important;
+  }
+}
+
+/* 4. Member Dossier Rivet Overlapping Close Button Fix */
+.sd-card-header .sd-corner-rivet:first-child {
+  display: none !important;
+}
+
 
 
 

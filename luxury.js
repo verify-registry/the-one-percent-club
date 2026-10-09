@@ -1178,9 +1178,6 @@ async function shareMasterCard() {
   }
 }
 
-
-document.getElementById("shareBtn")?.addEventListener("click", shareMasterCard);
-
 function initActionButtonsTactileFeedback() {
   const buttons = document.querySelectorAll(
     "#membership-tab .card-actions .btn, #shareBtn, #copyBtn"

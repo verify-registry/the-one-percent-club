@@ -7215,7 +7215,7 @@ function attachDeedInteractiveHandlers() {
       const span = verifyBtn.querySelector("span");
       const originalText = span ? span.textContent : "";
       verifyBtn.classList.add("is-confirmed-stamp");
-      const isAr = window.AppState?.lang === "ar" || !window.AppState?.lang;
+      const isAr = (window.currentLang === "ar");
       if (span) {
         span.textContent = isAr 
           ? "صك معتمد وموثق سيادياً" 
@@ -7413,7 +7413,7 @@ function attachOathInteractiveHandlers() {
       signetBtn.classList.add("is-signet-pressed");
       const textEl = signetBtn.querySelector(".ossb-text");
       const originalText = textEl ? textEl.textContent : "";
-      const isAr = window.AppState?.lang === "ar" || !window.AppState?.lang;
+      const isAr = (window.currentLang === "ar");
       if (textEl) {
         textEl.textContent = isAr
           ? "تم تجديد وتوثيق القَسَم في الأرشيف"
