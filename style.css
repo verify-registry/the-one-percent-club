@@ -3620,152 +3620,80 @@ body.light-mode #clubPinnedDismissBtn:hover {
   margin: 0 !important;
   padding: 0 !important;
   border-radius: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.16);
+  border: 1px solid rgba(212, 175, 55, 0.18);
   box-shadow: 0 4px 22px rgba(0, 0, 0, 0.55);
   background: #090807 !important;
 }
 
-/* LUXURY SOVEREIGN CHAT BACKDROP (OBSIDIAN ARCHITECTURAL WATCH-DIAL + REAL GOLD GUILLOCHÉ) */
+/* REFINED QUIET-LUXURY SOVEREIGN CHAT BACKDROP (OBSIDIAN FINE-METAL SATIN & RESTRAINED AMBIENT LUSTER) */
 .sovereign-chat-backdrop {
   position: absolute;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
+  /* Deep obsidian & charcoal foundation with delicate antique-champagne atmospheric lighting */
   background:
-    radial-gradient(ellipse 95% 340px at 50% 12%, rgba(225, 192, 120, 0.16) 0%, rgba(184, 140, 50, 0.06) 42%, transparent 75%),
-    linear-gradient(135deg, rgba(62, 57, 50, 0.40) 0%, rgba(28, 25, 22, 0.18) 32%, transparent 60%),
-    radial-gradient(circle 340px at 50% 48%, rgba(212, 175, 55, 0.08) 0%, rgba(160, 120, 30, 0.03) 48%, transparent 75%),
-    radial-gradient(ellipse 90% 220px at 50% 100%, rgba(140, 100, 30, 0.08) 0%, transparent 70%),
-    conic-gradient(from 215deg at 50% 48%, rgba(18, 16, 14, 0.95) 0deg, rgba(38, 33, 27, 0.35) 45deg, rgba(12, 10, 9, 0.98) 90deg, rgba(46, 39, 31, 0.40) 135deg, rgba(10, 9, 8, 0.98) 180deg, rgba(38, 32, 26, 0.38) 225deg, rgba(14, 12, 10, 0.96) 270deg, rgba(48, 41, 32, 0.42) 315deg, rgba(18, 16, 14, 0.95) 360deg),
-    linear-gradient(180deg, #0d0b09 0%, #0a0908 40%, #070605 70%, #0c0a09 100%) !important;
+    radial-gradient(ellipse 90% 280px at 50% 0%, rgba(212, 175, 55, 0.07) 0%, rgba(180, 140, 45, 0.02) 50%, transparent 80%),
+    radial-gradient(ellipse 85% 300px at 50% 100%, rgba(140, 105, 35, 0.05) 0%, transparent 70%),
+    linear-gradient(180deg, #0e0c0a 0%, #0a0907 35%, #070605 70%, #0b0907 100%) !important;
   transition: background 0.3s ease;
 }
 
-/* Horological Watch-Dial Sector Rays & Astrolabe Geometry */
-.chat-backdrop-dial-sectors {
+/* Understated fine metal satin / vertical intaglio brushed texture */
+.chat-backdrop-texture {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 1;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 31px,
+    rgba(212, 175, 55, 0.018) 31px,
+    rgba(212, 175, 55, 0.018) 32px
+  );
   opacity: 0.85;
+  mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, black 50%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, black 50%, transparent 95%);
 }
 
-.chat-dial-sectors-svg {
+.chat-backdrop-svg-texture {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-/* Clous de Paris Guilloché Micro-Pattern */
-.chat-backdrop-mesh {
+/* Subtle ambient bloom */
+.chat-backdrop-ambient {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   z-index: 2;
-  background-image:
-    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.12) 1px, transparent 1px),
-    linear-gradient(rgba(212, 175, 55, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 175, 55, 0.035) 1px, transparent 1px);
-  background-size: 20px 20px, 20px 20px, 20px 20px;
-  opacity: 0.70;
-  mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 95%);
-  -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 95%);
+  background: radial-gradient(ellipse 70% 200px at 50% 15%, rgba(245, 218, 140, 0.05) 0%, transparent 70%);
 }
 
-/* Ambient Charcoal & Antique-Champagne Lighting Bloom */
-.chat-backdrop-ambient-glow {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 92%;
-  height: 240px;
-  z-index: 3;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(255, 230, 160, 0.18) 0%, rgba(212, 175, 55, 0.06) 50%, transparent 80%),
-    radial-gradient(circle at 50% 35%, rgba(255, 240, 190, 0.07) 0%, transparent 65%);
-  pointer-events: none;
-}
-
-/* Center Sovereign Horological Medallion */
-.chat-watermark-medallion {
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(340px, 84vw);
-  height: min(340px, 84vw);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  user-select: none;
-  z-index: 4;
-}
-
-.chat-watermark-svg {
-  width: 100%;
-  height: 100%;
-  color: #d4af37;
-  opacity: 0.32;
-  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.28));
-  animation: sovereignWatermarkBreathe 14s infinite ease-in-out;
-  transition: opacity 0.3s ease, color 0.3s ease;
-}
-
-@keyframes sovereignWatermarkBreathe {
-  0%, 100% {
-    opacity: 0.30;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.36;
-    transform: scale(1.02);
-  }
-}
-
-/* Four Precision Horological Movement Bridges (Corners) */
-.chat-corner-filigree {
-  position: absolute;
-  width: 38px;
-  height: 38px;
-  color: #d4af37;
-  opacity: 0.38;
-  pointer-events: none;
-  z-index: 5;
-}
-.chat-corner-tl { top: 8px; left: 8px; }
-.chat-corner-tr { top: 8px; right: 8px; }
-.chat-corner-bl { bottom: 8px; left: 8px; }
-.chat-corner-br { bottom: 8px; right: 8px; }
-
-.corner-filigree-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Hairlines */
+/* Precision top and bottom hairline borders */
 .chat-backdrop-hairline {
   position: absolute;
-  left: 8%;
-  right: 8%;
+  left: 6%;
+  right: 6%;
   height: 1px;
   pointer-events: none;
-  z-index: 5;
+  z-index: 3;
 }
 .chat-backdrop-hairline-top {
   top: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.32) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.28) 50%, transparent 100%);
 }
 .chat-backdrop-hairline-bottom {
   bottom: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.24) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.18) 50%, transparent 100%);
 }
 
 #club-tab .club-messages {
   position: relative !important;
-  z-index: 2 !important;
+  z-index: 5 !important;
   flex: 1 1 0 !important;
   min-height: 0 !important;
   height: auto !important;
@@ -3798,11 +3726,11 @@ body.light-mode #clubPinnedDismissBtn:hover {
   max-height: 34px !important;
   padding: 0 8px !important;
   margin: 4px 6px 2px 6px !important;
-  background: linear-gradient(180deg, rgba(26, 22, 18, 0.95) 0%, rgba(16, 14, 11, 0.96) 50%, rgba(10, 9, 7, 0.98) 100%) !important;
+  background: linear-gradient(180deg, rgba(24, 20, 16, 0.85) 0%, rgba(14, 12, 9, 0.90) 100%) !important;
   border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  border-top: 1px solid rgba(233, 200, 119, 0.35) !important;
+  border-top: 1px solid rgba(233, 200, 119, 0.38) !important;
   border-bottom: 1px solid rgba(120, 95, 38, 0.28) !important;
-  border-radius: 8px !important;
+  border-radius: 9px !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
   box-shadow:
@@ -11661,104 +11589,100 @@ body.light-mode .room-badge {
 }
 
 /* Chat & Sovereign Dispatch */
-body.light-mode .club-chat-viewport {
-  border: 1px solid rgba(180, 140, 60, 0.22) !important;
-  box-shadow: 0 3px 16px rgba(90, 60, 20, 0.05) !important;
+body.light-mode .club-chat-viewport,
+html.light-mode .club-chat-viewport,
+:root[data-theme="light"] .club-chat-viewport {
+  border: 1px solid rgba(184, 142, 62, 0.24) !important;
+  box-shadow: 0 4px 20px rgba(90, 60, 20, 0.06) !important;
   background: #fbf9f4 !important;
 }
 
-body.light-mode .sovereign-chat-backdrop {
+body.light-mode .sovereign-chat-backdrop,
+html.light-mode .sovereign-chat-backdrop,
+:root[data-theme="light"] .sovereign-chat-backdrop {
+  /* Refined warm ivory, pearl, and pale stone substrate with subtle champagne lighting */
   background:
-    radial-gradient(ellipse 95% 340px at 50% 12%, rgba(212, 175, 55, 0.16) 0%, transparent 70%),
-    linear-gradient(135deg, rgba(245, 240, 230, 0.85) 0%, rgba(238, 232, 220, 0.45) 40%, transparent 70%),
-    linear-gradient(180deg, #f8f5ee 0%, #f3efe5 50%, #ebe4d4 100%) !important;
+    radial-gradient(ellipse 90% 260px at 50% 0%, rgba(212, 175, 55, 0.12) 0%, rgba(184, 142, 50, 0.03) 55%, transparent 80%),
+    radial-gradient(ellipse 85% 260px at 50% 100%, rgba(184, 142, 50, 0.05) 0%, transparent 70%),
+    linear-gradient(180deg, #fdfbf7 0%, #f7f2e8 40%, #efe7d8 75%, #f6f0e4 100%) !important;
 }
 
-body.light-mode .chat-dial-sectors-svg g {
-  stroke: #9c7625 !important;
-  opacity: 0.28 !important;
+body.light-mode .chat-backdrop-texture,
+html.light-mode .chat-backdrop-texture,
+:root[data-theme="light"] .chat-backdrop-texture {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 31px,
+    rgba(164, 122, 48, 0.025) 31px,
+    rgba(164, 122, 48, 0.025) 32px
+  ) !important;
+  opacity: 0.75 !important;
 }
 
-body.light-mode .chat-backdrop-mesh {
-  background-image:
-    radial-gradient(circle at 50% 50%, rgba(156, 109, 35, 0.10) 1px, transparent 1px),
-    linear-gradient(rgba(156, 109, 35, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(156, 109, 35, 0.035) 1px, transparent 1px) !important;
-  opacity: 0.55 !important;
+body.light-mode .chat-backdrop-svg-texture rect,
+html.light-mode .chat-backdrop-svg-texture rect,
+:root[data-theme="light"] .chat-backdrop-svg-texture rect,
+body.light-mode .chat-backdrop-svg-texture line,
+html.light-mode .chat-backdrop-svg-texture line,
+:root[data-theme="light"] .chat-backdrop-svg-texture line {
+  stroke: rgba(164, 122, 48, 0.22) !important;
 }
 
-body.light-mode .chat-backdrop-ambient-glow {
-  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.18) 0%, rgba(184, 134, 11, 0.06) 55%, transparent 80%) !important;
+body.light-mode .chat-backdrop-ambient,
+html.light-mode .chat-backdrop-ambient,
+:root[data-theme="light"] .chat-backdrop-ambient {
+  background: radial-gradient(ellipse 70% 180px at 50% 12%, rgba(220, 185, 110, 0.09) 0%, transparent 70%) !important;
 }
 
-body.light-mode .chat-watermark-svg {
-  color: #8c6014 !important;
-  opacity: 0.22 !important;
-  filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.8)) !important;
-  animation: sovereignWatermarkBreatheLight 14s infinite ease-in-out !important;
+body.light-mode .chat-backdrop-hairline-top,
+html.light-mode .chat-backdrop-hairline-top,
+:root[data-theme="light"] .chat-backdrop-hairline-top {
+  background: linear-gradient(90deg, transparent 0%, rgba(164, 122, 48, 0.30) 50%, transparent 100%) !important;
+}
+body.light-mode .chat-backdrop-hairline-bottom,
+html.light-mode .chat-backdrop-hairline-bottom,
+:root[data-theme="light"] .chat-backdrop-hairline-bottom {
+  background: linear-gradient(90deg, transparent 0%, rgba(164, 122, 48, 0.20) 50%, transparent 100%) !important;
 }
 
-@keyframes sovereignWatermarkBreatheLight {
-  0%, 100% {
-    opacity: 0.062;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.088;
-    transform: scale(1.025);
-  }
-}
 
-body.light-mode .chat-corner-filigree {
-  color: #8c6014 !important;
-  opacity: 0.28 !important;
-}
-
-body.light-mode .chat-backdrop-hairline-top {
-  background: linear-gradient(90deg, transparent 0%, rgba(156, 109, 35, 0.35) 50%, transparent 100%) !important;
-}
-body.light-mode .chat-backdrop-hairline-bottom {
-  background: linear-gradient(90deg, transparent 0%, rgba(156, 109, 35, 0.25) 50%, transparent 100%) !important;
-}
-
-body.light-mode .sovereign-salon-ticker {
-  background: linear-gradient(180deg, rgba(255, 253, 249, 0.94) 0%, rgba(247, 242, 233, 0.96) 100%) !important;
-  border: 1px solid rgba(168, 124, 45, 0.22) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid rgba(138, 98, 28, 0.25) !important;
-  border-radius: 10px !important;
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.06),
-    0 1px 3px rgba(156, 109, 35, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1px 0 rgba(168, 124, 45, 0.08) !important;
-}
-body.light-mode .ticker-pulse-badge {
-  border-inline-end: 1px solid rgba(168, 124, 45, 0.18) !important;
-}
-body.light-mode .ticker-pulse-text {
-  color: #5c4314 !important;
-}
-body.light-mode .ticker-city {
-  color: #685b48 !important;
-}
-body.light-mode .ticker-dot-sep {
-  color: rgba(168, 124, 45, 0.3) !important;
-}
 body.light-mode .sovereign-dispatch-card {
-  background: var(--lm-bg-white) !important;
-  border: 1px solid rgba(164, 122, 48, 0.25) !important;
+  backdrop-filter: blur(14px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
   border-radius: 14px !important;
-  box-shadow: 0 4px 16px rgba(90, 60, 20, 0.05) !important;
 }
-body.light-mode .sovereign-dispatch-card:not(.is-personal-dispatch) {
-  background: #ffffff !important;
-  border-color: rgba(164, 122, 48, 0.24) !important;
+body.light-mode .sovereign-dispatch-card:not(.is-personal-dispatch),
+body.light-mode .sovereign-dispatch-card.dispatch-align-left,
+body.light-mode .sovereign-dispatch-card.dispatch-sender-other {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(250, 246, 238, 0.72) 50%,
+    rgba(243, 237, 224, 0.76) 100%
+  ) !important;
+  border: 1px solid rgba(164, 122, 48, 0.25) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow:
+    0 4px 16px rgba(110, 80, 30, 0.07),
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
 }
-body.light-mode .sovereign-dispatch-card.is-personal-dispatch {
-  background: #fdfbf7 !important;
-  border-color: rgba(164, 122, 48, 0.38) !important;
-  box-shadow: 0 4px 16px rgba(156, 109, 35, 0.08) !important;
+body.light-mode .sovereign-dispatch-card.is-personal-dispatch,
+body.light-mode .sovereign-dispatch-card.dispatch-align-right,
+body.light-mode .sovereign-dispatch-card.dispatch-sender-me {
+  background: linear-gradient(
+    140deg,
+    rgba(255, 249, 236, 0.84) 0%,
+    rgba(247, 237, 214, 0.76) 50%,
+    rgba(240, 226, 195, 0.80) 100%
+  ) !important;
+  border: 1px solid rgba(184, 134, 45, 0.36) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow:
+    0 4px 16px rgba(140, 100, 30, 0.09),
+    0 1px 3px rgba(156, 109, 35, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
 }
 body.light-mode .golden-ink-wash {
   background: radial-gradient(
@@ -35001,21 +34925,169 @@ body.light-mode #logoutConfirmModal p {
   }
 }
 
-/* Light Mode Adaptations for New Components */
-body.light-mode .sovereign-salon-ticker {
+/* ==========================================================================
+   SOVEREIGN SALON MARKET TICKER — LIGHT MODE LUXURY CONTRAST
+   ========================================================================== */
+body.light-mode .sovereign-salon-ticker,
+html.light-mode .sovereign-salon-ticker,
+:root[data-theme="light"] .sovereign-salon-ticker {
   background: linear-gradient(180deg, rgba(255, 253, 249, 0.96) 0%, rgba(247, 242, 233, 0.98) 100%) !important;
   border: 1px solid rgba(168, 124, 45, 0.25) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
   border-bottom: 1px solid rgba(138, 98, 28, 0.25) !important;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06) !important;
+  border-radius: 8px !important;
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(156, 109, 35, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(168, 124, 45, 0.06) !important;
+  backdrop-filter: blur(14px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
 }
 
-body.light-mode .ticker-metal-sym {
-  color: #6d5225 !important;
+body.light-mode .ticker-pulse-badge,
+html.light-mode .ticker-pulse-badge,
+:root[data-theme="light"] .ticker-pulse-badge {
+  border-inline-end: 1px solid rgba(168, 124, 45, 0.20) !important;
 }
 
-body.light-mode .ticker-metal-price {
-  color: #1a150c !important;
+body.light-mode .ticker-pulse-text,
+html.light-mode .ticker-pulse-text,
+:root[data-theme="light"] .ticker-pulse-text {
+  color: #5c4314 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode .ticker-marquee-group,
+html.light-mode .ticker-marquee-group,
+:root[data-theme="light"] .ticker-marquee-group {
+  color: #3d3220 !important;
+}
+
+/* 1. Instrument Names (e.g. Gold Spot, Brent Crude, S&P 500, الذهب) */
+body.light-mode .ticker-metal-name,
+html.light-mode .ticker-metal-name,
+:root[data-theme="light"] .ticker-metal-name {
+  color: #171410 !important;
+  font-weight: 600 !important;
+}
+
+/* 2. Instrument Symbols (e.g. XAU/USD, BRENT, SPX, DJI) */
+body.light-mode .ticker-metal-sym,
+html.light-mode .ticker-metal-sym,
+:root[data-theme="light"] .ticker-metal-sym {
+  color: #5c4314 !important;
+  font-weight: 700 !important;
+}
+
+/* 3. Price Values (e.g. $2,875.40, 5,864.20, غير متوفر) */
+body.light-mode .ticker-metal-price,
+html.light-mode .ticker-metal-price,
+:root[data-theme="light"] .ticker-metal-price {
+  color: #171410 !important;
+  font-weight: 600 !important;
+}
+
+/* 4. Category Tags (e.g. METALS, ENERGY, INDICES, FX, HUBS / معادن, طاقة, مؤشرات, عملات, مراكز) */
+body.light-mode .ticker-cat-tag,
+html.light-mode .ticker-cat-tag,
+:root[data-theme="light"] .ticker-cat-tag {
+  color: #5e4314 !important;
+  background: rgba(168, 124, 45, 0.12) !important;
+  border: 0.5px solid rgba(168, 124, 45, 0.30) !important;
+}
+
+/* 5. Financial Hub Cities (e.g. ZURICH, LONDON, RIYADH, NY / زيورخ, لندن, الرياض, نيويورك) */
+body.light-mode .ticker-city,
+html.light-mode .ticker-city,
+:root[data-theme="light"] .ticker-city {
+  color: #2b2317 !important;
+  font-weight: 600 !important;
+}
+
+/* 6. Secondary Metadata Badges (e.g. SPOT, CFD) */
+body.light-mode .ticker-sim-badge,
+html.light-mode .ticker-sim-badge,
+:root[data-theme="light"] .ticker-sim-badge {
+  color: #443722 !important;
+  background: rgba(168, 124, 45, 0.08) !important;
+  border: 0.5px solid rgba(168, 124, 45, 0.24) !important;
+}
+
+/* 7. Timestamps (e.g. 14:32:05) */
+body.light-mode .ticker-time-tag,
+html.light-mode .ticker-time-tag,
+:root[data-theme="light"] .ticker-time-tag {
+  color: #634d25 !important;
+}
+
+/* 8. Separators (✦) */
+body.light-mode .ticker-dot-sep,
+html.light-mode .ticker-dot-sep,
+:root[data-theme="light"] .ticker-dot-sep {
+  color: rgba(168, 124, 45, 0.55) !important;
+}
+
+/* 9. Status Labels */
+body.light-mode .ticker-status-tag.live,
+html.light-mode .ticker-status-tag.live,
+:root[data-theme="light"] .ticker-status-tag.live {
+  color: #047857 !important;
+  background: rgba(16, 185, 129, 0.12) !important;
+  border: 0.5px solid rgba(5, 150, 105, 0.32) !important;
+}
+
+body.light-mode .ticker-status-tag.delayed,
+html.light-mode .ticker-status-tag.delayed,
+:root[data-theme="light"] .ticker-status-tag.delayed {
+  color: #854d0e !important;
+  background: rgba(217, 119, 6, 0.12) !important;
+  border: 0.5px solid rgba(217, 119, 6, 0.32) !important;
+}
+
+body.light-mode .ticker-status-tag.stale,
+html.light-mode .ticker-status-tag.stale,
+:root[data-theme="light"] .ticker-status-tag.stale {
+  color: #5b21b6 !important;
+  background: rgba(124, 58, 237, 0.10) !important;
+  border: 0.5px solid rgba(124, 58, 237, 0.28) !important;
+}
+
+body.light-mode .ticker-status-tag.unavailable,
+html.light-mode .ticker-status-tag.unavailable,
+:root[data-theme="light"] .ticker-status-tag.unavailable {
+  color: #44403c !important;
+  background: rgba(120, 113, 108, 0.12) !important;
+  border: 0.5px solid rgba(120, 113, 108, 0.30) !important;
+}
+
+body.light-mode .ticker-status-tag.monitor,
+html.light-mode .ticker-status-tag.monitor,
+:root[data-theme="light"] .ticker-status-tag.monitor {
+  color: #5e4314 !important;
+  background: rgba(168, 124, 45, 0.12) !important;
+  border: 0.5px solid rgba(168, 124, 45, 0.30) !important;
+}
+
+/* 10. Percentage / Price Change */
+body.light-mode .ticker-metal-change,
+html.light-mode .ticker-metal-change,
+:root[data-theme="light"] .ticker-metal-change {
+  color: #171410 !important;
+}
+
+body.light-mode .ticker-metal-change.positive,
+html.light-mode .ticker-metal-change.positive,
+:root[data-theme="light"] .ticker-metal-change.positive {
+  color: #047857 !important;
+  background: rgba(16, 185, 129, 0.12) !important;
+}
+
+body.light-mode .ticker-metal-change.negative,
+html.light-mode .ticker-metal-change.negative,
+:root[data-theme="light"] .ticker-metal-change.negative {
+  color: #b91c1c !important;
+  background: rgba(220, 38, 38, 0.10) !important;
 }
 
 body.light-mode .gauge-pip.is-filled {

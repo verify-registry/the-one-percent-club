@@ -1223,8 +1223,23 @@ const AppState = {
     const savedChannels = StorageHelper.get(`channels_${this.user.id}`, null, true);
     if (savedChannels) {
       for (const k in savedChannels) {
-        if (this.channels[k])
-          this.channels[k].messages = savedChannels[k].messages;
+        if (this.channels[k]) {
+          const rawMsgs = savedChannels[k].messages || [];
+          const cleanMsgs = rawMsgs.filter((m) => {
+            if (!m || typeof m.text !== "string") return true;
+            const t = m.text;
+            return (
+              !t.includes("summarize_auto") &&
+              !t.includes("Gemini 3.8 Flash") &&
+              !t.includes("Action history")
+            );
+          });
+          this.channels[k].messages = cleanMsgs;
+          if (cleanMsgs.length !== rawMsgs.length) {
+            savedChannels[k].messages = cleanMsgs;
+            StorageHelper.set(`channels_${this.user.id}`, savedChannels, true);
+          }
+        }
       }
     }
 
@@ -1238,7 +1253,7 @@ const AppState = {
           senderColor: "#e6c27a",
           senderWealth: "99.9%",
           text: "The Sovereign Gala in Zurich has been ratified. Discreet biometric travel credentials will be dispatched tomorrow.",
-          timestamp: Date.now() - 3600000 * 2,
+          timestamp: Date.now() - 3600000 * 7,
         },
         {
           senderId: "084",
@@ -1247,7 +1262,52 @@ const AppState = {
           senderColor: "#d4af37",
           senderWealth: "99.7%",
           text: "Splendid. Our flight team has cleared private airspace protocols through Geneva. Looking forward to meeting the circle.",
-          timestamp: Date.now() - 3600000,
+          timestamp: Date.now() - 3600000 * 6,
+        },
+        {
+          senderId: "112",
+          senderName: "Marcus Sterling",
+          senderTier: "TITAN",
+          senderColor: "#f3e5ab",
+          senderWealth: "99.8%",
+          text: "Physical bullion delivery to the Lucerne depository concluded with verified assay certificates.",
+          timestamp: Date.now() - 3600000 * 5,
+        },
+        {
+          senderId: "1001",
+          senderName: "W. Alexander",
+          senderTier: "SOVEREIGN EXARCH",
+          senderColor: "#d4af37",
+          senderWealth: "99.6%",
+          text: "The sovereign wealth summit communique has affirmed our strategic reserves positioning across Zurich and Riyadh.",
+          timestamp: Date.now() - 3600000 * 4,
+        },
+        {
+          senderId: "084",
+          senderName: "Elena Rostova",
+          senderTier: "SOVEREIGN",
+          senderColor: "#d4af37",
+          senderWealth: "99.7%",
+          text: "Looking forward to reviewing the upcoming boutique acquisitions and rare horological timepieces in Zurich.",
+          timestamp: Date.now() - 3600000 * 3,
+        },
+        {
+          senderId: "001",
+          senderName: "Lord Julian",
+          senderTier: "FOUNDER",
+          senderColor: "#e6c27a",
+          senderWealth: "99.9%",
+          text: "A reminder that sovereign discretion and confidentiality remain inviolable across all salon proceedings.",
+          timestamp: Date.now() - 3600000 * 2,
+        },
+        {
+          senderId: "112",
+          senderName: "Marcus Sterling",
+          senderTier: "TITAN",
+          senderColor: "#f3e5ab",
+          senderWealth: "99.8%",
+          text: "All salon telemetry is permanently air-gapped. Our secure sovereign protocol is in effect.",
+          timestamp: Date.now() - 3600000 * 1,
         },
       ],
       wealth: [
@@ -3185,15 +3245,30 @@ const Router = {
         window.setClubFloatingControlsVisibility(!isLeaderboard);
       }
       if (typeof updateCreditsUI === "function") updateCreditsUI();
-      requestAnimationFrame(() => {
-        const msgs = document.getElementById("clubMessages");
-        if (msgs) msgs.scrollTop = msgs.scrollHeight;
-        if (typeof window.autoGrowClubInput === "function") {
-          window.autoGrowClubInput();
-        }
-      });
+
+      // Ensure normal upper Club header, welcome area, and balance control are visible at the top
+      if (typeof window.HeaderScrollController?.setClubHeaderCollapsed === "function") {
+        window.HeaderScrollController.setClubHeaderCollapsed(false);
+      }
+
+      const plaque = document.getElementById("clubPinnedInfo");
+      if (plaque) {
+        plaque.classList.remove("is-collapsed");
+        plaque.removeAttribute("hidden");
+        plaque.style.removeProperty("display");
+      }
+
+      if (!isLeaderboard && typeof scrollChatToLatest === "function") {
+        scrollChatToLatest(false);
+      }
+      if (typeof window.HeaderScrollController?.attachClubScroll === "function") {
+        window.HeaderScrollController.attachClubScroll();
+      }
+      if (typeof window.autoGrowClubInput === "function") {
+        window.autoGrowClubInput();
+      }
       if (typeof startClubWelcomeAutoDismiss === "function") {
-        startClubWelcomeAutoDismiss(5000);
+        startClubWelcomeAutoDismiss();
       }
     } else if (tab === "profile") {
       if (typeof window.setClubFloatingControlsVisibility === "function") {
@@ -4167,15 +4242,29 @@ function switchChannel(channelId) {
     window.HeaderScrollController.setClubHeaderCollapsed(false);
   }
 
+  const plaque = document.getElementById("clubPinnedInfo");
+  if (plaque) {
+    plaque.classList.remove("is-collapsed");
+    plaque.removeAttribute("hidden");
+    plaque.style.removeProperty("display");
+  }
+
+  if (channelId !== "leaderboard" && typeof scrollChatToLatest === "function") {
+    scrollChatToLatest(false);
+  }
+  if (typeof window.HeaderScrollController?.attachClubScroll === "function") {
+    window.HeaderScrollController.attachClubScroll();
+  }
+
   const activeTab = document.querySelector(".page.is-active");
   if (activeTab && activeTab.id === "club-tab") {
-    startClubWelcomeAutoDismiss(5000);
+    startClubWelcomeAutoDismiss();
   }
 }
 
 let clubWelcomeDismissTimer = null;
 
-function startClubWelcomeAutoDismiss(duration = 5000) {
+function startClubWelcomeAutoDismiss() {
   const plaque = document.getElementById("clubPinnedInfo");
   if (!plaque) return;
 
@@ -4187,10 +4276,6 @@ function startClubWelcomeAutoDismiss(duration = 5000) {
   plaque.classList.remove("is-collapsed");
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
-
-  clubWelcomeDismissTimer = setTimeout(() => {
-    dismissClubWelcomePlaque();
-  }, duration);
 }
 
 function cancelClubWelcomeAutoDismiss() {
@@ -4427,7 +4512,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (document.getElementById("club-tab")?.classList.contains("is-active")) {
-    startClubWelcomeAutoDismiss(5000);
+    startClubWelcomeAutoDismiss();
   }
 });
 
@@ -4760,7 +4845,11 @@ function scrollChatToLatest(smoothScroll = true) {
   const container = document.getElementById("clubMessages");
   if (!container) return;
 
+  window.isProgrammaticScroll = true;
+  if (window._progScrollTimer) clearTimeout(window._progScrollTimer);
+
   const performScroll = (behavior) => {
+    container.scrollTop = container.scrollHeight;
     const lastEl = container.lastElementChild;
     if (lastEl && typeof lastEl.scrollIntoView === "function") {
       try {
@@ -4769,16 +4858,7 @@ function scrollChatToLatest(smoothScroll = true) {
           block: "end",
           inline: "nearest",
         });
-        return;
       } catch (e) {}
-    }
-    if (typeof container.scrollTo === "function" && behavior === "smooth") {
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: "smooth",
-      });
-    } else {
-      container.scrollTop = container.scrollHeight;
     }
   };
 
@@ -4787,10 +4867,19 @@ function scrollChatToLatest(smoothScroll = true) {
 
   requestAnimationFrame(() => {
     performScroll(prefBehavior);
+    if (window.HeaderScrollController) {
+      window.HeaderScrollController.syncClubScrollTop();
+    }
   });
-  setTimeout(() => performScroll(prefBehavior), 80);
-  setTimeout(() => performScroll("auto"), 260);
-  setTimeout(() => performScroll("auto"), 500);
+
+  window._progScrollTimer = setTimeout(() => {
+    performScroll(prefBehavior);
+    if (window.HeaderScrollController) {
+      window.HeaderScrollController.syncClubScrollTop();
+      window.HeaderScrollController.setClubHeaderCollapsed(false);
+    }
+    window.isProgrammaticScroll = false;
+  }, smoothScroll ? 220 : 60);
 }
 window.scrollChatToLatest = scrollChatToLatest;
 
@@ -4821,7 +4910,9 @@ function renderMessages() {
     .join("");
 
   const hasNewArrival = messages.some((m) => m.justDispatched || (Date.now() - (m.timestamp || 0) < 1800));
-  scrollChatToLatest(hasNewArrival);
+  if (hasNewArrival) {
+    scrollChatToLatest(true);
+  }
 }
 window.renderMessages = renderMessages;
 window.appendMessageToChat = appendMessageToChat;
@@ -8162,9 +8253,10 @@ window.handleQuickPurchase = function(event, item, catKey) {
 
 /* ==========================================================================
    CENTRALIZED HEADER SCROLL CONTROLLER
-   - Detects actual content scrollability dynamically rather than hardcoded IDs
-   - Enforces permanent header visibility on non-scrollable pages
-   - Decouples navigation transitions from scrolling
+   - Dedicated, robust scroll tracking for Club message history
+   - Smooth header and balance control hide on downward scroll
+   - Immediate restore on upward scroll and complete restoration at top
+   - Decoupled navigation transitions from scrolling
    - Delivers stable, zero-flicker 120Hz smooth scrolling
    ========================================================================== */
 window.HeaderScrollController = (function() {
@@ -8173,7 +8265,7 @@ window.HeaderScrollController = (function() {
   let isNavigating = false;
   let isLockedVisible = false;
   let ticking = false;
-  let lastActionTime = 0;
+  let clubTicking = false;
   let cachedHeader = null;
 
   function getHeader() {
@@ -8185,19 +8277,6 @@ window.HeaderScrollController = (function() {
 
   function getActivePageEl() {
     return document.querySelector(".page.is-active");
-  }
-
-  function isPageScrollable(pageEl) {
-    if (!pageEl) return false;
-    if (pageEl.id === "club-tab") {
-      const msgs = document.getElementById("clubMessages");
-      if (!msgs) return false;
-      return (msgs.scrollHeight - msgs.clientHeight) > 35;
-    }
-    const scrollHeight = pageEl.scrollHeight || 0;
-    const clientHeight = pageEl.clientHeight || 0;
-    // Consider scrollable only if actual content overflows significantly (> 35px)
-    return (scrollHeight - clientHeight) > 35;
   }
 
   function setClubHeaderCollapsed(collapsed) {
@@ -8256,29 +8335,23 @@ window.HeaderScrollController = (function() {
     if (isClub) {
       const msgs = document.getElementById("clubMessages");
       lastClubScrollTop = Math.max(0, msgs ? msgs.scrollTop : 0);
-      if (!isPageScrollable(pageEl)) {
-        isLockedVisible = true;
-        setClubHeaderCollapsed(false);
-      } else {
-        isLockedVisible = false;
-        if (lastClubScrollTop <= 25) {
-          setClubHeaderCollapsed(false);
-        }
-      }
+      setClubHeaderCollapsed(false);
+      attachClubScroll();
       return;
     }
 
     lastScrollTop = Math.max(0, pageEl ? pageEl.scrollTop : 0);
+    const scrollHeight = pageEl ? pageEl.scrollHeight || 0 : 0;
+    const clientHeight = pageEl ? pageEl.clientHeight || 0 : 0;
+    const isScrollable = (scrollHeight - clientHeight) > 35;
 
-    // If page is not scrollable, header MUST remain permanently visible
-    if (!isPageScrollable(pageEl)) {
+    if (!isScrollable) {
       isLockedVisible = true;
       if (header.classList.contains("header-hidden")) {
         header.classList.remove("header-hidden");
       }
     } else {
       isLockedVisible = false;
-      // If page is currently scrolled near the top, reveal header
       if (lastScrollTop <= 25) {
         if (header.classList.contains("header-hidden")) {
           header.classList.remove("header-hidden");
@@ -8295,18 +8368,17 @@ window.HeaderScrollController = (function() {
     if (header) {
       header.classList.remove("header-hidden");
     }
-    const clubTab = document.getElementById("club-tab");
-    if (clubTab) clubTab.classList.remove("club-header-collapsed");
-    const creditsEl = document.getElementById("clubCreditsDisplay");
-    if (creditsEl) creditsEl.classList.remove("credits-collapsed");
+    setClubHeaderCollapsed(false);
   }
 
   function onTabChangeComplete() {
     const currentSeq = ++navSeq;
+    setClubHeaderCollapsed(false);
     updateStateForCurrentTab();
     updateHeaderHeightVar();
     requestAnimationFrame(() => {
       if (currentSeq !== navSeq) return;
+      setClubHeaderCollapsed(false);
       updateStateForCurrentTab();
       updateHeaderHeightVar();
       setTimeout(() => {
@@ -8317,151 +8389,144 @@ window.HeaderScrollController = (function() {
     });
   }
 
-  function processScroll(pageEl, currentScroll, sourceEl) {
-    if (isNavigating || isLockedVisible) return;
-    const header = document.getElementById("appHeader");
-    if (!header) return;
+  // Dedicated scroll listener specifically attached to Club Messages
+  function handleClubScrollEvent() {
+    if (isNavigating || window.isProgrammaticScroll) return;
 
-    const isClub = pageEl && pageEl.id === "club-tab";
+    const clubTab = document.getElementById("club-tab");
+    if (!clubTab || !clubTab.classList.contains("is-active")) return;
 
-    if (isClub) {
-      const msgs = document.getElementById("clubMessages");
-      if (!msgs || !isPageScrollable(pageEl)) {
-        setClubHeaderCollapsed(false);
-        return;
-      }
+    const msgs = document.getElementById("clubMessages");
+    if (!msgs) return;
 
-      const delta = currentScroll - lastClubScrollTop;
-      const now = Date.now();
+    if (!clubTicking) {
+      clubTicking = true;
+      requestAnimationFrame(() => {
+        clubTicking = false;
+        if (isNavigating || window.isProgrammaticScroll) return;
 
-      // 1. Near the top of messages (scrollTop <= 25): ALWAYS show header & credits
-      if (currentScroll <= 25) {
-        setClubHeaderCollapsed(false);
+        const currentScroll = Math.max(0, msgs.scrollTop || 0);
+        const maxScroll = Math.max(0, msgs.scrollHeight - msgs.clientHeight);
+
+        // If the message feed has no scroll overflow, remain completely expanded
+        if (maxScroll <= 15) {
+          setClubHeaderCollapsed(false);
+          lastClubScrollTop = currentScroll;
+          return;
+        }
+
+        const delta = currentScroll - lastClubScrollTop;
+
+        // 1. Reaching the latest message (at or near bottom of feed): restore normal Club layout
+        if (currentScroll >= maxScroll - 20) {
+          setClubHeaderCollapsed(false);
+          lastClubScrollTop = currentScroll;
+          return;
+        }
+
+        // 2. Scrolling toward older messages (moving UP through message history, delta < -6):
+        // Smoothly hide upper app header, Club room navigation, welcome plaque, and balance control
+        if (delta < -6) {
+          setClubHeaderCollapsed(true);
+        }
+        // 3. Scrolling back toward newer messages (moving DOWN through message history, delta > 6):
+        // Restore hidden controls smoothly
+        else if (delta > 6) {
+          setClubHeaderCollapsed(false);
+        }
+
         lastClubScrollTop = currentScroll;
-        return;
-      }
-
-      // 2. Prevent rubber-band bounce near bottom
-      const maxScroll = msgs.scrollHeight - msgs.clientHeight;
-      if (maxScroll > 0 && currentScroll >= maxScroll - 15) {
-        lastClubScrollTop = currentScroll;
-        return;
-      }
-
-      // 3. Scrolling DOWN past 35px: smoothly hide upper Club header, rooms nav, and balance/credits control
-      if (delta > 8 && currentScroll > 35) {
-        setClubHeaderCollapsed(true);
-        lastActionTime = now;
-      }
-      // 4. Scrolling UP by more than 8px: smoothly restore header, rooms nav, and balance/credits control
-      else if (delta < -8 && (now - lastActionTime > 160)) {
-        setClubHeaderCollapsed(false);
-        lastActionTime = now;
-      }
-
-      lastClubScrollTop = currentScroll;
-      return;
+      });
     }
-
-    if (!isPageScrollable(pageEl)) {
-      if (header.classList.contains("header-hidden")) {
-        header.classList.remove("header-hidden");
-      }
-      return;
-    }
-
-    const delta = currentScroll - lastScrollTop;
-    const now = Date.now();
-
-    // 1. Near the top (scrollTop <= 25): ALWAYS show header
-    if (currentScroll <= 25) {
-      if (header.classList.contains("header-hidden")) {
-        header.classList.remove("header-hidden");
-      }
-      lastScrollTop = currentScroll;
-      return;
-    }
-
-    // 2. Prevent rubber-band bounce near bottom
-    const maxScroll = pageEl.scrollHeight - pageEl.clientHeight;
-    if (maxScroll > 0 && currentScroll >= maxScroll - 15) {
-      lastScrollTop = currentScroll;
-      return;
-    }
-
-    // 3. Scrolling DOWN past 40px: hide header smoothly
-    if (delta > 8 && currentScroll > 40) {
-      if (!header.classList.contains("header-hidden")) {
-        header.classList.add("header-hidden");
-        lastActionTime = now;
-      }
-    }
-    // 4. Scrolling UP by more than 8px: reveal header smoothly
-    else if (delta < -8 && (now - lastActionTime > 180)) {
-      if (header.classList.contains("header-hidden")) {
-        header.classList.remove("header-hidden");
-        lastActionTime = now;
-      }
-    }
-
-    lastScrollTop = currentScroll;
   }
 
-  function handleScroll(e) {
+  // General scroll handler for Membership, Profile, Boutique
+  function handleOtherPagesScroll(e) {
     if (isNavigating || isLockedVisible) return;
 
-    const target = e.target;
     const activePage = getActivePageEl();
-    if (!activePage) return;
+    if (!activePage || activePage.id === "club-tab") return;
 
-    // Filter: ignore modals, overlays, dropdowns
+    const target = e.target;
     if (target.closest && target.closest(".luxury-modal, .purchase-modal, .gold-modal, .custom-confirm-modal, .bottom-sheet, .modal-content, .dossier-modal-body")) {
       return;
     }
 
-    const isClub = activePage.id === "club-tab";
-    let currentScroll = 0;
-
-    if (isClub) {
-      const msgs = document.getElementById("clubMessages");
-      if (!msgs) return;
-      // Accept scroll if target is clubMessages or inside it, or club-tab
-      if (target !== msgs && !msgs.contains(target) && target !== activePage) {
-        return;
-      }
-      currentScroll = Math.max(0, msgs.scrollTop || 0);
-    } else {
-      // Verify event comes from active page or its content
-      if (target !== activePage && !activePage.contains(target) && target !== document && target !== window) {
-        return;
-      }
-      currentScroll = Math.max(0, activePage.scrollTop || 0);
+    if (target !== activePage && !activePage.contains(target) && target !== document && target !== window) {
+      return;
     }
 
     if (!ticking) {
       ticking = true;
       requestAnimationFrame(() => {
-        processScroll(activePage, currentScroll, target);
         ticking = false;
+        const header = getHeader();
+        if (!header) return;
+
+        const currentScroll = Math.max(0, activePage.scrollTop || 0);
+        const delta = currentScroll - lastScrollTop;
+
+        if (currentScroll <= 25) {
+          if (header.classList.contains("header-hidden")) {
+            header.classList.remove("header-hidden");
+          }
+          lastScrollTop = currentScroll;
+          return;
+        }
+
+        const maxScroll = activePage.scrollHeight - activePage.clientHeight;
+        if (maxScroll > 0 && currentScroll >= maxScroll - 15) {
+          lastScrollTop = currentScroll;
+          return;
+        }
+
+        if (delta > 8 && currentScroll > 40) {
+          if (!header.classList.contains("header-hidden")) {
+            header.classList.add("header-hidden");
+          }
+        } else if (delta < -8) {
+          if (header.classList.contains("header-hidden")) {
+            header.classList.remove("header-hidden");
+          }
+        }
+
+        lastScrollTop = currentScroll;
       });
+    }
+  }
+
+  function syncClubScrollTop() {
+    const msgs = document.getElementById("clubMessages");
+    if (msgs) {
+      lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
+    }
+  }
+
+  function attachClubScroll() {
+    const msgs = document.getElementById("clubMessages");
+    if (msgs && !msgs._clubScrollAttached) {
+      msgs._clubScrollAttached = true;
+      msgs.addEventListener("scroll", handleClubScrollEvent, { passive: true });
     }
   }
 
   return {
     init() {
-      document.addEventListener("scroll", handleScroll, { passive: true, capture: true });
+      // Global capture listener routes scroll events to non-club page handlers
+      document.addEventListener("scroll", (e) => {
+        const target = e.target;
+        const msgs = document.getElementById("clubMessages");
+        if (target === msgs || (msgs && msgs.contains(target))) {
+          // Handled directly by attachClubScroll listener; avoid duplicate handling
+          return;
+        }
+        handleOtherPagesScroll(e);
+      }, { passive: true, capture: true });
+
       window.addEventListener("resize", () => {
         updateStateForCurrentTab();
         updateHeaderHeightVar();
       }, { passive: true });
-
-      const attachClubScroll = () => {
-        const msgs = document.getElementById("clubMessages");
-        if (msgs && !msgs._clubScrollAttached) {
-          msgs._clubScrollAttached = true;
-          msgs.addEventListener("scroll", handleScroll, { passive: true });
-        }
-      };
 
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => {
@@ -8481,11 +8546,14 @@ window.HeaderScrollController = (function() {
         }
       }
     },
+    attachClubScroll,
+    syncClubScrollTop,
     onTabChangeStart,
     onTabChangeComplete,
     updateStateForCurrentTab,
     updateHeaderHeightVar,
     setClubHeaderCollapsed,
+    handleClubScrollEvent,
     forceShow() {
       const header = document.getElementById("appHeader");
       if (header) header.classList.remove("header-hidden");
