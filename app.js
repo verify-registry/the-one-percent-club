@@ -2643,13 +2643,14 @@ updateUI();
 const copyToast = document.getElementById("copyToast");
 let goldCopyPopupTimer = null;
 
-function showGoldCopyPopup(title = "Link Copied to Clipboard", subtitle = "") {
+function showGoldCopyPopup(title, subtitle = "") {
   const popup = document.getElementById("goldCopyPopup");
   const titleEl = document.getElementById("goldCopyPopupTitle");
   const subEl = document.getElementById("goldCopyPopupSubtitle");
+  const resolvedTitle = title || (window.t ? window.t("misc.linkCopied") : "") || "Link Copied to Clipboard";
 
   if (titleEl) {
-    titleEl.textContent = title || "Link Copied to Clipboard";
+    titleEl.textContent = resolvedTitle;
   }
   if (subEl) {
     if (subtitle) {
@@ -2666,7 +2667,7 @@ function showGoldCopyPopup(title = "Link Copied to Clipboard", subtitle = "") {
 
   // Also update original copyToast for accessibility & fallback
   if (copyToast) {
-    copyToast.textContent = title;
+    copyToast.textContent = resolvedTitle;
     copyToast.classList.add("is-visible");
     setTimeout(() => copyToast.classList.remove("is-visible"), 2500);
   }
@@ -2696,7 +2697,7 @@ window.showGoldCopyPopup = showGoldCopyPopup;
 function showCopyToast(msg) {
   if (!msg || msg === window.t("misc.linkCopied") || String(msg).includes("نسخ") || String(msg).includes("Copied") || String(msg).includes("Link")) {
     const url = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl) ? ClubState.member.verifyUrl : "";
-    showGoldCopyPopup("Link Copied to Clipboard", url);
+    showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", url);
   } else {
     showGoldCopyPopup(msg, "");
   }
@@ -2731,9 +2732,9 @@ if (copyBtn) {
         document.execCommand("copy");
         document.body.removeChild(tempInput);
       }
-      showGoldCopyPopup("Link Copied to Clipboard", verifyUrl);
+      showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
     } catch {
-      showGoldCopyPopup("Link Copied to Clipboard", verifyUrl);
+      showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
     }
   });
 }
