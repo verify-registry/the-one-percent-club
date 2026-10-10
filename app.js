@@ -251,6 +251,24 @@ window.setLanguage = function (lang) {
     if (profileLevel) profileLevel.textContent = tierTrans;
     if (profileHeroTier) profileHeroTier.textContent = heroTierTrans;
   }
+
+  // Explicit sync for Member Dossier Modal & Honor Badge
+  const rankLabel = document.getElementById("memberDossierRankLabel");
+  if (rankLabel) {
+    rankLabel.textContent = window.t("memberDossier.standingTier", lang);
+  }
+  const regTitle = document.querySelector(".sd-reg-title");
+  if (regTitle) {
+    regTitle.textContent = window.t("memberDossier.registryTitle", lang);
+  }
+  const charterLabelEl = document.querySelector(".sd-reg-label[data-i18n='memberDossier.charterLabel']");
+  if (charterLabelEl) {
+    charterLabelEl.textContent = window.t("memberDossier.charterLabel", lang);
+  }
+  const hrrStatusBadge = document.getElementById("hrrStatusBadge");
+  if (hrrStatusBadge) {
+    hrrStatusBadge.textContent = window.t("honors.officialStatusBadge", lang);
+  }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -3365,6 +3383,12 @@ function openMemberProfile(member) {
   if (rankChip) rankChip.textContent = member.rank ? `#${member.rank}` : "#1";
   if (rankStat) rankStat.textContent = member.rank ? `#${member.rank}` : "#1";
 
+  // Rank Label (i18n)
+  const rankLabel = document.getElementById("memberDossierRankLabel");
+  if (rankLabel) {
+    rankLabel.textContent = window.t ? window.t("memberDossier.standingTier", isAr ? "ar" : "en") : (isAr ? "الرتبة السيادية" : "Sovereign Standing");
+  }
+
   // Status Stat & Jewel
   const statusStat = document.getElementById("memberDossierStatusStat");
   if (statusStat) {
@@ -3373,6 +3397,16 @@ function openMemberProfile(member) {
   const statusJewel = document.getElementById("memberDossierStatusJewel");
   if (statusJewel) {
     statusJewel.style.display = member.isOnline !== false ? "block" : "none";
+  }
+
+  // Dossier Registry Title & Labels (i18n)
+  const regTitle = document.querySelector(".sd-reg-title");
+  if (regTitle) {
+    regTitle.textContent = window.t ? window.t("memberDossier.registryTitle", isAr ? "ar" : "en") : (isAr ? "بيانات السجل السيادي المعتمد" : "Certified Sovereign Registry Records");
+  }
+  const charterLabelEl = document.querySelector(".sd-reg-label[data-i18n='memberDossier.charterLabel']");
+  if (charterLabelEl) {
+    charterLabelEl.textContent = window.t ? window.t("memberDossier.charterLabel", isAr ? "ar" : "en") : (isAr ? "ميثاق العضوية" : "Membership Charter");
   }
 
   // Dossier Charter & Access
@@ -5977,6 +6011,12 @@ function renderProfileAchievements() {
   let html = "";
   const totalAchievements = Object.keys(ACHIEVEMENTS_DATA).length;
   let earnedCount = 0;
+
+  // Sync Honor Badge status text with active language
+  const hrrStatusBadge = document.getElementById("hrrStatusBadge");
+  if (hrrStatusBadge) {
+    hrrStatusBadge.textContent = window.t ? window.t("honors.officialStatusBadge", window.currentLang) : (window.currentLang === "ar" ? "✦ معتمد رسميًا" : "✦ Officially Authenticated");
+  }
 
   // 1. Render Sovereign Diplomatic Ribbon Rack
   if (ribbonRack) {

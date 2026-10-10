@@ -4,7 +4,7 @@
   "description": "Exclusive Sovereign Membership Application",
   "scripts": {
     "build": "echo 'No build step required'",
-    "lint": "node -c server.js app.js Audio.js luxury.js translations.js artifacts.js",
+    "lint": "node -c server.js && node -c app.js && node -c Audio.js && node -c luxury.js && node -c translations.js && node -c artifacts.js",
     "start": "node server.js",
     "dev": "node server.js"
   },
