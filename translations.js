@@ -240,12 +240,12 @@ window.I18N = {
       ar: "أهلًا بك في ",
     },
     welcomeTitle: {
-      en: "Welcome to Members Lounge",
+      en: "Welcome to Sovereign Lounge",
       ar: "أهلًا بك في صالة الأعضاء",
     },
     welcomeSub: {
-      en: "Sovereign members space. Communicate with confidence.",
-      ar: "مساحة خاصة للأعضاء السياديين. تواصل بثقة.",
+      en: "A private circle. A higher standard.",
+      ar: "دائرة خاصة. بمعايير أرقى.",
     },
     wealthSub: {
       en: "High-conviction allocations and sovereign asset governance.",
@@ -272,8 +272,20 @@ window.I18N = {
       ar: "تشفير سيادي مغلق • جلسة سرية",
     },
     activeSessionPulse: {
-      en: "Active Sovereign Discourse & Markets",
-      ar: "جلسة تداول ومداولات سيادية نشطة",
+      en: "Active Trading Sessions",
+      ar: "جلسات تداول نشطة",
+    },
+    tickerUnavailable: {
+      en: "Unavailable",
+      ar: "غير متوفر",
+    },
+    tickerDelayed: {
+      en: "DELAYED",
+      ar: "متأخر",
+    },
+    tickerLive: {
+      en: "LIVE",
+      ar: "مباشر",
     },
     endorse: {
       en: "Endorse",

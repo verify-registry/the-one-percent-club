@@ -4059,7 +4059,7 @@ window.setClubFloatingControlsVisibility = function(visible) {
       composerWrap.removeAttribute("hidden");
       composerWrap.style.removeProperty("display");
       composerWrap.style.display = "flex";
-      composerWrap.style.pointerEvents = "none";
+      composerWrap.style.pointerEvents = "auto";
     } else {
       composerWrap.classList.add("is-hidden");
       composerWrap.setAttribute("hidden", "");
@@ -4127,14 +4127,19 @@ function switchChannel(channelId) {
     }
   } else {
     if (pinnedTitle) {
-      const prefix = window.t("club.welcomePrefix") || (AppState.language === "ar" ? "أهلًا بك في " : "Welcome to ");
-      const tKey = "club." + (channelId === "global-lounge" ? "lounge" : channelId);
-      let locName = channelData.name;
-      if (window.I18N && window.I18N.club && window.I18N.club[tKey.split('.')[1]]) {
-        locName = window.t(tKey);
+      if (channelId === "global-lounge") {
+        pinnedTitle.textContent = window.t("club.welcomeTitle");
+        pinnedTitle.setAttribute("data-i18n", "club.welcomeTitle");
+      } else {
+        const prefix = window.t("club.welcomePrefix") || (AppState.language === "ar" ? "أهلًا بك في " : "Welcome to ");
+        const tKey = "club." + channelId;
+        let locName = channelData.name;
+        if (window.I18N && window.I18N.club && window.I18N.club[channelId]) {
+          locName = window.t(tKey);
+        }
+        pinnedTitle.textContent = `${prefix}${locName}`;
+        pinnedTitle.removeAttribute("data-i18n");
       }
-      pinnedTitle.textContent = `${prefix}${locName}`;
-      pinnedTitle.removeAttribute("data-i18n");
     }
     if (pinnedSub) {
       const subKey = channelId === "global-lounge" ? "club.welcomeSub" : ("club." + channelId + "Sub");
@@ -4176,6 +4181,8 @@ function startClubWelcomeAutoDismiss(duration = 5000) {
   }
 
   plaque.classList.remove("is-collapsed");
+  plaque.removeAttribute("hidden");
+  plaque.style.removeProperty("display");
 
   clubWelcomeDismissTimer = setTimeout(() => {
     dismissClubWelcomePlaque();
@@ -4193,6 +4200,8 @@ function dismissClubWelcomePlaque() {
   const plaque = document.getElementById("clubPinnedInfo");
   if (!plaque) return;
   plaque.classList.add("is-collapsed");
+  plaque.setAttribute("hidden", "");
+  plaque.style.setProperty("display", "none", "important");
   if (clubWelcomeDismissTimer) {
     clearTimeout(clubWelcomeDismissTimer);
     clubWelcomeDismissTimer = null;
@@ -4214,77 +4223,183 @@ document.querySelectorAll(".club-room-btn").forEach((btn) => {
   });
 });
 
+let liveMarketData = null;
+let isFetchingMarket = false;
+let marketTickerTimer = null;
+
 function initSovereignSalonTicker() {
   const tickerEl = document.getElementById("sovereignSalonTicker");
   if (!tickerEl) return;
 
-  // Real-world precious metals benchmark rates & live trading hubs
-  const metalsData = [
-    { symbol: "XAU/USD", name: "GOLD", price: "2,654.80", change: "+0.84%", up: true },
-    { symbol: "XAG/USD", name: "SILVER", price: "31.75", change: "+1.20%", up: true },
-    { symbol: "XPT/USD", name: "PLATINUM", price: "988.40", change: "+0.45%", up: true },
-    { symbol: "XPD/USD", name: "PALLADIUM", price: "1,042.10", change: "-0.32%", up: false }
+  const REQUIRED_BENCHMARKS = [
+    // 1. Precious Metals Spot Prices
+    { cat: "METALS", catAr: "معادن", symbol: "XAU/USD", nameEn: "Gold Spot", nameAr: "الذهب الفوري", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "معادن", symbol: "XAG/USD", nameEn: "Silver Spot", nameAr: "الفضة الفورية", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "معادن", symbol: "XPT/USD", nameEn: "Platinum Spot", nameAr: "البلاتين الفوري", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "معادن", symbol: "XPD/USD", nameEn: "Palladium Spot", nameAr: "البلاديوم الفوري", unit: "oz", currency: "USD" },
+
+    // 2. Commodities & Energy
+    { cat: "ENERGY", catAr: "طاقة", symbol: "BRENT", nameEn: "Brent Crude", nameAr: "نفط برنت", unit: "bbl", currency: "USD" },
+    { cat: "ENERGY", catAr: "طاقة", symbol: "WTI", nameEn: "WTI Crude", nameAr: "الخام الأمريكي WTI", unit: "bbl", currency: "USD" },
+
+    // 3. Major Stock Indices
+    { cat: "INDICES", catAr: "مؤشرات", symbol: "SPX", nameEn: "S&P 500", nameAr: "ستاندرد آند بورز", unit: "pts", currency: "USD" },
+    { cat: "INDICES", catAr: "مؤشرات", symbol: "NDX", nameEn: "NASDAQ 100", nameAr: "ناسداك 100", unit: "pts", currency: "USD" },
+    { cat: "INDICES", catAr: "مؤشرات", symbol: "DJI", nameEn: "Dow Jones", nameAr: "داو جونز", unit: "pts", currency: "USD" },
+
+    // 4. Major Currency Pairs
+    { cat: "FX", catAr: "عملات", symbol: "EUR/USD", nameEn: "EUR / USD", nameAr: "يورو / دولار", unit: "", currency: "USD" },
+    { cat: "FX", catAr: "عملات", symbol: "GBP/USD", nameEn: "GBP / USD", nameAr: "استرليني / دولار", unit: "", currency: "USD" },
+    { cat: "FX", catAr: "عملات", symbol: "USD/CHF", nameEn: "USD / CHF", nameAr: "دولار / فرنك", unit: "", currency: "CHF" },
   ];
 
-  function getHubsMarkup() {
-    const now = new Date();
-    const utcHours = now.getUTCHours();
-    const zurichState = (utcHours >= 7 && utcHours <= 16) ? "LIVE" : "CLOSED";
-    const londonState = (utcHours >= 8 && utcHours <= 16) ? "OPEN" : "SETTLED";
-    const riyadhState = (utcHours >= 7 && utcHours <= 15) ? "PRIME" : "SECURED";
-    const nyState = (utcHours >= 13 && utcHours <= 20) ? "ACTIVE" : "MONITOR";
+  const SOVEREIGN_HUBS = [
+    { catEn: "HUBS", catAr: "مراكز", nameEn: "ZURICH", nameAr: "زيورخ ZURICH", statusTag: "OPEN" },
+    { catEn: "HUBS", catAr: "مراكز", nameEn: "LONDON", nameAr: "لندن LONDON", statusTag: "OPEN" },
+    { catEn: "HUBS", catAr: "مراكز", nameEn: "RIYADH", nameAr: "الرياض RIYADH", statusTag: "PRIME" },
+    { catEn: "HUBS", catAr: "مراكز", nameEn: "NEW YORK", nameAr: "نيويورك NY", statusTag: "ACTIVE" },
+  ];
 
-    return [
-      '<span class="ticker-hub-item"><span class="ticker-city">ZURICH</span> <span class="ticker-status-tag ' + (zurichState === "LIVE" ? "live" : "monitor") + '">' + zurichState + '</span></span>',
-      '<span class="ticker-dot-sep">•</span>',
-      '<span class="ticker-hub-item"><span class="ticker-city">LONDON</span> <span class="ticker-status-tag ' + (londonState === "OPEN" ? "live" : "monitor") + '">' + londonState + '</span></span>',
-      '<span class="ticker-dot-sep">•</span>',
-      '<span class="ticker-hub-item"><span class="ticker-city">RIYADH</span> <span class="ticker-status-tag ' + (riyadhState === "PRIME" ? "live" : "monitor") + '">' + riyadhState + '</span></span>',
-      '<span class="ticker-dot-sep">•</span>',
-      '<span class="ticker-hub-item"><span class="ticker-city">NEW YORK</span> <span class="ticker-status-tag ' + (nyState === "ACTIVE" ? "live" : "monitor") + '">' + nyState + '</span></span>'
-    ].join('');
+  function formatTime(isoStr) {
+    if (!isoStr) return "";
+    try {
+      const d = new Date(isoStr);
+      return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    } catch (e) {
+      return "";
+    }
   }
 
-  function getMetalsMarkup() {
-    return metalsData.map(m => {
-      const changeClass = m.up ? "is-up" : "is-down";
-      return '<span class="ticker-metal-item">' +
-        '<span class="ticker-metal-sym">' + m.symbol + '</span> ' +
-        '<span class="ticker-metal-price">$' + m.price + '</span> ' +
-        '<span class="ticker-metal-change ' + changeClass + '">' + m.change + '</span>' +
-      '</span>';
-    }).join('<span class="ticker-dot-sep">•</span>');
+  function buildTickerItems() {
+    const isAr = (typeof AppState !== "undefined" && AppState && AppState.language === "ar") ||
+      (document.documentElement.getAttribute("lang") === "ar") ||
+      (localStorage.getItem("one_percent_lang") === "ar");
+
+    const hasLiveQuotes = liveMarketData &&
+      (liveMarketData.status === "LIVE" || liveMarketData.status === "DELAYED") &&
+      Array.isArray(liveMarketData.instruments);
+
+    const sourceInstruments = hasLiveQuotes ? liveMarketData.instruments : REQUIRED_BENCHMARKS;
+
+    const items = sourceInstruments.map((item) => {
+      const catText = isAr ? (item.catAr || "أصول") : (item.cat || "ASSETS");
+      const nameText = isAr ? (item.nameAr || item.symbol) : (item.nameEn || item.symbol);
+      const isUnavailable = !hasLiveQuotes || item.price === null || item.status === "UNAVAILABLE";
+
+      let priceDisplay = "";
+      let statusBadge = "";
+
+      if (isUnavailable) {
+        priceDisplay = isAr ? "غير متوفر" : "Unavailable";
+        statusBadge = '<span class="ticker-status-tag unavailable">' + (isAr ? "غير متوفر" : "UNAVAILABLE") + '</span>';
+      } else {
+        const prefix = (item.currency === "USD" && item.cat !== "FX") ? "$" : "";
+        const suffix = item.unit ? (" " + item.unit) : (item.currency && item.cat !== "FX" ? (" " + item.currency) : "");
+        priceDisplay = prefix + item.formattedPrice + suffix;
+
+        const isStale = item.status === "STALE";
+        const isDelayed = item.status === "DELAYED";
+        const isLive = item.status === "LIVE";
+        const statusClass = isLive ? "live" : (isDelayed ? "delayed" : "stale");
+        const statusText = isLive
+          ? (isAr ? "مباشر" : "LIVE")
+          : (isDelayed ? (isAr ? "متأخر" : "DELAYED") : (isAr ? "مغلق" : "STALE"));
+        const timeBadge = item.lastUpdated ? ('<span class="ticker-time-tag">' + formatTime(item.lastUpdated) + '</span>') : "";
+        const typeBadge = item.instrumentType
+          ? ('<span class="ticker-sim-badge">' + (isAr ? (item.instrumentTypeAr || item.instrumentType) : item.instrumentType) + '</span>')
+          : "";
+
+        statusBadge = '<span class="ticker-status-tag ' + statusClass + '">' + statusText + '</span>' + typeBadge + timeBadge;
+      }
+
+      return (
+        '<span class="ticker-metal-item">' +
+        '<span class="ticker-cat-tag">' + catText + '</span> ' +
+        '<span class="ticker-metal-name">' + nameText + '</span> ' +
+        '<span class="ticker-metal-sym">' + item.symbol + '</span> ' +
+        '<span class="ticker-metal-price">' + priceDisplay + '</span> ' +
+        statusBadge +
+        '</span>'
+      );
+    });
+
+    // Add sovereign clearing financial hubs
+    const hubItems = SOVEREIGN_HUBS.map((hub) => {
+      const catText = isAr ? hub.catAr : hub.catEn;
+      const nameText = isAr ? hub.nameAr : hub.nameEn;
+      return (
+        '<span class="ticker-hub-item">' +
+        '<span class="ticker-cat-tag">' + catText + '</span> ' +
+        '<span class="ticker-city">' + nameText + '</span> ' +
+        '<span class="ticker-status-tag live">' + hub.statusTag + '</span>' +
+        '</span>'
+      );
+    });
+
+    return items.concat(hubItems).join('<span class="ticker-dot-sep">✦</span>');
   }
 
   function updateTicker() {
     let marqueeTrack = tickerEl.querySelector(".ticker-marquee-track");
+    let viewport = tickerEl.querySelector(".ticker-viewport");
+    if (!viewport) {
+      viewport = document.createElement("div");
+      viewport.className = "ticker-viewport";
+      tickerEl.appendChild(viewport);
+    }
     if (!marqueeTrack) {
-      const hubsRow = tickerEl.querySelector(".ticker-hubs-row");
-      if (hubsRow) hubsRow.remove();
-
-      let viewport = tickerEl.querySelector(".ticker-viewport");
-      if (!viewport) {
-        viewport = document.createElement("div");
-        viewport.className = "ticker-viewport";
-        tickerEl.appendChild(viewport);
-      }
       marqueeTrack = document.createElement("div");
       marqueeTrack.className = "ticker-marquee-track";
       viewport.appendChild(marqueeTrack);
     }
 
-    const contentGroup = '<div class="ticker-marquee-group">' +
-      getMetalsMarkup() +
-      '<span class="ticker-dot-sep">•</span>' +
-      getHubsMarkup() +
-      '<span class="ticker-dot-sep">•</span>' +
-    '</div>';
-
-    marqueeTrack.innerHTML = contentGroup + contentGroup;
+    const itemsHTML = buildTickerItems();
+    const groupHTML = '<div class="ticker-marquee-group">' + itemsHTML + '<span class="ticker-dot-sep">✦</span></div>';
+    marqueeTrack.innerHTML = groupHTML + groupHTML;
   }
 
+  let lastMarketFetchTime = 0;
+  async function fetchMarketQuotes(force = false) {
+    if (isFetchingMarket) return;
+    const now = Date.now();
+    if (!force && now - lastMarketFetchTime < 90000) return;
+    isFetchingMarket = true;
+    lastMarketFetchTime = now;
+    try {
+      const res = await fetch("/api/market-ticker", { cache: "no-store" });
+      if (res.ok) {
+        const json = await res.json();
+        liveMarketData = json;
+      }
+    } catch (err) {
+      // Graceful silence during background refresh
+    } finally {
+      isFetchingMarket = false;
+      updateTicker();
+    }
+  }
+
+  // Initial render (shows authentic instruments with verified unavailable status)
   updateTicker();
-  setInterval(updateTicker, 30000);
+
+  // Non-blocking asynchronous live quote check
+  setTimeout(() => fetchMarketQuotes(true), 250);
+
+  // Periodic poll respecting provider rate limits (120 seconds)
+  clearInterval(marketTickerTimer);
+  marketTickerTimer = setInterval(() => {
+    if (!document.hidden) {
+      fetchMarketQuotes(false);
+    }
+  }, 120000);
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      fetchMarketQuotes(false);
+    }
+  });
+
+  window.addEventListener("languageChanged", updateTicker);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -4505,7 +4620,26 @@ function buildMessageHTML(msg, idx, channelId) {
             <div class="dispatch-credentials">
               <div class="dispatch-primary-row">
                 <span class="dispatch-name" style="color: ${msg.senderColor || "#e6c27a"}"><bdi dir="auto">${safeSenderName}</bdi></span>
+                ${
+                  isMe
+                    ? `<span class="dispatch-seal-mark is-official-decree" title="${window.t("club.sealedDecree") || "وثيقة مختومة"}">
+                        <svg class="decree-seal-icon" viewBox="0 0 14 14" fill="none">
+                          <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.1" stroke-dasharray="2.2 1.2"/>
+                          <path d="M4.5 7.2l1.8 1.8 3.5-3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>`
+                    : ""
+                }
+              </div>
+              <div class="dispatch-meta-row">
                 <span class="dispatch-tier-hallmark">${displayTier}</span>
+                <span class="dispatch-sovereign-timestamp" title="${fullDateIso}">
+                  <svg class="sovereign-time-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="0.95" opacity="0.85"/>
+                    <path d="M6 3.2v2.8l1.6 1" stroke="currentColor" stroke-width="0.95" stroke-linecap="round"/>
+                  </svg>
+                  <span class="timestamp-precise-val">${preciseTimeStr}</span>
+                </span>
               </div>
               <div class="dispatch-secondary-row">
                 <span class="dispatch-seat-tag">${senderSeat}</span>
@@ -4513,25 +4647,6 @@ function buildMessageHTML(msg, idx, channelId) {
                 <span class="dispatch-wealth-tag">${senderWealth}</span>
               </div>
             </div>
-          </div>
-          <div class="dispatch-chronometer">
-            <span class="dispatch-sovereign-timestamp" title="${fullDateIso}">
-              <svg class="sovereign-time-icon" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="0.95" opacity="0.85"/>
-                <path d="M6 3.2v2.8l1.6 1" stroke="currentColor" stroke-width="0.95" stroke-linecap="round"/>
-              </svg>
-              <span class="timestamp-precise-val">${preciseTimeStr}</span>
-            </span>
-            ${
-              isMe
-                ? `<span class="dispatch-seal-mark is-official-decree" title="${window.t("club.sealedDecree") || "وثيقة مختومة"}">
-                    <svg class="decree-seal-icon" viewBox="0 0 14 14" fill="none">
-                      <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.1" stroke-dasharray="2.2 1.2"/>
-                      <path d="M4.5 7.2l1.8 1.8 3.5-3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </span>`
-                : ""
-            }
           </div>
         </div>
 
@@ -4637,6 +4752,44 @@ function buildMessageHTML(msg, idx, channelId) {
 
 }
 
+function scrollChatToLatest(smoothScroll = true) {
+  const container = document.getElementById("clubMessages");
+  if (!container) return;
+
+  const performScroll = (behavior) => {
+    const lastEl = container.lastElementChild;
+    if (lastEl && typeof lastEl.scrollIntoView === "function") {
+      try {
+        lastEl.scrollIntoView({
+          behavior: behavior,
+          block: "end",
+          inline: "nearest",
+        });
+        return;
+      } catch (e) {}
+    }
+    if (typeof container.scrollTo === "function" && behavior === "smooth") {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: "smooth",
+      });
+    } else {
+      container.scrollTop = container.scrollHeight;
+    }
+  };
+
+  const prefBehavior = smoothScroll ? "smooth" : "auto";
+  performScroll(prefBehavior);
+
+  requestAnimationFrame(() => {
+    performScroll(prefBehavior);
+  });
+  setTimeout(() => performScroll(prefBehavior), 80);
+  setTimeout(() => performScroll("auto"), 260);
+  setTimeout(() => performScroll("auto"), 500);
+}
+window.scrollChatToLatest = scrollChatToLatest;
+
 function appendMessageToChat(msg, idx, channelId, smoothScroll = true) {
   const container = document.getElementById("clubMessages");
   if (!container || AppState.activeChannelId !== channelId) return;
@@ -4644,16 +4797,7 @@ function appendMessageToChat(msg, idx, channelId, smoothScroll = true) {
   const html = buildMessageHTML(msg, idx, channelId);
   container.insertAdjacentHTML("beforeend", html);
 
-  if (smoothScroll && typeof container.scrollTo === "function") {
-    requestAnimationFrame(() => {
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: "smooth",
-      });
-    });
-  } else {
-    container.scrollTop = container.scrollHeight;
-  }
+  scrollChatToLatest(smoothScroll);
 }
 
 function renderMessages() {
@@ -4673,16 +4817,7 @@ function renderMessages() {
     .join("");
 
   const hasNewArrival = messages.some((m) => m.justDispatched || (Date.now() - (m.timestamp || 0) < 1800));
-  if (hasNewArrival && typeof container.scrollTo === "function") {
-    requestAnimationFrame(() => {
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: "smooth",
-      });
-    });
-  } else {
-    container.scrollTop = container.scrollHeight;
-  }
+  scrollChatToLatest(hasNewArrival);
 }
 window.renderMessages = renderMessages;
 window.appendMessageToChat = appendMessageToChat;
@@ -4805,11 +4940,17 @@ function handleSendMessage() {
 
       const { member: elite, text: replyText } = processEliteResponse(text);
       if (typingName) typingName.textContent = elite.name;
-      if (indicator) indicator.style.display = "flex";
+      if (indicator) {
+        indicator.style.display = "flex";
+        scrollChatToLatest(true);
+      }
 
       typingTimeout = setTimeout(
         () => {
-          if (indicator) indicator.style.display = "none";
+          if (indicator) {
+            indicator.style.display = "none";
+            scrollChatToLatest(true);
+          }
           if (!AppState.channels[channelId]) return;
 
           AppState.channels[channelId].messages.push({
