@@ -2013,7 +2013,7 @@ ClubState.on("change", () => {
   });
 
   const isStealth = localStorage.getItem("club_stealth_mode") === "true";
-  const stealthMoniker = window.currentLang === "ar" ? "عضو متخفٍ #8492" : "ANONYMOUS MEMBER #8492";
+  const stealthMoniker = (window.t && window.t("profile.stealthMoniker")) || "SOVEREIGN SHADOW • 001";
 
   const pName = document.getElementById("profileName");
   if (pName) {
