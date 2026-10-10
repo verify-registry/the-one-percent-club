@@ -34384,11 +34384,7 @@ body.light-mode #logoutConfirmModal p {
 }
 
 /* 3. Sovereign Salon Ticker Responsive Overlap Fix (Hide secondary hubs on narrow screens) */
-@media (max-width: 390px) {
-  .ticker-hubs-row {
-    display: none !important;
-  }
-}
+/* Ticker hubs row responsive: replaced by smooth continuous marquee ticker */
 
 /* 4. Member Dossier Rivet Overlapping Close Button Fix */
 .sd-card-header .sd-corner-rivet:first-child {
@@ -34406,3 +34402,330 @@ body.light-mode #logoutConfirmModal p {
 
 
 
+
+
+/* ==========================================================================
+   THE 1% CLUB — REFINED CLUB TAB UI REPAIRS (MICRO-PASS)
+   1. Compact animated trading ticker for gold and precious metals
+   2. Reduced height of welcome banner (quiet luxury, compact)
+   3. Message allocation segmented quota gauge
+   4. Centered "برقية مشفرة" badge inside pill
+   ========================================================================== */
+
+/* 1. COMPACT CONTINUOUS ANIMATED TRADING TICKER */
+.sovereign-salon-ticker {
+  position: absolute !important;
+  top: 4px !important;
+  left: 6px !important;
+  right: 6px !important;
+  z-index: 12 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 4px 10px !important;
+  margin: 0 !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(180deg, rgba(26, 22, 18, 0.94) 0%, rgba(14, 12, 10, 0.96) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.22) !important;
+  border-top: 1px solid rgba(233, 200, 119, 0.35) !important;
+  border-bottom: 1px solid rgba(120, 95, 38, 0.28) !important;
+  border-radius: 9px !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  overflow: hidden !important;
+}
+
+.ticker-pulse-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  flex-shrink: 0 !important;
+  padding-inline-end: 8px !important;
+  border-inline-end: 1px solid rgba(212, 175, 55, 0.2) !important;
+  white-space: nowrap !important;
+  z-index: 2 !important;
+}
+
+.ticker-viewport {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  mask-image: linear-gradient(90deg, transparent 0%, black 12px, black calc(100% - 12px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 12px, black calc(100% - 12px), transparent 100%);
+}
+
+.ticker-marquee-track {
+  display: flex !important;
+  align-items: center !important;
+  width: max-content !important;
+  will-change: transform !important;
+  animation: continuousTickerScroll 28s linear infinite !important;
+}
+
+.ticker-marquee-track:hover {
+  animation-play-state: paused !important;
+}
+
+@keyframes continuousTickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+html[dir="rtl"] .ticker-marquee-track {
+  animation: continuousTickerScrollRTL 28s linear infinite !important;
+}
+
+@keyframes continuousTickerScrollRTL {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
+
+.ticker-marquee-group {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding-inline-end: 8px !important;
+  white-space: nowrap !important;
+  font-family: 'SF Mono', Monaco, Consolas, monospace !important;
+  font-size: 8.5px !important;
+  letter-spacing: 0.03em !important;
+  color: #c9bea9 !important;
+}
+
+.ticker-metal-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3.5px !important;
+}
+
+.ticker-metal-sym {
+  color: #dfcaa2 !important;
+  font-weight: 700 !important;
+}
+
+.ticker-metal-price {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.ticker-metal-change {
+  font-size: 7.5px !important;
+  font-weight: 700 !important;
+  padding: 1px 3.5px !important;
+  border-radius: 3px !important;
+  line-height: 1 !important;
+}
+
+.ticker-metal-change.is-up {
+  color: #10b981 !important;
+  background: rgba(16, 185, 129, 0.12) !important;
+  border: 0.5px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.ticker-metal-change.is-down {
+  color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  border: 0.5px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+/* 2. REDUCE EXCESSIVE HEIGHT OF WELCOME BANNER (QUIET LUXURY, REFINED) */
+#club-tab .club-pinned,
+#club-tab .club-chamber-plaque {
+  padding: 4px 10px !important;
+  margin: 3px 6px 5px 6px !important;
+  max-height: 44px !important;
+  min-height: 42px !important;
+  border-radius: 10px !important;
+}
+
+.chamber-plaque-icon-wrap,
+#clubPinnedIconWrap {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+}
+
+.chamber-plaque-svg,
+#clubPinnedSvg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.chamber-plaque-body {
+  gap: 1px !important;
+}
+
+.chamber-plaque-title,
+#clubPinnedTitle {
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+}
+
+.chamber-plaque-sub,
+#clubPinnedSub {
+  font-size: 9.5px !important;
+  line-height: 1.2 !important;
+  opacity: 0.9 !important;
+}
+
+.chamber-plaque-close-btn,
+.chamber-plaque-dismiss-btn,
+#clubPinnedDismissBtn {
+  width: 19px !important;
+  height: 19px !important;
+  min-width: 19px !important;
+  min-height: 19px !important;
+}
+
+.chamber-plaque-close-btn svg,
+.chamber-plaque-dismiss-btn svg,
+#clubPinnedDismissBtn svg {
+  width: 8.5px !important;
+  height: 8.5px !important;
+}
+
+/* 3. COMPACT SEGMENTED MESSAGE-QUOTA INDICATOR (GAUGE PIPS STRIP) */
+.gauge-pips-strip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2.5px !important;
+  margin-inline-start: 5px !important;
+  flex-shrink: 0 !important;
+  vertical-align: middle !important;
+}
+
+.gauge-pip {
+  width: 3.5px !important;
+  height: 9px !important;
+  border-radius: 1.5px !important;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  box-sizing: border-box !important;
+}
+
+.gauge-pip.is-filled {
+  background: linear-gradient(180deg, #ffeec2 0%, #dfb356 60%, #997321 100%) !important;
+  box-shadow: 0 0 4px rgba(212, 175, 106, 0.45) !important;
+  border: 0.5px solid rgba(255, 235, 175, 0.6) !important;
+}
+
+.gauge-pip.is-spent {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 0.5px solid rgba(212, 175, 106, 0.15) !important;
+  opacity: 0.45 !important;
+}
+
+.gauge-pips-strip.is-shimmering .gauge-pip.is-filled {
+  animation: gaugePipShimmer 0.75s ease !important;
+}
+
+@keyframes gaugePipShimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 5px rgba(255, 235, 175, 0.8)); }
+}
+
+@media (max-width: 400px) {
+  .gauge-pip {
+    width: 3px !important;
+    height: 8px !important;
+  }
+  .gauge-pips-strip {
+    gap: 2px !important;
+  }
+}
+
+@media (max-width: 350px) {
+  .gauge-pip {
+    width: 2.5px !important;
+    height: 7px !important;
+  }
+  .gauge-pips-strip {
+    gap: 1.5px !important;
+  }
+}
+
+/* 4. VERTICALLY AND HORIZONTALLY CENTERED "برقية مشفرة" BADGE */
+.whisper-cipher-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  padding: 4px 9px !important;
+  border-radius: 20px !important;
+  min-height: 26px !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  align-self: center !important;
+  line-height: 1 !important;
+  text-align: center !important;
+}
+
+.whisper-cipher-svg {
+  display: block !important;
+  width: 12px !important;
+  height: 12px !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+.whisper-cipher-text {
+  display: inline-block !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 480px) {
+  .whisper-cipher-toggle {
+    padding: 3.5px 7px !important;
+    min-height: 24px !important;
+    gap: 3.5px !important;
+    margin: 0 !important;
+    align-self: center !important;
+  }
+  .whisper-cipher-svg {
+    width: 11px !important;
+    height: 11px !important;
+  }
+  .whisper-cipher-text {
+    font-size: 8.5px !important;
+    line-height: 1 !important;
+  }
+}
+
+/* Light Mode Adaptations for New Components */
+body.light-mode .sovereign-salon-ticker {
+  background: linear-gradient(180deg, rgba(255, 253, 249, 0.96) 0%, rgba(247, 242, 233, 0.98) 100%) !important;
+  border: 1px solid rgba(168, 124, 45, 0.25) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(138, 98, 28, 0.25) !important;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+body.light-mode .ticker-metal-sym {
+  color: #6d5225 !important;
+}
+
+body.light-mode .ticker-metal-price {
+  color: #1a150c !important;
+}
+
+body.light-mode .gauge-pip.is-filled {
+  background: linear-gradient(180deg, #d4af37 0%, #aa8022 100%) !important;
+  box-shadow: 0 0 3px rgba(184, 142, 62, 0.4) !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+body.light-mode .gauge-pip.is-spent {
+  background: rgba(156, 109, 35, 0.12) !important;
+  border: 0.5px solid rgba(156, 109, 35, 0.22) !important;
+}

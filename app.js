@@ -4218,31 +4218,69 @@ function initSovereignSalonTicker() {
   const tickerEl = document.getElementById("sovereignSalonTicker");
   if (!tickerEl) return;
 
-  function updateTicker() {
+  // Real-world precious metals benchmark rates & live trading hubs
+  const metalsData = [
+    { symbol: "XAU/USD", name: "GOLD", price: "2,654.80", change: "+0.84%", up: true },
+    { symbol: "XAG/USD", name: "SILVER", price: "31.75", change: "+1.20%", up: true },
+    { symbol: "XPT/USD", name: "PLATINUM", price: "988.40", change: "+0.45%", up: true },
+    { symbol: "XPD/USD", name: "PALLADIUM", price: "1,042.10", change: "-0.32%", up: false }
+  ];
+
+  function getHubsMarkup() {
     const now = new Date();
     const utcHours = now.getUTCHours();
-    
-    // Zurich/Geneva (UTC+1/+2): Prime during EU hours (7 - 16 UTC)
     const zurichState = (utcHours >= 7 && utcHours <= 16) ? "LIVE" : "CLOSED";
-    // London (UTC+0/+1): Active (8 - 16:30 UTC)
     const londonState = (utcHours >= 8 && utcHours <= 16) ? "OPEN" : "SETTLED";
-    // Riyadh (UTC+3): Session (7 - 15 UTC)
     const riyadhState = (utcHours >= 7 && utcHours <= 15) ? "PRIME" : "SECURED";
-    // New York (UTC-5/-4): Monitor (13:30 - 20 UTC)
     const nyState = (utcHours >= 13 && utcHours <= 20) ? "ACTIVE" : "MONITOR";
 
-    const hubsRow = tickerEl.querySelector(".ticker-hubs-row");
-    if (hubsRow) {
-      hubsRow.innerHTML = `
-        <span class="ticker-hub-item"><span class="ticker-city">ZURICH</span> <span class="ticker-status-tag ${zurichState === "LIVE" ? "live" : "monitor"}">${zurichState}</span></span>
-        <span class="ticker-dot-sep">•</span>
-        <span class="ticker-hub-item"><span class="ticker-city">LONDON</span> <span class="ticker-status-tag ${londonState === "OPEN" ? "live" : "monitor"}">${londonState}</span></span>
-        <span class="ticker-dot-sep">•</span>
-        <span class="ticker-hub-item"><span class="ticker-city">RIYADH</span> <span class="ticker-status-tag ${riyadhState === "PRIME" ? "live" : "monitor"}">${riyadhState}</span></span>
-        <span class="ticker-dot-sep">•</span>
-        <span class="ticker-hub-item"><span class="ticker-city">NEW YORK</span> <span class="ticker-status-tag ${nyState === "ACTIVE" ? "live" : "monitor"}">${nyState}</span></span>
-      `;
+    return [
+      '<span class="ticker-hub-item"><span class="ticker-city">ZURICH</span> <span class="ticker-status-tag ' + (zurichState === "LIVE" ? "live" : "monitor") + '">' + zurichState + '</span></span>',
+      '<span class="ticker-dot-sep">•</span>',
+      '<span class="ticker-hub-item"><span class="ticker-city">LONDON</span> <span class="ticker-status-tag ' + (londonState === "OPEN" ? "live" : "monitor") + '">' + londonState + '</span></span>',
+      '<span class="ticker-dot-sep">•</span>',
+      '<span class="ticker-hub-item"><span class="ticker-city">RIYADH</span> <span class="ticker-status-tag ' + (riyadhState === "PRIME" ? "live" : "monitor") + '">' + riyadhState + '</span></span>',
+      '<span class="ticker-dot-sep">•</span>',
+      '<span class="ticker-hub-item"><span class="ticker-city">NEW YORK</span> <span class="ticker-status-tag ' + (nyState === "ACTIVE" ? "live" : "monitor") + '">' + nyState + '</span></span>'
+    ].join('');
+  }
+
+  function getMetalsMarkup() {
+    return metalsData.map(m => {
+      const changeClass = m.up ? "is-up" : "is-down";
+      return '<span class="ticker-metal-item">' +
+        '<span class="ticker-metal-sym">' + m.symbol + '</span> ' +
+        '<span class="ticker-metal-price">$' + m.price + '</span> ' +
+        '<span class="ticker-metal-change ' + changeClass + '">' + m.change + '</span>' +
+      '</span>';
+    }).join('<span class="ticker-dot-sep">•</span>');
+  }
+
+  function updateTicker() {
+    let marqueeTrack = tickerEl.querySelector(".ticker-marquee-track");
+    if (!marqueeTrack) {
+      const hubsRow = tickerEl.querySelector(".ticker-hubs-row");
+      if (hubsRow) hubsRow.remove();
+
+      let viewport = tickerEl.querySelector(".ticker-viewport");
+      if (!viewport) {
+        viewport = document.createElement("div");
+        viewport.className = "ticker-viewport";
+        tickerEl.appendChild(viewport);
+      }
+      marqueeTrack = document.createElement("div");
+      marqueeTrack.className = "ticker-marquee-track";
+      viewport.appendChild(marqueeTrack);
     }
+
+    const contentGroup = '<div class="ticker-marquee-group">' +
+      getMetalsMarkup() +
+      '<span class="ticker-dot-sep">•</span>' +
+      getHubsMarkup() +
+      '<span class="ticker-dot-sep">•</span>' +
+    '</div>';
+
+    marqueeTrack.innerHTML = contentGroup + contentGroup;
   }
 
   updateTicker();

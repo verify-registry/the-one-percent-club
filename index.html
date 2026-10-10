@@ -972,7 +972,7 @@
                 أهلًا بك في صالة الأعضاء
               </h4>
               <p class="chamber-plaque-sub" id="clubPinnedSub" data-i18n="club.welcomeSub">
-                مساحة الأعضاء السياديين. تواصل بثقة.
+                مساحة خاصة للأعضاء السياديين. تواصل بثقة.
               </p>
             </div>
 
@@ -1097,14 +1097,45 @@
                 <span class="ticker-pulse-orb"></span>
                 <span class="ticker-pulse-text" data-i18n="club.activeSessionPulse">جلسة تداول ومداولات سيادية نشطة</span>
               </div>
-              <div class="ticker-hubs-row">
-                <span class="ticker-hub-item"><span class="ticker-city">ZURICH</span> <span class="ticker-status-tag live">LIVE</span></span>
-                <span class="ticker-dot-sep">•</span>
-                <span class="ticker-hub-item"><span class="ticker-city">LONDON</span> <span class="ticker-status-tag live">OPEN</span></span>
-                <span class="ticker-dot-sep">•</span>
-                <span class="ticker-hub-item"><span class="ticker-city">RIYADH</span> <span class="ticker-status-tag live">PRIME</span></span>
-                <span class="ticker-dot-sep">•</span>
-                <span class="ticker-hub-item"><span class="ticker-city">NEW YORK</span> <span class="ticker-status-tag monitor">MONITOR</span></span>
+              <div class="ticker-viewport">
+                <div class="ticker-marquee-track">
+                  <div class="ticker-marquee-group">
+                    <span class="ticker-metal-item"><span class="ticker-metal-sym">XAU/USD</span> <span class="ticker-metal-price">$2,654.80</span> <span class="ticker-metal-change is-up">+0.84%</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-metal-item"><span class="ticker-metal-sym">XAG/USD</span> <span class="ticker-metal-price">$31.75</span> <span class="ticker-metal-change is-up">+1.20%</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-metal-item"><span class="ticker-metal-sym">XPT/USD</span> <span class="ticker-metal-price">$988.40</span> <span class="ticker-metal-change is-up">+0.45%</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-metal-item"><span class="ticker-metal-sym">XPD/USD</span> <span class="ticker-metal-price">$1,042.10</span> <span class="ticker-metal-change is-down">-0.32%</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-hub-item"><span class="ticker-city">ZURICH</span> <span class="ticker-status-tag live">LIVE</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-hub-item"><span class="ticker-city">LONDON</span> <span class="ticker-status-tag live">OPEN</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-hub-item"><span class="ticker-city">RIYADH</span> <span class="ticker-status-tag live">PRIME</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-hub-item"><span class="ticker-city">NEW YORK</span> <span class="ticker-status-tag monitor">MONITOR</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                  </div>
+                  <div class="ticker-marquee-group" aria-hidden="true">
+                    <span class="ticker-metal-item"><span class="ticker-metal-sym">XAU/USD</span> <span class="ticker-metal-price">$2,654.80</span> <span class="ticker-metal-change is-up">+0.84%</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-metal-item"><span class="ticker-metal-sym">XAG/USD</span> <span class="ticker-metal-price">$31.75</span> <span class="ticker-metal-change is-up">+1.20%</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-metal-item"><span class="ticker-metal-sym">XPT/USD</span> <span class="ticker-metal-price">$988.40</span> <span class="ticker-metal-change is-up">+0.45%</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-metal-item"><span class="ticker-metal-sym">XPD/USD</span> <span class="ticker-metal-price">$1,042.10</span> <span class="ticker-metal-change is-down">-0.32%</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-hub-item"><span class="ticker-city">ZURICH</span> <span class="ticker-status-tag live">LIVE</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-hub-item"><span class="ticker-city">LONDON</span> <span class="ticker-status-tag live">OPEN</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-hub-item"><span class="ticker-city">RIYADH</span> <span class="ticker-status-tag live">PRIME</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                    <span class="ticker-hub-item"><span class="ticker-city">NEW YORK</span> <span class="ticker-status-tag monitor">MONITOR</span></span>
+                    <span class="ticker-dot-sep">•</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1143,6 +1174,18 @@
                 <span class="club-credits-crown">⚜️</span>
                 <span class="club-credits-label" data-i18n="club.ledgerAllocationTitle">مخصص المراسلات</span>
                 <span class="club-credits-readout" id="clubCreditsText"><bdi>10</bdi> / <bdi>10</bdi></span>
+                <div class="gauge-pips-strip" id="gaugePipsStrip" aria-label="Message Allocation Gauge" role="meter" aria-valuenow="10" aria-valuemin="0" aria-valuemax="10">
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                  <span class="gauge-pip is-filled"></span>
+                </div>
               </div>
               <button
                 class="club-credits-buy sovereign-allocation-seal-btn liquid-glass-btn"

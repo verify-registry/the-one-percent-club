@@ -245,7 +245,7 @@ window.I18N = {
     },
     welcomeSub: {
       en: "Sovereign members space. Communicate with confidence.",
-      ar: "مساحة الأعضاء السياديين. تواصل بثقة.",
+      ar: "مساحة خاصة للأعضاء السياديين. تواصل بثقة.",
     },
     wealthSub: {
       en: "High-conviction allocations and sovereign asset governance.",
