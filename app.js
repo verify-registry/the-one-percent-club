@@ -5654,6 +5654,18 @@ const initProfileAndModals = () => {
           if (closed) {
             e.preventDefault();
             e.stopPropagation();
+            return;
+          }
+        }
+
+        // Fallback: If no modal overlay is open, close active full-screen Member Dossier page
+        const pageMember = document.getElementById("page-member");
+        if (pageMember && !pageMember.hidden && pageMember.classList.contains("is-active")) {
+          const closeFn = window.closeMemberProfile || (typeof closeMemberProfile === "function" ? closeMemberProfile : null);
+          if (closeFn) {
+            closeFn();
+            e.preventDefault();
+            e.stopPropagation();
           }
         }
       }
