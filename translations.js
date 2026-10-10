@@ -66,6 +66,10 @@ window.I18N = {
   },
   common: {
     close: {
+      en: "Close",
+      ar: "إغلاق",
+    },
+    closeDecree: {
       en: "Close Decree",
       ar: "إغلاق البراءة",
     },
@@ -1336,6 +1340,10 @@ window.I18N = {
     purchaseSuccess: {
       en: "Purchase Successful",
       ar: "تم الشراء بنجاح",
+    },
+    depositBalance: {
+      en: "Deposit Balance",
+      ar: "إيداع رصيد",
     },
     depositTitle: {
       en: "Sovereign Balance Deposit",

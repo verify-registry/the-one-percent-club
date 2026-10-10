@@ -615,7 +615,7 @@
               <div class="card-metrics-footer">
                 <div
                   class="card-identity-metrics"
-                  aria-label="مؤشرات الهوية"
+                  aria-label="Identity Metrics"
                   data-i18n-aria-label="membership.idMetrics"
                 >
                   <div
@@ -625,7 +625,7 @@
                     role="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    aria-label="مؤشر الثروة"
+                    aria-label="Wealth Index"
                     data-i18n-aria-label="membership.wealthIndex"
                   >
                     <svg class="ring-svg" viewBox="0 0 120 120">
@@ -689,7 +689,7 @@
                     role="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    aria-label="الامتيازات"
+                    aria-label="Privileges"
                     data-i18n-aria-label="membership.privileges"
                   >
                     <svg class="ring-svg" viewBox="0 0 120 120">
@@ -980,9 +980,9 @@
               class="chamber-plaque-close-btn chamber-plaque-dismiss-btn"
               id="clubPinnedDismissBtn"
               type="button"
-              title="إخفاء الترحيب"
+              title="Dismiss Welcome"
               data-i18n-title="club.dismissWelcome"
-              aria-label="إغلاق"
+              aria-label="Close"
               data-i18n-aria-label="common.close"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1148,8 +1148,10 @@
                 class="club-credits-buy sovereign-allocation-seal-btn liquid-glass-btn"
                 id="clubCreditsBuyBtn"
                 type="button"
-                title="طلب اعتماد رصيد مراسلات إضافي"
+                title="Request additional message allocation"
                 data-i18n-title="club.buyCreditsTip"
+                aria-label="Request Allocation"
+                data-i18n-aria-label="club.requestAllocation"
               >
                 <span class="alloc-plus-glyph" aria-hidden="true">+</span>
                 <span class="alloc-btn-label" data-i18n="club.requestAllocation">طلب اعتماد رصيد</span>
@@ -1163,8 +1165,10 @@
                 type="button"
                 class="whisper-cipher-toggle"
                 id="whisperCipherToggle"
-                title="تفعيل البرقية المشفرة / السرية"
+                title="Enable encrypted cipher dispatch"
                 data-i18n-title="club.whisperTip"
+                aria-label="Encrypted Dispatch"
+                data-i18n-aria-label="club.whisperToggle"
                 aria-pressed="false"
               >
                 <svg class="whisper-cipher-svg" viewBox="0 0 24 24" fill="none">
@@ -1190,9 +1194,9 @@
                 class="sovereign-seal-send-btn"
                 id="clubSendBtn"
                 type="button"
-                aria-label="إرسال"
+                aria-label="Send"
                 data-i18n-aria-label="club.send"
-                title="ختم وإرسال عبر القنوات السيادية"
+                title="Seal & dispatch via sovereign channels"
                 data-i18n-title="club.sendTip"
               >
                 <svg
@@ -1294,9 +1298,9 @@
                 class="sd-close-btn"
                 id="memberProfileCloseBtn"
                 type="button"
-                aria-label="Close Member Profile"
+                aria-label="Close"
                 data-i18n-aria-label="common.close"
-                title="إغلاق الملف والعودة إلى لوحة الشرف"
+                title="Close dossier & return to honor roll"
                 data-i18n-title="memberDossier.closeTip"
                 onclick="closeMemberProfile()"
               >
@@ -1428,19 +1432,19 @@
                 <span data-i18n="memberDossier.honorsTitle">أوسمة ومقتنيات الشرف السيادية</span>
               </div>
               <div class="sd-artifacts-row">
-                <div class="sd-artifact-item" title="تاج السيادة" data-i18n-title="memberDossier.crownArtifact">
+                <div class="sd-artifact-item" title="Sovereign Crown" data-i18n-title="memberDossier.crownArtifact">
                   <div class="sd-artifact-emblem">👑</div>
                   <span class="sd-artifact-name" data-i18n="memberDossier.crownArtifact">تاج السيادة</span>
                 </div>
-                <div class="sd-artifact-item" title="خاتم الذهب المعتق" data-i18n-title="memberDossier.ringArtifact">
+                <div class="sd-artifact-item" title="Gold Signet" data-i18n-title="memberDossier.ringArtifact">
                   <div class="sd-artifact-emblem">💍</div>
                   <span class="sd-artifact-name" data-i18n="memberDossier.ringArtifact">خاتم الذهب</span>
                 </div>
-                <div class="sd-artifact-item" title="وسام الشرف المذهب" data-i18n-title="memberDossier.medalArtifact">
+                <div class="sd-artifact-item" title="Medal of Honor" data-i18n-title="memberDossier.medalArtifact">
                   <div class="sd-artifact-emblem">⚜️</div>
                   <span class="sd-artifact-name" data-i18n="memberDossier.medalArtifact">وسام الشرف</span>
                 </div>
-                <div class="sd-artifact-item" title="الختم المشفر" data-i18n-title="memberDossier.sealArtifact">
+                <div class="sd-artifact-item" title="Sovereign Seal" data-i18n-title="memberDossier.sealArtifact">
                   <div class="sd-artifact-emblem">🛡️</div>
                   <span class="sd-artifact-name" data-i18n="memberDossier.sealArtifact">الختم السيادي</span>
                 </div>
@@ -1513,8 +1517,8 @@
               type="button"
               class="phc-edit-btn"
               id="editAccountBtn"
-              title="تعديل الملف"
-              aria-label="تعديل الملف"
+              title="Edit Profile"
+              aria-label="Edit Profile"
               data-i18n-title="profile.editProfile"
               data-i18n-aria-label="profile.editProfile"
             >
@@ -1529,7 +1533,7 @@
             <div class="phc-horizontal-layout">
               <!-- 1. LEFT: Floating 3D Portrait Medallion -->
               <div class="phc-left-col">
-                <div class="phc-medallion-case" id="profileMedallionCase" title="انقر لتعديل الصورة والبيانات" data-i18n-title="profile.editMedallionTip">
+                <div class="phc-medallion-case" id="profileMedallionCase" title="Click to edit photo and credentials" data-i18n-title="profile.editMedallionTip" aria-label="Click to edit photo and credentials" data-i18n-aria-label="profile.editMedallionTip">
                   <!-- Equipped Collectible Slots -->
                   <div class="phc-equipped-aura-slot" id="profileEquippedAuraSlot" aria-hidden="true"></div>
                   <div class="phc-equipped-crown-slot" id="profileEquippedCrownSlot" aria-hidden="true"></div>
@@ -2115,7 +2119,7 @@
                     </div>
                     <h3 class="pcc-title" data-i18n="profile.circlesTitle">الدوائر والمجالات السيادية</h3>
                   </div>
-                  <button type="button" class="pcc-curate-btn" id="btnCurateCircles" title="تعديل الدوائر والمجالات" data-i18n-title="profile.circlesEditTitle" aria-label="Curate Circles" data-i18n-aria-label="profile.circlesEditTitle">
+                  <button type="button" class="pcc-curate-btn" id="btnCurateCircles" title="Curate Sovereign Circles" data-i18n-title="profile.circlesEditTitle" aria-label="Curate Sovereign Circles" data-i18n-aria-label="profile.circlesEditTitle">
                     <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8">
                       <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
                     </svg>
@@ -2423,7 +2427,7 @@
                 id="boutiqueAddBalanceBtn"
                 aria-label="Add Balance"
                 data-i18n-aria-label="profile.addBalance"
-                title="إيداع رصيد"
+                title="Sovereign Balance Deposit"
                 data-i18n-title="boutique.depositTitle"
               >
                 <svg
@@ -2551,7 +2555,7 @@
       <div class="reliquary-modal-backdrop" id="reliquaryInspectModal" hidden="" aria-hidden="true" onclick="if (event.target === this) closeReliquaryInspectModal()">
         <div class="reliquary-modal-card luxury-tilt-card" id="reliquaryCertificateCard" role="dialog" aria-modal="true" aria-labelledby="reliquaryItemTitle">
           <!-- Top Sovereign Circular Close Button -->
-          <button type="button" class="rmc-close-btn" id="reliquaryModalCloseBtn" onclick="closeReliquaryInspectModal()" aria-label="إغلاق" data-i18n-aria-label="common.close">
+          <button type="button" class="rmc-close-btn" id="reliquaryModalCloseBtn" onclick="closeReliquaryInspectModal()" aria-label="Close" data-i18n-aria-label="common.close">
             <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -2651,7 +2655,7 @@
                   <h3 class="rmc-artifact-title" id="reliquaryItemTitle">ARTIFACT TITLE</h3>
                 </div>
                 <div class="rmc-meta-line">
-                  <div class="rmc-serial-row" onclick="window.copyReliquarySerial()" title="انقر لنسخ رقم التوثيق" data-i18n-title="profile.copySerialTip" role="button" tabindex="0">
+                  <div class="rmc-serial-row" onclick="window.copyReliquarySerial()" title="Click to copy authentication serial" data-i18n-title="profile.copySerialTip" aria-label="Click to copy authentication serial" data-i18n-aria-label="profile.copySerialTip" role="button" tabindex="0">
                     <span class="rmc-serial-prefix">№</span>
                     <span class="rmc-serial" id="reliquaryItemSerial">ARC-0001-GOLD</span>
                     <svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.8" class="rmc-copy-icon">
@@ -2719,7 +2723,7 @@
         <div class="purchase-modal boutique-curatorial-modal" role="dialog" aria-modal="true" aria-labelledby="inspectionTitle">
           <div class="rmc-document-frame">
             <!-- Modal Close Button -->
-            <button type="button" class="rmc-close-btn" id="inspectionCloseBtn" onclick="closeInspectionModal()" aria-label="Close">
+            <button type="button" class="rmc-close-btn" id="inspectionCloseBtn" onclick="closeInspectionModal()" aria-label="Close" data-i18n-aria-label="common.close">
               <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -2801,7 +2805,7 @@
       <!-- CREDITS PURCHASE MODAL -->
       <div class="purchase-modal-overlay" id="creditsModal" hidden="" onclick="if (event.target === this) window.closeCreditsModal()">
         <div class="purchase-modal">
-          <button type="button" class="rmc-close-btn" id="creditsCloseBtn" onclick="window.closeCreditsModal()" aria-label="Close">
+          <button type="button" class="rmc-close-btn" id="creditsCloseBtn" onclick="window.closeCreditsModal()" aria-label="Close" data-i18n-aria-label="common.close">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -2869,7 +2873,7 @@
       <!-- SOVEREIGN BALANCE DEPOSIT MODAL -->
       <div class="purchase-modal-overlay" id="depositModal" hidden="" onclick="if (event.target === this) window.closeDepositModal()">
         <div class="purchase-modal">
-          <button type="button" class="rmc-close-btn" id="depositCloseBtn" onclick="window.closeDepositModal()" aria-label="Close">
+          <button type="button" class="rmc-close-btn" id="depositCloseBtn" onclick="window.closeDepositModal()" aria-label="Close" data-i18n-aria-label="common.close">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -2929,7 +2933,7 @@
       <!-- SOVEREIGN MEMBER DOSSIER MINI-CARD MODAL -->
       <div class="purchase-modal-overlay sovereign-dossier-overlay" id="memberMiniDossierModal" hidden aria-hidden="true" role="dialog" aria-labelledby="miniDossierName" onclick="if (event.target === this) window.closeMemberMiniDossierModal()">
         <div class="purchase-modal sovereign-mini-dossier-card">
-          <button class="mini-dossier-close-btn" id="closeMiniDossierBtn" type="button" aria-label="Close">
+          <button class="mini-dossier-close-btn" id="closeMiniDossierBtn" type="button" aria-label="Close" data-i18n-aria-label="common.close">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -3030,7 +3034,7 @@
           <div class="hcc-corner-screw hcc-screw-bl" aria-hidden="true"></div>
           <div class="hcc-corner-screw hcc-screw-br" aria-hidden="true"></div>
           
-          <button class="mini-dossier-close-btn hcc-close-btn" id="closeCitationModalBtn" type="button" aria-label="Close">
+          <button class="mini-dossier-close-btn hcc-close-btn" id="closeCitationModalBtn" type="button" aria-label="Close" data-i18n-aria-label="common.close">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -3152,7 +3156,7 @@
       <div class="luxury-modal-box">
         <div class="luxury-modal-header">
           <h3 data-i18n="settings.title">الإعدادات</h3>
-          <button class="luxury-close-btn" id="closeSettingsModal">
+          <button class="luxury-close-btn" id="closeSettingsModal" aria-label="Close" data-i18n-aria-label="common.close">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -3314,7 +3318,7 @@
       <div class="luxury-modal-box">
         <div class="luxury-modal-header">
           <h3 data-i18n="settings.logoutConfirmTitle">Confirm Logout</h3>
-          <button class="luxury-close-btn" id="closeLogoutConfirmModal">
+          <button class="luxury-close-btn" id="closeLogoutConfirmModal" aria-label="Close" data-i18n-aria-label="common.close">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -3373,7 +3377,7 @@
           <h2 id="modal-edit-profile-title" data-i18n="profile.editProfileTitle">
             EDIT PROFILE
           </h2>
-          <button class="luxury-close-btn" id="closeEditProfileModal" type="button" aria-label="Close">
+          <button class="luxury-close-btn" id="closeEditProfileModal" type="button" aria-label="Close" data-i18n-aria-label="common.close">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -3492,7 +3496,7 @@
           <h2 id="modal-account-title" data-i18n="profile.accountInfoTitle">
             ACCOUNT INFORMATION
           </h2>
-          <button class="luxury-close-btn" id="closeAccountInfoModal" type="button" aria-label="Close">
+          <button class="luxury-close-btn" id="closeAccountInfoModal" type="button" aria-label="Close" data-i18n-aria-label="common.close">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -3575,7 +3579,7 @@
       <div class="luxury-modal-box">
         <div class="luxury-modal-header">
           <h3 data-i18n="misc.supportTitle">CONCIERGE &amp; SUPPORT</h3>
-          <button class="luxury-close-btn" id="closeHelpSupportModal">
+          <button class="luxury-close-btn" id="closeHelpSupportModal" aria-label="Close" data-i18n-aria-label="common.close">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -3769,7 +3773,7 @@
     <div id="authRecoveryModal" class="luxury-modal-overlay" onclick="if (event.target === this) window.closeAuthRecoveryModal()">
       <div class="luxury-modal-box auth-recovery-box">
         <div class="luxury-modal-header auth-recovery-header">
-          <button type="button" class="luxury-close-btn" id="closeAuthRecoveryModal" aria-label="إغلاق" data-i18n-aria-label="common.close">
+          <button type="button" class="luxury-close-btn" id="closeAuthRecoveryModal" aria-label="Close" data-i18n-aria-label="common.close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="13" height="13"><path d="M18 6L6 18M6 6l12 12"></path></svg>
           </button>
           <h3 class="auth-recovery-title" data-i18n="auth.recoveryTitle">استعادة كلمة المرور</h3>
