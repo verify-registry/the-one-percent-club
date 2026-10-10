@@ -3343,9 +3343,59 @@ body.light-mode .sd-footer-hallmark {
   padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
   gap: 4px !important;
   box-sizing: border-box;
+  transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 #club-tab.is-active.is-subview-active {
   padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Fluid collapsed state during downward scrolling through Club messages */
+#club-tab.is-active.club-header-collapsed {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 2px) !important;
+}
+
+#club-tab.club-header-collapsed .club-rooms-nav {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  border-bottom-width: 0 !important;
+  border-bottom-color: transparent !important;
+  transform: translateY(-8px) !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+#club-tab.club-header-collapsed .club-pinned,
+#club-tab.club-header-collapsed .club-chamber-plaque {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  border-width: 0 !important;
+  transform: translateY(-8px) !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Hide message allocation / balance control during downward scrolling */
+#club-tab.club-header-collapsed #clubCreditsDisplay,
+#club-tab.is-active #clubCreditsDisplay.credits-collapsed,
+#clubCreditsDisplay.credits-collapsed {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  border-width: 0 !important;
+  transform: translateY(8px) scale(0.98) !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
 }
 /* ==========================================================================
    SOVEREIGN CLUB CHAMBER PLAQUE (CLEAN, MINIMAL & QUIET-LUXURY WELCOME)
@@ -3570,14 +3620,12 @@ body.light-mode #clubPinnedDismissBtn:hover {
   margin: 0 !important;
   padding: 0 !important;
   border-radius: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.12);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
-  background: rgba(14, 12, 10, 0.40);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.55);
+  background: #090807 !important;
 }
 
-/* LUXURY SOVEREIGN CHAT BACKDROP (OBSIDIAN LIQUID GLASS + REAL GOLD WATERMARK & GUILLOCHÉ) */
+/* LUXURY SOVEREIGN CHAT BACKDROP (OBSIDIAN ARCHITECTURAL WATCH-DIAL + REAL GOLD GUILLOCHÉ) */
 .sovereign-chat-backdrop {
   position: absolute;
   inset: 0;
@@ -3585,83 +3633,106 @@ body.light-mode #clubPinnedDismissBtn:hover {
   overflow: hidden;
   z-index: 0;
   background:
-    radial-gradient(ellipse 95% 65% at 50% -10%, rgba(212, 175, 55, 0.055) 0%, rgba(184, 134, 11, 0.02) 40%, transparent 75%),
-    radial-gradient(ellipse 85% 60% at 50% 110%, rgba(212, 175, 55, 0.035) 0%, rgba(12, 11, 8, 0.6) 50%, transparent 80%),
-    linear-gradient(180deg, #090807 0%, #0d0b08 30%, #070605 70%, #0a0806 100%);
+    radial-gradient(ellipse 95% 340px at 50% 12%, rgba(225, 192, 120, 0.16) 0%, rgba(184, 140, 50, 0.06) 42%, transparent 75%),
+    linear-gradient(135deg, rgba(62, 57, 50, 0.40) 0%, rgba(28, 25, 22, 0.18) 32%, transparent 60%),
+    radial-gradient(circle 340px at 50% 48%, rgba(212, 175, 55, 0.08) 0%, rgba(160, 120, 30, 0.03) 48%, transparent 75%),
+    radial-gradient(ellipse 90% 220px at 50% 100%, rgba(140, 100, 30, 0.08) 0%, transparent 70%),
+    conic-gradient(from 215deg at 50% 48%, rgba(18, 16, 14, 0.95) 0deg, rgba(38, 33, 27, 0.35) 45deg, rgba(12, 10, 9, 0.98) 90deg, rgba(46, 39, 31, 0.40) 135deg, rgba(10, 9, 8, 0.98) 180deg, rgba(38, 32, 26, 0.38) 225deg, rgba(14, 12, 10, 0.96) 270deg, rgba(48, 41, 32, 0.42) 315deg, rgba(18, 16, 14, 0.95) 360deg),
+    linear-gradient(180deg, #0d0b09 0%, #0a0908 40%, #070605 70%, #0c0a09 100%) !important;
   transition: background 0.3s ease;
 }
 
+/* Horological Watch-Dial Sector Rays & Astrolabe Geometry */
+.chat-backdrop-dial-sectors {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+.chat-dial-sectors-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Clous de Paris Guilloché Micro-Pattern */
 .chat-backdrop-mesh {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background-image:
-    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.045) 1px, transparent 1px),
-    linear-gradient(rgba(212, 175, 55, 0.015) 1px, transparent 1px);
-  background-size: 24px 24px, 100% 36px;
-  opacity: 0.75;
-  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 45%, transparent 95%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 45%, transparent 95%);
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(212, 175, 55, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.035) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px, 20px 20px;
+  opacity: 0.70;
+  mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 95%);
 }
 
+/* Ambient Charcoal & Antique-Champagne Lighting Bloom */
 .chat-backdrop-ambient-glow {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 85%;
-  height: 180px;
+  width: 92%;
+  height: 240px;
+  z-index: 3;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(245, 215, 135, 0.09) 0%, rgba(212, 175, 55, 0.035) 50%, transparent 80%),
-    radial-gradient(circle at 50% 25%, rgba(255, 240, 190, 0.03) 0%, transparent 60%);
+    radial-gradient(ellipse at 50% 0%, rgba(255, 230, 160, 0.18) 0%, rgba(212, 175, 55, 0.06) 50%, transparent 80%),
+    radial-gradient(circle at 50% 35%, rgba(255, 240, 190, 0.07) 0%, transparent 65%);
   pointer-events: none;
 }
 
-/* Watermark Medallion */
+/* Center Sovereign Horological Medallion */
 .chat-watermark-medallion {
   position: absolute;
-  top: 52%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(340px, 80vw);
-  height: min(340px, 80vw);
+  width: min(340px, 84vw);
+  height: min(340px, 84vw);
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
   user-select: none;
-  z-index: 1;
+  z-index: 4;
 }
 
 .chat-watermark-svg {
   width: 100%;
   height: 100%;
   color: #d4af37;
-  opacity: 0.048;
-  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.2));
+  opacity: 0.32;
+  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.28));
   animation: sovereignWatermarkBreathe 14s infinite ease-in-out;
   transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 @keyframes sovereignWatermarkBreathe {
   0%, 100% {
-    opacity: 0.045;
+    opacity: 0.30;
     transform: scale(1);
   }
   50% {
-    opacity: 0.068;
-    transform: scale(1.025);
+    opacity: 0.36;
+    transform: scale(1.02);
   }
 }
 
-/* Four Corner Filigrees */
+/* Four Precision Horological Movement Bridges (Corners) */
 .chat-corner-filigree {
   position: absolute;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   color: #d4af37;
-  opacity: 0.22;
+  opacity: 0.38;
   pointer-events: none;
-  z-index: 1;
+  z-index: 5;
 }
 .chat-corner-tl { top: 8px; left: 8px; }
 .chat-corner-tr { top: 8px; right: 8px; }
@@ -3677,19 +3748,19 @@ body.light-mode #clubPinnedDismissBtn:hover {
 /* Hairlines */
 .chat-backdrop-hairline {
   position: absolute;
-  left: 10%;
-  right: 10%;
+  left: 8%;
+  right: 8%;
   height: 1px;
   pointer-events: none;
-  z-index: 1;
+  z-index: 5;
 }
 .chat-backdrop-hairline-top {
   top: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.28) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.32) 50%, transparent 100%);
 }
 .chat-backdrop-hairline-bottom {
   bottom: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.2) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.24) 50%, transparent 100%);
 }
 
 #club-tab .club-messages {
@@ -3704,10 +3775,10 @@ body.light-mode #clubPinnedDismissBtn:hover {
   display: flex !important;
   flex-direction: column !important;
   justify-content: flex-start !important;
-  gap: 12px !important;
-  padding: 8px 10px 22px 10px !important;
-  scroll-padding-bottom: 24px !important;
-  scroll-padding-top: 10px !important;
+  gap: 7px !important;
+  padding: 6px 8px 16px 8px !important;
+  scroll-padding-bottom: 20px !important;
+  scroll-padding-top: 8px !important;
   border: none !important;
   background: transparent !important;
   scroll-behavior: smooth;
@@ -3817,17 +3888,17 @@ body.light-mode #clubPinnedDismissBtn:hover {
 .sovereign-dispatch-card {
   width: fit-content;
   max-width: 82%;
-  min-width: 170px;
+  min-width: 125px;
   flex-shrink: 0;
   min-height: fit-content;
-  padding: 9px 13px;
-  border-radius: 16px;
+  padding: 7px 10px;
+  border-radius: 14px;
   position: relative;
   overflow: visible;
   transform: translateZ(0);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  transition: border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease, transform 0.2s ease;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, transform 0.2s ease;
 }
 
 /* Delicate Liquid Glass Specular Highlight Along Upper Perimeter */
@@ -3839,10 +3910,10 @@ body.light-mode #clubPinnedDismissBtn:hover {
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(255, 246, 220, 0.26) 0%,
-    rgba(212, 175, 55, 0.14) 22%,
-    rgba(255, 255, 255, 0.02) 60%,
-    rgba(212, 175, 55, 0.06) 100%
+    rgba(255, 246, 220, 0.32) 0%,
+    rgba(212, 175, 55, 0.16) 24%,
+    rgba(255, 255, 255, 0.03) 60%,
+    rgba(212, 175, 55, 0.08) 100%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -3852,89 +3923,89 @@ body.light-mode #clubPinnedDismissBtn:hover {
   z-index: 1;
 }
 
-/* 1. Incoming Dispatches (Other Members / Elites) - Translucent Dark Liquid Glass */
+/* 1. Incoming Dispatches (Other Members / Elites) - Translucent Smoky Obsidian Liquid Glass */
 .sovereign-dispatch-card:not(.is-personal-dispatch),
 .sovereign-dispatch-card.dispatch-align-left,
 .sovereign-dispatch-card.dispatch-sender-other {
   align-self: flex-start !important;
   margin-inline-end: auto !important;
   margin-inline-start: 0 !important;
-  /* Translucent obsidian glass tinted with cool smoky antique metal undertones */
+  /* Translucent smoky obsidian glass - reveals backdrop watermark & ambient glow beneath */
   background: linear-gradient(
-    145deg,
-    rgba(22, 19, 15, 0.72) 0%,
-    rgba(14, 12, 9, 0.82) 55%,
-    rgba(8, 7, 5, 0.88) 100%
-  );
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  border-top-color: rgba(240, 218, 156, 0.32);
-  border-left-color: rgba(212, 175, 55, 0.22);
-  border-radius: 16px !important;
+    140deg,
+    rgba(26, 22, 17, 0.46) 0%,
+    rgba(16, 13, 10, 0.56) 50%,
+    rgba(10, 8, 6, 0.66) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.18) !important;
+  border-top: 1px solid rgba(255, 240, 190, 0.35) !important;
+  border-left: 1px solid rgba(212, 175, 55, 0.24) !important;
+  border-radius: 14px !important;
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.55),
-    0 2px 6px rgba(0, 0, 0, 0.4),
-    inset 0 1px 1.5px rgba(255, 244, 205, 0.14),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.5);
+    0 4px 16px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.4) !important;
 }
 
 .sovereign-dispatch-card:not(.is-personal-dispatch):hover {
-  border-color: rgba(212, 175, 55, 0.38);
-  border-top-color: rgba(245, 226, 172, 0.45);
+  border-color: rgba(212, 175, 55, 0.35) !important;
+  border-top-color: rgba(255, 245, 210, 0.48) !important;
   background: linear-gradient(
-    145deg,
-    rgba(25, 22, 17, 0.78) 0%,
-    rgba(16, 14, 10, 0.86) 55%,
-    rgba(10, 9, 6, 0.90) 100%
-  );
+    140deg,
+    rgba(30, 25, 19, 0.52) 0%,
+    rgba(18, 15, 11, 0.62) 50%,
+    rgba(12, 10, 7, 0.72) 100%
+  ) !important;
   box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.65),
-    0 3px 8px rgba(0, 0, 0, 0.45),
-    0 0 12px rgba(212, 175, 55, 0.08),
-    inset 0 1px 1.5px rgba(255, 244, 205, 0.2),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.5);
+    0 6px 20px rgba(0, 0, 0, 0.55),
+    0 2px 5px rgba(0, 0, 0, 0.35),
+    0 0 10px rgba(212, 175, 55, 0.08),
+    inset 0 1px 1.5px rgba(255, 244, 205, 0.18),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* 2. Personal Dispatches (Sent by Current Member) - Warm Champagne Obsidian Liquid Glass */
+/* 2. Personal Dispatches (Sent by Current Member) - Warm Champagne Amber Liquid Glass */
 .sovereign-dispatch-card.is-personal-dispatch,
 .sovereign-dispatch-card.dispatch-align-right,
 .sovereign-dispatch-card.dispatch-sender-me {
   align-self: flex-end !important;
   margin-inline-start: auto !important;
   margin-inline-end: 0 !important;
-  /* Translucent obsidian glass infused with amber-champagne optic reflection */
+  /* Translucent champagne-infused amber obsidian glass */
   background: linear-gradient(
-    145deg,
-    rgba(34, 27, 16, 0.76) 0%,
-    rgba(22, 17, 10, 0.84) 55%,
-    rgba(12, 9, 6, 0.90) 100%
-  );
-  border: 1px solid rgba(212, 175, 55, 0.32);
-  border-top-color: rgba(248, 228, 164, 0.48);
-  border-right-color: rgba(212, 175, 55, 0.38);
-  border-radius: 16px !important;
+    140deg,
+    rgba(46, 35, 18, 0.52) 0%,
+    rgba(30, 22, 11, 0.62) 50%,
+    rgba(16, 12, 7, 0.72) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.32) !important;
+  border-top: 1px solid rgba(255, 246, 215, 0.52) !important;
+  border-right: 1px solid rgba(212, 175, 55, 0.40) !important;
+  border-radius: 14px !important;
   box-shadow:
-    0 8px 26px rgba(0, 0, 0, 0.6),
-    0 2px 8px rgba(0, 0, 0, 0.45),
-    0 0 14px rgba(212, 175, 55, 0.10),
-    inset 0 1px 2px rgba(255, 246, 212, 0.22),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.55);
+    0 4px 18px rgba(0, 0, 0, 0.5),
+    0 1px 3px rgba(0, 0, 0, 0.35),
+    0 0 12px rgba(212, 175, 55, 0.10),
+    inset 0 1px 1.5px rgba(255, 246, 212, 0.22),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.45) !important;
 }
 
 .sovereign-dispatch-card.is-personal-dispatch:hover {
-  border-color: rgba(212, 175, 55, 0.52);
-  border-top-color: rgba(255, 238, 185, 0.65);
+  border-color: rgba(212, 175, 55, 0.48) !important;
+  border-top-color: rgba(255, 248, 225, 0.65) !important;
   background: linear-gradient(
-    145deg,
-    rgba(38, 30, 18, 0.82) 0%,
-    rgba(25, 19, 11, 0.88) 55%,
-    rgba(14, 11, 7, 0.92) 100%
-  );
+    140deg,
+    rgba(52, 40, 20, 0.58) 0%,
+    rgba(35, 26, 13, 0.68) 50%,
+    rgba(20, 15, 9, 0.76) 100%
+  ) !important;
   box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.7),
-    0 3px 10px rgba(0, 0, 0, 0.5),
-    0 0 18px rgba(212, 175, 55, 0.16),
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.4),
+    0 0 16px rgba(212, 175, 55, 0.15),
     inset 0 1px 2px rgba(255, 246, 212, 0.28),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.55);
+    inset 0 -1px 1px rgba(0, 0, 0, 0.45) !important;
 }
 
 /* Fallback for environments lacking backdrop-filter */
@@ -4375,7 +4446,7 @@ html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arri
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 8px;
+  gap: 6px;
   position: relative;
   z-index: 2;
   width: 100%;
@@ -4383,20 +4454,20 @@ html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arri
 .dispatch-profile-group {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 7px;
   cursor: pointer;
   min-width: 0;
   width: 100%;
   flex: 1 1 100%;
 }
 .dispatch-medallion-rim {
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  padding: 1.5px;
+  padding: 1.2px;
   flex-shrink: 0;
   position: relative;
-  margin-top: 2px;
+  margin-top: 1px;
   background: conic-gradient(
     from 180deg,
     #9a7628,
@@ -4418,17 +4489,17 @@ html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arri
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #50b86a;
-  border: 1.5px solid #0e0d0a;
-  box-shadow: 0 0 5px rgba(80, 184, 106, 0.85);
+  border: 1.2px solid #0e0d0a;
+  box-shadow: 0 0 4px rgba(80, 184, 106, 0.85);
 }
 .dispatch-credentials {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 1.5px;
   min-width: 0;
   flex: 1 1 auto;
   width: 100%;
@@ -4437,13 +4508,13 @@ html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arri
 .dispatch-primary-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   min-width: 0;
   width: 100%;
 }
 .dispatch-name {
   font-family: "Cinzel", "Readex Pro", "Cairo", -apple-system, sans-serif;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   color: var(--gold-champagne, #e9c877);
   letter-spacing: 0.01em;
@@ -4452,7 +4523,7 @@ html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arri
   text-overflow: clip;
   word-break: break-word;
   overflow-wrap: break-word;
-  line-height: 1.35;
+  line-height: 1.25;
   min-width: 0;
   flex: 1 1 auto;
 }
@@ -4469,47 +4540,47 @@ html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arri
 .dispatch-meta-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   min-width: 0;
   flex-wrap: wrap;
 }
 .dispatch-tier-hallmark {
-  font-size: 7.5px;
+  font-size: 7px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: #d4af37;
   background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 3px;
-  padding: 1px 5px;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 2.5px;
+  padding: 0.5px 4px;
   text-transform: uppercase;
   flex-shrink: 0;
   cursor: default;
   align-self: center;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 /* Sovereign Archival Timestamp Badge */
 .dispatch-sovereign-timestamp {
   display: inline-flex;
   align-items: center;
-  gap: 3.5px;
+  gap: 3px;
   font-family: "JetBrains Mono", "SF Mono", monospace, sans-serif;
-  font-size: 8.5px;
+  font-size: 7.5px;
   font-weight: 500;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   color: #a89a82;
   background: rgba(212, 175, 55, 0.08);
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  border-radius: 3px;
-  padding: 1px 4.5px;
+  border: 1px solid rgba(212, 175, 55, 0.20);
+  border-radius: 2.5px;
+  padding: 0.5px 4px;
   flex-shrink: 0;
   line-height: 1.2;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 .sovereign-time-icon {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   color: #d4af37;
   flex-shrink: 0;
   opacity: 0.9;
@@ -4531,12 +4602,13 @@ body.light-mode .sovereign-time-icon {
 .dispatch-secondary-row {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 9px;
+  gap: 4px;
+  font-size: 7.5px;
   color: #8c8270;
   font-family: monospace;
   min-width: 0;
   flex-wrap: wrap;
+  line-height: 1.1;
 }
 .dispatch-seat-tag {
   color: #ab9f8b;
@@ -4570,9 +4642,9 @@ body.light-mode .sovereign-time-icon {
 }
 
 .dispatch-manuscript-body {
-  margin: 10px 0 10px 0;
-  font-size: 13px;
-  line-height: 1.6;
+  margin: 4px 0 3px 0;
+  font-size: 12.5px;
+  line-height: 1.45;
   color: #e8e2d4;
   text-align: start;
   word-break: break-word;
@@ -4582,8 +4654,8 @@ body.light-mode .sovereign-time-icon {
 }
 
 .dispatch-text-content {
-  line-height: 1.6;
-  font-size: 13px;
+  line-height: 1.45;
+  font-size: 12.5px;
   color: inherit;
   word-break: break-word;
   transition: max-height 0.3s ease;
@@ -4619,13 +4691,13 @@ body.light-mode .sovereign-time-icon {
 .dispatch-read-more-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4.5px;
+  gap: 4px;
   background: transparent;
   border: none;
-  padding: 4px 0 2px 0;
-  margin-top: 5px;
+  padding: 3px 0 1px 0;
+  margin-top: 3px;
   color: #d4af37;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   letter-spacing: 0.02em;
@@ -4637,8 +4709,8 @@ body.light-mode .sovereign-time-icon {
   transform: translateY(-0.5px);
 }
 .dispatch-read-more-btn .read-more-chevron {
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   color: currentColor;
   transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -4660,9 +4732,9 @@ body.light-mode .dispatch-read-more-btn:hover {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 6px;
-  padding-top: 4px;
-  margin-top: 3px;
+  gap: 4px;
+  padding-top: 3px;
+  margin-top: 2px;
   border-top: 1px solid rgba(212, 175, 55, 0.08);
   position: relative;
   z-index: 2;
@@ -4670,7 +4742,7 @@ body.light-mode .dispatch-read-more-btn:hover {
 .dispatch-accolades-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3.5px;
   flex-wrap: wrap;
   max-width: 100%;
   overflow: visible;
@@ -4678,19 +4750,19 @@ body.light-mode .dispatch-read-more-btn:hover {
 .sovereign-accolade-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 2.5px 7px;
-  border-radius: 12px;
-  font-size: 8.5px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(212, 175, 55, 0.22);
+  gap: 3px;
+  padding: 1.5px 5.5px;
+  border-radius: 10px;
+  font-size: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.20);
   color: #b0a592;
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   -webkit-tap-highlight-color: transparent;
   white-space: nowrap;
   flex-shrink: 0;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 .sovereign-accolade-btn:active {
   transform: scale(0.94);
@@ -4699,8 +4771,8 @@ body.light-mode .dispatch-read-more-btn:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 11px;
-  height: 11px;
+  width: 9.5px;
+  height: 9.5px;
   flex-shrink: 0;
 }
 .accolade-svg-seal {
@@ -4731,15 +4803,15 @@ body.light-mode .dispatch-read-more-btn:hover {
   color: #fff8e1;
 }
 .accolade-icon {
-  font-size: 9px;
+  font-size: 8px;
 }
 .accolade-title {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 500;
   letter-spacing: 0.02em;
 }
 .accolade-tally {
-  font-size: 8.5px;
+  font-size: 7.5px;
   font-weight: 700;
   font-family: monospace;
   opacity: 0.95;
@@ -4955,7 +5027,15 @@ body.light-mode .dispatch-read-more-btn:hover {
   border: 1px solid rgba(212, 175, 55, 0.22) !important;
   border-top: 1px solid rgba(255, 235, 175, 0.25) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
-  transition: all 0.25s ease !important;
+  max-height: 52px !important;
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  transition: max-height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: max-height, opacity, transform;
   box-sizing: border-box !important;
   width: 100% !important;
 }
@@ -7754,6 +7834,16 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   margin-bottom: 0;
   flex-shrink: 0;
   -webkit-overflow-scrolling: touch;
+  max-height: 48px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: max-height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease !important;
+  will-change: max-height, opacity, transform;
 }
 #club-tab .club-rooms-nav::-webkit-scrollbar {
   display: none;
@@ -9978,6 +10068,10 @@ html[dir="rtl"] .dispatch-name bdi {
   direction: ltr !important;
   unicode-bidi: isolate !important;
   display: inline-block;
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
 }
 
 html[dir="rtl"] #typingName {
@@ -11568,33 +11662,38 @@ body.light-mode .room-badge {
 
 /* Chat & Sovereign Dispatch */
 body.light-mode .club-chat-viewport {
-  border: 1px solid rgba(180, 140, 60, 0.10) !important;
-  box-shadow: none !important;
-  background: rgba(248, 244, 236, 0.38) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(180, 140, 60, 0.22) !important;
+  box-shadow: 0 3px 16px rgba(90, 60, 20, 0.05) !important;
+  background: #fbf9f4 !important;
 }
 
 body.light-mode .sovereign-chat-backdrop {
   background:
-    radial-gradient(ellipse 90% 48% at 50% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 70%),
-    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(180, 140, 60, 0.03) 0%, transparent 65%) !important;
+    radial-gradient(ellipse 95% 340px at 50% 12%, rgba(212, 175, 55, 0.16) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(245, 240, 230, 0.85) 0%, rgba(238, 232, 220, 0.45) 40%, transparent 70%),
+    linear-gradient(180deg, #f8f5ee 0%, #f3efe5 50%, #ebe4d4 100%) !important;
+}
+
+body.light-mode .chat-dial-sectors-svg g {
+  stroke: #9c7625 !important;
+  opacity: 0.28 !important;
 }
 
 body.light-mode .chat-backdrop-mesh {
   background-image:
-    radial-gradient(circle at 50% 50%, rgba(156, 109, 35, 0.06) 1px, transparent 1px),
-    linear-gradient(rgba(156, 109, 35, 0.025) 1px, transparent 1px) !important;
+    radial-gradient(circle at 50% 50%, rgba(156, 109, 35, 0.10) 1px, transparent 1px),
+    linear-gradient(rgba(156, 109, 35, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(156, 109, 35, 0.035) 1px, transparent 1px) !important;
   opacity: 0.55 !important;
 }
 
 body.light-mode .chat-backdrop-ambient-glow {
-  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.15) 0%, rgba(184, 134, 11, 0.04) 55%, transparent 80%) !important;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.18) 0%, rgba(184, 134, 11, 0.06) 55%, transparent 80%) !important;
 }
 
 body.light-mode .chat-watermark-svg {
   color: #8c6014 !important;
-  opacity: 0.068 !important;
+  opacity: 0.22 !important;
   filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.8)) !important;
   animation: sovereignWatermarkBreatheLight 14s infinite ease-in-out !important;
 }
@@ -34929,3 +35028,32 @@ body.light-mode .gauge-pip.is-spent {
   background: rgba(156, 109, 35, 0.12) !important;
   border: 0.5px solid rgba(156, 109, 35, 0.22) !important;
 }
+
+/* 5. Mobile Refinements for Club Chat Bubbles (360px - 430px) */
+@media (max-width: 430px) {
+  .sovereign-dispatch-card {
+    max-width: 85% !important;
+    min-width: 120px !important;
+    padding: 6px 9px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .sovereign-dispatch-card {
+    max-width: 88% !important;
+    min-width: 110px !important;
+    padding: 5px 8px !important;
+    border-radius: 12px !important;
+  }
+  .dispatch-medallion-rim {
+    width: 26px !important;
+    height: 26px !important;
+  }
+  .dispatch-name {
+    font-size: 11.5px !important;
+  }
+  .dispatch-text-content {
+    font-size: 12px !important;
+  }
+}
+

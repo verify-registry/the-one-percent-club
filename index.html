@@ -1082,87 +1082,172 @@
 
           <!-- SOVEREIGN SALON CHAT VIEWPORT -->
           <div class="club-chat-viewport" id="clubChatViewport">
-            <!-- LUXURY OBSIDIAN & GOLD CHAT BACKDROP -->
+            <!-- LUXURY OBSIDIAN & GOLD CHAT BACKDROP (ARCHITECTURAL HOROLOGICAL DIAL & GUILLOCHÉ) -->
             <div class="sovereign-chat-backdrop" aria-hidden="true">
+              <!-- Horological Watch-Dial Sector Rays & Astrolabe Geometry -->
+              <div class="chat-backdrop-dial-sectors">
+                <svg viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" class="chat-dial-sectors-svg">
+                  <defs>
+                    <radialGradient id="dialRaysGrad" cx="50%" cy="48%" r="65%">
+                      <stop offset="0%" stop-color="#f0d58c" stop-opacity="0.32"/>
+                      <stop offset="25%" stop-color="#d4af37" stop-opacity="0.22"/>
+                      <stop offset="60%" stop-color="#b8860b" stop-opacity="0.10"/>
+                      <stop offset="100%" stop-color="#3d2d0b" stop-opacity="0"/>
+                    </radialGradient>
+                  </defs>
+
+                  <!-- 12-Hour Main Horological Sector Rays (Center at 200, 336) -->
+                  <g stroke="url(#dialRaysGrad)" stroke-width="0.8" opacity="0.85">
+                    <line x1="200" y1="336" x2="200" y2="0"/>
+                    <line x1="200" y1="336" x2="200" y2="700"/>
+                    <line x1="200" y1="336" x2="0" y2="336"/>
+                    <line x1="200" y1="336" x2="400" y2="336"/>
+                    <line x1="200" y1="336" x2="26" y2="60"/>
+                    <line x1="200" y1="336" x2="374" y2="612"/>
+                    <line x1="200" y1="336" x2="374" y2="60"/>
+                    <line x1="200" y1="336" x2="26" y2="612"/>
+                    <line x1="200" y1="336" x2="320" y2="128"/>
+                    <line x1="200" y1="336" x2="80" y2="544"/>
+                    <line x1="200" y1="336" x2="80" y2="128"/>
+                    <line x1="200" y1="336" x2="320" y2="544"/>
+                  </g>
+
+                  <!-- Intermediate Precision Astrolabe Subdivision Lines -->
+                  <g stroke="#d4af37" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.45">
+                    <line x1="200" y1="336" x2="100" y2="20"/>
+                    <line x1="200" y1="336" x2="300" y2="20"/>
+                    <line x1="200" y1="336" x2="100" y2="652"/>
+                    <line x1="200" y1="336" x2="300" y2="652"/>
+                    <line x1="200" y1="336" x2="10" y2="200"/>
+                    <line x1="200" y1="336" x2="390" y2="200"/>
+                    <line x1="200" y1="336" x2="10" y2="472"/>
+                    <line x1="200" y1="336" x2="390" y2="472"/>
+                  </g>
+
+                  <!-- Concentric Horological Lathe / Azurage Orbital Rings -->
+                  <g stroke="#d4af37" fill="none" opacity="0.55">
+                    <circle cx="200" cy="336" r="60" stroke-width="0.7" stroke-dasharray="3 3"/>
+                    <circle cx="200" cy="336" r="110" stroke-width="0.8"/>
+                    <circle cx="200" cy="336" r="155" stroke-width="0.5" stroke-dasharray="2 2"/>
+                    <circle cx="200" cy="336" r="195" stroke-width="0.9"/>
+                    <circle cx="200" cy="336" r="235" stroke-width="0.6" stroke-dasharray="4 2"/>
+                    <circle cx="200" cy="336" r="285" stroke-width="1.1"/>
+                    <circle cx="200" cy="336" r="340" stroke-width="0.75" stroke-dasharray="1 3"/>
+                  </g>
+
+                  <!-- Upper & Lower Secondary Celestial Arcs (Architectural presence when scrolled) -->
+                  <g stroke="#d4af37" fill="none" opacity="0.38">
+                    <circle cx="200" cy="50" r="130" stroke-width="0.6" stroke-dasharray="2 4"/>
+                    <circle cx="200" cy="50" r="85" stroke-width="0.8"/>
+                    <circle cx="200" cy="620" r="130" stroke-width="0.6" stroke-dasharray="2 4"/>
+                    <circle cx="200" cy="620" r="85" stroke-width="0.8"/>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Micro-Guilloché Clous de Paris Texture Layer -->
               <div class="chat-backdrop-mesh"></div>
+
+              <!-- Ambient Layered Charcoal & Antique-Champagne Lighting -->
               <div class="chat-backdrop-ambient-glow"></div>
               
-              <!-- Four Engraved Corner Filigrees -->
+              <!-- Four Precision Horological Movement Bridges (Corners) -->
               <div class="chat-corner-filigree chat-corner-tl">
                 <svg viewBox="0 0 40 40" fill="none" class="corner-filigree-svg">
-                  <path d="M2 38V14C2 7.37 7.37 2 14 2H38" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  <path d="M2 38V14C2 7.37 7.37 2 14 2H38" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
                   <path d="M6 38V16C6 10.48 10.48 6 16 6H38" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 2"/>
-                  <circle cx="14" cy="14" r="2.5" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                  <circle cx="14" cy="14" r="2.5" fill="none" stroke="currentColor" stroke-width="0.9"/>
                   <circle cx="14" cy="14" r="1" fill="currentColor"/>
                 </svg>
               </div>
               <div class="chat-corner-filigree chat-corner-tr">
                 <svg viewBox="0 0 40 40" fill="none" class="corner-filigree-svg">
-                  <path d="M38 38V14C38 7.37 32.63 2 26 2H2" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  <path d="M38 38V14C38 7.37 32.63 2 26 2H2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
                   <path d="M34 38V16C34 10.48 29.52 6 24 6H2" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 2"/>
-                  <circle cx="26" cy="14" r="2.5" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                  <circle cx="26" cy="14" r="2.5" fill="none" stroke="currentColor" stroke-width="0.9"/>
                   <circle cx="26" cy="14" r="1" fill="currentColor"/>
                 </svg>
               </div>
               <div class="chat-corner-filigree chat-corner-bl">
                 <svg viewBox="0 0 40 40" fill="none" class="corner-filigree-svg">
-                  <path d="M2 2V26C2 32.63 7.37 38 14 38H38" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  <path d="M2 2V26C2 32.63 7.37 38 14 38H38" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
                   <path d="M6 2V24C6 29.52 10.48 34 16 34H38" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 2"/>
-                  <circle cx="14" cy="26" r="2.5" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                  <circle cx="14" cy="26" r="2.5" fill="none" stroke="currentColor" stroke-width="0.9"/>
                   <circle cx="14" cy="26" r="1" fill="currentColor"/>
                 </svg>
               </div>
               <div class="chat-corner-filigree chat-corner-br">
                 <svg viewBox="0 0 40 40" fill="none" class="corner-filigree-svg">
-                  <path d="M38 2V26C38 32.63 32.63 38 26 38H2" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  <path d="M38 2V26C38 32.63 32.63 38 26 38H2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
                   <path d="M34 2V24C34 29.52 29.52 34 24 34H2" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 2"/>
-                  <circle cx="26" cy="26" r="2.5" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                  <circle cx="26" cy="26" r="2.5" fill="none" stroke="currentColor" stroke-width="0.9"/>
                   <circle cx="26" cy="26" r="1" fill="currentColor"/>
                 </svg>
               </div>
 
-              <!-- Center Sovereign Watermark Medallion -->
+              <!-- Center Sovereign Horological Medallion -->
               <div class="chat-watermark-medallion">
-                <svg viewBox="0 0 200 200" fill="none" class="chat-watermark-svg">
-                  <!-- Outer Guilloché Astronomical Coordinate Rings -->
-                  <circle cx="100" cy="100" r="94" stroke="currentColor" stroke-width="0.75" stroke-dasharray="1 3"/>
-                  <circle cx="100" cy="100" r="88" stroke="currentColor" stroke-width="1.2"/>
-                  <circle cx="100" cy="100" r="84" stroke="currentColor" stroke-width="0.5" stroke-dasharray="3 2"/>
-                  <circle cx="100" cy="100" r="76" stroke="currentColor" stroke-width="0.8"/>
+                <svg viewBox="0 0 240 240" fill="none" class="chat-watermark-svg">
+                  <!-- Outer Precision Chapter Ring with 360 Degree Horological Markers -->
+                  <circle cx="120" cy="120" r="114" stroke="currentColor" stroke-width="0.8" stroke-dasharray="1 3"/>
+                  <circle cx="120" cy="120" r="108" stroke="currentColor" stroke-width="1.3"/>
+                  <circle cx="120" cy="120" r="103" stroke="currentColor" stroke-width="0.6" stroke-dasharray="3 2"/>
+                  <circle cx="120" cy="120" r="92" stroke="currentColor" stroke-width="1.0"/>
+
+                  <!-- Roman Cardinal Hour Markers: XII, III, VI, IX -->
+                  <text x="120" y="24" text-anchor="middle" font-family="'Cinzel', serif" font-size="8" font-weight="700" fill="currentColor" letter-spacing="1">XII</text>
+                  <text x="220" y="123" text-anchor="middle" font-family="'Cinzel', serif" font-size="8" font-weight="700" fill="currentColor">III</text>
+                  <text x="120" y="222" text-anchor="middle" font-family="'Cinzel', serif" font-size="8" font-weight="700" fill="currentColor" letter-spacing="1">VI</text>
+                  <text x="20" y="123" text-anchor="middle" font-family="'Cinzel', serif" font-size="8" font-weight="700" fill="currentColor">IX</text>
 
                   <!-- Horological Precision Dial Ticks & Markers -->
-                  <g stroke="currentColor" stroke-width="1" opacity="0.8">
-                    <line x1="100" y1="8" x2="100" y2="16"/>
-                    <line x1="100" y1="184" x2="100" y2="192"/>
-                    <line x1="8" y1="100" x2="16" y2="100"/>
-                    <line x1="184" y1="100" x2="192" y2="100"/>
-                    <line x1="35" y1="35" x2="41" y2="41"/>
-                    <line x1="165" y1="165" x2="159" y2="159"/>
-                    <line x1="165" y1="35" x2="159" y2="41"/>
-                    <line x1="35" y1="165" x2="41" y2="159"/>
+                  <g stroke="currentColor" stroke-width="1.1" opacity="0.9">
+                    <line x1="120" y1="28" x2="120" y2="36"/>
+                    <line x1="120" y1="204" x2="120" y2="212"/>
+                    <line x1="28" y1="120" x2="36" y2="120"/>
+                    <line x1="204" y1="120" x2="212" y2="120"/>
+                    <line x1="55" y1="55" x2="61" y2="61"/>
+                    <line x1="185" y1="185" x2="179" y2="179"/>
+                    <line x1="185" y1="55" x2="179" y2="61"/>
+                    <line x1="55" y1="185" x2="61" y2="179"/>
                   </g>
 
-                  <!-- Inner Rosette / Geometric Guilloché Star Geometry -->
-                  <polygon points="100,28 118,82 172,100 118,118 100,172 82,118 28,100 82,82" stroke="currentColor" stroke-width="0.6" stroke-dasharray="4 2"/>
-                  <polygon points="100,42 113,87 158,100 113,113 100,158 87,113 42,100 87,87" stroke="currentColor" stroke-width="0.5"/>
+                  <!-- Secondary Minute Indices (12 & 24 divisions) -->
+                  <g stroke="currentColor" stroke-width="0.6" opacity="0.6">
+                    <line x1="84" y1="32" x2="87" y2="39"/>
+                    <line x1="156" y1="32" x2="153" y2="39"/>
+                    <line x1="84" y1="208" x2="87" y2="201"/>
+                    <line x1="156" y1="208" x2="153" y2="201"/>
+                    <line x1="32" y1="84" x2="39" y2="87"/>
+                    <line x1="32" y1="156" x2="39" y2="153"/>
+                    <line x1="208" y1="84" x2="201" y2="87"/>
+                    <line x1="208" y1="156" x2="201" y2="153"/>
+                  </g>
 
-                  <!-- Inner Medallion Border -->
-                  <circle cx="100" cy="100" r="54" stroke="currentColor" stroke-width="1.2"/>
-                  <circle cx="100" cy="100" r="50" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 1.5"/>
+                  <!-- 8-Point Faceted Celestial Compass Star / Rosette Guilloché -->
+                  <polygon points="120,40 138,102 200,120 138,138 120,200 102,138 40,120 102,102" stroke="currentColor" stroke-width="0.8" stroke-dasharray="4 2"/>
+                  <polygon points="120,54 133,107 186,120 133,133 120,186 107,133 54,120 107,107" stroke="currentColor" stroke-width="0.6"/>
+
+                  <!-- Inner Sovereign Medallion Rim -->
+                  <circle cx="120" cy="120" r="66" stroke="currentColor" stroke-width="1.3"/>
+                  <circle cx="120" cy="120" r="62" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 1.5"/>
+                  <circle cx="120" cy="120" r="56" stroke="currentColor" stroke-width="0.8"/>
 
                   <!-- Sovereign Heraldic Crown -->
-                  <path d="M84 75 L80 65 L88 69 L100 60 L112 69 L120 65 L116 75 Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"/>
-                  <circle cx="100" cy="60" r="1.5" fill="currentColor"/>
-                  <circle cx="80" cy="65" r="1" fill="currentColor"/>
-                  <circle cx="120" cy="65" r="1" fill="currentColor"/>
+                  <path d="M102 91 L98 80 L107 84 L120 74 L133 84 L142 80 L138 91 Z" fill="currentColor" fill-opacity="0.28" stroke="currentColor" stroke-width="0.9" stroke-linejoin="round"/>
+                  <circle cx="120" cy="74" r="1.6" fill="currentColor"/>
+                  <circle cx="98" cy="80" r="1.2" fill="currentColor"/>
+                  <circle cx="142" cy="80" r="1.2" fill="currentColor"/>
 
                   <!-- The 1% Club Monogram Inscription -->
-                  <text x="100" y="103" text-anchor="middle" font-family="'Cinzel', 'Playfair Display', serif" font-size="21" font-weight="700" fill="currentColor" letter-spacing="1">1%</text>
-                  <text x="100" y="117" text-anchor="middle" font-family="'Trajan Pro', 'Cinzel', serif" font-size="6.5" font-weight="600" fill="currentColor" letter-spacing="3.5">CLUB</text>
+                  <text x="120" y="123" text-anchor="middle" font-family="'Cinzel', 'Playfair Display', serif" font-size="24" font-weight="700" fill="currentColor" letter-spacing="1">1%</text>
+                  <text x="120" y="139" text-anchor="middle" font-family="'Trajan Pro', 'Cinzel', serif" font-size="7.5" font-weight="600" fill="currentColor" letter-spacing="4">CLUB</text>
                   
-                  <!-- Bottom Motto Arc / Inscription -->
-                  <path d="M72 133 C80 137 120 137 128 133" stroke="currentColor" stroke-width="0.75" stroke-linecap="round"/>
-                  <circle cx="100" cy="135.5" r="1.2" fill="currentColor"/>
+                  <!-- Bottom Arc Motto & Star Florets -->
+                  <path d="M88 156 C98 161 142 161 152 156" stroke="currentColor" stroke-width="0.85" stroke-linecap="round"/>
+                  <circle cx="120" cy="159" r="1.4" fill="currentColor"/>
+                  <circle cx="104" cy="158" r="0.9" fill="currentColor"/>
+                  <circle cx="136" cy="158" r="0.9" fill="currentColor"/>
                 </svg>
               </div>
 

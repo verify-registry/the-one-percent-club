@@ -4163,6 +4163,10 @@ function switchChannel(channelId) {
     if (lang === "en") window.translateDOM(messagesContainer, lang);
   }
 
+  if (typeof window.HeaderScrollController?.setClubHeaderCollapsed === "function") {
+    window.HeaderScrollController.setClubHeaderCollapsed(false);
+  }
+
   const activeTab = document.querySelector(".page.is-active");
   if (activeTab && activeTab.id === "club-tab") {
     startClubWelcomeAutoDismiss(5000);
@@ -8164,9 +8168,10 @@ window.handleQuickPurchase = function(event, item, catKey) {
    - Delivers stable, zero-flicker 120Hz smooth scrolling
    ========================================================================== */
 window.HeaderScrollController = (function() {
-  let isLockedVisible = false;
-  let isNavigating = false;
   let lastScrollTop = 0;
+  let lastClubScrollTop = 0;
+  let isNavigating = false;
+  let isLockedVisible = false;
   let ticking = false;
   let lastActionTime = 0;
   let cachedHeader = null;
@@ -8184,10 +8189,43 @@ window.HeaderScrollController = (function() {
 
   function isPageScrollable(pageEl) {
     if (!pageEl) return false;
+    if (pageEl.id === "club-tab") {
+      const msgs = document.getElementById("clubMessages");
+      if (!msgs) return false;
+      return (msgs.scrollHeight - msgs.clientHeight) > 35;
+    }
     const scrollHeight = pageEl.scrollHeight || 0;
     const clientHeight = pageEl.clientHeight || 0;
     // Consider scrollable only if actual content overflows significantly (> 35px)
     return (scrollHeight - clientHeight) > 35;
+  }
+
+  function setClubHeaderCollapsed(collapsed) {
+    const header = getHeader();
+    const clubTab = document.getElementById("club-tab");
+    const creditsEl = document.getElementById("clubCreditsDisplay");
+
+    if (collapsed) {
+      if (header && !header.classList.contains("header-hidden")) {
+        header.classList.add("header-hidden");
+      }
+      if (clubTab && !clubTab.classList.contains("club-header-collapsed")) {
+        clubTab.classList.add("club-header-collapsed");
+      }
+      if (creditsEl && !creditsEl.classList.contains("credits-collapsed")) {
+        creditsEl.classList.add("credits-collapsed");
+      }
+    } else {
+      if (header && header.classList.contains("header-hidden")) {
+        header.classList.remove("header-hidden");
+      }
+      if (clubTab && clubTab.classList.contains("club-header-collapsed")) {
+        clubTab.classList.remove("club-header-collapsed");
+      }
+      if (creditsEl && creditsEl.classList.contains("credits-collapsed")) {
+        creditsEl.classList.remove("credits-collapsed");
+      }
+    }
   }
 
   function updateHeaderHeightVar() {
@@ -8205,6 +8243,31 @@ window.HeaderScrollController = (function() {
     if (!header) return;
 
     const pageEl = getActivePageEl();
+    const isClub = pageEl && pageEl.id === "club-tab";
+
+    // When not on Club tab, ensure Club collapsed classes are removed
+    if (!isClub) {
+      const clubTab = document.getElementById("club-tab");
+      if (clubTab) clubTab.classList.remove("club-header-collapsed");
+      const creditsEl = document.getElementById("clubCreditsDisplay");
+      if (creditsEl) creditsEl.classList.remove("credits-collapsed");
+    }
+
+    if (isClub) {
+      const msgs = document.getElementById("clubMessages");
+      lastClubScrollTop = Math.max(0, msgs ? msgs.scrollTop : 0);
+      if (!isPageScrollable(pageEl)) {
+        isLockedVisible = true;
+        setClubHeaderCollapsed(false);
+      } else {
+        isLockedVisible = false;
+        if (lastClubScrollTop <= 25) {
+          setClubHeaderCollapsed(false);
+        }
+      }
+      return;
+    }
+
     lastScrollTop = Math.max(0, pageEl ? pageEl.scrollTop : 0);
 
     // If page is not scrollable, header MUST remain permanently visible
@@ -8232,6 +8295,10 @@ window.HeaderScrollController = (function() {
     if (header) {
       header.classList.remove("header-hidden");
     }
+    const clubTab = document.getElementById("club-tab");
+    if (clubTab) clubTab.classList.remove("club-header-collapsed");
+    const creditsEl = document.getElementById("clubCreditsDisplay");
+    if (creditsEl) creditsEl.classList.remove("credits-collapsed");
   }
 
   function onTabChangeComplete() {
@@ -8250,10 +8317,51 @@ window.HeaderScrollController = (function() {
     });
   }
 
-  function processScroll(pageEl, currentScroll) {
+  function processScroll(pageEl, currentScroll, sourceEl) {
     if (isNavigating || isLockedVisible) return;
     const header = document.getElementById("appHeader");
     if (!header) return;
+
+    const isClub = pageEl && pageEl.id === "club-tab";
+
+    if (isClub) {
+      const msgs = document.getElementById("clubMessages");
+      if (!msgs || !isPageScrollable(pageEl)) {
+        setClubHeaderCollapsed(false);
+        return;
+      }
+
+      const delta = currentScroll - lastClubScrollTop;
+      const now = Date.now();
+
+      // 1. Near the top of messages (scrollTop <= 25): ALWAYS show header & credits
+      if (currentScroll <= 25) {
+        setClubHeaderCollapsed(false);
+        lastClubScrollTop = currentScroll;
+        return;
+      }
+
+      // 2. Prevent rubber-band bounce near bottom
+      const maxScroll = msgs.scrollHeight - msgs.clientHeight;
+      if (maxScroll > 0 && currentScroll >= maxScroll - 15) {
+        lastClubScrollTop = currentScroll;
+        return;
+      }
+
+      // 3. Scrolling DOWN past 35px: smoothly hide upper Club header, rooms nav, and balance/credits control
+      if (delta > 8 && currentScroll > 35) {
+        setClubHeaderCollapsed(true);
+        lastActionTime = now;
+      }
+      // 4. Scrolling UP by more than 8px: smoothly restore header, rooms nav, and balance/credits control
+      else if (delta < -8 && (now - lastActionTime > 160)) {
+        setClubHeaderCollapsed(false);
+        lastActionTime = now;
+      }
+
+      lastClubScrollTop = currentScroll;
+      return;
+    }
 
     if (!isPageScrollable(pageEl)) {
       if (header.classList.contains("header-hidden")) {
@@ -8311,17 +8419,29 @@ window.HeaderScrollController = (function() {
       return;
     }
 
-    // Verify event comes from active page or its content
-    if (target !== activePage && !activePage.contains(target) && target !== document && target !== window) {
-      return;
-    }
+    const isClub = activePage.id === "club-tab";
+    let currentScroll = 0;
 
-    const currentScroll = Math.max(0, activePage.scrollTop || 0);
+    if (isClub) {
+      const msgs = document.getElementById("clubMessages");
+      if (!msgs) return;
+      // Accept scroll if target is clubMessages or inside it, or club-tab
+      if (target !== msgs && !msgs.contains(target) && target !== activePage) {
+        return;
+      }
+      currentScroll = Math.max(0, msgs.scrollTop || 0);
+    } else {
+      // Verify event comes from active page or its content
+      if (target !== activePage && !activePage.contains(target) && target !== document && target !== window) {
+        return;
+      }
+      currentScroll = Math.max(0, activePage.scrollTop || 0);
+    }
 
     if (!ticking) {
       ticking = true;
       requestAnimationFrame(() => {
-        processScroll(activePage, currentScroll);
+        processScroll(activePage, currentScroll, target);
         ticking = false;
       });
     }
@@ -8335,10 +8455,19 @@ window.HeaderScrollController = (function() {
         updateHeaderHeightVar();
       }, { passive: true });
 
+      const attachClubScroll = () => {
+        const msgs = document.getElementById("clubMessages");
+        if (msgs && !msgs._clubScrollAttached) {
+          msgs._clubScrollAttached = true;
+          msgs.addEventListener("scroll", handleScroll, { passive: true });
+        }
+      };
+
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => {
           updateHeaderHeightVar();
           updateStateForCurrentTab();
+          attachClubScroll();
           if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
             document.querySelector(".app-main")?.classList.add("main-membership-active");
           }
@@ -8346,6 +8475,7 @@ window.HeaderScrollController = (function() {
       } else {
         updateHeaderHeightVar();
         updateStateForCurrentTab();
+        attachClubScroll();
         if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
           document.querySelector(".app-main")?.classList.add("main-membership-active");
         }
@@ -8355,9 +8485,11 @@ window.HeaderScrollController = (function() {
     onTabChangeComplete,
     updateStateForCurrentTab,
     updateHeaderHeightVar,
+    setClubHeaderCollapsed,
     forceShow() {
       const header = document.getElementById("appHeader");
       if (header) header.classList.remove("header-hidden");
+      setClubHeaderCollapsed(false);
     }
   };
 })();
