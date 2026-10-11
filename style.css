@@ -1168,8 +1168,15 @@ body.light-mode .section-rule span:last-child {
   animation: luxuryFadeSlide 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.page[hidden] {
+.page:not(.is-active),
+.page[hidden],
+.page[aria-hidden="true"],
+#club-tab:not(.is-active),
+#club-tab[hidden] {
   display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
 }
 
 @keyframes luxuryFadeSlide {
@@ -3331,6 +3338,13 @@ body.light-mode .sd-footer-hallmark {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
+/* Full-width container handling specifically for Club Chat tab */
+.app-main:has(#club-tab.is-active),
+.app:has(#club-tab.is-active) .app-main {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 #club-tab.is-active {
   overflow: hidden !important;
   overflow-x: hidden !important;
@@ -3341,12 +3355,26 @@ body.light-mode .sd-footer-hallmark {
   height: 100%;
   padding-top: calc(var(--header-actual-height, 74px) + 4px) !important;
   padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
   gap: 4px !important;
   box-sizing: border-box;
   transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 #club-tab.is-active.is-subview-active {
   padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+#club-tab:not(.is-active),
+#club-tab[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Fluid collapsed state during downward scrolling through Club messages */
@@ -3408,14 +3436,19 @@ body.light-mode .sd-footer-hallmark {
   align-items: center !important;
   gap: 8px !important;
   padding: 4px 10px !important;
-  margin: 0 4px 2px 4px !important;
+  margin: 0 calc(14px + env(safe-area-inset-right, 0px)) 2px calc(14px + env(safe-area-inset-left, 0px)) !important;
   border-radius: 10px !important;
-  background: rgba(18, 15, 11, 0.88) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  border-top: 1px solid rgba(255, 235, 175, 0.28) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+  background: rgba(18, 15, 11, 0.58) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.18) !important;
+  border-top: 1px solid rgba(255, 235, 175, 0.32) !important;
+  border-bottom: 1px solid rgba(120, 95, 38, 0.20) !important;
+  box-shadow:
+    0 4px 16px -2px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.30),
+    inset 0 1px 1px rgba(255, 245, 215, 0.12),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.35) !important;
   position: relative !important;
   overflow: hidden !important;
   max-height: 48px !important;
@@ -3435,10 +3468,17 @@ body.light-mode .sd-footer-hallmark {
 /* Light mode ivory parchment */
 body.light-mode #club-tab .club-pinned,
 body.light-mode #club-tab .club-chamber-plaque {
-  background: rgba(252, 249, 243, 0.94) !important;
-  border: 1px solid rgba(184, 142, 62, 0.25) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0 3px 14px rgba(90, 60, 20, 0.05) !important;
+  background: rgba(252, 249, 243, 0.65) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid rgba(184, 142, 62, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.85) !important;
+  border-bottom: 1px solid rgba(160, 120, 45, 0.18) !important;
+  box-shadow:
+    0 4px 16px -2px rgba(90, 60, 20, 0.08),
+    0 1px 3px rgba(90, 60, 20, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.90),
+    inset 0 -1px 1px rgba(184, 142, 62, 0.06) !important;
 }
 
 /* Fluid collapsed state */
@@ -3608,8 +3648,10 @@ body.light-mode #clubPinnedDismissBtn:hover {
   background: rgba(184, 142, 62, 0.18) !important;
   color: #2b1b06 !important;
 }
-/* SOVEREIGN SALON CHAT VIEWPORT & FLOATING TICKER */
-.club-chat-viewport {
+/* SOVEREIGN SALON CHAT VIEWPORT & FULL-WIDTH LUXURY CANVASES */
+/* SOVEREIGN SALON CHAT VIEWPORT & FULL-WIDTH LUXURY CANVASES */
+.club-chat-viewport,
+#club-tab .club-chat-viewport {
   position: relative;
   flex: 1 1 0 !important;
   min-height: 0 !important;
@@ -3619,49 +3661,52 @@ body.light-mode #clubPinnedDismissBtn:hover {
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
-  border-radius: 12px;
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.55);
-  background: #090807 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+  background: #0a090c !important;
 }
 
-/* REFINED QUIET-LUXURY SOVEREIGN CHAT BACKDROP (OBSIDIAN FINE-METAL SATIN & RESTRAINED AMBIENT LUSTER) */
+/* SIGNATURE LUXURY SOVEREIGN CHAT BACKDROP — OBSIDIAN NOCTURNE */
 .sovereign-chat-backdrop {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
-  /* Deep obsidian & charcoal foundation with delicate antique-champagne atmospheric lighting */
+  /* Dark Mode — Obsidian Atelier: deep blackened obsidian and charcoal with subtle material depth and restrained champagne reflections */
   background:
-    radial-gradient(ellipse 90% 280px at 50% 0%, rgba(212, 175, 55, 0.07) 0%, rgba(180, 140, 45, 0.02) 50%, transparent 80%),
-    radial-gradient(ellipse 85% 300px at 50% 100%, rgba(140, 105, 35, 0.05) 0%, transparent 70%),
-    linear-gradient(180deg, #0e0c0a 0%, #0a0907 35%, #070605 70%, #0b0907 100%) !important;
+    radial-gradient(ellipse 120% 400px at 50% -8%, rgba(225, 192, 115, 0.08) 0%, rgba(185, 145, 65, 0.015) 55%, transparent 80%),
+    radial-gradient(ellipse 90% 300px at 50% 108%, rgba(150, 115, 45, 0.04) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(255, 230, 160, 0.015) 0%, transparent 40%, rgba(200, 160, 80, 0.01) 70%, transparent 100%),
+    linear-gradient(180deg, #0e0d12 0%, #09080c 35%, #050407 70%, #0a090e 100%) !important;
   transition: background 0.3s ease;
 }
 
-/* Understated fine metal satin / vertical intaglio brushed texture */
+/* Signature Haute-Horlogerie Obsidian Atelier Wallpaper (Dark Mode) */
 .chat-backdrop-texture {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 31px,
-    rgba(212, 175, 55, 0.018) 31px,
-    rgba(212, 175, 55, 0.018) 32px
-  );
-  opacity: 0.85;
-  mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, black 50%, transparent 95%);
-  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, black 50%, transparent 95%);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22320%22%20viewBox=%220%200%20320%20320%22%3E%3Cdefs%3E%3Cpattern%20id=%22grain%22%20width=%2216%22%20height=%2216%22%20patternUnits=%22userSpaceOnUse%22%3E%3Ccircle%20cx=%222%22%20cy=%223%22%20r=%220.4%22%20fill=%22%23dfba68%22%20fill-opacity=%220.025%22/%3E%3Ccircle%20cx=%2210%22%20cy=%2211%22%20r=%220.4%22%20fill=%22%23dfba68%22%20fill-opacity=%220.025%22/%3E%3Ccircle%20cx=%2214%22%20cy=%225%22%20r=%220.35%22%20fill=%22%23dfba68%22%20fill-opacity=%220.025%22/%3E%3Ccircle%20cx=%226%22%20cy=%2213%22%20r=%220.35%22%20fill=%22%23dfba68%22%20fill-opacity=%220.025%22/%3E%3C/pattern%3E%3C/defs%3E%3Crect%20width=%22320%22%20height=%22320%22%20fill=%22url(%23grain)%22/%3E%3Cpath%20d=%22M160%20148v24M148%20160h24%22%20stroke=%22%23dfba68%22%20stroke-width=%220.5%22%20stroke-opacity=%220.06%22/%3E%3Ccircle%20cx=%22160%22%20cy=%22160%22%20r=%221.2%22%20fill=%22%23dfba68%22%20fill-opacity=%220.06%22/%3E%3Ccircle%20cx=%22160%22%20cy=%22160%22%20r=%2212%22%20fill=%22none%22%20stroke=%22%23dfba68%22%20stroke-width=%220.3%22%20stroke-dasharray=%221.5%204.5%22%20stroke-opacity=%220.025%22/%3E%3Cpath%20d=%22M0%2016h8M16%200v8M320%2016h-8M304%200v8M0%20304h8M16%20320v-8M320%20304h-8M304%20320v-8%22%20stroke=%22%23dfba68%22%20stroke-width=%220.5%22%20stroke-opacity=%220.06%22/%3E%3Cline%20x1=%220%22%20y1=%22160%22%20x2=%2216%22%20y2=%22160%22%20stroke=%22%23dfba68%22%20stroke-width=%220.4%22%20stroke-opacity=%220.06%22/%3E%3Cline%20x1=%22304%22%20y1=%22160%22%20x2=%22320%22%20y2=%22160%22%20stroke=%22%23dfba68%22%20stroke-width=%220.4%22%20stroke-opacity=%220.06%22/%3E%3Cline%20x1=%22160%22%20y1=%220%22%20x2=%22160%22%20y2=%2216%22%20stroke=%22%23dfba68%22%20stroke-width=%220.4%22%20stroke-opacity=%220.06%22/%3E%3Cline%20x1=%22160%22%20y1=%22304%22%20x2=%22160%22%20y2=%22320%22%20stroke=%22%23dfba68%22%20stroke-width=%220.4%22%20stroke-opacity=%220.06%22/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 320px 320px !important;
+  opacity: 0.95 !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
 }
 
 .chat-backdrop-svg-texture {
-  width: 100%;
-  height: 100%;
-  display: block;
+  display: none !important;
 }
 
 /* Subtle ambient bloom */
@@ -3670,25 +3715,14 @@ body.light-mode #clubPinnedDismissBtn:hover {
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  background: radial-gradient(ellipse 70% 200px at 50% 15%, rgba(245, 218, 140, 0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 220px at 50% 8%, rgba(245, 220, 150, 0.035) 0%, transparent 75%) !important;
 }
 
-/* Precision top and bottom hairline borders */
-.chat-backdrop-hairline {
-  position: absolute;
-  left: 6%;
-  right: 6%;
-  height: 1px;
-  pointer-events: none;
-  z-index: 3;
-}
-.chat-backdrop-hairline-top {
-  top: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.28) 50%, transparent 100%);
-}
+/* Eliminated separator hairlines above and below message feed */
+.chat-backdrop-hairline,
+.chat-backdrop-hairline-top,
 .chat-backdrop-hairline-bottom {
-  bottom: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.18) 50%, transparent 100%);
+  display: none !important;
 }
 
 #club-tab .club-messages {
@@ -3704,7 +3738,7 @@ body.light-mode #clubPinnedDismissBtn:hover {
   flex-direction: column !important;
   justify-content: flex-start !important;
   gap: 7px !important;
-  padding: 6px 8px 16px 8px !important;
+  padding: 10px calc(14px + env(safe-area-inset-right, 0px)) 16px calc(14px + env(safe-area-inset-left, 0px)) !important;
   scroll-padding-bottom: 20px !important;
   scroll-padding-top: 8px !important;
   border: none !important;
@@ -3725,18 +3759,19 @@ body.light-mode #clubPinnedDismissBtn:hover {
   min-height: 34px !important;
   max-height: 34px !important;
   padding: 0 8px !important;
-  margin: 4px 6px 2px 6px !important;
-  background: linear-gradient(180deg, rgba(24, 20, 16, 0.85) 0%, rgba(14, 12, 9, 0.90) 100%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  border-top: 1px solid rgba(233, 200, 119, 0.38) !important;
-  border-bottom: 1px solid rgba(120, 95, 38, 0.28) !important;
+  margin: 4px calc(14px + env(safe-area-inset-right, 0px)) 2px calc(14px + env(safe-area-inset-left, 0px)) !important;
+  background: linear-gradient(180deg, rgba(22, 18, 14, 0.58) 0%, rgba(12, 10, 8, 0.68) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.18) !important;
+  border-top: 1px solid rgba(255, 240, 190, 0.32) !important;
+  border-bottom: 1px solid rgba(120, 95, 38, 0.20) !important;
   border-radius: 9px !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.55),
-    0 1px 0 rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 235, 175, 0.16) !important;
+    0 4px 16px -2px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.30),
+    inset 0 1px 1px rgba(255, 235, 175, 0.15),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.40) !important;
   pointer-events: auto !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
@@ -3819,121 +3854,116 @@ body.light-mode #clubPinnedDismissBtn:hover {
   min-width: 125px;
   flex-shrink: 0;
   min-height: fit-content;
-  padding: 7px 10px;
-  border-radius: 14px;
+  padding: 8px 12px;
+  border-radius: 17px;
   position: relative;
   overflow: visible;
   transform: translateZ(0);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
   transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, transform 0.2s ease;
 }
 
-/* Delicate Liquid Glass Specular Highlight Along Upper Perimeter */
+/* Delicate Liquid Glass Specular Reflection Across Upper Arc */
 .sovereign-dispatch-card::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px;
   background: linear-gradient(
-    135deg,
-    rgba(255, 246, 220, 0.32) 0%,
-    rgba(212, 175, 55, 0.16) 24%,
-    rgba(255, 255, 255, 0.03) 60%,
-    rgba(212, 175, 55, 0.08) 100%
+    180deg,
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(255, 255, 255, 0.02) 22%,
+    transparent 60%
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
   pointer-events: none;
   z-index: 1;
 }
 
-/* 1. Incoming Dispatches (Other Members / Elites) - Translucent Smoky Obsidian Liquid Glass */
+/* 1. Incoming Dispatches (Other Members / Elites) - Translucent Smoked Obsidian Crystal Liquid Glass */
 .sovereign-dispatch-card:not(.is-personal-dispatch),
 .sovereign-dispatch-card.dispatch-align-left,
 .sovereign-dispatch-card.dispatch-sender-other {
   align-self: flex-start !important;
   margin-inline-end: auto !important;
   margin-inline-start: 0 !important;
-  /* Translucent smoky obsidian glass - reveals backdrop watermark & ambient glow beneath */
+  border-radius: 17px 17px 17px 6px !important;
+  /* Translucent smoked obsidian crystal glass - reveals engraved dial guilloché and ambient glow beneath */
   background: linear-gradient(
-    140deg,
-    rgba(26, 22, 17, 0.46) 0%,
-    rgba(16, 13, 10, 0.56) 50%,
-    rgba(10, 8, 6, 0.66) 100%
+    145deg,
+    rgba(24, 21, 28, 0.44) 0%,
+    rgba(15, 13, 19, 0.52) 50%,
+    rgba(10, 9, 13, 0.60) 100%
   ) !important;
-  border: 1px solid rgba(212, 175, 55, 0.18) !important;
-  border-top: 1px solid rgba(255, 240, 190, 0.35) !important;
-  border-left: 1px solid rgba(212, 175, 55, 0.24) !important;
-  border-radius: 14px !important;
+  /* Beveled glass rim instead of heavy opaque stroke */
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-top: 1px solid rgba(255, 245, 215, 0.28) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35) !important;
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.45),
-    0 1px 3px rgba(0, 0, 0, 0.3),
-    inset 0 1px 1px rgba(255, 255, 255, 0.12),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.4) !important;
+    0 6px 20px rgba(0, 0, 0, 0.40),
+    0 1px 3px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.14),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.30) !important;
 }
 
 .sovereign-dispatch-card:not(.is-personal-dispatch):hover {
-  border-color: rgba(212, 175, 55, 0.35) !important;
-  border-top-color: rgba(255, 245, 210, 0.48) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  border-top-color: rgba(255, 245, 215, 0.42) !important;
   background: linear-gradient(
-    140deg,
-    rgba(30, 25, 19, 0.52) 0%,
-    rgba(18, 15, 11, 0.62) 50%,
-    rgba(12, 10, 7, 0.72) 100%
+    145deg,
+    rgba(28, 24, 32, 0.50) 0%,
+    rgba(18, 15, 22, 0.58) 50%,
+    rgba(12, 11, 16, 0.66) 100%
   ) !important;
   box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.55),
-    0 2px 5px rgba(0, 0, 0, 0.35),
-    0 0 10px rgba(212, 175, 55, 0.08),
-    inset 0 1px 1.5px rgba(255, 244, 205, 0.18),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.4) !important;
+    0 8px 24px rgba(0, 0, 0, 0.50),
+    0 2px 5px rgba(0, 0, 0, 0.30),
+    inset 0 1px 1.5px rgba(255, 248, 225, 0.22),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* 2. Personal Dispatches (Sent by Current Member) - Warm Champagne Amber Liquid Glass */
+/* 2. Personal Dispatches (Sent by Current Member) - Warm Champagne Amber Crystal Liquid Glass */
 .sovereign-dispatch-card.is-personal-dispatch,
 .sovereign-dispatch-card.dispatch-align-right,
 .sovereign-dispatch-card.dispatch-sender-me {
   align-self: flex-end !important;
   margin-inline-start: auto !important;
   margin-inline-end: 0 !important;
-  /* Translucent champagne-infused amber obsidian glass */
+  border-radius: 17px 17px 6px 17px !important;
+  /* Translucent luminous champagne amber crystal glass */
   background: linear-gradient(
-    140deg,
-    rgba(46, 35, 18, 0.52) 0%,
-    rgba(30, 22, 11, 0.62) 50%,
-    rgba(16, 12, 7, 0.72) 100%
+    145deg,
+    rgba(48, 36, 18, 0.48) 0%,
+    rgba(32, 24, 12, 0.56) 50%,
+    rgba(18, 14, 8, 0.64) 100%
   ) !important;
-  border: 1px solid rgba(212, 175, 55, 0.32) !important;
-  border-top: 1px solid rgba(255, 246, 215, 0.52) !important;
-  border-right: 1px solid rgba(212, 175, 55, 0.40) !important;
-  border-radius: 14px !important;
+  /* Refraction golden bevel */
+  border: 1px solid rgba(212, 175, 55, 0.24) !important;
+  border-top: 1px solid rgba(255, 245, 215, 0.48) !important;
+  border-bottom: 1px solid rgba(140, 100, 30, 0.25) !important;
   box-shadow:
-    0 4px 18px rgba(0, 0, 0, 0.5),
-    0 1px 3px rgba(0, 0, 0, 0.35),
-    0 0 12px rgba(212, 175, 55, 0.10),
-    inset 0 1px 1.5px rgba(255, 246, 212, 0.22),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.45) !important;
+    0 6px 22px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.30),
+    0 0 14px rgba(212, 175, 55, 0.10),
+    inset 0 1px 1.5px rgba(255, 246, 215, 0.25),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.35) !important;
 }
 
 .sovereign-dispatch-card.is-personal-dispatch:hover {
-  border-color: rgba(212, 175, 55, 0.48) !important;
-  border-top-color: rgba(255, 248, 225, 0.65) !important;
+  border-color: rgba(212, 175, 55, 0.38) !important;
+  border-top-color: rgba(255, 248, 225, 0.60) !important;
   background: linear-gradient(
-    140deg,
-    rgba(52, 40, 20, 0.58) 0%,
-    rgba(35, 26, 13, 0.68) 50%,
-    rgba(20, 15, 9, 0.76) 100%
+    145deg,
+    rgba(54, 42, 22, 0.54) 0%,
+    rgba(36, 28, 15, 0.62) 50%,
+    rgba(22, 17, 10, 0.70) 100%
   ) !important;
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.6),
-    0 2px 6px rgba(0, 0, 0, 0.4),
-    0 0 16px rgba(212, 175, 55, 0.15),
-    inset 0 1px 2px rgba(255, 246, 212, 0.28),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.45) !important;
+    0 8px 26px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.35),
+    0 0 18px rgba(212, 175, 55, 0.16),
+    inset 0 1px 2px rgba(255, 248, 220, 0.32),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.40) !important;
 }
 
 /* Fallback for environments lacking backdrop-filter */
@@ -4069,7 +4099,18 @@ body.light-mode #clubPinnedDismissBtn:hover {
   }
 }
 
-/* RTL-aware directional adaptations */
+/* RTL-aware directional adaptations & tailored liquid glass curvatures */
+html[dir="rtl"] .sovereign-dispatch-card:not(.is-personal-dispatch),
+html[dir="rtl"] .sovereign-dispatch-card.dispatch-align-left,
+html[dir="rtl"] .sovereign-dispatch-card.dispatch-sender-other {
+  border-radius: 17px 17px 6px 17px !important;
+}
+html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch,
+html[dir="rtl"] .sovereign-dispatch-card.dispatch-align-right,
+html[dir="rtl"] .sovereign-dispatch-card.dispatch-sender-me {
+  border-radius: 17px 17px 17px 6px !important;
+}
+
 html[dir="rtl"] .sovereign-dispatch-card:not(.is-personal-dispatch).is-new-dispatch,
 html[dir="rtl"] .sovereign-dispatch-card:not(.is-personal-dispatch).dispatch-just-arrived {
   animation-name: dispatchArrivalIncomingRTL;
@@ -4799,7 +4840,7 @@ body.light-mode .dispatch-read-more-btn:hover {
   width: 100% !important;
   max-width: 520px !important;
   margin: 0 auto !important;
-  padding: 4px 2px 2px 2px !important;
+  padding: 4px calc(12px + env(safe-area-inset-right, 0px)) calc(2px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px)) !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 6px !important;
@@ -4949,12 +4990,17 @@ body.light-mode .dispatch-read-more-btn:hover {
   gap: 8px !important;
   padding: 5px 10px !important;
   border-radius: 9px !important;
-  background: rgba(18, 14, 10, 0.72) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  border-top: 1px solid rgba(255, 235, 175, 0.25) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+  background: rgba(18, 14, 10, 0.52) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.18) !important;
+  border-top: 1px solid rgba(255, 240, 190, 0.28) !important;
+  border-bottom: 1px solid rgba(140, 105, 35, 0.16) !important;
+  box-shadow:
+    0 4px 16px -2px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 245, 215, 0.12),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.35) !important;
   max-height: 52px !important;
   opacity: 1 !important;
   transform: translateY(0) scale(1) !important;
@@ -7754,11 +7800,13 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   display: flex;
   overflow-x: auto;
   gap: 8px;
-  padding: 6px 2px 6px;
+  padding: 6px calc(14px + env(safe-area-inset-right, 0px)) 6px calc(14px + env(safe-area-inset-left, 0px));
   scrollbar-width: none;
   -ms-overflow-style: none;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.16);
-  background: linear-gradient(180deg, rgba(14, 13, 16, 0.6) 0%, rgba(8, 7, 10, 0.8) 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+  background: rgba(12, 10, 14, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   margin-bottom: 0;
   flex-shrink: 0;
   -webkit-overflow-scrolling: touch;
@@ -7780,8 +7828,11 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: linear-gradient(180deg, #16151a 0%, #0d0c10 100%);
-  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: rgba(22, 18, 24, 0.50);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-top: 1px solid rgba(255, 240, 190, 0.25);
   color: #9c917d;
   font-size: 11.5px;
   padding: 7px 13px;
@@ -11459,13 +11510,19 @@ body.light-mode .achievements-summary-divider {
 
 /* Club Message Credits Bar */
 body.light-mode #club-tab .club-credits-display,
-body.light-mode .club-credits-display {
-  background: rgba(250, 246, 238, 0.92) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(184, 142, 62, 0.25) !important;
+body.light-mode .club-credits-display,
+body.light-mode #clubCreditsDisplay {
+  background: rgba(250, 246, 238, 0.60) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  border: 1px solid rgba(190, 150, 75, 0.22) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.85) !important;
-  box-shadow: 0 2px 10px rgba(90, 60, 20, 0.06) !important;
+  border-bottom: 1px solid rgba(160, 120, 45, 0.18) !important;
+  box-shadow:
+    0 4px 16px -2px rgba(90, 65, 20, 0.08),
+    0 1px 3px rgba(90, 65, 20, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85),
+    inset 0 -1px 1px rgba(184, 142, 62, 0.06) !important;
 }
 body.light-mode #club-tab .club-credits-label {
   color: #63533c !important;
@@ -11549,25 +11606,31 @@ body.light-mode #club-tab .club-pinned-icon svg path {
 
 /* Club Room Tabs in Light Mode */
 body.light-mode #club-tab .club-rooms-nav {
-  background: rgba(250, 248, 243, 0.95) !important;
-  border-bottom-color: rgba(156, 109, 35, 0.18) !important;
+  background: rgba(250, 248, 243, 0.55) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom-color: rgba(156, 109, 35, 0.12) !important;
 }
 body.light-mode #club-tab .club-room-btn {
-  background: #f4f0e6 !important;
-  border-color: rgba(156, 109, 35, 0.28) !important;
+  background: rgba(255, 255, 255, 0.52) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(156, 109, 35, 0.20) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.85) !important;
   color: #5c4e38 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
 }
 body.light-mode #club-tab .club-room-btn:hover {
-  background: #ede8dc !important;
-  border-color: rgba(156, 109, 35, 0.45) !important;
+  background: rgba(255, 255, 255, 0.70) !important;
+  border-color: rgba(156, 109, 35, 0.35) !important;
   color: #3b2a09 !important;
 }
 body.light-mode #club-tab .club-room-btn.is-active {
-  background: var(--lm-bg-white) !important;
-  border-color: rgba(156, 109, 35, 0.65) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(156, 109, 35, 0.55) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
   color: #8c6014 !important;
-  box-shadow: 0 2px 8px rgba(156, 109, 35, 0.12) !important;
+  box-shadow: 0 2px 8px rgba(156, 109, 35, 0.10) !important;
 }
 body.light-mode #club-tab .club-room-btn .chamber-icon {
   color: #8c734b !important;
@@ -11588,101 +11651,177 @@ body.light-mode .room-badge {
   color: #1a150c !important;
 }
 
-/* Chat & Sovereign Dispatch */
+/* Chat & Sovereign Dispatch — Light Mode Ivory Atelier */
 body.light-mode .club-chat-viewport,
 html.light-mode .club-chat-viewport,
 :root[data-theme="light"] .club-chat-viewport {
-  border: 1px solid rgba(184, 142, 62, 0.24) !important;
-  box-shadow: 0 4px 20px rgba(90, 60, 20, 0.06) !important;
-  background: #fbf9f4 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+  background: #f7f4ed !important;
 }
 
 body.light-mode .sovereign-chat-backdrop,
 html.light-mode .sovereign-chat-backdrop,
 :root[data-theme="light"] .sovereign-chat-backdrop {
-  /* Refined warm ivory, pearl, and pale stone substrate with subtle champagne lighting */
+  /* Light Mode — Champagne Pearl: warm pearl, ivory, and pale stone with mineral depth and directional champagne light */
   background:
-    radial-gradient(ellipse 90% 260px at 50% 0%, rgba(212, 175, 55, 0.12) 0%, rgba(184, 142, 50, 0.03) 55%, transparent 80%),
-    radial-gradient(ellipse 85% 260px at 50% 100%, rgba(184, 142, 50, 0.05) 0%, transparent 70%),
-    linear-gradient(180deg, #fdfbf7 0%, #f7f2e8 40%, #efe7d8 75%, #f6f0e4 100%) !important;
+    radial-gradient(ellipse 110% 360px at 50% -5%, rgba(212, 175, 60, 0.09) 0%, rgba(184, 142, 50, 0.02) 55%, transparent 80%),
+    radial-gradient(ellipse 85% 260px at 50% 105%, rgba(160, 120, 50, 0.04) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, transparent 50%, rgba(215, 195, 165, 0.12) 100%),
+    linear-gradient(180deg, #faf7f2 0%, #f4eee3 35%, #eae3d5 70%, #f3ede1 100%) !important;
 }
 
+/* Signature Haute-Horlogerie Champagne Pearl Wallpaper (Light Mode) */
 body.light-mode .chat-backdrop-texture,
 html.light-mode .chat-backdrop-texture,
 :root[data-theme="light"] .chat-backdrop-texture {
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 31px,
-    rgba(164, 122, 48, 0.025) 31px,
-    rgba(164, 122, 48, 0.025) 32px
-  ) !important;
-  opacity: 0.75 !important;
-}
-
-body.light-mode .chat-backdrop-svg-texture rect,
-html.light-mode .chat-backdrop-svg-texture rect,
-:root[data-theme="light"] .chat-backdrop-svg-texture rect,
-body.light-mode .chat-backdrop-svg-texture line,
-html.light-mode .chat-backdrop-svg-texture line,
-:root[data-theme="light"] .chat-backdrop-svg-texture line {
-  stroke: rgba(164, 122, 48, 0.22) !important;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22320%22%20viewBox=%220%200%20320%20320%22%3E%3Cdefs%3E%3Cpattern%20id=%22grain%22%20width=%2216%22%20height=%2216%22%20patternUnits=%22userSpaceOnUse%22%3E%3Ccircle%20cx=%222%22%20cy=%223%22%20r=%220.4%22%20fill=%22%238c6218%22%20fill-opacity=%220.04%22/%3E%3Ccircle%20cx=%2210%22%20cy=%2211%22%20r=%220.4%22%20fill=%22%238c6218%22%20fill-opacity=%220.04%22/%3E%3Ccircle%20cx=%2214%22%20cy=%225%22%20r=%220.35%22%20fill=%22%238c6218%22%20fill-opacity=%220.04%22/%3E%3Ccircle%20cx=%226%22%20cy=%2213%22%20r=%220.35%22%20fill=%22%238c6218%22%20fill-opacity=%220.04%22/%3E%3C/pattern%3E%3C/defs%3E%3Crect%20width=%22320%22%20height=%22320%22%20fill=%22url(%23grain)%22/%3E%3Cpath%20d=%22M160%20148v24M148%20160h24%22%20stroke=%22%238c6218%22%20stroke-width=%220.5%22%20stroke-opacity=%220.1%22/%3E%3Ccircle%20cx=%22160%22%20cy=%22160%22%20r=%221.2%22%20fill=%22%238c6218%22%20fill-opacity=%220.1%22/%3E%3Ccircle%20cx=%22160%22%20cy=%22160%22%20r=%2212%22%20fill=%22none%22%20stroke=%22%238c6218%22%20stroke-width=%220.3%22%20stroke-dasharray=%221.5%204.5%22%20stroke-opacity=%220.04%22/%3E%3Cpath%20d=%22M0%2016h8M16%200v8M320%2016h-8M304%200v8M0%20304h8M16%20320v-8M320%20304h-8M304%20320v-8%22%20stroke=%22%238c6218%22%20stroke-width=%220.5%22%20stroke-opacity=%220.1%22/%3E%3Cline%20x1=%220%22%20y1=%22160%22%20x2=%2216%22%20y2=%22160%22%20stroke=%22%238c6218%22%20stroke-width=%220.4%22%20stroke-opacity=%220.1%22/%3E%3Cline%20x1=%22304%22%20y1=%22160%22%20x2=%22320%22%20y2=%22160%22%20stroke=%22%238c6218%22%20stroke-width=%220.4%22%20stroke-opacity=%220.1%22/%3E%3Cline%20x1=%22160%22%20y1=%220%22%20x2=%22160%22%20y2=%22160%22%20stroke=%22%238c6218%22%20stroke-width=%220.4%22%20stroke-opacity=%220.1%22/%3E%3Cline%20x1=%22160%22%20y1=%22304%22%20x2=%22160%22%20y2=%22320%22%20stroke=%22%238c6218%22%20stroke-width=%220.4%22%20stroke-opacity=%220.1%22/%3E%3C/svg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 320px 320px !important;
+  opacity: 0.96 !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
 }
 
 body.light-mode .chat-backdrop-ambient,
 html.light-mode .chat-backdrop-ambient,
 :root[data-theme="light"] .chat-backdrop-ambient {
-  background: radial-gradient(ellipse 70% 180px at 50% 12%, rgba(220, 185, 110, 0.09) 0%, transparent 70%) !important;
+  background: radial-gradient(ellipse 80% 220px at 50% 8%, rgba(220, 185, 115, 0.05) 0%, transparent 75%) !important;
 }
 
+/* Eliminated separator hairlines above and below message feed in Light Mode */
+body.light-mode .chat-backdrop-hairline,
 body.light-mode .chat-backdrop-hairline-top,
-html.light-mode .chat-backdrop-hairline-top,
-:root[data-theme="light"] .chat-backdrop-hairline-top {
-  background: linear-gradient(90deg, transparent 0%, rgba(164, 122, 48, 0.30) 50%, transparent 100%) !important;
-}
 body.light-mode .chat-backdrop-hairline-bottom,
+html.light-mode .chat-backdrop-hairline,
+html.light-mode .chat-backdrop-hairline-top,
 html.light-mode .chat-backdrop-hairline-bottom,
+:root[data-theme="light"] .chat-backdrop-hairline,
+:root[data-theme="light"] .chat-backdrop-hairline-top,
 :root[data-theme="light"] .chat-backdrop-hairline-bottom {
-  background: linear-gradient(90deg, transparent 0%, rgba(164, 122, 48, 0.20) 50%, transparent 100%) !important;
+  display: none !important;
 }
 
-
-body.light-mode .sovereign-dispatch-card {
-  backdrop-filter: blur(14px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
-  border-radius: 14px !important;
+/* Light Mode: Convincing Liquid Glass Craftsmanship for Sovereign Dispatches */
+body.light-mode .sovereign-dispatch-card,
+html.light-mode .sovereign-dispatch-card,
+:root[data-theme="light"] .sovereign-dispatch-card {
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  border-radius: 17px !important;
 }
+
+body.light-mode .sovereign-dispatch-card::before,
+html.light-mode .sovereign-dispatch-card::before,
+:root[data-theme="light"] .sovereign-dispatch-card::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.12) 24%,
+    transparent 65%
+  ) !important;
+}
+
+/* Light Mode: Frosted Crystal Pearl Liquid Glass (Incoming / Other Members) */
 body.light-mode .sovereign-dispatch-card:not(.is-personal-dispatch),
 body.light-mode .sovereign-dispatch-card.dispatch-align-left,
-body.light-mode .sovereign-dispatch-card.dispatch-sender-other {
+body.light-mode .sovereign-dispatch-card.dispatch-sender-other,
+html.light-mode .sovereign-dispatch-card:not(.is-personal-dispatch),
+html.light-mode .sovereign-dispatch-card.dispatch-align-left,
+html.light-mode .sovereign-dispatch-card.dispatch-sender-other,
+:root[data-theme="light"] .sovereign-dispatch-card:not(.is-personal-dispatch),
+:root[data-theme="light"] .sovereign-dispatch-card.dispatch-align-left,
+:root[data-theme="light"] .sovereign-dispatch-card.dispatch-sender-other {
+  border-radius: 17px 17px 17px 6px !important;
+  /* Translucent frosted pearl crystal glass - allows luxury watchmaking guilloché to filter through */
   background: linear-gradient(
-    140deg,
-    rgba(255, 255, 255, 0.78) 0%,
-    rgba(250, 246, 238, 0.72) 50%,
-    rgba(243, 237, 224, 0.76) 100%
+    145deg,
+    rgba(255, 255, 255, 0.54) 0%,
+    rgba(250, 246, 238, 0.44) 50%,
+    rgba(244, 238, 226, 0.50) 100%
   ) !important;
-  border: 1px solid rgba(164, 122, 48, 0.25) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  /* Beveled frosted rim highlight - eliminates harsh dark card borders */
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1px solid rgba(185, 155, 115, 0.18) !important;
   box-shadow:
-    0 4px 16px rgba(110, 80, 30, 0.07),
-    0 1px 3px rgba(0, 0, 0, 0.04),
-    inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+    0 6px 20px rgba(120, 95, 50, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.03),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px rgba(212, 175, 55, 0.05) !important;
 }
+
+body.light-mode .sovereign-dispatch-card:not(.is-personal-dispatch):hover,
+html.light-mode .sovereign-dispatch-card:not(.is-personal-dispatch):hover,
+:root[data-theme="light"] .sovereign-dispatch-card:not(.is-personal-dispatch):hover {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(252, 248, 240, 0.50) 50%,
+    rgba(246, 240, 230, 0.56) 100%
+  ) !important;
+  border-color: rgba(255, 255, 255, 0.88) !important;
+  border-top-color: #ffffff !important;
+  box-shadow:
+    0 8px 24px rgba(120, 95, 50, 0.07),
+    0 2px 5px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(255, 255, 255, 0.98) !important;
+}
+
+/* Light Mode: Luminous Champagne Crystal Liquid Glass (Personal / Outgoing) */
 body.light-mode .sovereign-dispatch-card.is-personal-dispatch,
 body.light-mode .sovereign-dispatch-card.dispatch-align-right,
-body.light-mode .sovereign-dispatch-card.dispatch-sender-me {
+body.light-mode .sovereign-dispatch-card.dispatch-sender-me,
+html.light-mode .sovereign-dispatch-card.is-personal-dispatch,
+html.light-mode .sovereign-dispatch-card.dispatch-align-right,
+html.light-mode .sovereign-dispatch-card.dispatch-sender-me,
+:root[data-theme="light"] .sovereign-dispatch-card.is-personal-dispatch,
+:root[data-theme="light"] .sovereign-dispatch-card.dispatch-align-right,
+:root[data-theme="light"] .sovereign-dispatch-card.dispatch-sender-me {
+  border-radius: 17px 17px 6px 17px !important;
+  /* Translucent luminous champagne crystal glass */
   background: linear-gradient(
-    140deg,
-    rgba(255, 249, 236, 0.84) 0%,
-    rgba(247, 237, 214, 0.76) 50%,
-    rgba(240, 226, 195, 0.80) 100%
+    145deg,
+    rgba(255, 248, 232, 0.60) 0%,
+    rgba(248, 236, 212, 0.48) 50%,
+    rgba(240, 225, 195, 0.54) 100%
   ) !important;
-  border: 1px solid rgba(184, 134, 45, 0.36) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  /* Crystal beveled rim with soft champagne luster */
+  border: 1px solid rgba(230, 205, 150, 0.45) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1px solid rgba(175, 130, 45, 0.22) !important;
   box-shadow:
-    0 4px 16px rgba(140, 100, 30, 0.09),
-    0 1px 3px rgba(156, 109, 35, 0.08),
-    inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+    0 6px 22px rgba(150, 110, 35, 0.07),
+    0 1px 3px rgba(130, 90, 25, 0.04),
+    0 0 10px rgba(212, 175, 55, 0.08),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 0 8px rgba(255, 238, 195, 0.15) !important;
+}
+
+body.light-mode .sovereign-dispatch-card.is-personal-dispatch:hover,
+html.light-mode .sovereign-dispatch-card.is-personal-dispatch:hover,
+:root[data-theme="light"] .sovereign-dispatch-card.is-personal-dispatch:hover {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 250, 236, 0.68) 0%,
+    rgba(250, 240, 218, 0.54) 50%,
+    rgba(244, 230, 202, 0.60) 100%
+  ) !important;
+  border-color: rgba(235, 210, 155, 0.58) !important;
+  border-top-color: #ffffff !important;
+  box-shadow:
+    0 8px 26px rgba(150, 110, 35, 0.09),
+    0 2px 5px rgba(130, 90, 25, 0.05),
+    0 0 14px rgba(212, 175, 55, 0.12),
+    inset 0 1px 2px rgba(255, 255, 255, 0.98) !important;
 }
 body.light-mode .golden-ink-wash {
   background: radial-gradient(
@@ -11821,8 +11960,13 @@ body.light-mode .whisper-banner-label {
   color: #593e10 !important;
 }
 body.light-mode .sovereign-dispatch-card.is-whisper-dispatch {
-  background: #fefcf7 !important;
-  border-color: rgba(156, 109, 35, 0.45) !important;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 252, 245, 0.65) 0%,
+    rgba(250, 242, 225, 0.52) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.38) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
 }
 body.light-mode .dispatch-whisper-pill {
   background: rgba(156, 109, 35, 0.1) !important;
@@ -32397,7 +32541,6 @@ body.light-mode #profile-tab .membership-ledger-card,
 body.light-mode #profile-tab .profile-curation-card,
 body.light-mode #profile-tab .reliquary-card,
 body.light-mode #profile-tab .prestige-honors-card,
-body.light-mode .sovereign-dispatch-card,
 body.light-mode .modal-content,
 body.light-mode .purchase-modal,
 body.light-mode .sd-registry-card {
@@ -32405,10 +32548,6 @@ body.light-mode .sd-registry-card {
   box-shadow:
     inset 0 1px 0 rgba(255, 252, 240, 0.8),
     0 2px 8px rgba(80, 55, 20, 0.05) !important;
-}
-
-body.light-mode .sovereign-dispatch-card.is-whisper-dispatch {
-  border: 1px solid rgba(164, 122, 48, 0.45) !important;
 }
 
 /* 3. Unified Gold Badges, Status Tags & Accredited Seals */
@@ -34561,18 +34700,23 @@ body.light-mode #logoutConfirmModal p {
   align-items: center !important;
   gap: 8px !important;
   padding: 3px 8px !important;
-  margin: 1px 6px 3px 6px !important;
+  margin: 1px calc(14px + env(safe-area-inset-right, 0px)) 3px calc(14px + env(safe-area-inset-left, 0px)) !important;
   height: 28px !important;
   min-height: 28px !important;
   max-height: 28px !important;
   box-sizing: border-box !important;
-  background: linear-gradient(180deg, rgba(26, 22, 18, 0.94) 0%, rgba(14, 12, 10, 0.96) 100%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  border-top: 1px solid rgba(233, 200, 119, 0.35) !important;
-  border-bottom: 1px solid rgba(120, 95, 38, 0.28) !important;
+  background: linear-gradient(180deg, rgba(22, 18, 14, 0.58) 0%, rgba(12, 10, 8, 0.68) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.18) !important;
+  border-top: 1px solid rgba(255, 240, 190, 0.32) !important;
+  border-bottom: 1px solid rgba(120, 95, 38, 0.20) !important;
   border-radius: 8px !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+  box-shadow:
+    0 4px 16px -2px rgba(0, 0, 0, 0.45),
+    0 1px 3px rgba(0, 0, 0, 0.30),
+    inset 0 1px 1px rgba(255, 235, 175, 0.15),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.40) !important;
   overflow: hidden !important;
 }
 
@@ -34931,18 +35075,18 @@ body.light-mode #logoutConfirmModal p {
 body.light-mode .sovereign-salon-ticker,
 html.light-mode .sovereign-salon-ticker,
 :root[data-theme="light"] .sovereign-salon-ticker {
-  background: linear-gradient(180deg, rgba(255, 253, 249, 0.96) 0%, rgba(247, 242, 233, 0.98) 100%) !important;
-  border: 1px solid rgba(168, 124, 45, 0.25) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid rgba(138, 98, 28, 0.25) !important;
+  background: linear-gradient(180deg, rgba(255, 252, 245, 0.65) 0%, rgba(247, 240, 228, 0.72) 100%) !important;
+  border: 1px solid rgba(184, 142, 62, 0.22) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.85) !important;
+  border-bottom: 1px solid rgba(160, 120, 45, 0.18) !important;
   border-radius: 8px !important;
   box-shadow:
-    0 3px 12px rgba(0, 0, 0, 0.05),
-    0 1px 3px rgba(156, 109, 35, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1px 0 rgba(168, 124, 45, 0.06) !important;
-  backdrop-filter: blur(14px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+    0 4px 16px -2px rgba(90, 65, 20, 0.08),
+    0 1px 3px rgba(90, 65, 20, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.90),
+    inset 0 -1px 1px rgba(184, 142, 62, 0.06) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
 }
 
 body.light-mode .ticker-pulse-badge,

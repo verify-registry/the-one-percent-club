@@ -3118,6 +3118,9 @@ const Router = {
     if (window.HeaderScrollController) {
       window.HeaderScrollController.onTabChangeStart();
     }
+    if (tab !== "club" && typeof cancelClubWelcomeAutoDismiss === "function") {
+      cancelClubWelcomeAutoDismiss();
+    }
 
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
@@ -4276,6 +4279,11 @@ function startClubWelcomeAutoDismiss() {
   plaque.classList.remove("is-collapsed");
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
+
+  // Restore reliable 5-second (5000ms) auto-dismiss timer
+  clubWelcomeDismissTimer = setTimeout(() => {
+    dismissClubWelcomePlaque();
+  }, 5000);
 }
 
 function cancelClubWelcomeAutoDismiss() {
