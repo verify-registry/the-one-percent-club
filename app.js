@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (this._themeTransitionTimer) clearTimeout(this._themeTransitionTimer);
       this._themeTransitionTimer = setTimeout(() => {
         root.classList.remove("theme-transitioning");
-      }, 280);
+      }, 340);
 
       // Toggle dark-mode / light-mode classes on document root element (<html>)
       root.classList.toggle("light-mode", isLight);

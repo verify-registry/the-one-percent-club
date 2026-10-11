@@ -755,6 +755,24 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - `compile_applet` passed cleanly.
   - `lint_applet` passed cleanly with 0 syntax or runtime errors across all scripts.
 
+### Floating Layers Clipping & Sticking Elimination Pass (2026-10-11) — COMPLETE
+- **Root Causes Diagnosed**:
+  1. `#clubPinnedInfo` (Welcome Bar) had `margin: 1px 4px 3px 4px !important;` in late overrides, jamming it 1px below `.club-rooms-nav` and 4px from screen edges while `#sovereignSalonTicker` had 14px inset margins, causing an unaligned, glued-on appearance with clipped shadows due to `overflow: hidden`.
+  2. `.sovereign-salon-ticker` had `overflow: hidden !important;` and a heavy black bottom border `rgba(0,0,0,0.45)`, clipping pill bevels and cutting a harsh dark line across the background.
+  3. `#clubCreditsDisplay` had `margin: 0` inside `#clubComposerWrap` with a dark bottom border `rgba(0,0,0,0.32)` and only 12px border radius without specular sheen.
+  4. `.club-rooms-nav` had a hard bottom border creating a visual cut line across the continuous atelier background.
+- **Architectural Fixes Applied**:
+  1. Unified `#clubPinnedInfo`, `#sovereignSalonTicker`, and `#clubCreditsDisplay` to the exact same floating Liquid Glass architecture:
+     - Side margins synchronized to `calc(14px + env(safe-area-inset-...))` with balanced vertical spacing.
+     - Curving specular top highlight sheen via `::before` (`z-index: 1; pointer-events: none;`) with child content raised to `z-index: 2;`.
+     - Luminous specular top rim (`border-top: 1px solid rgba(255, 248, 225, 0.65)` in Dark / `rgba(255, 255, 255, 0.95)` in Light).
+     - Delicate golden glass perimeter border with softened bottom rim (`rgba(212, 175, 55, 0.10)`), replacing harsh black lines.
+     - Deep, soft external drop shadow (`0 8px 24px -2px rgba(0, 0, 0, 0.48)`) and crystal transmission backdrop filter.
+     - `overflow: visible !important;` so floating shadows and outlines are never clipped.
+  2. Softened `.club-rooms-nav` bottom border to eliminate artificial horizontal division lines across the club wallpaper.
+  3. Ensured 100% preservation of all buttons, gauges, counters, messaging, and responsive behaviors in both Dark and Light modes.
+  4. Cache-busted stylesheet to `style.css?v=20261011_floating_layers_fix`.
+
 
 
 
