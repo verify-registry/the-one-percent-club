@@ -3146,7 +3146,11 @@ const Router = {
     const main = document.querySelector(".app-main");
     if (main) {
       main.classList.toggle("main-membership-active", tab === "membership");
+      main.classList.toggle("main-club-active", tab === "club");
       main.scrollTop = 0;
+    }
+    if (document.body) {
+      document.body.classList.toggle("tab-club-active", tab === "club");
     }
     window.scrollTo(0, 0);
 
@@ -3595,47 +3599,12 @@ function closeMemberProfile() {
     sectionName.textContent = isAr ? "النادي" : "Club";
   }
 
-  // 5. Explicitly activate and restore the Sovereign Hall of Honor (leaderboard)
-  AppState.activeChannelId = "leaderboard";
-
-  document.querySelectorAll(".club-room-btn").forEach((btn) => {
-    btn.classList.toggle("is-active", btn.dataset.channel === "leaderboard");
-  });
-
-  const chatViewport = document.getElementById("clubChatViewport");
-  const messagesContainer = document.getElementById("clubMessages");
-  const leaderboardContainer = document.getElementById("clubLeaderboardContainer");
-
-  if (chatViewport) chatViewport.style.display = "none";
-  if (messagesContainer) messagesContainer.style.display = "none";
-
-  if (typeof window.setClubFloatingControlsVisibility === "function") {
-    window.setClubFloatingControlsVisibility(false);
-  }
-
-  if (leaderboardContainer) {
-    leaderboardContainer.style.display = "block";
-    // If not yet populated, render leaderboard
-    if (!leaderboardContainer.hasChildNodes() || leaderboardContainer.children.length === 0) {
-      if (typeof renderLeaderboard === "function") {
-        renderLeaderboard();
-      }
-    }
-  }
-
-  const pinnedTitle = document.getElementById("clubPinnedTitle");
-  const pinnedSub = document.getElementById("clubPinnedSub");
-  const pinnedSvg = document.getElementById("clubPinnedSvg");
-  if (pinnedTitle) {
-    pinnedTitle.textContent = window.t("club.leaderboardTitle");
-    pinnedTitle.setAttribute("data-i18n", "club.leaderboardTitle");
-  }
-  if (pinnedSub) {
-    pinnedSub.textContent = window.t("club.leaderboardSub");
-    pinnedSub.setAttribute("data-i18n", "club.leaderboardSub");
-  }
-  if (pinnedSvg) {
-    pinnedSvg.innerHTML = '<path d="M7 11.5a5.5 5.5 0 0110 0c0 4-3 6.5-5 8-2-1.5-5-4-5-8z" stroke="currentColor" stroke-width="1.3"/><path d="M12 6l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4L12 6z" fill="currentColor"/>';
+  // 5. Restore active chamber channel cleanly
+  const targetChannel = (AppState.activeChannelId && AppState.activeChannelId !== "leaderboard")
+    ? AppState.activeChannelId
+    : "global-lounge";
+  if (typeof switchChannel === "function") {
+    switchChannel(targetChannel);
   }
 
   // 6. Restore previous scroll position faithfully
@@ -4151,14 +4120,25 @@ window.setClubFloatingControlsVisibility = function(visible) {
 };
 
 function switchChannel(channelId) {
+  if (!channelId) return;
+  const isSameChannel = AppState.activeChannelId === channelId;
   AppState.activeChannelId = channelId;
   const channelData = AppState.channels[channelId] || {
     name: window.t("club.lounge"),
     messages: [],
   };
 
+  // 1. Sync Liquid Glass Room Tabs & Accessibility
   document.querySelectorAll(".club-room-btn").forEach((btn) => {
-    btn.classList.toggle("is-active", btn.dataset.channel === channelId);
+    const isActive = btn.dataset.channel === channelId;
+    btn.classList.toggle("is-active", isActive);
+    btn.setAttribute("aria-selected", isActive ? "true" : "false");
+    btn.setAttribute("tabindex", isActive ? "0" : "-1");
+    if (isActive) {
+      try {
+        btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      } catch (e) {}
+    }
   });
 
   const pinnedTitle = document.getElementById("clubPinnedTitle");
@@ -4183,6 +4163,7 @@ function switchChannel(channelId) {
     pinnedSvg.innerHTML = chamberSvgs[channelId];
   }
 
+  // 2. View Switch: Leaderboard vs Chat Chamber
   if (channelId === "leaderboard") {
     if (pinnedTitle) {
       pinnedTitle.textContent = window.t("club.leaderboardTitle");
@@ -4196,12 +4177,16 @@ function switchChannel(channelId) {
     if (chatViewport) chatViewport.style.display = "none";
     if (messagesContainer) messagesContainer.style.display = "none";
 
-    // HIDE Club floating controls in sub-view
-    window.setClubFloatingControlsVisibility(false);
+    // Hide Club message floating controls in Leaderboard view
+    if (typeof window.setClubFloatingControlsVisibility === "function") {
+      window.setClubFloatingControlsVisibility(false);
+    }
 
     if (leaderboardContainer) {
       leaderboardContainer.style.display = "block";
-      renderLeaderboard();
+      if (!leaderboardContainer.hasChildNodes() || leaderboardContainer.children.length === 0 || !isSameChannel) {
+        renderLeaderboard();
+      }
     }
   } else {
     if (pinnedTitle) {
@@ -4229,8 +4214,10 @@ function switchChannel(channelId) {
     if (messagesContainer) messagesContainer.style.display = "";
     if (leaderboardContainer) leaderboardContainer.style.display = "none";
 
-    // RESTORE Club floating controls in main feed
-    window.setClubFloatingControlsVisibility(true);
+    // Restore Club message floating controls
+    if (typeof window.setClubFloatingControlsVisibility === "function") {
+      window.setClubFloatingControlsVisibility(true);
+    }
 
     renderMessages();
   }
@@ -4311,12 +4298,14 @@ window.dismissClubWelcomePlaque = dismissClubWelcomePlaque;
 
 document.querySelectorAll(".club-room-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
+    const channel = btn.dataset.channel;
+    if (!channel) return;
     const badge = btn.querySelector(".room-badge");
     if (badge) badge.remove();
     if (window.HapticEngine && window.HapticEngine.tap) {
       window.HapticEngine.tap(10);
     }
-    switchChannel(btn.dataset.channel);
+    switchChannel(channel);
   });
 });
 
@@ -5104,7 +5093,7 @@ window.autoGrowClubInput = function (el) {
   if (!input) return;
   // WhatsApp-style auto-expanding: reset to auto, then clamp between min and max height
   input.style.height = "auto";
-  const minH = 26;
+  const minH = 22;
   const maxH = 120; // Max ~5-6 lines
   const scrollH = input.scrollHeight;
 
@@ -5112,8 +5101,14 @@ window.autoGrowClubInput = function (el) {
     input.style.height = maxH + "px";
     input.style.overflowY = "auto";
   } else {
-    const targetH = Math.max(minH, scrollH);
-    input.style.height = targetH + "px";
+    const val = (input.value || "").trim();
+    const hasNewline = input.value && input.value.includes("\n");
+    if (!hasNewline && (!val || scrollH <= 26)) {
+      input.style.height = minH + "px";
+    } else {
+      const targetH = Math.max(minH, scrollH);
+      input.style.height = targetH + "px";
+    }
     input.style.overflowY = "hidden";
   }
 };
@@ -8544,6 +8539,10 @@ window.HeaderScrollController = (function() {
           if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
             document.querySelector(".app-main")?.classList.add("main-membership-active");
           }
+          if (document.getElementById("club-tab")?.classList.contains("is-active")) {
+            document.querySelector(".app-main")?.classList.add("main-club-active");
+            document.body?.classList.add("tab-club-active");
+          }
         });
       } else {
         updateHeaderHeightVar();
@@ -8551,6 +8550,10 @@ window.HeaderScrollController = (function() {
         attachClubScroll();
         if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
           document.querySelector(".app-main")?.classList.add("main-membership-active");
+        }
+        if (document.getElementById("club-tab")?.classList.contains("is-active")) {
+          document.querySelector(".app-main")?.classList.add("main-club-active");
+          document.body?.classList.add("tab-club-active");
         }
       }
     },
