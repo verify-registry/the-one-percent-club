@@ -790,6 +790,17 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - `compile_applet` passed cleanly.
   - Automated unit test verifying scroll invariants (scrolling upward, downward, at bottom, and jitter damping) passed 100%.
 
+### Club Tab Codebase Audit & Safe Cleanup Pass (2026-10-13) — COMPLETE
+- **Codebase Audit & Inspection Findings**:
+  1. `translations.js`: Found duplicate key definitions under `club` dictionary (`whisperBadge` defined at line 318 and line 400; `sealedDecree` defined at line 376 and line 412). The duplicate definitions created dictionary ambiguity. Safely removed the overridden duplicate declarations while retaining active definitions.
+  2. `style.css`: Identified abandoned experimental fragment (`/* === CLUB SHADOW-LIFT + BLEED v8 === */`) with redundant duplicate `#club-tab .club-rooms-nav` declaration, non-existent phantom selectors (`.club-composer`, `.lounge-banner`, `#clubWelcomeBanner`, `.club-welcome`), and an abandoned fixed overlay rule for `.club-ambient-layer` (which has no corresponding DOM element). Cleaned these obsolete rules while preserving 100% of diagnostic backgrounds (red diagonal stripes) and diagnostic blue fills (#2563eb / #1d4ed8).
+  3. `index.html`: Fully inspected Club DOM structure (`#club-tab`, `#clubRoomsNavWrap`, `#clubPinnedInfo`, `#sovereignSalonTicker`, `#clubLeaderboardContainer`, `#clubChatViewport`, `#clubMessages`, `#clubComposerWrap`, `#clubCreditsDisplay`, `#obsidianDispatchComposer`). Verified 0 duplicate IDs and 0 redundant structural wrappers.
+  4. `app.js`: Fully inspected event handling, channel switching, Welcome plaque auto-dismiss timer, and `HeaderScrollController` auto-hide scroll tracking. Confirmed single, non-duplicated listener attachments. Retained working code paths without modification.
+- **Verification**:
+  - `lint_applet` passed with 0 errors across all scripts.
+  - `compile_applet` passed cleanly.
+  - Development server curl tests verified HTTP 200 OK responses.
+
 
 
 

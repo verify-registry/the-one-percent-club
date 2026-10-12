@@ -315,10 +315,6 @@ window.I18N = {
       en: "Prestige toast of honor",
       ar: "نخب الامتياز والريادة",
     },
-    whisperBadge: {
-      en: "ENCRYPTED WHISPER • DISCRETION",
-      ar: "همس سيادي مشفر • سرية سويسرية",
-    },
     miniDossier: {
       authLabel: {
         en: "SOVEREIGN MEMBER DOSSIER",
@@ -372,10 +368,6 @@ window.I18N = {
     yourDispatch: {
       en: "Your Sovereign Dispatch",
       ar: "مرسومك السيادي",
-    },
-    sealedDecree: {
-      en: "Sealed Document",
-      ar: "وثيقة مختومة",
     },
     goldenInkSeal: {
       en: "Official Sovereign Seal",

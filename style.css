@@ -36878,12 +36878,6 @@ body.light-mode .whisper-cipher-toggle {
   scroll-padding-top: 124px !important;
 }
 
-/* === CLUB SHADOW-LIFT + BLEED v8 (2026-10-13) === */
-#club-tab .club-rooms-nav {
-  background: transparent !important;
-  background-image: none !important;
-}
-
 /* === TEMPORARY DIAGNOSTIC BACKGROUND: CLUB TAB (LIGHT & DARK) === */
 #club-tab,
 #club-tab.is-active,
@@ -36916,23 +36910,9 @@ body:not(.light-mode) #club-tab.is-active {
 #obsidianDispatchComposer,
 .obsidian-dispatch-composer,
 #clubComposerWrap,
-.club-composer-wrap,
-.club-composer,
-.lounge-banner,
-#clubWelcomeBanner,
-.club-welcome {
+.club-composer-wrap {
   box-shadow: none !important;
 }
-.club-ambient-layer {
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  z-index: 0 !important;
-  display: none !important;
-  pointer-events: none !important;
-}
-body:has(#club-tab.is-active) .club-ambient-layer { display: block !important; }
 .app { position: relative !important; z-index: 1 !important; }
 
 /* ==========================================================================
