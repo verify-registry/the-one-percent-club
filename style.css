@@ -828,7 +828,7 @@ input {
   overflow: hidden;
 }
 
-/* === 3. Header & Identity === */
+/* === 3. Header & Identity: Seamless Gradient Liquid Glass === */
 .app-header {
   position: absolute;
   top: 0;
@@ -841,19 +841,23 @@ input {
   z-index: 90;
   background: linear-gradient(
     180deg,
-    rgba(5, 5, 5, 0.96) 0%,
-    rgba(5, 5, 5, 0.88) 55%,
-    rgba(5, 5, 5, 0.65) 82%,
-    rgba(5, 5, 5, 0) 100%
+    rgba(8, 8, 10, 0.92) 0%,
+    rgba(12, 12, 15, 0.82) 42%,
+    rgba(16, 16, 20, 0.52) 74%,
+    rgba(16, 16, 20, 0.20) 90%,
+    rgba(16, 16, 20, 0.0) 100%
   ) !important;
-  padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 8px;
+  padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: none !important;
   border-bottom: none !important;
-  box-shadow: none !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
   transform: translate3d(0, 0, 0);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
@@ -861,17 +865,66 @@ input {
   will-change: transform, opacity;
   pointer-events: auto;
 }
+
 body.light-mode .app-header,
 html.light-mode .app-header {
   background: linear-gradient(
     180deg,
-    rgba(253, 251, 247, 0.96) 0%,
-    rgba(253, 251, 247, 0.82) 50%,
-    rgba(253, 251, 247, 0.45) 78%,
-    rgba(253, 251, 247, 0) 100%
+    rgba(253, 251, 247, 0.94) 0%,
+    rgba(249, 245, 238, 0.84) 42%,
+    rgba(244, 238, 228, 0.54) 74%,
+    rgba(240, 233, 220, 0.20) 90%,
+    rgba(240, 233, 220, 0.0) 100%
   ) !important;
+  border: none !important;
   border-bottom: none !important;
-  box-shadow: none !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.90) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
+}
+
+/* Tab-unified Header Glass: Seamless integration across Membership, Club, Profile, Boutique */
+.app:has(#club-tab.is-active) .app-header,
+body:has(#club-tab.is-active) .app-header,
+body.tab-club-active .app-header {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 10, 0.92) 0%,
+    rgba(12, 12, 15, 0.82) 42%,
+    rgba(16, 16, 20, 0.52) 74%,
+    rgba(16, 16, 20, 0.20) 90%,
+    rgba(16, 16, 20, 0.0) 100%
+  ) !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
+}
+
+body.light-mode.tab-club-active .app-header,
+body.light-mode:has(#club-tab.is-active) .app-header,
+html.light-mode:has(#club-tab.is-active) .app-header,
+:root[data-theme="light"]:has(#club-tab.is-active) .app-header {
+  background: linear-gradient(
+    180deg,
+    rgba(253, 251, 247, 0.94) 0%,
+    rgba(249, 245, 238, 0.84) 42%,
+    rgba(244, 238, 228, 0.54) 74%,
+    rgba(240, 233, 220, 0.20) 90%,
+    rgba(240, 233, 220, 0.0) 100%
+  ) !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.90) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
 }
 .app-header.header-hidden {
   transform: translate3d(0, -100%, 0) !important;
@@ -2287,29 +2340,24 @@ body.light-mode .metric-tooltip-icon circle {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 10px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px));
   border: none !important;
+  border-top: none !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
+  box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.08) !important;
   pointer-events: auto;
   transform: translate3d(0, 0, 0);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 
-  /* Optical Blur Applied Directly to Navigation Element */
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  /* Optical Glass Blur Applied Directly to Navigation Element */
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
 
-  /* Linear-Gradient Mask: Smooth Alpha Fade at Top, Bottom, and Side Edges */
-  mask-image:
-    linear-gradient(to bottom, transparent 0%, black 14px, black calc(100% - 10px), transparent 100%),
-    linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 14px), transparent 100%);
-  -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0%, black 14px, black calc(100% - 10px), transparent 100%),
-    linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 14px), transparent 100%);
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
+  /* Seamless Dissolve: Fades seamlessly toward top edge into the content without hard cut or line */
+  mask-image: linear-gradient(0deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(0deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
 }
 
 /* Remove Any Pseudo-Element Overlays */
@@ -2319,18 +2367,39 @@ body.light-mode .metric-tooltip-icon circle {
   display: none !important;
 }
 
-/* Dark Mode: Translucent Obsidian Champagne Liquid Glass */
+/* Dark Mode: Obsidian Champagne Seamless Gradient Liquid Glass */
 body:not(.light-mode) .bottom-nav,
 html:not(.light-mode) .bottom-nav,
-[data-theme="dark"] .bottom-nav {
-  background: rgba(14, 11, 7, 0.50) !important;
+[data-theme="dark"] .bottom-nav,
+.bottom-nav {
+  background: linear-gradient(
+    0deg,
+    rgba(8, 8, 10, 0.94) 0%,
+    rgba(12, 12, 15, 0.84) 42%,
+    rgba(16, 16, 20, 0.54) 74%,
+    rgba(16, 16, 20, 0.20) 90%,
+    rgba(16, 16, 20, 0.0) 100%
+  ) !important;
+  border: none !important;
+  border-top: none !important;
+  box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Light Mode: Translucent Warm-Ivory & Champagne Background Color */
+/* Light Mode: Ivory & Champagne Gold Seamless Gradient Liquid Glass */
 body.light-mode .bottom-nav,
 html.light-mode .bottom-nav,
 [data-theme="light"] .bottom-nav {
-  background: rgba(247, 241, 230, 0.40) !important;
+  background: linear-gradient(
+    0deg,
+    rgba(253, 251, 247, 0.95) 0%,
+    rgba(249, 245, 238, 0.85) 42%,
+    rgba(244, 238, 228, 0.56) 74%,
+    rgba(240, 233, 220, 0.20) 90%,
+    rgba(240, 233, 220, 0.0) 100%
+  ) !important;
+  border: none !important;
+  border-top: none !important;
+  box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.60) !important;
 }
 .bottom-nav.nav-hidden {
   transform: translate3d(0, 105%, 0) !important;
@@ -3444,7 +3513,7 @@ html.light-mode #club-tab.is-active,
   align-items: center !important;
   gap: 8px !important;
   padding: 5px 12px 5px 10px !important;
-  margin: 6px calc(14px + env(safe-area-inset-right, 0px)) 4px calc(14px + env(safe-area-inset-left, 0px)) !important;
+  margin: 3px 12px 2px 12px !important;
   border-radius: 14px !important;
   background: linear-gradient(
     135deg,
@@ -3819,7 +3888,7 @@ body.light-mode .chat-backdrop-ambient {
   align-items: center !important;
   gap: 8px !important;
   padding: 3px 10px 3px 8px !important;
-  margin: 4px calc(14px + env(safe-area-inset-right, 0px)) 6px calc(14px + env(safe-area-inset-left, 0px)) !important;
+  margin: 2px 12px 3px 12px !important;
   height: 30px !important;
   min-height: 30px !important;
   max-height: 30px !important;
@@ -35239,34 +35308,55 @@ body.light-mode #logoutConfirmModal p {
   height: 8.5px !important;
 }
 
-/* 3. COMPACT SEGMENTED MESSAGE-QUOTA INDICATOR (GAUGE PIPS STRIP) */
+/* 3. LUXURY HOROLOGICAL DISPATCH ALLOCATION GAUGE (GAUGE PIPS STRIP) */
 .gauge-pips-strip {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 2.5px !important;
-  margin-inline-start: 5px !important;
+  gap: 2px !important;
+  padding: 2px 3.5px !important;
+  border-radius: 3.5px !important;
+  background: rgba(18, 15, 22, 0.38) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.24) !important;
+  border-top: 0.5px solid rgba(255, 240, 190, 0.38) !important;
+  box-shadow:
+    inset 0 1px 1.5px rgba(0, 0, 0, 0.35),
+    0 0.5px 0 rgba(255, 255, 255, 0.08) !important;
+  margin-inline-start: 6px !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
-}
-
-.gauge-pip {
-  width: 3.5px !important;
-  height: 9px !important;
-  border-radius: 1.5px !important;
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
   box-sizing: border-box !important;
 }
 
+.gauge-pip {
+  width: 4.2px !important;
+  height: 11.5px !important;
+  border-radius: 1.2px !important;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+}
+
 .gauge-pip.is-filled {
-  background: linear-gradient(180deg, #ffeec2 0%, #dfb356 60%, #997321 100%) !important;
-  box-shadow: 0 0 4px rgba(212, 175, 106, 0.45) !important;
-  border: 0.5px solid rgba(255, 235, 175, 0.6) !important;
+  background: linear-gradient(
+    180deg,
+    #f7e8c6 0%,
+    #e0c17a 24%,
+    #c79f4f 56%,
+    #a27a2b 84%,
+    #765416 100%
+  ) !important;
+  border: 0.5px solid rgba(255, 238, 190, 0.50) !important;
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -0.5px 0 rgba(50, 32, 8, 0.40),
+    0 0.5px 1px rgba(0, 0, 0, 0.22) !important;
 }
 
 .gauge-pip.is-spent {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 0.5px solid rgba(212, 175, 106, 0.15) !important;
-  opacity: 0.45 !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.16) !important;
+  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.22) !important;
+  opacity: 0.50 !important;
 }
 
 .gauge-pips-strip.is-shimmering .gauge-pip.is-filled {
@@ -35275,26 +35365,29 @@ body.light-mode #logoutConfirmModal p {
 
 @keyframes gaugePipShimmer {
   0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.5) drop-shadow(0 0 5px rgba(255, 235, 175, 0.8)); }
+  50% { filter: brightness(1.15) contrast(1.05); }
 }
 
 @media (max-width: 400px) {
   .gauge-pip {
-    width: 3px !important;
-    height: 8px !important;
+    width: 3.8px !important;
+    height: 10.5px !important;
+    border-radius: 1px !important;
   }
   .gauge-pips-strip {
-    gap: 2px !important;
+    gap: 1.8px !important;
+    padding: 1.5px 3px !important;
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 340px) {
   .gauge-pip {
-    width: 2.5px !important;
-    height: 7px !important;
+    width: 3.2px !important;
+    height: 9.5px !important;
   }
   .gauge-pips-strip {
     gap: 1.5px !important;
+    padding: 1.5px 2.5px !important;
   }
 }
 
@@ -35538,15 +35631,35 @@ html.light-mode .ticker-metal-change.negative,
   background: rgba(220, 38, 38, 0.10) !important;
 }
 
+body.light-mode .gauge-pips-strip {
+  background: rgba(235, 226, 212, 0.45) !important;
+  border: 0.5px solid rgba(184, 142, 62, 0.28) !important;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow:
+    inset 0 1px 1.5px rgba(80, 50, 10, 0.12),
+    0 0.5px 0 rgba(255, 255, 255, 0.75) !important;
+}
+
 body.light-mode .gauge-pip.is-filled {
-  background: linear-gradient(180deg, #d4af37 0%, #aa8022 100%) !important;
-  box-shadow: 0 0 3px rgba(184, 142, 62, 0.4) !important;
-  border: 0.5px solid rgba(255, 255, 255, 0.8) !important;
+  background: linear-gradient(
+    180deg,
+    #fcf4dd 0%,
+    #e8c874 24%,
+    #ce9f39 58%,
+    #9c721c 100%
+  ) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.45) !important;
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -0.5px 0 rgba(70, 45, 10, 0.35),
+    0 0.5px 1px rgba(70, 45, 10, 0.15) !important;
 }
 
 body.light-mode .gauge-pip.is-spent {
-  background: rgba(156, 109, 35, 0.12) !important;
-  border: 0.5px solid rgba(156, 109, 35, 0.22) !important;
+  background: rgba(184, 142, 62, 0.08) !important;
+  border: 0.5px solid rgba(184, 142, 62, 0.18) !important;
+  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.06) !important;
+  opacity: 0.55 !important;
 }
 
 /* 5. Mobile Refinements for Club Chat Bubbles (360px - 430px) */
@@ -35584,11 +35697,21 @@ body.light-mode .gauge-pip.is-spent {
 
 /* Visual Diagnostic Blue: Solid Medium Blue for Club Message Cards (#2563eb) */
 #club-tab .sovereign-dispatch-card,
+#club-tab .sovereign-dispatch-card:hover,
+#club-tab .sovereign-dispatch-card.is-personal-dispatch,
+#club-tab .sovereign-dispatch-card.is-personal-dispatch:hover,
+#club-tab .sovereign-dispatch-card.dispatch-sender-me,
+#club-tab .sovereign-dispatch-card.dispatch-sender-other,
+#club-tab .sovereign-dispatch-card.is-whisper-dispatch,
+#club-tab .sovereign-dispatch-card.has-golden-ink-bloom,
 .club-messages .sovereign-dispatch-card,
 #clubChatViewport .sovereign-dispatch-card,
 body.light-mode #club-tab .sovereign-dispatch-card,
+body.light-mode #club-tab .sovereign-dispatch-card:hover,
 html.light-mode #club-tab .sovereign-dispatch-card,
-:root[data-theme="light"] #club-tab .sovereign-dispatch-card {
+:root[data-theme="light"] #club-tab .sovereign-dispatch-card,
+body.dark-mode #club-tab .sovereign-dispatch-card,
+:root[data-theme="dark"] #club-tab .sovereign-dispatch-card {
   background: #2563eb !important;
   background-color: #2563eb !important;
   background-image: none !important;
@@ -35596,6 +35719,17 @@ html.light-mode #club-tab .sovereign-dispatch-card,
   -webkit-backdrop-filter: none !important;
   border-color: #60a5fa !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+#club-tab .sovereign-dispatch-card::before,
+#club-tab .sovereign-dispatch-card::after,
+#club-tab .sovereign-dispatch-card .dispatch-golden-ink-layer,
+#club-tab .sovereign-dispatch-card .golden-ink-wash,
+body.light-mode #club-tab .sovereign-dispatch-card::before,
+body.light-mode #club-tab .sovereign-dispatch-card::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -35620,7 +35754,7 @@ html.light-mode #club-tab .sovereign-dispatch-card,
   min-height: 0 !important;
   max-height: 100% !important;
   padding-top: var(--header-actual-height, 74px) !important;
-  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: 0 !important;
   gap: 0 !important;
   /* TEMPORARY DIAGNOSTIC BACKGROUND (DIAGONAL RED STRIPES - DARK & LIGHT) */
   background-color: #b71c1c !important;
@@ -35709,12 +35843,28 @@ body.light-mode .chat-backdrop-texture {
 .club-composer-wrap::after,
 .obsidian-dispatch-composer::before,
 .obsidian-dispatch-composer::after,
+#obsidianDispatchComposer::before,
+#obsidianDispatchComposer::after,
 .sovereign-salon-ticker::before,
 .sovereign-salon-ticker::after,
+#sovereignSalonTicker::before,
+#sovereignSalonTicker::after,
 #clubPinnedInfo::before,
 #clubPinnedInfo::after,
+.club-chamber-plaque::before,
+.club-chamber-plaque::after,
+.club-pinned::before,
+.club-pinned::after,
 #clubCreditsDisplay::before,
-#clubCreditsDisplay::after {
+#clubCreditsDisplay::after,
+.club-credits-display::before,
+.club-credits-display::after,
+#club-tab .club-credits-display::before,
+#club-tab .club-credits-display::after,
+#clubCreditsBuyBtn::before,
+#clubCreditsBuyBtn::after,
+.club-credits-buy::before,
+.club-credits-buy::after {
   content: none !important;
   display: none !important;
   background: none !important;
@@ -35735,10 +35885,12 @@ body.light-mode .chat-backdrop-texture {
   box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  padding: 6px calc(14px + env(safe-area-inset-right, 0px)) 6px calc(14px + env(safe-area-inset-left, 0px)) !important;
+  padding: 4px calc(12px + env(safe-area-inset-right, 0px)) 2px calc(12px + env(safe-area-inset-left, 0px)) !important;
   margin: 0 !important;
   position: relative !important;
-  z-index: 10 !important;
+  z-index: 20 !important;
+  flex-shrink: 0 !important;
+  pointer-events: auto !important;
   display: flex !important;
   align-items: center !important;
   gap: 6px !important;
@@ -35816,44 +35968,68 @@ html.light-mode .club-watermark,
    - #clubCreditsDisplay (Independent Floating Capsule)
    - #obsidianDispatchComposer (Independent Floating Capsule)
    -------------------------------------------------------------------------- */
-#sovereignSalonTicker,
-.sovereign-salon-ticker,
 #clubPinnedInfo,
 #club-tab .club-chamber-plaque,
 #club-tab .club-pinned {
-  margin: 6px 12px !important;
+  margin: 3px 12px 2px 12px !important;
+  padding: 4px 10px 4px 8px !important;
   border-radius: 14px !important;
   box-sizing: border-box !important;
   position: relative !important;
+  z-index: 20 !important;
+  flex-shrink: 0 !important;
+  pointer-events: auto !important;
   transform: translateZ(0) !important;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
-  /* Visual Diagnostic Blue: Darker Blue for Upper Bars (#10386e) */
-  background: #10386e !important;
-  background-color: #10386e !important;
+  /* Visual Diagnostic Blue: Clear Vivid Blue (#1d4ed8) */
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
   background-image: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1.5px solid #2563eb !important;
+  border: 1.5px solid #60a5fa !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+}
+
+#sovereignSalonTicker,
+.sovereign-salon-ticker {
+  margin: 2px 12px 3px 12px !important;
+  height: 30px !important;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 20 !important;
+  flex-shrink: 0 !important;
+  pointer-events: auto !important;
+  transform: translateZ(0) !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+  /* Visual Diagnostic Blue: Clear Vivid Blue (#1d4ed8) */
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid #60a5fa !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
 }
 
 #clubCreditsDisplay,
 .club-credits-display,
 .club-credits-wrapper {
-  margin: 0 0 8px 0 !important;
+  margin: 0 !important;
   width: 100% !important;
   border-radius: 14px !important;
   box-sizing: border-box !important;
   position: relative !important;
   transform: translateZ(0) !important;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
-  /* Visual Diagnostic Blue: Darker Blue for Credits Capsule (#0f3468) */
-  background: #0f3468 !important;
-  background-color: #0f3468 !important;
+  /* Visual Diagnostic Blue: Clear Vivid Blue for Credits Capsule (#1d4ed8) */
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
   background-image: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1.5px solid #2563eb !important;
+  border: 1.5px solid #60a5fa !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
 }
 
@@ -35866,13 +36042,13 @@ html.light-mode .club-watermark,
   position: relative !important;
   transform: translateZ(0) !important;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
-  /* Visual Diagnostic Blue: Darker Blue for Composer (#0c2d5e) */
-  background: #0c2d5e !important;
-  background-color: #0c2d5e !important;
+  /* Visual Diagnostic Blue: Clear Vivid Blue for Composer (#1d4ed8) */
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
   background-image: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1.5px solid #2563eb !important;
+  border: 1.5px solid #60a5fa !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
 }
 
@@ -35893,14 +36069,18 @@ html.light-mode #obsidianDispatchComposer,
 :root[data-theme="light"] #sovereignSalonTicker,
 :root[data-theme="light"] #clubPinnedInfo,
 :root[data-theme="light"] #clubCreditsDisplay,
-:root[data-theme="light"] #obsidianDispatchComposer {
-  /* Visual Diagnostic Blue: Solid Distinct Blue for Light Mode */
-  background: #17427f !important;
-  background-color: #17427f !important;
+:root[data-theme="light"] #obsidianDispatchComposer,
+body.dark-mode #sovereignSalonTicker,
+body.dark-mode #clubPinnedInfo,
+body.dark-mode #clubCreditsDisplay,
+body.dark-mode #obsidianDispatchComposer {
+  /* Visual Diagnostic Blue: Solid Distinct Blue for All Themes */
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
   background-image: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1.5px solid #3b82f6 !important;
+  border: 1.5px solid #60a5fa !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
 }
 
@@ -36193,7 +36373,7 @@ body.light-mode .chamber-plaque-dismiss-btn {
   height: 14px !important;
 }
 
-/* Specific Polish 4c: Dispatch Allocation / Message Credits */
+/* Specific Polish 4c: Luxury Dispatch Allocation / Message Credits */
 #clubCreditsDisplay,
 .club-credits-display,
 .club-credits-wrapper {
@@ -36201,137 +36381,288 @@ body.light-mode .chamber-plaque-dismiss-btn {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 4px !important;
+  gap: 6px !important;
   z-index: 25 !important;
   overflow: visible !important;
   flex-shrink: 0 !important;
   width: 100% !important;
+  min-height: 32px !important;
   box-sizing: border-box !important;
 }
 
 .club-credits-info {
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
-  gap: 4px !important;
-  flex: 1 1 auto !important;
+  gap: 0 !important;
+  flex: 0 1 auto !important;
   min-width: 0 !important;
 }
 
 .club-credits-crown {
-  font-size: 10.5px !important;
+  font-size: 10px !important;
   line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
   flex-shrink: 0 !important;
+  margin-inline-end: 2.5px !important;
 }
 
 .club-credits-label {
-  font-size: 9.5px !important;
+  font-size: 8.8px !important;
   font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  color: #f1e7d4 !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   line-height: 1 !important;
+  margin-inline-end: 5px !important;
+}
+
+body.light-mode .club-credits-label {
+  color: #3d2c0b !important;
 }
 
 .club-credits-readout {
+  font-family: var(--font-display, "Cinzel", "Playfair Display", serif) !important;
   font-size: 9.5px !important;
   font-weight: 700 !important;
   font-variant-numeric: tabular-nums !important;
-  color: #d4af37 !important;
+  color: #faeccd !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  padding: 1px 4px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2px 6.5px !important;
   border-radius: 4px !important;
-  background: rgba(212, 175, 55, 0.10) !important;
-  line-height: 1.1 !important;
+  background: linear-gradient(180deg, rgba(28, 22, 16, 0.92) 0%, rgba(14, 11, 8, 0.96) 100%) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.40) !important;
+  border-top: 0.5px solid rgba(255, 240, 190, 0.65) !important;
+  border-bottom: 0.5px solid rgba(140, 100, 25, 0.35) !important;
+  box-shadow:
+    inset 0 1px 1.5px rgba(0, 0, 0, 0.45),
+    inset 0 -0.5px 1px rgba(212, 175, 55, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.30) !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+}
+
+.credit-count-val {
+  font-family: var(--font-display, "Cinzel", "Playfair Display", serif) !important;
+  font-weight: 800 !important;
+  color: #fff4d6 !important;
+  font-size: 10.5px !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.credit-count-label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 7.5px !important;
+  font-weight: 600 !important;
+  color: #d4af55 !important;
+  opacity: 0.88 !important;
+  margin-inline-start: 4px !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+}
+
+.credit-count-sep {
+  margin: 0 1.5px !important;
+  opacity: 0.55 !important;
+  font-size: 8.5px !important;
+  color: #d4af55 !important;
+  line-height: 1 !important;
 }
 
 body.light-mode .club-credits-readout {
-  color: #5a3f12 !important;
-  background: rgba(184, 142, 62, 0.12) !important;
+  color: #432e08 !important;
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.96) 0%, rgba(244, 237, 222, 0.96) 100%) !important;
+  border: 0.5px solid rgba(196, 154, 72, 0.45) !important;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 0.5px solid rgba(160, 120, 45, 0.30) !important;
+  box-shadow:
+    inset 0 1px 1.5px rgba(120, 90, 30, 0.12),
+    0 1px 2px rgba(80, 50, 10, 0.08) !important;
+}
+
+body.light-mode .credit-count-val {
+  color: #2e1f06 !important;
+  font-weight: 800 !important;
+}
+
+body.light-mode .credit-count-label {
+  color: #7a5416 !important;
+  opacity: 0.92 !important;
+}
+
+body.light-mode .credit-count-sep {
+  color: #8b6b24 !important;
 }
 
 .gauge-pips-strip {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 1.5px !important;
-  margin-inline-start: 2px !important;
+  gap: 2px !important;
+  padding: 2px 3.5px !important;
+  border-radius: 3.5px !important;
+  background: rgba(18, 15, 22, 0.38) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.24) !important;
+  border-top: 0.5px solid rgba(255, 240, 190, 0.38) !important;
+  box-shadow:
+    inset 0 1px 1.5px rgba(0, 0, 0, 0.35),
+    0 0.5px 0 rgba(255, 255, 255, 0.08) !important;
+  margin-inline-start: 6.5px !important;
   flex-shrink: 0 !important;
+  vertical-align: middle !important;
+  box-sizing: border-box !important;
 }
 
 .gauge-pip {
-  width: 2.2px !important;
-  height: 7.5px !important;
-  border-radius: 1px !important;
+  width: 4px !important;
+  height: 11px !important;
+  border-radius: 1.2px !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
 }
 
 #clubCreditsBuyBtn,
 .club-credits-buy {
   border-radius: 9999px !important;
-  padding: 2.5px 7px !important;
-  font-size: 8.5px !important;
+  padding: 0 7.5px !important;
+  font-size: 8px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: 0.01em !important;
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 2.5px !important;
   cursor: pointer !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
   height: 23px !important;
   min-height: 23px !important;
-  margin-inline-start: auto !important;
-  border: 1px solid rgba(212, 175, 55, 0.35) !important;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.24) 0%, rgba(184, 142, 62, 0.14) 100%) !important;
-  color: #f7eed8 !important;
+  margin-inline-start: 8px !important;
+  line-height: 1 !important;
+  border: 1px solid #93c5fd !important;
+  background: #2563eb !important;
+  background-color: #2563eb !important;
+  background-image: none !important;
+  color: #ffffff !important;
 }
 
 body.light-mode #clubCreditsBuyBtn,
 body.light-mode .club-credits-buy {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.20) 0%, rgba(184, 142, 62, 0.12) 100%) !important;
-  border: 1px solid rgba(184, 142, 62, 0.38) !important;
-  color: #4d350c !important;
+  background: #2563eb !important;
+  background-color: #2563eb !important;
+  background-image: none !important;
+  border: 1px solid #93c5fd !important;
+  color: #ffffff !important;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 390px) {
   #clubCreditsDisplay,
   .club-credits-display,
   .club-credits-wrapper {
-    padding: 2px 6px !important;
-    gap: 3px !important;
-  }
-  .club-credits-info {
-    gap: 3px !important;
-  }
-  .club-credits-crown {
-    font-size: 9.5px !important;
-  }
-  .club-credits-label {
-    font-size: 8.5px !important;
+    padding: 2.5px 6px !important;
+    gap: 5px !important;
   }
   .club-credits-readout {
-    font-size: 8.5px !important;
-    padding: 1px 3px !important;
+    padding: 1.8px 5.5px !important;
   }
   .gauge-pips-strip {
-    gap: 1px !important;
-    margin-inline-start: 1px !important;
-  }
-  .gauge-pip {
-    width: 1.8px !important;
-    height: 6.5px !important;
+    margin-inline-start: 5.5px !important;
   }
   #clubCreditsBuyBtn,
   .club-credits-buy {
-    padding: 2px 5.5px !important;
-    font-size: 8px !important;
+    margin-inline-start: 6.5px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  #clubCreditsDisplay,
+  .club-credits-display,
+  .club-credits-wrapper {
+    padding: 2px 5px !important;
+    gap: 4px !important;
+    min-height: 29px !important;
+  }
+  .club-credits-crown {
+    font-size: 9px !important;
+    margin-inline-end: 1.5px !important;
+  }
+  .club-credits-label {
+    font-size: 8.2px !important;
+    margin-inline-end: 3.5px !important;
+  }
+  .club-credits-readout {
+    font-size: 9px !important;
+    padding: 1.5px 5px !important;
+  }
+  .credit-count-val {
+    font-size: 9.5px !important;
+  }
+  .credit-count-label {
+    font-size: 7px !important;
+    margin-inline-start: 3px !important;
+  }
+  .gauge-pips-strip {
+    gap: 1.8px !important;
+    padding: 1.5px 3px !important;
+    margin-inline-start: 4.5px !important;
+  }
+  .gauge-pip {
+    width: 3.6px !important;
+    height: 10px !important;
+    border-radius: 1px !important;
+  }
+  #clubCreditsBuyBtn,
+  .club-credits-buy {
+    padding: 0 6px !important;
+    font-size: 7.5px !important;
     height: 21px !important;
     min-height: 21px !important;
     gap: 2px !important;
+    margin-inline-start: 5px !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .gauge-pips-strip {
+    gap: 1.5px !important;
+    padding: 1.5px 2.5px !important;
+    margin-inline-start: 3.5px !important;
+  }
+  .gauge-pip {
+    width: 3.2px !important;
+    height: 9.5px !important;
+  }
+  .club-credits-label {
+    font-size: 8px !important;
+    margin-inline-end: 2.5px !important;
+  }
+  .club-credits-readout {
+    font-size: 8.5px !important;
+    padding: 1px 4px !important;
+  }
+  #clubCreditsBuyBtn,
+  .club-credits-buy {
+    padding: 0 5px !important;
+    font-size: 7px !important;
+    margin-inline-start: 4px !important;
   }
 }
 
 #club-tab .club-composer-wrap,
 .club-composer-wrap {
-  margin: 4px 12px 6px 12px !important;
+  position: absolute !important;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 8px) !important;
+  left: 12px !important;
+  right: 12px !important;
+  width: calc(100% - 24px) !important;
+  max-width: calc(100% - 24px) !important;
+  margin: 0 auto !important;
   padding: 0 !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -36341,13 +36672,15 @@ body.light-mode .club-credits-buy {
   -webkit-backdrop-filter: none !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 8px !important;
+  gap: 4px !important;
   z-index: 25 !important;
   overflow: visible !important;
-  flex-shrink: 0 !important;
-  width: calc(100% - 24px) !important;
-  max-width: calc(100% - 24px) !important;
-  align-self: center !important;
+  pointer-events: none !important;
+}
+
+#clubComposerWrap > *,
+.club-composer-wrap > * {
+  pointer-events: auto !important;
 }
 
 #obsidianDispatchComposer,
@@ -36465,33 +36798,36 @@ body.light-mode .whisper-cipher-toggle {
 }
 
 /* --------------------------------------------------------------------------
-   5. STRICT BOUNDED CHAT SCROLL AREA
+   5. TRUE OVERLAY CHAT SCROLL AREA
    -------------------------------------------------------------------------- */
 .club-chat-viewport,
 #club-tab .club-chat-viewport {
-  position: relative !important;
-  flex: 1 1 0 !important;
-  min-height: 0 !important;
+  position: absolute !important;
+  top: var(--header-actual-height, 74px) !important;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
   height: auto !important;
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
-  width: 100% !important;
-  max-width: 100% !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  z-index: 1 !important;
+  z-index: 5 !important;
+  pointer-events: auto !important;
 }
 
 .club-messages,
 #club-tab .club-messages {
   position: relative !important;
   z-index: 1 !important;
-  padding-top: 10px !important;
-  padding-bottom: 12px !important;
+  padding-top: 80px !important;
+  padding-bottom: 95px !important;
   padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
   padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
   overflow-y: auto !important;
@@ -36499,16 +36835,38 @@ body.light-mode .whisper-cipher-toggle {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain !important;
   box-sizing: border-box !important;
-  mask-image: none !important;
-  -webkit-mask-image: none !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   flex: 1 1 0 !important;
   height: 100% !important;
   min-height: 0 !important;
-  scroll-padding-top: 10px !important;
-  scroll-padding-bottom: 12px !important;
+  scroll-padding-top: 80px !important;
+  scroll-padding-bottom: 95px !important;
+  /* Visual Fade Mask: Seamlessly dissolve behind ticker/welcome at top and credits/composer at bottom */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 15px,
+    black 70px,
+    black calc(100% - 75px),
+    transparent calc(100% - 10px),
+    transparent 100%
+  ) !important;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 15px,
+    black 70px,
+    black calc(100% - 75px),
+    transparent calc(100% - 10px),
+    transparent 100%
+  ) !important;
+}
+
+#club-tab:has(#clubPinnedInfo:not([hidden]):not(.is-collapsed):not([style*="display: none"])) .club-messages {
+  padding-top: 124px !important;
+  scroll-padding-top: 124px !important;
 }
 
 /* === CLUB SHADOW-LIFT + BLEED v8 (2026-10-13) === */
@@ -36567,3 +36925,80 @@ body:not(.light-mode) #club-tab.is-active {
 }
 body:has(#club-tab.is-active) .club-ambient-layer { display: block !important; }
 .app { position: relative !important; z-index: 1 !important; }
+
+/* ==========================================================================
+   THE 1% CLUB — FINAL BLUE DIAGNOSTIC OVERRIDES (ALL 5 ELEMENTS)
+   1. Member messages in chat: Solid Blue (#2563eb)
+   2. Trading ticker: Clear Blue (#1d4ed8)
+   3. Welcome message: Clear Blue (#1d4ed8)
+   4. Credit request bar & internal button: Clear Blue (#1d4ed8 & #2563eb)
+   5. Message composer box: Clear Blue (#1d4ed8)
+   ========================================================================== */
+#club-tab .sovereign-dispatch-card,
+#club-tab .sovereign-dispatch-card:hover,
+#club-tab .sovereign-dispatch-card.is-personal-dispatch,
+#club-tab .sovereign-dispatch-card.is-personal-dispatch:hover,
+#club-tab .sovereign-dispatch-card.dispatch-sender-me,
+#club-tab .sovereign-dispatch-card.dispatch-sender-other,
+#club-tab .sovereign-dispatch-card.is-whisper-dispatch,
+#club-tab .sovereign-dispatch-card.has-golden-ink-bloom,
+body.light-mode #club-tab .sovereign-dispatch-card,
+body.dark-mode #club-tab .sovereign-dispatch-card {
+  background: #2563eb !important;
+  background-color: #2563eb !important;
+  background-image: none !important;
+  border-color: #60a5fa !important;
+}
+
+#club-tab #sovereignSalonTicker,
+#club-tab .sovereign-salon-ticker,
+body.light-mode #club-tab #sovereignSalonTicker,
+body.dark-mode #club-tab #sovereignSalonTicker {
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
+  background-image: none !important;
+  border-color: #60a5fa !important;
+}
+
+#club-tab #clubPinnedInfo,
+#club-tab .club-chamber-plaque,
+#club-tab .club-pinned,
+body.light-mode #club-tab #clubPinnedInfo,
+body.dark-mode #club-tab #clubPinnedInfo {
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
+  background-image: none !important;
+  border-color: #60a5fa !important;
+}
+
+#club-tab #clubCreditsDisplay,
+#club-tab .club-credits-display,
+body.light-mode #club-tab #clubCreditsDisplay,
+body.dark-mode #club-tab #clubCreditsDisplay {
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
+  background-image: none !important;
+  border-color: #60a5fa !important;
+}
+
+#club-tab #clubCreditsBuyBtn,
+#club-tab .club-credits-buy,
+#clubCreditsBuyBtn,
+body.light-mode #clubCreditsBuyBtn,
+body.dark-mode #clubCreditsBuyBtn {
+  background: #2563eb !important;
+  background-color: #2563eb !important;
+  background-image: none !important;
+  border: 1px solid #93c5fd !important;
+  color: #ffffff !important;
+}
+
+#club-tab #obsidianDispatchComposer,
+#club-tab .obsidian-dispatch-composer,
+body.light-mode #club-tab #obsidianDispatchComposer,
+body.dark-mode #club-tab #obsidianDispatchComposer {
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
+  background-image: none !important;
+  border-color: #60a5fa !important;
+}

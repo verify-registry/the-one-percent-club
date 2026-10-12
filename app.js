@@ -3734,9 +3734,9 @@ function updateCreditsUI(forceAnimate = false) {
   if (creditsText) {
     const isAr = typeof window !== "undefined" && window.currentLang === "ar";
     if (currentCredits > 10) {
-      creditsText.innerHTML = `<bdi>${currentCredits}</bdi> <span style="font-size:9px;opacity:0.85;font-weight:600;">${isAr ? "رصيد" : "credits"}</span>`;
+      creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-label">${isAr ? "رصيد" : "credits"}</span>`;
     } else {
-      creditsText.innerHTML = `<bdi>${currentCredits}</bdi><span style="margin:0 2px;opacity:0.6;">/</span><bdi>${maxCredits}</bdi>`;
+      creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-sep">/</span><bdi class="credit-count-val">${maxCredits}</bdi>`;
     }
     if (currentCredits <= 0) {
       creditsText.style.color = "#d9534f";
