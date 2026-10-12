@@ -148,8 +148,8 @@
 
 ## 6. CURRENT STATE & BACKLOG
 
-- **Landed on main:** Phases 1–8, 9B–9E, 11, 10-Slim, Batch Passes 1–2, Translations dead subkey purge, Safe-List #2 + #2b, REPAIR PASS, Art Direction Restoration, Performance Pass + App-Wide Performance Pass (2026-09-30), App-Shell Visual Refinement (2026-10-01), 9 minor commits (Oct 2-4), Club Liquid Glass Resolution Pass (2026-10-12).
-- **Club Liquid Glass Resolution Pass (2026-10-12) — IN PROGRESS**: Neutralized opaque light-mode rules (`.lounge-banner`, `.club-composer`), added full-bleed ambient layer (`.club-ambient-layer`), glass treatment for floating chat/ticker/banner elements, header/rooms nav seam normalization, and vertical centering for composer inputs.
+- **Landed on main:** Phases 1–8, 9B–9E, 11, 10-Slim, Batch Passes 1–2, Translations dead subkey purge, Safe-List #2 + #2b, REPAIR PASS, Art Direction Restoration, Performance Pass + App-Wide Performance Pass (2026-09-30), App-Shell Visual Refinement (2026-10-01), 9 minor commits (Oct 2-4), Club Liquid Glass Resolution Pass (2026-10-12), Sovereign Salon Ticker Zero Outer Halo Pass (2026-10-12).
+- **Sovereign Salon Ticker Zero Outer Halo Pass (2026-10-12) — COMPLETE**: Stripped all external box-shadows, drops, outlines, glow filters, and pseudo-element halos surrounding the `.sovereign-salon-ticker` capsule in both Dark and Light modes. Preserved 100% of internal capsule anatomy (stadium curvature `border-radius: 9999px`, internal gradient backgrounds, border rims, pulse badge, live marquee stream, prices, hubs, and ticker motion) resting directly on the club atelier background.
 - **Backlog:**
   - Optional CSS minification for production payload.
   - Ongoing visual polish and accessibility audits.

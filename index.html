@@ -23,7 +23,266 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css?v=20261012_club_glass_v2" />
+    <link rel="stylesheet" href="style.css?v=20261012_club_capsules_clean_frame_v3" />
+    <style id="clubCapsulesDirectOverride">
+      /* ==========================================================================
+         THE 1% CLUB — ZERO OUTER FRAME / ZERO HALO / ZERO DROP-SHADOW FOR ALL CAPSULES IN CLUB TAB
+         Removes any outer box-shadow, outer glow/halo, outer outline, or wrapper frame around the capsules,
+         while completely preserving each capsule's internal background, gold border, rounding, and content.
+         ========================================================================== */
+
+      /* 1. Club Room Navigation Bar Rail (remove outer enclosing frame/shadow so capsules float freely) */
+      #club-tab .club-rooms-nav,
+      body.light-mode #club-tab .club-rooms-nav,
+      html.light-mode #club-tab .club-rooms-nav,
+      :root[data-theme="light"] #club-tab .club-rooms-nav {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
+      /* 2. Room Navigation Capsules (normal, hover, active, is-active, chamber-btn-board) */
+      #club-tab .club-room-btn,
+      #club-tab .club-room-btn:hover,
+      #club-tab .club-room-btn:active,
+      #club-tab .club-room-btn:focus,
+      #club-tab .club-room-btn.is-active,
+      #club-tab .club-room-btn.chamber-btn-board,
+      #club-tab .club-room-btn.chamber-btn-board.is-active,
+      body.light-mode #club-tab .club-room-btn,
+      body.light-mode #club-tab .club-room-btn:hover,
+      body.light-mode #club-tab .club-room-btn:active,
+      body.light-mode #club-tab .club-room-btn:focus,
+      body.light-mode #club-tab .club-room-btn.is-active,
+      body.light-mode #club-tab .club-room-btn.chamber-btn-board,
+      body.light-mode #club-tab .club-room-btn.chamber-btn-board.is-active,
+      html.light-mode #club-tab .club-room-btn,
+      html.light-mode #club-tab .club-room-btn.is-active,
+      :root[data-theme="light"] #club-tab .club-room-btn,
+      :root[data-theme="light"] #club-tab .club-room-btn.is-active {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+      }
+
+      #club-tab .club-room-btn::before,
+      #club-tab .club-room-btn::after,
+      body.light-mode #club-tab .club-room-btn::before,
+      body.light-mode #club-tab .club-room-btn::after {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+
+      #club-tab .club-room-btn .chamber-icon,
+      #club-tab .club-room-btn.is-active .chamber-icon,
+      body.light-mode #club-tab .club-room-btn .chamber-icon,
+      body.light-mode #club-tab .club-room-btn.is-active .chamber-icon {
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+
+      /* 3. Sovereign Salon Financial Ticker Capsule (Sessions & Ticker Bar) */
+      #sovereignSalonTicker,
+      .sovereign-salon-ticker,
+      #sovereignSalonTicker:hover,
+      .sovereign-salon-ticker:hover,
+      #sovereignSalonTicker:active,
+      .sovereign-salon-ticker:active,
+      body.light-mode #sovereignSalonTicker,
+      body.light-mode .sovereign-salon-ticker,
+      body.light-mode #sovereignSalonTicker:hover,
+      body.light-mode .sovereign-salon-ticker:hover,
+      html.light-mode #sovereignSalonTicker,
+      html.light-mode .sovereign-salon-ticker,
+      :root[data-theme="light"] #sovereignSalonTicker,
+      :root[data-theme="light"] .sovereign-salon-ticker {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+        transform: translateZ(0) !important;
+      }
+
+      #sovereignSalonTicker::before,
+      .sovereign-salon-ticker::before,
+      body.light-mode #sovereignSalonTicker::before,
+      body.light-mode .sovereign-salon-ticker::before {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+
+      #sovereignSalonTicker::after,
+      .sovereign-salon-ticker::after {
+        content: none !important;
+        display: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+      }
+
+      /* 4. Welcome Chamber Banner Plaque Capsule */
+      #clubPinnedInfo,
+      #club-tab .club-chamber-plaque,
+      #club-tab .club-pinned,
+      #clubPinnedInfo:hover,
+      body.light-mode #clubPinnedInfo,
+      body.light-mode #club-tab .club-chamber-plaque,
+      body.light-mode #club-tab .club-pinned,
+      html.light-mode #clubPinnedInfo,
+      :root[data-theme="light"] #clubPinnedInfo {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+      }
+
+      #clubPinnedInfo::before,
+      #clubPinnedInfo::after,
+      #club-tab .club-chamber-plaque::before,
+      #club-tab .club-chamber-plaque::after,
+      #club-tab .club-pinned::before,
+      #club-tab .club-pinned::after,
+      body.light-mode #clubPinnedInfo::before,
+      body.light-mode #club-tab .club-chamber-plaque::before {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+
+      /* 5. Dispatch Allocation / Message Credits Capsule */
+      #clubCreditsDisplay,
+      .club-credits-display,
+      .club-credits-wrapper,
+      #clubCreditsDisplay:hover,
+      body.light-mode #clubCreditsDisplay,
+      body.light-mode .club-credits-display,
+      body.light-mode .club-credits-wrapper,
+      html.light-mode #clubCreditsDisplay,
+      :root[data-theme="light"] #clubCreditsDisplay {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+      }
+
+      #clubCreditsDisplay::before,
+      #clubCreditsDisplay::after,
+      .club-credits-display::before,
+      .club-credits-display::after,
+      body.light-mode #clubCreditsDisplay::before,
+      body.light-mode .club-credits-display::before {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+
+      /* 6. Buy Credits Capsule Button */
+      #clubCreditsBuyBtn,
+      .club-credits-buy,
+      #clubCreditsBuyBtn:hover,
+      #clubCreditsBuyBtn:active,
+      body.light-mode #clubCreditsBuyBtn,
+      body.light-mode .club-credits-buy,
+      html.light-mode #clubCreditsBuyBtn,
+      :root[data-theme="light"] #clubCreditsBuyBtn {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+      }
+
+      /* 7. Dispatch Composer Capsule */
+      #obsidianDispatchComposer,
+      .obsidian-dispatch-composer,
+      #obsidianDispatchComposer:hover,
+      #obsidianDispatchComposer:focus-within,
+      body.light-mode #obsidianDispatchComposer,
+      body.light-mode .obsidian-dispatch-composer,
+      body.light-mode #obsidianDispatchComposer:focus-within,
+      html.light-mode #obsidianDispatchComposer,
+      :root[data-theme="light"] #obsidianDispatchComposer {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+      }
+
+      #obsidianDispatchComposer::before,
+      #obsidianDispatchComposer::after,
+      .obsidian-dispatch-composer::before,
+      .obsidian-dispatch-composer::after,
+      body.light-mode #obsidianDispatchComposer::before,
+      body.light-mode .obsidian-dispatch-composer::before {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+
+      /* 8. Whisper Mode Toggle Capsule Button */
+      .whisper-cipher-toggle,
+      #whisperCipherToggle,
+      .whisper-cipher-toggle:hover,
+      .whisper-cipher-toggle:active,
+      .whisper-cipher-toggle.is-active,
+      body.light-mode .whisper-cipher-toggle,
+      body.light-mode .whisper-cipher-toggle.is-active,
+      html.light-mode .whisper-cipher-toggle,
+      :root[data-theme="light"] .whisper-cipher-toggle {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+      }
+
+      /* 9. Sovereign Send Button & Monogram */
+      #clubSendBtn,
+      .sovereign-seal-send-btn,
+      #clubSendBtn:hover,
+      #clubSendBtn:active,
+      .obsidian-dispatch-composer:focus-within .sovereign-seal-send-btn {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+      }
+
+      /* 10. Drafting Status / Typing Indicator Capsule */
+      .club-typing-indicator,
+      #typingIndicator,
+      body.light-mode .club-typing-indicator,
+      html.light-mode .club-typing-indicator,
+      :root[data-theme="light"] .club-typing-indicator {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        outline: none !important;
+      }
+
+      /* 11. Capsule Badges & Tags */
+      #club-tab .room-badge,
+      #club-tab .chamber-board-tag,
+      body.light-mode #club-tab .room-badge,
+      body.light-mode #club-tab .chamber-board-tag {
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+      }
+
+      /* 12. Bottom composer wrapper (clean transparent float) */
+      #club-tab .club-composer-wrap,
+      .club-composer-wrap {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+    </style>
     <script id="user-preferences-init">
       (function () {
         try {
@@ -860,7 +1119,6 @@
 
         <!-- PAGE: CLUB -->
         <section class="page" id="club-tab" hidden="">
-          <div class="club-ambient-layer" aria-hidden="true"></div>
           <!-- REFINED LUXURY CHAT BACKDROP (HAUTE HORLOGERIE SOVEREIGN GUILLOCHÉ EMBLEM) -->
           <div class="sovereign-chat-backdrop" aria-hidden="true">
             <!-- Understated Fine Horological Metal Satin & Intaglio Hairlines -->
@@ -1166,8 +1424,7 @@
             </button>
           </div>
 
-          <!-- DEDICATED LAYOUT ROW FOR LIVE MARKET TICKER ABOVE MESSAGE FEED -->
-          <div class="sovereign-salon-ticker" id="sovereignSalonTicker">
+          <div class="sovereign-salon-ticker" id="sovereignSalonTicker" style="box-shadow: none !important; filter: none !important; -webkit-filter: none !important; outline: none !important;">
             <div class="ticker-pulse-badge">
               <span class="ticker-pulse-orb"></span>
               <span class="ticker-pulse-text" data-i18n="club.activeSessionPulse">جلسات تداول نشطة</span>

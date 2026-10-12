@@ -4,6 +4,12 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use((req, res, next) => {
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  next();
+});
 app.use(express.static(path.join(__dirname, ".")));
 
 // ==========================================================================

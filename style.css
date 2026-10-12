@@ -3532,12 +3532,9 @@ body.light-mode #club-tab .club-chamber-plaque {
   -webkit-backdrop-filter: blur(20px) saturate(145%) !important;
   border: 1px solid rgba(190, 150, 80, 0.24) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid rgba(190, 150, 80, 0.12) !important;
-  box-shadow:
-    0 8px 22px -3px rgba(90, 65, 20, 0.10),
-    0 2px 6px -1px rgba(90, 65, 20, 0.04),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1.5px rgba(160, 120, 40, 0.06) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 
 body.light-mode #club-tab .club-pinned::before,
@@ -3859,12 +3856,10 @@ body.light-mode .chat-backdrop-ambient {
   border: 1px solid rgba(212, 175, 55, 0.18) !important;
   border-top: 1px solid rgba(255, 248, 225, 0.65) !important;
   border-bottom: 1px solid rgba(212, 175, 55, 0.10) !important;
-  border-radius: 9999px !important;
-  box-shadow:
-    0 8px 24px -2px rgba(0, 0, 0, 0.48),
-    0 2px 6px -1px rgba(0, 0, 0, 0.24),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
   pointer-events: auto !important;
   overflow: visible !important;
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -3887,13 +3882,10 @@ body.light-mode .chat-backdrop-ambient {
 }
 
 .sovereign-salon-ticker:hover {
-  transform: translateY(-1.5px) translateZ(0) !important;
-  box-shadow:
-    0 12px 28px -3px rgba(0, 0, 0, 0.68),
-    0 4px 10px -1px rgba(0, 0, 0, 0.38),
-    0 0 18px rgba(212, 175, 55, 0.18),
-    inset 0 1px 2px rgba(255, 252, 240, 0.55),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.45) !important;
+  transform: translateZ(0) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 .ticker-pulse-badge {
   display: inline-flex !important;
@@ -5003,7 +4995,8 @@ body.light-mode .dispatch-read-more-btn:hover {
   border-radius: 20px;
   background: linear-gradient(180deg, rgba(24, 20, 14, 0.85) 0%, rgba(14, 11, 8, 0.95) 100%);
   border: 1px solid rgba(212, 175, 106, 0.25);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 235, 180, 0.08);
+  box-shadow: none !important;
+  filter: none !important;
   font-size: 10px;
   color: var(--gold-champagne);
   letter-spacing: 0.02em;
@@ -5177,12 +5170,9 @@ body.light-mode .dispatch-read-more-btn:hover {
 #club-tab .club-credits-display:hover,
 #clubCreditsDisplay:hover {
   transform: translateY(-1.5px) translateZ(0) !important;
-  box-shadow:
-    0 12px 28px -3px rgba(0, 0, 0, 0.65),
-    0 4px 10px -1px rgba(0, 0, 0, 0.35),
-    0 0 18px rgba(212, 175, 55, 0.16),
-    inset 0 1px 2px rgba(255, 252, 240, 0.45),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 
 .club-credits-info {
@@ -5512,12 +5502,9 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   transform: translateY(-1px) translateZ(0) scale(1.002) !important;
   border-color: rgba(212, 175, 106, 0.35) !important;
   border-top-color: rgba(255, 252, 240, 0.70) !important;
-  box-shadow:
-    0 16px 36px -4px rgba(0, 0, 0, 0.75),
-    0 6px 14px -2px rgba(0, 0, 0, 0.48),
-    0 0 24px rgba(212, 175, 106, 0.18),
-    inset 0 1px 2px rgba(255, 252, 240, 0.48),
-    inset 0 -1.5px 2px rgba(0, 0, 0, 0.50) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 .obsidian-dispatch-composer:focus-within::before {
   opacity: 0.85 !important;
@@ -5723,8 +5710,8 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
   transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, filter 0.2s ease;
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65), 0 1px 3px rgba(212, 175, 106, 0.35);
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 @media (max-width: 480px) {
@@ -8006,12 +7993,13 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   transform: translateY(0);
   position: relative;
   z-index: 10;
-  /* Dark Mode Liquid Glass Rail */
-  background: rgba(12, 9, 15, 0.45) !important;
-  backdrop-filter: blur(20px) saturate(180%) contrast(105%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) contrast(105%) !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.06) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 240, 190, 0.08) !important;
+  /* Dark Mode Free-Floating Rail (Zero outer enclosing frame/shadow) */
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
   transition: max-height 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
               padding 0.28s cubic-bezier(0.16, 1, 0.3, 1),
@@ -8025,7 +8013,7 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   display: none;
 }
 
-/* Liquid Glass Tab Capsules */
+/* Liquid Glass Tab Capsules — Zero Outer Frame / Halo / Drop-Shadow */
 #club-tab .club-room-btn {
   display: inline-flex;
   align-items: center;
@@ -8040,7 +8028,7 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   cursor: pointer;
   user-select: none;
   position: relative;
-  outline: none;
+  outline: none !important;
   flex-shrink: 0;
   transform: translateZ(0);
   /* Inactive: Smoked Obsidian Liquid Glass */
@@ -8050,9 +8038,9 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   border: 1px solid rgba(212, 175, 55, 0.16) !important;
   border-top: 1px solid rgba(255, 240, 190, 0.25) !important;
   color: rgba(220, 210, 192, 0.76) !important;
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.08),
-    0 2px 6px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
@@ -8062,9 +8050,9 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   border-top-color: rgba(255, 245, 210, 0.48) !important;
   color: #ebdcb9 !important;
   transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.14),
-    0 4px 12px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 
 #club-tab .club-room-btn:active {
@@ -8079,7 +8067,7 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   transition: color 0.22s ease, filter 0.22s ease, transform 0.22s ease;
 }
 
-/* Active State: Sovereign Obsidian Gold Liquid Glass */
+/* Active State: Sovereign Obsidian Gold Liquid Glass — Zero Outer Halo */
 #club-tab .club-room-btn.is-active {
   background: linear-gradient(180deg, rgba(62, 48, 22, 0.90) 0%, rgba(30, 22, 10, 0.96) 100%) !important;
   backdrop-filter: blur(20px) saturate(200%) !important;
@@ -8089,16 +8077,14 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   border-bottom: 1px solid rgba(170, 130, 35, 0.45) !important;
   color: #fae9bd !important;
   font-weight: 600 !important;
-  box-shadow:
-    0 4px 16px rgba(212, 175, 55, 0.24),
-    0 1px 3px rgba(0, 0, 0, 0.6),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.38),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.8) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 
 #club-tab .club-room-btn.is-active .chamber-icon {
   color: var(--gold-champagne, #e9c877) !important;
-  filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6)) !important;
+  filter: none !important;
 }
 
 /* Distinguished Sovereign Board (Leaderboard) Room */
@@ -8106,15 +8092,15 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   background: linear-gradient(180deg, rgba(38, 30, 20, 0.65) 0%, rgba(20, 16, 10, 0.75) 100%) !important;
   border: 1px solid rgba(212, 175, 55, 0.35) !important;
   border-top: 1px solid rgba(255, 240, 190, 0.45) !important;
+  box-shadow: none !important;
 }
 
 #club-tab .club-room-btn.chamber-btn-board.is-active {
   background: linear-gradient(180deg, rgba(72, 54, 24, 0.92) 0%, rgba(36, 26, 12, 0.98) 100%) !important;
   border: 1px solid rgba(212, 175, 55, 0.90) !important;
   border-top: 1px solid rgba(255, 250, 225, 0.95) !important;
-  box-shadow:
-    0 4px 18px rgba(212, 175, 55, 0.30),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.45) !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 #club-tab .chamber-board-tag {
@@ -8150,13 +8136,14 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   box-shadow: 0 0 6px rgba(80, 184, 106, 0.85);
 }
 
-/* Light Mode Crystalline Liquid Glass */
+/* Light Mode Free-Floating Rail (Zero outer enclosing frame/shadow) */
 body.light-mode #club-tab .club-rooms-nav {
-  background: rgba(255, 255, 255, 0.60) !important;
-  backdrop-filter: blur(20px) saturate(180%) contrast(102%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) contrast(102%) !important;
-  border-bottom: 1px solid rgba(190, 150, 75, 0.08) !important;
-  box-shadow: 0 4px 14px rgba(60, 42, 15, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 
 body.light-mode #club-tab .club-room-btn {
@@ -8166,15 +8153,18 @@ body.light-mode #club-tab .club-room-btn {
   border: 1px solid rgba(190, 150, 75, 0.22) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
   color: #5c4d36 !important;
-  box-shadow:
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.9),
-    0 2px 6px rgba(60, 42, 15, 0.05) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 
 body.light-mode #club-tab .club-room-btn:hover {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(250, 245, 235, 0.80) 100%) !important;
   border-color: rgba(190, 150, 75, 0.40) !important;
   color: #3b2a09 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 
 body.light-mode #club-tab .club-room-btn.is-active {
@@ -8186,19 +8176,19 @@ body.light-mode #club-tab .club-room-btn.is-active {
   border-bottom: 1.2px solid #9c7328 !important;
   color: #261601 !important;
   font-weight: 700 !important;
-  box-shadow:
-    0 4px 14px rgba(184, 143, 62, 0.25),
-    inset 0 1.5px 2px #ffffff,
-    inset 0 -1px 0 rgba(140, 95, 25, 0.2) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 
 body.light-mode #club-tab .club-room-btn .chamber-icon {
   color: #8c734b !important;
+  filter: none !important;
 }
 
 body.light-mode #club-tab .club-room-btn.is-active .chamber-icon {
   color: #8c631e !important;
-  filter: drop-shadow(0 1px 2px rgba(184, 143, 62, 0.35)) !important;
+  filter: none !important;
 }
 
 body.light-mode #club-tab .club-room-btn.chamber-btn-board {
@@ -11842,12 +11832,9 @@ body.light-mode #clubCreditsDisplay::before {
 body.light-mode #club-tab .club-credits-display:hover,
 body.light-mode #clubCreditsDisplay:hover {
   transform: translateY(-1.5px) translateZ(0) !important;
-  box-shadow:
-    0 12px 28px -3px rgba(90, 65, 20, 0.18),
-    0 4px 8px -1px rgba(90, 65, 20, 0.08),
-    0 0 18px rgba(212, 175, 55, 0.16),
-    inset 0 1.5px 2px #ffffff,
-    inset 0 -1px 1.5px rgba(160, 120, 40, 0.08) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 body.light-mode #club-tab .club-credits-label {
   color: #63533c !important;
@@ -12200,11 +12187,9 @@ body.light-mode .obsidian-dispatch-composer {
   border-top: 1px solid rgba(255, 255, 255, 0.90) !important;
   border-bottom: 1px solid rgba(145, 105, 35, 0.12) !important;
   border-radius: 24px !important;
-  box-shadow:
-    0 10px 24px -4px rgba(90, 65, 20, 0.09),
-    0 3px 6px -1px rgba(90, 65, 20, 0.04),
-    inset 0 1.5px 2px #ffffff,
-    inset 0 -1px 1.5px rgba(160, 120, 40, 0.08) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 body.light-mode .obsidian-dispatch-composer::before {
   content: "" !important;
@@ -12235,12 +12220,9 @@ body.light-mode .obsidian-dispatch-composer:focus-within {
   transform: translateY(-1px) translateZ(0) scale(1.002) !important;
   border-color: rgba(180, 138, 55, 0.45) !important;
   border-top-color: #ffffff !important;
-  box-shadow:
-    0 16px 34px -4px rgba(110, 80, 25, 0.18),
-    0 6px 12px -1px rgba(100, 70, 20, 0.10),
-    0 0 20px rgba(212, 175, 55, 0.16),
-    inset 0 1.5px 2px #ffffff,
-    inset 0 -1px 1.5px rgba(160, 120, 40, 0.10) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 body.light-mode .composer-field-inner,
 html.light-mode .composer-field-inner,
@@ -12251,7 +12233,8 @@ html.light-mode .composer-field-inner,
   box-shadow: none !important;
 }
 body.light-mode .sovereign-seal-send-btn {
-  box-shadow: 0 4px 14px rgba(110, 80, 25, 0.25), 0 1px 3px rgba(212, 175, 55, 0.30) !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 body.light-mode .obsidian-dispatch-composer.is-whisper-mode {
   background: rgba(253, 248, 238, 0.65) !important;
@@ -35403,14 +35386,12 @@ html.light-mode .sovereign-salon-ticker,
   -webkit-backdrop-filter: blur(20px) saturate(145%) !important;
   border: 1px solid rgba(190, 150, 80, 0.26) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid rgba(190, 150, 80, 0.12) !important;
   border-radius: 9999px !important;
   overflow: visible !important;
-  box-shadow:
-    0 8px 22px -3px rgba(90, 65, 20, 0.12),
-    0 2px 6px -1px rgba(90, 65, 20, 0.05),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1.5px rgba(160, 120, 40, 0.08) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
 }
 body.light-mode .sovereign-salon-ticker::before,
 html.light-mode .sovereign-salon-ticker::before,
@@ -35425,13 +35406,10 @@ html.light-mode .sovereign-salon-ticker::before,
 body.light-mode .sovereign-salon-ticker:hover,
 html.light-mode .sovereign-salon-ticker:hover,
 :root[data-theme="light"] .sovereign-salon-ticker:hover {
-  transform: translateY(-1.5px) translateZ(0) !important;
-  box-shadow:
-    0 12px 28px -3px rgba(90, 65, 20, 0.18),
-    0 4px 8px -1px rgba(90, 65, 20, 0.08),
-    0 0 18px rgba(212, 175, 55, 0.16),
-    inset 0 1.5px 2px #ffffff,
-    inset 0 -1px 1.5px rgba(160, 120, 40, 0.10) !important;
+  transform: translateZ(0) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
 }
 
 body.light-mode .ticker-pulse-badge,
@@ -35634,44 +35612,27 @@ body.light-mode .gauge-pip.is-spent {
     clip-path: none !important;
 }
 
-/* 2. LIQUID GLASS BASE (DARK MODE DEFAULT) */
-.sovereign-salon-ticker,
-.club-credits-wrapper,
-.club-composer-wrap,
+/* 2. LIQUID GLASS BASE — CLEAN CAPSULES WITH ZERO OUTER FRAME/SHADOW */
+#club-tab .club-composer-wrap,
+.club-composer-wrap {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
 #clubPinnedInfo {
-    background: rgba(18, 18, 22, 0.35) !important; /* High transparency */
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    border: 1px solid rgba(212, 175, 55, 0.25) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.15) !important; /* Glass top reflection */
-    border-radius: 16px !important;
-    margin: 10px 12px !important; /* Detach from edges to float */
-    position: relative !important;
-    z-index: 9999 !important;
-    transform: translateZ(0) !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 
-/* 3. LIFT WITH SHADOWS */
-.sovereign-salon-ticker, #clubPinnedInfo {
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5) !important;
-}
-.club-credits-wrapper, .club-composer-wrap {
-    box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* 4. LIGHT MODE LIQUID GLASS OVERRIDE */
-body.light-mode .sovereign-salon-ticker,
-body.light-mode .club-credits-wrapper,
-body.light-mode .club-composer-wrap,
 body.light-mode #clubPinnedInfo {
-    background: rgba(255, 255, 255, 0.45) !important;
-    border: 1px solid rgba(212, 175, 55, 0.35) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.8) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
-}
-body.light-mode .club-credits-wrapper,
-body.light-mode .club-composer-wrap {
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 
 /* 5. PREVENT INNER ELEMENTS FROM BLOCKING THE GLASS */
@@ -35836,7 +35797,9 @@ body.light-mode .sovereign-salon-ticker {
     -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
     border: 1px solid rgba(212, 175, 55, 0.32) !important;
     border-top: 1px solid rgba(255, 255, 255, 1) !important;
-    box-shadow: 0 8px 24px -2px rgba(160, 130, 90, 0.16), 0 2px 6px rgba(0, 0, 0, 0.04), inset 0 1px 0 #ffffff !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 body:not(.light-mode) .sovereign-salon-ticker {
     background: linear-gradient(135deg, rgba(22, 18, 26, 0.85) 0%, rgba(14, 11, 16, 0.90) 100%) !important;
@@ -35844,7 +35807,9 @@ body:not(.light-mode) .sovereign-salon-ticker {
     -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
     border: 1px solid rgba(212, 175, 55, 0.22) !important;
     border-top: 1px solid rgba(255, 248, 225, 0.45) !important;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.70), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 
 /* 4. WELCOME BANNER (QUIET LUXURY PLAQUE) */
@@ -35864,7 +35829,9 @@ body.light-mode #clubPinnedInfo {
     -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
     border: 1px solid rgba(212, 175, 55, 0.32) !important;
     border-top: 1px solid rgba(255, 255, 255, 1) !important;
-    box-shadow: 0 8px 24px -2px rgba(160, 130, 90, 0.16), 0 2px 6px rgba(0, 0, 0, 0.04), inset 0 1px 0 #ffffff !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 body:not(.light-mode) #clubPinnedInfo {
     background: linear-gradient(135deg, rgba(22, 18, 26, 0.85) 0%, rgba(14, 11, 16, 0.90) 100%) !important;
@@ -35872,7 +35839,9 @@ body:not(.light-mode) #clubPinnedInfo {
     -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
     border: 1px solid rgba(212, 175, 55, 0.22) !important;
     border-top: 1px solid rgba(255, 248, 225, 0.45) !important;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.70), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 
 /* 5. FLOATING BOTTOM WRAPPER (100% CLEAN STACK, NO DOUBLE MARGINS) */
@@ -35896,7 +35865,7 @@ body:not(.light-mode) #clubPinnedInfo {
     overflow: visible !important;
 }
 
-/* 6. DISPATCH ALLOCATION CAPSULE (MATCHING WIDTH & LUXURY CURVATURE) */
+/* 6. DISPATCH ALLOCATION CAPSULE (MATCHING WIDTH & LUXURY CURVATURE — ZERO OUTER SHADOW) */
 #clubCreditsDisplay,
 .club-credits-display,
 .club-credits-wrapper {
@@ -35920,7 +35889,9 @@ body.light-mode .club-credits-wrapper {
     -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
     border: 1px solid rgba(212, 175, 55, 0.32) !important;
     border-top: 1px solid rgba(255, 255, 255, 1) !important;
-    box-shadow: 0 8px 24px -2px rgba(160, 130, 90, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04), inset 0 1px 0 #ffffff !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 body:not(.light-mode) #clubCreditsDisplay,
 body:not(.light-mode) .club-credits-display,
@@ -35930,10 +35901,12 @@ body:not(.light-mode) .club-credits-wrapper {
     -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
     border: 1px solid rgba(212, 175, 55, 0.22) !important;
     border-top: 1px solid rgba(255, 248, 225, 0.45) !important;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.70), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 
-/* 7. OBSIDIAN DISPATCH COMPOSER (MATCHING WIDTH & LUXURY CAPSULE) */
+/* 7. OBSIDIAN DISPATCH COMPOSER (MATCHING WIDTH & LUXURY CAPSULE — ZERO OUTER SHADOW) */
 .obsidian-dispatch-composer {
     width: 100% !important;
     margin: 0 !important;
@@ -35955,7 +35928,9 @@ body.light-mode .obsidian-dispatch-composer {
     -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
     border: 1px solid rgba(212, 175, 55, 0.35) !important;
     border-top: 1px solid rgba(255, 255, 255, 1) !important;
-    box-shadow: 0 12px 32px rgba(160, 130, 90, 0.16), 0 3px 8px rgba(0, 0, 0, 0.05), inset 0 1px 0 #ffffff !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 body:not(.light-mode) .obsidian-dispatch-composer {
     background: linear-gradient(135deg, rgba(24, 20, 28, 0.88) 0%, rgba(14, 11, 16, 0.92) 100%) !important;
@@ -35963,7 +35938,9 @@ body:not(.light-mode) .obsidian-dispatch-composer {
     -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
     border: 1px solid rgba(212, 175, 55, 0.25) !important;
     border-top: 1px solid rgba(255, 248, 225, 0.45) !important;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
 }
 
 /* 8. CONTROLS INSIDE COMPOSER */
@@ -36068,42 +36045,629 @@ body:not(.light-mode) .club-credits-buy {
 /* ========================================================= */
 /* ========================================================= */
 
-/* --- CLUB LIQUID GLASS RESOLUTION PASS --- */
-#club-tab { position: relative !important; }
-.club-ambient-layer { position: absolute !important; top: 0 !important; bottom: 0 !important; left: 50% !important; transform: translateX(-50%) !important; width: 100vw !important; z-index: 0 !important; pointer-events: none !important; background: radial-gradient(ellipse 90% 55% at 50% 0%, rgba(201,168,106,0.10) 0%, transparent 60%), url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><g fill='none' stroke='%23b8965a' stroke-width='0.6' opacity='0.16'><circle cx='200' cy='200' r='60'/><circle cx='200' cy='200' r='95'/><circle cx='200' cy='200' r='130'/><circle cx='200' cy='200' r='165'/><ellipse cx='200' cy='200' rx='165' ry='70'/><ellipse cx='200' cy='200' rx='165' ry='110'/><ellipse cx='200' cy='200' rx='70' ry='165'/><ellipse cx='200' cy='200' rx='110' ry='165'/></g></svg>") center 18% / 420px auto repeat-y, linear-gradient(180deg, #f6f1e6 0%, #efe8d8 45%, #f6f1e6 100%) !important; }
-body.dark-mode .club-ambient-layer { background: radial-gradient(ellipse 90% 55% at 50% 0%, rgba(201,168,106,0.10) 0%, transparent 60%), url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><g fill='none' stroke='%23c9a86a' stroke-width='0.6' opacity='0.10'><circle cx='200' cy='200' r='60'/><circle cx='200' cy='200' r='95'/><circle cx='200' cy='200' r='130'/><circle cx='200' cy='200' r='165'/><ellipse cx='200' cy='200' rx='165' ry='70'/><ellipse cx='200' cy='200' rx='165' ry='110'/><ellipse cx='200' cy='200' rx='70' ry='165'/><ellipse cx='200' cy='200' rx='110' ry='165'/></g></svg>") center 18% / 420px auto repeat-y, linear-gradient(180deg, #0b0a08 0%, #100e0a 45%, #0b0a08 100%) !important; }
-#club-tab > *:not(.club-ambient-layer) { position: relative !important; z-index: 1 !important; }
-#club-tab, .app-main:has(#club-tab.is-active), #club-tab .club-scroll, #club-tab .page { background: transparent !important; background-image: none !important; }
+/* === THE 1% CLUB — MASTER CLUB FULL-BLEED & LIQUID GLASS ARCHITECTURE === */
 
-#sovereignSalonTicker, .sovereign-salon-ticker, #clubCreditsDisplay, .club-credits-display, #obsidianDispatchComposer, #clubComposerWrap, .lounge-banner, #clubWelcomeBanner, .club-welcome { background: linear-gradient(180deg, rgba(22,20,16,0.44) 0%, rgba(22,20,16,0.30) 100%) !important; backdrop-filter: blur(14px) saturate(1.35) !important; -webkit-backdrop-filter: blur(14px) saturate(1.35) !important; border: 1px solid rgba(212,175,55,0.28) !important; box-shadow: inset 0 1px 0 rgba(255,245,215,0.14), inset 0 -1px 0 rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.28) !important; }
-body.light-mode #sovereignSalonTicker, body.light-mode .sovereign-salon-ticker, body.light-mode #clubCreditsDisplay, body.light-mode .club-credits-display, body.light-mode #obsidianDispatchComposer, body.light-mode #clubComposerWrap, body.light-mode .lounge-banner, body.light-mode #clubWelcomeBanner, body.light-mode .club-welcome { background: linear-gradient(180deg, rgba(255,255,255,0.50) 0%, rgba(255,255,255,0.30) 100%) !important; border: 1px solid rgba(255,255,255,0.65) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(156,109,35,0.12), 0 6px 18px rgba(70,50,20,0.10) !important; }
-
-body:has(#club-tab.is-active) .app-header { border-bottom: none !important; box-shadow: none !important; background: transparent !important; }
-#clubRoomsNav, .club-rooms-nav { background: transparent !important; border-top: none !important; border-bottom: none !important; }
-
-#obsidianDispatchComposer input, #clubComposerWrap input, .club-composer input { display: flex !important; align-items: center !important; line-height: normal !important; padding-top: 0 !important; padding-bottom: 0 !important; }
-
-/* === CLUB GLASS SEAM FIX (2026-10-12) === */
-.club-ambient-layer {
-  top: calc(-1 * (var(--header-actual-height, 82px) + 96px)) !important;
-}
-#club-tab .club-rooms-nav,
-#club-tab.club-header-collapsed .club-rooms-nav,
-#clubRoomsNav {
+/* 1. MASTER FULL-BLEED VIEWPORT BACKDROP (SEAMLESS EDGE-TO-EDGE) */
+#club-tab,
+#club-tab.is-active {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   background: transparent !important;
   background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
 }
-#club-tab.is-active,
-body.light-mode #club-tab.is-active,
-html.light-mode #club-tab.is-active,
-:root[data-theme="light"] #club-tab.is-active {
+
+body:has(#club-tab.is-active),
+html:has(#club-tab.is-active),
+body:has(#club-tab.is-active) .app,
+body:has(#club-tab.is-active) .app-main,
+.app-main:has(#club-tab.is-active),
+#club-tab.is-active .club-scroll,
+#club-tab.is-active .page {
   background: transparent !important;
   background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
+
+.sovereign-chat-backdrop,
+#club-tab.is-active .sovereign-chat-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  /* Obsidian Precious Metal Base */
+  background-color: #08070a !important;
+  background-image:
+    /* Top Crown Gold Luster */
+    radial-gradient(ellipse 130% 500px at 50% -30px, rgba(212, 175, 55, 0.18) 0%, rgba(184, 142, 62, 0.05) 45%, transparent 75%),
+    /* Center Tourbillon Movement Spotlight */
+    radial-gradient(circle 380px at 50% 48%, rgba(212, 175, 55, 0.11) 0%, rgba(184, 142, 62, 0.03) 55%, transparent 100%),
+    /* Mid Calibre Vignette */
+    radial-gradient(ellipse 100% 750px at 50% 50%, rgba(24, 18, 28, 0.50) 0%, rgba(10, 8, 12, 0.28) 55%, transparent 100%),
+    /* Bottom Horizon Glow */
+    radial-gradient(ellipse 120% 450px at 50% 100%, rgba(212, 175, 55, 0.12) 0%, rgba(140, 95, 25, 0.03) 45%, transparent 75%),
+    /* Côtes de Genève Vertical Intaglio Brushing */
+    repeating-linear-gradient(90deg, rgba(212, 175, 55, 0.024) 0px, rgba(212, 175, 55, 0.024) 1px, transparent 1px, transparent 20px),
+    /* Micro Horizontal Satin Hairlines */
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0px, rgba(255, 255, 255, 0.012) 1px, transparent 1px, transparent 4px),
+    linear-gradient(180deg, #0e0c10 0%, #08070a 16%, #050406 50%, #08070a 84%, #0d0b10 100%) !important;
+}
+
+body.light-mode .sovereign-chat-backdrop,
+body.light-mode #club-tab.is-active .sovereign-chat-backdrop,
+html.light-mode .sovereign-chat-backdrop,
+:root[data-theme="light"] .sovereign-chat-backdrop {
+  /* Grand Feu Enamel & Opaline Silk Base */
+  background-color: #faf7f0 !important;
+  background-image:
+    /* Top Sunburst Champagne Glow */
+    radial-gradient(ellipse 130% 500px at 50% -30px, rgba(212, 175, 55, 0.18) 0%, rgba(235, 205, 130, 0.06) 45%, transparent 75%),
+    /* Center Complication Porcelain Spotlight */
+    radial-gradient(circle 380px at 50% 48%, rgba(212, 175, 55, 0.12) 0%, rgba(184, 142, 62, 0.03) 55%, transparent 100%),
+    /* Mid Porcelain Silk Vignette */
+    radial-gradient(ellipse 100% 750px at 50% 50%, rgba(255, 255, 255, 0.85) 0%, rgba(247, 240, 227, 0.40) 55%, transparent 100%),
+    /* Bottom Champagne Glow */
+    radial-gradient(ellipse 120% 450px at 50% 100%, rgba(200, 160, 75, 0.14) 0%, rgba(160, 120, 45, 0.03) 48%, transparent 75%),
+    /* Côtes de Genève Opaline Intaglio Brushing */
+    repeating-linear-gradient(90deg, rgba(184, 142, 62, 0.028) 0px, rgba(184, 142, 62, 0.028) 1px, transparent 1px, transparent 20px),
+    /* Micro Horizontal Opaline Hairlines */
+    repeating-linear-gradient(0deg, rgba(184, 142, 62, 0.014) 0px, rgba(184, 142, 62, 0.014) 1px, transparent 1px, transparent 4px),
+    linear-gradient(180deg, #fdfbf7 0%, #f7f1e2 16%, #ede4ce 50%, #f6eee2 84%, #fbf8f2 100%) !important;
+}
+
+#club-tab:not(.is-active) .sovereign-chat-backdrop,
+#club-tab[hidden] .sovereign-chat-backdrop {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Haute Horlogerie SVG Movement Calibre Engraving Texture */
+.chat-backdrop-texture,
+#club-tab .chat-backdrop-texture {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+  opacity: 0.32 !important;
+}
+
+body.light-mode .chat-backdrop-texture,
+html.light-mode .chat-backdrop-texture {
+  opacity: 0.28 !important;
+}
+
+.chat-backdrop-svg-texture {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 540px !important;
+  margin: 0 auto !important;
+}
+
+body.light-mode .chat-backdrop-svg-texture path,
+body.light-mode .chat-backdrop-svg-texture circle,
+body.light-mode .chat-backdrop-svg-texture line,
+body.light-mode .chat-backdrop-svg-texture rect {
+  stroke: rgba(160, 118, 40, 0.55) !important;
+}
+
+/* 2. SEAMLESS HEADER & ROOMS NAVIGATION CONTINUITY */
 body:has(#club-tab.is-active) .app-header,
 html:has(#club-tab.is-active) .app-header {
   background: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
+
+#clubRoomsNav,
+.club-rooms-nav,
+#club-tab .club-rooms-nav {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 6px calc(14px + env(safe-area-inset-right, 0px)) 6px calc(14px + env(safe-area-inset-left, 0px)) !important;
+  margin: 0 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Floating Liquid Glass Chamber Tab Capsules */
+#club-tab .club-room-btn {
+  background: linear-gradient(180deg, rgba(30, 24, 34, 0.40) 0%, rgba(16, 13, 20, 0.50) 100%) !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.18) !important;
+  border-top: 1px solid rgba(255, 240, 190, 0.35) !important;
+  color: rgba(220, 210, 192, 0.85) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+body.light-mode #club-tab .club-room-btn {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(246, 240, 226, 0.45) 100%) !important;
+  backdrop-filter: blur(14px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+  border: 1px solid rgba(190, 150, 75, 0.28) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  color: #4a3512 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+#club-tab .club-room-btn.is-active {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.24) 0%, rgba(184, 142, 62, 0.14) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+  border-top: 1px solid rgba(255, 250, 230, 0.85) !important;
+  color: #fdf5e2 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+body.light-mode #club-tab .club-room-btn.is-active {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.22) 0%, rgba(184, 142, 62, 0.12) 100%) !important;
+  border: 1px solid rgba(184, 142, 62, 0.50) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
+  color: #2e1d03 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+/* 3. FLOATING LIQUID GLASS FINANCIAL TICKER */
+#sovereignSalonTicker,
+.sovereign-salon-ticker {
+  position: relative !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  z-index: 10 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 2px 10px 2px 8px !important;
+  margin: 4px calc(14px + env(safe-area-inset-right, 0px)) 6px calc(14px + env(safe-area-inset-left, 0px)) !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  box-sizing: border-box !important;
+  border-radius: 9999px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(28, 22, 34, 0.32) 42%, rgba(12, 10, 16, 0.42) 100%) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.22) !important;
+  border-top: 1px solid rgba(255, 250, 235, 0.55) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+  transform: translateZ(0) !important;
+}
+
+body.light-mode #sovereignSalonTicker,
+body.light-mode .sovereign-salon-ticker {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(252, 248, 240, 0.38) 45%, rgba(244, 238, 226, 0.48) 100%) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(190, 150, 75, 0.26) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+#sovereignSalonTicker:hover,
+.sovereign-salon-ticker:hover {
+  transform: translateZ(0) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+body.light-mode #sovereignSalonTicker:hover,
+body.light-mode .sovereign-salon-ticker:hover {
+  transform: translateZ(0) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  outline: none !important;
+}
+
+.sovereign-salon-ticker::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 80%) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+body.light-mode .sovereign-salon-ticker::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.06) 40%, transparent 80%) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+#sovereignSalonTicker::after,
+.sovereign-salon-ticker::after {
+  content: none !important;
+  display: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.sovereign-salon-ticker > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* 4. FLOATING LIQUID GLASS WELCOME BANNER */
+#clubPinnedInfo,
+#club-tab .club-chamber-plaque,
+#club-tab .club-pinned {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 6px 12px 6px 10px !important;
+  margin: 4px calc(14px + env(safe-area-inset-right, 0px)) 6px calc(14px + env(safe-area-inset-left, 0px)) !important;
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(28, 22, 34, 0.32) 42%, rgba(12, 10, 16, 0.42) 100%) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.22) !important;
+  border-top: 1px solid rgba(255, 250, 235, 0.55) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: visible !important;
+  transform: translateZ(0) !important;
+  z-index: 10 !important;
+}
+
+body.light-mode #clubPinnedInfo,
+body.light-mode #club-tab .club-chamber-plaque,
+body.light-mode #club-tab .club-pinned {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(252, 248, 240, 0.38) 45%, rgba(244, 238, 226, 0.48) 100%) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(190, 150, 75, 0.26) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+#club-tab .club-pinned::before,
+#club-tab .club-chamber-plaque::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 80%) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+body.light-mode #club-tab .club-pinned::before,
+body.light-mode #club-tab .club-chamber-plaque::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.06) 40%, transparent 80%) !important;
+}
+
+#clubPinnedInfo > *,
+#club-tab .club-chamber-plaque > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* 5. FLOATING 3D GLASS DISPATCH ALLOCATION PILL */
+#clubCreditsDisplay,
+.club-credits-display,
+.club-credits-wrapper {
+  width: 100% !important;
+  margin: 0 !important;
+  border-radius: 9999px !important;
+  padding: 4px 10px 4px 12px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: visible !important;
+  transform: translateZ(0) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(28, 22, 34, 0.32) 42%, rgba(12, 10, 16, 0.42) 100%) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.22) !important;
+  border-top: 1px solid rgba(255, 250, 235, 0.55) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+body.light-mode #clubCreditsDisplay,
+body.light-mode .club-credits-display,
+body.light-mode .club-credits-wrapper {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(252, 248, 240, 0.38) 45%, rgba(244, 238, 226, 0.48) 100%) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(190, 150, 75, 0.26) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+#clubCreditsDisplay::before,
+.club-credits-display::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 80%) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+body.light-mode #clubCreditsDisplay::before,
+body.light-mode .club-credits-display::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.06) 40%, transparent 80%) !important;
+}
+
+#clubCreditsDisplay > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+#clubCreditsBuyBtn,
+.club-credits-buy {
+  border-radius: 9999px !important;
+  padding: 3px 10px !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+body:not(.light-mode) #clubCreditsBuyBtn,
+body:not(.light-mode) .club-credits-buy {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.26) 0%, rgba(184, 142, 62, 0.16) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  border-top: 1px solid rgba(255, 248, 225, 0.60) !important;
+  color: #f7eed8 !important;
+}
+
+body.light-mode #clubCreditsBuyBtn,
+body.light-mode .club-credits-buy {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(184, 142, 62, 0.12) 100%) !important;
+  border: 1px solid rgba(184, 142, 62, 0.38) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  color: #4d350c !important;
+}
+
+/* 6. FLOATING 3D GLASS COMPOSER & INPUT CENTERING */
+#club-tab .club-composer-wrap,
+.club-composer-wrap {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  margin: 0 !important;
+  padding: 4px calc(14px + env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) calc(14px + env(safe-area-inset-left, 0px)) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 25 !important;
+  overflow: visible !important;
+}
+
+#obsidianDispatchComposer,
+.obsidian-dispatch-composer {
+  width: 100% !important;
+  margin: 0 !important;
+  border-radius: 9999px !important;
+  padding: 4px 6px 4px 10px !important;
+  min-height: 48px !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: visible !important;
+  transform: translateZ(0) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(28, 22, 34, 0.35) 42%, rgba(14, 11, 18, 0.45) 100%) !important;
+  backdrop-filter: blur(18px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.24) !important;
+  border-top: 1px solid rgba(255, 250, 235, 0.60) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+body.light-mode #obsidianDispatchComposer,
+body.light-mode .obsidian-dispatch-composer {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.70) 0%, rgba(252, 248, 240, 0.40) 50%, rgba(246, 240, 228, 0.50) 100%) !important;
+  backdrop-filter: blur(18px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+  border: 1px solid rgba(190, 150, 75, 0.28) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+/* Vertical Text Centering Inside Composer Field */
+.composer-field-inner,
+#obsidianDispatchComposer .composer-field-inner {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.obsidian-dispatch-input,
+#clubInput {
+  display: flex !important;
+  align-items: center !important;
+  height: auto !important;
+  min-height: 24px !important;
+  line-height: 24px !important;
+  padding: 2px 6px !important;
+  margin: 0 !important;
+  font-size: 13.5px !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  resize: none !important;
+  vertical-align: middle !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+body.light-mode .obsidian-dispatch-input,
+body.light-mode #clubInput {
+  color: #2b1b06 !important;
+}
+
+body.light-mode .obsidian-dispatch-input::placeholder,
+body.light-mode #clubInput::placeholder {
+  color: #8c734b !important;
+  opacity: 0.85 !important;
+}
+
+body:not(.light-mode) .obsidian-dispatch-input,
+body:not(.light-mode) #clubInput {
+  color: #f7edd6 !important;
+}
+
+body:not(.light-mode) .obsidian-dispatch-input::placeholder,
+body:not(.light-mode) #clubInput::placeholder {
+  color: #a89474 !important;
+  opacity: 0.75 !important;
+}
+
+.whisper-cipher-toggle {
+  border-radius: 9999px !important;
+  padding: 4px 9px !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  align-self: center !important;
+}
+
+body.light-mode .whisper-cipher-toggle {
+  background: rgba(184, 142, 62, 0.10) !important;
+  color: #5c4314 !important;
+}
+
+body:not(.light-mode) .whisper-cipher-toggle {
+  background: rgba(212, 175, 55, 0.12) !important;
+  color: #f3e5c8 !important;
+}
+
+#clubSendBtn,
+.sovereign-seal-send-btn {
+  flex-shrink: 0 !important;
+  align-self: center !important;
+  margin: 0 !important;
+}
+
+/* 7. CHAT MESSAGES SCROLL & VIEWPORT INTEGRATION */
+.club-chat-viewport,
+#club-tab .club-chat-viewport {
+  position: relative !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  z-index: 1 !important;
+}
+
+.club-messages,
+#club-tab .club-messages {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+
+
+
 
 
 
