@@ -171,6 +171,10 @@ window.I18N = {
     },
   },
   club: {
+    nextRooms: {
+      en: "View more rooms",
+      ar: "عرض المزيد من الغرف",
+    },
     lounge: {
       en: "Sovereign Lounge",
       ar: "صالة الأعضاء السيادية",

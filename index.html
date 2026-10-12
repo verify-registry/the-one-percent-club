@@ -1013,122 +1013,137 @@
           </div>
 
           <!-- SOVEREIGN CHAMBERS & SALONS NAVIGATION -->
-          <div class="club-rooms-nav" id="clubRoomsNav" role="tablist" aria-label="غرف وصالات النادي السيادية">
-            <button
-              class="club-room-btn is-active"
-              data-channel="global-lounge"
-              type="button"
-              id="roomBtnLounge"
-              role="tab"
-              aria-selected="true"
-              tabindex="0"
-            >
-              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
-                <path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span class="chamber-name" data-i18n="club.lounge">صالة الأعضاء السيادية</span>
-            </button>
+          <div class="club-rooms-nav-wrap" id="clubRoomsNavWrap">
+            <div class="club-rooms-nav" id="clubRoomsNav" role="tablist" aria-label="غرف وصالات النادي السيادية">
+              <button
+                class="club-room-btn is-active"
+                data-channel="global-lounge"
+                type="button"
+                id="roomBtnLounge"
+                role="tab"
+                aria-selected="true"
+                tabindex="0"
+              >
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                  <path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="chamber-name" data-i18n="club.lounge">صالة الأعضاء السيادية</span>
+              </button>
+
+              <button
+                class="club-room-btn"
+                data-channel="wealth"
+                type="button"
+                id="roomBtnWealth"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                  <path d="M12 3v18M6 8l-3 6h6L6 8zm12 0l-3 6h6l-3-6zM3 8h18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="3" r="1.5" fill="currentColor"/>
+                </svg>
+                <span class="chamber-name" data-i18n="club.wealth">الثروة والاستثمار</span>
+                <span class="room-badge">2</span>
+              </button>
+
+              <button
+                class="club-room-btn"
+                data-channel="business"
+                type="button"
+                id="roomBtnBusiness"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                  <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18" stroke="currentColor" stroke-width="1.3"/>
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+                <span class="chamber-name" data-i18n="club.business">الأعمال والفرص</span>
+                <span class="room-badge unread-dot"></span>
+              </button>
+
+              <button
+                class="club-room-btn"
+                data-channel="lifestyle"
+                type="button"
+                id="roomBtnLifestyle"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/>
+                  <polygon points="12 6 14.5 11 12 10 9.5 11" fill="currentColor"/>
+                  <polygon points="12 18 14.5 13 12 14 9.5 13" stroke="currentColor" stroke-width="0.8"/>
+                </svg>
+                <span class="chamber-name" data-i18n="club.lifestyle">الترحال وأسلوب الحياة</span>
+              </button>
+
+              <button
+                class="club-room-btn"
+                data-channel="ideas"
+                type="button"
+                id="roomBtnIdeas"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.3"/>
+                </svg>
+                <span class="chamber-name" data-i18n="club.ideas">الأفكار والابتكار</span>
+              </button>
+
+              <button
+                class="club-room-btn"
+                data-channel="tech"
+                type="button"
+                id="roomBtnTech"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
+                  <rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                  <path d="M9 9h6v6H9zM9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3M19 9h3m-3 6h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                </svg>
+                <span class="chamber-name" data-i18n="club.tech">الذكاء الاصطناعي والتقنية</span>
+              </button>
+
+              <!-- Distinguished Sovereign Board (Leaderboard) -->
+              <button
+                class="club-room-btn chamber-btn-board"
+                data-channel="leaderboard"
+                type="button"
+                id="roomBtnLeaderboard"
+                role="tab"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-icon chamber-icon-board">
+                  <path d="M7 11.5a5.5 5.5 0 0110 0c0 4-3 6.5-5 8-2-1.5-5-4-5-8z" stroke="currentColor" stroke-width="1.3"/>
+                  <path d="M12 6l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4L12 6z" fill="currentColor"/>
+                </svg>
+                <span class="chamber-name" data-i18n="club.leaderboardTitle">المجلس السيادي</span>
+                <span class="chamber-board-tag">SOVEREIGN</span>
+              </button>
+            </div>
 
             <button
-              class="club-room-btn"
-              data-channel="wealth"
+              class="club-rooms-scroll-arrow is-hidden"
+              id="clubRoomsScrollArrow"
               type="button"
-              id="roomBtnWealth"
-              role="tab"
-              aria-selected="false"
+              aria-label="View more rooms"
+              data-i18n-aria-label="club.nextRooms"
               tabindex="-1"
             >
-              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
-                <path d="M12 3v18M6 8l-3 6h6L6 8zm12 0l-3 6h6l-3-6zM3 8h18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="3" r="1.5" fill="currentColor"/>
+              <svg viewBox="0 0 24 24" fill="none" class="discovery-chevron-icon" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <span class="chamber-name" data-i18n="club.wealth">الثروة والاستثمار</span>
-              <span class="room-badge">2</span>
-            </button>
-
-            <button
-              class="club-room-btn"
-              data-channel="business"
-              type="button"
-              id="roomBtnBusiness"
-              role="tab"
-              aria-selected="false"
-              tabindex="-1"
-            >
-              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
-                <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18" stroke="currentColor" stroke-width="1.3"/>
-                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
-              </svg>
-              <span class="chamber-name" data-i18n="club.business">الأعمال والفرص</span>
-              <span class="room-badge unread-dot"></span>
-            </button>
-
-            <button
-              class="club-room-btn"
-              data-channel="lifestyle"
-              type="button"
-              id="roomBtnLifestyle"
-              role="tab"
-              aria-selected="false"
-              tabindex="-1"
-            >
-              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/>
-                <polygon points="12 6 14.5 11 12 10 9.5 11" fill="currentColor"/>
-                <polygon points="12 18 14.5 13 12 14 9.5 13" stroke="currentColor" stroke-width="0.8"/>
-              </svg>
-              <span class="chamber-name" data-i18n="club.lifestyle">الترحال وأسلوب الحياة</span>
-            </button>
-
-            <button
-              class="club-room-btn"
-              data-channel="ideas"
-              type="button"
-              id="roomBtnIdeas"
-              role="tab"
-              aria-selected="false"
-              tabindex="-1"
-            >
-              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
-                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.3"/>
-              </svg>
-              <span class="chamber-name" data-i18n="club.ideas">الأفكار والابتكار</span>
-            </button>
-
-            <button
-              class="club-room-btn"
-              data-channel="tech"
-              type="button"
-              id="roomBtnTech"
-              role="tab"
-              aria-selected="false"
-              tabindex="-1"
-            >
-              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon">
-                <rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M9 9h6v6H9zM9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3M19 9h3m-3 6h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-              </svg>
-              <span class="chamber-name" data-i18n="club.tech">الذكاء الاصطناعي والتقنية</span>
-            </button>
-
-            <!-- Distinguished Sovereign Board (Leaderboard) -->
-            <button
-              class="club-room-btn chamber-btn-board"
-              data-channel="leaderboard"
-              type="button"
-              id="roomBtnLeaderboard"
-              role="tab"
-              aria-selected="false"
-              tabindex="-1"
-            >
-              <svg viewBox="0 0 24 24" fill="none" class="chamber-icon chamber-icon-board">
-                <path d="M7 11.5a5.5 5.5 0 0110 0c0 4-3 6.5-5 8-2-1.5-5-4-5-8z" stroke="currentColor" stroke-width="1.3"/>
-                <path d="M12 6l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4L12 6z" fill="currentColor"/>
-              </svg>
-              <span class="chamber-name" data-i18n="club.leaderboardTitle">المجلس السيادي</span>
-              <span class="chamber-board-tag">SOVEREIGN</span>
             </button>
           </div>
 

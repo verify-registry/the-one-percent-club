@@ -8298,8 +8298,12 @@ window.HeaderScrollController = (function() {
     const creditsEl = document.getElementById("clubCreditsDisplay");
 
     if (collapsed) {
-      // In Club tab, elements are strictly locked in place per specification:
-      // "الهيدر وتبويبات الغرف ورسالة الترحيب وشريط التداول تظل في أماكنها ولا تتحرك مع الرسائل"
+      if (header && !header.classList.contains("header-hidden")) {
+        header.classList.add("header-hidden");
+      }
+      if (clubTab && !clubTab.classList.contains("club-header-collapsed")) {
+        clubTab.classList.add("club-header-collapsed");
+      }
       return;
     }
 
@@ -8406,13 +8410,43 @@ window.HeaderScrollController = (function() {
     const msgs = document.getElementById("clubMessages");
     if (!msgs) return;
 
-    // Header, room tabs, welcome banner, and ticker remain static and in place
-    lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
-
     // Safeguard: Ensure #club-tab and .app-main never scroll
     if (clubTab.scrollTop !== 0) clubTab.scrollTop = 0;
     const appMain = document.querySelector(".app-main");
     if (appMain && appMain.scrollTop !== 0) appMain.scrollTop = 0;
+
+    const currentScroll = Math.max(0, msgs.scrollTop || 0);
+    const maxScroll = Math.max(0, (msgs.scrollHeight || 0) - (msgs.clientHeight || 0));
+
+    // If chat content fits in viewport without scrolling, keep header visible
+    if (maxScroll <= 30) {
+      setClubHeaderCollapsed(false);
+      lastClubScrollTop = currentScroll;
+      return;
+    }
+
+    if (!clubTicking) {
+      clubTicking = true;
+      requestAnimationFrame(() => {
+        clubTicking = false;
+        const delta = currentScroll - lastClubScrollTop;
+
+        // When at or near latest messages (bottom of chat), ensure header is visible
+        if (currentScroll >= maxScroll - 20) {
+          setClubHeaderCollapsed(false);
+        }
+        // Scrolling UPWARD to read older messages: smoothly hide header
+        else if (delta < -8) {
+          setClubHeaderCollapsed(true);
+        }
+        // Scrolling DOWNWARD toward latest messages: smoothly restore header
+        else if (delta > 8) {
+          setClubHeaderCollapsed(false);
+        }
+
+        lastClubScrollTop = currentScroll;
+      });
+    }
   }
 
   // General scroll handler for Membership, Profile, Boutique

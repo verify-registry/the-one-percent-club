@@ -774,6 +774,22 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   3. Ensured 100% preservation of all buttons, gauges, counters, messaging, and responsive behaviors in both Dark and Light modes.
   4. Cache-busted stylesheet to `style.css?v=20261011_floating_layers_fix`.
 
+### Restore Auto-Hide Header on Chat Scroll Pass (2026-10-12) — COMPLETE
+- **Root Cause Diagnosed**:
+  1. In `HeaderScrollController` in `app.js`, `setClubHeaderCollapsed(collapsed)` had an early return when `collapsed === true`, preventing `header-hidden` from being toggled on `#appHeader`.
+  2. Inside `handleClubScrollEvent()`, delta-based scroll direction tracking was frozen with `lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);` without evaluating scroll deltas.
+- **Architectural Fix Applied**:
+  1. Updated `setClubHeaderCollapsed(collapsed)` in `app.js` to apply `.header-hidden` to `#appHeader` when `collapsed === true`, smoothly sliding the top header upward out of view while keeping Club elements in place.
+  2. Restored `requestAnimationFrame`-throttled scroll delta tracking in `handleClubScrollEvent()`:
+     - Scrolling UPWARD to read older messages (`delta < -8`): smoothly hides the top header (`setClubHeaderCollapsed(true)`).
+     - Scrolling DOWNWARD toward latest messages (`delta > 8`): smoothly restores the header (`setClubHeaderCollapsed(false)`).
+     - At or near the latest messages (`currentScroll >= maxScroll - 20`): ensures the header remains fully visible.
+     - Jitter damping (`|delta| <= 8`) and `window.isProgrammaticScroll` guard eliminate touch jitter, layout shifts, or unintended triggers.
+- **Verification**:
+  - `lint_applet` passed with 0 errors across all scripts.
+  - `compile_applet` passed cleanly.
+  - Automated unit test verifying scroll invariants (scrolling upward, downward, at bottom, and jitter damping) passed 100%.
+
 
 
 
