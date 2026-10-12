@@ -8031,14 +8031,14 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
-  gap: 8px;
-  padding: 8px calc(14px + env(safe-area-inset-right, 0px)) 8px calc(14px + env(safe-area-inset-left, 0px));
+  gap: 6.5px;
+  padding: 5px calc(12px + env(safe-area-inset-right, 0px)) 4px calc(12px + env(safe-area-inset-left, 0px));
   scrollbar-width: none;
   -ms-overflow-style: none;
   margin-bottom: 0;
   flex-shrink: 0;
   -webkit-overflow-scrolling: touch;
-  max-height: 52px;
+  max-height: 48px;
   opacity: 1;
   transform: translateY(0);
   position: relative;
@@ -8067,14 +8067,19 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
 #club-tab .club-room-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 6.5px 13px;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0 12px;
+  box-sizing: border-box;
   border-radius: 9999px;
   white-space: nowrap;
   font-family: inherit;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.01em;
+  line-height: 1;
   cursor: pointer;
   user-select: none;
   position: relative;
@@ -8169,12 +8174,16 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
 .room-badge {
   background: linear-gradient(135deg, #d4af37 0%, #aa8022 100%);
   color: #080705;
-  font-size: 8.5px;
+  font-size: 8px;
   font-weight: 700;
-  padding: 1px 5px;
+  padding: 1.5px 4.5px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-  line-height: 1.1;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .room-badge.unread-dot {
@@ -35313,15 +35322,15 @@ body.light-mode #logoutConfirmModal p {
   display: inline-flex !important;
   align-items: center !important;
   gap: 2px !important;
-  padding: 2px 3.5px !important;
-  border-radius: 3.5px !important;
-  background: rgba(18, 15, 22, 0.38) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.24) !important;
-  border-top: 0.5px solid rgba(255, 240, 190, 0.38) !important;
+  padding: 1.5px 3px !important;
+  border-radius: 3px !important;
+  background: rgba(18, 15, 22, 0.20) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.18) !important;
+  border-top: 0.5px solid rgba(255, 240, 190, 0.26) !important;
   box-shadow:
-    inset 0 1px 1.5px rgba(0, 0, 0, 0.35),
-    0 0.5px 0 rgba(255, 255, 255, 0.08) !important;
-  margin-inline-start: 6px !important;
+    inset 0 0.5px 1px rgba(0, 0, 0, 0.18),
+    0 0.5px 0 rgba(255, 255, 255, 0.05) !important;
+  margin-inline-start: 6.5px !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
   box-sizing: border-box !important;
@@ -35632,12 +35641,12 @@ html.light-mode .ticker-metal-change.negative,
 }
 
 body.light-mode .gauge-pips-strip {
-  background: rgba(235, 226, 212, 0.45) !important;
-  border: 0.5px solid rgba(184, 142, 62, 0.28) !important;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.85) !important;
+  background: rgba(235, 226, 212, 0.28) !important;
+  border: 0.5px solid rgba(184, 142, 62, 0.20) !important;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.80) !important;
   box-shadow:
-    inset 0 1px 1.5px rgba(80, 50, 10, 0.12),
-    0 0.5px 0 rgba(255, 255, 255, 0.75) !important;
+    inset 0 0.5px 1px rgba(80, 50, 10, 0.08),
+    0 0.5px 0 rgba(255, 255, 255, 0.60) !important;
 }
 
 body.light-mode .gauge-pip.is-filled {
