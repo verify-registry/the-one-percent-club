@@ -409,9 +409,7 @@ body.light-mode .vault-card,
 body.light-mode .honor-card,
 body.light-mode .menu-card,
 body.light-mode .stats-bar,
-body.light-mode .lounge-banner,
-body.light-mode .pcs-item-card:not(.museum-pedestal-card):not(.reliquary-pedestal-card),
-body.light-mode .club-composer {
+body.light-mode .pcs-item-card:not(.museum-pedestal-card):not(.reliquary-pedestal-card) {
   background: var(--lm-bg-white) !important;
   border: 1px solid rgba(156, 109, 35, 0.25) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
@@ -496,11 +494,7 @@ body.light-mode .member-number {
   -webkit-text-fill-color: var(--gold-polished) !important;
 }
 
-body.light-mode .club-composer {
-  background: var(--lm-bg-white) !important;
-  border: 1px solid rgba(156, 109, 35, 0.3) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
-}
+body.light-mode .club-composer { background: linear-gradient(180deg, rgba(255,255,255,0.50) 0%, rgba(255,255,255,0.30) 100%) !important; border: 1px solid rgba(255,255,255,0.65) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(156,109,35,0.12), 0 6px 18px rgba(70,50,20,0.10) !important; backdrop-filter: blur(14px) saturate(1.35) !important; -webkit-backdrop-filter: blur(14px) saturate(1.35) !important; }
 
 body.light-mode .club-composer input {
   color: var(--lm-text-dark) !important;
@@ -36073,6 +36067,45 @@ body:not(.light-mode) .club-credits-buy {
 }
 /* ========================================================= */
 /* ========================================================= */
+
+/* --- CLUB LIQUID GLASS RESOLUTION PASS --- */
+#club-tab { position: relative !important; }
+.club-ambient-layer { position: absolute !important; top: 0 !important; bottom: 0 !important; left: 50% !important; transform: translateX(-50%) !important; width: 100vw !important; z-index: 0 !important; pointer-events: none !important; background: radial-gradient(ellipse 90% 55% at 50% 0%, rgba(201,168,106,0.10) 0%, transparent 60%), url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><g fill='none' stroke='%23b8965a' stroke-width='0.6' opacity='0.16'><circle cx='200' cy='200' r='60'/><circle cx='200' cy='200' r='95'/><circle cx='200' cy='200' r='130'/><circle cx='200' cy='200' r='165'/><ellipse cx='200' cy='200' rx='165' ry='70'/><ellipse cx='200' cy='200' rx='165' ry='110'/><ellipse cx='200' cy='200' rx='70' ry='165'/><ellipse cx='200' cy='200' rx='110' ry='165'/></g></svg>") center 18% / 420px auto repeat-y, linear-gradient(180deg, #f6f1e6 0%, #efe8d8 45%, #f6f1e6 100%) !important; }
+body.dark-mode .club-ambient-layer { background: radial-gradient(ellipse 90% 55% at 50% 0%, rgba(201,168,106,0.10) 0%, transparent 60%), url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><g fill='none' stroke='%23c9a86a' stroke-width='0.6' opacity='0.10'><circle cx='200' cy='200' r='60'/><circle cx='200' cy='200' r='95'/><circle cx='200' cy='200' r='130'/><circle cx='200' cy='200' r='165'/><ellipse cx='200' cy='200' rx='165' ry='70'/><ellipse cx='200' cy='200' rx='165' ry='110'/><ellipse cx='200' cy='200' rx='70' ry='165'/><ellipse cx='200' cy='200' rx='110' ry='165'/></g></svg>") center 18% / 420px auto repeat-y, linear-gradient(180deg, #0b0a08 0%, #100e0a 45%, #0b0a08 100%) !important; }
+#club-tab > *:not(.club-ambient-layer) { position: relative !important; z-index: 1 !important; }
+#club-tab, .app-main:has(#club-tab.is-active), #club-tab .club-scroll, #club-tab .page { background: transparent !important; background-image: none !important; }
+
+#sovereignSalonTicker, .sovereign-salon-ticker, #clubCreditsDisplay, .club-credits-display, #obsidianDispatchComposer, #clubComposerWrap, .lounge-banner, #clubWelcomeBanner, .club-welcome { background: linear-gradient(180deg, rgba(22,20,16,0.44) 0%, rgba(22,20,16,0.30) 100%) !important; backdrop-filter: blur(14px) saturate(1.35) !important; -webkit-backdrop-filter: blur(14px) saturate(1.35) !important; border: 1px solid rgba(212,175,55,0.28) !important; box-shadow: inset 0 1px 0 rgba(255,245,215,0.14), inset 0 -1px 0 rgba(0,0,0,0.35), 0 6px 18px rgba(0,0,0,0.28) !important; }
+body.light-mode #sovereignSalonTicker, body.light-mode .sovereign-salon-ticker, body.light-mode #clubCreditsDisplay, body.light-mode .club-credits-display, body.light-mode #obsidianDispatchComposer, body.light-mode #clubComposerWrap, body.light-mode .lounge-banner, body.light-mode #clubWelcomeBanner, body.light-mode .club-welcome { background: linear-gradient(180deg, rgba(255,255,255,0.50) 0%, rgba(255,255,255,0.30) 100%) !important; border: 1px solid rgba(255,255,255,0.65) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(156,109,35,0.12), 0 6px 18px rgba(70,50,20,0.10) !important; }
+
+body:has(#club-tab.is-active) .app-header { border-bottom: none !important; box-shadow: none !important; background: transparent !important; }
+#clubRoomsNav, .club-rooms-nav { background: transparent !important; border-top: none !important; border-bottom: none !important; }
+
+#obsidianDispatchComposer input, #clubComposerWrap input, .club-composer input { display: flex !important; align-items: center !important; line-height: normal !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+
+/* === CLUB GLASS SEAM FIX (2026-10-12) === */
+.club-ambient-layer {
+  top: calc(-1 * (var(--header-actual-height, 82px) + 96px)) !important;
+}
+#club-tab .club-rooms-nav,
+#club-tab.club-header-collapsed .club-rooms-nav,
+#clubRoomsNav {
+  background: transparent !important;
+  background-image: none !important;
+}
+#club-tab.is-active,
+body.light-mode #club-tab.is-active,
+html.light-mode #club-tab.is-active,
+:root[data-theme="light"] #club-tab.is-active {
+  background: transparent !important;
+  background-image: none !important;
+}
+body:has(#club-tab.is-active) .app-header,
+html:has(#club-tab.is-active) .app-header {
+  background: transparent !important;
+}
+
+
 
 
 
