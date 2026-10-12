@@ -4846,17 +4846,17 @@ function scrollChatToLatest(smoothScroll = true) {
   if (window._progScrollTimer) clearTimeout(window._progScrollTimer);
 
   const performScroll = (behavior) => {
-    container.scrollTop = container.scrollHeight;
-    const lastEl = container.lastElementChild;
-    if (lastEl && typeof lastEl.scrollIntoView === "function") {
-      try {
-        lastEl.scrollIntoView({
-          behavior: behavior,
-          block: "end",
-          inline: "nearest",
-        });
-      } catch (e) {}
+    const targetTop = Math.max(0, container.scrollHeight - container.clientHeight);
+    if (behavior === "smooth") {
+      container.scrollTo({ top: targetTop, behavior: "smooth" });
+    } else {
+      container.scrollTop = targetTop;
     }
+    // Prevent ancestor containers (#club-tab, .app-main) from scrolling
+    const clubTab = document.getElementById("club-tab");
+    if (clubTab && clubTab.scrollTop !== 0) clubTab.scrollTop = 0;
+    const appMain = document.querySelector(".app-main");
+    if (appMain && appMain.scrollTop !== 0) appMain.scrollTop = 0;
   };
 
   const prefBehavior = smoothScroll ? "smooth" : "auto";
@@ -4873,7 +4873,6 @@ function scrollChatToLatest(smoothScroll = true) {
     performScroll(prefBehavior);
     if (window.HeaderScrollController) {
       window.HeaderScrollController.syncClubScrollTop();
-      window.HeaderScrollController.setClubHeaderCollapsed(false);
     }
     window.isProgrammaticScroll = false;
   }, smoothScroll ? 220 : 60);
@@ -4884,10 +4883,18 @@ function appendMessageToChat(msg, idx, channelId, smoothScroll = true) {
   const container = document.getElementById("clubMessages");
   if (!container || AppState.activeChannelId !== channelId) return;
 
+  const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+  const isNearBottom = distanceFromBottom <= 80;
+  const isSelf = msg && (msg.senderId === AppState.member?.id || msg.senderId === "current-user");
+
   const html = buildMessageHTML(msg, idx, channelId);
   container.insertAdjacentHTML("beforeend", html);
 
-  scrollChatToLatest(smoothScroll);
+  // If user sent the message, always scroll to latest.
+  // If an incoming message arrives while user is reviewing older messages, do not force jump.
+  if (isSelf || isNearBottom) {
+    scrollChatToLatest(smoothScroll);
+  }
 }
 
 function renderMessages() {
@@ -5034,14 +5041,17 @@ function handleSendMessage() {
       if (typingName) typingName.textContent = elite.name;
       if (indicator) {
         indicator.style.display = "flex";
-        scrollChatToLatest(true);
+        const msgContainer = document.getElementById("clubMessages");
+        const nearBottom = msgContainer ? (msgContainer.scrollHeight - msgContainer.scrollTop - msgContainer.clientHeight <= 80) : true;
+        if (nearBottom) {
+          scrollChatToLatest(true);
+        }
       }
 
       typingTimeout = setTimeout(
         () => {
           if (indicator) {
             indicator.style.display = "none";
-            scrollChatToLatest(true);
           }
           if (!AppState.channels[channelId]) return;
 
@@ -8288,25 +8298,19 @@ window.HeaderScrollController = (function() {
     const creditsEl = document.getElementById("clubCreditsDisplay");
 
     if (collapsed) {
-      if (header && !header.classList.contains("header-hidden")) {
-        header.classList.add("header-hidden");
-      }
-      if (clubTab && !clubTab.classList.contains("club-header-collapsed")) {
-        clubTab.classList.add("club-header-collapsed");
-      }
-      if (creditsEl && !creditsEl.classList.contains("credits-collapsed")) {
-        creditsEl.classList.add("credits-collapsed");
-      }
-    } else {
-      if (header && header.classList.contains("header-hidden")) {
-        header.classList.remove("header-hidden");
-      }
-      if (clubTab && clubTab.classList.contains("club-header-collapsed")) {
-        clubTab.classList.remove("club-header-collapsed");
-      }
-      if (creditsEl && creditsEl.classList.contains("credits-collapsed")) {
-        creditsEl.classList.remove("credits-collapsed");
-      }
+      // In Club tab, elements are strictly locked in place per specification:
+      // "الهيدر وتبويبات الغرف ورسالة الترحيب وشريط التداول تظل في أماكنها ولا تتحرك مع الرسائل"
+      return;
+    }
+
+    if (header && header.classList.contains("header-hidden")) {
+      header.classList.remove("header-hidden");
+    }
+    if (clubTab && clubTab.classList.contains("club-header-collapsed")) {
+      clubTab.classList.remove("club-header-collapsed");
+    }
+    if (creditsEl && creditsEl.classList.contains("credits-collapsed")) {
+      creditsEl.classList.remove("credits-collapsed");
     }
   }
 
@@ -8402,45 +8406,13 @@ window.HeaderScrollController = (function() {
     const msgs = document.getElementById("clubMessages");
     if (!msgs) return;
 
-    if (!clubTicking) {
-      clubTicking = true;
-      requestAnimationFrame(() => {
-        clubTicking = false;
-        if (isNavigating || window.isProgrammaticScroll) return;
+    // Header, room tabs, welcome banner, and ticker remain static and in place
+    lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
 
-        const currentScroll = Math.max(0, msgs.scrollTop || 0);
-        const maxScroll = Math.max(0, msgs.scrollHeight - msgs.clientHeight);
-
-        // If the message feed has no scroll overflow, remain completely expanded
-        if (maxScroll <= 15) {
-          setClubHeaderCollapsed(false);
-          lastClubScrollTop = currentScroll;
-          return;
-        }
-
-        const delta = currentScroll - lastClubScrollTop;
-
-        // 1. Reaching the latest message (at or near bottom of feed): restore normal Club layout
-        if (currentScroll >= maxScroll - 20) {
-          setClubHeaderCollapsed(false);
-          lastClubScrollTop = currentScroll;
-          return;
-        }
-
-        // 2. Scrolling toward older messages (moving UP through message history, delta < -6):
-        // Smoothly hide upper app header, Club room navigation, welcome plaque, and balance control
-        if (delta < -6) {
-          setClubHeaderCollapsed(true);
-        }
-        // 3. Scrolling back toward newer messages (moving DOWN through message history, delta > 6):
-        // Restore hidden controls smoothly
-        else if (delta > 6) {
-          setClubHeaderCollapsed(false);
-        }
-
-        lastClubScrollTop = currentScroll;
-      });
-    }
+    // Safeguard: Ensure #club-tab and .app-main never scroll
+    if (clubTab.scrollTop !== 0) clubTab.scrollTop = 0;
+    const appMain = document.querySelector(".app-main");
+    if (appMain && appMain.scrollTop !== 0) appMain.scrollTop = 0;
   }
 
   // General scroll handler for Membership, Profile, Boutique

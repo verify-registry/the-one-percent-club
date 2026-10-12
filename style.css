@@ -3341,11 +3341,13 @@ html:has(#club-tab.is-active) .app-main {
   position: relative !important;
   overflow: hidden !important;
   overflow-x: hidden !important;
+  overflow-y: hidden !important;
   display: flex !important;
   flex-direction: column !important;
-  flex: 1 1 0;
-  min-height: 0;
-  height: 100%;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: 100% !important;
   padding-top: calc(var(--header-actual-height, 74px) + 4px) !important;
   padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
   padding-left: 0 !important;
@@ -3359,9 +3361,8 @@ html:has(#club-tab.is-active) .app-main {
   margin-inline: 0 !important;
   width: 100% !important;
   max-width: 100% !important;
-  gap: 4px !important;
-  box-sizing: border-box;
-  transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  gap: 0 !important;
+  box-sizing: border-box !important;
   /* THE 1% CLUB — SOVEREIGN FULL-BLEED OBSIDIAN ATELIER WALLPAPER (EDGE-TO-EDGE CONTINUOUS CANVAS) */
   background-color: #070608 !important;
   background-image:
@@ -3404,53 +3405,33 @@ html.light-mode #club-tab.is-active,
   pointer-events: none !important;
 }
 
-/* Fluid collapsed state during downward scrolling through Club messages */
+/* Fixed layout state: Header and navigation controls remain static and in place */
 #club-tab.is-active.club-header-collapsed {
-  padding-top: calc(env(safe-area-inset-top, 0px) + 2px) !important;
+  padding-top: calc(var(--header-actual-height, 74px) + 4px) !important;
 }
 
 #club-tab.club-header-collapsed .club-rooms-nav {
-  max-height: 0 !important;
-  opacity: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  border-bottom-width: 0 !important;
-  border-bottom-color: transparent !important;
-  transform: translateY(-8px) !important;
-  overflow: hidden !important;
-  pointer-events: none !important;
+  max-height: 52px !important;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
 }
 
 #club-tab.club-header-collapsed .club-pinned,
 #club-tab.club-header-collapsed .club-chamber-plaque {
-  max-height: 0 !important;
-  opacity: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  border-width: 0 !important;
-  transform: translateY(-8px) !important;
-  overflow: hidden !important;
-  pointer-events: none !important;
+  max-height: 52px !important;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
 }
 
-/* Hide message allocation / balance control during downward scrolling */
 #club-tab.club-header-collapsed #clubCreditsDisplay,
 #club-tab.is-active #clubCreditsDisplay.credits-collapsed,
 #clubCreditsDisplay.credits-collapsed {
-  max-height: 0 !important;
-  opacity: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  border-width: 0 !important;
-  transform: translateY(8px) scale(0.98) !important;
-  overflow: hidden !important;
-  pointer-events: none !important;
+  max-height: 52px !important;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: auto !important;
 }
 /* ==========================================================================
    SOVEREIGN CLUB CHAMBER PLAQUE (CLEAN, MINIMAL & QUIET-LUXURY WELCOME)
@@ -35601,6 +35582,22 @@ body.light-mode .gauge-pip.is-spent {
    TRUE LIQUID GLASS & CONTINUOUS LUXURY BACKGROUND ARCHITECTURE
    ========================================================================== */
 
+/* Visual Diagnostic Blue: Solid Medium Blue for Club Message Cards (#2563eb) */
+#club-tab .sovereign-dispatch-card,
+.club-messages .sovereign-dispatch-card,
+#clubChatViewport .sovereign-dispatch-card,
+body.light-mode #club-tab .sovereign-dispatch-card,
+html.light-mode #club-tab .sovereign-dispatch-card,
+:root[data-theme="light"] #club-tab .sovereign-dispatch-card {
+  background: #2563eb !important;
+  background-color: #2563eb !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: #60a5fa !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
 /* --------------------------------------------------------------------------
    1. FULL-WIDTH LUXURY BACKGROUND (CONTINUOUS GUILLOCHÉ INSPIRED)
    -------------------------------------------------------------------------- */
@@ -35616,8 +35613,15 @@ body.light-mode .gauge-pip.is-spent {
   position: relative !important;
   overflow: hidden !important;
   overflow-x: hidden !important;
+  overflow-y: hidden !important;
   display: flex !important;
   flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  padding-top: var(--header-actual-height, 74px) !important;
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  gap: 0 !important;
   /* TEMPORARY DIAGNOSTIC BACKGROUND (DIAGONAL RED STRIPES - DARK & LIGHT) */
   background-color: #b71c1c !important;
   background-image: repeating-linear-gradient(
@@ -35809,46 +35813,67 @@ html.light-mode .club-watermark,
    Applies to:
    - #sovereignSalonTicker
    - #clubPinnedInfo
-   - #clubCreditsDisplay
-   - .club-composer-wrap
+   - #clubCreditsDisplay (Independent Floating Capsule)
+   - #obsidianDispatchComposer (Independent Floating Capsule)
    -------------------------------------------------------------------------- */
 #sovereignSalonTicker,
 .sovereign-salon-ticker,
 #clubPinnedInfo,
 #club-tab .club-chamber-plaque,
-#club-tab .club-pinned,
-#club-tab .club-composer-wrap,
-.club-composer-wrap {
+#club-tab .club-pinned {
   margin: 6px 12px !important;
   border-radius: 14px !important;
   box-sizing: border-box !important;
   position: relative !important;
   transform: translateZ(0) !important;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
-  /* Dark Mode Liquid Glass Specs */
-  background: rgba(18, 18, 22, 0.45) !important;
-  backdrop-filter: blur(24px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.2) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  /* Visual Diagnostic Blue: Darker Blue for Upper Bars (#10386e) */
+  background: #10386e !important;
+  background-color: #10386e !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid #2563eb !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
 }
 
 #clubCreditsDisplay,
 .club-credits-display,
 .club-credits-wrapper {
-  margin: 0 0 6px 0 !important;
+  margin: 0 0 8px 0 !important;
   width: 100% !important;
   border-radius: 14px !important;
   box-sizing: border-box !important;
   position: relative !important;
   transform: translateZ(0) !important;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
-  /* Dark Mode Liquid Glass Specs */
-  background: rgba(18, 18, 22, 0.45) !important;
-  backdrop-filter: blur(24px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.2) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  /* Visual Diagnostic Blue: Darker Blue for Credits Capsule (#0f3468) */
+  background: #0f3468 !important;
+  background-color: #0f3468 !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid #2563eb !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+}
+
+#obsidianDispatchComposer,
+.obsidian-dispatch-composer {
+  margin: 0 !important;
+  width: 100% !important;
+  border-radius: 18px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  transform: translateZ(0) !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+  /* Visual Diagnostic Blue: Darker Blue for Composer (#0c2d5e) */
+  background: #0c2d5e !important;
+  background-color: #0c2d5e !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid #2563eb !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
 }
 
 body.light-mode #sovereignSalonTicker,
@@ -35859,22 +35884,24 @@ body.light-mode #club-tab .club-pinned,
 body.light-mode #clubCreditsDisplay,
 body.light-mode .club-credits-display,
 body.light-mode .club-credits-wrapper,
-body.light-mode #club-tab .club-composer-wrap,
-body.light-mode .club-composer-wrap,
+body.light-mode #obsidianDispatchComposer,
+body.light-mode .obsidian-dispatch-composer,
 html.light-mode #sovereignSalonTicker,
 html.light-mode #clubPinnedInfo,
 html.light-mode #clubCreditsDisplay,
-html.light-mode .club-composer-wrap,
+html.light-mode #obsidianDispatchComposer,
 :root[data-theme="light"] #sovereignSalonTicker,
 :root[data-theme="light"] #clubPinnedInfo,
 :root[data-theme="light"] #clubCreditsDisplay,
-:root[data-theme="light"] .club-composer-wrap {
-  /* Light Mode Liquid Glass Specs */
-  background: rgba(255, 255, 255, 0.52) !important;
-  backdrop-filter: blur(24px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.28) !important;
-  box-shadow: 0 8px 28px rgba(160, 130, 90, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+:root[data-theme="light"] #obsidianDispatchComposer {
+  /* Visual Diagnostic Blue: Solid Distinct Blue for Light Mode */
+  background: #17427f !important;
+  background-color: #17427f !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1.5px solid #3b82f6 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
 }
 
 /* Specific Polish 4a: Sovereign Salon Financial Ticker */
@@ -36302,35 +36329,34 @@ body.light-mode .club-credits-buy {
   }
 }
 
-/* Specific Polish 4d: Dispatch Composer Capsule & Input Centering */
 #club-tab .club-composer-wrap,
 .club-composer-wrap {
-  margin: 4px 10px calc(8px + env(safe-area-inset-bottom, 0px)) 10px !important;
-  padding: 5px 8px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 4px !important;
-  z-index: 25 !important;
-  overflow: visible !important;
-  flex-shrink: 0 !important;
-  width: calc(100% - 20px) !important;
-  max-width: calc(100% - 20px) !important;
-  align-self: center !important;
-}
-
-#obsidianDispatchComposer,
-.obsidian-dispatch-composer,
-.club-composer-wrap .obsidian-dispatch-composer {
+  margin: 4px 12px 6px 12px !important;
+  padding: 0 !important;
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  z-index: 25 !important;
+  overflow: visible !important;
+  flex-shrink: 0 !important;
+  width: calc(100% - 24px) !important;
+  max-width: calc(100% - 24px) !important;
+  align-self: center !important;
+}
+
+#obsidianDispatchComposer,
+.obsidian-dispatch-composer,
+.club-composer-wrap .obsidian-dispatch-composer {
   width: 100% !important;
   margin: 0 !important;
-  padding: 0 !important;
-  min-height: 40px !important;
+  padding: 5px 8px 5px 12px !important;
+  min-height: 44px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -36439,7 +36465,7 @@ body.light-mode .whisper-cipher-toggle {
 }
 
 /* --------------------------------------------------------------------------
-   5. CHAT SCROLLING BEHIND FLOATING GLASS
+   5. STRICT BOUNDED CHAT SCROLL AREA
    -------------------------------------------------------------------------- */
 .club-chat-viewport,
 #club-tab .club-chat-viewport {
@@ -36464,9 +36490,13 @@ body.light-mode .whisper-cipher-toggle {
 #club-tab .club-messages {
   position: relative !important;
   z-index: 1 !important;
-  padding-top: 14px !important;
-  padding-bottom: 14px !important;
+  padding-top: 10px !important;
+  padding-bottom: 12px !important;
+  padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
+  padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
   overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain !important;
   box-sizing: border-box !important;
   mask-image: none !important;
@@ -36475,14 +36505,13 @@ body.light-mode .whisper-cipher-toggle {
   border: none !important;
   box-shadow: none !important;
   flex: 1 1 0 !important;
-  scroll-padding-top: 14px !important;
-  scroll-padding-bottom: 14px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  scroll-padding-top: 10px !important;
+  scroll-padding-bottom: 12px !important;
 }
 
 /* === CLUB SHADOW-LIFT + BLEED v8 (2026-10-13) === */
-body:has(#club-tab.is-active) .app-header,
-body:has(#club-tab.is-active) .club-header-wrapper,
-body:has(#club-tab.is-active) .club-header,
 #club-tab .club-rooms-nav {
   background: transparent !important;
   background-image: none !important;
