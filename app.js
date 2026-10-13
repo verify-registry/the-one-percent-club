@@ -146,6 +146,9 @@ window.setLanguage = function (lang) {
   if (typeof window.syncClubInputDirection === "function") {
     window.syncClubInputDirection();
   }
+  if (typeof updateClubRoomsArrowState === "function") {
+    setTimeout(updateClubRoomsArrowState, 50);
+  }
   // Update typography
   const root = document.documentElement;
   if (lang === "en") {
@@ -3277,6 +3280,13 @@ const Router = {
       if (typeof startClubWelcomeAutoDismiss === "function") {
         startClubWelcomeAutoDismiss();
       }
+      if (typeof updateClubRoomsArrowState === "function") {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(updateClubRoomsArrowState);
+        });
+        setTimeout(updateClubRoomsArrowState, 80);
+        setTimeout(updateClubRoomsArrowState, 260);
+      }
     } else if (tab === "profile") {
       if (typeof window.setClubFloatingControlsVisibility === "function") {
         window.setClubFloatingControlsVisibility(false);
@@ -4140,6 +4150,10 @@ function switchChannel(channelId) {
       } catch (e) {}
     }
   });
+  if (typeof updateClubRoomsArrowState === "function") {
+    updateClubRoomsArrowState();
+    setTimeout(updateClubRoomsArrowState, 280);
+  }
 
   const pinnedTitle = document.getElementById("clubPinnedTitle");
   const pinnedSub = document.getElementById("clubPinnedSub");
@@ -4249,6 +4263,10 @@ function switchChannel(channelId) {
   const activeTab = document.querySelector(".page.is-active");
   if (activeTab && activeTab.id === "club-tab") {
     startClubWelcomeAutoDismiss();
+    if (typeof updateClubRoomsArrowState === "function") {
+      requestAnimationFrame(updateClubRoomsArrowState);
+      setTimeout(updateClubRoomsArrowState, 100);
+    }
   }
 }
 
@@ -4306,8 +4324,228 @@ document.querySelectorAll(".club-room-btn").forEach((btn) => {
       window.HapticEngine.tap(10);
     }
     switchChannel(channel);
+    if (typeof updateClubRoomsArrowState === "function") {
+      requestAnimationFrame(updateClubRoomsArrowState);
+      setTimeout(updateClubRoomsArrowState, 80);
+    }
   });
 });
+
+// --- Club Rooms Two-Room Pagination & Discovery Controller ---
+let currentClubRoomsPage = 0;
+
+function getClubRoomsPageCount() {
+  const nav = document.getElementById("clubRoomsNav");
+  if (!nav) return 1;
+  const buttons = nav.querySelectorAll(".club-room-btn");
+  return Math.max(1, Math.ceil(buttons.length / 2));
+}
+
+function detectCurrentClubRoomsPage() {
+  const nav = document.getElementById("clubRoomsNav");
+  if (!nav) return 0;
+  const buttons = Array.from(nav.querySelectorAll(".club-room-btn"));
+  if (buttons.length === 0) return 0;
+
+  const isRtl = document.documentElement.dir === "rtl" || document.dir === "rtl" || document.body?.dir === "rtl";
+  const navRect = nav.getBoundingClientRect();
+  if (navRect.width === 0) return currentClubRoomsPage || 0;
+
+  let minDiff = Infinity;
+  let activeFirstIndex = 0;
+
+  buttons.forEach((btn, idx) => {
+    const r = btn.getBoundingClientRect();
+    const diff = isRtl ? Math.abs(r.right - navRect.right) : Math.abs(r.left - navRect.left);
+    if (diff < minDiff) {
+      minDiff = diff;
+      activeFirstIndex = idx;
+    }
+  });
+
+  return Math.floor(activeFirstIndex / 2);
+}
+
+function scrollClubRoomsToPage(pageIndex, smooth = true) {
+  const nav = document.getElementById("clubRoomsNav");
+  if (!nav) return;
+  const buttons = Array.from(nav.querySelectorAll(".club-room-btn"));
+  const totalPages = Math.max(1, Math.ceil(buttons.length / 2));
+  const targetPage = Math.max(0, Math.min(totalPages - 1, pageIndex));
+  currentClubRoomsPage = targetPage;
+
+  const targetBtn = buttons[targetPage * 2];
+  if (targetBtn) {
+    const isRtl = document.documentElement.dir === "rtl" || document.dir === "rtl" || document.body?.dir === "rtl";
+    const behavior = smooth ? "smooth" : "auto";
+    try {
+      targetBtn.scrollIntoView({
+        behavior,
+        block: "nearest",
+        inline: "start"
+      });
+    } catch (e) {
+      const pageOffset = targetPage * (nav.clientWidth + 8);
+      if (isRtl) {
+        nav.scrollLeft = -pageOffset;
+      } else {
+        nav.scrollTo({ left: pageOffset, behavior });
+      }
+    }
+  }
+
+  updateClubRoomsArrowState();
+  setTimeout(updateClubRoomsArrowState, 150);
+  setTimeout(updateClubRoomsArrowState, 350);
+}
+
+function updateClubRoomsArrowState() {
+  const nav = document.getElementById("clubRoomsNav");
+  const arrow = document.getElementById("clubRoomsScrollArrow");
+  if (!nav || !arrow) return;
+
+  const clubTab = document.getElementById("club-tab");
+  const isClubVisible = clubTab && !clubTab.hidden && (clubTab.classList.contains("is-active") || clubTab.offsetHeight > 0);
+  if (!isClubVisible || nav.clientWidth === 0) {
+    return;
+  }
+
+  const buttons = Array.from(nav.querySelectorAll(".club-room-btn"));
+  const totalRooms = buttons.length;
+  const totalPages = Math.max(1, Math.ceil(totalRooms / 2));
+
+  if (totalPages <= 1) {
+    arrow.classList.add("is-hidden");
+    arrow.setAttribute("tabindex", "-1");
+    arrow.setAttribute("aria-hidden", "true");
+    return;
+  }
+
+  currentClubRoomsPage = detectCurrentClubRoomsPage();
+  const isLastPage = currentClubRoomsPage >= totalPages - 1;
+
+  arrow.classList.remove("is-hidden");
+  arrow.setAttribute("tabindex", "0");
+  arrow.setAttribute("aria-hidden", "false");
+
+  const lang = window.currentLang || (document.documentElement.lang === "ar" ? "ar" : "en");
+
+  if (isLastPage) {
+    // Reached final pair: invert arrow for compact backward navigation to revisit previous pairs
+    arrow.classList.add("is-backward");
+    const label = (window.t && window.t("club.prevRooms", lang)) || (lang === "ar" ? "الغرف السابقة" : "Previous rooms");
+    arrow.setAttribute("aria-label", label);
+    arrow.setAttribute("title", label);
+  } else {
+    // Forward progression to next pair
+    arrow.classList.remove("is-backward");
+    const label = (window.t && window.t("club.nextRooms", lang)) || (lang === "ar" ? "عرض المزيد من الغرف" : "View more rooms");
+    arrow.setAttribute("aria-label", label);
+    arrow.setAttribute("title", label);
+  }
+}
+
+function initClubRoomsDiscoveryArrow() {
+  const nav = document.getElementById("clubRoomsNav");
+  const arrow = document.getElementById("clubRoomsScrollArrow");
+  const clubTab = document.getElementById("club-tab");
+  if (!nav || !arrow) return;
+
+  if (!arrow._discoveryBound) {
+    arrow._discoveryBound = true;
+    arrow.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      const totalPages = getClubRoomsPageCount();
+      const currentPage = detectCurrentClubRoomsPage();
+
+      if (arrow.classList.contains("is-backward") || currentPage >= totalPages - 1) {
+        // Step back by two room tabs to revisit previous pairs
+        const prevPage = Math.max(0, currentPage - 1);
+        scrollClubRoomsToPage(prevPage, true);
+      } else {
+        // Advance by exactly two room tabs to the next pair
+        const nextPage = Math.min(totalPages - 1, currentPage + 1);
+        scrollClubRoomsToPage(nextPage, true);
+      }
+
+      if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+        window.AudioEngine.playClick();
+      }
+      if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(8);
+      }
+    });
+
+    let scrollDebounce = null;
+    nav.addEventListener("scroll", () => {
+      if (scrollDebounce) cancelAnimationFrame(scrollDebounce);
+      scrollDebounce = requestAnimationFrame(updateClubRoomsArrowState);
+    }, { passive: true });
+
+    window.addEventListener("resize", () => {
+      requestAnimationFrame(updateClubRoomsArrowState);
+    }, { passive: true });
+
+    window.addEventListener("languageChanged", () => {
+      requestAnimationFrame(updateClubRoomsArrowState);
+      setTimeout(updateClubRoomsArrowState, 150);
+    });
+
+    // 1. Observe language / direction mutations on document
+    try {
+      const dirObserver = new MutationObserver(() => {
+        requestAnimationFrame(updateClubRoomsArrowState);
+      });
+      dirObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["dir", "lang"] });
+    } catch (e) {}
+
+    // 2. Observe #club-tab visibility/attribute changes (ensures arrow recalculates immediately on tab activation)
+    if (clubTab) {
+      try {
+        const tabObserver = new MutationObserver(() => {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(updateClubRoomsArrowState);
+          });
+          setTimeout(updateClubRoomsArrowState, 80);
+          setTimeout(updateClubRoomsArrowState, 250);
+        });
+        tabObserver.observe(clubTab, { attributes: true, attributeFilter: ["class", "hidden", "style"] });
+      } catch (e) {}
+    }
+
+    // 3. ResizeObserver on nav container to trigger recalculation as soon as layout completes
+    if (typeof ResizeObserver !== "undefined") {
+      try {
+        const resizeObs = new ResizeObserver(() => {
+          requestAnimationFrame(updateClubRoomsArrowState);
+        });
+        resizeObs.observe(nav);
+      } catch (e) {}
+    }
+
+    // 4. IntersectionObserver on nav so entering visible viewport triggers arrow recalculation
+    if (typeof IntersectionObserver !== "undefined") {
+      try {
+        const intersectObs = new IntersectionObserver((entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            requestAnimationFrame(updateClubRoomsArrowState);
+            setTimeout(updateClubRoomsArrowState, 80);
+          }
+        }, { threshold: 0.05 });
+        intersectObs.observe(nav);
+      } catch (e) {}
+    }
+  }
+
+  requestAnimationFrame(updateClubRoomsArrowState);
+  setTimeout(updateClubRoomsArrowState, 120);
+}
+
+window.updateClubRoomsArrowState = updateClubRoomsArrowState;
+window.initClubRoomsDiscoveryArrow = initClubRoomsDiscoveryArrow;
+window.scrollClubRoomsToPage = scrollClubRoomsToPage;
 
 let liveMarketData = null;
 let isFetchingMarket = false;
@@ -4490,6 +4728,7 @@ function initSovereignSalonTicker() {
 
 document.addEventListener("DOMContentLoaded", () => {
   switchChannel("global-lounge");
+  initClubRoomsDiscoveryArrow();
   window.DeferredQueue.add(() => { try { initSovereignSalonTicker(); } catch(e) {} });
   initWhisperToggle();
   updateCreditsUI();

@@ -175,6 +175,10 @@ window.I18N = {
       en: "View more rooms",
       ar: "عرض المزيد من الغرف",
     },
+    prevRooms: {
+      en: "Previous rooms",
+      ar: "الغرف السابقة",
+    },
     lounge: {
       en: "Sovereign Lounge",
       ar: "صالة الأعضاء السيادية",

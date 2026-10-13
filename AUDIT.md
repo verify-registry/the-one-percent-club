@@ -818,6 +818,60 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Physical capacitive touch gestures, inertial scrolling friction, and physical hardware gyroscope/haptic feedback could not be tested in the headless runtime environment.
 - **Authoritative Baseline Confirmation**: ZERO application code, markup, or styling files modified. Rollback state preserved as the authoritative baseline.
 
+### Room Tabs Material Refinement & Discovery Arrow Activation Pass (2026-10-13) — COMPLETE
+- **Scope**: Refined room-tab materials and activated the pre-existing `#clubRoomsScrollArrow` discovery control. Preserved all pill geometry, dimensions, spacing, badges, red diagonal backgrounds, and blue diagnostic fills.
+- **Material Changes**:
+  - *Selected Tab*: Shifted from flat brownish gold to deep obsidian (`rgba(32, 25, 18, 0.98)` to `rgba(14, 11, 8, 0.99)`) with a polished champagne-gold bezel (`1px solid rgba(212, 175, 65, 0.78)`, top specular catch `rgba(255, 250, 228, 0.94)`, bottom shadow `rgba(135, 100, 28, 0.55)`), subtle inner rehaut depth, and high-contrast `#fff6de` label.
+  - *Unselected Tabs*: Blackened precious metal / deep obsidian (`rgba(22, 18, 14, 0.88)` to `rgba(11, 9, 7, 0.94)`) with restrained champagne-gold highlights, subtle inner rim bevel, and clearly legible `#e4dccc` text.
+  - *Light Mode*: Warm ivory silk unselected and burnished ivory/gold alloy selected tabs with antique bronze typography.
+- **Discovery Arrow Controller**:
+  - Activated existing `#clubRoomsScrollArrow` with champagne-gold chevron (`#fed976`) and obsidian jewel button (`26px × 26px`, `border-radius: 50%`).
+  - Positioned at the trailing edge via logical properties (`inset-inline-end: calc(8px + ...)`).
+  - Added RTL direction mirroring (`transform: scaleX(-1)` in RTL) so chevron points forward in both English LTR (right) and Arabic RTL (left).
+  - Implemented dynamic visibility check: reveals arrow when additional tabs exist (`maxScroll > 6` and not scrolled to end); hides when end is reached (`is-hidden`, `tabindex="-1"`).
+  - Click handler smoothly advances strip by 45% viewport width.
+  - State updates bound to nav scroll, window resize, channel switching (`switchChannel`), tab entry (`Router.onEnter`), and language change (`setLanguage`).
+- **Verification**:
+  - `npm run lint` passed with 0 errors across all scripts.
+  - `compile_applet` passed cleanly.
+  - Simulated Node.js unit tests verified LTR/RTL visibility, advancement, and hide-at-end behavior.
+  - Diagnostic red backgrounds and blue fills verified 100% intact.
+
+### Club Collapsed Header Vertical Space Recovery Pass (2026-10-13) — COMPLETE
+- **Scope**: Resolved the collapsed-header layout state in the Club tab so that hiding the global header (`#appHeader.header-hidden`) genuinely releases and reclaims vertical reading space for messages without content jumps or layout distortion.
+- **Root Cause Identified**:
+  - `setClubHeaderCollapsed()` in `app.js` correctly toggles `.header-hidden` on `#appHeader` and `.club-header-collapsed` on `#club-tab`.
+  - However, in `style.css`, `#club-tab.is-active.club-header-collapsed` explicitly hardcoded `padding-top: calc(var(--header-actual-height, 74px) + 4px) !important;` (a static placeholder), and `.club-chat-viewport` lacked a collapsed-state top override, remaining pinned at `top: var(--header-actual-height, 74px) !important;`.
+  - As a result, when `#appHeader` collapsed out of view, the room tabs, trading ticker, and chat viewport remained stranded ~74px below the top, leaving an empty void.
+- **Architectural Fix Applied**:
+  - Updated `#club-tab.club-header-collapsed` and `#club-tab.is-active.club-header-collapsed` in `style.css` to reduce `padding-top` to `calc(env(safe-area-inset-top, 0px) + 4px) !important;`.
+  - Added `#club-tab.club-header-collapsed .club-chat-viewport` with `top: env(safe-area-inset-top, 0px) !important;`, expanding the message viewport into the released space.
+  - Added matching cubic-bezier smooth transitions (`0.28s cubic-bezier(0.16, 1, 0.3, 1)`) to `#club-tab`'s `padding-top` and `.club-chat-viewport`'s `top`, perfectly synchronizing with `#appHeader`'s collapse/restore animation.
+  - Room tabs and trading ticker slide upward smoothly into the released space with consistent compact gap maintained.
+  - Allocation bar, message credits button, and dispatch composer remain locked and accessible in their bottom fixed positioning above bottom navigation.
+- **Verification**:
+  - `npm run lint` passed with 0 errors across all scripts.
+  - `compile_applet` passed cleanly with 0 build errors.
+  - HTTP 200 OK verified on dev server.
+  - Diagnostic red backgrounds and blue fills verified 100% intact.
+
+### Club Collapsed Header Space Recovery Fix Pass (2026-10-13) — COMPLETE
+- **Scope**: Fixed collapsed-header space recovery in the Club tab by resolving late stylesheet cascade overrides, ensuring upper controls (room tabs, plaque, trading ticker) move upward seamlessly into released header space and `.club-chat-viewport` expands to reclaim message reading height.
+- **Root Cause & CSS Conflicts Identified**:
+  - In `style.css`, early rules for `#club-tab.club-header-collapsed` were superseded in late blocks (Section 1: line ~35882 and Section 5: line ~36930) where `#club-tab, #club-tab.is-active`, `body.light-mode #club-tab`, and `.club-chat-viewport` were redeclared with `padding-top: var(--header-actual-height, 74px) !important;` and `top: var(--header-actual-height, 74px) !important;` without matching collapsed overrides.
+  - `.club-chat-viewport` and `#club-tab` in the late block lacked synchronized cubic-bezier transitions on `top` and `padding-top`.
+  - Message padding (`padding-top: 80px !important;` / `124px !important;`) inside `.club-chat-viewport` was analyzed: since upper controls float above the chat scroll area and dissolve under the intaglio mask, when `.club-chat-viewport`'s `top` reduces from `74px` to `0px` simultaneously with upper controls moving from `74px` to `4px`, the first message is positioned directly below the trading ticker without overlap or empty gap, while releasing ~70px of additional vertical message reading space.
+- **Architectural Fix Applied**:
+  - In `style.css` Section 1, added authoritative collapsed selector suite (`#club-tab.club-header-collapsed`, `body.light-mode #club-tab.club-header-collapsed`, etc.) setting `padding-top: calc(env(safe-area-inset-top, 0px) + 4px) !important;` with `transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;`.
+  - In `style.css` Section 5, added `transition: top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;` to `.club-chat-viewport`, and added authoritative collapsed selector suite setting `top: env(safe-area-inset-top, 0px) !important;`.
+  - Bumped stylesheet query string in `index.html` to `style.css?v=20261013_club_space_recovery` to prevent browser asset caching.
+  - Preserved diagnostic red diagonal backgrounds, blue element fills, header scroll controller logic, and active discovery arrow.
+- **Verification**:
+  - `npm run lint` passed with 0 errors.
+  - `compile_applet` passed cleanly.
+  - Dev server HTTP 200 OK verified.
+
+
 
 
 
