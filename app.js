@@ -8579,9 +8579,9 @@ window.handleQuickPurchase = function(event, item, catKey) {
 window.HeaderScrollController = (function() {
   let lastScrollTop = 0;
   let lastClubScrollTop = 0;
-  let accumulatedClubDelta = 0;
-  let clubScrollIdleTimer = null;
-  const CLUB_SCROLL_THRESHOLD = 24;
+  let accumulatedOlderDelta = 0;
+  let accumulatedNewerDelta = 0;
+  const CLUB_SCROLL_THRESHOLD = 18;
   let isNavigating = false;
   let isLockedVisible = false;
   let ticking = false;
@@ -8601,20 +8601,25 @@ window.HeaderScrollController = (function() {
 
   let isClubHeaderTransitioning = false;
   let isClubCollapsed = false;
+  let clubTransitionTimer = null;
 
   function setClubHeaderCollapsed(collapsed) {
     if (isClubCollapsed === collapsed) return;
     isClubCollapsed = collapsed;
     isClubHeaderTransitioning = true;
-    accumulatedClubDelta = 0;
-    setTimeout(() => {
+    accumulatedOlderDelta = 0;
+    accumulatedNewerDelta = 0;
+
+    if (clubTransitionTimer) clearTimeout(clubTransitionTimer);
+    clubTransitionTimer = setTimeout(() => {
       isClubHeaderTransitioning = false;
       const msgs = document.getElementById("clubMessages");
       if (msgs) {
         lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
-        accumulatedClubDelta = 0;
       }
-    }, 300);
+      accumulatedOlderDelta = 0;
+      accumulatedNewerDelta = 0;
+    }, 350);
 
     const header = getHeader();
     const clubTab = document.getElementById("club-tab");
@@ -8669,9 +8674,11 @@ window.HeaderScrollController = (function() {
 
     if (isClub) {
       const msgs = document.getElementById("clubMessages");
-      lastClubScrollTop = Math.max(0, msgs ? msgs.scrollTop || 0 : 0);
-      accumulatedClubDelta = 0;
-      setClubHeaderCollapsed(false);
+      if (msgs) {
+        lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
+      }
+      accumulatedOlderDelta = 0;
+      accumulatedNewerDelta = 0;
       attachClubScroll();
       return;
     }
@@ -8727,7 +8734,7 @@ window.HeaderScrollController = (function() {
 
   // Dedicated scroll listener specifically attached to Club Messages
   function handleClubScrollEvent() {
-    if (isNavigating || window.isProgrammaticScroll) return;
+    if (isNavigating || window.isProgrammaticScroll || isClubHeaderTransitioning) return;
 
     const clubTab = document.getElementById("club-tab");
     if (!clubTab || !clubTab.classList.contains("is-active")) return;
@@ -8740,30 +8747,16 @@ window.HeaderScrollController = (function() {
     const appMain = document.querySelector(".app-main");
     if (appMain && appMain.scrollTop !== 0) appMain.scrollTop = 0;
 
-    const currentScroll = Math.max(0, msgs.scrollTop || 0);
     const maxScroll = Math.max(0, (msgs.scrollHeight || 0) - (msgs.clientHeight || 0));
 
-    // Debounce idle reset: when user stops scrolling, synchronize baseline
-    if (clubScrollIdleTimer) clearTimeout(clubScrollIdleTimer);
-    clubScrollIdleTimer = setTimeout(() => {
-      accumulatedClubDelta = 0;
-      const m = document.getElementById("clubMessages");
-      if (m) lastClubScrollTop = Math.max(0, m.scrollTop || 0);
-    }, 150);
-
     // If chat content fits in viewport without scrolling, keep header visible
-    if (maxScroll <= 30) {
-      setClubHeaderCollapsed(false);
-      lastClubScrollTop = currentScroll;
-      accumulatedClubDelta = 0;
-      return;
-    }
-
-    // Rule 6: At the top of the message list, restore the header and keep it visible
-    if (currentScroll <= 25) {
-      setClubHeaderCollapsed(false);
-      lastClubScrollTop = currentScroll;
-      accumulatedClubDelta = 0;
+    if (maxScroll <= 20) {
+      lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
+      accumulatedOlderDelta = 0;
+      accumulatedNewerDelta = 0;
+      if (isClubCollapsed) {
+        setClubHeaderCollapsed(false);
+      }
       return;
     }
 
@@ -8771,32 +8764,47 @@ window.HeaderScrollController = (function() {
       clubTicking = true;
       requestAnimationFrame(() => {
         clubTicking = false;
-        if (isClubHeaderTransitioning) {
-          lastClubScrollTop = currentScroll;
-          accumulatedClubDelta = 0;
+        const currentPos = Math.max(0, msgs.scrollTop || 0);
+
+        if (isNavigating || window.isProgrammaticScroll || isClubHeaderTransitioning) {
+          lastClubScrollTop = currentPos;
           return;
         }
 
-        const instantDelta = currentScroll - lastClubScrollTop;
-        lastClubScrollTop = currentScroll;
+        const currentMaxScroll = Math.max(0, (msgs.scrollHeight || 0) - (msgs.clientHeight || 0));
+        const distanceFromBottom = Math.max(0, currentMaxScroll - currentPos);
 
-        // If direction reverses, reset accumulated delta to start measuring new direction
-        if ((instantDelta > 0 && accumulatedClubDelta < 0) || (instantDelta < 0 && accumulatedClubDelta > 0)) {
-          accumulatedClubDelta = 0;
+        const delta = currentPos - lastClubScrollTop;
+        lastClubScrollTop = currentPos;
+
+        // When reaching the newest/latest messages at the bottom of the chat, SHOW the Club header
+        if (distanceFromBottom <= 20) {
+          accumulatedOlderDelta = 0;
+          accumulatedNewerDelta = 0;
+          if (isClubCollapsed) {
+            setClubHeaderCollapsed(false);
+          }
+          return;
         }
-        accumulatedClubDelta += instantDelta;
 
-        // Rule 1: Scrolling toward older messages (currentScroll decreases, delta < 0)
-        // should collapse the header smoothly and keep it collapsed.
-        if (accumulatedClubDelta <= -CLUB_SCROLL_THRESHOLD) {
-          if (!isClubCollapsed) {
+        // Ignore micro-jitter / subpixel noise (< 1px)
+        if (Math.abs(delta) < 1) return;
+
+        if (delta < 0) {
+          // Scrolling toward older/previous messages (upward): HIDE the Club header
+          const absDelta = Math.abs(delta);
+          accumulatedNewerDelta = Math.max(0, accumulatedNewerDelta - absDelta * 0.5);
+          accumulatedOlderDelta += absDelta;
+
+          if (!isClubCollapsed && accumulatedOlderDelta >= CLUB_SCROLL_THRESHOLD) {
             setClubHeaderCollapsed(true);
           }
-        }
-        // Rule 2: Scrolling toward newer messages (currentScroll increases, delta > 0)
-        // should expand the header smoothly and keep it expanded.
-        else if (accumulatedClubDelta >= CLUB_SCROLL_THRESHOLD) {
-          if (isClubCollapsed) {
+        } else {
+          // Scrolling toward newest/latest messages (downward): SHOW the Club header
+          accumulatedOlderDelta = Math.max(0, accumulatedOlderDelta - delta * 0.5);
+          accumulatedNewerDelta += delta;
+
+          if (isClubCollapsed && (accumulatedNewerDelta >= CLUB_SCROLL_THRESHOLD || distanceFromBottom <= 35)) {
             setClubHeaderCollapsed(false);
           }
         }
@@ -8863,8 +8871,9 @@ window.HeaderScrollController = (function() {
     const msgs = document.getElementById("clubMessages");
     if (msgs) {
       lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
-      accumulatedClubDelta = 0;
     }
+    accumulatedOlderDelta = 0;
+    accumulatedNewerDelta = 0;
   }
 
   function attachClubScroll() {

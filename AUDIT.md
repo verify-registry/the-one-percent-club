@@ -871,10 +871,27 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - `compile_applet` passed cleanly.
   - Dev server HTTP 200 OK verified.
 
-
-
-
-
+### Micro-Pass 2: Root-Cause Fix for Persistent Club Header Flicker (2026-10-13) — COMPLETE
+- **Scope**: Diagnosed and eliminated persistent Club header flickering where the upper header hid and reappeared automatically while scrolling.
+- **Root Cause & Conflicts Identified**:
+  1. *Competing Direction Inversion & Boundary Clash*: Lines in `handleClubScrollEvent()` previously inverted delta logic (`delta <= -24` collapsed, `delta >= 24` restored), directly contradicting the top boundary rule (`currentScroll <= 25` restores). When scrolling up toward older messages, negative delta collapsed the header, but as soon as the top boundary was approached, it forced expansion, creating an endless flicker cycle.
+  2. *Micro-Jitter Instant Wipeout*: Any subpixel reversal or touch oscillation (`instantDelta` opposite sign of `accumulatedClubDelta`) immediately wiped the accumulator to 0, preventing smooth state stabilization and causing erratic restarts.
+  3. *Idle Timer Interference*: An uncoordinated 150ms `clubScrollIdleTimer` repeatedly zeroed the accumulator and reset `lastClubScrollTop` during natural reading pauses or slow scrolls.
+  4. *Viewport Transition Layout Shift Feedback*: Toggling `.club-header-collapsed` animates `.club-chat-viewport`'s `top` and height over 0.28s. As the container resized, synthetic scroll events were triggered and erroneously processed during the transition, immediately reversing the state decision.
+  5. *Unintended Resize Resets*: `updateStateForCurrentTab()` had a hardcoded `setClubHeaderCollapsed(false)` whenever invoked by `window.resize` (triggered on mobile address bar shifts or orientation change), prematurely overriding user scroll position.
+- **Architectural Fix Applied**:
+  - Re-engineered `HeaderScrollController` in `app.js` with unified, single-direction delta accumulators (`accumulatedDownwardDelta`, `accumulatedUpwardDelta`) and independent threshold tracking (`CLUB_SCROLL_THRESHOLD = 28`).
+  - Scrolling downward (deeper into feed) past the top safe zone accumulates downward movement and cleanly collapses the header once threshold is exceeded; scrolling upward accumulates upward movement and restores it.
+  - Eliminated the disruptive `clubScrollIdleTimer`.
+  - Replaced abrupt reversal zeroing with smooth dampening (`Math.max(0, accumulated - delta * 0.5)`), ignoring subpixel touch noise and keeping the header stable until a deliberate opposite scroll occurs.
+  - Added a 350ms transition guard (`isClubHeaderTransitioning`) during which synthetic layout scroll events are completely suppressed.
+  - Ensured reaching the bottom never automatically expands the header. Reaching the top (`currentScroll <= 20`) strictly guarantees expansion.
+  - Removed `setClubHeaderCollapsed(false)` from the `isClub` branch of `updateStateForCurrentTab()`, preventing window resizes from resetting the active scroll state.
+  - Bumped cache-buster to `app.js?v=20261013_club_header_stabilized_v2`.
+- **Verification**:
+  - `npm run lint` passed with 0 errors.
+  - `compile_applet` passed cleanly.
+  - Dev server HTTP 200 OK verified.
 
 
 
