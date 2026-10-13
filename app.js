@@ -4139,15 +4139,16 @@ function switchChannel(channelId) {
   };
 
   // 1. Sync Liquid Glass Room Tabs & Accessibility
-  document.querySelectorAll(".club-room-btn").forEach((btn) => {
+  document.querySelectorAll(".club-room-btn").forEach((btn, idx) => {
     const isActive = btn.dataset.channel === channelId;
     btn.classList.toggle("is-active", isActive);
     btn.setAttribute("aria-selected", isActive ? "true" : "false");
     btn.setAttribute("tabindex", isActive ? "0" : "-1");
-    if (isActive) {
-      try {
-        btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-      } catch (e) {}
+    if (isActive && !isProgrammedClubRoomsScroll) {
+      const targetPage = Math.floor(idx / 2);
+      if (typeof scrollClubRoomsToPage === "function") {
+        scrollClubRoomsToPage(targetPage, true);
+      }
     }
   });
   if (typeof updateClubRoomsArrowState === "function") {
@@ -4333,6 +4334,9 @@ document.querySelectorAll(".club-room-btn").forEach((btn) => {
 
 // --- Club Rooms Two-Room Pagination & Discovery Controller ---
 let currentClubRoomsPage = 0;
+let clubRoomsNavBackward = false;
+let isProgrammedClubRoomsScroll = false;
+let clubRoomsScrollTimeout = null;
 
 function getClubRoomsPageCount() {
   const nav = document.getElementById("clubRoomsNav");
@@ -4347,23 +4351,37 @@ function detectCurrentClubRoomsPage() {
   const buttons = Array.from(nav.querySelectorAll(".club-room-btn"));
   if (buttons.length === 0) return 0;
 
+  const totalPages = Math.max(1, Math.ceil(buttons.length / 2));
   const isRtl = document.documentElement.dir === "rtl" || document.dir === "rtl" || document.body?.dir === "rtl";
   const navRect = nav.getBoundingClientRect();
   if (navRect.width === 0) return currentClubRoomsPage || 0;
 
-  let minDiff = Infinity;
-  let activeFirstIndex = 0;
+  // Boundary checks: if scrolled to the absolute start or end
+  const scrollLeftAbs = Math.abs(nav.scrollLeft);
+  const maxScroll = Math.max(0, nav.scrollWidth - nav.clientWidth);
+  if (maxScroll > 0 && scrollLeftAbs >= maxScroll - 6) {
+    return totalPages - 1;
+  }
+  if (scrollLeftAbs <= 6) {
+    return 0;
+  }
 
-  buttons.forEach((btn, idx) => {
+  // Compare page-leading buttons (indices 0, 2, 4, 6...)
+  let minDiff = Infinity;
+  let detectedPage = 0;
+
+  for (let p = 0; p < totalPages; p++) {
+    const btn = buttons[p * 2];
+    if (!btn) continue;
     const r = btn.getBoundingClientRect();
     const diff = isRtl ? Math.abs(r.right - navRect.right) : Math.abs(r.left - navRect.left);
     if (diff < minDiff) {
       minDiff = diff;
-      activeFirstIndex = idx;
+      detectedPage = p;
     }
-  });
+  }
 
-  return Math.floor(activeFirstIndex / 2);
+  return detectedPage;
 }
 
 function scrollClubRoomsToPage(pageIndex, smooth = true) {
@@ -4373,6 +4391,14 @@ function scrollClubRoomsToPage(pageIndex, smooth = true) {
   const totalPages = Math.max(1, Math.ceil(buttons.length / 2));
   const targetPage = Math.max(0, Math.min(totalPages - 1, pageIndex));
   currentClubRoomsPage = targetPage;
+  clubRoomsNavBackward = false;
+
+  isProgrammedClubRoomsScroll = true;
+  if (clubRoomsScrollTimeout) clearTimeout(clubRoomsScrollTimeout);
+  clubRoomsScrollTimeout = setTimeout(() => {
+    isProgrammedClubRoomsScroll = false;
+    updateClubRoomsArrowState();
+  }, 450);
 
   const targetBtn = buttons[targetPage * 2];
   if (targetBtn) {
@@ -4421,28 +4447,21 @@ function updateClubRoomsArrowState() {
     return;
   }
 
-  currentClubRoomsPage = detectCurrentClubRoomsPage();
-  const isLastPage = currentClubRoomsPage >= totalPages - 1;
+  if (!isProgrammedClubRoomsScroll) {
+    currentClubRoomsPage = detectCurrentClubRoomsPage();
+  }
 
   arrow.classList.remove("is-hidden");
   arrow.setAttribute("tabindex", "0");
   arrow.setAttribute("aria-hidden", "false");
 
-  const lang = window.currentLang || (document.documentElement.lang === "ar" ? "ar" : "en");
+  // Keep arrow pointing forward throughout the entire cycle (no backward mode)
+  arrow.classList.remove("is-backward");
 
-  if (isLastPage) {
-    // Reached final pair: invert arrow for compact backward navigation to revisit previous pairs
-    arrow.classList.add("is-backward");
-    const label = (window.t && window.t("club.prevRooms", lang)) || (lang === "ar" ? "الغرف السابقة" : "Previous rooms");
-    arrow.setAttribute("aria-label", label);
-    arrow.setAttribute("title", label);
-  } else {
-    // Forward progression to next pair
-    arrow.classList.remove("is-backward");
-    const label = (window.t && window.t("club.nextRooms", lang)) || (lang === "ar" ? "عرض المزيد من الغرف" : "View more rooms");
-    arrow.setAttribute("aria-label", label);
-    arrow.setAttribute("title", label);
-  }
+  const lang = window.currentLang || (document.documentElement.lang === "ar" ? "ar" : "en");
+  const label = (window.t && window.t("club.nextRooms", lang)) || (lang === "ar" ? "عرض المزيد من الغرف" : "View more rooms");
+  arrow.setAttribute("aria-label", label);
+  arrow.setAttribute("title", label);
 }
 
 function initClubRoomsDiscoveryArrow() {
@@ -4458,17 +4477,14 @@ function initClubRoomsDiscoveryArrow() {
       e.preventDefault();
 
       const totalPages = getClubRoomsPageCount();
-      const currentPage = detectCurrentClubRoomsPage();
+      const currentPage = (currentClubRoomsPage !== undefined && currentClubRoomsPage >= 0)
+        ? currentClubRoomsPage
+        : detectCurrentClubRoomsPage();
 
-      if (arrow.classList.contains("is-backward") || currentPage >= totalPages - 1) {
-        // Step back by two room tabs to revisit previous pairs
-        const prevPage = Math.max(0, currentPage - 1);
-        scrollClubRoomsToPage(prevPage, true);
-      } else {
-        // Advance by exactly two room tabs to the next pair
-        const nextPage = Math.min(totalPages - 1, currentPage + 1);
-        scrollClubRoomsToPage(nextPage, true);
-      }
+      // Forward navigation cycle:
+      // Page 1 (0) -> Page 2 (1) -> Page 3 (2) -> Page 4 (3) -> Page 1 (0)
+      const nextPage = (currentPage + 1) % totalPages;
+      scrollClubRoomsToPage(nextPage, true);
 
       if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
         window.AudioEngine.playClick();
@@ -4480,8 +4496,12 @@ function initClubRoomsDiscoveryArrow() {
 
     let scrollDebounce = null;
     nav.addEventListener("scroll", () => {
+      if (isProgrammedClubRoomsScroll) return;
       if (scrollDebounce) cancelAnimationFrame(scrollDebounce);
-      scrollDebounce = requestAnimationFrame(updateClubRoomsArrowState);
+      scrollDebounce = requestAnimationFrame(() => {
+        currentClubRoomsPage = detectCurrentClubRoomsPage();
+        updateClubRoomsArrowState();
+      });
     }, { passive: true });
 
     window.addEventListener("resize", () => {

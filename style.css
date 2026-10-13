@@ -8283,10 +8283,21 @@ body[dir="rtl"] #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevro
   box-sizing: border-box !important;
   border-radius: 9999px !important;
   white-space: nowrap !important;
-  overflow: hidden !important;
   scroll-snap-align: start !important;
   scroll-snap-stop: always !important;
-  font-family: inherit !important;
+}
+
+#club-tab .club-room-btn:nth-child(2n+1) {
+  scroll-snap-align: start !important;
+  scroll-snap-stop: always !important;
+}
+
+#club-tab .club-room-btn:nth-child(2n) {
+  scroll-snap-align: none !important;
+}
+
+#club-tab .club-room-btn,
+.club-room-btn {
   font-size: 11px !important;
   font-weight: 500 !important;
   letter-spacing: 0.01em !important;
@@ -8417,8 +8428,15 @@ html[dir="ltr"] #club-tab .club-room-btn .chamber-name,
   filter: drop-shadow(0 1px 0 rgba(255, 245, 215, 0.45)) !important;
 }
 
-/* Distinguished Sovereign Board (Leaderboard) Room */
-#club-tab .club-room-btn.chamber-btn-board {
+/* Distinguished Sovereign Board (Leaderboard) Room — Final Single Tab Page */
+#club-tab .club-room-btn.chamber-btn-board,
+#club-tab .club-room-btn:last-child {
+  flex: 0 0 auto !important;
+  min-width: calc((100% - 8px) / 2) !important;
+  max-width: 100% !important;
+  width: auto !important;
+  padding: 0 10px !important;
+  margin-inline-end: calc(100% - 8px) !important;
   background: linear-gradient(180deg, #2b2015 0%, #19130d 42%, #0f0b07 100%) !important;
   border: 1px solid rgba(225, 185, 75, 0.55) !important;
   border-top: 1px solid rgba(255, 248, 220, 0.75) !important;
@@ -8428,7 +8446,22 @@ html[dir="ltr"] #club-tab .club-room-btn .chamber-name,
               0 2px 6px -1px rgba(0, 0, 0, 0.75) !important;
 }
 
-#club-tab .club-room-btn.chamber-btn-board.is-active {
+#club-tab .club-room-btn.chamber-btn-board .chamber-name,
+#club-tab .club-room-btn:last-child .chamber-name {
+  flex: 0 1 auto !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+}
+
+#club-tab .club-room-btn.chamber-btn-board.is-active,
+#club-tab .club-room-btn:last-child.is-active {
+  flex: 0 0 auto !important;
+  min-width: calc((100% - 8px) / 2) !important;
+  max-width: 100% !important;
+  width: auto !important;
+  padding: 0 10px !important;
+  margin-inline-end: calc(100% - 8px) !important;
   background: linear-gradient(
     180deg,
     #fff9eb 0%,
