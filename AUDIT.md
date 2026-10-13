@@ -801,6 +801,23 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - `compile_applet` passed cleanly.
   - Development server curl tests verified HTTP 200 OK responses.
 
+### Post-Cleanup Regression Audit & Verification Checkpoint (2026-10-13) — COMPLETE
+- **Scope**: Verification-only regression audit on the post-cleanup codebase state. Zero code, layout, styling, or behavioral modifications applied.
+- **Verification Findings**:
+  1. *Tabs & Navigation*: All four tabs (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`) and their `.bottom-nav` bindings verified present and functional in DOM and `Router.navigate()` / `onEnter()` logic.
+  2. *i18n & RTL*: `window.I18N` evaluated cleanly with 29 dictionary domains; `whisperBadge` and `sealedDecree` verified intact and unambiguous. `window.setLanguage()` correctly toggles `dir="rtl"` / `dir="ltr"`, fonts, and translations.
+  3. *Theme Management*: `user-preferences-init` and `ThemeManager` correctly synchronize `data-theme`, `<html>` / `<body>` classes, and dispatch `themechange` events.
+  4. *Header Scroll Auto-Hide*: Automated Node.js unit tests verified that scrolling up into older messages hides the header (`delta < -8`), scrolling down restores it (`delta > 8`), and reaching the bottom preserves visibility.
+  5. *Club Controls & DOM Presence*: `#sovereignSalonTicker`, `#clubPinnedInfo`, `#clubChatViewport`, `#clubMessages`, `#clubCreditsDisplay`, `#clubCreditsBuyBtn`, and `#obsidianDispatchComposer` verified present in HTML and correctly bound in `app.js`.
+  6. *Diagnostics Preservation*: The red diagonal diagnostic background (`#b71c1c`, `#e50914`, `#8b0000`) and the 5 blue diagnostic fills (`#2563eb`, `#1d4ed8`) remain 100% intact in `style.css`.
+  7. *Code Health*: `npm run lint` passed with 0 errors across all scripts; all 244 `getElementById` calls audited (all missing legacy elements have explicit null guards).
+- **Known Intentionally Unresolved Item**:
+  - `#clubRoomsScrollArrow` exists in the DOM inside `#clubRoomsNavWrap` with class `club-rooms-scroll-arrow is-hidden` and `tabindex="-1"`, but remains inert: it has 0 JavaScript event handlers/initializers and 0 dedicated CSS rules. Left untouched by design.
+- **Testing Boundaries**:
+  - Code-level AST validation, Node.js simulated DOM unit testing, Express HTTP/API verification, and static CSS inspection were fully executed.
+  - Physical capacitive touch gestures, inertial scrolling friction, and physical hardware gyroscope/haptic feedback could not be tested in the headless runtime environment.
+- **Authoritative Baseline Confirmation**: ZERO application code, markup, or styling files modified. Rollback state preserved as the authoritative baseline.
+
 
 
 
