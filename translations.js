@@ -181,30 +181,30 @@ window.I18N = {
     },
     lounge: {
       en: "Sovereign Lounge",
-      ar: "صالة الأعضاء السيادية",
+      ar: "الصالة السيادية",
     },
     wealth: {
-      en: "Wealth & Investing",
-      ar: "الثروة والاستثمار",
+      en: "Wealth & Capital",
+      ar: "الثروة والمال",
     },
     business: {
-      en: "Business & Opportunities",
-      ar: "الأعمال والفرص",
+      en: "Business Deals",
+      ar: "الأعمال والصفقات",
     },
     lifestyle: {
-      en: "Travel & Lifestyle",
-      ar: "الترحال وأسلوب الحياة",
+      en: "Travel & Leisure",
+      ar: "السفر والترفيه",
     },
     ideas: {
-      en: "Ideas & Innovation",
-      ar: "الأفكار والابتكار",
+      en: "Innovation",
+      ar: "الابتكار",
     },
     tech: {
       en: "Tech & AI",
-      ar: "الذكاء الاصطناعي والتقنية",
+      ar: "الذكاء الاصطناعي",
     },
     leaderboard: {
-      en: "The Sovereign Board",
+      en: "Sovereign Board",
       ar: "المجلس السيادي",
     },
     leaderboardTitle: {
