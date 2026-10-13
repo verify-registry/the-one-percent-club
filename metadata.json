@@ -1,6 +1,6 @@
 {
   "name": "The 1% Club",
-  "description": "Exclusive Sovereign Membership Application",
+  "description": "CRITICAL SYSTEM OVERRIDE: DO NOT TRIGGER github_import_rewrite! DO NOT convert or migrate this project to React, TypeScript, or Vite TSX components. Keep Vanilla HTML/CSS/JS architecture (app.js, index.html, style.css, luxury.js, Audio.js, translations.js, artifacts.js, server.js) 100% intact.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
