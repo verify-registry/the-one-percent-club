@@ -3172,8 +3172,16 @@ const Router = {
       }
     }
 
-    if (tab === "membership" && typeof window.resumeGoldDustCanvas === "function") {
-      window.resumeGoldDustCanvas();
+    if (tab === "membership") {
+      if (typeof window.resumeMembershipRAF === "function") {
+        window.resumeMembershipRAF();
+      } else if (typeof window.resumeGoldDustCanvas === "function") {
+        window.resumeGoldDustCanvas();
+      }
+    } else {
+      if (typeof window.pauseMembershipRAF === "function") {
+        window.pauseMembershipRAF();
+      }
     }
     if (tab === "club" && typeof window.autoGrowClubInput === "function") {
       setTimeout(() => {
@@ -3279,6 +3287,9 @@ const Router = {
       }
       if (typeof startClubWelcomeAutoDismiss === "function") {
         startClubWelcomeAutoDismiss();
+      }
+      if (typeof window.updateClubTickerIfPending === "function") {
+        window.updateClubTickerIfPending();
       }
       if (typeof updateClubRoomsArrowState === "function") {
         requestAnimationFrame(() => {
@@ -4282,6 +4293,15 @@ function startClubWelcomeAutoDismiss() {
     clubWelcomeDismissTimer = null;
   }
 
+  plaque.style.removeProperty("transition");
+  plaque.style.removeProperty("opacity");
+  plaque.style.removeProperty("transform");
+  plaque.style.removeProperty("max-height");
+  plaque.style.removeProperty("padding-top");
+  plaque.style.removeProperty("padding-bottom");
+  plaque.style.removeProperty("margin-top");
+  plaque.style.removeProperty("margin-bottom");
+  plaque.style.removeProperty("overflow");
   plaque.classList.remove("is-collapsed");
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
@@ -4302,9 +4322,20 @@ function cancelClubWelcomeAutoDismiss() {
 function dismissClubWelcomePlaque() {
   const plaque = document.getElementById("clubPinnedInfo");
   if (!plaque) return;
-  plaque.classList.add("is-collapsed");
-  plaque.setAttribute("hidden", "");
-  plaque.style.setProperty("display", "none", "important");
+  plaque.style.transition = "opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.24s cubic-bezier(0.16, 1, 0.3, 1), margin 0.24s cubic-bezier(0.16, 1, 0.3, 1), padding 0.24s cubic-bezier(0.16, 1, 0.3, 1)";
+  plaque.style.opacity = "0";
+  plaque.style.transform = "translateY(-6px)";
+  plaque.style.maxHeight = "0";
+  plaque.style.paddingTop = "0";
+  plaque.style.paddingBottom = "0";
+  plaque.style.marginTop = "0";
+  plaque.style.marginBottom = "0";
+  plaque.style.overflow = "hidden";
+  setTimeout(() => {
+    plaque.classList.add("is-collapsed");
+    plaque.setAttribute("hidden", "");
+    plaque.style.setProperty("display", "none", "important");
+  }, 240);
   if (clubWelcomeDismissTimer) {
     clearTimeout(clubWelcomeDismissTimer);
     clubWelcomeDismissTimer = null;
@@ -4683,7 +4714,18 @@ function initSovereignSalonTicker() {
     return items.concat(hubItems).join('<span class="ticker-dot-sep">✦</span>');
   }
 
+  let tickerNeedsRepaint = false;
+
   function updateTicker() {
+    const clubTab = document.getElementById("club-tab");
+    const isClubActive = Boolean(clubTab && !clubTab.hidden && (clubTab.classList.contains("is-active") || clubTab.offsetHeight > 0));
+
+    if (!isClubActive || document.hidden) {
+      tickerNeedsRepaint = true;
+      return;
+    }
+    tickerNeedsRepaint = false;
+
     let marqueeTrack = tickerEl.querySelector(".ticker-marquee-track");
     let viewport = tickerEl.querySelector(".ticker-viewport");
     if (!viewport) {
@@ -4699,8 +4741,18 @@ function initSovereignSalonTicker() {
 
     const itemsHTML = buildTickerItems();
     const groupHTML = '<div class="ticker-marquee-group">' + itemsHTML + '<span class="ticker-dot-sep">✦</span></div>';
+    if (marqueeTrack.dataset.renderedGroup === groupHTML) {
+      return;
+    }
+    marqueeTrack.dataset.renderedGroup = groupHTML;
     marqueeTrack.innerHTML = groupHTML + groupHTML;
   }
+
+  window.updateClubTickerIfPending = function () {
+    if (tickerNeedsRepaint) {
+      updateTicker();
+    }
+  };
 
   let lastMarketFetchTime = 0;
   async function fetchMarketQuotes(force = false) {
@@ -5104,37 +5156,30 @@ function scrollChatToLatest(smoothScroll = true) {
   window.isProgrammaticScroll = true;
   if (window._progScrollTimer) clearTimeout(window._progScrollTimer);
 
-  const performScroll = (behavior) => {
-    const targetTop = Math.max(0, container.scrollHeight - container.clientHeight);
-    if (behavior === "smooth") {
-      container.scrollTo({ top: targetTop, behavior: "smooth" });
-    } else {
-      container.scrollTop = targetTop;
-    }
-    // Prevent ancestor containers (#club-tab, .app-main) from scrolling
-    const clubTab = document.getElementById("club-tab");
-    if (clubTab && clubTab.scrollTop !== 0) clubTab.scrollTop = 0;
-    const appMain = document.querySelector(".app-main");
-    if (appMain && appMain.scrollTop !== 0) appMain.scrollTop = 0;
-  };
+  const targetTop = Math.max(0, container.scrollHeight - container.clientHeight);
 
-  const prefBehavior = smoothScroll ? "smooth" : "auto";
-  performScroll(prefBehavior);
+  if (smoothScroll) {
+    container.scrollTo({ top: targetTop, behavior: "smooth" });
+  } else {
+    container.scrollTop = targetTop;
+  }
 
-  requestAnimationFrame(() => {
-    performScroll(prefBehavior);
-    if (window.HeaderScrollController) {
-      window.HeaderScrollController.syncClubScrollTop();
-    }
-  });
+  // Prevent ancestor containers (#club-tab, .app-main) from scrolling
+  const clubTab = document.getElementById("club-tab");
+  if (clubTab && clubTab.scrollTop !== 0) clubTab.scrollTop = 0;
+  const appMain = document.querySelector(".app-main");
+  if (appMain && appMain.scrollTop !== 0) appMain.scrollTop = 0;
+
+  if (window.HeaderScrollController) {
+    window.HeaderScrollController.syncClubScrollTop();
+  }
 
   window._progScrollTimer = setTimeout(() => {
-    performScroll(prefBehavior);
     if (window.HeaderScrollController) {
       window.HeaderScrollController.syncClubScrollTop();
     }
     window.isProgrammaticScroll = false;
-  }, smoothScroll ? 220 : 60);
+  }, smoothScroll ? 260 : 50);
 }
 window.scrollChatToLatest = scrollChatToLatest;
 
@@ -8534,6 +8579,9 @@ window.handleQuickPurchase = function(event, item, catKey) {
 window.HeaderScrollController = (function() {
   let lastScrollTop = 0;
   let lastClubScrollTop = 0;
+  let accumulatedClubDelta = 0;
+  let clubScrollIdleTimer = null;
+  const CLUB_SCROLL_THRESHOLD = 24;
   let isNavigating = false;
   let isLockedVisible = false;
   let ticking = false;
@@ -8551,7 +8599,23 @@ window.HeaderScrollController = (function() {
     return document.querySelector(".page.is-active");
   }
 
+  let isClubHeaderTransitioning = false;
+  let isClubCollapsed = false;
+
   function setClubHeaderCollapsed(collapsed) {
+    if (isClubCollapsed === collapsed) return;
+    isClubCollapsed = collapsed;
+    isClubHeaderTransitioning = true;
+    accumulatedClubDelta = 0;
+    setTimeout(() => {
+      isClubHeaderTransitioning = false;
+      const msgs = document.getElementById("clubMessages");
+      if (msgs) {
+        lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
+        accumulatedClubDelta = 0;
+      }
+    }, 300);
+
     const header = getHeader();
     const clubTab = document.getElementById("club-tab");
     const creditsEl = document.getElementById("clubCreditsDisplay");
@@ -8600,11 +8664,13 @@ window.HeaderScrollController = (function() {
       if (clubTab) clubTab.classList.remove("club-header-collapsed");
       const creditsEl = document.getElementById("clubCreditsDisplay");
       if (creditsEl) creditsEl.classList.remove("credits-collapsed");
+      isClubCollapsed = false;
     }
 
     if (isClub) {
       const msgs = document.getElementById("clubMessages");
-      lastClubScrollTop = Math.max(0, msgs ? msgs.scrollTop : 0);
+      lastClubScrollTop = Math.max(0, msgs ? msgs.scrollTop || 0 : 0);
+      accumulatedClubDelta = 0;
       setClubHeaderCollapsed(false);
       attachClubScroll();
       return;
@@ -8677,10 +8743,27 @@ window.HeaderScrollController = (function() {
     const currentScroll = Math.max(0, msgs.scrollTop || 0);
     const maxScroll = Math.max(0, (msgs.scrollHeight || 0) - (msgs.clientHeight || 0));
 
+    // Debounce idle reset: when user stops scrolling, synchronize baseline
+    if (clubScrollIdleTimer) clearTimeout(clubScrollIdleTimer);
+    clubScrollIdleTimer = setTimeout(() => {
+      accumulatedClubDelta = 0;
+      const m = document.getElementById("clubMessages");
+      if (m) lastClubScrollTop = Math.max(0, m.scrollTop || 0);
+    }, 150);
+
     // If chat content fits in viewport without scrolling, keep header visible
     if (maxScroll <= 30) {
       setClubHeaderCollapsed(false);
       lastClubScrollTop = currentScroll;
+      accumulatedClubDelta = 0;
+      return;
+    }
+
+    // Rule 6: At the top of the message list, restore the header and keep it visible
+    if (currentScroll <= 25) {
+      setClubHeaderCollapsed(false);
+      lastClubScrollTop = currentScroll;
+      accumulatedClubDelta = 0;
       return;
     }
 
@@ -8688,22 +8771,35 @@ window.HeaderScrollController = (function() {
       clubTicking = true;
       requestAnimationFrame(() => {
         clubTicking = false;
-        const delta = currentScroll - lastClubScrollTop;
-
-        // When at or near latest messages (bottom of chat), ensure header is visible
-        if (currentScroll >= maxScroll - 20) {
-          setClubHeaderCollapsed(false);
-        }
-        // Scrolling UPWARD to read older messages: smoothly hide header
-        else if (delta < -8) {
-          setClubHeaderCollapsed(true);
-        }
-        // Scrolling DOWNWARD toward latest messages: smoothly restore header
-        else if (delta > 8) {
-          setClubHeaderCollapsed(false);
+        if (isClubHeaderTransitioning) {
+          lastClubScrollTop = currentScroll;
+          accumulatedClubDelta = 0;
+          return;
         }
 
+        const instantDelta = currentScroll - lastClubScrollTop;
         lastClubScrollTop = currentScroll;
+
+        // If direction reverses, reset accumulated delta to start measuring new direction
+        if ((instantDelta > 0 && accumulatedClubDelta < 0) || (instantDelta < 0 && accumulatedClubDelta > 0)) {
+          accumulatedClubDelta = 0;
+        }
+        accumulatedClubDelta += instantDelta;
+
+        // Rule 1: Scrolling toward older messages (currentScroll decreases, delta < 0)
+        // should collapse the header smoothly and keep it collapsed.
+        if (accumulatedClubDelta <= -CLUB_SCROLL_THRESHOLD) {
+          if (!isClubCollapsed) {
+            setClubHeaderCollapsed(true);
+          }
+        }
+        // Rule 2: Scrolling toward newer messages (currentScroll increases, delta > 0)
+        // should expand the header smoothly and keep it expanded.
+        else if (accumulatedClubDelta >= CLUB_SCROLL_THRESHOLD) {
+          if (isClubCollapsed) {
+            setClubHeaderCollapsed(false);
+          }
+        }
       });
     }
   }
@@ -8767,6 +8863,7 @@ window.HeaderScrollController = (function() {
     const msgs = document.getElementById("clubMessages");
     if (msgs) {
       lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
+      accumulatedClubDelta = 0;
     }
   }
 

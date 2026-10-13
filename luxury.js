@@ -266,6 +266,20 @@ function initGuilloche() {
   });
   themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
+  window.resumeGuillocheCanvas = () => {
+    if (isTabActive()) {
+      isDirty = true;
+      requestDraw();
+    }
+  };
+
+  window.pauseGuillocheCanvas = () => {
+    if (animFrameId) {
+      cancelAnimationFrame(animFrameId);
+      animFrameId = null;
+    }
+  };
+
   // Watch for membership tab activation/deactivation
   const membershipTab = document.getElementById("membership-tab");
   if (membershipTab) {
@@ -1264,9 +1278,15 @@ function applyDeadzone(val, deadzone) {
   return val > 0 ? val - deadzone : val + deadzone;
 }
 
+function isMembershipTabActive() {
+  if (document.hidden) return false;
+  const tab = document.getElementById("membership-tab");
+  return Boolean(tab && tab.classList.contains("is-active"));
+}
+
 // 2. INPUT SMOOTHING & 7. SENSOR NOISE FILTERING
 function handleDeviceOrientation(e) {
-  // Respect Settings toggle
+  if (!isMembershipTabActive()) return;
   if (!isGyroscopeEnabled()) return;
   // If user is currently touching/hovering on desktop, pointer interaction takes priority
   if (isPointerInteracting || isLongPressActive) return;
@@ -1332,6 +1352,15 @@ function enableDeviceTilt() {
 
 // Unified target updater: clamps and starts RAF loop if idle
 function updateTiltTarget(rx, ry) {
+  if (!isMembershipTabActive()) {
+    if (tiltLoopActive) {
+      tiltLoopActive = false;
+      if (tiltAnimFrame) cancelAnimationFrame(tiltAnimFrame);
+      tiltAnimFrame = null;
+    }
+    return;
+  }
+
   const nextX = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, Number.isFinite(rx) ? rx : 0));
   const nextY = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, Number.isFinite(ry) ? ry : 0));
 
@@ -1347,7 +1376,12 @@ function updateTiltTarget(rx, ry) {
 
 // 3. PHYSICAL LERP DAMPING LOOP (60fps)
 function tiltLoop() {
-  if (!tiltLoopActive) return;
+  if (!tiltLoopActive || !isMembershipTabActive()) {
+    tiltLoopActive = false;
+    if (tiltAnimFrame) cancelAnimationFrame(tiltAnimFrame);
+    tiltAnimFrame = null;
+    return;
+  }
 
   // If document is hidden, force target to 0
   if (document.hidden) {
@@ -1375,6 +1409,20 @@ function tiltLoop() {
   setCardTilt(currentRotX, currentRotY);
   tiltAnimFrame = requestAnimationFrame(tiltLoop);
 }
+
+window.pauseCardTiltLoop = function() {
+  tiltLoopActive = false;
+  if (tiltAnimFrame) {
+    cancelAnimationFrame(tiltAnimFrame);
+    tiltAnimFrame = null;
+  }
+};
+
+window.resumeCardTiltLoop = function() {
+  if (isMembershipTabActive() && isGyroscopeEnabled()) {
+    updateTiltTarget(0, 0);
+  }
+};
 
 // Authoritative function: applies rendered tilt to Master Card, Club Chamber Plaque & Profile Dossier
 function setCardTilt(rx, ry) {
@@ -2101,6 +2149,13 @@ function initGoldDust() {
     }
   };
 
+  window.pauseGoldDustCanvas = () => {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+  };
+
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       if (animId) {
@@ -2142,3 +2197,16 @@ function initGoldDust() {
     }
   }, 80);
 }
+
+window.pauseMembershipRAF = function() {
+  if (typeof window.pauseGuillocheCanvas === "function") window.pauseGuillocheCanvas();
+  if (typeof window.pauseGoldDustCanvas === "function") window.pauseGoldDustCanvas();
+  if (typeof window.pauseCardTiltLoop === "function") window.pauseCardTiltLoop();
+};
+
+window.resumeMembershipRAF = function() {
+  if (typeof window.resumeGuillocheCanvas === "function") window.resumeGuillocheCanvas();
+  if (typeof window.resumeGoldDustCanvas === "function") window.resumeGoldDustCanvas();
+  if (typeof window.resumeCardTiltLoop === "function") window.resumeCardTiltLoop();
+};
+
