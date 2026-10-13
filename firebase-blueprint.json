@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Authenticated sovereign member record",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "description": "Member email address" },
+        "displayName": { "type": "string", "description": "Display name of the member" },
+        "tier": { "type": "string", "description": "Membership tier (e.g. SOVEREIGN, FOUNDER, TITAN)" },
+        "color": { "type": "string", "description": "Prestige color hex code" },
+        "avatarUrl": { "type": "string", "description": "Avatar image URL" },
+        "createdAt": { "type": "number", "description": "Creation timestamp in epoch ms" }
+      },
+      "required": ["uid", "email", "displayName"]
+    },
+    "Channel": {
+      "title": "Channel",
+      "description": "Club discussion salon chamber",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Chamber channel identifier" },
+        "name": { "type": "string", "description": "Channel name" },
+        "description": { "type": "string", "description": "Chamber topic description" }
+      },
+      "required": ["id", "name"]
+    },
+    "ClubMessage": {
+      "title": "ClubMessage",
+      "description": "Persistent dispatch within a club chamber",
+      "type": "object",
+      "properties": {
+        "channelId": { "type": "string", "description": "Target chamber ID" },
+        "senderId": { "type": "string", "description": "UID of the message sender" },
+        "senderName": { "type": "string", "description": "Sender display name" },
+        "senderTier": { "type": "string", "description": "Sender membership tier" },
+        "senderColor": { "type": "string", "description": "Sender hallmark color" },
+        "avatarUrl": { "type": "string", "description": "Sender avatar URL" },
+        "text": { "type": "string", "maxLength": 2000, "description": "Message dispatch content" },
+        "timestamp": { "type": "number", "description": "Dispatch timestamp in epoch ms" }
+      },
+      "required": ["channelId", "senderId", "senderName", "text", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Member profiles accessible by authenticated users"
+    },
+    "/channels/{channelId}": {
+      "schema": "Channel",
+      "description": "Chamber metadata readable by all club members"
+    },
+    "/channels/{channelId}/messages/{messageId}": {
+      "schema": "ClubMessage",
+      "description": "Chamber dispatches readable by members and created only by authenticated sender"
+    }
+  }
+}
