@@ -3205,7 +3205,7 @@ const Router = {
     const header = document.getElementById("appHeader");
     if (header) {
       header.classList.remove("header-hidden");
-      header.classList.toggle("header-compact", tab === "club");
+      header.classList.remove("header-compact");
       if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
     }
   },
@@ -3610,7 +3610,7 @@ function closeMemberProfile() {
   const header = document.getElementById("appHeader");
   if (header) {
     header.classList.remove("header-hidden");
-    header.classList.add("header-compact");
+    header.classList.remove("header-compact");
     if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
   }
 

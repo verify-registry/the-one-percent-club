@@ -885,60 +885,20 @@ html.light-mode .app-header {
   -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
 }
 
-/* Tab-unified Header Glass: Seamless integration across Membership, Club, Profile, Boutique */
-.app:has(#club-tab.is-active) .app-header,
-body:has(#club-tab.is-active) .app-header,
-body.tab-club-active .app-header {
-  background: linear-gradient(
-    180deg,
-    rgba(8, 8, 10, 0.92) 0%,
-    rgba(12, 12, 15, 0.82) 42%,
-    rgba(16, 16, 20, 0.52) 74%,
-    rgba(16, 16, 20, 0.20) 90%,
-    rgba(16, 16, 20, 0.0) 100%
-  ) !important;
-  border: none !important;
-  border-bottom: none !important;
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
-  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
-}
-
-body.light-mode.tab-club-active .app-header,
-body.light-mode:has(#club-tab.is-active) .app-header,
-html.light-mode:has(#club-tab.is-active) .app-header,
-:root[data-theme="light"]:has(#club-tab.is-active) .app-header {
-  background: linear-gradient(
-    180deg,
-    rgba(253, 251, 247, 0.94) 0%,
-    rgba(249, 245, 238, 0.84) 42%,
-    rgba(244, 238, 228, 0.54) 74%,
-    rgba(240, 233, 220, 0.20) 90%,
-    rgba(240, 233, 220, 0.0) 100%
-  ) !important;
-  border: none !important;
-  border-bottom: none !important;
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.90) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
-  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
-}
+/* Tab-unified Header Glass: Completely unified across Membership, Club, Profile, and Boutique */
 .app-header.header-hidden {
   transform: translate3d(0, -100%, 0) !important;
   opacity: 0 !important;
   pointer-events: none !important;
 }
 .app-header.header-compact {
-  padding: calc(6px + env(safe-area-inset-top, 0px)) 16px 4px;
+  padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 12px;
 }
 .app-header.header-compact .back-btn {
-  inset-inline-start: 16px;
+  inset-inline-start: 18px;
 }
 .app-header.header-compact .shield-btn {
-  inset-inline-end: 16px;
+  inset-inline-end: 18px;
 }
 .app-header.header-compact .brand {
   display: flex;
@@ -947,39 +907,37 @@ html.light-mode:has(#club-tab.is-active) .app-header,
   text-align: center;
   width: 100%;
 }
-.hallmark-wrapper {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+.brand-crown-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3.5px;
+  position: relative;
+  z-index: 2;
 }
 .brand-crown {
   position: relative;
-  z-index: 10;
-  width: 22px;
-  height: 14px;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)) drop-shadow(0 1px 0px rgba(0, 0, 0, 0.8));
+  z-index: 2;
+  width: 44px;
+  height: 26px;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 1.5px 3px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 1px rgba(35, 22, 4, 0.7));
+  transition: transform 0.2s ease;
 }
 body.light-mode .brand-crown {
-  filter: drop-shadow(0 2px 2px rgba(40, 30, 10, 0.2)) drop-shadow(0 1px 0px rgba(40, 30, 10, 0.4));
+  filter: drop-shadow(0 1.5px 2px rgba(40, 25, 5, 0.25));
 }
-.app-header.header-compact .brand h1 {
-  margin-top: 13px;
-  font-size: 15px;
+.app-header.header-compact .brand-crown {
+  width: 44px;
+  height: 26px;
 }
-.app-header.header-compact .tagline {
-  display: none;
+.app-header.header-compact .brand-title {
+  font-size: clamp(17.5px, 5vw, 21px);
+  margin-bottom: 3px;
 }
-.app-header.header-compact .section-rule {
-  margin: 3px auto 2px;
-  width: 56%;
-}
-.app-header.header-compact .section-name {
-  font-size: 10.5px;
+.app-header.header-compact .brand-tagline-lockup {
+  display: flex;
 }
 .icon-btn {
   position: relative;
@@ -1099,67 +1057,186 @@ body.light-mode .shield-btn::before {
   box-shadow: inset 0 1px 3px rgba(100, 70, 20, 0.4);
   background: transparent;
 }
+.brand {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 44px;
+  box-sizing: border-box;
+}
+
+/* Brand Wordmark — THE 1% CLUB (Imperial Cinzel Roman Serif & Polished Physical Gold) */
+.brand-title,
 .brand h1 {
-  margin-top: 17px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(17px, 4.8vw, 22px);
-  letter-spacing: 0.06em;
-  background: var(--gold-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  margin: 0 0 3px 0;
+  font-family: "Cinzel", serif !important;
+  font-weight: 600 !important;
+  font-size: clamp(17.5px, 5vw, 21px);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    #FFFFFF 0%,
+    #FFF4CA 15%,
+    #F3C958 34%,
+    #DDA833 48%,
+    #69430A 51%,
+    #C79224 68%,
+    #FDE895 84%,
+    #875E16 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 1px rgba(28, 18, 4, 0.65));
+  line-height: 1.12;
+  text-align: center;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
 }
-.tagline {
-  font-size: 8px;
-  letter-spacing: 0.18em;
-  color: var(--gold-antique);
-  margin-top: 2px;
+
+body.light-mode .brand-title,
+body.light-mode .brand h1 {
+  background: linear-gradient(
+    180deg,
+    #4D2E04 0%,
+    #875E16 20%,
+    #C99427 44%,
+    #3D2403 50%,
+    #7D5311 68%,
+    #BA8821 86%,
+    #4D2E04 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0 1px 2px rgba(50, 30, 6, 0.25));
 }
-.section-rule {
+
+/* Symmetrical Tagline Lockup: PRIVATE WEALTH · PRIVATE SOCIETY */
+.brand-tagline-lockup {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  margin: 3px auto 2px;
-  width: 46%;
-  max-width: 160px;
+  gap: 7px;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
-.section-rule span {
+
+.brand-tagline-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 5.5px;
+  font-family: "Cinzel", "Manrope", serif !important;
+  font-size: clamp(7.5px, 2.1vw, 8.4px);
+  letter-spacing: 0.20em;
+  font-weight: 600;
+  white-space: nowrap;
+  background: linear-gradient(
+    180deg,
+    #FFFFFF 0%,
+    #FEEA9E 30%,
+    #D9A52B 72%,
+    #875E16 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  text-transform: uppercase;
+  line-height: 1;
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.9));
+}
+
+body.light-mode .brand-tagline-text {
+  background: linear-gradient(
+    180deg,
+    #543204 0%,
+    #875E16 45%,
+    #3D2403 100%
+  );
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: none;
+}
+
+.tagline-diamond-sep {
+  display: inline-block;
+  font-size: 5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 40%, #D9A52B 75%, #593402 100%);
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8));
+}
+
+body.light-mode .tagline-diamond-sep {
+  background: linear-gradient(135deg, #875E16 0%, #D9A52B 60%, #422504 100%);
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: none;
+}
+
+.tagline-rule {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 12px;
+  max-width: 44px;
+}
+
+.tagline-rule .rule-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--hairline-strong));
 }
-.section-rule span:last-child {
-  background: linear-gradient(90deg, var(--hairline-strong), transparent);
+
+.tagline-rule-left .rule-line {
+  background: linear-gradient(90deg, #875E16 0%, #D9A52B 45%, #FEEA9E 85%, #FFFFFF 100%);
 }
-.section-rule .diamond {
+
+.tagline-rule-right .rule-line {
+  background: linear-gradient(90deg, #FFFFFF 0%, #FEEA9E 15%, #D9A52B 55%, #875E16 100%);
+}
+
+body.light-mode .tagline-rule-left .rule-line {
+  background: linear-gradient(90deg, #3D2403 0%, #875E16 50%, #D9A52B 90%, rgba(217, 165, 43, 0.4) 100%);
+}
+
+body.light-mode .tagline-rule-right .rule-line {
+  background: linear-gradient(90deg, rgba(217, 165, 43, 0.4) 0%, #D9A52B 10%, #875E16 50%, #3D2403 100%);
+}
+
+.tagline-rule .rule-diamond {
   width: 4px;
   height: 4px;
-  background: var(--gold-antique);
   transform: rotate(45deg);
-  flex: none;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 35%, #D9A52B 70%, #2C1B05 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
 }
-.section-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 11.5px;
-  letter-spacing: 0.24em;
-  color: #f1eada;
-}
-body.light-mode .section-name {
-  color: #362204 !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) !important;
-}
-body.light-mode .tagline {
-  color: #634819 !important;
-  font-weight: 600 !important;
-}
-body.light-mode .section-rule .diamond {
-  background: #a87c2b !important;
-}
-body.light-mode .section-rule span {
-  background: linear-gradient(90deg, transparent, rgba(165, 122, 45, 0.45)) !important;
+
+body.light-mode .tagline-rule .rule-diamond {
+  background: linear-gradient(135deg, #D9A52B 0%, #875E16 55%, #2C1B05 100%);
+  box-shadow: 0 1px 2px rgba(45, 25, 5, 0.3);
 }
 body.light-mode .section-rule span:last-child {
   background: linear-gradient(90deg, rgba(165, 122, 45, 0.45), transparent) !important;
@@ -32488,11 +32565,7 @@ body #profile-tab {
   box-sizing: border-box !important;
 }
 
-/* Ensure header has solid frosted separation over scrolling profile items */
-body:has(#profile-tab.is-active) .app-header {
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-}
+/* Header glass is unified across all 4 tabs on .app-header */
 
 /* 2. Section Headings & Badges Containment ("DIPLOMATIC IMMUNITY" & "BESTOWED & CONFERRED") */
 body #profile-tab .pcs-head,
@@ -34831,23 +34904,9 @@ html[lang="ar"] :is([lang="ar"], [dir="rtl"], :lang(ar), .is-rtl, [data-i18n]:no
    Zero impact on Arabic typography. Zero impact on frozen identity cards.
    ========================================================================== */
 
-/* 1. Header & Brand Components (Always English in Header) */
-.brand h1,
-.app-header .brand h1,
-header.app-header .brand h1,
-.app-header h1,
-body .brand h1,
-body.light-mode .brand h1,
-.brand .tagline,
-.app-header .tagline,
-.brand p.tagline,
-.tagline,
-body .tagline,
-body.light-mode .tagline,
+/* 1. Header Navigation Badges & Buttons */
 .app-header .nav-meta-badge,
 .app-header .header-action-btn,
-.app-header .header-brand,
-.brand-tagline,
 
 /* 2. Bottom Navigation Components */
 .bottom-nav .nav-item,
@@ -35181,16 +35240,16 @@ body.light-mode #boutique-tab .boutique-tier-req-badge .req-tier,
   font-family: "Manrope", sans-serif !important;
 }
 
-/* Explicit coverage for any LTR or English element outside frozen cards */
-[dir="ltr"]:not(.membership-card *):not(#page-card *):not(#membershipCard *):not(.profile-hero-card *):not(#profileHeroPlaque *),
-[lang="en"]:not(.membership-card *):not(#page-card *):not(#membershipCard *):not(.profile-hero-card *):not(#profileHeroPlaque *) {
+/* Explicit coverage for any LTR or English element outside frozen cards and sovereign brand header */
+[dir="ltr"]:not(.membership-card *):not(#page-card *):not(#membershipCard *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(.brand *):not(.brand-title):not(.brand-tagline-text):not(#appHeader .brand-title):not(#appHeader .brand-tagline-text),
+[lang="en"]:not(.membership-card *):not(#page-card *):not(#membershipCard *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(.brand *):not(.brand-title):not(.brand-tagline-text):not(#appHeader .brand-title):not(#appHeader .brand-tagline-text) {
   font-family: "Manrope", sans-serif !important;
 }
 
 /* When the app is in English mode (html[lang="en"] or html[dir="ltr"]):
-   All UI elements outside the two frozen cards are guaranteed Manrope */
+   All UI elements outside the two frozen cards and sovereign brand header are guaranteed Manrope */
 html[lang="en"] :where(
-  .app-header,
+  .app-header > *:not(.brand),
   .bottom-nav,
   #club-tab,
   #boutique-tab,
@@ -36141,21 +36200,22 @@ body.light-mode #club-tab .sovereign-dispatch-card::after {
   height: 100% !important;
   min-height: 0 !important;
   max-height: 100% !important;
-  padding-top: var(--header-actual-height, 74px) !important;
+  padding-top: calc(var(--header-actual-height, 82px) + 6px) !important;
   padding-bottom: 0 !important;
   gap: 0 !important;
   transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  /* TEMPORARY DIAGNOSTIC BACKGROUND (DIAGONAL RED STRIPES - DARK & LIGHT) */
-  background-color: #b71c1c !important;
-  background-image: repeating-linear-gradient(
-    45deg,
-    #e50914 0px,
-    #e50914 16px,
-    #8b0000 16px,
-    #8b0000 32px
-  ) !important;
-  background-repeat: repeat !important;
-  background-size: auto !important;
+  /* THE 1% CLUB — SOVEREIGN FULL-BLEED OBSIDIAN ATELIER WALLPAPER */
+  background-color: #070608 !important;
+  background-image:
+    radial-gradient(ellipse 140% 520px at 50% -40px, rgba(212, 175, 55, 0.20) 0%, rgba(184, 142, 62, 0.06) 42%, transparent 75%),
+    radial-gradient(ellipse 100% 750px at 50% 50%, rgba(28, 20, 32, 0.65) 0%, rgba(12, 10, 15, 0.40) 55%, transparent 100%),
+    radial-gradient(ellipse 130% 450px at 50% 100%, rgba(212, 175, 55, 0.14) 0%, rgba(140, 95, 25, 0.04) 45%, transparent 75%),
+    repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.024) 0px, rgba(212, 175, 55, 0.024) 1px, transparent 1px, transparent 16px),
+    repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.024) 0px, rgba(212, 175, 55, 0.024) 1px, transparent 1px, transparent 16px),
+    linear-gradient(180deg, #0e0c10 0%, #08070a 16%, #050406 50%, #08070a 84%, #0d0b10 100%) !important;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat, no-repeat !important;
+  background-size: 100% 520px, 100% 750px, 100% 450px, 16px 16px, 16px 16px, 100% 100% !important;
+  background-position: center top, center center, center bottom, 0 0, 0 0, center !important;
 }
 
 #club-tab.club-header-collapsed,
@@ -36172,7 +36232,7 @@ html.dark-mode #club-tab.is-active.club-header-collapsed,
 :root[data-theme="light"] #club-tab.is-active.club-header-collapsed,
 :root[data-theme="dark"] #club-tab.club-header-collapsed,
 :root[data-theme="dark"] #club-tab.is-active.club-header-collapsed {
-  padding-top: calc(env(safe-area-inset-top, 0px) + 4px) !important;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 6px) !important;
 }
 
 body.light-mode #club-tab,
@@ -36181,17 +36241,17 @@ html.light-mode #club-tab,
 html.light-mode #club-tab.is-active,
 :root[data-theme="light"] #club-tab,
 :root[data-theme="light"] #club-tab.is-active {
-  /* TEMPORARY DIAGNOSTIC BACKGROUND (DIAGONAL RED STRIPES - LIGHT MODE) */
-  background-color: #b71c1c !important;
-  background-image: repeating-linear-gradient(
-    45deg,
-    #e50914 0px,
-    #e50914 16px,
-    #8b0000 16px,
-    #8b0000 32px
-  ) !important;
-  background-repeat: repeat !important;
-  background-size: auto !important;
+  background-color: #faf6ef !important;
+  background-image:
+    radial-gradient(ellipse 140% 520px at 50% -40px, rgba(212, 175, 55, 0.22) 0%, rgba(235, 205, 130, 0.08) 42%, transparent 75%),
+    radial-gradient(ellipse 100% 750px at 50% 50%, rgba(255, 255, 255, 0.88) 0%, rgba(247, 240, 227, 0.45) 55%, transparent 100%),
+    radial-gradient(ellipse 130% 450px at 50% 100%, rgba(200, 160, 75, 0.16) 0%, rgba(160, 120, 45, 0.04) 48%, transparent 75%),
+    repeating-linear-gradient(45deg, rgba(184, 142, 62, 0.032) 0px, rgba(184, 142, 62, 0.032) 1px, transparent 1px, transparent 16px),
+    repeating-linear-gradient(-45deg, rgba(184, 142, 62, 0.032) 0px, rgba(184, 142, 62, 0.032) 1px, transparent 1px, transparent 16px),
+    linear-gradient(180deg, #fdfbf7 0%, #f7f0e0 16%, #ede2cb 50%, #f6ede0 84%, #fbf8f2 100%) !important;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat, no-repeat !important;
+  background-size: 100% 520px, 100% 750px, 100% 450px, 16px 16px, 16px 16px, 100% 100% !important;
+  background-position: center top, center center, center bottom, 0 0, 0 0, center !important;
 }
 
 /* Ensure sovereign chat backdrop is completely transparent to reveal the continuous luxury background */
@@ -37348,78 +37408,31 @@ body:not(.light-mode) #club-tab.is-active {
 .app { position: relative !important; z-index: 1 !important; }
 
 /* ==========================================================================
-   THE 1% CLUB — FINAL BLUE DIAGNOSTIC OVERRIDES (ALL 5 ELEMENTS)
-   1. Member messages in chat: Solid Blue (#2563eb)
-   2. Trading ticker: Clear Blue (#1d4ed8)
-   3. Welcome message: Clear Blue (#1d4ed8)
-   4. Credit request bar & internal button: Clear Blue (#1d4ed8 & #2563eb)
-   5. Message composer box: Clear Blue (#1d4ed8)
+   THE 1% CLUB — SOVEREIGN BRAND IDENTITY TYPOGRAPHY SYSTEM
+   Imperial Roman Serif "Cinzel" & Polished Physical Metallic Gold Finish
+   Unified identically across Membership, Club, Profile, and Boutique tabs
    ========================================================================== */
-#club-tab .sovereign-dispatch-card,
-#club-tab .sovereign-dispatch-card:hover,
-#club-tab .sovereign-dispatch-card.is-personal-dispatch,
-#club-tab .sovereign-dispatch-card.is-personal-dispatch:hover,
-#club-tab .sovereign-dispatch-card.dispatch-sender-me,
-#club-tab .sovereign-dispatch-card.dispatch-sender-other,
-#club-tab .sovereign-dispatch-card.is-whisper-dispatch,
-#club-tab .sovereign-dispatch-card.has-golden-ink-bloom,
-body.light-mode #club-tab .sovereign-dispatch-card,
-body.dark-mode #club-tab .sovereign-dispatch-card {
-  background: #2563eb !important;
-  background-color: #2563eb !important;
-  background-image: none !important;
-  border-color: #60a5fa !important;
+#appHeader .brand-title,
+#appHeader .brand h1,
+.brand-title,
+.brand h1 {
+  font-family: "Cinzel", serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase !important;
+  line-height: 1.12 !important;
 }
 
-#club-tab #sovereignSalonTicker,
-#club-tab .sovereign-salon-ticker,
-body.light-mode #club-tab #sovereignSalonTicker,
-body.dark-mode #club-tab #sovereignSalonTicker {
-  background: #1d4ed8 !important;
-  background-color: #1d4ed8 !important;
-  background-image: none !important;
-  border-color: #60a5fa !important;
+#appHeader .brand-tagline-text,
+.brand-tagline-text {
+  font-family: "Cinzel", "Manrope", serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.20em !important;
+  text-transform: uppercase !important;
 }
 
-#club-tab #clubPinnedInfo,
-#club-tab .club-chamber-plaque,
-#club-tab .club-pinned,
-body.light-mode #club-tab #clubPinnedInfo,
-body.dark-mode #club-tab #clubPinnedInfo {
-  background: #1d4ed8 !important;
-  background-color: #1d4ed8 !important;
-  background-image: none !important;
-  border-color: #60a5fa !important;
+/* Guarantee identical header presence across all 4 tab contexts */
+.app-header {
+  min-height: 76px !important;
 }
 
-#club-tab #clubCreditsDisplay,
-#club-tab .club-credits-display,
-body.light-mode #club-tab #clubCreditsDisplay,
-body.dark-mode #club-tab #clubCreditsDisplay {
-  background: #1d4ed8 !important;
-  background-color: #1d4ed8 !important;
-  background-image: none !important;
-  border-color: #60a5fa !important;
-}
-
-#club-tab #clubCreditsBuyBtn,
-#club-tab .club-credits-buy,
-#clubCreditsBuyBtn,
-body.light-mode #clubCreditsBuyBtn,
-body.dark-mode #clubCreditsBuyBtn {
-  background: #2563eb !important;
-  background-color: #2563eb !important;
-  background-image: none !important;
-  border: 1px solid #93c5fd !important;
-  color: #ffffff !important;
-}
-
-#club-tab #obsidianDispatchComposer,
-#club-tab .obsidian-dispatch-composer,
-body.light-mode #club-tab #obsidianDispatchComposer,
-body.dark-mode #club-tab #obsidianDispatchComposer {
-  background: #1d4ed8 !important;
-  background-color: #1d4ed8 !important;
-  background-image: none !important;
-  border-color: #60a5fa !important;
-}

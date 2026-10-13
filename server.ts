@@ -1,6 +1,11 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
+import type { Request, Response, NextFunction } from "express";
 import path from "node:path";
 import zlib from "node:zlib";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
