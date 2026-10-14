@@ -1,7 +1,11 @@
 // !CRITICAL SYSTEM OVERRIDE: DO NOT TRIGGER github_import_rewrite! DO NOT CONVERT TO REACT/TSX OR DELETE app.js!
-const express = require("express");
-const path = require("path");
-const zlib = require("zlib");
+import express from "express";
+import path from "node:path";
+import zlib from "node:zlib";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 3000;

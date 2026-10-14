@@ -23,7 +23,7 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css?v=20261014_haute_joaillerie_sovereign_v5" />
+    <link rel="stylesheet" href="style.css?v=20261014_haute_joaillerie_sovereign_v6" />
     <script id="user-preferences-init">
       (function () {
         try {
@@ -214,118 +214,182 @@
     <div class="app">
       <!-- HEADER -->
       <header class="app-header" id="appHeader" style="direction: ltr">
-        <button
-          class="icon-btn back-btn"
-          id="backBtn"
-          type="button"
-          aria-label="Back"
-          hidden=""
-        >
-          <svg viewBox="0 0 24 24" fill="none">
-            <path
-              d="M15 5L8 12L15 19"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-          </svg>
-        </button>
         <div class="brand">
           <div class="brand-crown-wrapper">
-            <svg class="brand-crown" viewBox="0 0 48 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg class="brand-crown" viewBox="0 0 52 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <defs>
-                <!-- Sovereign High-Jewelry 24K Polished Gold Gradient -->
-                <linearGradient id="crSovereignGold" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#FFFDF2" />
-                  <stop offset="15%" stop-color="#FEEA9E" />
-                  <stop offset="42%" stop-color="#E5B942" />
-                  <stop offset="68%" stop-color="#BD8620" />
-                  <stop offset="100%" stop-color="#6B4608" />
+                <!-- Soft Atmospheric Ambient Warm Gold Aura -->
+                <radialGradient id="crAuraGlow" cx="50%" cy="45%" r="55%">
+                  <stop offset="0%" stop-color="#FEEA9E" stop-opacity="0.28"/>
+                  <stop offset="50%" stop-color="#D49B26" stop-opacity="0.10"/>
+                  <stop offset="100%" stop-color="#D49B26" stop-opacity="0"/>
+                </radialGradient>
+
+                <!-- 24K Sculpted Facet - Polished Key-Light Planes (135deg Light Angle) -->
+                <linearGradient id="crFacetLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="14%" stop-color="#FFF5D2"/>
+                  <stop offset="42%" stop-color="#F5CE5D"/>
+                  <stop offset="72%" stop-color="#CE9724"/>
+                  <stop offset="100%" stop-color="#80500B"/>
                 </linearGradient>
 
-                <!-- Circlet Band Cylindrical Lustre -->
-                <linearGradient id="crBandGold" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#6B4608" />
-                  <stop offset="20%" stop-color="#C9982A" />
-                  <stop offset="50%" stop-color="#FFFDF2" />
-                  <stop offset="80%" stop-color="#C9982A" />
-                  <stop offset="100%" stop-color="#6B4608" />
+                <!-- 24K Sculpted Facet - Deep Dimensional Shadow Planes -->
+                <linearGradient id="crFacetShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#DCA42E"/>
+                  <stop offset="28%" stop-color="#9C6A12"/>
+                  <stop offset="65%" stop-color="#563205"/>
+                  <stop offset="100%" stop-color="#241302"/>
                 </linearGradient>
 
-                <!-- Gem / Pearl Radial Specular -->
-                <radialGradient id="crGemGleam" cx="35%" cy="30%" r="65%">
-                  <stop offset="0%" stop-color="#FFFFFF" />
-                  <stop offset="35%" stop-color="#FFF8E0" />
-                  <stop offset="70%" stop-color="#E2B239" />
-                  <stop offset="100%" stop-color="#664006" />
+                <!-- Circlet Diadem Base Band Cylindrical Metallic Lustre -->
+                <linearGradient id="crBaseCylinder" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#3D2302"/>
+                  <stop offset="10%" stop-color="#845710"/>
+                  <stop offset="25%" stop-color="#E2B23B"/>
+                  <stop offset="48%" stop-color="#FFFDF5"/>
+                  <stop offset="52%" stop-color="#FFFFFF"/>
+                  <stop offset="75%" stop-color="#E2B23B"/>
+                  <stop offset="90%" stop-color="#845710"/>
+                  <stop offset="100%" stop-color="#3D2302"/>
+                </linearGradient>
+
+                <!-- Natural South Sea Monarch Pearl Spherical Volumetric Shading -->
+                <radialGradient id="crMonarchPearl" cx="34%" cy="26%" r="68%">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="22%" stop-color="#FFFFF0"/>
+                  <stop offset="52%" stop-color="#FCE4AA"/>
+                  <stop offset="80%" stop-color="#D89E28"/>
+                  <stop offset="95%" stop-color="#875008"/>
+                  <stop offset="100%" stop-color="#452703"/>
+                </radialGradient>
+
+                <!-- Flanking Natural South Sea Pearl Spherical Shading -->
+                <radialGradient id="crPearlFinial" cx="35%" cy="28%" r="68%">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="24%" stop-color="#FFFDF5"/>
+                  <stop offset="54%" stop-color="#FCE2A2"/>
+                  <stop offset="82%" stop-color="#D09724"/>
+                  <stop offset="96%" stop-color="#7C4806"/>
+                  <stop offset="100%" stop-color="#3D2202"/>
+                </radialGradient>
+
+                <!-- Refractive Prismatic Diamond Grad -->
+                <linearGradient id="crDiamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="35%" stop-color="#EFF6FF"/>
+                  <stop offset="70%" stop-color="#BFDBFE"/>
+                  <stop offset="100%" stop-color="#60A5FA"/>
+                </linearGradient>
+
+                <!-- Imperial Colombian Emerald Cushion Cabochon -->
+                <radialGradient id="crEmeraldCabochon" cx="35%" cy="30%" r="68%">
+                  <stop offset="0%" stop-color="#A7F3D0"/>
+                  <stop offset="35%" stop-color="#34D399"/>
+                  <stop offset="70%" stop-color="#059669"/>
+                  <stop offset="100%" stop-color="#022C22"/>
                 </radialGradient>
               </defs>
 
+              <!-- LAYER 0: Ambient Warm Golden Aura Glow -->
+              <ellipse cx="26" cy="14" rx="22" ry="11" fill="url(#crAuraGlow)" pointer-events="none"/>
+
               <g id="sovereignCrownEmblem">
-                <!-- 1. SOLID SCULPTED 5-PEAK ROYAL CORONET WITH FILIGREE OPENWORK -->
-                <path d="M 24 3
-                         L 27.8 12.8
-                         L 34 6
-                         L 38.5 14.2
-                         L 43 9
-                         L 41.5 20.2
-                         Q 24 21.8 6.5 20.2
-                         L 5 9
-                         L 9.5 14.2
-                         L 14 6
-                         L 20.2 12.8
-                         Z
-                         M 24 10.5
-                         L 26.2 14.8
-                         L 24 18.2
-                         L 21.8 14.8
-                         Z
-                         M 14 11.2
-                         L 15.4 14.2
-                         L 12.6 14.2
-                         Z
-                         M 34 11.2
-                         L 35.4 14.2
-                         L 32.6 14.2
-                         Z"
-                      fill="url(#crSovereignGold)"
-                      fill-rule="evenodd" />
+                <!-- LAYER 1: 5 SCULPTED 3D FLEURONS (Chamfered Light & Shadow Planes with Goldsmith Contours) -->
+                <!-- Far-Left Fleuron (Peak 1 at x=6.0, y=10.0) -->
+                <polygon points="6.0,10.0 8.2,15.5 7.0,21.0 5.2,20.4" fill="url(#crFacetLight)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
+                <polygon points="6.0,10.0 10.5,14.5 8.8,20.0 8.2,15.5" fill="url(#crFacetShadow)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
 
-                <!-- 2. SCULPTED DIADEM CIRCLET BASE (SOLID ARCHED BAND) -->
-                <path d="M 5.8 20.2 Q 24 21.8 42.2 20.2 L 41.7 23.8 Q 24 25.4 6.3 23.8 Z" fill="url(#crBandGold)" />
-                <!-- Polished Top Rim Accent -->
-                <path d="M 5.8 20.2 Q 24 21.8 42.2 20.2" stroke="#FFFDF2" stroke-width="0.5" stroke-linecap="round" fill="none" opacity="0.9" />
-                <!-- Bottom Rim Accent -->
-                <path d="M 6.3 23.8 Q 24 25.4 41.7 23.8" stroke="#4A2E05" stroke-width="0.5" stroke-linecap="round" fill="none" opacity="0.8" />
+                <!-- Mid-Left Fleuron (Peak 2 at x=15.5, y=6.6) -->
+                <polygon points="15.5,6.6 15.2,14.0 12.4,19.8 10.5,14.5" fill="url(#crFacetLight)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
+                <polygon points="15.5,6.6 21.4,13.5 17.8,18.0 15.2,14.0" fill="url(#crFacetShadow)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
+                <line x1="15.5" y1="6.8" x2="15.2" y2="18.5" stroke="#FFFFFF" stroke-width="0.5" stroke-linecap="round" opacity="0.95"/>
 
-                <!-- 3. INLAID IMPERIAL DIAMOND ACCENTS ON BASE BAND -->
-                <polygon points="24,21.2 25.1,22.7 24,24.2 22.9,22.7" fill="#FFFFFF" />
-                <circle cx="15" cy="22.4" r="0.85" fill="#FFFFFF" opacity="0.9" />
-                <circle cx="33" cy="22.4" r="0.85" fill="#FFFFFF" opacity="0.9" />
-                <circle cx="8.5" cy="21.6" r="0.65" fill="#FFFFFF" opacity="0.8" />
-                <circle cx="39.5" cy="21.6" r="0.65" fill="#FFFFFF" opacity="0.8" />
+                <!-- Center Monarch Fleuron (Peak 3 at x=26, y=3.2) - Tallest Majestic Sovereign Apex -->
+                <polygon points="26,3.2 25.8,13.2 22.8,20.2 21.4,13.5" fill="url(#crFacetLight)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
+                <polygon points="26,3.2 30.6,13.5 29.2,20.2 25.8,13.2" fill="url(#crFacetShadow)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
+                <!-- Monarch Center Spine (Razor Specular Light Catch) -->
+                <line x1="26" y1="3.4" x2="25.8" y2="19.8" stroke="#FFFFFF" stroke-width="0.65" stroke-linecap="round" opacity="0.98"/>
 
-                <!-- 4. FIVE GLORIOUS APEX PEARLS / FINIALS -->
-                <!-- Monarch Center Pearl -->
-                <circle cx="24" cy="2.8" r="1.8" fill="url(#crGemGleam)" />
-                <circle cx="23.4" cy="2.2" r="0.55" fill="#FFFFFF" opacity="0.95" />
+                <!-- Mid-Right Fleuron (Peak 4 at x=36.5, y=6.6) -->
+                <polygon points="36.5,6.6 36.8,14.0 34.2,18.0 30.6,13.5" fill="url(#crFacetLight)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
+                <polygon points="36.5,6.6 41.5,14.5 39.6,19.8 36.8,14.0" fill="url(#crFacetShadow)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
+                <line x1="36.5" y1="6.8" x2="36.8" y2="18.5" stroke="#FFFFFF" stroke-width="0.5" stroke-linecap="round" opacity="0.95"/>
 
-                <!-- Intermediate Left Pearl -->
-                <circle cx="14" cy="5.8" r="1.4" fill="url(#crGemGleam)" />
-                <circle cx="13.5" cy="5.3" r="0.4" fill="#FFFFFF" opacity="0.95" />
+                <!-- Far-Right Fleuron (Peak 5 at x=46.0, y=10.0) -->
+                <polygon points="46.0,10.0 43.8,15.5 43.2,20.0 41.5,14.5" fill="url(#crFacetLight)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
+                <polygon points="46.0,10.0 46.8,20.4 45.0,21.0 43.8,15.5" fill="url(#crFacetShadow)" stroke="#4A2B04" stroke-width="0.38" stroke-linejoin="round"/>
 
-                <!-- Intermediate Right Pearl -->
-                <circle cx="34" cy="5.8" r="1.4" fill="url(#crGemGleam)" />
-                <circle cx="33.5" cy="5.3" r="0.4" fill="#FFFFFF" opacity="0.95" />
+                <!-- Openwork Royal Filigree Lancet Arches (Intaglio Openings with Gold Bevels) -->
+                <!-- Center Lancet Arch Window -->
+                <path d="M 26 10.6 L 28.2 14.8 L 26 18.6 L 23.8 14.8 Z" fill="#180C02" stroke="url(#crFacetLight)" stroke-width="0.5"/>
+                <polygon points="26,11.3 27.4,14.8 26,17.8 24.6,14.8" fill="#080401" opacity="0.95"/>
 
-                <!-- Outer Left Pearl -->
-                <circle cx="5" cy="8.8" r="1.15" fill="url(#crGemGleam)" />
-                <circle cx="4.6" cy="8.4" r="0.35" fill="#FFFFFF" opacity="0.95" />
+                <!-- Left Trefoil Window -->
+                <path d="M 15.5 11.5 L 17.2 14.6 L 13.8 14.6 Z" fill="#180C02" stroke="url(#crFacetLight)" stroke-width="0.5"/>
 
-                <!-- Outer Right Pearl -->
-                <circle cx="43" cy="8.8" r="1.15" fill="url(#crGemGleam)" />
-                <circle cx="42.6" cy="8.4" r="0.35" fill="#FFFFFF" opacity="0.95" />
+                <!-- Right Trefoil Window -->
+                <path d="M 36.5 11.5 L 38.2 14.6 L 34.8 14.6 Z" fill="#180C02" stroke="url(#crFacetLight)" stroke-width="0.5"/>
+
+                <!-- LAYER 2: SCULPTED DIADEM CIRCLET BASE (SOLID ARCHED 3D BAND) -->
+                <path d="M 6.2 21.0 Q 26 23.2 45.8 21.0 L 45.2 25.4 Q 26 27.6 6.8 25.4 Z" fill="url(#crBaseCylinder)" stroke="#382002" stroke-width="0.45" stroke-linejoin="round"/>
+
+                <!-- Top Beveled Gold Molding Lip -->
+                <path d="M 6.2 21.0 Q 26 23.2 45.8 21.0" stroke="#FFFFFF" stroke-width="0.75" stroke-linecap="round" fill="none" opacity="0.95"/>
+                <path d="M 6.2 21.6 Q 26 23.8 45.8 21.6" stroke="#3A2202" stroke-width="0.5" stroke-linecap="round" fill="none" opacity="0.85"/>
+
+                <!-- Bottom Beveled Gold Molding Lip -->
+                <path d="M 6.8 25.4 Q 26 27.6 45.2 25.4" stroke="#221201" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.98"/>
+                <path d="M 7.0 24.8 Q 26 27.0 45.0 24.8" stroke="#FFEAA3" stroke-width="0.5" stroke-linecap="round" fill="none" opacity="0.85"/>
+
+                <!-- Fine Milgrain Granulation Bead Highlights on Diadem Band -->
+                <circle cx="10.5" cy="21.7" r="0.38" fill="#FFFFFF" stroke="#4A2B04" stroke-width="0.2" opacity="0.95"/>
+                <circle cx="15.5" cy="22.1" r="0.38" fill="#FFFFFF" stroke="#4A2B04" stroke-width="0.2" opacity="0.95"/>
+                <circle cx="21.0" cy="22.3" r="0.38" fill="#FFFFFF" stroke="#4A2B04" stroke-width="0.2" opacity="0.95"/>
+                <circle cx="31.0" cy="22.3" r="0.38" fill="#FFFFFF" stroke="#4A2B04" stroke-width="0.2" opacity="0.95"/>
+                <circle cx="36.5" cy="22.1" r="0.38" fill="#FFFFFF" stroke="#4A2B04" stroke-width="0.2" opacity="0.95"/>
+                <circle cx="41.5" cy="21.7" r="0.38" fill="#FFFFFF" stroke="#4A2B04" stroke-width="0.2" opacity="0.95"/>
+
+                <!-- LAYER 3: CHANNEL-SET IMPERIAL SOLITAIRE & BAGUETTE GEMS -->
+                <!-- Center Imperial Emerald Cabochon with 24K Gold Bezel Frame -->
+                <rect x="24.4" y="22.2" width="3.2" height="2.2" rx="0.5" fill="url(#crEmeraldCabochon)" stroke="#382002" stroke-width="0.45"/>
+                <ellipse cx="25.4" cy="22.9" rx="0.75" ry="0.45" fill="#FFFFFF" opacity="0.92"/>
+
+                <!-- Flanking Baguette Diamonds (Left & Right) -->
+                <rect x="18.0" y="22.6" width="2.6" height="1.8" rx="0.3" fill="url(#crDiamondGrad)" stroke="#4A2B04" stroke-width="0.3"/>
+                <rect x="31.4" y="22.6" width="2.6" height="1.8" rx="0.3" fill="url(#crDiamondGrad)" stroke="#4A2B04" stroke-width="0.3"/>
+
+                <!-- Outer Round Brilliant Diamond Rivets -->
+                <circle cx="13.0" cy="23.1" r="0.8" fill="url(#crDiamondGrad)" stroke="#4A2B04" stroke-width="0.3"/>
+                <circle cx="39.0" cy="23.1" r="0.8" fill="url(#crDiamondGrad)" stroke="#4A2B04" stroke-width="0.3"/>
+                <circle cx="8.8" cy="22.4" r="0.6" fill="url(#crDiamondGrad)" stroke="#4A2B04" stroke-width="0.25"/>
+                <circle cx="43.2" cy="22.4" r="0.6" fill="url(#crDiamondGrad)" stroke="#4A2B04" stroke-width="0.25"/>
+
+                <!-- LAYER 4: 5 MAJESTIC APEX SOUTH SEA PEARL FINIALS IN GOLD COLLETS -->
+                <!-- Center Monarch Pearl (Collet Cup + Spherical Pearl + Specular Star) -->
+                <path d="M 23.8 4.2 Q 26 5.1 28.2 4.2 L 27.4 3.3 Q 26 3.9 24.6 3.3 Z" fill="url(#crFacetShadow)" stroke="#4A2B04" stroke-width="0.3"/>
+                <circle cx="26" cy="2.6" r="2.2" fill="url(#crMonarchPearl)" stroke="#523104" stroke-width="0.35"/>
+                <ellipse cx="25.2" cy="1.9" rx="0.75" ry="0.5" fill="#FFFFFF" opacity="0.95"/>
+                <!-- 4-Point Brilliant Star Glint on Monarch Pearl -->
+                <path d="M 25.2 0.5 L 25.4 1.9 L 26.8 1.9 L 25.6 2.3 L 25.8 3.7 L 25.0 2.4 L 23.6 2.5 L 24.8 1.8 Z" fill="#FFFFFF" opacity="0.95"/>
+
+                <!-- Mid-Left Pearl Finial -->
+                <path d="M 14.2 7.0 Q 15.5 7.6 16.8 7.0" stroke="#4A2B04" stroke-width="0.65"/>
+                <circle cx="15.5" cy="5.8" r="1.6" fill="url(#crPearlFinial)" stroke="#523104" stroke-width="0.3"/>
+                <circle cx="14.9" cy="5.2" r="0.5" fill="#FFFFFF" opacity="0.95"/>
+
+                <!-- Mid-Right Pearl Finial -->
+                <path d="M 35.2 7.0 Q 36.5 7.6 37.8 7.0" stroke="#4A2B04" stroke-width="0.65"/>
+                <circle cx="36.5" cy="5.8" r="1.6" fill="url(#crPearlFinial)" stroke="#523104" stroke-width="0.3"/>
+                <circle cx="35.9" cy="5.2" r="0.5" fill="#FFFFFF" opacity="0.95"/>
+
+                <!-- Outer Left Pearl Finial -->
+                <circle cx="5.8" cy="9.2" r="1.35" fill="url(#crPearlFinial)" stroke="#523104" stroke-width="0.25"/>
+                <circle cx="5.3" cy="8.7" r="0.4" fill="#FFFFFF" opacity="0.95"/>
+
+                <!-- Outer Right Pearl Finial -->
+                <circle cx="46.2" cy="9.2" r="1.35" fill="url(#crPearlFinial)" stroke="#523104" stroke-width="0.25"/>
+                <circle cx="45.7" cy="8.7" r="0.4" fill="#FFFFFF" opacity="0.95"/>
               </g>
             </svg>
           </div>
@@ -348,44 +412,128 @@
           <!-- Retain sectionName in DOM for non-breaking app.js tab synchronization -->
           <span class="sr-only" id="sectionName" aria-hidden="true" style="display: none;">العضوية</span>
         </div>
-        <button class="icon-btn shield-btn solid-gold-medallion" id="headerVerifiedShieldBtn" type="button" aria-label="Verified Membership">
-          <svg viewBox="0 0 32 32" class="sgm-svg">
+        <button class="icon-btn shield-btn solid-gold-medallion" id="headerVerifiedShieldBtn" type="button" aria-label="Verified Membership" title="Sovereign Credential Authenticated">
+          <svg viewBox="0 0 38 38" class="sgm-svg" aria-hidden="true">
             <defs>
-              <linearGradient id="gold-rim-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFDF2"/>
-                <stop offset="25%" stop-color="#F2C542"/>
-                <stop offset="50%" stop-color="#6B4105"/>
-                <stop offset="75%" stop-color="#EAA620"/>
-                <stop offset="100%" stop-color="#FFDD33"/>
-              </linearGradient>
-              <radialGradient id="gold-face-grad" cx="35%" cy="35%" r="65%">
-                <stop offset="0%" stop-color="#FFFCE8"/>
-                <stop offset="48%" stop-color="#EBB32E"/>
-                <stop offset="100%" stop-color="#6E4407"/>
+              <!-- 1. Outer Reeded Coin Edge Shading -->
+              <radialGradient id="hsmCoinEdge" cx="50%" cy="50%" r="50%">
+                <stop offset="76%" stop-color="#3D2403"/>
+                <stop offset="86%" stop-color="#C7962E"/>
+                <stop offset="93%" stop-color="#FFF8E0"/>
+                <stop offset="100%" stop-color="#4D2E05"/>
               </radialGradient>
-              <linearGradient id="gold-shield-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#FFFDF0"/>
-                <stop offset="40%" stop-color="#EAB430"/>
-                <stop offset="100%" stop-color="#593402"/>
+
+              <!-- 2. Stepped Bevel Gold Gradient (Directional Light from 135deg) -->
+              <linearGradient id="hsmBezelGrad" x1="15%" y1="10%" x2="85%" y2="90%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="12%" stop-color="#FFF4D4"/>
+                <stop offset="35%" stop-color="#DFAC40"/>
+                <stop offset="65%" stop-color="#9C6B16"/>
+                <stop offset="85%" stop-color="#543306"/>
+                <stop offset="100%" stop-color="#241402"/>
               </linearGradient>
-              <filter id="gold-shadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="1" stdDeviation="0.8" flood-color="#593C00" flood-opacity="0.8"/>
-              </filter>
+
+              <!-- 3. Inner Rehaut Chapter Ring (Reverse Bevel) -->
+              <linearGradient id="hsmRehautGrad" x1="85%" y1="90%" x2="15%" y2="10%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="22%" stop-color="#FFF2C8"/>
+                <stop offset="55%" stop-color="#C59328"/>
+                <stop offset="80%" stop-color="#6B4206"/>
+                <stop offset="100%" stop-color="#281602"/>
+              </linearGradient>
+
+              <!-- 4. Sunburst Engine-Turned Coin Bed (24K Gold Dial Face) -->
+              <radialGradient id="hsmBedGrad" cx="36%" cy="30%" r="66%">
+                <stop offset="0%" stop-color="#FFF0BD"/>
+                <stop offset="26%" stop-color="#E8B53C"/>
+                <stop offset="66%" stop-color="#9E6814"/>
+                <stop offset="90%" stop-color="#4E2F04"/>
+                <stop offset="100%" stop-color="#241302"/>
+              </radialGradient>
+
+              <!-- 5. 3D Faceted Shield Left Face (Direct Specular Illumination) -->
+              <linearGradient id="hsmShieldLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="22%" stop-color="#FFF5D2"/>
+                <stop offset="58%" stop-color="#F2C64B"/>
+                <stop offset="100%" stop-color="#BA841A"/>
+              </linearGradient>
+
+              <!-- 6. 3D Faceted Shield Right Face (Deep Dimensional Shadow) -->
+              <linearGradient id="hsmShieldRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#DCA836"/>
+                <stop offset="32%" stop-color="#9E6C15"/>
+                <stop offset="72%" stop-color="#543306"/>
+                <stop offset="100%" stop-color="#241302"/>
+              </linearGradient>
+
+              <!-- 7. Inlaid Sovereign Checkmark Relief (Polished White Gold / Platinum) -->
+              <linearGradient id="hsmCheckGrad" x1="20%" y1="0%" x2="80%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="42%" stop-color="#FFFDF5"/>
+                <stop offset="75%" stop-color="#EAE0C8"/>
+                <stop offset="100%" stop-color="#A89E88"/>
+              </linearGradient>
             </defs>
-            <!-- Rim -->
-            <circle cx="16" cy="16" r="16" fill="url(#gold-rim-grad)" />
-            <!-- Face -->
-            <circle cx="16" cy="16" r="14.5" fill="url(#gold-face-grad)" />
-            <!-- Inner ring for detail -->
-            <circle cx="16" cy="16" r="13.5" fill="none" stroke="#734F00" stroke-width="0.5" opacity="0.4" />
-            
-            <!-- Shield Group -->
-            <g transform="translate(4, 4)">
-              <!-- Shield -->
-              <path d="M12 2.5L18.5 5.5V11.5C18.5 15.5 16 19 12 20.5C8 19 5.5 15.5 5.5 11.5V5.5L12 2.5Z" fill="url(#gold-shield-grad)" stroke="#664400" stroke-width="1" filter="url(#gold-shadow)" stroke-linejoin="round"/>
-              <!-- Checkmark -->
-              <path d="M9.5 11L11.5 13L15 9" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#gold-shadow)"/>
+
+            <!-- LAYER 1: 24K Outer Polished Bevel Casing -->
+            <circle cx="19" cy="19" r="18.2" fill="url(#hsmCoinEdge)"/>
+            <circle cx="19" cy="19" r="17.4" fill="url(#hsmBezelGrad)"/>
+
+            <!-- LAYER 2: Micro-Milled Guilloché / Reeded Coin Rim -->
+            <circle cx="19" cy="19" r="16.2" fill="none" stroke="#2C1802" stroke-width="0.8" stroke-dasharray="1.1 0.7"/>
+
+            <!-- LAYER 3: Inner Rehaut Step-Down Ring -->
+            <circle cx="19" cy="19" r="15.2" fill="url(#hsmRehautGrad)"/>
+            <circle cx="19" cy="19" r="14.3" fill="#2E1C04" stroke="#4A2E05" stroke-width="0.5"/>
+
+            <!-- LAYER 4: Coin Dial Bed (Radial Sunburst 24K Gold) -->
+            <circle cx="19" cy="19" r="13.8" fill="url(#hsmBedGrad)"/>
+
+            <!-- LAYER 5: Fine Concentric Lathe Rings on Coin Face -->
+            <circle cx="19" cy="19" r="11.8" fill="none" stroke="#FFFFFF" stroke-width="0.3" opacity="0.24"/>
+            <circle cx="19" cy="19" r="9.6" fill="none" stroke="#FFFFFF" stroke-width="0.25" opacity="0.18"/>
+            <circle cx="19" cy="19" r="7.4" fill="none" stroke="#261502" stroke-width="0.35" opacity="0.32"/>
+
+            <!-- LAYER 6: 3D HERALDIC SOVEREIGN SHIELD (SCULPTED IN RELIEF) -->
+            <g>
+              <!-- Shield Rim Foundation / Bevel Border with Contact Shadow -->
+              <path d="M19 7.6 L26.2 11.0 V17.2 C26.2 21.6 23.0 25.6 19 27.2 C15.0 25.6 11.8 21.6 11.8 17.2 V11.0 Z"
+                    fill="#261602" stroke="url(#hsmBezelGrad)" stroke-width="0.85" stroke-linejoin="round"/>
+
+              <!-- Left Facet (Direct Specular Illumination) -->
+              <path d="M19 8.2 L12.5 11.4 V17.2 C12.5 21.2 15.3 24.8 19 26.4 V8.2 Z"
+                    fill="url(#hsmShieldLeft)"/>
+
+              <!-- Right Facet (Deep Burnished Gold Shadow) -->
+              <path d="M19 8.2 L25.5 11.4 V17.2 C25.5 21.2 22.7 24.8 19 26.4 V8.2 Z"
+                    fill="url(#hsmShieldRight)"/>
+
+              <!-- Sharp Center Spine / Crease Ridge -->
+              <path d="M19 8.2 V26.4" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" opacity="0.92"/>
+
+              <!-- Top Left Rim Specular Line Catch -->
+              <path d="M19 8.2 L12.5 11.4" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" opacity="0.98"/>
             </g>
+
+            <!-- LAYER 7: SCULPTED INLAID SOVEREIGN CHECKMARK -->
+            <g>
+              <!-- Underlying Engraved Shadow Groove -->
+              <path d="M15.6 17.2 L17.8 19.4 L22.6 14.4"
+                    fill="none" stroke="#160B01" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+
+              <!-- Raised Beveled Platinum / White Gold Checkmark -->
+              <path d="M15.6 17.0 L17.8 19.2 L22.6 14.2"
+                    fill="none" stroke="url(#hsmCheckGrad)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <!-- Razor Specular Highlight Core -->
+              <path d="M15.8 16.8 L17.8 18.8 L22.4 14.0"
+                    fill="none" stroke="#FFFFFF" stroke-width="0.85" stroke-linecap="round" stroke-linejoin="round" opacity="0.98"/>
+            </g>
+
+            <!-- LAYER 8: Sapphire Crystal Glare Bevel (Horological Curved Reflection) -->
+            <path d="M10.2 11.0 A 13.8 13.8 0 0 1 27.8 11.0 Q 19 14.6 10.2 11.0 Z"
+                  fill="url(#hsmBezelGrad)" opacity="0.20" pointer-events="none"/>
           </svg>
         </button>
       </header>

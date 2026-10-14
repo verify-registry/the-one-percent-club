@@ -1,6 +1,7 @@
 {
   "name": "the-one-percent-club",
   "version": "1.0.0",
+  "type": "module",
   "description": "Exclusive Sovereign Membership Application",
   "main": "server.ts",
   "scripts": {

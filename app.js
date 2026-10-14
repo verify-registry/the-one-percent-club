@@ -3199,9 +3199,6 @@ const Router = {
     const sectionName = document.getElementById("sectionName");
     if (sectionName) sectionName.textContent = PAGE_TITLES[tab] || tab;
 
-    const backBtn = document.getElementById("backBtn");
-    if (backBtn) backBtn.hidden = true;
-
     const header = document.getElementById("appHeader");
     if (header) {
       header.classList.remove("header-hidden");
@@ -3243,7 +3240,6 @@ const Router = {
       header.classList.remove("header-compact");
       if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
     }
-    document.getElementById("backBtn").hidden = false;
     document
       .querySelectorAll(".nav-item")
       .forEach((n) => n.classList.remove("is-active"));
@@ -3410,16 +3406,6 @@ function openContextPage(pageId, title, returnTab) {
   if (typeof window.resetHeaderScrollTracking === "function") {
     window.resetHeaderScrollTracking();
   }
-  const backBtn = document.getElementById("backBtn");
-  if (backBtn) {
-    if (pageId === "page-member") {
-      backBtn.hidden = true;
-      backBtn.classList.add("is-member-dossier-active");
-    } else {
-      backBtn.hidden = false;
-      backBtn.classList.remove("is-member-dossier-active");
-    }
-  }
   if (typeof Router !== "undefined") {
     Router.currentTab = pageId;
   }
@@ -3548,13 +3534,6 @@ function openMemberProfile(member) {
 
   openContextPage("page-member", memberName || (isAr ? "ملف العضو السيادي" : "Member Dossier"), "club");
 
-  // REQUIREMENT 1: Ensure top back button is strictly hidden for Member Profile
-  const backBtn = document.getElementById("backBtn");
-  if (backBtn) {
-    backBtn.hidden = true;
-    backBtn.classList.add("is-member-dossier-active");
-  }
-
   if (typeof initMemberDossierActionButtons === "function") {
     initMemberDossierActionButtons();
   }
@@ -3565,14 +3544,7 @@ function closeMemberProfile() {
   if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
   if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(12);
 
-  // 1. Hide the top back button
-  const backBtn = document.getElementById("backBtn");
-  if (backBtn) {
-    backBtn.hidden = true;
-    backBtn.classList.remove("is-member-dossier-active");
-  }
-
-  // 2. Hide member profile page
+  // Hide member profile page
   const pageMember = document.getElementById("page-member");
   if (pageMember) {
     pageMember.classList.remove("is-active");
@@ -3651,7 +3623,6 @@ function closeMemberProfile() {
 }
 window.closeMemberProfile = closeMemberProfile;
 
-document.getElementById("backBtn")?.addEventListener("click", closeMemberProfile);
 document.getElementById("memberProfileCloseBtn")?.addEventListener("click", closeMemberProfile);
 
 function initMemberDossierActionButtons() {
@@ -3715,7 +3686,6 @@ document.getElementById("editAccountForm")?.addEventListener("submit", (e) => {
 
   ClubState.emit("change");
 
-  document.getElementById("backBtn").hidden = true;
   Router.navigate("profile");
   showPremiumToast(
     window.t("profile.profileUpdated"),
