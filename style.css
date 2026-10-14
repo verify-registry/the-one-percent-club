@@ -841,29 +841,50 @@ input {
   z-index: 90;
   background: linear-gradient(
     180deg,
-    rgba(8, 8, 10, 0.92) 0%,
-    rgba(12, 12, 15, 0.82) 42%,
-    rgba(16, 16, 20, 0.52) 74%,
-    rgba(16, 16, 20, 0.20) 90%,
+    rgba(8, 8, 10, 0.94) 0%,
+    rgba(12, 12, 16, 0.86) 45%,
+    rgba(14, 14, 18, 0.65) 75%,
+    rgba(16, 16, 20, 0.25) 92%,
     rgba(16, 16, 20, 0.0) 100%
   ) !important;
-  padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 14px;
+  padding: calc(9px + env(safe-area-inset-top, 0px)) 18px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border: none !important;
   border-bottom: none !important;
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14) !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
-  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
   transform: translate3d(0, 0, 0);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
   will-change: transform, opacity;
   pointer-events: auto;
+  min-height: 80px;
+}
+
+/* Elegant gold bottom hairline divider */
+.app-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(135, 94, 22, 0.25) 20%,
+    rgba(217, 165, 43, 0.65) 50%,
+    rgba(254, 234, 158, 0.80) 50%,
+    rgba(217, 165, 43, 0.65) 50%,
+    rgba(135, 94, 22, 0.25) 80%,
+    transparent 100%
+  );
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 body.light-mode .app-header,
@@ -871,9 +892,9 @@ html.light-mode .app-header {
   background: linear-gradient(
     180deg,
     rgba(253, 251, 247, 0.94) 0%,
-    rgba(249, 245, 238, 0.84) 42%,
-    rgba(244, 238, 228, 0.54) 74%,
-    rgba(240, 233, 220, 0.20) 90%,
+    rgba(249, 245, 238, 0.84) 45%,
+    rgba(244, 238, 228, 0.58) 75%,
+    rgba(240, 233, 220, 0.20) 92%,
     rgba(240, 233, 220, 0.0) 100%
   ) !important;
   border: none !important;
@@ -881,8 +902,19 @@ html.light-mode .app-header {
   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.90) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
-  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
+}
+
+body.light-mode .app-header::after,
+html.light-mode .app-header::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(135, 94, 22, 0.15) 20%,
+    rgba(217, 165, 43, 0.45) 50%,
+    rgba(135, 94, 22, 0.15) 80%,
+    transparent 100%
+  );
+  opacity: 0.8;
 }
 
 /* Tab-unified Header Glass: Completely unified across Membership, Club, Profile, and Boutique */
@@ -892,7 +924,7 @@ html.light-mode .app-header {
   pointer-events: none !important;
 }
 .app-header.header-compact {
-  padding: calc(8px + env(safe-area-inset-top, 0px)) 18px 12px;
+  padding: calc(9px + env(safe-area-inset-top, 0px)) 18px 14px;
 }
 .app-header.header-compact .back-btn {
   inset-inline-start: 18px;
@@ -919,25 +951,26 @@ html.light-mode .app-header {
   position: relative;
   z-index: 2;
   width: 44px;
-  height: 26px;
+  height: 25px;
   display: block;
   overflow: visible;
-  filter: drop-shadow(0 1.5px 3px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 1px rgba(35, 22, 4, 0.7));
+  filter: drop-shadow(0 1.5px 3px rgba(0, 0, 0, 0.92)) drop-shadow(0 0 1px rgba(35, 22, 4, 0.7));
   transition: transform 0.2s ease;
 }
-body.light-mode .brand-crown {
+body.light-mode .brand-crown,
+html.light-mode .brand-crown {
   filter: drop-shadow(0 1.5px 2px rgba(40, 25, 5, 0.25));
 }
 .app-header.header-compact .brand-crown {
   width: 44px;
-  height: 26px;
+  height: 25px;
 }
 .app-header.header-compact .brand-title {
-  font-size: clamp(17.5px, 5vw, 21px);
+  font-size: clamp(17px, 4.8vw, 20.5px);
   margin-bottom: 3px;
 }
 .app-header.header-compact .brand-tagline-lockup {
-  display: flex;
+  display: flex !important;
 }
 .icon-btn {
   position: relative;
@@ -1075,11 +1108,11 @@ body.light-mode .shield-btn::before {
 /* Brand Wordmark — THE 1% CLUB (Imperial Cinzel Roman Serif & Polished Physical Gold) */
 .brand-title,
 .brand h1 {
-  margin: 0 0 3px 0;
-  font-family: "Cinzel", serif !important;
+  margin: 0 0 3.5px 0;
+  font-family: "Cinzel", "Cormorant Garamond", serif !important;
   font-weight: 600 !important;
-  font-size: clamp(17.5px, 5vw, 21px);
-  letter-spacing: 0.10em;
+  font-size: clamp(17px, 4.8vw, 20.5px) !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase;
   background: linear-gradient(
     180deg,
@@ -1087,17 +1120,18 @@ body.light-mode .shield-btn::before {
     #FFF4CA 15%,
     #F3C958 34%,
     #DDA833 48%,
-    #69430A 51%,
-    #C79224 68%,
-    #FDE895 84%,
+    #7A5518 52%,
+    #231604 54%,
+    #C58F20 66%,
+    #FDE895 82%,
     #875E16 100%
-  );
+  ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 1px rgba(28, 18, 4, 0.65));
-  line-height: 1.12;
+  filter: drop-shadow(0 1.5px 3px rgba(0, 0, 0, 0.92)) drop-shadow(0 0 1px rgba(28, 18, 4, 0.7));
+  line-height: 1.15;
   text-align: center;
   white-space: nowrap;
   position: relative;
@@ -1105,17 +1139,19 @@ body.light-mode .shield-btn::before {
 }
 
 body.light-mode .brand-title,
-body.light-mode .brand h1 {
+body.light-mode .brand h1,
+html.light-mode .brand-title,
+html.light-mode .brand h1 {
   background: linear-gradient(
     180deg,
-    #4D2E04 0%,
-    #875E16 20%,
+    #3D2403 0%,
+    #7D5311 18%,
     #C99427 44%,
-    #3D2403 50%,
-    #7D5311 68%,
+    #422504 52%,
+    #875E16 68%,
     #BA8821 86%,
     #4D2E04 100%
-  );
+  ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -1125,49 +1161,50 @@ body.light-mode .brand h1 {
 
 /* Symmetrical Tagline Lockup: PRIVATE WEALTH · PRIVATE SOCIETY */
 .brand-tagline-lockup {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  width: 100%;
-  max-width: 350px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  max-width: 360px !important;
   margin: 0 auto;
   position: relative;
   z-index: 2;
 }
 
 .brand-tagline-text {
-  display: inline-flex;
-  align-items: center;
-  gap: 5.5px;
-  font-family: "Cinzel", "Manrope", serif !important;
-  font-size: clamp(7.5px, 2.1vw, 8.4px);
-  letter-spacing: 0.20em;
-  font-weight: 600;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-family: "Cinzel", serif !important;
+  font-size: clamp(7.5px, 2.1vw, 8.4px) !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 500 !important;
   white-space: nowrap;
   background: linear-gradient(
     180deg,
     #FFFFFF 0%,
-    #FEEA9E 30%,
-    #D9A52B 72%,
+    #FFF6DC 22%,
+    #E2AE33 60%,
     #875E16 100%
-  );
+  ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
   text-transform: uppercase;
   line-height: 1;
-  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.9));
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.95));
 }
 
-body.light-mode .brand-tagline-text {
+body.light-mode .brand-tagline-text,
+html.light-mode .brand-tagline-text {
   background: linear-gradient(
     180deg,
-    #543204 0%,
-    #875E16 45%,
+    #4D2E04 0%,
+    #875E16 50%,
     #3D2403 100%
-  );
+  ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -1187,7 +1224,8 @@ body.light-mode .brand-tagline-text {
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8));
 }
 
-body.light-mode .tagline-diamond-sep {
+body.light-mode .tagline-diamond-sep,
+html.light-mode .tagline-diamond-sep {
   background: linear-gradient(135deg, #875E16 0%, #D9A52B 60%, #422504 100%);
   -webkit-background-clip: text !important;
   background-clip: text !important;
@@ -1197,11 +1235,11 @@ body.light-mode .tagline-diamond-sep {
 }
 
 .tagline-rule {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  min-width: 12px;
-  max-width: 44px;
+  display: flex !important;
+  align-items: center !important;
+  flex: 1 !important;
+  min-width: 14px !important;
+  max-width: 48px !important;
 }
 
 .tagline-rule .rule-line {
@@ -1210,19 +1248,21 @@ body.light-mode .tagline-diamond-sep {
 }
 
 .tagline-rule-left .rule-line {
-  background: linear-gradient(90deg, #875E16 0%, #D9A52B 45%, #FEEA9E 85%, #FFFFFF 100%);
+  background: linear-gradient(90deg, rgba(135, 94, 22, 0.4) 0%, #D9A52B 45%, #FEEA9E 85%, #FFFFFF 100%) !important;
 }
 
 .tagline-rule-right .rule-line {
-  background: linear-gradient(90deg, #FFFFFF 0%, #FEEA9E 15%, #D9A52B 55%, #875E16 100%);
+  background: linear-gradient(90deg, #FFFFFF 0%, #FEEA9E 15%, #D9A52B 55%, rgba(135, 94, 22, 0.4) 100%) !important;
 }
 
-body.light-mode .tagline-rule-left .rule-line {
-  background: linear-gradient(90deg, #3D2403 0%, #875E16 50%, #D9A52B 90%, rgba(217, 165, 43, 0.4) 100%);
+body.light-mode .tagline-rule-left .rule-line,
+html.light-mode .tagline-rule-left .rule-line {
+  background: linear-gradient(90deg, rgba(61, 36, 3, 0.2) 0%, #875E16 50%, #D9A52B 100%) !important;
 }
 
-body.light-mode .tagline-rule-right .rule-line {
-  background: linear-gradient(90deg, rgba(217, 165, 43, 0.4) 0%, #D9A52B 10%, #875E16 50%, #3D2403 100%);
+body.light-mode .tagline-rule-right .rule-line,
+html.light-mode .tagline-rule-right .rule-line {
+  background: linear-gradient(90deg, #D9A52B 0%, #875E16 50%, rgba(61, 36, 3, 0.2) 100%) !important;
 }
 
 .tagline-rule .rule-diamond {
@@ -1230,13 +1270,14 @@ body.light-mode .tagline-rule-right .rule-line {
   height: 4px;
   transform: rotate(45deg);
   flex-shrink: 0;
-  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 35%, #D9A52B 70%, #2C1B05 100%);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 35%, #D9A52B 70%, #231604 100%) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 
-body.light-mode .tagline-rule .rule-diamond {
-  background: linear-gradient(135deg, #D9A52B 0%, #875E16 55%, #2C1B05 100%);
-  box-shadow: 0 1px 2px rgba(45, 25, 5, 0.3);
+body.light-mode .tagline-rule .rule-diamond,
+html.light-mode .tagline-rule .rule-diamond {
+  background: linear-gradient(135deg, #D9A52B 0%, #875E16 60%, #231604 100%) !important;
+  box-shadow: 0 1px 2px rgba(45, 25, 5, 0.25);
 }
 body.light-mode .section-rule span:last-child {
   background: linear-gradient(90deg, rgba(165, 122, 45, 0.45), transparent) !important;
@@ -3494,7 +3535,7 @@ html:has(#club-tab.is-active) .app-main {
   min-height: 0 !important;
   height: 100% !important;
   max-height: 100% !important;
-  padding-top: calc(var(--header-actual-height, 74px) + 4px) !important;
+  padding-top: calc(var(--header-actual-height, 74px) + 8px) !important;
   padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -37370,69 +37411,409 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
   scroll-padding-top: 124px !important;
 }
 
-/* === TEMPORARY DIAGNOSTIC BACKGROUND: CLUB TAB (LIGHT & DARK) === */
-#club-tab,
-#club-tab.is-active,
-body.light-mode #club-tab,
-body.light-mode #club-tab.is-active,
-html.light-mode #club-tab,
-html.light-mode #club-tab.is-active,
-:root[data-theme="light"] #club-tab,
-:root[data-theme="light"] #club-tab.is-active,
-body.dark-mode #club-tab,
-body.dark-mode #club-tab.is-active,
-body:not(.light-mode) #club-tab,
-body:not(.light-mode) #club-tab.is-active {
-  background-color: #b71c1c !important;
-  background-image: repeating-linear-gradient(
-    45deg,
-    #e50914 0px,
-    #e50914 16px,
-    #8b0000 16px,
-    #8b0000 32px
-  ) !important;
-  background-repeat: repeat !important;
-  background-size: auto !important;
-  background-attachment: scroll !important;
-}
-#sovereignSalonTicker,
-.sovereign-salon-ticker,
-#clubCreditsDisplay,
-.club-credits-display,
-#obsidianDispatchComposer,
-.obsidian-dispatch-composer,
-#clubComposerWrap,
-.club-composer-wrap {
-  box-shadow: none !important;
-}
-.app { position: relative !important; z-index: 1 !important; }
-
 /* ==========================================================================
-   THE 1% CLUB — SOVEREIGN BRAND IDENTITY TYPOGRAPHY SYSTEM
+   THE 1% CLUB — SOVEREIGN BRAND IDENTITY HEADER SYSTEM (DEFINITIVE)
    Imperial Roman Serif "Cinzel" & Polished Physical Metallic Gold Finish
    Unified identically across Membership, Club, Profile, and Boutique tabs
    ========================================================================== */
+:root {
+  --header-actual-height: 80px;
+}
+
+#appHeader,
+.app-header {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 520px !important;
+  margin: 0 auto !important;
+  min-height: 80px !important;
+  height: 80px !important;
+  padding: calc(9px + env(safe-area-inset-top, 0px)) 16px 14px !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 10, 0.94) 0%,
+    rgba(12, 12, 16, 0.86) 45%,
+    rgba(14, 14, 18, 0.65) 75%,
+    rgba(16, 16, 20, 0.25) 92%,
+    rgba(16, 16, 20, 0.0) 100%
+  ) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12) !important;
+  border: none !important;
+  border-bottom: none !important;
+  z-index: 90 !important;
+  transform: translate3d(0, 0, 0) !important;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, opacity !important;
+  pointer-events: auto !important;
+}
+
+body.light-mode #appHeader,
+html.light-mode #appHeader,
+body.light-mode .app-header,
+html.light-mode .app-header,
+:root[data-theme="light"] #appHeader,
+:root[data-theme="light"] .app-header {
+  background: linear-gradient(
+    180deg,
+    rgba(253, 251, 247, 0.94) 0%,
+    rgba(249, 245, 238, 0.84) 45%,
+    rgba(244, 238, 228, 0.58) 75%,
+    rgba(240, 233, 220, 0.20) 92%,
+    rgba(240, 233, 220, 0.0) 100%
+  ) !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.90) !important;
+  border: none !important;
+  border-bottom: none !important;
+}
+
+/* Hairline divider at bottom of header */
+#appHeader::after,
+.app-header::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 12% !important;
+  right: 12% !important;
+  height: 1px !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(135, 94, 22, 0.25) 20%,
+    rgba(217, 165, 43, 0.65) 50%,
+    rgba(254, 234, 158, 0.80) 50%,
+    rgba(217, 165, 43, 0.65) 50%,
+    rgba(135, 94, 22, 0.25) 80%,
+    transparent 100%
+  ) !important;
+  opacity: 0.7 !important;
+  pointer-events: none !important;
+}
+
+body.light-mode #appHeader::after,
+html.light-mode #appHeader::after,
+body.light-mode .app-header::after,
+html.light-mode .app-header::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(135, 94, 22, 0.15) 20%,
+    rgba(217, 165, 43, 0.45) 50%,
+    rgba(135, 94, 22, 0.15) 80%,
+    transparent 100%
+  ) !important;
+  opacity: 0.8 !important;
+}
+
+/* Geometric Centering: Center Crown, Wordmark, and Tagline relative to entire app width */
+#appHeader .brand,
+.app-header .brand {
+  position: absolute !important;
+  left: 50% !important;
+  top: calc(9px + env(safe-area-inset-top, 0px)) !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  max-width: calc(100% - 96px) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  pointer-events: auto !important;
+  z-index: 2 !important;
+}
+
+/* Verification Shield Button — Locked to Far Right */
+#appHeader #headerVerifiedShieldBtn,
+#appHeader .shield-btn,
+.app-header .shield-btn {
+  position: absolute !important;
+  right: calc(16px + env(safe-area-inset-right, 0px)) !important;
+  top: calc(9px + env(safe-area-inset-top, 0px) + 20px) !important;
+  transform: translateY(-50%) !important;
+  width: 38px !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 5 !important;
+}
+
+/* Back Button — Locked to Far Left (when active in sub-views) */
+#appHeader #backBtn,
+#appHeader .back-btn,
+.app-header .back-btn {
+  position: absolute !important;
+  left: calc(16px + env(safe-area-inset-left, 0px)) !important;
+  top: calc(9px + env(safe-area-inset-top, 0px) + 20px) !important;
+  transform: translateY(-50%) !important;
+  width: 38px !important;
+  height: 38px !important;
+  z-index: 5 !important;
+}
+
+/* Brand Crown Styling */
+#appHeader .brand-crown-wrapper,
+.brand-crown-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 0 3px 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+#appHeader .brand-crown,
+.brand-crown {
+  width: 40px !important;
+  height: 22px !important;
+  display: block !important;
+  overflow: visible !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45)) !important;
+}
+
+body.light-mode #appHeader .brand-crown,
+html.light-mode #appHeader .brand-crown,
+body.light-mode .brand-crown,
+html.light-mode .brand-crown {
+  filter: drop-shadow(0 1px 2px rgba(80, 55, 15, 0.25)) !important;
+}
+
+/* Brand Title — Imperial Roman Serif "Cinzel" & Master Membership Card 24K Polished Gold */
 #appHeader .brand-title,
 #appHeader .brand h1,
 .brand-title,
 .brand h1 {
-  font-family: "Cinzel", serif !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.10em !important;
+  font-family: "Cinzel", "Cormorant Garamond", serif !important;
+  font-weight: 700 !important;
+  font-size: clamp(17px, 4.6vw, 20px) !important;
+  letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
-  line-height: 1.12 !important;
+  margin: 0 0 4px 0 !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  position: relative !important;
+  z-index: 2 !important;
+  background: linear-gradient(
+    180deg,
+    #FFFFFF 0%,
+    #FFF5D0 16%,
+    #E6BE54 44%,
+    #C59324 64%,
+    #876014 88%,
+    #573B06 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.65)) !important;
+}
+
+body.light-mode #appHeader .brand-title,
+body.light-mode #appHeader .brand h1,
+html.light-mode #appHeader .brand-title,
+html.light-mode #appHeader .brand h1,
+body.light-mode .brand-title,
+body.light-mode .brand h1,
+html.light-mode .brand-title,
+html.light-mode .brand h1 {
+  background: linear-gradient(
+    180deg,
+    #382404 0%,
+    #6E490D 32%,
+    #A8781B 60%,
+    #4D3206 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8)) !important;
+}
+
+/* Symmetrical Tagline Lockup: PRIVATE WEALTH · PRIVATE SOCIETY */
+#appHeader .brand-tagline-lockup,
+.brand-tagline-lockup {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  max-width: 330px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 2 !important;
 }
 
 #appHeader .brand-tagline-text,
 .brand-tagline-text {
-  font-family: "Cinzel", "Manrope", serif !important;
-  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-family: "Cinzel", serif !important;
+  font-size: clamp(7.2px, 2.0vw, 8px) !important;
   letter-spacing: 0.20em !important;
+  font-weight: 500 !important;
   text-transform: uppercase !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  background: linear-gradient(
+    180deg,
+    #FFFFFF 0%,
+    #FFF4CE 25%,
+    #D4A330 65%,
+    #7A5514 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.75)) !important;
 }
 
-/* Guarantee identical header presence across all 4 tab contexts */
-.app-header {
-  min-height: 76px !important;
+body.light-mode #appHeader .brand-tagline-text,
+html.light-mode #appHeader .brand-tagline-text,
+body.light-mode .brand-tagline-text,
+html.light-mode .brand-tagline-text {
+  background: linear-gradient(
+    180deg,
+    #4D2E04 0%,
+    #7A5514 60%,
+    #3D2403 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: none !important;
 }
+
+#appHeader .tagline-diamond-sep,
+.tagline-diamond-sep {
+  display: inline-block !important;
+  font-size: 5px !important;
+  line-height: 1 !important;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 40%, #D9A52B 75%, #593402 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8)) !important;
+}
+
+body.light-mode #appHeader .tagline-diamond-sep,
+html.light-mode #appHeader .tagline-diamond-sep,
+body.light-mode .tagline-diamond-sep,
+html.light-mode .tagline-diamond-sep {
+  background: linear-gradient(135deg, #875E16 0%, #D9A52B 60%, #422504 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: none !important;
+}
+
+#appHeader .tagline-rule,
+.tagline-rule {
+  display: flex !important;
+  align-items: center !important;
+  flex: 1 !important;
+  min-width: 14px !important;
+  max-width: 44px !important;
+  height: 1px !important;
+}
+
+#appHeader .tagline-rule .rule-line,
+.tagline-rule .rule-line {
+  flex: 1 !important;
+  height: 1px !important;
+}
+
+#appHeader .tagline-rule-left .rule-line,
+.tagline-rule-left .rule-line {
+  background: linear-gradient(90deg, rgba(212, 165, 55, 0) 0%, rgba(212, 165, 55, 0.5) 50%, #FEEA9E 90%, #FFFFFF 100%) !important;
+}
+
+#appHeader .tagline-rule-right .rule-line,
+.tagline-rule-right .rule-line {
+  background: linear-gradient(90deg, #FFFFFF 0%, #FEEA9E 10%, rgba(212, 165, 55, 0.5) 50%, rgba(212, 165, 55, 0) 100%) !important;
+}
+
+body.light-mode #appHeader .tagline-rule-left .rule-line,
+html.light-mode #appHeader .tagline-rule-left .rule-line,
+body.light-mode .tagline-rule-left .rule-line,
+html.light-mode .tagline-rule-left .rule-line {
+  background: linear-gradient(90deg, rgba(61, 36, 3, 0.1) 0%, #875E16 50%, #D9A52B 100%) !important;
+}
+
+body.light-mode #appHeader .tagline-rule-right .rule-line,
+html.light-mode #appHeader .tagline-rule-right .rule-line,
+body.light-mode .tagline-rule-right .rule-line,
+html.light-mode .tagline-rule-right .rule-line {
+  background: linear-gradient(90deg, #D9A52B 0%, #875E16 50%, rgba(61, 36, 3, 0.1) 100%) !important;
+}
+
+#appHeader .tagline-rule .rule-diamond,
+.tagline-rule .rule-diamond {
+  width: 3.5px !important;
+  height: 3.5px !important;
+  transform: rotate(45deg) !important;
+  flex-shrink: 0 !important;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 35%, #D9A52B 70%, #231604 100%) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+}
+
+body.light-mode #appHeader .tagline-rule .rule-diamond,
+html.light-mode #appHeader .tagline-rule .rule-diamond,
+body.light-mode .tagline-rule .rule-diamond,
+html.light-mode .tagline-rule .rule-diamond {
+  background: linear-gradient(135deg, #D9A52B 0%, #875E16 60%, #231604 100%) !important;
+  box-shadow: 0 1px 2px rgba(45, 25, 5, 0.25) !important;
+}
+
+/* Header Hidden State on Scroll */
+#appHeader.header-hidden,
+.app-header.header-hidden {
+  transform: translate3d(0, -100%, 0) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Unified Page Top Padding Guarantee Across All 4 Tabs */
+.page,
+#membership-tab,
+#club-tab.is-active,
+#profile-tab,
+#boutique-tab {
+  padding-top: calc(var(--header-actual-height, 80px) + 8px) !important;
+}
+
+#club-tab.club-header-collapsed,
+#club-tab.is-active.club-header-collapsed,
+body.light-mode #club-tab.club-header-collapsed,
+body.light-mode #club-tab.is-active.club-header-collapsed,
+html.light-mode #club-tab.club-header-collapsed,
+html.light-mode #club-tab.is-active.club-header-collapsed,
+body.dark-mode #club-tab.club-header-collapsed,
+body.dark-mode #club-tab.is-active.club-header-collapsed,
+html.dark-mode #club-tab.club-header-collapsed,
+html.dark-mode #club-tab.is-active.club-header-collapsed,
+:root[data-theme="light"] #club-tab.club-header-collapsed,
+:root[data-theme="light"] #club-tab.is-active.club-header-collapsed,
+:root[data-theme="dark"] #club-tab.club-header-collapsed,
+:root[data-theme="dark"] #club-tab.is-active.club-header-collapsed {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 6px) !important;
+}
+
 
