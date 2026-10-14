@@ -1,5 +1,5 @@
 /* === 1. Root Variables === */
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@300;400;500;600;700&display=swap");
 
 :root {
   --header-actual-height: 82px;
@@ -1101,29 +1101,29 @@ body.light-mode .shield-btn::before {
 /* Brand Wordmark — THE 1% CLUB (Imperial Cinzel Roman Serif & Polished Physical Gold) */
 .brand-title,
 .brand h1 {
-  margin: 0 0 3.5px 0;
-  font-family: "Cinzel", "Cormorant Garamond", serif !important;
-  font-weight: 600 !important;
-  font-size: clamp(17px, 4.8vw, 20.5px) !important;
-  letter-spacing: 0.12em !important;
+  margin: 0 0 3px 0;
+  font-family: "Cinzel", "Cinzel Decorative", "Playfair Display", "Cormorant Garamond", serif !important;
+  font-weight: 700 !important;
+  font-size: clamp(18.5px, 5.2vw, 22.5px) !important;
+  letter-spacing: 0.14em !important;
   text-transform: uppercase;
   background: linear-gradient(
-    180deg,
+    135deg,
     #FFFFFF 0%,
-    #FFF4CA 15%,
-    #F3C958 34%,
-    #DDA833 48%,
-    #7A5518 52%,
-    #231604 54%,
-    #C58F20 66%,
-    #FDE895 82%,
-    #875E16 100%
+    #FFF6E0 14%,
+    #E2C68A 28%,
+    #C4A35C 42%,
+    #8C6D2D 60%,
+    #523E17 72%,
+    #C4A35C 84%,
+    #FFF6E0 94%,
+    #D4B36A 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: drop-shadow(0 1.5px 3px rgba(0, 0, 0, 0.92)) drop-shadow(0 0 1px rgba(28, 18, 4, 0.7));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95)) !important;
   line-height: 1.15;
   text-align: center;
   white-space: nowrap;
@@ -1136,20 +1136,21 @@ body.light-mode .brand h1,
 html.light-mode .brand-title,
 html.light-mode .brand h1 {
   background: linear-gradient(
-    180deg,
-    #3D2403 0%,
-    #7D5311 18%,
-    #C99427 44%,
-    #422504 52%,
-    #875E16 68%,
-    #BA8821 86%,
+    135deg,
+    #321A02 0%,
+    #5E3806 18%,
+    #966914 36%,
+    #DCAE4A 48%,
+    #7A4F0B 64%,
+    #3D2203 80%,
+    #8C5E14 92%,
     #4D2E04 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0 1px 2px rgba(50, 30, 6, 0.25));
+  filter: drop-shadow(0 1px 1.5px rgba(55, 30, 8, 0.45)) !important;
 }
 
 /* Symmetrical Tagline Lockup: PRIVATE WEALTH · PRIVATE SOCIETY */
@@ -1168,18 +1169,19 @@ html.light-mode .brand h1 {
 .brand-tagline-text {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 6px !important;
-  font-family: "Cinzel", serif !important;
-  font-size: clamp(7.5px, 2.1vw, 8.4px) !important;
-  letter-spacing: 0.18em !important;
-  font-weight: 500 !important;
+  gap: 8px !important;
+  font-family: "Cinzel", "Cinzel Decorative", "Playfair Display", "Cormorant Garamond", serif !important;
+  font-size: clamp(8px, 2.2vw, 9.5px) !important;
+  letter-spacing: 0.22em !important;
+  font-weight: 700 !important;
   white-space: nowrap;
   background: linear-gradient(
-    180deg,
+    135deg,
     #FFFFFF 0%,
-    #FFF6DC 22%,
-    #E2AE33 60%,
-    #875E16 100%
+    #FFF6E0 20%,
+    #E2C68A 45%,
+    #C4A35C 70%,
+    #8C6D2D 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
@@ -1187,44 +1189,50 @@ html.light-mode .brand h1 {
   color: transparent !important;
   text-transform: uppercase;
   line-height: 1;
-  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.95));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) !important;
 }
 
 body.light-mode .brand-tagline-text,
 html.light-mode .brand-tagline-text {
   background: linear-gradient(
-    180deg,
-    #4D2E04 0%,
-    #875E16 50%,
-    #3D2403 100%
+    135deg,
+    #261502 0%,
+    #523205 25%,
+    #855610 50%,
+    #B3821C 75%,
+    #4D2E04 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: none;
+  font-size: clamp(8px, 2.2vw, 9.5px) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.22em !important;
+  filter: drop-shadow(0 0.5px 1px rgba(60, 35, 10, 0.40)) !important;
 }
 
 .tagline-diamond-sep {
   display: inline-block;
-  font-size: 5px;
+  font-size: 5.5px;
   line-height: 1;
-  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 40%, #D9A52B 75%, #593402 100%);
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  color: transparent !important;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8));
+  color: #FFF6E0 !important;
+  background: none !important;
+  -webkit-text-fill-color: #FFF6E0 !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.95));
 }
 
 body.light-mode .tagline-diamond-sep,
 html.light-mode .tagline-diamond-sep {
-  background: linear-gradient(135deg, #875E16 0%, #D9A52B 60%, #422504 100%);
-  -webkit-background-clip: text !important;
+  color: #523205 !important;
+  background: none !important;
+  -webkit-text-fill-color: #523205 !important;
+  filter: drop-shadow(0 0.5px 1px rgba(60, 35, 10, 0.35)) !important;
+}
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: none;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9)) drop-shadow(0 1px 1px rgba(60, 35, 10, 0.35));
 }
 
 .tagline-rule {
@@ -1241,21 +1249,21 @@ html.light-mode .tagline-diamond-sep {
 }
 
 .tagline-rule-left .rule-line {
-  background: linear-gradient(90deg, rgba(135, 94, 22, 0.4) 0%, #D9A52B 45%, #FEEA9E 85%, #FFFFFF 100%) !important;
+  background: linear-gradient(90deg, rgba(220, 174, 74, 0) 0%, rgba(220, 174, 74, 0.6) 50%, #FAECC5 90%, #FFFFFF 100%) !important;
 }
 
 .tagline-rule-right .rule-line {
-  background: linear-gradient(90deg, #FFFFFF 0%, #FEEA9E 15%, #D9A52B 55%, rgba(135, 94, 22, 0.4) 100%) !important;
+  background: linear-gradient(90deg, #FFFFFF 0%, #FAECC5 10%, rgba(220, 174, 74, 0.6) 50%, rgba(220, 174, 74, 0) 100%) !important;
 }
 
 body.light-mode .tagline-rule-left .rule-line,
 html.light-mode .tagline-rule-left .rule-line {
-  background: linear-gradient(90deg, rgba(61, 36, 3, 0.2) 0%, #875E16 50%, #D9A52B 100%) !important;
+  background: linear-gradient(90deg, transparent 0%, rgba(160, 116, 36, 0.35) 40%, #A07424 85%, #FAECC5 100%) !important;
 }
 
 body.light-mode .tagline-rule-right .rule-line,
 html.light-mode .tagline-rule-right .rule-line {
-  background: linear-gradient(90deg, #D9A52B 0%, #875E16 50%, rgba(61, 36, 3, 0.2) 100%) !important;
+  background: linear-gradient(90deg, #FAECC5 0%, #A07424 15%, rgba(160, 116, 36, 0.35) 60%, transparent 100%) !important;
 }
 
 .tagline-rule .rule-diamond {
@@ -1263,14 +1271,14 @@ html.light-mode .tagline-rule-right .rule-line {
   height: 4px;
   transform: rotate(45deg);
   flex-shrink: 0;
-  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 35%, #D9A52B 70%, #231604 100%) !important;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAECC5 35%, #DCAE4A 70%, #4A2B04 100%) !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 
 body.light-mode .tagline-rule .rule-diamond,
 html.light-mode .tagline-rule .rule-diamond {
-  background: linear-gradient(135deg, #D9A52B 0%, #875E16 60%, #231604 100%) !important;
-  box-shadow: 0 1px 2px rgba(45, 25, 5, 0.25);
+  background: linear-gradient(135deg, #FAECC5 0%, #DCAE4A 50%, #684514 100%) !important;
+  box-shadow: 0 1px 1px rgba(50, 25, 5, 0.25) !important;
 }
 body.light-mode .section-rule span:last-child {
   background: linear-gradient(90deg, rgba(165, 122, 45, 0.45), transparent) !important;
@@ -37546,7 +37554,7 @@ html.light-mode .app-header::after {
 /* 1. Brand Crown Wrapper & Crown */
 #appHeader .brand-crown-wrapper,
 .brand-crown-wrapper {
-  margin: 0 0 2px 0 !important;
+  margin: 0 0 3px 0 !important;
   position: relative !important;
   z-index: 2 !important;
   display: flex !important;
@@ -37556,42 +37564,165 @@ html.light-mode .app-header::after {
 
 #appHeader .brand-crown,
 .brand-crown {
-  width: 48px !important;
-  height: 26px !important;
+  width: clamp(44px, 11vw, 48px) !important;
+  height: clamp(21px, 5.3vw, 23px) !important;
   display: block !important;
   overflow: visible !important;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 12px rgba(229, 184, 66, 0.32)) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95)) !important;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease !important;
 }
 
 #appHeader:hover .brand-crown,
 .brand-crown-wrapper:hover .brand-crown {
   transform: translateY(-0.5px) scale(1.03) !important;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.94)) drop-shadow(0 0 16px rgba(254, 234, 158, 0.45)) !important;
+  filter: drop-shadow(0 2.5px 5px rgba(0, 0, 0, 0.98)) !important;
 }
 
-/* Light Mode: Warm, rich antique bronze contact shadow with high contrast against ivory glass */
+/* Geometric Sovereign Crown — Dark Mode Default (Polished 24K Champagne Gold) */
+.brand-crown .cr-facet-l {
+  fill: url(#crGoldLight) !important;
+  stroke: #523E17 !important;
+  stroke-width: 0.25px !important;
+}
+
+.brand-crown .cr-facet-r {
+  fill: url(#crGoldShadow) !important;
+  stroke: #261A07 !important;
+  stroke-width: 0.25px !important;
+}
+
+.brand-crown .cr-ridge {
+  stroke: #FFF6E0 !important;
+  stroke-width: 0.35px !important;
+  stroke-linecap: round !important;
+}
+
+.brand-crown .cr-base {
+  fill: url(#crGoldBase) !important;
+  stroke: #32230B !important;
+  stroke-width: 0.3px !important;
+}
+
+.brand-crown .cr-base-top {
+  stroke: #FFFFFF !important;
+  stroke-width: 0.45px !important;
+}
+
+.brand-crown .cr-base-bot {
+  stroke: #1F1302 !important;
+  stroke-width: 0.5px !important;
+}
+
+.brand-crown .cr-base-groove {
+  stroke: #261A07 !important;
+  stroke-width: 0.35px !important;
+  opacity: 0.7 !important;
+}
+
+.brand-crown .cr-base-gem {
+  fill: url(#crGoldLight) !important;
+  stroke: #FFFFFF !important;
+  stroke-width: 0.25px !important;
+}
+
+.brand-crown .cr-ball {
+  fill: url(#crBallGrad) !important;
+  stroke: #523E17 !important;
+  stroke-width: 0.25px !important;
+}
+
+.brand-crown .cr-glint {
+  fill: #FFFFFF !important;
+}
+
+/* Light Mode Crown: High-Contrast Burnished Bronze Gold */
 body.light-mode #appHeader .brand-crown,
 html.light-mode #appHeader .brand-crown,
 body.light-mode .brand-crown,
 html.light-mode .brand-crown {
-  filter: drop-shadow(0 2px 4px rgba(60, 35, 10, 0.38)) drop-shadow(0 0.5px 1px rgba(70, 40, 10, 0.45)) saturate(120%) contrast(112%) !important;
+  filter: drop-shadow(0 1px 1.5px rgba(60, 35, 10, 0.40)) !important;
 }
 
 body.light-mode #appHeader:hover .brand-crown,
 html.light-mode #appHeader:hover .brand-crown {
-  filter: drop-shadow(0 3px 6px rgba(60, 35, 10, 0.45)) drop-shadow(0 0 10px rgba(184, 134, 30, 0.35)) saturate(120%) contrast(115%) !important;
+  filter: drop-shadow(0 1.5px 3px rgba(60, 35, 10, 0.48)) !important;
 }
 
-/* 2. Brand Title — "THE 1% CLUB" (Museum-Grade Haute Horlogerie Typography) */
+body.light-mode .brand-crown .cr-facet-l,
+html.light-mode .brand-crown .cr-facet-l {
+  fill: url(#crLightFacetL) !important;
+  stroke: #4D3007 !important;
+  stroke-width: 0.3px !important;
+}
+
+body.light-mode .brand-crown .cr-facet-r,
+html.light-mode .brand-crown .cr-facet-r {
+  fill: url(#crLightFacetR) !important;
+  stroke: #1A0D01 !important;
+  stroke-width: 0.3px !important;
+}
+
+body.light-mode .brand-crown .cr-ridge,
+html.light-mode .brand-crown .cr-ridge {
+  stroke: #FFEBB0 !important;
+  stroke-width: 0.35px !important;
+  stroke-linecap: round !important;
+}
+
+body.light-mode .brand-crown .cr-base,
+html.light-mode .brand-crown .cr-base {
+  fill: url(#crLightBase) !important;
+  stroke: #2B1802 !important;
+  stroke-width: 0.35px !important;
+}
+
+body.light-mode .brand-crown .cr-base-top,
+html.light-mode .brand-crown .cr-base-top {
+  stroke: #FFE8A3 !important;
+  stroke-width: 0.5px !important;
+}
+
+body.light-mode .brand-crown .cr-base-bot,
+html.light-mode .brand-crown .cr-base-bot {
+  stroke: #120901 !important;
+  stroke-width: 0.5px !important;
+}
+
+body.light-mode .brand-crown .cr-base-groove,
+html.light-mode .brand-crown .cr-base-groove {
+  stroke: #1A0D01 !important;
+  stroke-width: 0.35px !important;
+  opacity: 0.8 !important;
+}
+
+body.light-mode .brand-crown .cr-base-gem,
+html.light-mode .brand-crown .cr-base-gem {
+  fill: url(#crLightFacetL) !important;
+  stroke: #120901 !important;
+  stroke-width: 0.25px !important;
+}
+
+body.light-mode .brand-crown .cr-ball,
+html.light-mode .brand-crown .cr-ball {
+  fill: url(#crLightBallGrad) !important;
+  stroke: #3D2403 !important;
+  stroke-width: 0.3px !important;
+}
+
+body.light-mode .brand-crown .cr-glint,
+html.light-mode .brand-crown .cr-glint {
+  fill: #FFFFFF !important;
+}
+
+/* 2. Brand Title — "THE 1% CLUB" (Haute Horlogerie Inscriptional Roman Typography & 24K Polished Gold) */
 #appHeader .brand-title,
 #appHeader .brand h1,
 .brand-title,
 .brand h1 {
-  font-family: "Cinzel", "Playfair Display", "Cormorant Garamond", serif !important;
-  font-weight: 800 !important;
-  font-size: clamp(18.5px, 5vw, 22px) !important;
-  letter-spacing: 0.18em !important;
+  font-family: "Cinzel", "Cinzel Decorative", "Playfair Display", "Cormorant Garamond", serif !important;
+  font-weight: 700 !important;
+  font-size: clamp(18.5px, 5.2vw, 22.5px) !important;
+  letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
   margin: 0 0 3px 0 !important;
   line-height: 1.15 !important;
@@ -37600,22 +37731,26 @@ html.light-mode #appHeader:hover .brand-crown {
   position: relative !important;
   z-index: 2 !important;
   background: linear-gradient(
-    180deg,
+    135deg,
     #FFFFFF 0%,
-    #FFF5D2 14%,
-    #F5CE5D 38%,
-    #D49D26 62%,
-    #8C590E 85%,
-    #462A03 100%
+    #FFF6E0 14%,
+    #E2C68A 28%,
+    #C4A35C 42%,
+    #8C6D2D 60%,
+    #523E17 72%,
+    #C4A35C 84%,
+    #FFF6E0 94%,
+    #D4B36A 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(245, 206, 93, 0.22)) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95)) !important;
+  text-shadow: none !important;
 }
 
-/* Light Mode Title: Crisp, museum-grade intaglio debossed lettering with supreme contrast */
+/* Light Mode Title: High-Contrast Burnished 24K Bronze Gold (Crystal-clear contrast on ivory background) */
 body.light-mode #appHeader .brand-title,
 body.light-mode #appHeader .brand h1,
 html.light-mode #appHeader .brand-title,
@@ -37625,19 +37760,40 @@ body.light-mode .brand h1,
 html.light-mode .brand-title,
 html.light-mode .brand h1 {
   background: linear-gradient(
-    180deg,
-    #100801 0%,
-    #261603 25%,
-    #442806 55%,
-    #6B4008 82%,
-    #140B01 100%
+    135deg,
+    #321A02 0%,
+    #5E3806 18%,
+    #966914 36%,
+    #DCAE4A 48%,
+    #7A4F0B 64%,
+    #3D2203 80%,
+    #8C5E14 92%,
+    #4D2E04 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  color: #100801 !important;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.98)) drop-shadow(0 1px 2px rgba(60, 35, 10, 0.22)) !important;
+  color: transparent !important;
+  filter: drop-shadow(0 1px 1.5px rgba(55, 30, 8, 0.45)) !important;
   text-shadow: none !important;
+}
+
+/* RTL / Arabic Guarantee: Brand wordmark strictly preserves Imperial Roman serif face */
+html[lang="ar"] #appHeader .brand-title,
+html[dir="rtl"] #appHeader .brand-title,
+body[dir="rtl"] #appHeader .brand-title,
+html[lang="ar"] .brand-title,
+html[dir="rtl"] .brand-title,
+body[dir="rtl"] .brand-title,
+html[lang="ar"] #appHeader .brand-tagline-text,
+html[dir="rtl"] #appHeader .brand-tagline-text,
+body[dir="rtl"] #appHeader .brand-tagline-text,
+html[lang="ar"] .brand-tagline-text,
+html[dir="rtl"] .brand-tagline-text,
+html[lang="ar"] .brand-tagline-text span,
+html[dir="rtl"] .brand-tagline-text span,
+body[dir="rtl"] .brand-tagline-text span {
+  font-family: "Cinzel", "Cinzel Decorative", "Playfair Display", "Cormorant Garamond", serif !important;
 }
 
 /* 3. Symmetrical Tagline Lockup: PRIVATE WEALTH · PRIVATE SOCIETY */
@@ -37659,7 +37815,7 @@ html.light-mode .brand h1 {
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
-  font-family: "Cinzel", serif !important;
+  font-family: "Cinzel", "Cinzel Decorative", "Playfair Display", "Cormorant Garamond", serif !important;
   font-size: clamp(8px, 2.2vw, 9.5px) !important;
   letter-spacing: 0.22em !important;
   font-weight: 700 !important;
@@ -37667,32 +37823,41 @@ html.light-mode .brand h1 {
   line-height: 1 !important;
   white-space: nowrap !important;
   background: linear-gradient(
-    180deg,
+    135deg,
     #FFFFFF 0%,
-    #FFF5D6 20%,
-    #E2B239 60%,
-    #7A5514 100%
+    #FFF6E0 20%,
+    #E2C68A 45%,
+    #C4A35C 70%,
+    #8C6D2D 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) !important;
 }
 
+/* Light Mode Tagline Text: High-Contrast Burnished 24K Bronze Gold */
 body.light-mode #appHeader .brand-tagline-text,
 html.light-mode #appHeader .brand-tagline-text,
 body.light-mode .brand-tagline-text,
 html.light-mode .brand-tagline-text {
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-  -webkit-text-fill-color: #160B01 !important;
-  color: #160B01 !important;
-  font-size: clamp(8.5px, 2.3vw, 9.8px) !important;
+  background: linear-gradient(
+    135deg,
+    #261502 0%,
+    #523205 25%,
+    #855610 50%,
+    #B3821C 75%,
+    #4D2E04 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  font-size: clamp(8px, 2.2vw, 9.5px) !important;
   font-weight: 700 !important;
   letter-spacing: 0.22em !important;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95)) !important;
+  filter: drop-shadow(0 0.5px 1px rgba(60, 35, 10, 0.40)) !important;
 }
 
 #appHeader .tagline-diamond-sep,
@@ -37700,25 +37865,20 @@ html.light-mode .brand-tagline-text {
   display: inline-block !important;
   font-size: 5.5px !important;
   line-height: 1 !important;
-  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 40%, #D9A52B 75%, #593402 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  color: transparent !important;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8)) !important;
+  color: #FFF6E0 !important;
+  background: none !important;
+  -webkit-text-fill-color: #FFF6E0 !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.95)) !important;
 }
 
 body.light-mode #appHeader .tagline-diamond-sep,
 html.light-mode #appHeader .tagline-diamond-sep,
 body.light-mode .tagline-diamond-sep,
 html.light-mode .tagline-diamond-sep {
+  color: #523205 !important;
   background: none !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-  -webkit-text-fill-color: #9E6E16 !important;
-  color: #9E6E16 !important;
-  font-size: 6px !important;
-  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.9)) !important;
+  -webkit-text-fill-color: #523205 !important;
+  filter: drop-shadow(0 0.5px 1px rgba(60, 35, 10, 0.35)) !important;
 }
 
 #appHeader .tagline-rule,
@@ -37739,44 +37899,46 @@ html.light-mode .tagline-diamond-sep {
 
 #appHeader .tagline-rule-left .rule-line,
 .tagline-rule-left .rule-line {
-  background: linear-gradient(90deg, rgba(212, 165, 55, 0) 0%, rgba(212, 165, 55, 0.6) 50%, #FEEA9E 90%, #FFFFFF 100%) !important;
+  background: linear-gradient(90deg, #8C6D2D 0%, #C4A35C 40%, #E2C68A 80%, #FFFFFF 100%) !important;
 }
 
 #appHeader .tagline-rule-right .rule-line,
 .tagline-rule-right .rule-line {
-  background: linear-gradient(90deg, #FFFFFF 0%, #FEEA9E 10%, rgba(212, 165, 55, 0.6) 50%, rgba(212, 165, 55, 0) 100%) !important;
+  background: linear-gradient(90deg, #FFFFFF 0%, #E2C68A 20%, #C4A35C 60%, #8C6D2D 100%) !important;
 }
 
 body.light-mode #appHeader .tagline-rule-left .rule-line,
 html.light-mode #appHeader .tagline-rule-left .rule-line,
 body.light-mode .tagline-rule-left .rule-line,
 html.light-mode .tagline-rule-left .rule-line {
-  background: linear-gradient(90deg, transparent 0%, rgba(158, 110, 22, 0.4) 40%, #9E6E16 100%) !important;
+  background: linear-gradient(90deg, #381F02 0%, #6B450B 35%, #9E7019 75%, #4D2E04 100%) !important;
 }
 
 body.light-mode #appHeader .tagline-rule-right .rule-line,
 html.light-mode #appHeader .tagline-rule-right .rule-line,
 body.light-mode .tagline-rule-right .rule-line,
 html.light-mode .tagline-rule-right .rule-line {
-  background: linear-gradient(90deg, #9E6E16 0%, rgba(158, 110, 22, 0.4) 60%, transparent 100%) !important;
+  background: linear-gradient(90deg, #4D2E04 0%, #9E7019 25%, #6B450B 65%, #381F02 100%) !important;
 }
 
 #appHeader .tagline-rule .rule-diamond,
 .tagline-rule .rule-diamond {
-  width: 3.5px !important;
-  height: 3.5px !important;
+  width: 4px !important;
+  height: 4px !important;
   transform: rotate(45deg) !important;
   flex-shrink: 0 !important;
-  background: linear-gradient(135deg, #FFFFFF 0%, #FEEA9E 35%, #D9A52B 70%, #231604 100%) !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  background: #FFF6E0 !important;
+  border: 0.75px solid #8C6D2D !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.95) !important;
 }
 
 body.light-mode #appHeader .tagline-rule .rule-diamond,
 html.light-mode #appHeader .tagline-rule .rule-diamond,
 body.light-mode .tagline-rule .rule-diamond,
 html.light-mode .tagline-rule .rule-diamond {
-  background: #9E6E16 !important;
-  box-shadow: 0 1px 2px rgba(50, 25, 5, 0.25) !important;
+  background: #855610 !important;
+  border: 0.75px solid #381F02 !important;
+  box-shadow: 0 1px 1px rgba(60, 35, 10, 0.35) !important;
 }
 
 /* 4. Solid Gold Sovereign Shield Medallion (Haute Horlogerie Minted Medal) */
