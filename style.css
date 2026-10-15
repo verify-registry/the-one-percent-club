@@ -18456,31 +18456,26 @@ body.light-mode .boutique-card.qp-shimmer-active::after {
    SOLID GOLD MEDALLION (Header)
    ========================================================================== */
 .solid-gold-medallion {
-  width: 32px !important;
-  height: 32px !important;
+  width: 38px !important;
+  height: 38px !important;
   border: none !important;
   background: transparent !important;
   padding: 0 !important;
-  border-radius: 50%;
-  position: absolute;
-  inset-inline-end: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  border-radius: 50% !important;
+  position: absolute !important;
+  inset-inline-end: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   overflow: visible !important;
 }
 
 .solid-gold-medallion::after { display: none !important; }
 
 .sgm-svg {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
-body.light-mode .solid-gold-medallion {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(184, 134, 11, 0.3);
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
 }
 
 
@@ -37581,7 +37576,7 @@ html.light-mode #appHeader .brand-crown-wrapper {
   transform: translateY(-0.5px) scale(1.02) !important;
 }
 
-/* Light Mode Crown: Exact Authentic Antique Polished Gold (Matching Edit Profile Plaque) */
+/* Light Mode Crown: Exact Authentic Antique Polished Gold (Matching Ivory Theme) */
 body.light-mode #appHeader .brand-crown,
 html.light-mode #appHeader .brand-crown,
 body.light-mode .brand-crown,
@@ -37589,85 +37584,55 @@ html.light-mode .brand-crown {
   width: 44px !important;
   height: 23.5px !important;
   aspect-ratio: 120 / 64 !important;
-  filter: drop-shadow(0 1px 1px rgba(50, 32, 10, 0.2)) !important;
+  filter: drop-shadow(0 1px 1px rgba(50, 32, 10, 0.25)) !important;
 }
 
-body.light-mode .brand-crown .crown-body,
-html.light-mode .brand-crown .crown-body,
-body.light-mode .brand-crown path[fill="url(#crownMetal)"],
-html.light-mode .brand-crown path[fill="url(#crownMetal)"] {
-  fill: url(#crownMetalLight) !important;
-  stroke: #5C3D10 !important;
-  stroke-width: 0.6 !important;
-}
-
+body.light-mode .brand-crown .crown-facet-lit,
+html.light-mode .brand-crown .crown-facet-lit,
 body.light-mode .brand-crown .crown-facet-left,
 html.light-mode .brand-crown .crown-facet-left {
-  fill: url(#crownFacetLeftLight) !important;
+  fill: url(#crownFacetLitLight) !important;
+  stroke: #4A2E08 !important;
 }
 
-body.light-mode .brand-crown .crown-center-crease,
-html.light-mode .brand-crown .crown-center-crease {
-  stroke: #5C3D10 !important;
-  stroke-opacity: 0.45 !important;
-  stroke-width: 0.6 !important;
+body.light-mode .brand-crown .crown-facet-shadow,
+html.light-mode .brand-crown .crown-facet-shadow,
+body.light-mode .brand-crown .crown-facet-right,
+html.light-mode .brand-crown .crown-facet-right {
+  fill: url(#crownFacetShadowLight) !important;
+  stroke: #4A2E08 !important;
 }
 
-body.light-mode .brand-crown .crown-inner-specular,
-html.light-mode .brand-crown .crown-inner-specular {
-  stroke: url(#crownBevelLight) !important;
-  stroke-opacity: 0.95 !important;
-  stroke-width: 0.75 !important;
+body.light-mode .brand-crown .crown-interior,
+html.light-mode .brand-crown .crown-interior {
+  fill: url(#crownInteriorLight) !important;
 }
 
-body.light-mode .brand-crown .crown-base-band,
-html.light-mode .brand-crown .crown-base-band,
-body.light-mode .brand-crown path[fill="url(#crownBase)"],
-html.light-mode .brand-crown path[fill="url(#crownBase)"] {
-  fill: url(#crownBaseLight) !important;
-  stroke: #5C3D10 !important;
-  stroke-width: 0.6 !important;
+body.light-mode .brand-crown .crown-base-ring,
+html.light-mode .brand-crown .crown-base-ring {
+  fill: url(#crownBaseBandLight) !important;
+  stroke: #4A2E08 !important;
 }
 
-body.light-mode .brand-crown .crown-base-highlight,
-html.light-mode .brand-crown .crown-base-highlight {
-  stroke: url(#crownBevelLight) !important;
-  stroke-opacity: 0.9 !important;
-  stroke-width: 0.65 !important;
+body.light-mode .brand-crown .crown-finials circle,
+html.light-mode .brand-crown .crown-finials circle {
+  fill: url(#crownSphereLight) !important;
 }
 
-body.light-mode .brand-crown .crown-base-lower-rim,
-html.light-mode .brand-crown .crown-base-lower-rim {
-  stroke: url(#crownBevelLight) !important;
-  stroke-opacity: 0.5 !important;
-  stroke-width: 0.5 !important;
+body.light-mode .brand-crown .crown-contact-shadow,
+html.light-mode .brand-crown .crown-contact-shadow {
+  opacity: 0.3 !important;
 }
 
-body.light-mode .brand-crown .crown-finials,
-html.light-mode .brand-crown .crown-finials,
-body.light-mode .brand-crown g[fill="url(#crownPearl)"],
-html.light-mode .brand-crown g[fill="url(#crownPearl)"] {
-  fill: url(#crownPearlLight) !important;
-  stroke: #7C581A !important;
-  stroke-width: 0.4 !important;
-}
-
-body.light-mode .brand-crown .crown-diamond-accent,
-html.light-mode .brand-crown .crown-diamond-accent {
-  fill: #FFFFFF !important;
-  stroke: #7C581A !important;
-  stroke-width: 0.35 !important;
-}
-
-/* 2. Brand Title — "THE 1% CLUB" (Cinzel Roman Serif 600, Exact Antique Polished Metallic Gold) */
+/* 2. Brand Title — "THE 1% CLUB" (Precision-Machined Sculpted Gold Cinzel Roman Serif) */
 #appHeader .brand-title,
 #appHeader .brand h1,
 .brand-title,
 .brand h1 {
   font-family: "Cinzel", serif !important;
   font-weight: 600 !important;
-  font-size: clamp(18px, 5.1vw, 21.5px) !important;
-  letter-spacing: 0.06em !important;
+  font-size: clamp(19px, 5.2vw, 22.5px) !important;
+  letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
   display: inline-block !important;
   padding: 0 4px !important;
@@ -37679,22 +37644,31 @@ html.light-mode .brand-crown .crown-diamond-accent {
   z-index: 2 !important;
   background: linear-gradient(
     180deg,
-    #FFFDF5 0%,
-    #F6E7BE 16%,
-    #D4AF6A 42%,
-    #A67C2E 70%,
-    #6E4B12 88%,
-    #382204 100%
+    #FFFFFF 0%,
+    #FFF8E2 10%,
+    #FCE092 24%,
+    #DEA436 42%,
+    #FFF0B8 48%,
+    #FFFFFF 52%,
+    #F6D06A 58%,
+    #C88E20 74%,
+    #8E5A12 88%,
+    #6B400A 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.75)) !important;
+  filter: 
+    drop-shadow(0 -0.5px 0 rgba(255, 255, 240, 0.85))
+    drop-shadow(0 0.8px 0 #462A06)
+    drop-shadow(0 1.5px 1.5px rgba(0, 0, 0, 0.75)) !important;
   text-shadow: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  text-rendering: optimizeLegibility !important;
 }
 
-/* Light Mode Title: Exact Authentic Antique Polished Gold (Sharp, Luminous & High Contrast) */
+/* Light Mode Title: High-Contrast Precision Antique Gold on Warm Ivory */
 body.light-mode #appHeader .brand-title,
 body.light-mode #appHeader .brand h1,
 html.light-mode #appHeader .brand-title,
@@ -37705,27 +37679,32 @@ html.light-mode .brand-title,
 html.light-mode .brand h1 {
   font-family: "Cinzel", serif !important;
   font-weight: 600 !important;
-  font-size: clamp(18px, 5.1vw, 21.5px) !important;
-  letter-spacing: 0.06em !important;
+  font-size: clamp(19px, 5.2vw, 22.5px) !important;
+  letter-spacing: 0.08em !important;
   margin: 0 0 3px 0 !important;
   line-height: 1.15 !important;
   display: inline-block !important;
   padding: 0 4px !important;
   background: linear-gradient(
     180deg,
-    #6B440C 0%,
-    #A07424 16%,
-    #DCAE4A 36%,
-    #FFF4C4 52%,
-    #D4A73E 68%,
-    #8C5D14 86%,
-    #4E2E04 100%
+    #4A2E08 0%,
+    #784A10 12%,
+    #BA8422 28%,
+    #EDC054 44%,
+    #FFF0B4 50%,
+    #E5B242 56%,
+    #A8721A 74%,
+    #6E420C 88%,
+    #442605 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  filter: none !important;
+  filter: 
+    drop-shadow(0 -0.5px 0 rgba(255, 255, 255, 0.95))
+    drop-shadow(0 0.8px 0 rgba(50, 28, 4, 0.85))
+    drop-shadow(0 1.5px 1.5px rgba(50, 28, 4, 0.28)) !important;
   text-shadow: none !important;
   -webkit-font-smoothing: antialiased !important;
   text-rendering: optimizeLegibility !important;
@@ -37963,7 +37942,7 @@ html.light-mode .tagline-rule .rule-diamond {
   z-index: 10 !important;
   box-shadow: 
     0 1px 3px rgba(0, 0, 0, 0.45),
-    0 2px 8px rgba(0, 0, 0, 0.6) !important;
+    0 3px 10px rgba(0, 0, 0, 0.65) !important;
   will-change: transform, box-shadow, filter !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.2s ease !important;
 }
@@ -37973,7 +37952,7 @@ html.light-mode .tagline-rule .rule-diamond {
   transform: translateY(calc(-50% - 1px)) scale(1.04) translateZ(0) !important;
   box-shadow: 
     0 2px 5px rgba(0, 0, 0, 0.55),
-    0 4px 12px rgba(0, 0, 0, 0.75) !important;
+    0 4px 14px rgba(0, 0, 0, 0.75) !important;
 }
 
 .solid-gold-medallion:active,
@@ -37990,8 +37969,8 @@ body.light-mode #headerVerifiedShieldBtn,
 html.light-mode .solid-gold-medallion,
 html.light-mode #headerVerifiedShieldBtn {
   box-shadow: 
-    0 1px 2px rgba(45, 28, 8, 0.16),
-    0 2px 6px rgba(45, 28, 8, 0.12) !important;
+    0 1px 2px rgba(45, 28, 8, 0.18),
+    0 3px 8px rgba(45, 28, 8, 0.14) !important;
 }
 
 body.light-mode .solid-gold-medallion:hover,
@@ -38000,26 +37979,60 @@ html.light-mode .solid-gold-medallion:hover,
 html.light-mode #headerVerifiedShieldBtn:hover {
   transform: translateY(calc(-50% - 1px)) scale(1.04) translateZ(0) !important;
   box-shadow: 
-    0 2px 4px rgba(45, 28, 8, 0.2),
-    0 4px 10px rgba(45, 28, 8, 0.15) !important;
+    0 2px 4px rgba(45, 28, 8, 0.22),
+    0 4px 12px rgba(45, 28, 8, 0.18) !important;
 }
 
-/* Light Mode: SVG Component Mappings for Circular Medallion */
+/* Light Mode: SVG Component Mappings for Verification Seal */
+body.light-mode #headerVerifiedShieldBtn .seal-outer-bezel,
+html.light-mode #headerVerifiedShieldBtn .seal-outer-bezel {
+  stroke: url(#sealBezelLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .seal-inner-bevel,
+html.light-mode #headerVerifiedShieldBtn .seal-inner-bevel {
+  stroke: url(#sealGrooveLight) !important;
+}
+
 body.light-mode #headerVerifiedShieldBtn .seal-dial-face,
 html.light-mode #headerVerifiedShieldBtn .seal-dial-face {
-  fill: url(#sealDialLight) !important;
+  fill: url(#sealFaceLight) !important;
 }
 
-body.light-mode #headerVerifiedShieldBtn .seal-stepped-groove,
-html.light-mode #headerVerifiedShieldBtn .seal-stepped-groove {
-  stroke: #5C3D10 !important;
-  stroke-opacity: 0.65 !important;
+body.light-mode #headerVerifiedShieldBtn .seal-face-groove,
+html.light-mode #headerVerifiedShieldBtn .seal-face-groove {
+  stroke: url(#sealBezelLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .seal-sunken-bed,
+html.light-mode #headerVerifiedShieldBtn .seal-sunken-bed {
+  fill: url(#sealRecessLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .seal-sunken-rim,
+html.light-mode #headerVerifiedShieldBtn .seal-sunken-rim {
+  stroke: url(#sealRecessRimLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .seal-shield-left,
+html.light-mode #headerVerifiedShieldBtn .seal-shield-left {
+  fill: url(#sealShieldLeftLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .seal-shield-right,
+html.light-mode #headerVerifiedShieldBtn .seal-shield-right {
+  fill: url(#sealShieldRightLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .seal-shield-rim,
+html.light-mode #headerVerifiedShieldBtn .seal-shield-rim {
+  stroke: url(#sealShieldRimLight) !important;
 }
 
 body.light-mode #headerVerifiedShieldBtn .seal-check-shadow,
 html.light-mode #headerVerifiedShieldBtn .seal-check-shadow {
-  stroke: #3D2405 !important;
-  opacity: 0.45 !important;
+  stroke: #180C02 !important;
+  opacity: 0.7 !important;
 }
 
 .verification-seal-svg,
