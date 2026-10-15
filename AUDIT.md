@@ -1112,6 +1112,31 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - `lint_applet` passed with 0 errors.
   - Verified presence of `seal-dial-face` in server output.
 
+### Club Tab — Restore Original Colors & Liquid Glass Pass (2026-10-15) — COMPLETE
+- **User Directive**: "THE 1% CLUB — RESTORE ORIGINAL COLORS + LIQUID GLASS (STRICT MICRO-PASS — CLUB TAB ONLY)"
+- **Scope & Objectives Addressed**:
+  1. *Unwanted Blue Overrides Purged*:
+     - Removed bright blue background overrides and border diagnostics (`#2563eb`, `#93c5fd`) on `#clubCreditsBuyBtn` and `.club-credits-buy`.
+     - Confirmed zero bright blue (`#2563eb`, `#93c5fd`, `#1d4ed8`, `#3b82f6`) fills or backgrounds across the four Club components.
+  2. *Chat Message Cards (Translucent Liquid Glass)*:
+     - Preserved authentic brand palette: translucent smoked obsidian (`rgba(24, 19, 28, 0.68)`) for incoming messages and luminous champagne amber (`rgba(46, 34, 18, 0.72)`) for personal member decrees.
+     - Light mode: Translucent warm ivory silk (`rgba(255, 255, 255, 0.82)`) with champagne borders and fine specular reflection arc (`::before`).
+     - Maintained high contrast text, usernames, tier hallmarks, timestamps, avatars, badges, and accolades.
+  3. *Active Trading Sessions Ticker (Liquid Glass)*:
+     - Restored translucent liquid glass surface with subtle backdrop blur (20px), restrained metallic border, and upper specular meniscus.
+     - Preserved emerald pulse orb (`#10b981`), category tags, gold tabular numerals, and continuous 90s horizontal marquee scroll. Zero blue or neon.
+  4. *Message Composer (Restored Original Appearance)*:
+     - Restored obsidian liquid glass container (`rgba(26, 20, 32, 0.85)` dark, `rgba(255, 255, 255, 0.82)` light) with specular reflection gradient border.
+     - Centered text input with authentic placeholder, whisper cipher toggle pill, and circular gold monogram seal send button.
+  5. *Dispatch Allocation Bar (Liquid Glass & Gold Bullion Button)*:
+     - Translucent liquid glass capsule with 20px blur, fine champagne border, and gold-framed tabular credit readout (`10/10`).
+     - Restored “Request Allocation” button (`#clubCreditsBuyBtn` / `.club-credits-buy`) to authentic 3D tactile floating gold bullion liquid glass finish in dark mode and luminous burnished alloy in light mode, with responsive scaling down to 340px.
+  6. *Cache Busted*: Updated query string to `style.css?v=20261015_club_liquid_glass_v2`.
+- **Verification**:
+  - `compile_applet` passed cleanly.
+  - `lint_applet` passed with 0 errors.
+  - Server HTTP 200 OK verified on port 3000.
+
 
 
 
