@@ -893,6 +893,225 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - `compile_applet` passed cleanly.
   - Dev server HTTP 200 OK verified.
 
+### Micro-Pass: Signature Gold Identity — Light Mode Refinement & Verification Seal Redesign (2026-10-15) — COMPLETE
+- **Scope**: Re-engineered Light Mode Brand Header metallic family to eliminate flat/brownish appearance, and completely redesigned the Verification Seal artwork from a generic gold coin with a medieval shield into a bespoke Sovereign Insignia.
+- **Visual Changes Applied**:
+  1. *Light Mode Gold Material*:
+     - Unified Light Mode into an authentic polished-gold material system: luminous champagne specular highlights (`#FFFDF8`, `#FBEAB6`), rich 18K/24K gold midtones (`#DEB042`, `#B8821F`), and controlled warm-bronze foundation shadows (`#7A4C0D`, `#442404`).
+     - Crown Light Mode gradients updated (`#crownMetalLight`, `#crownFacetLeftLight`, `#crownBevelLight`, `#crownBaseLight`, `#crownPearlLight`) with crisp 0.65px dark bronze edges and subtle contact shadow.
+     - Brand Title (`.brand-title` in light mode) upgraded from muddy brown to a radiant 24K specular gold text gradient with clean edge definition against ivory.
+     - Tagline (`PRIVATE WEALTH · PRIVATE SOCIETY`), rules, and diamond accents harmonized with matching antique gold midtones and clean gradients.
+  2. *Verification Seal Redesign*:
+     - Completely removed the generic medieval knight shield (`seal-shield-group`).
+     - Designed a distinctive Sovereign Insignia featuring:
+       - Single polished gold outer bezel with precision haute horlogerie chamfer (`#sealGoldRim`).
+       - Sunken mirror-polished gold medallion bed (`#sealGoldFace`) with fine hairline step ring.
+       - Sculpted miniature Royal Sovereign Crown with chiseled left facet and central diamond hallmark.
+       - Inlaid, beveled Sovereign Verification Checkmark with specular white-platinum gold face and intaglio depth shadow.
+       - Symmetrical flanking hallmark diamond stars.
+     - Retained `#headerVerifiedShieldBtn` element, classes, 38px dimensions, touch targets, and verification click handler.
+  3. *Cache Busting*:
+     - Updated stylesheet query string to `style.css?v=20261015_signature_gold_seal_redesign`.
+- **Verification**:
+  - `compile_applet` passed cleanly.
+  - `lint_applet` passed with 0 errors.
+  - Dev server HTTP 200 OK verified.
+
+### Micro-Pass: The Sovereign Shield Hallmark Implementation (2026-10-15) — COMPLETE
+- **Scope**: Replaced the cluttered multi-symbol verification layout (crammed crown, checkmark, and diamond stars inside 38px) with **Option 1: The Sovereign Shield Hallmark (الختم السيادي المصمت)**, inspired by Swiss Haute Horlogerie assay hallmarks.
+- **Key Architectural Changes**:
+  1. *Geometric Purity & Clutter Elimination*:
+     - Completely eliminated the squashed miniature crown and flanking diamond stars that caused visual noise at 38px.
+     - Restored generous negative space (4-6px breathing margin) around the central hallmark.
+  2. *Sculpted Sovereign Escutcheon (Shield)*:
+     - Sculpted dual-facet heraldic gold shield (`seal-shield-facet-left`, `seal-shield-facet-right`) creating authentic 3D split-light specular reflection.
+     - Precision beveled rim (`seal-shield-rim`) and polished center blade spine (`seal-shield-spine`).
+  3. *Inlaid Sovereign Verification Mark*:
+     - Inlaid white-platinum and gold verification checkmark with realistic intaglio shadow, solid 2.5px body, and razor-sharp specular core hairline.
+  4. *Material Consistency Across Dark & Light Modes*:
+     - Dark mode: Luminous champagne to 24K midtones and warm bronze foundation shadows.
+     - Light mode: Dedicated gradients (`sealShieldFacetLightMode`, `sealShieldFacetDarkLightMode`, `sealCheckLight`) for high contrast against warm ivory.
+  5. *Preservation of Contracts*:
+     - Preserved `#headerVerifiedShieldBtn`, 38px dimensions, haptic feedback, chime audio, and click toast interactions.
+- **Verification**:
+  - `compile_applet` passed cleanly.
+  - `lint_applet` passed with 0 errors.
+  - Dev server verified with updated markup.
+
+### Micro-Pass: Full Polished-Gold Sovereign Verification Medallion (2026-10-15) — COMPLETE
+- **User Directive**: Resolved user feedback ("انا عاوزه مصقول ومازال لم يرتقي") regarding lack of metallic luster, flat brown appearance, and dark murky center in the verification seal.
+- **Root Cause Diagnosed**:
+  - Previous radial gradient fell off steeply to dark brown (`#442805`) at radius 28.2, while the shield's right facet and drop shadow were muddy black-brown (`#3D2104` / `#180C03`), resulting in a dull, matte, unpolished brown appearance at 38px.
+  - Absence of alternating specular reflection bands (anisotropic luster) and polished surface glint.
+- **Architectural Enhancements Applied**:
+  1. *Anisotropic Mirror-Polished Gold Bezel (`sealGoldRim`)*: Multi-band specular alternating highlights (`#FFFDF7`, `#FCE6A2`, `#C99426`, `#FFF5CC`, `#DCAB36`, `#FBE08A`) simulating authentic precision-turned luxury watch bezel reflections.
+  2. *Radiant 24K Gold Dial Bed (`sealGoldFace`)*: Restored rich, glowing 24K gold mirror surface with light hotspot at top-left, warm gold midtones, and subtle rim bounce reflection (zero dark brown mud).
+  3. *Horology Micro-Azurage Rings*: Two ultra-fine concentric lathe-turned gold rings (`seal-groove-outer`, `seal-groove-inner`) for fine-jewelry craftsmanship depth.
+  4. *Specular Liquid-Metal Sheen Flare (`seal-specular-glint`)*: Curved highlight flare along the upper-left quadrant delivering immediate optical perception of solid mirror-polished gold.
+  5. *Lustrous Sculpted Sovereign Escutcheon*: High-contrast dual-facet 24K mirror face on left (`sealShieldFacetLight`), warm sculpted gold on right (`sealShieldFacetDark`), top-edge specular glint, and razor-sharp center blade ridge.
+  6. *Inlaid Platinum-Gold Checkmark*: High-contrast platinum/white-gold inlaid body with razor-sharp specular core line for crisp, effortless legibility at 38px.
+  7. *Button Edge Aura*: Upgraded `#headerVerifiedShieldBtn` box-shadow with a refined metallic gold rim catch (`rgba(220, 180, 88, 0.45)`) and subtle gold aura.
+  8. *Bust Cache*: Updated stylesheet query string to `style.css?v=20261015_polished_gold_hallmark`.
+### Micro-Pass: Entire Top Header Deep Authentic Polished Metallic Gold (2026-10-15) — COMPLETE
+- **User Directive**: "عاوز تعديل علي الوان العيدر العلوي كله التاج والكتابه والخطوط ودرع التوثيق تصبح من الذهب المصقول الواقعي والحقيقي المعدني العميق"
+- **Scope of Refinement**:
+  1. *Crown (التاج)*:
+     - Upgraded `crownMetalLight` and `crownMetal` gradients with high-contrast specular champagne highlights (`#FFFDF5`), radiant 24K imperial gold body (`#F2C148` -> `#D6941C`), and rich deep metallic amber-bronze foundations (`#A1600B` -> `#613404`).
+     - Refined crown strokes to warm chiseled bronze (`#5E3606`) at 0.55px, eliminating heavy black/muddy outlines while preserving crisp architectural silhouette.
+     - Enhanced left spire facet specular highlight and spherical finials radial gold luster.
+  2. *Brand Wordmark "THE 1% CLUB" (الكتابة)*:
+     - Formulated deep authentic 24K polished gold gradients across light and dark modes.
+     - In light mode: Specular champagne crest (`#FFF4D0` -> `#FBD970`), deep radiant 24K core (`#E8A922` -> `#C68012`), and grounding warm bronze shadow (`#8E5008` -> `#562C02`) with crisp micro-emboss drop-shadow (`rgba(65, 34, 4, 0.32)`), guaranteeing prominent metallic luster against the warm ivory header.
+     - In dark mode: High-contrast specular gold reflection (`#FFFDF5` -> `#F2BE42` -> `#D49320` -> `#9B5F0E` -> `#5A3103`).
+  3. *Brand Tagline & Rules (السطر التعريفي والخطوط والماس)*:
+     - Transformed "PRIVATE WEALTH ◆ PRIVATE SOCIETY" from flat mud-brown into a true polished metallic gold gradient (`#DF9F26` -> `#B27211` -> `#784204`) with text-clip and dimensional relief.
+     - Elevated tagline separator diamond `◆` into brilliant lustrous gold.
+     - Upgraded flanking hairline rules into delicate polished gold filaments with specular tip highlights and 3.5px beveled metallic diamonds.
+  4. *Verification Medallion (درع التوثيق)*:
+     - Refined bezel and dial bed gradients (`sealGoldRimLight`, `sealGoldFaceLight`) with radiant 24K specular sheen, eliminating murky brown rims.
+     - Upgraded sculpted shield right facet (`sealShieldFacetDarkLightMode`) to rich warm shaded gold (`#E2A624` -> `#BF7D12` -> `#9C5C0A` -> `#764004` -> `#A5670E`) preventing mud/flat shadow.
+     - Inlaid platinum-gold checkmark with refined 3.0px intaglio shadow and razor-sharp specular core line for effortless legibility at 38px.
+     - Enhanced button box-shadow with polished metallic gold rim catch (`rgba(198, 145, 30, 0.65)`) and subtle gold aura.
+  5. *Header Horizon Hairline Divider*:
+     - Upgraded `.app-header::after` with a central polished gold glint (`#FFF6DC`) at 50%.
+### Micro-Pass: Header Gold Harmonization with Edit Profile Plaque (2026-10-15) — COMPLETE
+- **User Directive**: Resolved user observation comparing the top header to the Edit Profile button ("شايف زر تعديل البروفايل في الوضع النهاري ذهب حقيقي أما الهيدر العلوي غير متناسق من حيث مستوي الالوان الذهب اصفر مشع لم يكن أبدا فاخراً أو مصقولا او معدنيا").
+- **Root Cause Diagnosed**:
+  - The top header was previously rendered with oversaturated, glowing cadmium/yellow-orange hues (`#F2BE42`, `#FBD970`, `#F5C448`, `#DC9922`) and an artificial yellow glow aura (`rgba(225, 175, 45, 0.25)`).
+  - In contrast, the authentic physical gold standard established by the Edit Profile button (`.phc-edit-btn`) uses a refined anisotropic antique gold palette:
+    - Specular white flash (`#FFFFFF`), champagne luster (`#FAECC5`), antique gold midtones (`#DCAE4A`), deep metallic amber (`#A07424`), and chiseled dark bronze contour (`#684514`, `#7C581A`, `#2B1A03`).
+    - Physical contact shadows and dark chiseled bezel rim (`0.65px solid #7C581A`) with zero yellow halo.
+- **Architectural Enhancements Applied**:
+  1. *Crown (التاج)*:
+     - Shifted `crownMetalLight` and `crownMetal` to the exact Edit Profile palette (`#FFFFFF` -> `#FAECC5` -> `#DCAE4A` -> `#A07424` -> `#684514` -> `#C49436` -> `#7C581A`).
+     - Aligned stroke to `#7C581A` at 0.55px and toned drop-shadow to physical contact shadow (`rgba(50, 32, 10, 0.2)`).
+  2. *Brand Wordmark "THE 1% CLUB" (الكتابة)*:
+     - Eliminated glowing lemon-yellow gradient.
+     - Implemented authentic antique gold gradient (`#FFFFFF` 0% -> `#FAECC5` 14% -> `#DCAE4A` 38% -> `#A07424` 64% -> `#684514` 84% -> `#432805` 100%) with delicate contact shadow (`rgba(60, 38, 12, 0.25)`).
+     - Dark mode aligned to `#FFFDF5` -> `#F6E7BE` -> `#D4AF6A` -> `#A67C2E` -> `#6E4B12` -> `#382204`.
+  3. *Tagline, Rules & Diamonds (السطر التعريفي والخطوط والماس)*:
+     - Tagline text styled in rich antique gold (`#9C7026` -> `#7C581A` -> `#4A3008`), matching card typography.
+     - Rules and separator diamonds transitioned to delicate antique gold filaments and `#7C581A` beveled facets.
+  4. *Verification Medallion (درع وميدالية التوثيق)*:
+     - Outer bezel (`sealGoldRimLight`) and dial face (`sealGoldFaceLight`) aligned to exact antique champagne-gold tones.
+     - Entirely eliminated artificial yellow glow aura; replaced with physical chiseled antique gold rim (`0 0 0 0.65px #7C581A`) and subtle contact shadow.
+  5. *Cache Busted*: Updated query string to `style.css?v=20261015_authentic_antique_gold_header`.
+- **Verification**:
+  - `compile_applet` passed with 0 errors.
+  - `lint_applet` passed with 0 errors.
+  - Dev server verified with updated stylesheet query string.
+
+### Micro-Pass: High-Relief Sculpted Metal Verification Shield & Drop Shadow (2026-10-15) — COMPLETE
+- **User Directive**: "قم بتعديل SVG الخاص بـ headerVerifiedShieldBtn لتقوية التباين بين الحواف الداكنة والأسطح البارزة للدرع (High-Relief)، بحيث تبدو وكأنها قطعة معدنية نحتت يدوياً، مع إضافة طبقة ظل مسقطة (Drop Shadow) خفيفة خلف الدرع لتعزيز بروزها عن الخلفية."
+- **Visual & Structural Upgrades**:
+  1. *Physical Drop Shadow Layer*:
+     - Embedded dedicated SVG physical drop shadow filter (`sealShieldDropShadowFilter` / `sealShieldDropShadowFilterLight`) with `feDropShadow` (dx=0, dy=1.6, stdDeviation=1.2) behind the shield.
+     - Added `<path class="seal-shield-drop-shadow">` positioned directly behind the shield group, paired with `<path class="seal-shield-shadow">` for soft ambient contact occlusion.
+     - This elevates the shield in 3D physical relief above the golden dial face.
+  2. *Hand-Carved Intaglio Contour (الحواف الداكنة المنحوتة)*:
+     - Added `<path class="seal-shield-contour">` with `sealShieldCarvedContour` (dark mode) and `sealShieldCarvedContourLight` (light mode).
+     - Renders an engraved dark-bronze trench encircling the shield, mimicking the cut of an engraving burin in numismatic dies.
+  3. *High-Relief Contrast Facets (الأسطح البارزة vs المنحدر الغائر)*:
+     - Left Facet (`sealShieldFacetLight` / `sealShieldFacetLightMode`): Enhanced with razor specular crest (`#FFFFFF` to `#FFF7E2`) dropping into radiant 24K gold body.
+     - Right Facet (`sealShieldFacetDark` / `sealShieldFacetDarkLightMode`): Steep dark slope plunging into deep bronze-obsidian shadow (`#120801` / `#160A01`) with subtle ambient bounce rim (`#643E0A` / `#6E440C`), maximizing sculptural contrast.
+  4. *Sculpted Spine & Micro-Shadow*:
+     - Razor specular spine (`sealShieldSpine`) with adjacent micro-shadow incision line (`seal-shield-spine-shade`) along the center crease, delivering acute hand-chiseled realism.
+     - Specular knife-edge along upper crest and micro apex glint at `(32, 46.6)`.
+  5. *Cache Busted*: Updated query string to `style.css?v=20261015_high_relief_shield`.
+- **Verification**:
+  - `compile_applet` passed cleanly.
+  - `lint_applet` passed with 0 errors.
+  - Verified presence of `seal-shield-drop-shadow` and high-relief layers in server output.
+
+### Micro-Pass: Haute Horlogerie Royal Crowned Escutcheon Redesign (2026-10-15) — COMPLETE
+- **User Directive**: "درع التوثيق وحش جدا من فضلك قدم تصميم افضل فاخر وراقي"
+- **Critical Architectural Critique & Diagnosis**:
+  - The previous design suffered from "gold-on-gold" lack of contrast, multiple busy concentric dashed circles (resembling an arcade token or generic software badge), and a heavy, clumsy checkmark scribbled over a triangular police badge.
+- **Haute Horlogerie Sovereign Redesign**:
+  1. *High-Contrast Grand Feu Enamel Dial Bed*:
+     - Replaced the yellow-on-yellow coin with a deep Grand Feu Obsidian Enamel dial in Dark Mode (`#050403` to `#181512` with delicate specular glaze sweep) and warm Champagne Silk Enamel in Light Mode (`#DFD4BF` to `#FDFBF7`).
+     - Framed by a mirror-polished 18K antique gold bezel matching the Edit Profile button.
+  2. *Aristocratic Royal Escutcheon (الدرع الملكي النخبوي)*:
+     - Classical European heraldic escutcheon silhouette with gracefully vaulted accolade shoulders and tapered drop point.
+     - Crowned at its apex with a miniature 3-point Sovereign Coronet with diamond center point and gold finials, directly unifying with the brand's royal crown heritage.
+  3. *Inlaid Platinum-Gold Verification Hallmark (دمغة التوثيق الماسية)*:
+     - Eliminated the oversized generic tick mark.
+     - Crafted a slender, precision diamond-cut verification scepter backed by an intaglio shadow groove.
+     - Crowned with a brilliant 4-point Sovereign Diamond Star glint (`seal-star-diamond`).
+  4. *Tactile 3D Relief*:
+     - Multi-faceted high-relief gold face with razor spine, casting physical drop shadow (`sealCrestShadow`) directly onto the enamel dial.
+  5. *Cache Busted*: Updated query string to `style.css?v=20261015_royal_sovereign_hallmark`.
+- **Verification**:
+  - `compile_applet` passed with 0 errors.
+  - `lint_applet` passed with 0 errors.
+  - Server confirmed presence of `seal-coronet-spikes` and updated structure.
+
+### Micro-Pass: Sovereign Escutcheon & 3D Sculpted Verification Hallmark Redesign (2026-10-15) — COMPLETE
+- **User Directive**: "لسا شكل علامه التوثيق محتاج اعاده تصميم"
+- **Critical Architectural & Geometric Diagnosis**:
+  - The previous design was constrained inside multiple circular coin rings and circular CSS `box-shadows`, which resulted in a cramped 20px shield trapped inside a 64px viewBox (less than 12 physical pixels on mobile). The verification mark within was reduced to a thin stroke squeezed beneath coronet spikes and a star.
+- **Sculptural Sovereign Redesign**:
+  1. *Heroic Sovereign Escutcheon Silhouette*:
+     - Removed redundant concentric circles and circular CSS container borders.
+     - Redesigned the shield as a majestic Gothic-Renaissance Escutcheon occupying 46px × 50px of the canvas with ear lugs, arched accolade crest, and stately bottom lance point.
+  2. *Sculpted 3D Sovereign Verification Hallmark (علامة التوثيق المنحوتة)*:
+     - Replaced the thin stroked line with a solid, chiseled 3D metallic polygon insignia (26.5px wide × 24px high).
+     - Sculpted dual-facet bevels: Upper facet in mirror-polished platinum-gold (`#FFFFFF` to `#FAECC5`), lower facet in deep antique bronze shadow (`#9B7328` to `#1A0D01`), backed by an intaglio drop shadow bed.
+     - Razor-sharp specular light line down its center ridge.
+  3. *Integral Sovereign Coronet & Shield Spine*:
+     - Proportioned 3-point royal coronet with solitaire gem nestled cleanly in the upper crest of the shield.
+     - Continuous central crest spine dividing the shield face into a radiant 18k Champagne Gold left facet and a burnished Antique Bronze right facet.
+  4. *Exact Antique Gold Specular Consistency*:
+     - In Light Mode, strictly mapped to the exact antique gold spectrum of the Edit Profile button (`#ffffff` through `#7c581a` and `#2b1a03`), with zero artificial yellow glow.
+  5. *Cache Busted*: Updated query string to `style.css?v=20261015_sculpted_sovereign_escutcheon`.
+- **Verification**:
+  - `compile_applet` passed with 0 errors.
+  - `lint_applet` passed with 0 errors.
+  - Verified server HTML output for `sovereign-hallmark-upper`.
+
+### Micro-Pass: High-Contrast Specular & Deep Metallic Gradient Calibration (2026-10-15) — COMPLETE
+- **User Directive**: "CSS selector: #headerVerifiedShieldBtn. قم بتعديل التدرجات اللونية داخل SVG لزيادة التباين بين الإضاءة والانعكاسات، بحيث نستخدم ألواناً أكثر دقة (مثل #FFF9D0 للإضاءة العالية و #5C3D10 للظلال العميقة) لتعزيز المظهر المعدني المصقول."
+- **Focus Mode Target**: `#headerVerifiedShieldBtn`
+- **Execution Details**:
+  1. *High Specular Highlights (`#FFF9D0`)*:
+     - Calibrated all primary highlight stops across `shieldRimGold`, `shieldFacetLeft`, `hallmarkFacetLight`, `shieldRimGoldLight`, and `shieldFacetLeftLight` with `#FFF9D0`, producing an authentic, rich champagne-gold specular reflection.
+     - Applied `#FFF9D0` to the sovereign base diamond gem (`sovereign-shield-base-gem`) in both markup and CSS.
+  2. *Deep Metallic Shadows (`#5C3D10`)*:
+     - Calibrated deep shadow transition stops across `shieldRimGold`, `shieldFacetLeft`, `shieldFacetRight`, `hallmarkFacetDark`, `shieldRimGoldLight`, `shieldFacetLeftLight`, and `shieldFacetRightLight` with `#5C3D10`.
+  3. *Resulting Physical Contrast*:
+     - Significantly heightened the perceptual depth, razor chiseled ridges, and reflective polish of the sovereign escutcheon and 3D hallmark in both Dark and Light modes.
+  4. *Cache Busted*: Updated stylesheet query parameter to `style.css?v=20261015_high_contrast_metallic_shield`.
+- **Verification**:
+  - `compile_applet` passed cleanly.
+  - `lint_applet` passed with 0 errors.
+  - Server confirmed presence of `#FFF9D0` and `#5C3D10` gradient stops.
+
+### Micro-Pass: Restore Sharp Polished Gold & Circular Verification Medallion (2026-10-15) — COMPLETE
+- **User Directive**: "URGENT MICRO-PASS — RESTORE SHARP POLISHED GOLD & FIX VERIFICATION SEAL"
+- **Root Cause Analysis & Targeted Rectifications**:
+  1. *Restored Compact Circular Verification Medallion (`#headerVerifiedShieldBtn`)*:
+     - Removed the oversized shield-only artwork and outer halo.
+     - Restored a compact, perfectly circular, polished-gold medallion (diameter ~60px in 64×64 viewBox, rendered at 38×38 px with `border-radius: 50%`).
+     - Refined gold outer rim with chamfer bevel (`sealBezelRim`), stepped azurage groove (`seal-stepped-groove`), and warm metallic gold face (`sealDialDark` / `sealDialLight`).
+     - Smaller centered sovereign shield (22×26 px) with dual champagne/bronze chiseled facets, mini crest coronet, and a crisp high-contrast verification checkmark (`seal-check-body` + `seal-check-shadow`).
+     - Preserved all 38×38 px dimensions, position, ID, click behavior, audio chime, and haptic feedback.
+  2. *Light-Mode Wordmark Sharpness Restored (`.brand-title`)*:
+     - Removed `filter: drop-shadow(...)` which caused browser text-clip raster blur on WebKit/Blink.
+     - Eliminated washed-out `#FFFFFF` top stops on ivory. Replaced with a rich polished-gold gradient starting with sharp top edge `#6B440C`, transitioning through `#A07424` / `#DCAE4A` to a distinct champagne highlight `#FFF4C4`, and deep-gold edge shading `#4E2E04`.
+     - Preserved Imperial Cinzel font, weight (600), spacing (0.06em), and size.
+  3. *Tagline & Decorative Lines Contrast Fixed*:
+     - Replaced faded text-clip with crisp, dark-enough metallic gold `color: #5C3D10 !important; font-weight: 600; filter: none !important;`.
+     - Set rule lines to sharp metallic gold (`rgba(140, 94, 22, 0.2)` to `#A07424` to `#DCAE4A` to `#FFF4C4`) with full opacity (1).
+     - Sharp gold diamonds with `#5C3D10` fine border.
+  4. *Crown Sharpness & Shared Gold Palette*:
+     - Refined light-mode crown gradients (`#crownMetalLight`, `#crownFacetLeftLight`, `#crownBevelLight`, `#crownBaseLight`, `#crownPearlLight`) to share the exact same polished gold palette as the wordmark and seal.
+     - Added razor-sharp contour strokes (`#5C3D10` width 0.6px).
+  5. *Cache Busted*: Updated stylesheet query parameter to `style.css?v=20261015_restored_circular_medallion`.
+- **Verification**:
+  - `compile_applet` passed cleanly.
+  - `lint_applet` passed with 0 errors.
+  - Verified presence of `seal-dial-face` in server output.
+
 
 
 
