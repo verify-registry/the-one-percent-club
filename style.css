@@ -3521,7 +3521,7 @@ html:has(#club-tab.is-active) .app-main {
   min-height: 0 !important;
   height: 100% !important;
   max-height: 100% !important;
-  padding-top: calc(var(--header-actual-height, 74px) + 8px) !important;
+  padding-top: var(--header-actual-height, 84px) !important;
   padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -8156,7 +8156,7 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   align-items: center !important;
   justify-content: space-between !important;
   gap: 8px !important;
-  padding: 4px calc(12px + env(safe-area-inset-right, 0px)) 4px calc(12px + env(safe-area-inset-left, 0px)) !important;
+  padding: 2px calc(12px + env(safe-area-inset-right, 0px)) 4px calc(12px + env(safe-area-inset-left, 0px)) !important;
   padding-inline-start: calc(12px + env(safe-area-inset-inline-start, env(safe-area-inset-left, 0px))) !important;
   padding-inline-end: calc(12px + env(safe-area-inset-inline-end, env(safe-area-inset-right, 0px))) !important;
 }
@@ -36222,7 +36222,7 @@ body.light-mode #club-tab .sovereign-dispatch-card::after {
   height: 100% !important;
   min-height: 0 !important;
   max-height: 100% !important;
-  padding-top: calc(var(--header-actual-height, 82px) + 6px) !important;
+  padding-top: var(--header-actual-height, 84px) !important;
   padding-bottom: 0 !important;
   gap: 0 !important;
   transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -37416,12 +37416,19 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
   padding: calc(9px + env(safe-area-inset-top, 0px)) 16px 12px !important;
   box-sizing: border-box !important;
   display: block !important;
-  background: rgba(9, 9, 13, 0.94) !important;
-  backdrop-filter: blur(28px) saturate(180%) contrast(105%) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(180%) contrast(105%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 7, 9, 0.96) 0%,
+    rgba(11, 11, 15, 0.88) 42%,
+    rgba(14, 13, 17, 0.68) 72%,
+    rgba(16, 15, 19, 0.28) 90%,
+    rgba(16, 15, 19, 0.0) 100%
+  ) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   border: none !important;
-  border-bottom: 1px solid rgba(229, 184, 66, 0.22) !important;
-  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 16px rgba(229, 184, 66, 0.05) !important;
+  border-bottom: none !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.10) !important;
   z-index: 90 !important;
   transform: translate3d(0, 0, 0) !important;
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
@@ -37441,12 +37448,43 @@ html.light-mode .app-header,
   max-height: 84px !important;
   padding: calc(9px + env(safe-area-inset-top, 0px)) 16px 12px !important;
   box-sizing: border-box !important;
-  background: rgba(253, 251, 247, 0.96) !important;
-  backdrop-filter: blur(28px) saturate(160%) contrast(102%) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(160%) contrast(102%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(253, 251, 247, 0.96) 0%,
+    rgba(249, 245, 238, 0.88) 42%,
+    rgba(244, 238, 228, 0.62) 72%,
+    rgba(240, 233, 220, 0.22) 90%,
+    rgba(240, 233, 220, 0.0) 100%
+  ) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   border: none !important;
-  border-bottom: 1px solid rgba(184, 134, 30, 0.28) !important;
-  box-shadow: 0 4px 16px -2px rgba(60, 35, 10, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.98) !important;
+  border-bottom: none !important;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  #appHeader,
+  .app-header {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 8, 11, 0.98) 0%,
+      rgba(12, 12, 16, 0.94) 70%,
+      rgba(15, 15, 19, 0.88) 100%
+    ) !important;
+  }
+  body.light-mode #appHeader,
+  html.light-mode #appHeader,
+  body.light-mode .app-header,
+  html.light-mode .app-header {
+    background: linear-gradient(
+      180deg,
+      rgba(253, 251, 247, 0.99) 0%,
+      rgba(248, 244, 236, 0.96) 70%,
+      rgba(242, 236, 225, 0.92) 100%
+    ) !important;
+  }
 }
 
 /* Ambient Halo behind Header Brand: Removed per instruction to eliminate diffuse yellow halos and blurry edges */
@@ -37455,26 +37493,26 @@ html.light-mode .app-header,
   display: none !important;
 }
 
-/* Haute Joaillerie Golden Horizon Hairline Divider at bottom of header */
+/* Haute Joaillerie Liquid Glass Horizon Meniscus at bottom of header */
 #appHeader::after,
 .app-header::after {
   content: "" !important;
   position: absolute !important;
   bottom: 0 !important;
-  left: 6% !important;
-  right: 6% !important;
+  left: 10% !important;
+  right: 10% !important;
   height: 1px !important;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(140, 95, 20, 0.15) 15%,
-    rgba(217, 165, 43, 0.7) 45%,
-    #FFF6DB 50%,
-    rgba(217, 165, 43, 0.7) 55%,
-    rgba(140, 95, 20, 0.15) 85%,
+    rgba(217, 165, 43, 0.04) 15%,
+    rgba(217, 165, 43, 0.22) 38%,
+    rgba(254, 238, 180, 0.45) 50%,
+    rgba(217, 165, 43, 0.22) 62%,
+    rgba(217, 165, 43, 0.04) 85%,
     transparent 100%
   ) !important;
-  opacity: 0.9 !important;
+  opacity: 0.65 !important;
   pointer-events: none !important;
 }
 
@@ -37485,14 +37523,14 @@ html.light-mode .app-header::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(124, 88, 26, 0.1) 15%,
-    rgba(160, 116, 36, 0.55) 45%,
-    #FAF2DA 50%,
-    rgba(160, 116, 36, 0.55) 55%,
-    rgba(124, 88, 26, 0.1) 85%,
+    rgba(140, 95, 20, 0.03) 15%,
+    rgba(180, 130, 35, 0.18) 38%,
+    rgba(248, 230, 175, 0.40) 50%,
+    rgba(180, 130, 35, 0.18) 62%,
+    rgba(140, 95, 20, 0.03) 85%,
     transparent 100%
   ) !important;
-  opacity: 1 !important;
+  opacity: 0.55 !important;
 }
 
 /* Geometric Centering: Center Crown, Wordmark, and Tagline relative to entire app width */
@@ -38052,13 +38090,17 @@ html.light-mode #headerVerifiedShieldBtn .seal-check-shadow {
   pointer-events: none !important;
 }
 
-/* Unified Page Top Padding Guarantee Across All 4 Tabs */
+/* Unified Page Top Padding Guarantee Across Content Tabs */
 .page,
 #membership-tab,
-#club-tab.is-active,
 #profile-tab,
 #boutique-tab {
   padding-top: calc(var(--header-actual-height, 80px) + 8px) !important;
+}
+
+/* Dedicated Club Header-to-Rooms Alignment (Natural Horizon Fit) */
+#club-tab.is-active {
+  padding-top: var(--header-actual-height, 84px) !important;
 }
 
 #club-tab.club-header-collapsed,
@@ -38077,5 +38119,89 @@ html.dark-mode #club-tab.is-active.club-header-collapsed,
 :root[data-theme="dark"] #club-tab.is-active.club-header-collapsed {
   padding-top: calc(env(safe-area-inset-top, 0px) + 6px) !important;
 }
+
+/* --------------------------------------------------------------------------
+   SOVEREIGN OBSIDIAN ARCHITECTURE — CSS STYLING & THEME ADAPTATION
+   -------------------------------------------------------------------------- */
+.sovereign-obsidian-architecture-svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  margin: 0 !important;
+  display: block !important;
+  pointer-events: none !important;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Light Mode Overrides for Sovereign Architecture SVG */
+body.light-mode .sovereign-obsidian-architecture-svg .soa-rotunda-bed,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-rotunda-bed,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-rotunda-bed {
+  fill: url(#soaRotundaBedLight) !important;
+  stroke: url(#soaGoldShadowLight) !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-rotunda-bed-inner-shadow,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-rotunda-bed-inner-shadow,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-rotunda-bed-inner-shadow {
+  stroke: rgba(180, 140, 50, 0.22) !important;
+  opacity: 0.55 !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-rotunda-bed-bevel,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-rotunda-bed-bevel,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-rotunda-bed-bevel {
+  stroke: url(#soaGoldLitLight) !important;
+  opacity: 0.7 !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-rotunda-bezel,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-rotunda-bezel,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-rotunda-bezel {
+  stroke: url(#soaGoldLitLight) !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-monogram-shadow,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-monogram-shadow,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-monogram-shadow {
+  fill: rgba(160, 120, 50, 0.3) !important;
+  opacity: 0.7 !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-monogram-body,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-monogram-body,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-monogram-body {
+  fill: url(#soaMonogramBodyLight) !important;
+  stroke: url(#soaGoldShadowLight) !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-monogram-rim,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-monogram-rim,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-monogram-rim {
+  stroke: url(#soaGoldLitLight) !important;
+  opacity: 0.9 !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-floor-caustic,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-floor-caustic,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-floor-caustic {
+  fill: url(#soaFloorCausticLight) !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-floor-ellipse,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-floor-ellipse,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-floor-ellipse {
+  stroke: url(#soaGoldLitLight) !important;
+  opacity: 0.45 !important;
+}
+
+body.light-mode .sovereign-obsidian-architecture-svg .soa-arches-group,
+html.light-mode .sovereign-obsidian-architecture-svg .soa-arches-group,
+:root[data-theme="light"] .sovereign-obsidian-architecture-svg .soa-arches-group {
+  opacity: 0.85 !important;
+}
+
 
 
