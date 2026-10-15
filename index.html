@@ -23,7 +23,7 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css?v=20261014_haute_joaillerie_sovereign_v8_mirror_gold" />
+    <link rel="stylesheet" href="style.css?v=20261015_signature_crown_polished_gold" />
     <script id="user-preferences-init">
       (function () {
         try {
@@ -216,133 +216,219 @@
       <header class="app-header" id="appHeader" style="direction: ltr">
         <div class="brand">
           <div class="brand-crown-wrapper">
-            <svg class="brand-crown" viewBox="0 0 50 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg
+              class="brand-crown"
+              viewBox="0 0 120 64"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
               <defs>
-                <!-- DARK MODE: Luminous Champagne Gold (Polished 24K) -->
-                <linearGradient id="crGoldLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <!-- DARK MODE: Sovereign Polished Champagne Gold System -->
+                <linearGradient id="crownMetal" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stop-color="#FFFFFF"/>
-                  <stop offset="15%" stop-color="#FFF2CE"/>
-                  <stop offset="45%" stop-color="#E5C170"/>
-                  <stop offset="78%" stop-color="#B88E36"/>
-                  <stop offset="100%" stop-color="#7A5616"/>
+                  <stop offset="12%" stop-color="#FFF9DF"/>
+                  <stop offset="35%" stop-color="#EFD27D"/>
+                  <stop offset="62%" stop-color="#D09B2E"/>
+                  <stop offset="84%" stop-color="#A66D13"/>
+                  <stop offset="100%" stop-color="#6F480A"/>
                 </linearGradient>
 
-                <linearGradient id="crGoldShadow" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#A8802E"/>
-                  <stop offset="35%" stop-color="#6E4D14"/>
-                  <stop offset="72%" stop-color="#422C08"/>
-                  <stop offset="100%" stop-color="#1F1302"/>
+                <linearGradient id="crownFacetLeft" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.30"/>
+                  <stop offset="50%" stop-color="#FFF9DF" stop-opacity="0.16"/>
+                  <stop offset="100%" stop-color="#EFD27D" stop-opacity="0"/>
                 </linearGradient>
 
-                <linearGradient id="crGoldBase" x1="0%" y1="50%" x2="100%" y2="50%">
-                  <stop offset="0%" stop-color="#422C08"/>
-                  <stop offset="12%" stop-color="#7A5616"/>
-                  <stop offset="28%" stop-color="#DCAE4A"/>
-                  <stop offset="48%" stop-color="#FFF2CE"/>
-                  <stop offset="52%" stop-color="#FFFFFF"/>
-                  <stop offset="56%" stop-color="#FFF2CE"/>
-                  <stop offset="72%" stop-color="#DCAE4A"/>
-                  <stop offset="88%" stop-color="#7A5616"/>
-                  <stop offset="100%" stop-color="#422C08"/>
-                </linearGradient>
-
-                <radialGradient id="crBallGrad" cx="35%" cy="32%" r="65%">
+                <linearGradient id="crownBevel" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stop-color="#FFFFFF"/>
-                  <stop offset="30%" stop-color="#FFF3D4"/>
-                  <stop offset="65%" stop-color="#DCAE4A"/>
-                  <stop offset="100%" stop-color="#6B4810"/>
+                  <stop offset="50%" stop-color="#FFF9DF"/>
+                  <stop offset="100%" stop-color="#EFD27D"/>
+                </linearGradient>
+
+                <linearGradient id="crownBase" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#FFF9DF"/>
+                  <stop offset="26%" stop-color="#EFD27D"/>
+                  <stop offset="65%" stop-color="#A66D13"/>
+                  <stop offset="100%" stop-color="#482C05"/>
+                </linearGradient>
+
+                <radialGradient id="crownPearl" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="28%" stop-color="#FFF9DF"/>
+                  <stop offset="62%" stop-color="#EFD27D"/>
+                  <stop offset="100%" stop-color="#80500B"/>
                 </radialGradient>
 
-                <!-- LIGHT MODE: High-Contrast Burnished Bronze Gold -->
-                <linearGradient id="crLightFacetL" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#FFEBB0"/>
-                  <stop offset="25%" stop-color="#DCAE4A"/>
-                  <stop offset="60%" stop-color="#A0721E"/>
-                  <stop offset="88%" stop-color="#6B4810"/>
-                  <stop offset="100%" stop-color="#3D2403"/>
+                <!-- LIGHT MODE: High-Contrast Rich Antique Bronze-Gold System -->
+                <linearGradient id="crownMetalLight" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#FFFBF0"/>
+                  <stop offset="16%" stop-color="#EED588"/>
+                  <stop offset="46%" stop-color="#B78224"/>
+                  <stop offset="74%" stop-color="#76490F"/>
+                  <stop offset="100%" stop-color="#381D02"/>
                 </linearGradient>
 
-                <linearGradient id="crLightFacetR" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#7A5416"/>
-                  <stop offset="38%" stop-color="#4D3007"/>
-                  <stop offset="75%" stop-color="#2B1802"/>
-                  <stop offset="100%" stop-color="#120901"/>
+                <linearGradient id="crownFacetLeftLight" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.42"/>
+                  <stop offset="50%" stop-color="#FFFBF0" stop-opacity="0.20"/>
+                  <stop offset="100%" stop-color="#EED588" stop-opacity="0"/>
                 </linearGradient>
 
-                <linearGradient id="crLightBase" x1="0%" y1="50%" x2="100%" y2="50%">
-                  <stop offset="0%" stop-color="#2B1802"/>
-                  <stop offset="14%" stop-color="#6B4810"/>
-                  <stop offset="32%" stop-color="#A87B24"/>
-                  <stop offset="48%" stop-color="#F2D283"/>
-                  <stop offset="52%" stop-color="#FFF5D6"/>
-                  <stop offset="56%" stop-color="#F2D283"/>
-                  <stop offset="68%" stop-color="#A87B24"/>
-                  <stop offset="86%" stop-color="#6B4810"/>
-                  <stop offset="100%" stop-color="#2B1802"/>
+                <linearGradient id="crownBevelLight" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#FFFBF0"/>
+                  <stop offset="55%" stop-color="#EED588"/>
+                  <stop offset="100%" stop-color="#B78224"/>
                 </linearGradient>
 
-                <radialGradient id="crLightBallGrad" cx="35%" cy="32%" r="65%">
-                  <stop offset="0%" stop-color="#FFFDF7"/>
-                  <stop offset="30%" stop-color="#F5D78E"/>
-                  <stop offset="68%" stop-color="#A0721E"/>
-                  <stop offset="100%" stop-color="#3D2403"/>
+                <linearGradient id="crownBaseLight" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#EED588"/>
+                  <stop offset="30%" stop-color="#9C6F19"/>
+                  <stop offset="72%" stop-color="#603808"/>
+                  <stop offset="100%" stop-color="#381D02"/>
+                </linearGradient>
+
+                <radialGradient id="crownPearlLight" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#FFFBF0"/>
+                  <stop offset="32%" stop-color="#EED588"/>
+                  <stop offset="68%" stop-color="#8C5B17"/>
+                  <stop offset="100%" stop-color="#381D02"/>
                 </radialGradient>
               </defs>
 
-              <g id="masterGeometricCrown" class="sovereign-crown-mesh">
-                <!-- 1. SOLID SCULPTED METALLIC BASE BAND -->
-                <path d="M 7.2 17.5 Q 25.0 18.8 42.8 17.5 L 43.6 21.5 Q 25.0 22.8 6.4 21.5 Z" class="cr-base" fill="url(#crGoldBase)" stroke="#32230B" stroke-width="0.3"/>
-                <path d="M 7.2 17.5 Q 25.0 18.8 42.8 17.5" class="cr-base-top" stroke="#FFF2CE" stroke-width="0.45" fill="none"/>
-                <path d="M 6.4 21.5 Q 25.0 22.8 43.6 21.5" class="cr-base-bot" stroke="#1F1302" stroke-width="0.5" fill="none"/>
-                <path d="M 8.2 19.5 Q 25.0 20.8 41.8 19.5" class="cr-base-groove" stroke="#1F1302" stroke-width="0.35" fill="none" opacity="0.6"/>
-                <polygon points="25.0,19.3 26.2,20.5 25.0,21.7 23.8,20.5" class="cr-base-gem" fill="url(#crGoldLight)" stroke="#FFF2CE" stroke-width="0.25"/>
+              <!-- Main Crown Body: Symmetrical 3-peak royal silhouette with commanding central spire -->
+              <path
+                class="crown-body"
+                d="M 21 20.5
+                   C 31 29, 43 31, 49 26
+                   C 54 21, 56.5 13, 60 5.5
+                   C 63.5 13, 66 21, 71 26
+                   C 77 31, 89 29, 99 20.5
+                   C 98.5 28, 96.5 37, 95 46
+                   Q 60 51.5, 25 46
+                   C 23.5 37, 21.5 28, 21 20.5 Z"
+                fill="url(#crownMetal)"
+                stroke="#482C05"
+                stroke-width="0.75"
+                stroke-linejoin="round"
+              />
 
-                <!-- 2. FIVE BALANCED GEOMETRIC SPIRES (PERFECT VERTICAL SYMMETRY AROUND X = 25.0) -->
-                <!-- SPIRE 1: Far-Left Outer Peak (Apex: 7.0, 8.2) -->
-                <polygon points="7.0,8.2 8.5,17.6 7.2,17.5" class="cr-facet-l" fill="url(#crGoldLight)"/>
-                <polygon points="7.0,8.2 11.25,14.5 11.25,17.8 8.5,17.6" class="cr-facet-r" fill="url(#crGoldShadow)"/>
-                <line x1="7.0" y1="8.2" x2="8.5" y2="17.6" class="cr-ridge" stroke="#FFF2CE" stroke-width="0.3"/>
+              <!-- Architectural Inner Fluting Ribs (Precision structure) -->
+              <path
+                class="crown-inner-rib-left"
+                d="M 49 26 C 47.5 33, 46 40, 45 47"
+                fill="none"
+                stroke="#482C05"
+                stroke-opacity="0.3"
+                stroke-width="0.55"
+              />
+              <path
+                class="crown-inner-rib-right"
+                d="M 71 26 C 72.5 33, 74 40, 75 47"
+                fill="none"
+                stroke="#482C05"
+                stroke-opacity="0.3"
+                stroke-width="0.55"
+              />
 
-                <!-- SPIRE 2: Mid-Left Peak (Apex: 15.5, 6.0) -->
-                <polygon points="15.5,6.0 15.8,18.2 11.25,17.8 11.25,14.5" class="cr-facet-l" fill="url(#crGoldLight)"/>
-                <polygon points="15.5,6.0 20.25,13.5 20.25,18.5 15.8,18.2" class="cr-facet-r" fill="url(#crGoldShadow)"/>
-                <line x1="15.5" y1="6.0" x2="15.8" y2="18.2" class="cr-ridge" stroke="#FFF2CE" stroke-width="0.35"/>
+              <!-- Sculpted Left Specular Facet on Center Spire -->
+              <path
+                class="crown-facet-left"
+                d="M 60 5.5
+                   C 56.5 13, 54 21, 49 26
+                   Q 55 27.5, 60 27.5 Z"
+                fill="url(#crownFacetLeft)"
+              />
 
-                <!-- SPIRE 3: Imperial Central Peak (Apex: 25.0, 4.2 - Highest Peak) -->
-                <polygon points="25.0,4.2 25.0,18.8 20.25,18.5 20.25,13.5" class="cr-facet-l" fill="url(#crGoldLight)"/>
-                <polygon points="25.0,4.2 29.75,13.5 29.75,18.5 25.0,18.8" class="cr-facet-r" fill="url(#crGoldShadow)"/>
-                <line x1="25.0" y1="4.2" x2="25.0" y2="18.8" class="cr-ridge" stroke="#FFFFFF" stroke-width="0.4"/>
+              <!-- Chiseled Center Ridge Crease -->
+              <line
+                class="crown-center-crease"
+                x1="60" y1="5.5" x2="60" y2="51.5"
+                stroke="#482C05"
+                stroke-opacity="0.45"
+                stroke-width="0.65"
+              />
 
-                <!-- SPIRE 4: Mid-Right Peak (Apex: 34.5, 6.0 - Symmetrical to Spire 2) -->
-                <polygon points="34.5,6.0 34.2,18.2 29.75,18.5 29.75,13.5" class="cr-facet-l" fill="url(#crGoldLight)"/>
-                <polygon points="34.5,6.0 38.75,14.5 38.75,17.8 34.2,18.2" class="cr-facet-r" fill="url(#crGoldShadow)"/>
-                <line x1="34.5" y1="6.0" x2="34.2" y2="18.2" class="cr-ridge" stroke="#FFF2CE" stroke-width="0.35"/>
+              <!-- Continuous Polished Upper Rim Chamfer (The Watchmaker's Bevel) -->
+              <path
+                class="crown-inner-specular"
+                d="M 22.5 21.8
+                   C 31.5 29.8, 42.5 30.2, 48.5 25.2
+                   L 60 7.2
+                   L 71.5 25.2
+                   C 77.5 30.2, 88.5 29.8, 97.5 21.8"
+                fill="none"
+                stroke="url(#crownBevel)"
+                stroke-width="0.8"
+                stroke-linecap="round"
+              />
 
-                <!-- SPIRE 5: Far-Right Outer Peak (Apex: 43.0, 8.2 - Symmetrical to Spire 1) -->
-                <polygon points="43.0,8.2 38.75,14.5 38.75,17.8 41.5,17.6" class="cr-facet-l" fill="url(#crGoldLight)"/>
-                <polygon points="43.0,8.2 41.5,17.6 42.8,17.5" class="cr-facet-r" fill="url(#crGoldShadow)"/>
-                <line x1="43.0" y1="8.2" x2="41.5" y2="17.6" class="cr-ridge" stroke="#FFF2CE" stroke-width="0.3"/>
+              <!-- Sovereign Curved Base Band -->
+              <path
+                class="crown-base-band"
+                d="M 25 45.5
+                   Q 60 51.5, 95 45.5
+                   L 95 53.5
+                   Q 60 59.5, 25 53.5 Z"
+                fill="url(#crownBase)"
+                stroke="#482C05"
+                stroke-width="0.75"
+                stroke-linejoin="round"
+              />
 
-                <!-- 3. FIVE ELEGANT SPHERICAL FINIALS (POLISHED METALLIC PEARLS) -->
-                <!-- Ball 1: Far-Left Outer Peak (r = 1.35) -->
-                <circle cx="7.0" cy="7.1" r="1.35" class="cr-ball" fill="url(#crBallGrad)" stroke="#523E17" stroke-width="0.25"/>
-                <circle cx="6.6" cy="6.7" r="0.4" class="cr-glint" fill="#FFFFFF"/>
+              <!-- Base Band Polished Upper Rim Highlight -->
+              <path
+                class="crown-base-highlight"
+                d="M 26 47
+                   Q 60 52.5, 94 47"
+                fill="none"
+                stroke="#FFF9DF"
+                stroke-opacity="0.85"
+                stroke-width="0.75"
+              />
 
-                <!-- Ball 2: Mid-Left Peak (r = 1.55) -->
-                <circle cx="15.5" cy="4.8" r="1.55" class="cr-ball" fill="url(#crBallGrad)" stroke="#523E17" stroke-width="0.25"/>
-                <circle cx="15.0" cy="4.3" r="0.45" class="cr-glint" fill="#FFFFFF"/>
+              <!-- Base Band Polished Lower Rim Chamfer -->
+              <path
+                class="crown-base-lower-rim"
+                d="M 26 53
+                   Q 60 58.5, 94 53"
+                fill="none"
+                stroke="#FFF9DF"
+                stroke-opacity="0.45"
+                stroke-width="0.55"
+              />
 
-                <!-- Ball 3: Central Imperial Apex (r = 1.85 - Supreme Centerpiece) -->
-                <circle cx="25.0" cy="2.9" r="1.85" class="cr-ball" fill="url(#crBallGrad)" stroke="#523E17" stroke-width="0.3"/>
-                <circle cx="24.4" cy="2.3" r="0.55" class="cr-glint" fill="#FFFFFF"/>
+              <!-- Symmetrical Miniature Royal Finials -->
+              <g class="crown-finials" fill="url(#crownPearl)" stroke="#482C05" stroke-width="0.5">
+                <circle cx="21" cy="19.5" r="1.6" />
+                <circle cx="60" cy="4.8" r="2.0" />
+                <circle cx="99" cy="19.5" r="1.6" />
+              </g>
 
-                <!-- Ball 4: Mid-Right Peak (r = 1.55) -->
-                <circle cx="34.5" cy="4.8" r="1.55" class="cr-ball" fill="url(#crBallGrad)" stroke="#523E17" stroke-width="0.25"/>
-                <circle cx="34.0" cy="4.3" r="0.45" class="cr-glint" fill="#FFFFFF"/>
-
-                <!-- Ball 5: Far-Right Outer Peak (r = 1.35) -->
-                <circle cx="43.0" cy="7.1" r="1.35" class="cr-ball" fill="url(#crBallGrad)" stroke="#523E17" stroke-width="0.25"/>
-                <circle cx="42.6" cy="6.7" r="0.4" class="cr-glint" fill="#FFFFFF"/>
+              <!-- Central Sovereign Diamond Hallmark on Base Band -->
+              <g class="crown-diamond-accent-group">
+                <!-- Flanking Micro Diamonds -->
+                <path
+                  class="crown-diamond-flank-left"
+                  d="M 42 47.8 L 43.6 49.5 L 42 51.2 L 40.4 49.5 Z"
+                  fill="#FFF9DF"
+                  stroke="#482C05"
+                  stroke-width="0.4"
+                />
+                <path
+                  class="crown-diamond-flank-right"
+                  d="M 78 47.8 L 79.6 49.5 L 78 51.2 L 76.4 49.5 Z"
+                  fill="#FFF9DF"
+                  stroke="#482C05"
+                  stroke-width="0.4"
+                />
+                <!-- Center Sovereign Brilliant Diamond -->
+                <path
+                  class="crown-diamond-accent"
+                  d="M 60 48.5 L 63 52 L 60 55.5 L 57 52 Z"
+                  fill="#FFFFFF"
+                  stroke="#482C05"
+                  stroke-width="0.5"
+                />
               </g>
             </svg>
           </div>
@@ -366,127 +452,169 @@
           <span class="sr-only" id="sectionName" aria-hidden="true" style="display: none;">العضوية</span>
         </div>
         <button class="icon-btn shield-btn solid-gold-medallion" id="headerVerifiedShieldBtn" type="button" aria-label="Verified Membership" title="Sovereign Credential Authenticated">
-          <svg viewBox="0 0 38 38" class="sgm-svg" aria-hidden="true">
+          <svg
+            class="verification-seal-svg"
+            viewBox="0 0 64 64"
+            width="100%"
+            height="100%"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
             <defs>
-              <!-- 1. Outer Reeded Coin Edge Shading -->
-              <radialGradient id="hsmCoinEdge" cx="50%" cy="50%" r="50%">
-                <stop offset="76%" stop-color="#3D2403"/>
-                <stop offset="86%" stop-color="#C7962E"/>
-                <stop offset="93%" stop-color="#FFF8E0"/>
-                <stop offset="100%" stop-color="#4D2E05"/>
+              <!-- 1. Full Polished Champagne-Gold Outer Rim (Haute Horlogerie Bezel) -->
+              <linearGradient id="sealGoldRim" x1="0.1" y1="0" x2="0.9" y2="1">
+                <stop offset="0%" stop-color="#FFFDF7"/>
+                <stop offset="12%" stop-color="#FFF0B5"/>
+                <stop offset="28%" stop-color="#EFD27D"/>
+                <stop offset="46%" stop-color="#A66D13"/>
+                <stop offset="64%" stop-color="#FFE9A0"/>
+                <stop offset="78%" stop-color="#D09B2E"/>
+                <stop offset="90%" stop-color="#80500B"/>
+                <stop offset="100%" stop-color="#D7B45D"/>
+              </linearGradient>
+
+              <!-- 2. Solid Polished-Gold Minted Medallion Face (Sunken Proof Coin Bed) -->
+              <radialGradient id="sealGoldFace" cx="30%" cy="20%" r="85%">
+                <stop offset="0%" stop-color="#FFF3C4"/>
+                <stop offset="24%" stop-color="#EBC45B"/>
+                <stop offset="52%" stop-color="#B27E1C"/>
+                <stop offset="78%" stop-color="#734B0B"/>
+                <stop offset="100%" stop-color="#3F2504"/>
               </radialGradient>
 
-              <!-- 2. Stepped Bevel Gold Gradient (Directional Light from 135deg) -->
-              <linearGradient id="hsmBezelGrad" x1="15%" y1="10%" x2="85%" y2="90%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="12%" stop-color="#FFF4D4"/>
-                <stop offset="35%" stop-color="#DFAC40"/>
-                <stop offset="65%" stop-color="#9C6B16"/>
-                <stop offset="85%" stop-color="#543306"/>
-                <stop offset="100%" stop-color="#241402"/>
+              <!-- Outer rim specular contour -->
+              <linearGradient id="sealRimEdge" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF0BA"/>
+                <stop offset="45%" stop-color="#A66D13"/>
+                <stop offset="100%" stop-color="#2D1905"/>
               </linearGradient>
 
-              <!-- 3. Inner Rehaut Chapter Ring (Reverse Bevel) -->
-              <linearGradient id="hsmRehautGrad" x1="85%" y1="90%" x2="15%" y2="10%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="22%" stop-color="#FFF2C8"/>
-                <stop offset="55%" stop-color="#C59328"/>
-                <stop offset="80%" stop-color="#6B4206"/>
-                <stop offset="100%" stop-color="#281602"/>
+              <!-- Minted Beaded Border / Grenetis Gradient -->
+              <linearGradient id="sealBeadedBorder" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FFF9DF" stop-opacity="0.85"/>
+                <stop offset="50%" stop-color="#D09B2E" stop-opacity="0.5"/>
+                <stop offset="100%" stop-color="#553406" stop-opacity="0.75"/>
               </linearGradient>
 
-              <!-- 4. Sunburst Engine-Turned Coin Bed (24K Gold Dial Face) -->
-              <radialGradient id="hsmBedGrad" cx="36%" cy="30%" r="66%">
-                <stop offset="0%" stop-color="#FFF0BD"/>
-                <stop offset="26%" stop-color="#E8B53C"/>
-                <stop offset="66%" stop-color="#9E6814"/>
-                <stop offset="90%" stop-color="#4E2F04"/>
-                <stop offset="100%" stop-color="#241302"/>
+              <!-- Sculpted gold shield facet (illuminated left) -->
+              <linearGradient id="sealShieldLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFDF5"/>
+                <stop offset="22%" stop-color="#F8E5A2"/>
+                <stop offset="56%" stop-color="#CF9F35"/>
+                <stop offset="85%" stop-color="#966717"/>
+                <stop offset="100%" stop-color="#553406"/>
+              </linearGradient>
+
+              <!-- Sculpted gold shield facet (shaded right) -->
+              <linearGradient id="sealShieldDark" x1="10%" y1="0%" x2="90%" y2="100%">
+                <stop offset="0%" stop-color="#C29738"/>
+                <stop offset="35%" stop-color="#885E19"/>
+                <stop offset="72%" stop-color="#4E330B"/>
+                <stop offset="100%" stop-color="#241505"/>
+              </linearGradient>
+
+              <!-- Inlaid Sovereign Checkmark (Polished White Gold) -->
+              <linearGradient id="sealCheck" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="35%" stop-color="#FFFDF7"/>
+                <stop offset="75%" stop-color="#E9DBBF"/>
+                <stop offset="100%" stop-color="#BAAB8D"/>
+              </linearGradient>
+
+              <!-- Light Mode Gold Gradient Compatibility -->
+              <linearGradient id="sealGoldRimLight" x1="0.1" y1="0" x2="0.9" y2="1">
+                <stop offset="0%" stop-color="#FFFBF0"/>
+                <stop offset="14%" stop-color="#EED588"/>
+                <stop offset="32%" stop-color="#B78224"/>
+                <stop offset="50%" stop-color="#FFECAB"/>
+                <stop offset="68%" stop-color="#C9932B"/>
+                <stop offset="86%" stop-color="#8B5B12"/>
+                <stop offset="100%" stop-color="#4A2D04"/>
+              </linearGradient>
+              <linearGradient id="sealRimEdgeLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#DFC06D"/>
+                <stop offset="50%" stop-color="#8C5C15"/>
+                <stop offset="100%" stop-color="#2C1702"/>
+              </linearGradient>
+              <radialGradient id="sealGoldFaceLight" cx="30%" cy="20%" r="85%">
+                <stop offset="0%" stop-color="#FFF8E0"/>
+                <stop offset="22%" stop-color="#ECC667"/>
+                <stop offset="52%" stop-color="#B88526"/>
+                <stop offset="78%" stop-color="#7B5212"/>
+                <stop offset="100%" stop-color="#422603"/>
               </radialGradient>
-
-              <!-- 5. 3D Faceted Shield Left Face (Direct Specular Illumination) -->
-              <linearGradient id="hsmShieldLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient id="sealShieldLeftLight" x1="10%" y1="0%" x2="90%" y2="100%">
                 <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="22%" stop-color="#FFF5D2"/>
-                <stop offset="58%" stop-color="#F2C64B"/>
-                <stop offset="100%" stop-color="#BA841A"/>
+                <stop offset="18%" stop-color="#FFF4D2"/>
+                <stop offset="50%" stop-color="#DEB148"/>
+                <stop offset="80%" stop-color="#B58120"/>
+                <stop offset="100%" stop-color="#7A5010"/>
               </linearGradient>
-
-              <!-- 6. 3D Faceted Shield Right Face (Deep Dimensional Shadow) -->
-              <linearGradient id="hsmShieldRight" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#DCA836"/>
-                <stop offset="32%" stop-color="#9E6C15"/>
-                <stop offset="72%" stop-color="#543306"/>
-                <stop offset="100%" stop-color="#241302"/>
-              </linearGradient>
-
-              <!-- 7. Inlaid Sovereign Checkmark Relief (Polished White Gold / Platinum) -->
-              <linearGradient id="hsmCheckGrad" x1="20%" y1="0%" x2="80%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="42%" stop-color="#FFFDF5"/>
-                <stop offset="75%" stop-color="#EAE0C8"/>
-                <stop offset="100%" stop-color="#A89E88"/>
+              <linearGradient id="sealShieldRightLight" x1="10%" y1="0%" x2="90%" y2="100%">
+                <stop offset="0%" stop-color="#B58120"/>
+                <stop offset="38%" stop-color="#7A5010"/>
+                <stop offset="72%" stop-color="#462B07"/>
+                <stop offset="100%" stop-color="#201202"/>
               </linearGradient>
             </defs>
 
-            <!-- LAYER 1: 24K Outer Polished Bevel Casing -->
-            <circle cx="19" cy="19" r="18.2" fill="url(#hsmCoinEdge)"/>
-            <circle cx="19" cy="19" r="17.4" fill="url(#hsmBezelGrad)"/>
+            <!-- 1. Polished champagne-gold outer rim -->
+            <circle class="seal-outer-bezel" cx="32" cy="32" r="30.5" fill="url(#sealGoldRim)" stroke="url(#sealRimEdge)" stroke-width="1"/>
 
-            <!-- LAYER 2: Micro-Milled Guilloché / Reeded Coin Rim -->
-            <circle cx="19" cy="19" r="16.2" fill="none" stroke="#2C1802" stroke-width="0.8" stroke-dasharray="1.1 0.7"/>
+            <!-- 2. Precision inner seam -->
+            <circle class="seal-inner-seam" cx="32" cy="32" r="27.8" fill="none" stroke="#241605" stroke-width="0.85"/>
 
-            <!-- LAYER 3: Inner Rehaut Step-Down Ring -->
-            <circle cx="19" cy="19" r="15.2" fill="url(#hsmRehautGrad)"/>
-            <circle cx="19" cy="19" r="14.3" fill="#2E1C04" stroke="#4A2E05" stroke-width="0.5"/>
+            <!-- 3. Minted Solid-Gold Medallion Face (No black background, pure precious metal) -->
+            <circle class="seal-dial-bed" cx="32" cy="32" r="27.2" fill="url(#sealGoldFace)"/>
 
-            <!-- LAYER 4: Coin Dial Bed (Radial Sunburst 24K Gold) -->
-            <circle cx="19" cy="19" r="13.8" fill="url(#hsmBedGrad)"/>
+            <!-- 4. Minted Bullion Coin Edge Border (Grenetis Milled Bead Track) -->
+            <circle class="seal-hairline-ring" cx="32" cy="32" r="25.4" fill="none" stroke="url(#sealBeadedBorder)" stroke-width="0.8" stroke-dasharray="0.8 1.6" stroke-linecap="round"/>
+            <circle class="seal-inner-groove" cx="32" cy="32" r="23.8" fill="none" stroke="url(#sealGoldRim)" stroke-width="0.5" stroke-opacity="0.4"/>
 
-            <!-- LAYER 5: Fine Concentric Lathe Rings on Coin Face -->
-            <circle cx="19" cy="19" r="11.8" fill="none" stroke="#FFFFFF" stroke-width="0.3" opacity="0.24"/>
-            <circle cx="19" cy="19" r="9.6" fill="none" stroke="#FFFFFF" stroke-width="0.25" opacity="0.18"/>
-            <circle cx="19" cy="19" r="7.4" fill="none" stroke="#261502" stroke-width="0.35" opacity="0.32"/>
-
-            <!-- LAYER 6: 3D HERALDIC SOVEREIGN SHIELD (SCULPTED IN RELIEF) -->
-            <g>
-              <!-- Shield Rim Foundation / Bevel Border with Contact Shadow -->
-              <path d="M19 7.6 L26.2 11.0 V17.2 C26.2 21.6 23.0 25.6 19 27.2 C15.0 25.6 11.8 21.6 11.8 17.2 V11.0 Z"
-                    fill="#261602" stroke="url(#hsmBezelGrad)" stroke-width="0.85" stroke-linejoin="round"/>
+            <!-- 5. Sculpted two-tone gold shield with grounded depth shadow -->
+            <g class="seal-shield-group">
+              <!-- Soft Depth Drop Shadow onto Minted Gold Face -->
+              <path class="seal-shield-shadow"
+                d="M 32 15.5 Q 25.5 16.5 19.5 17.8 V 30.8 C 19.5 38.8, 25.5 44.8, 32 47.8 C 38.5 44.8, 44.5 38.8, 44.5 30.8 V 17.8 Q 38.5 16.5 32 15.5 Z"
+                fill="#180E03" opacity="0.6"/>
 
               <!-- Left Facet (Direct Specular Illumination) -->
-              <path d="M19 8.2 L12.5 11.4 V17.2 C12.5 21.2 15.3 24.8 19 26.4 V8.2 Z"
-                    fill="url(#hsmShieldLeft)"/>
+              <path class="seal-shield-left"
+                d="M 32 14.5 Q 25.5 15.5 19.5 16.8 V 29.8 C 19.5 37.8, 25.5 43.8, 32 46.8 Z"
+                fill="url(#sealShieldLeft)"/>
 
-              <!-- Right Facet (Deep Burnished Gold Shadow) -->
-              <path d="M19 8.2 L25.5 11.4 V17.2 C25.5 21.2 22.7 24.8 19 26.4 V8.2 Z"
-                    fill="url(#hsmShieldRight)"/>
+              <!-- Right Facet (Deep Dimensional Shadow) -->
+              <path class="seal-shield-right"
+                d="M 32 14.5 Q 38.5 15.5 44.5 16.8 V 29.8 C 44.5 37.8, 38.5 43.8, 32 46.8 Z"
+                fill="url(#sealShieldDark)"/>
 
-              <!-- Sharp Center Spine / Crease Ridge -->
-              <path d="M19 8.2 V26.4" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" opacity="0.92"/>
+              <!-- Bevel Rim -->
+              <path class="seal-shield-rim"
+                d="M 32 14.5 Q 38.5 15.5 44.5 16.8 V 29.8 C 44.5 37.8, 38.5 43.8, 32 46.8 C 25.5 43.8, 19.5 37.8, 19.5 29.8 V 16.8 Q 25.5 15.5 32 14.5 Z"
+                fill="none" stroke="url(#sealGoldRim)" stroke-width="1.1" stroke-linejoin="round"/>
 
-              <!-- Top Left Rim Specular Line Catch -->
-              <path d="M19 8.2 L12.5 11.4" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" opacity="0.98"/>
+              <!-- Sharp Center Crease Ridge -->
+              <path class="seal-shield-crease" d="M 32 14.5 V 46.8" stroke="#FFFFFF" stroke-width="0.9" stroke-opacity="0.85" stroke-linecap="round"/>
             </g>
 
-            <!-- LAYER 7: SCULPTED INLAID SOVEREIGN CHECKMARK -->
-            <g>
-              <!-- Underlying Engraved Shadow Groove -->
-              <path d="M15.6 17.2 L17.8 19.4 L22.6 14.4"
-                    fill="none" stroke="#160B01" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+            <!-- 6. Sculpted Inlaid Sovereign Checkmark -->
+            <g class="seal-check-group">
+              <!-- Soft Depth Shadow -->
+              <path class="seal-check-shadow"
+                d="M 25.0 30.8 L 30.0 35.8 L 39.0 25.0"
+                fill="none" stroke="#160D03" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
 
-              <!-- Raised Beveled Platinum / White Gold Checkmark -->
-              <path d="M15.6 17.0 L17.8 19.2 L22.6 14.2"
-                    fill="none" stroke="url(#hsmCheckGrad)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Polished White Gold Checkmark Body -->
+              <path class="seal-check-body"
+                d="M 25.0 29.8 L 30.0 34.8 L 39.0 24.0"
+                fill="none" stroke="url(#sealCheck)" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"/>
 
-              <!-- Razor Specular Highlight Core -->
-              <path d="M15.8 16.8 L17.8 18.8 L22.4 14.0"
-                    fill="none" stroke="#FFFFFF" stroke-width="0.85" stroke-linecap="round" stroke-linejoin="round" opacity="0.98"/>
+              <!-- Specular Core Hairline -->
+              <path class="seal-check-specular"
+                d="M 25.3 29.5 L 30.0 34.2 L 38.7 23.7"
+                fill="none" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
             </g>
-
-            <!-- LAYER 8: Sapphire Crystal Glare Bevel (Horological Curved Reflection) -->
-            <path d="M10.2 11.0 A 13.8 13.8 0 0 1 27.8 11.0 Q 19 14.6 10.2 11.0 Z"
-                  fill="url(#hsmBezelGrad)" opacity="0.20" pointer-events="none"/>
           </svg>
         </button>
       </header>
