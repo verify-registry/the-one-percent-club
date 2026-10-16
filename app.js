@@ -3274,6 +3274,8 @@ const Router = {
 
       if (!isLeaderboard && typeof scrollChatToLatest === "function") {
         scrollChatToLatest(false);
+        requestAnimationFrame(() => scrollChatToLatest(false));
+        setTimeout(() => scrollChatToLatest(false), 60);
       }
       if (typeof window.HeaderScrollController?.attachClubScroll === "function") {
         window.HeaderScrollController.attachClubScroll();
@@ -4276,10 +4278,11 @@ function startClubWelcomeAutoDismiss() {
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
 
-  // Restore reliable 5-second (5000ms) auto-dismiss timer
-  clubWelcomeDismissTimer = setTimeout(() => {
-    dismissClubWelcomePlaque();
-  }, 5000);
+  // Keep welcome plaque visible in preview until user explicitly dismisses with close button (X)
+  if (clubWelcomeDismissTimer) {
+    clearTimeout(clubWelcomeDismissTimer);
+    clubWelcomeDismissTimer = null;
+  }
 }
 
 function cancelClubWelcomeAutoDismiss() {
@@ -5190,7 +5193,11 @@ function renderMessages() {
   const hasNewArrival = messages.some((m) => m.justDispatched || (Date.now() - (m.timestamp || 0) < 1800));
   if (hasNewArrival) {
     scrollChatToLatest(true);
+  } else {
+    scrollChatToLatest(false);
   }
+  requestAnimationFrame(() => scrollChatToLatest(false));
+  setTimeout(() => scrollChatToLatest(false), 60);
 }
 window.renderMessages = renderMessages;
 window.appendMessageToChat = appendMessageToChat;
