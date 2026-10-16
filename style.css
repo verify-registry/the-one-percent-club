@@ -8384,20 +8384,37 @@ body[dir="rtl"] #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevro
   display: inline-flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  gap: 5px !important;
+  gap: 7px !important;
   flex: 0 0 calc((100% - 8px) / 2) !important;
   width: calc((100% - 8px) / 2) !important;
   max-width: calc((100% - 8px) / 2) !important;
   min-width: calc((100% - 8px) / 2) !important;
-  height: 38px !important;
-  min-height: 38px !important;
-  max-height: 38px !important;
-  padding: 0 8px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  padding: 0 11px !important;
   box-sizing: border-box !important;
   border-radius: 9999px !important;
   white-space: nowrap !important;
   scroll-snap-align: start !important;
   scroll-snap-stop: always !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.015em !important;
+  line-height: 1.25 !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  position: relative !important;
+  outline: none !important;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  transition: background 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 #club-tab .club-room-btn:nth-child(2n+1) {
@@ -8409,46 +8426,34 @@ body[dir="rtl"] #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevro
   scroll-snap-align: none !important;
 }
 
+/* Base Inactive Channel: Smoked Obsidian Liquid Glass with Polished Gold Rim */
 #club-tab .club-room-btn,
 .club-room-btn {
-  font-size: 11px !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.01em !important;
-  line-height: 1 !important;
-  cursor: pointer !important;
-  user-select: none !important;
-  position: relative !important;
-  outline: none !important;
-  transform: translateZ(0);
-
-  /* Inactive: Translucent smoked glass with subtle inner reflection */
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(32, 24, 38, 0.25) 40%,
-    rgba(14, 10, 18, 0.35) 100%
+    rgba(34, 28, 44, 0.85) 0%,
+    rgba(18, 14, 24, 0.92) 100%
   ) !important;
-  backdrop-filter: blur(12px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
-  border: 1px solid rgba(212, 175, 75, 0.24) !important;
-  border-top: 1px solid rgba(255, 248, 225, 0.50) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(16px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.38) !important;
+  border-top: 1.2px solid rgba(255, 248, 225, 0.45) !important;
+  border-bottom: 1.2px solid rgba(0, 0, 0, 0.65) !important;
   box-shadow:
-    0 3px 10px -2px rgba(0, 0, 0, 0.35),
-    inset 0 1px 1px rgba(255, 255, 255, 0.18),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.25) !important;
-  color: #ded3be !important;
+    0 3px 10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.35) !important;
+  color: #fff6e5 !important;
   filter: none !important;
   -webkit-filter: none !important;
-  transition: background 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1), color 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 #club-tab .club-room-btn .chamber-name,
 .club-room-btn .chamber-name {
-  font-size: clamp(10px, 2.7vw, 11px) !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.01em !important;
-  line-height: 1.4 !important;
+  font-size: clamp(12px, 2.9vw, 13.5px) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.015em !important;
+  line-height: 1.25 !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -8458,111 +8463,153 @@ body[dir="rtl"] #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevro
   display: block !important;
   padding: 0 !important;
   margin: 0 !important;
-  color: #ede2cd !important;
+  color: inherit !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
 }
 
 html[lang="ar"] #club-tab .club-room-btn .chamber-name,
 html[dir="rtl"] #club-tab .club-room-btn .chamber-name,
 [dir="rtl"] #club-tab .club-room-btn .chamber-name {
-  font-family: "Cairo", -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: "Cairo", "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
 
 html[lang="en"] #club-tab .club-room-btn .chamber-name,
 html[dir="ltr"] #club-tab .club-room-btn .chamber-name,
 [dir="ltr"] #club-tab .club-room-btn .chamber-name {
-  font-family: var(--font-ui, "Manrope", sans-serif) !important;
+  font-family: var(--font-ui, "Manrope"), "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-#club-tab .club-room-btn:hover {
-  background: linear-gradient(180deg, #32261b 0%, #1f1811 45%, #140e0a 100%) !important;
-  border-color: rgba(230, 195, 95, 0.70) !important;
-  border-top-color: rgba(255, 248, 225, 0.88) !important;
-  color: #fff4d9 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px -1px rgba(0, 0, 0, 0.8),
-              inset 0 1px 0 rgba(255, 248, 225, 0.28) !important;
-  filter: none !important;
-  outline: none !important;
-}
-
-#club-tab .club-room-btn:active {
-  transform: translateY(0) scale(0.98);
-}
-
-#club-tab .club-room-btn .chamber-icon {
-  width: 14px !important;
-  height: 14px !important;
+#club-tab .club-room-btn .chamber-icon,
+.club-room-btn .chamber-icon {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
   flex-shrink: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  color: #dfbf74 !important;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.75)) !important;
-  transition: color 0.22s ease, filter 0.22s ease, transform 0.22s ease;
+  color: #f5cb58 !important;
+  stroke: #f5cb58 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7)) !important;
+  transition: color 0.22s ease, stroke 0.22s ease, filter 0.22s ease, transform 0.22s ease !important;
 }
 
 /* ==========================================================================
-   SELECTED STATE: AUTHENTIC TRANSLUCENT CHAMPAGNE-GOLD METALLIC GLASS
-   - Narrow hairline specular reflection at upper edge
-   - Translucent champagne-gold midtones with soft depth
-   - Deep antique-gold lower shading grounded by authentic dark bronze bevel
-   - High-contrast obsidian engraved typography with fine metallic debossed shadow
+   HOVER & ACTIVE STATES: 24-KARAT PHYSICAL SOVEREIGN GOLD BULLION (عيار 24)
+   - Radiant high-specular 24K bullion body
+   - Razor-sharp chiseled obsidian bronze text
+   - Beveled jewelry-grade perimeter rims
    ========================================================================== */
+#club-tab .club-room-btn:hover,
+.club-room-btn:hover {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #fff4c7 10%,
+    #fed768 25%,
+    #f5c040 45%,
+    #e4a929 65%,
+    #c18617 85%,
+    #7b4c06 100%
+  ) !important;
+  border: 1.5px solid #ffdb70 !important;
+  border-top: 1.8px solid #ffffff !important;
+  border-bottom: 2px solid #5a3504 !important;
+  box-shadow:
+    0 6px 20px -1px rgba(0, 0, 0, 0.65),
+    0 0 24px rgba(245, 192, 64, 0.75),
+    inset 0 1.5px 1.5px #ffffff,
+    inset 0 -1.5px 2px rgba(90, 50, 5, 0.65) !important;
+  color: #0d0701 !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+#club-tab .club-room-btn:hover .chamber-name,
+.club-room-btn:hover .chamber-name {
+  color: #0d0701 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.50) !important;
+}
+
+#club-tab .club-room-btn:hover .chamber-icon,
+.club-room-btn:hover .chamber-icon {
+  color: #0d0701 !important;
+  stroke: #0d0701 !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.40)) !important;
+}
+
+#club-tab .club-room-btn:active,
+.club-room-btn:active {
+  transform: translateY(0) scale(0.99) !important;
+}
+
 #club-tab .club-room-btn.is-active,
 .club-room-btn.is-active {
   background: linear-gradient(
     135deg,
-    rgba(255, 240, 200, 0.36) 0%,
-    rgba(225, 185, 105, 0.26) 30%,
-    rgba(185, 140, 50, 0.32) 65%,
-    rgba(100, 70, 18, 0.45) 100%
+    #ffffff 0%,
+    #fff4c7 10%,
+    #fed768 25%,
+    #f5c040 45%,
+    #e4a929 65%,
+    #c18617 85%,
+    #7b4c06 100%
   ) !important;
-  backdrop-filter: blur(14px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
-  border: 1px solid rgba(225, 190, 115, 0.70) !important;
-  border-top: 1.5px solid rgba(255, 252, 240, 0.95) !important;
-  border-bottom: 1.5px solid rgba(90, 60, 12, 0.60) !important;
+  border: 1.5px solid #ffdb70 !important;
+  border-top: 1.8px solid #ffffff !important;
+  border-bottom: 2px solid #5a3504 !important;
   box-shadow:
-    0 4px 14px -1px rgba(0, 0, 0, 0.55),
-    0 1px 3px rgba(212, 175, 106, 0.30),
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.70),
-    inset 0 -1.5px 2px rgba(40, 25, 6, 0.55) !important;
-  color: #fff8e8 !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.01em !important;
+    0 4px 18px -1px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(245, 192, 64, 0.65),
+    0 0 32px rgba(212, 175, 55, 0.35),
+    inset 0 1.5px 1.5px #ffffff,
+    inset 0 -1.5px 2px rgba(90, 50, 5, 0.70) !important;
+  color: #0d0701 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.015em !important;
   filter: none !important;
   outline: none !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 8px rgba(212, 175, 106, 0.45) !important;
+  text-shadow: none !important;
 }
 
 #club-tab .club-room-btn.is-active .chamber-name,
 .club-room-btn.is-active .chamber-name {
-  color: #fff8e8 !important;
-  font-weight: 700 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 8px rgba(212, 175, 106, 0.45) !important;
+  color: #0d0701 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.015em !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) !important;
 }
 
-#club-tab .club-room-btn.is-active .chamber-icon {
-  color: #fff8e8 !important;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 6px rgba(212, 175, 106, 0.45)) !important;
+#club-tab .club-room-btn.is-active .chamber-icon,
+.club-room-btn.is-active .chamber-icon {
+  color: #0d0701 !important;
+  stroke: #0d0701 !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.40)) !important;
 }
 
-/* Distinguished Sovereign Board (Leaderboard) Room — Final Single Tab Page */
+#club-tab .club-room-btn.is-active:hover,
+.club-room-btn.is-active:hover {
+  box-shadow:
+    0 6px 24px -1px rgba(0, 0, 0, 0.75),
+    0 0 30px rgba(255, 215, 80, 0.85),
+    inset 0 2px 2px #ffffff,
+    inset 0 -2px 2px rgba(90, 50, 5, 0.75) !important;
+  transform: translateY(-2px) scale(1.025) !important;
+}
+
+/* Distinguished Sovereign Board (Leaderboard) Room — Layout & Board Accent */
 #club-tab .club-room-btn.chamber-btn-board,
 #club-tab .club-room-btn:last-child {
   flex: 0 0 auto !important;
   min-width: calc((100% - 8px) / 2) !important;
   max-width: 100% !important;
   width: auto !important;
-  padding: 0 10px !important;
+  padding: 0 12px !important;
   margin-inline-end: calc(100% - 8px) !important;
-  background: linear-gradient(180deg, #2b2015 0%, #19130d 42%, #0f0b07 100%) !important;
-  border: 1px solid rgba(225, 185, 75, 0.55) !important;
-  border-top: 1px solid rgba(255, 248, 220, 0.75) !important;
-  border-bottom: 1px solid rgba(115, 80, 25, 0.55) !important;
-  box-shadow: inset 0 1px 0 0 rgba(255, 245, 215, 0.2),
-              inset 0 -1px 0 0 rgba(0, 0, 0, 0.85),
-              0 2px 6px -1px rgba(0, 0, 0, 0.75) !important;
 }
 
 #club-tab .club-room-btn.chamber-btn-board .chamber-name,
@@ -8573,57 +8620,15 @@ html[dir="ltr"] #club-tab .club-room-btn .chamber-name,
   white-space: nowrap !important;
 }
 
-#club-tab .club-room-btn.chamber-btn-board.is-active,
-#club-tab .club-room-btn:last-child.is-active {
-  flex: 0 0 auto !important;
-  min-width: calc((100% - 8px) / 2) !important;
-  max-width: 100% !important;
-  width: auto !important;
-  padding: 0 10px !important;
-  margin-inline-end: calc(100% - 8px) !important;
-  background: linear-gradient(
-    180deg,
-    #fff9eb 0%,
-    #f4dfa7 3%,
-    #e1c278 14%,
-    #cca24b 34%,
-    #e8cc83 48%,
-    #d6ab54 54%,
-    #9e7020 74%,
-    #764f10 88%,
-    #503409 100%
-  ) !important;
-  border: 1px solid #7d5410 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
-  border-bottom: 1.5px solid #3c2505 !important;
-  box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.85),
-              0 0 1px 1px rgba(225, 185, 75, 0.35),
-              inset 0 1px 0 rgba(255, 255, 255, 0.80),
-              inset 0 -1.5px 2px rgba(35, 22, 4, 0.65) !important;
-  color: #150d03 !important;
-  filter: none !important;
-}
-
-#club-tab .club-room-btn.chamber-btn-board.is-active .chamber-name {
-  color: #150d03 !important;
-  font-weight: 700 !important;
-  text-shadow: 0 1px 0 rgba(255, 245, 215, 0.40) !important;
-}
-
-#club-tab .club-room-btn.chamber-btn-board.is-active .chamber-icon {
-  color: #180e03 !important;
-  filter: drop-shadow(0 1px 0 rgba(255, 245, 215, 0.45)) !important;
-}
-
 #club-tab .chamber-board-tag {
-  font-size: 7px !important;
+  font-size: 8px !important;
   font-family: "Cinzel", "Times New Roman", serif !important;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   letter-spacing: 0.06em !important;
-  background: rgba(212, 175, 55, 0.16) !important;
-  border: 1px solid rgba(212, 175, 55, 0.40) !important;
-  color: var(--gold-champagne, #e9c877) !important;
-  padding: 1px 4px !important;
+  background: rgba(212, 175, 55, 0.20) !important;
+  border: 1px solid rgba(245, 203, 88, 0.50) !important;
+  color: #ffeb99 !important;
+  padding: 2px 5px !important;
   border-radius: 4px !important;
   line-height: 1 !important;
   display: inline-flex !important;
@@ -8633,19 +8638,20 @@ html[dir="ltr"] #club-tab .club-room-btn .chamber-name,
   margin-inline-start: auto !important;
 }
 
-#club-tab .club-room-btn.chamber-btn-board.is-active .chamber-board-tag {
-  background: rgba(30, 18, 4, 0.22) !important;
-  border: 1px solid rgba(50, 30, 6, 0.55) !important;
-  color: #150d03 !important;
-  font-weight: 700 !important;
+#club-tab .club-room-btn.is-active .chamber-board-tag,
+#club-tab .club-room-btn:hover .chamber-board-tag {
+  background: rgba(13, 7, 1, 0.90) !important;
+  border: 1px solid #7b4c06 !important;
+  color: #ffe68a !important;
+  font-weight: 800 !important;
 }
 
 .room-badge {
-  background: linear-gradient(135deg, #d4af37 0%, #aa8022 100%) !important;
-  color: #080705 !important;
-  font-size: 8px !important;
-  font-weight: 700 !important;
-  padding: 1.5px 4.5px !important;
+  background: linear-gradient(135deg, #f5c040 0%, #c18617 100%) !important;
+  color: #0d0701 !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  padding: 2px 5px !important;
   border-radius: 8px !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
   line-height: 1 !important;
@@ -8656,31 +8662,20 @@ html[dir="ltr"] #club-tab .club-room-btn .chamber-name,
   margin-inline-start: auto !important;
 }
 
-#club-tab .club-room-btn.is-active .room-badge {
-  background: linear-gradient(135deg, #201202 0%, #442a08 100%) !important;
-  border: 1px solid rgba(180, 140, 50, 0.4) !important;
-  color: #fceec5 !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
-}
-
-.room-badge.unread-dot {
-  padding: 0 !important;
-  width: 6px !important;
-  height: 6px !important;
-  min-width: 6px !important;
-  min-height: 6px !important;
-  border-radius: 50% !important;
-  background: #50b86a !important;
-  box-shadow: 0 0 6px rgba(80, 184, 106, 0.85) !important;
-  flex-shrink: 0 !important;
-  margin-inline-start: auto !important;
+#club-tab .club-room-btn.is-active .room-badge,
+#club-tab .club-room-btn:hover .room-badge {
+  background: #0d0701 !important;
+  border: 1px solid #e4a929 !important;
+  color: #ffe68a !important;
+  font-weight: 800 !important;
 }
 
 #club-tab .club-room-btn.is-active .room-badge.unread-dot {
   background: #2a7e40 !important;
-  box-shadow: 0 0 4px rgba(42, 126, 64, 0.7) !important;
+  box-shadow: 0 0 6px rgba(42, 126, 64, 0.8) !important;
 }
-/* Light Mode Free-Floating Rail (Zero outer enclosing frame/shadow) */
+
+/* Light Mode Base Rail & Buttons */
 body.light-mode #club-tab .club-rooms-nav {
   background: transparent !important;
   backdrop-filter: none !important;
@@ -8691,95 +8686,108 @@ body.light-mode #club-tab .club-rooms-nav {
 }
 
 body.light-mode #club-tab .club-room-btn {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.38) 0%,
-    rgba(250, 245, 235, 0.20) 50%,
-    rgba(242, 234, 220, 0.26) 100%
-  ) !important;
-  backdrop-filter: blur(12px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(130%) !important;
-  border: 1px solid rgba(190, 150, 80, 0.28) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.90) !important;
-  border-bottom: 1px solid rgba(170, 130, 50, 0.14) !important;
-  color: #4e3d23 !important;
+  background: rgba(255, 255, 255, 0.90) !important;
+  backdrop-filter: blur(16px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
+  border: 1.2px solid rgba(190, 150, 75, 0.50) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1.5px solid rgba(140, 100, 30, 0.28) !important;
+  color: #1a0f02 !important;
   box-shadow:
-    0 3px 8px -1px rgba(110, 80, 25, 0.06),
-    inset 0 1px 1px rgba(255, 255, 255, 0.85),
-    inset 0 -1px 1px rgba(184, 142, 62, 0.06) !important;
+    0 3px 10px rgba(120, 85, 25, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(184, 142, 62, 0.08) !important;
   filter: none !important;
   outline: none !important;
+}
+
+body.light-mode #club-tab .club-room-btn .chamber-name {
+  color: #1a0f02 !important;
+  font-weight: 700 !important;
+}
+
+body.light-mode #club-tab .club-room-btn .chamber-icon {
+  color: #6b460d !important;
+  stroke: #6b460d !important;
+  filter: none !important;
 }
 
 body.light-mode #club-tab .club-room-btn:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.50) 0%,
-    rgba(255, 248, 235, 0.30) 50%,
-    rgba(245, 236, 218, 0.36) 100%
+    #ffffff 0%,
+    #fff4c7 10%,
+    #fed768 25%,
+    #f5c040 45%,
+    #e4a929 65%,
+    #c18617 85%,
+    #7b4c06 100%
   ) !important;
-  border-color: rgba(190, 150, 75, 0.45) !important;
-  color: #3b2a09 !important;
-  box-shadow: 0 4px 10px rgba(70, 48, 12, 0.09) !important;
-  filter: none !important;
-  outline: none !important;
+  border: 1.5px solid #ffdb70 !important;
+  border-top: 1.8px solid #ffffff !important;
+  border-bottom: 2px solid #5a3504 !important;
+  box-shadow:
+    0 6px 20px -1px rgba(130, 90, 20, 0.50),
+    0 0 24px rgba(245, 192, 64, 0.70),
+    inset 0 1.5px 1.5px #ffffff,
+    inset 0 -1.5px 2px rgba(90, 50, 5, 0.60) !important;
+  color: #0d0701 !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+body.light-mode #club-tab .club-room-btn:hover .chamber-name {
+  color: #0d0701 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.50) !important;
+}
+
+body.light-mode #club-tab .club-room-btn:hover .chamber-icon {
+  color: #0d0701 !important;
+  stroke: #0d0701 !important;
 }
 
 body.light-mode #club-tab .club-room-btn.is-active {
   background: linear-gradient(
     135deg,
-    rgba(255, 248, 225, 0.62) 0%,
-    rgba(245, 222, 168, 0.45) 40%,
-    rgba(228, 195, 125, 0.42) 75%,
-    rgba(195, 150, 65, 0.48) 100%
+    #ffffff 0%,
+    #fff4c7 10%,
+    #fed768 25%,
+    #f5c040 45%,
+    #e4a929 65%,
+    #c18617 85%,
+    #7b4c06 100%
   ) !important;
-  backdrop-filter: blur(14px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
-  border: 1.2px solid rgba(195, 150, 65, 0.65) !important;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.98) !important;
-  border-bottom: 1.5px solid rgba(140, 100, 30, 0.40) !important;
-  color: #261602 !important;
-  font-weight: 700 !important;
+  border: 1.5px solid #ffdb70 !important;
+  border-top: 1.8px solid #ffffff !important;
+  border-bottom: 2px solid #5a3504 !important;
+  color: #0d0701 !important;
+  font-weight: 800 !important;
   box-shadow:
-    0 4px 12px -1px rgba(110, 75, 20, 0.16),
-    0 1px 3px rgba(212, 175, 55, 0.20),
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1.5px 1.5px rgba(184, 141, 56, 0.18) !important;
+    0 4px 18px -1px rgba(130, 90, 20, 0.45),
+    0 0 20px rgba(245, 192, 64, 0.65),
+    inset 0 1.5px 1.5px #ffffff,
+    inset 0 -1.5px 2px rgba(90, 50, 5, 0.65) !important;
   filter: none !important;
   outline: none !important;
 }
 
-body.light-mode #club-tab .club-room-btn .chamber-icon {
-  color: #8c734b !important;
-  filter: none !important;
+body.light-mode #club-tab .club-room-btn.is-active .chamber-name {
+  color: #0d0701 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.50) !important;
 }
 
 body.light-mode #club-tab .club-room-btn.is-active .chamber-icon {
-  color: #5a3c0a !important;
-  filter: none !important;
+  color: #0d0701 !important;
+  stroke: #0d0701 !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.40)) !important;
 }
 
-body.light-mode #club-tab .club-room-btn.chamber-btn-board {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.38) 0%,
-    rgba(250, 245, 235, 0.20) 50%,
-    rgba(242, 234, 220, 0.26) 100%
-  ) !important;
-  border: 1px solid rgba(190, 150, 75, 0.30) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.90) !important;
-}
-
-body.light-mode #club-tab .club-room-btn.chamber-btn-board.is-active {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 248, 225, 0.62) 0%,
-    rgba(245, 222, 168, 0.45) 40%,
-    rgba(228, 195, 125, 0.42) 75%,
-    rgba(195, 150, 65, 0.48) 100%
-  ) !important;
-  border: 1.2px solid #c29944 !important;
-  border-top: 1.2px solid #ebd37d !important;
+body.light-mode #club-tab .club-room-btn.chamber-board-tag {
+  background: rgba(180, 135, 45, 0.18) !important;
+  border: 1px solid rgba(180, 135, 45, 0.50) !important;
+  color: #241402 !important;
+  font-weight: 800 !important;
 }
 
 body.light-mode .room-badge {
@@ -35673,11 +35681,13 @@ body.light-mode #logoutConfirmModal p {
   align-items: center !important;
   width: max-content !important;
   will-change: transform !important;
-  animation: continuousTickerScroll 90s linear infinite !important;
+  animation: continuousTickerScroll 70s linear infinite !important;
 }
 
-.ticker-marquee-track:hover {
-  animation-play-state: paused !important;
+@media (hover: hover) {
+  .ticker-marquee-track:hover {
+    animation-play-state: paused !important;
+  }
 }
 
 @keyframes continuousTickerScroll {
@@ -35687,8 +35697,7 @@ body.light-mode #logoutConfirmModal p {
 
 @media (prefers-reduced-motion: reduce) {
   .ticker-marquee-track {
-    animation: none !important;
-    overflow-x: auto !important;
+    animation-duration: 120s !important;
   }
 }
 
@@ -37136,12 +37145,14 @@ body.light-mode .ticker-pulse-badge {
   align-items: center !important;
   width: max-content !important;
   will-change: transform !important;
-  animation: continuousTickerScroll 90s linear infinite !important;
+  animation: continuousTickerScroll 70s linear infinite !important;
   direction: ltr !important;
 }
 
-.ticker-marquee-track:hover {
-  animation-play-state: paused !important;
+@media (hover: hover) {
+  .ticker-marquee-track:hover {
+    animation-play-state: paused !important;
+  }
 }
 
 .ticker-marquee-group {
@@ -39119,8 +39130,12 @@ body.light-mode .sovereign-salon-ticker {
   align-items: center !important;
   height: 100% !important;
   direction: ltr !important;
-  mask-image: linear-gradient(90deg, transparent 0, black 12px, black calc(100% - 12px), transparent 100%) !important;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, black 12px, black calc(100% - 12px), transparent 100%) !important;
+  contain: layout paint style !important;
+  isolation: isolate !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  mask-image: linear-gradient(90deg, transparent 0, black 16px, black calc(100% - 16px), transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, black 16px, black calc(100% - 16px), transparent 100%) !important;
 }
 
 .ticker-marquee-track {
@@ -39133,15 +39148,25 @@ body.light-mode .sovereign-salon-ticker {
   padding: 0 !important;
   gap: 0 !important;
   direction: ltr !important;
-  transform: translate3d(0, 0, 0) !important;
   will-change: transform !important;
+  transform-style: preserve-3d !important;
+  -webkit-transform-style: preserve-3d !important;
   backface-visibility: hidden !important;
   -webkit-backface-visibility: hidden !important;
-  animation: continuousTickerScroll 60s linear infinite !important;
+  perspective: 1000px !important;
+  -webkit-perspective: 1000px !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  animation: continuousTickerScroll 70s linear infinite !important;
+  -webkit-animation: continuousTickerScroll 70s linear infinite !important;
 }
 
-.ticker-marquee-track:hover {
-  animation-play-state: paused !important;
+@media (hover: hover) {
+  .ticker-marquee-track:hover {
+    animation-play-state: paused !important;
+    -webkit-animation-play-state: paused !important;
+  }
 }
 
 /* Mathematically uniform spacing prevents subpixel jumps/jerks at loop boundary */
@@ -39157,6 +39182,11 @@ body.light-mode .sovereign-salon-ticker {
   white-space: nowrap !important;
   direction: ltr !important;
   box-sizing: border-box !important;
+  contain: content !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
 }
 
 .ticker-dot-sep {
@@ -39167,16 +39197,29 @@ body.light-mode .sovereign-salon-ticker {
 @keyframes continuousTickerScroll {
   0% {
     transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
   }
   100% {
+    transform: translate3d(-50%, 0, 0);
+    -webkit-transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@-webkit-keyframes continuousTickerScroll {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(-50%, 0, 0);
     transform: translate3d(-50%, 0, 0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ticker-marquee-track {
-    animation: none !important;
-    overflow-x: auto !important;
+    animation-duration: 120s !important;
+    -webkit-animation-duration: 120s !important;
   }
 }
 
@@ -39600,69 +39643,369 @@ body.light-mode .obsidian-dispatch-composer {
   gap: 4px !important;
 }
 
-/* 9. ROOM NAVIGATION TABS */
+/* 9. ROOM NAVIGATION TABS — 24K SOVEREIGN GOLD & CRYSTAL-CLEAR CONTRAST */
 #clubRoomsNav .club-room-btn,
-#club-tab .club-room-btn {
-  border-radius: 12px !important;
-  transition: all 0.25s ease !important;
+#club-tab .club-room-btn,
+.club-room-btn {
+  border-radius: 9999px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  padding: 0 11px !important;
+  gap: 7px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.015em !important;
+  line-height: 1.25 !important;
+  box-sizing: border-box !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-rendering: optimizeLegibility !important;
+  transition: background 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-body:not(.light-mode) #clubRoomsNav .club-room-btn {
-  background: rgba(18, 18, 24, 0.45) !important;
+#clubRoomsNav .club-room-btn .chamber-name,
+#club-tab .club-room-btn .chamber-name,
+.club-room-btn .chamber-name {
+  font-size: clamp(12px, 2.9vw, 13.5px) !important;
+  letter-spacing: 0.015em !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  text-align: start !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#clubRoomsNav .club-room-btn .chamber-icon,
+#club-tab .club-room-btn .chamber-icon,
+.club-room-btn .chamber-icon {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  flex-shrink: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* --------------------------------------------------------------------------
+   DARK MODE: INACTIVE CHANNELS (Smoked Obsidian Liquid Glass with Crisp Text)
+   -------------------------------------------------------------------------- */
+body:not(.light-mode) #clubRoomsNav .club-room-btn,
+body:not(.light-mode) #club-tab .club-room-btn,
+body.dark-mode #clubRoomsNav .club-room-btn,
+body.dark-mode #club-tab .club-room-btn,
+:root[data-theme="dark"] #clubRoomsNav .club-room-btn,
+:root[data-theme="dark"] #club-tab .club-room-btn {
+  background: linear-gradient(135deg, rgba(32, 26, 40, 0.85) 0%, rgba(18, 14, 24, 0.92) 100%) !important;
   backdrop-filter: blur(16px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.18) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.20) !important;
-  color: #c4ba9f !important;
+  border: 1px solid rgba(212, 175, 55, 0.38) !important;
+  border-top: 1.2px solid rgba(255, 248, 225, 0.45) !important;
+  border-bottom: 1.2px solid rgba(0, 0, 0, 0.65) !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  color: #fff6e5 !important;
 }
 
-body:not(.light-mode) #clubRoomsNav .club-room-btn .chamber-name {
-  color: #c4ba9f !important;
+body:not(.light-mode) #clubRoomsNav .club-room-btn .chamber-name,
+body:not(.light-mode) #club-tab .club-room-btn .chamber-name,
+body.dark-mode #clubRoomsNav .club-room-btn .chamber-name,
+body.dark-mode #club-tab .club-room-btn .chamber-name,
+:root[data-theme="dark"] #clubRoomsNav .club-room-btn .chamber-name,
+:root[data-theme="dark"] #club-tab .club-room-btn .chamber-name {
+  color: #fff6e5 !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.90) !important;
+  opacity: 1 !important;
 }
 
-body:not(.light-mode) #clubRoomsNav .club-room-btn.is-active,
-body:not(.light-mode) #clubRoomsNav .club-room-btn.active {
-  background: linear-gradient(135deg, rgba(42, 36, 24, 0.88) 0%, rgba(20, 18, 14, 0.96) 100%) !important;
-  border: 1.5px solid #d4af37 !important;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 0 16px rgba(212, 175, 55, 0.25), 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+body:not(.light-mode) #clubRoomsNav .club-room-btn .chamber-icon,
+body:not(.light-mode) #club-tab .club-room-btn .chamber-icon,
+body.dark-mode #clubRoomsNav .club-room-btn .chamber-icon,
+body.dark-mode #club-tab .club-room-btn .chamber-icon,
+:root[data-theme="dark"] #clubRoomsNav .club-room-btn .chamber-icon,
+:root[data-theme="dark"] #club-tab .club-room-btn .chamber-icon {
+  color: #f5cb58 !important;
+  stroke: #f5cb58 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.70)) !important;
+  opacity: 1 !important;
 }
 
-body:not(.light-mode) #clubRoomsNav .club-room-btn.is-active .chamber-name {
-  color: #fff4d0 !important;
+body:not(.light-mode) #clubRoomsNav .club-room-btn .room-badge,
+body:not(.light-mode) #club-tab .club-room-btn .room-badge,
+body.dark-mode #clubRoomsNav .club-room-btn .room-badge,
+body.dark-mode #club-tab .club-room-btn .room-badge {
+  background: rgba(212, 175, 55, 0.22) !important;
+  border: 1px solid rgba(245, 203, 88, 0.55) !important;
+  color: #ffeb99 !important;
   font-weight: 700 !important;
-  text-shadow: 0 0 8px rgba(212, 175, 55, 0.5) !important;
+  text-shadow: none !important;
 }
 
-body.light-mode #clubRoomsNav .club-room-btn {
-  background: rgba(255, 255, 255, 0.65) !important;
-  backdrop-filter: blur(14px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
-  border: 1px solid rgba(190, 150, 75, 0.35) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.90) !important;
-  box-shadow: 0 2px 8px rgba(120, 90, 30, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+/* --------------------------------------------------------------------------
+   LIGHT MODE: INACTIVE CHANNELS (Translucent Silk Glass with Deep Bronze Text)
+   -------------------------------------------------------------------------- */
+body.light-mode #clubRoomsNav .club-room-btn,
+body.light-mode #club-tab .club-room-btn,
+:root[data-theme="light"] #clubRoomsNav .club-room-btn,
+:root[data-theme="light"] #club-tab .club-room-btn {
+  background: rgba(255, 255, 255, 0.90) !important;
+  backdrop-filter: blur(16px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
+  border: 1.2px solid rgba(190, 150, 75, 0.50) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1.5px solid rgba(140, 100, 30, 0.28) !important;
+  box-shadow: 0 3px 10px rgba(120, 85, 25, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  color: #1a0f02 !important;
 }
 
-body.light-mode #clubRoomsNav .club-room-btn .chamber-name {
-  color: #4a3412 !important;
+body.light-mode #clubRoomsNav .club-room-btn .chamber-name,
+body.light-mode #club-tab .club-room-btn .chamber-name,
+:root[data-theme="light"] #clubRoomsNav .club-room-btn .chamber-name,
+:root[data-theme="light"] #club-tab .club-room-btn .chamber-name {
+  color: #1a0f02 !important;
   font-weight: 700 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
 }
 
-body.light-mode #clubRoomsNav .club-room-btn.is-active {
+body.light-mode #clubRoomsNav .club-room-btn .chamber-icon,
+body.light-mode #club-tab .club-room-btn .chamber-icon,
+:root[data-theme="light"] #clubRoomsNav .club-room-btn .chamber-icon,
+:root[data-theme="light"] #club-tab .club-room-btn .chamber-icon {
+  color: #6b460d !important;
+  stroke: #6b460d !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+body.light-mode #clubRoomsNav .club-room-btn .room-badge,
+body.light-mode #club-tab .club-room-btn .room-badge,
+:root[data-theme="light"] #clubRoomsNav .club-room-btn .room-badge,
+:root[data-theme="light"] #club-tab .club-room-btn .room-badge {
+  background: rgba(180, 135, 45, 0.20) !important;
+  border: 1px solid rgba(180, 135, 45, 0.50) !important;
+  color: #1a0f02 !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   UNIVERSAL HOVER STATE: 24-KARAT SOVEREIGN GOLD BULLION (عيار 24)
+   - When hovering on ANY channel button in Dark Mode OR Light Mode
+   - Radiant metallic 24K bullion body with chiseled obsidian text
+   -------------------------------------------------------------------------- */
+#clubRoomsNav .club-room-btn:hover,
+#club-tab .club-room-btn:hover,
+.club-room-btn:hover,
+body:not(.light-mode) #clubRoomsNav .club-room-btn:hover,
+body:not(.light-mode) #club-tab .club-room-btn:hover,
+body.light-mode #clubRoomsNav .club-room-btn:hover,
+body.light-mode #club-tab .club-room-btn:hover,
+:root[data-theme="dark"] #clubRoomsNav .club-room-btn:hover,
+:root[data-theme="light"] #clubRoomsNav .club-room-btn:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 248, 225, 0.95) 0%,
-    rgba(246, 222, 150, 0.88) 45%,
-    rgba(224, 180, 85, 0.92) 100%
+    #ffffff 0%,
+    #fff4c7 10%,
+    #fed768 25%,
+    #f5c040 45%,
+    #e4a929 65%,
+    #c18617 85%,
+    #7b4c06 100%
   ) !important;
-  border: 1.5px solid rgba(180, 130, 20, 0.85) !important;
+  border: 1.5px solid #ffdb70 !important;
   border-top: 1.8px solid #ffffff !important;
-  box-shadow: 0 4px 16px rgba(160, 115, 20, 0.32), 0 0 15px rgba(212, 175, 55, 0.45), inset 0 1px 2px #ffffff !important;
+  border-bottom: 2px solid #5a3504 !important;
+  box-shadow:
+    0 6px 20px -1px rgba(0, 0, 0, 0.65),
+    0 0 24px rgba(245, 192, 64, 0.75),
+    inset 0 1.5px 1.5px #ffffff,
+    inset 0 -1.5px 2px rgba(90, 50, 5, 0.65) !important;
+  color: #0d0701 !important;
+  transform: translateY(-2px) scale(1.02) !important;
+  filter: none !important;
+  outline: none !important;
 }
 
-body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-name {
-  color: #2b1802 !important;
+#clubRoomsNav .club-room-btn:hover .chamber-name,
+#club-tab .club-room-btn:hover .chamber-name,
+.club-room-btn:hover .chamber-name,
+body:not(.light-mode) #clubRoomsNav .club-room-btn:hover .chamber-name,
+body:not(.light-mode) #club-tab .club-room-btn:hover .chamber-name,
+body.light-mode #clubRoomsNav .club-room-btn:hover .chamber-name,
+body.light-mode #club-tab .club-room-btn:hover .chamber-name {
+  color: #0d0701 !important;
   font-weight: 800 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.50) !important;
+  opacity: 1 !important;
+}
+
+#clubRoomsNav .club-room-btn:hover .chamber-icon,
+#club-tab .club-room-btn:hover .chamber-icon,
+.club-room-btn:hover .chamber-icon,
+body:not(.light-mode) #clubRoomsNav .club-room-btn:hover .chamber-icon,
+body:not(.light-mode) #club-tab .club-room-btn:hover .chamber-icon,
+body.light-mode #clubRoomsNav .club-room-btn:hover .chamber-icon,
+body.light-mode #club-tab .club-room-btn:hover .chamber-icon {
+  color: #0d0701 !important;
+  stroke: #0d0701 !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.40)) !important;
+  opacity: 1 !important;
+}
+
+#clubRoomsNav .club-room-btn:hover .room-badge,
+#club-tab .club-room-btn:hover .room-badge,
+.club-room-btn:hover .room-badge,
+body:not(.light-mode) #clubRoomsNav .club-room-btn:hover .room-badge,
+body:not(.light-mode) #club-tab .club-room-btn:hover .room-badge,
+body.light-mode #clubRoomsNav .club-room-btn:hover .room-badge,
+body.light-mode #club-tab .club-room-btn:hover .room-badge {
+  background: #0d0701 !important;
+  border: 1px solid #e4a929 !important;
+  color: #ffe68a !important;
+  font-weight: 800 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.40) !important;
+  text-shadow: none !important;
+}
+
+#clubRoomsNav .club-room-btn:hover .chamber-board-tag,
+#club-tab .club-room-btn:hover .chamber-board-tag,
+.club-room-btn:hover .chamber-board-tag {
+  background: rgba(13, 7, 1, 0.90) !important;
+  border: 1px solid #7b4c06 !important;
+  color: #ffe68a !important;
+  font-weight: 800 !important;
+}
+
+/* --------------------------------------------------------------------------
+   UNIVERSAL ACTIVE STATE: 24-KARAT SOVEREIGN GOLD BULLION (عيار 24)
+   - When a channel is selected / active in Dark Mode OR Light Mode
+   - High-specular 24K bullion ingot finish with chiseled obsidian text
+   -------------------------------------------------------------------------- */
+#clubRoomsNav .club-room-btn.is-active,
+#club-tab .club-room-btn.is-active,
+#clubRoomsNav .club-room-btn.active,
+#club-tab .club-room-btn.active,
+.club-room-btn.is-active,
+.club-room-btn.active,
+body:not(.light-mode) #clubRoomsNav .club-room-btn.is-active,
+body:not(.light-mode) #club-tab .club-room-btn.is-active,
+body:not(.light-mode) #clubRoomsNav .club-room-btn.active,
+body:not(.light-mode) #club-tab .club-room-btn.active,
+body.light-mode #clubRoomsNav .club-room-btn.is-active,
+body.light-mode #club-tab .club-room-btn.is-active,
+body.light-mode #clubRoomsNav .club-room-btn.active,
+body.light-mode #club-tab .club-room-btn.active,
+:root[data-theme="dark"] #clubRoomsNav .club-room-btn.is-active,
+:root[data-theme="light"] #clubRoomsNav .club-room-btn.is-active {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #fff4c7 10%,
+    #fed768 25%,
+    #f5c040 45%,
+    #e4a929 65%,
+    #c18617 85%,
+    #7b4c06 100%
+  ) !important;
+  border: 1.5px solid #ffdb70 !important;
+  border-top: 1.8px solid #ffffff !important;
+  border-bottom: 2px solid #5a3504 !important;
+  box-shadow:
+    0 4px 18px -1px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(245, 192, 64, 0.65),
+    0 0 32px rgba(212, 175, 55, 0.35),
+    inset 0 1.5px 1.5px #ffffff,
+    inset 0 -1.5px 2px rgba(90, 50, 5, 0.70) !important;
+  color: #0d0701 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.015em !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+#clubRoomsNav .club-room-btn.is-active .chamber-name,
+#club-tab .club-room-btn.is-active .chamber-name,
+#clubRoomsNav .club-room-btn.active .chamber-name,
+#club-tab .club-room-btn.active .chamber-name,
+.club-room-btn.is-active .chamber-name,
+body:not(.light-mode) #clubRoomsNav .club-room-btn.is-active .chamber-name,
+body:not(.light-mode) #club-tab .club-room-btn.is-active .chamber-name,
+body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-name,
+body.light-mode #club-tab .club-room-btn.is-active .chamber-name {
+  color: #0d0701 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.015em !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+  opacity: 1 !important;
+}
+
+#clubRoomsNav .club-room-btn.is-active .chamber-icon,
+#club-tab .club-room-btn.is-active .chamber-icon,
+#clubRoomsNav .club-room-btn.active .chamber-icon,
+#club-tab .club-room-btn.active .chamber-icon,
+.club-room-btn.is-active .chamber-icon,
+body:not(.light-mode) #clubRoomsNav .club-room-btn.is-active .chamber-icon,
+body:not(.light-mode) #club-tab .club-room-btn.is-active .chamber-icon,
+body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-icon,
+body.light-mode #club-tab .club-room-btn.is-active .chamber-icon {
+  color: #0d0701 !important;
+  stroke: #0d0701 !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.40)) !important;
+  opacity: 1 !important;
+}
+
+#clubRoomsNav .club-room-btn.is-active .room-badge,
+#club-tab .club-room-btn.is-active .room-badge,
+#clubRoomsNav .club-room-btn.active .room-badge,
+#club-tab .club-room-btn.active .room-badge,
+.club-room-btn.is-active .room-badge,
+body:not(.light-mode) #clubRoomsNav .club-room-btn.is-active .room-badge,
+body:not(.light-mode) #club-tab .club-room-btn.is-active .room-badge,
+body.light-mode #clubRoomsNav .club-room-btn.is-active .room-badge,
+body.light-mode #club-tab .club-room-btn.is-active .room-badge {
+  background: #0d0701 !important;
+  border: 1px solid #e4a929 !important;
+  color: #ffe68a !important;
+  font-weight: 800 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.40) !important;
+  text-shadow: none !important;
+}
+
+#clubRoomsNav .club-room-btn.is-active .chamber-board-tag,
+#club-tab .club-room-btn.is-active .chamber-board-tag,
+.club-room-btn.is-active .chamber-board-tag {
+  background: rgba(13, 7, 1, 0.90) !important;
+  border: 1px solid #7b4c06 !important;
+  color: #ffe68a !important;
+  font-weight: 800 !important;
+}
+
+/* ACTIVE + HOVER ELEVATION */
+#clubRoomsNav .club-room-btn.is-active:hover,
+#club-tab .club-room-btn.is-active:hover,
+.club-room-btn.is-active:hover,
+body:not(.light-mode) #clubRoomsNav .club-room-btn.is-active:hover,
+body:not(.light-mode) #club-tab .club-room-btn.is-active:hover,
+body.light-mode #clubRoomsNav .club-room-btn.is-active:hover,
+body.light-mode #club-tab .club-room-btn.is-active:hover {
+  box-shadow:
+    0 6px 24px -1px rgba(0, 0, 0, 0.75),
+    0 0 30px rgba(255, 215, 80, 0.85),
+    inset 0 2px 2px #ffffff,
+    inset 0 -2px 2px rgba(90, 50, 5, 0.75) !important;
+  transform: translateY(-2px) scale(1.025) !important;
 }
 
 /* 10. MESSAGE ALLOCATION GAUGE PIPS — LIQUID GLASS TREATMENT */

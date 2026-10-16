@@ -1137,6 +1137,37 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - `lint_applet` passed with 0 errors.
   - Server HTTP 200 OK verified on port 3000.
 
+- **Sovereign Salon Market Ticker Continuous Marquee Fix (2026-10-16) — COMPLETE**:
+  - **Diagnosed Root Cause**: In `style.css` (line ~39136), `.ticker-marquee-track` had `transform: translate3d(0, 0, 0) !important;`. Under CSS cascading priority, an author style with `!important` takes precedence over keyframe animations (`@keyframes`), causing the browser to lock `transform` to 0 and completely freezing the ticker marquee crawl. Additionally, `.ticker-marquee-track:hover` without `@media (hover: hover)` caused mobile touch taps to leave the marquee in `paused` state, and `@media (prefers-reduced-motion: reduce)` was completely disabling animation via `animation: none !important;`.
+  - **Resolution**:
+    1. Removed `transform: translate3d(0, 0, 0) !important;` from `.ticker-marquee-track`, allowing `@keyframes continuousTickerScroll` to animate freely.
+    2. Added `-webkit-animation` and `@-webkit-keyframes continuousTickerScroll` with `-webkit-transform` for complete WebKit/iOS parity.
+    3. Wrapped `:hover` in `@media (hover: hover)` so touch devices never freeze the marquee on tap.
+    4. Replaced `animation: none !important` with gentle `animation-duration: 120s !important` in `prefers-reduced-motion` so the ambient financial feed remains functional for all users.
+    5. Updated `updateClubTickerIfPending` in `app.js` to ensure the ticker is always refreshed on entering the Club tab.
+    6. Cache-busted stylesheet to `style.css?v=20261016_ticker_scroll_fix`.
+  - **Verification**:
+    - `compile_applet` passed cleanly.
+    - `lint_applet` passed with 0 errors.
+    - Server HTTP 200 OK verified on port 3000.
+
+- **CSS Marquee GPU Performance Optimization Pass (2026-10-16) — COMPLETE**:
+  - **Identified Latencies**:
+    1. Lack of layout/paint containment on `.ticker-viewport` caused the browser compositor to evaluate surrounding Club tab elements on every subpixel tick.
+    2. Subpixel rasterization mode shifting caused minor text jitter/judder across fractional pixel movements during 60FPS/120FPS rendering.
+    3. Unisolated mask-image gradient forced repeated rasterization passes in WebKit/Gecko.
+    4. DOM updates via `innerHTML` during periodic quote refreshes could cause frame drops if not aligned to RAF.
+  - **Optimizations Applied**:
+    1. *Strict Containment & Layer Isolation*: Added `contain: layout paint style !important;`, `isolation: isolate !important;`, and `transform: translateZ(0) !important;` to `.ticker-viewport`, decoupling marquee compositing from the parent and surrounding DOM.
+    2. *Hardware Compositing & 3D Perspective*: Upgraded `.ticker-marquee-track` with `transform-style: preserve-3d !important;`, `perspective: 1000px !important;`, `-webkit-font-smoothing: antialiased !important;`, `-moz-osx-font-smoothing: grayscale !important;`, and `text-rendering: optimizeLegibility !important;` for buttery-smooth subpixel vector glyph rendering without jitter.
+    3. *Calibrated Velocity*: Harmonized animation speed across all cascade rules to a clean 70s linear infinite crawl (~32px/sec), ensuring binary fractional subpixel steps on both 60Hz and 120Hz displays.
+    4. *RAF Synchronization*: Wrapped `marqueeTrack.innerHTML` replacements in `requestAnimationFrame` in `app.js` to eliminate frame spikes during background live data refreshes.
+    5. *Busted Cache*: Updated query string to `style.css?v=20261016_marquee_gpu_smooth`.
+  - **Verification**:
+    - `compile_applet` passed cleanly.
+    - `lint_applet` passed with 0 errors.
+    - Server HTTP 200 OK verified on port 3000.
+
 
 
 

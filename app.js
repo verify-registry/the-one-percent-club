@@ -4718,13 +4718,13 @@ function initSovereignSalonTicker() {
       return;
     }
     marqueeTrack.dataset.renderedGroup = groupHTML;
-    marqueeTrack.innerHTML = groupHTML + groupHTML;
+    requestAnimationFrame(() => {
+      marqueeTrack.innerHTML = groupHTML + groupHTML;
+    });
   }
 
   window.updateClubTickerIfPending = function () {
-    if (tickerNeedsRepaint) {
-      updateTicker();
-    }
+    updateTicker();
   };
 
   let lastMarketFetchTime = 0;
