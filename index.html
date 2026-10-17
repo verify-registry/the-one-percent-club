@@ -1306,6 +1306,7 @@
 
         <!-- PAGE: CLUB -->
         <section class="page" id="club-tab" hidden="">
+          <div id="ultimate-club-bg"></div>
 
           <!-- SOVEREIGN CHAMBERS & SALONS NAVIGATION -->
           <div class="club-rooms-nav-wrap" id="clubRoomsNavWrap">
@@ -4272,5 +4273,207 @@
       accept="image/*"
       style="display: none"
     />
+
+    <style>
+/* 1. FORCE TRANSPARENCY ON WRAPPERS */
+#club-tab {
+    position: relative !important;
+    overflow: hidden !important;
+}
+#club-tab, #club-tab .club-layout, #club-tab .club-messages-area, 
+#club-tab .club-ambient-bg, #club-tab .ambient-bg {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* 2. THE REFINED GOLD LEAF BACKGROUND LAYER */
+#ultimate-club-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Ensure messages and controls float above */
+#club-tab .club-messages, 
+#club-tab .club-header-wrapper, 
+#club-tab .club-composer-container,
+#club-tab #clubRoomsNav {
+    position: relative;
+    z-index: 10;
+}
+
+/* LIGHT MODE: Brushed Champagne & Folded Gold Foil with Soft Vignette */
+body.light-mode #ultimate-club-bg {
+    background-color: #f3efe6 !important;
+    background-image: 
+        /* Soft Radial Focus to keep center readable */
+        radial-gradient(ellipse at 50% 35%, rgba(255, 252, 245, 0.88) 0%, rgba(243, 235, 218, 0.6) 60%, rgba(195, 155, 75, 0.45) 100%),
+        /* High-Definition Micro-Faceted Gold Leaf Texture (Soft, not aggressive) */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0.6'/%3E%3Cstop offset='50%25' stop-color='%23e2be67' stop-opacity='0.4'/%3E%3Cstop offset='100%25' stop-color='%239e7623' stop-opacity='0.35'/%3E%3C/linearGradient%3E%3ClinearGradient id='g2' x1='100%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23fcedb8' stop-opacity='0.5'/%3E%3Cstop offset='100%25' stop-color='%23b88d30' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='%238c6418' stroke-width='0.3' stroke-opacity='0.22'%3E%3Cpolygon points='0,0 60,25 35,70 0,50' fill='url(%23g1)'/%3E%3Cpolygon points='60,25 110,10 135,55 90,65' fill='url(%23g2)'/%3E%3Cpolygon points='110,10 160,0 160,50 135,55' fill='url(%23g1)'/%3E%3Cpolygon points='0,50 35,70 20,120 0,110' fill='url(%23g2)'/%3E%3Cpolygon points='35,70 90,65 70,125 20,120' fill='url(%23g1)'/%3E%3Cpolygon points='90,65 135,55 150,115 70,125' fill='url(%23g2)'/%3E%3Cpolygon points='135,55 160,50 160,110 150,115' fill='url(%23g1)'/%3E%3Cpolygon points='20,120 70,125 50,160 0,160' fill='url(%23g2)'/%3E%3Cpolygon points='70,125 150,115 125,160 50,160' fill='url(%23g1)'/%3E%3Cpolygon points='150,115 160,110 160,160 125,160' fill='url(%23g2)'/%3E%3C/g%3E%3C/svg%3E") !important;
+    background-size: 100% 100%, 140px 140px !important;
+    background-position: center, top left !important;
+}
+
+/* DARK MODE: Deep Obsidian & Burnished Sovereign Gold Leaf */
+body:not(.light-mode) #ultimate-club-bg {
+    background-color: #080705 !important;
+    background-image: 
+        radial-gradient(ellipse at 50% 30%, rgba(20, 17, 12, 0.7) 0%, rgba(8, 7, 5, 0.95) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cdefs%3E%3ClinearGradient id='dg1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23a88232' stop-opacity='0.45'/%3E%3Cstop offset='100%25' stop-color='%23241b07' stop-opacity='0.6'/%3E%3C/linearGradient%3E%3ClinearGradient id='dg2' x1='100%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23d4af37' stop-opacity='0.35'/%3E%3Cstop offset='100%25' stop-color='%23120d03' stop-opacity='0.7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='0.3' stroke-opacity='0.25'%3E%3Cpolygon points='0,0 60,25 35,70 0,50' fill='url(%23dg1)'/%3E%3Cpolygon points='60,25 110,10 135,55 90,65' fill='url(%23dg2)'/%3E%3Cpolygon points='110,10 160,0 160,50 135,55' fill='url(%23dg1)'/%3E%3Cpolygon points='0,50 35,70 20,120 0,110' fill='url(%23dg2)'/%3E%3Cpolygon points='35,70 90,65 70,125 20,120' fill='url(%23dg1)'/%3E%3Cpolygon points='90,65 135,55 150,115 70,125' fill='url(%23dg2)'/%3E%3Cpolygon points='135,55 160,50 160,110 150,115' fill='url(%23dg1)'/%3E%3Cpolygon points='20,120 70,125 50,160 0,160' fill='url(%23dg2)'/%3E%3Cpolygon points='70,125 150,115 125,160 50,160' fill='url(%23g1)'/%3E%3Cpolygon points='150,115 160,110 160,160 125,160' fill='url(%23dg2)'/%3E%3C/g%3E%3C/svg%3E") !important;
+    background-size: 100% 100%, 140px 140px !important;
+    background-position: center, top left !important;
+}
+
+/* 3. HARMONIZED LIQUID GLASS CARDS */
+body.light-mode #club-tab .club-message,
+body.light-mode #club-tab .message-card,
+body.light-mode #clubPinnedInfo,
+body.light-mode .sovereign-salon-ticker,
+body.light-mode #clubCreditsDisplay,
+body.light-mode .club-credits-wrapper,
+body.light-mode .club-composer-wrap {
+    background: rgba(255, 253, 248, 0.76) !important;
+    backdrop-filter: blur(20px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.35) !important;
+    box-shadow: 0 8px 24px rgba(180, 140, 70, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    border-radius: 18px !important;
+}
+
+body:not(.light-mode) #club-tab .club-message,
+body:not(.light-mode) #club-tab .message-card,
+body:not(.light-mode) #clubPinnedInfo,
+body:not(.light-mode) .sovereign-salon-ticker,
+body:not(.light-mode) #clubCreditsDisplay,
+body:not(.light-mode) .club-credits-wrapper,
+body:not(.light-mode) .club-composer-wrap {
+    background: rgba(18, 16, 12, 0.7) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.22) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(212, 175, 55, 0.15) !important;
+    border-radius: 18px !important;
+}
+
+/* 4. CLUB ROOM TABS HARMONY */
+body.light-mode #clubRoomsNav .club-room-tab {
+    background: rgba(255, 253, 248, 0.65) !important;
+    border: 1px solid rgba(212, 175, 55, 0.25) !important;
+    color: #5c4418 !important;
+    border-radius: 12px !important;
+}
+body.light-mode #clubRoomsNav .club-room-tab.active {
+    background: linear-gradient(135deg, rgba(245, 230, 180, 0.85), rgba(220, 190, 115, 0.75)) !important;
+    border: 1px solid rgba(190, 145, 45, 0.7) !important;
+    color: #42300c !important;
+    box-shadow: 0 4px 12px rgba(190, 145, 45, 0.18) !important;
+}
+
+/* ========================================================= */
+/* --- SEAMLESS BORDERLESS LIQUID GLASS HEADER --- */
+/* ========================================================= */
+
+header,
+.app-header,
+.top-header,
+#appHeader,
+.sovereign-header {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 520px !important;
+    margin: 0 auto !important;
+    margin-bottom: calc(-1 * var(--header-actual-height, 84px)) !important;
+    min-height: 84px !important;
+    height: 84px !important;
+    max-height: 84px !important;
+    z-index: 9999 !important;
+    border: none !important;
+    border-bottom: none !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    outline: none !important;
+    background: linear-gradient(
+        180deg,
+        rgba(16, 13, 10, 0.78) 0%,
+        rgba(14, 11, 8, 0.55) 60%,
+        rgba(10, 8, 6, 0.25) 85%,
+        rgba(8, 7, 5, 0.0) 100%
+    ) !important;
+    backdrop-filter: blur(24px) saturate(180%) contrast(105%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(105%) !important;
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Eliminate all dividing lines and meniscus pseudo-elements */
+header::after,
+header::before,
+.app-header::after,
+.app-header::before,
+.top-header::after,
+.top-header::before,
+#appHeader::after,
+#appHeader::before,
+.sovereign-header::after,
+.sovereign-header::before {
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    background: transparent !important;
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+/* LIGHT MODE SEAMLESS LIQUID GLASS */
+body.light-mode header,
+body.light-mode .app-header,
+body.light-mode .top-header,
+body.light-mode #appHeader,
+body.light-mode .sovereign-header,
+html.light-mode header,
+html.light-mode .app-header,
+html.light-mode .top-header,
+html.light-mode #appHeader,
+html.light-mode .sovereign-header,
+:root[data-theme="light"] header,
+:root[data-theme="light"] .app-header,
+:root[data-theme="light"] #appHeader {
+    border: none !important;
+    border-bottom: none !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    outline: none !important;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 253, 248, 0.85) 0%,
+        rgba(250, 246, 236, 0.60) 60%,
+        rgba(242, 236, 222, 0.25) 85%,
+        rgba(238, 230, 212, 0.0) 100%
+    ) !important;
+    backdrop-filter: blur(24px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+    box-shadow: 0 8px 24px -6px rgba(180, 140, 70, 0.08) !important;
+}
+
+body.light-mode header::after,
+body.light-mode .app-header::after,
+body.light-mode #appHeader::after,
+html.light-mode header::after,
+html.light-mode .app-header::after,
+html.light-mode #appHeader::after {
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    background: transparent !important;
+    height: 0 !important;
+    opacity: 0 !important;
+}
+</style>
   </body>
 </html>
