@@ -506,9 +506,6 @@ body.light-mode .member-number {
 
 body.light-mode .club-composer { background: linear-gradient(180deg, rgba(255,255,255,0.50) 0%, rgba(255,255,255,0.30) 100%) !important; border: 1px solid rgba(255,255,255,0.65) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(156,109,35,0.12), 0 6px 18px rgba(70,50,20,0.10) !important; backdrop-filter: blur(14px) saturate(1.35) !important; -webkit-backdrop-filter: blur(14px) saturate(1.35) !important; }
 
-body.light-mode .club-composer input {
-  color: var(--lm-text-dark) !important;
-}
 body.light-mode .club-composer input::placeholder {
   color: #8c734b !important;
 }
@@ -1324,17 +1321,6 @@ body.light-mode .section-rule span:last-child {
   visibility: hidden !important;
   pointer-events: none !important;
   opacity: 0 !important;
-}
-
-@keyframes luxuryFadeSlide {
-  0% {
-    opacity: 0;
-    transform: translateY(14px) scale(0.995);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
 
 .page#membership-tab,
@@ -9066,10 +9052,6 @@ html.light-mode #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hid
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 16px rgba(212, 175, 106, 0.25));
 }
 
-.purchase-modal-overlay[hidden] {
-  display: none !important;
-}
-
 .luxury-empty-state {
   display: flex;
   flex-direction: column;
@@ -9452,12 +9434,6 @@ body:not(.light-mode) .b-filt-btn[aria-selected="true"] {
   height: 26px;
   margin-top: 6px;
   border-radius: 8px;
-}
-
-@media (max-width: 380px) {
-}
-
-@media (max-width: 380px) {
 }
 
 @keyframes pulse {
@@ -13933,14 +13909,6 @@ body.light-mode #profile-tab .profile-hero-card {
     inset 0 0 20px rgba(156, 109, 35, 0.05) !important;
 }
 
-body.light-mode #profile-tab .phc-name {
-  color: var(--lm-text-dark) !important;
-}
-
-body.light-mode #profile-tab .phc-quote {
-  color: #4a4a4a !important;
-}
-
 body.light-mode #profile-tab .phc-tier {
   background: linear-gradient(
     135deg,
@@ -17532,8 +17500,6 @@ body.light-mode #boutique-tab .id-widget-container .membership-card .card-inner-
 }
 
 /* ==========================================================================
-
-/* ==========================================================================
    TASK: FIX CANVAS BLACKOUT & FOREGROUND COLLISION
    ========================================================================== */
 
@@ -17650,12 +17616,6 @@ body.light-mode #membershipCard .gold-dust-canvas {
   padding-bottom: 16px !important;
   overflow: hidden !important;
   border-radius: 16px !important;
-}
-
-#membershipCard.has-open-tooltip .card-inner-frame,
-#membershipCard:has(.is-tooltip-open) .card-inner-frame,
-.membership-card:has(.is-tooltip-open) .card-inner-frame {
-  overflow: visible !important;
 }
 
 #membershipCard .card-inner-frame > *:not(canvas):not(.card-sheen) {
@@ -26276,7 +26236,7 @@ body #profile-tab .reliquary-boutique-btn:hover {
   color: #f7eed7 !important;
 }
 
-/* /* 2. The Sovereign Vitrine Casing (خزانة المقتنيات والتحف السيادية) */
+/* 2. The Sovereign Vitrine Casing (خزانة المقتنيات والتحف السيادية) */
 body #profile-tab .reliquary-vitrine-box {
   position: relative !important;
   border-radius: 14px !important;
@@ -38791,10 +38751,6 @@ html.light-mode #club-tab.is-active,
   z-index: 0 !important;
   display: flex !important;
   visibility: visible !important;
-}
-
-.chat-backdrop-ambient {
-  display: none !important;
 }
 
 .chat-backdrop-texture,
