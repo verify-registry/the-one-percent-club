@@ -4275,33 +4275,30 @@
     />
 
     <style>
-/* 1. FORCE TRANSPARENCY ON WRAPPERS */
+/* 1. EXTEND CLUB BACKGROUND TO FULL SCREEN (BEHIND HEADER) */
 #club-tab {
     position: relative !important;
-    overflow: hidden !important;
+    padding-top: 85px !important; /* Space for the floating fixed header */
+    min-height: 100vh !important;
+    background: transparent !important;
 }
+
 #club-tab, #club-tab .club-layout, #club-tab .club-messages-area, 
 #club-tab .club-ambient-bg, #club-tab .ambient-bg {
     background: transparent !important;
     background-color: transparent !important;
 }
 
-/* 2. THE REFINED GOLD LEAF BACKGROUND LAYER */
 #ultimate-club-bg {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Ensure messages and controls float above */
-#club-tab .club-messages, 
-#club-tab .club-header-wrapper, 
-#club-tab .club-composer-container,
-#club-tab #clubRoomsNav {
-    position: relative;
-    z-index: 10;
+    position: fixed !important; /* Fixed full bleed behind everything */
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
 }
 
 /* LIGHT MODE: Brushed Champagne & Folded Gold Foil with Soft Vignette */
@@ -4326,7 +4323,92 @@ body:not(.light-mode) #ultimate-club-bg {
     background-position: center, top left !important;
 }
 
-/* 3. HARMONIZED LIQUID GLASS CARDS */
+/* 2. FLOATING LIQUID GLASS HEADER */
+header,
+.app-header,
+.top-header,
+#appHeader,
+.sovereign-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 999 !important; /* Stay on top of scrolling messages */
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+}
+
+/* Eliminate all dividing lines and meniscus pseudo-elements */
+header::after,
+header::before,
+.app-header::after,
+.app-header::before,
+.top-header::after,
+.top-header::before,
+#appHeader::after,
+#appHeader::before,
+.sovereign-header::after,
+.sovereign-header::before {
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    background: transparent !important;
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+/* Light Mode: Ultra-translucent Champagne Glass */
+body.light-mode header,
+body.light-mode .app-header,
+body.light-mode .top-header,
+body.light-mode #appHeader,
+body.light-mode .sovereign-header,
+html.light-mode header,
+html.light-mode .app-header,
+html.light-mode .top-header,
+html.light-mode #appHeader,
+html.light-mode .sovereign-header {
+    background: rgba(255, 252, 245, 0.45) !important;
+    /* Soft liquid glass fade out at the bottom */
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Dark Mode: Ultra-translucent Obsidian Glass */
+body:not(.light-mode) header,
+body:not(.light-mode) .app-header,
+body:not(.light-mode) .top-header,
+body:not(.light-mode) #appHeader,
+body:not(.light-mode) .sovereign-header {
+    background: rgba(10, 8, 5, 0.5) !important;
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove any container backgrounds inside the header */
+header > div,
+.app-header > div,
+.sovereign-header > div {
+    background: transparent !important;
+}
+
+/* 3. ENSURE SCROLLING CONTENT PASSES UNDERNEATH */
+#club-tab .club-layout,
+#club-tab .club-messages-area {
+    background: transparent !important;
+    position: relative;
+    z-index: 10;
+}
+
+/* 4. HARMONIZED LIQUID GLASS CARDS */
 body.light-mode #club-tab .club-message,
 body.light-mode #club-tab .message-card,
 body.light-mode #clubPinnedInfo,
@@ -4357,7 +4439,7 @@ body:not(.light-mode) .club-composer-wrap {
     border-radius: 18px !important;
 }
 
-/* 4. CLUB ROOM TABS HARMONY */
+/* 5. CLUB ROOM TABS HARMONY */
 body.light-mode #clubRoomsNav .club-room-tab {
     background: rgba(255, 253, 248, 0.65) !important;
     border: 1px solid rgba(212, 175, 55, 0.25) !important;
@@ -4372,107 +4454,394 @@ body.light-mode #clubRoomsNav .club-room-tab.active {
 }
 
 /* ========================================================= */
-/* --- SEAMLESS BORDERLESS LIQUID GLASS HEADER --- */
+/* --- 1. ANNIHILATE MASSIVE PHANTOM PADDING & SPACERS --- */
 /* ========================================================= */
+.club-messages::after, 
+#club-tab .club-messages::after, 
+#clubChatViewport .club-messages::after,
+#clubMessages::after {
+    display: none !important;
+    content: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    flex-shrink: 0 !important;
+}
 
-header,
-.app-header,
-.top-header,
-#appHeader,
-.sovereign-header {
-    position: sticky !important;
-    top: 0 !important;
+#club-tab .club-messages, 
+#clubMessages, 
+body #profile-tab, 
+#membership-tab.is-active, 
+#membership-tab,
+#boutique-tab,
+.page,
+.tab-pane,
+main,
+.app-main,
+.club-layout,
+.club-messages-area {
+    padding-bottom: 95px !important; /* Clean, slim safe margin */
+    scroll-padding-bottom: 95px !important;
+    box-sizing: border-box !important;
+}
+
+#club-tab .club-composer-container,
+#club-tab .club-composer-wrap,
+#clubComposerWrap {
+    bottom: 84px !important;
+}
+
+.membership-actions,
+.share-membership-wrapper,
+#membership-tab .membership-actions {
+    margin-bottom: 12px !important;
+}
+
+/* ========================================================= */
+/* --- 2. FORCE FULL-BLEED BACKGROUNDS (NO CUTOFFS) --- */
+/* ========================================================= */
+html, 
+body, 
+#app, 
+.app, 
+.app-layout {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    height: 100% !important;
+    background-attachment: fixed !important;
+}
+
+/* Ensure the Club background reaches the absolute bottom without cutoffs */
+#ultimate-club-bg,
+.club-ambient-bg,
+#club-tab {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    bottom: 0 !important;
+    background-attachment: fixed !important;
+}
+
+body.light-mode,
+body.light-mode #app,
+body.light-mode .app,
+body.light-mode .app-layout {
+    background-attachment: fixed !important;
+}
+
+body:not(.light-mode),
+body:not(.light-mode) #app,
+body:not(.light-mode) .app,
+body:not(.light-mode) .app-layout {
+    background-attachment: fixed !important;
+}
+
+/* ========================================================= */
+/* --- 3. ANNIHILATE SOLID GHOST WRAPPERS --- */
+/* ========================================================= */
+footer, 
+.footer,
+.app-footer,
+.bottom-nav-wrapper, 
+.nav-container,
+.nav-wrapper,
+#nav-wrapper,
+.tab-bar-container,
+.tab-bar-wrap,
+.bottom-bar-wrapper,
+#bottom-bar-wrapper,
+.bottom-bar-container,
+.nav-dock-wrapper,
+.dock-wrapper,
+html body footer,
+html body .footer,
+html body .app-footer,
+html body .bottom-nav-wrapper,
+html body .nav-container,
+html body .nav-wrapper,
+html body #nav-wrapper,
+html body .tab-bar-container {
+    position: fixed !important;
+    bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    max-width: 520px !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+    overflow: visible !important;
+    z-index: 99999 !important;
+}
+
+footer::before, footer::after,
+.footer::before, .footer::after,
+.app-footer::before, .app-footer::after,
+.bottom-nav-wrapper::before, .bottom-nav-wrapper::after,
+.nav-container::before, .nav-container::after {
+    content: none !important;
+    display: none !important;
+}
+
+#navToast:empty,
+.nav-toast:empty {
+    display: none !important;
+}
+
+/* ========================================================= */
+/* --- 4. OVERRIDE STYLE.CSS HARDCODED BOTTOM-NAV PROPERTIES --- */
+/* ========================================================= */
+/* style.css lines 2448-2519 apply solid linear gradients and mask-images */
+html body nav.bottom-nav,
+html body .bottom-nav,
+body.light-mode .bottom-nav,
+body:not(.light-mode) .bottom-nav,
+nav.bottom-nav,
+.bottom-nav,
+nav {
+    /* Kill the style.css mask-image dissolve */
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    
+    /* True optical liquid diamond glass */
+    backdrop-filter: blur(30px) saturate(190%) brightness(105%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(190%) brightness(105%) !important;
+    
+    /* Geometry */
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 32px) !important;
+    max-width: 380px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    max-height: 58px !important;
+    border-radius: 29px !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    align-items: center !important;
+    justify-items: center !important;
+    padding: 0 6px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    pointer-events: auto !important;
+    z-index: 99999 !important;
+}
+
+/* Neutralize the pseudo-elements in style.css */
+.bottom-nav::before,
+.bottom-nav::after,
+nav.bottom-nav::before,
+nav.bottom-nav::after,
+nav::before,
+nav::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Light mode diamond water glass */
+body.light-mode nav.bottom-nav,
+body.light-mode .bottom-nav,
+html.light-mode body nav,
+html[data-theme="light"] body nav,
+body.light-mode nav,
+body.light-mode .tab-bar,
+body.light-mode .app-nav,
+body.light-mode #bottomNav,
+body.light-mode .sovereign-bottom-bar {
+    background: rgba(255, 255, 255, 0.25) !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.75) !important;
+    box-shadow: 
+        0 16px 40px rgba(120, 85, 25, 0.12),
+        0 2px 6px rgba(0, 0, 0, 0.04),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px rgba(212, 175, 55, 0.18) !important;
+}
+
+/* Dark mode crystal obsidian */
+body:not(.light-mode) nav.bottom-nav,
+body:not(.light-mode) .bottom-nav,
+html:not(.light-mode) body nav,
+html[data-theme="dark"] body nav,
+body:not(.light-mode) nav,
+body:not(.light-mode) .tab-bar,
+body:not(.light-mode) .app-nav,
+body:not(.light-mode) #bottomNav,
+body:not(.light-mode) .sovereign-bottom-bar {
+    background: rgba(18, 14, 9, 0.45) !important;
+    background-color: rgba(18, 14, 9, 0.45) !important;
+    border: 1px solid rgba(212, 175, 55, 0.28) !important;
+    box-shadow: 
+        0 20px 48px rgba(0, 0, 0, 0.65),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.22) !important;
+}
+
+/* ========================================================= */
+/* --- 5. BALANCED 4-COLUMN TAB BUTTONS --- */
+/* ========================================================= */
+nav .nav-item,
+nav .tab-btn,
+nav .tab-button,
+.bottom-nav button,
+.bottom-nav .nav-item,
+.tab-bar .tab-item {
+    width: 100% !important;
+    height: 46px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: relative !important;
+    border-radius: 23px !important;
+    opacity: 0.65 !important;
+    transition: all 0.25s ease !important;
+}
+
+nav .nav-item svg,
+nav .tab-btn svg,
+nav .tab-button svg,
+.bottom-nav button svg,
+.bottom-nav .nav-item svg {
+    width: 18px !important;
+    height: 18px !important;
+    stroke: #735b32 !important;
+    transition: all 0.25s ease !important;
+}
+body:not(.light-mode) nav .nav-item svg,
+body:not(.light-mode) nav .tab-btn svg,
+body:not(.light-mode) nav .tab-button svg,
+body:not(.light-mode) .bottom-nav button svg,
+body:not(.light-mode) .bottom-nav .nav-item svg {
+    stroke: #d4af37 !important;
+}
+
+nav .nav-item span,
+nav .tab-btn span,
+nav .tab-button span,
+.bottom-nav button span,
+.bottom-nav .nav-item span {
+    font-size: 9.5px !important;
+    font-weight: 600 !important;
+    color: #735b32 !important;
+    margin-top: 1px !important;
+    letter-spacing: 0.2px !important;
+    transition: all 0.25s ease !important;
+}
+body:not(.light-mode) nav .nav-item span,
+body:not(.light-mode) nav .tab-btn span,
+body:not(.light-mode) nav .tab-button span,
+body:not(.light-mode) .bottom-nav button span,
+body:not(.light-mode) .bottom-nav .nav-item span {
+    color: #cfab57 !important;
+}
+
+/* ========================================================= */
+/* --- 6. 24K MOLTEN GOLD HOROLOGICAL ACTIVE TAB CAPSULE --- */
+/* ========================================================= */
+nav .nav-item.active,
+nav .nav-item.is-active,
+nav .tab-btn.active,
+nav .tab-btn.is-active,
+nav .tab-button.active,
+nav .tab-button.is-active,
+.bottom-nav button.active,
+.bottom-nav button.is-active,
+.bottom-nav .nav-item.active,
+.bottom-nav .nav-item.is-active,
+.tab-bar .tab-item.active,
+.tab-bar .tab-item.is-active {
+    opacity: 1 !important;
+    background: linear-gradient(135deg, rgba(230, 195, 105, 0.32) 0%, rgba(185, 140, 45, 0.22) 100%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.55) !important;
+    box-shadow: 
+        0 2px 10px rgba(180, 135, 40, 0.22),
+        inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+    border-radius: 20px !important;
+    width: 82% !important;
+    max-width: 72px !important;
     margin: 0 auto !important;
-    margin-bottom: calc(-1 * var(--header-actual-height, 84px)) !important;
-    min-height: 84px !important;
-    height: 84px !important;
-    max-height: 84px !important;
-    z-index: 9999 !important;
-    border: none !important;
-    border-bottom: none !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    outline: none !important;
-    background: linear-gradient(
-        180deg,
-        rgba(16, 13, 10, 0.78) 0%,
-        rgba(14, 11, 8, 0.55) 60%,
-        rgba(10, 8, 6, 0.25) 85%,
-        rgba(8, 7, 5, 0.0) 100%
-    ) !important;
-    backdrop-filter: blur(24px) saturate(180%) contrast(105%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(105%) !important;
-    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* Eliminate all dividing lines and meniscus pseudo-elements */
-header::after,
-header::before,
-.app-header::after,
-.app-header::before,
-.top-header::after,
-.top-header::before,
-#appHeader::after,
-#appHeader::before,
-.sovereign-header::after,
-.sovereign-header::before {
-    display: none !important;
-    content: none !important;
-    border: none !important;
-    background: transparent !important;
-    height: 0 !important;
-    opacity: 0 !important;
+body:not(.light-mode) nav .nav-item.active,
+body:not(.light-mode) nav .nav-item.is-active,
+body:not(.light-mode) nav .tab-btn.active,
+body:not(.light-mode) nav .tab-btn.is-active,
+body:not(.light-mode) nav .tab-button.active,
+body:not(.light-mode) nav .tab-button.is-active,
+body:not(.light-mode) .bottom-nav button.active,
+body:not(.light-mode) .bottom-nav button.is-active,
+body:not(.light-mode) .bottom-nav .nav-item.active,
+body:not(.light-mode) .bottom-nav .nav-item.is-active,
+body:not(.light-mode) .tab-bar .tab-item.active,
+body:not(.light-mode) .tab-bar .tab-item.is-active {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.28) 0%, rgba(140, 100, 25, 0.18) 100%) !important;
+    border: 1px solid rgba(255, 215, 100, 0.45) !important;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
 }
 
-/* LIGHT MODE SEAMLESS LIQUID GLASS */
-body.light-mode header,
-body.light-mode .app-header,
-body.light-mode .top-header,
-body.light-mode #appHeader,
-body.light-mode .sovereign-header,
-html.light-mode header,
-html.light-mode .app-header,
-html.light-mode .top-header,
-html.light-mode #appHeader,
-html.light-mode .sovereign-header,
-:root[data-theme="light"] header,
-:root[data-theme="light"] .app-header,
-:root[data-theme="light"] #appHeader {
-    border: none !important;
-    border-bottom: none !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    outline: none !important;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 253, 248, 0.85) 0%,
-        rgba(250, 246, 236, 0.60) 60%,
-        rgba(242, 236, 222, 0.25) 85%,
-        rgba(238, 230, 212, 0.0) 100%
-    ) !important;
-    backdrop-filter: blur(24px) saturate(160%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
-    box-shadow: 0 8px 24px -6px rgba(180, 140, 70, 0.08) !important;
+nav .nav-item.active svg,
+nav .nav-item.is-active svg,
+nav .tab-btn.active svg,
+nav .tab-btn.is-active svg,
+nav .tab-button.active svg,
+nav .tab-button.is-active svg,
+.bottom-nav button.active svg,
+.bottom-nav button.is-active svg,
+.bottom-nav .nav-item.active svg,
+.bottom-nav .nav-item.is-active svg {
+    stroke: #b8860b !important;
+    transform: translateY(-1px) scale(1.05) !important;
+}
+body:not(.light-mode) nav .nav-item.active svg,
+body:not(.light-mode) nav .nav-item.is-active svg,
+body:not(.light-mode) nav .tab-btn.active svg,
+body:not(.light-mode) nav .tab-btn.is-active svg,
+body:not(.light-mode) nav .tab-button.active svg,
+body:not(.light-mode) nav .tab-button.is-active svg,
+body:not(.light-mode) .bottom-nav button.active svg,
+body:not(.light-mode) .bottom-nav button.is-active svg,
+body:not(.light-mode) .bottom-nav .nav-item.active svg,
+body:not(.light-mode) .bottom-nav .nav-item.is-active svg {
+    stroke: #ffdf7a !important;
 }
 
-body.light-mode header::after,
-body.light-mode .app-header::after,
-body.light-mode #appHeader::after,
-html.light-mode header::after,
-html.light-mode .app-header::after,
-html.light-mode #appHeader::after {
-    display: none !important;
-    content: none !important;
-    border: none !important;
-    background: transparent !important;
-    height: 0 !important;
-    opacity: 0 !important;
+nav .nav-item.active span,
+nav .nav-item.is-active span,
+nav .tab-btn.active span,
+nav .tab-btn.is-active span,
+nav .tab-button.active span,
+nav .tab-button.is-active span,
+.bottom-nav button.active span,
+.bottom-nav button.is-active span,
+.bottom-nav .nav-item.active span,
+.bottom-nav .nav-item.is-active span {
+    color: #8c6209 !important;
+    font-weight: 700 !important;
+}
+body:not(.light-mode) nav .nav-item.active span,
+body:not(.light-mode) nav .nav-item.is-active span,
+body:not(.light-mode) nav .tab-btn.active span,
+body:not(.light-mode) nav .tab-btn.is-active span,
+body:not(.light-mode) nav .tab-button.active span,
+body:not(.light-mode) nav .tab-button.is-active span,
+body:not(.light-mode) .bottom-nav button.active span,
+body:not(.light-mode) .bottom-nav button.is-active span,
+body:not(.light-mode) .bottom-nav .nav-item.active span,
+body:not(.light-mode) .bottom-nav .nav-item.is-active span {
+    color: #ffdf7a !important;
 }
 </style>
   </body>
