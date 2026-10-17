@@ -1144,59 +1144,6 @@ async function captureLiveMasterCardBlob() {
   }
 }
 
-async function shareMasterCard() {
-  const shareBtn = document.getElementById("shareBtn");
-  shareBtn?.blur();
-  shareBtn?.classList.remove("is-pressed");
-
-  if (window.AudioEngine && window.AudioEngine.playSend) {
-    window.AudioEngine.playSend();
-  }
-  const isToastAr = (window.currentLang === "ar") || (document.documentElement.lang === "ar");
-  showCopyToast(window.t("membership.exportingToast") || (isToastAr ? "جارٍ تصدير الماستر كارد الملكي فائق الدقة…" : "Exporting ultra-high-definition Master Card…"));
-
-  try {
-    let blob = await captureLiveMasterCardBlob();
-    if (!blob) {
-      blob = await renderMasterCardToBlob();
-    }
-    if (!blob) {
-      throw new Error("Failed to generate membership card image blob.");
-    }
-
-    const fname = "The-1-Percent-Club-MasterCard.png";
-    const file = new File([blob], fname, { type: "image/png" });
-
-    // Try Web Share API with image file and exact text motto
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        await navigator.share({
-          files: [file],
-          text: "PRIVATE WEALTH. PRIVATE SOCIETY.",
-        });
-        showCopyToast(window.t("membership.shareSuccessToast") || (isToastAr ? "✓ تم مشاركة الماستر كارد بنجاح" : "✓ Master Card shared successfully"));
-        return;
-      } catch (shareErr) {
-        if (shareErr.name === "AbortError") return; // User cancelled — do nothing
-      }
-    }
-
-    // Fallback: download the image directly
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fname;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 2000);
-    showCopyToast(window.t("membership.saveSuccessToast") || (isToastAr ? "✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة" : "✓ Master Card saved as high-res PNG"));
-  } catch (err) {
-    console.warn("Share fallback error:", err);
-    showCopyToast(window.t("membership.shareFailToast") || (isToastAr ? "تعذر مشاركة الماستر كارد" : "Unable to share Master Card"));
-  }
-}
-
 function initActionButtonsTactileFeedback() {
   const buttons = document.querySelectorAll(
     "#membership-tab .card-actions .btn, #shareBtn, #copyBtn"

@@ -3676,32 +3676,6 @@ function initMemberDossierActionButtons() {
 window.initMemberDossierActionButtons = initMemberDossierActionButtons;
 initMemberDossierActionButtons();
 
-document.getElementById("editAccountForm")?.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  ClubState.member.name = document.getElementById("editName").value;
-  ClubState.member.username = document.getElementById("editUsername").value;
-  ClubState.member.bio = document.getElementById("editBio").value;
-  ClubState.member.interests = document.getElementById("editInterests").value;
-  ClubState.member.location = document.getElementById("editLocation").value;
-  ClubState.save();
-
-  ClubState.emit("change");
-
-  Router.navigate("profile");
-  showPremiumToast(
-    window.t("profile.profileUpdated"),
-    window.t("misc.changesSaved"),
-  );
-  if (window.unlockAchievement) {
-    window.unlockAchievement(
-      "profile_updated",
-      "THE DOSSIER",
-      "Your personal identity dossier has been updated.",
-    );
-  }
-});
-
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 let lastRecordedCredits = null;

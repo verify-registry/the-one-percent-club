@@ -40175,3 +40175,63 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
   }
 }
 /* ========================================================= */
+
+/* ========================================================= */
+/* --- 3D FACETED GOLD ORIGAMI / LOW-POLY CLUB BACKGROUND --- */
+/* ========================================================= */
+
+/* 1. NUKE OLD CLUB BACKGROUNDS & WATERMARKS */
+#club-tab::before, 
+#club-tab::after,
+.club-layout::before, 
+.club-layout::after,
+.club-ambient-bg,
+.club-Ambient-Bg,
+#club-tab .ambient-bg,
+#club-tab .sovereign-chat-backdrop,
+.sovereign-chat-backdrop,
+.chat-backdrop-texture,
+.chat-backdrop-ambient {
+    display: none !important;
+    background: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* 2. FORCE 3D FACETED GOLD ON THE MAIN LAYOUT */
+#club-tab,
+#club-tab .club-layout,
+.club-messages-area {
+    background-color: transparent !important;
+}
+
+/* Light Mode: Sculpted 3D Gold Leaf Origami */
+body.light-mode #club-tab,
+body.light-mode #club-tab.is-active,
+html.light-mode #club-tab,
+html.light-mode #club-tab.is-active {
+    background-color: #dec078 !important;
+    background-image: 
+        radial-gradient(circle at 50% 25%, rgba(255, 250, 232, 0.35) 0%, rgba(168, 126, 42, 0.22) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23fff6d6'/%3E%3Cstop offset='45%25' stop-color='%23e6c46e'/%3E%3Cstop offset='100%25' stop-color='%23b5892e'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='100%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f7df94'/%3E%3Cstop offset='55%25' stop-color='%23cfa346'/%3E%3Cstop offset='100%25' stop-color='%238f6819'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='50%25' y1='0%25' x2='50%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23c4973b'/%3E%3Cstop offset='100%25' stop-color='%237d5912'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg4' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff'/%3E%3Cstop offset='35%25' stop-color='%23ebd083'/%3E%3Cstop offset='100%25' stop-color='%23a67b24'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke='%236b4b0e' stroke-width='0.5' stroke-opacity='0.35'%3E%3Cpolygon points='0,0 75,25 45,85 0,60' fill='url(%23lg2)'/%3E%3Cpolygon points='0,0 120,0 75,25' fill='url(%23lg3)'/%3E%3Cpolygon points='120,0 165,45 75,25' fill='url(%23lg4)'/%3E%3Cpolygon points='120,0 240,0 165,45' fill='url(%23lg1)'/%3E%3Cpolygon points='240,0 240,60 195,90 165,45' fill='url(%23lg3)'/%3E%3Cpolygon points='75,25 165,45 115,105 45,85' fill='url(%23lg1)'/%3E%3Cpolygon points='165,45 195,90 115,105' fill='url(%23lg2)'/%3E%3Cpolygon points='0,60 45,85 20,150 0,135' fill='url(%23lg3)'/%3E%3Cpolygon points='45,85 115,105 85,165 20,150' fill='url(%23lg4)'/%3E%3Cpolygon points='115,105 195,90 160,160 85,165' fill='url(%23lg3)'/%3E%3Cpolygon points='195,90 240,60 240,135 160,160' fill='url(%23lg4)'/%3E%3Cpolygon points='0,135 20,150 60,210 0,240' fill='url(%23lg1)'/%3E%3Cpolygon points='20,150 85,165 60,210' fill='url(%23lg2)'/%3E%3Cpolygon points='85,165 160,160 135,215 60,210' fill='url(%23lg1)'/%3E%3Cpolygon points='160,160 240,135 205,205 135,215' fill='url(%23lg2)'/%3E%3Cpolygon points='240,135 240,240 205,205' fill='url(%23lg3)'/%3E%3Cpolygon points='0,240 60,210 120,240' fill='url(%23lg4)'/%3E%3Cpolygon points='60,210 135,215 120,240' fill='url(%23lg3)'/%3E%3Cpolygon points='135,215 205,205 240,240 120,240' fill='url(%23lg4)'/%3E%3C/g%3E%3C/svg%3E") !important;
+    background-size: 100% 100%, 220px 220px !important;
+    background-position: center, top left !important;
+    background-repeat: no-repeat, repeat !important;
+}
+
+/* Dark Mode: Deep Obsidian & Antique 3D Faceted Gold Mesh */
+body:not(.light-mode) #club-tab,
+body:not(.light-mode) #club-tab.is-active,
+html:not(.light-mode) #club-tab,
+html.dark-mode #club-tab {
+    background-color: #0b0906 !important;
+    background-image: 
+        radial-gradient(circle at 50% 28%, rgba(212, 175, 55, 0.16) 0%, rgba(10, 8, 5, 0.72) 85%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236e5219'/%3E%3Cstop offset='50%25' stop-color='%233d2c0b'/%3E%3Cstop offset='100%25' stop-color='%231a1305'/%3E%3C/linearGradient%3E%3ClinearGradient id='g2' x1='100%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%239c7625'/%3E%3Cstop offset='55%25' stop-color='%234f390f'/%3E%3Cstop offset='100%25' stop-color='%23140f04'/%3E%3C/linearGradient%3E%3ClinearGradient id='g3' x1='50%25' y1='0%25' x2='50%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232b1f08'/%3E%3Cstop offset='100%25' stop-color='%230d0a03'/%3E%3C/linearGradient%3E%3ClinearGradient id='g4' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23b88c32'/%3E%3Cstop offset='40%25' stop-color='%23634814'/%3E%3Cstop offset='100%25' stop-color='%23241a07'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke='%23d4af37' stroke-width='0.45' stroke-opacity='0.35'%3E%3Cpolygon points='0,0 75,25 45,85 0,60' fill='url(%23g2)'/%3E%3Cpolygon points='0,0 120,0 75,25' fill='url(%23g3)'/%3E%3Cpolygon points='120,0 165,45 75,25' fill='url(%23g4)'/%3E%3Cpolygon points='120,0 240,0 165,45' fill='url(%23g1)'/%3E%3Cpolygon points='240,0 240,60 195,90 165,45' fill='url(%23g3)'/%3E%3Cpolygon points='75,25 165,45 115,105 45,85' fill='url(%23g1)'/%3E%3Cpolygon points='165,45 195,90 115,105' fill='url(%23g2)'/%3E%3Cpolygon points='0,60 45,85 20,150 0,135' fill='url(%23g3)'/%3E%3Cpolygon points='45,85 115,105 85,165 20,150' fill='url(%23g4)'/%3E%3Cpolygon points='115,105 195,90 160,160 85,165' fill='url(%23g3)'/%3E%3Cpolygon points='195,90 240,60 240,135 160,160' fill='url(%23g4)'/%3E%3Cpolygon points='0,135 20,150 60,210 0,240' fill='url(%23g1)'/%3E%3Cpolygon points='20,150 85,165 60,210' fill='url(%23g2)'/%3E%3Cpolygon points='85,165 160,160 135,215 60,210' fill='url(%23g1)'/%3E%3Cpolygon points='160,160 240,135 205,205 135,215' fill='url(%23g2)'/%3E%3Cpolygon points='240,135 240,240 205,205' fill='url(%23g3)'/%3E%3Cpolygon points='0,240 60,210 120,240' fill='url(%23g4)'/%3E%3Cpolygon points='60,210 135,215 120,240' fill='url(%23g3)'/%3E%3Cpolygon points='135,215 205,205 240,240 120,240' fill='url(%23g4)'/%3E%3C/g%3E%3C/svg%3E") !important;
+    background-size: 100% 100%, 220px 220px !important;
+    background-position: center, top left !important;
+    background-repeat: no-repeat, repeat !important;
+}
+/* ========================================================= */
+
