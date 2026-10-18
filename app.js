@@ -4235,6 +4235,7 @@ function switchChannel(channelId) {
     plaque.classList.remove("is-collapsed");
     plaque.removeAttribute("hidden");
     plaque.style.removeProperty("display");
+    document.getElementById("club-tab")?.classList.remove("plaque-dismissed");
   }
 
   if (channelId !== "leaderboard" && typeof scrollChatToLatest === "function") {
@@ -4304,6 +4305,7 @@ function dismissClubWelcomePlaque() {
   plaque.style.marginTop = "0";
   plaque.style.marginBottom = "0";
   plaque.style.overflow = "hidden";
+  document.getElementById("club-tab")?.classList.add("plaque-dismissed");
   setTimeout(() => {
     plaque.classList.add("is-collapsed");
     plaque.setAttribute("hidden", "");

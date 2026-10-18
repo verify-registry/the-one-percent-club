@@ -1474,113 +1474,116 @@
             </button>
           </div>
 
-          <!-- SOVEREIGN CHAMBER WELCOME BANNER (CLEAN, MINIMAL, LUXURY) -->
-          <div class="club-pinned club-chamber-plaque" id="clubPinnedInfo">
-            <div class="chamber-plaque-icon-wrap" id="clubPinnedIconWrap">
-              <svg viewBox="0 0 24 24" fill="none" class="chamber-plaque-svg" id="clubPinnedSvg">
-                <path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+          <!-- FLOATING LIQUID GLASS HUD (WELCOME BANNER + MARKET TICKER) -->
+          <div class="club-floating-hud" id="clubFloatingHud">
+            <!-- SOVEREIGN CHAMBER WELCOME BANNER (CLEAN, MINIMAL, LUXURY) -->
+            <div class="club-pinned club-chamber-plaque" id="clubPinnedInfo">
+              <div class="chamber-plaque-icon-wrap" id="clubPinnedIconWrap">
+                <svg viewBox="0 0 24 24" fill="none" class="chamber-plaque-svg" id="clubPinnedSvg">
+                  <path d="M4 19h16M7 19V11m5 8V7m5 12V11M5 7l3.5 2L12 4l3.5 5L19 7v2H5V7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+
+              <div class="chamber-plaque-body">
+                <h4 class="chamber-plaque-title" id="clubPinnedTitle" data-i18n="club.welcomeTitle">
+                  أهلًا بك في صالة الأعضاء
+                </h4>
+                <p class="chamber-plaque-sub" id="clubPinnedSub" data-i18n="club.welcomeSub">
+                  دائرة خاصة. بمعايير أرقى.
+                </p>
+              </div>
+
+              <button
+                class="chamber-plaque-close-btn chamber-plaque-dismiss-btn"
+                id="clubPinnedDismissBtn"
+                type="button"
+                title="Dismiss Welcome"
+                data-i18n-title="club.dismissWelcome"
+                aria-label="Close"
+                data-i18n-aria-label="common.close"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
             </div>
 
-            <div class="chamber-plaque-body">
-              <h4 class="chamber-plaque-title" id="clubPinnedTitle" data-i18n="club.welcomeTitle">
-                أهلًا بك في صالة الأعضاء
-              </h4>
-              <p class="chamber-plaque-sub" id="clubPinnedSub" data-i18n="club.welcomeSub">
-                دائرة خاصة. بمعايير أرقى.
-              </p>
-            </div>
-
-            <button
-              class="chamber-plaque-close-btn chamber-plaque-dismiss-btn"
-              id="clubPinnedDismissBtn"
-              type="button"
-              title="Dismiss Welcome"
-              data-i18n-title="club.dismissWelcome"
-              aria-label="Close"
-              data-i18n-aria-label="common.close"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
-
-          <div class="sovereign-salon-ticker" id="sovereignSalonTicker">
-            <div class="ticker-pulse-badge">
-              <span class="ticker-pulse-orb"></span>
-              <span class="ticker-pulse-text" data-i18n="club.activeSessionPulse">جلسات تداول نشطة</span>
-            </div>
-            <div class="ticker-viewport">
-              <div class="ticker-marquee-track">
-                <div class="ticker-marquee-group">
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">الذهب</span> <span class="ticker-metal-sym">XAU/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">الفضة</span> <span class="ticker-metal-sym">XAG/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">البلاتين</span> <span class="ticker-metal-sym">XPT/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">البلاديوم</span> <span class="ticker-metal-sym">XPD/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">طاقة</span> <span class="ticker-metal-name">نفط برنت</span> <span class="ticker-metal-sym">BRENT</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">طاقة</span> <span class="ticker-metal-name">الخام الأمريكي</span> <span class="ticker-metal-sym">WTI</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">S&amp;P 500</span> <span class="ticker-metal-sym">SPX</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">NASDAQ 100</span> <span class="ticker-metal-sym">NDX</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">داو جونز</span> <span class="ticker-metal-sym">DJI</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">EUR/USD</span> <span class="ticker-metal-sym">يورو/دولار</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">GBP/USD</span> <span class="ticker-metal-sym">استرليني/دولار</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">USD/CHF</span> <span class="ticker-metal-sym">دولار/فرنك</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">زيورخ ZURICH</span> <span class="ticker-status-tag live">OPEN</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">لندن LONDON</span> <span class="ticker-status-tag live">OPEN</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">الرياض RIYADH</span> <span class="ticker-status-tag live">PRIME</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">نيويورك NY</span> <span class="ticker-status-tag live">ACTIVE</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                </div>
-                <div class="ticker-marquee-group" aria-hidden="true">
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">الذهب</span> <span class="ticker-metal-sym">XAU/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">الفضة</span> <span class="ticker-metal-sym">XAG/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">البلاتين</span> <span class="ticker-metal-sym">XPT/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">البلاديوم</span> <span class="ticker-metal-sym">XPD/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">طاقة</span> <span class="ticker-metal-name">نفط برنت</span> <span class="ticker-metal-sym">BRENT</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">طاقة</span> <span class="ticker-metal-name">الخام الأمريكي</span> <span class="ticker-metal-sym">WTI</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">S&amp;P 500</span> <span class="ticker-metal-sym">SPX</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">NASDAQ 100</span> <span class="ticker-metal-sym">NDX</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">داو جونز</span> <span class="ticker-metal-sym">DJI</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">EUR/USD</span> <span class="ticker-metal-sym">يورو/دولار</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">GBP/USD</span> <span class="ticker-metal-sym">استرليني/دولار</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">USD/CHF</span> <span class="ticker-metal-sym">دولار/فرنك</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">زيورخ ZURICH</span> <span class="ticker-status-tag live">OPEN</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">لندن LONDON</span> <span class="ticker-status-tag live">OPEN</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">الرياض RIYADH</span> <span class="ticker-status-tag live">PRIME</span></span>
-                  <span class="ticker-dot-sep">✦</span>
-                  <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">نيويورك NY</span> <span class="ticker-status-tag live">ACTIVE</span></span>
-                  <span class="ticker-dot-sep">✦</span>
+            <div class="sovereign-salon-ticker" id="sovereignSalonTicker">
+              <div class="ticker-pulse-badge">
+                <span class="ticker-pulse-orb"></span>
+                <span class="ticker-pulse-text" data-i18n="club.activeSessionPulse">جلسات تداول نشطة</span>
+              </div>
+              <div class="ticker-viewport">
+                <div class="ticker-marquee-track">
+                  <div class="ticker-marquee-group">
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">الذهب</span> <span class="ticker-metal-sym">XAU/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">الفضة</span> <span class="ticker-metal-sym">XAG/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">البلاتين</span> <span class="ticker-metal-sym">XPT/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">البلاديوم</span> <span class="ticker-metal-sym">XPD/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">طاقة</span> <span class="ticker-metal-name">نفط برنت</span> <span class="ticker-metal-sym">BRENT</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">طاقة</span> <span class="ticker-metal-name">الخام الأمريكي</span> <span class="ticker-metal-sym">WTI</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">S&amp;P 500</span> <span class="ticker-metal-sym">SPX</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">NASDAQ 100</span> <span class="ticker-metal-sym">NDX</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">داو جونز</span> <span class="ticker-metal-sym">DJI</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">EUR/USD</span> <span class="ticker-metal-sym">يورو/دولار</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">GBP/USD</span> <span class="ticker-metal-sym">استرليني/دولار</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">USD/CHF</span> <span class="ticker-metal-sym">دولار/فرنك</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">زيورخ ZURICH</span> <span class="ticker-status-tag live">OPEN</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">لندن LONDON</span> <span class="ticker-status-tag live">OPEN</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">الرياض RIYADH</span> <span class="ticker-status-tag live">PRIME</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">نيويورك NY</span> <span class="ticker-status-tag live">ACTIVE</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                  </div>
+                  <div class="ticker-marquee-group" aria-hidden="true">
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">الذهب</span> <span class="ticker-metal-sym">XAU/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">الفضة</span> <span class="ticker-metal-sym">XAG/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">البلاتين</span> <span class="ticker-metal-sym">XPT/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">معادن</span> <span class="ticker-metal-name">البلاديوم</span> <span class="ticker-metal-sym">XPD/USD</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">طاقة</span> <span class="ticker-metal-name">نفط برنت</span> <span class="ticker-metal-sym">BRENT</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">طاقة</span> <span class="ticker-metal-name">الخام الأمريكي</span> <span class="ticker-metal-sym">WTI</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">S&amp;P 500</span> <span class="ticker-metal-sym">SPX</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">NASDAQ 100</span> <span class="ticker-metal-sym">NDX</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">مؤشرات</span> <span class="ticker-metal-name">داو جونز</span> <span class="ticker-metal-sym">DJI</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">EUR/USD</span> <span class="ticker-metal-sym">يورو/دولار</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">GBP/USD</span> <span class="ticker-metal-sym">استرليني/دولار</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-metal-item"><span class="ticker-cat-tag">عملات</span> <span class="ticker-metal-name">USD/CHF</span> <span class="ticker-metal-sym">دولار/فرنك</span> <span class="ticker-metal-price">غير متوفر</span> <span class="ticker-status-tag unavailable">غير متوفر</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">زيورخ ZURICH</span> <span class="ticker-status-tag live">OPEN</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">لندن LONDON</span> <span class="ticker-status-tag live">OPEN</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">الرياض RIYADH</span> <span class="ticker-status-tag live">PRIME</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                    <span class="ticker-hub-item"><span class="ticker-cat-tag">مراكز</span> <span class="ticker-city">نيويورك NY</span> <span class="ticker-status-tag live">ACTIVE</span></span>
+                    <span class="ticker-dot-sep">✦</span>
+                  </div>
                 </div>
               </div>
             </div>
