@@ -3205,6 +3205,9 @@ const Router = {
       header.classList.remove("header-compact");
       if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
     }
+    if (window.HeaderScrollController && typeof window.HeaderScrollController.scheduleHeaderAutoHide === "function") {
+      window.HeaderScrollController.scheduleHeaderAutoHide();
+    }
   },
 
   triggerEnter(tab) {
@@ -4252,11 +4255,10 @@ function startClubWelcomeAutoDismiss() {
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
 
-  // Keep welcome plaque visible in preview until user explicitly dismisses with close button (X)
-  if (clubWelcomeDismissTimer) {
-    clearTimeout(clubWelcomeDismissTimer);
-    clubWelcomeDismissTimer = null;
-  }
+  // Automatically dismiss welcome plaque in Club tab after 5 seconds (5000ms)
+  clubWelcomeDismissTimer = setTimeout(() => {
+    dismissClubWelcomePlaque();
+  }, 5000);
 }
 
 function cancelClubWelcomeAutoDismiss() {
@@ -4269,7 +4271,11 @@ function cancelClubWelcomeAutoDismiss() {
 function dismissClubWelcomePlaque() {
   const plaque = document.getElementById("clubPinnedInfo");
   if (!plaque) return;
-  plaque.style.transition = "opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.24s cubic-bezier(0.16, 1, 0.3, 1), margin 0.24s cubic-bezier(0.16, 1, 0.3, 1), padding 0.24s cubic-bezier(0.16, 1, 0.3, 1)";
+  if (clubWelcomeDismissTimer) {
+    clearTimeout(clubWelcomeDismissTimer);
+    clubWelcomeDismissTimer = null;
+  }
+  plaque.style.transition = "opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), padding 0.28s cubic-bezier(0.16, 1, 0.3, 1)";
   plaque.style.opacity = "0";
   plaque.style.transform = "translateY(-6px)";
   plaque.style.maxHeight = "0";
@@ -4282,11 +4288,7 @@ function dismissClubWelcomePlaque() {
     plaque.classList.add("is-collapsed");
     plaque.setAttribute("hidden", "");
     plaque.style.setProperty("display", "none", "important");
-  }, 240);
-  if (clubWelcomeDismissTimer) {
-    clearTimeout(clubWelcomeDismissTimer);
-    clubWelcomeDismissTimer = null;
-  }
+  }, 280);
 }
 
 window.startClubWelcomeAutoDismiss = startClubWelcomeAutoDismiss;
@@ -8538,6 +8540,8 @@ window.HeaderScrollController = (function() {
   let ticking = false;
   let clubTicking = false;
   let cachedHeader = null;
+  let headerAutoHideTimer = null;
+  const HEADER_AUTO_HIDE_DELAY = 30000; // Automatically hide header after 30 seconds
 
   function getHeader() {
     if (!cachedHeader) {
@@ -8553,6 +8557,56 @@ window.HeaderScrollController = (function() {
   let isClubHeaderTransitioning = false;
   let isClubCollapsed = false;
   let clubTransitionTimer = null;
+
+  function clearHeaderAutoHide() {
+    if (headerAutoHideTimer) {
+      clearTimeout(headerAutoHideTimer);
+      headerAutoHideTimer = null;
+    }
+  }
+
+  function autoHideHeader() {
+    const header = getHeader();
+    const pageEl = getActivePageEl();
+    const isClub = pageEl && pageEl.id === "club-tab";
+
+    if (isClub) {
+      setClubHeaderCollapsed(true);
+    } else {
+      if (header && !header.classList.contains("header-hidden")) {
+        header.classList.add("header-hidden");
+      }
+    }
+    clearHeaderAutoHide();
+  }
+
+  function autoShowHeader() {
+    const header = getHeader();
+    const pageEl = getActivePageEl();
+    const isClub = pageEl && pageEl.id === "club-tab";
+
+    if (isClub) {
+      setClubHeaderCollapsed(false);
+    } else {
+      if (header && header.classList.contains("header-hidden")) {
+        header.classList.remove("header-hidden");
+      }
+    }
+    scheduleHeaderAutoHide();
+  }
+
+  function scheduleHeaderAutoHide() {
+    clearHeaderAutoHide();
+    headerAutoHideTimer = setTimeout(() => {
+      // If modal or dialog is open, re-check in 5s
+      const hasModal = document.querySelector(".modal-backdrop.is-active, .luxury-modal.is-active, .gold-modal.is-active, .purchase-modal.is-active, .custom-confirm-modal.is-active, .modal-open");
+      if (hasModal) {
+        scheduleHeaderAutoHide();
+        return;
+      }
+      autoHideHeader();
+    }, HEADER_AUTO_HIDE_DELAY);
+  }
 
   function setClubHeaderCollapsed(collapsed) {
     if (isClubCollapsed === collapsed) return;
@@ -8583,6 +8637,7 @@ window.HeaderScrollController = (function() {
       if (clubTab && !clubTab.classList.contains("club-header-collapsed")) {
         clubTab.classList.add("club-header-collapsed");
       }
+      clearHeaderAutoHide();
       return;
     }
 
@@ -8595,6 +8650,7 @@ window.HeaderScrollController = (function() {
     if (creditsEl && creditsEl.classList.contains("credits-collapsed")) {
       creditsEl.classList.remove("credits-collapsed");
     }
+    scheduleHeaderAutoHide();
   }
 
   function updateHeaderHeightVar() {
@@ -8643,12 +8699,14 @@ window.HeaderScrollController = (function() {
       isLockedVisible = true;
       if (header.classList.contains("header-hidden")) {
         header.classList.remove("header-hidden");
+        scheduleHeaderAutoHide();
       }
     } else {
       isLockedVisible = false;
       if (lastScrollTop <= 25) {
         if (header.classList.contains("header-hidden")) {
           header.classList.remove("header-hidden");
+          scheduleHeaderAutoHide();
         }
       }
     }
@@ -8663,6 +8721,7 @@ window.HeaderScrollController = (function() {
       header.classList.remove("header-hidden");
     }
     setClubHeaderCollapsed(false);
+    clearHeaderAutoHide();
   }
 
   function onTabChangeComplete() {
@@ -8670,6 +8729,7 @@ window.HeaderScrollController = (function() {
     setClubHeaderCollapsed(false);
     updateStateForCurrentTab();
     updateHeaderHeightVar();
+    scheduleHeaderAutoHide();
     requestAnimationFrame(() => {
       if (currentSeq !== navSeq) return;
       setClubHeaderCollapsed(false);
@@ -8679,6 +8739,7 @@ window.HeaderScrollController = (function() {
         if (currentSeq !== navSeq) return;
         isNavigating = false;
         updateStateForCurrentTab();
+        scheduleHeaderAutoHide();
       }, 50);
     });
   }
@@ -8792,6 +8853,7 @@ window.HeaderScrollController = (function() {
         if (currentScroll <= 25) {
           if (header.classList.contains("header-hidden")) {
             header.classList.remove("header-hidden");
+            scheduleHeaderAutoHide();
           }
           lastScrollTop = currentScroll;
           return;
@@ -8806,10 +8868,12 @@ window.HeaderScrollController = (function() {
         if (delta > 8 && currentScroll > 40) {
           if (!header.classList.contains("header-hidden")) {
             header.classList.add("header-hidden");
+            clearHeaderAutoHide();
           }
         } else if (delta < -8) {
           if (header.classList.contains("header-hidden")) {
             header.classList.remove("header-hidden");
+            scheduleHeaderAutoHide();
           }
         }
 
@@ -8837,6 +8901,19 @@ window.HeaderScrollController = (function() {
 
   return {
     init() {
+      // Start 30-second automatic header dismissal countdown
+      scheduleHeaderAutoHide();
+
+      // Top-edge sensor: tap or click near top edge (<= 36px) reveals header smoothly when hidden
+      document.addEventListener("pointerdown", (e) => {
+        const header = getHeader();
+        if (header && header.classList.contains("header-hidden")) {
+          if (e.clientY <= 36) {
+            autoShowHeader();
+          }
+        }
+      }, { passive: true });
+
       // Global capture listener routes scroll events to non-club page handlers
       document.addEventListener("scroll", (e) => {
         const target = e.target;
@@ -8858,6 +8935,7 @@ window.HeaderScrollController = (function() {
           updateHeaderHeightVar();
           updateStateForCurrentTab();
           attachClubScroll();
+          scheduleHeaderAutoHide();
           if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
             document.querySelector(".app-main")?.classList.add("main-membership-active");
           }
@@ -8870,6 +8948,7 @@ window.HeaderScrollController = (function() {
         updateHeaderHeightVar();
         updateStateForCurrentTab();
         attachClubScroll();
+        scheduleHeaderAutoHide();
         if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
           document.querySelector(".app-main")?.classList.add("main-membership-active");
         }
@@ -8887,10 +8966,15 @@ window.HeaderScrollController = (function() {
     updateHeaderHeightVar,
     setClubHeaderCollapsed,
     handleClubScrollEvent,
+    scheduleHeaderAutoHide,
+    clearHeaderAutoHide,
+    autoHideHeader,
+    autoShowHeader,
     forceShow() {
       const header = document.getElementById("appHeader");
       if (header) header.classList.remove("header-hidden");
       setClubHeaderCollapsed(false);
+      scheduleHeaderAutoHide();
     }
   };
 })();

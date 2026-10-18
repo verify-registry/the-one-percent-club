@@ -23,7 +23,7 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css?v=20261017_club_faceted_gold_nuke_watermarks" />
+    <link rel="stylesheet" href="style.css?v=20261018_transparent_liquid_glass" />
     <script id="user-preferences-init">
       (function () {
         try {
@@ -4151,10 +4151,10 @@
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="Audio.js?v=20261004b"></script>
-    <script src="luxury.js?v=20261004b"></script>
+    <script src="luxury.js?v=20261018_inner_frame_fill_space"></script>
     <script src="translations.js?v=20261013_two_room_pagination_v1"></script>
     <script src="artifacts.js?v=20261006_vitrine_restored_v8"></script>
-    <script src="app.js?v=20261013_club_header_history_v3"></script>
+    <script src="app.js?v=20261018_autohide_5s_30s"></script>
 
     <!-- AUTHENTICATION LOGIN OVERLAY -->
     <div id="authLoginOverlay" class="luxury-modal-overlay">
@@ -4308,7 +4308,8 @@
     flex: 1 1 auto !important;
     min-height: 0 !important;
     height: 100% !important;
-    padding: 6px 8px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
 }
 
 #membershipCard .portrait-wrap {
@@ -4465,7 +4466,6 @@ header > div,
 /* 4. HARMONIZED LIQUID GLASS CARDS */
 body.light-mode #club-tab .club-message,
 body.light-mode #club-tab .message-card,
-body.light-mode #clubPinnedInfo,
 body.light-mode .sovereign-salon-ticker,
 body.light-mode #clubCreditsDisplay,
 body.light-mode .club-credits-wrapper,
@@ -4480,7 +4480,6 @@ body.light-mode .club-composer-wrap {
 
 body:not(.light-mode) #club-tab .club-message,
 body:not(.light-mode) #club-tab .message-card,
-body:not(.light-mode) #clubPinnedInfo,
 body:not(.light-mode) .sovereign-salon-ticker,
 body:not(.light-mode) #clubCreditsDisplay,
 body:not(.light-mode) .club-credits-wrapper,
@@ -4491,6 +4490,111 @@ body:not(.light-mode) .club-composer-wrap {
     border: 1px solid rgba(212, 175, 55, 0.22) !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(212, 175, 55, 0.15) !important;
     border-radius: 18px !important;
+}
+
+/* --- DEDICATED SOVEREIGN WELCOME PLAQUE: PURE TRANSPARENT LIQUID GLASS --- */
+#clubPinnedInfo,
+#club-tab #clubPinnedInfo,
+.club-chamber-plaque,
+#club-tab .club-chamber-plaque {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin: 4px 12px 6px 12px !important;
+    padding: 9px 13px !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+    z-index: 20 !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    pointer-events: auto !important;
+}
+
+/* Dark Mode: Transparent Crystal Liquid Glass (reveals the background underneath) */
+body:not(.light-mode) #clubPinnedInfo,
+body:not(.light-mode) #club-tab #clubPinnedInfo,
+body:not(.light-mode) .club-chamber-plaque {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.02) 40%,
+        rgba(212, 175, 55, 0.04) 100%
+    ) !important;
+    backdrop-filter: blur(16px) saturate(190%) contrast(106%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(190%) contrast(106%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.55) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.35),
+        0 0 16px rgba(212, 175, 55, 0.10),
+        inset 0 1px 1px rgba(255, 255, 255, 0.40),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.20) !important;
+}
+
+/* Light Mode: Transparent Champagne Crystal Glass */
+body.light-mode #clubPinnedInfo,
+body.light-mode #club-tab #clubPinnedInfo,
+body.light-mode .club-chamber-plaque {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(245, 235, 215, 0.28) 100%
+    ) !important;
+    backdrop-filter: blur(16px) saturate(170%) contrast(105%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(170%) contrast(105%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.28) !important;
+    border-top: 1.5px solid rgba(255, 255, 255, 0.90) !important;
+    border-bottom: 1px solid rgba(180, 140, 60, 0.20) !important;
+    box-shadow:
+        0 6px 22px rgba(180, 140, 70, 0.10),
+        0 0 14px rgba(212, 175, 55, 0.12),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.90),
+        inset 0 -1px 1px rgba(180, 140, 60, 0.08) !important;
+}
+
+#clubPinnedInfo::before,
+.club-chamber-plaque::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    border-radius: inherit !important;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.03) 25%,
+        transparent 55%
+    ) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+#clubPinnedInfo::after,
+.club-chamber-plaque::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 8% !important;
+    right: 8% !important;
+    height: 1px !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.85) 50%,
+        transparent 100%
+    ) !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+}
+
+#clubPinnedInfo > *,
+.club-chamber-plaque > * {
+    position: relative !important;
+    z-index: 3 !important;
 }
 
 /* 5. CLUB ROOM TABS HARMONY */
