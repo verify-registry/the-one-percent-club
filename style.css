@@ -3510,7 +3510,7 @@ html:has(#club-tab.is-active) .app-main {
   height: 100% !important;
   max-height: 100% !important;
   padding-top: var(--header-actual-height, 84px) !important;
-  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-inline: 0 !important;
@@ -3555,7 +3555,7 @@ html.light-mode #club-tab.is-active,
   background-position: center top, center center, center bottom, 0 0, 0 0, center !important;
 }
 #club-tab.is-active.is-subview-active {
-  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
 #club-tab:not(.is-active),
@@ -36477,7 +36477,7 @@ html.light-mode #club-tab .sovereign-dispatch-card.is-personal-dispatch:hover {
   min-height: 0 !important;
   max-height: 100% !important;
   padding-top: var(--header-actual-height, 84px) !important;
-  padding-bottom: 0 !important;
+  padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
   gap: 0 !important;
   transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
   /* THE 1% CLUB — SOVEREIGN FULL-BLEED OBSIDIAN ATELIER WALLPAPER */
@@ -37688,15 +37688,20 @@ body.light-mode .club-credits-buy:hover {
 }
 
 #club-tab .club-composer-wrap,
-.club-composer-wrap {
-  position: absolute !important;
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 8px) !important;
-  left: 12px !important;
-  right: 12px !important;
+.club-composer-wrap,
+#clubComposerWrap,
+body #club-tab.is-active #clubComposerWrap,
+body #club-tab.is-active .club-composer-wrap {
+  position: relative !important;
+  bottom: auto !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
   width: calc(100% - 24px) !important;
   max-width: calc(100% - 24px) !important;
-  margin: 0 auto !important;
+  margin: 2px auto 4px auto !important;
   padding: 0 !important;
+  flex-shrink: 0 !important;
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
@@ -37708,7 +37713,7 @@ body.light-mode .club-credits-buy:hover {
   gap: 4px !important;
   z-index: 25 !important;
   overflow: visible !important;
-  pointer-events: none !important;
+  pointer-events: auto !important;
 }
 
 #clubComposerWrap > *,
@@ -38607,10 +38612,14 @@ html.light-mode #headerVerifiedShieldBtn .seal-check-shadow {
 
 /* Unified Page Top Padding Guarantee Across Content Tabs */
 .page,
-#membership-tab,
 #profile-tab,
 #boutique-tab {
-  padding-top: calc(var(--header-actual-height, 80px) + 8px) !important;
+  padding-top: calc(var(--header-actual-height, 80px) + 12px) !important;
+}
+
+#membership-tab,
+#membership-tab.is-active {
+  padding-top: calc(var(--header-actual-height, 84px) + 26px) !important;
 }
 
 /* Dedicated Club Header-to-Rooms Alignment (Natural Horizon Fit) */
@@ -38893,31 +38902,60 @@ body.light-mode #clubChatViewport .club-watermark {
   color: #9c7324 !important;
 }
 
-/* 3. CONVERSATION LAYOUT & REFINED BOTTOM CLEARANCE */
-/* Dedicated end spacer guarantees the full manuscript text, timestamp, and entire reaction/accolades
-   row (Endorse, Accord, Toast) remain 100% visible and interactive above the Dispatch Allocation bar in all browsers. */
-.club-messages,
-#club-tab .club-messages,
-#clubChatViewport .club-messages,
-#clubMessages {
-  padding-bottom: 0 !important;
-  scroll-padding-bottom: calc(160px + env(safe-area-inset-bottom, 0px)) !important;
+/* 3. CONVERSATION LAYOUT & DEDICATED CHAT VIEWPORT (ZERO OVERLAP COLLISION) */
+body #club-tab.is-active .club-chat-viewport,
+body #club-tab.is-active #clubChatViewport {
+  position: relative !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+}
+
+body #club-tab.is-active .club-messages,
+body #club-tab.is-active #clubChatViewport .club-messages,
+body #club-tab.is-active #clubMessages {
+  padding-top: 8px !important;
+  padding-bottom: 16px !important;
+  padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
+  padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
+  scroll-padding-top: 8px !important;
+  scroll-padding-bottom: 16px !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
   box-sizing: border-box !important;
+  flex: 1 1 0 !important;
+  height: 100% !important;
+  min-height: 0 !important;
 }
 
 .club-messages::after,
 #club-tab .club-messages::after,
 #clubChatViewport .club-messages::after,
-#clubMessages::after {
-  content: "" !important;
-  display: block !important;
-  width: 100% !important;
-  height: calc(160px + env(safe-area-inset-bottom, 0px)) !important;
-  min-height: calc(160px + env(safe-area-inset-bottom, 0px)) !important;
+#clubMessages::after,
+body #club-tab.is-active .club-messages::after,
+body #club-tab.is-active #clubMessages::after {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
   flex-shrink: 0 !important;
   pointer-events: none !important;
+}
+
+body #club-tab.is-active #clubComposerWrap,
+body #club-tab.is-active .club-composer-wrap {
+  position: relative !important;
+  bottom: auto !important;
+  top: auto !important;
+  flex-shrink: 0 !important;
+  z-index: 25 !important;
 }
 
 .club-messages > :last-child,

@@ -4279,8 +4279,62 @@
 #club-tab {
     position: relative !important;
     padding-top: 85px !important; /* Space for the floating fixed header */
-    min-height: 100vh !important;
+    padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
     background: transparent !important;
+}
+
+.app-main:has(#membership-tab.is-active) {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+#membership-tab,
+#membership-tab.is-active {
+    padding-top: calc(var(--header-actual-height, 84px) + 8px) !important;
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+}
+
+#membershipCard.membership-card,
+#membership-tab #membershipCard {
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 500px !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    padding: 6px 8px !important;
+}
+
+#membershipCard .portrait-wrap {
+    width: clamp(122px, 16.5vh, 142px) !important;
+    height: clamp(128px, 17.5vh, 150px) !important;
+    margin: 0 auto 2px !important;
+}
+
+#membershipCard .portrait-ring {
+    width: clamp(100px, 13.5vh, 114px) !important;
+    height: clamp(100px, 13.5vh, 114px) !important;
+}
+
+#membershipCard .bezel-ticks {
+    width: clamp(134px, 18vh, 154px) !important;
+    height: clamp(134px, 18vh, 154px) !important;
+}
+
+#membershipCard #memberName,
+#membershipCard .member-name {
+    font-size: clamp(1.15rem, 3.8vw, 1.35rem) !important;
+}
+
+#membershipCard .metric-ring {
+    width: clamp(86px, 12vh, 98px) !important;
+    height: clamp(86px, 12vh, 98px) !important;
 }
 
 #club-tab, #club-tab .club-layout, #club-tab .club-messages-area, 
@@ -4467,33 +4521,40 @@ body.light-mode #clubRoomsNav .club-room-tab.active {
     flex-shrink: 0 !important;
 }
 
-#club-tab .club-messages, 
-#clubMessages, 
 body #profile-tab, 
-#membership-tab.is-active, 
-#membership-tab,
 #boutique-tab,
-.page,
-.tab-pane,
-main,
-.app-main,
-.club-layout,
-.club-messages-area {
-    padding-bottom: 95px !important; /* Clean, slim safe margin */
-    scroll-padding-bottom: 95px !important;
+.page:not(#club-tab):not(#membership-tab),
+.tab-pane:not(#club-tab):not(#membership-tab) {
+    padding-bottom: calc(98px + env(safe-area-inset-bottom, 0px)) !important; /* Ample safe margin so page text never collides into bottom icons */
+    scroll-padding-bottom: calc(98px + env(safe-area-inset-bottom, 0px)) !important;
     box-sizing: border-box !important;
 }
 
 #club-tab .club-composer-container,
 #club-tab .club-composer-wrap,
 #clubComposerWrap {
-    bottom: 84px !important;
+    bottom: auto !important;
+    margin: 4px 12px 6px 12px !important;
+    position: relative !important;
+    z-index: 30 !important;
+}
+
+#club-tab .club-messages,
+#clubChatViewport .club-messages,
+#clubMessages {
+    padding-bottom: 24px !important;
+    scroll-padding-bottom: 24px !important;
 }
 
 .membership-actions,
 .share-membership-wrapper,
 #membership-tab .membership-actions {
-    margin-bottom: 12px !important;
+    margin-top: 10px !important;
+    margin-bottom: 2px !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    flex-shrink: 0 !important;
 }
 
 /* ========================================================= */
@@ -4512,8 +4573,7 @@ body,
 
 /* Ensure the Club background reaches the absolute bottom without cutoffs */
 #ultimate-club-bg,
-.club-ambient-bg,
-#club-tab {
+.club-ambient-bg {
     min-height: 100vh !important;
     min-height: 100dvh !important;
     bottom: 0 !important;
@@ -4593,9 +4653,8 @@ footer::before, footer::after,
 }
 
 /* ========================================================= */
-/* --- 4. OVERRIDE STYLE.CSS HARDCODED BOTTOM-NAV PROPERTIES --- */
+/* --- 4. REFINED SEAMLESS TRANSPARENT BOTTOM NAVIGATION --- */
 /* ========================================================= */
-/* style.css lines 2448-2519 apply solid linear gradients and mask-images */
 html body nav.bottom-nav,
 html body .bottom-nav,
 body.light-mode .bottom-nav,
@@ -4603,38 +4662,32 @@ body:not(.light-mode) .bottom-nav,
 nav.bottom-nav,
 .bottom-nav,
 nav {
-    /* Kill the style.css mask-image dissolve */
-    mask-image: none !important;
-    -webkit-mask-image: none !important;
-    
-    /* True optical liquid diamond glass */
-    backdrop-filter: blur(30px) saturate(190%) brightness(105%) !important;
-    -webkit-backdrop-filter: blur(30px) saturate(190%) brightness(105%) !important;
-    
-    /* Geometry */
     position: fixed !important;
-    bottom: 20px !important;
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
-    width: calc(100% - 32px) !important;
-    max-width: 380px !important;
-    height: 58px !important;
-    min-height: 58px !important;
-    max-height: 58px !important;
-    border-radius: 29px !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-top: none !important;
+    box-shadow: none !important;
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
     align-items: center !important;
     justify-items: center !important;
-    padding: 0 6px !important;
+    padding: 6px 12px calc(14px + env(safe-area-inset-bottom, 0px)) 12px !important;
     margin: 0 !important;
+    height: auto !important;
+    min-height: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
+    max-height: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
     box-sizing: border-box !important;
     pointer-events: auto !important;
     z-index: 99999 !important;
 }
 
-/* Neutralize the pseudo-elements in style.css */
+/* Neutralize all pseudo-elements and overlays */
 .bottom-nav::before,
 .bottom-nav::after,
 nav.bottom-nav::before,
@@ -4645,27 +4698,7 @@ nav::after {
     content: none !important;
 }
 
-/* Light mode diamond water glass */
-body.light-mode nav.bottom-nav,
-body.light-mode .bottom-nav,
-html.light-mode body nav,
-html[data-theme="light"] body nav,
-body.light-mode nav,
-body.light-mode .tab-bar,
-body.light-mode .app-nav,
-body.light-mode #bottomNav,
-body.light-mode .sovereign-bottom-bar {
-    background: rgba(255, 255, 255, 0.25) !important;
-    background-color: rgba(255, 255, 255, 0.25) !important;
-    border: 1px solid rgba(255, 255, 255, 0.75) !important;
-    box-shadow: 
-        0 16px 40px rgba(120, 85, 25, 0.12),
-        0 2px 6px rgba(0, 0, 0, 0.04),
-        inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
-        inset 0 -1px 1px rgba(212, 175, 55, 0.18) !important;
-}
-
-/* Dark mode crystal obsidian */
+/* Seamless gradient dissolve & optical glass backdrop: zero bulky dashboard capsule, dissolves scrolling text so it never collides into navigation icons */
 body:not(.light-mode) nav.bottom-nav,
 body:not(.light-mode) .bottom-nav,
 html:not(.light-mode) body nav,
@@ -4675,16 +4708,31 @@ body:not(.light-mode) .tab-bar,
 body:not(.light-mode) .app-nav,
 body:not(.light-mode) #bottomNav,
 body:not(.light-mode) .sovereign-bottom-bar {
-    background: rgba(18, 14, 9, 0.45) !important;
-    background-color: rgba(18, 14, 9, 0.45) !important;
-    border: 1px solid rgba(212, 175, 55, 0.28) !important;
-    box-shadow: 
-        0 20px 48px rgba(0, 0, 0, 0.65),
-        inset 0 1px 1.5px rgba(255, 255, 255, 0.22) !important;
+    background: linear-gradient(to top, rgba(7, 6, 8, 0.96) 0%, rgba(7, 6, 8, 0.88) 50%, rgba(7, 6, 8, 0.4) 80%, transparent 100%) !important;
+    backdrop-filter: blur(16px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+body.light-mode nav.bottom-nav,
+body.light-mode .bottom-nav,
+html.light-mode body nav,
+html[data-theme="light"] body nav,
+body.light-mode nav,
+body.light-mode .tab-bar,
+body.light-mode .app-nav,
+body.light-mode #bottomNav,
+body.light-mode .sovereign-bottom-bar {
+    background: linear-gradient(to top, rgba(250, 246, 239, 0.96) 0%, rgba(250, 246, 239, 0.88) 50%, rgba(250, 246, 239, 0.4) 80%, transparent 100%) !important;
+    backdrop-filter: blur(16px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 /* ========================================================= */
-/* --- 5. BALANCED 4-COLUMN TAB BUTTONS --- */
+/* --- 5. CLEAN MINIMAL TAB BUTTONS --- */
 /* ========================================================= */
 nav .nav-item,
 nav .tab-btn,
@@ -4693,7 +4741,7 @@ nav .tab-button,
 .bottom-nav .nav-item,
 .tab-bar .tab-item {
     width: 100% !important;
-    height: 46px !important;
+    height: 44px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -4705,9 +4753,9 @@ nav .tab-button,
     padding: 0 !important;
     margin: 0 !important;
     position: relative !important;
-    border-radius: 23px !important;
+    border-radius: 0 !important;
     opacity: 0.65 !important;
-    transition: all 0.25s ease !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
 }
 
 nav .nav-item svg,
@@ -4715,17 +4763,17 @@ nav .tab-btn svg,
 nav .tab-button svg,
 .bottom-nav button svg,
 .bottom-nav .nav-item svg {
-    width: 18px !important;
-    height: 18px !important;
-    stroke: #735b32 !important;
-    transition: all 0.25s ease !important;
+    width: 20px !important;
+    height: 20px !important;
+    stroke: #876d3b !important;
+    transition: stroke 0.2s ease, transform 0.2s ease !important;
 }
 body:not(.light-mode) nav .nav-item svg,
 body:not(.light-mode) nav .tab-btn svg,
 body:not(.light-mode) nav .tab-button svg,
 body:not(.light-mode) .bottom-nav button svg,
 body:not(.light-mode) .bottom-nav .nav-item svg {
-    stroke: #d4af37 !important;
+    stroke: #c8ab65 !important;
 }
 
 nav .nav-item span,
@@ -4733,23 +4781,23 @@ nav .tab-btn span,
 nav .tab-button span,
 .bottom-nav button span,
 .bottom-nav .nav-item span {
-    font-size: 9.5px !important;
-    font-weight: 600 !important;
-    color: #735b32 !important;
-    margin-top: 1px !important;
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    color: #876d3b !important;
+    margin-top: 2px !important;
     letter-spacing: 0.2px !important;
-    transition: all 0.25s ease !important;
+    transition: color 0.2s ease !important;
 }
 body:not(.light-mode) nav .nav-item span,
 body:not(.light-mode) nav .tab-btn span,
 body:not(.light-mode) nav .tab-button span,
 body:not(.light-mode) .bottom-nav button span,
 body:not(.light-mode) .bottom-nav .nav-item span {
-    color: #cfab57 !important;
+    color: #c8ab65 !important;
 }
 
 /* ========================================================= */
-/* --- 6. 24K MOLTEN GOLD HOROLOGICAL ACTIVE TAB CAPSULE --- */
+/* --- 6. AUTHENTIC GOLD ACTIVE TAB HIGHLIGHT (ZERO DASHBOARD CAPSULE) --- */
 /* ========================================================= */
 nav .nav-item.active,
 nav .nav-item.is-active,
@@ -4764,15 +4812,11 @@ nav .tab-button.is-active,
 .tab-bar .tab-item.active,
 .tab-bar .tab-item.is-active {
     opacity: 1 !important;
-    background: linear-gradient(135deg, rgba(230, 195, 105, 0.32) 0%, rgba(185, 140, 45, 0.22) 100%) !important;
-    border: 1px solid rgba(212, 175, 55, 0.55) !important;
-    box-shadow: 
-        0 2px 10px rgba(180, 135, 40, 0.22),
-        inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
-    border-radius: 20px !important;
-    width: 82% !important;
-    max-width: 72px !important;
-    margin: 0 auto !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
 }
 
 body:not(.light-mode) nav .nav-item.active,
@@ -4787,9 +4831,10 @@ body:not(.light-mode) .bottom-nav .nav-item.active,
 body:not(.light-mode) .bottom-nav .nav-item.is-active,
 body:not(.light-mode) .tab-bar .tab-item.active,
 body:not(.light-mode) .tab-bar .tab-item.is-active {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.28) 0%, rgba(140, 100, 25, 0.18) 100%) !important;
-    border: 1px solid rgba(255, 215, 100, 0.45) !important;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 nav .nav-item.active svg,
@@ -4802,8 +4847,8 @@ nav .tab-button.is-active svg,
 .bottom-nav button.is-active svg,
 .bottom-nav .nav-item.active svg,
 .bottom-nav .nav-item.is-active svg {
-    stroke: #b8860b !important;
-    transform: translateY(-1px) scale(1.05) !important;
+    stroke: #966e15 !important;
+    transform: translateY(-1px) scale(1.08) !important;
 }
 body:not(.light-mode) nav .nav-item.active svg,
 body:not(.light-mode) nav .nav-item.is-active svg,
@@ -4815,7 +4860,8 @@ body:not(.light-mode) .bottom-nav button.active svg,
 body:not(.light-mode) .bottom-nav button.is-active svg,
 body:not(.light-mode) .bottom-nav .nav-item.active svg,
 body:not(.light-mode) .bottom-nav .nav-item.is-active svg {
-    stroke: #ffdf7a !important;
+    stroke: #ffd566 !important;
+    filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.45)) !important;
 }
 
 nav .nav-item.active span,
@@ -4828,7 +4874,7 @@ nav .tab-button.is-active span,
 .bottom-nav button.is-active span,
 .bottom-nav .nav-item.active span,
 .bottom-nav .nav-item.is-active span {
-    color: #8c6209 !important;
+    color: #8c6005 !important;
     font-weight: 700 !important;
 }
 body:not(.light-mode) nav .nav-item.active span,
@@ -4841,7 +4887,8 @@ body:not(.light-mode) .bottom-nav button.active span,
 body:not(.light-mode) .bottom-nav button.is-active span,
 body:not(.light-mode) .bottom-nav .nav-item.active span,
 body:not(.light-mode) .bottom-nav .nav-item.is-active span {
-    color: #ffdf7a !important;
+    color: #ffe082 !important;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.4) !important;
 }
 </style>
   </body>
