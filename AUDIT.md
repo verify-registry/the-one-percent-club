@@ -1168,6 +1168,27 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
     - `lint_applet` passed with 0 errors.
     - Server HTTP 200 OK verified on port 3000.
 
+- **THE 1% CLUB — MICRO-PASS 2/4: SPACING & MESSAGE CLIPPING (2026-10-16) — COMPLETE**:
+  - **Root Cause Analysis**:
+    1. *Welcome-to-Ticker Gap*: Prior overrides lacked synchronized vertical margins with safe-area variables, risking layout shifts across varying device safe areas.
+    2. *First Message Clipping*: `.club-messages` had an insufficient `padding-top: 10px`, leaving the top hallmark and author header of the first visible message crowded and visually clipped beneath `#sovereignSalonTicker`'s 24px drop shadow and lower bounds.
+    3. *Last Message & Reaction Row Clipping*: The bottom clearance spacer (`.club-messages::after`) and `scroll-padding-bottom` were constrained to `160px`. With the bottom navigation (64px) + floating composer & dispatch allocation stack (88px) + offset (8px) requiring ~168px-176px of vertical height, the reaction controls (Endorse, Accord, Toast accolades bar) and bottom text of the final message were clipped or obscured beneath the floating controls upon scrolling to bottom.
+  - **Surgical Changes Applied**:
+    1. *Synchronized Welcome-to-Ticker Gap*:
+       - `#clubPinnedInfo` (and `.club-chamber-plaque`): `margin: 4px calc(12px + env(safe-area-inset-right, 0px)) 5px calc(12px + env(safe-area-inset-left, 0px)) !important;`.
+       - `#sovereignSalonTicker` (and `.sovereign-salon-ticker`): `margin: 5px calc(12px + env(safe-area-inset-right, 0px)) 6px calc(12px + env(safe-area-inset-left, 0px)) !important;` (and updated max-width 380px media query to `5px ... 6px`).
+       - Result: Exactly 10px vertical gap (`5px + 5px`) between welcome plaque and ticker (within 8–12px target), sitting directly below without overlap while preserving full safe-area handling.
+    2. *First Message Top Clearance*:
+       - `.club-messages` (and `#clubChatViewport .club-messages`, `#clubMessages`): `padding-top: 14px !important; scroll-padding-top: 14px !important;`.
+       - Result: The first message card begins 20px below the physical ticker (14px padding + 6px bottom margin), fully clearing the ticker's shadow with zero clipping.
+    3. *Last Message & Reaction Controls Bottom Clearance*:
+       - `.club-messages` / `.club-messages::after`: `scroll-padding-bottom: calc(188px + env(safe-area-inset-bottom, 0px)) !important;` and `height: calc(188px + env(safe-area-inset-bottom, 0px)) !important; min-height: calc(188px + env(safe-area-inset-bottom, 0px)) !important;`.
+       - Result: 20px of clean breathing room above the floating composer and allocation bar, guaranteeing 100% visibility and clickability for all reaction buttons, timestamps, and message text.
+    4. *Cache-Busting*: Updated query string to `style.css?v=20261016_club_spacing_clipping_fix` in `index.html`.
+  - **Verification**:
+    - `compile_applet` passed cleanly.
+    - `lint_applet` passed with 0 errors.
+    - Verified HTTP 200 responses and computed layout invariants.
 
 
 

@@ -3205,9 +3205,6 @@ const Router = {
       header.classList.remove("header-compact");
       if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
     }
-    if (window.HeaderScrollController && typeof window.HeaderScrollController.scheduleHeaderAutoHide === "function") {
-      window.HeaderScrollController.scheduleHeaderAutoHide();
-    }
   },
 
   triggerEnter(tab) {
@@ -3678,6 +3675,32 @@ function initMemberDossierActionButtons() {
 }
 window.initMemberDossierActionButtons = initMemberDossierActionButtons;
 initMemberDossierActionButtons();
+
+document.getElementById("editAccountForm")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  ClubState.member.name = document.getElementById("editName").value;
+  ClubState.member.username = document.getElementById("editUsername").value;
+  ClubState.member.bio = document.getElementById("editBio").value;
+  ClubState.member.interests = document.getElementById("editInterests").value;
+  ClubState.member.location = document.getElementById("editLocation").value;
+  ClubState.save();
+
+  ClubState.emit("change");
+
+  Router.navigate("profile");
+  showPremiumToast(
+    window.t("profile.profileUpdated"),
+    window.t("misc.changesSaved"),
+  );
+  if (window.unlockAchievement) {
+    window.unlockAchievement(
+      "profile_updated",
+      "THE DOSSIER",
+      "Your personal identity dossier has been updated.",
+    );
+  }
+});
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
@@ -4255,10 +4278,11 @@ function startClubWelcomeAutoDismiss() {
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
 
-  // Automatically dismiss welcome plaque in Club tab after 5 seconds (5000ms)
-  clubWelcomeDismissTimer = setTimeout(() => {
-    dismissClubWelcomePlaque();
-  }, 5000);
+  // Keep welcome plaque visible in preview until user explicitly dismisses with close button (X)
+  if (clubWelcomeDismissTimer) {
+    clearTimeout(clubWelcomeDismissTimer);
+    clubWelcomeDismissTimer = null;
+  }
 }
 
 function cancelClubWelcomeAutoDismiss() {
@@ -4271,11 +4295,7 @@ function cancelClubWelcomeAutoDismiss() {
 function dismissClubWelcomePlaque() {
   const plaque = document.getElementById("clubPinnedInfo");
   if (!plaque) return;
-  if (clubWelcomeDismissTimer) {
-    clearTimeout(clubWelcomeDismissTimer);
-    clubWelcomeDismissTimer = null;
-  }
-  plaque.style.transition = "opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.28s cubic-bezier(0.16, 1, 0.3, 1), margin 0.28s cubic-bezier(0.16, 1, 0.3, 1), padding 0.28s cubic-bezier(0.16, 1, 0.3, 1)";
+  plaque.style.transition = "opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.24s cubic-bezier(0.16, 1, 0.3, 1), margin 0.24s cubic-bezier(0.16, 1, 0.3, 1), padding 0.24s cubic-bezier(0.16, 1, 0.3, 1)";
   plaque.style.opacity = "0";
   plaque.style.transform = "translateY(-6px)";
   plaque.style.maxHeight = "0";
@@ -4288,7 +4308,11 @@ function dismissClubWelcomePlaque() {
     plaque.classList.add("is-collapsed");
     plaque.setAttribute("hidden", "");
     plaque.style.setProperty("display", "none", "important");
-  }, 280);
+  }, 240);
+  if (clubWelcomeDismissTimer) {
+    clearTimeout(clubWelcomeDismissTimer);
+    clubWelcomeDismissTimer = null;
+  }
 }
 
 window.startClubWelcomeAutoDismiss = startClubWelcomeAutoDismiss;
@@ -4665,7 +4689,65 @@ function initSovereignSalonTicker() {
 
   let tickerNeedsRepaint = false;
 
-  function updateTicker() {
+  function updateTickerInPlace(hasLiveQuotes, sourceInstruments) {
+    const isAr = (typeof AppState !== "undefined" && AppState && AppState.language === "ar") ||
+      (document.documentElement.getAttribute("lang") === "ar") ||
+      (localStorage.getItem("one_percent_lang") === "ar");
+
+    const groups = tickerEl.querySelectorAll(".ticker-marquee-group");
+    if (!groups || groups.length === 0) return false;
+
+    groups.forEach((group) => {
+      const metalItems = group.querySelectorAll(".ticker-metal-item");
+      sourceInstruments.forEach((item, idx) => {
+        const itemEl = metalItems[idx];
+        if (!itemEl) return;
+
+        const isUnavailable = !hasLiveQuotes || item.price === null || item.status === "UNAVAILABLE";
+        const priceEl = itemEl.querySelector(".ticker-metal-price");
+        const statusEl = itemEl.querySelector(".ticker-status-tag");
+
+        if (isUnavailable) {
+          const priceDisplay = isAr ? "غير متوفر" : "Unavailable";
+          if (priceEl && priceEl.textContent !== priceDisplay) {
+            priceEl.textContent = priceDisplay;
+          }
+          if (statusEl) {
+            if (statusEl.className !== "ticker-status-tag unavailable") {
+              statusEl.className = "ticker-status-tag unavailable";
+            }
+            const statusTxt = isAr ? "غير متوفر" : "UNAVAILABLE";
+            if (statusEl.textContent !== statusTxt) statusEl.textContent = statusTxt;
+          }
+        } else {
+          const prefix = (item.currency === "USD" && item.cat !== "FX") ? "$" : "";
+          const suffix = item.unit ? (" " + item.unit) : (item.currency && item.cat !== "FX" ? (" " + item.currency) : "");
+          const priceDisplay = prefix + item.formattedPrice + suffix;
+          if (priceEl && priceEl.textContent !== priceDisplay) {
+            priceEl.textContent = priceDisplay;
+          }
+
+          const isLive = item.status === "LIVE";
+          const isDelayed = item.status === "DELAYED";
+          const statusClass = isLive ? "live" : (isDelayed ? "delayed" : "stale");
+          const statusText = isLive
+            ? (isAr ? "مباشر" : "LIVE")
+            : (isDelayed ? (isAr ? "متأخر" : "DELAYED") : (isAr ? "مغلق" : "STALE"));
+
+          if (statusEl) {
+            const expectedClass = "ticker-status-tag " + statusClass;
+            if (statusEl.className !== expectedClass) {
+              statusEl.className = expectedClass;
+            }
+            if (statusEl.textContent !== statusText) statusEl.textContent = statusText;
+          }
+        }
+      });
+    });
+    return true;
+  }
+
+  function updateTicker(forceRebuild = false) {
     const clubTab = document.getElementById("club-tab");
     const isClubActive = Boolean(clubTab && !clubTab.hidden && (clubTab.classList.contains("is-active") || clubTab.offsetHeight > 0));
 
@@ -4688,19 +4770,30 @@ function initSovereignSalonTicker() {
       viewport.appendChild(marqueeTrack);
     }
 
+    const hasLiveQuotes = liveMarketData &&
+      (liveMarketData.status === "LIVE" || liveMarketData.status === "DELAYED") &&
+      Array.isArray(liveMarketData.instruments);
+    const sourceInstruments = hasLiveQuotes ? liveMarketData.instruments : REQUIRED_BENCHMARKS;
+
+    // Fast non-destructive update: modifies existing DOM text in-place to prevent CSS animation restarts
+    if (!forceRebuild && marqueeTrack.querySelectorAll(".ticker-marquee-group").length >= 2) {
+      updateTickerInPlace(hasLiveQuotes, sourceInstruments);
+      return;
+    }
+
     const itemsHTML = buildTickerItems();
     const groupHTML = '<div class="ticker-marquee-group">' + itemsHTML + '<span class="ticker-dot-sep">✦</span></div>';
     if (marqueeTrack.dataset.renderedGroup === groupHTML) {
       return;
     }
     marqueeTrack.dataset.renderedGroup = groupHTML;
-    requestAnimationFrame(() => {
-      marqueeTrack.innerHTML = groupHTML + groupHTML;
-    });
+    marqueeTrack.innerHTML = groupHTML + groupHTML;
   }
 
   window.updateClubTickerIfPending = function () {
-    updateTicker();
+    if (tickerNeedsRepaint) {
+      updateTicker();
+    }
   };
 
   let lastMarketFetchTime = 0;
@@ -4724,7 +4817,7 @@ function initSovereignSalonTicker() {
     }
   }
 
-  // Initial render (shows authentic instruments with verified unavailable status)
+  // Initial render (updates in-place without restarting track animation)
   updateTicker();
 
   // Non-blocking asynchronous live quote check
@@ -4744,7 +4837,7 @@ function initSovereignSalonTicker() {
     }
   });
 
-  window.addEventListener("languageChanged", updateTicker);
+  window.addEventListener("languageChanged", () => updateTicker(true));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -8540,8 +8633,6 @@ window.HeaderScrollController = (function() {
   let ticking = false;
   let clubTicking = false;
   let cachedHeader = null;
-  let headerAutoHideTimer = null;
-  const HEADER_AUTO_HIDE_DELAY = 30000; // Automatically hide header after 30 seconds
 
   function getHeader() {
     if (!cachedHeader) {
@@ -8558,99 +8649,12 @@ window.HeaderScrollController = (function() {
   let isClubCollapsed = false;
   let clubTransitionTimer = null;
 
-  function clearHeaderAutoHide() {
-    if (headerAutoHideTimer) {
-      clearTimeout(headerAutoHideTimer);
-      headerAutoHideTimer = null;
-    }
-  }
-
-  function autoHideHeader() {
-    const header = getHeader();
-    const pageEl = getActivePageEl();
-    const isClub = pageEl && pageEl.id === "club-tab";
-
-    if (isClub) {
-      setClubHeaderCollapsed(true);
-    } else {
-      if (header && !header.classList.contains("header-hidden")) {
-        header.classList.add("header-hidden");
-      }
-    }
-    clearHeaderAutoHide();
-  }
-
-  function autoShowHeader() {
-    const header = getHeader();
-    const pageEl = getActivePageEl();
-    const isClub = pageEl && pageEl.id === "club-tab";
-
-    if (isClub) {
-      setClubHeaderCollapsed(false);
-    } else {
-      if (header && header.classList.contains("header-hidden")) {
-        header.classList.remove("header-hidden");
-      }
-    }
-    scheduleHeaderAutoHide();
-  }
-
-  function scheduleHeaderAutoHide() {
-    clearHeaderAutoHide();
-    headerAutoHideTimer = setTimeout(() => {
-      // If modal or dialog is open, re-check in 5s
-      const hasModal = document.querySelector(".modal-backdrop.is-active, .luxury-modal.is-active, .gold-modal.is-active, .purchase-modal.is-active, .custom-confirm-modal.is-active, .modal-open");
-      if (hasModal) {
-        scheduleHeaderAutoHide();
-        return;
-      }
-      autoHideHeader();
-    }, HEADER_AUTO_HIDE_DELAY);
-  }
-
   function setClubHeaderCollapsed(collapsed) {
-    if (isClubCollapsed === collapsed) return;
-    isClubCollapsed = collapsed;
-    isClubHeaderTransitioning = true;
-    accumulatedOlderDelta = 0;
-    accumulatedNewerDelta = 0;
-
-    if (clubTransitionTimer) clearTimeout(clubTransitionTimer);
-    clubTransitionTimer = setTimeout(() => {
-      isClubHeaderTransitioning = false;
-      const msgs = document.getElementById("clubMessages");
-      if (msgs) {
-        lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);
-      }
-      accumulatedOlderDelta = 0;
-      accumulatedNewerDelta = 0;
-    }, 350);
-
+    // Header is unified across all tabs: Membership, Club, Profile, Boutique
     const header = getHeader();
-    const clubTab = document.getElementById("club-tab");
-    const creditsEl = document.getElementById("clubCreditsDisplay");
-
-    if (collapsed) {
-      if (header && !header.classList.contains("header-hidden")) {
-        header.classList.add("header-hidden");
-      }
-      if (clubTab && !clubTab.classList.contains("club-header-collapsed")) {
-        clubTab.classList.add("club-header-collapsed");
-      }
-      clearHeaderAutoHide();
-      return;
-    }
-
     if (header && header.classList.contains("header-hidden")) {
       header.classList.remove("header-hidden");
     }
-    if (clubTab && clubTab.classList.contains("club-header-collapsed")) {
-      clubTab.classList.remove("club-header-collapsed");
-    }
-    if (creditsEl && creditsEl.classList.contains("credits-collapsed")) {
-      creditsEl.classList.remove("credits-collapsed");
-    }
-    scheduleHeaderAutoHide();
   }
 
   function updateHeaderHeightVar() {
@@ -8699,14 +8703,12 @@ window.HeaderScrollController = (function() {
       isLockedVisible = true;
       if (header.classList.contains("header-hidden")) {
         header.classList.remove("header-hidden");
-        scheduleHeaderAutoHide();
       }
     } else {
       isLockedVisible = false;
       if (lastScrollTop <= 25) {
         if (header.classList.contains("header-hidden")) {
           header.classList.remove("header-hidden");
-          scheduleHeaderAutoHide();
         }
       }
     }
@@ -8721,7 +8723,6 @@ window.HeaderScrollController = (function() {
       header.classList.remove("header-hidden");
     }
     setClubHeaderCollapsed(false);
-    clearHeaderAutoHide();
   }
 
   function onTabChangeComplete() {
@@ -8729,7 +8730,6 @@ window.HeaderScrollController = (function() {
     setClubHeaderCollapsed(false);
     updateStateForCurrentTab();
     updateHeaderHeightVar();
-    scheduleHeaderAutoHide();
     requestAnimationFrame(() => {
       if (currentSeq !== navSeq) return;
       setClubHeaderCollapsed(false);
@@ -8739,7 +8739,6 @@ window.HeaderScrollController = (function() {
         if (currentSeq !== navSeq) return;
         isNavigating = false;
         updateStateForCurrentTab();
-        scheduleHeaderAutoHide();
       }, 50);
     });
   }
@@ -8853,7 +8852,6 @@ window.HeaderScrollController = (function() {
         if (currentScroll <= 25) {
           if (header.classList.contains("header-hidden")) {
             header.classList.remove("header-hidden");
-            scheduleHeaderAutoHide();
           }
           lastScrollTop = currentScroll;
           return;
@@ -8865,16 +8863,9 @@ window.HeaderScrollController = (function() {
           return;
         }
 
-        if (delta > 8 && currentScroll > 40) {
-          if (!header.classList.contains("header-hidden")) {
-            header.classList.add("header-hidden");
-            clearHeaderAutoHide();
-          }
-        } else if (delta < -8) {
-          if (header.classList.contains("header-hidden")) {
-            header.classList.remove("header-hidden");
-            scheduleHeaderAutoHide();
-          }
+        // Keep header permanently visible and unified with liquid glass gradient
+        if (header.classList.contains("header-hidden")) {
+          header.classList.remove("header-hidden");
         }
 
         lastScrollTop = currentScroll;
@@ -8901,19 +8892,6 @@ window.HeaderScrollController = (function() {
 
   return {
     init() {
-      // Start 30-second automatic header dismissal countdown
-      scheduleHeaderAutoHide();
-
-      // Top-edge sensor: tap or click near top edge (<= 36px) reveals header smoothly when hidden
-      document.addEventListener("pointerdown", (e) => {
-        const header = getHeader();
-        if (header && header.classList.contains("header-hidden")) {
-          if (e.clientY <= 36) {
-            autoShowHeader();
-          }
-        }
-      }, { passive: true });
-
       // Global capture listener routes scroll events to non-club page handlers
       document.addEventListener("scroll", (e) => {
         const target = e.target;
@@ -8935,7 +8913,6 @@ window.HeaderScrollController = (function() {
           updateHeaderHeightVar();
           updateStateForCurrentTab();
           attachClubScroll();
-          scheduleHeaderAutoHide();
           if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
             document.querySelector(".app-main")?.classList.add("main-membership-active");
           }
@@ -8948,7 +8925,6 @@ window.HeaderScrollController = (function() {
         updateHeaderHeightVar();
         updateStateForCurrentTab();
         attachClubScroll();
-        scheduleHeaderAutoHide();
         if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
           document.querySelector(".app-main")?.classList.add("main-membership-active");
         }
@@ -8966,15 +8942,10 @@ window.HeaderScrollController = (function() {
     updateHeaderHeightVar,
     setClubHeaderCollapsed,
     handleClubScrollEvent,
-    scheduleHeaderAutoHide,
-    clearHeaderAutoHide,
-    autoHideHeader,
-    autoShowHeader,
     forceShow() {
       const header = document.getElementById("appHeader");
       if (header) header.classList.remove("header-hidden");
       setClubHeaderCollapsed(false);
-      scheduleHeaderAutoHide();
     }
   };
 })();

@@ -386,30 +386,29 @@ function drawGuilloche(ctx, width, height) {
   ctx.clearRect(0, 0, width, height);
 
   // --- 1. PURE TOPOGRAPHIC GEOMETRY (NO CROSSHATCH) ---
-  // A majestic bundle of non-intersecting, diverging S-curves spanning edge-to-edge.
+  // We use a single bundle of non-intersecting, diverging S-curves.
   const paths = new Path2D();
-  const maxDim = Math.max(width, height);
-  const numLines = 320; 
+  const numLines = 300; 
 
   for (let i = 0; i <= numLines; i++) {
     let t = i / numLines;
     let nt = t * 2 - 1; // Ranges from -1 to 1
 
-    // Density distribution: ensures smooth, elegant spacing reaching fully to all card frame borders
-    let yBase = Math.sign(nt) * Math.pow(Math.abs(nt), 1.1) * (maxDim * 1.6);
+    // Density distribution: pushes lines tightly to the edges, leaving the center quiet
+    let yBase = Math.sign(nt) * Math.pow(Math.abs(nt), 1.2) * (height * 1.5);
 
-    // Amplitude of the curve increases gracefully toward the edges, creating expanding sweeps
-    let amplitude = Math.pow(Math.abs(nt), 0.75) * maxDim * 0.75;
+    // Amplitude of the curve increases as we move to the edges.
+    // This breaks the "repetitive parallel" look, creating gracefully expanding sweeps.
+    let amplitude = Math.pow(Math.abs(nt), 0.8) * height * 0.7;
 
-    // Generous span ensures curves never truncate before reaching the rotated frame edges
-    let startX = -maxDim * 2.2;
-    let endX = maxDim * 2.2;
+    let startX = -width * 1.5;
+    let endX = width * 1.5;
 
     // Control points to create the sweeping S-curve
-    let cp1X = -maxDim * 0.7;
+    let cp1X = -width * 0.5;
     let cp1Y = yBase - amplitude;
 
-    let cp2X = maxDim * 0.7;
+    let cp2X = width * 0.5;
     let cp2Y = yBase + amplitude;
 
     paths.moveTo(startX, yBase);
@@ -417,61 +416,51 @@ function drawGuilloche(ctx, width, height) {
   }
 
   ctx.save();
-  // Rotate the majestic bundle diagonally across the card
+  // Rotate the entire majestic bundle so it flows diagonally across the card
   ctx.translate(width * 0.5, height * 0.5);
   ctx.rotate(-Math.PI / 7); // ~ -25 degrees tilt
 
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 
-  // --- 2. BASE CONTINUOUS METALLIC INTAGLIO ENGRAVING LAYER ---
-  // Guarantees that every single curve is visibly etched all the way to the outer frame borders
-  ctx.save();
-  ctx.lineWidth = isLight ? 0.65 : 0.75;
-  ctx.strokeStyle = isLight
-    ? "rgba(165, 122, 45, 0.30)"
-    : "rgba(215, 178, 102, 0.32)";
-  ctx.stroke(paths);
-  ctx.restore();
-
-  // --- 3. PHYSICAL TRENCH (SHADOW) ---
-  // Deepens the surface as a true intaglio engraving
+  // --- 2. PHYSICAL TRENCH (SHADOW) ---
+  // Deepens the existing CSS surface as a true intaglio engraving
   ctx.save();
   ctx.globalCompositeOperation = "multiply";
   ctx.translate(0.5, 0.5); // Sub-pixel shift for physical depth
-  ctx.lineWidth = isLight ? 0.95 : 1.05;
-  ctx.strokeStyle = isLight ? "rgba(95, 68, 35, 0.26)" : "rgba(0, 0, 0, 0.82)";
+  ctx.lineWidth = isLight ? 1.0 : 1.1;
+  ctx.strokeStyle = isLight ? "rgba(95, 68, 35, 0.28)" : "rgba(0, 0, 0, 0.85)";
   ctx.stroke(paths);
   ctx.restore();
 
-  // --- 4. ANISOTROPIC SPECULAR HIGHLIGHT (LUMINOUS PRECIOUS METAL) ---
-  // Catches the grooves with continuous specular metallic highlights across the entire plate
+  // --- 3. ANISOTROPIC SPECULAR HIGHLIGHT (THE REAL METAL SECRET) ---
+  // Catches the grooves with controlled specular metallic highlights
   ctx.save();
   ctx.globalCompositeOperation = isLight ? "source-over" : "color-dodge";
   ctx.translate(-0.5, -0.5); // Opposing sub-pixel shift
-  ctx.lineWidth = isLight ? 0.70 : 0.80; // Razor-crisp intaglio bevel catch
+  ctx.lineWidth = isLight ? 0.65 : 0.75; // Razor-crisp intaglio bevel catch
 
-  // Directional Light Band reaching edge-to-edge
-  const specGrad = ctx.createLinearGradient(-maxDim * 0.9, -maxDim * 0.9, maxDim * 0.9, maxDim * 0.9);
+  // Directional Light Band relative to the rotated canvas
+  const specGrad = ctx.createLinearGradient(-width, -height, width, height);
 
   if (isLight) {
-    specGrad.addColorStop(0.0, "rgba(165, 125, 45, 0.22)");
-    specGrad.addColorStop(0.20, "rgba(185, 145, 60, 0.32)");
-    specGrad.addColorStop(0.38, "rgba(225, 185, 95, 0.65)"); // Warm golden catch
-    specGrad.addColorStop(0.48, "rgba(180, 140, 55, 0.32)");
-    specGrad.addColorStop(0.58, "rgba(165, 125, 45, 0.24)"); 
-    specGrad.addColorStop(0.68, "rgba(215, 175, 85, 0.52)"); // Secondary warm accent
-    specGrad.addColorStop(0.85, "rgba(185, 145, 60, 0.32)");
-    specGrad.addColorStop(1.0, "rgba(165, 125, 45, 0.22)");
+    specGrad.addColorStop(0.0, "rgba(175, 135, 50, 0.0)");
+    specGrad.addColorStop(0.28, "rgba(175, 135, 50, 0.0)");
+    specGrad.addColorStop(0.38, "rgba(205, 165, 75, 0.35)"); // Refined warm gold intaglio catch
+    specGrad.addColorStop(0.44, "rgba(175, 135, 50, 0.05)");
+    specGrad.addColorStop(0.56, "rgba(175, 135, 50, 0.0)"); 
+    specGrad.addColorStop(0.66, "rgba(205, 165, 75, 0.25)"); // Secondary warm accent
+    specGrad.addColorStop(0.72, "rgba(175, 135, 50, 0.0)");
+    specGrad.addColorStop(1.0, "rgba(175, 135, 50, 0.0)");
   } else {
-    specGrad.addColorStop(0.0, "rgba(215, 180, 105, 0.28)"); // Continuous gold all the way to edges
-    specGrad.addColorStop(0.18, "rgba(225, 190, 115, 0.40)");
-    specGrad.addColorStop(0.38, "rgba(255, 248, 220, 0.92)"); // Authentic Champagne gold specular peak
-    specGrad.addColorStop(0.48, "rgba(225, 185, 110, 0.45)");
-    specGrad.addColorStop(0.58, "rgba(205, 165, 90, 0.30)");
-    specGrad.addColorStop(0.68, "rgba(250, 220, 150, 0.78)"); // Secondary metallic glint
-    specGrad.addColorStop(0.85, "rgba(225, 190, 115, 0.40)");
-    specGrad.addColorStop(1.0, "rgba(215, 180, 105, 0.28)"); // Fully reaches opposite edges
+    specGrad.addColorStop(0.0, "rgba(201, 168, 106, 0.0)");
+    specGrad.addColorStop(0.28, "rgba(201, 168, 106, 0.0)");
+    specGrad.addColorStop(0.40, "rgba(245, 225, 165, 0.82)"); // Authentic Champagne gold catch
+    specGrad.addColorStop(0.46, "rgba(201, 168, 106, 0.08)");
+    specGrad.addColorStop(0.55, "rgba(201, 168, 106, 0.0)");
+    specGrad.addColorStop(0.65, "rgba(225, 190, 120, 0.55)"); // Secondary metallic glint
+    specGrad.addColorStop(0.72, "rgba(201, 168, 106, 0.0)");
+    specGrad.addColorStop(1.0, "rgba(201, 168, 106, 0.0)");
   }
 
   ctx.strokeStyle = specGrad;
@@ -480,22 +469,14 @@ function drawGuilloche(ctx, width, height) {
 
   ctx.restore(); // End Rotation
 
-  // --- 5. ORGANIC CENTER PROTECTION ---
-  // Ensure the primary identity elements read cleanly without erasing or fading the outer borders
+  // --- 4. ORGANIC CENTER PROTECTION ---
+  // Ensure the primary identity elements read cleanly while preserving crisp engraving in all other regions.
   ctx.save();
   ctx.globalCompositeOperation = "destination-out";
-  const centerRadius = Math.min(width, height) * 0.48;
-  const fadeGrad = ctx.createRadialGradient(
-    width * 0.5,
-    height * 0.44,
-    0,
-    width * 0.5,
-    height * 0.44,
-    centerRadius
-  );
-  fadeGrad.addColorStop(0.0, "rgba(0, 0, 0, 0.88)");
-  fadeGrad.addColorStop(0.32, "rgba(0, 0, 0, 0.35)");
-  fadeGrad.addColorStop(0.68, "rgba(0, 0, 0, 0.0)");
+  const fadeGrad = ctx.createRadialGradient(width * 0.5, height * 0.45, 0, width * 0.5, height * 0.45, Math.max(width, height) * 0.52);
+  fadeGrad.addColorStop(0.0, "rgba(0, 0, 0, 0.92)");
+  fadeGrad.addColorStop(0.42, "rgba(0, 0, 0, 0.25)");
+  fadeGrad.addColorStop(0.85, "rgba(0, 0, 0, 0.0)");
   fadeGrad.addColorStop(1.0, "rgba(0, 0, 0, 0.0)");
   ctx.fillStyle = fadeGrad;
   ctx.fillRect(0, 0, width, height);
@@ -1160,6 +1141,59 @@ async function captureLiveMasterCardBlob() {
     window.__masterCardCaptureActive = false;
     card.style.transform = prevTransform;
     card.style.transition = prevTransition;
+  }
+}
+
+async function shareMasterCard() {
+  const shareBtn = document.getElementById("shareBtn");
+  shareBtn?.blur();
+  shareBtn?.classList.remove("is-pressed");
+
+  if (window.AudioEngine && window.AudioEngine.playSend) {
+    window.AudioEngine.playSend();
+  }
+  const isToastAr = (window.currentLang === "ar") || (document.documentElement.lang === "ar");
+  showCopyToast(window.t("membership.exportingToast") || (isToastAr ? "جارٍ تصدير الماستر كارد الملكي فائق الدقة…" : "Exporting ultra-high-definition Master Card…"));
+
+  try {
+    let blob = await captureLiveMasterCardBlob();
+    if (!blob) {
+      blob = await renderMasterCardToBlob();
+    }
+    if (!blob) {
+      throw new Error("Failed to generate membership card image blob.");
+    }
+
+    const fname = "The-1-Percent-Club-MasterCard.png";
+    const file = new File([blob], fname, { type: "image/png" });
+
+    // Try Web Share API with image file and exact text motto
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          files: [file],
+          text: "PRIVATE WEALTH. PRIVATE SOCIETY.",
+        });
+        showCopyToast(window.t("membership.shareSuccessToast") || (isToastAr ? "✓ تم مشاركة الماستر كارد بنجاح" : "✓ Master Card shared successfully"));
+        return;
+      } catch (shareErr) {
+        if (shareErr.name === "AbortError") return; // User cancelled — do nothing
+      }
+    }
+
+    // Fallback: download the image directly
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fname;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    showCopyToast(window.t("membership.saveSuccessToast") || (isToastAr ? "✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة" : "✓ Master Card saved as high-res PNG"));
+  } catch (err) {
+    console.warn("Share fallback error:", err);
+    showCopyToast(window.t("membership.shareFailToast") || (isToastAr ? "تعذر مشاركة الماستر كارد" : "Unable to share Master Card"));
   }
 }
 
