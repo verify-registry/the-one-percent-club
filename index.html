@@ -4636,6 +4636,11 @@
     transition: margin-bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
+#club-tab.plaque-dismissed #clubFloatingHud,
+#club-tab.plaque-dismissed .club-floating-hud {
+    margin: 0 0 calc(-1 * var(--club-hud-height, 42px)) 0 !important;
+}
+
 #clubFloatingHud > * {
     pointer-events: auto !important;
 }
@@ -4702,6 +4707,44 @@ body.light-mode .club-chamber-plaque {
         inset 0 1.5px 2px #ffffff,
         inset 0 -1px 2px rgba(184, 142, 62, 0.14),
         0 0 16px rgba(225, 190, 120, 0.20) !important;
+}
+
+/* Complete, pristine removal of welcome plaque when dismissed - leaves zero ghost box or caustics */
+#club-tab.plaque-dismissed #clubPinnedInfo,
+#club-tab.plaque-dismissed .club-pinned,
+#club-tab.plaque-dismissed .club-chamber-plaque,
+#clubPinnedInfo.is-collapsed,
+#clubPinnedInfo[hidden],
+.club-chamber-plaque.is-collapsed,
+.club-chamber-plaque[hidden] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    overflow: hidden !important;
+}
+
+#club-tab.plaque-dismissed #clubPinnedInfo::before,
+#club-tab.plaque-dismissed #clubPinnedInfo::after,
+#clubPinnedInfo.is-collapsed::before,
+#clubPinnedInfo.is-collapsed::after {
+    content: none !important;
+    display: none !important;
+}
+
+#club-tab.plaque-dismissed #sovereignSalonTicker,
+#club-tab.plaque-dismissed .sovereign-salon-ticker {
+    margin: 4px calc(12px + env(safe-area-inset-right, 0px)) 4px calc(12px + env(safe-area-inset-left, 0px)) !important;
+    transform: translateY(0) !important;
 }
 
 /* 2. MASTER LIQUID GLASS CAPSULE FOR TRADING TICKER */
@@ -4800,8 +4843,8 @@ body.light-mode #club-tab .sovereign-salon-ticker {
     -webkit-overflow-scrolling: touch !important;
     padding-top: calc(var(--club-hud-height, 106px) + 8px) !important;
     scroll-padding-top: calc(var(--club-hud-height, 106px) + 8px) !important;
-    padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px)) !important;
-    scroll-padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
+    scroll-padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
     transition: padding-top 0.35s cubic-bezier(0.16, 1, 0.3, 1), scroll-padding-top 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
@@ -4809,6 +4852,16 @@ body.light-mode #club-tab .sovereign-salon-ticker {
 #club-tab.plaque-dismissed .club-messages {
     padding-top: calc(var(--club-hud-height, 42px) + 8px) !important;
     scroll-padding-top: calc(var(--club-hud-height, 42px) + 8px) !important;
+}
+
+#club-tab .club-messages::after,
+#clubMessages::after {
+    content: none !important;
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    width: 0 !important;
+    pointer-events: none !important;
 }
 
 /* 4. TOP APP HEADER AUTO-DISMISS ANIMATIONS & RECLAIMED VIEWPORT SPACE */

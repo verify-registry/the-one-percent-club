@@ -4231,7 +4231,9 @@ function switchChannel(channelId) {
   }
 
   const plaque = document.getElementById("clubPinnedInfo");
-  if (plaque) {
+  const tab = document.getElementById("club-tab");
+  const isAlreadyDismissed = tab?.classList.contains("plaque-dismissed") || plaque?.classList.contains("is-collapsed");
+  if (plaque && !isAlreadyDismissed) {
     plaque.classList.remove("is-collapsed");
     plaque.removeAttribute("hidden");
     plaque.style.removeProperty("display");
@@ -4243,7 +4245,9 @@ function switchChannel(channelId) {
     plaque.style.removeProperty("margin-top");
     plaque.style.removeProperty("margin-bottom");
     plaque.style.removeProperty("overflow");
-    document.getElementById("club-tab")?.classList.remove("plaque-dismissed");
+    tab?.classList.remove("plaque-dismissed");
+  } else if (isAlreadyDismissed) {
+    updateClubHudHeight();
   }
 
   if (channelId !== "leaderboard" && typeof scrollChatToLatest === "function") {
@@ -4265,15 +4269,31 @@ function switchChannel(channelId) {
 
 let clubWelcomeDismissTimer = null;
 
+function updateClubBottomClearance() {
+  const composerWrap = document.getElementById("clubComposerWrap");
+  const tab = document.getElementById("club-tab");
+  if (!tab) return;
+
+  if (composerWrap && composerWrap.offsetHeight > 0) {
+    // 64px bottom-nav + 8px gap + composerWrap height + 4px close clearance directly above capsule
+    const clearance = 72 + composerWrap.offsetHeight + 4;
+    tab.style.setProperty("--club-bottom-clearance", clearance + "px");
+  } else {
+    tab.style.setProperty("--club-bottom-clearance", "164px");
+  }
+}
+window.updateClubBottomClearance = updateClubBottomClearance;
+
 function updateClubHudHeight() {
   const hud = document.getElementById("clubFloatingHud");
   const tab = document.getElementById("club-tab");
   if (!hud || !tab) return;
-  const isPlaqueDismissed = tab.classList.contains("plaque-dismissed");
-  const h = hud.offsetHeight || (isPlaqueDismissed ? 42 : 106);
+  const isPlaqueDismissed = tab.classList.contains("plaque-dismissed") || document.getElementById("clubPinnedInfo")?.classList.contains("is-collapsed");
+  const h = isPlaqueDismissed ? 42 : (hud.offsetHeight || 106);
   if (h > 0) {
     tab.style.setProperty("--club-hud-height", h + "px");
   }
+  updateClubBottomClearance();
 }
 window.updateClubHudHeight = updateClubHudHeight;
 
@@ -4321,23 +4341,26 @@ function cancelClubWelcomeAutoDismiss() {
 
 function dismissClubWelcomePlaque() {
   const plaque = document.getElementById("clubPinnedInfo");
+  const tab = document.getElementById("club-tab");
   if (!plaque) return;
-  plaque.style.transition = "opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), margin 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s cubic-bezier(0.16, 1, 0.3, 1)";
-  plaque.style.opacity = "0";
-  plaque.style.transform = "translateY(-8px) scale(0.98)";
-  plaque.style.maxHeight = "0px";
-  plaque.style.paddingTop = "0px";
-  plaque.style.paddingBottom = "0px";
-  plaque.style.marginTop = "0px";
-  plaque.style.marginBottom = "0px";
-  plaque.style.overflow = "hidden";
-  document.getElementById("club-tab")?.classList.add("plaque-dismissed");
-  setTimeout(() => {
-    plaque.classList.add("is-collapsed");
-    plaque.setAttribute("hidden", "");
-    plaque.style.setProperty("display", "none", "important");
-    updateClubHudHeight();
-  }, 350);
+
+  plaque.classList.add("is-collapsed");
+  plaque.setAttribute("hidden", "");
+  plaque.style.setProperty("display", "none", "important");
+  plaque.style.setProperty("opacity", "0", "important");
+  plaque.style.setProperty("max-height", "0px", "important");
+  plaque.style.setProperty("height", "0px", "important");
+  plaque.style.setProperty("padding", "0px", "important");
+  plaque.style.setProperty("margin", "0px", "important");
+  plaque.style.setProperty("border", "none", "important");
+  plaque.style.setProperty("overflow", "hidden", "important");
+
+  if (tab) {
+    tab.classList.add("plaque-dismissed");
+    tab.style.setProperty("--club-hud-height", "42px");
+  }
+  updateClubHudHeight();
+
   if (clubWelcomeDismissTimer) {
     clearTimeout(clubWelcomeDismissTimer);
     clubWelcomeDismissTimer = null;
@@ -5224,6 +5247,10 @@ function scrollChatToLatest(smoothScroll = true) {
   const container = document.getElementById("clubMessages");
   if (!container) return;
 
+  if (typeof updateClubBottomClearance === "function") {
+    updateClubBottomClearance();
+  }
+
   window.isProgrammaticScroll = true;
   if (window._progScrollTimer) clearTimeout(window._progScrollTimer);
 
@@ -5621,6 +5648,9 @@ if (clubInputEl) {
         messagesContainer.style.removeProperty("scroll-padding-bottom");
         clubTab.style.removeProperty("padding-bottom");
       }
+      if (typeof updateClubBottomClearance === "function") {
+        updateClubBottomClearance();
+      }
       return;
     }
 
@@ -5696,6 +5726,8 @@ if (clubInputEl) {
 
     resizeObserver.observe(document.documentElement);
     if (clubTab) resizeObserver.observe(clubTab);
+    const composerWrap = document.getElementById("clubComposerWrap");
+    if (composerWrap) resizeObserver.observe(composerWrap);
   }
 
   // 2. Visual Viewport API for mobile keyboards

@@ -1193,46 +1193,46 @@ html.light-mode .brand h1 {
 .brand-tagline-text {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 5.5px !important;
-  font-family: "Cormorant Garamond", "Cinzel", serif !important;
-  font-size: clamp(9px, 2.35vw, 10.5px) !important;
-  letter-spacing: 0.12em !important;
-  font-weight: 400 !important;
+  gap: 6px !important;
+  font-family: "Cinzel", serif !important;
+  font-size: clamp(9.5px, 2.5vw, 11px) !important;
+  letter-spacing: 0.15em !important;
+  font-weight: 600 !important;
   white-space: nowrap;
-  color: #E8D2A0 !important;
+  color: #FFF2C6 !important;
   background: none !important;
-  -webkit-text-fill-color: #E8D2A0 !important;
+  -webkit-text-fill-color: #FFF2C6 !important;
   text-transform: uppercase;
-  line-height: 1;
-  filter: drop-shadow(0 0.5px 0.5px rgba(0, 0, 0, 0.45)) !important;
+  line-height: 1.1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 6px rgba(245, 215, 130, 0.25)) !important;
 }
 
 body.light-mode .brand-tagline-text,
 html.light-mode .brand-tagline-text {
-  color: #4A2E08 !important;
+  color: #382204 !important;
   background: none !important;
-  -webkit-text-fill-color: #4A2E08 !important;
-  font-family: "Cormorant Garamond", "Cinzel", serif !important;
-  font-size: clamp(9px, 2.35vw, 10.5px) !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.12em !important;
-  filter: none !important;
+  -webkit-text-fill-color: #382204 !important;
+  font-family: "Cinzel", serif !important;
+  font-size: clamp(9.5px, 2.5vw, 11px) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+  filter: drop-shadow(0 0.5px 0 rgba(255, 255, 255, 0.9)) !important;
   text-shadow: none !important;
 }
 
 .tagline-diamond-sep {
   display: inline-block;
-  font-size: 4.5px;
+  font-size: 5px;
   line-height: 1;
-  color: #E8D2A0 !important;
+  color: #FFECA8 !important;
   background: none !important;
-  -webkit-text-fill-color: #E8D2A0 !important;
-  filter: drop-shadow(0 0.5px 0.5px rgba(0, 0, 0, 0.45));
+  -webkit-text-fill-color: #FFECA8 !important;
+  filter: drop-shadow(0 0 3px rgba(255, 236, 168, 0.8));
 }
 
 body.light-mode .tagline-diamond-sep,
 html.light-mode .tagline-diamond-sep {
-  color: #5C3809 !important;
+  color: #6E440B !important;
   background: none !important;
   -webkit-text-fill-color: #5C3809 !important;
   filter: none !important;
@@ -3886,10 +3886,10 @@ body.light-mode #clubPinnedDismissBtn:hover {
   max-width: 100% !important;
   margin: 0 !important;
   padding-top: calc(var(--club-hud-height, 94px) + 8px) !important;
-  padding-bottom: 14px !important;
+  padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
   padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
   padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
-  scroll-padding-bottom: 14px !important;
+  scroll-padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
   scroll-padding-top: calc(var(--club-hud-height, 94px) + 8px) !important;
   border: none !important;
   background: transparent !important;
@@ -37339,7 +37339,7 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
   z-index: 5 !important;
   padding-top: calc(var(--club-hud-height, 94px) + 8px) !important;
   scroll-padding-top: calc(var(--club-hud-height, 94px) + 8px) !important;
-  padding-bottom: calc(164px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
   padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
   padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
   overflow-y: auto !important;
@@ -37355,12 +37355,11 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
   height: 100% !important;
   min-height: 0 !important;
   scroll-padding-top: 14px !important;
-  scroll-padding-bottom: calc(164px + env(safe-area-inset-bottom, 0px)) !important;
+  scroll-padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
   mask-image: none !important;
   -webkit-mask-image: none !important;
 }
 
-/* Bottom clearance spacer disabled in favor of exact padding-bottom on the scroll container */
 .club-messages::after,
 #club-tab .club-messages::after,
 #clubMessages::after {
@@ -37768,18 +37767,18 @@ html[dir="rtl"] .brand-tagline-text span,
 body[dir="rtl"] .brand-tagline-text span,
 html[lang="en"] #appHeader .brand-tagline-text,
 html[dir="ltr"] #appHeader .brand-tagline-text {
-  font-family: "Cormorant Garamond", "Cinzel", serif !important;
+  font-family: "Cinzel", "Cinzel Decorative", serif !important;
 }
 
-/* 3. Symmetrical Tagline Lockup: PRIVATE WEALTH · PRIVATE SOCIETY (Cormorant Garamond Classical Serif) */
+/* 3. Symmetrical Tagline Lockup: PRIVATE WEALTH · PRIVATE SOCIETY (High Clarity Lapidary Roman Serif) */
 #appHeader .brand-tagline-lockup,
 .brand-tagline-lockup {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 7px !important;
+  gap: 8px !important;
   width: 100% !important;
-  max-width: 325px !important;
+  max-width: 350px !important;
   margin: 0 auto !important;
   position: relative !important;
   z-index: 2 !important;
@@ -37790,8 +37789,8 @@ html.light-mode #appHeader .brand-tagline-lockup,
 body.light-mode .brand-tagline-lockup,
 html.light-mode .brand-tagline-lockup {
   display: flex !important;
-  gap: 7px !important;
-  max-width: 325px !important;
+  gap: 8px !important;
+  max-width: 350px !important;
   margin: 0 auto !important;
 }
 
@@ -37799,41 +37798,43 @@ html.light-mode .brand-tagline-lockup {
 .brand-tagline-text {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 5.5px !important;
-  font-family: "Cormorant Garamond", "Cinzel", serif !important;
-  font-size: clamp(9px, 2.35vw, 10.5px) !important;
-  letter-spacing: 0.12em !important;
-  font-weight: 500 !important;
+  gap: 6px !important;
+  font-family: "Cinzel", serif !important;
+  font-size: clamp(9.5px, 2.5vw, 11px) !important;
+  letter-spacing: 0.15em !important;
+  font-weight: 600 !important;
   text-transform: uppercase !important;
-  line-height: 1 !important;
+  line-height: 1.1 !important;
   white-space: nowrap !important;
   background: linear-gradient(
     180deg,
-    #F6E7BE 0%,
-    #D4AF6A 50%,
-    #9B7328 100%
+    #FFFFFF 0%,
+    #FFF8DE 25%,
+    #FEE199 55%,
+    #E8BA55 85%,
+    #D4A036 100%
   ) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  color: transparent !important;
-  filter: drop-shadow(0 0.5px 0.5px rgba(0, 0, 0, 0.6)) !important;
+  color: #FFF2C6 !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 6px rgba(245, 215, 130, 0.25)) !important;
   text-shadow: none !important;
 }
 
-/* Light Mode Tagline Text: Dark-Enough Sharp Metallic-Gold Contrast */
+/* Light Mode Tagline Text: Deep Antique Bronze-Gold with Supreme Contrast */
 body.light-mode #appHeader .brand-tagline-text,
 html.light-mode #appHeader .brand-tagline-text,
 body.light-mode .brand-tagline-text,
 html.light-mode .brand-tagline-text {
-  font-family: "Cormorant Garamond", "Cinzel", serif !important;
-  font-size: clamp(9px, 2.35vw, 10.5px) !important;
-  letter-spacing: 0.12em !important;
-  font-weight: 600 !important;
-  color: #5C3D10 !important;
-  -webkit-text-fill-color: #5C3D10 !important;
+  font-family: "Cinzel", serif !important;
+  font-size: clamp(9.5px, 2.5vw, 11px) !important;
+  letter-spacing: 0.15em !important;
+  font-weight: 700 !important;
+  color: #382204 !important;
+  -webkit-text-fill-color: #382204 !important;
   background: none !important;
-  filter: none !important;
+  filter: drop-shadow(0 0.5px 0 rgba(255, 255, 255, 0.9)) !important;
   text-shadow: none !important;
   opacity: 1 !important;
 }
@@ -37841,21 +37842,21 @@ html.light-mode .brand-tagline-text {
 #appHeader .tagline-diamond-sep,
 .tagline-diamond-sep {
   display: inline-block !important;
-  font-size: 4.5px !important;
+  font-size: 5px !important;
   line-height: 1 !important;
-  color: #D4AF6A !important;
+  color: #FFECA8 !important;
   background: none !important;
-  -webkit-text-fill-color: #D4AF6A !important;
-  filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.5)) !important;
+  -webkit-text-fill-color: #FFECA8 !important;
+  filter: drop-shadow(0 0 3px rgba(255, 236, 168, 0.8)) !important;
 }
 
 body.light-mode #appHeader .tagline-diamond-sep,
 html.light-mode #appHeader .tagline-diamond-sep,
 body.light-mode .tagline-diamond-sep,
 html.light-mode .tagline-diamond-sep {
-  color: #8C5E16 !important;
+  color: #6E440B !important;
   background: none !important;
-  -webkit-text-fill-color: #8C5E16 !important;
+  -webkit-text-fill-color: #6E440B !important;
   font-size: 5px !important;
   filter: none !important;
   opacity: 1 !important;
@@ -37881,10 +37882,10 @@ html.light-mode .tagline-diamond-sep {
 .tagline-rule-left .rule-line {
   background: linear-gradient(
     90deg,
-    rgba(212, 175, 106, 0.05) 0%,
-    rgba(180, 139, 53, 0.45) 45%,
-    #D4AF6A 80%,
-    #FFFDF5 100%
+    rgba(212, 175, 106, 0.02) 0%,
+    rgba(226, 184, 94, 0.5) 40%,
+    #FEE199 80%,
+    #FFFFFF 100%
   ) !important;
 }
 
@@ -37892,10 +37893,10 @@ html.light-mode .tagline-diamond-sep {
 .tagline-rule-right .rule-line {
   background: linear-gradient(
     90deg,
-    #FFFDF5 0%,
-    #D4AF6A 20%,
-    rgba(180, 139, 53, 0.45) 55%,
-    rgba(212, 175, 106, 0.05) 100%
+    #FFFFFF 0%,
+    #FEE199 20%,
+    rgba(226, 184, 94, 0.5) 60%,
+    rgba(212, 175, 106, 0.02) 100%
   ) !important;
 }
 
@@ -37935,8 +37936,8 @@ html.light-mode .tagline-rule-right .rule-line {
   height: 3px !important;
   transform: rotate(45deg) !important;
   flex-shrink: 0 !important;
-  background: linear-gradient(135deg, #FFFFFF 0%, #D4AF6A 45%, #6E4B12 100%) !important;
-  box-shadow: 0 0.5px 1.5px rgba(0, 0, 0, 0.6) !important;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FEE199 45%, #CFA042 100%) !important;
+  box-shadow: 0 0 3px rgba(255, 236, 168, 0.7) !important;
   border: none !important;
 }
 
@@ -38183,8 +38184,8 @@ html.light-mode #club-tab.is-active,
   min-height: 0 !important;
   padding-top: 14px !important;
   scroll-padding-top: 14px !important;
-  padding-bottom: 156px !important;
-  scroll-padding-bottom: 164px !important;
+  padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
+  scroll-padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
   box-sizing: border-box !important;
@@ -38198,7 +38199,6 @@ html.light-mode #club-tab.is-active,
   display: none !important;
   height: 0 !important;
   min-height: 0 !important;
-  flex-shrink: 0 !important;
   pointer-events: none !important;
 }
 
@@ -38907,6 +38907,44 @@ body.light-mode .ticker-pulse-badge {
     max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
     margin 0.25s cubic-bezier(0.16, 1, 0.3, 1),
     padding 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Complete removal of welcome plaque when dismissed */
+#club-tab.plaque-dismissed #clubPinnedInfo,
+#club-tab.plaque-dismissed .club-pinned,
+#club-tab.plaque-dismissed .club-chamber-plaque,
+#clubPinnedInfo.is-collapsed,
+#clubPinnedInfo[hidden],
+.club-chamber-plaque.is-collapsed,
+.club-chamber-plaque[hidden] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  overflow: hidden !important;
+}
+
+#club-tab.plaque-dismissed #clubPinnedInfo::before,
+#club-tab.plaque-dismissed #clubPinnedInfo::after,
+#clubPinnedInfo.is-collapsed::before,
+#clubPinnedInfo.is-collapsed::after {
+  content: none !important;
+  display: none !important;
+}
+
+#club-tab.plaque-dismissed #sovereignSalonTicker,
+#club-tab.plaque-dismissed .sovereign-salon-ticker {
+  margin: 4px calc(12px + env(safe-area-inset-right, 0px)) 4px calc(12px + env(safe-area-inset-left, 0px)) !important;
+  transform: translateY(0) !important;
 }
 
 /* Curved liquid glass glare reflection */
