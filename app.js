@@ -5200,7 +5200,7 @@ function scrollChatToLatest(smoothScroll = true) {
   window.isProgrammaticScroll = true;
   if (window._progScrollTimer) clearTimeout(window._progScrollTimer);
 
-  const targetTop = Math.max(0, container.scrollHeight - container.clientHeight);
+  const targetTop = container.scrollHeight;
 
   if (smoothScroll) {
     container.scrollTo({ top: targetTop, behavior: "smooth" });
@@ -5232,8 +5232,13 @@ function appendMessageToChat(msg, idx, channelId, smoothScroll = true) {
   if (!container || AppState.activeChannelId !== channelId) return;
 
   const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
-  const isNearBottom = distanceFromBottom <= 80;
-  const isSelf = msg && (msg.senderId === AppState.member?.id || msg.senderId === "current-user");
+  const isNearBottom = distanceFromBottom <= 120;
+  const isSelf = msg && (
+    msg.senderId === AppState.user?.id ||
+    msg.senderId === AppState.member?.id ||
+    msg.senderId === "current-user" ||
+    (AppState.user && msg.senderId === AppState.user.id)
+  );
 
   const html = buildMessageHTML(msg, idx, channelId);
   container.insertAdjacentHTML("beforeend", html);
@@ -5242,6 +5247,8 @@ function appendMessageToChat(msg, idx, channelId, smoothScroll = true) {
   // If an incoming message arrives while user is reviewing older messages, do not force jump.
   if (isSelf || isNearBottom) {
     scrollChatToLatest(smoothScroll);
+    requestAnimationFrame(() => scrollChatToLatest(smoothScroll));
+    setTimeout(() => scrollChatToLatest(smoothScroll), 60);
   }
 }
 
@@ -5550,6 +5557,139 @@ if (clubInputEl) {
   // Run on initial binding to ensure pristine vertical alignment
   window.autoGrowClubInput(clubInputEl);
 }
+
+/* ==========================================================================
+   VIEWPORT RESIZE OBSERVER & KEYBOARD ADAPTIVE CHAT CONTROLLER
+   Monitors viewport dimensions (via ResizeObserver & visualViewport).
+   When software keyboard opens on mobile devices:
+   - Calculates keyboard elevation
+   - Dynamically adjusts bottom padding of the chat container and tab
+   - Ensures composer (#clubComposerWrap) and latest messages remain 100% visible
+   ========================================================================== */
+(function setupViewportKeyboardObserver() {
+  const clubTab = document.getElementById("club-tab");
+  const messagesContainer = document.getElementById("clubMessages");
+  const clubInput = document.getElementById("clubInput");
+
+  let baseViewportHeight = window.innerHeight;
+  let isKeyboardOpen = false;
+
+  function handleViewportResize() {
+    if (!clubTab || !messagesContainer) return;
+
+    const composerWrap = document.getElementById("clubComposerWrap");
+    const inputIsFocused = document.activeElement === clubInput;
+
+    // The virtual keyboard can ONLY be open if the user is actively focused on the message input
+    if (!inputIsFocused) {
+      if (isKeyboardOpen || clubTab.classList.contains("keyboard-active") || messagesContainer.style.paddingBottom) {
+        isKeyboardOpen = false;
+        document.body.classList.remove("keyboard-open");
+        clubTab.classList.remove("keyboard-active");
+
+        if (composerWrap) {
+          composerWrap.style.removeProperty("bottom");
+        }
+        messagesContainer.style.removeProperty("padding-bottom");
+        messagesContainer.style.removeProperty("scroll-padding-bottom");
+        clubTab.style.removeProperty("padding-bottom");
+      }
+      return;
+    }
+
+    const activePage = document.querySelector(".page.is-active");
+    const isClubActive = activePage && activePage.id === "club-tab";
+    if (!isClubActive) return;
+
+    let keyboardHeight = 0;
+    if (window.visualViewport) {
+      const diff = window.innerHeight - window.visualViewport.height;
+      if (diff > 120) {
+        keyboardHeight = diff;
+      }
+    } else {
+      const diff = baseViewportHeight - window.innerHeight;
+      if (diff > 120) {
+        keyboardHeight = diff;
+      }
+    }
+
+    if (keyboardHeight > 0) {
+      isKeyboardOpen = true;
+      document.body.classList.add("keyboard-open");
+      clubTab.classList.add("keyboard-active");
+
+      // Elevate floating composer above keyboard
+      if (composerWrap) {
+        composerWrap.style.setProperty("bottom", `${keyboardHeight + 8}px`, "important");
+      }
+
+      // Set clean bottom clearance when keyboard is active
+      const keyboardPad = keyboardHeight + 156;
+      messagesContainer.style.setProperty("padding-bottom", `${keyboardPad}px`, "important");
+      messagesContainer.style.setProperty("scroll-padding-bottom", `${keyboardPad + 10}px`, "important");
+
+      // Scroll to latest message so it remains fully visible above the elevated composer
+      if (typeof scrollChatToLatest === "function") {
+        scrollChatToLatest(true);
+        requestAnimationFrame(() => scrollChatToLatest(true));
+        setTimeout(() => scrollChatToLatest(true), 60);
+      }
+    } else {
+      if (isKeyboardOpen || clubTab.classList.contains("keyboard-active")) {
+        isKeyboardOpen = false;
+        document.body.classList.remove("keyboard-open");
+        clubTab.classList.remove("keyboard-active");
+
+        if (composerWrap) {
+          composerWrap.style.removeProperty("bottom");
+        }
+        messagesContainer.style.removeProperty("padding-bottom");
+        messagesContainer.style.removeProperty("scroll-padding-bottom");
+        clubTab.style.removeProperty("padding-bottom");
+
+        if (typeof scrollChatToLatest === "function") {
+          scrollChatToLatest(false);
+          requestAnimationFrame(() => scrollChatToLatest(false));
+        }
+      }
+    }
+  }
+
+  // 1. ResizeObserver on documentElement & clubTab
+  if (typeof ResizeObserver !== "undefined") {
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (!isKeyboardOpen && entry.target === document.documentElement) {
+          baseViewportHeight = entry.contentRect.height;
+        }
+      }
+      handleViewportResize();
+    });
+
+    resizeObserver.observe(document.documentElement);
+    if (clubTab) resizeObserver.observe(clubTab);
+  }
+
+  // 2. Visual Viewport API for mobile keyboards
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", handleViewportResize);
+    window.visualViewport.addEventListener("scroll", handleViewportResize);
+  } else {
+    window.addEventListener("resize", handleViewportResize);
+  }
+
+  // 3. Immediate focus & blur listeners on the message input
+  if (clubInput) {
+    clubInput.addEventListener("focus", () => {
+      setTimeout(handleViewportResize, 60);
+      setTimeout(handleViewportResize, 200);
+    });
+    clubInput.addEventListener("blur", () => {
+      setTimeout(handleViewportResize, 80);
+    });
+  }
+})();
 
 /* === 6. MODALS & SETTINGS LOGIC === */
 function openInspectionModal(item, catKey, isOwned, isEquipped) {

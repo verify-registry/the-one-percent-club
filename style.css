@@ -2530,10 +2530,16 @@ html.light-mode .bottom-nav,
   border-top: none !important;
   box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.60) !important;
 }
-.bottom-nav.nav-hidden {
+.bottom-nav.nav-hidden,
+body.keyboard-open .bottom-nav,
+html.keyboard-open .bottom-nav {
   transform: translate3d(0, 105%, 0) !important;
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+#club-tab.keyboard-active {
+  transition: padding-bottom 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 /* === 4. Tabs & Navigation === */
 .nav-item {
@@ -3864,6 +3870,7 @@ body.light-mode #clubPinnedDismissBtn:hover {
   position: relative !important;
   z-index: 5 !important;
   flex: 1 1 0 !important;
+  flex-grow: 1 !important;
   min-height: 0 !important;
   height: 100% !important;
   overflow-y: auto !important;
@@ -37127,13 +37134,14 @@ body.light-mode .club-credits-buy:hover {
 }
 
 #club-tab .club-composer-wrap,
-.club-composer-wrap {
+.club-composer-wrap,
+#clubComposerWrap {
   position: absolute !important;
   bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 8px) !important;
   left: 12px !important;
   right: 12px !important;
   width: calc(100% - 24px) !important;
-  max-width: calc(100% - 24px) !important;
+  max-width: 500px !important;
   margin: 0 auto !important;
   padding: 0 !important;
   background: transparent !important;
@@ -37145,9 +37153,15 @@ body.light-mode .club-credits-buy:hover {
   display: flex !important;
   flex-direction: column !important;
   gap: 4px !important;
-  z-index: 25 !important;
+  z-index: 50 !important;
   overflow: visible !important;
   pointer-events: none !important;
+  box-sizing: border-box !important;
+}
+
+#clubComposerWrap > *,
+.club-composer-wrap > * {
+  pointer-events: auto !important;
 }
 
 #clubComposerWrap > *,
@@ -37333,6 +37347,7 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
   border: none !important;
   box-shadow: none !important;
   flex: 1 1 0 !important;
+  flex-grow: 1 !important;
   height: 100% !important;
   min-height: 0 !important;
   scroll-padding-top: 14px !important;
@@ -38153,10 +38168,12 @@ html.light-mode #club-tab.is-active,
 #club-tab .club-messages,
 #clubChatViewport .club-messages,
 #clubMessages {
+  flex-grow: 1 !important;
+  min-height: 0 !important;
   padding-top: 14px !important;
   scroll-padding-top: 14px !important;
-  padding-bottom: 0 !important;
-  scroll-padding-bottom: calc(188px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: 156px !important;
+  scroll-padding-bottom: 164px !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
   box-sizing: border-box !important;
@@ -38166,11 +38183,10 @@ html.light-mode #club-tab.is-active,
 #club-tab .club-messages::after,
 #clubChatViewport .club-messages::after,
 #clubMessages::after {
-  content: "" !important;
-  display: block !important;
-  width: 100% !important;
-  height: 8px !important;
-  min-height: 8px !important;
+  content: none !important;
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
   flex-shrink: 0 !important;
   pointer-events: none !important;
 }
@@ -39214,6 +39230,21 @@ body.light-mode .obsidian-dispatch-composer {
   display: flex !important;
   flex-direction: column !important;
   gap: 4px !important;
+  position: absolute !important;
+  bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 8px) !important;
+  left: 12px !important;
+  right: 12px !important;
+  width: calc(100% - 24px) !important;
+  max-width: 500px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  z-index: 50 !important;
+  pointer-events: none !important;
+}
+
+#clubComposerWrap > *,
+.club-composer-wrap > * {
+  pointer-events: auto !important;
 }
 
 /* 9. ROOM NAVIGATION TABS — PRECISION LIQUID GLASS & NO TRUNCATION */
