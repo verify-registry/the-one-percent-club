@@ -1188,10 +1188,38 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - **Verification**:
     - `compile_applet` passed cleanly.
     - `lint_applet` passed with 0 errors.
-    - Verified HTTP 200 responses and computed layout invariants.
 
+- **THE 1% CLUB — PASS 5C: PRIVACY REGRESSION QA + SAFE CODEBASE OPTIMIZATION (2026-10-19) — COMPLETE**:
+  - **Phase 1: Pass 5B Privacy Regression Audit**:
+    1. *Public Share Card Export Path*: Verified complete execution flow in `luxury.js`. The export path invokes `shareMasterCard()`, which executes `renderMasterCardToBlob()` to render an offscreen 900×1350 canvas 2D PNG.
+    2. *Private Wealth Metric Leak Prevention*: Verified that private Wealth Index values, percentages, formulas, and tooltips cannot reach the exported canvas. The left metric gauge was replaced by `drawPublicHallmark()`, which renders a static Sovereign Shield Hallmark with label «توثيق سيادي» / «Authenticated». Only the public Privileges gauge (`privVal`) is drawn on the right. [STATUS: PASS]
+    3. *Sovereign Hallmark Calibration*: Verified `drawPublicHallmark(gx, gy, label)` coordinates (`cardX + 175` = 215, `metricsY` = 815), radius (48px), and label baseline offset (`gy + gr + 26`), exhibiting exact horological symmetry with the right privileges complication. [STATUS: PASS]
+    4. *On-Screen Membership Card Preservation*: Verified that the on-screen card in `index.html` (`#wealthRingWrap`, `#wealthRing`, `#wealthValue`, `#wealthTooltip`) and `app.js` (`renderRing("wealthRing", ...)`) remains 100% intact, private, and interactive. [STATUS: PASS]
+    5. *Signatures & Exports*: Exported `window.renderMasterCardToBlob` globally alongside `window.shareMasterCard`. [STATUS: PASS]
+  - **Phase 2: Codebase Audit & Safe Optimization**:
+    1. *Embedded CSS Overrides Safety Audit*: Evaluated the 411-line `<style>` block in `index.html`. Confirmed it contains 23 unique selector overrides for the 3D Geometric Golden Facade (`#ultimate-club-bg`), microscopic frosted grain, and floating liquid glass HUD. In accordance with Critical CSS Safety Rules, the embedded overrides were strictly preserved to prevent visual regression.
+    2. *Dead Code Elimination & Privacy Hardening*: Safely removed `captureLiveMasterCardBlob` in `luxury.js` (an obsolete function that depended on non-existent `window.htmlToImage` and represented a latent privacy risk of DOM capture), routing `shareMasterCard()` directly to `renderMasterCardToBlob()`.
+  - **Phase 3: Verification & Performance Metrics**:
+    - `compile_applet`: Build succeeded with 0 errors.
+    - `lint_applet`: 0 errors (`tsc --noEmit` clean).
+    - Node syntax validation: `node --check` passed across all scripts.
+    - File metrics: `luxury.js` reduced from 2,262 lines (74,932 bytes) to 2,211 lines (73,485 bytes).
+    - Verification scope: build compilation, TypeScript/linting, script syntax, and dev server HTTP response executed with 0 errors. Note: End-to-end visual browser rendering and native share-sheet dialogs were marked NOT TESTED due to absence of browser binaries in container.
 
-
+- **THE 1% CLUB — PASS 5E: UNIFY MEMBERSHIP SHARE BUTTON (2026-10-19) — COMPLETE**:
+  - **Defect Resolved**: DEF-05 (Unified Master Card Share Workflow).
+  - **Surgical Implementation**:
+    1. Wired `#shareBtn` in `app.js` directly to `window.shareMasterCard()`, establishing a unified primary share pipeline.
+    2. Prevented dual-sharing: When `window.shareMasterCard()` is invoked, the handler terminates (`return`), ensuring `navigator.share()` is NOT called for a text-only URL and the verification URL is NOT automatically copied during Master Card export.
+    3. Retained `#copyBtn` as the dedicated trigger for copying the verification URL to clipboard with gold toast feedback.
+    4. Preserved tactile audio chime (`AudioEngine.playChime()`), haptic tap (`HapticEngine.tap()`), un-pressed state clearing, and added concurrency lock (`shareBtn.dataset.busy`) to prevent double-generation.
+    5. Preserved PASS 5B privacy fix: Export path exclusively calls `renderMasterCardToBlob()` utilizing `drawPublicHallmark()`, never exporting the private on-screen Wealth Index.
+    6. Exported `window.showCopyToast` globally to ensure clean decoupled toast messaging between `luxury.js` and `app.js`.
+  - **Verification**:
+    - `compile_applet`: Clean build with 0 errors.
+    - `lint_applet`: 0 errors (`tsc --noEmit`).
+    - `node --check`: Passed on all JS files.
+    - Single share workflow verified by code inspection. Private wealth metrics verified 100% excluded from exported canvas. Real-device native share sheet marked NOT TESTED (no browser in container).
 
 
 

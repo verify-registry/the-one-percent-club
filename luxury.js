@@ -516,19 +516,12 @@ async function renderMasterCardToBlob() {
     document.getElementById("memberQuote")?.textContent ||
     `"${ClubState.member.quote}"`
   ).trim();
-  const wealthText = (
-    document.getElementById("wealthValue")?.textContent ||
-    `${ClubState.member.wealthIndexValue}%`
-  )
-    .replace("%", "")
-    .trim();
   const privText = (
     document.getElementById("privValue")?.textContent ||
     `${ClubState.member.privilegesValue}%`
   )
     .replace("%", "")
     .trim();
-  const wealthVal = parseInt(wealthText, 10) || 92;
   const privVal = parseInt(privText, 10) || 84;
   const equipped = typeof getEquipped === "function" ? ClubState.equipped : {};
 
@@ -977,11 +970,66 @@ async function renderMasterCardToBlob() {
     ctx.fillText(label, gx, gy + gr + 26);
   }
 
+  // Public Sovereign Authentication Hallmark (replaces private wealth gauge on public share card)
+  function drawPublicHallmark(gx, gy, label) {
+    const gr = 48;
+    // Outer polished gold circular bezel matching right gauge
+    ctx.lineWidth = 3.5;
+    ctx.strokeStyle = makeGoldGrad(gx - gr, gy - gr, gx + gr, gy + gr);
+    ctx.beginPath();
+    ctx.arc(gx, gy, gr, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Concentric inner ring
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba(212, 175, 106, 0.35)";
+    ctx.beginPath();
+    ctx.arc(gx, gy, gr - 6, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Recessed dark metallic bed
+    ctx.fillStyle = "#0A0908";
+    ctx.beginPath();
+    ctx.arc(gx, gy, gr - 7.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Sovereign Shield Hallmark Symbol in center
+    ctx.save();
+    ctx.translate(gx, gy - 2);
+    ctx.beginPath();
+    ctx.moveTo(0, -15);
+    ctx.lineTo(14, -8.5);
+    ctx.lineTo(14, 3);
+    ctx.bezierCurveTo(14, 12, 7, 18, 0, 20);
+    ctx.bezierCurveTo(-7, 18, -14, 12, -14, 3);
+    ctx.lineTo(-14, -8.5);
+    ctx.closePath();
+    ctx.fillStyle = primaryGold;
+    ctx.fill();
+
+    // Inner checkmark on shield
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#0A0908";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(-4.5, 2);
+    ctx.lineTo(-1, 5.5);
+    ctx.lineTo(5.5, -3.5);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.font = "500 13px 'Inter', sans-serif";
+    ctx.fillStyle = "#A39B8A";
+    ctx.textAlign = "center";
+    ctx.fillText(label, gx, gy + gr + 26);
+  }
+
   const isCardAr = (window.currentLang === "ar") || (document.documentElement.lang === "ar");
-  const wealthGaugeLabel = (window.t ? window.t("membership.wealthIndex") : null) || (isCardAr ? "مؤشر الثروة" : "Wealth Index");
+  const hallmarkLabel = isCardAr ? "توثيق سيادي" : "Authenticated";
   const privGaugeLabel = (window.t ? window.t("membership.privileges") : null) || (isCardAr ? "الامتيازات" : "Privileges");
 
-  drawMetricGauge(cardX + 175, metricsY, wealthGaugeLabel, wealthVal);
+  drawPublicHallmark(cardX + 175, metricsY, hallmarkLabel);
   drawMetricGauge(cardX + cardW - 175, metricsY, privGaugeLabel, privVal);
 
   // Center: The Living Core (Pulsing Star Emblem)
@@ -1095,54 +1143,7 @@ async function renderMasterCardToBlob() {
     }, "image/png");
   });
 }
-
-async function captureLiveMasterCardBlob() {
-  const card = document.getElementById("membershipCard");
-  if (!card || !window.htmlToImage) return null;
-
-  window.__masterCardCaptureActive = true;
-  const prevTransform = card.style.transform;
-  const prevTransition = card.style.transition;
-  card.style.setProperty("transform", "none", "important");
-  card.style.setProperty("transition", "none", "important");
-  card.style.setProperty("--tiltX", "0");
-  card.style.setProperty("--tiltY", "0");
-  card.classList.remove("is-hovered");
-
-  try {
-    await new Promise((r) => requestAnimationFrame(r));
-    const dpr = Math.min(window.devicePixelRatio || 2, 3);
-    const blob = await window.htmlToImage.toBlob(card, {
-      pixelRatio: dpr,
-      cacheBust: true,
-      skipFonts: true,
-      fontEmbedCSS: "",
-      style: {
-        transform: "none",
-        transition: "none",
-        margin: "0",
-      },
-      filter: (node) => {
-        if (
-          node.classList &&
-          (node.classList.contains("metric-tooltip") ||
-            node.classList.contains("is-tooltip-open"))
-        ) {
-          return false;
-        }
-        return true;
-      },
-    });
-    return blob;
-  } catch (err) {
-    console.warn("Live client-side capture error:", err);
-    return null;
-  } finally {
-    window.__masterCardCaptureActive = false;
-    card.style.transform = prevTransform;
-    card.style.transition = prevTransition;
-  }
-}
+window.renderMasterCardToBlob = renderMasterCardToBlob;
 
 async function shareMasterCard() {
   const shareBtn = document.getElementById("shareBtn");
@@ -1153,13 +1154,13 @@ async function shareMasterCard() {
     window.AudioEngine.playSend();
   }
   const isToastAr = (window.currentLang === "ar") || (document.documentElement.lang === "ar");
-  showCopyToast(window.t("membership.exportingToast") || (isToastAr ? "جارٍ تصدير الماستر كارد الملكي فائق الدقة…" : "Exporting ultra-high-definition Master Card…"));
+  const notifyToast = (typeof window !== "undefined" && window.showCopyToast) || (typeof showCopyToast === "function" ? showCopyToast : null);
+  if (notifyToast) {
+    notifyToast(window.t("membership.exportingToast") || (isToastAr ? "جارٍ تصدير الماستر كارد الملكي فائق الدقة…" : "Exporting ultra-high-definition Master Card…"));
+  }
 
   try {
-    let blob = await captureLiveMasterCardBlob();
-    if (!blob) {
-      blob = await renderMasterCardToBlob();
-    }
+    const blob = await renderMasterCardToBlob();
     if (!blob) {
       throw new Error("Failed to generate membership card image blob.");
     }
@@ -1174,7 +1175,9 @@ async function shareMasterCard() {
           files: [file],
           text: "PRIVATE WEALTH. PRIVATE SOCIETY.",
         });
-        showCopyToast(window.t("membership.shareSuccessToast") || (isToastAr ? "✓ تم مشاركة الماستر كارد بنجاح" : "✓ Master Card shared successfully"));
+        if (notifyToast) {
+          notifyToast(window.t("membership.shareSuccessToast") || (isToastAr ? "✓ تم مشاركة الماستر كارد بنجاح" : "✓ Master Card shared successfully"));
+        }
         return;
       } catch (shareErr) {
         if (shareErr.name === "AbortError") return; // User cancelled — do nothing
@@ -1190,12 +1193,17 @@ async function shareMasterCard() {
     a.click();
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 2000);
-    showCopyToast(window.t("membership.saveSuccessToast") || (isToastAr ? "✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة" : "✓ Master Card saved as high-res PNG"));
+    if (notifyToast) {
+      notifyToast(window.t("membership.saveSuccessToast") || (isToastAr ? "✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة" : "✓ Master Card saved as high-res PNG"));
+    }
   } catch (err) {
     console.warn("Share fallback error:", err);
-    showCopyToast(window.t("membership.shareFailToast") || (isToastAr ? "تعذر مشاركة الماستر كارد" : "Unable to share Master Card"));
+    if (notifyToast) {
+      notifyToast(window.t("membership.shareFailToast") || (isToastAr ? "تعذر مشاركة الماستر كارد" : "Unable to share Master Card"));
+    }
   }
 }
+window.shareMasterCard = shareMasterCard;
 
 function initActionButtonsTactileFeedback() {
   const buttons = document.querySelectorAll(

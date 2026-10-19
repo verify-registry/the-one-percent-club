@@ -9344,12 +9344,6 @@ body:not(.light-mode) .b-filt-btn[aria-selected="true"] {
   border-radius: 8px;
 }
 
-@media (max-width: 380px) {
-}
-
-@media (max-width: 380px) {
-}
-
 @keyframes pulse {
   0%,
   100% {
@@ -37160,11 +37154,6 @@ body.light-mode .club-credits-buy:hover {
   overflow: visible !important;
   pointer-events: none !important;
   box-sizing: border-box !important;
-}
-
-#clubComposerWrap > *,
-.club-composer-wrap > * {
-  pointer-events: auto !important;
 }
 
 #clubComposerWrap > *,

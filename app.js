@@ -237,21 +237,16 @@ window.setLanguage = function (lang) {
     window.ThemeManager.syncModalUI();
   }
 
-  // Update Profile strings if they rely on UI text
-  const profileLevel = document.getElementById("profileMembershipLevel");
+  // Update Profile hero tier text
   const profileHeroTier = document.getElementById("profileTierName");
   if (typeof AppState !== "undefined") {
     const tier = AppState.user.tier;
-    let tierTrans = window.t("misc.member");
     let heroTierTrans = window.t("profile.heroSovereignTier");
     if (tier === "Sovereign" || tier === "سيادي") {
-      tierTrans = window.t("misc.sovereign");
       heroTierTrans = window.t("profile.heroSovereignTier");
     } else if (tier === "Elite" || tier === "نخبة") {
-      tierTrans = window.t("misc.elite");
       heroTierTrans = window.t("profile.heroEliteTier");
     }
-    if (profileLevel) profileLevel.textContent = tierTrans;
     if (profileHeroTier) profileHeroTier.textContent = heroTierTrans;
   }
 
@@ -2089,16 +2084,6 @@ ClubState.on("change", () => {
     pTier.textContent = (tier === "Elite" || tier === "نخبة") ? "ELITE MEMBER" : "SOVEREIGN MEMBER";
   }
 
-  const pBio = document.getElementById("profileBioValue");
-  if (pBio && AppState.user.bio) pBio.textContent = AppState.user.bio;
-
-  const pInt = document.getElementById("profileInterestsValue");
-  if (pInt && AppState.user.interests)
-    pInt.textContent = AppState.user.interests;
-
-  const pLoc = document.getElementById("profileLocationValue");
-  if (pLoc && AppState.user.location) pLoc.textContent = AppState.user.location;
-
   // Profile Sovereign Hero Card Dynamic Elements
   const pCardId = document.getElementById("profileCardMemberId");
   if (pCardId) {
@@ -2114,21 +2099,6 @@ ClubState.on("change", () => {
   const pCardEst = document.getElementById("profileCardEst");
   if (pCardEst) {
     pCardEst.textContent = AppState.user.est || "EST. 2026";
-  }
-
-  const pCardStanding = document.getElementById("profileCardStanding");
-  if (pCardStanding) {
-    pCardStanding.textContent = window.t("profile.statusStanding") || "SOVEREIGN";
-  }
-
-  const pCardWealth = document.getElementById("profileCardWealthVal");
-  if (pCardWealth) {
-    pCardWealth.textContent = AppState.user.wealthIndex || "60.0%";
-  }
-
-  const pCardWealthFill = document.getElementById("profileCardWealthFill");
-  if (pCardWealthFill) {
-    pCardWealthFill.style.width = AppState.user.wealthIndex || "60.0%";
   }
 
   const memberProfileWealthEl = document.getElementById("memberProfileWealth");
@@ -2765,6 +2735,7 @@ function showCopyToast(msg) {
     showGoldCopyPopup(msg, "");
   }
 }
+window.showCopyToast = showCopyToast;
 
 const copyBtn = document.getElementById("copyBtn");
 if (copyBtn) {
@@ -2805,6 +2776,9 @@ if (copyBtn) {
 const shareBtn = document.getElementById("shareBtn");
 if (shareBtn) {
   shareBtn.addEventListener("click", async () => {
+    if (shareBtn.dataset.busy === "true") return;
+    shareBtn.dataset.busy = "true";
+
     if (window.AudioEngine && window.AudioEngine.playChime) {
       window.AudioEngine.playChime();
     } else if (window.AudioEngine && window.AudioEngine.playSend) {
@@ -2817,53 +2791,46 @@ if (shareBtn) {
     shareBtn.blur();
     shareBtn.classList.remove("is-pressed");
 
-    const verifyUrl = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl)
-      ? ClubState.member.verifyUrl
-      : "https://1percent.club/verify/3426";
-
-    const memberId = (typeof AppState !== "undefined" && AppState?.user?.id)
-      ? AppState.user.id
-      : "0001";
-
-    const isAr = (window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl");
-
-    const shareData = {
-      title: isAr ? "THE 1% CLUB — العضوية السيادية" : "THE 1% CLUB — Sovereign Membership",
-      text: isAr
-        ? `عضوية موثقة ومعتمدة في THE 1% CLUB • #${memberId}`
-        : `Verified Sovereign Membership in THE 1% CLUB • #${memberId}`,
-      url: verifyUrl,
-    };
-
-    if (navigator.share) {
-      try {
-        if (!navigator.canShare || navigator.canShare(shareData)) {
-          await navigator.share(shareData);
-          return;
-        }
-      } catch (err) {
-        if (err && (err.name === "AbortError" || err.name === "Abort" || String(err).includes("AbortError"))) {
-          return;
-        }
-      }
-    }
-
     try {
+      if (typeof window.shareMasterCard === "function") {
+        await window.shareMasterCard();
+        return;
+      }
+
+      // Safe fallback if luxury.js is unexpectedly unavailable
+      const verifyUrl = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl)
+        ? ClubState.member.verifyUrl
+        : "https://1percent.club/verify/3426";
+      const memberId = (typeof AppState !== "undefined" && AppState?.user?.id)
+        ? AppState.user.id
+        : "0001";
+      const isAr = (window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl");
+      const shareData = {
+        title: isAr ? "THE 1% CLUB — العضوية السيادية" : "THE 1% CLUB — Sovereign Membership",
+        text: isAr
+          ? `عضوية موثقة ومعتمدة في THE 1% CLUB • #${memberId}`
+          : `Verified Sovereign Membership in THE 1% CLUB • #${memberId}`,
+        url: verifyUrl,
+      };
+
+      if (navigator.share && (!navigator.canShare || navigator.canShare(shareData))) {
+        await navigator.share(shareData);
+        return;
+      }
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(verifyUrl);
-      } else {
-        const tempInput = document.createElement("textarea");
-        tempInput.value = verifyUrl;
-        tempInput.style.position = "fixed";
-        tempInput.style.opacity = "0";
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
       }
       showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
-    } catch {
-      showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
+    } catch (err) {
+      if (err && (err.name === "AbortError" || err.name === "Abort" || String(err).includes("AbortError"))) {
+        return;
+      }
+      console.warn("Share handler fallback error:", err);
+    } finally {
+      setTimeout(() => {
+        shareBtn.dataset.busy = "false";
+      }, 500);
     }
   });
 }
