@@ -38180,95 +38180,318 @@ html.light-mode #club-tab.is-active,
 #club-tab .club-messages > :last-child {
   margin-bottom: 0 !important;
 }
-
-/* 4. LIQUID GLASS MESSAGE BUBBLES */
+/* 4. TRUE LUXURY LIQUID GLASS CHAT CAPSULES & DISPATCH CARDS */
 #club-tab .sovereign-dispatch-card,
 .club-messages .sovereign-dispatch-card,
-#clubChatViewport .sovereign-dispatch-card {
+#clubChatViewport .sovereign-dispatch-card,
+.chat-bubble {
   position: relative !important;
   overflow: visible !important;
   transform: translateZ(0) !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  max-width: 82% !important;
+  min-width: 130px !important;
+  padding: 10px 14px 9px 14px !important;
+  backdrop-filter: blur(28px) saturate(210%) brightness(106%) contrast(105%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(210%) brightness(106%) contrast(105%) !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s ease,
+              background 0.22s ease !important;
 }
 
+/* Authentic Liquid Glass Specular Arc / Gloss Reflection (Cap) */
 #club-tab .sovereign-dispatch-card::before,
 .club-messages .sovereign-dispatch-card::before,
-#clubChatViewport .sovereign-dispatch-card::before {
-  opacity: 0 !important;
-  display: none !important;
+#clubChatViewport .sovereign-dispatch-card::before,
+.chat-bubble::before {
+  content: "" !important;
+  display: block !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.26) 0%,
+    rgba(255, 255, 255, 0.08) 24%,
+    rgba(255, 255, 255, 0.01) 48%,
+    transparent 72%
+  ) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.45) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
 }
 
-/* Dark Mode: Translucent Obsidian Liquid Glass (Other Members) */
-body:not(.light-mode) #club-tab .sovereign-dispatch-card,
-body:not(.light-mode) .club-messages .sovereign-dispatch-card {
-  background: linear-gradient(135deg, rgba(20, 20, 26, 0.40) 0%, rgba(12, 12, 16, 0.30) 50%, rgba(8, 8, 12, 0.42) 100%) !important;
-  backdrop-filter: blur(20px) saturate(180%) contrast(105%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) contrast(105%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.20) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.32) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.48) !important;
-  box-shadow: 0 8px 24px -3px rgba(0, 0, 0, 0.50), inset 0 1px 1px rgba(255, 255, 255, 0.16), inset 0 -1px 2px rgba(0, 0, 0, 0.35) !important;
-  border-radius: 17px !important;
+/* Fluid Prismatic Caustic Sheen */
+#club-tab .sovereign-dispatch-card::after,
+.club-messages .sovereign-dispatch-card::after,
+#clubChatViewport .sovereign-dispatch-card::after,
+.chat-bubble::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  opacity: 0.9 !important;
+  transition: opacity 0.25s ease !important;
+}
+
+/* 4.1 INCOMING DISPATCHES (OTHER MEMBERS) — SMOKED OBSIDIAN LIQUID GLASS CAPSULE */
+body:not(.light-mode) #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch),
+body:not(.light-mode) .club-messages .sovereign-dispatch-card:not(.is-personal-dispatch),
+body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
+body:not(.light-mode) .chat-bubble.is-incoming {
+  border-radius: 20px 20px 20px 6px !important;
+  background: linear-gradient(
+    145deg,
+    rgba(26, 21, 32, 0.52) 0%,
+    rgba(15, 12, 19, 0.38) 48%,
+    rgba(8, 7, 12, 0.55) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.26) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.60) !important;
+  border-bottom: 1.2px solid rgba(0, 0, 0, 0.55) !important;
+  box-shadow:
+    0 10px 32px -4px rgba(0, 0, 0, 0.58),
+    0 3px 10px -1px rgba(0, 0, 0, 0.35),
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.35),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.45) !important;
   color: #ede7d8 !important;
 }
 
-/* Dark Mode: Amber Sovereign Liquid Glass (Personal Message / Me) */
+body:not(.light-mode) #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch)::after,
+body:not(.light-mode) .club-messages .sovereign-dispatch-card:not(.is-personal-dispatch)::after,
+body:not(.light-mode) .chat-bubble.is-incoming::after {
+  background: radial-gradient(
+    circle at 20% 12%,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(212, 175, 55, 0.04) 40%,
+    transparent 70%
+  ) !important;
+}
+
+body:not(.light-mode) #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch):hover,
+body:not(.light-mode) .club-messages .sovereign-dispatch-card:not(.is-personal-dispatch):hover,
+body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch):hover,
+body:not(.light-mode) .chat-bubble.is-incoming:hover {
+  transform: translateY(-2px) scale(1.004) translateZ(0) !important;
+  border-color: rgba(212, 175, 55, 0.40) !important;
+  border-top-color: rgba(255, 255, 255, 0.88) !important;
+  box-shadow:
+    0 14px 38px -4px rgba(0, 0, 0, 0.68),
+    0 4px 14px rgba(0, 0, 0, 0.40),
+    0 0 14px rgba(212, 175, 55, 0.12),
+    inset 0 1.8px 2px rgba(255, 255, 255, 0.50),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.50) !important;
+}
+
+/* RTL Mirrored Capsule Anchor for Incoming */
+html[dir="rtl"] #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch),
+html[dir="rtl"] .club-messages .sovereign-dispatch-card:not(.is-personal-dispatch),
+html[dir="rtl"] #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
+html[dir="rtl"] .chat-bubble.is-incoming {
+  border-radius: 20px 20px 6px 20px !important;
+}
+
+/* 4.2 PERSONAL DISPATCHES (CURRENT MEMBER / ME) — LUMINOUS AMBER CHAMPAGNE LIQUID GLASS CAPSULE */
 body:not(.light-mode) #club-tab .sovereign-dispatch-card.is-personal-dispatch,
-body:not(.light-mode) .club-messages .sovereign-dispatch-card.is-personal-dispatch {
-  background: linear-gradient(135deg, rgba(38, 28, 16, 0.46) 0%, rgba(24, 18, 10, 0.36) 50%, rgba(16, 12, 6, 0.50) 100%) !important;
-  backdrop-filter: blur(20px) saturate(190%) contrast(105%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(190%) contrast(105%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.36) !important;
-  border-top: 1px solid rgba(255, 248, 220, 0.46) !important;
-  border-bottom: 1px solid rgba(60, 42, 12, 0.48) !important;
-  box-shadow: 0 8px 28px -3px rgba(0, 0, 0, 0.55), 0 0 14px rgba(212, 175, 55, 0.10), inset 0 1px 1px rgba(255, 248, 220, 0.24), inset 0 -1px 2px rgba(0, 0, 0, 0.35) !important;
-  border-radius: 17px !important;
+body:not(.light-mode) .club-messages .sovereign-dispatch-card.is-personal-dispatch,
+body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
+body:not(.light-mode) .chat-bubble.is-outgoing {
+  border-radius: 20px 20px 6px 20px !important;
+  background: linear-gradient(
+    145deg,
+    rgba(64, 46, 20, 0.60) 0%,
+    rgba(38, 27, 12, 0.46) 48%,
+    rgba(20, 14, 6, 0.64) 100%
+  ) !important;
+  border: 1px solid rgba(224, 186, 76, 0.45) !important;
+  border-top: 1.8px solid rgba(255, 250, 225, 0.92) !important;
+  border-bottom: 1.2px solid rgba(65, 42, 10, 0.60) !important;
+  box-shadow:
+    0 10px 32px -4px rgba(0, 0, 0, 0.62),
+    0 0 22px rgba(212, 175, 55, 0.18),
+    0 3px 10px -1px rgba(0, 0, 0, 0.38),
+    inset 0 1.6px 2px rgba(255, 248, 220, 0.58),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.45) !important;
   color: #ede7d8 !important;
 }
 
-/* Light Mode: Ivory Liquid Glass */
-body.light-mode #club-tab .sovereign-dispatch-card,
-body.light-mode .club-messages .sovereign-dispatch-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(248, 244, 235, 0.50) 50%, rgba(255, 255, 255, 0.58) 100%) !important;
-  backdrop-filter: blur(20px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
-  border: 1px solid rgba(195, 155, 95, 0.32) !important;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.98) !important;
-  border-bottom: 1px solid rgba(170, 130, 60, 0.20) !important;
-  box-shadow: 0 6px 20px rgba(120, 90, 30, 0.08), inset 0 1px 1.5px rgba(255, 255, 255, 0.95), inset 0 -1px 2px rgba(180, 140, 60, 0.06) !important;
-  border-radius: 17px !important;
+body:not(.light-mode) #club-tab .sovereign-dispatch-card.is-personal-dispatch::after,
+body:not(.light-mode) .club-messages .sovereign-dispatch-card.is-personal-dispatch::after,
+body:not(.light-mode) .chat-bubble.is-outgoing::after {
+  background: radial-gradient(
+    circle at 80% 12%,
+    rgba(255, 220, 130, 0.18) 0%,
+    rgba(212, 175, 55, 0.08) 45%,
+    transparent 70%
+  ) !important;
+}
+
+body:not(.light-mode) #club-tab .sovereign-dispatch-card.is-personal-dispatch:hover,
+body:not(.light-mode) .club-messages .sovereign-dispatch-card.is-personal-dispatch:hover,
+body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch:hover,
+body:not(.light-mode) .chat-bubble.is-outgoing:hover {
+  transform: translateY(-2px) scale(1.004) translateZ(0) !important;
+  border-color: rgba(235, 196, 85, 0.65) !important;
+  border-top-color: #ffffff !important;
+  box-shadow:
+    0 14px 40px -4px rgba(0, 0, 0, 0.70),
+    0 0 30px rgba(212, 175, 55, 0.28),
+    0 4px 14px rgba(0, 0, 0, 0.40),
+    inset 0 2px 2.5px rgba(255, 252, 235, 0.75),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.50) !important;
+}
+
+/* RTL Mirrored Capsule Anchor for Personal */
+html[dir="rtl"] #club-tab .sovereign-dispatch-card.is-personal-dispatch,
+html[dir="rtl"] .club-messages .sovereign-dispatch-card.is-personal-dispatch,
+html[dir="rtl"] #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
+html[dir="rtl"] .chat-bubble.is-outgoing {
+  border-radius: 20px 20px 20px 6px !important;
+}
+
+/* 4.3 WHISPER CIPHER DISPATCHES — EMERALD OBSIDIAN LIQUID GLASS CAPSULE */
+body:not(.light-mode) #club-tab .sovereign-dispatch-card.is-whisper-dispatch,
+body:not(.light-mode) .club-messages .sovereign-dispatch-card.is-whisper-dispatch,
+body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card.is-whisper-dispatch {
+  background: linear-gradient(
+    145deg,
+    rgba(14, 38, 28, 0.60) 0%,
+    rgba(8, 24, 18, 0.46) 48%,
+    rgba(4, 14, 10, 0.64) 100%
+  ) !important;
+  border: 1px solid rgba(16, 185, 129, 0.42) !important;
+  border-top: 1.8px solid rgba(167, 243, 208, 0.88) !important;
+  box-shadow:
+    0 10px 32px -4px rgba(0, 0, 0, 0.62),
+    0 0 24px rgba(16, 185, 129, 0.22),
+    0 3px 10px -1px rgba(0, 0, 0, 0.38),
+    inset 0 1.6px 2px rgba(209, 250, 229, 0.52),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* 4.4 LIGHT MODE: IVORY CRISTALLO & CHAMPAGNE LIQUID GLASS CAPSULES */
+body.light-mode #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch),
+body.light-mode .club-messages .sovereign-dispatch-card:not(.is-personal-dispatch),
+body.light-mode #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
+body.light-mode .chat-bubble.is-incoming {
+  border-radius: 20px 20px 20px 6px !important;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.74) 0%,
+    rgba(248, 244, 236, 0.56) 50%,
+    rgba(240, 234, 220, 0.68) 100%
+  ) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(195, 155, 95, 0.38) !important;
+  border-top: 2px solid #ffffff !important;
+  border-bottom: 1.2px solid rgba(160, 120, 50, 0.24) !important;
+  box-shadow:
+    0 8px 28px rgba(120, 90, 30, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1.8px 2px #ffffff,
+    inset 0 -1px 2px rgba(180, 140, 60, 0.08) !important;
   color: #1e1913 !important;
 }
 
 body.light-mode #club-tab .sovereign-dispatch-card.is-personal-dispatch,
-body.light-mode .club-messages .sovereign-dispatch-card.is-personal-dispatch {
-  background: linear-gradient(135deg, rgba(255, 248, 230, 0.70) 0%, rgba(248, 236, 204, 0.56) 50%, rgba(244, 228, 188, 0.65) 100%) !important;
-  backdrop-filter: blur(20px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
-  border: 1px solid rgba(190, 140, 40, 0.45) !important;
-  border-top: 1.8px solid #ffffff !important;
-  box-shadow: 0 6px 22px rgba(150, 110, 20, 0.12), 0 0 14px rgba(212, 175, 55, 0.15), inset 0 1px 2px #ffffff !important;
-  border-radius: 17px !important;
+body.light-mode .club-messages .sovereign-dispatch-card.is-personal-dispatch,
+body.light-mode #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
+body.light-mode .chat-bubble.is-outgoing {
+  border-radius: 20px 20px 6px 20px !important;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 248, 230, 0.84) 0%,
+    rgba(248, 235, 200, 0.68) 50%,
+    rgba(244, 226, 180, 0.78) 100%
+  ) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+  border: 1px solid rgba(190, 140, 40, 0.55) !important;
+  border-top: 2.2px solid #ffffff !important;
+  border-bottom: 1.2px solid rgba(160, 110, 20, 0.28) !important;
+  box-shadow:
+    0 8px 30px rgba(150, 110, 20, 0.18),
+    0 0 20px rgba(212, 175, 55, 0.22),
+    0 2px 6px rgba(0, 0, 0, 0.05),
+    inset 0 2px 2.5px #ffffff,
+    inset 0 -1px 2px rgba(160, 110, 20, 0.12) !important;
   color: #1e1913 !important;
 }
 
-/* Accolades & Reaction Buttons */
+html[dir="rtl"] body.light-mode #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch),
+html[dir="rtl"] body.light-mode .club-messages .sovereign-dispatch-card:not(.is-personal-dispatch),
+html[dir="rtl"] body.light-mode #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
+html[dir="rtl"] body.light-mode .chat-bubble.is-incoming {
+  border-radius: 20px 20px 6px 20px !important;
+}
+
+html[dir="rtl"] body.light-mode #club-tab .sovereign-dispatch-card.is-personal-dispatch,
+html[dir="rtl"] body.light-mode .club-messages .sovereign-dispatch-card.is-personal-dispatch,
+html[dir="rtl"] body.light-mode #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
+html[dir="rtl"] body.light-mode .chat-bubble.is-outgoing {
+  border-radius: 20px 20px 20px 6px !important;
+}
+
+/* 4.5 LIQUID GLASS ACCOLADES & REACTION PILLS */
 body:not(.light-mode) .sovereign-accolade-btn {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(212, 175, 55, 0.20) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(212, 175, 55, 0.26) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.40) !important;
   color: #d4af37 !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 999px !important;
+  padding: 2.5px 8px !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body:not(.light-mode) .sovereign-accolade-btn:hover {
+  background: rgba(212, 175, 55, 0.16) !important;
+  border-color: rgba(212, 175, 55, 0.60) !important;
+  border-top-color: #ffffff !important;
+  transform: translateY(-1px) scale(1.05) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.40), 0 0 10px rgba(212, 175, 55, 0.25) !important;
 }
 
 body.light-mode .sovereign-accolade-btn {
-  background: rgba(255, 255, 255, 0.55) !important;
-  border: 1px solid rgba(180, 140, 50, 0.25) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.90) !important;
+  background: rgba(255, 255, 255, 0.65) !important;
+  border: 1px solid rgba(180, 140, 50, 0.30) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.95) !important;
   color: #664917 !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 999px !important;
+  padding: 2.5px 8px !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  box-shadow: 0 2px 6px rgba(120, 90, 30, 0.10), inset 0 1px 1.5px #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.light-mode .sovereign-accolade-btn:hover {
+  background: rgba(255, 248, 220, 0.85) !important;
+  border-color: rgba(180, 140, 50, 0.60) !important;
+  transform: translateY(-1px) scale(1.05) !important;
+  box-shadow: 0 4px 10px rgba(120, 90, 30, 0.18), 0 0 8px rgba(212, 175, 55, 0.20) !important;
+}
+
+/* 4.6 LIQUID GLASS WHISPER CIPHER PILL */
+.dispatch-whisper-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 2px 9px !important;
+  border-radius: 999px !important;
+  background: rgba(16, 185, 129, 0.14) !important;
+  border: 1px solid rgba(16, 185, 129, 0.38) !important;
+  border-top: 1px solid rgba(209, 250, 229, 0.65) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.30) !important;
+  color: #a7f3d0 !important;
 }
 
 /* 5. REQUEST ALLOCATION BUTTON — TRANSLUCENT CHAMPAGNE LIQUID GLASS */
