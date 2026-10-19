@@ -4235,6 +4235,14 @@ function switchChannel(channelId) {
     plaque.classList.remove("is-collapsed");
     plaque.removeAttribute("hidden");
     plaque.style.removeProperty("display");
+    plaque.style.removeProperty("opacity");
+    plaque.style.removeProperty("transform");
+    plaque.style.removeProperty("max-height");
+    plaque.style.removeProperty("padding-top");
+    plaque.style.removeProperty("padding-bottom");
+    plaque.style.removeProperty("margin-top");
+    plaque.style.removeProperty("margin-bottom");
+    plaque.style.removeProperty("overflow");
     document.getElementById("club-tab")?.classList.remove("plaque-dismissed");
   }
 
@@ -4257,6 +4265,18 @@ function switchChannel(channelId) {
 
 let clubWelcomeDismissTimer = null;
 
+function updateClubHudHeight() {
+  const hud = document.getElementById("clubFloatingHud");
+  const tab = document.getElementById("club-tab");
+  if (!hud || !tab) return;
+  const isPlaqueDismissed = tab.classList.contains("plaque-dismissed");
+  const h = hud.offsetHeight || (isPlaqueDismissed ? 42 : 106);
+  if (h > 0) {
+    tab.style.setProperty("--club-hud-height", h + "px");
+  }
+}
+window.updateClubHudHeight = updateClubHudHeight;
+
 function startClubWelcomeAutoDismiss() {
   const plaque = document.getElementById("clubPinnedInfo");
   if (!plaque) return;
@@ -4264,6 +4284,12 @@ function startClubWelcomeAutoDismiss() {
   if (clubWelcomeDismissTimer) {
     clearTimeout(clubWelcomeDismissTimer);
     clubWelcomeDismissTimer = null;
+  }
+
+  // If already dismissed, sync HUD height and return
+  if (plaque.classList.contains("is-collapsed") || plaque.hasAttribute("hidden") || document.getElementById("club-tab")?.classList.contains("plaque-dismissed")) {
+    updateClubHudHeight();
+    return;
   }
 
   plaque.style.removeProperty("transition");
@@ -4278,12 +4304,12 @@ function startClubWelcomeAutoDismiss() {
   plaque.classList.remove("is-collapsed");
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
+  updateClubHudHeight();
 
-  // Keep welcome plaque visible in preview until user explicitly dismisses with close button (X)
-  if (clubWelcomeDismissTimer) {
-    clearTimeout(clubWelcomeDismissTimer);
-    clubWelcomeDismissTimer = null;
-  }
+  // User requirement: Welcome message automatically disappears after 5 seconds
+  clubWelcomeDismissTimer = setTimeout(() => {
+    dismissClubWelcomePlaque();
+  }, 5000);
 }
 
 function cancelClubWelcomeAutoDismiss() {
@@ -4296,21 +4322,22 @@ function cancelClubWelcomeAutoDismiss() {
 function dismissClubWelcomePlaque() {
   const plaque = document.getElementById("clubPinnedInfo");
   if (!plaque) return;
-  plaque.style.transition = "opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.24s cubic-bezier(0.16, 1, 0.3, 1), margin 0.24s cubic-bezier(0.16, 1, 0.3, 1), padding 0.24s cubic-bezier(0.16, 1, 0.3, 1)";
+  plaque.style.transition = "opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), margin 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s cubic-bezier(0.16, 1, 0.3, 1)";
   plaque.style.opacity = "0";
-  plaque.style.transform = "translateY(-6px)";
-  plaque.style.maxHeight = "0";
-  plaque.style.paddingTop = "0";
-  plaque.style.paddingBottom = "0";
-  plaque.style.marginTop = "0";
-  plaque.style.marginBottom = "0";
+  plaque.style.transform = "translateY(-8px) scale(0.98)";
+  plaque.style.maxHeight = "0px";
+  plaque.style.paddingTop = "0px";
+  plaque.style.paddingBottom = "0px";
+  plaque.style.marginTop = "0px";
+  plaque.style.marginBottom = "0px";
   plaque.style.overflow = "hidden";
   document.getElementById("club-tab")?.classList.add("plaque-dismissed");
   setTimeout(() => {
     plaque.classList.add("is-collapsed");
     plaque.setAttribute("hidden", "");
     plaque.style.setProperty("display", "none", "important");
-  }, 240);
+    updateClubHudHeight();
+  }, 350);
   if (clubWelcomeDismissTimer) {
     clearTimeout(clubWelcomeDismissTimer);
     clubWelcomeDismissTimer = null;
@@ -8794,7 +8821,7 @@ window.HeaderScrollController = (function() {
   function setClubHeaderCollapsed(collapsed) {
     // Header is unified across all tabs: Membership, Club, Profile, Boutique
     const header = getHeader();
-    if (header && header.classList.contains("header-hidden")) {
+    if (header && header.classList.contains("header-hidden") && !window.HeaderAutoDismissController?.isAutoHidden()) {
       header.classList.remove("header-hidden");
     }
   }
@@ -8843,13 +8870,13 @@ window.HeaderScrollController = (function() {
 
     if (!isScrollable) {
       isLockedVisible = true;
-      if (header.classList.contains("header-hidden")) {
+      if (header.classList.contains("header-hidden") && !window.HeaderAutoDismissController?.isAutoHidden()) {
         header.classList.remove("header-hidden");
       }
     } else {
       isLockedVisible = false;
       if (lastScrollTop <= 25) {
-        if (header.classList.contains("header-hidden")) {
+        if (header.classList.contains("header-hidden") && !window.HeaderAutoDismissController?.isAutoHidden()) {
           header.classList.remove("header-hidden");
         }
       }
@@ -9096,6 +9123,99 @@ window.HeaderScrollController = (function() {
 window.HeaderScrollController.init();
 window.updateHeaderHeightVar = window.HeaderScrollController.updateHeaderHeightVar;
 window.resetHeaderScrollTracking = window.HeaderScrollController.updateStateForCurrentTab;
+
+/* ==========================================================================
+   SOVEREIGN APP HEADER AUTO-DISMISS CONTROLLER (20 SECONDS)
+   - Automatically hides the top header after 20 seconds for full screen immersion
+   - Reclaims vertical viewport space with fluid physics
+   - Allows instant graceful restoration upon interaction (touch near top, nav switch)
+   ========================================================================== */
+window.HeaderAutoDismissController = (function() {
+  let timer = null;
+  let isAutoHidden = false;
+  const DISMISS_DELAY = 20000; // 20 seconds
+
+  function getHeader() {
+    return document.getElementById("appHeader");
+  }
+
+  function hideHeader() {
+    const header = getHeader();
+    if (!header) return;
+    isAutoHidden = true;
+    header.classList.add("header-hidden");
+    document.body.classList.add("header-hidden-active");
+    document.documentElement.classList.add("header-hidden-active");
+    document.documentElement.style.setProperty("--header-actual-height", "0px");
+  }
+
+  function showHeader(restartTimer = true) {
+    const header = getHeader();
+    if (!header) return;
+    isAutoHidden = false;
+    header.classList.remove("header-hidden");
+    document.body.classList.remove("header-hidden-active");
+    document.documentElement.classList.remove("header-hidden-active");
+    const h = header.offsetHeight || 84;
+    document.documentElement.style.setProperty("--header-actual-height", h + "px");
+
+    if (restartTimer) {
+      startTimer();
+    } else if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  }
+
+  function startTimer() {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    timer = setTimeout(() => {
+      hideHeader();
+    }, DISMISS_DELAY);
+  }
+
+  function init() {
+    startTimer();
+
+    // Re-reveal when tapping any tab in bottom navigation
+    document.querySelectorAll(".nav-item").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        showHeader(true);
+      });
+    });
+
+    // Re-reveal when tapping near the top edge (within 32px) or pulling down
+    window.addEventListener("pointerdown", (e) => {
+      if (isAutoHidden && e.clientY <= 32) {
+        showHeader(true);
+      }
+    }, { passive: true });
+
+    // Also reveal if user scrolls to the absolute top of the page
+    window.addEventListener("scroll", () => {
+      if (isAutoHidden && window.scrollY <= 10) {
+        showHeader(true);
+      }
+    }, { passive: true });
+  }
+
+  return {
+    init,
+    startTimer,
+    showHeader,
+    hideHeader,
+    isAutoHidden() {
+      return isAutoHidden;
+    }
+  };
+})();
+
+// Start Header Auto Dismiss Controller
+window.HeaderAutoDismissController.init();
+
 
 // ==========================================
 // AUTHENTICATION INTEGRATION BOUNDARY
