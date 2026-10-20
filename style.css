@@ -3543,7 +3543,7 @@ html:has(#club-tab.is-active) .app-main {
   height: 100% !important;
   max-height: 100% !important;
   padding-top: var(--header-actual-height, 84px) !important;
-  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-inline: 0 !important;
@@ -3885,12 +3885,12 @@ body.light-mode #clubPinnedDismissBtn:hover {
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
-  padding-top: calc(var(--club-hud-height, 94px) + 8px) !important;
-  padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
+  padding-top: 6px !important;
+  padding-bottom: 8px !important;
   padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
   padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
-  scroll-padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
-  scroll-padding-top: calc(var(--club-hud-height, 94px) + 8px) !important;
+  scroll-padding-bottom: 8px !important;
+  scroll-padding-top: 6px !important;
   border: none !important;
   background: transparent !important;
   scroll-behavior: smooth;
@@ -3899,8 +3899,8 @@ body.light-mode #clubPinnedDismissBtn:hover {
 
 #club-tab.plaque-dismissed .club-messages,
 #club-tab.plaque-dismissed #clubMessages {
-  padding-top: calc(var(--club-hud-height, 38px) + 8px) !important;
-  scroll-padding-top: calc(var(--club-hud-height, 38px) + 8px) !important;
+  padding-top: 6px !important;
+  scroll-padding-top: 6px !important;
 }
 
 /* SOVEREIGN SALON FINANCIAL HUBS & PULSE FLOATING TICKER (BORDERLESS FLOATING TICKER) */
@@ -35641,12 +35641,13 @@ body.light-mode #logoutConfirmModal p {
 /* 2. REDUCE EXCESSIVE HEIGHT OF WELCOME BANNER (QUIET LUXURY, REFINED) */
 #club-tab .club-pinned,
 #club-tab .club-chamber-plaque {
-  padding: 5px 12px 5px 10px !important;
-  margin: 6px calc(14px + env(safe-area-inset-right, 0px)) 4px calc(14px + env(safe-area-inset-left, 0px)) !important;
-  min-height: auto !important;
-  max-height: 52px !important;
+  padding: 7px 12px !important;
+  margin: 4px calc(12px + env(safe-area-inset-right, 0px)) 3px calc(12px + env(safe-area-inset-left, 0px)) !important;
+  min-height: 44px !important;
+  height: auto !important;
+  max-height: none !important;
   border-radius: 14px !important;
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 
 #club-tab .club-pinned.is-collapsed,
@@ -36248,7 +36249,7 @@ body.light-mode .gauge-pip.is-spent {
   min-height: 0 !important;
   max-height: 100% !important;
   padding-top: var(--header-actual-height, 84px) !important;
-  padding-bottom: 0 !important;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
   gap: 0 !important;
   transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
   /* THE 1% CLUB — SOVEREIGN FULL-BLEED OBSIDIAN ATELIER WALLPAPER */
@@ -37133,13 +37134,13 @@ body.light-mode .club-credits-buy:hover {
 #club-tab .club-composer-wrap,
 .club-composer-wrap,
 #clubComposerWrap {
-  position: absolute !important;
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 8px) !important;
-  left: 12px !important;
-  right: 12px !important;
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
   width: calc(100% - 24px) !important;
   max-width: 500px !important;
-  margin: 0 auto !important;
+  margin: 4px auto 6px auto !important;
   padding: 0 !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -37149,11 +37150,19 @@ body.light-mode .club-credits-buy:hover {
   -webkit-backdrop-filter: none !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 4px !important;
-  z-index: 50 !important;
+  gap: 7px !important;
+  flex-shrink: 0 !important;
+  z-index: 25 !important;
   overflow: visible !important;
-  pointer-events: none !important;
+  pointer-events: auto !important;
   box-sizing: border-box !important;
+}
+
+#club-tab.keyboard-active #clubComposerWrap {
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  margin: 0 auto !important;
 }
 
 #clubComposerWrap > *,
@@ -37326,9 +37335,10 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
 #clubMessages {
   position: relative !important;
   z-index: 5 !important;
-  padding-top: calc(var(--club-hud-height, 94px) + 8px) !important;
-  scroll-padding-top: calc(var(--club-hud-height, 94px) + 8px) !important;
-  padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
+  padding-top: 6px !important;
+  scroll-padding-top: 6px !important;
+  padding-bottom: 8px !important;
+  scroll-padding-bottom: 8px !important;
   padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
   padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
   overflow-y: auto !important;
@@ -38605,15 +38615,15 @@ body.light-mode .club-credits-buy:hover {
   width: 100% !important;
   max-width: 100% !important;
   z-index: 20 !important;
-  pointer-events: none !important;
+  pointer-events: auto !important;
   display: flex !important;
   flex-direction: column !important;
   flex-shrink: 0 !important;
-  gap: 0 !important;
+  gap: 4px !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  margin: 0 0 calc(-1 * var(--club-hud-height, 94px)) 0 !important;
+  margin: 0 0 2px 0 !important;
   padding: 0 !important;
   box-sizing: border-box !important;
   transition: margin-bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -38878,14 +38888,17 @@ body.light-mode .ticker-pulse-badge {
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  gap: 12px !important;
-  margin: 4px calc(12px + env(safe-area-inset-right, 0px)) 5px calc(12px + env(safe-area-inset-left, 0px)) !important;
-  padding: 10px 14px !important;
-  border-radius: 16px !important;
+  gap: 10px !important;
+  margin: 3px calc(12px + env(safe-area-inset-right, 0px)) 2px calc(12px + env(safe-area-inset-left, 0px)) !important;
+  padding: 8px 12px !important;
+  border-radius: 14px !important;
   box-sizing: border-box !important;
   z-index: 10 !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   flex-shrink: 0 !important;
+  min-height: 44px !important;
+  height: auto !important;
+  max-height: none !important;
   pointer-events: auto !important;
   transform: translateZ(0) !important;
   backdrop-filter: blur(28px) saturate(210%) contrast(106%) brightness(105%) !important;
@@ -39265,7 +39278,8 @@ body.light-mode .club-pinned.club-chamber-plaque .chamber-plaque-close-btn:hover
 #clubCreditsDisplay,
 .club-credits-display {
   border-radius: 14px !important;
-  margin-bottom: 2px !important;
+  margin: 0 !important;
+  margin-bottom: 0 !important;
   position: relative !important;
   overflow: visible !important;
   transform: translateZ(0) !important;
@@ -39383,17 +39397,25 @@ body.light-mode .obsidian-dispatch-composer {
   padding: 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 4px !important;
-  position: absolute !important;
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 8px) !important;
-  left: 12px !important;
-  right: 12px !important;
+  gap: 7px !important;
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
   width: calc(100% - 24px) !important;
   max-width: 500px !important;
-  margin: 0 auto !important;
+  margin: 4px auto 6px auto !important;
+  flex-shrink: 0 !important;
   box-sizing: border-box !important;
-  z-index: 50 !important;
-  pointer-events: none !important;
+  z-index: 25 !important;
+  pointer-events: auto !important;
+}
+
+#club-tab.keyboard-active #clubComposerWrap {
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  margin: 0 auto !important;
 }
 
 #clubComposerWrap > *,

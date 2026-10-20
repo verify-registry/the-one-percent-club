@@ -283,6 +283,26 @@ window.I18N = {
       en: "Active Trading Sessions",
       ar: "جلسات تداول نشطة",
     },
+    tickerMetals: {
+      en: "METALS",
+      ar: "معادن",
+    },
+    tickerEnergy: {
+      en: "ENERGY",
+      ar: "طاقة",
+    },
+    tickerIndices: {
+      en: "INDICES",
+      ar: "مؤشرات",
+    },
+    tickerFx: {
+      en: "FX",
+      ar: "عملات",
+    },
+    tickerHubs: {
+      en: "HUBS",
+      ar: "مراكز",
+    },
     tickerUnavailable: {
       en: "Unavailable",
       ar: "غير متوفر",
@@ -294,6 +314,10 @@ window.I18N = {
     tickerLive: {
       en: "LIVE",
       ar: "مباشر",
+    },
+    tickerStale: {
+      en: "STALE",
+      ar: "مغلق",
     },
     endorse: {
       en: "Endorse",
@@ -1240,6 +1264,34 @@ window.I18N = {
     widgets: {
       en: "Widgets",
       ar: "الودجت",
+    },
+    crownsSub: {
+      en: "Authenticated Imperial Diadems & Crowns",
+      ar: "التيجان والأكاليل الإمبراطورية المعتمَدة",
+    },
+    jewelrySub: {
+      en: "Signet Rings & Personal Sovereign Seals",
+      ar: "الخواتم وأختام السيادة الشخصية",
+    },
+    aurasSub: {
+      en: "Radiant Auras for Sovereign Presence",
+      ar: "الهالات الإشعاعية لتعزيز حضور الهوية",
+    },
+    starsSub: {
+      en: "Sovereign Insignia & Medals of Merit",
+      ar: "أوسمة وشارات الجدارة السيادية",
+    },
+    rareSub: {
+      en: "Certified Rare Artifacts & Masterpieces",
+      ar: "نوادر التحف والمقتنيات الكبرى المعتمَدة",
+    },
+    artifactsSub: {
+      en: "Certified Rare Artifacts & Masterpieces",
+      ar: "نوادر التحف والمقتنيات الكبرى المعتمَدة",
+    },
+    widgetsSub: {
+      en: "Sovereign Identity Widget for Your Device Screen",
+      ar: "ودجت الهوية السيادية لشاشة جهازك",
     },
     rarity1: {
       en: "Exceptional",

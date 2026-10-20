@@ -4618,8 +4618,7 @@
 }
 
 /* Floating Liquid Glass HUD (Welcome Banner & Market Ticker):
-   Floats seamlessly above the chat viewport with negative margin-bottom
-   so the chat viewport starts immediately under the rooms navigation. */
+   Natural clean vertical flow with zero negative margins to prevent overlap. */
 #clubFloatingHud,
 .club-floating-hud {
     position: relative !important;
@@ -4630,15 +4629,18 @@
     max-width: 100% !important;
     z-index: 20 !important;
     flex-shrink: 0 !important;
-    margin: 0 0 calc(-1 * var(--club-hud-height, 106px)) 0 !important;
+    margin: 0 0 2px 0 !important;
     padding: 0 !important;
-    pointer-events: none !important;
-    transition: margin-bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    transition: margin-bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 #club-tab.plaque-dismissed #clubFloatingHud,
 #club-tab.plaque-dismissed .club-floating-hud {
-    margin: 0 0 calc(-1 * var(--club-hud-height, 42px)) 0 !important;
+    margin: 0 0 2px 0 !important;
 }
 
 #clubFloatingHud > * {
@@ -4653,23 +4655,26 @@
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: 12px !important;
-    margin: 4px calc(12px + env(safe-area-inset-right, 0px)) 5px calc(12px + env(safe-area-inset-left, 0px)) !important;
-    padding: 10px 14px !important;
-    border-radius: 16px !important;
+    gap: 10px !important;
+    margin: 3px calc(12px + env(safe-area-inset-right, 0px)) 2px calc(12px + env(safe-area-inset-left, 0px)) !important;
+    padding: 7px 12px !important;
+    border-radius: 14px !important;
     box-sizing: border-box !important;
     z-index: 10 !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     flex-shrink: 0 !important;
+    min-height: 44px !important;
+    height: auto !important;
+    max-height: none !important;
     pointer-events: auto !important;
     transform: translateZ(0) !important;
     backdrop-filter: blur(28px) saturate(210%) contrast(106%) brightness(105%) !important;
     -webkit-backdrop-filter: blur(28px) saturate(210%) contrast(106%) brightness(105%) !important;
-    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                margin 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                padding 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                margin 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 body:not(.light-mode) #clubPinnedInfo,
@@ -4743,7 +4748,7 @@ body.light-mode .club-chamber-plaque {
 
 #club-tab.plaque-dismissed #sovereignSalonTicker,
 #club-tab.plaque-dismissed .sovereign-salon-ticker {
-    margin: 4px calc(12px + env(safe-area-inset-right, 0px)) 4px calc(12px + env(safe-area-inset-left, 0px)) !important;
+    margin: 3px calc(12px + env(safe-area-inset-right, 0px)) 3px calc(12px + env(safe-area-inset-left, 0px)) !important;
     transform: translateY(0) !important;
 }
 
@@ -4755,10 +4760,10 @@ body.light-mode .club-chamber-plaque {
     display: flex !important;
     align-items: center !important;
     gap: 10px !important;
-    height: 34px !important;
-    min-height: 34px !important;
-    max-height: 34px !important;
-    margin: 3px calc(12px + env(safe-area-inset-right, 0px)) 5px calc(12px + env(safe-area-inset-left, 0px)) !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    max-height: 32px !important;
+    margin: 2px calc(12px + env(safe-area-inset-right, 0px)) 3px calc(12px + env(safe-area-inset-left, 0px)) !important;
     padding: 2px 12px 2px 8px !important;
     border-radius: 9999px !important;
     box-sizing: border-box !important;
@@ -4811,9 +4816,7 @@ body.light-mode #club-tab .sovereign-salon-ticker {
         0 0 16px rgba(225, 190, 120, 0.20) !important;
 }
 
-/* 3. CHAT VIEWPORT & UNDER-SCROLLING MECHANICS */
-/* Chat Viewport fills the entire height from rooms navigation to composer.
-   Live chat messages scroll and pass directly underneath the floating HUD. */
+/* 3. CHAT VIEWPORT & NATURAL SCROLLING (ZERO OVERLAY COLLISION) */
 #clubChatViewport,
 .club-chat-viewport {
     position: relative !important;
@@ -4824,13 +4827,14 @@ body.light-mode #club-tab .sovereign-salon-ticker {
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
-    mask-image: linear-gradient(180deg, transparent 0px, black 12px, black 100%) !important;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0px, black 12px, black 100%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
 }
 
 /* Chat Messages scroll area:
-   padding-top ensures the first message starts comfortably beneath the HUD,
-   while scrolling moves messages seamlessly underneath the translucent frosted glass HUD. */
+   starts naturally below the ticker and reserves comfortable breathing room above the composer */
 #club-tab .club-messages,
 #clubMessages {
     position: relative !important;
@@ -4841,17 +4845,21 @@ body.light-mode #club-tab .sovereign-salon-ticker {
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    padding-top: calc(var(--club-hud-height, 106px) + 8px) !important;
-    scroll-padding-top: calc(var(--club-hud-height, 106px) + 8px) !important;
-    padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
-    scroll-padding-bottom: calc(var(--club-bottom-clearance, 164px) + env(safe-area-inset-bottom, 0px)) !important;
-    transition: padding-top 0.35s cubic-bezier(0.16, 1, 0.3, 1), scroll-padding-top 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    padding-top: 6px !important;
+    scroll-padding-top: 6px !important;
+    padding-bottom: 8px !important;
+    scroll-padding-bottom: 8px !important;
+    padding-left: calc(12px + env(safe-area-inset-left, 0px)) !important;
+    padding-right: calc(12px + env(safe-area-inset-right, 0px)) !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+    transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1), scroll-padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 #club-tab.plaque-dismissed #clubMessages,
 #club-tab.plaque-dismissed .club-messages {
-    padding-top: calc(var(--club-hud-height, 42px) + 8px) !important;
-    scroll-padding-top: calc(var(--club-hud-height, 42px) + 8px) !important;
+    padding-top: 6px !important;
+    scroll-padding-top: 6px !important;
 }
 
 #club-tab .club-messages::after,
@@ -4888,34 +4896,58 @@ body.header-hidden-active .page.is-active {
     transition: padding-top 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
+/* 5. PERSISTENT DISPATCH COMPOSER & ALLOCATION STRIP */
+#club-tab.is-active {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+}
 
+#club-tab.keyboard-active {
+    padding-bottom: 0 !important;
+}
 
 #clubComposerWrap {
-    position: absolute !important;
-    bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 8px) !important;
-    left: 12px !important;
-    right: 12px !important;
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
     width: calc(100% - 24px) !important;
     max-width: 500px !important;
-    margin: 0 auto !important;
-    z-index: 50 !important;
+    margin: 4px auto 6px auto !important;
+    z-index: 25 !important;
+    flex-shrink: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
-    pointer-events: none !important;
+    gap: 7px !important;
+    pointer-events: auto !important;
     box-sizing: border-box !important;
+}
+
+#club-tab.keyboard-active #clubComposerWrap {
+    position: absolute !important;
+    left: 12px !important;
+    right: 12px !important;
+    margin: 0 auto !important;
 }
 
 #clubComposerWrap > * {
     pointer-events: auto !important;
 }
 
+#clubCreditsDisplay,
+.club-credits-display {
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    min-height: 32px !important;
+}
+
 #obsidianDispatchComposer {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
-    min-height: 46px !important;
+    min-height: 44px !important;
     width: 100% !important;
+    margin: 0 !important;
 }
 
 /* Light Mode: Polished Champagne Golden Facade & High Contrast Typography */

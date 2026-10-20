@@ -236,6 +236,12 @@ window.setLanguage = function (lang) {
   if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
     window.ThemeManager.syncModalUI();
   }
+  if (typeof window.updateSovereignSalonTickerInPlace === "function") {
+    window.updateSovereignSalonTickerInPlace();
+  } else if (typeof window.updateClubTicker === "function") {
+    window.updateClubTicker();
+  }
+  window.dispatchEvent(new CustomEvent("languageChanged", { detail: { lang } }));
 
   // Update Profile hero tier text
   const profileHeroTier = document.getElementById("profileTierName");
@@ -266,6 +272,11 @@ window.setLanguage = function (lang) {
   const hrrStatusBadge = document.getElementById("hrrStatusBadge");
   if (hrrStatusBadge) {
     hrrStatusBadge.textContent = window.t("honors.officialStatusBadge", lang);
+  }
+
+  // Explicit sync for Club pinned chamber title
+  if (typeof updateClubPinnedTitle === "function") {
+    updateClubPinnedTitle(lang);
   }
 };
 
@@ -653,7 +664,7 @@ const ACHIEVEMENTS_DATA = {
 const BOUTIQUE = {
   crowns: {
     title: "boutique.crowns",
-    sub: "التيجان والأكاليل الإمبراطورية المعتمَدة",
+    sub: "boutique.crownsSub",
     items: [
       {
         id: "crown1",
@@ -711,7 +722,7 @@ const BOUTIQUE = {
   },
   jewelry: {
     title: "boutique.jewelry",
-    sub: "الخواتم وأختام السيادة الشخصية",
+    sub: "boutique.jewelrySub",
     items: [
       {
         id: "ring1",
@@ -769,7 +780,7 @@ const BOUTIQUE = {
   },
   auras: {
     title: "boutique.auras",
-    sub: "الهالات الإشعاعية لتعزيز حضور الهوية",
+    sub: "boutique.aurasSub",
     items: [
       {
         id: "aura1",
@@ -827,7 +838,7 @@ const BOUTIQUE = {
   },
   stars: {
     title: "boutique.stars",
-    sub: "أوسمة وشارات الجدارة السيادية",
+    sub: "boutique.starsSub",
     items: [
       {
         id: "star1",
@@ -885,7 +896,7 @@ const BOUTIQUE = {
   },
   artifacts: {
     title: "boutique.rare",
-    sub: "نوادر التحف والمقتنيات الكبرى المعتمَدة",
+    sub: "boutique.rareSub",
     items: [
       {
         id: "art1",
@@ -943,7 +954,7 @@ const BOUTIQUE = {
   },
   widgets: {
     title: "boutique.widgets",
-    sub: "ودجت الهوية السيادية لشاشة جهازك",
+    sub: "boutique.widgetsSub",
     items: [
       {
         id: "wid1",
@@ -2081,7 +2092,9 @@ ClubState.on("change", () => {
   const pTier = document.getElementById("profileTierName");
   if (pTier) {
     const tier = AppState.user.tier;
-    pTier.textContent = (tier === "Elite" || tier === "نخبة") ? "ELITE MEMBER" : "SOVEREIGN MEMBER";
+    const isElite = tier === "Elite" || tier === "نخبة";
+    const tierKey = isElite ? "profile.heroEliteTier" : "profile.heroSovereignTier";
+    pTier.textContent = (window.t && window.t(tierKey)) || (isElite ? "ELITE MEMBER" : "SOVEREIGN MEMBER");
   }
 
   // Profile Sovereign Hero Card Dynamic Elements
@@ -2463,7 +2476,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         <div class="boutique-section-head">
           <div class="boutique-section-title-wrap">
             <h3 class="boutique-section-title">${window.t(cat.title)}</h3>
-            ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${cat.sub}</span>` : ""}
+            ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${window.t(cat.sub)}</span>` : ""}
           </div>
           <div class="boutique-section-divider" aria-hidden="true">
             <span class="bsd-line"></span>
@@ -2577,7 +2590,7 @@ function renderWidgetSection() {
     <section class="boutique-section widget-section" data-category="widgets">
       <div class="boutique-section-head">
         <h3>${window.t(BOUTIQUE.widgets.title)}</h3>
-        ${typeof BOUTIQUE.widgets.sub !== "undefined" && BOUTIQUE.widgets.sub && String(BOUTIQUE.widgets.sub) !== "undefined" ? `<span class="boutique-section-sub">${BOUTIQUE.widgets.sub}</span>` : ""}
+        ${typeof BOUTIQUE.widgets.sub !== "undefined" && BOUTIQUE.widgets.sub && String(BOUTIQUE.widgets.sub) !== "undefined" ? `<span class="boutique-section-sub">${window.t(BOUTIQUE.widgets.sub)}</span>` : ""}
       </div>
       <p class="widget-preview-label">${window.t("boutique.id_widget_title")}</p>
 
@@ -4079,6 +4092,29 @@ window.setClubFloatingControlsVisibility = function(visible) {
   }
 };
 
+function updateClubPinnedTitle(lang = (window.currentLang || (typeof AppState !== "undefined" && AppState.language) || "ar")) {
+  const pinnedTitle = document.getElementById("clubPinnedTitle");
+  if (!pinnedTitle) return;
+  const channelId = (typeof AppState !== "undefined" && AppState.activeChannelId) || "global-lounge";
+  if (channelId === "leaderboard") {
+    pinnedTitle.textContent = window.t("club.leaderboardTitle", lang);
+    pinnedTitle.setAttribute("data-i18n", "club.leaderboardTitle");
+  } else if (channelId === "global-lounge") {
+    pinnedTitle.textContent = window.t("club.welcomeTitle", lang);
+    pinnedTitle.setAttribute("data-i18n", "club.welcomeTitle");
+  } else {
+    const prefix = window.t("club.welcomePrefix", lang) || (lang === "ar" ? "أهلًا بك في " : "Welcome to ");
+    const tKey = "club." + channelId;
+    let locName = (typeof AppState !== "undefined" && AppState.channels && AppState.channels[channelId] && AppState.channels[channelId].name) || channelId;
+    if (window.I18N && window.I18N.club && window.I18N.club[channelId]) {
+      locName = window.t(tKey, lang);
+    }
+    pinnedTitle.textContent = `${prefix}${locName}`;
+    pinnedTitle.removeAttribute("data-i18n");
+  }
+}
+window.updateClubPinnedTitle = updateClubPinnedTitle;
+
 function switchChannel(channelId) {
   if (!channelId) return;
   const isSameChannel = AppState.activeChannelId === channelId;
@@ -4131,8 +4167,7 @@ function switchChannel(channelId) {
   // 2. View Switch: Leaderboard vs Chat Chamber
   if (channelId === "leaderboard") {
     if (pinnedTitle) {
-      pinnedTitle.textContent = window.t("club.leaderboardTitle");
-      pinnedTitle.setAttribute("data-i18n", "club.leaderboardTitle");
+      updateClubPinnedTitle(window.currentLang);
     }
     if (pinnedSub) {
       pinnedSub.textContent = window.t("club.leaderboardSub");
@@ -4155,19 +4190,7 @@ function switchChannel(channelId) {
     }
   } else {
     if (pinnedTitle) {
-      if (channelId === "global-lounge") {
-        pinnedTitle.textContent = window.t("club.welcomeTitle");
-        pinnedTitle.setAttribute("data-i18n", "club.welcomeTitle");
-      } else {
-        const prefix = window.t("club.welcomePrefix") || (AppState.language === "ar" ? "أهلًا بك في " : "Welcome to ");
-        const tKey = "club." + channelId;
-        let locName = channelData.name;
-        if (window.I18N && window.I18N.club && window.I18N.club[channelId]) {
-          locName = window.t(tKey);
-        }
-        pinnedTitle.textContent = `${prefix}${locName}`;
-        pinnedTitle.removeAttribute("data-i18n");
-      }
+      updateClubPinnedTitle(window.currentLang);
     }
     if (pinnedSub) {
       const subKey = channelId === "global-lounge" ? "club.welcomeSub" : ("club." + channelId + "Sub");
@@ -4593,31 +4616,39 @@ window.scrollClubRoomsToPage = scrollClubRoomsToPage;
 let liveMarketData = null;
 let isFetchingMarket = false;
 let marketTickerTimer = null;
+let tickerInitialized = false;
 
 function initSovereignSalonTicker() {
   const tickerEl = document.getElementById("sovereignSalonTicker");
   if (!tickerEl) return;
+  if (tickerInitialized) {
+    if (typeof window.updateSovereignSalonTickerInPlace === "function") {
+      window.updateSovereignSalonTickerInPlace();
+    }
+    return;
+  }
+  tickerInitialized = true;
 
   const REQUIRED_BENCHMARKS = [
     // 1. Precious Metals Spot Prices
-    { cat: "METALS", catAr: "معادن", symbol: "XAU/USD", nameEn: "Gold Spot", nameAr: "الذهب الفوري", unit: "oz", currency: "USD" },
-    { cat: "METALS", catAr: "معادن", symbol: "XAG/USD", nameEn: "Silver Spot", nameAr: "الفضة الفورية", unit: "oz", currency: "USD" },
-    { cat: "METALS", catAr: "معادن", symbol: "XPT/USD", nameEn: "Platinum Spot", nameAr: "البلاتين الفوري", unit: "oz", currency: "USD" },
-    { cat: "METALS", catAr: "معادن", symbol: "XPD/USD", nameEn: "Palladium Spot", nameAr: "البلاديوم الفوري", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "معادن", symbol: "XAU/USD", nameEn: "Gold Spot", nameAr: "الذهب", symEn: "XAU/USD", symAr: "XAU/USD", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "معادن", symbol: "XAG/USD", nameEn: "Silver Spot", nameAr: "الفضة", symEn: "XAG/USD", symAr: "XAG/USD", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "معادن", symbol: "XPT/USD", nameEn: "Platinum Spot", nameAr: "البلاتين", symEn: "XPT/USD", symAr: "XPT/USD", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "معادن", symbol: "XPD/USD", nameEn: "Palladium Spot", nameAr: "البلاديوم", symEn: "XPD/USD", symAr: "XPD/USD", unit: "oz", currency: "USD" },
 
     // 2. Commodities & Energy
-    { cat: "ENERGY", catAr: "طاقة", symbol: "BRENT", nameEn: "Brent Crude", nameAr: "نفط برنت", unit: "bbl", currency: "USD" },
-    { cat: "ENERGY", catAr: "طاقة", symbol: "WTI", nameEn: "WTI Crude", nameAr: "الخام الأمريكي WTI", unit: "bbl", currency: "USD" },
+    { cat: "ENERGY", catAr: "طاقة", symbol: "BRENT", nameEn: "Brent Crude", nameAr: "نفط برنت", symEn: "BRENT", symAr: "BRENT", unit: "bbl", currency: "USD" },
+    { cat: "ENERGY", catAr: "طاقة", symbol: "WTI", nameEn: "WTI Crude", nameAr: "الخام الأمريكي", symEn: "WTI", symAr: "WTI", unit: "bbl", currency: "USD" },
 
     // 3. Major Stock Indices
-    { cat: "INDICES", catAr: "مؤشرات", symbol: "SPX", nameEn: "S&P 500", nameAr: "ستاندرد آند بورز", unit: "pts", currency: "USD" },
-    { cat: "INDICES", catAr: "مؤشرات", symbol: "NDX", nameEn: "NASDAQ 100", nameAr: "ناسداك 100", unit: "pts", currency: "USD" },
-    { cat: "INDICES", catAr: "مؤشرات", symbol: "DJI", nameEn: "Dow Jones", nameAr: "داو جونز", unit: "pts", currency: "USD" },
+    { cat: "INDICES", catAr: "مؤشرات", symbol: "SPX", nameEn: "S&P 500", nameAr: "S&P 500", symEn: "SPX", symAr: "SPX", unit: "pts", currency: "USD" },
+    { cat: "INDICES", catAr: "مؤشرات", symbol: "NDX", nameEn: "NASDAQ 100", nameAr: "NASDAQ 100", symEn: "NDX", symAr: "NDX", unit: "pts", currency: "USD" },
+    { cat: "INDICES", catAr: "مؤشرات", symbol: "DJI", nameEn: "Dow Jones", nameAr: "داو جونز", symEn: "DJI", symAr: "DJI", unit: "pts", currency: "USD" },
 
     // 4. Major Currency Pairs
-    { cat: "FX", catAr: "عملات", symbol: "EUR/USD", nameEn: "EUR / USD", nameAr: "يورو / دولار", unit: "", currency: "USD" },
-    { cat: "FX", catAr: "عملات", symbol: "GBP/USD", nameEn: "GBP / USD", nameAr: "استرليني / دولار", unit: "", currency: "USD" },
-    { cat: "FX", catAr: "عملات", symbol: "USD/CHF", nameEn: "USD / CHF", nameAr: "دولار / فرنك", unit: "", currency: "CHF" },
+    { cat: "FX", catAr: "عملات", symbol: "EUR/USD", nameEn: "EUR / USD", nameAr: "EUR/USD", symEn: "EUR/USD", symAr: "يورو/دولار", unit: "", currency: "USD" },
+    { cat: "FX", catAr: "عملات", symbol: "GBP/USD", nameEn: "GBP / USD", nameAr: "GBP/USD", symEn: "GBP/USD", symAr: "استرليني/دولار", unit: "", currency: "USD" },
+    { cat: "FX", catAr: "عملات", symbol: "USD/CHF", nameEn: "USD / CHF", nameAr: "USD/CHF", symEn: "USD/CHF", symAr: "دولار/فرنك", unit: "", currency: "CHF" },
   ];
 
   const SOVEREIGN_HUBS = [
@@ -4638,9 +4669,10 @@ function initSovereignSalonTicker() {
   }
 
   function buildTickerItems() {
-    const isAr = (typeof AppState !== "undefined" && AppState && AppState.language === "ar") ||
+    const isAr = (window.currentLang === "ar") ||
+      (typeof AppState !== "undefined" && AppState && AppState.language === "ar") ||
       (document.documentElement.getAttribute("lang") === "ar") ||
-      (localStorage.getItem("one_percent_lang") === "ar");
+      (typeof localStorage !== "undefined" && localStorage.getItem("one_percent_lang") === "ar");
 
     const hasLiveQuotes = liveMarketData &&
       (liveMarketData.status === "LIVE" || liveMarketData.status === "DELAYED") &&
@@ -4648,9 +4680,11 @@ function initSovereignSalonTicker() {
 
     const sourceInstruments = hasLiveQuotes ? liveMarketData.instruments : REQUIRED_BENCHMARKS;
 
-    const items = sourceInstruments.map((item) => {
-      const catText = isAr ? (item.catAr || "أصول") : (item.cat || "ASSETS");
-      const nameText = isAr ? (item.nameAr || item.symbol) : (item.nameEn || item.symbol);
+    const items = sourceInstruments.map((item, idx) => {
+      const benchmark = REQUIRED_BENCHMARKS[idx] || {};
+      const catText = isAr ? (item.catAr || benchmark.catAr || "معادن") : (item.cat || benchmark.cat || "METALS");
+      const nameText = isAr ? (item.nameAr || benchmark.nameAr || item.symbol) : (item.nameEn || benchmark.nameEn || item.symbol);
+      const symText = isAr ? (item.symAr || benchmark.symAr || item.symbol) : (item.symEn || benchmark.symEn || item.symbol);
       const isUnavailable = !hasLiveQuotes || item.price === null || item.status === "UNAVAILABLE";
 
       let priceDisplay = "";
@@ -4683,7 +4717,7 @@ function initSovereignSalonTicker() {
         '<span class="ticker-metal-item">' +
         '<span class="ticker-cat-tag">' + catText + '</span> ' +
         '<span class="ticker-metal-name">' + nameText + '</span> ' +
-        '<span class="ticker-metal-sym">' + item.symbol + '</span> ' +
+        '<span class="ticker-metal-sym">' + symText + '</span> ' +
         '<span class="ticker-metal-price">' + priceDisplay + '</span> ' +
         statusBadge +
         '</span>'
@@ -4709,23 +4743,55 @@ function initSovereignSalonTicker() {
   let tickerNeedsRepaint = false;
 
   function updateTickerInPlace(hasLiveQuotes, sourceInstruments) {
-    const isAr = (typeof AppState !== "undefined" && AppState && AppState.language === "ar") ||
+    const isAr = (window.currentLang === "ar") ||
+      (typeof AppState !== "undefined" && AppState && AppState.language === "ar") ||
       (document.documentElement.getAttribute("lang") === "ar") ||
-      (localStorage.getItem("one_percent_lang") === "ar");
+      (typeof localStorage !== "undefined" && localStorage.getItem("one_percent_lang") === "ar");
+
+    const hasLive = (typeof hasLiveQuotes === "boolean")
+      ? hasLiveQuotes
+      : Boolean(liveMarketData && (liveMarketData.status === "LIVE" || liveMarketData.status === "DELAYED") && Array.isArray(liveMarketData.instruments));
+    const sourceInst = Array.isArray(sourceInstruments)
+      ? sourceInstruments
+      : (hasLive ? liveMarketData.instruments : REQUIRED_BENCHMARKS);
 
     const groups = tickerEl.querySelectorAll(".ticker-marquee-group");
     if (!groups || groups.length === 0) return false;
 
     groups.forEach((group) => {
+      // 1. Update Benchmark Items (Cat tag, Name, Symbol, Price, Status tag)
       const metalItems = group.querySelectorAll(".ticker-metal-item");
-      sourceInstruments.forEach((item, idx) => {
+      sourceInst.forEach((item, idx) => {
         const itemEl = metalItems[idx];
         if (!itemEl) return;
 
-        const isUnavailable = !hasLiveQuotes || item.price === null || item.status === "UNAVAILABLE";
+        const benchmark = REQUIRED_BENCHMARKS[idx] || {};
+        const catEl = itemEl.querySelector(".ticker-cat-tag");
+        const nameEl = itemEl.querySelector(".ticker-metal-name");
+        const symEl = itemEl.querySelector(".ticker-metal-sym");
         const priceEl = itemEl.querySelector(".ticker-metal-price");
         const statusEl = itemEl.querySelector(".ticker-status-tag");
 
+        // Category Tag (METALS vs معادن, ENERGY vs طاقة, INDICES vs مؤشرات, FX vs عملات)
+        const catText = isAr ? (item.catAr || benchmark.catAr || "معادن") : (item.cat || benchmark.cat || "METALS");
+        if (catEl && catEl.textContent !== catText) {
+          catEl.textContent = catText;
+        }
+
+        // Instrument Name (Gold Spot vs الذهب, etc.)
+        const nameText = isAr ? (item.nameAr || benchmark.nameAr || item.symbol) : (item.nameEn || benchmark.nameEn || item.symbol);
+        if (nameEl && nameEl.textContent !== nameText) {
+          nameEl.textContent = nameText;
+        }
+
+        // Instrument Symbol (XAU/USD, EUR/USD vs يورو/دولار, etc.)
+        const symText = isAr ? (item.symAr || benchmark.symAr || item.symbol) : (item.symEn || benchmark.symEn || item.symbol);
+        if (symEl && symEl.textContent !== symText) {
+          symEl.textContent = symText;
+        }
+
+        // Price & Status Badge
+        const isUnavailable = !hasLive || item.price === null || item.status === "UNAVAILABLE";
         if (isUnavailable) {
           const priceDisplay = isAr ? "غير متوفر" : "Unavailable";
           if (priceEl && priceEl.textContent !== priceDisplay) {
@@ -4762,6 +4828,33 @@ function initSovereignSalonTicker() {
           }
         }
       });
+
+      // 2. Update Sovereign Financial Hub items (HUBS vs مراكز, ZURICH vs زيورخ ZURICH, etc.)
+      const hubElements = group.querySelectorAll(".ticker-hub-item");
+      SOVEREIGN_HUBS.forEach((hub, hIdx) => {
+        const hubEl = hubElements[hIdx];
+        if (!hubEl) return;
+
+        const hCatEl = hubEl.querySelector(".ticker-cat-tag");
+        const hCityEl = hubEl.querySelector(".ticker-city");
+        const hStatusEl = hubEl.querySelector(".ticker-status-tag");
+
+        const hCatText = isAr ? (hub.catAr || "مراكز") : (hub.catEn || "HUBS");
+        if (hCatEl && hCatEl.textContent !== hCatText) {
+          hCatEl.textContent = hCatText;
+        }
+
+        const hCityText = isAr ? (hub.nameAr || hub.nameEn) : (hub.nameEn || hub.nameAr);
+        if (hCityEl && hCityEl.textContent !== hCityText) {
+          hCityEl.textContent = hCityText;
+        }
+
+        if (hStatusEl && hub.statusTag) {
+          if (hStatusEl.textContent !== hub.statusTag) {
+            hStatusEl.textContent = hub.statusTag;
+          }
+        }
+      });
     });
     return true;
   }
@@ -4772,6 +4865,8 @@ function initSovereignSalonTicker() {
 
     if (!isClubActive || document.hidden) {
       tickerNeedsRepaint = true;
+      // In-place text mutation can safely run even while tab is hidden
+      updateTickerInPlace();
       return;
     }
     tickerNeedsRepaint = false;
@@ -4808,6 +4903,15 @@ function initSovereignSalonTicker() {
     marqueeTrack.dataset.renderedGroup = groupHTML;
     marqueeTrack.innerHTML = groupHTML + groupHTML;
   }
+
+  window.updateSovereignSalonTickerInPlace = updateTickerInPlace;
+  window.updateClubTicker = function (forceRebuild = false) {
+    if (forceRebuild) {
+      updateTicker(true);
+    } else {
+      updateTickerInPlace();
+    }
+  };
 
   window.updateClubTickerIfPending = function () {
     if (tickerNeedsRepaint) {
@@ -4856,7 +4960,9 @@ function initSovereignSalonTicker() {
     }
   });
 
-  window.addEventListener("languageChanged", () => updateTicker(true));
+  window.addEventListener("languageChanged", () => {
+    updateTickerInPlace();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
