@@ -23,7 +23,7 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css?v=20261019_gold_facade_v2" />
+    <link rel="stylesheet" href="style.css?v=20261020_leaderboard_clipping_fix" />
     <script id="user-preferences-init">
       (function () {
         try {
@@ -4833,6 +4833,18 @@ body.light-mode #club-tab .sovereign-salon-ticker {
     -webkit-mask-image: none !important;
 }
 
+#club-tab.is-subview-active #clubChatViewport,
+#club-tab.is-subview-active .club-chat-viewport,
+#clubChatViewport.is-hidden,
+#clubChatViewport[hidden],
+.club-chat-viewport.is-hidden,
+.club-chat-viewport[hidden] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 /* Chat Messages scroll area:
    starts naturally below the ticker and reserves comfortable breathing room above the composer */
 #club-tab .club-messages,
@@ -4869,6 +4881,36 @@ body.light-mode #club-tab .sovereign-salon-ticker {
     height: 0 !important;
     min-height: 0 !important;
     width: 0 !important;
+    pointer-events: none !important;
+}
+
+/* 3.1 SOVEREIGN ROLL OF HONOR LEADERBOARD CARD SCROLL & FLEX GUARANTEE */
+#clubLeaderboardContainer,
+.club-leaderboard-container {
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+    padding: 14px 14px calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+    margin: 4px 6px 12px !important;
+}
+
+#clubLeaderboardContainer[hidden],
+#clubLeaderboardContainer.is-hidden,
+#club-tab:not(.is-subview-active) #clubLeaderboardContainer,
+.club-leaderboard-container[hidden],
+.club-leaderboard-container.is-hidden,
+#club-tab:not(.is-subview-active) .club-leaderboard-container {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
     pointer-events: none !important;
 }
 
@@ -4938,7 +4980,7 @@ body.header-hidden-active .page.is-active {
     margin: 0 !important;
     margin-bottom: 0 !important;
     width: 100% !important;
-    min-height: 32px !important;
+    min-height: 28px !important;
 }
 
 #obsidianDispatchComposer {

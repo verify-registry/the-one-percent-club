@@ -3246,10 +3246,25 @@ const Router = {
       }
 
       const plaque = document.getElementById("clubPinnedInfo");
+      const tab = document.getElementById("club-tab");
       if (plaque) {
         plaque.classList.remove("is-collapsed");
         plaque.removeAttribute("hidden");
         plaque.style.removeProperty("display");
+        plaque.style.removeProperty("opacity");
+        plaque.style.removeProperty("transform");
+        plaque.style.removeProperty("max-height");
+        plaque.style.removeProperty("padding-top");
+        plaque.style.removeProperty("padding-bottom");
+        plaque.style.removeProperty("margin-top");
+        plaque.style.removeProperty("margin-bottom");
+        plaque.style.removeProperty("overflow");
+      }
+      if (tab) {
+        tab.classList.remove("plaque-dismissed");
+      }
+      if (typeof updateClubHudHeight === "function") {
+        updateClubHudHeight();
       }
 
       if (!isLeaderboard && typeof scrollChatToLatest === "function") {
@@ -4174,8 +4189,17 @@ function switchChannel(channelId) {
       pinnedSub.setAttribute("data-i18n", "club.leaderboardSub");
     }
 
-    if (chatViewport) chatViewport.style.display = "none";
-    if (messagesContainer) messagesContainer.style.display = "none";
+    if (chatViewport) {
+      chatViewport.classList.add("is-hidden");
+      chatViewport.setAttribute("hidden", "");
+      chatViewport.style.setProperty("display", "none", "important");
+      chatViewport.style.pointerEvents = "none";
+    }
+    if (messagesContainer) {
+      messagesContainer.classList.add("is-hidden");
+      messagesContainer.setAttribute("hidden", "");
+      messagesContainer.style.setProperty("display", "none", "important");
+    }
 
     // Hide Club message floating controls in Leaderboard view
     if (typeof window.setClubFloatingControlsVisibility === "function") {
@@ -4183,7 +4207,10 @@ function switchChannel(channelId) {
     }
 
     if (leaderboardContainer) {
-      leaderboardContainer.style.display = "block";
+      leaderboardContainer.classList.remove("is-hidden");
+      leaderboardContainer.removeAttribute("hidden");
+      leaderboardContainer.style.setProperty("display", "flex", "important");
+      leaderboardContainer.style.pointerEvents = "auto";
       if (!leaderboardContainer.hasChildNodes() || leaderboardContainer.children.length === 0 || !isSameChannel) {
         renderLeaderboard();
       }
@@ -4198,9 +4225,25 @@ function switchChannel(channelId) {
       pinnedSub.setAttribute("data-i18n", subKey);
     }
 
-    if (chatViewport) chatViewport.style.display = "flex";
-    if (messagesContainer) messagesContainer.style.display = "";
-    if (leaderboardContainer) leaderboardContainer.style.display = "none";
+    if (chatViewport) {
+      chatViewport.classList.remove("is-hidden");
+      chatViewport.removeAttribute("hidden");
+      chatViewport.style.removeProperty("display");
+      chatViewport.style.display = "flex";
+      chatViewport.style.pointerEvents = "auto";
+    }
+    if (messagesContainer) {
+      messagesContainer.classList.remove("is-hidden");
+      messagesContainer.removeAttribute("hidden");
+      messagesContainer.style.removeProperty("display");
+      messagesContainer.style.display = "";
+    }
+    if (leaderboardContainer) {
+      leaderboardContainer.classList.add("is-hidden");
+      leaderboardContainer.setAttribute("hidden", "");
+      leaderboardContainer.style.setProperty("display", "none", "important");
+      leaderboardContainer.style.pointerEvents = "none";
+    }
 
     // Restore Club message floating controls
     if (typeof window.setClubFloatingControlsVisibility === "function") {
@@ -4222,8 +4265,7 @@ function switchChannel(channelId) {
 
   const plaque = document.getElementById("clubPinnedInfo");
   const tab = document.getElementById("club-tab");
-  const isAlreadyDismissed = tab?.classList.contains("plaque-dismissed") || plaque?.classList.contains("is-collapsed");
-  if (plaque && !isAlreadyDismissed) {
+  if (plaque) {
     plaque.classList.remove("is-collapsed");
     plaque.removeAttribute("hidden");
     plaque.style.removeProperty("display");
@@ -4236,7 +4278,6 @@ function switchChannel(channelId) {
     plaque.style.removeProperty("margin-bottom");
     plaque.style.removeProperty("overflow");
     tab?.classList.remove("plaque-dismissed");
-  } else if (isAlreadyDismissed) {
     updateClubHudHeight();
   }
 
@@ -4296,12 +4337,6 @@ function startClubWelcomeAutoDismiss() {
     clubWelcomeDismissTimer = null;
   }
 
-  // If already dismissed, sync HUD height and return
-  if (plaque.classList.contains("is-collapsed") || plaque.hasAttribute("hidden") || document.getElementById("club-tab")?.classList.contains("plaque-dismissed")) {
-    updateClubHudHeight();
-    return;
-  }
-
   plaque.style.removeProperty("transition");
   plaque.style.removeProperty("opacity");
   plaque.style.removeProperty("transform");
@@ -4315,11 +4350,6 @@ function startClubWelcomeAutoDismiss() {
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
   updateClubHudHeight();
-
-  // User requirement: Welcome message automatically disappears after 5 seconds
-  clubWelcomeDismissTimer = setTimeout(() => {
-    dismissClubWelcomePlaque();
-  }, 5000);
 }
 
 function cancelClubWelcomeAutoDismiss() {

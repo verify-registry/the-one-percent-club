@@ -5020,7 +5020,18 @@ body.light-mode .dispatch-read-more-btn:hover {
 
 #club-tab .club-composer-wrap.is-hidden,
 #club-tab .club-composer-wrap[hidden],
-#club-tab.is-subview-active .club-composer-wrap {
+#club-tab.is-subview-active .club-composer-wrap,
+#club-tab .club-chat-viewport.is-hidden,
+#club-tab .club-chat-viewport[hidden],
+#club-tab.is-subview-active .club-chat-viewport,
+#clubChatViewport[hidden],
+#clubChatViewport.is-hidden,
+#clubLeaderboardContainer[hidden],
+#clubLeaderboardContainer.is-hidden,
+#club-tab:not(.is-subview-active) #clubLeaderboardContainer,
+.club-leaderboard-container[hidden],
+.club-leaderboard-container.is-hidden,
+#club-tab:not(.is-subview-active) .club-leaderboard-container {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -10926,12 +10937,15 @@ html[dir="rtl"] .phc-motto-text span {
 /* === 6. Prestige & Honors - SOVEREIGN ROLL OF HONOR (QUIET LUXURY OVERHAUL) === */
 #clubLeaderboardContainer,
 .club-leaderboard-container {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  position: relative;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain !important;
+  position: relative !important;
   border-radius: 20px;
   background:
     radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
@@ -10942,12 +10956,12 @@ html[dir="rtl"] .phc-motto-text span {
   box-shadow:
     inset 0 1px 1px rgba(255, 240, 180, 0.1),
     0 16px 40px rgba(0, 0, 0, 0.65);
-  padding: calc(var(--club-hud-height, 88px) + 14px) 14px 28px !important;
-  margin: 4px 6px 16px !important;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  box-sizing: border-box;
+  padding: 14px 14px calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+  margin: 4px 6px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  box-sizing: border-box !important;
 }
 #clubLeaderboardContainer::before,
 .club-leaderboard-container::before {
@@ -36790,41 +36804,41 @@ body.light-mode .ticker-metal-price {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 6px !important;
+  gap: 8px !important;
   z-index: 25 !important;
   overflow: visible !important;
   flex-shrink: 0 !important;
   width: 100% !important;
-  min-height: 32px !important;
+  min-height: 28px !important;
   box-sizing: border-box !important;
 }
 
 .club-credits-info {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 0 !important;
+  gap: 5px !important;
   flex: 0 1 auto !important;
   min-width: 0 !important;
 }
 
 .club-credits-crown {
-  font-size: 10px !important;
+  font-size: 9.5px !important;
   line-height: 1 !important;
   display: inline-flex !important;
   align-items: center !important;
   flex-shrink: 0 !important;
-  margin-inline-end: 2.5px !important;
+  margin: 0 !important;
 }
 
 .club-credits-label {
-  font-size: 8.8px !important;
+  font-size: 8.5px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.01em !important;
+  letter-spacing: 0.015em !important;
   color: #f1e7d4 !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   line-height: 1 !important;
-  margin-inline-end: 5px !important;
+  margin: 0 !important;
 }
 
 body.light-mode .club-credits-label {
@@ -36833,7 +36847,7 @@ body.light-mode .club-credits-label {
 
 .club-credits-readout {
   font-family: var(--font-display, "Cinzel", "Playfair Display", serif) !important;
-  font-size: 9.5px !important;
+  font-size: 8.5px !important;
   font-weight: 700 !important;
   font-variant-numeric: tabular-nums !important;
   color: #faeccd !important;
@@ -36842,45 +36856,45 @@ body.light-mode .club-credits-label {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 2px 6.5px !important;
-  border-radius: 4px !important;
+  padding: 1.5px 5px !important;
+  border-radius: 3.5px !important;
   background: linear-gradient(180deg, rgba(28, 22, 16, 0.92) 0%, rgba(14, 11, 8, 0.96) 100%) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.40) !important;
-  border-top: 0.5px solid rgba(255, 240, 190, 0.65) !important;
-  border-bottom: 0.5px solid rgba(140, 100, 25, 0.35) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.35) !important;
+  border-top: 0.5px solid rgba(255, 240, 190, 0.55) !important;
+  border-bottom: 0.5px solid rgba(140, 100, 25, 0.30) !important;
   box-shadow:
-    inset 0 1px 1.5px rgba(0, 0, 0, 0.45),
-    inset 0 -0.5px 1px rgba(212, 175, 55, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.30) !important;
+    inset 0 1px 1px rgba(0, 0, 0, 0.45),
+    0 0.5px 1.5px rgba(0, 0, 0, 0.25) !important;
   line-height: 1 !important;
   box-sizing: border-box !important;
+  margin: 0 !important;
 }
 
 .credit-count-val {
   font-family: var(--font-display, "Cinzel", "Playfair Display", serif) !important;
   font-weight: 800 !important;
   color: #fff4d6 !important;
-  font-size: 10.5px !important;
+  font-size: 9.5px !important;
   line-height: 1 !important;
   letter-spacing: 0.02em !important;
 }
 
 .credit-count-label {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 7.5px !important;
+  font-size: 7px !important;
   font-weight: 600 !important;
   color: #d4af55 !important;
   opacity: 0.88 !important;
-  margin-inline-start: 4px !important;
+  margin-inline-start: 3px !important;
   letter-spacing: 0.03em !important;
   text-transform: uppercase !important;
   line-height: 1 !important;
 }
 
 .credit-count-sep {
-  margin: 0 1.5px !important;
+  margin: 0 1px !important;
   opacity: 0.55 !important;
-  font-size: 8.5px !important;
+  font-size: 8px !important;
   color: #d4af55 !important;
   line-height: 1 !important;
 }
@@ -36913,25 +36927,26 @@ body.light-mode .credit-count-sep {
 .gauge-pips-strip {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 2px !important;
-  padding: 2px 3.5px !important;
-  border-radius: 3.5px !important;
-  background: rgba(18, 15, 22, 0.38) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.24) !important;
-  border-top: 0.5px solid rgba(255, 240, 190, 0.38) !important;
+  gap: 1.5px !important;
+  padding: 1.5px 3px !important;
+  border-radius: 3px !important;
+  background: rgba(18, 15, 22, 0.45) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.25) !important;
+  border-top: 0.5px solid rgba(255, 240, 190, 0.35) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.45) !important;
   box-shadow:
-    inset 0 1px 1.5px rgba(0, 0, 0, 0.35),
-    0 0.5px 0 rgba(255, 255, 255, 0.08) !important;
-  margin-inline-start: 6.5px !important;
+    inset 0 1px 1px rgba(0, 0, 0, 0.40),
+    0 0.5px 0 rgba(255, 255, 255, 0.05) !important;
+  margin: 0 !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
   box-sizing: border-box !important;
 }
 
 .gauge-pip {
-  width: 4px !important;
-  height: 11px !important;
-  border-radius: 1.2px !important;
+  width: 2.5px !important;
+  height: 6px !important;
+  border-radius: 0.8px !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
 }
@@ -36939,62 +36954,76 @@ body.light-mode .credit-count-sep {
 #clubCreditsBuyBtn,
 .club-credits-buy {
   position: relative !important;
-  border-radius: 12px !important;
-  padding: 0 8px 0 7px !important;
-  font-size: 8.5px !important;
+  border-radius: 9px !important;
+  padding: 0 7.5px !important;
+  font-size: 8px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.01em !important;
+  letter-spacing: 0.015em !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 3px !important;
+  gap: 2.5px !important;
   cursor: pointer !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
-  height: 23px !important;
-  min-height: 23px !important;
-  margin-inline-start: 8px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  margin: 0 !important;
   line-height: 1 !important;
   overflow: hidden !important;
   /* 3D Tactile Floating Gold Bullion Liquid Glass */
   background: linear-gradient(
     135deg,
-    rgba(255, 238, 195, 0.32) 0%,
-    rgba(212, 175, 106, 0.22) 38%,
-    rgba(140, 100, 30, 0.32) 72%,
-    rgba(26, 19, 12, 0.60) 100%
+    rgba(255, 238, 195, 0.28) 0%,
+    rgba(212, 175, 106, 0.20) 38%,
+    rgba(140, 100, 30, 0.28) 72%,
+    rgba(26, 19, 12, 0.55) 100%
   ) !important;
-  backdrop-filter: blur(16px) saturate(175%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(175%) !important;
-  border: 1px solid rgba(220, 185, 115, 0.65) !important;
-  border-top: 1.5px solid rgba(255, 252, 240, 0.95) !important;
-  border-bottom: 1.5px solid rgba(100, 70, 16, 0.65) !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  border: 0.75px solid rgba(220, 185, 115, 0.55) !important;
+  border-top: 1px solid rgba(255, 252, 240, 0.85) !important;
+  border-bottom: 1px solid rgba(100, 70, 16, 0.60) !important;
   box-shadow:
-    0 4px 12px -1px rgba(0, 0, 0, 0.60),
-    0 1px 3px rgba(212, 175, 106, 0.40),
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.70),
-    inset 0 -1.5px 1.5px rgba(50, 35, 10, 0.75) !important;
+    0 2px 6px -1px rgba(0, 0, 0, 0.50),
+    0 0.5px 1.5px rgba(212, 175, 106, 0.30),
+    inset 0 1px 1px rgba(255, 255, 255, 0.60),
+    inset 0 -1px 1px rgba(50, 35, 10, 0.60) !important;
   color: #fff8e8 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 8px rgba(212, 175, 106, 0.45) !important;
-  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+  text-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.8) !important;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#clubCreditsBuyBtn .alloc-plus-glyph {
+  font-size: 8.5px !important;
+  line-height: 1 !important;
+  font-weight: 800 !important;
+  display: inline-block !important;
+  margin: 0 !important;
+}
+
+#clubCreditsBuyBtn .alloc-btn-label {
+  font-size: 8px !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
 }
 
 #clubCreditsBuyBtn:hover,
 .club-credits-buy:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 244, 205, 0.38) 0%,
-    rgba(225, 190, 115, 0.28) 40%,
-    rgba(160, 115, 35, 0.36) 75%,
-    rgba(32, 23, 14, 0.65) 100%
+    rgba(255, 244, 205, 0.34) 0%,
+    rgba(225, 190, 115, 0.26) 40%,
+    rgba(160, 115, 35, 0.32) 75%,
+    rgba(32, 23, 14, 0.60) 100%
   ) !important;
-  border-color: rgba(240, 205, 130, 0.80) !important;
+  border-color: rgba(240, 205, 130, 0.75) !important;
   border-top-color: #ffffff !important;
   box-shadow:
-    0 5px 14px -1px rgba(212, 175, 106, 0.50),
-    0 2px 5px rgba(0, 0, 0, 0.6),
-    inset 0 1.5px 1.5px #ffffff,
-    inset 0 -1.5px 1.5px rgba(50, 35, 10, 0.80) !important;
+    0 3px 8px -1px rgba(212, 175, 106, 0.40),
+    0 1.5px 3px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px #ffffff,
+    inset 0 -1px 1px rgba(50, 35, 10, 0.70) !important;
   transform: translateY(-0.5px) !important;
 }
 
@@ -37006,16 +37035,16 @@ body.light-mode .club-credits-buy {
     rgba(252, 246, 234, 0.82) 45%,
     rgba(242, 230, 208, 0.70) 100%
   ) !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  border: 1px solid rgba(197, 160, 89, 0.65) !important;
-  border-top: 1.5px solid #ffffff !important;
-  border-bottom: 1.5px solid rgba(160, 120, 45, 0.45) !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  border: 0.75px solid rgba(197, 160, 89, 0.60) !important;
+  border-top: 1px solid #ffffff !important;
+  border-bottom: 1px solid rgba(160, 120, 45, 0.40) !important;
   box-shadow:
-    0 4px 12px -1px rgba(90, 60, 15, 0.22),
-    0 1px 3px rgba(212, 175, 55, 0.30),
-    inset 0 1.5px 1.5px #ffffff,
-    inset 0 -1.5px 1.5px rgba(184, 141, 56, 0.25) !important;
+    0 2px 6px -1px rgba(90, 60, 15, 0.18),
+    0 0.5px 1.5px rgba(212, 175, 55, 0.25),
+    inset 0 1px 1px #ffffff,
+    inset 0 -1px 1px rgba(184, 141, 56, 0.20) !important;
   color: #583c10 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
 }
@@ -37028,13 +37057,13 @@ body.light-mode .club-credits-buy:hover {
     rgba(255, 250, 240, 0.95) 45%,
     rgba(248, 238, 218, 0.85) 100%
   ) !important;
-  border-color: rgba(197, 160, 89, 0.85) !important;
+  border-color: rgba(197, 160, 89, 0.80) !important;
   border-top-color: #ffffff !important;
   box-shadow:
-    0 5px 14px -1px rgba(90, 60, 15, 0.28),
-    0 2px 4px rgba(212, 175, 55, 0.35),
-    inset 0 1.5px 1.5px #ffffff,
-    inset 0 -1.5px 1.5px rgba(184, 141, 56, 0.30) !important;
+    0 3px 8px -1px rgba(90, 60, 15, 0.22),
+    0 1px 2px rgba(212, 175, 55, 0.30),
+    inset 0 1px 1px #ffffff,
+    inset 0 -1px 1px rgba(184, 141, 56, 0.25) !important;
   transform: translateY(-0.5px) !important;
 }
 
@@ -37042,18 +37071,32 @@ body.light-mode .club-credits-buy:hover {
   #clubCreditsDisplay,
   .club-credits-display,
   .club-credits-wrapper {
-    padding: 2.5px 6px !important;
-    gap: 5px !important;
+    padding: 2.5px 7px !important;
+    gap: 6px !important;
+  }
+  .club-credits-info {
+    gap: 4px !important;
   }
   .club-credits-readout {
-    padding: 1.8px 5.5px !important;
+    padding: 1.2px 4.5px !important;
+    font-size: 8px !important;
   }
   .gauge-pips-strip {
-    margin-inline-start: 5.5px !important;
+    margin: 0 !important;
+    gap: 1.3px !important;
+    padding: 1.2px 2.5px !important;
+  }
+  .gauge-pip {
+    width: 2.2px !important;
+    height: 5.5px !important;
   }
   #clubCreditsBuyBtn,
   .club-credits-buy {
-    margin-inline-start: 6.5px !important;
+    margin: 0 !important;
+    padding: 0 6.5px !important;
+    font-size: 7.8px !important;
+    height: 21px !important;
+    min-height: 21px !important;
   }
 }
 
@@ -37061,73 +37104,83 @@ body.light-mode .club-credits-buy:hover {
   #clubCreditsDisplay,
   .club-credits-display,
   .club-credits-wrapper {
-    padding: 2px 5px !important;
-    gap: 4px !important;
-    min-height: 29px !important;
+    padding: 2px 6px !important;
+    gap: 5px !important;
+    min-height: 26px !important;
+  }
+  .club-credits-info {
+    gap: 3.5px !important;
   }
   .club-credits-crown {
-    font-size: 9px !important;
-    margin-inline-end: 1.5px !important;
+    font-size: 8.5px !important;
+    margin: 0 !important;
   }
   .club-credits-label {
-    font-size: 8.2px !important;
-    margin-inline-end: 3.5px !important;
+    font-size: 7.8px !important;
+    margin: 0 !important;
   }
   .club-credits-readout {
-    font-size: 9px !important;
-    padding: 1.5px 5px !important;
+    font-size: 8px !important;
+    padding: 1px 4px !important;
+    margin: 0 !important;
   }
   .credit-count-val {
-    font-size: 9.5px !important;
+    font-size: 8.5px !important;
   }
   .credit-count-label {
-    font-size: 7px !important;
-    margin-inline-start: 3px !important;
+    font-size: 6.5px !important;
+    margin-inline-start: 2px !important;
   }
   .gauge-pips-strip {
-    gap: 1.8px !important;
-    padding: 1.5px 3px !important;
-    margin-inline-start: 4.5px !important;
+    gap: 1.2px !important;
+    padding: 1px 2px !important;
+    margin: 0 !important;
   }
   .gauge-pip {
-    width: 3.6px !important;
-    height: 10px !important;
-    border-radius: 1px !important;
+    width: 2px !important;
+    height: 5px !important;
+    border-radius: 0.6px !important;
   }
   #clubCreditsBuyBtn,
   .club-credits-buy {
-    padding: 0 6px !important;
-    font-size: 7.5px !important;
-    height: 21px !important;
-    min-height: 21px !important;
+    padding: 0 5.5px !important;
+    font-size: 7.2px !important;
+    height: 20px !important;
+    min-height: 20px !important;
     gap: 2px !important;
-    margin-inline-start: 5px !important;
+    margin: 0 !important;
+  }
+  #clubCreditsBuyBtn .alloc-plus-glyph {
+    font-size: 7.8px !important;
+  }
+  #clubCreditsBuyBtn .alloc-btn-label {
+    font-size: 7.2px !important;
   }
 }
 
 @media (max-width: 340px) {
   .gauge-pips-strip {
-    gap: 1.5px !important;
-    padding: 1.5px 2.5px !important;
-    margin-inline-start: 3.5px !important;
+    gap: 1px !important;
+    padding: 1px 1.8px !important;
+    margin: 0 !important;
   }
   .gauge-pip {
-    width: 3.2px !important;
-    height: 9.5px !important;
+    width: 1.8px !important;
+    height: 4.5px !important;
   }
   .club-credits-label {
-    font-size: 8px !important;
-    margin-inline-end: 2.5px !important;
+    font-size: 7.5px !important;
+    margin: 0 !important;
   }
   .club-credits-readout {
-    font-size: 8.5px !important;
-    padding: 1px 4px !important;
+    font-size: 7.5px !important;
+    padding: 1px 3.5px !important;
   }
   #clubCreditsBuyBtn,
   .club-credits-buy {
-    padding: 0 5px !important;
-    font-size: 7px !important;
-    margin-inline-start: 4px !important;
+    padding: 0 4.5px !important;
+    font-size: 6.8px !important;
+    margin: 0 !important;
   }
 }
 
@@ -39861,17 +39914,18 @@ body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-board-tag {
   font-weight: 800 !important;
 }
 
-/* 10. MESSAGE ALLOCATION GAUGE PIPS — LIQUID GLASS TREATMENT */
+/* 10. MESSAGE ALLOCATION GAUGE PIPS — REFINED HOROLOGICAL JEWEL TREATMENT */
 .gauge-pips-strip,
 #gaugePipsStrip {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 2.2px !important;
-  padding: 2px 3.5px !important;
-  border-radius: 4px !important;
-  backdrop-filter: blur(16px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
-  margin-inline-start: 6.5px !important;
+  gap: 1.5px !important;
+  padding: 1.5px 3px !important;
+  border-radius: 3px !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  margin: 0 !important;
+  margin-inline-start: 0 !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
   box-sizing: border-box !important;
@@ -39881,47 +39935,44 @@ body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-board-tag {
 body:not(.light-mode) .gauge-pips-strip,
 body:not(.light-mode) #gaugePipsStrip {
   background: rgba(18, 16, 24, 0.45) !important;
-  border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.28) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.45) !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.40), 0 1px 2px rgba(0, 0, 0, 0.20) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.25) !important;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.28) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.45) !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.40), 0 0.5px 1px rgba(0, 0, 0, 0.20) !important;
 }
 
 body.light-mode .gauge-pips-strip,
 body.light-mode #gaugePipsStrip {
   background: rgba(255, 255, 255, 0.50) !important;
-  border: 1px solid rgba(195, 155, 95, 0.32) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid rgba(170, 130, 60, 0.18) !important;
-  box-shadow: inset 0 1px 1px rgba(120, 85, 25, 0.08), 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+  border: 0.5px solid rgba(195, 155, 95, 0.32) !important;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 0.5px solid rgba(170, 130, 60, 0.18) !important;
+  box-shadow: inset 0 0.5px 1px rgba(120, 85, 25, 0.08), 0 0.5px 1px rgba(255, 255, 255, 0.6) !important;
 }
 
 .gauge-pips-strip .gauge-pip {
-  width: 4px !important;
-  height: 11px !important;
-  border-radius: 1.5px !important;
+  width: 2.5px !important;
+  height: 6px !important;
+  border-radius: 0.8px !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 /* Liquid Gold Crystal Pips (Active Allocation) */
 body:not(.light-mode) .gauge-pips-strip .gauge-pip.is-filled {
   background: linear-gradient(
     180deg,
-    rgba(255, 248, 225, 0.92) 0%,
-    rgba(235, 200, 115, 0.85) 35%,
-    rgba(195, 150, 55, 0.80) 70%,
-    rgba(150, 105, 25, 0.88) 100%
+    rgba(255, 248, 225, 0.95) 0%,
+    rgba(235, 200, 115, 0.90) 45%,
+    rgba(180, 135, 45, 0.92) 100%
   ) !important;
-  border: 0.5px solid rgba(255, 248, 220, 0.60) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border: 0.5px solid rgba(255, 248, 220, 0.55) !important;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.95) !important;
   border-bottom: 0.5px solid rgba(90, 60, 12, 0.60) !important;
   box-shadow:
-    0 0 6px rgba(212, 175, 55, 0.40),
-    inset 0 1px 1px rgba(255, 255, 255, 0.70),
-    inset 0 -0.5px 1px rgba(0, 0, 0, 0.35) !important;
-  backdrop-filter: blur(4px) !important;
+    0 0 2px rgba(212, 175, 55, 0.35),
+    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.75) !important;
 }
 
 body.light-mode .gauge-pips-strip .gauge-pip.is-filled {
@@ -39931,31 +39982,27 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-filled {
     rgba(225, 180, 80, 0.90) 40%,
     rgba(185, 135, 45, 0.92) 100%
   ) !important;
-  border: 0.5px solid rgba(195, 145, 45, 0.70) !important;
-  border-top: 1px solid #ffffff !important;
+  border: 0.5px solid rgba(195, 145, 45, 0.65) !important;
+  border-top: 0.5px solid #ffffff !important;
   border-bottom: 0.5px solid rgba(140, 95, 25, 0.40) !important;
   box-shadow:
-    0 0 5px rgba(212, 175, 55, 0.35),
-    inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+    0 0 2px rgba(212, 175, 55, 0.30),
+    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.85) !important;
 }
 
 /* Liquid Smoked Obsidian Glass (Spent/Empty Allocation) */
 body:not(.light-mode) .gauge-pips-strip .gauge-pip.is-spent {
   background: rgba(255, 255, 255, 0.05) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.16) !important;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.18) !important;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.40) !important;
-  box-shadow: inset 0 1px 1.5px rgba(0, 0, 0, 0.45) !important;
-  opacity: 0.55 !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.12) !important;
+  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.45) !important;
+  opacity: 0.45 !important;
 }
 
 body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
   background: rgba(0, 0, 0, 0.04) !important;
-  border: 0.5px solid rgba(195, 155, 95, 0.22) !important;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.75) !important;
-  border-bottom: 0.5px solid rgba(150, 110, 45, 0.15) !important;
-  box-shadow: inset 0 1px 1px rgba(120, 85, 25, 0.10) !important;
-  opacity: 0.50 !important;
+  border: 0.5px solid rgba(195, 155, 95, 0.18) !important;
+  box-shadow: inset 0 0.5px 1px rgba(120, 85, 25, 0.08) !important;
+  opacity: 0.40 !important;
 }
 
 /* Shimmer interaction */
@@ -39968,29 +40015,38 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
     filter: brightness(1) drop-shadow(0 0 0 transparent);
   }
   50% {
-    filter: brightness(1.30) drop-shadow(0 0 4px rgba(255, 248, 220, 0.75));
+    filter: brightness(1.25) drop-shadow(0 0 2px rgba(255, 248, 220, 0.6));
   }
 }
 
 @media (max-width: 360px) {
   .gauge-pips-strip .gauge-pip {
-    width: 3.6px !important;
-    height: 10px !important;
+    width: 2px !important;
+    height: 5px !important;
+    border-radius: 0.6px !important;
   }
-  .gauge-pips-strip {
-    gap: 1.8px !important;
-    padding: 1.5px 3px !important;
+  .gauge-pips-strip,
+  #gaugePipsStrip {
+    gap: 1.2px !important;
+    padding: 1px 2px !important;
+    margin: 0 !important;
+    margin-inline-start: 0 !important;
   }
 }
 
 @media (max-width: 340px) {
   .gauge-pips-strip .gauge-pip {
-    width: 3px !important;
-    height: 9px !important;
+    width: 1.8px !important;
+    height: 4.5px !important;
+    border-radius: 0.5px !important;
   }
-  .gauge-pips-strip {
-    gap: 1.5px !important;
-    padding: 1.5px 2.5px !important;
+  .gauge-pips-strip,
+  #gaugePipsStrip {
+    gap: 1px !important;
+    padding: 1px 1.8px !important;
+    margin: 0 !important;
+    margin-inline-start: 0 !important;
   }
 }
 /* ========================================================= */
+
