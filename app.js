@@ -233,6 +233,13 @@ window.setLanguage = function (lang) {
   if (typeof window.renderMessages === "function") window.renderMessages();
   if (typeof window.renderLeaderboard === "function")
     window.renderLeaderboard();
+  // Update open Member Dossier modal in-place if currently active
+  const pageMember = document.getElementById("page-member");
+  if (pageMember && !pageMember.hidden && pageMember.classList.contains("is-active") && window.currentActiveMemberProfile) {
+    if (typeof openMemberProfile === "function") {
+      openMemberProfile(window.currentActiveMemberProfile);
+    }
+  }
   if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
     window.ThemeManager.syncModalUI();
   }
@@ -597,6 +604,49 @@ function isTierEligible(userTier, requiredTier) {
   const reqRank = TIER_HIERARCHY[requiredTier.toUpperCase()] || 1;
   return uRank >= reqRank;
 }
+
+function getBoutiqueTierLabel(tier, isAr = false) {
+  const raw = String(tier || "").toUpperCase();
+  if (/EXARCH/.test(raw)) {
+    return {
+      name: isAr ? "الحاكم التنفيذي" : "Sovereign Exarch",
+      short: isAr ? "الحاكم التنفيذي" : "EXARCH",
+      gateLabel: isAr ? "رتبة الحاكم التنفيذي" : "SOVEREIGN EXARCH Tier",
+      toastName: isAr ? "رتبة الحاكم التنفيذي" : "SOVEREIGN EXARCH",
+    };
+  }
+  if (/LUMINARY/.test(raw)) {
+    return {
+      name: isAr ? "الوجاهة السيادية" : "Sovereign Luminary",
+      short: isAr ? "الوجاهة" : "LUMINARY",
+      gateLabel: isAr ? "رتبة الوجاهة" : "SOVEREIGN LUMINARY Tier",
+      toastName: isAr ? "رتبة الوجاهة" : "SOVEREIGN LUMINARY",
+    };
+  }
+  if (/TITAN/.test(raw)) {
+    return {
+      name: isAr ? "قمة النخبة" : "Apex Titan",
+      short: isAr ? "تيتان" : "TITAN",
+      gateLabel: isAr ? "رتبة قمة النخبة" : "APEX TITAN Tier",
+      toastName: isAr ? "رتبة قمة النخبة" : "APEX TITAN",
+    };
+  }
+  if (/FOUNDER/.test(raw)) {
+    return {
+      name: isAr ? "مؤسس المجلس" : "Founder",
+      short: isAr ? "المؤسس" : "FOUNDER",
+      gateLabel: isAr ? "رتبة المؤسس" : "FOUNDER Tier",
+      toastName: isAr ? "رتبة المؤسس" : "FOUNDER",
+    };
+  }
+  return {
+    name: isAr ? "عضو سيادي" : (tier || "Sovereign Member"),
+    short: isAr ? "سيادي" : (tier ? tier.replace(/^SOVEREIGN\s+/i, "") : ""),
+    gateLabel: isAr ? "رتبة عضو سيادي" : (tier ? `${tier} Tier` : "Sovereign Tier"),
+    toastName: isAr ? "عضوية سيادية" : (tier || "Sovereign Member"),
+  };
+}
+window.getBoutiqueTierLabel = getBoutiqueTierLabel;
 
 const EQUIP_CATEGORIES = {
   stars: "equippedStarsSlot",
@@ -1576,8 +1626,10 @@ const AppState = {
 
     // 1. Enforce sovereign membership standing requirement
     if (item.requiredTier && typeof isTierEligible === "function" && !isTierEligible(this.user.tier, item.requiredTier)) {
+      const tierInfo = typeof getBoutiqueTierLabel === "function" ? getBoutiqueTierLabel(item.requiredTier, isAr) : null;
+      const tierName = tierInfo ? tierInfo.toastName : item.requiredTier;
       const msg = isAr 
-        ? `هذه التحفة مخصصة حصرياً لأعضاء رتبة ${item.requiredTier} فأعلى.`
+        ? `هذه التحفة مخصصة حصرياً لأصحاب ${tierName} فأعلى.`
         : `This artifact requires ${item.requiredTier} standing or above.`;
       if (typeof showNavToast === "function") showNavToast(msg);
       if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([40, 60, 40]);
@@ -1888,6 +1940,7 @@ window.openMemberProfileFromDispatch = function (senderId) {
     if (rawName === "Alexander W.") rawName = "W. Alexander";
     if (rawName === "ALEXANDER W.") rawName = "W. ALEXANDER";
 
+    const isDispatchAr = AppState.language === "ar" || document.documentElement.lang === "ar";
     const memberData = {
       id: senderId,
       name: rawName,
@@ -1895,7 +1948,9 @@ window.openMemberProfileFromDispatch = function (senderId) {
       seat: elite ? (elite.seat || "GENEVA") : "GENEVA",
       wealth: senderId === AppState.user.id ? (AppState.user.wealthIndex || "98%") : (elite?.wealth || "99.8%"),
       priv: elite?.priv || "98.5%",
-      quote: elite && elite.motto ? elite.motto : "Discipline, exclusivity, sovereignty.",
+      quote: isDispatchAr ? (elite?.mottoAr || elite?.motto || "الانضباط، والحصرية، والسيادة المطلقة.") : (elite?.motto || "Discipline, exclusivity, sovereignty."),
+      quoteAr: elite?.mottoAr || "الانضباط، والحصرية، والسيادة المطلقة.",
+      quoteEn: elite?.motto || "Discipline, exclusivity, sovereignty.",
       avatar: avatarUrl,
       isOnline: true,
     };
@@ -2411,9 +2466,9 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             ? window.renderClocheVitrine(artifactSvg, isObsidianBase, item.id)
             : `<span class="boutique-card-fallback" style="display:flex">${artifactSvg}</span>`;
 
-          const tierShort = item.requiredTier ? item.requiredTier.replace(/^SOVEREIGN\s+/i, "") : "";
+          const tierInfo = getBoutiqueTierLabel(item.requiredTier, isAr);
           const tierPillHtml = (!isOwned && !tierEligible && item.requiredTier)
-            ? `<span class="boutique-tier-plaque" title="${item.requiredTier}"><span class="tier-plaque-mark">❖</span> ${tierShort}</span>`
+            ? `<span class="boutique-tier-plaque" title="${tierInfo.name}"><span class="tier-plaque-mark">❖</span> ${tierInfo.short}</span>`
             : "";
 
           let btnContent = "";
@@ -2430,7 +2485,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
             btnClass = "btn-owned";
             btnPointerEvents = "pointer-events: none;";
           } else if (!tierEligible) {
-            const reqLabel = isAr ? `رتبة ${item.requiredTier}` : `${item.requiredTier} Tier`;
+            const reqLabel = tierInfo.gateLabel;
             btnContent = `<svg class="btn-lock-svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 5a3 3 0 016 0v3H9V7z"/></svg> <span>${reqLabel}</span>`;
             btnClass = "btn-locked";
             btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
@@ -3416,6 +3471,8 @@ function openMemberProfile(member) {
   if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
   if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(15);
 
+  window.currentActiveMemberProfile = member;
+
   const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
   const memberName = isAr ? (member.nameAr || member.name) : (member.nameEn || member.name || "MEMBER");
 
@@ -3443,7 +3500,14 @@ function openMemberProfile(member) {
   // Quote / Sovereign Creed
   const quoteEl = document.getElementById("memberProfileQuote");
   if (quoteEl) {
-    quoteEl.textContent = member.quote || member.text || (isAr ? "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة." : "A higher standard in a different world.");
+    const fallbackLookup = typeof window.LEADERBOARD_MEMBERS_MAP !== "undefined" && member.id ? window.LEADERBOARD_MEMBERS_MAP[member.id] : null;
+    let quoteText = "";
+    if (isAr) {
+      quoteText = member.quoteAr || (fallbackLookup ? (fallbackLookup.quoteAr || fallbackLookup.quote) : null) || member.quote || member.text || "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة.";
+    } else {
+      quoteText = member.quoteEn || (fallbackLookup ? fallbackLookup.quoteEn : null) || (member.quote !== (member.quoteAr || (fallbackLookup ? fallbackLookup.quoteAr : null)) ? member.quote : null) || "A higher standard in a different world.";
+    }
+    quoteEl.textContent = quoteText;
   }
 
   // Wealth & Privileges
@@ -3538,6 +3602,7 @@ function openMemberProfile(member) {
 window.openMemberProfile = openMemberProfile;
 
 function closeMemberProfile() {
+  window.currentActiveMemberProfile = null;
   if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
   if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(12);
 
@@ -3956,13 +4021,13 @@ window.unlockAchievement = function (id, title, desc) {
 // ==========================================
 
 const ELITE_MEMBERS = [
-  { name: "Lord Julian", tier: "FOUNDER", id: "001", color: "#e6c27a", seat: "ZURICH", motto: "Honor, lineage, and sovereign discretion." },
-  { name: "Elena Rostova", tier: "SOVEREIGN", id: "084", color: "#d4af37", seat: "MONACO", motto: "Elegance is the ultimate sovereign currency." },
-  { name: "Marcus Sterling", tier: "TITAN", id: "112", color: "#f3e5ab", seat: "LONDON", motto: "Capital in motion, unencumbered by borders." },
-  { name: "W. Alexander", tier: "SOVEREIGN EXARCH", id: "1001", color: "#e6c27a", seat: "GENEVA", motto: "Pioneering the architecture of digital sovereignty." },
-  { name: "Sheikh Tariq Al-Mansoor", tier: "SOVEREIGN", id: "777", color: "#f5d77f", seat: "DUBAI", motto: "Legacy built upon vision, precision, and steel." },
-  { name: "Baroness Charlotte", tier: "SOVEREIGN", id: "205", color: "#e2b872", seat: "PARIS", motto: "True luxury whispers through heritage and rarity." },
-  { name: "Concierge Desk", tier: "SYSTEM", id: "000", color: "#a39b8b", seat: "GENEVA", motto: "At the sovereign service of the Circle." },
+  { name: "Lord Julian", nameAr: "لورد جوليان", tier: "FOUNDER", id: "001", color: "#e6c27a", seat: "ZURICH", motto: "Honor, lineage, and sovereign discretion.", mottoAr: "الشرف، والنسب، والسرية السيادية المطلقة." },
+  { name: "Elena Rostova", nameAr: "إيلينا روستوفا", tier: "SOVEREIGN", id: "084", color: "#d4af37", seat: "MONACO", motto: "Elegance is the ultimate sovereign currency.", mottoAr: "الأناقة هي أسمى عملات السيادة والرفعة." },
+  { name: "Marcus Sterling", nameAr: "ماركوس ستيرلينغ", tier: "TITAN", id: "112", color: "#f3e5ab", seat: "LONDON", motto: "Capital in motion, unencumbered by borders.", mottoAr: "رأس المال المتحرك بلا قيود عبر الحدود." },
+  { name: "W. Alexander", nameAr: "دبليو. ألكسندر", tier: "SOVEREIGN EXARCH", id: "1001", color: "#e6c27a", seat: "GENEVA", motto: "Pioneering the architecture of digital sovereignty.", mottoAr: "ريادة هندسة السيادة الرقمية العالمية." },
+  { name: "Sheikh Tariq Al-Mansoor", nameAr: "الشيخ طارق المنصور", tier: "SOVEREIGN", id: "777", color: "#f5d77f", seat: "DUBAI", motto: "Legacy built upon vision, precision, and steel.", mottoAr: "إرث راسخ شُيّد بالرؤية والدقة والعزيمة." },
+  { name: "Baroness Charlotte", nameAr: "البارونة شارلوت", tier: "SOVEREIGN", id: "205", color: "#e2b872", seat: "PARIS", motto: "True luxury whispers through heritage and rarity.", mottoAr: "الفخامة الحقيقية تهمس عبر الأصالة والندرة." },
+  { name: "Concierge Desk", nameAr: "مكتب المساعد السيادي", tier: "SYSTEM", id: "000", color: "#a39b8b", seat: "GENEVA", motto: "At the sovereign service of the Circle.", mottoAr: "في الخدمة السيادية الدائمة لأعضاء الدائرة." },
 ];
 
 function processEliteResponse(text) {
@@ -5255,7 +5320,7 @@ function buildMessageHTML(msg, idx, channelId) {
                    </svg>
                    <span class="whisper-text-label" data-i18n="club.whisperBadge">${window.t("club.whisperBadge") || "همس سيادي مشفر • سرية سويسرية"}</span>
                  </span>
-                 <span class="dispatch-whisper-discretion-mark">DISCRETION SECURED</span>
+                 <span class="dispatch-whisper-discretion-mark" data-i18n="club.discretionSecured">${window.t("club.discretionSecured") || (window.currentLang === "en" ? "DISCRETION SECURED" : "سرية مؤمّنة")}</span>
                </div>`
             : ""
         }
@@ -5977,15 +6042,15 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
       equipBtn.hidden = false;
       equipBtn.classList.remove("is-hidden");
       equipBtn.style.setProperty("display", "flex", "important");
-      let shortReq = "عضو سيادي";
-      if (/LUMINARY/i.test(item.requiredTier)) shortReq = "رتبة الوجاهة";
-      else if (/EXARCH/i.test(item.requiredTier)) shortReq = "الحاكم التنفيذي";
+      const tierInfo = typeof getBoutiqueTierLabel === "function" ? getBoutiqueTierLabel(item.requiredTier, isAr) : null;
+      const shortReq = tierInfo ? tierInfo.short : "عضو سيادي";
+      const toastReq = tierInfo ? tierInfo.toastName : shortReq;
       setBtnText(isAr ? `يتطلب رتبة (${shortReq})` : `Requires ${item.requiredTier}`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn is-locked";
       equipBtn.onclick = () => {
         const msg = isAr 
-          ? `هذه التحفة مخصصة حصرياً لأصحاب ${shortReq} فأعلى.`
+          ? `هذه التحفة مخصصة حصرياً لأصحاب ${toastReq} فأعلى.`
           : `This artifact requires ${item.requiredTier} standing or above.`;
         showNavToast(msg);
       };
@@ -8502,6 +8567,8 @@ function renderLeaderboard() {
       city: "دبي، الإمارات",
       cityEn: "Dubai, UAE",
       quote: "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة التاريخية.",
+      quoteAr: "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة التاريخية.",
+      quoteEn: "Sovereignty is not mere status; it is the benchmark of existence and historic leadership.",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
     },
@@ -8516,6 +8583,8 @@ function renderLeaderboard() {
       city: "جنيف، سويسرا",
       cityEn: "Geneva, Switzerland",
       quote: "الذهب الحقيقي هو الثقة والسرية المتوارثة عبر الأجيال.",
+      quoteAr: "الذهب الحقيقي هو الثقة والسرية المتوارثة عبر الأجيال.",
+      quoteEn: "True gold is trust and discretion passed down through generations.",
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
     },
@@ -8530,6 +8599,8 @@ function renderLeaderboard() {
       city: "لندن، المملكة المتحدة",
       cityEn: "London, UK",
       quote: "التقاليد العريقة هي الحصن المنيع للمكانة والجاه الرفيع.",
+      quoteAr: "التقاليد العريقة هي الحصن المنيع للمكانة والجاه الرفيع.",
+      quoteEn: "Time-honored traditions are the enduring fortress of distinction and stature.",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
     },
@@ -8544,6 +8615,8 @@ function renderLeaderboard() {
       city: "نيويورك، الولايات المتحدة",
       cityEn: "New York, USA",
       quote: "القوة تكمن في البصيرة الهادئة وراء كل قرار استراتيجي.",
+      quoteAr: "القوة تكمن في البصيرة الهادئة وراء كل قرار استراتيجي.",
+      quoteEn: "True power resides in the quiet foresight behind every strategic decision.",
       avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
     },
@@ -8558,6 +8631,8 @@ function renderLeaderboard() {
       city: "باريس، فرنسا",
       cityEn: "Paris, France",
       quote: "الفخامة المطلقة هي الجمع بين الفن والخلود المادي.",
+      quoteAr: "الفخامة المطلقة هي الجمع بين الفن والخلود المادي.",
+      quoteEn: "Absolute luxury is the convergence of artistry and enduring timelessness.",
       avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
     },
@@ -8572,6 +8647,8 @@ function renderLeaderboard() {
       city: "باريس، فرنسا",
       cityEn: "Paris, France",
       quote: "الجمال والرفعة إرث يتجاوز حدود الزمن والحدود.",
+      quoteAr: "الجمال والرفعة إرث يتجاوز حدود الزمن والحدود.",
+      quoteEn: "Beauty and distinction are a legacy transcending time and boundaries.",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
     },
@@ -8586,6 +8663,8 @@ function renderLeaderboard() {
       city: "موناكو، فرنسا",
       cityEn: "Monaco, France",
       quote: "اقتناء النوادر هو الشغف الذي يميز النخبة الحقيقية.",
+      quoteAr: "اقتناء النوادر هو الشغف الذي يميز النخبة الحقيقية.",
+      quoteEn: "Acquiring rare treasures is the passion that defines true nobility.",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
     },
@@ -8600,6 +8679,8 @@ function renderLeaderboard() {
       city: "زيورخ، سويسرا",
       cityEn: "Zurich, Switzerland",
       quote: "الوقت أغلى من أي مقتنى، والكمال في كل تفصيلة متناهية.",
+      quoteAr: "الوقت أغلى من أي مقتنى، والكمال في كل تفصيلة متناهية.",
+      quoteEn: "Time is more precious than any possession, and perfection lies in every infinitesimal detail.",
       avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
     },
@@ -8614,6 +8695,8 @@ function renderLeaderboard() {
       city: "ميلانو، إيطاليا",
       cityEn: "Milan, Italy",
       quote: "الأناقة ليست لفت الأنظار، بل البقاء في الذاكرة الحية.",
+      quoteAr: "الأناقة ليست لفت الأنظار، بل البقاء في الذاكرة الحية.",
+      quoteEn: "Elegance is not about catching the eye, but about lingering in the memory.",
       avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
     },
@@ -8628,10 +8711,17 @@ function renderLeaderboard() {
       city: "مدريد، إسبانيا",
       cityEn: "Madrid, Spain",
       quote: "الامبراطوريات تُبنى بالصمت والعمل والإنجاز المتواصل.",
+      quoteAr: "الامبراطوريات تُبنى بالصمت والعمل والإنجاز المتواصل.",
+      quoteEn: "Empires are forged in silence, discipline, and ceaseless accomplishment.",
       avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
     },
   ];
+
+  window.LEADERBOARD_MEMBERS_MAP = mockTopMembers.reduce((acc, m) => {
+    acc[m.id] = m;
+    return acc;
+  }, {});
 
   // Top 3 (Podium) and remaining (Ledger)
   const podiumMembers = mockTopMembers.slice(0, 3);
@@ -8667,7 +8757,9 @@ function renderLeaderboard() {
       priv: rank1.priv,
       city: isAr ? rank1.city : rank1.cityEn,
       cityEn: rank1.cityEn,
-      quote: rank1.quote,
+      quote: isAr ? (rank1.quoteAr || rank1.quote) : (rank1.quoteEn || rank1.quote),
+      quoteAr: rank1.quoteAr || rank1.quote,
+      quoteEn: rank1.quoteEn,
       avatar: rank1.avatar,
       isOnline: rank1.isOnline,
     }).replace(/"/g, "&quot;");
@@ -8683,7 +8775,9 @@ function renderLeaderboard() {
       priv: rank2.priv,
       city: isAr ? rank2.city : rank2.cityEn,
       cityEn: rank2.cityEn,
-      quote: rank2.quote,
+      quote: isAr ? (rank2.quoteAr || rank2.quote) : (rank2.quoteEn || rank2.quote),
+      quoteAr: rank2.quoteAr || rank2.quote,
+      quoteEn: rank2.quoteEn,
       avatar: rank2.avatar,
       isOnline: rank2.isOnline,
     }).replace(/"/g, "&quot;");
@@ -8699,7 +8793,9 @@ function renderLeaderboard() {
       priv: rank3.priv,
       city: isAr ? rank3.city : rank3.cityEn,
       cityEn: rank3.cityEn,
-      quote: rank3.quote,
+      quote: isAr ? (rank3.quoteAr || rank3.quote) : (rank3.quoteEn || rank3.quote),
+      quoteAr: rank3.quoteAr || rank3.quote,
+      quoteEn: rank3.quoteEn,
       avatar: rank3.avatar,
       isOnline: rank3.isOnline,
     }).replace(/"/g, "&quot;");
@@ -8797,7 +8893,9 @@ function renderLeaderboard() {
       priv: member.priv,
       city: memberCity,
       cityEn: member.cityEn,
-      quote: member.quote,
+      quote: isAr ? (member.quoteAr || member.quote) : (member.quoteEn || member.quote),
+      quoteAr: member.quoteAr || member.quote,
+      quoteEn: member.quoteEn,
       avatar: member.avatar,
       isOnline: member.isOnline,
     }).replace(/"/g, "&quot;");
@@ -9268,20 +9366,14 @@ window.resetHeaderScrollTracking = window.HeaderScrollController.updateStateForC
 window.HeaderAutoDismissController = (function() {
   let timer = null;
   let isAutoHidden = false;
-  const DISMISS_DELAY = 20000; // 20 seconds
 
   function getHeader() {
     return document.getElementById("appHeader");
   }
 
   function hideHeader() {
-    const header = getHeader();
-    if (!header) return;
-    isAutoHidden = true;
-    header.classList.add("header-hidden");
-    document.body.classList.add("header-hidden-active");
-    document.documentElement.classList.add("header-hidden-active");
-    document.documentElement.style.setProperty("--header-actual-height", "0px");
+    // Disabled: Top header must remain permanently stationary and visible across tabs
+    return;
   }
 
   function showHeader(restartTimer = true) {
@@ -9294,47 +9386,22 @@ window.HeaderAutoDismissController = (function() {
     const h = header.offsetHeight || 84;
     document.documentElement.style.setProperty("--header-actual-height", h + "px");
 
-    if (restartTimer) {
-      startTimer();
-    } else if (timer) {
+    if (timer) {
       clearTimeout(timer);
       timer = null;
     }
   }
 
   function startTimer() {
+    // Disabled auto-dismiss timer to ensure header remains fixed and stable
     if (timer) {
       clearTimeout(timer);
       timer = null;
     }
-    timer = setTimeout(() => {
-      hideHeader();
-    }, DISMISS_DELAY);
   }
 
   function init() {
-    startTimer();
-
-    // Re-reveal when tapping any tab in bottom navigation
-    document.querySelectorAll(".nav-item").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        showHeader(true);
-      });
-    });
-
-    // Re-reveal when tapping near the top edge (within 32px) or pulling down
-    window.addEventListener("pointerdown", (e) => {
-      if (isAutoHidden && e.clientY <= 32) {
-        showHeader(true);
-      }
-    }, { passive: true });
-
-    // Also reveal if user scrolls to the absolute top of the page
-    window.addEventListener("scroll", () => {
-      if (isAutoHidden && window.scrollY <= 10) {
-        showHeader(true);
-      }
-    }, { passive: true });
+    showHeader(false);
   }
 
   return {
@@ -9343,7 +9410,7 @@ window.HeaderAutoDismissController = (function() {
     showHeader,
     hideHeader,
     isAutoHidden() {
-      return isAutoHidden;
+      return false;
     }
   };
 })();

@@ -153,6 +153,10 @@ window.I18N = {
       en: "Membership Level",
       ar: "رتبة العضوية",
     },
+    quote: {
+      en: "\"Not every summit is meant for everyone.\"",
+      ar: "\"ليست كلُّ القِمم وجهةً للجميع.\"",
+    },
     exportingToast: {
       en: "Exporting ultra-high-definition Master Card…",
       ar: "جارٍ تصدير الماستر كارد الملكي فائق الدقة…",
@@ -171,6 +175,10 @@ window.I18N = {
     },
   },
   club: {
+    roomsNav: {
+      en: "Sovereign Club Chambers & Salons",
+      ar: "غرف وصالات النادي السيادية",
+    },
     nextRooms: {
       en: "View more rooms",
       ar: "عرض المزيد من الغرف",
@@ -420,6 +428,10 @@ window.I18N = {
     whisperBadge: {
       en: "CONFIDENTIAL DISPATCH",
       ar: "برقية سرية مشفرة",
+    },
+    discretionSecured: {
+      en: "DISCRETION SECURED",
+      ar: "سرية مؤمّنة",
     },
     whisperPlaceholder: {
       en: "Confidential dispatch...",
@@ -886,6 +898,10 @@ window.I18N = {
     certSubTitle: {
       en: "IMPERIAL CURATORIAL ARCHIVES · GENEVA & ST. MORITZ",
       ar: "دار الأرشيف الإمبراطوري السيادي • جنيف وسانت موريتز",
+    },
+    certSvgInscription: {
+      en: "✦ IMMUTABLE SOVEREIGN PATENT OF PROVENANCE • GENEVA & ST. MORITZ ✦",
+      ar: "✦ وثيقة ملكية واعتماد سيادي غير قابلة للنقض • جنيف وسانت موريتز ✦",
     },
     museumExhibitLabel: {
       en: "EXHIBIT №",

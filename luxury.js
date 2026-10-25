@@ -1242,10 +1242,10 @@ if (document.readyState === "loading") {
 // ---------------------------------------------------------
 // 19. MASTER CARD, SOVEREIGN CHAMBER PLAQUE & UNIFIED 3D GYROSCOPE TILT ENGINE
 // ----------------------------------------------------------------------------
-const TILT_MAX_DEG = 5.5;        // Restrained, subtle physical rotation
-const TILT_DEADZONE = 0.35;      // Clean deadzone preventing sensor jitter while keeping fluid response
-const TILT_LERP_FACTOR = 0.085;  // Silk-smooth 60fps physical damping (no snapping, no lag)
-const TILT_EPSILON = 0.005;      // Clean settlement threshold for 0,0 return
+const TILT_MAX_DEG = 1.75;        // Restrained, subtle physical rotation within ±1–2 degrees
+const TILT_DEADZONE = 0.08;      // Smooth micro-deadzone preventing sensor jitter while keeping fluid response
+const TILT_LERP_FACTOR = 0.075;  // Silk-smooth physical damping (no snapping, no lag)
+const TILT_EPSILON = 0.003;      // Clean settlement threshold for 0,0 return
 
 // Separate target from rendered tilt values for smooth interpolation
 let targetRotX = 0;
@@ -1259,8 +1259,15 @@ let deviceOrientationAttached = false;
 let isPointerInteracting = false;
 let isLongPressActive = false;
 
-// Check if Gyroscope 3D Tilt is enabled in user settings (defaults to true)
+// Adaptive posture calibration state to eliminate resting-angle bias
+let calibratedBeta = null;
+let calibratedGamma = null;
+
+// Check if Gyroscope 3D Tilt is enabled in user settings and respects prefers-reduced-motion
 function isGyroscopeEnabled() {
+  if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return false;
+  }
   try {
     return localStorage.getItem("club_gyroscope_enabled") !== "false";
   } catch (e) {
@@ -1292,7 +1299,7 @@ function isMembershipTabActive() {
   return Boolean(tab && tab.classList.contains("is-active"));
 }
 
-// 2. INPUT SMOOTHING & 7. SENSOR NOISE FILTERING
+// 2. INPUT SMOOTHING & 7. SENSOR NOISE FILTERING WITH ADAPTIVE POSTURE DRIFT
 function handleDeviceOrientation(e) {
   if (!isMembershipTabActive()) return;
   if (!isGyroscopeEnabled()) return;
@@ -1305,23 +1312,40 @@ function handleDeviceOrientation(e) {
   if (e.beta == null || e.gamma == null) return;
   if (!Number.isFinite(e.beta) || !Number.isFinite(e.gamma)) return;
 
-  // Natural holding posture normalization: assume ~45deg is normal phone angle
-  let betaDev = e.beta - 45;
+  // Adaptive resting posture baseline:
+  // Instead of assuming fixed 45deg, dynamically calibrate to whatever natural posture
+  // the member holds their device in (sitting, desk, reclining, lying in bed).
+  if (calibratedBeta === null) {
+    calibratedBeta = e.beta;
+    calibratedGamma = e.gamma;
+  } else {
+    // If device posture shifted dramatically (e.g. user shifted posture by > 35°), re-anchor quickly
+    if (Math.abs(e.beta - calibratedBeta) > 35) {
+      calibratedBeta = e.beta;
+    } else {
+      // Gentle exponential moving average (low-pass drift filter)
+      calibratedBeta += (e.beta - calibratedBeta) * 0.015;
+    }
 
-  // Flat / Bed posture normalization to prevent gimbal flip
-  if (e.beta < 15 || e.beta > 165 || e.beta < -165) {
-    betaDev *= 0.2;
+    if (Math.abs(e.gamma - calibratedGamma) > 30) {
+      calibratedGamma = e.gamma;
+    } else {
+      calibratedGamma += (e.gamma - calibratedGamma) * 0.015;
+    }
   }
 
-  // Calculate target tilt angles (Beta = pitch = rotX, Gamma = roll = rotY)
-  let rawRx = -betaDev * 0.32;
-  let rawRy = e.gamma * 0.32;
+  const betaDev = e.beta - calibratedBeta;
+  const gammaDev = e.gamma - calibratedGamma;
 
-  // Subtle deadzone
+  // Restrained, subtle sensitivity multiplier (0.10 instead of 0.32)
+  const rawRx = -betaDev * 0.10;
+  const rawRy = gammaDev * 0.10;
+
+  // Subtle deadzone preventing micro-jitter
   let rx = applyDeadzone(rawRx, TILT_DEADZONE);
   let ry = applyDeadzone(rawRy, TILT_DEADZONE);
 
-  // Limit maximum tilt to restrained physical boundaries
+  // Limit maximum tilt to restrained physical boundaries (±1.75°)
   rx = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, rx));
   ry = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, ry));
 
@@ -1451,9 +1475,9 @@ function setCardTilt(rx, ry) {
       const isHovered = card.classList.contains("is-hovered");
       const isLongPressed = card.classList.contains("is-long-press-active");
 
-      const elevation = isLongPressed ? 22 : (isHovered ? 14 : 0);
-      const translateY = isLongPressed ? -7 : (isHovered ? -4 : 0);
-      const scale = isLongPressed ? 1.02 : (isHovered ? 1.012 : 1);
+      const elevation = isLongPressed ? 10 : (isHovered ? 6 : 0);
+      const translateY = isLongPressed ? -3 : (isHovered ? -2 : 0);
+      const scale = isLongPressed ? 1.008 : (isHovered ? 1.004 : 1);
 
       card.style.setProperty('--tiltX', normX.toFixed(3));
       card.style.setProperty('--tiltY', normY.toFixed(3));
@@ -1463,26 +1487,26 @@ function setCardTilt(rx, ry) {
       card.style.setProperty('--tilt-ty', `${translateY}px`);
       card.style.setProperty('--tilt-scale', `${scale}`);
 
-      card.style.transform = `perspective(1200px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
+      card.style.transform = `perspective(1800px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
       card.style.transition = "none";
 
       // Dynamic metallic reflections & foil angles
-      const foilAngle = Math.round(135 + ry * 2.5 + rx * 1.5);
-      const foilPosX = Math.round(50 + normX * 35);
-      const foilPosY = Math.round(50 + normY * 35);
+      const foilAngle = Math.round(135 + ry * 1.0 + rx * 0.6);
+      const foilPosX = Math.round(50 + normX * 12);
+      const foilPosY = Math.round(50 + normY * 12);
       card.style.setProperty('--gold-foil-angle', `${foilAngle}deg`);
       card.style.setProperty('--gold-foil-pos', `${foilPosX}% ${foilPosY}%`);
-      card.style.setProperty('--foil-shift-x', `${(normX * 8).toFixed(2)}px`);
-      card.style.setProperty('--foil-shift-y', `${(normY * 8).toFixed(2)}px`);
+      card.style.setProperty('--foil-shift-x', `${(normX * 2.5).toFixed(2)}px`);
+      card.style.setProperty('--foil-shift-y', `${(normY * 2.5).toFixed(2)}px`);
 
       // Master Card Medallion Parallax
       const portraitWrap = card.querySelector(".portrait-wrap");
       if (portraitWrap) {
-        const pX = (ry * 0.4).toFixed(2);
-        const pY = (-rx * 0.4).toFixed(2);
-        const pRx = (rx * 1.08).toFixed(2);
-        const pRy = (ry * 1.08).toFixed(2);
-        portraitWrap.style.transform = `translateZ(24px) translate3d(${pX}px, ${pY}px, 0px) rotateX(${pRx}deg) rotateY(${pRy}deg)`;
+        const pX = (ry * 0.12).toFixed(2);
+        const pY = (-rx * 0.12).toFixed(2);
+        const pRx = (rx * 0.45).toFixed(2);
+        const pRy = (ry * 0.45).toFixed(2);
+        portraitWrap.style.transform = `translateZ(10px) translate3d(${pX}px, ${pY}px, 0px) rotateX(${pRx}deg) rotateY(${pRy}deg)`;
         portraitWrap.style.transition = "none";
       }
     }
@@ -1528,7 +1552,7 @@ function setCardTilt(rx, ry) {
       card.style.setProperty('--tilt-ty', `${translateY}px`);
       card.style.setProperty('--tilt-scale', `${scale}`);
 
-      card.style.transform = `perspective(1200px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
+      card.style.transform = `perspective(1800px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
       card.style.transition = "none";
 
       const angle = 160 + ry + (rx * 0.5);
@@ -1573,6 +1597,8 @@ function setCardTilt(rx, ry) {
 
 // Reset helper: smoothly zeroes transforms for all cards and plaques
 function resetAllCardTransforms() {
+  calibratedBeta = null;
+  calibratedGamma = null;
   const cards = [
     document.getElementById("membershipCard"),
     document.getElementById("profileHeroPlaque"),
@@ -1774,9 +1800,9 @@ function initGlobalTilt() {
       const loop = () => {
         if (!isLongPressActive) return;
         const elapsed = (performance.now() - startTime) * 0.0016;
-        // Restrained, continuous luxury 3D tilt orbit while held
-        const orbitRx = Math.sin(elapsed) * 2.8;
-        const orbitRy = Math.cos(elapsed * 0.85) * 3.2;
+        // Restrained, continuous luxury 3D tilt orbit while held (max ~±1.1 deg)
+        const orbitRx = Math.sin(elapsed) * 0.9;
+        const orbitRy = Math.cos(elapsed * 0.85) * 1.1;
         updateTiltTarget(orbitRx, orbitRy);
         longPressAnimFrame = requestAnimationFrame(loop);
       };

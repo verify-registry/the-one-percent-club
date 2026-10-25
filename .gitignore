@@ -1,0 +1,13 @@
+# Dependencies & build outputs
+node_modules/
+dist/
+
+# AI Studio internal platform media & artifacts
+.aistudio/
+
+# Headless test scripts & scratchpad
+tmp/
+
+# Specific generated test screenshot artifacts (narrowly scoped; no broad image patterns)
+bar_*.png
+test_validation_*.png

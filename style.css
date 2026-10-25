@@ -1352,7 +1352,10 @@ body.light-mode .section-rule span:last-child {
 
 .page#membership-tab,
 #membership-tab.is-active {
-  overflow: visible;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1497,8 +1500,8 @@ body.light-mode .section-rule span:last-child {
   inset: 0;
   border-radius: 12px;
   background: radial-gradient(
-    ellipse at calc(50% + var(--tiltX, 0) * 50%)
-      calc(50% + var(--tiltY, 0) * 50%),
+    ellipse at calc(50% + var(--tiltX, 0) * 15%)
+      calc(50% + var(--tiltY, 0) * 15%),
     rgba(255, 244, 214, 0.18),
     rgba(215, 180, 80, 0.05) 40%,
     rgba(255, 244, 214, 0) 80%
@@ -17735,7 +17738,7 @@ body #boutique-tab .id-widget-container .membership-card {
     radial-gradient(circle at 50% 30%, #16161a 0%, #0d0d10 65%, #050507 100%),
     /* Ultra-realistic 3D Anisotropic Lathe-Turned Royal Gold Bezel */
     conic-gradient(
-      from calc(135deg + var(--tiltX, 0) * 20deg) at 50% 50%,
+      from calc(135deg + var(--tiltX, 0) * 8deg) at 50% 50%,
       #664917 0deg,
       #b38b37 24deg,
       #fef5db 40deg,
@@ -17945,17 +17948,20 @@ body.light-mode #boutique-tab .id-widget-container .membership-card::after {
   pointer-events: none !important;
 }
 
-/* 2. Container Unclipping: Allow the Master Card to float freely in 3D without edge clipping */
+/* 2. Container Architecture: Stable scroll isolation while preserving 3D Master Card tilt */
 .app-main.main-membership-active,
 .app-main:has(#membership-tab.is-active),
 .app:has(#membership-tab.is-active) .app-main {
-  overflow: visible !important;
+  overflow: hidden !important;
   contain: none !important;
 }
 
 #membership-tab.page,
 #membership-tab {
-  overflow: visible !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain !important;
   contain: none !important;
   clip-path: none !important;
   perspective: 1200px !important;
@@ -17983,7 +17989,7 @@ body.light-mode #boutique-tab .id-widget-container .membership-card::after {
   contain: paint !important;
   transform-origin: 50% 50% 0 !important;
   transform-box: border-box !important;
-  transform: perspective(1200px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) translateZ(var(--tilt-tz, 0px)) translateY(var(--tilt-ty, 0px)) scale3d(var(--tilt-scale, 1), var(--tilt-scale, 1), var(--tilt-scale, 1));
+  transform: perspective(1800px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) translateZ(var(--tilt-tz, 0px)) translateY(var(--tilt-ty, 0px)) scale3d(var(--tilt-scale, 1), var(--tilt-scale, 1), var(--tilt-scale, 1));
   transform-style: preserve-3d;
   will-change: transform;
   touch-action: pan-y pinch-zoom;
@@ -17999,43 +18005,43 @@ body.light-mode #boutique-tab .id-widget-container .membership-card::after {
 }
 
 #membershipCard.membership-card .card-top-bar {
-  transform: translateZ(12px);
+  transform: translateZ(6px);
   transform-style: preserve-3d;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #membershipCard.membership-card .portrait-wrap {
-  transform: translateZ(24px);
-  transform-style: preserve-3d;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#membershipCard.membership-card .portrait-ring {
-  transform: translateZ(8px);
-  transform-style: preserve-3d;
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.7);
-}
-
-#membershipCard.membership-card .card-identity-section {
-  transform: translateZ(18px);
-  transform-style: preserve-3d;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#membershipCard.membership-card .card-metrics-footer {
-  transform: translateZ(14px);
-  transform-style: preserve-3d;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#membershipCard.membership-card .card-hallmark-line {
   transform: translateZ(10px);
   transform-style: preserve-3d;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+#membershipCard.membership-card .portrait-ring {
+  transform: translateZ(4px);
+  transform-style: preserve-3d;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.7);
+}
+
+#membershipCard.membership-card .card-identity-section {
+  transform: translateZ(8px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .card-metrics-footer {
+  transform: translateZ(6px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#membershipCard.membership-card .card-hallmark-line {
+  transform: translateZ(4px);
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 #membershipCard.membership-card .card-actions {
-  transform: translateZ(16px);
+  transform: translateZ(8px);
   transform-style: preserve-3d;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -35735,51 +35741,46 @@ body.light-mode #logoutConfirmModal p {
 .gauge-pips-strip {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 2px !important;
-  padding: 1.5px 3px !important;
-  border-radius: 3px !important;
-  background: rgba(18, 15, 22, 0.20) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.18) !important;
-  border-top: 0.5px solid rgba(255, 240, 190, 0.26) !important;
+  justify-content: center !important;
+  gap: 1.5px !important;
+  padding: 1px 3px !important;
+  border-radius: 9999px !important;
+  background: rgba(10, 8, 14, 0.70) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.22) !important;
+  border-top: 0.5px solid rgba(255, 248, 220, 0.35) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.60) !important;
   box-shadow:
-    inset 0 0.5px 1px rgba(0, 0, 0, 0.18),
-    0 0.5px 0 rgba(255, 255, 255, 0.05) !important;
-  margin-inline-start: 6.5px !important;
+    inset 0 0.75px 1px rgba(0, 0, 0, 0.60),
+    0 0.5px 0.5px rgba(255, 255, 255, 0.05) !important;
+  margin: 0 !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
   box-sizing: border-box !important;
+  height: 6.5px !important;
+  max-height: 6.5px !important;
 }
 
 .gauge-pip {
-  width: 4.2px !important;
-  height: 11.5px !important;
-  border-radius: 1.2px !important;
+  width: 2.2px !important;
+  height: 2.2px !important;
+  border-radius: 50% !important;
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
+  margin: 0 !important;
 }
 
 .gauge-pip.is-filled {
-  background: linear-gradient(
-    180deg,
-    #f7e8c6 0%,
-    #e0c17a 24%,
-    #c79f4f 56%,
-    #a27a2b 84%,
-    #765416 100%
-  ) !important;
-  border: 0.5px solid rgba(255, 238, 190, 0.50) !important;
-  box-shadow:
-    inset 0 0.5px 0 rgba(255, 255, 255, 0.55),
-    inset 0 -0.5px 0 rgba(50, 32, 8, 0.40),
-    0 0.5px 1px rgba(0, 0, 0, 0.22) !important;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #ffeaa8 30%, #d4a742 70%, #7a5012 100%) !important;
+  border: none !important;
+  box-shadow: 0 0 1px rgba(212, 175, 55, 0.5) !important;
 }
 
 .gauge-pip.is-spent {
-  background: rgba(212, 175, 55, 0.08) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.16) !important;
-  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.22) !important;
-  opacity: 0.50 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.15) !important;
+  box-shadow: none !important;
+  opacity: 0.35 !important;
 }
 
 .gauge-pips-strip.is-shimmering .gauge-pip.is-filled {
@@ -35788,29 +35789,19 @@ body.light-mode #logoutConfirmModal p {
 
 @keyframes gaugePipShimmer {
   0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.15) contrast(1.05); }
+  50% { filter: brightness(1.25) drop-shadow(0 0 1.5px rgba(255, 248, 220, 0.6)); }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 360px) {
   .gauge-pip {
-    width: 3.8px !important;
-    height: 10.5px !important;
-    border-radius: 1px !important;
+    width: 2px !important;
+    height: 2px !important;
   }
   .gauge-pips-strip {
-    gap: 1.8px !important;
-    padding: 1.5px 3px !important;
-  }
-}
-
-@media (max-width: 340px) {
-  .gauge-pip {
-    width: 3.2px !important;
-    height: 9.5px !important;
-  }
-  .gauge-pips-strip {
-    gap: 1.5px !important;
-    padding: 1.5px 2.5px !important;
+    gap: 1.2px !important;
+    padding: 0.8px 2.5px !important;
+    height: 6px !important;
+    max-height: 6px !important;
   }
 }
 
@@ -36800,7 +36791,7 @@ body.light-mode .ticker-metal-price {
 #clubCreditsDisplay,
 .club-credits-display,
 .club-credits-wrapper {
-  padding: 3px 8px !important;
+  padding: 0 10px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -36809,62 +36800,71 @@ body.light-mode .ticker-metal-price {
   overflow: visible !important;
   flex-shrink: 0 !important;
   width: 100% !important;
-  min-height: 28px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  max-height: 30px !important;
+  border-radius: 9999px !important;
   box-sizing: border-box !important;
+  margin: 0 !important;
 }
 
 .club-credits-info {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 5px !important;
+  gap: 6px !important;
   flex: 0 1 auto !important;
   min-width: 0 !important;
+  margin: 0 !important;
 }
 
 .club-credits-crown {
-  font-size: 9.5px !important;
+  font-size: 9px !important;
   line-height: 1 !important;
   display: inline-flex !important;
   align-items: center !important;
   flex-shrink: 0 !important;
   margin: 0 !important;
+  opacity: 0.9 !important;
 }
 
 .club-credits-label {
-  font-size: 8.5px !important;
+  font-family: "Inter", "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Cairo", sans-serif !important;
+  font-size: 8px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.015em !important;
-  color: #f1e7d4 !important;
+  letter-spacing: normal !important;
+  color: #e6dac1 !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   line-height: 1 !important;
   margin: 0 !important;
+  text-transform: none !important;
 }
 
 body.light-mode .club-credits-label {
-  color: #3d2c0b !important;
+  color: #3d2806 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
 }
 
 .club-credits-readout {
   font-family: var(--font-display, "Cinzel", "Playfair Display", serif) !important;
-  font-size: 8.5px !important;
+  font-size: 8px !important;
   font-weight: 700 !important;
   font-variant-numeric: tabular-nums !important;
-  color: #faeccd !important;
+  color: #fcedcb !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 1.5px 5px !important;
-  border-radius: 3.5px !important;
-  background: linear-gradient(180deg, rgba(28, 22, 16, 0.92) 0%, rgba(14, 11, 8, 0.96) 100%) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.35) !important;
-  border-top: 0.5px solid rgba(255, 240, 190, 0.55) !important;
-  border-bottom: 0.5px solid rgba(140, 100, 25, 0.30) !important;
+  padding: 1px 4.5px !important;
+  border-radius: 4px !important;
+  background: rgba(18, 14, 22, 0.65) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.30) !important;
+  border-top: 0.5px solid rgba(255, 248, 220, 0.45) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.60) !important;
   box-shadow:
-    inset 0 1px 1px rgba(0, 0, 0, 0.45),
-    0 0.5px 1.5px rgba(0, 0, 0, 0.25) !important;
+    inset 0 1px 1px rgba(0, 0, 0, 0.55),
+    0 0.5px 0.5px rgba(255, 255, 255, 0.06) !important;
   line-height: 1 !important;
   box-sizing: border-box !important;
   margin: 0 !important;
@@ -36873,19 +36873,19 @@ body.light-mode .club-credits-label {
 .credit-count-val {
   font-family: var(--font-display, "Cinzel", "Playfair Display", serif) !important;
   font-weight: 800 !important;
-  color: #fff4d6 !important;
-  font-size: 9.5px !important;
+  color: #fcf1d8 !important;
+  font-size: 8.5px !important;
   line-height: 1 !important;
   letter-spacing: 0.02em !important;
 }
 
 .credit-count-label {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 7px !important;
+  font-size: 6.5px !important;
   font-weight: 600 !important;
   color: #d4af55 !important;
-  opacity: 0.88 !important;
-  margin-inline-start: 3px !important;
+  opacity: 0.90 !important;
+  margin-inline-start: 2px !important;
   letter-spacing: 0.03em !important;
   text-transform: uppercase !important;
   line-height: 1 !important;
@@ -36893,117 +36893,159 @@ body.light-mode .club-credits-label {
 
 .credit-count-sep {
   margin: 0 1px !important;
-  opacity: 0.55 !important;
-  font-size: 8px !important;
+  opacity: 0.50 !important;
+  font-size: 7.5px !important;
   color: #d4af55 !important;
   line-height: 1 !important;
 }
 
 body.light-mode .club-credits-readout {
-  color: #432e08 !important;
-  background: linear-gradient(180deg, rgba(255, 253, 248, 0.96) 0%, rgba(244, 237, 222, 0.96) 100%) !important;
-  border: 0.5px solid rgba(196, 154, 72, 0.45) !important;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 0.5px solid rgba(160, 120, 45, 0.30) !important;
+  color: #3b2706 !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 0.5px solid rgba(195, 155, 95, 0.40) !important;
+  border-top: 0.5px solid #ffffff !important;
+  border-bottom: 0.5px solid rgba(160, 120, 45, 0.25) !important;
   box-shadow:
-    inset 0 1px 1.5px rgba(120, 90, 30, 0.12),
-    0 1px 2px rgba(80, 50, 10, 0.08) !important;
+    inset 0 1px 1px rgba(120, 90, 30, 0.12),
+    0 0.5px 1px rgba(0, 0, 0, 0.05) !important;
 }
 
 body.light-mode .credit-count-val {
   color: #2e1f06 !important;
-  font-weight: 800 !important;
 }
 
 body.light-mode .credit-count-label {
   color: #7a5416 !important;
-  opacity: 0.92 !important;
 }
 
 body.light-mode .credit-count-sep {
   color: #8b6b24 !important;
 }
 
-.gauge-pips-strip {
+.gauge-pips-strip,
+#gaugePipsStrip {
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 1.5px !important;
-  padding: 1.5px 3px !important;
-  border-radius: 3px !important;
-  background: rgba(18, 15, 22, 0.45) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.25) !important;
-  border-top: 0.5px solid rgba(255, 240, 190, 0.35) !important;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.45) !important;
+  padding: 1px 3px !important;
+  border-radius: 9999px !important;
+  background: rgba(10, 8, 14, 0.70) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.22) !important;
+  border-top: 0.5px solid rgba(255, 248, 220, 0.35) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.65) !important;
   box-shadow:
-    inset 0 1px 1px rgba(0, 0, 0, 0.40),
-    0 0.5px 0 rgba(255, 255, 255, 0.05) !important;
+    inset 0 0.75px 1px rgba(0, 0, 0, 0.60),
+    0 0.5px 0.5px rgba(255, 255, 255, 0.05) !important;
   margin: 0 !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
   box-sizing: border-box !important;
+  height: 6.5px !important;
+  max-height: 6.5px !important;
+}
+
+body.light-mode .gauge-pips-strip,
+body.light-mode #gaugePipsStrip {
+  background: rgba(240, 232, 218, 0.75) !important;
+  border: 0.5px solid rgba(195, 155, 95, 0.32) !important;
+  border-top: 0.5px solid #ffffff !important;
+  box-shadow: inset 0 0.75px 1px rgba(120, 85, 25, 0.15) !important;
 }
 
 .gauge-pip {
-  width: 2.5px !important;
-  height: 6px !important;
-  border-radius: 0.8px !important;
+  width: 2.2px !important;
+  height: 2.2px !important;
+  border-radius: 50% !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+.gauge-pip.is-filled {
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #ffeaa8 30%, #d4a742 70%, #7a5012 100%) !important;
+  border: none !important;
+  box-shadow: 0 0 1px rgba(212, 175, 55, 0.5) !important;
+}
+
+body.light-mode .gauge-pip.is-filled {
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fff0b8 30%, #d89e2e 70%, #8c5d10 100%) !important;
+  border: none !important;
+  box-shadow: 0 0 1px rgba(184, 142, 62, 0.4) !important;
+}
+
+.gauge-pip.is-spent {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.15) !important;
+  box-shadow: none !important;
+  opacity: 0.35 !important;
+}
+
+body.light-mode .gauge-pip.is-spent {
+  background: rgba(0, 0, 0, 0.06) !important;
+  border: 0.5px solid rgba(195, 155, 95, 0.20) !important;
+  box-shadow: none !important;
+  opacity: 0.35 !important;
 }
 
 #clubCreditsBuyBtn,
 .club-credits-buy {
   position: relative !important;
-  border-radius: 9px !important;
-  padding: 0 7.5px !important;
-  font-size: 8px !important;
+  border-radius: 6px !important;
+  padding: 0 8px 0 6px !important;
+  font-family: "Inter", "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Cairo", sans-serif !important;
+  font-size: 7.5px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.015em !important;
+  letter-spacing: normal !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 2.5px !important;
+  gap: 3px !important;
   cursor: pointer !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
   height: 22px !important;
   min-height: 22px !important;
+  max-height: 22px !important;
   margin: 0 !important;
+  margin-inline-start: auto !important;
   line-height: 1 !important;
   overflow: hidden !important;
+  box-sizing: border-box !important;
   /* 3D Tactile Floating Gold Bullion Liquid Glass */
   background: linear-gradient(
     135deg,
-    rgba(255, 238, 195, 0.28) 0%,
-    rgba(212, 175, 106, 0.20) 38%,
-    rgba(140, 100, 30, 0.28) 72%,
-    rgba(26, 19, 12, 0.55) 100%
+    rgba(255, 238, 195, 0.22) 0%,
+    rgba(212, 175, 106, 0.14) 40%,
+    rgba(140, 100, 30, 0.20) 75%,
+    rgba(22, 17, 12, 0.50) 100%
   ) !important;
   backdrop-filter: blur(14px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
-  border: 0.75px solid rgba(220, 185, 115, 0.55) !important;
-  border-top: 1px solid rgba(255, 252, 240, 0.85) !important;
-  border-bottom: 1px solid rgba(100, 70, 16, 0.60) !important;
+  border: 0.75px solid rgba(220, 185, 115, 0.50) !important;
+  border-top: 1px solid rgba(255, 252, 240, 0.80) !important;
+  border-bottom: 1px solid rgba(90, 60, 15, 0.60) !important;
   box-shadow:
-    0 2px 6px -1px rgba(0, 0, 0, 0.50),
-    0 0.5px 1.5px rgba(212, 175, 106, 0.30),
-    inset 0 1px 1px rgba(255, 255, 255, 0.60),
-    inset 0 -1px 1px rgba(50, 35, 10, 0.60) !important;
-  color: #fff8e8 !important;
+    0 2px 5px -1px rgba(0, 0, 0, 0.50),
+    0 0.5px 1px rgba(212, 175, 106, 0.25),
+    inset 0 0.75px 0.75px rgba(255, 255, 255, 0.50),
+    inset 0 -0.75px 0.75px rgba(40, 25, 8, 0.55) !important;
+  color: #fff6de !important;
   text-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.8) !important;
   transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 #clubCreditsBuyBtn .alloc-plus-glyph {
-  font-size: 8.5px !important;
+  font-size: 8px !important;
   line-height: 1 !important;
   font-weight: 800 !important;
-  display: inline-block !important;
+  display: inline-flex !important;
   margin: 0 !important;
 }
 
 #clubCreditsBuyBtn .alloc-btn-label {
-  font-size: 8px !important;
+  font-family: "Inter", "Liberation Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Cairo", sans-serif !important;
+  font-size: 7.5px !important;
   line-height: 1 !important;
   white-space: nowrap !important;
 }
@@ -37012,18 +37054,17 @@ body.light-mode .credit-count-sep {
 .club-credits-buy:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 244, 205, 0.34) 0%,
-    rgba(225, 190, 115, 0.26) 40%,
-    rgba(160, 115, 35, 0.32) 75%,
-    rgba(32, 23, 14, 0.60) 100%
+    rgba(255, 245, 215, 0.30) 0%,
+    rgba(225, 190, 120, 0.22) 42%,
+    rgba(160, 115, 35, 0.26) 78%,
+    rgba(32, 24, 14, 0.55) 100%
   ) !important;
-  border-color: rgba(240, 205, 130, 0.75) !important;
+  border-color: rgba(245, 210, 135, 0.70) !important;
   border-top-color: #ffffff !important;
   box-shadow:
-    0 3px 8px -1px rgba(212, 175, 106, 0.40),
-    0 1.5px 3px rgba(0, 0, 0, 0.5),
-    inset 0 1px 1px #ffffff,
-    inset 0 -1px 1px rgba(50, 35, 10, 0.70) !important;
+    0 3px 8px -1px rgba(0, 0, 0, 0.55),
+    0 0 8px rgba(212, 175, 106, 0.30),
+    inset 0 1px 1px #ffffff !important;
   transform: translateY(-0.5px) !important;
 }
 
@@ -37031,21 +37072,21 @@ body.light-mode #clubCreditsBuyBtn,
 body.light-mode .club-credits-buy {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(252, 246, 234, 0.82) 45%,
-    rgba(242, 230, 208, 0.70) 100%
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(252, 246, 234, 0.80) 45%,
+    rgba(242, 230, 208, 0.68) 100%
   ) !important;
   backdrop-filter: blur(14px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
-  border: 0.75px solid rgba(197, 160, 89, 0.60) !important;
+  border: 0.75px solid rgba(197, 160, 89, 0.55) !important;
   border-top: 1px solid #ffffff !important;
-  border-bottom: 1px solid rgba(160, 120, 45, 0.40) !important;
+  border-bottom: 1px solid rgba(150, 110, 35, 0.35) !important;
   box-shadow:
-    0 2px 6px -1px rgba(90, 60, 15, 0.18),
-    0 0.5px 1.5px rgba(212, 175, 55, 0.25),
+    0 2px 5px -1px rgba(90, 60, 15, 0.15),
+    0 0.5px 1px rgba(212, 175, 55, 0.20),
     inset 0 1px 1px #ffffff,
-    inset 0 -1px 1px rgba(184, 141, 56, 0.20) !important;
-  color: #583c10 !important;
+    inset 0 -1px 1px rgba(184, 141, 56, 0.18) !important;
+  color: #483009 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
 }
 
@@ -37071,32 +37112,11 @@ body.light-mode .club-credits-buy:hover {
   #clubCreditsDisplay,
   .club-credits-display,
   .club-credits-wrapper {
-    padding: 2.5px 7px !important;
+    padding: 0 8px !important;
     gap: 6px !important;
   }
   .club-credits-info {
-    gap: 4px !important;
-  }
-  .club-credits-readout {
-    padding: 1.2px 4.5px !important;
-    font-size: 8px !important;
-  }
-  .gauge-pips-strip {
-    margin: 0 !important;
-    gap: 1.3px !important;
-    padding: 1.2px 2.5px !important;
-  }
-  .gauge-pip {
-    width: 2.2px !important;
-    height: 5.5px !important;
-  }
-  #clubCreditsBuyBtn,
-  .club-credits-buy {
-    margin: 0 !important;
-    padding: 0 6.5px !important;
-    font-size: 7.8px !important;
-    height: 21px !important;
-    min-height: 21px !important;
+    gap: 5px !important;
   }
 }
 
@@ -37104,83 +37124,74 @@ body.light-mode .club-credits-buy:hover {
   #clubCreditsDisplay,
   .club-credits-display,
   .club-credits-wrapper {
-    padding: 2px 6px !important;
-    gap: 5px !important;
-    min-height: 26px !important;
+    padding: 0 6px !important;
+    gap: 4px !important;
   }
   .club-credits-info {
     gap: 3.5px !important;
   }
   .club-credits-crown {
-    font-size: 8.5px !important;
-    margin: 0 !important;
-  }
-  .club-credits-label {
-    font-size: 7.8px !important;
-    margin: 0 !important;
-  }
-  .club-credits-readout {
     font-size: 8px !important;
-    padding: 1px 4px !important;
-    margin: 0 !important;
-  }
-  .credit-count-val {
-    font-size: 8.5px !important;
-  }
-  .credit-count-label {
-    font-size: 6.5px !important;
-    margin-inline-start: 2px !important;
-  }
-  .gauge-pips-strip {
-    gap: 1.2px !important;
-    padding: 1px 2px !important;
-    margin: 0 !important;
-  }
-  .gauge-pip {
-    width: 2px !important;
-    height: 5px !important;
-    border-radius: 0.6px !important;
-  }
-  #clubCreditsBuyBtn,
-  .club-credits-buy {
-    padding: 0 5.5px !important;
-    font-size: 7.2px !important;
-    height: 20px !important;
-    min-height: 20px !important;
-    gap: 2px !important;
-    margin: 0 !important;
-  }
-  #clubCreditsBuyBtn .alloc-plus-glyph {
-    font-size: 7.8px !important;
-  }
-  #clubCreditsBuyBtn .alloc-btn-label {
-    font-size: 7.2px !important;
-  }
-}
-
-@media (max-width: 340px) {
-  .gauge-pips-strip {
-    gap: 1px !important;
-    padding: 1px 1.8px !important;
-    margin: 0 !important;
-  }
-  .gauge-pip {
-    width: 1.8px !important;
-    height: 4.5px !important;
   }
   .club-credits-label {
     font-size: 7.5px !important;
-    margin: 0 !important;
   }
   .club-credits-readout {
     font-size: 7.5px !important;
     padding: 1px 3.5px !important;
   }
+  .credit-count-val {
+    font-size: 8px !important;
+  }
+  .gauge-pips-strip {
+    gap: 1.2px !important;
+    padding: 0.8px 2.5px !important;
+    height: 6px !important;
+    max-height: 6px !important;
+  }
+  .gauge-pip {
+    width: 2px !important;
+    height: 2px !important;
+  }
   #clubCreditsBuyBtn,
   .club-credits-buy {
-    padding: 0 4.5px !important;
+    padding: 0 6px 0 5px !important;
+    font-size: 7px !important;
+    height: 20px !important;
+    min-height: 20px !important;
+    max-height: 20px !important;
+    gap: 2px !important;
+  }
+  #clubCreditsBuyBtn .alloc-plus-glyph {
+    font-size: 7.5px !important;
+  }
+  #clubCreditsBuyBtn .alloc-btn-label {
+    font-size: 7px !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .club-credits-label {
+    font-size: 7.2px !important;
+  }
+  .club-credits-readout {
+    font-size: 7.2px !important;
+    padding: 1px 3px !important;
+  }
+  .gauge-pips-strip {
+    gap: 1px !important;
+    padding: 0.6px 2px !important;
+    height: 5.5px !important;
+    max-height: 5.5px !important;
+  }
+  .gauge-pip {
+    width: 1.8px !important;
+    height: 1.8px !important;
+  }
+  #clubCreditsBuyBtn,
+  .club-credits-buy {
+    padding: 0 5px 0 4px !important;
     font-size: 6.8px !important;
-    margin: 0 !important;
   }
 }
 
@@ -38577,38 +38588,50 @@ body:not(.light-mode) #clubCreditsBuyBtn,
 body:not(.light-mode) .club-credits-buy {
   background: linear-gradient(
     135deg,
-    rgba(212, 175, 55, 0.18) 0%,
-    rgba(184, 142, 62, 0.09) 50%,
-    rgba(212, 175, 55, 0.20) 100%
+    rgba(255, 238, 195, 0.22) 0%,
+    rgba(212, 175, 106, 0.14) 40%,
+    rgba(140, 100, 30, 0.20) 75%,
+    rgba(22, 17, 12, 0.50) 100%
   ) !important;
-  backdrop-filter: blur(14px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.42) !important;
-  border-top: 1.2px solid rgba(255, 248, 220, 0.70) !important;
-  border-bottom: 1px solid rgba(120, 85, 20, 0.45) !important;
+  backdrop-filter: blur(14px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
+  border: 0.75px solid rgba(220, 185, 115, 0.50) !important;
+  border-top: 1px solid rgba(255, 252, 240, 0.80) !important;
+  border-bottom: 1px solid rgba(90, 60, 15, 0.60) !important;
   box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.35),
-    inset 0 1px 1px rgba(255, 255, 255, 0.35),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.25) !important;
-  color: #fff2c8 !important;
+    0 2px 5px -1px rgba(0, 0, 0, 0.50),
+    0 0.5px 1px rgba(212, 175, 106, 0.25),
+    inset 0 0.75px 0.75px rgba(255, 255, 255, 0.50),
+    inset 0 -0.75px 0.75px rgba(40, 25, 8, 0.55) !important;
+  color: #fff6de !important;
   font-weight: 700 !important;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
-  border-radius: 10px !important;
-  height: 24px !important;
-  min-height: 24px !important;
-  padding: 0 10px 0 8px !important;
+  font-size: 7.5px !important;
+  text-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 6px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  padding: 0 8px 0 6px !important;
+  margin: 0 !important;
+  margin-inline-start: auto !important;
   transition: all 0.2s ease !important;
 }
 
 body:not(.light-mode) #clubCreditsBuyBtn:hover,
 body:not(.light-mode) .club-credits-buy:hover {
-  background: rgba(212, 175, 55, 0.25) !important;
-  border-color: rgba(212, 175, 55, 0.70) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 245, 215, 0.30) 0%,
+    rgba(225, 190, 120, 0.22) 42%,
+    rgba(160, 115, 35, 0.26) 78%,
+    rgba(32, 24, 14, 0.55) 100%
+  ) !important;
+  border-color: rgba(245, 210, 135, 0.70) !important;
   border-top-color: #ffffff !important;
   box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.45),
-    0 0 10px rgba(212, 175, 55, 0.35),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.60) !important;
+    0 3px 8px -1px rgba(0, 0, 0, 0.55),
+    0 0 8px rgba(212, 175, 106, 0.30),
+    inset 0 1px 1px #ffffff !important;
   transform: translateY(-0.5px) !important;
 }
 
@@ -38616,38 +38639,49 @@ body.light-mode #clubCreditsBuyBtn,
 body.light-mode .club-credits-buy {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.75) 0%,
-    rgba(248, 235, 195, 0.45) 50%,
-    rgba(255, 255, 255, 0.70) 100%
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(252, 246, 234, 0.80) 45%,
+    rgba(242, 230, 208, 0.68) 100%
   ) !important;
   backdrop-filter: blur(14px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
-  border: 1px solid rgba(190, 145, 55, 0.48) !important;
-  border-top: 1.2px solid #ffffff !important;
-  border-bottom: 1px solid rgba(150, 105, 30, 0.30) !important;
+  border: 0.75px solid rgba(197, 160, 89, 0.55) !important;
+  border-top: 1px solid #ffffff !important;
+  border-bottom: 1px solid rgba(150, 110, 35, 0.35) !important;
   box-shadow:
-    0 2px 6px rgba(130, 95, 25, 0.10),
-    inset 0 1px 1.2px #ffffff,
-    inset 0 -1px 1px rgba(180, 140, 50, 0.15) !important;
-  color: #3d2806 !important;
+    0 2px 5px -1px rgba(90, 60, 15, 0.15),
+    0 0.5px 1px rgba(212, 175, 55, 0.20),
+    inset 0 1px 1px #ffffff,
+    inset 0 -1px 1px rgba(184, 141, 56, 0.18) !important;
+  color: #483009 !important;
   font-weight: 700 !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) !important;
-  border-radius: 10px !important;
-  height: 24px !important;
-  min-height: 24px !important;
-  padding: 0 10px 0 8px !important;
+  font-size: 7.5px !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  border-radius: 6px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  padding: 0 8px 0 6px !important;
+  margin: 0 !important;
+  margin-inline-start: auto !important;
   transition: all 0.2s ease !important;
 }
 
 body.light-mode #clubCreditsBuyBtn:hover,
 body.light-mode .club-credits-buy:hover {
-  background: rgba(255, 255, 255, 0.90) !important;
-  border-color: rgba(180, 135, 45, 0.75) !important;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    rgba(255, 250, 240, 0.95) 45%,
+    rgba(248, 238, 218, 0.85) 100%
+  ) !important;
+  border-color: rgba(197, 160, 89, 0.80) !important;
   border-top-color: #ffffff !important;
   box-shadow:
-    0 4px 12px rgba(130, 95, 25, 0.18),
-    0 0 8px rgba(212, 175, 55, 0.30),
-    inset 0 1px 1.5px #ffffff !important;
+    0 3px 8px -1px rgba(90, 60, 15, 0.22),
+    0 1px 2px rgba(212, 175, 55, 0.30),
+    inset 0 1px 1px #ffffff,
+    inset 0 -1px 1px rgba(184, 141, 56, 0.25) !important;
   transform: translateY(-0.5px) !important;
 }
 
@@ -39330,7 +39364,7 @@ body.light-mode .club-pinned.club-chamber-plaque .chamber-plaque-close-btn:hover
 
 #clubCreditsDisplay,
 .club-credits-display {
-  border-radius: 14px !important;
+  border-radius: 9999px !important;
   margin: 0 !important;
   margin-bottom: 0 !important;
   position: relative !important;
@@ -39344,19 +39378,16 @@ body.light-mode .club-pinned.club-chamber-plaque .chamber-plaque-close-btn:hover
 /* Dark Mode: Translucent Smoked Obsidian Liquid Glass */
 body:not(.light-mode) #clubCreditsDisplay,
 body:not(.light-mode) .club-credits-display {
-  background: linear-gradient(
-    135deg,
-    rgba(22, 18, 28, 0.44) 0%,
-    rgba(14, 11, 18, 0.30) 50%,
-    rgba(8, 6, 12, 0.46) 100%
-  ) !important;
-  border: 1px solid rgba(212, 175, 55, 0.26) !important;
-  border-top: 1.5px solid rgba(255, 248, 220, 0.50) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.55) !important;
+  background:
+    radial-gradient(ellipse 90% 60% at 20% 0%, rgba(255, 248, 220, 0.12) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(24, 19, 29, 0.52) 0%, rgba(14, 11, 18, 0.38) 50%, rgba(10, 8, 14, 0.48) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  border-top: 1.2px solid rgba(255, 248, 220, 0.55) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.65) !important;
   box-shadow:
-    0 8px 26px -2px rgba(0, 0, 0, 0.50),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.22),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.35) !important;
+    0 6px 20px -2px rgba(0, 0, 0, 0.48),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.35) !important;
 }
 
 /* Light Mode: Translucent Champagne Ivory Crystal Liquid Glass */
@@ -39364,54 +39395,53 @@ body.light-mode #clubCreditsDisplay,
 body.light-mode .club-credits-display,
 html.light-mode #clubCreditsDisplay,
 :root[data-theme="light"] #clubCreditsDisplay {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.68) 0%,
-    rgba(252, 248, 238, 0.42) 50%,
-    rgba(246, 238, 222, 0.55) 100%
-  ) !important;
-  border: 1px solid rgba(195, 155, 95, 0.42) !important;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.98) !important;
-  border-bottom: 1px solid rgba(160, 120, 45, 0.25) !important;
+  background:
+    radial-gradient(ellipse 95% 65% at 25% 0%, rgba(255, 255, 255, 0.85) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(252, 248, 238, 0.48) 50%, rgba(244, 236, 218, 0.60) 100%) !important;
+  border: 1px solid rgba(195, 155, 95, 0.38) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1px solid rgba(160, 120, 50, 0.25) !important;
   box-shadow:
-    0 8px 24px -2px rgba(110, 80, 25, 0.08),
+    0 6px 20px -2px rgba(120, 85, 25, 0.10),
     0 2px 6px -1px rgba(120, 85, 25, 0.04),
-    inset 0 1.2px 1.5px rgba(255, 255, 255, 0.98),
-    inset 0 -1px 1.5px rgba(180, 140, 60, 0.12) !important;
+    inset 0 1px 1px #ffffff,
+    inset 0 -1px 1.5px rgba(184, 142, 62, 0.14) !important;
 }
 
 /* Glassy Readout Pill (e.g. 10 / 10) */
 body:not(.light-mode) #club-tab #clubCreditsText,
 body:not(.light-mode) .club-credits-readout {
-  background: rgba(212, 175, 55, 0.10) !important;
+  background: rgba(18, 14, 22, 0.65) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(212, 175, 55, 0.28) !important;
-  border-top: 1px solid rgba(255, 248, 220, 0.45) !important;
-  color: #fce8b2 !important;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.30) !important;
+  border-top: 0.5px solid rgba(255, 248, 220, 0.45) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.60) !important;
+  color: #fcedcb !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.55), 0 0.5px 0.5px rgba(255, 255, 255, 0.06) !important;
 }
 
 body.light-mode #club-tab #clubCreditsText,
 body.light-mode .club-credits-readout {
-  background: rgba(255, 255, 255, 0.65) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(195, 155, 95, 0.38) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
-  color: #3d2806 !important;
-  box-shadow: inset 0 1px 1px #ffffff, 0 1px 3px rgba(120, 85, 25, 0.05) !important;
+  border: 0.5px solid rgba(195, 155, 95, 0.40) !important;
+  border-top: 0.5px solid #ffffff !important;
+  border-bottom: 0.5px solid rgba(160, 120, 45, 0.25) !important;
+  color: #3b2706 !important;
+  box-shadow: inset 0 1px 1px rgba(120, 90, 30, 0.12), 0 0.5px 1px rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Glassy Crown & Label Typography */
 body:not(.light-mode) .club-credits-label {
-  color: #f7e8ba !important;
+  color: #e6dac1 !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6) !important;
 }
 
 body.light-mode .club-credits-label {
   color: #3d2806 !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
 }
 
 #obsidianDispatchComposer,
@@ -39914,14 +39944,17 @@ body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-board-tag {
   font-weight: 800 !important;
 }
 
-/* 10. MESSAGE ALLOCATION GAUGE PIPS — REFINED HOROLOGICAL JEWEL TREATMENT */
+/* 10. MESSAGE ALLOCATION GAUGE PIPS — REFINED HOROLOGICAL MICRO-BEAD JEWEL TREATMENT */
 .gauge-pips-strip,
 #gaugePipsStrip {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 1.5px !important;
-  padding: 1.5px 3px !important;
-  border-radius: 3px !important;
+  justify-content: center !important;
+  gap: 1.2px !important;
+  padding: 1px 3px !important;
+  border-radius: 9999px !important;
+  height: 6.5px !important;
+  max-height: 6.5px !important;
   backdrop-filter: blur(14px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
   margin: 0 !important;
@@ -39934,75 +39967,59 @@ body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-board-tag {
 
 body:not(.light-mode) .gauge-pips-strip,
 body:not(.light-mode) #gaugePipsStrip {
-  background: rgba(18, 16, 24, 0.45) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.25) !important;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.28) !important;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.45) !important;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.40), 0 0.5px 1px rgba(0, 0, 0, 0.20) !important;
+  background: rgba(10, 8, 14, 0.70) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.22) !important;
+  border-top: 0.5px solid rgba(255, 248, 220, 0.35) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.65) !important;
+  box-shadow: inset 0 0.75px 1px rgba(0, 0, 0, 0.60), 0 0.5px 0.5px rgba(255, 255, 255, 0.05) !important;
 }
 
 body.light-mode .gauge-pips-strip,
 body.light-mode #gaugePipsStrip {
-  background: rgba(255, 255, 255, 0.50) !important;
+  background: rgba(240, 232, 218, 0.75) !important;
   border: 0.5px solid rgba(195, 155, 95, 0.32) !important;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 0.5px solid rgba(170, 130, 60, 0.18) !important;
-  box-shadow: inset 0 0.5px 1px rgba(120, 85, 25, 0.08), 0 0.5px 1px rgba(255, 255, 255, 0.6) !important;
+  border-top: 0.5px solid #ffffff !important;
+  box-shadow: inset 0 0.75px 1px rgba(120, 85, 25, 0.15) !important;
 }
 
 .gauge-pips-strip .gauge-pip {
-  width: 2.5px !important;
-  height: 6px !important;
-  border-radius: 0.8px !important;
+  width: 2.2px !important;
+  height: 2.2px !important;
+  border-radius: 50% !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
+  margin: 0 !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Liquid Gold Crystal Pips (Active Allocation) */
+/* Liquid Gold Micro-Bead Jewels (Active Allocation) */
 body:not(.light-mode) .gauge-pips-strip .gauge-pip.is-filled {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 248, 225, 0.95) 0%,
-    rgba(235, 200, 115, 0.90) 45%,
-    rgba(180, 135, 45, 0.92) 100%
-  ) !important;
+  background: radial-gradient(circle at 35% 30%, #fffbf0 0%, #dfb455 50%, #997322 100%) !important;
   border: 0.5px solid rgba(255, 248, 220, 0.55) !important;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 0.5px solid rgba(90, 60, 12, 0.60) !important;
   box-shadow:
-    0 0 2px rgba(212, 175, 55, 0.35),
-    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.75) !important;
+    inset 0 0.3px 0.3px rgba(255, 255, 255, 0.70),
+    0 0 1px rgba(223, 180, 85, 0.45) !important;
 }
 
 body.light-mode .gauge-pips-strip .gauge-pip.is-filled {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 242, 185, 0.95) 0%,
-    rgba(225, 180, 80, 0.90) 40%,
-    rgba(185, 135, 45, 0.92) 100%
-  ) !important;
+  background: radial-gradient(circle at 35% 30%, #fffbf0 0%, #c49432 50%, #875e18 100%) !important;
   border: 0.5px solid rgba(195, 145, 45, 0.65) !important;
-  border-top: 0.5px solid #ffffff !important;
-  border-bottom: 0.5px solid rgba(140, 95, 25, 0.40) !important;
-  box-shadow:
-    0 0 2px rgba(212, 175, 55, 0.30),
-    inset 0 0.5px 0.5px rgba(255, 255, 255, 0.85) !important;
+  box-shadow: inset 0 0.3px 0.3px #ffffff, 0 0 1px rgba(120, 85, 25, 0.25) !important;
 }
 
-/* Liquid Smoked Obsidian Glass (Spent/Empty Allocation) */
+/* Smoked Obsidian Micro-Sockets (Spent/Empty Allocation) */
 body:not(.light-mode) .gauge-pips-strip .gauge-pip.is-spent {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.12) !important;
-  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.45) !important;
-  opacity: 0.45 !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.10) !important;
+  box-shadow: inset 0 0.5px 0.75px rgba(0, 0, 0, 0.50) !important;
+  opacity: 0.35 !important;
 }
 
 body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
   background: rgba(0, 0, 0, 0.04) !important;
-  border: 0.5px solid rgba(195, 155, 95, 0.18) !important;
-  box-shadow: inset 0 0.5px 1px rgba(120, 85, 25, 0.08) !important;
-  opacity: 0.40 !important;
+  border: 0.5px solid rgba(195, 155, 95, 0.16) !important;
+  box-shadow: inset 0 0.5px 0.75px rgba(120, 85, 25, 0.08) !important;
+  opacity: 0.35 !important;
 }
 
 /* Shimmer interaction */
@@ -40015,38 +40032,43 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
     filter: brightness(1) drop-shadow(0 0 0 transparent);
   }
   50% {
-    filter: brightness(1.25) drop-shadow(0 0 2px rgba(255, 248, 220, 0.6));
+    filter: brightness(1.20) drop-shadow(0 0 1.5px rgba(255, 248, 220, 0.5));
   }
 }
 
 @media (max-width: 360px) {
-  .gauge-pips-strip .gauge-pip {
-    width: 2px !important;
-    height: 5px !important;
-    border-radius: 0.6px !important;
-  }
   .gauge-pips-strip,
   #gaugePipsStrip {
-    gap: 1.2px !important;
-    padding: 1px 2px !important;
+    gap: 1px !important;
+    padding: 0.8px 2.5px !important;
+    height: 6px !important;
+    max-height: 6px !important;
     margin: 0 !important;
     margin-inline-start: 0 !important;
+  }
+  .gauge-pips-strip .gauge-pip {
+    width: 2px !important;
+    height: 2px !important;
+    border-radius: 50% !important;
   }
 }
 
 @media (max-width: 340px) {
-  .gauge-pips-strip .gauge-pip {
-    width: 1.8px !important;
-    height: 4.5px !important;
-    border-radius: 0.5px !important;
-  }
   .gauge-pips-strip,
   #gaugePipsStrip {
-    gap: 1px !important;
-    padding: 1px 1.8px !important;
+    gap: 0.8px !important;
+    padding: 0.5px 2px !important;
+    height: 5.5px !important;
+    max-height: 5.5px !important;
     margin: 0 !important;
     margin-inline-start: 0 !important;
   }
+  .gauge-pips-strip .gauge-pip {
+    width: 1.8px !important;
+    height: 1.8px !important;
+    border-radius: 50% !important;
+  }
 }
 /* ========================================================= */
+
 
