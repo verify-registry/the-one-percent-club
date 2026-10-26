@@ -53,11 +53,9 @@ app.use(
     lastModified: true,
     setHeaders: (res, filePath) => {
       res.setHeader("Vary", "Accept-Encoding");
-      if (filePath.endsWith(".html")) {
+      if (filePath.endsWith(".html") || filePath.endsWith(".css") || filePath.endsWith(".js")) {
         res.setHeader("Cache-Control", "no-cache, must-revalidate");
       } else if (
-        filePath.endsWith(".js") ||
-        filePath.endsWith(".css") ||
         filePath.endsWith(".svg") ||
         filePath.endsWith(".woff2") ||
         filePath.endsWith(".png") ||

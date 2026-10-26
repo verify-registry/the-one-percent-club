@@ -456,80 +456,118 @@ window.SOVEREIGN_ARTIFACTS.crown_zenith = `
 // 2. RINGS & JEWELRY
 // =========================================================
 
-// // (5) ring1 — Sovereign Octagonal Geometric Monogram Signet
-window.SOVEREIGN_ARTIFACTS.ring_monogram = `
-<svg viewBox="0 0 100 100" fill="none" class="artifact-svg" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="rg1_shadow" cx="50%" cy="88%" r="44%">
-      <stop offset="0%" stop-color="#000000" stop-opacity="0.8"/>
-      <stop offset="50%" stop-color="#000000" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="rg1_goldLit" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="20%" stop-color="#faecc5"/>
-      <stop offset="55%" stop-color="#dcae4a"/>
-      <stop offset="100%" stop-color="#b08427"/>
-    </linearGradient>
-    <linearGradient id="rg1_goldShd" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8a6117"/>
-      <stop offset="50%" stop-color="#55380b"/>
-      <stop offset="100%" stop-color="#231502"/>
-    </linearGradient>
-    <linearGradient id="rg1_obsidian" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#26211c"/>
-      <stop offset="50%" stop-color="#120f0d"/>
-      <stop offset="100%" stop-color="#040303"/>
-    </linearGradient>
-  </defs>
+// (5) ring1 — Sovereign Octagonal Geometric Monogram Signet
+(() => {
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="artifact-svg">
+    <defs>
+      <linearGradient id="signetGold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff7d4"/>
+        <stop offset=".18" stop-color="#f4d98b"/>
+        <stop offset=".38" stop-color="#9b6b20"/>
+        <stop offset=".55" stop-color="#fff0ad"/>
+        <stop offset=".76" stop-color="#bd8730"/>
+        <stop offset="1" stop-color="#4a2d0b"/>
+      </linearGradient>
+      <linearGradient id="signetDark" x1="0" y1="0" x2=".8" y2="1">
+        <stop offset="0" stop-color="#292720"/>
+        <stop offset=".45" stop-color="#050505"/>
+        <stop offset="1" stop-color="#17130b"/>
+      </linearGradient>
+      <linearGradient id="signetSide" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#4c300b"/>
+        <stop offset=".35" stop-color="#d5a746"/>
+        <stop offset=".65" stop-color="#76501b"/>
+        <stop offset="1" stop-color="#211605"/>
+      </linearGradient>
+      <filter id="signetShadow" x="-30%" y="-30%" width="160%" height="170%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+        <feOffset dy="2"/>
+        <feComponentTransfer>
+          <feFuncA type="linear" slope=".8"/>
+        </feComponentTransfer>
+        <feMerge>
+          <feMergeNode/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
 
-  <!-- Ambient Contact Shadow on Pedestal -->
-  <ellipse cx="50" cy="88" rx="32" ry="6" fill="url(#rg1_shadow)"/>
+    <!-- Sculpted lower shank -->
+    <path d="M29 48 L35 61 Q50 72 65 61 L71 48
+             L65 44 L60 56 Q50 62 40 56 L35 44 Z"
+          fill="url(#signetSide)" stroke="#f1d58b" stroke-width=".7"/>
+    <path d="M35 49 L40 57 Q50 63 60 57 L65 49"
+          fill="none" stroke="#fff0b2" stroke-width="1.1"/>
 
-  <!-- Geometric Polygonal Ring Shank (Faceted Lower Hexagonal Arc) -->
-  <polygon points="26,46 18,58 26,76 50,84 74,76 82,58 74,46 64,54 50,60 36,54" fill="url(#rg1_goldShd)"/>
-  <polygon points="26,46 18,58 26,76 50,84 50,78 30,72 24,58 30,48" fill="url(#rg1_goldLit)"/>
-  <!-- Hollow Inner Finger Aperture (Octagonal Inset) -->
-  <polygon points="32,48 50,54 68,48 72,56 66,70 50,76 34,70 28,56" fill="#0c0803"/>
+    <!-- Heavy octagonal bezel, dark cast shadow -->
+    <path d="M32 18 L68 18 L82 32 L82 52
+             L68 66 L32 66 L18 52 L18 32 Z"
+          transform="translate(1.5 2)"
+          fill="#120d04" stroke="#3a2509" stroke-width="2"
+          filter="url(#signetShadow)"/>
 
-  <!-- Chiseled Geometric Shoulder Facets -->
-  <polygon points="18,34 32,18 34,48 18,48" fill="url(#rg1_goldLit)"/>
-  <polygon points="82,34 68,18 66,48 82,48" fill="url(#rg1_goldShd)"/>
-  <line x1="18" y1="34" x2="34" y2="48" stroke="#ffffff" stroke-width="0.8" opacity="0.8"/>
-  <line x1="82" y1="34" x2="66" y2="48" stroke="#ffffff" stroke-width="0.5" opacity="0.4"/>
+    <!-- Outer machined gold bevel -->
+    <path d="M32 17 L68 17 L83 32 L83 52
+             L68 67 L32 67 L17 52 L17 32 Z"
+          fill="url(#signetGold)" stroke="#fff0bb" stroke-width="1"/>
 
-  <!-- Massive Octagonal Signet Platform (Outer Chamfered Bezel) -->
-  <polygon points="34,16 66,16 80,30 80,56 66,70 34,70 20,56 20,30" fill="url(#rg1_goldLit)" stroke="#231502" stroke-width="0.8"/>
-  <polygon points="34,18 66,18 78,30 78,56 66,68 34,68 22,56 22,30" fill="url(#rg1_goldShd)"/>
-  
-  <!-- Specular Chamfer Rim Edge (Top & Left Razor Light) -->
-  <polygon points="34,16 66,16 64,19 36,19 23,32 20,30" fill="#ffffff" opacity="0.9"/>
-  <polygon points="20,30 23,32 23,54 20,56" fill="#ffffff" opacity="0.7"/>
+    <!-- Inner bevel channel -->
+    <path d="M34 21 L66 21 L78 33 L78 51
+             L66 63 L34 63 L22 51 L22 33 Z"
+          fill="#3d290c" stroke="#6e4a16" stroke-width="1.2"/>
 
-  <!-- Sunken Octagonal Obsidian Table Plate -->
-  <polygon points="36,22 64,22 74,32 74,54 64,64 36,64 26,54 26,32" fill="url(#rg1_obsidian)"/>
-  <!-- Beaded Inner Gold Perimeter -->
-  <polygon points="37,23 63,23 73,33 73,53 63,63 37,63 27,53 27,33" fill="none" stroke="url(#rg1_goldLit)" stroke-width="0.6" stroke-dasharray="1.5 1.5"/>
+    <path d="M35 24 L65 24 L75 34 L75 50
+             L65 60 L35 60 L25 50 L25 34 Z"
+          fill="url(#signetGold)" stroke="#fff4cf" stroke-width=".8"/>
 
-  <!-- Pure Geometric Chiseled "1%" Sovereign Monogram Vectors -->
-  <!-- Numeral '1' (Faceted Gold Blade) -->
-  <polygon points="40,36 44,32 46,32 46,54 42,54 42,37" fill="url(#rg1_goldLit)"/>
-  <polygon points="44,32 46,32 46,54 44,54" fill="url(#rg1_goldShd)"/>
-  <line x1="44" y1="32" x2="44" y2="54" stroke="#ffffff" stroke-width="0.6" opacity="0.95"/>
-  <polygon points="39,54 49,54 47,56 41,56" fill="url(#rg1_goldLit)"/>
+    <!-- Recessed obsidian face -->
+    <path d="M36 27 L64 27 L72 35 L72 49
+             L64 57 L36 57 L28 49 L28 35 Z"
+          fill="url(#signetDark)" stroke="#17120a" stroke-width="1.5"/>
 
-  <!-- Percent '%' Geometric Elements -->
-  <!-- Slash Bar (Chiseled Diagonal Blade) -->
-  <polygon points="58,32 62,32 50,54 46,54" fill="url(#rg1_goldLit)"/>
-  <polygon points="60,32 62,32 50,54 48,54" fill="url(#rg1_goldShd)"/>
-  <line x1="60" y1="32" x2="48" y2="54" stroke="#ffffff" stroke-width="0.6" opacity="0.9"/>
-  <!-- Top Rhombus Pip -->
-  <polygon points="50,34 53,37 50,40 47,37" fill="url(#rg1_goldLit)"/>
-  <circle cx="50" cy="37" r="0.8" fill="#ffffff"/>
-  <!-- Bottom Rhombus Pip -->
-  <polygon points="58,46 61,49 58,52 55,49" fill="url(#rg1_goldLit)"/>
-  <circle cx="58" cy="49" r="0.8" fill="#ffffff"/>
-</svg>`;
+    <!-- Fine engraved inner perimeter -->
+    <path d="M37 29 L63 29 L70 36 L70 48
+             L63 55 L37 55 L30 48 L30 36 Z"
+          fill="none" stroke="#e5c779" stroke-width=".55"
+          stroke-dasharray="1.3 1.5"/>
+
+    <!-- Restrained obsidian reflection -->
+    <path d="M35 31 L42 29 L33 47 L31 45 Z"
+          fill="#ffffff" opacity=".16"/>
+    <path d="M40 29 L43 29 L35 44"
+          fill="none" stroke="#fff9e8" stroke-width=".7" opacity=".65"/>
+
+    <!-- Raised 1% monogram -->
+    <text x="50.7" y="45.8" text-anchor="middle"
+          font-family="Georgia,serif" font-size="16"
+          font-weight="bold" fill="#5b3b0b">1%</text>
+    <text x="50" y="44.8" text-anchor="middle"
+          font-family="Georgia,serif" font-size="16"
+          font-weight="bold" fill="url(#signetGold)"
+          stroke="#fff2bd" stroke-width=".22">1%</text>
+
+    <!-- Four tiny platinum hallmarks -->
+    <path d="M25 32 L27 34 L25 36 L23 34 Z
+             M75 32 L77 34 L75 36 L73 34 Z
+             M25 48 L27 50 L25 52 L23 50 Z
+             M75 48 L77 50 L75 52 L73 50 Z"
+          fill="#e7e4d7" stroke="#fff9e8" stroke-width=".35"/>
+
+    <!-- Crisp top-edge highlights -->
+    <path d="M32 17 L68 17 L83 32"
+          fill="none" stroke="#fff8df" stroke-width="1.3"/>
+    <path d="M17 32 L17 52 L32 67"
+          fill="none" stroke="#9a6c26" stroke-width=".8"/>
+  </svg>`;
+
+  if (!window.SOVEREIGN_ARTIFACTS) {
+    throw new Error("SOVEREIGN_ARTIFACTS registry was not found.");
+  }
+
+  window.SOVEREIGN_ARTIFACTS.ring_monogram = svg;
+  window.SOVEREIGN_ARTIFACTS.ring1 = svg;
+})();
 
 // (6) ring2 — Black Onyx Emerald-Cut Architectural Signet
 window.SOVEREIGN_ARTIFACTS.ring_onyx = `
@@ -2432,36 +2470,64 @@ window.renderClocheVitrine = function(artifactSvg, isObsidianBase = false, uid =
 
     /* ==================== CROWNS ==================== */
 
+    // (4) crown1 / crown_imperial — Imperial Obsidian Crown ($2,500)
     crown_imperial: `
-      <ellipse cx="50" cy="82" rx="34" ry="5" fill="__SH__"/>
-      <path d="M22 68Q22 47 34 36Q43 27 50 24Q57 27 66 36Q78 47 78 68Z"
-        fill="__O__" stroke="__G__" stroke-width="2"/>
-      <path d="M26 66Q30 43 50 29Q70 43 74 66"
-        stroke="__GL__" stroke-width="4" fill="none"/>
-      <path d="M29 65Q36 40 50 29Q64 40 71 65"
-        stroke="__G__" stroke-width="1.1" fill="none"/>
-      <path d="M38 66Q39 42 50 29Q61 42 62 66"
-        stroke="__GD__" stroke-width="2.1" fill="none"/>
-      <path d="M17 64L22 55L29 64L35 56L42 65L50 60L58 65L65 56L71 64L78 55L83 64L80 73Q50 82 20 73Z"
-        fill="__G__" stroke="#fff2bf" stroke-width=".8"/>
-      <path d="M21 68Q50 76 79 68M24 72Q50 79 76 72"
-        stroke="#57380e" stroke-width="1.2"/>
-      <path d="M34 61L38 55L42 61M58 61L62 55L66 61"
-        stroke="__GL__" stroke-width="1.1"/>
-      <g fill="__O__" stroke="__GL__" stroke-width="1">
-        <circle cx="29" cy="68" r="2.2"/><circle cx="40" cy="71" r="1.8"/>
-        <circle cx="50" cy="72" r="2.8"/><circle cx="60" cy="71" r="1.8"/>
-        <circle cx="71" cy="68" r="2.2"/>
+      <ellipse cx="50" cy="85" rx="36" ry="5" fill="__SH__"/>
+      <!-- Background Rear Gold Spires -->
+      <polygon points="34,66 38,28 42,66" fill="__GD__"/>
+      <polygon points="58,66 62,28 66,66" fill="__GD__"/>
+      <polygon points="46,64 50,20 54,64" fill="__GD__"/>
+      <!-- Faceted Obsidian Prismatic Crystal Towers -->
+      <!-- Center Main Obsidian Tower (peak y=22) -->
+      <polygon points="50,22 46,28 46,66 50,66" fill="#14100c"/>
+      <polygon points="50,22 54,28 54,66 50,66" fill="__O__"/>
+      <line x1="50" y1="22" x2="50" y2="66" stroke="#ffffff" stroke-width="0.7" opacity="0.85"/>
+      <polygon points="46,28 50,22 54,28 50,34" fill="#241e17"/>
+      <!-- Mid-Left Obsidian Tower (peak y=28) -->
+      <polygon points="37,28 33,34 33,66 37,66" fill="#14100c"/>
+      <polygon points="37,28 41,34 41,66 37,66" fill="__O__"/>
+      <line x1="37" y1="28" x2="37" y2="66" stroke="#ffffff" stroke-width="0.6" opacity="0.75"/>
+      <!-- Mid-Right Obsidian Tower (peak y=28) -->
+      <polygon points="63,28 59,34 59,66 63,66" fill="#14100c"/>
+      <polygon points="63,28 67,34 67,66 63,66" fill="__O__"/>
+      <line x1="63" y1="28" x2="63" y2="66" stroke="#ffffff" stroke-width="0.6" opacity="0.75"/>
+      <!-- Outer-Left Obsidian Tower (peak y=36) -->
+      <polygon points="25,36 21,42 22,67 26,67" fill="#14100c"/>
+      <polygon points="25,36 29,42 28,67 26,67" fill="__O__"/>
+      <line x1="25" y1="36" x2="26" y2="67" stroke="#ffffff" stroke-width="0.5" opacity="0.7"/>
+      <!-- Outer-Right Obsidian Tower (peak y=36) -->
+      <polygon points="75,36 71,42 72,67 74,67" fill="#14100c"/>
+      <polygon points="75,36 79,42 78,67 74,67" fill="__O__"/>
+      <line x1="75" y1="36" x2="74" y2="67" stroke="#ffffff" stroke-width="0.5" opacity="0.7"/>
+      <!-- Gold Structural Spires with Diamond Accents -->
+      <polygon points="30,34 27,66 33,66" fill="__GL__" opacity="0.9"/>
+      <polygon points="70,34 67,66 73,66" fill="__G__" opacity="0.9"/>
+      <!-- Central Monarch Emerald Pinnacle (Rhombus, apex y=15) -->
+      <polygon points="50,13 45,21 50,29 55,21" fill="__GD__" stroke="__GL__" stroke-width="0.7"/>
+      <polygon points="50,15 46,21 50,27 54,21" fill="__E__" stroke="#042e18" stroke-width="0.5"/>
+      <polygon points="50,15 48,21 50,23 52,21" fill="#d7ffe8" opacity="0.75"/>
+      <!-- Flanking Smaller Emerald Accents -->
+      <polygon points="37,24 34,28 37,32 40,28" fill="__E__" stroke="__GL__" stroke-width="0.4"/>
+      <polygon points="63,24 60,28 63,32 66,28" fill="__E__" stroke="__GL__" stroke-width="0.4"/>
+      <!-- Rich Gold Circlet Band (y=66 to 84) -->
+      <path d="M19 66 Q50 71 81 66 L83 80 Q50 86 17 80 Z" fill="__G__" stroke="#3d2707" stroke-width="0.8"/>
+      <path d="M19 67 Q50 72 81 67" stroke="#fff4cf" stroke-width="0.9" fill="none"/>
+      <!-- Beaded Upper Rim -->
+      <path d="M21 69 Q50 74 79 69" stroke="#fff8df" stroke-width="0.9" stroke-dasharray="1.4 1.4" fill="none"/>
+      <!-- Emerald & Diamond Studs along Band -->
+      <g fill="__E__" stroke="#032614" stroke-width="0.4">
+        <circle cx="26" cy="74.5" r="1.8"/>
+        <circle cx="34" cy="76" r="1.8"/>
+        <circle cx="66" cy="76" r="1.8"/>
+        <circle cx="74" cy="74.5" r="1.8"/>
       </g>
-      <path d="M47 23L50 16L53 23Z" fill="__G__"/>
-      <circle cx="50" cy="14" r="3" fill="__P__" stroke="__G__" stroke-width="1"/>
-      <path d="M47 9H53M50 6V12" stroke="__GL__" stroke-width="2"/>
-      <g fill="__P__" stroke="__G__" stroke-width=".7">
-        <circle cx="23" cy="54" r="2"/><circle cx="77" cy="54" r="2"/>
-        <circle cx="36" cy="39" r="1.6"/><circle cx="64" cy="39" r="1.6"/>
-      </g>
-      <path d="M27 46L31 43L34 47M66 47L69 43L73 46"
-        stroke="#fff0b6" stroke-width=".8"/>`,
+      <!-- Central Framed 1% Cartridge Plaque -->
+      <rect x="42" y="72" width="16" height="9" rx="1.5" fill="__GD__" stroke="__GL__" stroke-width="0.8"/>
+      <rect x="43.5" y="73.5" width="13" height="6" rx="1" fill="#171109"/>
+      <text x="50" y="78.2" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="5.2" font-weight="bold" fill="__GL__">1%</text>
+      <!-- Lower Stepped Base Plinth -->
+      <path d="M17 80 Q50 86 83 80 L81 83 Q50 89 19 83 Z" fill="__GD__" stroke="#2a1a05" stroke-width="0.6"/>
+      <path d="M20 82 Q50 88 80 82" stroke="#ffffff" stroke-width="0.7" opacity="0.8" fill="none"/>`,
 
     crown_sol: `
       <ellipse cx="50" cy="82" rx="35" ry="5" fill="__SH__"/>
@@ -2510,66 +2576,138 @@ window.renderClocheVitrine = function(artifactSvg, isObsidianBase = false, uid =
       <path d="M29 72L32 70L35 72M65 72L68 70L71 72"
         stroke="#303c44" stroke-width="1"/>`,
 
-    /* ==================== RINGS ==================== */
+    /* ==================== RINGS & SIGNETS ==================== */
 
+    // (3) ring1 / ring_monogram — Sovereign Monogram Signet ($2,000)
     ring_monogram: `
-      <ellipse cx="50" cy="84" rx="29" ry="5" fill="__SH__"/>
-      <path d="M24 48Q20 69 34 79Q50 89 66 79Q80 69 76 48L67 43Q71 67 60 73Q50 79 40 73Q29 67 33 43Z"
-        fill="__GD__" stroke="__GL__" stroke-width="1"/>
-      <path d="M29 49Q26 68 39 76Q50 81 61 76Q74 68 71 49"
-        stroke="#fff3bc" stroke-width="1.2" fill="none"/>
-      <path d="M26 48L34 38L43 43L50 38L57 43L66 38L74 48L68 63L50 70L32 63Z"
-        fill="__G__" stroke="#57380e" stroke-width="1.6"/>
-      <path d="M30 48L36 42L44 46L50 42L56 46L64 42L70 48L65 60L50 66L35 60Z"
-        fill="__O__" stroke="#fff2b8" stroke-width="1"/>
-      <path d="M41 47L46 42H54L59 47L56 60H44Z"
-        fill="__G__" stroke="#fff6ce" stroke-width=".8"/>
-      <text x="50" y="55" text-anchor="middle" font-size="8.5"
-        font-family="Georgia,serif" font-weight="bold" fill="#fff4c4">1%</text>
-      <path d="M34 49L38 46M62 46L66 49M39 63L43 65M57 65L61 63"
-        stroke="#fff2bf" stroke-width=".7"/>
-      <g fill="__E__" stroke="__GL__" stroke-width=".7">
-        <path d="M32 57L35 53L38 57L35 61Z"/>
-        <path d="M62 57L65 53L68 57L65 61Z"/>
-      </g>`,
+      <ellipse cx="50" cy="85" rx="30" ry="5" fill="__SH__"/>
+      <!-- Heavy Sculpted Solid Gold Ring Band -->
+      <path d="M27 50 C22 66, 32 82, 50 82 C68 82, 78 66, 73 50 L65 45 C69 58, 60 73, 50 73 C40 73, 31 58, 35 45 Z"
+            fill="__GD__" stroke="__GL__" stroke-width="0.9"/>
+      <path d="M35 46 C32 58, 40 71, 50 71 C60 71, 68 58, 65 46"
+            fill="none" stroke="#241604" stroke-width="1.2"/>
+      <!-- Right Shoulder Heraldic Carving -->
+      <path d="M68 46 Q76 53 74 62 Q67 58 68 46" fill="__G__" stroke="#4a310b" stroke-width="0.6"/>
+      <path d="M70 49 Q75 54 73 59" stroke="#fff4cf" stroke-width="0.7" fill="none"/>
+      <!-- Outer Machined Octagonal Bezel -->
+      <polygon points="31,21 69,19 83,34 81,55 65,66 29,66 19,51 19,33"
+               fill="__G__" stroke="#fff0be" stroke-width="0.9"/>
+      <polygon points="31,21 69,19 83,34 79,37 67,23 33,25" fill="#ffffff" opacity="0.45"/>
+      <!-- Inner Stepped Channel -->
+      <polygon points="33,24 67,22 79,35 77,52 63,63 31,63 23,49 23,35"
+               fill="#362208" stroke="#63400e" stroke-width="0.8"/>
+      <!-- Recessed Obsidian Tablet Face -->
+      <polygon points="35,27 65,25 75,37 73,50 61,60 33,60 26,47 26,37"
+               fill="__O__" stroke="#100b05" stroke-width="1"/>
+      <!-- Fine Beaded Inner Gold Perimeter -->
+      <polygon points="36,29 64,27 73,38 71,48 60,57 34,57 28,46 28,38"
+               fill="none" stroke="#e5c779" stroke-width="0.5" stroke-dasharray="1.2 1.4"/>
+      <!-- Obsidian Specular Glint -->
+      <path d="M33 30 L40 28 L32 46 L30 44 Z" fill="#ffffff" opacity="0.22"/>
+      <line x1="38" y1="28" x2="31" y2="44" stroke="#ffffff" stroke-width="0.7" opacity="0.6"/>
+      <!-- Sovereign 5-Point Crown Emblem at Top -->
+      <path d="M43 34 L45 30 L49 33 L53 30 L55 34 L54 36 H44 Z"
+            fill="__GL__" stroke="#4a300a" stroke-width="0.35"/>
+      <circle cx="49" cy="31" r="0.8" fill="#fff"/>
+      <!-- Bold Raised 1% Monogram -->
+      <text x="50.7" y="50.8" text-anchor="middle"
+            font-family="'Cinzel', Georgia, serif" font-size="13" font-weight="bold" fill="#382106">1%</text>
+      <text x="50" y="50.1" text-anchor="middle"
+            font-family="'Cinzel', Georgia, serif" font-size="13" font-weight="bold" fill="__GL__"
+            stroke="#fff2be" stroke-width="0.22">1%</text>
+      <!-- Platinum Corner Hallmarks -->
+      <polygon points="26,37 28,39 26,41 24,39" fill="__S__"/>
+      <polygon points="73,37 75,39 73,41 71,39" fill="__S__"/>`,
 
+    // (5) ring2 / ring_onyx — Black Onyx Intaglio Signet ($3,000)
     ring_onyx: `
       <ellipse cx="50" cy="85" rx="28" ry="5" fill="__SH__"/>
-      <path d="M25 51Q20 68 34 79Q50 89 66 79Q80 68 75 51L67 46Q70 68 60 74Q50 79 40 74Q30 68 33 46Z"
-        fill="__GD__" stroke="__GL__" stroke-width=".9"/>
-      <path d="M28 51L36 39L42 42L50 39L58 42L64 39L72 51L68 64L59 71H41L32 64Z"
-        fill="__G__" stroke="#53390e" stroke-width="1.5"/>
-      <path d="M33 50L39 43H61L67 50L63 62L56 67H44L37 62Z"
-        fill="__O__" stroke="#fff0b4" stroke-width="1.1"/>
-      <path d="M37 49L42 45H58L63 49L60 60L55 64H45L40 60Z"
-        fill="__O__" stroke="#9a814f" stroke-width=".7"/>
-      <path d="M39 48L45 46H55L61 48L54 50H43Z" fill="#fff" opacity=".65"/>
-      <path d="M41 49L44 48L41 57" stroke="#fff" stroke-width="1" opacity=".8"/>
-      <g fill="__P__" stroke="__GL__" stroke-width=".8">
-        <circle cx="35" cy="47" r="2"/><circle cx="65" cy="47" r="2"/>
-        <circle cx="35" cy="62" r="2"/><circle cx="65" cy="62" r="2"/>
+      <!-- Heavy Sculpted Solid Gold Ring Band -->
+      <path d="M26 50 C21 68, 33 82, 50 82 C67 82, 79 68, 74 50 L66 45 C70 59, 60 73, 50 73 C40 73, 30 59, 34 45 Z"
+            fill="__GD__" stroke="__GL__" stroke-width="0.9"/>
+      <!-- Openwork Architectural Shoulders -->
+      <path d="M22 51 Q27 43 33 46 Q29 55 22 51 Z" fill="__G__" stroke="#4a310b" stroke-width="0.6"/>
+      <path d="M78 51 Q73 43 67 46 Q71 55 78 51 Z" fill="__G__" stroke="#4a310b" stroke-width="0.6"/>
+      <!-- Heavy Octagonal Cushion-Cut Gold Bezel -->
+      <path d="M31 22 H69 L80 34 V54 L69 66 H31 L20 54 V34 Z"
+            fill="__G__" stroke="#fff0be" stroke-width="1"/>
+      <path d="M31 22 H69 L80 34 L76 37 H34 L31 22 Z" fill="#ffffff" opacity="0.35"/>
+      <path d="M33 25 H67 L76 36 V52 L67 63 H33 L24 52 V36 Z"
+            fill="#301f07" stroke="#52350c" stroke-width="0.8"/>
+      <!-- Cushion-Cut Black Onyx Gemstone Face -->
+      <path d="M35 28 H65 L73 38 V50 L65 60 H35 L27 50 V38 Z"
+            fill="__O__" stroke="#080705" stroke-width="1.2"/>
+      <!-- Restrained Glass Luster -->
+      <path d="M34 30 L44 28 L30 48 L28 46 Z" fill="#ffffff" opacity="0.18"/>
+      <!-- Intaglio Engraved Sovereign Double-Headed Eagle in Silver/Platinum -->
+      <g stroke="__S__" fill="__S__" stroke-linejoin="round" opacity="0.95">
+        <!-- Dual Crowned Eagle Heads -->
+        <path d="M46 36 Q43 33 41 35 L42 37 Q46 38 48 40" stroke-width="0.7" fill="none"/>
+        <path d="M54 36 Q57 33 59 35 L58 37 Q54 38 52 40" stroke-width="0.7" fill="none"/>
+        <circle cx="43" cy="35" r="0.5"/>
+        <circle cx="57" cy="35" r="0.5"/>
+        <polygon points="43,32 45,34 41,34" fill="__GL__"/>
+        <polygon points="57,32 59,34 55,34" fill="__GL__"/>
+        <!-- Shield Body -->
+        <polygon points="46,40 54,40 53,48 50,51 47,48" fill="#12100d" stroke="__S__" stroke-width="0.7"/>
+        <circle cx="50" cy="44.5" r="1.3" fill="__GL__"/>
+        <!-- Outstretched Serrated Wings -->
+        <!-- Left Wing -->
+        <path d="M46 40 C42 36, 34 38, 32 44 C34 46, 38 46, 42 47 C35 48, 33 52, 35 55 C39 53, 44 51, 47 50"
+              stroke-width="0.65" fill="none"/>
+        <!-- Right Wing -->
+        <path d="M54 40 C58 36, 66 38, 68 44 C66 46, 62 46, 58 47 C65 48, 67 52, 65 55 C61 53, 56 51, 53 50"
+              stroke-width="0.65" fill="none"/>
+        <!-- Splayed Tail Feathers & Talons -->
+        <path d="M47 51 L45 56 L48 55 L50 58 L52 55 L55 56 L53 51" stroke-width="0.6" fill="none"/>
       </g>
-      <path d="M37 70Q50 76 63 70" stroke="#3d260a" stroke-width="1"/>`,
+      <!-- Bottom Bezel Ridge -->
+      <path d="M33 64 Q50 71 67 64" stroke="#ffffff" stroke-width="0.8" opacity="0.7" fill="none"/>`,
 
+    // (7) ring3 / ring_falcon — Falcon Emerald Sovereign Signet ($5,000)
     ring_falcon: `
-      <ellipse cx="50" cy="85" rx="29" ry="5" fill="__SH__"/>
-      <path d="M24 49Q20 68 35 80Q50 89 65 80Q80 68 76 49L68 45Q70 68 60 74Q50 79 40 74Q30 68 32 45Z"
-        fill="__GD__" stroke="__GL__" stroke-width="1"/>
-      <path d="M25 52Q33 39 44 49L49 57L43 61L30 60Z"
-        fill="__G__" stroke="#53350b" stroke-width="1"/>
-      <path d="M75 52Q67 39 56 49L51 57L57 61L70 60Z"
-        fill="__G__" stroke="#53350b" stroke-width="1"/>
-      <path d="M28 52L36 47L43 52L38 54L33 58M72 52L64 47L57 52L62 54L67 58"
-        stroke="#fff2bd" stroke-width=".8" fill="none"/>
-      <path d="M41 47L46 41H54L59 47L62 59L56 67H44L38 59Z"
-        fill="__G__" stroke="#fff0b0" stroke-width="1.3"/>
-      <path d="M43 48L48 45H52L57 48L59 58L54 63H46L41 58Z"
-        fill="__E__" stroke="#042f22" stroke-width="1"/>
-      <path d="M44 48L49 46H51L55 48L50 51Z" fill="#d4ffe9" opacity=".8"/>
-      <g stroke="__GL__" stroke-width=".8">
-        <path d="M31 55L37 57L40 55M33 59L38 60M69 55L63 57L60 55M67 59L62 60"/>
+      <ellipse cx="50" cy="85" rx="30" ry="5" fill="__SH__"/>
+      <!-- Heavy Sculpted Solid Gold Ring Band (viewed angled right) -->
+      <path d="M25 48 C20 66, 33 81, 50 81 C67 81, 79 66, 75 48 L67 44 C70 58, 60 72, 50 72 C40 72, 30 58, 33 44 Z"
+            fill="__GD__" stroke="__GL__" stroke-width="0.9"/>
+      <!-- Left Shoulder Beveled Flank with 1% Hallmark -->
+      <path d="M22 47 L29 39 L35 45 L29 55 Z" fill="__G__" stroke="#3d2708" stroke-width="0.7"/>
+      <!-- Right Shoulder Beveled Flank with 1% Hallmark Cartridge -->
+      <polygon points="65,42 76,46 71,59 62,53" fill="__G__" stroke="#3d2708" stroke-width="0.7"/>
+      <text x="69" y="53" transform="rotate(18 69 53)" font-family="'Cinzel', Georgia, serif"
+            font-size="5" font-weight="bold" fill="#3a2507">1%</text>
+      <!-- Massive Octagonal Emerald Bezel (Gold Claws) -->
+      <polygon points="31,21 65,21 77,33 77,55 65,67 31,67 19,55 19,33"
+               fill="__G__" stroke="#fff1bc" stroke-width="1.1"/>
+      <polygon points="33,24 63,24 73,34 73,53 63,64 33,64 23,53 23,34"
+               fill="#03251a" stroke="#064e3b" stroke-width="0.9"/>
+      <!-- Octagonal Stepped Colombian Green Emerald Gemstone Face -->
+      <polygon points="35,27 61,27 70,36 70,51 61,61 35,61 26,51 26,36"
+               fill="__E__" stroke="#022115" stroke-width="1.1"/>
+      <!-- Emerald Table Highlight -->
+      <polygon points="38,30 58,30 65,37 65,48 58,56 38,56 31,48 31,37"
+               fill="#057850" opacity="0.6"/>
+      <polygon points="38,30 58,30 54,34 42,34" fill="#ffffff" opacity="0.45"/>
+      <!-- Sculpted Sovereign Falcon Head in Polished Gold -->
+      <!-- Profile facing right: crown feathers, predatory eye, sharp hooked beak, neck plumage -->
+      <g fill="__GL__" stroke="#3a2406" stroke-width="0.5">
+        <!-- Falcon Head Base & Neck -->
+        <path d="M36 49 C36 43, 40 37, 47 36 C54 35, 60 38, 62 43 L56 44 C53 40, 48 39, 44 41 C42 42, 41 45, 42 49 Z"/>
+        <!-- Hooked Golden Beak -->
+        <path d="M57 41 Q64 42 66 45 Q64 47 60 46 L58 44 Z" fill="#fff5cc" stroke="#3a2406" stroke-width="0.5"/>
+        <!-- Layered Neck Feathers -->
+        <path d="M38 52 C42 50, 48 49, 53 50 L50 53 C46 52, 42 53, 39 55 Z"/>
+        <path d="M42 55 C46 53, 51 53, 56 54 L52 57 C48 56, 44 56, 41 58 Z"/>
+        <!-- Falcon Eye with Emerald Iris -->
+        <circle cx="50" cy="41" r="1.6" fill="#022115"/>
+        <circle cx="50" cy="41" r="1" fill="__GL__"/>
+        <circle cx="50.3" cy="40.8" r="0.4" fill="#ffffff"/>
       </g>
-      <path d="M42 66L46 70L50 67L54 70L58 66" stroke="#4b310e" stroke-width="1.2"/>`,
+      <!-- Heavy Bezel Claws -->
+      <rect x="29" y="19" width="4" height="4" fill="__GL__"/>
+      <rect x="63" y="19" width="4" height="4" fill="__GL__"/>
+      <rect x="29" y="65" width="4" height="4" fill="__GL__"/>
+      <rect x="63" y="65" width="4" height="4" fill="__GL__"/>`,
 
     ring_chrono: `
       <ellipse cx="50" cy="85" rx="29" ry="5" fill="__SH__"/>
@@ -2593,28 +2731,55 @@ window.renderClocheVitrine = function(artifactSvg, isObsidianBase = false, uid =
 
     /* ==================== AURAS ==================== */
 
+    // (2) aura1 / aura_radial — Champagne Radial Halo ($1,500)
     aura_radial: `
-      <circle cx="50" cy="50" r="34" fill="__SH__"/>
-      <g stroke="__G__" stroke-width="1.4" fill="none">
-        <circle cx="50" cy="50" r="30"/>
-        <circle cx="50" cy="50" r="25" stroke-dasharray="1.4 1.4"/>
-        <circle cx="50" cy="50" r="20" stroke-width=".8"/>
+      <ellipse cx="50" cy="86" rx="34" ry="4" fill="__SH__"/>
+      <!-- Dense Radial Sunburst of Champagne Gold Rays -->
+      <!-- 4 Primary Cardinal Spikes with Diamond Tips -->
+      <g fill="__GL__" stroke="__G__" stroke-width="0.5">
+        <polygon points="50,6 52,22 50,26 48,22"/>
+        <polygon points="50,94 52,78 50,74 48,78"/>
+        <polygon points="6,50 22,48 26,50 22,52"/>
+        <polygon points="94,50 78,48 74,50 78,52"/>
       </g>
-      <g fill="__G__" stroke="__GL__" stroke-width=".55">
-        <path d="M50 7L53 22L50 27L47 22Z"/>
-        <path d="M50 93L53 78L50 73L47 78Z"/>
-        <path d="M7 50L22 47L27 50L22 53Z"/>
-        <path d="M93 50L78 47L73 50L78 53Z"/>
-        <path d="M20 20L33 30L34 34L30 33Z"/>
-        <path d="M80 20L70 33L66 34L67 30Z"/>
-        <path d="M20 80L33 70L34 66L30 67Z"/>
-        <path d="M80 80L70 67L66 66L67 70Z"/>
+      <!-- 4 Major Diagonal Spikes with Gold Beads -->
+      <g fill="__G__" stroke="__GL__" stroke-width="0.5">
+        <polygon points="17,17 31,28 32,32 28,31"/>
+        <polygon points="83,17 72,31 68,32 69,28"/>
+        <polygon points="17,83 31,72 32,68 28,69"/>
+        <polygon points="83,83 72,69 68,68 69,72"/>
       </g>
-      <circle cx="50" cy="50" r="17" fill="__O__" stroke="__G__" stroke-width="2"/>
-      <circle cx="50" cy="50" r="13.5" stroke="__GL__" stroke-width=".8"/>
-      <path d="M50 34L53 46L66 50L53 54L50 66L47 54L34 50L47 46Z"
-        fill="__G__" stroke="#fff2c3" stroke-width=".7"/>
-      <circle cx="50" cy="50" r="4" fill="__P__" stroke="__G__" stroke-width=".8"/>`,
+      <circle cx="50" cy="5" r="1.6" fill="#ffffff"/>
+      <circle cx="50" cy="95" r="1.6" fill="#ffffff"/>
+      <circle cx="5" cy="50" r="1.6" fill="#ffffff"/>
+      <circle cx="95" cy="50" r="1.6" fill="#ffffff"/>
+      <!-- 24 Dense Intermediate Radiating Rays -->
+      <g stroke="__GL__" stroke-width="1.1" opacity="0.9">
+        <line x1="50" y1="50" x2="38" y2="12"/><line x1="50" y1="50" x2="62" y2="12"/>
+        <line x1="50" y1="50" x2="38" y2="88"/><line x1="50" y1="50" x2="62" y2="88"/>
+        <line x1="50" y1="50" x2="12" y2="38"/><line x1="50" y1="50" x2="12" y2="62"/>
+        <line x1="50" y1="50" x2="88" y2="38"/><line x1="50" y1="50" x2="88" y2="62"/>
+        <line x1="50" y1="50" x2="27" y2="21"/><line x1="50" y1="50" x2="73" y2="21"/>
+        <line x1="50" y1="50" x2="27" y2="79"/><line x1="50" y1="50" x2="73" y2="79"/>
+        <line x1="50" y1="50" x2="21" y2="27"/><line x1="50" y1="50" x2="79" y2="27"/>
+        <line x1="50" y1="50" x2="21" y2="73"/><line x1="50" y1="50" x2="79" y2="73"/>
+      </g>
+      <g stroke="__G__" stroke-width="0.8" opacity="0.75">
+        <line x1="50" y1="50" x2="44" y2="18"/><line x1="50" y1="50" x2="56" y2="18"/>
+        <line x1="50" y1="50" x2="44" y2="82"/><line x1="50" y1="50" x2="56" y2="82"/>
+        <line x1="50" y1="50" x2="18" y2="44"/><line x1="50" y1="50" x2="18" y2="56"/>
+        <line x1="50" y1="50" x2="82" y2="44"/><line x1="50" y1="50" x2="82" y2="56"/>
+      </g>
+      <!-- Center Gold Bezel Collar -->
+      <circle cx="50" cy="50" r="18" fill="__G__" stroke="#4a300a" stroke-width="0.8"/>
+      <!-- Beaded Diamond Ring -->
+      <circle cx="50" cy="50" r="16.5" fill="none" stroke="#fffce8" stroke-width="1.3" stroke-dasharray="1.3 1.5"/>
+      <circle cx="50" cy="50" r="15" fill="__GD__" stroke="#2d1d07" stroke-width="0.6"/>
+      <!-- Large Glossy Black Obsidian Sphere / Cabochon -->
+      <circle cx="50" cy="50" r="13.5" fill="__O__" stroke="#060504" stroke-width="1.2"/>
+      <!-- Specular Reflection Highlight -->
+      <ellipse cx="45" cy="45" rx="5" ry="2.6" transform="rotate(-35 45 45)" fill="#ffffff" opacity="0.45"/>
+      <circle cx="54" cy="54" r="1.5" fill="#ffffff" opacity="0.15"/>`,
 
     aura_guilloche: `
       <circle cx="50" cy="50" r="34" fill="__SH__"/>
@@ -2661,44 +2826,121 @@ window.renderClocheVitrine = function(artifactSvg, isObsidianBase = false, uid =
       <path d="M69 25L71 31L77 33L71 35L69 41L67 35L61 33L67 31Z"
         fill="__P__" stroke="__G__" stroke-width=".6"/>`,
 
+    // (8) aura4 / aura_celestial — Celestial Apex Radiance ($6,000)
     aura_celestial: `
-      <circle cx="50" cy="50" r="33" fill="__SH__"/>
-      <g fill="none" stroke="__G__" stroke-width="1.5">
-        <ellipse cx="50" cy="50" rx="30" ry="12" transform="rotate(-35 50 50)"/>
-        <ellipse cx="50" cy="50" rx="30" ry="12" transform="rotate(35 50 50)"/>
-        <ellipse cx="50" cy="50" rx="12" ry="30"/>
+      <ellipse cx="50" cy="86" rx="34" ry="4" fill="__SH__"/>
+      <!-- Rear Half of Intersecting Gold Orbital Rings -->
+      <g fill="none" stroke-linecap="round">
+        <ellipse cx="50" cy="50" rx="36" ry="14" transform="rotate(-30 50 50)"
+                 stroke="__GD__" stroke-width="2.2" stroke-dasharray="60 60"/>
+        <ellipse cx="50" cy="50" rx="36" ry="14" transform="rotate(30 50 50)"
+                 stroke="__GD__" stroke-width="2.2" stroke-dasharray="60 60"/>
+        <ellipse cx="50" cy="50" rx="34" ry="10"
+                 stroke="__GD__" stroke-width="1.8" stroke-dasharray="55 55"/>
       </g>
-      <g stroke="__GL__" stroke-width=".65" fill="none">
-        <ellipse cx="50" cy="50" rx="26" ry="9" transform="rotate(-35 50 50)"/>
-        <ellipse cx="50" cy="50" rx="26" ry="9" transform="rotate(35 50 50)"/>
+      <!-- Central Glossy Black Obsidian Sphere / Globe -->
+      <circle cx="50" cy="50" r="16" fill="__O__" stroke="#261b0c" stroke-width="1.1"/>
+      <!-- Fine Gold Coordinate Lines (Latitude/Longitude) on Sphere -->
+      <g stroke="__GL__" stroke-width="0.6" fill="none" opacity="0.65">
+        <ellipse cx="50" cy="50" rx="16" ry="6"/>
+        <ellipse cx="50" cy="50" rx="6" ry="16"/>
+        <line x1="50" y1="34" x2="50" y2="66"/>
+        <line x1="34" y1="50" x2="66" y2="50"/>
       </g>
-      <circle cx="50" cy="50" r="14" fill="__G__" stroke="#fff0b7" stroke-width="1"/>
-      <circle cx="50" cy="50" r="10" fill="__O__" stroke="#9a6e22" stroke-width=".75"/>
-      <path d="M50 35L53 46L65 50L53 54L50 65L47 54L35 50L47 46Z"
-        fill="__GL__" stroke="__G__" stroke-width=".7"/>
-      <circle cx="50" cy="50" r="4.5" fill="__P__"/>
-      <g fill="__B__" stroke="#fff" stroke-width=".4">
-        <path d="M24 34L26 29L28 34L26 39Z"/>
-        <path d="M72 31L74 26L76 31L74 36Z"/>
-        <path d="M29 72L31 67L33 72L31 77Z"/>
-        <path d="M68 70L70 65L72 70L70 75Z"/>
-      </g>`,
+      <!-- Specular Reflection Crescent -->
+      <path d="M40 40 A 14 14 0 0 1 54 37" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.65"/>
+      <circle cx="43" cy="42" r="1.5" fill="#ffffff" opacity="0.7"/>
+      <!-- Front Half of Intersecting 3D Gold Orbital Rings (Armillary Hoops) -->
+      <g fill="none" stroke-linecap="round">
+        <ellipse cx="50" cy="50" rx="36" ry="14" transform="rotate(-30 50 50)"
+                 stroke="__G__" stroke-width="2.2"/>
+        <ellipse cx="50" cy="50" rx="36" ry="14" transform="rotate(30 50 50)"
+                 stroke="__GL__" stroke-width="2.2"/>
+        <ellipse cx="50" cy="50" rx="34" ry="10"
+                 stroke="__G__" stroke-width="1.8"/>
+        <!-- Ring Inner Pinstripe Highlights -->
+        <ellipse cx="50" cy="50" rx="35" ry="13" transform="rotate(-30 50 50)"
+                 stroke="#fffbe8" stroke-width="0.6" opacity="0.8"/>
+        <ellipse cx="50" cy="50" rx="35" ry="13" transform="rotate(30 50 50)"
+                 stroke="#fffbe8" stroke-width="0.6" opacity="0.8"/>
+      </g>
+      <!-- Gold Planetary Orb Beads on Rings -->
+      <circle cx="21" cy="33" r="2.8" fill="__GL__" stroke="#4a300a" stroke-width="0.5"/>
+      <circle cx="79" cy="33" r="2.8" fill="__GL__" stroke="#4a300a" stroke-width="0.5"/>
+      <circle cx="22" cy="67" r="2.8" fill="__GL__" stroke="#4a300a" stroke-width="0.5"/>
+      <circle cx="78" cy="67" r="2.8" fill="__GL__" stroke="#4a300a" stroke-width="0.5"/>
+      <circle cx="21.5" cy="32.5" r="0.8" fill="#ffffff"/>
+      <circle cx="78.5" cy="32.5" r="0.8" fill="#ffffff"/>
+      <!-- Discrete Sovereign 1% Hallmark at Base -->
+      <text x="50" y="85" text-anchor="middle" font-family="'Cinzel', Georgia, serif"
+            font-size="6" font-weight="bold" fill="__GL__">1%</text>`,
 
     /* ==================== STARS & ORDERS ==================== */
 
+    // (1) star1 / star_sovereign — Order of the Sovereign Star ($1,000)
     star_sovereign: `
-      <ellipse cx="50" cy="84" rx="29" ry="4" fill="__SH__"/>
-      <path d="M50 9L57 33L81 25L66 44L90 50L66 56L81 75L57 67L50 91L43 67L19 75L34 56L10 50L34 44L19 25L43 33Z"
-        fill="__GD__" stroke="__GL__" stroke-width="1.3"/>
-      <path d="M50 14L55 36L74 29L62 45L83 50L62 55L74 70L55 64L50 86L45 64L26 70L38 55L17 50L38 45L26 29L45 36Z"
-        fill="__G__" stroke="#fff0b4" stroke-width=".65"/>
-      <path d="M50 18L50 40L58 35L62 44L78 50L61 54L66 67L54 62L50 82L46 62L34 67L39 54L22 50L38 44L42 35L50 40Z"
-        fill="#60400f" opacity=".42"/>
-      <circle cx="50" cy="50" r="17" fill="__G__" stroke="#fff0b9" stroke-width="1"/>
-      <circle cx="50" cy="50" r="13.3" fill="__O__" stroke="#8d692a" stroke-width=".8"/>
-      <text x="50" y="54" text-anchor="middle" fill="#fff0ba"
-        font-size="8.5" font-weight="bold" font-family="Georgia,serif">1%</text>
-      <circle cx="50" cy="50" r="16" stroke="__GL__" stroke-width=".55" fill="none"/>`,
+      <ellipse cx="50" cy="88" rx="34" ry="4" fill="__SH__"/>
+      <!-- Symmetrical 8-Point Faceted Sovereign Star -->
+      <!-- Cardinal Elongated Ray Facets (Split Lit/Shadow) -->
+      <!-- North Ray (peak y=5) -->
+      <polygon points="50,5 50,33 43,33" fill="__GL__"/>
+      <polygon points="50,5 57,33 50,33" fill="__GD__"/>
+      <line x1="50" y1="5" x2="50" y2="33" stroke="#ffffff" stroke-width="0.8" opacity="0.95"/>
+      <!-- South Ray (peak y=95) -->
+      <polygon points="50,95 43,67 50,67" fill="__GD__"/>
+      <polygon points="50,95 50,67 57,67" fill="__GL__"/>
+      <line x1="50" y1="95" x2="50" y2="67" stroke="#ffffff" stroke-width="0.8" opacity="0.95"/>
+      <!-- West Ray (peak x=5) -->
+      <polygon points="5,50 33,43 33,50" fill="__GL__"/>
+      <polygon points="5,50 33,50 33,57" fill="__GD__"/>
+      <line x1="5" y1="50" x2="33" y2="50" stroke="#ffffff" stroke-width="0.8" opacity="0.95"/>
+      <!-- East Ray (peak x=95) -->
+      <polygon points="95,50 67,43 67,50" fill="__GD__"/>
+      <polygon points="95,50 67,50 67,57" fill="__GL__"/>
+      <line x1="95" y1="50" x2="67" y2="50" stroke="#ffffff" stroke-width="0.8" opacity="0.95"/>
+      <!-- 4 Secondary Diagonal Rays (peaks at 19,19; 81,19; 81,81; 19,81) -->
+      <!-- NW Ray -->
+      <polygon points="19,19 36,31 32,37" fill="__GL__"/>
+      <polygon points="19,19 32,37 38,42" fill="__GD__"/>
+      <line x1="19" y1="19" x2="35" y2="35" stroke="#ffffff" stroke-width="0.7"/>
+      <!-- NE Ray -->
+      <polygon points="81,19 64,31 68,37" fill="__GD__"/>
+      <polygon points="81,19 68,37 62,42" fill="__GL__"/>
+      <line x1="81" y1="19" x2="65" y2="35" stroke="#ffffff" stroke-width="0.7"/>
+      <!-- SE Ray -->
+      <polygon points="81,81 68,63 62,58" fill="__GD__"/>
+      <polygon points="81,81 64,69 68,63" fill="__GL__"/>
+      <line x1="81" y1="81" x2="65" y2="65" stroke="#ffffff" stroke-width="0.7"/>
+      <!-- SW Ray -->
+      <polygon points="19,81 32,63 38,58" fill="__GD__"/>
+      <polygon points="19,81 36,69 32,63" fill="__GL__"/>
+      <line x1="19" y1="81" x2="35" y2="65" stroke="#ffffff" stroke-width="0.7"/>
+      <!-- Corner Diamond-Cut Rhombus Facets -->
+      <g fill="#ffffff" stroke="__GL__" stroke-width="0.4">
+        <polygon points="34,14 36,17 34,20 32,17"/>
+        <polygon points="66,14 68,17 66,20 64,17"/>
+        <polygon points="86,34 89,36 86,38 83,36"/>
+        <polygon points="86,66 89,68 86,70 83,68"/>
+        <polygon points="66,86 68,89 66,92 64,89"/>
+        <polygon points="34,86 36,89 34,92 32,89"/>
+        <polygon points="14,66 17,68 14,70 11,68"/>
+        <polygon points="14,34 17,36 14,38 11,36"/>
+      </g>
+      <!-- Central Medallion Outer Bezel -->
+      <circle cx="50" cy="50" r="18.5" fill="__GD__" stroke="__GL__" stroke-width="1"/>
+      <!-- Micro-Beaded Diamond Accent Ring -->
+      <circle cx="50" cy="50" r="16.5" fill="none" stroke="#fffce8" stroke-width="1.2" stroke-dasharray="1.2 1.4"/>
+      <!-- Inner Stepped Gold Rim -->
+      <circle cx="50" cy="50" r="15" fill="__G__" stroke="#2a1a05" stroke-width="0.6"/>
+      <!-- Recessed Black Obsidian Core Disc -->
+      <circle cx="50" cy="50" r="13" fill="__O__" stroke="#060504" stroke-width="1"/>
+      <path d="M42 42 A 11 11 0 0 1 58 42" stroke="#ffffff" stroke-width="0.7" fill="none" opacity="0.3"/>
+      <!-- Bold Gold 1% Monogram -->
+      <text x="50.7" y="53.8" text-anchor="middle"
+            font-family="'Cinzel', Georgia, serif" font-size="9.5" font-weight="bold" fill="#382105">1%</text>
+      <text x="50" y="53.2" text-anchor="middle"
+            font-family="'Cinzel', Georgia, serif" font-size="9.5" font-weight="bold" fill="__GL__"
+            stroke="#fff4cf" stroke-width="0.22">1%</text>`,
 
     star_grand_cross: `
       <ellipse cx="50" cy="84" rx="29" ry="4" fill="__SH__"/>
@@ -2731,65 +2973,131 @@ window.renderClocheVitrine = function(artifactSvg, isObsidianBase = false, uid =
         <circle cx="31" cy="59" r="2"/><circle cx="31" cy="39" r="2"/>
       </g>`,
 
+    // (10) star4 / star_zenith — Zenith Diamond Star ($8,000)
     star_zenith: `
-      <ellipse cx="50" cy="84" rx="28" ry="4" fill="__SH__"/>
-      <path d="M50 7L57 34L77 21L65 42L91 50L65 58L77 79L57 66L50 93L43 66L23 79L35 58L9 50L35 42L23 21L43 34Z"
-        fill="__S__" stroke="#fff" stroke-width="1.3"/>
-      <path d="M50 14L54 36L70 27L61 44L82 50L61 56L70 73L54 64L50 86L46 64L30 73L39 56L18 50L39 44L30 27L46 36Z"
-        fill="__GD__" stroke="#f5e5ad" stroke-width=".8"/>
-      <path d="M50 18L57 42L77 50L57 58L50 82L43 58L23 50L43 42Z"
-        fill="__S__" stroke="#fff" stroke-width=".8"/>
-      <path d="M50 29L54 43L67 50L54 57L50 71L46 57L33 50L46 43Z"
-        fill="__GL__" stroke="#fff" stroke-width=".75"/>
-      <path d="M50 39L58 46L58 54L50 61L42 54L42 46Z"
-        fill="__S__" stroke="#fff" stroke-width="1.1"/>
-      <path d="M50 41L55 46L55 52L50 57L45 52L45 46Z"
-        fill="#eef7ff" stroke="#7895a3" stroke-width=".65"/>
-      <path d="M47 45L50 43L52 45L50 48Z" fill="#fff"/>`,
+      <ellipse cx="50" cy="87" rx="30" ry="4" fill="__SH__"/>
+      <!-- 4 Primary Elongated Diamond-Cut Rays (North peak y=8, South y=92, West x=8, East x=92) -->
+      <!-- North Diamond Ray -->
+      <polygon points="50,8 43,36 50,42" fill="__S__" stroke="__GL__" stroke-width="0.6"/>
+      <polygon points="50,8 57,36 50,42" fill="#e2edf3" stroke="__GL__" stroke-width="0.6"/>
+      <line x1="50" y1="8" x2="50" y2="42" stroke="#ffffff" stroke-width="1"/>
+      <!-- South Diamond Ray -->
+      <polygon points="50,92 43,64 50,58" fill="#e2edf3" stroke="__GL__" stroke-width="0.6"/>
+      <polygon points="50,92 57,64 50,58" fill="__S__" stroke="__GL__" stroke-width="0.6"/>
+      <line x1="50" y1="92" x2="50" y2="58" stroke="#ffffff" stroke-width="1"/>
+      <!-- West Diamond Ray -->
+      <polygon points="8,50 36,43 42,50" fill="__S__" stroke="__GL__" stroke-width="0.6"/>
+      <polygon points="8,50 36,57 42,50" fill="#e2edf3" stroke="__GL__" stroke-width="0.6"/>
+      <line x1="8" y1="50" x2="42" y2="50" stroke="#ffffff" stroke-width="1"/>
+      <!-- East Diamond Ray -->
+      <polygon points="92,50 64,43 58,50" fill="#e2edf3" stroke="__GL__" stroke-width="0.6"/>
+      <polygon points="92,50 64,57 58,50" fill="__S__" stroke="__GL__" stroke-width="0.6"/>
+      <line x1="92" y1="50" x2="58" y2="50" stroke="#ffffff" stroke-width="1"/>
+      <!-- 4 Diagonal Faceted Starburst Rays (peaks at 23,23; 77,23; 77,77; 23,77) -->
+      <polygon points="23,23 37,33 42,42 33,37" fill="__G__" stroke="#fff0b5" stroke-width="0.6"/>
+      <polygon points="77,23 63,33 58,42 67,37" fill="__GD__" stroke="#fff0b5" stroke-width="0.6"/>
+      <polygon points="77,77 63,67 58,58 67,63" fill="__G__" stroke="#fff0b5" stroke-width="0.6"/>
+      <polygon points="23,77 37,67 42,58 33,63" fill="__GD__" stroke="#fff0b5" stroke-width="0.6"/>
+      <line x1="23" y1="23" x2="42" y2="42" stroke="#ffffff" stroke-width="0.8"/>
+      <line x1="77" y1="23" x2="58" y2="42" stroke="#ffffff" stroke-width="0.8"/>
+      <line x1="77" y1="77" x2="58" y2="58" stroke="#ffffff" stroke-width="0.8"/>
+      <line x1="23" y1="77" x2="42" y2="58" stroke="#ffffff" stroke-width="0.8"/>
+      <!-- Pavé Diamond Facet Insets with Gold Divider Ribs -->
+      <g fill="#ffffff" opacity="0.9">
+        <polygon points="50,14 47,32 50,34 53,32"/>
+        <polygon points="50,86 47,68 50,66 53,68"/>
+        <polygon points="14,50 32,47 34,50 32,53"/>
+        <polygon points="86,50 68,47 66,50 68,53"/>
+      </g>
+      <!-- Central Gold Stepped Rhombus Bezel -->
+      <polygon points="50,35 65,50 50,65 35,50" fill="__G__" stroke="#4a310a" stroke-width="1.1"/>
+      <polygon points="50,37 63,50 50,63 37,50" fill="__GD__" stroke="#281a06" stroke-width="0.7"/>
+      <!-- High-Relief Central Black Obsidian/Diamond Lozenge -->
+      <polygon points="50,39 61,50 50,61 39,50" fill="__O__" stroke="#050504" stroke-width="1"/>
+      <!-- Faceted Specular Glint -->
+      <polygon points="50,42 54,47 50,52 46,47" fill="#ffffff" opacity="0.75"/>
+      <circle cx="50" cy="47" r="1.2" fill="#ffffff"/>`,
 
     /* ==================== RARE ARTIFACTS ==================== */
 
+    // (6) art1 / art_tourbillon — Haute Horlogerie Pocket Relic ($4,000)
     art_tourbillon: `
-      <ellipse cx="50" cy="85" rx="25" ry="4" fill="__SH__"/>
-      <path d="M50 21C45 21 43 25 43 29H57C57 25 55 21 50 21Z"
-        fill="__G__" stroke="#fff0be" stroke-width=".8"/>
-      <path d="M43 29H57L60 35V66Q50 76 40 66V35Z"
-        fill="__GD__" stroke="__GL__" stroke-width="1.2"/>
-      <circle cx="50" cy="50" r="22" fill="__G__" stroke="#fff0ba" stroke-width="1.2"/>
-      <circle cx="50" cy="50" r="18" fill="__O__" stroke="#9e7128" stroke-width=".8"/>
-      <circle cx="50" cy="50" r="14" fill="none" stroke="__GL__" stroke-width=".8"/>
-      <g fill="none" stroke="__G__" stroke-width="1.4">
-        <circle cx="50" cy="50" r="9"/>
-        <circle cx="50" cy="50" r="4"/>
-        <path d="M50 41L55 46L50 50L45 46Z"/>
-        <path d="M50 59L55 54L50 50L45 54Z"/>
-        <path d="M41 50L46 45L50 50L46 55Z"/>
-        <path d="M59 50L54 45L50 50L54 55Z"/>
+      <ellipse cx="50" cy="88" rx="30" ry="4" fill="__SH__"/>
+      <!-- Top Gold Bow Loop & Ribbed Winding Crown -->
+      <circle cx="50" cy="14" r="8" fill="none" stroke="__G__" stroke-width="2.6"/>
+      <circle cx="50" cy="14" r="6.6" fill="none" stroke="#fff4cf" stroke-width="0.6"/>
+      <rect x="45" y="18" width="10" height="5" rx="1.5" fill="__GD__" stroke="__GL__" stroke-width="0.8"/>
+      <line x1="47.5" y1="18.5" x2="47.5" y2="22.5" stroke="#3a2507" stroke-width="0.8"/>
+      <line x1="50" y1="18.5" x2="50" y2="22.5" stroke="#3a2507" stroke-width="0.8"/>
+      <line x1="52.5" y1="18.5" x2="52.5" y2="22.5" stroke="#3a2507" stroke-width="0.8"/>
+      <!-- Heavy Circular Pocket Watch Case (cx=50, cy=56) -->
+      <circle cx="50" cy="56" r="35" fill="__G__" stroke="#3d2707" stroke-width="1.2"/>
+      <circle cx="50" cy="56" r="32" fill="#140f09" stroke="__GL__" stroke-width="0.9"/>
+      <!-- Dark Chapter Ring with Gold Roman Numerals -->
+      <circle cx="50" cy="56" r="29" fill="#0d0a06" stroke="#543910" stroke-width="0.8"/>
+      <circle cx="50" cy="56" r="23" fill="#17120a" stroke="__GL__" stroke-width="0.8"/>
+      <!-- Roman Numerals: XII, III, VI, IX -->
+      <text x="50" y="33.5" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="4.6" font-weight="bold" fill="__GL__">XII</text>
+      <text x="74" y="58" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="4.6" font-weight="bold" fill="__GL__">III</text>
+      <text x="50" y="81.5" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="4.6" font-weight="bold" fill="__GL__">VI</text>
+      <text x="26" y="58" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="4.6" font-weight="bold" fill="__GL__">IX</text>
+      <!-- Gold "1%" Monogram below XII -->
+      <text x="50" y="40.5" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="5" font-weight="bold" fill="__GL__">1%</text>
+      <!-- Skeletonized Movement Bridges & Gear Cutouts -->
+      <circle cx="41" cy="48" r="6" fill="#281c0c" stroke="__GD__" stroke-width="0.6"/>
+      <circle cx="59" cy="48" r="6" fill="#281c0c" stroke="__GD__" stroke-width="0.6"/>
+      <!-- Exposed Gold Gear Teeth -->
+      <g stroke="__GL__" stroke-width="0.7" fill="none">
+        <circle cx="41" cy="48" r="5" stroke-dasharray="1.2 1"/>
+        <circle cx="59" cy="48" r="5" stroke-dasharray="1.2 1"/>
       </g>
-      <path d="M50 38V45M50 55V62M38 50H45M55 50H62"
-        stroke="__S__" stroke-width="1.2"/>
-      <circle cx="50" cy="50" r="2.6" fill="__R__" stroke="#fff" stroke-width=".6"/>
-      <path d="M45 34L50 31L55 34M45 66L50 69L55 66"
-        stroke="__GL__" stroke-width=".9"/>`,
+      <!-- Flying Tourbillon Cage at 6 o'clock (cx=50, cy=68, r=8) -->
+      <circle cx="50" cy="68" r="8" fill="#080705" stroke="__GL__" stroke-width="0.8"/>
+      <circle cx="50" cy="68" r="6.2" fill="none" stroke="__G__" stroke-width="0.9" stroke-dasharray="1.5 1"/>
+      <line x1="43" y1="68" x2="57" y2="68" stroke="__S__" stroke-width="0.9"/>
+      <line x1="50" y1="61" x2="50" y2="75" stroke="__S__" stroke-width="0.9"/>
+      <circle cx="50" cy="68" r="2" fill="__R__" stroke="#fff" stroke-width="0.4"/>
+      <!-- Blued / Gold Breguet Hands pointing to 10:10 -->
+      <line x1="50" y1="52" x2="38" y2="44" stroke="#1c4873" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="39" cy="44.8" r="1.3" fill="none" stroke="#1c4873" stroke-width="0.8"/>
+      <line x1="50" y1="52" x2="63" y2="44" stroke="#1c4873" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="61.5" cy="45" r="1.3" fill="none" stroke="#1c4873" stroke-width="0.8"/>
+      <circle cx="50" cy="52" r="2" fill="__G__" stroke="#122a42" stroke-width="0.6"/>
+      <!-- Crystal Glass Specular Arc -->
+      <path d="M26 40 A 30 30 0 0 1 74 40" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.55"/>`,
 
+    // (9) art2 / art_seal — The Sovereign Gold Seal ($7,500)
     art_seal: `
-      <ellipse cx="50" cy="84" rx="26" ry="4" fill="__SH__"/>
-      <path d="M43 21L57 21L59 28L56 32H44L41 28Z"
-        fill="__G__" stroke="#fff2bd" stroke-width=".8"/>
-      <path d="M40 29L60 29L65 38L61 48H39L35 38Z"
-        fill="__O__" stroke="__GL__" stroke-width="1.4"/>
-      <path d="M42 32L58 32L61 38L58 45H42L39 38Z"
-        fill="__O__" stroke="#73511c" stroke-width=".8"/>
-      <path d="M50 31L53 36L59 36L54 40L56 45L50 42L44 45L46 40L41 36L47 36Z"
-        fill="__G__" stroke="#fff0b8" stroke-width=".6"/>
-      <path d="M40 48H60L63 53H37Z" fill="__GD__" stroke="__GL__" stroke-width=".8"/>
-      <path d="M36 53H64L70 65L66 72H34L30 65Z"
-        fill="__G__" stroke="#fff1b7" stroke-width="1"/>
-      <path d="M39 56H61L65 64L62 68H38L35 64Z"
-        fill="__O__" stroke="#9d752e" stroke-width=".8"/>
-      <path d="M43 59L47 62L50 57L53 62L57 59L55 66H45Z"
-        fill="__GL__" stroke="#3d2709" stroke-width=".5"/>
-      <path d="M39 70H61" stroke="#fff3bd" stroke-width=".9"/>`,
+      <ellipse cx="40" cy="83" rx="26" ry="5" fill="__SH__"/>
+      <!-- Handle Obsidian Shaft (Diagonal from 48,54 to 74,28) -->
+      <!-- Tapered Obsidian Body -->
+      <path d="M46 56 C50 48, 62 38, 72 28 C74 26, 77 28, 75 31 C67 43, 56 56, 50 62 Z"
+            fill="__O__" stroke="#080705" stroke-width="1"/>
+      <!-- Specular Highlight Beam along Obsidian Handle -->
+      <path d="M48 54 C54 46, 64 36, 73 28" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.65"/>
+      <path d="M50 56 C55 50, 64 40, 71 33" stroke="#ffffff" stroke-width="0.7" fill="none" opacity="0.4"/>
+      <!-- Top Polished Gold Ball Finial Knob -->
+      <circle cx="75" cy="27" r="6.5" fill="__G__" stroke="#fff0be" stroke-width="0.8"/>
+      <circle cx="73" cy="25" r="2" fill="#ffffff" opacity="0.6"/>
+      <!-- Fluted Gold Collar Rings connecting Handle to Matrix -->
+      <path d="M44 58 L52 50 L56 54 L48 62 Z" fill="__GD__" stroke="__GL__" stroke-width="0.8"/>
+      <line x1="46" y1="56" x2="54" y2="52" stroke="#fff4cf" stroke-width="0.8"/>
+      <line x1="48" y1="60" x2="56" y2="56" stroke="#fff4cf" stroke-width="0.8"/>
+      <!-- Heavy Circular Gold Seal Matrix Face (turned toward viewer) -->
+      <ellipse cx="36" cy="67" rx="19" ry="14" fill="__G__" stroke="#fff2bf" stroke-width="1.1"/>
+      <ellipse cx="36" cy="67" rx="16.5" ry="12" fill="__GD__" stroke="#3a2507" stroke-width="0.8"/>
+      <!-- Beaded Inner Border on Seal Face -->
+      <ellipse cx="36" cy="67" rx="14.5" ry="10.5" fill="none" stroke="#fff5ce" stroke-width="0.9" stroke-dasharray="1.3 1.3"/>
+      <ellipse cx="36" cy="67" rx="13" ry="9" fill="#1f1609" stroke="#4a300a" stroke-width="0.6"/>
+      <!-- Embossed Sovereign Crown -->
+      <path d="M30 63.5 L32 59 L36 61.5 L40 59 L42 63.5 L41 65.5 H31 Z"
+            fill="__GL__" stroke="#382105" stroke-width="0.35"/>
+      <circle cx="36" cy="60" r="0.6" fill="#fff"/>
+      <!-- Embossed Bold 1% Monogram -->
+      <text x="36" y="73" text-anchor="middle" font-family="'Cinzel', Georgia, serif"
+            font-size="8.5" font-weight="bold" fill="__GL__" stroke="#382105" stroke-width="0.25">1%</text>
+      <!-- Edge Specular Glint on Gold Rim -->
+      <path d="M22 64 C23 57, 34 54, 46 56" stroke="#ffffff" stroke-width="1.1" fill="none" opacity="0.75"/>`,
 
     art_falcon_medallion: `
       <ellipse cx="50" cy="85" rx="26" ry="4" fill="__SH__"/>
@@ -2815,25 +3123,44 @@ window.renderClocheVitrine = function(artifactSvg, isObsidianBase = false, uid =
       <circle cx="53" cy="47" r="1.4" fill="__E__" stroke="#fff" stroke-width=".35"/>
       <path d="M44 58L50 63L57 57" stroke="#fff0b7" stroke-width=".8"/>`,
 
+    // (12) art4 / art_scepter — Sovereign Scepter ($10,000)
     art_scepter: `
-      <ellipse cx="50" cy="85" rx="18" ry="4" fill="__SH__"/>
-      <path d="M45 32L55 32L58 72L55 79H45L42 72Z"
-        fill="__O__" stroke="__G__" stroke-width="1.2"/>
-      <path d="M47 35L50 36L50 75L47 73Z" fill="__GL__" opacity=".9"/>
-      <path d="M44 39L56 39M43 44L57 44M43 67L57 67M44 72L56 72"
-        stroke="__G__" stroke-width="1.4"/>
-      <path d="M43 42L57 48L43 54L57 60"
-        stroke="__GL__" stroke-width="1.3" fill="none"/>
-      <path d="M40 31H60L63 36L60 40H40L37 36Z"
-        fill="__GD__" stroke="__GL__" stroke-width="1"/>
-      <path d="M41 28L45 21H55L59 28L55 32H45Z"
-        fill="__G__" stroke="#fff1bd" stroke-width=".8"/>
-      <circle cx="50" cy="19" r="9" fill="__G__" stroke="#fff2c2" stroke-width="1"/>
-      <circle cx="50" cy="19" r="6.4" fill="__GD__" stroke="#745019" stroke-width=".7"/>
-      <path d="M50 10V28M41 19H59" stroke="__GL__" stroke-width="1.1"/>
-      <path d="M47 13H53M47 25H53" stroke="#fff5d0" stroke-width=".7"/>
-      <path d="M45 10L50 4L55 10Z" fill="__G__" stroke="#fff5cc" stroke-width=".7"/>
-      <path d="M46 79H54L52 84H48Z" fill="__G__" stroke="#fff2b8" stroke-width=".7"/>`
+      <ellipse cx="26" cy="84" rx="20" ry="4" fill="__SH__"/>
+      <!-- Long Cylindrical Obsidian Shaft (Diagonal from 24,78 to 68,34) -->
+      <line x1="24" y1="78" x2="68" y2="34" stroke="__O__" stroke-width="6.5" stroke-linecap="round"/>
+      <line x1="24" y1="78" x2="68" y2="34" stroke="#120f0c" stroke-width="7" opacity="0.3"/>
+      <!-- Specular Highlight Streak along Obsidian Shaft -->
+      <line x1="25" y1="76" x2="67" y2="34" stroke="#ffffff" stroke-width="1.2" opacity="0.7"/>
+      <line x1="27" y1="78" x2="69" y2="36" stroke="#ffffff" stroke-width="0.6" opacity="0.4"/>
+      <!-- Bottom Stepped Gold Pummel & Cone Finial (around 16,86) -->
+      <polygon points="14,88 20,82 24,86 18,92" fill="__G__" stroke="#fff0bb" stroke-width="0.7"/>
+      <polygon points="11,91 14,88 18,92" fill="__GL__" stroke="#3d2707" stroke-width="0.6"/>
+      <circle cx="21" cy="83" r="3.2" fill="__GD__" stroke="__GL__" stroke-width="0.7"/>
+      <!-- Mid-Shaft Knurled Gold Collar Rings -->
+      <g fill="__G__" stroke="#3d2707" stroke-width="0.6">
+        <rect x="36" y="62" width="7" height="3" rx="1" transform="rotate(-45 39.5 63.5)"/>
+        <rect x="52" y="46" width="7" height="3" rx="1" transform="rotate(-45 55.5 47.5)"/>
+      </g>
+      <!-- Crowned Finial Head (Top-Right, around 74,28) -->
+      <!-- Tiered Gold Mounting Collar -->
+      <ellipse cx="68" cy="34" rx="5" ry="3" transform="rotate(-45 68 34)" fill="__GD__" stroke="__GL__" stroke-width="0.8"/>
+      <!-- Imperial 24k Gold Cage / Coronet with Ruby Gemstone -->
+      <circle cx="74" cy="28" r="8" fill="__GD__" stroke="__GL__" stroke-width="1"/>
+      <!-- Faceted Royal Ruby Gemstone Core -->
+      <circle cx="74" cy="28" r="6.2" fill="__R__" stroke="#3d0510" stroke-width="0.8"/>
+      <ellipse cx="72" cy="26" rx="2.5" ry="1.4" transform="rotate(-30 72 26)" fill="#ffffff" opacity="0.65"/>
+      <!-- Arched Gold Cage Ribs over Ruby -->
+      <g stroke="__GL__" stroke-width="1.1" fill="none">
+        <line x1="68" y1="28" x2="80" y2="28"/>
+        <line x1="74" y1="22" x2="74" y2="34"/>
+        <path d="M70 23 Q74 27 78 33"/>
+        <path d="M70 33 Q74 27 78 23"/>
+      </g>
+      <!-- Apex Imperial Globus Cruciger Cross Finial (at 82,18) -->
+      <circle cx="80" cy="21" r="2.2" fill="__G__" stroke="#fff0b8" stroke-width="0.6"/>
+      <!-- Gold Cross -->
+      <path d="M82 17 L86 17 M84 15 L84 20" stroke="__GL__" stroke-width="1.2" stroke-linecap="round"/>
+      <circle cx="84" cy="17" r="0.8" fill="#ffffff"/>`
   };
 
   for (const [key, body] of Object.entries(TPC_ARTWORK_V2)) {

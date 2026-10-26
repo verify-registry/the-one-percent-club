@@ -721,7 +721,7 @@ const BOUTIQUE = {
         name: "items.crown1",
         icon: "crown_imperial",
         rarity: 2,
-        price: 5000,
+        price: 2500,
         lore: "items.crown1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Blackened Titanium & 24k Gold",
@@ -730,37 +730,11 @@ const BOUTIQUE = {
         weightAr: "١٤٢ غرام ذهب ومعدن صلب",
       },
       {
-        id: "crown2",
-        name: "items.crown2",
-        icon: "crown_sol",
-        rarity: 3,
-        price: 15000,
-        lore: "items.crown2_lore",
-        requiredTier: "SOVEREIGN LUMINARY",
-        metal: "Fluted Antique Gold & Pavé Diamonds",
-        metalAr: "ذهب معتق مضلع وماس نقي",
-        weight: "185g Solid",
-        weightAr: "١٨٥ غرام سبائك معتقة",
-      },
-      {
-        id: "crown3",
-        name: "items.crown3",
-        icon: "crown_moritz",
-        rarity: 3,
-        price: 35000,
-        lore: "items.crown3_lore",
-        requiredTier: "SOVEREIGN LUMINARY",
-        metal: "Frosted White Gold & Platinum",
-        metalAr: "ذهب أبيض مثلج وبلاتين شامبانيا",
-        weight: "210g Solid",
-        weightAr: "٢١٠ غرام بلاتين مثلج",
-      },
-      {
         id: "crown4",
         name: "items.crown4",
         icon: "crown_zenith",
         rarity: 4,
-        price: 75000,
+        price: 9000,
         lore: "items.crown4_lore",
         requiredTier: "SOVEREIGN EXARCH",
         metal: "Chiseled 24k Gold & Colombian Emeralds",
@@ -779,7 +753,7 @@ const BOUTIQUE = {
         name: "items.ring1",
         icon: "ring_monogram",
         rarity: 1,
-        price: 3000,
+        price: 2000,
         lore: "items.ring1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Solid 18k Yellow Gold",
@@ -792,7 +766,7 @@ const BOUTIQUE = {
         name: "items.ring2",
         icon: "ring_onyx",
         rarity: 2,
-        price: 7500,
+        price: 3000,
         lore: "items.ring2_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Brazilian Onyx & Fluted Gold",
@@ -805,26 +779,13 @@ const BOUTIQUE = {
         name: "items.ring3",
         icon: "ring_falcon",
         rarity: 3,
-        price: 18000,
+        price: 5000,
         lore: "items.ring3_lore",
         requiredTier: "SOVEREIGN LUMINARY",
         metal: "Hand-Carved Gold & Octagonal Emerald",
         metalAr: "ذهب منحوت يدوياً وزمرد ثماني الأوجه",
         weight: "42g Solid",
         weightAr: "٤٢ غرام ذهب وزمرد",
-      },
-      {
-        id: "ring4",
-        name: "items.ring4",
-        icon: "ring_chrono",
-        rarity: 4,
-        price: 40000,
-        lore: "items.ring4_lore",
-        requiredTier: "SOVEREIGN EXARCH",
-        metal: "Knurled 18k Rose Gold & Obsidian Core",
-        metalAr: "ذهب وردي عيار 18 مخرش وقلب أوبسيديان",
-        weight: "39g Precision",
-        weightAr: "٣٩ غرام ذهب وردي وأوبسيديان",
       },
     ],
   },
@@ -837,7 +798,7 @@ const BOUTIQUE = {
         name: "items.aura1",
         icon: "aura_radial",
         rarity: 1,
-        price: 2000,
+        price: 1500,
         lore: "items.aura1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Engine-Turned Champagne Luster",
@@ -846,37 +807,11 @@ const BOUTIQUE = {
         weightAr: "إشعاع استوديو دافئ",
       },
       {
-        id: "aura2",
-        name: "items.aura2",
-        icon: "aura_guilloche",
-        rarity: 2,
-        price: 8000,
-        lore: "items.aura2_lore",
-        requiredTier: "SOVEREIGN MEMBER",
-        metal: "Horological Wave Frequency",
-        metalAr: "موجات الغيوشيه الدقيقة لصفائح الساعات",
-        weight: "Atmospheric",
-        weightAr: "موجات غيوشيه هندسية",
-      },
-      {
-        id: "aura3",
-        name: "items.aura3",
-        icon: "aura_eclipse",
-        rarity: 3,
-        price: 22000,
-        lore: "items.aura3_lore",
-        requiredTier: "SOVEREIGN LUMINARY",
-        metal: "Deep Eclipse Shadow & Specular Rim",
-        metalAr: "ظلال الكسوف الحالك بحافة ذهبية عاكسة",
-        weight: "Atmospheric",
-        weightAr: "طيف كسوف أوبسيدياني",
-      },
-      {
         id: "aura4",
         name: "items.aura4",
         icon: "aura_celestial",
         rarity: 4,
-        price: 60000,
+        price: 6000,
         lore: "items.aura4_lore",
         requiredTier: "SOVEREIGN EXARCH",
         metal: "Golden Stardust & Dual Ion Rings",
@@ -904,37 +839,11 @@ const BOUTIQUE = {
         weightAr: "١٨ غرام سبيكة ذهبية",
       },
       {
-        id: "star2",
-        name: "items.star2",
-        icon: "star_grand_cross",
-        rarity: 2,
-        price: 2500,
-        lore: "items.star2_lore",
-        requiredTier: "SOVEREIGN MEMBER",
-        metal: "Layered Frosted Gold & Sunburst",
-        metalAr: "ذهب معالج بالرمل وشعاع شمسي",
-        weight: "24g Ingot",
-        weightAr: "٢٤ غرام سبيكة شمسية",
-      },
-      {
-        id: "star3",
-        name: "items.star3",
-        icon: "star_constellation",
-        rarity: 3,
-        price: 12000,
-        lore: "items.star3_lore",
-        requiredTier: "SOVEREIGN LUMINARY",
-        metal: "Hand-Chamfered Gold & Sapphire Center",
-        metalAr: "ذهب مشطوف يدوياً ومركز من الياقوت الأزرق",
-        weight: "32g Ingot",
-        weightAr: "٣٢ غرام ذهب وياقوت أزرق",
-      },
-      {
         id: "star4",
         name: "items.star4",
         icon: "star_zenith",
         rarity: 4,
-        price: 30000,
+        price: 8000,
         lore: "items.star4_lore",
         requiredTier: "SOVEREIGN EXARCH",
         metal: "Faceted Platinum & Champagne Accents",
@@ -953,7 +862,7 @@ const BOUTIQUE = {
         name: "items.art1",
         icon: "art_tourbillon",
         rarity: 2,
-        price: 10000,
+        price: 4000,
         lore: "items.art1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Skeletonized 18k Rose Gold Case",
@@ -966,7 +875,7 @@ const BOUTIQUE = {
         name: "items.art2",
         icon: "art_seal",
         rarity: 3,
-        price: 25000,
+        price: 7500,
         lore: "items.art2_lore",
         requiredTier: "SOVEREIGN LUMINARY",
         metal: "Solid Cast Brass & Black Obsidian",
@@ -975,24 +884,11 @@ const BOUTIQUE = {
         weightAr: "٣٨٠ غرام ختم برونزي مصمت",
       },
       {
-        id: "art3",
-        name: "items.art3",
-        icon: "art_falcon_medallion",
-        rarity: 3,
-        price: 50000,
-        lore: "items.art3_lore",
-        requiredTier: "SOVEREIGN LUMINARY",
-        metal: "Heavy Gold Medallion & Silk Ribbon",
-        metalAr: "مدالية ذهبية ثقيلة ووشاح حريري مذهب",
-        weight: "215g Sovereign",
-        weightAr: "٢١٥ غرام ذهب خالص عيار 24",
-      },
-      {
         id: "art4",
         name: "items.art4",
         icon: "art_scepter",
         rarity: 4,
-        price: 100000,
+        price: 10000,
         lore: "items.art4_lore",
         requiredTier: "SOVEREIGN EXARCH",
         metal: "Obsidian Shaft & Chiseled 24k Gold Finial",
@@ -1023,6 +919,180 @@ const BOUTIQUE = {
     ],
   },
 };
+
+// =========================================================
+// RETIRED STOREFRONT COLLECTIBLES (PRESERVED FOR HISTORICAL
+// OWNERSHIP, EQUIPPED SLOTS, DOSSIERS, AND ARCHIVAL PROVENANCE)
+// =========================================================
+const RETIRED_COLLECTIBLES = [
+  {
+    id: "crown2",
+    name: "items.crown2",
+    icon: "crown_sol",
+    rarity: 3,
+    price: 15000,
+    lore: "items.crown2_lore",
+    requiredTier: "SOVEREIGN LUMINARY",
+    metal: "Fluted Antique Gold & Pavé Diamonds",
+    metalAr: "ذهب معتق مضلع وماس نقي",
+    weight: "185g Solid",
+    weightAr: "١٨٥ غرام سبائك معتقة",
+    catKey: "crowns",
+  },
+  {
+    id: "crown3",
+    name: "items.crown3",
+    icon: "crown_moritz",
+    rarity: 3,
+    price: 35000,
+    lore: "items.crown3_lore",
+    requiredTier: "SOVEREIGN LUMINARY",
+    metal: "Frosted White Gold & Platinum",
+    metalAr: "ذهب أبيض مثلج وبلاتين شامبانيا",
+    weight: "210g Solid",
+    weightAr: "٢١٠ غرام بلاتين مثلج",
+    catKey: "crowns",
+  },
+  {
+    id: "ring4",
+    name: "items.ring4",
+    icon: "ring_chrono",
+    rarity: 4,
+    price: 40000,
+    lore: "items.ring4_lore",
+    requiredTier: "SOVEREIGN EXARCH",
+    metal: "Knurled 18k Rose Gold & Obsidian Core",
+    metalAr: "ذهب وردي عيار 18 مخرش وقلب أوبسيديان",
+    weight: "39g Precision",
+    weightAr: "٣٩ غرام ذهب وردي وأوبسيديان",
+    catKey: "jewelry",
+  },
+  {
+    id: "aura2",
+    name: "items.aura2",
+    icon: "aura_guilloche",
+    rarity: 2,
+    price: 8000,
+    lore: "items.aura2_lore",
+    requiredTier: "SOVEREIGN MEMBER",
+    metal: "Horological Wave Frequency",
+    metalAr: "موجات الغيوشيه الدقيقة لصفائح الساعات",
+    weight: "Atmospheric",
+    weightAr: "موجات غيوشيه هندسية",
+    catKey: "auras",
+  },
+  {
+    id: "aura3",
+    name: "items.aura3",
+    icon: "aura_eclipse",
+    rarity: 3,
+    price: 22000,
+    lore: "items.aura3_lore",
+    requiredTier: "SOVEREIGN LUMINARY",
+    metal: "Deep Eclipse Shadow & Specular Rim",
+    metalAr: "ظلال الكسوف الحالك بحافة ذهبية عاكسة",
+    weight: "Atmospheric",
+    weightAr: "طيف كسوف أوبسيدياني",
+    catKey: "auras",
+  },
+  {
+    id: "star2",
+    name: "items.star2",
+    icon: "star_grand_cross",
+    rarity: 2,
+    price: 2500,
+    lore: "items.star2_lore",
+    requiredTier: "SOVEREIGN MEMBER",
+    metal: "Layered Frosted Gold & Sunburst",
+    metalAr: "ذهب معالج بالرمل وشعاع شمسي",
+    weight: "24g Ingot",
+    weightAr: "٢٤ غرام سبيكة شمسية",
+    catKey: "stars",
+  },
+  {
+    id: "star3",
+    name: "items.star3",
+    icon: "star_constellation",
+    rarity: 3,
+    price: 12000,
+    lore: "items.star3_lore",
+    requiredTier: "SOVEREIGN LUMINARY",
+    metal: "Hand-Chamfered Gold & Sapphire Center",
+    metalAr: "ذهب مشطوف يدوياً ومركز من الياقوت الأزرق",
+    weight: "32g Ingot",
+    weightAr: "٣٢ غرام ذهب وياقوت أزرق",
+    catKey: "stars",
+  },
+  {
+    id: "art3",
+    name: "items.art3",
+    icon: "art_falcon_medallion",
+    rarity: 3,
+    price: 50000,
+    lore: "items.art3_lore",
+    requiredTier: "SOVEREIGN LUMINARY",
+    metal: "Heavy Gold Medallion & Silk Ribbon",
+    metalAr: "مدالية ذهبية ثقيلة ووشاح حريري مذهب",
+    weight: "215g Sovereign",
+    weightAr: "٢١٥ غرام ذهب خالص عيار 24",
+    catKey: "artifacts",
+  },
+  // Legacy alias fallbacks
+  {
+    id: "apex_crown",
+    name: "items.crown4",
+    icon: "crown_zenith",
+    rarity: 4,
+    price: 9000,
+    lore: "items.crown4_lore",
+    requiredTier: "SOVEREIGN EXARCH",
+    metal: "Chiseled 24k Gold & Colombian Emeralds",
+    metalAr: "ذهب عيار 24 منحوت وزمرد كولومبي",
+    catKey: "crowns",
+  },
+  {
+    id: "sovereign_signet",
+    name: "items.ring1",
+    icon: "ring_monogram",
+    rarity: 1,
+    price: 2000,
+    lore: "items.ring1_lore",
+    requiredTier: "SOVEREIGN MEMBER",
+    metal: "Solid 18k Yellow Gold",
+    metalAr: "ذهب أصفر عيار 18 مصمت",
+    catKey: "jewelry",
+  },
+];
+window.RETIRED_COLLECTIBLES = RETIRED_COLLECTIBLES;
+
+// The authoritative exact 12-item ascending-price unified order:
+const UNIFIED_PAID_COLLECTIBLES = [
+  { id: "star1", catKey: "stars" },
+  { id: "aura1", catKey: "auras" },
+  { id: "ring1", catKey: "jewelry" },
+  { id: "crown1", catKey: "crowns" },
+  { id: "ring2", catKey: "jewelry" },
+  { id: "art1", catKey: "artifacts" },
+  { id: "ring3", catKey: "jewelry" },
+  { id: "aura4", catKey: "auras" },
+  { id: "art2", catKey: "artifacts" },
+  { id: "star4", catKey: "stars" },
+  { id: "crown4", catKey: "crowns" },
+  { id: "art4", catKey: "artifacts" },
+];
+window.UNIFIED_PAID_COLLECTIBLES = UNIFIED_PAID_COLLECTIBLES;
+
+function findCollectibleRecord(itemId) {
+  for (const cat in BOUTIQUE) {
+    const found = BOUTIQUE[cat].items.find((i) => i.id === itemId);
+    if (found) return { item: found, category: cat };
+  }
+  for (const item of RETIRED_COLLECTIBLES) {
+    if (item.id === itemId) return { item, category: item.catKey || "artifacts" };
+  }
+  return null;
+}
+window.findCollectibleRecord = findCollectibleRecord;
 
 // ==========================================
 // 2.5 SOVEREIGN CIRCLES & DOMAINS CATALOG
@@ -1257,15 +1327,16 @@ const AppState = {
             else if (item && typeof item === "object" && item.id) id = item.id;
             
             if (id) {
-              let found = false;
-              for (const cat in BOUTIQUE) {
-                if (BOUTIQUE[cat].items.some(i => i.id === id)) {
-                  found = true;
-                  break;
-                }
-              }
-              if (found) {
+              const rec = (typeof findCollectibleRecord === "function") ? findCollectibleRecord(id) : null;
+              if (rec) {
                 this.owned[id] = true;
+              } else {
+                for (const cat in BOUTIQUE) {
+                  if (BOUTIQUE[cat].items.some(i => i.id === id)) {
+                    this.owned[id] = true;
+                    break;
+                  }
+                }
               }
             }
           });
@@ -2266,11 +2337,26 @@ ClubState.on("change", () => {
   }
 });
 
-function applyEquippedToCard() {
+function applyEquippedToCard(equipped = (typeof AppState !== "undefined" && AppState.equipped) || {}) {
   for (const catKey in EQUIP_CATEGORIES) {
     const slotId = EQUIP_CATEGORIES[catKey];
     const slotEl = document.getElementById(slotId);
-    if (slotEl) slotEl.style.display = "none";
+    if (!slotEl) continue;
+    const itemId = equipped && equipped[catKey];
+    if (itemId) {
+      slotEl.style.display = "";
+      slotEl.classList.add("active");
+      if (catKey === "jewelry" && (itemId === "ring1" || itemId === "ring_monogram")) {
+        const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact("ring_monogram") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
+        if (art) {
+          const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
+          slotEl.innerHTML = `<span class="equipped-ring-art" style="width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;">${art}</span><span class="equipped-ring-label" id="equippedRingLabel">${isAr ? "خاتم المونوغرام" : "SIGNET RING"}</span>`;
+        }
+      }
+    } else {
+      slotEl.style.display = "none";
+      slotEl.classList.remove("active");
+    }
   }
   const profileEquipMap = {
     crowns: "profileEquippedCrownSlot",
@@ -2280,9 +2366,24 @@ function applyEquippedToCard() {
   for (const catKey in profileEquipMap) {
     const pSlotId = profileEquipMap[catKey];
     const pSlotEl = document.getElementById(pSlotId);
-    if (pSlotEl) pSlotEl.style.display = "none";
+    if (!pSlotEl) continue;
+    const itemId = equipped && equipped[catKey];
+    if (itemId) {
+      pSlotEl.style.display = "";
+      pSlotEl.classList.add("active");
+      if (catKey === "jewelry" && (itemId === "ring1" || itemId === "ring_monogram")) {
+        const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact("ring_monogram") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
+        if (art) {
+          pSlotEl.innerHTML = art;
+        }
+      }
+    } else {
+      pSlotEl.style.display = "none";
+      pSlotEl.classList.remove("active");
+    }
   }
 }
+window.applyEquippedToCard = applyEquippedToCard;
 
 
 
@@ -2414,137 +2515,181 @@ function renderBoutique(filter = "all", showSkeleton = false) {
 function renderBoutiqueContent(filter, root, owned, equipped, categories) {
   const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
   const userTier = (ClubState.member && ClubState.member.tier) || "SOVEREIGN MEMBER";
+  const currentBalance = ClubState.balance;
 
-  root.innerHTML = categories
-    .map((catKey) => {
-      const cat = BOUTIQUE[catKey];
+  const renderCard = (item, catKey) => {
+    const isOwned = !!ClubState.owned[item.id];
+    const isEquipped = ClubState.equipped[catKey] === item.id;
+    const tierEligible = typeof isTierEligible === "function" ? isTierEligible(userTier, item.requiredTier) : true;
+    const extraCardClass = (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) ? " qp-shimmer-active" : "";
 
-      if (catKey === "widgets") {
-        return renderWidgetSection();
-      }
+    const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`.trim();
+    const priceHtml = item.free
+      ? `<span class="boutique-card-price is-free">${window.t("boutique.free") || (isAr ? "مجاني" : "Free")}</span>`
+      : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
 
-      const currentBalance = ClubState.balance;
+    let progressHtml = "";
+    if (!isOwned && !item.free) {
+      const pct = Math.min((currentBalance / item.price) * 100, 100);
+      const isReady = pct >= 100;
+      const affordLabel = window.t("boutique.affordability") || (isAr ? "مدى القدرة على الشراء" : "Purchasing Power");
+      progressHtml = `
+        <div class="purchase-progress-wrap" aria-label="${affordLabel}" title="${Math.floor(pct)}%">
+          <div class="purchase-progress-fill ${isReady ? "is-ready" : ""}" style="width: ${pct}%"></div>
+        </div>
+      `;
+    } else {
+      progressHtml = `<div class="purchase-progress-wrap is-transparent"></div>`;
+    }
 
-      const filteredItems = cat.items.filter((item) => {
-        const isOwned = ClubState.owned[item.id];
+    const isObsidianBase = (item.requiredTier === "SOVEREIGN EXARCH" || item.rarity >= 4 || item.id === "crown4" || item.id === "star4");
+    const artifactSvg = getSovereignArtifact(item.icon);
+    const clocheHtml = (typeof window.renderClocheVitrine === "function")
+      ? window.renderClocheVitrine(artifactSvg, isObsidianBase, item.id)
+      : `<span class="boutique-card-fallback" style="display:flex">${artifactSvg}</span>`;
+
+    const tierInfo = getBoutiqueTierLabel(item.requiredTier, isAr);
+    const tierPillHtml = (!isOwned && !tierEligible && item.requiredTier)
+      ? `<span class="boutique-tier-plaque" title="${tierInfo.name}"><span class="tier-plaque-mark">❖</span> ${tierInfo.short}</span>`
+      : "";
+
+    let btnContent = "";
+    let btnClass = "";
+    let btnOnClick = "";
+    let btnPointerEvents = "pointer-events: auto;";
+
+    if (item.free) {
+      btnContent = `<span class="boutique-free-badge">✓ ${window.t("boutique.includedFree") || (isAr ? "مشمول مجاناً" : "Included Free")}</span>`;
+      btnClass = "btn-free";
+      btnPointerEvents = "pointer-events: none;";
+    } else if (isOwned) {
+      btnContent = `<span class="btn-owned-text">✓ ${window.t("boutique.owned") || "مملوك"}</span>`;
+      btnClass = "btn-owned";
+      btnPointerEvents = "pointer-events: none;";
+    } else if (!tierEligible) {
+      const reqLabel = tierInfo.gateLabel;
+      btnContent = `<svg class="btn-lock-svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 5a3 3 0 016 0v3H9V7z"/></svg> <span>${reqLabel}</span>`;
+      btnClass = "btn-locked";
+      btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
+    } else {
+      btnContent = `<span>${window.t("boutique.acquire") || (isAr ? "امتلك" : "Acquire")}</span> <svg class="btn-bag-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`;
+      btnClass = "btn-acquire";
+      btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
+    }
+
+    return `
+      <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned})' style="cursor: pointer;">
+        <!-- Ornate Golden Corners -->
+        <span class="b-card-corner tl" aria-hidden="true"></span>
+        <span class="b-card-corner tr" aria-hidden="true"></span>
+        <span class="b-card-corner bl" aria-hidden="true"></span>
+        <span class="b-card-corner br" aria-hidden="true"></span>
+
+        <div class="boutique-card-header">
+          <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "نادر"}</span>
+          ${tierPillHtml}
+        </div>
+        
+        <div class="boutique-cloche-stage">
+          ${clocheHtml}
+        </div>
+
+        <span class="boutique-card-name">${window.t(item.name)}</span>
+        ${priceHtml}
+        <div class="boutique-card-gold-bar" aria-hidden="true"></div>
+
+        <div class="boutique-card-footer">
+          <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick}>
+            ${btnContent}
+          </button>
+        </div>
+      </div>
+    `;
+  };
+
+  if (filter === "all") {
+    // 1. UNIFIED COLLECTIBLE LIST: Exactly the 12 active paid collectibles in authoritative ascending price order
+    const filteredUnified = UNIFIED_PAID_COLLECTIBLES
+      .map(({ id, catKey }) => {
+        const it = BOUTIQUE[catKey]?.items.find((i) => i.id === id);
+        return it ? { item: it, catKey } : null;
+      })
+      .filter(Boolean)
+      .filter(({ item }) => {
+        const isOwned = !!ClubState.owned[item.id];
         if (currentOwnershipFilter === "owned") return isOwned;
         if (currentOwnershipFilter === "unowned") return !isOwned;
         return true;
       });
 
-      if (filteredItems.length === 0) return ""; // Skip category if empty due to filter
+    let html = "";
+    if (filteredUnified.length > 0) {
+      const cards = filteredUnified.map(({ item, catKey }) => renderCard(item, catKey)).join("");
+      html += `
+        <section class="boutique-section skeleton-fade-in" data-category="all">
+          <div class="boutique-section-head">
+            <div class="boutique-section-title-wrap">
+              <h3 class="boutique-section-title">${window.t("boutique.allColl")}</h3>
+              <span class="boutique-section-sub">${window.t("boutique.allCollSub") || (isAr ? "المقتنيات والتحف السيادية المعتمدة مرتبة تصاعدياً" : "Curated Sovereign Collectibles in Ascending Valuation")}</span>
+            </div>
+            <div class="boutique-section-divider" aria-hidden="true">
+              <span class="bsd-line"></span>
+              <span class="bsd-mark">✦</span>
+              <span class="bsd-line"></span>
+            </div>
+          </div>
+          <div class="boutique-grid">${cards}</div>
+        </section>
+      `;
+    }
 
-      const cards = filteredItems
-        .map((item) => {
+    // Preserve the free Sovereign Master Card Widget at the end of the unified listing
+    if (currentOwnershipFilter !== "unowned") {
+      html += renderWidgetSection();
+    }
+
+    root.innerHTML = html;
+  } else if (filter === "widgets") {
+    root.innerHTML = (currentOwnershipFilter === "unowned") ? "" : renderWidgetSection();
+  } else {
+    // Category-filtered listing: sort remaining items by ascending price
+    const cat = BOUTIQUE[filter];
+    if (!cat) {
+      root.innerHTML = "";
+    } else {
+      const filteredItems = cat.items
+        .slice()
+        .sort((a, b) => a.price - b.price)
+        .filter((item) => {
           const isOwned = !!ClubState.owned[item.id];
-          const isEquipped = ClubState.equipped[catKey] === item.id;
-          const tierEligible = typeof isTierEligible === "function" ? isTierEligible(userTier, item.requiredTier) : true;
-          const extraCardClass = (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) ? " qp-shimmer-active" : "";
+          if (currentOwnershipFilter === "owned") return isOwned;
+          if (currentOwnershipFilter === "unowned") return !isOwned;
+          return true;
+        });
 
-          const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`.trim();
-          const priceHtml = item.free
-            ? `<span class="boutique-card-price is-free">${window.t("boutique.free") || (isAr ? "مجاني" : "Free")}</span>`
-            : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
-
-          let progressHtml = "";
-          if (!isOwned && !item.free) {
-            const pct = Math.min((currentBalance / item.price) * 100, 100);
-            const isReady = pct >= 100;
-            const affordLabel = window.t("boutique.affordability") || (isAr ? "مدى القدرة على الشراء" : "Purchasing Power");
-            progressHtml = `
-          <div class="purchase-progress-wrap" aria-label="${affordLabel}" title="${Math.floor(pct)}%">
-            <div class="purchase-progress-fill ${isReady ? "is-ready" : ""}" style="width: ${pct}%"></div>
-          </div>
+      if (filteredItems.length === 0) {
+        root.innerHTML = "";
+      } else {
+        const cards = filteredItems.map((item) => renderCard(item, filter)).join("");
+        root.innerHTML = `
+          <section class="boutique-section skeleton-fade-in" data-category="${filter}">
+            <div class="boutique-section-head">
+              <div class="boutique-section-title-wrap">
+                <h3 class="boutique-section-title">${window.t(cat.title)}</h3>
+                ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${window.t(cat.sub)}</span>` : ""}
+              </div>
+              <div class="boutique-section-divider" aria-hidden="true">
+                <span class="bsd-line"></span>
+                <span class="bsd-mark">✦</span>
+                <span class="bsd-line"></span>
+              </div>
+            </div>
+            <div class="boutique-grid">${cards}</div>
+          </section>
         `;
-          } else {
-            progressHtml = `<div class="purchase-progress-wrap is-transparent"></div>`;
-          }
-
-          const isObsidianBase = (item.requiredTier === "SOVEREIGN EXARCH" || item.rarity >= 4 || item.id === "crown4" || item.id === "star4");
-          const artifactSvg = getSovereignArtifact(item.icon);
-          const clocheHtml = (typeof window.renderClocheVitrine === "function")
-            ? window.renderClocheVitrine(artifactSvg, isObsidianBase, item.id)
-            : `<span class="boutique-card-fallback" style="display:flex">${artifactSvg}</span>`;
-
-          const tierInfo = getBoutiqueTierLabel(item.requiredTier, isAr);
-          const tierPillHtml = (!isOwned && !tierEligible && item.requiredTier)
-            ? `<span class="boutique-tier-plaque" title="${tierInfo.name}"><span class="tier-plaque-mark">❖</span> ${tierInfo.short}</span>`
-            : "";
-
-          let btnContent = "";
-          let btnClass = "";
-          let btnOnClick = "";
-          let btnPointerEvents = "pointer-events: auto;";
-
-          if (item.free) {
-            btnContent = `<span class="boutique-free-badge">✓ ${window.t("boutique.includedFree") || (isAr ? "مشمول مجاناً" : "Included Free")}</span>`;
-            btnClass = "btn-free";
-            btnPointerEvents = "pointer-events: none;";
-          } else if (isOwned) {
-            btnContent = `<span class="btn-owned-text">✓ ${window.t("boutique.owned") || "مملوك"}</span>`;
-            btnClass = "btn-owned";
-            btnPointerEvents = "pointer-events: none;";
-          } else if (!tierEligible) {
-            const reqLabel = tierInfo.gateLabel;
-            btnContent = `<svg class="btn-lock-svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 5a3 3 0 016 0v3H9V7z"/></svg> <span>${reqLabel}</span>`;
-            btnClass = "btn-locked";
-            btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
-          } else {
-            btnContent = `<span>${window.t("boutique.acquire") || (isAr ? "امتلك" : "Acquire")}</span> <svg class="btn-bag-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`;
-            btnClass = "btn-acquire";
-            btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
-          }
-
-          return `
-          <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned})' style="cursor: pointer;">
-            <!-- Ornate Golden Corners -->
-            <span class="b-card-corner tl" aria-hidden="true"></span>
-            <span class="b-card-corner tr" aria-hidden="true"></span>
-            <span class="b-card-corner bl" aria-hidden="true"></span>
-            <span class="b-card-corner br" aria-hidden="true"></span>
-
-            <div class="boutique-card-header">
-              <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "نادر"}</span>
-              ${tierPillHtml}
-            </div>
-            
-            <div class="boutique-cloche-stage">
-              ${clocheHtml}
-            </div>
-
-            <span class="boutique-card-name">${window.t(item.name)}</span>
-            ${priceHtml}
-            <div class="boutique-card-gold-bar" aria-hidden="true"></div>
-
-            <div class="boutique-card-footer">
-              <button class="boutique-own-btn ${btnClass}" type="button" style="${btnPointerEvents}" ${btnOnClick}>
-                ${btnContent}
-              </button>
-            </div>
-          </div>
-        `;
-        })
-        .join("");
-
-      return `
-      <section class="boutique-section skeleton-fade-in" data-category="${catKey}">
-        <div class="boutique-section-head">
-          <div class="boutique-section-title-wrap">
-            <h3 class="boutique-section-title">${window.t(cat.title)}</h3>
-            ${typeof cat.sub !== "undefined" && cat.sub && String(cat.sub) !== "undefined" ? `<span class="boutique-section-sub">${window.t(cat.sub)}</span>` : ""}
-          </div>
-          <div class="boutique-section-divider" aria-hidden="true">
-            <span class="bsd-line"></span>
-            <span class="bsd-mark">✦</span>
-            <span class="bsd-line"></span>
-          </div>
-        </div>
-        <div class="boutique-grid">${cards}</div>
-      </section>
-    `;
-    })
-    .filter((html) => html !== "")
-    .join("");
+      }
+    }
+  }
 
   if (root.innerHTML.trim() === "") {
     const isOwnedFilter = currentOwnershipFilter === "owned";
@@ -7350,12 +7495,18 @@ document.getElementById("citationDismissBtn")?.addEventListener("click", window.
 function openReliquaryInspectModal(itemId) {
   let item = null;
   let catKey = "crowns";
-  for (const cat in BOUTIQUE) {
-    const found = BOUTIQUE[cat].items.find((i) => i.id === itemId);
-    if (found) {
-      item = found;
-      catKey = cat;
-      break;
+  const record = (typeof findCollectibleRecord === "function") ? findCollectibleRecord(itemId) : null;
+  if (record && record.item) {
+    item = record.item;
+    catKey = record.category || "crowns";
+  } else {
+    for (const cat in BOUTIQUE) {
+      const found = BOUTIQUE[cat].items.find((i) => i.id === itemId);
+      if (found) {
+        item = found;
+        catKey = cat;
+        break;
+      }
     }
   }
   if (!item) return;
@@ -7518,6 +7669,8 @@ function renderProfileCollection(forceSkeleton = false) {
   const collectedItems = (AppState.collectedItems || [])
     .map((id) => {
       if (typeof id === "object") return id;
+      const record = (typeof findCollectibleRecord === "function") ? findCollectibleRecord(id) : null;
+      if (record && record.item) return record.item;
       let found = null;
       for (const cat in BOUTIQUE) {
         const it = BOUTIQUE[cat].items.find((i) => i.id === id);
@@ -7574,7 +7727,8 @@ function renderProfileCollection(forceSkeleton = false) {
         iconHtml = `<img src="${item.icon}" alt="${nameText}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
                     <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
       } else {
-        iconHtml = `<span class="boutique-card-fallback" style="display:flex">${ICONS[item.icon] || ICONS["star"]}</span>`;
+        const artifactSvg = (typeof getSovereignArtifact === "function" ? getSovereignArtifact(item.icon) : null) || ICONS[item.icon] || ICONS["star"];
+        iconHtml = `<span class="boutique-card-fallback" style="display:flex">${artifactSvg}</span>`;
       }
 
       const isEquipped = AppState.equipped && Object.values(AppState.equipped).includes(item.id);

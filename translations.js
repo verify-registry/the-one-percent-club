@@ -2145,7 +2145,7 @@ window.I18N = {
       ar: "ساعة جيب مفرغة بتوربيون طائر وجسور ذهبية منقوشة يدوياً، مع عقارب بريغيه الزرقاء وميناء غيوشيه وتاج مضلع من الذهب الوردي عيار 18.",
     },
     art2: {
-      en: "The Sovereign Golden Seal",
+      en: "The Sovereign Gold Seal",
       ar: "الختم السيادي المصمت",
     },
     art2_lore: {
@@ -2161,7 +2161,7 @@ window.I18N = {
       ar: "مدالية ثقيلة من الذهب الخالص عيار 24 تخلد الصقر الإمبراطوري بأجنحة ممتدة، معلقة بوشاح حريري فاخر ومشبك ذهبي مضلع.",
     },
     art4: {
-      en: "Sovereign Scepter of Authority",
+      en: "Sovereign Scepter",
       ar: "صولجان السيادة المصغر",
     },
     art4_lore: {
@@ -2185,7 +2185,7 @@ window.I18N = {
       ar: "ساعة الجيب السيادية التوربيون",
     },
     rare2: {
-      en: "The Sovereign Golden Seal",
+      en: "The Sovereign Gold Seal",
       ar: "الختم السيادي المصمت",
     },
     rare3: {
@@ -2193,7 +2193,7 @@ window.I18N = {
       ar: "مدالية الصقر الإمبراطوري",
     },
     rare4: {
-      en: "Sovereign Scepter of Authority",
+      en: "Sovereign Scepter",
       ar: "صولجان السيادة المصغر",
     },
     widget1: {
