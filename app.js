@@ -287,7 +287,7 @@ window.setLanguage = function (lang) {
   }
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+function initGlobalSettings() {
   const btnEn = document.getElementById("langEnBtn");
   const btnAr = document.getElementById("langArBtn");
 
@@ -546,8 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (typeof updateMasterCard === "function") updateMasterCard();
     });
   }
-
-});
+}
 
 // Intercept dynamic DOM additions (MutationObserver)
 // Since we are moving to data-i18n, we just need to ensure dynamically created components
@@ -2163,7 +2162,6 @@ document
     });
   });
 
-document.addEventListener("DOMContentLoaded", () => AppState.notify());
 
 function updateUI() {
   AppState.notify();
@@ -3209,11 +3207,6 @@ function initMetricTooltips() {
   }, { passive: true });
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initMetricTooltips);
-} else {
-  initMetricTooltips();
-}
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
@@ -5205,7 +5198,7 @@ function initSovereignSalonTicker() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function initClubChamber() {
   switchChannel("global-lounge");
   initClubRoomsDiscoveryArrow();
   window.DeferredQueue.add(() => { try { initSovereignSalonTicker(); } catch(e) {} });
@@ -5229,7 +5222,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("club-tab")?.classList.contains("is-active")) {
     startClubWelcomeAutoDismiss();
   }
-});
+}
 
 window.toggleAccolade = function (channelId, messageIndex, type) {
   const channel = AppState.channels[channelId];
@@ -7129,11 +7122,6 @@ const initProfileAndModals = () => {
   });
 };
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initProfileAndModals);
-} else {
-  initProfileAndModals();
-}
 
 function playPurchaseAnimation() {
   const flash = document.createElement("div");
@@ -9806,10 +9794,40 @@ window.AuthBoundary = {
   }
 };
 
+// ==========================================================================
+// MASTER APPLICATION INITIALIZATION CONTROLLER
+// Consolidates all lifecycle hooks into a single deterministic sequence.
+// ==========================================================================
+function initApp() {
+  try {
+    // 1. Settings, Theme, and Language Initialization
+    if (typeof initGlobalSettings === "function") initGlobalSettings();
+
+    // 2. Global State Notification (Renders Master Card, Stats, Vitrine)
+    if (typeof AppState !== "undefined" && AppState.notify) AppState.notify();
+
+    // 3. Metric Complication Tooltips
+    if (typeof initMetricTooltips === "function") initMetricTooltips();
+
+    // 4. Private Club Chamber, Lounges, and Ticker
+    if (typeof initClubChamber === "function") initClubChamber();
+
+    // 5. Member Profile Dossier, Deeds, and Reliquary
+    if (typeof initProfileAndModals === "function") initProfileAndModals();
+
+    // 6. Sovereign Authentication Boundary
+    if (window.AuthBoundary && typeof window.AuthBoundary.init === "function") {
+      window.AuthBoundary.init();
+    }
+  } catch (err) {
+    console.error("[The 1% Club] Master initialization error:", err);
+  }
+}
+
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => window.AuthBoundary.init());
+  document.addEventListener("DOMContentLoaded", initApp);
 } else {
-  window.AuthBoundary.init();
+  initApp();
 }
 
 
