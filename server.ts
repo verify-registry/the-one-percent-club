@@ -95,24 +95,24 @@ interface Instrument {
 
 const REQUIRED_INSTRUMENTS: Instrument[] = [
   // 1. Precious Metals Spot Prices
-  { id: "gold", cat: "METALS", catAr: "معادن", symbol: "XAU/USD", nameEn: "Gold Spot", nameAr: "الذهب الفوري", unit: "oz", currency: "USD", biquoteSymbol: "XAUUSD", instrumentType: "SPOT", instrumentTypeAr: "فوري" },
-  { id: "silver", cat: "METALS", catAr: "معادن", symbol: "XAG/USD", nameEn: "Silver Spot", nameAr: "الفضة الفورية", unit: "oz", currency: "USD", biquoteSymbol: "XAGUSD", instrumentType: "SPOT", instrumentTypeAr: "فوري" },
-  { id: "platinum", cat: "METALS", catAr: "معادن", symbol: "XPT/USD", nameEn: "Platinum Spot", nameAr: "البلاتين الفوري", unit: "oz", currency: "USD", biquoteSymbol: "XPTUSD", instrumentType: "SPOT", instrumentTypeAr: "فوري" },
-  { id: "palladium", cat: "METALS", catAr: "معادن", symbol: "XPD/USD", nameEn: "Palladium Spot", nameAr: "البلاديوم الفوري", unit: "oz", currency: "USD", biquoteSymbol: "XPDUSD", instrumentType: "SPOT", instrumentTypeAr: "فوري" },
+  { id: "gold", cat: "METALS", catAr: "", symbol: "XAU/USD", nameEn: "Gold Spot", nameAr: "", unit: "oz", currency: "USD", biquoteSymbol: "XAUUSD", instrumentType: "SPOT", instrumentTypeAr: "" },
+  { id: "silver", cat: "METALS", catAr: "", symbol: "XAG/USD", nameEn: "Silver Spot", nameAr: "", unit: "oz", currency: "USD", biquoteSymbol: "XAGUSD", instrumentType: "SPOT", instrumentTypeAr: "" },
+  { id: "platinum", cat: "METALS", catAr: "", symbol: "XPT/USD", nameEn: "Platinum Spot", nameAr: "", unit: "oz", currency: "USD", biquoteSymbol: "XPTUSD", instrumentType: "SPOT", instrumentTypeAr: "" },
+  { id: "palladium", cat: "METALS", catAr: "", symbol: "XPD/USD", nameEn: "Palladium Spot", nameAr: "", unit: "oz", currency: "USD", biquoteSymbol: "XPDUSD", instrumentType: "SPOT", instrumentTypeAr: "" },
 
   // 2. Commodities & Energy
-  { id: "brent", cat: "ENERGY", catAr: "طاقة", symbol: "UKOIL", nameEn: "Brent Crude", nameAr: "نفط برنت", unit: "bbl", currency: "USD", biquoteSymbol: "UKOIL", instrumentType: "COMMODITY_CFD", instrumentTypeAr: "عقود فروقات سلعية" },
-  { id: "wti", cat: "ENERGY", catAr: "طاقة", symbol: "USOIL", nameEn: "WTI Crude", nameAr: "الخام الأمريكي WTI", unit: "bbl", currency: "USD", biquoteSymbol: "USOIL", instrumentType: "COMMODITY_CFD", instrumentTypeAr: "عقود فروقات سلعية" },
+  { id: "brent", cat: "ENERGY", catAr: "", symbol: "UKOIL", nameEn: "Brent Crude", nameAr: "", unit: "bbl", currency: "USD", biquoteSymbol: "UKOIL", instrumentType: "COMMODITY_CFD", instrumentTypeAr: "" },
+  { id: "wti", cat: "ENERGY", catAr: "", symbol: "USOIL", nameEn: "WTI Crude", nameAr: "", unit: "bbl", currency: "USD", biquoteSymbol: "USOIL", instrumentType: "COMMODITY_CFD", instrumentTypeAr: "" },
 
   // 3. Major Stock Indices
-  { id: "spx", cat: "INDICES", catAr: "مؤشرات", symbol: "US500", nameEn: "S&P 500", nameAr: "ستاندرد آند بورز 500", unit: "pts", currency: "USD", biquoteSymbol: "US500", instrumentType: "INDEX_CFD", instrumentTypeAr: "مؤشر CFD" },
-  { id: "ndx", cat: "INDICES", catAr: "مؤشرات", symbol: "USTEC", nameEn: "NASDAQ 100", nameAr: "ناسداك 100", unit: "pts", currency: "USD", biquoteSymbol: "USTEC", instrumentType: "INDEX_CFD", instrumentTypeAr: "مؤشر CFD" },
-  { id: "dji", cat: "INDICES", catAr: "مؤشرات", symbol: "US30", nameEn: "Dow Jones", nameAr: "داو جونز", unit: "pts", currency: "USD", biquoteSymbol: "US30", instrumentType: "INDEX_CFD", instrumentTypeAr: "مؤشر CFD" },
+  { id: "spx", cat: "INDICES", catAr: "", symbol: "US500", nameEn: "S&P 500", nameAr: "", unit: "pts", currency: "USD", biquoteSymbol: "US500", instrumentType: "INDEX_CFD", instrumentTypeAr: "" },
+  { id: "ndx", cat: "INDICES", catAr: "", symbol: "USTEC", nameEn: "NASDAQ 100", nameAr: "", unit: "pts", currency: "USD", biquoteSymbol: "USTEC", instrumentType: "INDEX_CFD", instrumentTypeAr: "" },
+  { id: "dji", cat: "INDICES", catAr: "", symbol: "US30", nameEn: "Dow Jones", nameAr: "", unit: "pts", currency: "USD", biquoteSymbol: "US30", instrumentType: "INDEX_CFD", instrumentTypeAr: "" },
 
   // 4. Major Currency Pairs
-  { id: "eurusd", cat: "FX", catAr: "عملات", symbol: "EUR/USD", nameEn: "EUR / USD", nameAr: "يورو / دولار", unit: "", currency: "USD", biquoteSymbol: "EURUSD", instrumentType: "FOREX", instrumentTypeAr: "فوركس" },
-  { id: "gbpusd", cat: "FX", catAr: "عملات", symbol: "GBP/USD", nameEn: "GBP / USD", nameAr: "استرليني / دولار", unit: "", currency: "USD", biquoteSymbol: "GBPUSD", instrumentType: "FOREX", instrumentTypeAr: "فوركس" },
-  { id: "usdchf", cat: "FX", catAr: "عملات", symbol: "USD/CHF", nameEn: "USD / CHF", nameAr: "دولار / فرنك", unit: "", currency: "CHF", biquoteSymbol: "USDCHF", instrumentType: "FOREX", instrumentTypeAr: "فوركس" },
+  { id: "eurusd", cat: "FX", catAr: "", symbol: "EUR/USD", nameEn: "EUR / USD", nameAr: "", unit: "", currency: "USD", biquoteSymbol: "EURUSD", instrumentType: "FOREX", instrumentTypeAr: "" },
+  { id: "gbpusd", cat: "FX", catAr: "", symbol: "GBP/USD", nameEn: "GBP / USD", nameAr: "", unit: "", currency: "USD", biquoteSymbol: "GBPUSD", instrumentType: "FOREX", instrumentTypeAr: "" },
+  { id: "usdchf", cat: "FX", catAr: "", symbol: "USD/CHF", nameEn: "USD / CHF", nameAr: "", unit: "", currency: "CHF", biquoteSymbol: "USDCHF", instrumentType: "FOREX", instrumentTypeAr: "" },
 ];
 
 let marketCache: {

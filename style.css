@@ -803,8 +803,9 @@ body.light-mode ::-webkit-scrollbar-thumb:hover {
 /* =========================================================
    2. GLOBAL LAYOUT & TYPOGRAPHY
    ========================================================= */
-html,
-body {
+html, body {
+  direction: ltr;
+
   background: var(--app-bg);
   color: var(--text-primary);
   font-family: var(--font-ui);
@@ -2135,13 +2136,6 @@ body.light-mode .milestone-badge.tier-exarch .crystal-core {
   right: 26px !important;
   left: auto !important;
 }
-
-/* Ensure inner tooltip content respects document text direction */
-html[dir="rtl"] .metric-tooltip,
-html:not([dir="ltr"]) .metric-tooltip {
-  direction: rtl;
-  text-align: right;
-}
 html[dir="ltr"] .metric-tooltip {
   direction: ltr;
   text-align: left;
@@ -2538,8 +2532,9 @@ html.keyboard-open .bottom-nav {
   transition: padding-bottom 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 /* === 4. Tabs & Navigation === */
-.nav-item {
-  direction: rtl;
+.nav-item  {
+
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2552,6 +2547,7 @@ html.keyboard-open .bottom-nav {
   will-change: transform, color;
   user-select: none;
   -webkit-user-select: none;
+
 }
 .nav-item:active {
   transform: scale(0.92) translate3d(0, 0, 0);
@@ -3746,13 +3742,6 @@ body.light-mode #clubPinnedSvg {
   text-overflow: ellipsis !important;
 }
 
-html[lang="ar"] .chamber-plaque-title,
-html[dir="rtl"] .chamber-plaque-title,
-html[lang="ar"] #clubPinnedTitle,
-html[dir="rtl"] #clubPinnedTitle {
-  font-family: "Readex Pro", "Cairo", -apple-system, sans-serif !important;
-}
-
 body.light-mode .chamber-plaque-title,
 body.light-mode #clubPinnedTitle {
   color: #2b1b06 !important;
@@ -4263,27 +4252,6 @@ body.light-mode #clubPinnedDismissBtn:hover {
   }
 }
 
-/* RTL-aware directional adaptations & tailored liquid glass curvatures */
-html[dir="rtl"] .sovereign-dispatch-card:not(.is-personal-dispatch),
-html[dir="rtl"] .sovereign-dispatch-card.dispatch-align-left,
-html[dir="rtl"] .sovereign-dispatch-card.dispatch-sender-other {
-  border-radius: 17px 17px 6px 17px !important;
-}
-html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch,
-html[dir="rtl"] .sovereign-dispatch-card.dispatch-align-right,
-html[dir="rtl"] .sovereign-dispatch-card.dispatch-sender-me {
-  border-radius: 17px 17px 17px 6px !important;
-}
-
-html[dir="rtl"] .sovereign-dispatch-card:not(.is-personal-dispatch).is-new-dispatch,
-html[dir="rtl"] .sovereign-dispatch-card:not(.is-personal-dispatch).dispatch-just-arrived {
-  animation-name: dispatchArrivalIncomingRTL;
-}
-html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.is-new-dispatch,
-html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arrived {
-  animation-name: dispatchArrivalPersonalRTL;
-}
-
 @keyframes dispatchArrivalIncomingRTL {
   0% {
     opacity: 0;
@@ -4383,12 +4351,6 @@ html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arri
   transition: opacity 0.6s ease;
 }
 
-[dir="rtl"] .golden-seal-watermark {
-  right: auto;
-  left: 12px;
-  transform: translateY(-50%) rotate(4deg);
-}
-
 .golden-seal-watermark-svg {
   width: 100%;
   height: 100%;
@@ -4398,10 +4360,6 @@ html[dir="rtl"] .sovereign-dispatch-card.is-personal-dispatch.dispatch-just-arri
 .has-golden-ink-bloom .golden-seal-watermark {
   animation: sovereignSealStampFade 3.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: var(--ink-delay, 0s);
-}
-
-[dir="rtl"] .has-golden-ink-bloom .golden-seal-watermark {
-  animation-name: sovereignSealStampFadeRtl;
 }
 
 .golden-ink-quill-trace {
@@ -4794,11 +4752,11 @@ body.light-mode .sovereign-time-icon {
   transition: max-height 0.3s ease;
   unicode-bidi: plaintext;
   text-align: start;
-}
-.dispatch-text-content:dir(rtl),
-.dispatch-text-content[dir="rtl"] {
-  direction: rtl;
+}.dispatch-text-content:dir(rtl) {
+
+  direction: ltr;
   text-align: right;
+
 }
 .dispatch-text-content:dir(ltr),
 .dispatch-text-content[dir="ltr"] {
@@ -5518,10 +5476,6 @@ body.light-mode .dispatch-read-more-btn:hover {
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease;
 }
 
-html[dir="rtl"] .obsidian-dispatch-composer {
-  padding: 5px 10px 5px 6px;
-}
-
 /* Polished Metallic Bezel Casing (Frame) */
 .obsidian-dispatch-composer::before {
   content: "" !important;
@@ -5722,12 +5676,11 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-}
-.obsidian-dispatch-input:dir(rtl),
-.obsidian-dispatch-input[dir="rtl"],
-.obsidian-dispatch-input.is-rtl {
-  direction: rtl !important;
+}.obsidian-dispatch-input:dir(rtl), .obsidian-dispatch-input.is-rtl {
+
+  direction: ltr; !important;
   text-align: right !important;
+
 }
 .obsidian-dispatch-input:dir(ltr),
 .obsidian-dispatch-input[dir="ltr"],
@@ -5741,9 +5694,6 @@ html[dir="rtl"] .obsidian-dispatch-composer {
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-}
-html[dir="rtl"] .obsidian-dispatch-input::placeholder {
-  text-align: right;
 }
 html[dir="ltr"] .obsidian-dispatch-input::placeholder {
   text-align: left;
@@ -5777,9 +5727,6 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
     min-height: 44px;
     height: auto;
     align-items: center !important;
-  }
-  html[dir="rtl"] .obsidian-dispatch-composer {
-    padding: 4px 6px;
   }
   .whisper-cipher-toggle {
     padding: 3.5px 6px;
@@ -5828,14 +5775,12 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
 }
 .sovereign-seal-send-btn:hover .sovereign-arrow-monogram-svg {
   filter: drop-shadow(0 0 5px rgba(212, 175, 106, 0.55));
-}
+}/* Arrow Orientation:
+   In RTL mode (Arabic), the arrow flips horizontally to point in the direction of dispatch (leftwards toward chat) {
 
-/* Arrow Orientation:
-   In RTL mode (Arabic), the arrow flips horizontally to point in the direction of dispatch (leftwards toward chat),
-   while the central cartouche containing the 1% monogram remains strictly upright and legible! */
-html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   transform-origin: 22px 22px;
   transform: scaleX(-1);
+
 }
 
 .sovereign-seal-send-btn:disabled {
@@ -6105,7 +6050,8 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
    Clean, Understated Editorial Category Tabs
    ========================================================================== */
 /* --- HAUTE JOAILLERIE CATEGORY STRIP (DARK MODE) --- */
-#boutique-tab .boutique-tabs {
+#boutique-tab .boutique-tabs  {
+
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -6117,12 +6063,13 @@ html[dir="rtl"] .sovereign-seal-send-btn .arrow-shape {
   padding: 0 2px 2px 2px !important;
   gap: 0 !important;
   margin: 0 0 16px 0 !important;
-  direction: rtl;
+  
   box-shadow: none !important;
   width: 100%;
   box-sizing: border-box;
   min-height: 38px;
   height: 38px;
+
 }
 #boutique-tab .boutique-tabs::-webkit-scrollbar {
   display: none;
@@ -6214,13 +6161,15 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   gap: 6px;
   width: 100%;
 }
-#boutique-tab .boutique-section-title-wrap {
+#boutique-tab .boutique-section-title-wrap  {
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
-  direction: rtl;
+  
   text-align: start;
+
 }
 #boutique-tab .boutique-section-title {
   font-family: var(--font-display, "Cinzel", serif);
@@ -6231,14 +6180,16 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   margin: 0;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
-#boutique-tab .boutique-section-sub {
+#boutique-tab .boutique-section-sub  {
+
   font-size: 10.5px;
   color: #9d917f;
   margin: 0;
   letter-spacing: 0.02em;
   line-height: 1.4;
-  direction: rtl;
+  
   unicode-bidi: isolate;
+
 }
 #boutique-tab .boutique-section-divider {
   display: flex;
@@ -7193,14 +7144,16 @@ body.light-mode .boutique-curatorial-modal {
 .widget-section {
   margin-top: 8px;
 }
-.widget-preview-label {
+.widget-preview-label  {
+
   font-size: 10px;
   letter-spacing: 0.1em;
   color: #948c7c;
   margin-bottom: 10px;
   text-align: center;
-  direction: rtl;
+  
   unicode-bidi: isolate;
+
 }
 #boutique-tab .id-widget-container {
   width: 100%;
@@ -7719,11 +7672,6 @@ body.light-mode #boutique-tab .widget-add-btn.is-installed {
   overflow: visible !important;
 }
 
-[dir="rtl"] .premium-toast-body {
-  align-items: flex-start !important;
-  text-align: start !important;
-}
-
 .premium-toast-title {
   font-family: var(--font-display, "Cinzel", "Cairo", serif) !important;
   font-size: 11px !important;
@@ -8220,19 +8168,10 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
   50% {
     transform: translateX(1.5px);
   }
-}
+}/* RTL Arrow Direction: In Arabic RTL {
 
-/* RTL Arrow Direction: In Arabic RTL, forward discovery is to the LEFT */
-html[dir="rtl"] #club-tab .club-rooms-scroll-arrow .discovery-chevron-icon,
-body[dir="rtl"] #club-tab .club-rooms-scroll-arrow .discovery-chevron-icon,
-[dir="rtl"] #club-tab .club-rooms-scroll-arrow .discovery-chevron-icon {
   transform: scaleX(-1);
-}
 
-html[dir="rtl"] #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden) .discovery-chevron-icon,
-body[dir="rtl"] #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden) .discovery-chevron-icon,
-[dir="rtl"] #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden) .discovery-chevron-icon {
-  animation: clubRoomsChevronNudgeRTL 2.5s ease-in-out infinite !important;
 }
 
 @keyframes clubRoomsChevronNudgeRTL {
@@ -8250,23 +8189,13 @@ body[dir="rtl"] #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hid
   animation: none !important;
 }
 
-html[dir="rtl"] #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevron-icon,
-body[dir="rtl"] #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevron-icon,
-[dir="rtl"] #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevron-icon {
-  transform: scaleX(-1) rotate(180deg) !important;
-  animation: none !important;
-}
-
 /* Respect prefers-reduced-motion: disable continuous animation while preserving luxury metallic bezel */
 @media (prefers-reduced-motion: reduce) {
   #club-tab .club-rooms-scroll-arrow,
   #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden),
   #clubRoomsScrollArrow:not(.is-backward):not(.is-hidden),
   #club-tab .club-rooms-scroll-arrow .discovery-chevron-icon,
-  #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden) .discovery-chevron-icon,
-  html[dir="rtl"] #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden) .discovery-chevron-icon,
-  body[dir="rtl"] #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden) .discovery-chevron-icon,
-  [dir="rtl"] #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden) .discovery-chevron-icon {
+  #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hidden) .discovery-chevron-icon {
     animation: none !important;
   }
 }
@@ -8364,12 +8293,6 @@ body[dir="rtl"] #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevro
   -moz-osx-font-smoothing: grayscale !important;
 }
 
-html[lang="ar"] #club-tab .club-room-btn .chamber-name,
-html[dir="rtl"] #club-tab .club-room-btn .chamber-name,
-[dir="rtl"] #club-tab .club-room-btn .chamber-name {
-  font-family: "Cairo", "Readex Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-}
-
 html[lang="en"] #club-tab .club-room-btn .chamber-name,
 html[dir="ltr"] #club-tab .club-room-btn .chamber-name,
 [dir="ltr"] #club-tab .club-room-btn .chamber-name {
@@ -8393,7 +8316,7 @@ html[dir="ltr"] #club-tab .club-room-btn .chamber-name,
 }
 
 /* ==========================================================================
-   HOVER & ACTIVE STATES: 24-KARAT PHYSICAL SOVEREIGN GOLD BULLION (عيار 24)
+   HOVER & ACTIVE STATES: 24-KARAT PHYSICAL SOVEREIGN GOLD BULLION ( 24)
    - Radiant high-specular 24K bullion body
    - Razor-sharp chiseled obsidian bronze text
    - Beveled jewelry-grade perimeter rims
@@ -8836,7 +8759,7 @@ html.light-mode #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hid
   text-shadow: none;
 }
 .chat-whisper::before {
-  content: "🔐 رسالة مشفرة (اضغط مطولاً للفتح)";
+  content: "🔐 Encrypted Message (Hold to reveal)";
   display: block;
   font-size: 8px;
   color: var(--gold-antique);
@@ -9258,7 +9181,8 @@ html.light-mode #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hid
   width: 100%;
 }
 
-#boutique-tab .boutique-ownership-toggle {
+#boutique-tab .boutique-ownership-toggle  {
+
   display: flex;
   align-items: center;
   width: 100%;
@@ -9270,8 +9194,9 @@ html.light-mode #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hid
   padding: 3px;
   gap: 2px;
   box-sizing: border-box;
-  direction: rtl;
+  
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 235, 180, 0.08);
+
 }
 
 #boutique-tab .b-filt-btn {
@@ -10855,59 +10780,6 @@ textarea::placeholder {
   color: #d4af37;
 }
 
-/* === 8. RTL Support === */
-html[dir="rtl"] .ltr-input {
-  direction: ltr !important;
-  text-align: right !important;
-}
-
-html[dir="rtl"] p,
-html[dir="rtl"] span,
-html[dir="rtl"] div,
-html[dir="rtl"] h1,
-html[dir="rtl"] h2,
-html[dir="rtl"] h3,
-html[dir="rtl"] h4,
-html[dir="rtl"] h5,
-html[dir="rtl"] h6 {
-  unicode-bidi: plaintext;
-}
-
-html[dir="rtl"] .dispatch-name,
-html[dir="rtl"] .dispatch-name bdi {
-  direction: ltr !important;
-  unicode-bidi: isolate !important;
-  display: inline-block;
-  white-space: normal !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
-  max-width: 100% !important;
-}
-
-html[dir="rtl"] #typingName {
-  direction: ltr !important;
-  unicode-bidi: isolate !important;
-  display: inline-block;
-}
-
-html[dir="rtl"] .phc-vertical-text span {
-  unicode-bidi: isolate;
-}
-
-html[dir="rtl"] .phc-dot {
-  unicode-bidi: isolate;
-  display: inline-block;
-  margin: 0 4px;
-}
-
-html[dir="rtl"] .phc-motto-text {
-  flex-direction: row-reverse !important;
-  unicode-bidi: isolate;
-}
-html[dir="rtl"] .phc-motto-text span {
-  unicode-bidi: isolate;
-}
-
 @keyframes prestigePulseGlow {
   0% {
     box-shadow: 0 0 0 rgba(212, 175, 55, 0);
@@ -11582,12 +11454,6 @@ html[dir="rtl"] .phc-motto-text span {
   box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.8), 0 0 2px rgba(50, 140, 80, 0.3) !important;
 }
 
-html[dir="rtl"] .sl-card-status-jewel,
-html[dir="rtl"] .sl-cameo-seal-dot {
-  right: auto !important;
-  left: 0px !important;
-}
-
 /* 3. MEMBER DOSSIER DETAILS (DOMINANT COHERENT IDENTITY BLOCK) */
 .sl-card-info,
 .sl-registry-dossier,
@@ -11607,15 +11473,6 @@ html[dir="rtl"] .sl-cameo-seal-dot {
   text-align: left !important;
   overflow: hidden !important;
   gap: 1.5px !important;
-}
-
-html[dir="rtl"] .sl-card-info,
-html[dir="rtl"] .sl-registry-dossier,
-html[dir="rtl"] .sovereign-ledger-info,
-html[dir="rtl"] .leaderboard-item-info,
-html[dir="rtl"] .leaderboard-info,
-html[dir="rtl"] .member-details {
-  text-align: right !important;
 }
 
 .sl-card-name-row {
@@ -11761,17 +11618,6 @@ html[dir="rtl"] .member-details {
   padding-inline-start: 5px !important;
 }
 
-html[dir="rtl"] .sl-card-right,
-html[dir="rtl"] .sl-registry-hallmark,
-html[dir="rtl"] .sovereign-ledger-right {
-  margin-left: 0 !important;
-  margin-right: 6px !important;
-  border-left: none !important;
-  border-right: 1px solid rgba(212, 175, 106, 0.16) !important;
-  padding-left: 0 !important;
-  padding-right: 5px !important;
-}
-
 .sl-card-wealth,
 .sl-registry-metric,
 .sovereign-ledger-wealth,
@@ -11785,14 +11631,6 @@ html[dir="rtl"] .sovereign-ledger-right {
   text-align: right !important;
   min-width: auto !important;
   gap: 1.5px !important;
-}
-
-html[dir="rtl"] .sl-card-wealth,
-html[dir="rtl"] .sl-registry-metric,
-html[dir="rtl"] .sovereign-ledger-wealth,
-html[dir="rtl"] .leaderboard-wealth {
-  align-items: flex-end !important;
-  text-align: right !important;
 }
 
 .sl-wealth-number,
@@ -11853,13 +11691,6 @@ html[dir="rtl"] .leaderboard-wealth {
   background: radial-gradient(circle at 40% 40%, rgba(212, 175, 106, 0.16) 0%, rgba(24, 20, 26, 0.7) 100%) !important;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 4px rgba(212, 175, 106, 0.18) !important;
   transform: translateX(1px);
-}
-
-html[dir="rtl"] .sl-ledger-card:hover .sl-card-chevron,
-html[dir="rtl"] .sl-ledger-card:hover .sl-registry-sigil,
-html[dir="rtl"] .sl-registry-plaque:hover .sl-registry-sigil,
-html[dir="rtl"] .sovereign-ledger-item:hover .sl-card-chevron {
-  transform: translateX(-1px);
 }
 
 /* PERSONAL STANDING STICKY / BOTTOM CARD */
@@ -14701,19 +14532,6 @@ body #profile-tab .phc-edit-btn svg {
   stroke-width: 1.5 !important;
 }
 
-/* RTL OVERRIDES FOR EDIT BUTTON (LOCKED TO PHYSICAL TOP RIGHT) */
-html[dir="rtl"] body #profile-tab .phc-edit-btn,
-body[dir="rtl"] #profile-tab .phc-edit-btn {
-  right: 14px !important;
-  left: auto !important;
-  top: 12px !important;
-}
-html[dir="rtl"] body #profile-tab .phc-name,
-body[dir="rtl"] #profile-tab .phc-name {
-  padding-inline-end: 0 !important;
-  padding-inline-start: 28px !important;
-}
-
 /* 9. LIGHT MODE (IMPERIAL) */
 body.light-mode #profile-tab .profile-hero-card {
   background:
@@ -14825,13 +14643,6 @@ body #profile-tab .phc-name {
   margin-top: -2px !important;
 }
 
-/* Fix RTL padding override that caused spacing issues */
-html[dir="rtl"] body #profile-tab .phc-name,
-body[dir="rtl"] #profile-tab .phc-name {
-  padding-inline-end: 0 !important;
-  padding-inline-start: 0 !important;
-}
-
 /* Force Quote to single line as well for elegance */
 body #profile-tab .phc-quote {
   font-size: 0.85rem !important;
@@ -14850,12 +14661,9 @@ body #profile-tab .phc-meta {
   text-overflow: ellipsis !important;
   padding-top: 6px !important;
   margin-top: 2px !important;
-}
+}/* 6. Edit Button Fixed to Physical Right Edge */
+body #profile-tab .phc-edit-btn {
 
-/* 6. Edit Button Fixed to Physical Right Edge */
-body #profile-tab .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .phc-edit-btn,
-body[dir="rtl"] #profile-tab .phc-edit-btn {
   position: absolute !important;
   right: 12px !important;
   left: auto !important;
@@ -14864,20 +14672,18 @@ body[dir="rtl"] #profile-tab .phc-edit-btn {
   inset-inline-end: auto !important; /* Kill RTL flipping */
   width: 26px !important;
   height: 26px !important;
-}
 
-/* ==========================================================================
+}/* ==========================================================================
    PHASE 8: ABSOLUTE PEN POSITIONING (FORCE RIGHT ALWAYS)
    ========================================================================== */
-html body #profile-tab .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .phc-edit-btn,
-body[dir="rtl"] #profile-tab .phc-edit-btn,
-html body .profile-hero-card .phc-edit-btn {
+html body #profile-tab .phc-edit-btn, html body .profile-hero-card .phc-edit-btn {
+
   position: absolute !important;
   right: 14px !important;
   left: auto !important;
   inset-inline-start: auto !important;
   inset-inline-end: auto !important;
+
 }
 
 /* ==========================================================================
@@ -14910,12 +14716,9 @@ body.light-mode #profile-tab .profile-hero-card {
     0 24px 48px -12px rgba(0, 0, 0, 0.1),
     inset 0 1px 1px rgba(255, 255, 255, 1),
     inset 0 0 0 1px rgba(156, 109, 35, 0.05) !important;
-}
+}/* 2. Pen fixed strictly to the physical top-right (Absolute Override) */
+html body #profile-tab .phc-edit-btn {
 
-/* 2. Pen fixed strictly to the physical top-right (Absolute Override) */
-html body #profile-tab .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .phc-edit-btn,
-body[dir="rtl"] #profile-tab .phc-edit-btn {
   position: absolute !important;
   top: 16px !important;
   right: 16px !important;
@@ -14935,6 +14738,7 @@ body[dir="rtl"] #profile-tab .phc-edit-btn {
   padding: 0 !important;
   margin: 0 !important;
   z-index: 10 !important;
+
 }
 
 
@@ -14971,14 +14775,11 @@ body #profile-tab .phc-info-col {
   /* Add padding to the right so long text doesn't hit the absolute positioned pen */
   padding-right: 32px !important;
   padding-left: 0 !important;
-}
+}/* In RTL, text flows right-to-left {
 
-/* In RTL, text flows right-to-left, but the pen is physically on the right. 
-   We must protect the right side so text doesn't overlap the pen. */
-html[dir="rtl"] body #profile-tab .phc-info-col,
-body[dir="rtl"] #profile-tab .phc-info-col {
   padding-right: 32px !important;
   padding-left: 0 !important;
+
 }
 
 body #profile-tab .phc-name {
@@ -15146,19 +14947,9 @@ body #profile-tab .phc-info-col {
   flex: 1 1 0% !important;
   min-width: 0 !important;
   padding-right: 40px !important; /* Protect text from the edit button */
-}
+}/* 5. Re-anchor the pen strictly to the Card bounds */
+html body #profile-tab .profile-hero-card .phc-edit-btn {
 
-/* 4. Fix RTL padding mirror for the edit button */
-html[dir="rtl"] body #profile-tab .phc-info-col,
-body[dir="rtl"] #profile-tab .phc-info-col {
-  padding-right: 40px !important;
-  padding-left: 0 !important;
-}
-
-/* 5. Re-anchor the pen strictly to the Card bounds */
-html body #profile-tab .profile-hero-card .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
-body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
   position: absolute !important;
   top: 16px !important;
   right: 16px !important;
@@ -15166,6 +14957,7 @@ body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
   inset-inline-start: auto !important;
   inset-inline-end: auto !important;
   z-index: 10 !important;
+
 }
 
 /* ==========================================================================
@@ -15207,12 +14999,6 @@ body #profile-tab .phc-info-col {
   padding-left: 0 !important;
 }
 
-html[dir="rtl"] body #profile-tab .phc-info-col,
-body[dir="rtl"] #profile-tab .phc-info-col {
-  padding-right: 36px !important; /* Pen is strictly physical right */
-  padding-left: 0 !important;
-}
-
 /* 5. Force Single Line on Typography Elements */
 body #profile-tab .phc-name,
 body #profile-tab .phc-quote,
@@ -15235,12 +15021,9 @@ body #profile-tab .phc-tier {
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   margin: 2px 0 !important;
-}
+}/* 7. Pin the Edit Button with Absolute Authority */
+html body #profile-tab .profile-hero-card .phc-edit-btn {
 
-/* 7. Pin the Edit Button with Absolute Authority */
-html body #profile-tab .profile-hero-card .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
-body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
   position: absolute !important;
   top: 16px !important;
   right: 16px !important;
@@ -15248,6 +15031,7 @@ body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
   inset-inline-start: auto !important;
   inset-inline-end: auto !important;
   z-index: 10 !important; /* Topmost layer */
+
 }
 
 /* ==========================================================================
@@ -15369,12 +15153,6 @@ body #profile-tab .phc-info-col {
   padding-right: 36px !important;
 }
 
-html[dir="rtl"] body #profile-tab .phc-info-col,
-body[dir="rtl"] #profile-tab .phc-info-col {
-  padding-right: 36px !important;
-  padding-left: 0 !important;
-}
-
 /* 2. MEMBER NAME (FULL DISPLAY WITHOUT CUTTING) */
 body #profile-tab .phc-name {
   font-family: "Cinzel", serif !important;
@@ -15451,12 +15229,8 @@ body #profile-tab .phc-inner {
   align-items: center !important;
   gap: 16px !important;
   width: 100% !important;
-}
+}body #profile-tab .phc-edit-btn, html body #profile-tab .profile-hero-card .phc-edit-btn {
 
-body #profile-tab .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .phc-edit-btn,
-body[dir="rtl"] #profile-tab .phc-edit-btn,
-html body #profile-tab .profile-hero-card .phc-edit-btn {
   position: absolute !important;
   top: 16px !important;
   right: 16px !important;
@@ -15474,6 +15248,7 @@ html body #profile-tab .profile-hero-card .phc-edit-btn {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+
 }
 
 body #profile-tab .phc-edit-btn svg {
@@ -15645,12 +15420,6 @@ body #profile-tab .phc-inner {
 /* 4. Adjust safe zone for Edit Button */
 body #profile-tab .phc-info-col {
   padding-right: 30px !important; /* Adjusted for the narrower card */
-}
-
-html[dir="rtl"] body #profile-tab .phc-info-col,
-body[dir="rtl"] #profile-tab .phc-info-col {
-  padding-right: 30px !important;
-  padding-left: 0 !important;
 }
 
 /* 5. Force Quote to Single Line */
@@ -16337,34 +16106,11 @@ body.light-mode #profile-tab .phc-quote {
 }
 #membership-tab .card-actions .btn span {
   letter-spacing: 0.08em !important;
-}
+}/* ==========================================================================
+   ARABIC / RTL (Natural elegance {
 
-/* ==========================================================================
-   ARABIC / RTL (Natural elegance, no excessive tracking)
-   ========================================================================== */
-html[dir="rtl"] #membership-tab .member-name,
-html[dir="rtl"] .membership-card .member-name,
-html[dir="rtl"] #membership-tab .tier-pill,
-html[dir="rtl"] .membership-card .tier-pill,
-html[dir="rtl"] #membership-tab #tierName,
-html[dir="rtl"] .membership-card #tierName,
-html[dir="rtl"] #membership-tab .member-label,
-html[dir="rtl"] .membership-card .member-label,
-html[dir="rtl"] #membership-tab .member-number,
-html[dir="rtl"] .membership-card .member-number,
-html[dir="rtl"] #membership-tab .ring-value,
-html[dir="rtl"] .membership-card .ring-value,
-html[dir="rtl"] #membership-tab .ring-label,
-html[dir="rtl"] .membership-card .ring-label,
-html[dir="rtl"] #membership-tab .card-club-name,
-html[dir="rtl"] .membership-card .card-club-name,
-html[dir="rtl"] #membership-tab .card-tagline,
-html[dir="rtl"] .membership-card .card-tagline,
-html[dir="rtl"] #membership-tab .card-tagline span,
-html[dir="rtl"] .membership-card .card-tagline span,
-html[dir="rtl"] #membership-tab .card-actions .btn,
-html[dir="rtl"] #membership-tab .card-actions .btn span {
   letter-spacing: 0 !important;
+
 }
 
 /* Responsive adjustments if required (strictly isolated to Membership fonts) */
@@ -16459,16 +16205,6 @@ html[dir="rtl"] #membership-tab .card-actions .btn span {
 }
 #membership-tab .card-actions .btn {
   letter-spacing: 0.08em !important;
-}
-
-/* Zero letter-spacing for elegant RTL (Arabic) rendering */
-html[dir="rtl"] #membership-tab .member-name,
-html[dir="rtl"] #membership-tab .member-label,
-html[dir="rtl"] #membership-tab .member-number,
-html[dir="rtl"] #membership-tab .ring-label,
-html[dir="rtl"] #membership-tab .card-tagline,
-html[dir="rtl"] #membership-tab .card-actions .btn {
-  letter-spacing: 0 !important;
 }
 
 body.light-mode {
@@ -19007,10 +18743,6 @@ body.light-mode .membership-ledger-card.is-deed-verified-flash {
   }
 }
 
-[dir="rtl"] .deed-security-track {
-  animation-name: securityRibbonGlideRtl;
-}
-
 @keyframes securityRibbonGlideRtl {
   0% {
     transform: translateX(0);
@@ -20574,13 +20306,6 @@ body #profile-tab .phc-info-col {
   box-sizing: border-box !important;
 }
 
-html[dir="rtl"] body #profile-tab .phc-info-col,
-body[dir="rtl"] #profile-tab .phc-info-col {
-  padding-right: 0 !important;
-  padding-left: 28px !important;
-  align-items: flex-start !important;
-}
-
 body #profile-tab .phc-name {
   font-family: var(--font-display, "Cinzel", serif) !important;
   font-size: 17px !important;
@@ -20650,12 +20375,9 @@ body #profile-tab .phc-dot {
 
 body #profile-tab .phc-est {
   color: #9c8e77 !important;
-}
+}/* Machined Metallic Edit Push-Button */
+html body #profile-tab .profile-hero-card .phc-edit-btn {
 
-/* Machined Metallic Edit Push-Button */
-html body #profile-tab .profile-hero-card .phc-edit-btn,
-body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-edit-btn,
-body:not([dir="rtl"]) #profile-tab .phc-edit-btn {
   position: absolute !important;
   top: 16px !important;
   right: 16px !important;
@@ -20674,18 +20396,7 @@ body:not([dir="rtl"]) #profile-tab .phc-edit-btn {
   z-index: 10 !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   padding: 0 !important;
-}
 
-html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
-body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
-[dir="rtl"] #profile-tab .phc-edit-btn {
-  position: absolute !important;
-  top: 12px !important;
-  right: 14px !important;
-  left: auto !important;
-  inset-inline-start: auto !important;
-  inset-inline-end: auto !important;
-  z-index: 10 !important;
 }
 
 body #profile-tab .phc-edit-btn:hover {
@@ -21101,13 +20812,6 @@ body #profile-tab .profile-stats-bar .psb-value.horo-dial-val {
   font-variant-numeric: tabular-nums !important;
 }
 
-html[dir="rtl"] body #profile-tab .profile-stats-bar .psb-value.horo-dial-val,
-body[dir="rtl"] #profile-tab .profile-stats-bar .psb-value.horo-dial-val {
-  font-family: "Amiri", "Cormorant Garamond", serif !important;
-  font-size: 13.5px !important;
-  letter-spacing: 0.02em !important;
-}
-
 body #profile-tab .profile-stats-bar .psb-label.horo-dial-lbl {
   font-family: var(--font-ui, "Manrope", sans-serif) !important;
   font-size: 8px !important;
@@ -21126,14 +20830,6 @@ body #profile-tab .profile-stats-bar .psb-label.horo-dial-lbl {
   align-items: center !important;
   justify-content: center !important;
   line-height: 1.2 !important;
-}
-
-html[dir="rtl"] body #profile-tab .profile-stats-bar .psb-label.horo-dial-lbl,
-body[dir="rtl"] #profile-tab .profile-stats-bar .psb-label.horo-dial-lbl {
-  font-family: "Cairo", "Readex Pro", "Amiri", sans-serif !important;
-  font-size: 8.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0 !important;
 }
 
 body #profile-tab .profile-stats-bar .horo-sub-calibre {
@@ -21266,7 +20962,7 @@ body.light-mode #profile-tab .profile-stats-bar .psb-divider.horo-divider::after
 }
 
 
-/* --- 2.5 SOVEREIGN CIRCLES & DOMAINS (الدوائر والمجالات السيادية) --- */
+/* --- 2.5 SOVEREIGN CIRCLES & DOMAINS  --- */
 body #profile-tab .profile-circles-card {
   display: flex !important;
   flex-direction: column !important;
@@ -21600,13 +21296,6 @@ body #profile-tab .pcc-chip-domain {
   padding: 0 !important;
 }
 
-html[lang="ar"] body #profile-tab .pcc-chip-domain,
-body[dir="rtl"] #profile-tab .pcc-chip-domain {
-  letter-spacing: normal !important;
-  text-transform: none !important;
-  font-weight: 500 !important;
-}
-
 body #profile-tab .pcc-chip-seal-dot {
   display: inline-flex !important;
   align-items: center !important;
@@ -21792,18 +21481,6 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping .pcc-seal-star {
   border: none !important;
 }
 
-html[lang="ar"] #editProfileModal .modal-circles-title,
-html[lang="ar"] #accountInfoModal .modal-circles-title,
-html[lang="ar"] .modal-circles-title,
-body[dir="rtl"] #editProfileModal .modal-circles-title,
-body[dir="rtl"] #accountInfoModal .modal-circles-title,
-body[dir="rtl"] .modal-circles-title {
-  letter-spacing: normal !important;
-  text-transform: none !important;
-  font-size: 12px !important;
-  font-family: var(--font-body, system-ui, -apple-system, sans-serif) !important;
-}
-
 .modal-counter-badge {
   display: inline-flex !important;
   align-items: center !important;
@@ -21943,13 +21620,6 @@ body[dir="rtl"] .modal-circles-title {
   text-transform: uppercase !important;
   margin: 0 !important;
   padding: 0 !important;
-}
-
-html[lang="ar"] .modal-circle-item .mci-domain,
-body[dir="rtl"] .modal-circle-item .mci-domain {
-  letter-spacing: normal !important;
-  text-transform: none !important;
-  font-weight: 500 !important;
 }
 
 .modal-circle-item.is-selected .mci-domain {
@@ -22428,12 +22098,6 @@ body #profile-tab .pcs-equipped-hallmark {
   border: 1px solid rgba(212, 175, 106, 0.45) !important;
 }
 
-html[dir="rtl"] body #profile-tab .pcs-equipped-hallmark,
-body[dir="rtl"] #profile-tab .pcs-equipped-hallmark {
-  right: auto !important;
-  left: 6px !important;
-}
-
 /* Light Mode Support for Collection Showcase */
 body.light-mode #profile-tab #profileCollectionSection .pcs-head h3 {
   color: #8c6826 !important;
@@ -22835,7 +22499,8 @@ body #profile-tab .profile-nav-menu {
   flex-shrink: 0 !important;
 }
 
-body #profile-tab .pnm-item {
+body #profile-tab .pnm-item,
+body #profile-tab .profile-menu-item {
   display: flex !important;
   align-items: center !important;
   padding: 13px 16px !important;
@@ -22848,20 +22513,26 @@ body #profile-tab .pnm-item {
   box-sizing: border-box !important;
 }
 
-body #profile-tab .pnm-item:last-child {
+body #profile-tab .pnm-item:last-child,
+body #profile-tab .profile-menu-item:last-child {
   border-bottom: none !important;
 }
 
-body #profile-tab .pnm-item:hover {
+body #profile-tab .pnm-item:hover,
+body #profile-tab .profile-menu-item:hover,
+body #profile-tab .profile-menu-item:focus-visible {
   background: rgba(212, 175, 106, 0.04) !important;
+  outline: none !important;
 }
 
-body #profile-tab .pnm-item:active {
+body #profile-tab .pnm-item:active,
+body #profile-tab .profile-menu-item:active {
   transform: scale(0.996) !important;
 }
 
 /* Small Refined Metallic Plaque Icon */
-body #profile-tab .pnm-icon {
+body #profile-tab .pnm-icon,
+body #profile-tab .menu-item-icon {
   width: 36px !important;
   height: 36px !important;
   border-radius: 9px !important;
@@ -22879,7 +22550,8 @@ body #profile-tab .pnm-icon {
   transition: all 0.2s ease !important;
 }
 
-body #profile-tab .pnm-item:hover .pnm-icon {
+body #profile-tab .pnm-item:hover .pnm-icon,
+body #profile-tab .profile-menu-item:hover .menu-item-icon {
   border-color: rgba(212, 175, 106, 0.55) !important;
   color: #f5e6b8 !important;
   box-shadow:
@@ -22887,20 +22559,23 @@ body #profile-tab .pnm-item:hover .pnm-icon {
     0 3px 8px rgba(0, 0, 0, 0.5) !important;
 }
 
-body #profile-tab .pnm-icon svg {
+body #profile-tab .pnm-icon svg,
+body #profile-tab .menu-item-icon svg {
   width: 17px !important;
   height: 17px !important;
   display: block !important;
 }
 
 /* Row Content */
-body #profile-tab .pnm-content {
+body #profile-tab .pnm-content,
+body #profile-tab .menu-item-details {
   flex: 1 !important;
   min-width: 0 !important;
 }
 
 body #profile-tab .pnm-title,
-body #profile-tab .menu-title {
+body #profile-tab .menu-title,
+body #profile-tab .menu-item-title {
   font-family: var(--font-display, "Cinzel", serif) !important;
   font-size: 12.5px !important;
   font-weight: 600 !important;
@@ -22912,7 +22587,8 @@ body #profile-tab .menu-title {
 }
 
 body #profile-tab .pnm-sub,
-body #profile-tab .menu-subtitle {
+body #profile-tab .menu-subtitle,
+body #profile-tab .menu-item-desc {
   font-family: var(--font-ui, -apple-system, sans-serif) !important;
   font-size: 10px !important;
   font-weight: 400 !important;
@@ -22923,7 +22599,8 @@ body #profile-tab .menu-subtitle {
 }
 
 /* Refined Navigation Chevron */
-body #profile-tab .pnm-chevron {
+body #profile-tab .pnm-chevron,
+body #profile-tab .menu-item-arrow {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -22933,23 +22610,17 @@ body #profile-tab .pnm-chevron {
   transition: all 0.2s ease !important;
 }
 
-body #profile-tab .pnm-chevron svg {
+body #profile-tab .pnm-chevron svg,
+body #profile-tab .menu-item-arrow svg {
   width: 15px !important;
   height: 15px !important;
   display: block !important;
 }
 
-body #profile-tab .pnm-item:hover .pnm-chevron {
+body #profile-tab .pnm-item:hover .pnm-chevron,
+body #profile-tab .profile-menu-item:hover .menu-item-arrow {
   color: #d4af6a !important;
   transform: translateX(2px) !important;
-}
-
-[dir="rtl"] #profile-tab .pnm-chevron svg {
-  transform: scaleX(-1) !important;
-}
-
-[dir="rtl"] #profile-tab .pnm-item:hover .pnm-chevron {
-  transform: translateX(-2px) !important;
 }
 
 /* Add Member Sovereign Badge */
@@ -23115,15 +22786,20 @@ body.light-mode #profile-tab .profile-nav-menu {
     inset 0 1px 0 #ffffff !important;
 }
 
-body.light-mode #profile-tab .pnm-item {
+body.light-mode #profile-tab .pnm-item,
+body.light-mode #profile-tab .profile-menu-item {
   border-bottom: 1px solid rgba(185, 145, 75, 0.14) !important;
 }
 
-body.light-mode #profile-tab .pnm-item:hover {
+body.light-mode #profile-tab .pnm-item:hover,
+body.light-mode #profile-tab .profile-menu-item:hover,
+body.light-mode #profile-tab .profile-menu-item:focus-visible {
   background: rgba(185, 145, 75, 0.05) !important;
+  outline: none !important;
 }
 
-body.light-mode #profile-tab .pnm-icon {
+body.light-mode #profile-tab .pnm-icon,
+body.light-mode #profile-tab .menu-item-icon {
   background: linear-gradient(145deg, #ffffff 0%, #ede3cf 100%) !important;
   border: 1px solid rgba(185, 145, 75, 0.38) !important;
   color: #7d5a1b !important;
@@ -23132,7 +22808,8 @@ body.light-mode #profile-tab .pnm-icon {
     0 2px 5px rgba(60, 45, 15, 0.08) !important;
 }
 
-body.light-mode #profile-tab .pnm-item:hover .pnm-icon {
+body.light-mode #profile-tab .pnm-item:hover .pnm-icon,
+body.light-mode #profile-tab .profile-menu-item:hover .menu-item-icon {
   border-color: rgba(185, 145, 75, 0.6) !important;
   color: #5a3f12 !important;
   box-shadow:
@@ -23141,20 +22818,24 @@ body.light-mode #profile-tab .pnm-item:hover .pnm-icon {
 }
 
 body.light-mode #profile-tab .pnm-title,
-body.light-mode #profile-tab .menu-title {
+body.light-mode #profile-tab .menu-title,
+body.light-mode #profile-tab .menu-item-title {
   color: #20180d !important;
 }
 
 body.light-mode #profile-tab .pnm-sub,
-body.light-mode #profile-tab .menu-subtitle {
+body.light-mode #profile-tab .menu-subtitle,
+body.light-mode #profile-tab .menu-item-desc {
   color: #6d5f4c !important;
 }
 
-body.light-mode #profile-tab .pnm-chevron {
+body.light-mode #profile-tab .pnm-chevron,
+body.light-mode #profile-tab .menu-item-arrow {
   color: rgba(185, 145, 75, 0.45) !important;
 }
 
-body.light-mode #profile-tab .pnm-item:hover .pnm-chevron {
+body.light-mode #profile-tab .pnm-item:hover .pnm-chevron,
+body.light-mode #profile-tab .profile-menu-item:hover .menu-item-arrow {
   color: #8c6724 !important;
 }
 
@@ -23849,12 +23530,6 @@ body.light-mode .interactive-avatar-ring .phc-avatar-photo {
   z-index: 3 !important;
 }
 
-[dir="rtl"] #editProfileModal .avatar-overlay-badge,
-[dir="rtl"] #accountInfoModal .avatar-overlay-badge {
-  right: auto !important;
-  left: 6px !important;
-}
-
 body.light-mode #editProfileModal .avatar-overlay-badge,
 body.light-mode #accountInfoModal .avatar-overlay-badge {
   background: #2a1c0a !important;
@@ -24361,41 +24036,6 @@ body.light-mode #settingsModal .luxury-switch input:checked + .slider:before {
 #settingsModal .lang-selector-group {
   display: flex !important;
   gap: 6px !important;
-}
-
-#settingsModal .lang-btn {
-  border-radius: 6px !important;
-  font-family: var(--font-display, "Cinzel", serif) !important;
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.08em !important;
-  padding: 5px 12px !important;
-  background: rgba(255, 255, 255, 0.03) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: #8c7d68 !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-}
-
-#settingsModal .lang-btn.is-active,
-#settingsModal .lang-btn.active {
-  background: linear-gradient(180deg, rgba(212, 175, 106, 0.22) 0%, rgba(160, 120, 50, 0.15) 100%) !important;
-  border-color: rgba(212, 175, 106, 0.5) !important;
-  color: #f5e6b8 !important;
-  box-shadow: inset 0 1px 0 rgba(255, 240, 200, 0.2) !important;
-}
-
-body.light-mode #settingsModal .lang-btn {
-  background: rgba(60, 45, 15, 0.04) !important;
-  border: 1px solid rgba(60, 45, 15, 0.15) !important;
-  color: #6d5f4c !important;
-}
-
-body.light-mode #settingsModal .lang-btn.is-active,
-body.light-mode #settingsModal .lang-btn.active {
-  background: linear-gradient(180deg, rgba(185, 145, 75, 0.2) 0%, rgba(150, 110, 45, 0.14) 100%) !important;
-  border-color: rgba(185, 145, 75, 0.6) !important;
-  color: #241b10 !important;
 }
 
 /* Logout Button */
@@ -25445,28 +25085,17 @@ body #profile-tab .ossb-text {
   body #profile-tab .profile-hero-card .phc-avatar-photo {
     width: 100% !important;
     height: 100% !important;
-  }
-  body #profile-tab .profile-hero-card .phc-info-col,
-  body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-info-col,
-  html[dir="ltr"] body #profile-tab .profile-hero-card .phc-info-col,
-  [dir="ltr"] #profile-tab .profile-hero-card .phc-info-col,
-  body[dir="rtl"] #profile-tab .profile-hero-card .phc-info-col,
-  html[dir="rtl"] body #profile-tab .profile-hero-card .phc-info-col,
-  [dir="rtl"] #profile-tab .profile-hero-card .phc-info-col {
+  }body #profile-tab .profile-hero-card .phc-info-col, html[dir="ltr"] body #profile-tab .profile-hero-card .phc-info-col, [dir="ltr"] #profile-tab .profile-hero-card .phc-info-col {
+
     padding: 0 !important;
-  }
+  
+}
   body #profile-tab .profile-hero-card .phc-tier-row {
     padding-right: 32px !important;
     padding-left: 0 !important;
     box-sizing: border-box !important;
-  }
-  body #profile-tab .profile-hero-card .phc-edit-btn,
-  body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-edit-btn,
-  html[dir="ltr"] body #profile-tab .profile-hero-card .phc-edit-btn,
-  [dir="ltr"] #profile-tab .profile-hero-card .phc-edit-btn,
-  body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
-  html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
-  [dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn {
+  }body #profile-tab .profile-hero-card .phc-edit-btn, html[dir="ltr"] body #profile-tab .profile-hero-card .phc-edit-btn, [dir="ltr"] #profile-tab .profile-hero-card .phc-edit-btn {
+
     width: 28px !important;
     height: 28px !important;
     top: 12px !important;
@@ -25474,7 +25103,8 @@ body #profile-tab .ossb-text {
     left: auto !important;
     inset-inline-start: auto !important;
     inset-inline-end: auto !important;
-  }
+  
+}
   body #profile-tab .profile-hero-card .phc-name {
     font-size: 14.5px !important;
   }
@@ -25715,41 +25345,6 @@ body #profile-tab .ossb-text {
   body #profile-tab .ossb-text {
     font-size: 7.5px !important;
   }
-}
-
-/* 8. Arabic Typography & Anti-Disconnection RTL Normalization */
-[dir="rtl"] #profile-tab .phc-tier,
-[dir="rtl"] #profile-tab .psb-label,
-[dir="rtl"] #profile-tab .history-head-title-wrap h3,
-[dir="rtl"] #profile-tab #historySectionTitle,
-[dir="rtl"] #profile-tab .history-badge-seal .badge,
-[dir="rtl"] #profile-tab .ledger-org,
-[dir="rtl"] #profile-tab .ledger-hero-label,
-[dir="rtl"] #profile-tab .ledger-hero-protocol,
-[dir="rtl"] #profile-tab .lrc-label,
-[dir="rtl"] #profile-tab .lss-text,
-[dir="rtl"] #profile-tab #collectionSectionTitle,
-[dir="rtl"] #profile-tab .honors-section-title,
-[dir="rtl"] #profile-tab .achievements-summary-label,
-[dir="rtl"] #profile-tab .honor-pill,
-[dir="rtl"] #profile-tab .oath-decree-title,
-[dir="rtl"] #profile-tab .oath-decree-sub,
-[dir="rtl"] #profile-tab .oath-motto,
-[dir="rtl"] #profile-tab .oath-preamble,
-[dir="rtl"] #profile-tab .opc-title,
-[dir="rtl"] #profile-tab .opc-desc,
-[dir="rtl"] #profile-tab .oath-sig-label,
-[dir="rtl"] #profile-tab .ossb-text,
-[dir="rtl"] #profile-tab .reliquary-vitrine-title,
-[dir="rtl"] #profile-tab .reliquary-vitrine-sub,
-[dir="rtl"] #profile-tab .reliquary-status-pill,
-[dir="rtl"] #profile-tab .rpc-name,
-[dir="rtl"] #profile-tab .rpc-rarity,
-[dir="rtl"] #profile-tab .rpc-badge-status,
-[dir="rtl"] #profile-tab .rpc-inspect-btn,
-[dir="rtl"] #profile-tab .dossier-seal-badge {
-  letter-spacing: normal !important;
-  line-height: 1.5 !important;
 }
 
 /* ========================================================================= */
@@ -26012,7 +25607,7 @@ body #profile-tab .ossb-text {
 
 /* ================================================== */
 /* PROPOSAL 1: THE VELVET RELIQUARY SHOWCASE           */
-/* (خزانة المقتنيات والتحف السيادية في تبويب البروفايل)     */
+/*      */
 /* ================================================== */
 
 /* 1. Section Header & Identity */
@@ -26114,7 +25709,7 @@ body #profile-tab .reliquary-boutique-btn:hover {
   color: #f7eed7 !important;
 }
 
-/* /* 2. The Sovereign Vitrine Casing (خزانة المقتنيات والتحف السيادية) */
+/* /* 2. The Sovereign Vitrine Casing  */
 body #profile-tab .reliquary-vitrine-box {
   position: relative !important;
   border-radius: 14px !important;
@@ -26703,7 +26298,7 @@ body #profile-tab .vhb-status {
 }
 
 /* ==========================================================================
-   SOVEREIGN RELIQUARY PATENT OF PROVENANCE & OWNERSHIP (تحفة فنية معمارية)
+   SOVEREIGN RELIQUARY PATENT OF PROVENANCE & OWNERSHIP 
    ========================================================================== */
 
 #modals-container {
@@ -27259,7 +26854,7 @@ body.light-mode .reliquary-modal-backdrop {
   -webkit-tap-highlight-color: transparent !important;
 }
 
-/* Informative Status Badge for Required Rank (واضح كحالة/معلومة مستقلة تماماً) */
+/* Informative Status Badge for Required Rank ( /  ) */
 .rmc-equip-btn.is-locked {
   cursor: default !important;
   background: linear-gradient(135deg, rgba(38, 28, 16, 0.95) 0%, rgba(22, 16, 10, 0.98) 100%) !important;
@@ -27277,7 +26872,7 @@ body.light-mode .reliquary-modal-backdrop {
   transform: none !important;
 }
 
-/* Active Acquisition Button (اقتناء كإجراء شراء نشط) */
+/* Active Acquisition Button  */
 .rmc-equip-btn:not(.is-locked) {
   background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
   border: 1px solid #dcae4a !important;
@@ -27299,7 +26894,7 @@ body.light-mode .reliquary-modal-backdrop {
     inset 0 1px 2px #ffffff !important;
 }
 
-/* Primary Action Button (إغلاق / إغلاق المعاينة كإجراء أساسي مستقل في الأسفل) */
+/* Primary Action Button ( /       ) */
 .rmc-dismiss-btn {
   width: 100% !important;
   min-height: 42px !important;
@@ -27559,7 +27154,7 @@ body.light-mode .rmc-dismiss-btn:active {
 }
 
 /* ========================================================================= */
-/* HOROLOGICAL AR SAPPHIRE CRYSTAL SHEEN (الزجاج الياقوتي المضاد للانعكاس) */
+/* HOROLOGICAL AR SAPPHIRE CRYSTAL SHEEN  */
 /* ========================================================================= */
 
 :root,
@@ -27590,7 +27185,7 @@ body #profile-tab .phc-avatar-photo::after,
   z-index: 5 !important;
   opacity: var(--sapphire-opacity, 0.45) !important;
   background:
-    /* Layer 1: Horological Specular Beam (حزمة الضوء المائل عبر العدسة) */
+    /* Layer 1: Horological Specular Beam  */
     linear-gradient(
       var(--sapphire-glare-angle, 128deg),
       transparent calc(var(--sapphire-beam-pos, 40%) - 20%),
@@ -27600,7 +27195,7 @@ body #profile-tab .phc-avatar-photo::after,
       rgba(255, 248, 230, 0.14) calc(var(--sapphire-beam-pos, 40%) + 3%),
       transparent calc(var(--sapphire-beam-pos, 40%) + 20%)
     ),
-    /* Layer 2: Double-AR Anti-Reflective Violet-Cerulean Hue (انعكاس أكسيد الياقوت الأزرق) */
+    /* Layer 2: Double-AR Anti-Reflective Violet-Cerulean Hue  */
     radial-gradient(
       circle at var(--sapphire-sheen-x, 50%) var(--sapphire-sheen-y, 42%),
       rgba(225, 242, 255, 0.22) 0%,
@@ -27626,7 +27221,7 @@ body #profile-tab .phc-avatar-photo::after,
   opacity: 0.88 !important;
 }
 
-/* 2. Master Card Sapphire Dial Face Cover (وجه البطاقة الأوبسيديان المعالج بياقوت مضاد للانعكاس) */
+/* 2. Master Card Sapphire Dial Face Cover  */
 #membershipCard.membership-card .card-inner-frame::after,
 #boutique-tab .id-widget-container .membership-card .card-inner-frame::after {
   content: "" !important;
@@ -27740,10 +27335,10 @@ body.light-mode .membership-card .card-sheen {
 
 /* =========================================================
    PROPOSAL 3: SOVEREIGN WAX & EMBOSSED METAL MATRIX SEALS
-   (أختام الشمع الملكية وأختام المصفوفة المعدنية البارزة)
+   
    ========================================================= */
 
-/* 1. The Sovereign Deed Sealing Wax (ختم الشمع السيادي في صك الانتساب) */
+/* 1. The Sovereign Deed Sealing Wax  */
 .deed-wax-seal {
   position: relative !important;
   width: 48px !important;
@@ -27842,7 +27437,7 @@ body.light-mode .membership-card .card-sheen {
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.95)) !important;
 }
 
-/* 2. The Sovereign Embossed Metal Matrix Seal (ختم المصفوفة الذهبية البارزة) */
+/* 2. The Sovereign Embossed Metal Matrix Seal  */
 .deed-embossed-seal {
   position: relative !important;
   width: 44px !important;
@@ -27901,7 +27496,7 @@ body.light-mode .membership-card .card-sheen {
   filter: drop-shadow(0 1.5px 3px rgba(0, 0, 0, 0.95)) !important;
 }
 
-/* 3. The Sovereign Signet Seal Button (زر خاتم السيادة الممهور) */
+/* 3. The Sovereign Signet Seal Button  */
 .oath-signet-seal-btn {
   display: inline-flex !important;
   align-items: center !important;
@@ -29025,22 +28620,9 @@ body #profile-tab .phc-strip-text {
     font-size: 6.8px !important;
     letter-spacing: 1.2px !important;
   }
-}
+}/* Edit Profile Button (Reference Art Style) */
+html body #profile-tab .phc-edit-btn, html body #profile-tab .profile-hero-card .phc-edit-btn, html body #profile-tab #editAccountBtn {
 
-/* Edit Profile Button (Reference Art Style) */
-html body #profile-tab .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .phc-edit-btn,
-body[dir="rtl"] #profile-tab .phc-edit-btn,
-[dir="rtl"] #profile-tab .phc-edit-btn,
-body:not([dir="rtl"]) #profile-tab .phc-edit-btn,
-html body #profile-tab .profile-hero-card .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .profile-hero-card .phc-edit-btn,
-body[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
-[dir="rtl"] #profile-tab .profile-hero-card .phc-edit-btn,
-body:not([dir="rtl"]) #profile-tab .profile-hero-card .phc-edit-btn,
-html body #profile-tab #editAccountBtn,
-body[dir="rtl"] #profile-tab #editAccountBtn,
-html[dir="rtl"] body #profile-tab #editAccountBtn {
   position: absolute !important;
   top: 12px !important;
   right: 14px !important;
@@ -29076,6 +28658,7 @@ html[dir="rtl"] body #profile-tab #editAccountBtn {
   transition: background 0.15s ease, transform 0.12s ease !important;
   user-select: none !important;
   white-space: nowrap !important;
+
 }
 
 body #profile-tab .phc-edit-btn:hover {
@@ -29357,7 +28940,7 @@ body.light-mode #profile-tab .phc-action-icon {
 }
 
 /* ==========================================================================
-   SOVEREIGN HERALDIC HONORS & ORDERS (سجل الأوسمة الملكية وأشرطة الشرف)
+   SOVEREIGN HERALDIC HONORS & ORDERS 
    Manufacture Chancellery & Diplomatic Ribbon Rack System
    ========================================================================== */
 
@@ -29405,7 +28988,7 @@ body.light-mode #profile-tab .phc-action-icon {
   text-transform: uppercase !important;
 }
 
-/* Diplomatic Service Ribbon Rack Chassis (لوحة أشرطة الخدمة الدبلوماسية) */
+/* Diplomatic Service Ribbon Rack Chassis  */
 #profile-tab .heraldic-ribbon-rack-chassis {
   position: relative !important;
   background: linear-gradient(180deg, rgba(20, 20, 24, 0.96) 0%, rgba(11, 11, 14, 0.98) 100%) !important;
@@ -29686,7 +29269,7 @@ body.light-mode #profile-tab .phc-action-icon {
   margin-bottom: 6px !important;
 }
 
-/* Horizontal Gilded Brooch Bar (شريط التثبيت المعدني) */
+/* Horizontal Gilded Brooch Bar  */
 #profile-tab .honor-brooch-bar {
   position: relative !important;
   width: auto !important;
@@ -29740,7 +29323,7 @@ body.light-mode #profile-tab .phc-action-icon {
   color: #a8a8b2 !important;
 }
 
-/* Draped Moiré Silk Ribbon (الشريط الحريري) */
+/* Draped Moiré Silk Ribbon  */
 #profile-tab .honor-moire-ribbon {
   position: relative !important;
   width: 38px !important;
@@ -29772,7 +29355,7 @@ body.light-mode #profile-tab .phc-action-icon {
   pointer-events: none !important;
 }
 
-/* Solid Gold Suspension Ring (حلقة التعليق الذهبية) */
+/* Solid Gold Suspension Ring  */
 #profile-tab .honor-suspension-ring {
   width: 10px !important;
   height: 10px !important;
@@ -29788,7 +29371,7 @@ body.light-mode #profile-tab .phc-action-icon {
   border-color: #6d6d75 !important;
 }
 
-/* Cloisonné Enamel Medallion (الميدالية المينا الكوازوني المنقوشة) */
+/* Cloisonné Enamel Medallion  */
 #profile-tab .honor-cloisonne-medal {
   position: relative !important;
   width: 48px !important;
@@ -29845,7 +29428,7 @@ body.light-mode #profile-tab .phc-action-icon {
   background: radial-gradient(circle at 35% 30%, #303036 0%, #151518 80%) !important;
 }
 
-/* Beaded Gold Rim (حافة الحبيبات الذهبية المنقوشة) */
+/* Beaded Gold Rim  */
 #profile-tab .cloisonne-beaded-rim {
   position: absolute !important;
   inset: 2px !important;
@@ -29885,7 +29468,7 @@ body.light-mode #profile-tab .phc-action-icon {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)) !important;
 }
 
-/* Medal Sway Micro-Interaction (حركة تأرجح الميدالية الملكية) */
+/* Medal Sway Micro-Interaction  */
 @keyframes medalSway {
   0% { transform: rotate(0deg); }
   20% { transform: rotate(6deg); }
@@ -31191,13 +30774,9 @@ body:not(.light-mode) #profileHeroPlaque .phc-eng-highlight,
   stroke-width: 0.42 !important;
   opacity: 0.08 !important;
   fill: none !important;
-}
+}/* 5. HORIZONTAL SOVEREIGN CARD COMPOSITION (UNIFIED LOCKUP: PORTRAIT + TYPOGRAPHY AS ONE HARMONIOUS BLOCK) */
+html body #profile-tab .phc-horizontal-layout, body #profile-tab .phc-horizontal-layout {
 
-/* 5. HORIZONTAL SOVEREIGN CARD COMPOSITION (UNIFIED LOCKUP: PORTRAIT + TYPOGRAPHY AS ONE HARMONIOUS BLOCK) */
-html body #profile-tab .phc-horizontal-layout,
-html[dir="rtl"] body #profile-tab .phc-horizontal-layout,
-body[dir="rtl"] #profile-tab .phc-horizontal-layout,
-body #profile-tab .phc-horizontal-layout {
   position: relative !important;
   width: 100% !important;
   display: flex !important;
@@ -31210,6 +30789,7 @@ body #profile-tab .phc-horizontal-layout {
   transform-style: preserve-3d !important;
   margin-top: 28px !important; /* Clear safe space strictly below Edit Profile button */
   margin-bottom: 2px !important;
+
 }
 
 /* 6. LEFT: 3D PORTRAIT MEDALLION & SOVEREIGN CROWN COIN (ENLARGED & MOVED DOWN) */
@@ -31451,13 +31031,9 @@ body.light-mode #profile-tab .phc-crown-badge svg,
   color: #fef1cf !important;
   fill: #fef1cf !important;
   filter: drop-shadow(0 0.5px 0.5px rgba(50, 32, 10, 0.65));
-}
+}/* 7. CENTER COLUMN: REFINED IDENTITY HIERARCHY (PROTECTED AGAINST COLLISION) */
+html body #profile-tab .phc-center-col, body #profile-tab .phc-center-col {
 
-/* 7. CENTER COLUMN: REFINED IDENTITY HIERARCHY (PROTECTED AGAINST COLLISION) */
-html body #profile-tab .phc-center-col,
-html[dir="rtl"] body #profile-tab .phc-center-col,
-body[dir="rtl"] #profile-tab .phc-center-col,
-body #profile-tab .phc-center-col {
   flex: 1 1 auto !important;
   min-width: 0 !important;
   display: flex !important;
@@ -31472,6 +31048,7 @@ body #profile-tab .phc-center-col {
   padding-bottom: 0px !important;
   padding-right: 0px !important;
   padding-left: 0px !important;
+
 }
 
 /* Name — Guaranteed ONE SINGLE LINE, Prominent Sovereign Display */
@@ -31752,19 +31329,9 @@ body.light-mode #profile-tab .phc-loc,
 [data-theme="light"] #profile-tab .phc-loc {
   color: #4A3618 !important;
   font-weight: 600 !important;
-}
+}/* 8. TOP-RIGHT SOVEREIGN EDIT PROFILE CONTROL (PRECISION PHYSICAL GOLD PLAQUE) */
+html body #profile-tab .profile-hero-card .phc-edit-btn, html body #profile-tab #editAccountBtn, body #profile-tab .phc-edit-btn, body #profile-tab #editAccountBtn {
 
-/* 8. TOP-RIGHT SOVEREIGN EDIT PROFILE CONTROL (PRECISION PHYSICAL GOLD PLAQUE) */
-html body #profile-tab .profile-hero-card .phc-edit-btn,
-html body #profile-tab #editAccountBtn,
-body #profile-tab .phc-edit-btn,
-body #profile-tab #editAccountBtn,
-body[dir="rtl"] #profile-tab #editAccountBtn,
-html[dir="rtl"] body #profile-tab #editAccountBtn,
-[dir="rtl"] #profile-tab #editAccountBtn,
-body[dir="rtl"] #profile-tab .phc-edit-btn,
-html[dir="rtl"] body #profile-tab .phc-edit-btn,
-[dir="rtl"] #profile-tab .phc-edit-btn {
   position: absolute !important;
   top: 10px !important;
   right: 14px !important;
@@ -31793,6 +31360,7 @@ html[dir="rtl"] body #profile-tab .phc-edit-btn,
   z-index: 10 !important;
   opacity: 0.96 !important;
   transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease !important;
+
 }
 
 /* Comfortable Touch Target Expansion for Mobile Usability */
@@ -33941,7 +33509,7 @@ body.light-mode #boutique-tab .boutique-tier-plaque .tier-plaque-mark {
   color: #8c6721 !important;
 }
 
-/* 6. FREE STATUS BADGE («مجاني — مفعّل») */
+/* 6. FREE STATUS BADGE (« — ») */
 body.light-mode #boutique-tab .boutique-own-btn.btn-free,
 body.light-mode #boutique-tab .boutique-free-status-badge {
   background: linear-gradient(180deg, #fdfbf7 0%, #f5efe3 100%) !important;
@@ -33982,7 +33550,7 @@ body.light-mode #boutique-tab .boutique-free-status-badge .free-text {
   text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.8) !important;
 }
 
-/* 7. LUXURY REQUIREMENT BADGE («يتطلب رتبة SOVEREIGN LUMINARY / SOVEREIGN EXARCH») */
+/* 7. LUXURY REQUIREMENT BADGE («  SOVEREIGN LUMINARY / SOVEREIGN EXARCH») */
 body.light-mode #boutique-tab .boutique-own-btn.btn-locked,
 body.light-mode #boutique-tab .boutique-tier-req-badge {
   background: linear-gradient(180deg, #fdfbf7 0%, #f6efe2 100%) !important;
@@ -34040,7 +33608,7 @@ body.light-mode #boutique-tab .boutique-tier-req-badge .req-tier {
   margin: 0 !important;
 }
 
-/* 8. LUXURY ACQUISITION BUTTON («امتلك») — EXACT EDIT-PROFILE PHYSICAL GOLD */
+/* 8. LUXURY ACQUISITION BUTTON («») — EXACT EDIT-PROFILE PHYSICAL GOLD */
 body.light-mode #boutique-tab .boutique-own-btn.btn-acquire {
   background: linear-gradient(135deg, 
     #ffffff 0%, 
@@ -34084,7 +33652,7 @@ body.light-mode #boutique-tab .boutique-own-btn.btn-acquire:active {
   filter: brightness(0.96) !important;
 }
 
-/* 9. OWNERSHIP SEAL («مملوك») */
+/* 9. OWNERSHIP SEAL («») */
 body.light-mode #boutique-tab .boutique-own-btn.btn-owned,
 body.light-mode #boutique-tab .boutique-ownership-plaque {
   background: linear-gradient(180deg, #fdfbf7 0%, #f6eee2 100%) !important; /* Ivory/Champagne serene background */
@@ -34821,397 +34389,29 @@ body.light-mode #authRecoveryModal .auth-text-input {
 
 html[dir="ltr"] #authRecoveryModal .auth-text-input {
   text-align: left !important;
-}
-
-/* ==========================================================================
+}/* ==========================================================================
    THE 1% CLUB — BROAD ENGLISH UI TYPOGRAPHY PASS (MANROPE, SANS-SERIF)
-   Applied to :root / body with explicit :not() exclusions for:
+   Applied to :root / body with explicit :not exclusions for:
    - Profile Hero Card (.profile-hero-card, #profileHeroPlaque)
-   - Master Membership Card (.membership-card, #page-card, #membershipCard)
-   - Any Arabic-specific containers or text ([lang="ar"], [dir="rtl"], :lang(ar))
-   ========================================================================== */
+   - Master Membership Card (.membership-card, #page-card {
 
-:root:not([lang="ar"]):not([dir="rtl"]):not(:lang(ar)),
-body:not([lang="ar"]):not([dir="rtl"]):not(:lang(ar)) {
   font-family: "Manrope", sans-serif !important;
-}
 
-/* Broad English UI Typography across elements, using :not() to explicitly exclude frozen cards & Arabic text */
+}/* Broad English UI Typography across elements, using :not to explicitly exclude frozen cards & Arabic text */
 body :not(
-  .profile-hero-card,
-  .profile-hero-card *,
-  #profileHeroPlaque,
-  #profileHeroPlaque *,
-  .membership-card,
-  .membership-card *,
-  #membershipCard,
-  #membershipCard *,
-  [lang="ar"],
-  [lang="ar"] *,
-  [dir="rtl"],
-  [dir="rtl"] *,
-  :lang(ar),
-  :lang(ar) *,
-  .is-rtl,
-  .is-rtl *
+  .profile-hero-card, .profile-hero-card *, #profileHeroPlaque, #profileHeroPlaque *, .membership-card, .membership-card *, #membershipCard, #membershipCard *, :lang(ar), :lang(ar) *, .is-rtl, .is-rtl *
 ) {
+
   font-family: "Manrope", sans-serif;
-}
 
-/* Arabic-specific containers and text strictly retain original Arabic font stack */
-html[lang="ar"],
-html[lang="ar"] body,
-[lang="ar"],
-[dir="rtl"],
-:lang(ar),
-.is-rtl {
+}:lang(ar), .is-rtl {
+
   font-family: "Readex Pro", "Cairo", "Amiri", -apple-system, sans-serif !important;
-}
 
-html[lang="ar"] :is([lang="ar"], [dir="rtl"], :lang(ar), .is-rtl, [data-i18n]:not([dir="ltr"]):not([lang="en"])) {
+}:lang(ar), .is-rtl {
+
   font-family: "Readex Pro", "Cairo", "Amiri", -apple-system, sans-serif !important;
-}
 
-/* ==========================================================================
-   THE 1% CLUB — COMPONENT-SPECIFIC ENGLISH UI TYPOGRAPHY PASS (MANROPE)
-   Strictly targets actual UI components outside Master Card & Profile Hero Card.
-   Zero impact on Arabic typography. Zero impact on frozen identity cards.
-   ========================================================================== */
-
-/* 1. Header Navigation Badges & Buttons */
-.app-header .nav-meta-badge,
-.app-header .header-action-btn,
-
-/* 2. Bottom Navigation Components */
-.bottom-nav .nav-item,
-.bottom-nav .nav-item span,
-.bottom-nav .nav-label,
-html[lang="en"] .bottom-nav,
-html[dir="ltr"] .bottom-nav,
-
-/* 3. Profile Navigation Menu & Account Titles (English Labels & Subtitles) */
-.menu-title,
-.menu-subtitle,
-.pnm-title,
-.pnm-sub,
-.pnm-title span,
-.pnm-title .menu-title,
-.pnm-sub span,
-.pnm-sub .menu-subtitle,
-body .menu-title,
-body.light-mode .menu-title,
-body #profile-tab .menu-title,
-body #profile-tab .pnm-title,
-body .pnm-title span,
-body.light-mode .pnm-title span,
-body.light-mode .pnm-title .menu-title,
-#menuAccount,
-#menuAccount *,
-#menuMembership,
-#menuMembership *,
-#menuMembershipHistory,
-#menuMembershipHistory *,
-#menuHelp,
-#menuHelp *,
-#menuSettings,
-#menuSettings *,
-
-/* 4. Historical Provenance, Deed & Archival Chronicle (Profile Tab) */
-.ledger-timeline-title,
-body .ledger-timeline-title,
-body.light-mode .ledger-timeline-title,
-body #profile-tab .ledger-timeline-title,
-.ledger-timeline-head,
-.ledger-timeline-head *,
-.ledger-timeline-item,
-.ledger-timeline-item *,
-.lti-title,
-.lti-date,
-.lti-desc,
-.ledger-deed-label,
-.ledger-org,
-.ledger-sub,
-body #profile-tab .ledger-deed-label,
-body #profile-tab .ledger-org,
-body #profile-tab .ledger-sub,
-.deed-security-text,
-.deed-security-track,
-.deed-security-track *,
-.deed-beneficiary-label,
-.deed-member-name,
-body #profile-tab .deed-member-name,
-.ledger-hero-label,
-.ledger-hero-date,
-.ledger-hero-protocol,
-.ledger-record-cell,
-.ledger-record-cell *,
-.lrc-label,
-.lrc-value,
-.deed-seal-stamp-container,
-.deed-seal-stamp-container *,
-.deed-wax-seal,
-.deed-wax-seal *,
-.dws-text,
-.deed-verify-btn,
-.deed-verify-btn *,
-.lss-text,
-
-/* 5. Sovereign Oath & Decree Card (Profile Tab) */
-.sovereign-oath-card,
-.sovereign-oath-inner,
-.oath-decree-header,
-.oath-decree-header *,
-.oath-decree-sub,
-body #profile-tab .oath-decree-sub,
-.oath-preamble,
-.oath-pillar-cell,
-.oath-pillar-cell *,
-.opc-title,
-.opc-desc,
-.oath-sig-box,
-.oath-sig-box *,
-.oath-sig-label,
-.oath-signature-text,
-.oath-crypt-id,
-body #profile-tab .oath-crypt-id,
-.oath-signet-seal-btn,
-.oath-signet-seal-btn *,
-.ossb-text,
-body #profile-tab .ossb-text,
-
-/* 6. Heraldic Citations, Honors, Orders & Ribbons (ORD. I - IV & Benchmarks) */
-#heraldicCitationModal,
-#heraldicCitationModal *,
-.heraldic-citation-card,
-.heraldic-citation-card *,
-.hcc-protocol-tag,
-.hcc-medal-name,
-.hcc-order-class,
-#citationOrderClass,
-#citationMedalName,
-.hcc-ribbon-preview,
-.hcc-ribbon-preview *,
-.hcc-ribbon-sample,
-.hcc-ribbon-sample *,
-.hcc-ribbon-seal,
-.hcc-citation-quote,
-#citationQuoteText,
-.hcc-metrics-grid,
-.hcc-metrics-grid *,
-.hcc-metric-col,
-.hcc-metric-col *,
-.hcc-m-lbl,
-.hcc-m-val,
-.hcc-status-bestowed,
-.hcc-status-pending,
-.hcc-footer,
-.hcc-footer *,
-.hcc-stamp-txt,
-.hcc-action-btn,
-.hcc-action-btn *,
-#profileHonorsSection,
-#profileHonorsSection *,
-.prestige-honors,
-.prestige-honors *,
-.heraldic-orders-section,
-.heraldic-orders-section *,
-.heraldic-titles-col,
-.heraldic-titles-col *,
-.honors-section-title,
-.heraldic-section-sub,
-.heraldic-ribbon-rack-chassis,
-.heraldic-ribbon-rack-chassis *,
-.hrr-title-wrap,
-.hrr-title-wrap *,
-.hrr-label,
-.hrr-status,
-.hrr-rack-bar,
-.hrr-rack-bar *,
-.achievements-summary,
-.achievements-summary *,
-.achievements-summary-value,
-.achievements-summary-label,
-.honor-name,
-.honor-badge-title,
-.honor-desc,
-.honor-citation-hint,
-body #profile-tab .honor-name,
-body #profile-tab #profileAchievementsGrid .honor-name,
-
-/* 7. Sovereign Circles & Domains (Profile Tab & Modals) */
-.profile-circles-card,
-.profile-circles-card *,
-body #profile-tab .profile-circles-card,
-body #profile-tab .profile-circles-card *,
-body #profile-tab .profile-circles-card .pcc-title,
-.pcc-title,
-.pcc-subtitle,
-body #profile-tab .profile-circles-card .pcc-subtitle,
-.pcc-curate-btn,
-.pcc-curate-btn *,
-.pcc-chip-domain,
-.pcc-chip-name,
-.pcc-chips-grid,
-.pcc-chips-grid *,
-.modal-circles-title,
-.modal-counter-badge,
-.modal-circles-desc,
-#editProfileModal .modal-circles-title,
-#accountInfoModal .modal-circles-title,
-
-/* 8. Club Leaderboard, Podium, Ranks & Mini-Dossier */
-.sl-podium,
-.sl-podium *,
-.sl-podium-name,
-.sl-podium-city,
-.sl-podium-score,
-.sl-pedestal-roman,
-.sl-podium-rank-badge,
-.sl-podium-rank-tag,
-.sl-ledger-title,
-.sl-registry-order-prefix,
-.sl-registry-rank-num,
-.sovereign-ledger-name,
-.leaderboard-name,
-.sl-card-name,
-.sl-registry-name,
-.sl-card-id,
-.sl-registry-id,
-.sovereign-ledger-id,
-.sl-wealth-number,
-.sl-registry-percent,
-.sovereign-ledger-percentage,
-.sl-self-title,
-#memberMiniDossierModal,
-#memberMiniDossierModal *,
-.sovereign-mini-dossier-card,
-.sovereign-mini-dossier-card *,
-.mini-dossier-auth-label,
-.mini-dossier-name,
-.mini-dossier-tier,
-.mini-dossier-seat,
-.comp-cell-label,
-.comp-cell-val,
-.mini-dossier-creed-quote,
-.mini-dossier-regalia-title,
-.mini-regalia-chip,
-.mini-dossier-btn,
-.mini-dossier-btn *,
-.chamber-plaque-title,
-.chamber-board-tag,
-.dispatch-name,
-.dispatch-sovereign-timestamp,
-.dispatch-read-more-btn,
-.gauge-tally-readout,
-.dispatch-whisper-discretion-mark,
-.club-room-card,
-.club-room-title,
-.club-room-desc,
-.chat-bubble,
-.chat-author-name,
-.chat-msg-time,
-.chat-input,
-.club-allowance-box,
-.club-allowance-box *,
-.club-allowance-text,
-.club-allowance-val,
-.club-send-btn,
-.club-filter-pill,
-.section-name,
-
-/* 9. Boutique Tab Components & Relic Inspection Modal */
-#boutique-tab .boutique-header-eyebrow,
-#boutique-tab .boutique-balance-value,
-#boutique-tab .boutique-section-title,
-#boutique-tab .b-filt-btn,
-#boutique-tab .boutique-tab,
-#boutique-tab .boutique-card-title,
-#boutique-tab .boutique-card-desc,
-#boutique-tab .boutique-card-price,
-body.light-mode #boutique-tab .boutique-card-price,
-#boutique-tab .boutique-rarity-badge,
-#boutique-tab .boutique-own-btn,
-#boutique-tab .boutique-tier-req-badge,
-#boutique-tab .boutique-tier-req-badge *,
-#boutique-tab .boutique-tier-req-badge .req-tier,
-body.light-mode #boutique-tab .boutique-tier-req-badge .req-tier,
-#inspectionModal,
-#inspectionModal *,
-.boutique-curatorial-modal,
-.boutique-curatorial-modal *,
-.purchase-modal-rarity,
-.rmc-patent-title,
-.rmc-artifact-title,
-.rmc-serial-prefix,
-.rmc-spec-lbl,
-.dws-text,
-
-/* 10. Modals, Dossier, Settings & Auth */
-.luxury-modal-header h2,
-.luxury-modal-header h3,
-.luxury-modal-header h4,
-#modal-account-title,
-#settingsModal .luxury-modal-header h3,
-#helpSupportModal .luxury-modal-header h3,
-#editProfileModal .luxury-modal-header h2,
-#accountInfoModal .luxury-modal-header h2,
-#settingsModal .setting-title,
-.setting-title,
-#settingsModal .setting-desc,
-.setting-desc,
-#accountInfoModal .modal-section-title,
-#editProfileModal .modal-section-title,
-.modal-section-title,
-.dossier-save-btn,
-.edit-profile-save-btn,
-#saveAccountInfoBtn,
-#saveEditProfileBtn,
-#contactConciergeBtn,
-.lang-btn,
-#btnSettingsLogout,
-.settings-modal,
-.settings-modal *,
-.modal-circles-title,
-.modal-circle-item .mci-domain,
-.premium-toast-title,
-.gold-copy-popup-title,
-.widget-add-btn,
-.edit-profile-label,
-.quote-preset-chip,
-#authLoginOverlay,
-#authLoginOverlay *,
-#authLoginOverlay .auth-brand-title,
-#authLoginOverlay .auth-section-title,
-#authRecoveryModal,
-#authRecoveryModal *,
-#authRecoveryModal .auth-recovery-title,
-.auth-modal-body,
-.auth-text-input,
-.auth-submit-btn,
-.auth-tab-btn,
-.auth-section-title,
-.auth-section-desc,
-.auth-brand-tagline,
-.auth-input-label,
-.auth-forgot-link,
-.auth-toggle-link,
-.auth-toggle-text,
-.auth-divider-text,
-.auth-footer-notice,
-.auth-google-btn,
-.card-actions,
-.card-actions button,
-.card-actions .btn,
-#shareBtn,
-.sd-rank-chip,
-.sd-member-name,
-.sd-quote-mark,
-.sd-comp-val,
-.sd-footer-hallmark,
-.sd-id-tag,
-.sd-reg-vault-tag,
-.sd-code-text {
-  font-family: "Manrope", sans-serif !important;
 }
 
 /* Explicit coverage for any LTR or English element outside frozen cards and sovereign brand header */
@@ -35430,13 +34630,6 @@ html[dir="ltr"] #modal-account-title {
   text-align: left !important;
 }
 
-html[dir="rtl"] .luxury-modal-header h2,
-html[dir="rtl"] .luxury-modal-header h3,
-html[dir="rtl"] #modal-account-title {
-  text-align: right !important;
-  margin-left: auto !important;
-}
-
 /* ==========================================================================
    QA AUDIT TARGETED FIXES
    ========================================================================== */
@@ -35471,7 +34664,7 @@ body.light-mode #logoutConfirmModal p {
    1. Compact animated trading ticker for gold and precious metals
    2. Reduced height of welcome banner (quiet luxury, compact)
    3. Message allocation segmented quota gauge
-   4. Centered "برقية مشفرة" badge inside pill
+   4. Centered " " badge inside pill
    ========================================================================== */
 
 /* 1. COMPACT CONTINUOUS ANIMATED TRADING TICKER (Consolidated into main rules above) */
@@ -35785,7 +34978,7 @@ body.light-mode #logoutConfirmModal p {
   }
 }
 
-/* 4. VERTICALLY AND HORIZONTALLY CENTERED "برقية مشفرة" BADGE */
+/* 4. VERTICALLY AND HORIZONTALLY CENTERED " " BADGE */
 .whisper-cipher-toggle {
   display: inline-flex !important;
   align-items: center !important;
@@ -35899,7 +35092,7 @@ html.light-mode .ticker-marquee-group,
   color: #3d3220 !important;
 }
 
-/* 1. Instrument Names (e.g. Gold Spot, Brent Crude, S&P 500, الذهب) */
+/* 1. Instrument Names (e.g. Gold Spot, Brent Crude, S&P 500, ) */
 body.light-mode .ticker-metal-name,
 html.light-mode .ticker-metal-name,
 :root[data-theme="light"] .ticker-metal-name {
@@ -35915,7 +35108,7 @@ html.light-mode .ticker-metal-sym,
   font-weight: 700 !important;
 }
 
-/* 3. Price Values (e.g. $2,875.40, 5,864.20, غير متوفر) */
+/* 3. Price Values (e.g. $2,875.40, 5,864.20,  ) */
 body.light-mode .ticker-metal-price,
 html.light-mode .ticker-metal-price,
 :root[data-theme="light"] .ticker-metal-price {
@@ -35923,7 +35116,7 @@ html.light-mode .ticker-metal-price,
   font-weight: 600 !important;
 }
 
-/* 4. Category Tags (e.g. METALS, ENERGY, INDICES, FX, HUBS / معادن, طاقة, مؤشرات, عملات, مراكز) */
+/* 4. Category Tags (e.g. METALS, ENERGY, INDICES, FX, HUBS / , , , , ) */
 body.light-mode .ticker-cat-tag,
 html.light-mode .ticker-cat-tag,
 :root[data-theme="light"] .ticker-cat-tag {
@@ -35932,7 +35125,7 @@ html.light-mode .ticker-cat-tag,
   border: 0.5px solid rgba(168, 124, 45, 0.30) !important;
 }
 
-/* 5. Financial Hub Cities (e.g. ZURICH, LONDON, RIYADH, NY / زيورخ, لندن, الرياض, نيويورك) */
+/* 5. Financial Hub Cities (e.g. ZURICH, LONDON, RIYADH, NY / , , , ) */
 body.light-mode .ticker-city,
 html.light-mode .ticker-city,
 :root[data-theme="light"] .ticker-city {
@@ -36357,15 +35550,6 @@ html.light-mode #club-tab.is-active,
   scroll-snap-type: x mandatory !important;
   scroll-behavior: smooth !important;
   scrollbar-width: none !important;
-}
-
-html[dir="rtl"] #clubRoomsNav,
-html[dir="rtl"] .club-rooms-nav,
-html[dir="rtl"] #club-tab .club-rooms-nav,
-[dir="rtl"] #clubRoomsNav,
-[dir="rtl"] .club-rooms-nav,
-[dir="rtl"] #club-tab .club-rooms-nav {
-  padding: 2px 0 !important;
 }
 #clubRoomsNav::-webkit-scrollbar {
   display: none !important;
@@ -37780,37 +36964,15 @@ html.light-mode .brand h1 {
   text-shadow: none !important;
   -webkit-font-smoothing: antialiased !important;
   text-rendering: optimizeLegibility !important;
-}
+}/* RTL / Arabic Guarantee: Brand wordmark strictly preserves Imperial Cinzel Roman Serif */
+#appHeader .brand-title, .brand-title, html[lang="en"] #appHeader .brand-title, html[dir="ltr"] #appHeader .brand-title {
 
-/* RTL / Arabic Guarantee: Brand wordmark strictly preserves Imperial Cinzel Roman Serif */
-#appHeader .brand-title,
-.brand-title,
-html[lang="ar"] #appHeader .brand-title,
-html[dir="rtl"] #appHeader .brand-title,
-body[dir="rtl"] #appHeader .brand-title,
-html[lang="ar"] .brand-title,
-html[dir="rtl"] .brand-title,
-body[dir="rtl"] .brand-title,
-html[lang="en"] #appHeader .brand-title,
-html[dir="ltr"] #appHeader .brand-title {
   font-family: "Cinzel", "Cinzel Decorative", serif !important;
-}
 
-#appHeader .brand-tagline-text,
-#appHeader .brand-tagline-text *,
-.brand-tagline-text,
-.brand-tagline-text *,
-html[lang="ar"] #appHeader .brand-tagline-text,
-html[dir="rtl"] #appHeader .brand-tagline-text,
-body[dir="rtl"] #appHeader .brand-tagline-text,
-html[lang="ar"] .brand-tagline-text,
-html[dir="rtl"] .brand-tagline-text,
-html[lang="ar"] .brand-tagline-text span,
-html[dir="rtl"] .brand-tagline-text span,
-body[dir="rtl"] .brand-tagline-text span,
-html[lang="en"] #appHeader .brand-tagline-text,
-html[dir="ltr"] #appHeader .brand-tagline-text {
+}#appHeader .brand-tagline-text, #appHeader .brand-tagline-text *, .brand-tagline-text, .brand-tagline-text *, html[lang="en"] #appHeader .brand-tagline-text, html[dir="ltr"] #appHeader .brand-tagline-text {
+
   font-family: "Cinzel", "Cinzel Decorative", serif !important;
+
 }
 
 /* 3. Symmetrical Tagline Lockup: PRIVATE WEALTH · PRIVATE SOCIETY (High Clarity Lapidary Roman Serif) */
@@ -38355,14 +37517,6 @@ body:not(.light-mode) .chat-bubble.is-incoming:hover {
     inset 0 -1.5px 2px rgba(0, 0, 0, 0.50) !important;
 }
 
-/* RTL Mirrored Capsule Anchor for Incoming */
-html[dir="rtl"] #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch),
-html[dir="rtl"] .club-messages .sovereign-dispatch-card:not(.is-personal-dispatch),
-html[dir="rtl"] #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
-html[dir="rtl"] .chat-bubble.is-incoming {
-  border-radius: 20px 20px 6px 20px !important;
-}
-
 /* 4.2 PERSONAL DISPATCHES (CURRENT MEMBER / ME) — LUMINOUS AMBER CHAMPAGNE LIQUID GLASS CAPSULE */
 body:not(.light-mode) #club-tab .sovereign-dispatch-card.is-personal-dispatch,
 body:not(.light-mode) .club-messages .sovereign-dispatch-card.is-personal-dispatch,
@@ -38411,14 +37565,6 @@ body:not(.light-mode) .chat-bubble.is-outgoing:hover {
     0 4px 14px rgba(0, 0, 0, 0.40),
     inset 0 2px 2.5px rgba(255, 252, 235, 0.75),
     inset 0 -1.5px 2px rgba(0, 0, 0, 0.50) !important;
-}
-
-/* RTL Mirrored Capsule Anchor for Personal */
-html[dir="rtl"] #club-tab .sovereign-dispatch-card.is-personal-dispatch,
-html[dir="rtl"] .club-messages .sovereign-dispatch-card.is-personal-dispatch,
-html[dir="rtl"] #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
-html[dir="rtl"] .chat-bubble.is-outgoing {
-  border-radius: 20px 20px 20px 6px !important;
 }
 
 /* 4.3 WHISPER CIPHER DISPATCHES — EMERALD OBSIDIAN LIQUID GLASS CAPSULE */
@@ -38489,20 +37635,6 @@ body.light-mode .chat-bubble.is-outgoing {
     inset 0 2px 2.5px #ffffff,
     inset 0 -1px 2px rgba(160, 110, 20, 0.12) !important;
   color: #1e1913 !important;
-}
-
-html[dir="rtl"] body.light-mode #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch),
-html[dir="rtl"] body.light-mode .club-messages .sovereign-dispatch-card:not(.is-personal-dispatch),
-html[dir="rtl"] body.light-mode #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
-html[dir="rtl"] body.light-mode .chat-bubble.is-incoming {
-  border-radius: 20px 20px 6px 20px !important;
-}
-
-html[dir="rtl"] body.light-mode #club-tab .sovereign-dispatch-card.is-personal-dispatch,
-html[dir="rtl"] body.light-mode .club-messages .sovereign-dispatch-card.is-personal-dispatch,
-html[dir="rtl"] body.light-mode #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
-html[dir="rtl"] body.light-mode .chat-bubble.is-outgoing {
-  border-radius: 20px 20px 20px 6px !important;
 }
 
 /* 4.5 LIQUID GLASS ACCOLADES & REACTION PILLS */
@@ -40540,4 +39672,124 @@ body.light-mode #club-tab .sovereign-dispatch-card {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(252, 249, 242, 0.86) 50%, rgba(246, 239, 225, 0.92) 100%) !important;
     border: 1px solid rgba(190, 145, 55, 0.45) !important;
     box-shadow: 0 6px 20px rgba(70, 45, 10, 0.12), inset 0 1.5px 2px #ffffff !important;
+}
+
+
+/* ==========================================================================
+   SOVEREIGN PROFILE HEADER ACTIONS & SETTINGS MODAL CONTROLS
+   ========================================================================== */
+html body #profile-tab .phc-header-actions {
+  position: absolute !important;
+  top: 10px !important;
+  right: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  z-index: 25 !important;
+}
+
+html body #profile-tab .phc-header-actions .phc-edit-btn,
+html body #profile-tab .phc-header-actions #editAccountBtn {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  bottom: auto !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: auto !important;
+}
+
+html body #profile-tab .phc-header-actions .btn-settings-glass,
+html body #profile-tab .btn-settings-glass,
+html body #profile-tab #openSettingsBtn {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  bottom: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  height: 18px !important;
+  padding: 0 7px !important;
+  border-radius: 3px !important;
+  background: linear-gradient(135deg, #2b2014 0%, #171108 50%, #0d0904 100%) !important;
+  border: 0.65px solid #d4af6a !important;
+  box-shadow:
+    0 0 0 0.5px #050302,
+    0 1.5px 3.5px rgba(0, 0, 0, 0.7),
+    inset 0 0.65px 0.5px rgba(255, 240, 200, 0.35),
+    inset 0 -0.65px 0.5px rgba(0, 0, 0, 0.85) !important;
+  color: #f6e7be !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 8px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  transition: opacity 0.15s ease, transform 0.15s ease, filter 0.15s ease !important;
+  user-select: none !important;
+  white-space: nowrap !important;
+}
+
+html body #profile-tab .btn-settings-glass svg,
+html body #profile-tab #openSettingsBtn svg {
+  width: 9.5px !important;
+  height: 9.5px !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  stroke: #f6e7be !important;
+  filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.9)) !important;
+}
+
+html body #profile-tab .btn-settings-glass:hover,
+html body #profile-tab #openSettingsBtn:hover {
+  opacity: 1 !important;
+  filter: brightness(1.1) !important;
+  transform: translateY(-0.5px) !important;
+  border-color: #ffd782 !important;
+}
+
+html body #profile-tab .btn-settings-glass:active,
+html body #profile-tab #openSettingsBtn:active {
+  transform: translateY(0.5px) scale(0.98) !important;
+}
+
+/* Light mode for Sovereign Settings Trigger */
+html.light-mode body #profile-tab .phc-header-actions .btn-settings-glass,
+body.light-mode #profile-tab .phc-header-actions .btn-settings-glass,
+[data-theme="light"] #profile-tab .phc-header-actions .btn-settings-glass,
+html.light-mode body #profile-tab #openSettingsBtn,
+body.light-mode #profile-tab #openSettingsBtn,
+[data-theme="light"] #profile-tab #openSettingsBtn {
+  background: linear-gradient(135deg, #ffffff 0%, #f6edd9 50%, #e6d3a8 100%) !important;
+  border: 0.65px solid rgba(184, 134, 40, 0.7) !important;
+  color: #2b1a03 !important;
+  box-shadow:
+    0 1px 3px rgba(35, 20, 6, 0.12),
+    inset 0 0.65px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -0.65px 0.5px rgba(90, 60, 15, 0.35) !important;
+}
+
+html.light-mode body #profile-tab .phc-header-actions .btn-settings-glass svg,
+body.light-mode #profile-tab .phc-header-actions .btn-settings-glass svg,
+[data-theme="light"] #profile-tab .phc-header-actions .btn-settings-glass svg,
+html.light-mode body #profile-tab #openSettingsBtn svg,
+body.light-mode #profile-tab #openSettingsBtn svg,
+[data-theme="light"] #profile-tab #openSettingsBtn svg {
+  stroke: #2b1a03 !important;
+  filter: drop-shadow(0 0.5px 0 rgba(255, 255, 255, 0.55)) !important;
+}
+
+/* Reset to Defaults button hover & active states */
+#btnResetSettings:hover {
+  background: rgba(212, 175, 55, 0.14) !important;
+  border-color: rgba(212, 175, 55, 0.8) !important;
+  color: #fff1c0 !important;
+  transform: translateY(-0.5px) !important;
+}
+
+#btnResetSettings:active {
+  transform: translateY(0.5px) scale(0.99) !important;
 }

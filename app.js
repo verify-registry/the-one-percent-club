@@ -255,9 +255,9 @@ window.setLanguage = function (lang) {
   if (typeof AppState !== "undefined") {
     const tier = AppState.user.tier;
     let heroTierTrans = window.t("profile.heroSovereignTier");
-    if (tier === "Sovereign" || tier === "سيادي") {
+    if (tier === "Sovereign" ) {
       heroTierTrans = window.t("profile.heroSovereignTier");
-    } else if (tier === "Elite" || tier === "نخبة") {
+    } else if (tier === "Elite" ) {
       heroTierTrans = window.t("profile.heroEliteTier");
     }
     if (profileHeroTier) profileHeroTier.textContent = heroTierTrans;
@@ -289,12 +289,9 @@ window.setLanguage = function (lang) {
 
 function initGlobalSettings() {
   const btnEn = document.getElementById("langEnBtn");
-  const btnAr = document.getElementById("langArBtn");
-
   if (btnEn) btnEn.addEventListener("click", () => window.setLanguage("en"));
-  if (btnAr) btnAr.addEventListener("click", () => window.setLanguage("ar"));
 
-  window.setLanguage(currentLang);
+  window.setLanguage("en");
 
   // --- Theme Mode State Manager ---
   window.ThemeManager = {
@@ -383,8 +380,8 @@ function initGlobalSettings() {
         themeDesc.textContent = window.t
           ? window.t(key, lang)
           : isLight
-            ? (lang === "ar" ? "الفاتح الإمبراطوري" : "Imperial Light")
-            : (lang === "ar" ? "الداكن الملكي (الافتراضي)" : "Obsidian Dark");
+            ? "Imperial Light"
+            : "Obsidian Dark";
       }
     },
     bindToggle() {
@@ -450,8 +447,8 @@ function initGlobalSettings() {
       syncAudioSoundUI(isChecked);
 
       const toastMsg = isChecked
-        ? (window.t ? window.t("settings.soundUnmutedToast") : "تم تشغيل المؤثرات الصوتية الساعاتية")
-        : (window.t ? window.t("settings.soundMutedToast") : "تم كتم المؤثرات الصوتية الساعاتية");
+        ? (window.t ? window.t("settings.soundUnmutedToast") : "Sound effects enabled")
+        : (window.t ? window.t("settings.soundMutedToast") : "Sound effects muted");
       if (typeof showNavToast === "function") {
         showNavToast(toastMsg);
       }
@@ -496,8 +493,8 @@ function initGlobalSettings() {
         }
       }
       const msg = isEnabled
-        ? (window.t ? window.t("settings.gyroscope_enabled") : "تم تفعيل استجابة الجايروسكوب ثلاثية الأبعاد")
-        : (window.t ? window.t("settings.gyroscope_disabled") : "تم تعطيل استجابة الجايروسكوب (الوضع الثابت)");
+        ? (window.t ? window.t("settings.gyroscope_enabled") : "3D Gyroscope motion enabled")
+        : (window.t ? window.t("settings.gyroscope_disabled") : "3D Gyroscope motion disabled (Fixed mode)");
       if (typeof showNavToast === "function") {
         showNavToast(msg);
       }
@@ -556,7 +553,7 @@ window.applyLanguage = function (lang) {
   const colTitle = document.getElementById("collectionSectionTitle");
   if (colTitle)
     colTitle.textContent =
-      lang === "ar" ? "خزينة المقتنيات النادرة" : "MY LUXURY COLLECTION";
+      "MY LUXURY COLLECTION";
   if (typeof initProfile === "function") initProfile(true);
   if (typeof window.syncAudioSoundUI === "function" && window.AudioEngine) {
     window.syncAudioSoundUI(window.AudioEngine.isEnabled());
@@ -583,10 +580,10 @@ function getSovereignArtifact(iconKey) {
 
 
 const RARITY_LABEL = {
-  1: () => window.t("boutique.rarity1") || (window.currentLang === "ar" ? "مقتنى استثنائي" : "Exceptional"),
-  2: () => window.t("boutique.rarity2") || (window.currentLang === "ar" ? "تحفة نادرة" : "Masterpiece"),
-  3: () => window.t("boutique.rarity3") || (window.currentLang === "ar" ? "إرث سيادي" : "Sovereign Relic"),
-  4: () => window.t("boutique.rarity4") || (window.currentLang === "ar" ? "درة القمة المطلقة" : "Apex Singular"),
+  1: () => window.t("boutique.rarity1") || "Exceptional",
+  2: () => window.t("boutique.rarity2") || "Masterpiece",
+  3: () => window.t("boutique.rarity3") || "Sovereign Relic",
+  4: () => window.t("boutique.rarity4") || "Apex Singular",
 };
 
 const TIER_HIERARCHY = {
@@ -608,41 +605,41 @@ function getBoutiqueTierLabel(tier, isAr = false) {
   const raw = String(tier || "").toUpperCase();
   if (/EXARCH/.test(raw)) {
     return {
-      name: isAr ? "الحاكم التنفيذي" : "Sovereign Exarch",
-      short: isAr ? "الحاكم التنفيذي" : "EXARCH",
-      gateLabel: isAr ? "رتبة الحاكم التنفيذي" : "SOVEREIGN EXARCH Tier",
-      toastName: isAr ? "رتبة الحاكم التنفيذي" : "SOVEREIGN EXARCH",
+      name: "Sovereign Exarch",
+      short: "EXARCH",
+      gateLabel: "SOVEREIGN EXARCH Tier",
+      toastName: "SOVEREIGN EXARCH",
     };
   }
   if (/LUMINARY/.test(raw)) {
     return {
-      name: isAr ? "الوجاهة السيادية" : "Sovereign Luminary",
-      short: isAr ? "الوجاهة" : "LUMINARY",
-      gateLabel: isAr ? "رتبة الوجاهة" : "SOVEREIGN LUMINARY Tier",
-      toastName: isAr ? "رتبة الوجاهة" : "SOVEREIGN LUMINARY",
+      name: "Sovereign Luminary",
+      short: "LUMINARY",
+      gateLabel: "SOVEREIGN LUMINARY Tier",
+      toastName: "SOVEREIGN LUMINARY",
     };
   }
   if (/TITAN/.test(raw)) {
     return {
-      name: isAr ? "قمة النخبة" : "Apex Titan",
-      short: isAr ? "تيتان" : "TITAN",
-      gateLabel: isAr ? "رتبة قمة النخبة" : "APEX TITAN Tier",
-      toastName: isAr ? "رتبة قمة النخبة" : "APEX TITAN",
+      name: "Apex Titan",
+      short: "TITAN",
+      gateLabel: "APEX TITAN Tier",
+      toastName: "APEX TITAN",
     };
   }
   if (/FOUNDER/.test(raw)) {
     return {
-      name: isAr ? "مؤسس المجلس" : "Founder",
-      short: isAr ? "المؤسس" : "FOUNDER",
-      gateLabel: isAr ? "رتبة المؤسس" : "FOUNDER Tier",
-      toastName: isAr ? "رتبة المؤسس" : "FOUNDER",
+      name: "Founder",
+      short: "FOUNDER",
+      gateLabel: "FOUNDER Tier",
+      toastName: "FOUNDER",
     };
   }
   return {
-    name: isAr ? "عضو سيادي" : (tier || "Sovereign Member"),
-    short: isAr ? "سيادي" : (tier ? tier.replace(/^SOVEREIGN\s+/i, "") : ""),
-    gateLabel: isAr ? "رتبة عضو سيادي" : (tier ? `${tier} Tier` : "Sovereign Tier"),
-    toastName: isAr ? "عضوية سيادية" : (tier || "Sovereign Member"),
+    name: tier || "Sovereign Member",
+    short: tier ? tier.replace(/^SOVEREIGN\s+/i, "") : "",
+    gateLabel: tier ? `${tier} Tier` : "Sovereign Tier",
+    toastName: tier || "Sovereign Member",
   };
 }
 window.getBoutiqueTierLabel = getBoutiqueTierLabel;
@@ -724,9 +721,9 @@ const BOUTIQUE = {
         lore: "items.crown1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Blackened Titanium & 24k Gold",
-        metalAr: "تيتانيوم مؤكسد معتق وذهب عيار 24",
+        metalAr: "",
         weight: "142g Solid",
-        weightAr: "١٤٢ غرام ذهب ومعدن صلب",
+        weightAr: "",
       },
       {
         id: "crown4",
@@ -737,9 +734,9 @@ const BOUTIQUE = {
         lore: "items.crown4_lore",
         requiredTier: "SOVEREIGN EXARCH",
         metal: "Chiseled 24k Gold & Colombian Emeralds",
-        metalAr: "ذهب عيار 24 منحوت وزمرد كولومبي",
+        metalAr: "",
         weight: "290g Sovereign",
-        weightAr: "٢٩٠ غرام ذهب خالص وزمرد",
+        weightAr: "",
       },
     ],
   },
@@ -756,9 +753,9 @@ const BOUTIQUE = {
         lore: "items.ring1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Solid 18k Yellow Gold",
-        metalAr: "ذهب أصفر عيار 18 مصمت",
+        metalAr: "",
         weight: "28g Fine",
-        weightAr: "٢٨ غرام ذهب مصمت",
+        weightAr: "",
       },
       {
         id: "ring2",
@@ -769,9 +766,9 @@ const BOUTIQUE = {
         lore: "items.ring2_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Brazilian Onyx & Fluted Gold",
-        metalAr: "عقيق أسود برازيلي وإطار مذهب",
+        metalAr: "",
         weight: "34g Fine",
-        weightAr: "٣٤ غرام عقيق وذهب",
+        weightAr: "",
       },
       {
         id: "ring3",
@@ -782,9 +779,9 @@ const BOUTIQUE = {
         lore: "items.ring3_lore",
         requiredTier: "SOVEREIGN LUMINARY",
         metal: "Hand-Carved Gold & Octagonal Emerald",
-        metalAr: "ذهب منحوت يدوياً وزمرد ثماني الأوجه",
+        metalAr: "",
         weight: "42g Solid",
-        weightAr: "٤٢ غرام ذهب وزمرد",
+        weightAr: "",
       },
     ],
   },
@@ -801,9 +798,9 @@ const BOUTIQUE = {
         lore: "items.aura1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Engine-Turned Champagne Luster",
-        metalAr: "بريق الشمبانيا المخرط هندسياً",
+        metalAr: "",
         weight: "Atmospheric",
-        weightAr: "إشعاع استوديو دافئ",
+        weightAr: "",
       },
       {
         id: "aura4",
@@ -814,9 +811,9 @@ const BOUTIQUE = {
         lore: "items.aura4_lore",
         requiredTier: "SOVEREIGN EXARCH",
         metal: "Golden Stardust & Dual Ion Rings",
-        metalAr: "غبار الذهب السديمي وحلقات أيونية مضاعفة",
+        metalAr: "",
         weight: "Atmospheric",
-        weightAr: "إشعاع سديمي نبضي",
+        weightAr: "",
       },
     ],
   },
@@ -833,9 +830,9 @@ const BOUTIQUE = {
         lore: "items.star1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "8-Point Beveled 24k Gold",
-        metalAr: "ذهب عيار 24 ثماني الأوجه المشطوفة",
+        metalAr: "",
         weight: "18g Ingot",
-        weightAr: "١٨ غرام سبيكة ذهبية",
+        weightAr: "",
       },
       {
         id: "star4",
@@ -846,9 +843,9 @@ const BOUTIQUE = {
         lore: "items.star4_lore",
         requiredTier: "SOVEREIGN EXARCH",
         metal: "Faceted Platinum & Champagne Accents",
-        metalAr: "بلاتين مصقول متلألئ ولمسات شامبانيا",
+        metalAr: "",
         weight: "45g Ingot",
-        weightAr: "٤٥ غرام بلاتين ماسي",
+        weightAr: "",
       },
     ],
   },
@@ -865,9 +862,9 @@ const BOUTIQUE = {
         lore: "items.art1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Skeletonized 18k Rose Gold Case",
-        metalAr: "هيكل مفرغ من الذهب الوردي عيار 18",
+        metalAr: "",
         weight: "128g Precision Horology",
-        weightAr: "١٢٨ غرام ميكانيكا سويسرية دقيقة",
+        weightAr: "",
       },
       {
         id: "art2",
@@ -878,9 +875,9 @@ const BOUTIQUE = {
         lore: "items.art2_lore",
         requiredTier: "SOVEREIGN LUMINARY",
         metal: "Solid Cast Brass & Black Obsidian",
-        metalAr: "نحاس برونزي مصبوب وأوبسيديان أسود",
+        metalAr: "",
         weight: "380g Desk Artifact",
-        weightAr: "٣٨٠ غرام ختم برونزي مصمت",
+        weightAr: "",
       },
       {
         id: "art4",
@@ -891,9 +888,9 @@ const BOUTIQUE = {
         lore: "items.art4_lore",
         requiredTier: "SOVEREIGN EXARCH",
         metal: "Obsidian Shaft & Chiseled 24k Gold Finial",
-        metalAr: "قضيب أوبسيديان نقي وقمة مذهبة محفورة عيار 24",
+        metalAr: "",
         weight: "450g Sovereign Regalia",
-        weightAr: "٤٥٠ غرام صولجان أوبسيديان وياقوت",
+        weightAr: "",
       },
     ],
   },
@@ -911,9 +908,9 @@ const BOUTIQUE = {
         lore: "items.wid1_lore",
         requiredTier: "SOVEREIGN MEMBER",
         metal: "Digital Horological Obsidian Frame",
-        metalAr: "إطار أوبسيديان وذهب رقمي للشاشة الرئيسية",
+        metalAr: "",
         weight: "Native Widget",
-        weightAr: "ودجت رسمي متوافق مع iOS وأندرويد",
+        weightAr: "",
       },
     ],
   },
@@ -933,9 +930,9 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.crown2_lore",
     requiredTier: "SOVEREIGN LUMINARY",
     metal: "Fluted Antique Gold & Pavé Diamonds",
-    metalAr: "ذهب معتق مضلع وماس نقي",
+    metalAr: "",
     weight: "185g Solid",
-    weightAr: "١٨٥ غرام سبائك معتقة",
+    weightAr: "",
     catKey: "crowns",
   },
   {
@@ -947,9 +944,9 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.crown3_lore",
     requiredTier: "SOVEREIGN LUMINARY",
     metal: "Frosted White Gold & Platinum",
-    metalAr: "ذهب أبيض مثلج وبلاتين شامبانيا",
+    metalAr: "",
     weight: "210g Solid",
-    weightAr: "٢١٠ غرام بلاتين مثلج",
+    weightAr: "",
     catKey: "crowns",
   },
   {
@@ -961,9 +958,9 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.ring4_lore",
     requiredTier: "SOVEREIGN EXARCH",
     metal: "Knurled 18k Rose Gold & Obsidian Core",
-    metalAr: "ذهب وردي عيار 18 مخرش وقلب أوبسيديان",
+    metalAr: "",
     weight: "39g Precision",
-    weightAr: "٣٩ غرام ذهب وردي وأوبسيديان",
+    weightAr: "",
     catKey: "jewelry",
   },
   {
@@ -975,9 +972,9 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.aura2_lore",
     requiredTier: "SOVEREIGN MEMBER",
     metal: "Horological Wave Frequency",
-    metalAr: "موجات الغيوشيه الدقيقة لصفائح الساعات",
+    metalAr: "",
     weight: "Atmospheric",
-    weightAr: "موجات غيوشيه هندسية",
+    weightAr: "",
     catKey: "auras",
   },
   {
@@ -989,9 +986,9 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.aura3_lore",
     requiredTier: "SOVEREIGN LUMINARY",
     metal: "Deep Eclipse Shadow & Specular Rim",
-    metalAr: "ظلال الكسوف الحالك بحافة ذهبية عاكسة",
+    metalAr: "",
     weight: "Atmospheric",
-    weightAr: "طيف كسوف أوبسيدياني",
+    weightAr: "",
     catKey: "auras",
   },
   {
@@ -1003,9 +1000,9 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.star2_lore",
     requiredTier: "SOVEREIGN MEMBER",
     metal: "Layered Frosted Gold & Sunburst",
-    metalAr: "ذهب معالج بالرمل وشعاع شمسي",
+    metalAr: "",
     weight: "24g Ingot",
-    weightAr: "٢٤ غرام سبيكة شمسية",
+    weightAr: "",
     catKey: "stars",
   },
   {
@@ -1017,9 +1014,9 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.star3_lore",
     requiredTier: "SOVEREIGN LUMINARY",
     metal: "Hand-Chamfered Gold & Sapphire Center",
-    metalAr: "ذهب مشطوف يدوياً ومركز من الياقوت الأزرق",
+    metalAr: "",
     weight: "32g Ingot",
-    weightAr: "٣٢ غرام ذهب وياقوت أزرق",
+    weightAr: "",
     catKey: "stars",
   },
   {
@@ -1031,9 +1028,9 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.art3_lore",
     requiredTier: "SOVEREIGN LUMINARY",
     metal: "Heavy Gold Medallion & Silk Ribbon",
-    metalAr: "مدالية ذهبية ثقيلة ووشاح حريري مذهب",
+    metalAr: "",
     weight: "215g Sovereign",
-    weightAr: "٢١٥ غرام ذهب خالص عيار 24",
+    weightAr: "",
     catKey: "artifacts",
   },
   // Legacy alias fallbacks
@@ -1046,7 +1043,7 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.crown4_lore",
     requiredTier: "SOVEREIGN EXARCH",
     metal: "Chiseled 24k Gold & Colombian Emeralds",
-    metalAr: "ذهب عيار 24 منحوت وزمرد كولومبي",
+    metalAr: "",
     catKey: "crowns",
   },
   {
@@ -1058,7 +1055,7 @@ const RETIRED_COLLECTIBLES = [
     lore: "items.ring1_lore",
     requiredTier: "SOVEREIGN MEMBER",
     metal: "Solid 18k Yellow Gold",
-    metalAr: "ذهب أصفر عيار 18 مصمت",
+    metalAr: "",
     catKey: "jewelry",
   },
 ];
@@ -1102,10 +1099,10 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     nameKey: "profile.circle_pe_venture",
     badgeKey: "profile.circle_badge_pe_venture",
     enName: "Private Equity & Venture",
-    arName: "الاستثمار ورأس المال الجريء",
+    arName: "",
     badge: "ALPHA • VENTURE",
     badgeEn: "ALPHA • VENTURE",
-    badgeAr: "عوائد سيادية • استثمار مباشر",
+    badgeAr: "",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="8" x2="13" y2="8"></line><line x1="7" y1="16" x2="11" y2="16"></line><circle cx="16" cy="15" r="2"></circle></svg>`
   },
   {
@@ -1113,10 +1110,10 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     nameKey: "profile.circle_haute_horlogerie",
     badgeKey: "profile.circle_badge_haute_horlogerie",
     enName: "Haute Horlogerie & Rarities",
-    arName: "الساعات الفاخرة والمقتنيات",
+    arName: "",
     badge: "HOROLOGY • RARITY",
     badgeEn: "HOROLOGY • RARITY",
-    badgeAr: "علم الساعات • نوادر القطع",
+    badgeAr: "",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 14.5 13.5"></polyline><path d="M9 2h6M9 22h6M12 2v3M12 19v3"></path></svg>`
   },
   {
@@ -1124,10 +1121,10 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     nameKey: "profile.circle_sovereign_ai",
     badgeKey: "profile.circle_badge_sovereign_ai",
     enName: "Sovereign AI & Deep Tech",
-    arName: "الذكاء الاصطناعي والتكنولوجيا",
+    arName: "",
     badge: "DEEP TECH • AI",
     badgeEn: "DEEP TECH • AI",
-    badgeAr: "تكنولوجيا عميقة • ذكاء سيادي",
+    badgeAr: "",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"></rect><circle cx="9" cy="9" r="1.5" fill="currentColor"></circle><circle cx="15" cy="9" r="1.5" fill="currentColor"></circle><path d="M8 15h8M12 4V2M12 22v-2M2 12h2M20 12h2"></path></svg>`
   },
   {
@@ -1135,10 +1132,10 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     nameKey: "profile.circle_aviation_yachts",
     badgeKey: "profile.circle_badge_aviation_yachts",
     enName: "Private Aviation & Superyachts",
-    arName: "الطيران الخاص واليخوت",
+    arName: "",
     badge: "FLEET • AERONAUTICS",
     badgeEn: "FLEET • AERONAUTICS",
-    badgeAr: "طيران خاص • أساطيل بحرية",
+    badgeAr: "",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>`
   },
   {
@@ -1146,10 +1143,10 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     nameKey: "profile.circle_prime_estates",
     badgeKey: "profile.circle_badge_prime_estates",
     enName: "Prime Architectural Estates",
-    arName: "العقارات والقصور الفاخرة",
+    arName: "",
     badge: "ESTATE • ASSETS",
     badgeEn: "ESTATE • ASSETS",
-    badgeAr: "أصول عقارية • قصور استثنائية",
+    badgeAr: "",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h2M13 10h2M9 14h2M13 14h2M10 21v-4h4v4"></path></svg>`
   },
   {
@@ -1157,10 +1154,10 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     nameKey: "profile.circle_fine_art",
     badgeKey: "profile.circle_badge_fine_art",
     enName: "High Art & Historic Curations",
-    arName: "الفنون والمقتنيات التاريخية",
+    arName: "",
     badge: "FINE ART • CURATION",
     badgeEn: "FINE ART • CURATION",
-    badgeAr: "فنون رفيعة • اقتناء تاريخي",
+    badgeAr: "",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
   },
   {
@@ -1168,10 +1165,10 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     nameKey: "profile.circle_macro_strategy",
     badgeKey: "profile.circle_badge_macro_strategy",
     enName: "Global Macro & Sovereign Strategy",
-    arName: "الاستراتيجية والاقتصاد الكلي",
+    arName: "",
     badge: "SOVEREIGN MACRO",
     badgeEn: "SOVEREIGN MACRO",
-    badgeAr: "اقتصاد كلي • استراتيجية سيادية",
+    badgeAr: "",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`
   },
   {
@@ -1179,10 +1176,10 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     nameKey: "profile.circle_royal_equestrian",
     badgeKey: "profile.circle_badge_royal_equestrian",
     enName: "Thoroughbred & Purebred Equine",
-    arName: "الخيول والفروسية الملكية",
+    arName: "",
     badge: "EQUINE • ROYAL",
     badgeEn: "EQUINE • ROYAL",
-    badgeAr: "فروسية ملكية • سلالات أصيلة",
+    badgeAr: "",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19h16M19 19a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4M12 3l3 4 5 1-4 4 1 5-5-3-5 3 1-5-4-4 5-1 3-4z"></path></svg>`
   }
 ];
@@ -1699,7 +1696,7 @@ const AppState = {
       const tierInfo = typeof getBoutiqueTierLabel === "function" ? getBoutiqueTierLabel(item.requiredTier, isAr) : null;
       const tierName = tierInfo ? tierInfo.toastName : item.requiredTier;
       const msg = isAr 
-        ? `هذه التحفة مخصصة حصرياً لأصحاب ${tierName} فأعلى.`
+        ? `This masterpiece is exclusively reserved for ${tierName} and above.`
         : `This artifact requires ${item.requiredTier} standing or above.`;
       if (typeof showNavToast === "function") showNavToast(msg);
       if (typeof navigator !== "undefined" && navigator.vibrate) navigator.vibrate([40, 60, 40]);
@@ -1709,7 +1706,7 @@ const AppState = {
     // 2. Check liquidity balance
     if (this.balance < item.price) {
       const msg = isAr
-        ? `رصيدك الحالي ($${this.balance.toLocaleString()}) لا يكفي لاقتناء هذه التحفة ($${item.price.toLocaleString()}).`
+        ? `Your balance ($${this.balance.toLocaleString()}) is insufficient for this artifact ($${item.price.toLocaleString()}).`
         : `Insufficient balance ($${this.balance.toLocaleString()}) to acquire this piece ($${item.price.toLocaleString()}).`;
       if (typeof showNavToast === "function") showNavToast(msg);
       if (typeof window.openDepositModal === "function") {
@@ -1824,11 +1821,11 @@ window.openMemberMiniDossier = function (member) {
   const rawTier = (member.tier || "SOVEREIGN").toUpperCase();
   let tierText = rawTier;
   if (isAr) {
-    if (/FOUNDER/.test(rawTier)) tierText = "مؤسس المجلس السيادي • FOUNDER";
-    else if (/EXARCH/.test(rawTier)) tierText = "حاكم سيادي تنفيذي • SOVEREIGN EXARCH";
-    else if (/ARCHON/.test(rawTier)) tierText = "أركون سيادي أول • SOVEREIGN ARCHON";
-    else if (/TITAN/.test(rawTier)) tierText = "تيتان رأس المال • CAPITAL TITAN";
-    else tierText = "عضو سيادي معتمد • SOVEREIGN MEMBER";
+    if (/FOUNDER/.test(rawTier)) tierText = "COUNCIL FOUNDER • FOUNDER";
+    else if (/EXARCH/.test(rawTier)) tierText = "SOVEREIGN EXARCH";
+    else if (/ARCHON/.test(rawTier)) tierText = "SOVEREIGN ARCHON";
+    else if (/TITAN/.test(rawTier)) tierText = "CAPITAL TITAN";
+    else tierText = "SOVEREIGN MEMBER";
   } else {
     tierText = `${rawTier} MEMBER`;
   }
@@ -1840,12 +1837,12 @@ window.openMemberMiniDossier = function (member) {
     const rawSeat = (member.seat || member.city || "GENEVA").toUpperCase();
     let seatText = rawSeat;
     if (isAr) {
-      if (/GENEVA/.test(rawSeat)) seatText = "المقر الدبلوماسي • جنيف (Geneva)";
-      else if (/ZURICH/.test(rawSeat)) seatText = "المقر المصرفي • زيورخ (Zurich)";
-      else if (/MONACO/.test(rawSeat)) seatText = "الملاذ السيادي • موناكو (Monaco)";
-      else if (/LONDON/.test(rawSeat)) seatText = "حي النخبة المالي • لندن (London)";
-      else if (/DUBAI/.test(rawSeat)) seatText = "برج السيادة • دبي (Dubai)";
-      else if (/PARIS/.test(rawSeat)) seatText = "حي الفخامة التراثي • باريس (Paris)";
+      if (/GENEVA/.test(rawSeat)) seatText = "Diplomatic Seat • Geneva";
+      else if (/ZURICH/.test(rawSeat)) seatText = "Banking Seat • Zurich";
+      else if (/MONACO/.test(rawSeat)) seatText = "Sovereign Haven • Monaco";
+      else if (/LONDON/.test(rawSeat)) seatText = "Financial District • London";
+      else if (/DUBAI/.test(rawSeat)) seatText = "Sovereign Tower • Dubai";
+      else if (/PARIS/.test(rawSeat)) seatText = "Heritage District • Paris";
     } else {
       seatText = `${rawSeat} JURISDICTION`;
     }
@@ -1861,14 +1858,14 @@ window.openMemberMiniDossier = function (member) {
 
   const charterEl = document.getElementById("miniDossierCharter");
   if (charterEl) {
-    charterEl.textContent = isAr ? "ميثاق سيادي مُعتمد" : "Sovereign Charter";
+    charterEl.textContent = "Sovereign Charter";
   }
 
   // Motto / Creed
   const mottoEl = document.getElementById("miniDossierMotto");
   if (mottoEl) {
     const defaultMotto = isAr
-      ? "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة."
+      ? "Sovereignty is not mere status; it is the benchmark of existence."
       : "Discipline, exclusivity, and sovereign governance.";
     mottoEl.textContent = `"${member.quote || defaultMotto}"`;
   }
@@ -1879,23 +1876,23 @@ window.openMemberMiniDossier = function (member) {
     let chips = [];
     if (/FOUNDER/.test(rawTier)) {
       chips = isAr
-        ? ["👑 تاج المؤسس الذهبي", "💍 خاتم العرش الزيورخي", "⚜️ وسام السيادة الأول"]
+        ? ["👑 Founder's Gold Crown", "💍 Zurich Throne Ring", "⚜️ Sovereign Order of Merit"]
         : ["👑 Founder's Imperial Crown", "💍 Zurich Signet Ring", "⚜️ Sovereign First Medal"];
     } else if (/EXARCH/.test(rawTier) || /alexander/i.test(memberName)) {
       chips = isAr
-        ? ["👑 إكليل السيادة المطلقة", "💍 خاتم الوفاق السويسري", "⚜️ وسام المعمار الرقمي"]
+        ? ["👑 Crown of Absolute Sovereignty", "💍 Swiss Concord Ring", "⚜️ Digital Architect Order"]
         : ["👑 Absolute Sovereign Diadem", "💍 Swiss Accord Signet", "⚜️ Digital Architecture Medal"];
     } else if (/MONACO/i.test(member.seat || "") || /ROSTOVA/i.test(memberName)) {
       chips = isAr
-        ? ["👑 تاج موناكو السيادي", "💎 قلادة الزمرد الملكية", "💍 خاتم السلالة"]
+        ? ["👑 Sovereign Monaco Crown", "💎 Royal Emerald Necklace", "💍 Dynasty Signet"]
         : ["👑 Monaco Sovereign Crown", "💎 Royal Emerald Choker", "💍 Lineage Signet"];
     } else if (/LONDON/i.test(member.seat || "") || /TITAN/i.test(rawTier)) {
       chips = isAr
-        ? ["⚡ صولجان رأس المال", "💍 خاتم تيتان لندن", "⚜️ وسام السيولة العابرة"]
+        ? ["⚡ Scepter of Capital", "💍 London Titan Ring", "⚜️ Sovereign Liquidity Order"]
         : ["⚡ Capital Sceptre", "💍 London Titan Ring", "⚜️ Global Liquidity Medal"];
     } else {
       chips = isAr
-        ? ["👑 تاج السيادة المعتمد", "💍 خاتم الوفاق والمصادقة", "⚜️ وسام النخبة الدبلوماسي"]
+        ? ["👑 Sovereign Accredited Crown", "💍 Ring of Concord", "⚜️ Diplomatic Elite Order"]
         : ["👑 Sovereign Crown", "💍 Ring of Accord", "⚜️ Diplomatic Medal"];
     }
     regaliaEl.innerHTML = chips
@@ -1913,9 +1910,9 @@ window.openMemberMiniDossier = function (member) {
       if (window.HapticEngine && window.HapticEngine.tap) {
         window.HapticEngine.tap(24);
       }
-      const title = isAr ? "نخب الامتياز السيادي" : "Prestige Toast Conferred";
+      const title = "Prestige Toast Conferred";
       const sentMsg = isAr
-        ? `تم تقديم نخب الامتياز بنجاح إلى ${memberName}`
+        ? `Prestige toast successfully conferred upon ${memberName}`
         : `Prestige toast conferred successfully to ${memberName}`;
       if (typeof showPremiumToast === "function") {
         showPremiumToast(title, sentMsg);
@@ -1929,9 +1926,9 @@ window.openMemberMiniDossier = function (member) {
     msgBtn.onclick = () => {
       if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
       if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(15);
-      const title = isAr ? "المراسلات الثنائية" : "Private Channel";
+      const title = "Private Channel";
       const notice = isAr
-        ? "قريبًا • المراسلات الثنائية المشفرة قيد الاعتماد الدبلوماسي"
+        ? "Coming Soon • Encrypted bilateral correspondence under diplomatic review"
         : "Coming soon • Encrypted bilateral channels in diplomatic accreditation";
       if (typeof showPremiumToast === "function") showPremiumToast(title, notice);
     };
@@ -1943,9 +1940,9 @@ window.openMemberMiniDossier = function (member) {
     addBtn.onclick = () => {
       if (window.AudioEngine && window.AudioEngine.playRustle) window.AudioEngine.playRustle();
       if (window.HapticEngine && window.HapticEngine.tap) window.HapticEngine.tap(15);
-      const title = isAr ? "الدائرة السيادية" : "Sovereign Circle";
+      const title = "Sovereign Circle";
       const notice = isAr
-        ? "قريبًا • توسيع الدوائر بانتظار اعتماد المجلس"
+        ? "Coming Soon • Circle expansion pending Council ratification"
         : "Coming soon • Circle expansions pending council clearance";
       if (typeof showPremiumToast === "function") showPremiumToast(title, notice);
     };
@@ -2018,8 +2015,8 @@ window.openMemberProfileFromDispatch = function (senderId) {
       seat: elite ? (elite.seat || "GENEVA") : "GENEVA",
       wealth: senderId === AppState.user.id ? (AppState.user.wealthIndex || "98%") : (elite?.wealth || "99.8%"),
       priv: elite?.priv || "98.5%",
-      quote: isDispatchAr ? (elite?.mottoAr || elite?.motto || "الانضباط، والحصرية، والسيادة المطلقة.") : (elite?.motto || "Discipline, exclusivity, sovereignty."),
-      quoteAr: elite?.mottoAr || "الانضباط، والحصرية، والسيادة المطلقة.",
+      quote: elite?.motto || "Discipline, exclusivity, sovereignty.",
+      quoteAr: "",
       quoteEn: elite?.motto || "Discipline, exclusivity, sovereignty.",
       avatar: avatarUrl,
       isOnline: true,
@@ -2216,7 +2213,7 @@ ClubState.on("change", () => {
   const pTier = document.getElementById("profileTierName");
   if (pTier) {
     const tier = AppState.user.tier;
-    const isElite = tier === "Elite" || tier === "نخبة";
+    const isElite = tier === "Elite" ;
     const tierKey = isElite ? "profile.heroEliteTier" : "profile.heroSovereignTier";
     pTier.textContent = (window.t && window.t(tierKey)) || (isElite ? "ELITE MEMBER" : "SOVEREIGN MEMBER");
   }
@@ -2269,7 +2266,7 @@ ClubState.on("change", () => {
   if (pQuote) {
     let quoteStr = (AppState.user.quote &&
       AppState.user.quote !== "Not everyone understands wealth. That's why we have this Club." &&
-      AppState.user.quote !== "الانضباط. النفوذ. الحرية.")
+      AppState.user.quote !== "Discipline. Influence. Freedom.")
       ? AppState.user.quote
       : "A higher standard in a different world.";
     // Clean any surrounding quotes since .phc-quote-mark provides decorative typographic quotation marks
@@ -2348,7 +2345,7 @@ function applyEquippedToCard(equipped = (typeof AppState !== "undefined" && AppS
         const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact("ring_monogram") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
         if (art) {
           const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
-          slotEl.innerHTML = `<span class="equipped-ring-art" style="width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;">${art}</span><span class="equipped-ring-label" id="equippedRingLabel">${isAr ? "خاتم المونوغرام" : "SIGNET RING"}</span>`;
+          slotEl.innerHTML = `<span class="equipped-ring-art" style="width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;">${art}</span><span class="equipped-ring-label" id="equippedRingLabel">${"SIGNET RING"}</span>`;
         }
       }
     } else {
@@ -2523,14 +2520,14 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 
     const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`.trim();
     const priceHtml = item.free
-      ? `<span class="boutique-card-price is-free">${window.t("boutique.free") || (isAr ? "مجاني" : "Free")}</span>`
+      ? `<span class="boutique-card-price is-free">${window.t("boutique.free") || ("Free")}</span>`
       : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
 
     let progressHtml = "";
     if (!isOwned && !item.free) {
       const pct = Math.min((currentBalance / item.price) * 100, 100);
       const isReady = pct >= 100;
-      const affordLabel = window.t("boutique.affordability") || (isAr ? "مدى القدرة على الشراء" : "Purchasing Power");
+      const affordLabel = window.t("boutique.affordability") || ("Purchasing Power");
       progressHtml = `
         <div class="purchase-progress-wrap" aria-label="${affordLabel}" title="${Math.floor(pct)}%">
           <div class="purchase-progress-fill ${isReady ? "is-ready" : ""}" style="width: ${pct}%"></div>
@@ -2557,11 +2554,11 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     let btnPointerEvents = "pointer-events: auto;";
 
     if (item.free) {
-      btnContent = `<span class="boutique-free-badge">✓ ${window.t("boutique.includedFree") || (isAr ? "مشمول مجاناً" : "Included Free")}</span>`;
+      btnContent = `<span class="boutique-free-badge">✓ ${window.t("boutique.includedFree") || ("Included Free")}</span>`;
       btnClass = "btn-free";
       btnPointerEvents = "pointer-events: none;";
     } else if (isOwned) {
-      btnContent = `<span class="btn-owned-text">✓ ${window.t("boutique.owned") || "مملوك"}</span>`;
+      btnContent = `<span class="btn-owned-text">✓ ${window.t("boutique.owned") || "Owned"}</span>`;
       btnClass = "btn-owned";
       btnPointerEvents = "pointer-events: none;";
     } else if (!tierEligible) {
@@ -2570,7 +2567,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       btnClass = "btn-locked";
       btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
     } else {
-      btnContent = `<span>${window.t("boutique.acquire") || (isAr ? "امتلك" : "Acquire")}</span> <svg class="btn-bag-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`;
+      btnContent = `<span>${window.t("boutique.acquire") || ("Acquire")}</span> <svg class="btn-bag-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`;
       btnClass = "btn-acquire";
       btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
     }
@@ -2584,7 +2581,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         <span class="b-card-corner br" aria-hidden="true"></span>
 
         <div class="boutique-card-header">
-          <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "نادر"}</span>
+          <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "Rare"}</span>
           ${tierPillHtml}
         </div>
         
@@ -2628,7 +2625,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
           <div class="boutique-section-head">
             <div class="boutique-section-title-wrap">
               <h3 class="boutique-section-title">${window.t("boutique.allColl")}</h3>
-              <span class="boutique-section-sub">${window.t("boutique.allCollSub") || (isAr ? "المقتنيات والتحف السيادية المعتمدة مرتبة تصاعدياً" : "Curated Sovereign Collectibles in Ascending Valuation")}</span>
+              <span class="boutique-section-sub">${window.t("boutique.allCollSub") || ("Curated Sovereign Collectibles in Ascending Valuation")}</span>
             </div>
             <div class="boutique-section-divider" aria-hidden="true">
               <span class="bsd-line"></span>
@@ -2692,11 +2689,11 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
   if (root.innerHTML.trim() === "") {
     const isOwnedFilter = currentOwnershipFilter === "owned";
     const title = isOwnedFilter
-      ? (isAr ? "لم تقتنِ أي قطعة بعد" : "No Owned Collectibles Yet")
-      : (window.t("boutique.noItems") || (isAr ? "لا توجد مقتنيات" : "No Collectibles"));
+      ? ("No Owned Collectibles Yet")
+      : (window.t("boutique.noItems") || ("No Collectibles"));
     const desc = isOwnedFilter
-      ? (isAr ? "تفضل باستعراض المقتنيات المتاحة في الصالون للاقتناء والضم لخزانتك الخاصة." : "Browse the available pieces in the Sovereign Boutique to acquire and add to your collection.")
-      : (window.t("boutique.noFilterMatch") || (isAr ? "لا توجد عناصر مطابقة للتصفية الحالية" : "No items match the current filter."));
+      ? ("Browse the available pieces in the Sovereign Boutique to acquire and add to your collection.")
+      : (window.t("boutique.noFilterMatch") || ("No items match the current filter."));
 
     root.innerHTML = `
       <div class="luxury-empty-state" style="margin-top: 36px; padding: 48px 20px; text-align: center;">
@@ -2707,7 +2704,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
         <span style="display: block; font-size: 11.5px; color: #a89478; max-width: 290px; margin: 0 auto 16px; line-height: 1.5;">${desc}</span>
         ${isOwnedFilter ? `
           <button type="button" onclick="window.resetBoutiqueOwnershipFilter()" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 20px; border-radius: 20px; background: linear-gradient(135deg, #dfb758 0%, #b88628 100%); color: #1a1003; font-weight: 700; font-size: 11.5px; border: 1px solid #ecc678; cursor: pointer; box-shadow: 0 4px 14px rgba(184, 134, 40, 0.35);">
-            ✦ ${isAr ? "استعراض جميع المقتنيات" : "View All Collectibles"}
+            ✦ ${"View All Collectibles"}
           </button>
         ` : ""}
       </div>
@@ -2729,11 +2726,11 @@ window.handleInstallWidget = function handleInstallWidget(event) {
 
   const btn = event?.currentTarget || document.querySelector(".widget-add-btn");
   if (btn) {
-    btn.innerHTML = `✓ ${window.t("boutique.freeActivated") || "مفعل ومثبت"}`;
+    btn.innerHTML = `✓ ${window.t("boutique.freeActivated") || "Installed & Active"}`;
     btn.classList.add("is-installed");
   }
 
-  showNavToast(window.t("misc.widgetInstalledToast") || "تم تثبيت ودجت الهوية السيادية بنجاح على الشاشة الرئيسية!");
+  showNavToast(window.t("misc.widgetInstalledToast") || "Sovereign Identity widget installed successfully!");
 };
 
 function renderWidgetSection() {
@@ -2741,8 +2738,8 @@ function renderWidgetSection() {
   const cardHTML = masterCard ? masterCard.innerHTML : "";
   const isInstalled = localStorage.getItem("club_widget_installed") === "true";
   const btnLabel = isInstalled
-    ? `✓ ${window.t("boutique.freeActivated") || "مفعل ومثبت"}`
-    : `+ ${window.t("boutique.id_widget_status") || "تثبيت الودجت"}`;
+    ? `✓ ${window.t("boutique.freeActivated") || "Installed & Active"}`
+    : `+ ${window.t("boutique.id_widget_status") || "Install Widget"}`;
 
   setTimeout(() => {
     const boutiqueCard = document.querySelector("#boutique-tab .membership-card");
@@ -2939,7 +2936,7 @@ function showGoldCopyPopup(title, subtitle = "") {
 window.showGoldCopyPopup = showGoldCopyPopup;
 
 function showCopyToast(msg) {
-  if (!msg || msg === window.t("misc.linkCopied") || String(msg).includes("نسخ") || String(msg).includes("Copied") || String(msg).includes("Link")) {
+  if (!msg || msg === window.t("misc.linkCopied") || false || String(msg).includes("Copied") || String(msg).includes("Link")) {
     const url = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl) ? ClubState.member.verifyUrl : "";
     showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", url);
   } else {
@@ -3017,9 +3014,9 @@ if (shareBtn) {
         : "0001";
       const isAr = (window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl");
       const shareData = {
-        title: isAr ? "THE 1% CLUB — العضوية السيادية" : "THE 1% CLUB — Sovereign Membership",
+        title: "THE 1% CLUB — Sovereign Membership",
         text: isAr
-          ? `عضوية موثقة ومعتمدة في THE 1% CLUB • #${memberId}`
+          ? `Verified sovereign membership in THE 1% CLUB • #${memberId}`
           : `Verified Sovereign Membership in THE 1% CLUB • #${memberId}`,
         url: verifyUrl,
       };
@@ -3551,7 +3548,7 @@ document.querySelectorAll(".nav-item").forEach((item) => {
       .querySelectorAll(".nav-item")
       .forEach((n) => n.classList.remove("is-active"));
     item.classList.add("is-active");
-    showNavToast(`${item.querySelector("span").textContent} — ${window.t("coming_soon") || (window.currentLang === "ar" ? "قريباً" : "Coming Soon")}`);
+    showNavToast(`${item.querySelector("span").textContent} — ${window.t("coming_soon") || "Coming Soon"}`);
     clearTimeout(navToastTimer);
     navToastTimer = setTimeout(() => {
       navToast.classList.remove("is-visible");
@@ -3624,9 +3621,9 @@ function openMemberProfile(member) {
   const rawTier = member.tier || "Sovereign";
   let tierText = rawTier;
   if (isAr) {
-    if (rawTier === "Sovereign") tierText = "فئة السيادة المطلقة";
-    else if (rawTier === "Elite") tierText = "فئة النخبة المعتمدة";
-    else tierText = "عضو معتمد بالمجلس";
+    if (rawTier === "Sovereign") tierText = "Sovereign Tier";
+    else if (rawTier === "Elite") tierText = "Elite Tier";
+    else tierText = "Accredited Member";
   } else {
     tierText = `${rawTier.toUpperCase()} MEMBER`;
   }
@@ -3641,7 +3638,7 @@ function openMemberProfile(member) {
     const fallbackLookup = typeof window.LEADERBOARD_MEMBERS_MAP !== "undefined" && member.id ? window.LEADERBOARD_MEMBERS_MAP[member.id] : null;
     let quoteText = "";
     if (isAr) {
-      quoteText = member.quoteAr || (fallbackLookup ? (fallbackLookup.quoteAr || fallbackLookup.quote) : null) || member.quote || member.text || "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة.";
+      quoteText = (fallbackLookup ? fallbackLookup.quote : null) || member.quote || member.text || "Sovereignty is not mere status; it is the benchmark of existence.";
     } else {
       quoteText = member.quoteEn || (fallbackLookup ? fallbackLookup.quoteEn : null) || (member.quote !== (member.quoteAr || (fallbackLookup ? fallbackLookup.quoteAr : null)) ? member.quote : null) || "A higher standard in a different world.";
     }
@@ -3662,7 +3659,7 @@ function openMemberProfile(member) {
   // City / Sovereign Jurisdiction
   const locEl = document.getElementById("memberDossierLocationText");
   if (locEl) {
-    const city = isAr ? (member.city || member.cityAr || "المقر الدبلوماسي • جنيف") : (member.cityEn || member.city || "Geneva • Switzerland");
+    const city = member.cityEn || member.city || "Geneva • Switzerland";
     locEl.textContent = city;
   }
 
@@ -3675,13 +3672,13 @@ function openMemberProfile(member) {
   // Rank Label (i18n)
   const rankLabel = document.getElementById("memberDossierRankLabel");
   if (rankLabel) {
-    rankLabel.textContent = window.t ? window.t("memberDossier.standingTier", isAr ? "ar" : "en") : (isAr ? "الرتبة السيادية" : "Sovereign Standing");
+    rankLabel.textContent = window.t ? window.t("memberDossier.standingTier", "en") : ("Sovereign Standing");
   }
 
   // Status Stat & Jewel
   const statusStat = document.getElementById("memberDossierStatusStat");
   if (statusStat) {
-    statusStat.textContent = isAr ? (member.isOnline !== false ? "نشط • معتمد" : "سجل موثق") : (member.isOnline !== false ? "Active" : "Verified");
+    statusStat.textContent = member.isOnline !== false ? "Active" : "Verified";
   }
   const statusJewel = document.getElementById("memberDossierStatusJewel");
   if (statusJewel) {
@@ -3691,23 +3688,23 @@ function openMemberProfile(member) {
   // Dossier Registry Title & Labels (i18n)
   const regTitle = document.querySelector(".sd-reg-title");
   if (regTitle) {
-    regTitle.textContent = window.t ? window.t("memberDossier.registryTitle", isAr ? "ar" : "en") : (isAr ? "بيانات السجل السيادي المعتمد" : "Certified Sovereign Registry Records");
+    regTitle.textContent = window.t ? window.t("memberDossier.registryTitle", "en") : ("Certified Sovereign Registry Records");
   }
   const charterLabelEl = document.querySelector(".sd-reg-label[data-i18n='memberDossier.charterLabel']");
   if (charterLabelEl) {
-    charterLabelEl.textContent = window.t ? window.t("memberDossier.charterLabel", isAr ? "ar" : "en") : (isAr ? "ميثاق العضوية" : "Membership Charter");
+    charterLabelEl.textContent = window.t ? window.t("memberDossier.charterLabel", "en") : ("Membership Charter");
   }
 
   // Dossier Charter & Access
   const charterEl = document.getElementById("memberDossierCharter");
   if (charterEl) {
     charterEl.textContent = isAr 
-      ? (rawTier === "Sovereign" ? "ميثاق سيادي أول • غير قابل للإلغاء" : "ميثاق النخبة المعتمد • دائم")
+      ? (rawTier === "Sovereign" ? "Primary Sovereign Charter • Irrevocable" : "Accredited Elite Charter • Permanent")
       : (rawTier === "Sovereign" ? "Tier I Sovereign Charter • Irrevocable" : "Elite Council Charter • Permanent");
   }
   const accessEl = document.getElementById("memberDossierAccess");
   if (accessEl) {
-    accessEl.textContent = isAr ? "وصول كامل للصالونات الخاصة والمفاوضات" : "Unrestricted Access to Private Lounges";
+    accessEl.textContent = "Unrestricted Access to Private Lounges";
   }
 
   // Portrait Image
@@ -3731,7 +3728,7 @@ function openMemberProfile(member) {
   window.tabScrollPositions["club"] = tabScroll;
   window.tabScrollPositions["leaderboard"] = lbScroll;
 
-  openContextPage("page-member", memberName || (isAr ? "ملف العضو السيادي" : "Member Dossier"), "club");
+  openContextPage("page-member", memberName || ("Member Dossier"), "club");
 
   if (typeof initMemberDossierActionButtons === "function") {
     initMemberDossierActionButtons();
@@ -3789,7 +3786,7 @@ function closeMemberProfile() {
   const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
   const sectionName = document.getElementById("sectionName");
   if (sectionName) {
-    sectionName.textContent = isAr ? "النادي" : "Club";
+    sectionName.textContent = "Club";
   }
 
   // 5. Restore active chamber channel cleanly
@@ -3846,14 +3843,14 @@ function initMemberDossierActionButtons() {
       (typeof AppState !== "undefined" && AppState.language === "ar")
     );
     const comingSoonText = isAr
-      ? (window.t ? window.t("profile.comingSoon") : "قريبًا")
+      ? (window.t ? window.t("profile.comingSoon") : "Coming Soon")
       : (window.t ? window.t("coming_soon") : "Coming Soon");
-    const safeText = comingSoonText || (isAr ? "قريبًا" : "Coming Soon");
+    const safeText = comingSoonText || ("Coming Soon");
 
     if (typeof showNavToast === "function") {
       showNavToast(safeText);
     } else if (typeof showPremiumToast === "function") {
-      showPremiumToast(isAr ? "إشعار" : "Notice", safeText);
+      showPremiumToast("Notice", safeText);
     }
   };
 
@@ -3925,7 +3922,7 @@ function updateCreditsUI(forceAnimate = false) {
   if (creditsText) {
     const isAr = typeof window !== "undefined" && window.currentLang === "ar";
     if (currentCredits > 10) {
-      creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-label">${isAr ? "رصيد" : "credits"}</span>`;
+      creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-label">${"credits"}</span>`;
     } else {
       creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-sep">/</span><bdi class="credit-count-val">${maxCredits}</bdi>`;
     }
@@ -4159,13 +4156,13 @@ window.unlockAchievement = function (id, title, desc) {
 // ==========================================
 
 const ELITE_MEMBERS = [
-  { name: "Lord Julian", nameAr: "لورد جوليان", tier: "FOUNDER", id: "001", color: "#e6c27a", seat: "ZURICH", motto: "Honor, lineage, and sovereign discretion.", mottoAr: "الشرف، والنسب، والسرية السيادية المطلقة." },
-  { name: "Elena Rostova", nameAr: "إيلينا روستوفا", tier: "SOVEREIGN", id: "084", color: "#d4af37", seat: "MONACO", motto: "Elegance is the ultimate sovereign currency.", mottoAr: "الأناقة هي أسمى عملات السيادة والرفعة." },
-  { name: "Marcus Sterling", nameAr: "ماركوس ستيرلينغ", tier: "TITAN", id: "112", color: "#f3e5ab", seat: "LONDON", motto: "Capital in motion, unencumbered by borders.", mottoAr: "رأس المال المتحرك بلا قيود عبر الحدود." },
-  { name: "W. Alexander", nameAr: "دبليو. ألكسندر", tier: "SOVEREIGN EXARCH", id: "1001", color: "#e6c27a", seat: "GENEVA", motto: "Pioneering the architecture of digital sovereignty.", mottoAr: "ريادة هندسة السيادة الرقمية العالمية." },
-  { name: "Sheikh Tariq Al-Mansoor", nameAr: "الشيخ طارق المنصور", tier: "SOVEREIGN", id: "777", color: "#f5d77f", seat: "DUBAI", motto: "Legacy built upon vision, precision, and steel.", mottoAr: "إرث راسخ شُيّد بالرؤية والدقة والعزيمة." },
-  { name: "Baroness Charlotte", nameAr: "البارونة شارلوت", tier: "SOVEREIGN", id: "205", color: "#e2b872", seat: "PARIS", motto: "True luxury whispers through heritage and rarity.", mottoAr: "الفخامة الحقيقية تهمس عبر الأصالة والندرة." },
-  { name: "Concierge Desk", nameAr: "مكتب المساعد السيادي", tier: "SYSTEM", id: "000", color: "#a39b8b", seat: "GENEVA", motto: "At the sovereign service of the Circle.", mottoAr: "في الخدمة السيادية الدائمة لأعضاء الدائرة." },
+  { name: "Lord Julian", nameAr: "", tier: "FOUNDER", id: "001", color: "#e6c27a", seat: "ZURICH", motto: "Honor, lineage, and sovereign discretion.", mottoAr: "" },
+  { name: "Elena Rostova", nameAr: "", tier: "SOVEREIGN", id: "084", color: "#d4af37", seat: "MONACO", motto: "Elegance is the ultimate sovereign currency.", mottoAr: "" },
+  { name: "Marcus Sterling", nameAr: "", tier: "TITAN", id: "112", color: "#f3e5ab", seat: "LONDON", motto: "Capital in motion, unencumbered by borders.", mottoAr: "" },
+  { name: "W. Alexander", nameAr: "", tier: "SOVEREIGN EXARCH", id: "1001", color: "#e6c27a", seat: "GENEVA", motto: "Pioneering the architecture of digital sovereignty.", mottoAr: "" },
+  { name: "Sheikh Tariq Al-Mansoor", nameAr: "", tier: "SOVEREIGN", id: "777", color: "#f5d77f", seat: "DUBAI", motto: "Legacy built upon vision, precision, and steel.", mottoAr: "" },
+  { name: "Baroness Charlotte", nameAr: "", tier: "SOVEREIGN", id: "205", color: "#e2b872", seat: "PARIS", motto: "True luxury whispers through heritage and rarity.", mottoAr: "" },
+  { name: "Concierge Desk", nameAr: "", tier: "SYSTEM", id: "000", color: "#a39b8b", seat: "GENEVA", motto: "At the sovereign service of the Circle.", mottoAr: "" },
 ];
 
 function processEliteResponse(text) {
@@ -4189,10 +4186,10 @@ function processEliteResponse(text) {
     lower.includes("support") ||
     lower.includes("rule") ||
     lower.includes("app") ||
-    lower.includes("concierge") ||
-    lower.includes("مساعدة") ||
-    lower.includes("دعم") ||
-    lower.includes("قوانين")
+    lower.includes("concierge")
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
   ) {
     const responses = [
       window.t("dynamic.chatHelp1").replace("{0}", userName),
@@ -4208,13 +4205,13 @@ function processEliteResponse(text) {
     lower.includes("is anyone here") ||
     lower.includes("anyone online") ||
     lower.includes("hello") ||
-    lower.includes("hi") ||
-    lower.includes("حد هنا") ||
-    lower.includes("مين موجود") ||
-    lower.includes("مساء الخير") ||
-    lower.includes("سلام") ||
-    lower.includes("مرحبا") ||
-    lower.includes("أهلا")
+    lower.includes("hi")
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
   ) {
     const responses = [
       window.t("dynamic.chatGreet1").replace("{0}", userName),
@@ -4233,12 +4230,12 @@ function processEliteResponse(text) {
     lower.includes("stock") ||
     lower.includes("crypto") ||
     lower.includes("real estate") ||
-    lower.includes("deal") ||
-    lower.includes("استثمار") ||
-    lower.includes("سوق") ||
-    lower.includes("أعمال") ||
-    lower.includes("صفق") ||
-    lower.includes("عقار")
+    lower.includes("deal")
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
   ) {
     const responses = [
       window.t("dynamic.chatInvest1"),
@@ -4259,12 +4256,12 @@ function processEliteResponse(text) {
     lower.includes("gold") ||
     lower.includes("art") ||
     lower.includes("rare") ||
-    lower.includes("مقتنيات") ||
-    lower.includes("ساعة") ||
-    lower.includes("قطعة") ||
-    lower.includes(window.t("misc.rarity1")) ||
-    lower.includes("فخامة") ||
-    lower.includes("بوتيك")
+    // [Keyword check]
+    // [Keyword check]
+    // [Keyword check]
+    lower.includes(window.t("misc.rarity1"))
+    // [Keyword check]
+    // [Keyword check]
   ) {
     const responses = [
       window.t("dynamic.chatBoutique1"),
@@ -4321,7 +4318,7 @@ function updateClubPinnedTitle(lang = (window.currentLang || (typeof AppState !=
     pinnedTitle.textContent = window.t("club.welcomeTitle", lang);
     pinnedTitle.setAttribute("data-i18n", "club.welcomeTitle");
   } else {
-    const prefix = window.t("club.welcomePrefix", lang) || (lang === "ar" ? "أهلًا بك في " : "Welcome to ");
+    const prefix = window.t("club.welcomePrefix", lang) || ("Welcome to ");
     const tKey = "club." + channelId;
     let locName = (typeof AppState !== "undefined" && AppState.channels && AppState.channels[channelId] && AppState.channels[channelId].name) || channelId;
     if (window.I18N && window.I18N.club && window.I18N.club[channelId]) {
@@ -4738,7 +4735,7 @@ function updateClubRoomsArrowState() {
   arrow.classList.remove("is-backward");
 
   const lang = window.currentLang || (document.documentElement.lang === "ar" ? "ar" : "en");
-  const label = (window.t && window.t("club.nextRooms", lang)) || (lang === "ar" ? "عرض المزيد من الغرف" : "View more rooms");
+  const label = (window.t && window.t("club.nextRooms", lang)) || ("View more rooms");
   arrow.setAttribute("aria-label", label);
   arrow.setAttribute("title", label);
 }
@@ -4864,31 +4861,31 @@ function initSovereignSalonTicker() {
 
   const REQUIRED_BENCHMARKS = [
     // 1. Precious Metals Spot Prices
-    { cat: "METALS", catAr: "معادن", symbol: "XAU/USD", nameEn: "Gold Spot", nameAr: "الذهب", symEn: "XAU/USD", symAr: "XAU/USD", unit: "oz", currency: "USD" },
-    { cat: "METALS", catAr: "معادن", symbol: "XAG/USD", nameEn: "Silver Spot", nameAr: "الفضة", symEn: "XAG/USD", symAr: "XAG/USD", unit: "oz", currency: "USD" },
-    { cat: "METALS", catAr: "معادن", symbol: "XPT/USD", nameEn: "Platinum Spot", nameAr: "البلاتين", symEn: "XPT/USD", symAr: "XPT/USD", unit: "oz", currency: "USD" },
-    { cat: "METALS", catAr: "معادن", symbol: "XPD/USD", nameEn: "Palladium Spot", nameAr: "البلاديوم", symEn: "XPD/USD", symAr: "XPD/USD", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "METALS", symbol: "XAU/USD", nameEn: "Gold Spot", nameAr: "", symEn: "XAU/USD", symAr: "XAU/USD", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "METALS", symbol: "XAG/USD", nameEn: "Silver Spot", nameAr: "", symEn: "XAG/USD", symAr: "XAG/USD", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "METALS", symbol: "XPT/USD", nameEn: "Platinum Spot", nameAr: "", symEn: "XPT/USD", symAr: "XPT/USD", unit: "oz", currency: "USD" },
+    { cat: "METALS", catAr: "METALS", symbol: "XPD/USD", nameEn: "Palladium Spot", nameAr: "", symEn: "XPD/USD", symAr: "XPD/USD", unit: "oz", currency: "USD" },
 
     // 2. Commodities & Energy
-    { cat: "ENERGY", catAr: "طاقة", symbol: "BRENT", nameEn: "Brent Crude", nameAr: "نفط برنت", symEn: "BRENT", symAr: "BRENT", unit: "bbl", currency: "USD" },
-    { cat: "ENERGY", catAr: "طاقة", symbol: "WTI", nameEn: "WTI Crude", nameAr: "الخام الأمريكي", symEn: "WTI", symAr: "WTI", unit: "bbl", currency: "USD" },
+    { cat: "ENERGY", catAr: "ENERGY", symbol: "BRENT", nameEn: "Brent Crude", nameAr: "", symEn: "BRENT", symAr: "BRENT", unit: "bbl", currency: "USD" },
+    { cat: "ENERGY", catAr: "ENERGY", symbol: "WTI", nameEn: "WTI Crude", nameAr: "", symEn: "WTI", symAr: "WTI", unit: "bbl", currency: "USD" },
 
     // 3. Major Stock Indices
-    { cat: "INDICES", catAr: "مؤشرات", symbol: "SPX", nameEn: "S&P 500", nameAr: "S&P 500", symEn: "SPX", symAr: "SPX", unit: "pts", currency: "USD" },
-    { cat: "INDICES", catAr: "مؤشرات", symbol: "NDX", nameEn: "NASDAQ 100", nameAr: "NASDAQ 100", symEn: "NDX", symAr: "NDX", unit: "pts", currency: "USD" },
-    { cat: "INDICES", catAr: "مؤشرات", symbol: "DJI", nameEn: "Dow Jones", nameAr: "داو جونز", symEn: "DJI", symAr: "DJI", unit: "pts", currency: "USD" },
+    { cat: "INDICES", catAr: "INDICES", symbol: "SPX", nameEn: "S&P 500", nameAr: "", symEn: "SPX", symAr: "SPX", unit: "pts", currency: "USD" },
+    { cat: "INDICES", catAr: "INDICES", symbol: "NDX", nameEn: "NASDAQ 100", nameAr: "", symEn: "NDX", symAr: "NDX", unit: "pts", currency: "USD" },
+    { cat: "INDICES", catAr: "INDICES", symbol: "DJI", nameEn: "Dow Jones", nameAr: "", symEn: "DJI", symAr: "DJI", unit: "pts", currency: "USD" },
 
     // 4. Major Currency Pairs
-    { cat: "FX", catAr: "عملات", symbol: "EUR/USD", nameEn: "EUR / USD", nameAr: "EUR/USD", symEn: "EUR/USD", symAr: "يورو/دولار", unit: "", currency: "USD" },
-    { cat: "FX", catAr: "عملات", symbol: "GBP/USD", nameEn: "GBP / USD", nameAr: "GBP/USD", symEn: "GBP/USD", symAr: "استرليني/دولار", unit: "", currency: "USD" },
-    { cat: "FX", catAr: "عملات", symbol: "USD/CHF", nameEn: "USD / CHF", nameAr: "USD/CHF", symEn: "USD/CHF", symAr: "دولار/فرنك", unit: "", currency: "CHF" },
+    { cat: "FX", catAr: "FX", symbol: "EUR/USD", nameEn: "EUR / USD", nameAr: "", symEn: "EUR/USD", symAr: "EUR/USD", unit: "", currency: "USD" },
+    { cat: "FX", catAr: "FX", symbol: "GBP/USD", nameEn: "GBP / USD", nameAr: "", symEn: "GBP/USD", symAr: "GBP/USD", unit: "", currency: "USD" },
+    { cat: "FX", catAr: "FX", symbol: "USD/CHF", nameEn: "USD / CHF", nameAr: "", symEn: "USD/CHF", symAr: "USD/CHF", unit: "", currency: "CHF" },
   ];
 
   const SOVEREIGN_HUBS = [
-    { catEn: "HUBS", catAr: "مراكز", nameEn: "ZURICH", nameAr: "زيورخ ZURICH", statusTag: "OPEN" },
-    { catEn: "HUBS", catAr: "مراكز", nameEn: "LONDON", nameAr: "لندن LONDON", statusTag: "OPEN" },
-    { catEn: "HUBS", catAr: "مراكز", nameEn: "RIYADH", nameAr: "الرياض RIYADH", statusTag: "PRIME" },
-    { catEn: "HUBS", catAr: "مراكز", nameEn: "NEW YORK", nameAr: "نيويورك NY", statusTag: "ACTIVE" },
+    { catEn: "HUBS", catAr: "HUBS", nameEn: "ZURICH", nameAr: "", statusTag: "OPEN" },
+    { catEn: "HUBS", catAr: "HUBS", nameEn: "LONDON", nameAr: "", statusTag: "OPEN" },
+    { catEn: "HUBS", catAr: "HUBS", nameEn: "RIYADH", nameAr: "", statusTag: "PRIME" },
+    { catEn: "HUBS", catAr: "HUBS", nameEn: "NEW YORK", nameAr: "", statusTag: "ACTIVE" },
   ];
 
   function formatTime(isoStr) {
@@ -4915,7 +4912,7 @@ function initSovereignSalonTicker() {
 
     const items = sourceInstruments.map((item, idx) => {
       const benchmark = REQUIRED_BENCHMARKS[idx] || {};
-      const catText = isAr ? (item.catAr || benchmark.catAr || "معادن") : (item.cat || benchmark.cat || "METALS");
+      const catText = isAr ? (item.cat || benchmark.cat || "METALS") : (item.cat || benchmark.cat || "METALS");
       const nameText = isAr ? (item.nameAr || benchmark.nameAr || item.symbol) : (item.nameEn || benchmark.nameEn || item.symbol);
       const symText = isAr ? (item.symAr || benchmark.symAr || item.symbol) : (item.symEn || benchmark.symEn || item.symbol);
       const isUnavailable = !hasLiveQuotes || item.price === null || item.status === "UNAVAILABLE";
@@ -4924,8 +4921,8 @@ function initSovereignSalonTicker() {
       let statusBadge = "";
 
       if (isUnavailable) {
-        priceDisplay = isAr ? "غير متوفر" : "Unavailable";
-        statusBadge = '<span class="ticker-status-tag unavailable">' + (isAr ? "غير متوفر" : "UNAVAILABLE") + '</span>';
+        priceDisplay = "Unavailable";
+        statusBadge = '<span class="ticker-status-tag unavailable">' + ("UNAVAILABLE") + '</span>';
       } else {
         const prefix = (item.currency === "USD" && item.cat !== "FX") ? "$" : "";
         const suffix = item.unit ? (" " + item.unit) : (item.currency && item.cat !== "FX" ? (" " + item.currency) : "");
@@ -4936,8 +4933,8 @@ function initSovereignSalonTicker() {
         const isLive = item.status === "LIVE";
         const statusClass = isLive ? "live" : (isDelayed ? "delayed" : "stale");
         const statusText = isLive
-          ? (isAr ? "مباشر" : "LIVE")
-          : (isDelayed ? (isAr ? "متأخر" : "DELAYED") : (isAr ? "مغلق" : "STALE"));
+          ? ("LIVE")
+          : (isDelayed ? ("DELAYED") : ("STALE"));
         const timeBadge = item.lastUpdated ? ('<span class="ticker-time-tag">' + formatTime(item.lastUpdated) + '</span>') : "";
         const typeBadge = item.instrumentType
           ? ('<span class="ticker-sim-badge">' + (isAr ? (item.instrumentTypeAr || item.instrumentType) : item.instrumentType) + '</span>')
@@ -5005,19 +5002,19 @@ function initSovereignSalonTicker() {
         const priceEl = itemEl.querySelector(".ticker-metal-price");
         const statusEl = itemEl.querySelector(".ticker-status-tag");
 
-        // Category Tag (METALS vs معادن, ENERGY vs طاقة, INDICES vs مؤشرات, FX vs عملات)
-        const catText = isAr ? (item.catAr || benchmark.catAr || "معادن") : (item.cat || benchmark.cat || "METALS");
+        // Category Tag (METALS, ENERGY, INDICES, FX)
+        const catText = isAr ? (item.cat || benchmark.cat || "METALS") : (item.cat || benchmark.cat || "METALS");
         if (catEl && catEl.textContent !== catText) {
           catEl.textContent = catText;
         }
 
-        // Instrument Name (Gold Spot vs الذهب, etc.)
+        // Instrument Name (Gold Spot, etc.)
         const nameText = isAr ? (item.nameAr || benchmark.nameAr || item.symbol) : (item.nameEn || benchmark.nameEn || item.symbol);
         if (nameEl && nameEl.textContent !== nameText) {
           nameEl.textContent = nameText;
         }
 
-        // Instrument Symbol (XAU/USD, EUR/USD vs يورو/دولار, etc.)
+        // Instrument Symbol (XAU/USD, EUR/USD, etc.)
         const symText = isAr ? (item.symAr || benchmark.symAr || item.symbol) : (item.symEn || benchmark.symEn || item.symbol);
         if (symEl && symEl.textContent !== symText) {
           symEl.textContent = symText;
@@ -5026,7 +5023,7 @@ function initSovereignSalonTicker() {
         // Price & Status Badge
         const isUnavailable = !hasLive || item.price === null || item.status === "UNAVAILABLE";
         if (isUnavailable) {
-          const priceDisplay = isAr ? "غير متوفر" : "Unavailable";
+          const priceDisplay = "Unavailable";
           if (priceEl && priceEl.textContent !== priceDisplay) {
             priceEl.textContent = priceDisplay;
           }
@@ -5034,7 +5031,7 @@ function initSovereignSalonTicker() {
             if (statusEl.className !== "ticker-status-tag unavailable") {
               statusEl.className = "ticker-status-tag unavailable";
             }
-            const statusTxt = isAr ? "غير متوفر" : "UNAVAILABLE";
+            const statusTxt = "UNAVAILABLE";
             if (statusEl.textContent !== statusTxt) statusEl.textContent = statusTxt;
           }
         } else {
@@ -5049,8 +5046,8 @@ function initSovereignSalonTicker() {
           const isDelayed = item.status === "DELAYED";
           const statusClass = isLive ? "live" : (isDelayed ? "delayed" : "stale");
           const statusText = isLive
-            ? (isAr ? "مباشر" : "LIVE")
-            : (isDelayed ? (isAr ? "متأخر" : "DELAYED") : (isAr ? "مغلق" : "STALE"));
+            ? ("LIVE")
+            : (isDelayed ? ("DELAYED") : ("STALE"));
 
           if (statusEl) {
             const expectedClass = "ticker-status-tag " + statusClass;
@@ -5062,7 +5059,7 @@ function initSovereignSalonTicker() {
         }
       });
 
-      // 2. Update Sovereign Financial Hub items (HUBS vs مراكز, ZURICH vs زيورخ ZURICH, etc.)
+      // 2. Update Sovereign Financial Hub items (HUBS, ZURICH, etc.)
       const hubElements = group.querySelectorAll(".ticker-hub-item");
       SOVEREIGN_HUBS.forEach((hub, hIdx) => {
         const hubEl = hubElements[hIdx];
@@ -5072,7 +5069,7 @@ function initSovereignSalonTicker() {
         const hCityEl = hubEl.querySelector(".ticker-city");
         const hStatusEl = hubEl.querySelector(".ticker-status-tag");
 
-        const hCatText = isAr ? (hub.catAr || "مراكز") : (hub.catEn || "HUBS");
+        const hCatText = hub.catEn || "HUBS";
         if (hCatEl && hCatEl.textContent !== hCatText) {
           hCatEl.textContent = hCatText;
         }
@@ -5292,14 +5289,14 @@ window.toggleDispatchReadMore = function (channelId, messageIndex) {
       btnEl.classList.add("is-expanded");
       btnEl.setAttribute("aria-expanded", "true");
       const label = btnEl.querySelector(".read-more-label");
-      if (label) label.textContent = window.currentLang === "en" ? "Show Less" : "عرض أقل";
+      if (label) label.textContent = "Show Less";
     } else {
       textEl.classList.remove("is-expanded");
       textEl.classList.add("is-truncated");
       btnEl.classList.remove("is-expanded");
       btnEl.setAttribute("aria-expanded", "false");
       const label = btnEl.querySelector(".read-more-label");
-      if (label) label.textContent = window.currentLang === "en" ? "Show More" : "عرض المزيد";
+      if (label) label.textContent = "Show More";
     }
   } else {
     renderMessages();
@@ -5419,7 +5416,7 @@ function buildMessageHTML(msg, idx, channelId) {
                 <span class="dispatch-name" style="color: ${msg.senderColor || "#e6c27a"}"><bdi dir="auto">${safeSenderName}</bdi></span>
                 ${
                   isMe
-                    ? `<span class="dispatch-seal-mark is-official-decree" title="${window.t("club.sealedDecree") || "وثيقة مختومة"}">
+                    ? `<span class="dispatch-seal-mark is-official-decree" title="${window.t("club.sealedDecree") || "Sealed Decree"}">
                         <svg class="decree-seal-icon" viewBox="0 0 14 14" fill="none">
                           <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.1" stroke-dasharray="2.2 1.2"/>
                           <path d="M4.5 7.2l1.8 1.8 3.5-3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -5456,9 +5453,9 @@ function buildMessageHTML(msg, idx, channelId) {
                      <path d="M5 6.5V4.5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
                      <circle cx="8" cy="10.5" r="1.1" fill="currentColor"/>
                    </svg>
-                   <span class="whisper-text-label" data-i18n="club.whisperBadge">${window.t("club.whisperBadge") || "همس سيادي مشفر • سرية سويسرية"}</span>
+                   <span class="whisper-text-label" data-i18n="club.whisperBadge">${window.t("club.whisperBadge") || "Encrypted Sovereign Whisper • Swiss Discretion"}</span>
                  </span>
-                 <span class="dispatch-whisper-discretion-mark" data-i18n="club.discretionSecured">${window.t("club.discretionSecured") || (window.currentLang === "en" ? "DISCRETION SECURED" : "سرية مؤمّنة")}</span>
+                 <span class="dispatch-whisper-discretion-mark" data-i18n="club.discretionSecured">${window.t("club.discretionSecured") || "DISCRETION SECURED"}</span>
                </div>`
             : ""
         }
@@ -5476,7 +5473,7 @@ function buildMessageHTML(msg, idx, channelId) {
                    id="dispatch-btn-${channelId}-${idx}"
                    aria-expanded="${isExpanded ? "true" : "false"}"
                  >
-                   <span class="read-more-label">${isExpanded ? (window.currentLang === "en" ? "Show Less" : "عرض أقل") : (window.currentLang === "en" ? "Show More" : "عرض المزيد")}</span>
+                   <span class="read-more-label">${isExpanded ? ("Show Less") : ("Show More")}</span>
                    <svg class="read-more-chevron" viewBox="0 0 12 12" fill="none">
                      <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
                    </svg>
@@ -5493,7 +5490,7 @@ function buildMessageHTML(msg, idx, channelId) {
                      type="button"
                      class="sovereign-accolade-btn is-endorse ${userReacted.endorse ? "is-conferred" : ""}"
                      onclick="toggleAccolade('${channelId}', ${idx}, 'endorse')"
-                     title="${window.t("club.endorseDesc") || "ختم التأييد السيادي"}"
+                     title="${window.t("club.endorseDesc") || "Sovereign Endorsement Seal"}"
                    >
                      <span class="accolade-seal-wrap">
                        <svg class="accolade-svg-seal" viewBox="0 0 16 16" fill="none">
@@ -5501,7 +5498,7 @@ function buildMessageHTML(msg, idx, channelId) {
                          <path d="M8 3.2L9.2 6.3L12.5 7L10 9.2L10.8 12.5L8 10.7L5.2 12.5L6 9.2L3.5 7L6.8 6.3Z" fill="currentColor"/>
                        </svg>
                      </span>
-                     <span class="accolade-title" data-i18n="club.endorse">${window.t("club.endorse") || "تأييد"}</span>
+                     <span class="accolade-title" data-i18n="club.endorse">${window.t("club.endorse") || "Endorse"}</span>
                      <span class="accolade-tally">${accolades.endorse || 0}</span>
                    </button>
 
@@ -5509,7 +5506,7 @@ function buildMessageHTML(msg, idx, channelId) {
                      type="button"
                      class="sovereign-accolade-btn is-honor ${userReacted.honor ? "is-conferred" : ""}"
                      onclick="toggleAccolade('${channelId}', ${idx}, 'honor')"
-                     title="${window.t("club.honorDesc") || "خاتم الوفاق والمصادقة"}"
+                     title="${window.t("club.honorDesc") || "Ring of Concord & Honor"}"
                    >
                      <span class="accolade-seal-wrap">
                        <svg class="accolade-svg-seal" viewBox="0 0 16 16" fill="none">
@@ -5519,7 +5516,7 @@ function buildMessageHTML(msg, idx, channelId) {
                          <circle cx="8" cy="8" r="0.9" fill="currentColor"/>
                        </svg>
                      </span>
-                     <span class="accolade-title" data-i18n="club.honor">${window.t("club.honor") || "وفاق"}</span>
+                     <span class="accolade-title" data-i18n="club.honor">${window.t("club.honor") || "Concord"}</span>
                      <span class="accolade-tally">${accolades.honor || 0}</span>
                    </button>
 
@@ -5527,7 +5524,7 @@ function buildMessageHTML(msg, idx, channelId) {
                      type="button"
                      class="sovereign-accolade-btn is-toast ${userReacted.toast ? "is-conferred" : ""}"
                      onclick="toggleAccolade('${channelId}', ${idx}, 'toast')"
-                     title="${window.t("club.toastDesc") || "نخب الامتياز والريادة"}"
+                     title="${window.t("club.toastDesc") || "Prestige Toast of Excellence"}"
                    >
                      <span class="accolade-seal-wrap">
                        <svg class="accolade-svg-seal" viewBox="0 0 16 16" fill="none">
@@ -5537,7 +5534,7 @@ function buildMessageHTML(msg, idx, channelId) {
                          <circle cx="8" cy="6.2" r="1" fill="currentColor"/>
                        </svg>
                      </span>
-                     <span class="accolade-title" data-i18n="club.toast">${window.t("club.toast") || "نخب"}</span>
+                     <span class="accolade-title" data-i18n="club.toast">${window.t("club.toast") || "Toast"}</span>
                      <span class="accolade-tally">${accolades.toast || 0}</span>
                    </button>
                  </div>
@@ -5662,9 +5659,9 @@ function initWhisperToggle() {
     }
     if (input) {
       if (window.isWhisperMode) {
-        input.setAttribute("placeholder", window.t("club.whisperPlaceholder") || "صياغة برقية سيادية مشفرة ومحمية…");
+        input.setAttribute("placeholder", window.t("club.whisperPlaceholder") || "Draft an encrypted sovereign dispatch…");
       } else {
-        input.setAttribute("placeholder", window.t("club.typeMessage") || "اكتب رسالة للنادي…");
+        input.setAttribute("placeholder", window.t("club.typeMessage") || "Type a message to the Club…");
       }
       input.focus();
     }
@@ -6079,13 +6076,13 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
 
   const rarityText = (typeof RARITY_LABEL !== "undefined" && RARITY_LABEL[item.rarity]) 
     ? RARITY_LABEL[item.rarity]() 
-    : (isAr ? "إرث سيادي" : "SOVEREIGN RELIC");
+    : ("SOVEREIGN RELIC");
 
   const statusBadge = document.getElementById("inspectionStatusBadge");
   const statusText = document.getElementById("inspectionStatusText");
   if (statusBadge && statusText) {
     if (isActuallyOwned) {
-      statusText.textContent = isAr ? "مملوك" : "OWNED";
+      statusText.textContent = "OWNED";
       statusBadge.className = "rmc-status-badge is-vaulted";
     } else {
       statusText.textContent = rarityText;
@@ -6094,34 +6091,34 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   }
 
   const alloyEl = document.getElementById("inspectionAlloy");
-  if (alloyEl) alloyEl.textContent = isAr ? (item.metalAr || item.metal || "ذهب خالص وأوبسيديان") : (item.metal || item.metalAr || "Solid Gold & Obsidian");
+  if (alloyEl) alloyEl.textContent = item.metal || "Solid Gold & Obsidian";
 
   const weightEl = document.getElementById("inspectionWeight");
-  if (weightEl) weightEl.textContent = isAr ? (item.weightAr || item.weight || "معيار سيادي خاص") : (item.weight || item.weightAr || "Sovereign Standard");
+  if (weightEl) weightEl.textContent = item.weight || "Sovereign Standard";
 
   const tierLabelEl = document.getElementById("inspectionTierLabel");
   const tierEl = document.getElementById("inspectionRequiredTier");
   if (tierEl) {
     if (isActuallyOwned) {
       if (tierLabelEl) {
-        tierLabelEl.textContent = isAr ? "حالة الحيازة" : "Custody Status";
+        tierLabelEl.textContent = "Custody Status";
       }
       tierEl.innerHTML = isAr 
-        ? `<span class="spec-owned-tag" style="color: #1b7a36; font-weight: 700;">✓ مقتناة في الخزينة</span>` 
+        ? `<span class="spec-owned-tag" style="color: #1b7a36; font-weight: 700;">✓ Archived in Vault</span>` 
         : `<span class="spec-owned-tag" style="color: #1b7a36; font-weight: 700;">✓ Vaulted & Acquired</span>`;
     } else {
       if (tierLabelEl) {
-        tierLabelEl.textContent = isAr ? "أهلية الاقتناء" : "Acquisition Eligibility";
+        tierLabelEl.textContent = "Acquisition Eligibility";
       }
       const rawTier = item.requiredTier || "SOVEREIGN MEMBER";
-      let shortTier = "عضو سيادي";
-      if (/LUMINARY/i.test(rawTier)) shortTier = "رتبة الوجاهة";
-      else if (/EXARCH/i.test(rawTier)) shortTier = "الحاكم التنفيذي";
+      let shortTier = "Sovereign Member";
+      if (/LUMINARY/i.test(rawTier)) shortTier = "Luminary Tier";
+      else if (/EXARCH/i.test(rawTier)) shortTier = "Exarch Tier";
 
       if (isAr) {
         tierEl.innerHTML = tierEligible 
-          ? `<span style="color: #1b7a36; font-weight: 700;">✓ مؤهل • ${shortTier}</span>` 
-          : `<span style="color: #b91c1c; font-weight: 700;">🔒 يتطلب • ${shortTier}</span>`;
+          ? `<span style="color: #1b7a36; font-weight: 700;">✓ Eligible • ${shortTier}</span>` 
+          : `<span style="color: #b91c1c; font-weight: 700;">🔒 Requires • ${shortTier}</span>`;
       } else {
         const engShort = /LUMINARY/i.test(rawTier) ? "Luminary" : (/EXARCH/i.test(rawTier) ? "Exarch" : "Sovereign");
         tierEl.innerHTML = tierEligible 
@@ -6134,13 +6131,13 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const priceEl = document.getElementById("inspectionPrice");
   if (priceEl) {
     priceEl.innerHTML = item.free 
-      ? (window.t("boutique.includedFree") || (isAr ? "مشمول مجاناً" : "Included Free")) 
+      ? (window.t("boutique.includedFree") || ("Included Free")) 
       : `<bdi dir="ltr" style="font-variant-numeric: tabular-nums;">$${item.price.toLocaleString("en-US")}</bdi>`;
   }
 
   const loreEl = document.getElementById("inspectionLore");
   if (loreEl) {
-    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || (isAr ? "تحفة ملكية مسبوكة يدوياً من الذهب الخالص والأوبسيديان المعتق." : "Handcrafted royal masterpiece forged from solid gold and aged obsidian."));
+    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || ("Handcrafted royal masterpiece forged from solid gold and aged obsidian."));
   }
 
   const imgEl = document.getElementById("inspectionImage");
@@ -6175,20 +6172,20 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
       equipBtn.hidden = true;
       equipBtn.disabled = true;
       equipBtn.onclick = null;
-      setBtnText(isAr ? "تحفة سيادية مقتناة ومحفوظة بالخزينة" : "Acquired & Preserved in Vault");
+      setBtnText("Acquired & Preserved in Vault");
     } else if (!tierEligible) {
       equipBtn.hidden = false;
       equipBtn.classList.remove("is-hidden");
       equipBtn.style.setProperty("display", "flex", "important");
       const tierInfo = typeof getBoutiqueTierLabel === "function" ? getBoutiqueTierLabel(item.requiredTier, isAr) : null;
-      const shortReq = tierInfo ? tierInfo.short : "عضو سيادي";
+      const shortReq = tierInfo ? tierInfo.short : "Sovereign Member";
       const toastReq = tierInfo ? tierInfo.toastName : shortReq;
-      setBtnText(isAr ? `يتطلب رتبة (${shortReq})` : `Requires ${item.requiredTier}`);
+      setBtnText(`Requires ${item.requiredTier}`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn is-locked";
       equipBtn.onclick = () => {
         const msg = isAr 
-          ? `هذه التحفة مخصصة حصرياً لأصحاب ${toastReq} فأعلى.`
+          ? `This artifact is reserved for ${toastReq} and above.`
           : `This artifact requires ${item.requiredTier} standing or above.`;
         showNavToast(msg);
       };
@@ -6198,7 +6195,7 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
       equipBtn.style.setProperty("display", "flex", "important");
       const fmtP = item.price.toLocaleString("en-US");
       setBtnText(isAr 
-        ? `رصيد غير كافٍ — إيداع <bdi dir="ltr">$${fmtP}</bdi>` 
+        ? `Insufficient Balance — Deposit <bdi dir="ltr">$${fmtP}</bdi>` 
         : `Insufficient Balance — Deposit <bdi dir="ltr">$${fmtP}</bdi>`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn needs-balance";
@@ -6214,7 +6211,7 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
       equipBtn.style.setProperty("display", "flex", "important");
       const fmtP = item.price.toLocaleString("en-US");
       setBtnText(isAr 
-        ? `اقتناء التحفة السيادية • <bdi dir="ltr" style="font-variant-numeric: tabular-nums;">$${fmtP}</bdi>` 
+        ? `Acquire Sovereign Artifact • <bdi dir="ltr" style="font-variant-numeric: tabular-nums;">$${fmtP}</bdi>` 
         : `Acquire Sovereign Artifact • <bdi dir="ltr">$${fmtP}</bdi>`);
       equipBtn.disabled = false;
       equipBtn.className = "rmc-equip-btn btn-gold";
@@ -6262,8 +6259,8 @@ window.purchase = function(item, source = 'modal', btnElement = null) {
         if (b) {
           b.className = "boutique-own-btn btn-owned boutique-ownership-plaque";
           b.setAttribute("tabindex", "-1");
-          b.setAttribute("aria-label", window.t("boutique.owned") || "مملوك");
-          b.innerHTML = `<span class="ownership-seal-mark" aria-hidden="true">✓</span><span class="ownership-seal-text">${window.t("boutique.owned") || "مملوك"}</span>`;
+          b.setAttribute("aria-label", window.t("boutique.owned") || "Owned");
+          b.innerHTML = `<span class="ownership-seal-mark" aria-hidden="true">✓</span><span class="ownership-seal-text">${window.t("boutique.owned") || "Owned"}</span>`;
         }
         const c = document.querySelector(`.boutique-card[data-item-id="${item.id}"]`);
         if (c) {
@@ -6565,7 +6562,7 @@ const initProfileAndModals = () => {
         renderProfileCircles();
       }
       localStorage.removeItem("profileDraft");
-      showNavToast(window.t("profile.profileSavedToast") || (window.currentLang === "ar" ? "تم حفظ وتحديث الملف الشخصي بنجاح" : "Profile updated successfully"));
+      showNavToast(window.t("profile.profileSavedToast") || "Profile updated successfully");
       window.closeEditProfileModal();
     });
 
@@ -6647,7 +6644,7 @@ const initProfileAndModals = () => {
       if (phoneEl) AppState.user.phone = phoneEl.value.trim();
 
       AppState.save();
-      showNavToast(window.t("profile.accountSavedToast") || (window.currentLang === "ar" ? "تم حفظ وتحديث بيانات الحساب بنجاح" : "Account credentials saved successfully"));
+      showNavToast(window.t("profile.accountSavedToast") || "Account credentials saved successfully");
       window.closeAccountInfoModal();
     });
 
@@ -6860,7 +6857,7 @@ const initProfileAndModals = () => {
         window.HapticEngine.tap(25);
       }
       window.closeHelpSupportModal();
-      showNavToast(window.t("misc.conciergeSuccess") || "تم إرسال طلب الكونسيرج بنجاح. سيتواصل معك المساعد الخاص قريباً.");
+      showNavToast(window.t("misc.conciergeSuccess") || "Concierge request dispatched successfully. Your sovereign attaché will respond shortly.");
     });
   }
 
@@ -6892,24 +6889,117 @@ const initProfileAndModals = () => {
     });
   }
 
+  const openSettingsRow = document.getElementById("openSettingsRow");
+  const openSettingsBtn = document.getElementById("openSettingsBtn");
   const menuSettings = document.getElementById("menuSettings");
   const settingsModal = document.getElementById("settingsModal");
   const closeSettingsBtn = document.getElementById("closeSettingsModal");
-  if (menuSettings && settingsModal) {
-    menuSettings.addEventListener("click", () => {
-      if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
-        window.ThemeManager.bindToggle();
-        window.ThemeManager.syncModalUI();
-      }
+
+  function openSettings() {
+    if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
+      window.ThemeManager.bindToggle();
+      window.ThemeManager.syncModalUI();
+    }
+    const soundscapeToggle = document.getElementById("soundscapeToggle");
+    if (soundscapeToggle && window.AudioEngine) {
+      soundscapeToggle.checked = window.AudioEngine.isEnabled();
+    }
+    const audioHapticToggle = document.getElementById("audioHapticToggle");
+    if (audioHapticToggle) {
+      audioHapticToggle.checked = localStorage.getItem("club_haptic_enabled") !== "false";
+    }
+    const gyroscopeToggle = document.getElementById("gyroscopeToggle");
+    if (gyroscopeToggle) {
+      gyroscopeToggle.checked = localStorage.getItem("club_gyroscope_enabled") !== "false";
+    }
+    const vipNotifToggle = document.getElementById("vipNotifToggle");
+    if (vipNotifToggle) {
+      vipNotifToggle.checked = localStorage.getItem("club_vip_notifications") !== "false";
+    }
+    const stealthModeToggle = document.getElementById("stealthModeToggle");
+    if (stealthModeToggle) {
+      stealthModeToggle.checked = localStorage.getItem("club_stealth_mode") === "true";
+    }
+
+    if (settingsModal) {
       settingsModal.classList.add("is-open");
-      if (window.AudioEngine && window.AudioEngine.playModalOpen) {
-        window.AudioEngine.playModalOpen();
+    }
+    if (window.AudioEngine && window.AudioEngine.playModalOpen) {
+      window.AudioEngine.playModalOpen();
+    }
+  }
+
+  if (openSettingsRow) {
+    openSettingsRow.addEventListener("click", openSettings);
+    openSettingsRow.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openSettings();
       }
     });
+  }
+  if (openSettingsBtn) {
+    openSettingsBtn.addEventListener("click", openSettings);
+  }
+  if (menuSettings) {
+    menuSettings.addEventListener("click", openSettings);
   }
   if (closeSettingsBtn) {
     closeSettingsBtn.addEventListener("click", () => {
       window.closeSettingsModal();
+    });
+  }
+
+  const btnResetSettings = document.getElementById("btnResetSettings");
+  if (btnResetSettings) {
+    btnResetSettings.addEventListener("click", () => {
+      // 1. Reset theme to Obsidian Dark
+      if (window.ThemeManager) {
+        window.ThemeManager.setTheme("dark", true);
+      }
+      // 2. Reset audio to enabled
+      if (window.AudioEngine) {
+        window.AudioEngine.setEnabled(true);
+        if (typeof window.syncAudioSoundUI === "function") {
+          window.syncAudioSoundUI(true);
+        }
+      }
+      // 3. Reset tactile haptics to enabled
+      localStorage.setItem("club_haptic_enabled", "true");
+      const audioHapticToggle = document.getElementById("audioHapticToggle");
+      if (audioHapticToggle) audioHapticToggle.checked = true;
+
+      // 4. Reset gyroscope tilt to enabled
+      localStorage.setItem("club_gyroscope_enabled", "true");
+      const gyroscopeToggle = document.getElementById("gyroscopeToggle");
+      if (gyroscopeToggle) gyroscopeToggle.checked = true;
+
+      // 5. Reset notifications to enabled
+      localStorage.setItem("club_vip_notifications", "true");
+      const vipNotifToggle = document.getElementById("vipNotifToggle");
+      if (vipNotifToggle) vipNotifToggle.checked = true;
+
+      // 6. Reset stealth to disabled
+      localStorage.removeItem("club_stealth_mode");
+      const stealthModeToggle = document.getElementById("stealthModeToggle");
+      if (stealthModeToggle) stealthModeToggle.checked = false;
+
+      // Haptic and sound feedback
+      if (window.HapticEngine && window.HapticEngine.tap) {
+        window.HapticEngine.tap(35);
+      }
+      if (window.AudioEngine && window.AudioEngine.playTransactionSuccess) {
+        window.AudioEngine.playTransactionSuccess();
+      } else if (window.AudioEngine && window.AudioEngine.playHover) {
+        window.AudioEngine.playHover();
+      }
+
+      const toastMsg = window.t
+        ? window.t("settings.resetSuccessToast")
+        : "App preferences reset to sovereign defaults";
+      if (typeof showNavToast === "function") {
+        showNavToast(toastMsg);
+      }
     });
   }
 
@@ -6970,9 +7060,9 @@ const initProfileAndModals = () => {
       if (window.HapticEngine && window.HapticEngine.tap) {
         window.HapticEngine.tap();
       }
-      const title = window.currentLang === "ar" ? "اعتماد العضوية السيادية" : "SOVEREIGN CREDENTIAL VERIFIED";
+      const title = "SOVEREIGN CREDENTIAL VERIFIED";
       const desc = window.currentLang === "ar"
-        ? `العضوية موثقة ومعتمدة برقم #${AppState.user.id}`
+        ? `Membership verified and certified under #${AppState.user.id}`
         : `Membership verified & authenticated under ID #${AppState.user.id}`;
       if (typeof showNavToast === "function") {
         showNavToast(`${title}: ${desc}`);
@@ -7035,7 +7125,7 @@ const initProfileAndModals = () => {
       }
 
       const toastMsg = window.currentLang === "ar"
-        ? `تم إيداع $${amount.toLocaleString()} في رصيدك السيادي بنجاح!`
+        ? `Successfully deposited $${amount.toLocaleString()} into your sovereign balance!`
         : `Successfully deposited $${amount.toLocaleString()} into your sovereign balance!`;
       if (typeof showNavToast === "function") {
         showNavToast(toastMsg);
@@ -7056,7 +7146,7 @@ const initProfileAndModals = () => {
     if (msgEl) {
       if (showExhaustedMsg) {
         msgEl.textContent = window.currentLang === "ar"
-          ? "لقد استنفدت رصيد رسائلك اليومي. يرجى اختيار باقة للمتابعة."
+          ? "You have exhausted your daily message allowance. Please select a credit reserve to proceed."
           : "You have exhausted your daily message allowance. Select a package to continue.";
         msgEl.style.color = "#d9534f";
       } else {
@@ -7112,7 +7202,7 @@ const initProfileAndModals = () => {
       }
 
       const msg = window.currentLang === "ar"
-        ? `تم شحن ${credits} رسالة بنجاح!`
+        ? `Successfully credited ${credits} dispatches!`
         : `Successfully added ${credits} message credits!`;
       if (typeof showNavToast === "function") {
         showNavToast(msg);
@@ -7167,7 +7257,7 @@ function renderProfileAchievements() {
   // Sync Honor Badge status text with active language
   const hrrStatusBadge = document.getElementById("hrrStatusBadge");
   if (hrrStatusBadge) {
-    hrrStatusBadge.textContent = window.t ? window.t("honors.officialStatusBadge", window.currentLang) : (window.currentLang === "ar" ? "✦ معتمد رسميًا" : "✦ Officially Authenticated");
+    hrrStatusBadge.textContent = window.t ? window.t("honors.officialStatusBadge", window.currentLang) : "✦ Officially Authenticated";
   }
 
   // 1. Render Sovereign Diplomatic Ribbon Rack
@@ -7540,8 +7630,8 @@ function openReliquaryInspectModal(itemId) {
   if (statusBadge && statusText) {
     statusBadge.className = "rmc-status-badge " + (isEquipped ? "is-equipped" : "is-vaulted");
     statusText.textContent = isEquipped 
-      ? (isAr ? "مُقَلَّد بالهوية" : "EQUIPPED ON IDENTITY")
-      : (isAr ? "محفوظ بالخزانة" : "SAFELY IN VAULT");
+      ? ("EQUIPPED ON IDENTITY")
+      : ("SAFELY IN VAULT");
   }
 
   // Specifications
@@ -7553,16 +7643,16 @@ function openReliquaryInspectModal(itemId) {
       alloyEl.textContent = item.metal;
     } else {
       alloyEl.textContent = (item.rarity >= 3)
-        ? (window.t("profile.solidGoldAlloy") || (isAr ? "Au 999.9 ذهب خالص ٢٤ قيراط" : "Au 999.9 Solid Gold (24K)"))
-        : (window.t("profile.obsidianTitaniumAlloy") || (isAr ? "تيتانيوم أسود وأوبسيديان بركاني" : "Black Titanium & Obsidian"));
+        ? (window.t("profile.solidGoldAlloy") || ("Au 999.9 Solid Gold (24K)"))
+        : (window.t("profile.obsidianTitaniumAlloy") || ("Black Titanium & Obsidian"));
     }
   }
 
   const foundryEl = document.getElementById("reliquaryItemFoundry");
   if (foundryEl) {
     foundryEl.textContent = (item.rarity >= 3)
-      ? (window.t("profile.stMoritzFoundry") || (isAr ? "دار الصك الإمبراطورية • سانت موريتز" : "St. Moritz Master Foundry"))
-      : (window.t("profile.genevaGuild") || (isAr ? "نقابة الصياغة الملكية • جنيف" : "Geneva Guild of Royal Horology"));
+      ? (window.t("profile.stMoritzFoundry") || ("St. Moritz Master Foundry"))
+      : (window.t("profile.genevaGuild") || ("Geneva Guild of Royal Horology"));
   }
 
   const rarityEl = document.getElementById("reliquaryItemRarity");
@@ -7572,7 +7662,7 @@ function openReliquaryInspectModal(itemId) {
     } else if (typeof RARITY_LABEL !== 'undefined' && RARITY_LABEL[item.rarity]) {
       rarityEl.textContent = RARITY_LABEL[item.rarity]();
     } else {
-      rarityEl.textContent = isAr ? "طراز سيادي فريد (SOVEREIGN)" : "SOVEREIGN APEX";
+      rarityEl.textContent = "SOVEREIGN APEX";
     }
   }
 
@@ -7584,7 +7674,7 @@ function openReliquaryInspectModal(itemId) {
   // Provenance Lore
   const loreEl = document.getElementById("reliquaryItemLore");
   if (loreEl) {
-    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || (isAr ? "تحفة ملكية مسبوكة يدوياً من الذهب السيادي الخالص، معتمدة ومسجلة رسمياً بالأرشيف الإمبراطوري بقرار من المجلس التأسيسي الأعلى." : "Handcrafted sovereign artifact forged from solid 24k gold and obsidian, officially verified in the royal archives."));
+    loreEl.textContent = item.lore ? window.t(item.lore) : (window.t("dynamic.loreDefault") || ("Handcrafted sovereign artifact forged from solid 24k gold and obsidian, officially verified in the royal archives."));
   }
 
   // Pre-reset scroll before opening to guarantee top-of-patent is displayed instantly
@@ -7630,7 +7720,7 @@ window.copyReliquarySerial = function() {
   const serialText = serialEl.textContent.trim();
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(serialText).then(() => {
-      const msg = window.t("profile.museumCopied") || (document.documentElement.lang === "ar" ? "تم نسخ رقم التوثيق السيادي بنجاح" : "Provenance ID Copied");
+      const msg = window.t("profile.museumCopied") || "Provenance ID Copied";
       if (typeof showNavToast === "function") {
         showNavToast(msg);
       }
@@ -7674,13 +7764,13 @@ function renderProfileCollection(forceSkeleton = false) {
   // Update header count badge with museum terminology
   const countPill = document.getElementById("reliquaryCountPill");
   if (countPill) {
-    countPill.textContent = isAr ? `${itemCount} معروضات متحفية معتمدة` : `${itemCount} Museum Exhibits`;
+    countPill.textContent = `${itemCount} Museum Exhibits`;
   }
 
   if (itemCount === 0) {
-    const emptyTitle = window.t("profile.museumEmptyTitle") || (isAr ? "الرواق السيادي في انتظار أولى مقتنياتك الفاخرة" : "The Sovereign Conservatory Awaits Your First Exhibit");
-    const emptyText = window.t("profile.museumEmptyDesc") || (isAr ? "تفضل باقتناء أول أثر سيادي موثق من البوتيك ليُعرض في رواقك الخاص مصحوباً ببراءة ملكية معتمدة." : "Acquire your first rare sovereign artifact from the Boutique to be archived with an immutable patent of provenance.");
-    const btnText = window.t("explore_boutique") || (isAr ? "زيارة البوتيك السيادي ✦" : "Visit Sovereign Boutique ✦");
+    const emptyTitle = window.t("profile.museumEmptyTitle") || ("The Sovereign Conservatory Awaits Your First Exhibit");
+    const emptyText = window.t("profile.museumEmptyDesc") || ("Acquire your first rare sovereign artifact from the Boutique to be archived with an immutable patent of provenance.");
+    const btnText = window.t("explore_boutique") || ("Visit Sovereign Boutique ✦");
 
     container.innerHTML = `
       <div class="empty-reliquary-cushion" onclick="goToPage('boutique')" role="button" tabindex="0">
@@ -7705,7 +7795,7 @@ function renderProfileCollection(forceSkeleton = false) {
       itemIndex++;
       const nameText = window.t("items." + item.id) || item.name;
       const rarityText = item.rarity ? (typeof RARITY_LABELS !== 'undefined' && RARITY_LABELS[item.rarity] ? RARITY_LABELS[item.rarity]() : item.rarity) : '';
-      const metalText = (isAr && item.metalAr) ? item.metalAr : (item.metal || (isAr ? 'Au 999.9 ذهب خالص' : 'Au 999.9 Solid Gold'));
+      const metalText = item.metal || 'Au 999.9 Solid Gold';
 
       let iconHtml = "";
       if (item.image) {
@@ -7723,11 +7813,11 @@ function renderProfileCollection(forceSkeleton = false) {
       const statusTag = `
         <div class="museum-exhibit-badge ${isEquipped ? 'is-equipped' : 'is-vaulted'}">
           <span class="meb-dot"></span>
-          <span>${isEquipped ? (isAr ? 'مُقَلَّد' : 'EQUIPPED') : (isAr ? 'محفوظ' : 'VAULTED')}</span>
+          <span>${isEquipped ? 'EQUIPPED' : 'VAULTED'}</span>
         </div>
       `;
 
-      const inspectLabel = window.t("profile.inspectHint") || (isAr ? 'فحص الشهادة' : 'Inspect Certificate');
+      const inspectLabel = window.t("profile.inspectHint") || 'Inspect Certificate';
 
       html += `
         <div class="pcs-item-card reliquary-pedestal-card museum-pedestal-card gyro-element" 
@@ -7736,7 +7826,7 @@ function renderProfileCollection(forceSkeleton = false) {
              onclick="openReliquaryInspectModal('${item.id}')"
              role="button"
              tabindex="0"
-             title="${isAr ? 'انقر لفحص براءة التوثيق والملكية السيادية' : 'Tap to inspect sovereign patent'}">
+             title="Tap to inspect sovereign patent">
           ${statusTag}
           <div class="museum-plinth-cradle">
             <div class="museum-spotlight-cone" aria-hidden="true"></div>
@@ -7750,7 +7840,7 @@ function renderProfileCollection(forceSkeleton = false) {
             </div>
           </div>
           <div class="museum-plaque">
-            <div class="museum-accession-num">${isAr ? 'معروضة ' + (itemIndex < 10 ? '٠' + itemIndex : itemIndex) : 'EXHIBIT ' + (itemIndex < 10 ? '0' + itemIndex : itemIndex)}</div>
+            <div class="museum-accession-num">${'EXHIBIT ' + (itemIndex < 10 ? '0' + itemIndex : itemIndex)}</div>
             <div class="museum-artifact-name" title="${nameText}">${nameText}</div>
             <div class="museum-artifact-specs">
               <span class="museum-metal-tag" title="${metalText}">${metalText}</span>
@@ -7889,7 +7979,7 @@ function renderProfileStatsBar() {
   container.dataset.renderedOnce = "true";
 
   const isAr = (document.documentElement && document.documentElement.dir === "rtl") || (document.body && document.body.dir === "rtl") || window.currentLang === "ar";
-  const isElite = AppState.user.tier === "Elite" || AppState.user.tier === "نخبة";
+  const isElite = AppState.user.tier === "Elite" ;
   const tierVal = isElite ? window.t("profile.compTierElite") : window.t("profile.compTierSovereign");
   const tierLabel = window.t("profile.compTierLabel");
 
@@ -8113,7 +8203,7 @@ function attachComplicationHandlers() {
 }
 
 // -------------------------------------------------------------
-// 2.5 SOVEREIGN CIRCLES & DOMAINS (الدوائر والمجالات السيادية)
+// 2.5 SOVEREIGN CIRCLES & DOMAINS
 // -------------------------------------------------------------
 window.modalSelectedCircles = null;
 
@@ -8136,7 +8226,7 @@ function renderProfileCircles() {
   items.forEach(item => {
     const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
     const localizedBadge = (window.t && item.badgeKey && window.t(item.badgeKey)) || (isAr ? (item.badgeAr || item.badge) : (item.badgeEn || item.badge));
-    const statusText = isAr ? "معتمد" : "ACCREDITED";
+    const statusText = "ACCREDITED";
     html += `
       <div class="pcc-chip" data-circle-id="${item.id}" role="button" tabindex="0" title="${localizedName}">
         <div class="pcc-chip-main">
@@ -8206,7 +8296,7 @@ function renderProfileCircles() {
     const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl";
     const localizedName = item
       ? ((window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName))
-      : (isAr ? "المجال السيادي" : "Sovereign Domain");
+      : ("Sovereign Domain");
 
     // Play sovereign verification audio (Heavy brass stamp / UV chime)
     if (window.AudioEngine) {
@@ -8234,7 +8324,7 @@ function renderProfileCircles() {
       sealDot.dataset.stamping = "true";
       const originalHtml = sealDot.innerHTML;
       sealDot.classList.add("is-stamping");
-      sealDot.innerHTML = `<span>${isAr ? "موثّق بالسجل" : "VERIFIED"}</span><span class="pcc-seal-star">✦</span>`;
+      sealDot.innerHTML = `<span>${"VERIFIED"}</span><span class="pcc-seal-star">✦</span>`;
       setTimeout(() => {
         sealDot.classList.remove("is-stamping");
         sealDot.innerHTML = originalHtml;
@@ -8330,7 +8420,7 @@ function renderModalCirclesSelector(currentSelected) {
     if (idx > -1) {
       if (window.modalSelectedCircles.length <= 1) {
         if (typeof showNavToast === "function") {
-          showNavToast(isAr ? "يجب الإبقاء على مجال سيادي واحد على الأقل" : "Please keep at least one circle");
+          showNavToast("Please keep at least one circle");
         }
         return;
       }
@@ -8338,7 +8428,7 @@ function renderModalCirclesSelector(currentSelected) {
     } else {
       if (window.modalSelectedCircles.length >= 5) {
         if (typeof showNavToast === "function") {
-          showNavToast(isAr ? "الحد الأقصى هو ٥ مجالات سيادية معتمدة" : "Maximum 5 accredited circles allowed");
+          showNavToast("Maximum 5 accredited circles allowed");
         }
         return;
       }
@@ -8372,7 +8462,7 @@ function renderProfileMembershipDeed() {
 
   const tierEl = document.getElementById("profileLedgerTier");
   if (tierEl) {
-    const isElite = AppState.user?.tier === "Elite" || AppState.user?.tier === "نخبة";
+    const isElite = AppState.user?.tier === "Elite" ;
     tierEl.textContent = isElite ? window.t("profile.compTierElite") : window.t("profile.compTierSovereign");
   }
 
@@ -8433,12 +8523,12 @@ function attachDeedInteractiveHandlers() {
       const isAr = (window.currentLang === "ar");
       if (span) {
         span.textContent = isAr 
-          ? "صك معتمد وموثق سيادياً" 
+          ? "Deed Certified & Verified Sovereign" 
           : "OFFICIALLY AUTHENTICATED";
       }
       if (typeof showNavToast === "function") {
         showNavToast(isAr 
-          ? "❖ صك السيادة معتمد وغير قابل للتحوير • الأرشيف السيادي ❖" 
+          ? "❖ Sovereign Deed Accredited & Immutable • Sovereign Archives ❖" 
           : "❖ SOVEREIGN DEED VALIDATED • IMMUTABLE GENESIS RECORD ❖");
       }
       setTimeout(() => {
@@ -8585,7 +8675,7 @@ function renderProfileSovereignOath() {
     const isStealth = localStorage.getItem("club_stealth_mode") === "true";
     const stealthMoniker = (window.t && window.t("profile.stealthMoniker")) || "SOVEREIGN SHADOW • 001";
     const rawName = isStealth ? stealthMoniker : (AppState.user?.name || "MEMBER");
-    const isElite = AppState.user?.tier === "Elite" || AppState.user?.tier === "نخبة";
+    const isElite = AppState.user?.tier === "Elite" ;
     const tierName = isElite ? (window.t("profile.compTierElite") || "Elite") : (window.t("profile.compTierSovereign") || "Sovereign");
     sigEl.textContent = `${rawName} • ${tierName}`;
   }
@@ -8631,12 +8721,12 @@ function attachOathInteractiveHandlers() {
       const isAr = (window.currentLang === "ar");
       if (textEl) {
         textEl.textContent = isAr
-          ? "تم تجديد وتوثيق القَسَم في الأرشيف"
+          ? "Oath Reaffirmed & Recorded in Archives"
           : "OATH REAFFIRMED & ARCHIVED";
       }
       if (typeof showNavToast === "function") {
         showNavToast(isAr 
-          ? "❖ جرى توثيق وتجديد ميثاق السيادة في السجل الدائم ❖" 
+          ? "❖ Sovereign Charter Ratified & Recorded in Permanent Registry ❖" 
           : "❖ SOVEREIGN OATH REAFFIRMED & PERMANENTLY RECORDED ❖");
       }
       setTimeout(() => {
@@ -8702,14 +8792,14 @@ function renderLeaderboard() {
       rank: 1,
       id: "SV-0001",
       name: "Ahmed Al Maktoum",
-      nameAr: "أحمد آل مكتوم",
+      nameAr: "",
       wealth: "99.9%",
       priv: "99.8%",
       tier: "Sovereign",
-      city: "دبي، الإمارات",
+      city: "Dubai, UAE",
       cityEn: "Dubai, UAE",
-      quote: "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة التاريخية.",
-      quoteAr: "السيادة ليست مجرد مكانة، بل هي معيار الوجود والريادة التاريخية.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "Sovereignty is not mere status; it is the benchmark of existence and historic leadership.",
       avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -8718,14 +8808,14 @@ function renderLeaderboard() {
       rank: 2,
       id: "SV-0822",
       name: "Edouard Rothschild",
-      nameAr: "إدوارد روتشيلد",
+      nameAr: "",
       wealth: "99.7%",
       priv: "99.5%",
       tier: "Sovereign",
-      city: "جنيف، سويسرا",
+      city: "Geneva, Switzerland",
       cityEn: "Geneva, Switzerland",
-      quote: "الذهب الحقيقي هو الثقة والسرية المتوارثة عبر الأجيال.",
-      quoteAr: "الذهب الحقيقي هو الثقة والسرية المتوارثة عبر الأجيال.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "True gold is trust and discretion passed down through generations.",
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -8734,14 +8824,14 @@ function renderLeaderboard() {
       rank: 3,
       id: "SV-1105",
       name: "Maximilian Windsor",
-      nameAr: "ماكسيميليان ويندسور",
+      nameAr: "",
       wealth: "99.5%",
       priv: "99.2%",
       tier: "Elite",
-      city: "لندن، المملكة المتحدة",
+      city: "London, UK",
       cityEn: "London, UK",
-      quote: "التقاليد العريقة هي الحصن المنيع للمكانة والجاه الرفيع.",
-      quoteAr: "التقاليد العريقة هي الحصن المنيع للمكانة والجاه الرفيع.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "Time-honored traditions are the enduring fortress of distinction and stature.",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -8750,14 +8840,14 @@ function renderLeaderboard() {
       rank: 4,
       id: "SV-0344",
       name: "Julian Rockefeller",
-      nameAr: "جوليان روكفلر",
+      nameAr: "",
       wealth: "99.2%",
       priv: "98.9%",
       tier: "Elite",
-      city: "نيويورك، الولايات المتحدة",
+      city: "New York, USA",
       cityEn: "New York, USA",
-      quote: "القوة تكمن في البصيرة الهادئة وراء كل قرار استراتيجي.",
-      quoteAr: "القوة تكمن في البصيرة الهادئة وراء كل قرار استراتيجي.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "True power resides in the quiet foresight behind every strategic decision.",
       avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -8766,14 +8856,14 @@ function renderLeaderboard() {
       rank: 5,
       id: "SV-2211",
       name: "Killian Arnault",
-      nameAr: "كيليان أرنو",
+      nameAr: "",
       wealth: "98.9%",
       priv: "98.6%",
       tier: "Elite",
-      city: "باريس، فرنسا",
+      city: "Paris, France",
       cityEn: "Paris, France",
-      quote: "الفخامة المطلقة هي الجمع بين الفن والخلود المادي.",
-      quoteAr: "الفخامة المطلقة هي الجمع بين الفن والخلود المادي.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "Absolute luxury is the convergence of artistry and enduring timelessness.",
       avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -8782,14 +8872,14 @@ function renderLeaderboard() {
       rank: 6,
       id: "SV-3091",
       name: "Liliane Bettencourt",
-      nameAr: "ليليان بيتنكور",
+      nameAr: "",
       wealth: "98.5%",
       priv: "98.2%",
       tier: "Member",
-      city: "باريس، فرنسا",
+      city: "Paris, France",
       cityEn: "Paris, France",
-      quote: "الجمال والرفعة إرث يتجاوز حدود الزمن والحدود.",
-      quoteAr: "الجمال والرفعة إرث يتجاوز حدود الزمن والحدود.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "Beauty and distinction are a legacy transcending time and boundaries.",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -8798,14 +8888,14 @@ function renderLeaderboard() {
       rank: 7,
       id: "SV-4402",
       name: "François Pinault",
-      nameAr: "فرانسوا بينو",
+      nameAr: "",
       wealth: "98.1%",
       priv: "97.9%",
       tier: "Member",
-      city: "موناكو، فرنسا",
+      city: "Monaco",
       cityEn: "Monaco, France",
-      quote: "اقتناء النوادر هو الشغف الذي يميز النخبة الحقيقية.",
-      quoteAr: "اقتناء النوادر هو الشغف الذي يميز النخبة الحقيقية.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "Acquiring rare treasures is the passion that defines true nobility.",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -8814,14 +8904,14 @@ function renderLeaderboard() {
       rank: 8,
       id: "SV-5510",
       name: "David Wertheimer",
-      nameAr: "ديفيد ويرثايمر",
+      nameAr: "",
       wealth: "97.8%",
       priv: "97.5%",
       tier: "Member",
-      city: "زيورخ، سويسرا",
+      city: "Zurich, Switzerland",
       cityEn: "Zurich, Switzerland",
-      quote: "الوقت أغلى من أي مقتنى، والكمال في كل تفصيلة متناهية.",
-      quoteAr: "الوقت أغلى من أي مقتنى، والكمال في كل تفصيلة متناهية.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "Time is more precious than any possession, and perfection lies in every infinitesimal detail.",
       avatar: "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?q=80&w=260&auto=format&fit=crop",
       isOnline: true,
@@ -8830,14 +8920,14 @@ function renderLeaderboard() {
       rank: 9,
       id: "SV-6623",
       name: "Giorgio Armani",
-      nameAr: "جورجيو أرماني",
+      nameAr: "",
       wealth: "97.5%",
       priv: "97.2%",
       tier: "Member",
-      city: "ميلانو، إيطاليا",
+      city: "Milan, Italy",
       cityEn: "Milan, Italy",
-      quote: "الأناقة ليست لفت الأنظار، بل البقاء في الذاكرة الحية.",
-      quoteAr: "الأناقة ليست لفت الأنظار، بل البقاء في الذاكرة الحية.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "Elegance is not about catching the eye, but about lingering in the memory.",
       avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -8846,14 +8936,14 @@ function renderLeaderboard() {
       rank: 10,
       id: "SV-7734",
       name: "Santiago Ortega",
-      nameAr: "سانتياغو أورتيغا",
+      nameAr: "",
       wealth: "97.0%",
       priv: "96.8%",
       tier: "Member",
-      city: "مدريد، إسبانيا",
+      city: "Madrid, Spain",
       cityEn: "Madrid, Spain",
-      quote: "الامبراطوريات تُبنى بالصمت والعمل والإنجاز المتواصل.",
-      quoteAr: "الامبراطوريات تُبنى بالصمت والعمل والإنجاز المتواصل.",
+      quote: "Discipline, prestige, and sovereign discretion.",
+      quoteAr: "",
       quoteEn: "Empires are forged in silence, discipline, and ceaseless accomplishment.",
       avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=260&auto=format&fit=crop",
       isOnline: false,
@@ -8873,13 +8963,13 @@ function renderLeaderboard() {
     <!-- STREAMLINED SOVEREIGN ROLL OF HONOR HEADER -->
     <div class="sl-honor-header">
       <div class="sl-honor-title-row">
-        <h2 class="sl-honor-title">${isAr ? "لوحة الشرف السيادية" : "SOVEREIGN ROLL OF HONOR"}</h2>
-        <div class="sl-audit-badge" title="${isAr ? "سجل مدقق وموثق" : "Audited and verified registry"}">
+        <h2 class="sl-honor-title">${"SOVEREIGN ROLL OF HONOR"}</h2>
+        <div class="sl-audit-badge" title="${"Audited and verified registry"}">
           <span class="sl-audit-dot" aria-hidden="true"></span>
-          <span>${isAr ? "مدقق" : "AUDITED"}</span>
+          <span>${"AUDITED"}</span>
         </div>
       </div>
-      <p class="sl-honor-subtitle">${isAr ? "الرابطة العالمية لرواد السيادة المالية" : "Global League of Sovereign Titans"}</p>
+      <p class="sl-honor-subtitle">${"Global League of Sovereign Titans"}</p>
     </div>
   `;
 
@@ -9004,10 +9094,10 @@ function renderLeaderboard() {
   html += `
     <div class="sl-ledger-header">
       <div class="sl-ledger-title">
-        ${isAr ? "سجل مراتب النخبة" : "SOVEREIGN LEDGER"}
+        ${"SOVEREIGN LEDGER"}
       </div>
       <div class="sl-ledger-count">
-        ${isAr ? `${ledgerMembers.length} أعضاء مصنفين` : `${ledgerMembers.length} Ranked Members`}
+        ${ledgerMembers.length} Ranked Members
       </div>
     </div>
     <div class="sl-ledger-list">
@@ -9019,9 +9109,9 @@ function renderLeaderboard() {
     const tierClass = `tier-${member.tier.toLowerCase()}`;
     let tierText = member.tier;
     if (isAr) {
-      if (member.tier === "Sovereign") tierText = "سيادة";
-      else if (member.tier === "Elite") tierText = "نخبة";
-      else tierText = "معتمد";
+      if (member.tier === "Sovereign") tierText = "Sovereign";
+      else if (member.tier === "Elite") tierText = "Elite";
+      else tierText = "Member";
     }
 
     const payload = JSON.stringify({
@@ -9054,7 +9144,7 @@ function renderLeaderboard() {
         <div class="sl-card-left sl-registry-left">
           <!-- Sovereign Registry Index Column -->
           <div class="sl-card-rank sl-registry-index-col">
-            <span class="sl-registry-order-prefix">${isAr ? "رتبة" : "Nº"}</span>
+            <span class="sl-registry-order-prefix">${"Nº"}</span>
             <span class="sl-registry-rank-num"><bdi>${member.rank < 10 ? '0' + member.rank : member.rank}</bdi></span>
           </div>
 
@@ -9085,9 +9175,9 @@ function renderLeaderboard() {
         <div class="sl-card-right sl-registry-hallmark">
           <div class="sl-card-wealth sl-registry-metric">
             <bdi class="sl-wealth-number sl-registry-percent">${member.wealth}</bdi>
-            <span class="sl-wealth-label sl-registry-label">${isAr ? "تخصيص" : "ALLOCATION"}</span>
+            <span class="sl-wealth-label sl-registry-label">${"ALLOCATION"}</span>
           </div>
-          <div class="sl-card-chevron sl-registry-sigil" aria-hidden="true" title="${isAr ? 'عرض السجل' : 'Inspect Record'}">
+          <div class="sl-card-chevron sl-registry-sigil" aria-hidden="true" title="Inspect Record">
             <svg viewBox="0 0 16 16" width="7.5" height="7.5" fill="none">
               <path d="${isAr ? "M10 12L6 8l4-4" : "M6 12l4-4-4-4"}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -9101,17 +9191,17 @@ function renderLeaderboard() {
     </div>
 
     <!-- PERSONAL SOVEREIGN STANDING CARD -->
-    <div class="sl-self-card" onclick="goToPage('profile')" title="${isAr ? 'الانتقال إلى ملفك التعريفي' : 'Open your profile dossier'}">
+    <div class="sl-self-card" onclick="goToPage('profile')" title="Open your profile dossier">
       <div class="sl-self-info">
         <div class="sl-self-rank-row">
-          <span class="sl-self-title">${isAr ? "ترتيبك في المجلس: المرتبة <bdi>#11</bdi>" : "Council Standing: Rank <bdi>#11</bdi>"}</span>
+          <span class="sl-self-title">${"Council Standing: Rank <bdi>#11</bdi>"}</span>
         </div>
         <div class="sl-self-desc">
-          ${isAr ? "أنت تتقدم على <bdi>99.8%</bdi> من نخبة العالم • استمر في المداولات" : "Surpassing 99.8% of global elite • Maintain sovereign status"}
+          ${"Surpassing 99.8% of global elite • Maintain sovereign status"}
         </div>
       </div>
       <div class="sl-self-cta">
-        <span>${isAr ? "عرض ملفك" : "View Dossier"}</span>
+        <span>${"View Dossier"}</span>
         <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
           <path d="${isAr ? "M15 18l-6-6 6-6" : "M9 18l6-6-6-6"}" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -9594,13 +9684,13 @@ window.AuthBoundary = {
         tabRegister.classList.add("is-active");
         tabRegister.setAttribute("aria-selected", "true");
       }
-      if (titleEl) titleEl.textContent = window.t("auth.registerTitle") || (window.currentLang === "ar" ? "إنشاء حساب سيادي" : "Create Sovereign Account");
-      if (descEl) descEl.textContent = window.t("auth.registerDesc") || (window.currentLang === "ar" ? "انضم إلى نخبة الأعضاء وأنشئ هويتك السيادية" : "Join the elite circle and establish your sovereign identity");
-      if (submitText) submitText.textContent = window.t("auth.registerSubmit") || (window.currentLang === "ar" ? "إنشاء حساب والانضمام" : "Create Account & Join");
-      if (googleText) googleText.textContent = window.t("auth.registerGoogle") || (window.currentLang === "ar" ? "التسجيل باستخدام Google" : "Sign Up with Google");
+      if (titleEl) titleEl.textContent = window.t("auth.registerTitle") || "Create Sovereign Account";
+      if (descEl) descEl.textContent = window.t("auth.registerDesc") || "Join the elite circle and establish your sovereign identity";
+      if (submitText) submitText.textContent = window.t("auth.registerSubmit") || "Create Account & Join";
+      if (googleText) googleText.textContent = window.t("auth.registerGoogle") || "Sign Up with Google";
       if (forgotLink) forgotLink.style.display = "none";
-      if (togglePrompt) togglePrompt.textContent = window.t("auth.haveAccountPrompt") || (window.currentLang === "ar" ? "لديك حساب بالفعل؟" : "Already have an account?");
-      if (toggleBtn) toggleBtn.textContent = window.t("auth.loginLink") || (window.currentLang === "ar" ? "تسجيل الدخول" : "Sign In");
+      if (togglePrompt) togglePrompt.textContent = window.t("auth.haveAccountPrompt") || "Already have an account?";
+      if (toggleBtn) toggleBtn.textContent = window.t("auth.loginLink") || "Sign In";
     } else {
       if (tabLogin) {
         tabLogin.classList.add("is-active");
@@ -9610,13 +9700,13 @@ window.AuthBoundary = {
         tabRegister.classList.remove("is-active");
         tabRegister.setAttribute("aria-selected", "false");
       }
-      if (titleEl) titleEl.textContent = window.t("auth.loginTitle") || (window.currentLang === "ar" ? "تسجيل الدخول" : "Sign In");
-      if (descEl) descEl.textContent = window.t("auth.loginDesc") || (window.currentLang === "ar" ? "بوابة الدخول الحصرية لأعضاء النادي السيادي" : "Exclusive access portal for Sovereign Club members");
-      if (submitText) submitText.textContent = window.t("auth.loginSubmit") || (window.currentLang === "ar" ? "تسجيل الدخول" : "Sign In");
-      if (googleText) googleText.textContent = window.t("auth.continueGoogle") || (window.currentLang === "ar" ? "المتابعة باستخدام Google" : "Continue with Google");
+      if (titleEl) titleEl.textContent = window.t("auth.loginTitle") || "Sign In";
+      if (descEl) descEl.textContent = window.t("auth.loginDesc") || "Exclusive access portal for Sovereign Club members";
+      if (submitText) submitText.textContent = window.t("auth.loginSubmit") || "Sign In";
+      if (googleText) googleText.textContent = window.t("auth.continueGoogle") || "Continue with Google";
       if (forgotLink) forgotLink.style.display = "";
-      if (togglePrompt) togglePrompt.textContent = window.t("auth.noAccountPrompt") || (window.currentLang === "ar" ? "ليس لديك حساب؟" : "Don't have an account?");
-      if (toggleBtn) toggleBtn.textContent = window.t("auth.createAccountLink") || (window.currentLang === "ar" ? "إنشاء حساب جديد" : "Create New Account");
+      if (togglePrompt) togglePrompt.textContent = window.t("auth.noAccountPrompt") || "Don't have an account?";
+      if (toggleBtn) toggleBtn.textContent = window.t("auth.createAccountLink") || "Create New Account";
     }
   },
 
@@ -9784,7 +9874,7 @@ window.AuthBoundary = {
     if (successMsg) {
       const isRecoveryAr = (window.currentLang === "ar");
       successMsg.textContent = isRecoveryAr
-        ? `تم إرسال تعليمات استعادة كلمة المرور إلى ${email} بنجاح`
+        ? `Password reset instructions sent to ${email} successfully`
         : `Password recovery instructions sent to ${email} successfully`;
       successMsg.style.display = "block";
     }

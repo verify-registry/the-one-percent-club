@@ -485,10 +485,7 @@ const AudioEngine = (function () {
       rawTier.includes("FOUNDER") ||
       rawTier.includes("SOVEREIGN") ||
       rawTier.includes("ARCHON") ||
-      rawTier.includes("EXARCH") ||
-      rawTier.includes("المؤسس") ||
-      rawTier.includes("السيادي") ||
-      rawTier.includes("سيادي")
+      rawTier.includes("EXARCH")
     ) {
       playGoldenSovereignChime();
       if (typeof window !== "undefined" && window.HapticEngine && window.HapticEngine.vibrate) {
@@ -501,9 +498,7 @@ const AudioEngine = (function () {
     if (
       rawTier.includes("TITAN") ||
       rawTier.includes("PATRON") ||
-      rawTier.includes("MAGNATE") ||
-      rawTier.includes("عملاق") ||
-      rawTier.includes("الراعي")
+      rawTier.includes("MAGNATE")
     ) {
       playTitanResonance();
       if (typeof window !== "undefined" && window.HapticEngine && window.HapticEngine.vibrate) {

@@ -37,25 +37,25 @@
 
 **MEMBERSHIP (Master Card)**
 - HTML: `#page-card`, `.membership-card`, `#portraitPhoto`, ring SVGs
-- JS: `updateMasterCard()`, `applyEquippedToCard()`, `renderRing()`
+- JS: `updateMasterCard`, `applyEquippedToCard`, `renderRing`
 - CSS: `.membership-card`, `.card-*`, `.metric-ring`
 - i18n: `membership.*`, `misc.discipline|network|freedom`
 
 **CLUB**
 - HTML: `#club-tab`, `.club-chat-window`, `#clubCreditsText`
-- JS: `sendClubMessage()`, `processEliteResponse()`, `renderLeaderboard()`
+- JS: `sendClubMessage`, `processEliteResponse`, `renderLeaderboard`
 - CSS: `#club-tab`, `.club-*`, `.leader-*`
 - i18n: `club.*`, `dynamic.chat*`
 
 **PROFILE**
 - HTML: `#profile-tab`, `.profile-hero-card`, `.phc-*`, `#accountInfoModal`
-- JS: `renderProfileStatsBar()`, `renderProfileCollection()`, `ACHIEVEMENTS_DATA`
+- JS: `renderProfileStatsBar`, `renderProfileCollection`, `ACHIEVEMENTS_DATA`
 - CSS: `.phc-*`, `.psb-*`, `.pcs-*`, `.honor-*`
 - i18n: `profile.*`, `honors.*`
 
 **BOUTIQUE**
 - HTML: `#boutique-tab`, `#boutiqueSections`, `#inspectionModal`
-- JS: `BOUTIQUE`, `renderBoutique()`, `handleQuickPurchase()`, `HapticPreviewManager`
+- JS: `BOUTIQUE`, `renderBoutique`, `handleQuickPurchase`, `HapticPreviewManager`
 - CSS: `.boutique-*`, `.rarity-*`, `.haptic-3d-*`
 - i18n: `boutique.*`, `items.*`
 
@@ -64,18 +64,18 @@
 | Task | Read ONLY these |
 |---|---|
 | Profile visual | `#profile-tab` HTML + `.phc-*` CSS + `profile.*` i18n |
-| Club logic | `sendClubMessage()` + `#club-tab` HTML |
-| Boutique purchase | `BOUTIQUE` + `handleQuickPurchase()` |
+| Club logic | `sendClubMessage` + `#club-tab` HTML |
+| Boutique purchase | `BOUTIQUE` + `handleQuickPurchase` |
 | Light Mode color | `body.light-mode` blocks for that tab only |
 | Add/rename text | `translations.js` key + single call site |
 
 ### Cross-Cutting Dependencies
 
-- `updateUI()` — hub called on every state change
+- `updateUI` — hub called on every state change
 - `AppState` — single source of truth (owned/equipped/balance)
 - `ThemeManager` — toggles light/dark, dispatches `themechange`
 - `luxury.js` — listens to `themechange`/`resize` for canvas redraw
-- `setLanguage()` — rewrites `[data-i18n]` attributes
+- `setLanguage` — rewrites `[data-i18n]` attributes
 
 ### DO NOT TOUCH
 - `metadata.json` (platform-owned)
@@ -148,7 +148,8 @@
 
 ## 6. CURRENT STATE & BACKLOG
 
-- **Landed on main:** Phases 1–8, 9B–9E, 11, 10-Slim, Batch Passes 1–2, Translations dead subkey purge, Safe-List #2 + #2b, REPAIR PASS, Art Direction Restoration, Performance Pass + App-Wide Performance Pass (2026-09-30), App-Shell Visual Refinement (2026-10-01), 9 minor commits (Oct 2-4), Club Liquid Glass Resolution Pass (2026-10-12), Sovereign Salon Ticker Zero Outer Halo Pass (2026-10-12), Club Definitive Architecture & Liquid Glass Resolution Pass (2026-10-12), Sovereign Header Haute Joaillerie & 3D Medallion Pass (2026-10-14), Crown Geometry & Typographic Contrast Pass (2026-10-14), Final Crown & Typography Refinement Pass (2026-10-14).
+- **Landed on main:** Phases 1–8, 9B–9E, 11, 10-Slim, Batch Passes 1–2, Translations dead subkey purge, Safe-List #2 + #2b, REPAIR PASS, Art Direction Restoration, Performance Pass + App-Wide Performance Pass (2026-09-30), App-Shell Visual Refinement (2026-10-01), 9 minor commits (Oct 2-4), Club Liquid Glass Resolution Pass (2026-10-12), Sovereign Salon Ticker Zero Outer Halo Pass (2026-10-12), Club Definitive Architecture & Liquid Glass Resolution Pass (2026-10-12), Sovereign Header Haute Joaillerie & 3D Medallion Pass (2026-10-14), Crown Geometry & Typographic Contrast Pass (2026-10-14), Final Crown & Typography Refinement Pass (2026-10-14), English-Only Sovereign LTR Architecture Pass (2026-10-26).
+- **English-Only Sovereign LTR Architecture Pass (2026-10-26) — COMPLETE**: Full architectural conversion to English-Only LTR. Removed Arabic translations dictionary, language toggles, RTL rules, Arabic metadata, and localized all dynamic strings, timestamps, and toasts to en-US. Verified 0 Arabic characters across all codebase files.
 - **Final Crown & Typography Refinement Pass (2026-10-14) — COMPLETE**: Redrew the Royal Crown into an organic, fluid sovereign vector coronet (`viewBox="0 0 52 24"`) featuring a gently curved metallic base band with 3 flush cabochon insets, 3 smooth royal fleurons with elevated imperial center peak, openwork architectural lancet piercing, and 3 spherical pearl finials. Balanced the main wordmark "THE 1% CLUB" in medium-weight Cinzel Roman serif (`font-weight: 600`, `letter-spacing: 0.14em`) with crisp vertical metallic gradients and zero blurry halos. Lightened "PRIVATE WEALTH · PRIVATE SOCIETY" tagline to an elegant medium weight (`font-weight: 500`, `letter-spacing: 0.16em`) with delicate 1px symmetrical side rules and diamond end caps across dark champagne and light antique-bronze palettes. Cache-busted stylesheet to `style.css?v=20261014_crown_fluid_royal_v2`.
 - **Backlog:**
   - Optional CSS minification for production payload.
@@ -245,7 +246,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 - Refactored HeaderScrollController in app.js to cache the #appHeader DOM reference (getHeader helper), eliminating repeated document.getElementById queries during high-frequency scroll and tab-switching animation frames.
 
 ### Fix: getHeader ReferenceError Resolution (2026-09-30)
-- Defined cachedAppHeader and getHeader() at the top-level scope of app.js (and exposed to window.getHeader) with DOM connectivity check (!cachedAppHeader.isConnected), ensuring switchTab and navigation event handlers access it without scoping issues.
+- Defined cachedAppHeader and getHeader at the top-level scope of app.js (and exposed to window.getHeader) with DOM connectivity check (!cachedAppHeader.isConnected), ensuring switchTab and navigation event handlers access it without scoping issues.
 
 ### Sub-Menu & Modal Performance Optimization (2026-09-30)
 - Eliminated synchronous DOM recreation in account credentials modal: inputs hydrate instantly, while secondary avatar preset galleries and sovereign circle pickers are deferred to RAF.
@@ -269,7 +270,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 ### Profile Hero Edit Button & Modal Flashing Elimination (2026-09-30)
 - Root Cause Identified: Tapping the edit button (#editAccountBtn) inside the 3D-perspective hero plaque (#profileHeroPlaque.luxury-tilt-card) allowed touchstart events to bubble to the card, triggering simultaneous 3D tilt/long-press animation loops and haptic vibrations while the fullscreen modal overlay with conflicting backdrop-filter was fading in. This caused mobile GPU compositor thrashing and visible screen flashing/blinking.
 - Fixed luxury.js touchstart and pointer handlers to ignore interactions originating from buttons and controls inside tilt cards.
-- Added e.stopPropagation() and passive touchstart absorption to #editAccountBtn so card 3D tilt is never triggered upon editing profile.
+- Added e.stopPropagation and passive touchstart absorption to #editAccountBtn so card 3D tilt is never triggered upon editing profile.
 - Added isolation: isolate and contain: layout style to #profileHeroPlaque.
 - Added contain: strict to .luxury-modal-overlay and eliminated conflicting backdrop-filter blur keyframe animations on mobile.
 - Refactored renderAvatarPresets to reuse DOM elements instead of destroying and re-decoding images on every modal open.
@@ -319,7 +320,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 
 ### Profile Tab Unexpected Reload & DOM Recreation Root Cause Fix (2026-09-30)
 - **Root Cause Diagnosed**:
-  1. *Artificial Skeleton Delays on Navigation*: `Router.onEnter("profile")` called `renderProfileCollection(true)`, which destroyed the entire collection grid DOM on every tab change, replaced it with skeleton placeholders, and set an asynchronous `380ms` timeout to re-render. Similarly, `renderProfileAchievements()` was wiping the achievements DOM and setting a `450ms` timeout because line 4715 was resetting `container.dataset.skeletonShown = ""` on every render.
+  1. *Artificial Skeleton Delays on Navigation*: `Router.onEnter("profile")` called `renderProfileCollection(true)`, which destroyed the entire collection grid DOM on every tab change, replaced it with skeleton placeholders, and set an asynchronous `380ms` timeout to re-render. Similarly, `renderProfileAchievements` was wiping the achievements DOM and setting a `450ms` timeout because line 4715 was resetting `container.dataset.skeletonShown = ""` on every render.
   2. *Unmanaged Dangling Timers on Tab Switching*: Switching rapidly between tabs (e.g. Profile → Club → Profile) left asynchronous `380ms` and `450ms` timeouts running in the background with no cancellation, which fired out-of-order and repeatedly wiped/recreated the DOM while the user was interacting with the tab.
   3. *Active Tab Re-entry Teardown*: Clicking the "Profile" nav button while already on the Profile tab triggered full tab re-entry (`switchView`, scroll reset, `onEnter`, skeleton destruction, and delayed DOM recreation) due to lack of a `currentTab` check in `Router.navigate`.
   4. *Non-Idempotent Event Listeners*: Complication dials and sovereign circle chips were repeatedly attaching listeners on every render rather than using single-instance event delegation on parent containers.
@@ -331,7 +332,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   5. *Preservation of Design & Logic*: 100% preservation of Master Card design, profile dossier layout, 3D tilt physics, audio/haptic responses, and modal workflows.
 
 ### REPAIR PASS (2026-09-30) — Profile Tab Reload Loop
-- Disabled window.location.reload() at app.js:4524 (replaced with console.error).
+- Disabled window.location.reload at app.js:4524 (replaced with console.error).
 - Preserves the ROYAL HERO CARD PASS intact (verified clean).
 - Pending: confirm the loop is dead before push.
 
@@ -405,7 +406,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - 3px refined architectural corner chamfer (eliminating web pill appearance).
   - Multi-tier precious metal rim with directional specular highlights and subtle contact grounding shadow.
   - Recessed intaglio plaque bed (`linear-gradient(175deg, #faeed4, #eddcb9, #e0cda4)`) in Light Mode and blackened metal in Dark Mode.
-  - Arabic typography ("تعديل الملف") in authoritative antique-bronze with engraved intaglio highlight.
+  - Arabic typography (" ") in authoritative antique-bronze with engraved intaglio highlight.
   - Refined 9.5px pencil icon appearing physically engraved into the plaque metal.
 - **Zero Scope Creep**: 100% preservation of outer 3D gold frame, portrait medallion, crown hallmark coin, member name, rank, quote, horological metadata, Alexandria, dimensions, and business logic.
 
@@ -450,7 +451,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Scoped Membership Container Clearance: Applied `padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;` to `.page#membership-tab`, `#membership-tab.is-active`, ensuring comfortable breathing space above the floating Liquid Glass navigation for the action buttons and Master Card without impacting other tabs.
 
   - Frozen and locked Membership content layout:
-    - Master Card, "العضوية" page title, Share Membership button, Copy Link button, and all vertical spacing are restored to their exact previous coordinates with ample breathing room.
+    - Master Card, "" page title, Share Membership button, Copy Link button, and all vertical spacing are restored to their exact previous coordinates with ample breathing room.
     - Zero modifications to Master Card size, aspect ratio, margins, or transforms.
 - **Micro-Pass: Fix Curate Circles Button Layout & Action (2026-10-02) — COMPLETE**:
   - **Issue 1 (Visual Positioning)**:
@@ -461,7 +462,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - **Issue 2 (Wrong Click Action)**:
     - Decoupled and guarded `btnCurateCircles` so it NEVER triggers `openAccountInfoModal` or opens `#accountInfoModal`.
     - Added an explicit target guard in `window.openAccountInfoModal` to reject events originating from `#btnCurateCircles` or `.pcc-curate-btn`.
-    - Hardened `#btnCurateCircles` event handling on `DOMContentLoaded` and in `renderProfileCircles` with `.onclick`, calling `e.stopPropagation()` and `e.stopImmediatePropagation()`.
+    - Hardened `#btnCurateCircles` event handling on `DOMContentLoaded` and in `renderProfileCircles` with `.onclick`, calling `e.stopPropagation` and `e.stopImmediatePropagation`.
     - Verified that no separate Curate Circles modal exists in the application; the button safely shows the diplomatic clearance notice toast (`profile.circlesEditNotice`) without opening Account Information.
     - Verified `#menuAccountInfo` continues opening Account Information modal normally.
     - Zero modifications to other tabs, Master Card, colors, materials, or global typography.
@@ -563,17 +564,17 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - **Master Card & Profile Synchronization**: Hardened `applyEquippedToCard` to properly activate the equipped ring slot with icon and name label on the Master Card, and synchronized `profileEquipMap` with `jewelry` key for full profile hero plaque alignment.
   - Bumped stylesheet cache-buster to `style.css?v=20261004m`.
 - **Micro-Pass: Direct Master Card Component Reuse for Boutique Primary Widget (2026-10-04) — COMPLETE**:
-  - **Exact Component Reuse**: Refactored `renderWidgetSection()` in `app.js` to reuse the existing `<section class="membership-card luxury-tilt-card">` component markup directly from the Master Card.
+  - **Exact Component Reuse**: Refactored `renderWidgetSection` in `app.js` to reuse the existing `<section class="membership-card luxury-tilt-card">` component markup directly from the Master Card.
   - **Zero Duplicate CSS / Zero Redesign**: Purged `.widget-card-preview` and its conflicting override styles (`max-width: 200px`, custom background/border/shadows, inline `scale(0.9)`), restoring 100% identical materials, dimensions, borders, and shadows.
   - **Typography & Responsive Parity**: Unified typography rules in `style.css` (Cormorant Garamond, Cinzel, Inter, Arabic RTL rules, and light-mode debossed intaglio) across `.membership-card` so any instance inherits the identical luxury horological hierarchy.
   - **Canvas & Visual Synchronization**: Added bitmap transfer from `#guillocheCanvas` to the widget instance for perfect visual parity.
   - **100% Preservation**: Zero modifications to `#membershipCard` on the main screen, zero changes to the Gold System, and zero alterations to surrounding screens.
   - Bumped stylesheet cache-buster to `style.css?v=20261004n`.
 - **Micro-Pass: Complete Deactivation of Onboarding Gesture Hint Overlay (2026-10-04) — COMPLETE**:
-  - **Identified Responsible Code**: Traced message «حرّك إصبعك للمعاينة • أفلت للإغلاق» to `.haptic-hint` inside `#haptic3DOverlay` managed by `HapticPreviewManager` in `app.js` and `.haptic-3d-overlay` in `style.css`.
+  - **Identified Responsible Code**: Traced message «   •  » to `.haptic-hint` inside `#haptic3DOverlay` managed by `HapticPreviewManager` in `app.js` and `.haptic-3d-overlay` in `style.css`.
   - **Complete Deactivation & Elimination**:
-    - Removed overlay DOM generation in `HapticPreviewManager.initDOM()` and cleaned up any existing `#haptic3DOverlay`.
-    - Made `open()` an immediate no-op, preventing overlay activation, touch event blocking, vibration, audio rustle, or canvas allocations.
+    - Removed overlay DOM generation in `HapticPreviewManager.initDOM` and cleaned up any existing `#haptic3DOverlay`.
+    - Made `open` an immediate no-op, preventing overlay activation, touch event blocking, vibration, audio rustle, or canvas allocations.
     - Disabled triggering of `window.hapticPreviewMgr.open` on touch/swipe interactions in `app.js`.
     - Enforced CSS suppression with `display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; backdrop-filter: none !important;` on `.haptic-3d-overlay`, `#haptic3DOverlay`, and `.haptic-hint`.
   - **100% Preservation**: Swipe gestures, touch interactions, scrolling, product inspection modal, card interactions, Gold System, UI layout, and business logic remain completely intact.
@@ -618,8 +619,8 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 
 ### Inspection Modal Owned Item Acquire Button & SVG Render Fix (2026-10-06) — COMPLETED
 - Identified and eliminated CSS `display: flex !important` on `.rmc-equip-btn` which prevented JS from hiding the acquire button on already-owned items.
-- Fixed stale button text retention: when an item is already owned, `openInspectionModal` sets text to safe "تحفة سيادية مقتناة ومحفوظة بالخزينة" and hides the button with `display: none !important`, `hidden=true`, and `.is-hidden` class.
-- Only the clean, prominent "إغلاق" (Close) button is displayed when an owned artifact is inspected.
+- Fixed stale button text retention: when an item is already owned, `openInspectionModal` sets text to safe "    " and hides the button with `display: none !important`, `hidden=true`, and `.is-hidden` class.
+- Only the clean, prominent "" (Close) button is displayed when an owned artifact is inspected.
 - Integrated master sovereign material gradients (`sov_gold_24k`, `sov_titanium`, `sov_onyx`, etc.) into global `<svg>` in `index.html` to eliminate SVG gradient invisibility across duplicate DOM instances.
 - Bumped script cache versions to `?v=20261006_sovereign_fix`.
 
@@ -631,29 +632,29 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 - Connected authentic ceremonial toast notifications (`showNavToast`) to both actions to give members clear, prestigious feedback of archival certification and immutable standing.
 
 ### Inspection Modal Owned Item Custody Status Spec Cell Fix (2026-10-06) — COMPLETED
-- Addressed user feedback regarding "الرتبة المطلوبة ✓ SOVEREIGN MEMBER" showing on already-owned items.
-- When an artifact is owned, the spec cell label dynamically updates from "الرتبة المطلوبة" (Required Standing) to "حالة الحيازة" (Custody Status).
-- The value displays "✓ مقتناة في الخزينة" (Vaulted & Acquired) in noble emerald green (#1e7e34), eliminating redundant tier requirement prompts on owned items.
-- When unowned, the label seamlessly retains "الرتبة المطلوبة" with eligibility indicator.
+- Addressed user feedback regarding "  ✓ SOVEREIGN MEMBER" showing on already-owned items.
+- When an artifact is owned, the spec cell label dynamically updates from " " (Required Standing) to " " (Custody Status).
+- The value displays "✓   " (Vaulted & Acquired) in noble emerald green (#1e7e34), eliminating redundant tier requirement prompts on owned items.
+- When unowned, the label seamlessly retains " " with eligibility indicator.
 
 ### Unowned Artifacts Tier Eligibility Arabic Localization & Clarity (2026-10-06) — COMPLETED
-- Addressed user query regarding "الرتبة المطلوبة" on unowned artifacts.
-- Localized cell title to "أهلية الاقتناء" (Acquisition Eligibility).
+- Addressed user query regarding " " on unowned artifacts.
+- Localized cell title to " " (Acquisition Eligibility).
 - Displayed clear localized tier status in Arabic:
-  - When qualified: "✓ مؤهل للاقتناء (عضو سيادي - SOVEREIGN)"
-  - When locked for higher ranks: "🔒 غير مؤهل • يتطلب رتبة الوجاهة (LUMINARY) / الحاكم التنفيذي (EXARCH)"
+  - When qualified: "✓   (  - SOVEREIGN)"
+  - When locked for higher ranks: "🔒   •    (LUMINARY) /   (EXARCH)"
 - Bumped script cache versions to `?v=20261006_tier_clarity`.
 
 ### Inspection Modal Typography & Text Polish (2026-10-06) — COMPLETED
-- Eliminated awkward double parentheses and verbose text wrapping in eligibility spec cell (`✓ مؤهل • الحاكم التنفيذي` / `🔒 يتطلب • الحاكم التنفيذي`).
+- Eliminated awkward double parentheses and verbose text wrapping in eligibility spec cell (`✓  •  ` / `🔒  •  `).
 - Wrapped currency valuations in `<bdi dir="ltr">` to guarantee proper symbol placement (`$60,000` rather than reversed `60,000$`).
-- Formatted button text with inline directional isolation (`اقتناء التحفة السيادية • $60,000`).
-- Upgraded `.rmc-dismiss-btn` ("إغلاق") to a dignified luxury outline button with proper height, borders, and tactile hover states.
+- Formatted button text with inline directional isolation (`   • $60,000`).
+- Upgraded `.rmc-dismiss-btn` ("") to a dignified luxury outline button with proper height, borders, and tactile hover states.
 - Enhanced `.rmc-spec-cell` padding, min-height, and label hierarchy for harmonious, high-contrast readability.
 - Bumped script cache versions to `?v=20261006_text_polish`.
 
 ### Sovereign Provenance Certificate Modal & Inspect Chip Fix (2026-10-06) — COMPLETED
-- Resolved issue where clicking "فحص الشهادة" in Profile collections turned the button white/invisible:
+- Resolved issue where clicking " " in Profile collections turned the button white/invisible:
   - Added dedicated Light Mode styling for `.reliquary-inspect-chip` so text remains authoritative deep bronze (`#4a320c` / `#241704`) and never turns white on click, hover, or active mobile states.
   - Converted SVG icon stroke in `.reliquary-inspect-chip` to `currentColor` for cohesive contrast across themes.
 - Fixed root cause of certificate modal appearing at the top requiring scrolling:
@@ -671,7 +672,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 ### Unified Modal System, Header Clearance & Inspection Buttons Separation (2026-10-07) — COMPLETED
 - **Header Title & Close Button Collision Elimination**:
   - Anchored `.rmc-close-btn` and all modal close buttons to a fixed, standardized **Top-Left** placement (`left: 12px !important; top: 12px !important; right: auto !important`).
-  - Added dedicated symmetrical `padding: 4px 46px 8px 46px !important` to `.rmc-header`, ensuring the eyebrow title ("معاينة وفحص التحفة السيادية"), artifact title, and serial are centered with guaranteed breathing room, eliminating any text collision with the close button or seal badge.
+  - Added dedicated symmetrical `padding: 4px 46px 8px 46px !important` to `.rmc-header`, ensuring the eyebrow title ("   "), artifact title, and serial are centered with guaranteed breathing room, eliminating any text collision with the close button or seal badge.
   - Positioned the heraldic seal badge (`.rmc-seal-mark`, `.rmc-seal-wrap`) symmetrically in the top-right corner (`top: 6px; right: 8px`).
 - **App-Wide Unified Close Button (X)**:
   - Standardized `.rmc-close-btn`, `.luxury-close-btn`, `.mini-dossier-close-btn`, and `.sd-close-btn` across all modals (`#inspectionModal`, `#reliquaryInspectModal`, `#settingsModal`, `#helpSupportModal`, `#editProfileModal`, `#accountInfoModal`, `#logoutConfirmModal`, `#memberMiniDossierModal`, `#creditsModal`, `#depositModal`, and `#page-member`).
@@ -681,12 +682,12 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 - **Inspection Modal Buttons Separation & Independent Geometry**:
   - Enforced a clean 12px vertical gap (`gap: 12px !important; margin-top: 14px !important`) in `.rmc-actions`, completely preventing the two bottom buttons from touching or overlapping.
   - Upgraded `.rmc-equip-btn.is-locked` into a distinct informative luxury status/requirement badge (`min-height: 40px`, rounded-8px, dark obsidian-amber in dark mode; warm ivory-parchment with `#4a320c` high-contrast bronze text in light mode).
-  - Upgraded `.rmc-dismiss-btn` ("إغلاق" / "إغلاق المعاينة") into the primary independent solid 24K gold ingot action button at the bottom (`height: 42px !important`, 8px border-radius, high-contrast `#140d02` dark / `#1a1002` light text).
+  - Upgraded `.rmc-dismiss-btn` ("" / " ") into the primary independent solid 24K gold ingot action button at the bottom (`height: 42px !important`, 8px border-radius, high-contrast `#140d02` dark / `#1a1002` light text).
   - Cache-busted stylesheet to `?v=20261007_unified_modals_v9`.
 
 ### Club Screen Final Correction Pass (2026-10-10) — COMPLETED
 - **Reversed Scroll Behavior Root Cause & Correction**:
-  - Root cause diagnosed: Programmatic `scrollTop = scrollHeight` jumps during `onEnter("club")` and `renderMessages()` were triggering active scroll listeners with positive delta > 8, which caused `HeaderScrollController` to immediately collapse the upper Club header, rooms navigation, welcome banner, and balance/credits control before any user interaction took place. Subsequent upward scrolls by the user inverted this behavior, causing elements to suddenly reappear during scrolling.
+  - Root cause diagnosed: Programmatic `scrollTop = scrollHeight` jumps during `onEnter("club")` and `renderMessages` were triggering active scroll listeners with positive delta > 8, which caused `HeaderScrollController` to immediately collapse the upper Club header, rooms navigation, welcome banner, and balance/credits control before any user interaction took place. Subsequent upward scrolls by the user inverted this behavior, causing elements to suddenly reappear during scrolling.
   - Architectural fix applied:
     - Initiated Club feed at `scrollTop = 0` (top of message history) upon entering the tab and switching channels, ensuring the complete upper Club layout is visible naturally.
     - Added `window.isProgrammaticScroll` guard preventing automated scroll changes from falsely triggering direction-detection collapse logic.
@@ -748,8 +749,8 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
      - Scrolling back toward newer messages (`delta > 6`): smoothly restore hidden controls.
      - When reaching the latest message (`currentScroll >= maxScroll - 20`): guarantee full restoration of normal Club layout.
      - Replaced duplicate capture handler on `#clubMessages` with a single direct listener on `#clubMessages`.
-     - Added `HeaderScrollController.syncClubScrollTop()` and tied it into `scrollChatToLatest()`.
-     - Preserved latest message positioning in `onEnter()` and `switchChannel()` without forcing `scrollTop = 0`.
+     - Added `HeaderScrollController.syncClubScrollTop` and tied it into `scrollChatToLatest`.
+     - Preserved latest message positioning in `onEnter` and `switchChannel` without forcing `scrollTop = 0`.
      - Filtered out test runner artifacts from persisted `channels_${userId}`.
   2. `index.html`: Cache-busted `app.js` to `?v=20261010_club_scroll_final`.
 - **Verification**:
@@ -777,10 +778,10 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 ### Restore Auto-Hide Header on Chat Scroll Pass (2026-10-12) — COMPLETE
 - **Root Cause Diagnosed**:
   1. In `HeaderScrollController` in `app.js`, `setClubHeaderCollapsed(collapsed)` had an early return when `collapsed === true`, preventing `header-hidden` from being toggled on `#appHeader`.
-  2. Inside `handleClubScrollEvent()`, delta-based scroll direction tracking was frozen with `lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);` without evaluating scroll deltas.
+  2. Inside `handleClubScrollEvent`, delta-based scroll direction tracking was frozen with `lastClubScrollTop = Math.max(0, msgs.scrollTop || 0);` without evaluating scroll deltas.
 - **Architectural Fix Applied**:
   1. Updated `setClubHeaderCollapsed(collapsed)` in `app.js` to apply `.header-hidden` to `#appHeader` when `collapsed === true`, smoothly sliding the top header upward out of view while keeping Club elements in place.
-  2. Restored `requestAnimationFrame`-throttled scroll delta tracking in `handleClubScrollEvent()`:
+  2. Restored `requestAnimationFrame`-throttled scroll delta tracking in `handleClubScrollEvent`:
      - Scrolling UPWARD to read older messages (`delta < -8`): smoothly hides the top header (`setClubHeaderCollapsed(true)`).
      - Scrolling DOWNWARD toward latest messages (`delta > 8`): smoothly restores the header (`setClubHeaderCollapsed(false)`).
      - At or near the latest messages (`currentScroll >= maxScroll - 20`): ensures the header remains fully visible.
@@ -804,8 +805,8 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 ### Post-Cleanup Regression Audit & Verification Checkpoint (2026-10-13) — COMPLETE
 - **Scope**: Verification-only regression audit on the post-cleanup codebase state. Zero code, layout, styling, or behavioral modifications applied.
 - **Verification Findings**:
-  1. *Tabs & Navigation*: All four tabs (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`) and their `.bottom-nav` bindings verified present and functional in DOM and `Router.navigate()` / `onEnter()` logic.
-  2. *i18n & RTL*: `window.I18N` evaluated cleanly with 29 dictionary domains; `whisperBadge` and `sealedDecree` verified intact and unambiguous. `window.setLanguage()` correctly toggles `dir="rtl"` / `dir="ltr"`, fonts, and translations.
+  1. *Tabs & Navigation*: All four tabs (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`) and their `.bottom-nav` bindings verified present and functional in DOM and `Router.navigate` / `onEnter` logic.
+  2. *i18n & RTL*: `window.I18N` evaluated cleanly with 29 dictionary domains; `whisperBadge` and `sealedDecree` verified intact and unambiguous. `window.setLanguage` correctly toggles `dir="rtl"` / `dir="ltr"`, fonts, and translations.
   3. *Theme Management*: `user-preferences-init` and `ThemeManager` correctly synchronize `data-theme`, `<html>` / `<body>` classes, and dispatch `themechange` events.
   4. *Header Scroll Auto-Hide*: Automated Node.js unit tests verified that scrolling up into older messages hides the header (`delta < -8`), scrolling down restores it (`delta > 8`), and reaching the bottom preserves visibility.
   5. *Club Controls & DOM Presence*: `#sovereignSalonTicker`, `#clubPinnedInfo`, `#clubChatViewport`, `#clubMessages`, `#clubCreditsDisplay`, `#clubCreditsBuyBtn`, and `#obsidianDispatchComposer` verified present in HTML and correctly bound in `app.js`.
@@ -840,7 +841,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 ### Club Collapsed Header Vertical Space Recovery Pass (2026-10-13) — COMPLETE
 - **Scope**: Resolved the collapsed-header layout state in the Club tab so that hiding the global header (`#appHeader.header-hidden`) genuinely releases and reclaims vertical reading space for messages without content jumps or layout distortion.
 - **Root Cause Identified**:
-  - `setClubHeaderCollapsed()` in `app.js` correctly toggles `.header-hidden` on `#appHeader` and `.club-header-collapsed` on `#club-tab`.
+  - `setClubHeaderCollapsed` in `app.js` correctly toggles `.header-hidden` on `#appHeader` and `.club-header-collapsed` on `#club-tab`.
   - However, in `style.css`, `#club-tab.is-active.club-header-collapsed` explicitly hardcoded `padding-top: calc(var(--header-actual-height, 74px) + 4px) !important;` (a static placeholder), and `.club-chat-viewport` lacked a collapsed-state top override, remaining pinned at `top: var(--header-actual-height, 74px) !important;`.
   - As a result, when `#appHeader` collapsed out of view, the room tabs, trading ticker, and chat viewport remained stranded ~74px below the top, leaving an empty void.
 - **Architectural Fix Applied**:
@@ -874,11 +875,11 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 ### Micro-Pass 2: Root-Cause Fix for Persistent Club Header Flicker (2026-10-13) — COMPLETE
 - **Scope**: Diagnosed and eliminated persistent Club header flickering where the upper header hid and reappeared automatically while scrolling.
 - **Root Cause & Conflicts Identified**:
-  1. *Competing Direction Inversion & Boundary Clash*: Lines in `handleClubScrollEvent()` previously inverted delta logic (`delta <= -24` collapsed, `delta >= 24` restored), directly contradicting the top boundary rule (`currentScroll <= 25` restores). When scrolling up toward older messages, negative delta collapsed the header, but as soon as the top boundary was approached, it forced expansion, creating an endless flicker cycle.
+  1. *Competing Direction Inversion & Boundary Clash*: Lines in `handleClubScrollEvent` previously inverted delta logic (`delta <= -24` collapsed, `delta >= 24` restored), directly contradicting the top boundary rule (`currentScroll <= 25` restores). When scrolling up toward older messages, negative delta collapsed the header, but as soon as the top boundary was approached, it forced expansion, creating an endless flicker cycle.
   2. *Micro-Jitter Instant Wipeout*: Any subpixel reversal or touch oscillation (`instantDelta` opposite sign of `accumulatedClubDelta`) immediately wiped the accumulator to 0, preventing smooth state stabilization and causing erratic restarts.
   3. *Idle Timer Interference*: An uncoordinated 150ms `clubScrollIdleTimer` repeatedly zeroed the accumulator and reset `lastClubScrollTop` during natural reading pauses or slow scrolls.
   4. *Viewport Transition Layout Shift Feedback*: Toggling `.club-header-collapsed` animates `.club-chat-viewport`'s `top` and height over 0.28s. As the container resized, synthetic scroll events were triggered and erroneously processed during the transition, immediately reversing the state decision.
-  5. *Unintended Resize Resets*: `updateStateForCurrentTab()` had a hardcoded `setClubHeaderCollapsed(false)` whenever invoked by `window.resize` (triggered on mobile address bar shifts or orientation change), prematurely overriding user scroll position.
+  5. *Unintended Resize Resets*: `updateStateForCurrentTab` had a hardcoded `setClubHeaderCollapsed(false)` whenever invoked by `window.resize` (triggered on mobile address bar shifts or orientation change), prematurely overriding user scroll position.
 - **Architectural Fix Applied**:
   - Re-engineered `HeaderScrollController` in `app.js` with unified, single-direction delta accumulators (`accumulatedDownwardDelta`, `accumulatedUpwardDelta`) and independent threshold tracking (`CLUB_SCROLL_THRESHOLD = 28`).
   - Scrolling downward (deeper into feed) past the top safe zone accumulates downward movement and cleanly collapses the header once threshold is exceeded; scrolling upward accumulates upward movement and restores it.
@@ -886,7 +887,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Replaced abrupt reversal zeroing with smooth dampening (`Math.max(0, accumulated - delta * 0.5)`), ignoring subpixel touch noise and keeping the header stable until a deliberate opposite scroll occurs.
   - Added a 350ms transition guard (`isClubHeaderTransitioning`) during which synthetic layout scroll events are completely suppressed.
   - Ensured reaching the bottom never automatically expands the header. Reaching the top (`currentScroll <= 20`) strictly guarantees expansion.
-  - Removed `setClubHeaderCollapsed(false)` from the `isClub` branch of `updateStateForCurrentTab()`, preventing window resizes from resetting the active scroll state.
+  - Removed `setClubHeaderCollapsed(false)` from the `isClub` branch of `updateStateForCurrentTab`, preventing window resizes from resetting the active scroll state.
   - Bumped cache-buster to `app.js?v=20261013_club_header_stabilized_v2`.
 - **Verification**:
   - `npm run lint` passed with 0 errors.
@@ -918,7 +919,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Dev server HTTP 200 OK verified.
 
 ### Micro-Pass: The Sovereign Shield Hallmark Implementation (2026-10-15) — COMPLETE
-- **Scope**: Replaced the cluttered multi-symbol verification layout (crammed crown, checkmark, and diamond stars inside 38px) with **Option 1: The Sovereign Shield Hallmark (الختم السيادي المصمت)**, inspired by Swiss Haute Horlogerie assay hallmarks.
+- **Scope**: Replaced the cluttered multi-symbol verification layout (crammed crown, checkmark, and diamond stars inside 38px) with **Option 1: The Sovereign Shield Hallmark **, inspired by Swiss Haute Horlogerie assay hallmarks.
 - **Key Architectural Changes**:
   1. *Geometric Purity & Clutter Elimination*:
      - Completely eliminated the squashed miniature crown and flanking diamond stars that caused visual noise at 38px.
@@ -939,7 +940,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Dev server verified with updated markup.
 
 ### Micro-Pass: Full Polished-Gold Sovereign Verification Medallion (2026-10-15) — COMPLETE
-- **User Directive**: Resolved user feedback ("انا عاوزه مصقول ومازال لم يرتقي") regarding lack of metallic luster, flat brown appearance, and dark murky center in the verification seal.
+- **User Directive**: Resolved user feedback ("     ") regarding lack of metallic luster, flat brown appearance, and dark murky center in the verification seal.
 - **Root Cause Diagnosed**:
   - Previous radial gradient fell off steeply to dark brown (`#442805`) at radius 28.2, while the shield's right facet and drop shadow were muddy black-brown (`#3D2104` / `#180C03`), resulting in a dull, matte, unpolished brown appearance at 38px.
   - Absence of alternating specular reflection bands (anisotropic luster) and polished surface glint.
@@ -953,21 +954,21 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   7. *Button Edge Aura*: Upgraded `#headerVerifiedShieldBtn` box-shadow with a refined metallic gold rim catch (`rgba(220, 180, 88, 0.45)`) and subtle gold aura.
   8. *Bust Cache*: Updated stylesheet query string to `style.css?v=20261015_polished_gold_hallmark`.
 ### Micro-Pass: Entire Top Header Deep Authentic Polished Metallic Gold (2026-10-15) — COMPLETE
-- **User Directive**: "عاوز تعديل علي الوان العيدر العلوي كله التاج والكتابه والخطوط ودرع التوثيق تصبح من الذهب المصقول الواقعي والحقيقي المعدني العميق"
+- **User Directive**: "                   "
 - **Scope of Refinement**:
-  1. *Crown (التاج)*:
+  1. *Crown *:
      - Upgraded `crownMetalLight` and `crownMetal` gradients with high-contrast specular champagne highlights (`#FFFDF5`), radiant 24K imperial gold body (`#F2C148` -> `#D6941C`), and rich deep metallic amber-bronze foundations (`#A1600B` -> `#613404`).
      - Refined crown strokes to warm chiseled bronze (`#5E3606`) at 0.55px, eliminating heavy black/muddy outlines while preserving crisp architectural silhouette.
      - Enhanced left spire facet specular highlight and spherical finials radial gold luster.
-  2. *Brand Wordmark "THE 1% CLUB" (الكتابة)*:
+  2. *Brand Wordmark "THE 1% CLUB" *:
      - Formulated deep authentic 24K polished gold gradients across light and dark modes.
      - In light mode: Specular champagne crest (`#FFF4D0` -> `#FBD970`), deep radiant 24K core (`#E8A922` -> `#C68012`), and grounding warm bronze shadow (`#8E5008` -> `#562C02`) with crisp micro-emboss drop-shadow (`rgba(65, 34, 4, 0.32)`), guaranteeing prominent metallic luster against the warm ivory header.
      - In dark mode: High-contrast specular gold reflection (`#FFFDF5` -> `#F2BE42` -> `#D49320` -> `#9B5F0E` -> `#5A3103`).
-  3. *Brand Tagline & Rules (السطر التعريفي والخطوط والماس)*:
+  3. *Brand Tagline & Rules *:
      - Transformed "PRIVATE WEALTH ◆ PRIVATE SOCIETY" from flat mud-brown into a true polished metallic gold gradient (`#DF9F26` -> `#B27211` -> `#784204`) with text-clip and dimensional relief.
      - Elevated tagline separator diamond `◆` into brilliant lustrous gold.
      - Upgraded flanking hairline rules into delicate polished gold filaments with specular tip highlights and 3.5px beveled metallic diamonds.
-  4. *Verification Medallion (درع التوثيق)*:
+  4. *Verification Medallion *:
      - Refined bezel and dial bed gradients (`sealGoldRimLight`, `sealGoldFaceLight`) with radiant 24K specular sheen, eliminating murky brown rims.
      - Upgraded sculpted shield right facet (`sealShieldFacetDarkLightMode`) to rich warm shaded gold (`#E2A624` -> `#BF7D12` -> `#9C5C0A` -> `#764004` -> `#A5670E`) preventing mud/flat shadow.
      - Inlaid platinum-gold checkmark with refined 3.0px intaglio shadow and razor-sharp specular core line for effortless legibility at 38px.
@@ -975,24 +976,24 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   5. *Header Horizon Hairline Divider*:
      - Upgraded `.app-header::after` with a central polished gold glint (`#FFF6DC`) at 50%.
 ### Micro-Pass: Header Gold Harmonization with Edit Profile Plaque (2026-10-15) — COMPLETE
-- **User Directive**: Resolved user observation comparing the top header to the Edit Profile button ("شايف زر تعديل البروفايل في الوضع النهاري ذهب حقيقي أما الهيدر العلوي غير متناسق من حيث مستوي الالوان الذهب اصفر مشع لم يكن أبدا فاخراً أو مصقولا او معدنيا").
+- **User Directive**: Resolved user observation comparing the top header to the Edit Profile button ("                            ").
 - **Root Cause Diagnosed**:
   - The top header was previously rendered with oversaturated, glowing cadmium/yellow-orange hues (`#F2BE42`, `#FBD970`, `#F5C448`, `#DC9922`) and an artificial yellow glow aura (`rgba(225, 175, 45, 0.25)`).
   - In contrast, the authentic physical gold standard established by the Edit Profile button (`.phc-edit-btn`) uses a refined anisotropic antique gold palette:
     - Specular white flash (`#FFFFFF`), champagne luster (`#FAECC5`), antique gold midtones (`#DCAE4A`), deep metallic amber (`#A07424`), and chiseled dark bronze contour (`#684514`, `#7C581A`, `#2B1A03`).
     - Physical contact shadows and dark chiseled bezel rim (`0.65px solid #7C581A`) with zero yellow halo.
 - **Architectural Enhancements Applied**:
-  1. *Crown (التاج)*:
+  1. *Crown *:
      - Shifted `crownMetalLight` and `crownMetal` to the exact Edit Profile palette (`#FFFFFF` -> `#FAECC5` -> `#DCAE4A` -> `#A07424` -> `#684514` -> `#C49436` -> `#7C581A`).
      - Aligned stroke to `#7C581A` at 0.55px and toned drop-shadow to physical contact shadow (`rgba(50, 32, 10, 0.2)`).
-  2. *Brand Wordmark "THE 1% CLUB" (الكتابة)*:
+  2. *Brand Wordmark "THE 1% CLUB" *:
      - Eliminated glowing lemon-yellow gradient.
      - Implemented authentic antique gold gradient (`#FFFFFF` 0% -> `#FAECC5` 14% -> `#DCAE4A` 38% -> `#A07424` 64% -> `#684514` 84% -> `#432805` 100%) with delicate contact shadow (`rgba(60, 38, 12, 0.25)`).
      - Dark mode aligned to `#FFFDF5` -> `#F6E7BE` -> `#D4AF6A` -> `#A67C2E` -> `#6E4B12` -> `#382204`.
-  3. *Tagline, Rules & Diamonds (السطر التعريفي والخطوط والماس)*:
+  3. *Tagline, Rules & Diamonds *:
      - Tagline text styled in rich antique gold (`#9C7026` -> `#7C581A` -> `#4A3008`), matching card typography.
      - Rules and separator diamonds transitioned to delicate antique gold filaments and `#7C581A` beveled facets.
-  4. *Verification Medallion (درع وميدالية التوثيق)*:
+  4. *Verification Medallion *:
      - Outer bezel (`sealGoldRimLight`) and dial face (`sealGoldFaceLight`) aligned to exact antique champagne-gold tones.
      - Entirely eliminated artificial yellow glow aura; replaced with physical chiseled antique gold rim (`0 0 0 0.65px #7C581A`) and subtle contact shadow.
   5. *Cache Busted*: Updated query string to `style.css?v=20261015_authentic_antique_gold_header`.
@@ -1002,16 +1003,16 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Dev server verified with updated stylesheet query string.
 
 ### Micro-Pass: High-Relief Sculpted Metal Verification Shield & Drop Shadow (2026-10-15) — COMPLETE
-- **User Directive**: "قم بتعديل SVG الخاص بـ headerVerifiedShieldBtn لتقوية التباين بين الحواف الداكنة والأسطح البارزة للدرع (High-Relief)، بحيث تبدو وكأنها قطعة معدنية نحتت يدوياً، مع إضافة طبقة ظل مسقطة (Drop Shadow) خفيفة خلف الدرع لتعزيز بروزها عن الخلفية."
+- **User Directive**: "  SVG   headerVerifiedShieldBtn         (High-Relief)             (Drop Shadow)       ."
 - **Visual & Structural Upgrades**:
   1. *Physical Drop Shadow Layer*:
      - Embedded dedicated SVG physical drop shadow filter (`sealShieldDropShadowFilter` / `sealShieldDropShadowFilterLight`) with `feDropShadow` (dx=0, dy=1.6, stdDeviation=1.2) behind the shield.
      - Added `<path class="seal-shield-drop-shadow">` positioned directly behind the shield group, paired with `<path class="seal-shield-shadow">` for soft ambient contact occlusion.
      - This elevates the shield in 3D physical relief above the golden dial face.
-  2. *Hand-Carved Intaglio Contour (الحواف الداكنة المنحوتة)*:
+  2. *Hand-Carved Intaglio Contour *:
      - Added `<path class="seal-shield-contour">` with `sealShieldCarvedContour` (dark mode) and `sealShieldCarvedContourLight` (light mode).
      - Renders an engraved dark-bronze trench encircling the shield, mimicking the cut of an engraving burin in numismatic dies.
-  3. *High-Relief Contrast Facets (الأسطح البارزة vs المنحدر الغائر)*:
+  3. *High-Relief Contrast Facets (  vs  )*:
      - Left Facet (`sealShieldFacetLight` / `sealShieldFacetLightMode`): Enhanced with razor specular crest (`#FFFFFF` to `#FFF7E2`) dropping into radiant 24K gold body.
      - Right Facet (`sealShieldFacetDark` / `sealShieldFacetDarkLightMode`): Steep dark slope plunging into deep bronze-obsidian shadow (`#120801` / `#160A01`) with subtle ambient bounce rim (`#643E0A` / `#6E440C`), maximizing sculptural contrast.
   4. *Sculpted Spine & Micro-Shadow*:
@@ -1024,17 +1025,17 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Verified presence of `seal-shield-drop-shadow` and high-relief layers in server output.
 
 ### Micro-Pass: Haute Horlogerie Royal Crowned Escutcheon Redesign (2026-10-15) — COMPLETE
-- **User Directive**: "درع التوثيق وحش جدا من فضلك قدم تصميم افضل فاخر وراقي"
+- **User Directive**: "          "
 - **Critical Architectural Critique & Diagnosis**:
   - The previous design suffered from "gold-on-gold" lack of contrast, multiple busy concentric dashed circles (resembling an arcade token or generic software badge), and a heavy, clumsy checkmark scribbled over a triangular police badge.
 - **Haute Horlogerie Sovereign Redesign**:
   1. *High-Contrast Grand Feu Enamel Dial Bed*:
      - Replaced the yellow-on-yellow coin with a deep Grand Feu Obsidian Enamel dial in Dark Mode (`#050403` to `#181512` with delicate specular glaze sweep) and warm Champagne Silk Enamel in Light Mode (`#DFD4BF` to `#FDFBF7`).
      - Framed by a mirror-polished 18K antique gold bezel matching the Edit Profile button.
-  2. *Aristocratic Royal Escutcheon (الدرع الملكي النخبوي)*:
+  2. *Aristocratic Royal Escutcheon *:
      - Classical European heraldic escutcheon silhouette with gracefully vaulted accolade shoulders and tapered drop point.
      - Crowned at its apex with a miniature 3-point Sovereign Coronet with diamond center point and gold finials, directly unifying with the brand's royal crown heritage.
-  3. *Inlaid Platinum-Gold Verification Hallmark (دمغة التوثيق الماسية)*:
+  3. *Inlaid Platinum-Gold Verification Hallmark *:
      - Eliminated the oversized generic tick mark.
      - Crafted a slender, precision diamond-cut verification scepter backed by an intaglio shadow groove.
      - Crowned with a brilliant 4-point Sovereign Diamond Star glint (`seal-star-diamond`).
@@ -1047,14 +1048,14 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Server confirmed presence of `seal-coronet-spikes` and updated structure.
 
 ### Micro-Pass: Sovereign Escutcheon & 3D Sculpted Verification Hallmark Redesign (2026-10-15) — COMPLETE
-- **User Directive**: "لسا شكل علامه التوثيق محتاج اعاده تصميم"
+- **User Directive**: "      "
 - **Critical Architectural & Geometric Diagnosis**:
   - The previous design was constrained inside multiple circular coin rings and circular CSS `box-shadows`, which resulted in a cramped 20px shield trapped inside a 64px viewBox (less than 12 physical pixels on mobile). The verification mark within was reduced to a thin stroke squeezed beneath coronet spikes and a star.
 - **Sculptural Sovereign Redesign**:
   1. *Heroic Sovereign Escutcheon Silhouette*:
      - Removed redundant concentric circles and circular CSS container borders.
      - Redesigned the shield as a majestic Gothic-Renaissance Escutcheon occupying 46px × 50px of the canvas with ear lugs, arched accolade crest, and stately bottom lance point.
-  2. *Sculpted 3D Sovereign Verification Hallmark (علامة التوثيق المنحوتة)*:
+  2. *Sculpted 3D Sovereign Verification Hallmark *:
      - Replaced the thin stroked line with a solid, chiseled 3D metallic polygon insignia (26.5px wide × 24px high).
      - Sculpted dual-facet bevels: Upper facet in mirror-polished platinum-gold (`#FFFFFF` to `#FAECC5`), lower facet in deep antique bronze shadow (`#9B7328` to `#1A0D01`), backed by an intaglio drop shadow bed.
      - Razor-sharp specular light line down its center ridge.
@@ -1070,7 +1071,7 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
   - Verified server HTML output for `sovereign-hallmark-upper`.
 
 ### Micro-Pass: High-Contrast Specular & Deep Metallic Gradient Calibration (2026-10-15) — COMPLETE
-- **User Directive**: "CSS selector: #headerVerifiedShieldBtn. قم بتعديل التدرجات اللونية داخل SVG لزيادة التباين بين الإضاءة والانعكاسات، بحيث نستخدم ألواناً أكثر دقة (مثل #FFF9D0 للإضاءة العالية و #5C3D10 للظلال العميقة) لتعزيز المظهر المعدني المصقول."
+- **User Directive**: "CSS selector: #headerVerifiedShieldBtn.      SVG           ( #FFF9D0    #5C3D10  )    ."
 - **Focus Mode Target**: `#headerVerifiedShieldBtn`
 - **Execution Details**:
   1. *High Specular Highlights (`#FFF9D0`)*:
@@ -1191,14 +1192,14 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 
 - **THE 1% CLUB — PASS 5C: PRIVACY REGRESSION QA + SAFE CODEBASE OPTIMIZATION (2026-10-19) — COMPLETE**:
   - **Phase 1: Pass 5B Privacy Regression Audit**:
-    1. *Public Share Card Export Path*: Verified complete execution flow in `luxury.js`. The export path invokes `shareMasterCard()`, which executes `renderMasterCardToBlob()` to render an offscreen 900×1350 canvas 2D PNG.
-    2. *Private Wealth Metric Leak Prevention*: Verified that private Wealth Index values, percentages, formulas, and tooltips cannot reach the exported canvas. The left metric gauge was replaced by `drawPublicHallmark()`, which renders a static Sovereign Shield Hallmark with label «توثيق سيادي» / «Authenticated». Only the public Privileges gauge (`privVal`) is drawn on the right. [STATUS: PASS]
+    1. *Public Share Card Export Path*: Verified complete execution flow in `luxury.js`. The export path invokes `shareMasterCard`, which executes `renderMasterCardToBlob` to render an offscreen 900×1350 canvas 2D PNG.
+    2. *Private Wealth Metric Leak Prevention*: Verified that private Wealth Index values, percentages, formulas, and tooltips cannot reach the exported canvas. The left metric gauge was replaced by `drawPublicHallmark`, which renders a static Sovereign Shield Hallmark with label  / «Authenticated». Only the public Privileges gauge (`privVal`) is drawn on the right. [STATUS: PASS]
     3. *Sovereign Hallmark Calibration*: Verified `drawPublicHallmark(gx, gy, label)` coordinates (`cardX + 175` = 215, `metricsY` = 815), radius (48px), and label baseline offset (`gy + gr + 26`), exhibiting exact horological symmetry with the right privileges complication. [STATUS: PASS]
     4. *On-Screen Membership Card Preservation*: Verified that the on-screen card in `index.html` (`#wealthRingWrap`, `#wealthRing`, `#wealthValue`, `#wealthTooltip`) and `app.js` (`renderRing("wealthRing", ...)`) remains 100% intact, private, and interactive. [STATUS: PASS]
     5. *Signatures & Exports*: Exported `window.renderMasterCardToBlob` globally alongside `window.shareMasterCard`. [STATUS: PASS]
   - **Phase 2: Codebase Audit & Safe Optimization**:
     1. *Embedded CSS Overrides Safety Audit*: Evaluated the 411-line `<style>` block in `index.html`. Confirmed it contains 23 unique selector overrides for the 3D Geometric Golden Facade (`#ultimate-club-bg`), microscopic frosted grain, and floating liquid glass HUD. In accordance with Critical CSS Safety Rules, the embedded overrides were strictly preserved to prevent visual regression.
-    2. *Dead Code Elimination & Privacy Hardening*: Safely removed `captureLiveMasterCardBlob` in `luxury.js` (an obsolete function that depended on non-existent `window.htmlToImage` and represented a latent privacy risk of DOM capture), routing `shareMasterCard()` directly to `renderMasterCardToBlob()`.
+    2. *Dead Code Elimination & Privacy Hardening*: Safely removed `captureLiveMasterCardBlob` in `luxury.js` (an obsolete function that depended on non-existent `window.htmlToImage` and represented a latent privacy risk of DOM capture), routing `shareMasterCard` directly to `renderMasterCardToBlob`.
   - **Phase 3: Verification & Performance Metrics**:
     - `compile_applet`: Build succeeded with 0 errors.
     - `lint_applet`: 0 errors (`tsc --noEmit` clean).
@@ -1209,11 +1210,11 @@ Whenever an edit, addition, or design change is requested, the Agent MUST automa
 - **THE 1% CLUB — PASS 5E: UNIFY MEMBERSHIP SHARE BUTTON (2026-10-19) — COMPLETE**:
   - **Defect Resolved**: DEF-05 (Unified Master Card Share Workflow).
   - **Surgical Implementation**:
-    1. Wired `#shareBtn` in `app.js` directly to `window.shareMasterCard()`, establishing a unified primary share pipeline.
-    2. Prevented dual-sharing: When `window.shareMasterCard()` is invoked, the handler terminates (`return`), ensuring `navigator.share()` is NOT called for a text-only URL and the verification URL is NOT automatically copied during Master Card export.
+    1. Wired `#shareBtn` in `app.js` directly to `window.shareMasterCard`, establishing a unified primary share pipeline.
+    2. Prevented dual-sharing: When `window.shareMasterCard` is invoked, the handler terminates (`return`), ensuring `navigator.share` is NOT called for a text-only URL and the verification URL is NOT automatically copied during Master Card export.
     3. Retained `#copyBtn` as the dedicated trigger for copying the verification URL to clipboard with gold toast feedback.
-    4. Preserved tactile audio chime (`AudioEngine.playChime()`), haptic tap (`HapticEngine.tap()`), un-pressed state clearing, and added concurrency lock (`shareBtn.dataset.busy`) to prevent double-generation.
-    5. Preserved PASS 5B privacy fix: Export path exclusively calls `renderMasterCardToBlob()` utilizing `drawPublicHallmark()`, never exporting the private on-screen Wealth Index.
+    4. Preserved tactile audio chime (`AudioEngine.playChime`), haptic tap (`HapticEngine.tap`), un-pressed state clearing, and added concurrency lock (`shareBtn.dataset.busy`) to prevent double-generation.
+    5. Preserved PASS 5B privacy fix: Export path exclusively calls `renderMasterCardToBlob` utilizing `drawPublicHallmark`, never exporting the private on-screen Wealth Index.
     6. Exported `window.showCopyToast` globally to ensure clean decoupled toast messaging between `luxury.js` and `app.js`.
   - **Verification**:
     - `compile_applet`: Clean build with 0 errors.

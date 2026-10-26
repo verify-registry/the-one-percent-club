@@ -1025,9 +1025,8 @@ async function renderMasterCardToBlob() {
     ctx.fillText(label, gx, gy + gr + 26);
   }
 
-  const isCardAr = (window.currentLang === "ar") || (document.documentElement.lang === "ar");
-  const hallmarkLabel = isCardAr ? "توثيق سيادي" : "Authenticated";
-  const privGaugeLabel = (window.t ? window.t("membership.privileges") : null) || (isCardAr ? "الامتيازات" : "Privileges");
+  const hallmarkLabel = "Authenticated";
+  const privGaugeLabel = (window.t ? window.t("membership.privileges") : null) || "Privileges";
 
   drawPublicHallmark(cardX + 175, metricsY, hallmarkLabel);
   drawMetricGauge(cardX + cardW - 175, metricsY, privGaugeLabel, privVal);
@@ -1153,10 +1152,9 @@ async function shareMasterCard() {
   if (window.AudioEngine && window.AudioEngine.playSend) {
     window.AudioEngine.playSend();
   }
-  const isToastAr = (window.currentLang === "ar") || (document.documentElement.lang === "ar");
   const notifyToast = (typeof window !== "undefined" && window.showCopyToast) || (typeof showCopyToast === "function" ? showCopyToast : null);
   if (notifyToast) {
-    notifyToast(window.t("membership.exportingToast") || (isToastAr ? "جارٍ تصدير الماستر كارد الملكي فائق الدقة…" : "Exporting ultra-high-definition Master Card…"));
+    notifyToast((window.t ? window.t("membership.exportingToast") : null) || "Exporting ultra-high-definition Master Card…");
   }
 
   try {
@@ -1176,7 +1174,7 @@ async function shareMasterCard() {
           text: "PRIVATE WEALTH. PRIVATE SOCIETY.",
         });
         if (notifyToast) {
-          notifyToast(window.t("membership.shareSuccessToast") || (isToastAr ? "✓ تم مشاركة الماستر كارد بنجاح" : "✓ Master Card shared successfully"));
+          notifyToast((window.t ? window.t("membership.shareSuccessToast") : null) || "✓ Master Card shared successfully");
         }
         return;
       } catch (shareErr) {
@@ -1194,12 +1192,12 @@ async function shareMasterCard() {
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 2000);
     if (notifyToast) {
-      notifyToast(window.t("membership.saveSuccessToast") || (isToastAr ? "✓ تم حفظ الماستر كارد كصورة PNG فائقة الدقة" : "✓ Master Card saved as high-res PNG"));
+      notifyToast((window.t ? window.t("membership.saveSuccessToast") : null) || "✓ Master Card saved as high-res PNG");
     }
   } catch (err) {
     console.warn("Share fallback error:", err);
     if (notifyToast) {
-      notifyToast(window.t("membership.shareFailToast") || (isToastAr ? "تعذر مشاركة الماستر كارد" : "Unable to share Master Card"));
+      notifyToast((window.t ? window.t("membership.shareFailToast") : null) || "Unable to share Master Card");
     }
   }
 }
