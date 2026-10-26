@@ -840,16 +840,25 @@ input {
 /* =========================================================
    3. HEADER & BOTTOM NAV (LIQUID GLASS)
    ========================================================= */
+#appHeader,
 .app-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  max-width: 520px;
-  margin: 0 auto;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 520px !important;
+  margin: 0 auto !important;
+  min-height: 84px !important;
+  height: 84px !important;
+  max-height: 84px !important;
+  padding: calc(9px + env(safe-area-inset-top, 0px)) 16px 12px !important;
+  box-sizing: border-box !important;
+  display: block !important;
   flex-shrink: 0;
-  z-index: 100;
+  z-index: 100 !important;
+  transform: translate3d(0, 0, 0) !important;
+  pointer-events: auto !important;
   background:
     radial-gradient(ellipse 110% 70px at 50% -10px, rgba(212, 175, 55, 0.15) 0%, rgba(184, 134, 45, 0.04) 50%, transparent 80%),
     linear-gradient(
@@ -861,13 +870,6 @@ input {
       rgba(5, 4, 7, 0.08) 92%,
       transparent 100%
     ) !important;
-  padding: calc(9px + env(safe-area-inset-top, 0px)) 16px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
   backdrop-filter: blur(24px) saturate(190%) contrast(108%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(108%) !important;
   -webkit-mask-image: linear-gradient(
@@ -888,20 +890,31 @@ input {
     rgba(0, 0, 0, 0.08) 94%,
     transparent 100%
   ) !important;
-  transform: translate3d(0, 0, 0) !important;
-  box-sizing: border-box;
-  pointer-events: auto;
-  min-height: 84px;
-  height: 84px;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Seamless blend: bottom line disabled so header flows into content */
+#appHeader::before,
+.app-header::before,
+#appHeader::after,
 .app-header::after {
   display: none !important;
 }
 
+body.light-mode #appHeader,
+html.light-mode #appHeader,
 body.light-mode .app-header,
-html.light-mode .app-header {
+html.light-mode .app-header,
+:root[data-theme="light"] #appHeader,
+:root[data-theme="light"] .app-header {
+  min-height: 84px !important;
+  height: 84px !important;
+  max-height: 84px !important;
+  padding: calc(9px + env(safe-area-inset-top, 0px)) 16px 12px !important;
+  box-sizing: border-box !important;
   background:
     radial-gradient(ellipse 110% 70px at 50% -10px, rgba(235, 205, 130, 0.32) 0%, rgba(212, 175, 55, 0.08) 50%, transparent 80%),
     linear-gradient(
@@ -938,7 +951,11 @@ html.light-mode .app-header {
   ) !important;
 }
 
+body.light-mode #appHeader::before,
+body.light-mode .app-header::before,
+body.light-mode #appHeader::after,
 body.light-mode .app-header::after,
+html.light-mode #appHeader::after,
 html.light-mode .app-header::after {
   display: none !important;
 }
@@ -23031,8 +23048,16 @@ body.light-mode #logoutConfirmModal.luxury-modal-overlay {
   background: rgba(30, 24, 16, 0.52) !important;
 }
 
+#openSettingsRow {
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 #settingsModal .luxury-modal-box,
-#helpSupportModal .luxury-modal-box {
+#helpSupportModal .luxury-modal-box,
+.liquid-settings-card {
   width: 92% !important;
   max-width: 410px !important;
   background: var(--surface-modal) !important;
