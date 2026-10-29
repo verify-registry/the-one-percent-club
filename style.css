@@ -22593,10 +22593,10 @@ body #profile-tab .menu-item-details {
 body #profile-tab .pnm-title,
 body #profile-tab .menu-title,
 body #profile-tab .menu-item-title {
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 12.5px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.03em !important;
+  letter-spacing: 0.02em !important;
   color: #f2e8d5 !important;
   margin-bottom: 2px !important;
   line-height: 1.3 !important;
@@ -23881,10 +23881,10 @@ body.light-mode .dossier-divider {
   margin-top: 4px !important;
   padding: 11px 16px !important;
   border-radius: 8px !important;
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 11px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.14em !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
   background: linear-gradient(180deg, #d4af6a 0%, #946c24 100%) !important;
   border: 1px solid #6b4b12 !important;
@@ -24064,7 +24064,8 @@ body.light-mode #settingsModal .luxury-switch input:checked + .slider:before {
 }
 
 /* Logout Button */
-#settingsModal #btnSettingsLogout {
+#settingsModal #btnSettingsLogout,
+#settingsModal #btnResetSettings {
   width: 100% !important;
   box-sizing: border-box !important;
   margin-top: 14px !important;
@@ -24072,10 +24073,10 @@ body.light-mode #settingsModal .luxury-switch input:checked + .slider:before {
   border: 1px solid rgba(220, 70, 70, 0.35) !important;
   color: #fca5a5 !important;
   border-radius: 9px !important;
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 11px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.12em !important;
+  letter-spacing: 0.1em !important;
   padding: 11px 16px !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
@@ -24125,7 +24126,7 @@ body.light-mode #helpSupportModal [data-i18n="misc.supportDesc"] {
   box-sizing: border-box !important;
   padding: 13px 16px !important;
   border-radius: 10px !important;
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 11px !important;
   font-weight: 700 !important;
   letter-spacing: 0.12em !important;
@@ -24158,10 +24159,10 @@ body.light-mode #helpSupportModal #contactConciergeBtn {
 }
 
 #helpSupportModal [data-i18n="misc.faq"] {
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 10.5px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.14em !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
   color: #d4af6a !important;
   border-bottom: 1px solid rgba(212, 175, 106, 0.18) !important;
@@ -24177,10 +24178,10 @@ body.light-mode #helpSupportModal [data-i18n="misc.faq"] {
 
 #helpSupportModal .faq-item strong,
 #helpSupportModal [data-i18n^="misc.faq"][data-i18n$="q"] {
-  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 11.5px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.03em !important;
+  letter-spacing: 0.02em !important;
   color: #eedcb9 !important;
   display: block !important;
   margin-bottom: 4px !important;
@@ -24405,7 +24406,10 @@ body #profile-tab .profile-nav-menu .pnm-content {
 }
 
 body #profile-tab .profile-nav-menu .pnm-title {
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -24413,7 +24417,10 @@ body #profile-tab .profile-nav-menu .pnm-title {
 }
 
 body #profile-tab .profile-nav-menu .pnm-sub {
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 9px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -24428,7 +24435,11 @@ body #profile-tab .profile-nav-menu .pnm-badge {
 }
 
 body #profile-tab .profile-nav-menu .pnm-badge .badge {
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
   font-size: 8px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
   padding: 2.5px 6px !important;
   white-space: nowrap !important;
 }
@@ -34506,17 +34517,23 @@ html[lang="en"] .rmc-artifact-title,
 html[dir="ltr"] .rmc-artifact-title,
 html[lang="en"] .rmc-patent-title,
 html[dir="ltr"] .rmc-patent-title,
-html[lang="en"] .luxury-modal-header h2,
-html[dir="ltr"] .luxury-modal-header h2,
-html[lang="en"] .luxury-modal-header h3,
-html[dir="ltr"] .luxury-modal-header h3,
-html[lang="en"] .luxury-modal-header h4,
-html[dir="ltr"] .luxury-modal-header h4,
-html[lang="en"] #modal-account-title,
-html[dir="ltr"] #modal-account-title,
 html[lang="en"] .mini-dossier-name,
 html[dir="ltr"] .mini-dossier-name {
   font-family: "Cormorant Garamond", "Playfair Display", serif !important;
+}
+
+/* Profile Sub-Screens & System Modals Typography Standard */
+#accountInfoModal .luxury-modal-header h2,
+#accountInfoModal #modal-account-title,
+#settingsModal .luxury-modal-header h3,
+#helpSupportModal .luxury-modal-header h3,
+#logoutConfirmModal .luxury-modal-header h3,
+#editProfileModal .luxury-modal-header h2,
+#editProfileModal #modal-edit-profile-title {
+  font-family: var(--font-ui, "Manrope", "Cairo", sans-serif) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
 }
 
 /* --- Card Body, Metadata & Labels (Inter / Manrope) --- */
