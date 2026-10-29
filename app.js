@@ -569,13 +569,21 @@ let currentOwnershipFilter = "all";
 const ICONS = Object.assign({}, window.SOVEREIGN_ARTIFACTS || {});
 
 function getSovereignArtifact(iconKey) {
+  if (typeof window.getSovereignArtifact === "function") {
+    try {
+      const direct = window.getSovereignArtifact(iconKey);
+      if (direct && typeof direct === "string" && direct.includes("<svg")) {
+        return direct;
+      }
+    } catch (_) {}
+  }
   if (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[iconKey]) {
     return window.SOVEREIGN_ARTIFACTS[iconKey];
   }
   if (typeof ICONS !== "undefined" && ICONS && ICONS[iconKey]) {
     return ICONS[iconKey];
   }
-  return (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.star) || "";
+  return (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.star) || (typeof window.getSovereignArtifact === "function" ? window.getSovereignArtifact("star_sovereign") : "");
 }
 
 
@@ -2341,7 +2349,12 @@ function applyEquippedToCard(equipped = (typeof AppState !== "undefined" && AppS
     if (itemId) {
       slotEl.style.display = "";
       slotEl.classList.add("active");
-      if (catKey === "jewelry" && (itemId === "ring1" || itemId === "ring_monogram")) {
+      if (catKey === "crowns") {
+        const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact(itemId) : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[itemId]);
+        if (art) {
+          slotEl.innerHTML = art;
+        }
+      } else if (catKey === "jewelry" && (itemId === "ring1" || itemId === "ring_monogram")) {
         const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact("ring_monogram") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
         if (art) {
           const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
@@ -2351,6 +2364,7 @@ function applyEquippedToCard(equipped = (typeof AppState !== "undefined" && AppS
     } else {
       slotEl.style.display = "none";
       slotEl.classList.remove("active");
+      slotEl.innerHTML = "";
     }
   }
   const profileEquipMap = {
@@ -2366,7 +2380,12 @@ function applyEquippedToCard(equipped = (typeof AppState !== "undefined" && AppS
     if (itemId) {
       pSlotEl.style.display = "";
       pSlotEl.classList.add("active");
-      if (catKey === "jewelry" && (itemId === "ring1" || itemId === "ring_monogram")) {
+      if (catKey === "crowns") {
+        const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact(itemId) : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[itemId]);
+        if (art) {
+          pSlotEl.innerHTML = art;
+        }
+      } else if (catKey === "jewelry" && (itemId === "ring1" || itemId === "ring_monogram")) {
         const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact("ring_monogram") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
         if (art) {
           pSlotEl.innerHTML = art;
@@ -2375,6 +2394,7 @@ function applyEquippedToCard(equipped = (typeof AppState !== "undefined" && AppS
     } else {
       pSlotEl.style.display = "none";
       pSlotEl.classList.remove("active");
+      pSlotEl.innerHTML = "";
     }
   }
 }
@@ -2574,12 +2594,6 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 
     return `
       <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned})' style="cursor: pointer;">
-        <!-- Ornate Golden Corners -->
-        <span class="b-card-corner tl" aria-hidden="true"></span>
-        <span class="b-card-corner tr" aria-hidden="true"></span>
-        <span class="b-card-corner bl" aria-hidden="true"></span>
-        <span class="b-card-corner br" aria-hidden="true"></span>
-
         <div class="boutique-card-header">
           <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "Rare"}</span>
           ${tierPillHtml}
