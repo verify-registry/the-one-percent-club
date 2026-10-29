@@ -950,6 +950,9 @@ window.I18N = {
     allColl: {
       en: "All Collectibles",
     },
+    allCollSub: {
+      en: "Curated Sovereign Collectibles in Ascending Valuation",
+    },
     ownedColl: {
       en: "Owned Collectibles",
     },

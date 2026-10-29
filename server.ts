@@ -64,7 +64,8 @@ app.use(
         filePath.endsWith(".svg") ||
         filePath.endsWith(".woff2") ||
         filePath.endsWith(".png") ||
-        filePath.endsWith(".jpg")
+        filePath.endsWith(".jpg") ||
+        filePath.endsWith(".webp")
       ) {
         res.setHeader("Cache-Control", "public, max-age=86400, stale-while-revalidate=604800");
       }

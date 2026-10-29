@@ -562,28 +562,13 @@ window.applyLanguage = function (lang) {
 let currentOwnershipFilter = "all";
 
 // =========================================================
-// 1. HIGH-FIDELITY PHYSICAL ARTIFACTS SVG REPOSITORY
-// Realistic multi-gradient metallic reflections, gemstones,
-// bevels, and guilloché horology details.
+// 1. MASTER SOVEREIGN ARTIFACT RESOLVER
+// Single source of truth is artifacts.js (window.getSovereignArtifact)
 // =========================================================
-const ICONS = Object.assign({}, window.SOVEREIGN_ARTIFACTS || {});
-
-function getSovereignArtifact(iconKey) {
-  if (typeof window.getSovereignArtifact === "function") {
-    try {
-      const direct = window.getSovereignArtifact(iconKey);
-      if (direct && typeof direct === "string" && direct.includes("<svg")) {
-        return direct;
-      }
-    } catch (_) {}
-  }
-  if (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[iconKey]) {
-    return window.SOVEREIGN_ARTIFACTS[iconKey];
-  }
-  if (typeof ICONS !== "undefined" && ICONS && ICONS[iconKey]) {
-    return ICONS[iconKey];
-  }
-  return (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.star) || (typeof window.getSovereignArtifact === "function" ? window.getSovereignArtifact("star_sovereign") : "");
+if (typeof window.getSovereignArtifact !== "function") {
+  window.getSovereignArtifact = function(idOrType) {
+    return (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[idOrType]) || "";
+  };
 }
 
 
@@ -923,6 +908,8 @@ const BOUTIQUE = {
     ],
   },
 };
+window.BOUTIQUE = BOUTIQUE;
+window.boutiqueCatalog = BOUTIQUE;
 
 // =========================================================
 // RETIRED STOREFRONT COLLECTIBLES (PRESERVED FOR HISTORICAL
@@ -2350,12 +2337,12 @@ function applyEquippedToCard(equipped = (typeof AppState !== "undefined" && AppS
       slotEl.style.display = "";
       slotEl.classList.add("active");
       if (catKey === "crowns") {
-        const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact(itemId) : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[itemId]);
+        const art = typeof window.getSovereignArtifact === "function" ? window.getSovereignArtifact(itemId) : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[itemId]);
         if (art) {
           slotEl.innerHTML = art;
         }
       } else if (catKey === "jewelry" && (itemId === "ring1" || itemId === "ring_monogram")) {
-        const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact("ring_monogram") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
+        const art = typeof window.getSovereignArtifact === "function" ? window.getSovereignArtifact("ring1") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
         if (art) {
           const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar";
           slotEl.innerHTML = `<span class="equipped-ring-art" style="width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;">${art}</span><span class="equipped-ring-label" id="equippedRingLabel">${"SIGNET RING"}</span>`;
@@ -2381,12 +2368,12 @@ function applyEquippedToCard(equipped = (typeof AppState !== "undefined" && AppS
       pSlotEl.style.display = "";
       pSlotEl.classList.add("active");
       if (catKey === "crowns") {
-        const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact(itemId) : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[itemId]);
+        const art = typeof window.getSovereignArtifact === "function" ? window.getSovereignArtifact(itemId) : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS[itemId]);
         if (art) {
           pSlotEl.innerHTML = art;
         }
       } else if (catKey === "jewelry" && (itemId === "ring1" || itemId === "ring_monogram")) {
-        const art = typeof getSovereignArtifact === "function" ? getSovereignArtifact("ring_monogram") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
+        const art = typeof window.getSovereignArtifact === "function" ? window.getSovereignArtifact("ring1") : (window.SOVEREIGN_ARTIFACTS && window.SOVEREIGN_ARTIFACTS.ring_monogram);
         if (art) {
           pSlotEl.innerHTML = art;
         }
@@ -2558,7 +2545,9 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     }
 
     const isObsidianBase = (item.requiredTier === "SOVEREIGN EXARCH" || item.rarity >= 4 || item.id === "crown4" || item.id === "star4");
-    const artifactSvg = getSovereignArtifact(item.icon);
+    const artifactSvg = (typeof window.getSovereignArtifact === "function")
+      ? (window.getSovereignArtifact(item.id) || window.getSovereignArtifact(item.icon))
+      : ((window.SOVEREIGN_ARTIFACTS && (window.SOVEREIGN_ARTIFACTS[item.id] || window.SOVEREIGN_ARTIFACTS[item.icon])) || "");
     const clocheHtml = (typeof window.renderClocheVitrine === "function")
       ? window.renderClocheVitrine(artifactSvg, isObsidianBase, item.id)
       : `<span class="boutique-card-fallback" style="display:flex">${artifactSvg}</span>`;
@@ -6157,7 +6146,9 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const imgEl = document.getElementById("inspectionImage");
   if (imgEl) {
     let mediaContent = "";
-    const artSvg = getSovereignArtifact(item.icon);
+    const artSvg = (typeof window.getSovereignArtifact === "function")
+      ? (window.getSovereignArtifact(item.id) || window.getSovereignArtifact(item.icon))
+      : ((window.SOVEREIGN_ARTIFACTS && (window.SOVEREIGN_ARTIFACTS[item.id] || window.SOVEREIGN_ARTIFACTS[item.icon])) || "");
     if (item.image) {
       mediaContent = `<img src="${item.image}" alt="${window.t(item.name)}" style="width: 100%; height: 100%; object-fit: contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='block';" />
                       <div style="display:none; width:100%; height:100%; justify-content:center; align-items:center;">${artSvg}</div>`;
@@ -7624,16 +7615,15 @@ function openReliquaryInspectModal(itemId) {
   const visualEl = document.getElementById("reliquaryItemVisual");
   if (visualEl) {
     let iconHtml = "";
-    if (window.SOVEREIGN_ARTIFACTS && (window.SOVEREIGN_ARTIFACTS[item.icon] || window.SOVEREIGN_ARTIFACTS[item.id])) {
-      iconHtml = window.SOVEREIGN_ARTIFACTS[item.icon] || window.SOVEREIGN_ARTIFACTS[item.id];
+    const resolvedSvg = (typeof window.getSovereignArtifact === "function" ? (window.getSovereignArtifact(item.id) || window.getSovereignArtifact(item.icon)) : null) || ((window.SOVEREIGN_ARTIFACTS && (window.SOVEREIGN_ARTIFACTS[item.id] || window.SOVEREIGN_ARTIFACTS[item.icon])) || "");
+    if (resolvedSvg) {
+      iconHtml = resolvedSvg;
     } else if (item.image) {
-      iconHtml = `<img src="${item.image}" alt="${item.id}" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-                  <span class="boutique-card-fallback" style="display:none;font-size:32px;">${ICONS[item.icon] || ICONS["crown"]}</span>`;
+      iconHtml = `<img src="${item.image}" alt="${item.id}" style="width:100%;height:100%;object-fit:contain;" />`;
     } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
-      iconHtml = `<img src="${item.icon}" alt="${item.id}" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-                  <span class="boutique-card-fallback" style="display:none;font-size:32px;">${ICONS["crown"]}</span>`;
+      iconHtml = `<img src="${item.icon}" alt="${item.id}" style="width:100%;height:100%;object-fit:contain;" />`;
     } else {
-      iconHtml = `<span class="boutique-card-fallback" style="display:flex;font-size:34px;color:#d4af37;">${ICONS[item.icon] || ICONS["crown"]}</span>`;
+      iconHtml = `<span class="boutique-card-fallback" style="display:flex;font-size:34px;color:#d4af37;">${resolvedSvg}</span>`;
     }
     visualEl.innerHTML = iconHtml;
   }
@@ -7814,12 +7804,12 @@ function renderProfileCollection(forceSkeleton = false) {
       let iconHtml = "";
       if (item.image) {
         iconHtml = `<img src="${item.image}" alt="${nameText}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-                    <span class="boutique-card-fallback" style="display:none">${ICONS[item.icon] || ICONS["star"]}</span>`;
+                    <span class="boutique-card-fallback" style="display:none">${(typeof window.getSovereignArtifact === "function" ? (window.getSovereignArtifact(item.id) || window.getSovereignArtifact(item.icon)) : null) || ((window.SOVEREIGN_ARTIFACTS && (window.SOVEREIGN_ARTIFACTS[item.id] || window.SOVEREIGN_ARTIFACTS[item.icon])) || "")}</span>`;
       } else if (item.icon && (item.icon.startsWith("http") || item.icon.startsWith("data:"))) {
         iconHtml = `<img src="${item.icon}" alt="${nameText}" onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.style.display='flex';" />
-                    <span class="boutique-card-fallback" style="display:none">${ICONS["star"]}</span>`;
+                    <span class="boutique-card-fallback" style="display:none">${(typeof window.getSovereignArtifact === "function" ? (window.getSovereignArtifact(item.id) || window.getSovereignArtifact(item.icon)) : null) || ((window.SOVEREIGN_ARTIFACTS && (window.SOVEREIGN_ARTIFACTS[item.id] || window.SOVEREIGN_ARTIFACTS[item.icon])) || "")}</span>`;
       } else {
-        const artifactSvg = (typeof getSovereignArtifact === "function" ? getSovereignArtifact(item.icon) : null) || ICONS[item.icon] || ICONS["star"];
+        const artifactSvg = (typeof window.getSovereignArtifact === "function" ? (window.getSovereignArtifact(item.id) || window.getSovereignArtifact(item.icon)) : null) || ((window.SOVEREIGN_ARTIFACTS && (window.SOVEREIGN_ARTIFACTS[item.id] || window.SOVEREIGN_ARTIFACTS[item.icon])) || "");
         iconHtml = `<span class="boutique-card-fallback" style="display:flex">${artifactSvg}</span>`;
       }
 
