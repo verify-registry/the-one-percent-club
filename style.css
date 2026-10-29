@@ -37283,12 +37283,13 @@ html.light-mode #headerVerifiedShieldBtn .seal-check-shadow {
   transform: translate3d(0, 0, 0);
   opacity: 1;
   pointer-events: auto;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, opacity;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.26s ease-out !important;
 }
 
 #appHeader.header-hidden,
 .app-header.header-hidden {
-  transform: translate3d(0, -100%, 0) !important;
+  transform: translate3d(0, -105%, 0) !important;
   opacity: 0 !important;
   pointer-events: none !important;
 }
@@ -37300,26 +37301,6 @@ html.light-mode #headerVerifiedShieldBtn .seal-check-shadow {
 #profile-tab,
 #boutique-tab {
   padding-top: calc(var(--header-actual-height, 80px) + 8px) !important;
-}
-
-/* Smooth Top Scroll Mask for Boutique: Dissolves cards as they scroll under header */
-#boutique-tab {
-  -webkit-mask-image: linear-gradient(
-    180deg,
-    transparent 0px,
-    transparent calc(var(--header-actual-height, 84px) - 20px),
-    rgba(0, 0, 0, 0.25) calc(var(--header-actual-height, 84px) - 6px),
-    #000 calc(var(--header-actual-height, 84px) + 16px),
-    #000 100%
-  ) !important;
-  mask-image: linear-gradient(
-    180deg,
-    transparent 0px,
-    transparent calc(var(--header-actual-height, 84px) - 20px),
-    rgba(0, 0, 0, 0.25) calc(var(--header-actual-height, 84px) - 6px),
-    #000 calc(var(--header-actual-height, 84px) + 16px),
-    #000 100%
-  ) !important;
 }
 
 /* Dedicated Club Header-to-Rooms Alignment (Unified Horizon Fit) */
@@ -39575,25 +39556,15 @@ body.light-mode #club-tab .sovereign-salon-ticker {
 /* 4. TOP APP HEADER AUTO-DISMISS ANIMATIONS & RECLAIMED VIEWPORT SPACE */
 #appHeader,
 .app-header {
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform, opacity;
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.26s ease-out !important;
 }
 
 #appHeader.header-hidden,
 .app-header.header-hidden {
-    transform: translate3d(0, -100%, 0) !important;
+    transform: translate3d(0, -105%, 0) !important;
     opacity: 0 !important;
     pointer-events: none !important;
-}
-
-body.header-hidden-active #club-tab.is-active,
-html.header-hidden-active #club-tab.is-active {
-    padding-top: calc(env(safe-area-inset-top, 0px) + 6px) !important;
-    transition: padding-top 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-body.header-hidden-active .page.is-active {
-    padding-top: calc(env(safe-area-inset-top, 0px) + 10px) !important;
-    transition: padding-top 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 /* 5. PERSISTENT DISPATCH COMPOSER & ALLOCATION STRIP */

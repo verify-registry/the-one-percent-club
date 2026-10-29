@@ -9271,6 +9271,7 @@ window.HeaderScrollController = (function() {
   let ticking = false;
   let clubTicking = false;
   let cachedHeader = null;
+  let accumulatedPageDelta = 0;
 
   function getHeader() {
     if (!cachedHeader) {
@@ -9288,10 +9289,24 @@ window.HeaderScrollController = (function() {
   let clubTransitionTimer = null;
 
   function setClubHeaderCollapsed(collapsed) {
-    // Header is unified across all tabs: Membership, Club, Profile, Boutique
     const header = getHeader();
-    if (header && header.classList.contains("header-hidden") && !window.HeaderAutoDismissController?.isAutoHidden()) {
+    if (!header) return;
+    const clubTab = document.getElementById("club-tab");
+    const creditsEl = document.getElementById("clubCreditsDisplay");
+    if (collapsed) {
+      header.classList.add("header-hidden");
+      document.body.classList.add("header-hidden-active");
+      document.documentElement.classList.add("header-hidden-active");
+      if (clubTab) clubTab.classList.add("club-header-collapsed");
+      if (creditsEl) creditsEl.classList.add("credits-collapsed");
+      isClubCollapsed = true;
+    } else {
       header.classList.remove("header-hidden");
+      document.body.classList.remove("header-hidden-active");
+      document.documentElement.classList.remove("header-hidden-active");
+      if (clubTab) clubTab.classList.remove("club-header-collapsed");
+      if (creditsEl) creditsEl.classList.remove("credits-collapsed");
+      isClubCollapsed = false;
     }
   }
 
@@ -9486,27 +9501,55 @@ window.HeaderScrollController = (function() {
 
         const currentScroll = Math.max(0, activePage.scrollTop || 0);
         const delta = currentScroll - lastScrollTop;
+        lastScrollTop = currentScroll;
 
-        if (currentScroll <= 25) {
+        // When user is near the very top of the page: Header is always smoothly visible
+        if (currentScroll <= 20) {
+          accumulatedPageDelta = 0;
           if (header.classList.contains("header-hidden")) {
             header.classList.remove("header-hidden");
+            document.body.classList.remove("header-hidden-active");
+            document.documentElement.classList.remove("header-hidden-active");
           }
-          lastScrollTop = currentScroll;
           return;
         }
 
         const maxScroll = activePage.scrollHeight - activePage.clientHeight;
         if (maxScroll > 0 && currentScroll >= maxScroll - 15) {
-          lastScrollTop = currentScroll;
           return;
         }
 
-        // Keep header permanently visible and unified with liquid glass gradient
-        if (header.classList.contains("header-hidden")) {
-          header.classList.remove("header-hidden");
-        }
+        // Ignore micro-subpixel noise (< 1.5px)
+        if (Math.abs(delta) < 1.5) return;
 
-        lastScrollTop = currentScroll;
+        // Directional Accumulation: Only deliberate gestures toggle header state
+        if (delta > 0) {
+          // Scrolling down
+          if (accumulatedPageDelta < 0) accumulatedPageDelta = 0;
+          accumulatedPageDelta += delta;
+
+          // Deliberate 16px downward gesture past top zone (40px) triggers silky smooth slide-up
+          if (accumulatedPageDelta >= 16 && currentScroll > 40) {
+            if (!header.classList.contains("header-hidden")) {
+              header.classList.add("header-hidden");
+              document.body.classList.add("header-hidden-active");
+              document.documentElement.classList.add("header-hidden-active");
+            }
+          }
+        } else {
+          // Scrolling up
+          if (accumulatedPageDelta > 0) accumulatedPageDelta = 0;
+          accumulatedPageDelta += delta; // negative
+
+          // Deliberate 14px upward gesture smoothly slides header down
+          if (accumulatedPageDelta <= -14) {
+            if (header.classList.contains("header-hidden")) {
+              header.classList.remove("header-hidden");
+              document.body.classList.remove("header-hidden-active");
+              document.documentElement.classList.remove("header-hidden-active");
+            }
+          }
+        }
       });
     }
   }
