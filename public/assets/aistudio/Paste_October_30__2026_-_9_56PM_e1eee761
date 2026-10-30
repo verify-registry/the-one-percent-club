@@ -1,0 +1,851 @@
+!CRITICAL SYSTEM INSTRUCTION: HAUTE HORLOGERIE 2.5D VECTOR ART UPGRADE IN `artifacts.js`.
+DO NOT MODIFY `crown4` (`crown_zenith`) OR `wid1` (`wid_mastercard`).
+DO NOT MODIFY CATALOG PRICES, NAMES, ORDER, TIERS, OR PURCHASE/EQUIP LOGIC.
+DO NOT USE EXTERNAL IMAGES, PNG/WEBP, OR BASE64.
+
+TASK: REPLACE THE 11 COLLECTIBLE SVGS IN `artifacts.js` WITH PRECISION 2.5D HAUTE HORLOGERIE & HIGH-JEWELRY VECTOR GRAPHICS AND REMOVE THE SMUDGY FLOOR SHADOW / HALO
+
+Look at `artifacts.js`:
+1. `renderClocheVitrine()` currently injects an ambient circle and a dark blurry floor ellipse (`cy="208"`) that looks like a dirty gray smudge under every item in Light Mode. Update `renderClocheVitrine(innerContent, uid)` so it returns ONLY `<g>${innerContent}</g>` on a 100% transparent background (zero background circles, zero oval floor shadows).
+2. In `sharedDefs`, replace the heavy blurry `#${uid}-drop-shadow` (`stdDeviation="6" flood-opacity="0.85"`) with a crisp, subtle horological contact elevation (`dx="0" dy="3" stdDeviation="2" flood-opacity="0.24"`) so there are no dark halos around the gold edges, while keeping all gradient IDs (`gold-imperial`, `gold-champagne`, `gold-burnished`, `gold-shadow`, `obsidian`, `obsidian-facet`, `emerald`, `emerald-glow`, `diamond`, `platinum-shade`, `ruby`) intact so `crown_zenith` is 100% unaffected.
+3. Replace ONLY the 11 collectible cases (`star_sovereign`, `aura_champagne`, `ring_monogram`, `crown_imperial`, `ring_onyx`, `art_horology`, `ring_emerald`, `aura_celestial`, `art_seal`, `star_zenith`, `art_scepter`) in `artifacts.js` while keeping `crown_zenith` (`crown4`) and `wid_mastercard` (`wid1`) untouched.
+
+Open `artifacts.js` and update it with the following complete, production-ready code (which preserves `aliasMap`, `crown_zenith`, and `wid_mastercard` verbatim):
+
+```javascript
+/**
+ * THE 1% CLUB — Sovereign Boutique Artifacts Engine
+ * Style: Swiss Haute Horlogerie & 2.5D High-Jewelry Vector Architecture
+ */
+
+function renderClocheVitrine(innerContent, uid) {
+  return `<g>${innerContent}</g>`;
+}
+
+window.getSovereignArtifact = function(idOrType) {
+  const uid = 'sov-' + Math.random().toString(36).substring(2, 9);
+
+  const aliasMap = {
+    'star1': 'star_sovereign',
+    'star2': 'star_sovereign',
+    'star3': 'star_sovereign',
+    'star4': 'star_zenith',
+    'crown1': 'crown_imperial',
+    'crown2': 'crown_imperial',
+    'crown3': 'crown_imperial',
+    'crown4': 'crown_zenith',
+    'aura1': 'aura_champagne',
+    'aura2': 'aura_champagne',
+    'aura3': 'aura_champagne',
+    'aura4': 'aura_celestial',
+    'ring1': 'ring_monogram',
+    'ring2': 'ring_onyx',
+    'ring3': 'ring_emerald',
+    'ring4': 'ring_emerald',
+    'art1': 'art_horology',
+    'art2': 'art_seal',
+    'art3': 'art_seal',
+    'art4': 'art_scepter',
+    'wid1': 'wid_mastercard',
+    'frame1': 'aura_champagne',
+    'frame2': 'aura_champagne',
+    'frame3': 'aura_champagne',
+    'frame4': 'aura_celestial',
+    'badge1': 'star_sovereign',
+    'Jet': 'art_horology',
+    'Yacht': 'art_seal',
+    'Estate': 'ring_onyx',
+    'Watch': 'art_horology',
+    'Car': 'ring_emerald',
+    'Art': 'star_zenith',
+    'Horse': 'crown_imperial',
+    'Island': 'aura_celestial'
+  };
+
+  const type = aliasMap[idOrType] || idOrType;
+
+  const sharedDefs = `
+    <defs>
+      <!-- Master 24K Imperial Gold -->
+      <linearGradient id="${uid}-gold-imperial" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFF6D6" />
+        <stop offset="18%" stop-color="#F5D37E" />
+        <stop offset="45%" stop-color="#D4AF37" />
+        <stop offset="72%" stop-color="#9A7220" />
+        <stop offset="92%" stop-color="#5C3E09" />
+        <stop offset="100%" stop-color="#8C6518" />
+      </linearGradient>
+
+      <!-- Champagne Specular Gold (High Luster) -->
+      <linearGradient id="${uid}-gold-champagne" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#7A5818" />
+        <stop offset="28%" stop-color="#C9A030" />
+        <stop offset="55%" stop-color="#FBE8B2" />
+        <stop offset="78%" stop-color="#FFFFFF" />
+        <stop offset="100%" stop-color="#E2BA58" />
+      </linearGradient>
+
+      <!-- Antique Burnished Gold (Deep Bevel Shade) -->
+      <linearGradient id="${uid}-gold-burnished" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#E0B85A" />
+        <stop offset="48%" stop-color="#9B7320" />
+        <stop offset="100%" stop-color="#3D2806" />
+      </linearGradient>
+
+      <!-- Deep Recessed Shadow Gold -->
+      <linearGradient id="${uid}-gold-shadow" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#61430E" />
+        <stop offset="55%" stop-color="#2E1F05" />
+        <stop offset="100%" stop-color="#140C02" />
+      </linearGradient>
+
+      <!-- Obsidian Enamel Core -->
+      <radialGradient id="${uid}-obsidian" cx="35%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#363A45" />
+        <stop offset="28%" stop-color="#171920" />
+        <stop offset="72%" stop-color="#07080B" />
+        <stop offset="100%" stop-color="#020203" />
+      </radialGradient>
+
+      <!-- Linear Chiseled Obsidian Facet -->
+      <linearGradient id="${uid}-obsidian-facet" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#3E424E" />
+        <stop offset="25%" stop-color="#1B1D24" />
+        <stop offset="68%" stop-color="#08090C" />
+        <stop offset="100%" stop-color="#22252E" />
+      </linearGradient>
+
+      <!-- Precision-Cut Sovereign Emerald -->
+      <linearGradient id="${uid}-emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#68F0A6" />
+        <stop offset="30%" stop-color="#169E56" />
+        <stop offset="68%" stop-color="#07582C" />
+        <stop offset="100%" stop-color="#02240F" />
+      </linearGradient>
+
+      <radialGradient id="${uid}-emerald-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#34D399" stop-opacity="0.25" />
+        <stop offset="100%" stop-color="#064E3B" stop-opacity="0" />
+      </radialGradient>
+
+      <!-- Diamond & Platinum Facet Cut -->
+      <linearGradient id="${uid}-diamond" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFFFFF" />
+        <stop offset="38%" stop-color="#EEF5FC" />
+        <stop offset="74%" stop-color="#B4C6D8" />
+        <stop offset="100%" stop-color="#607388" />
+      </linearGradient>
+
+      <linearGradient id="${uid}-platinum-shade" x1="100%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#DCE5EE" />
+        <stop offset="50%" stop-color="#8A99AC" />
+        <stop offset="100%" stop-color="#39424E" />
+      </linearGradient>
+
+      <!-- Pigeon-Blood Crimson Ruby -->
+      <radialGradient id="${uid}-ruby" cx="35%" cy="32%" r="65%">
+        <stop offset="0%" stop-color="#FF7A96" />
+        <stop offset="35%" stop-color="#CC1434" />
+        <stop offset="75%" stop-color="#5C0412" />
+        <stop offset="100%" stop-color="#240005" />
+      </radialGradient>
+
+      <!-- Clean Horological Elevation (Zero Smudge Halo) -->
+      <filter id="${uid}-drop-shadow" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.24" />
+      </filter>
+    </defs>
+  `;
+
+  let innerSvg = '';
+
+  switch (type) {
+    /* =====================================================================
+     * 1. star1 — Order of the Sovereign Star
+     * Royal Chivalric Grand Cross Breast Star (No background circle plate)
+     * ===================================================================== */
+    case 'star_sovereign': {
+      let secondaryFlutes = '';
+      for (let i = 0; i < 4; i++) {
+        const ang = i * 90 + 45;
+        secondaryFlutes += `
+          <g transform="rotate(${ang})">
+            <!-- Secondary Inter-Ray Cluster (3 Chiseled Antique Gold Spears) -->
+            <polygon points="0,-78 9,-34 0,-26" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.5"/>
+            <polygon points="0,-78 -9,-34 0,-26" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="0.5"/>
+            <polygon points="-16,-62 -5,-32 -12,-26" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.4"/>
+            <polygon points="16,-62 5,-32 12,-26" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.4"/>
+          </g>
+        `;
+      }
+      let primaryArms = '';
+      for (let i = 0; i < 4; i++) {
+        const ang = i * 90;
+        primaryArms += `
+          <g transform="rotate(${ang})">
+            <!-- Outer Beveled Maltese Sword Arm -->
+            <polygon points="0,-102 22,-36 0,-18" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.6"/>
+            <polygon points="0,-102 -22,-36 0,-18" fill="url(#${uid}-gold-champagne)" stroke="#FFF6D6" stroke-width="0.5"/>
+            <!-- Recessed Black Obsidian Enamel Inlay Inside Each Principal Arm -->
+            <polygon points="0,-82 10,-40 0,-30 -10,-40" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="0.9"/>
+            <line x1="0" y1="-82" x2="0" y2="-30" stroke="url(#${uid}-gold-champagne)" stroke-width="0.8"/>
+          </g>
+        `;
+      }
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 120)">
+          ${secondaryFlutes}
+          ${primaryArms}
+
+          <!-- Octagonal Step-Beveled Central Sovereign Medallion (Not a generic circle) -->
+          <polygon points="-16,-38 16,-38 38,-16 38,16 16,38 -16,38 -38,16 -38,-16" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.2"/>
+          <polygon points="-14,-33 14,-33 33,-14 33,14 14,33 -14,33 -33,14 -33,-14" fill="url(#${uid}-gold-champagne)" stroke="#5C3E09" stroke-width="0.9"/>
+          <polygon points="-12,-28 12,-28 28,-12 28,12 12,28 -12,28 -28,12 -28,-12" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.4"/>
+
+          <!-- 8 Corner Bezel Diamonds on Octagon -->
+          <g fill="url(#${uid}-diamond)" stroke="#3D2806" stroke-width="0.4">
+            <circle cx="-14" cy="-35" r="1.8"/><circle cx="14" cy="-35" r="1.8"/>
+            <circle cx="35" cy="-14" r="1.8"/><circle cx="35" cy="14" r="1.8"/>
+            <circle cx="14" cy="35" r="1.8"/><circle cx="-14" cy="35" r="1.8"/>
+            <circle cx="-35" cy="14" r="1.8"/><circle cx="-35" cy="-14" r="1.8"/>
+          </g>
+
+          <!-- Central Royal Monogram & Crown -->
+          <path d="M -9,-9 L -11,-17 L -4,-12 L 0,-19 L 4,-12 L 11,-17 L 9,-9 Z" fill="url(#${uid}-gold-champagne)"/>
+          <text x="0" y="13" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="19" font-weight="700" fill="url(#${uid}-gold-champagne)" letter-spacing="0.8">1%</text>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 2. aura1 — Champagne Radial Halo
+     * Horological Guilloché Solar Chronometer Ring (Open Hollow Center)
+     * ===================================================================== */
+    case 'aura_champagne': {
+      let sunSpokes = '';
+      for (let i = 0; i < 24; i++) {
+        const ang = i * 15;
+        const isMajor = i % 2 === 0;
+        const tipY = isMajor ? -100 : -80;
+        const w = isMajor ? 4.5 : 2.5;
+        sunSpokes += `
+          <g transform="rotate(${ang})">
+            <polygon points="0,${tipY} ${w},-58 0,-52" fill="url(#${uid}-gold-burnished)"/>
+            <polygon points="0,${tipY} -${w},-58 0,-52" fill="url(#${uid}-gold-champagne)"/>
+            ${isMajor ? `<polygon points="0,${tipY - 4} 2.2,${tipY + 3} 0,${tipY + 8} -2.2,${tipY + 3}" fill="url(#${uid}-diamond)" stroke="#5C3E09" stroke-width="0.4"/>` : ''}
+          </g>
+        `;
+      }
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 120)">
+          <!-- Precision Alternating Solar Spokes -->
+          ${sunSpokes}
+
+          <!-- Outer Horological Chapter Ring with Degree Notches -->
+          <circle cx="0" cy="0" r="64" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="2.5"/>
+          <circle cx="0" cy="0" r="64" fill="none" stroke="#2E1F05" stroke-width="2.5" stroke-dasharray="1.5 4.5"/>
+
+          <!-- Sculpted Beveled Champagne Gold Torus Ring -->
+          <circle cx="0" cy="0" r="56" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1.2"/>
+          <circle cx="0" cy="0" r="50" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.4"/>
+          <circle cx="0" cy="0" r="43" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="1" stroke-dasharray="2 3"/>
+
+          <!-- Internal Floating Compass Rose & Faceted Obsidian Cabochon -->
+          <polygon points="0,-42 6,-18 42,0 6,18 0,42 -6,18 -42,0 -6,-18" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="0.6"/>
+          <polygon points="0,-42 0,42 42,0" fill="url(#${uid}-gold-burnished)" opacity="0.45"/>
+          <circle cx="0" cy="0" r="22" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1"/>
+          <circle cx="0" cy="0" r="18.5" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-imperial)" stroke-width="1"/>
+          <polygon points="0,-11 2.8,-2.8 11,0 2.8,2.8 0,11 -2.8,2.8 -11,0 -2.8,-2.8" fill="url(#${uid}-gold-champagne)"/>
+          <circle cx="0" cy="0" r="2.2" fill="#FFFFFF"/>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 3. ring1 — Sovereign Monogram Signet
+     * True Three-Quarter Perspective Architectural Octagonal Signet Ring
+     * ===================================================================== */
+    case 'ring_monogram': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 118)">
+          <!-- Back Interior Wall of the Ring Band (Visible Through Finger Hole) -->
+          <path d="M -52,16 C -48,68 48,68 52,16 C 50,48 -50,48 -52,16 Z" fill="url(#${uid}-gold-shadow)" stroke="#2E1F05" stroke-width="1"/>
+          <!-- Inner Band Specular Curvature -->
+          <ellipse cx="0" cy="34" rx="46" ry="26" fill="none" stroke="url(#${uid}-gold-burnished)" stroke-width="6"/>
+          <path d="M -44,32 C -26,56 26,56 44,32" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="1.5"/>
+
+          <!-- Front Lower 3D Ring Shank (Thick Sculpted Gold Band) -->
+          <path d="M -64,10 C -68,78 68,78 64,10 L 46,24 C 42,60 -42,60 -46,24 Z" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.3"/>
+          <!-- Lower Shank Bevel Edge -->
+          <path d="M -56,28 C -40,68 40,68 56,28" fill="none" stroke="#FFF6D6" stroke-width="1.1" opacity="0.8"/>
+
+          <!-- Left & Right Three-Quarter Sculpted Shoulders -->
+          <polygon points="-78,-22 -52,-54 -44,12 -64,22" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1.1"/>
+          <polygon points="78,-22 52,-54 44,12 64,22" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="1.1"/>
+          <!-- Stepped Architectural Grooves on Shoulders -->
+          <polygon points="-70,-14 -53,-36 -49,0 -63,8" fill="url(#${uid}-gold-shadow)" stroke="url(#${uid}-gold-champagne)" stroke-width="0.8"/>
+          <polygon points="70,-14 53,-36 49,0 63,8" fill="url(#${uid}-gold-shadow)" stroke="url(#${uid}-gold-champagne)" stroke-width="0.8"/>
+
+          <!-- Top Tilted Octagonal Bezel Platform (Three-Quarter Perspective) -->
+          <polygon points="-36,-66 36,-66 68,-36 68,4 36,28 -36,28 -68,4 -68,-36" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.3"/>
+          <!-- Lower Bevel Lip of Octagonal Head -->
+          <polygon points="-68,4 -36,28 36,28 68,4 58,-2 32,18 -32,18 -58,-2" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.8"/>
+          <!-- Upper Champagne Gold Rim -->
+          <polygon points="-32,-58 32,-58 58,-32 58,-2 32,18 -32,18 -58,-2 -58,-32" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1.1"/>
+
+          <!-- Flat Polished Black Obsidian Signet Table -->
+          <polygon points="-28,-52 28,-52 51,-30 51,-4 28,13 -28,13 -51,-4 -51,-30" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.3"/>
+          <!-- Crisp Facet Reflection Line -->
+          <polyline points="-45,-28 -25,-47 24,-47" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+
+          <!-- Precision Sovereign Engraving in Center of Obsidian Table -->
+          <path d="M -12,-24 L -15,-34 L -6,-28 L 0,-36 L 6,-28 L 15,-34 L 12,-24 Z" fill="url(#${uid}-gold-champagne)"/>
+          <text x="0" y="2" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="22" font-weight="700" fill="url(#${uid}-gold-champagne)" letter-spacing="1">1%</text>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 4. crown1 — Imperial Obsidian Crown
+     * Royal Curved Arches, Black Obsidian Enamel Panels & Measured Emeralds
+     * ===================================================================== */
+    case 'crown_imperial': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 120)">
+          <!-- Imperial Curved Gold Diadem Arches (Behind Spires) -->
+          <path d="M -78,24 C -82,-36 -42,-68 0,-72 C 42,-68 82,-36 78,24" fill="none" stroke="url(#${uid}-gold-burnished)" stroke-width="5"/>
+          <path d="M -54,24 C -54,-28 -28,-62 0,-72 C 28,-62 54,-28 54,24" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="3" stroke-dasharray="4 2"/>
+
+          <!-- 4 Symmetrical Chiseled Black Obsidian Enamel Panels -->
+          <polygon points="-76,24 -84,-24 -64,-44 -48,-18 -48,24" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+          <polygon points="-46,24 -46,-38 -24,-60 -6,-30 -6,24" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+          <polygon points="6,24 6,-30 24,-60 46,-38 46,24" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+          <polygon points="48,24 48,-18 64,-44 84,-24 76,24" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+
+          <!-- 5 Precision Beveled Golden Spires -->
+          <!-- Far Left & Far Right Spires -->
+          <polygon points="-88,-28 -74,24 -64,24" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.8"/>
+          <polygon points="88,-28 74,24 64,24" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.8"/>
+          <circle cx="-88" cy="-31" r="2.8" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.6"/>
+          <circle cx="88" cy="-31" r="2.8" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.6"/>
+
+          <!-- Mid-Left & Mid-Right Spires -->
+          <polygon points="-47,-50 -58,24 -36,24" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+          <polygon points="-47,-50 -47,24 -36,24" fill="url(#${uid}-gold-burnished)"/>
+          <polygon points="-47,-22 -42,-12 -47,-2 -52,-12" fill="url(#${uid}-emerald)" stroke="#FFF6D6" stroke-width="0.7"/>
+          <circle cx="-47" cy="-54" r="3.2" fill="url(#${uid}-diamond)" stroke="#3D2806" stroke-width="0.5"/>
+
+          <polygon points="47,-50 36,24 58,24" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+          <polygon points="47,-50 47,24 58,24" fill="url(#${uid}-gold-burnished)"/>
+          <polygon points="47,-22 52,-12 47,-2 42,-12" fill="url(#${uid}-emerald)" stroke="#FFF6D6" stroke-width="0.7"/>
+          <circle cx="47" cy="-54" r="3.2" fill="url(#${uid}-diamond)" stroke="#3D2806" stroke-width="0.5"/>
+
+          <!-- Central Sovereign Monde & Cross Spire -->
+          <polygon points="0,-80 -18,24 18,24" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1"/>
+          <polygon points="0,-80 0,24 18,24" fill="url(#${uid}-gold-imperial)"/>
+          <!-- Central Step-Cut Emerald Lozenge -->
+          <polygon points="0,-46 10,-28 0,-10 -10,-28" fill="url(#${uid}-emerald)" stroke="#FFF6D6" stroke-width="1"/>
+          <!-- Top Imperial Cross Finial -->
+          <polygon points="0,-96 4,-86 11,-88 11,-81 4,-83 4,-76 -4,-76 -4,-83 -11,-81 -11,-88 -4,-86" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.7"/>
+
+          <!-- Heavy Beveled Gold Base Circlet -->
+          <polygon points="-82,22 82,22 86,52 -86,52" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.3"/>
+          <rect x="-78" y="27" width="156" height="20" rx="2" fill="#100C05" stroke="url(#${uid}-gold-champagne)" stroke-width="1"/>
+          <!-- Upper & Lower Milled Gold Rails -->
+          <rect x="-85" y="20" width="170" height="4" rx="2" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.8"/>
+          <rect x="-88" y="50" width="176" height="4.5" rx="2" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.8"/>
+
+          <!-- Measured Emerald & Diamond Settings on Circlet -->
+          <rect x="-68" y="32" width="14" height="10" rx="1" fill="url(#${uid}-emerald)" stroke="url(#${uid}-gold-champagne)" stroke-width="0.9"/>
+          <circle cx="-38" cy="37" r="3" fill="url(#${uid}-diamond)"/>
+          <circle cx="38" cy="37" r="3" fill="url(#${uid}-diamond)"/>
+          <rect x="54" y="32" width="14" height="10" rx="1" fill="url(#${uid}-emerald)" stroke="url(#${uid}-gold-champagne)" stroke-width="0.9"/>
+
+          <!-- Central 1% Plaque -->
+          <rect x="-17" y="29" width="34" height="16" rx="2" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-champagne)" stroke-width="1.2"/>
+          <text x="0" y="41" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="12" font-weight="700" fill="url(#${uid}-gold-champagne)">1%</text>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 5. ring2 — Black Onyx Intaglio Signet
+     * Distinct Cushion-Cut / Oblong Rectangular Bezel with 3D Gadrooned Band
+     * ===================================================================== */
+    case 'ring_onyx': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 118)">
+          <!-- Visible Lower 3D Ring Loop (Angled Side-Perspective) -->
+          <path d="M -46,20 C -44,68 44,68 46,20 C 42,48 -42,48 -46,20 Z" fill="url(#${uid}-gold-shadow)" stroke="#2E1F05" stroke-width="1"/>
+          <path d="M -58,12 C -62,80 62,80 58,12 L 42,26 C 36,62 -36,62 -42,26 Z" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="1.3"/>
+          <path d="M -48,32 C -32,68 32,68 48,32" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="1.4"/>
+
+          <!-- 3D Gadrooned (Ribbed) Gold Shoulders -->
+          <path d="M -84,-10 C -84,-34 -66,-50 -52,-52 L -46,16 L -62,24 C -76,14 -84,2 -84,-10 Z" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.2"/>
+          <path d="M 84,-10 C 84,-34 66,-50 52,-52 L 46,16 L 62,24 C 76,14 84,2 84,-10 Z" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="1.2"/>
+          <!-- Side Relief Engraving on Left & Right Shoulders -->
+          <line x1="-78" y1="-18" x2="-52" y2="-30" stroke="url(#${uid}-gold-champagne)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-76" y1="-6" x2="-50" y2="-16" stroke="url(#${uid}-gold-champagne)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-72" y1="6" x2="-48" y2="-2" stroke="url(#${uid}-gold-champagne)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="78" y1="-18" x2="52" y2="-30" stroke="url(#${uid}-gold-champagne)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="76" y1="-6" x2="50" y2="-16" stroke="url(#${uid}-gold-champagne)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="72" y1="6" x2="48" y2="-2" stroke="url(#${uid}-gold-champagne)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Oblong Cushion-Cut / Chamfered Rectangular Signet Head (Distinct from ring1) -->
+          <rect x="-56" y="-64" width="112" height="84" rx="18" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.4"/>
+          <rect x="-50" y="-58" width="100" height="72" rx="14" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1.1"/>
+          <!-- Deep Polished Black Onyx Cushion Stone -->
+          <rect x="-44" y="-52" width="88" height="60" rx="10" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.4"/>
+
+          <!-- Intaglio Recessed Imperial Double-Headed Eagle Inside Onyx -->
+          <g transform="translate(0, -22) scale(0.95)">
+            <path d="M -4,-6 L -32,-20 L -26,-10 L -34,-4 L -24,2 L -28,8 L -16,10 L -6,4 Z" fill="url(#${uid}-platinum-shade)" stroke="#07080B" stroke-width="0.6"/>
+            <path d="M 4,-6 L 32,-20 L 26,-10 L 34,-4 L 24,2 L 28,8 L 16,10 L 6,4 Z" fill="url(#${uid}-diamond)" stroke="#07080B" stroke-width="0.6"/>
+            <path d="M -2,-7 C -4,-15 -9,-20 -16,-18 L -11,-13 L -14,-10 L -5,-5 Z" fill="url(#${uid}-diamond)"/>
+            <path d="M 2,-7 C 4,-15 9,-20 16,-18 L 11,-13 L 14,-10 L 5,-5 Z" fill="url(#${uid}-diamond)"/>
+            <polygon points="-7,-22 0,-28 7,-22 4,-18 -4,-18" fill="url(#${uid}-gold-champagne)"/>
+            <polygon points="-8,-6 8,-6 7,8 0,15 -7,8" fill="#0B0C10" stroke="url(#${uid}-gold-champagne)" stroke-width="1"/>
+            <polygon points="-4,13 0,24 4,13 9,19 0,27 -9,19" fill="url(#${uid}-platinum-shade)"/>
+          </g>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 6. art1 — Haute Horlogerie Pocket Relic
+     * Swiss Openworked Tourbillon Pocket Chronometer
+     * ===================================================================== */
+    case 'art_horology': {
+      let indices = '';
+      for (let i = 0; i < 60; i++) {
+        const ang = i * 6;
+        const isFive = i % 5 === 0;
+        const rInner = isFive ? 53 : 57;
+        const w = isFive ? 1.8 : 0.7;
+        indices += `<line x1="0" y1="-${rInner}" x2="0" y2="-60" stroke="url(#${uid}-gold-champagne)" stroke-width="${w}" transform="rotate(${ang})"/>`;
+      }
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 124)">
+          <!-- Sculpted Suspension Bow, Pendant Neck & Fluted Winding Crown -->
+          <path d="M -24,-82 C -28,-112 28,-112 24,-82" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="5" stroke-linecap="round"/>
+          <path d="M -22,-82 C -25,-108 25,-108 22,-82" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="1.4"/>
+          <rect x="-8" y="-83" width="16" height="10" rx="2" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="1"/>
+          <rect x="-13" y="-91" width="26" height="8" rx="3" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1"/>
+          <line x1="-7" y1="-91" x2="-7" y2="-83" stroke="#3D2806" stroke-width="1"/>
+          <line x1="0" y1="-91" x2="0" y2="-83" stroke="#3D2806" stroke-width="1"/>
+          <line x1="7" y1="-91" x2="7" y2="-83" stroke="#3D2806" stroke-width="1"/>
+
+          <!-- Stepped 24K Gold Pocket Watch Case -->
+          <circle cx="0" cy="0" r="76" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.6"/>
+          <circle cx="0" cy="0" r="70" fill="url(#${uid}-gold-champagne)" stroke="#5C3E09" stroke-width="1"/>
+          <circle cx="0" cy="0" r="65" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.6"/>
+
+          <!-- Precision Railway Track & Baton Hour Markers -->
+          <circle cx="0" cy="0" r="60" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="0.8"/>
+          ${indices}
+          <circle cx="0" cy="0" r="47" fill="#060709" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+
+          <!-- Mechanical Bridges & Gear Train -->
+          <!-- Top Barrel Bridge -->
+          <path d="M -32,-18 L 32,-18" stroke="url(#${uid}-gold-burnished)" stroke-width="4" stroke-linecap="round"/>
+          <!-- Twin Interlocking Gold Gears -->
+          <g transform="translate(-18, -6)">
+            <circle cx="0" cy="0" r="13" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="2.4" stroke-dasharray="3 2"/>
+            <circle cx="0" cy="0" r="9" fill="#0C0A06" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+            <line x1="-9" y1="0" x2="9" y2="0" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+            <line x1="0" y1="-9" x2="0" y2="9" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+            <circle cx="0" cy="0" r="2.2" fill="url(#${uid}-ruby)"/>
+          </g>
+          <g transform="translate(18, -6)">
+            <circle cx="0" cy="0" r="13" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="2.4" stroke-dasharray="3 2"/>
+            <circle cx="0" cy="0" r="9" fill="#0C0A06" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+            <line x1="-6.5" y1="-6.5" x2="6.5" y2="6.5" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+            <line x1="6.5" y1="-6.5" x2="-6.5" y2="6.5" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+            <circle cx="0" cy="0" r="2.2" fill="url(#${uid}-ruby)"/>
+          </g>
+
+          <!-- 6 O'Clock Haute Horlogerie Tourbillon Bridge & Cage -->
+          <line x1="-36" y1="22" x2="36" y2="22" stroke="url(#${uid}-gold-champagne)" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="0" cy="22" r="15" fill="#040507" stroke="url(#${uid}-gold-imperial)" stroke-width="1.8"/>
+          <polygon points="0,9 11,22 0,35 -11,22" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="1.3"/>
+          <circle cx="0" cy="22" r="3" fill="url(#${uid}-ruby)" stroke="#FFF6D6" stroke-width="0.6"/>
+
+          <!-- 12 O'Clock Sovereign Cartouche -->
+          <rect x="-15" y="-35" width="30" height="13" rx="2" fill="#08090C" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+          <text x="0" y="-26" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="9.5" font-weight="700" fill="url(#${uid}-gold-champagne)">1%</text>
+
+          <!-- Precision Dauphine Hands -->
+          <polygon points="0,3 -3,-2 0,-28 3,-2" fill="url(#${uid}-gold-champagne)" transform="rotate(-48)"/>
+          <polygon points="0,3 -2.2,-2 0,-42 2.2,-2" fill="url(#${uid}-gold-champagne)" transform="rotate(62)"/>
+          <circle cx="0" cy="0" r="4.2" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 7. ring3 — Falcon Emerald Sovereign Signet
+     * Sculpted 3D Ring Body with Step-Cut Emerald & Geometric Falcon Relief
+     * ===================================================================== */
+    case 'ring_emerald': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 118)">
+          <!-- Visible Inner & Lower 3D Ring Shank -->
+          <path d="M -50,18 C -46,68 46,68 50,18 C 46,48 -46,48 -50,18 Z" fill="url(#${uid}-gold-shadow)" stroke="#2E1F05" stroke-width="1"/>
+          <path d="M -62,10 C -66,78 66,78 62,10 L 45,24 C 40,60 -40,60 -45,24 Z" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.3"/>
+          <path d="M -52,30 C -36,66 36,66 52,30" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="1.3"/>
+
+          <!-- Heavy Tapered 3D Gold Shoulders -->
+          <polygon points="-80,-18 -50,-56 -44,14 -62,22" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1.2"/>
+          <polygon points="80,-18 50,-56 44,14 62,22" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="1.2"/>
+          <!-- Recessed Obsidian Inlay on Right Shoulder with 1% -->
+          <polygon points="73,-10 53,-36 49,4 64,12" fill="#090A0D" stroke="url(#${uid}-gold-champagne)" stroke-width="0.9"/>
+          <text x="60" y="-6" transform="rotate(18 60 -6)" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="10" font-weight="700" fill="url(#${uid}-gold-champagne)">1%</text>
+
+          <!-- Beveled Octagonal Gold Gallery Setting -->
+          <polygon points="-36,-66 36,-66 66,-36 66,6 36,30 -36,30 -66,6 -66,-36" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.3"/>
+          <polygon points="-31,-58 31,-58 58,-31 58,2 31,22 -31,22 -58,2 -58,-31" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1.1"/>
+
+          <!-- Multi-Faceted Step-Cut Emerald Gemstone -->
+          <polygon points="-27,-52 27,-52 51,-28 51,-1 27,17 -27,17 -51,-1 -51,-28" fill="url(#${uid}-emerald)" stroke="#02240F" stroke-width="1.3"/>
+          <polygon points="-19,-40 19,-40 37,-21 37,-5 19,8 -19,8 -37,-5 -37,-21" fill="url(#${uid}-emerald)" stroke="#68F0A6" stroke-width="0.9"/>
+          <!-- Precision Step-Cut Corner Miters -->
+          <line x1="-27" y1="-52" x2="-19" y2="-40" stroke="#68F0A6" stroke-width="0.9"/>
+          <line x1="27" y1="-52" x2="19" y2="-40" stroke="#68F0A6" stroke-width="0.9"/>
+          <line x1="51" y1="-28" x2="37" y2="-21" stroke="#68F0A6" stroke-width="0.9"/>
+          <line x1="-51" y1="-28" x2="-37" y2="-21" stroke="#68F0A6" stroke-width="0.9"/>
+          <line x1="51" y1="-1" x2="37" y2="-5" stroke="#02240F" stroke-width="1"/>
+          <line x1="-51" y1="-1" x2="-37" y2="-5" stroke="#02240F" stroke-width="1"/>
+
+          <!-- Sculpted Geometric 24K Gold Falcon Head Relief -->
+          <g transform="translate(0, -16)">
+            <polygon points="-16,14 -12,-4 -3,-16 11,-18 22,-9 16,-2 10,-5 12,4 3,9 5,14" fill="url(#${uid}-gold-champagne)" stroke="#2E1F05" stroke-width="1"/>
+            <polygon points="11,-18 24,-10 19,-1 14,-7" fill="#FFF6D6" stroke="#3D2806" stroke-width="0.8"/>
+            <polygon points="2,-10 8,-11 6,-7 1,-7" fill="#07080B"/>
+            <polyline points="-9,3 -1,-1 4,4" fill="none" stroke="#3D2806" stroke-width="1.2"/>
+          </g>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 8. aura4 — Celestial Apex Radiance
+     * Mechanical Astrolabe & Armillary Sphere on Calibrated Cradle
+     * ===================================================================== */
+    case 'aura_celestial': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 114)">
+          <!-- Astrolabe Calibrated Base Pedestal & Cradle Arc -->
+          <path d="M -56,64 A 78,78 0 0,0 56,64" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="3.5" stroke-linecap="round"/>
+          <polygon points="-8,74 8,74 14,90 -14,90" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="1"/>
+          <rect x="-28" y="90" width="56" height="6" rx="3" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1"/>
+
+          <!-- Rear Orbital Rings -->
+          <ellipse cx="0" cy="-4" rx="84" ry="28" transform="rotate(-28 0 -4)" fill="none" stroke="url(#${uid}-gold-burnished)" stroke-width="3.5"/>
+          <ellipse cx="0" cy="-4" rx="78" ry="24" transform="rotate(32 0 -4)" fill="none" stroke="url(#${uid}-gold-burnished)" stroke-width="3"/>
+
+          <!-- Outer Graduated Meridian Ring -->
+          <circle cx="0" cy="-4" r="68" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="5"/>
+          <circle cx="0" cy="-4" r="68" fill="none" stroke="#2E1F05" stroke-width="2" stroke-dasharray="1.5 5.5"/>
+          <circle cx="0" cy="-4" r="64" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="0.9"/>
+
+          <!-- Central Black Obsidian Celestial Sphere -->
+          <circle cx="0" cy="-4" r="38" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.8"/>
+          <ellipse cx="0" cy="-4" rx="38" ry="12" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+          <ellipse cx="0" cy="-4" rx="14" ry="38" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+
+          <!-- Foreground Intersecting Astrolabe Rings -->
+          <path d="M -74,31 A 84,28 0 0,0 74,-39" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="3.8" stroke-linecap="round"/>
+          <path d="M -66,-45 A 78,24 0 0,0 66,37" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="3.4" stroke-linecap="round"/>
+          <ellipse cx="0" cy="-4" rx="88" ry="14" transform="rotate(-6 0 -4)" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="2.4"/>
+
+          <!-- Precision Gold Planetary Nodes -->
+          <circle cx="-58" cy="-36" r="6" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+          <circle cx="60" cy="22" r="5" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+          <circle cx="-78" cy="4" r="4" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.8"/>
+          <circle cx="66" cy="-32" r="4.5" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.8"/>
+
+          <!-- Central Geometric Compass Star -->
+          <polygon points="0,-28 4.5,-5 28,-4 4.5,3 0,20 -4.5,3 -28,-4 -4.5,-5" fill="url(#${uid}-gold-champagne)"/>
+          <circle cx="0" cy="-4" r="3.5" fill="#FFFFFF"/>
+
+          <!-- North Pole Zenith Finial -->
+          <polygon points="0,-92 4,-78 14,-74 4,-70 0,-58 -4,-70 -14,-74 -4,-78" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.6"/>
+
+          <!-- Meridian 1% Plaque -->
+          <rect x="-15" y="56" width="30" height="14" rx="2" fill="#08090C" stroke="url(#${uid}-gold-champagne)" stroke-width="1.1"/>
+          <text x="0" y="66.5" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="10" font-weight="700" fill="url(#${uid}-gold-champagne)">1%</text>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 9. art2 — The Sovereign Gold Seal
+     * Architectural Upright-Angled Desk Seal Matrix with Faceted Obsidian Pillar
+     * ===================================================================== */
+    case 'art_seal': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 118) rotate(28)">
+          <!-- Top Finial Cap on Obsidian Handle -->
+          <ellipse cx="0" cy="-86" rx="18" ry="6" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1"/>
+          <polygon points="0,-96 6,-86 -6,-86" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="0.8"/>
+
+          <!-- Faceted Octagonal Black Obsidian Handle Pillar -->
+          <polygon points="-18,-84 18,-84 24,-34 13,2 -13,2 -24,-34" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+          <!-- Central Facet Planes on Handle -->
+          <polygon points="-8,-84 8,-84 11,-34 6,2 -6,2 -11,-34" fill="#1E222B" opacity="0.65"/>
+          <line x1="-8" y1="-84" x2="-6" y2="2" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4"/>
+          <line x1="8" y1="-84" x2="6" y2="2" stroke="#050608" stroke-width="1.2" opacity="0.7"/>
+
+          <!-- Stepped 24K Gold Neck Collars (Ferrules) -->
+          <rect x="-18" y="0" width="36" height="8" rx="3" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1"/>
+          <polygon points="-24,8 24,8 34,22 -34,22" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="1"/>
+          <rect x="-38" y="20" width="76" height="8" rx="3" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1"/>
+
+          <!-- Heavy Chiseled Gold Seal Matrix Base -->
+          <polygon points="-44,28 44,28 50,52 -50,52" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1.3"/>
+          <line x1="-30" y1="28" x2="-34" y2="52" stroke="#3D2806" stroke-width="0.9"/>
+          <line x1="30" y1="28" x2="34" y2="52" stroke="#3D2806" stroke-width="0.9"/>
+
+          <!-- Tilted Bottom Engraved Gold Stamp Die Face -->
+          <ellipse cx="0" cy="54" rx="50" ry="24" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1.4"/>
+          <ellipse cx="0" cy="54" rx="43" ry="19.5" fill="url(#${uid}-gold-burnished)" stroke="#2E1F05" stroke-width="1.3"/>
+          <ellipse cx="0" cy="54" rx="38" ry="16.5" fill="#140E04" stroke="url(#${uid}-gold-champagne)" stroke-width="0.9" stroke-dasharray="3 2"/>
+
+          <!-- Engraved Sovereign Insignia on Die Face -->
+          <path d="M -11,48 L -14,40 L -5,44 L 0,38 L 5,44 L 14,40 L 11,48 Z" fill="url(#${uid}-gold-champagne)"/>
+          <text x="0" y="64" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="17" font-weight="700" fill="url(#${uid}-gold-champagne)" letter-spacing="1">1%</text>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 10. star4 — Zenith Diamond Star
+     * Precision-Cut High-Jewelry Diamond & Gold Starburst (No background circle)
+     * ===================================================================== */
+    case 'star_zenith': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 120)">
+          <!-- 4 Inter-Cardinal Champagne Gold Kite Facets -->
+          <g>
+            <polygon points="0,0 64,-64 26,-12" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.7"/>
+            <polygon points="0,0 64,-64 12,-26" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.7"/>
+            <polygon points="0,0 64,64 12,26" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.7"/>
+            <polygon points="0,0 64,64 26,12" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.7"/>
+            <polygon points="0,0 -64,64 -26,12" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.7"/>
+            <polygon points="0,0 -64,64 -12,26" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.7"/>
+            <polygon points="0,0 -64,-64 -12,-26" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.7"/>
+            <polygon points="0,0 -64,-64 -26,-12" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="0.7"/>
+          </g>
+
+          <!-- 4 Baguette-Cut Diamond Bridges Between Rays -->
+          <polygon points="0,-52 38,-38 24,-24 -14,-38" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+          <polygon points="52,0 38,38 24,24 38,-14" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+          <polygon points="0,52 -38,38 -24,24 14,38" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+          <polygon points="-52,0 -38,-38 -24,-24 -38,14" fill="none" stroke="url(#${uid}-gold-imperial)" stroke-width="1.2"/>
+
+          <!-- 4 Principal Elongated Crystal-Diamond Rays -->
+          <g>
+            <polygon points="0,0 0,-104 20,-32" fill="url(#${uid}-platinum-shade)" stroke="#39424E" stroke-width="0.8"/>
+            <polygon points="0,0 0,-104 -20,-32" fill="url(#${uid}-diamond)" stroke="#FFFFFF" stroke-width="0.6"/>
+            <polygon points="0,0 104,0 32,20" fill="url(#${uid}-platinum-shade)" stroke="#39424E" stroke-width="0.8"/>
+            <polygon points="0,0 104,0 32,-20" fill="url(#${uid}-diamond)" stroke="#FFFFFF" stroke-width="0.6"/>
+            <polygon points="0,0 0,104 -20,32" fill="url(#${uid}-platinum-shade)" stroke="#39424E" stroke-width="0.8"/>
+            <polygon points="0,0 0,104 20,32" fill="url(#${uid}-diamond)" stroke="#FFFFFF" stroke-width="0.6"/>
+            <polygon points="0,0 -104,0 -32,-20" fill="url(#${uid}-platinum-shade)" stroke="#39424E" stroke-width="0.8"/>
+            <polygon points="0,0 -104,0 -32,20" fill="url(#${uid}-diamond)" stroke="#FFFFFF" stroke-width="0.6"/>
+          </g>
+
+          <!-- Internal Step-Cut Facet Lines on Crystal Rays -->
+          <g stroke="url(#${uid}-gold-imperial)" stroke-width="0.9" fill="none">
+            <polyline points="-10,-32 0,-74 10,-32"/>
+            <polyline points="32,-10 74,0 32,10"/>
+            <polyline points="-10,32 0,74 10,32"/>
+            <polyline points="-32,-10 -74,0 -32,10"/>
+          </g>
+
+          <!-- Central 8-Claw Gold Setting & Asscher-Cut Black Diamond -->
+          <polygon points="0,-36 25,-25 36,0 25,25 0,36 -25,25 -36,0 -25,-25" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1.2"/>
+          <polygon points="-11,-25 11,-25 25,-11 25,11 11,25 -11,25 -25,11 -25,-11" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.4"/>
+          <polygon points="-7,-15 7,-15 15,-7 15,7 7,15 -7,15 -15,7 -15,-7" fill="#050608" stroke="url(#${uid}-diamond)" stroke-width="0.9"/>
+          <line x1="-11" y1="-25" x2="-7" y2="-15" stroke="#FFFFFF" stroke-width="0.9" opacity="0.75"/>
+          <line x1="11" y1="-25" x2="7" y2="-15" stroke="#FFFFFF" stroke-width="0.9" opacity="0.75"/>
+          <line x1="25" y1="-11" x2="15" y2="-7" stroke="#FFFFFF" stroke-width="0.9" opacity="0.75"/>
+          <line x1="-25" y1="-11" x2="-15" y2="-7" stroke="#FFFFFF" stroke-width="0.9" opacity="0.75"/>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 11. crown4 — Celestial Zenith Imperial Crown (STRICTLY PRESERVED)
+     * ===================================================================== */
+    case 'crown_zenith': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 115) scale(1.08) translate(-120, -115)">
+          <!-- Ambient Emerald Core Glow -->
+          <circle cx="120" cy="105" r="72" fill="url(#${uid}-emerald-glow)" />
+
+          <!-- Inner Velvet/Obsidian Cap -->
+          <path d="M 52,148 C 48,95 78,62 120,62 C 162,62 192,95 188,148 Z" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-burnished)" stroke-width="1.5" />
+          
+          <!-- Structural Gold Lattice on Cap -->
+          <path d="M 85,148 C 85,100 100,68 120,62 C 140,68 155,100 155,148" fill="none" stroke="url(#${uid}-gold-burnished)" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6" />
+          <line x1="120" y1="62" x2="120" y2="148" stroke="url(#${uid}-gold-champagne)" stroke-width="2" opacity="0.8" />
+
+          <!-- Rear Twin Spires -->
+          <polygon points="68,145 58,82 78,108" fill="url(#${uid}-gold-burnished)" />
+          <polygon points="172,145 182,82 162,108" fill="url(#${uid}-gold-burnished)" />
+          <circle cx="58" cy="79" r="3" fill="url(#${uid}-diamond)" />
+          <circle cx="182" cy="79" r="3" fill="url(#${uid}-diamond)" />
+
+          <!-- Main Imperial Arches & 5 Zenith Peaks -->
+          <!-- Far Left Peak -->
+          <path d="M 44,148 L 36,92 L 66,122 L 75,148 Z" fill="url(#${uid}-gold-imperial)" stroke="url(#${uid}-gold-champagne)" stroke-width="1" />
+          <!-- Mid Left Peak -->
+          <path d="M 64,148 L 74,68 L 102,115 L 96,148 Z" fill="url(#${uid}-gold-imperial)" stroke="url(#${uid}-gold-champagne)" stroke-width="1.2" />
+          <!-- Far Right Peak -->
+          <path d="M 196,148 L 204,92 L 174,122 L 165,148 Z" fill="url(#${uid}-gold-burnished)" stroke="url(#${uid}-gold-champagne)" stroke-width="1" />
+          <!-- Mid Right Peak -->
+          <path d="M 176,148 L 166,68 L 138,115 L 144,148 Z" fill="url(#${uid}-gold-burnished)" stroke="url(#${uid}-gold-champagne)" stroke-width="1.2" />
+
+          <!-- Center Sovereign Zenith Spire -->
+          <polygon points="120,38 94,148 120,142" fill="url(#${uid}-gold-champagne)" />
+          <polygon points="120,38 146,148 120,142" fill="url(#${uid}-gold-imperial)" />
+          <path d="M 120,38 L 94,148 L 120,142 L 146,148 Z" fill="none" stroke="#FFF6D6" stroke-width="1" />
+
+          <!-- Spire Finials (Diamonds & Monde Cross) -->
+          <g transform="translate(120, 30)">
+            <polygon points="0,-10 3,-3 10,0 3,3 0,10 -3,3 -10,0 -3,-3" fill="url(#${uid}-diamond)" />
+            <circle cx="0" cy="0" r="2.5" fill="#FFFFFF" />
+          </g>
+          <polygon points="74,60 77,66 74,72 71,66" fill="url(#${uid}-diamond)" />
+          <polygon points="166,60 169,66 166,72 163,66" fill="url(#${uid}-diamond)" />
+          <circle cx="36" cy="89" r="3" fill="url(#${uid}-gold-champagne)" />
+          <circle cx="204" cy="89" r="3" fill="url(#${uid}-gold-champagne)" />
+
+          <!-- Center Grand Emerald Cut Gemstone -->
+          <g transform="translate(120, 102)">
+            <polygon points="0,-24 15,-10 15,12 0,24 -15,12 -15,-10" fill="url(#${uid}-gold-shadow)" stroke="url(#${uid}-gold-champagne)" stroke-width="1.5" />
+            <polygon points="0,-20 12,-8 12,10 0,20 -12,10 -12,-8" fill="url(#${uid}-emerald)" />
+            <polygon points="0,-13 7,-5 7,6 0,13 -7,6 -7,-5" fill="none" stroke="#A7F3D0" stroke-width="0.9" opacity="0.8" />
+            <line x1="-12" y1="-8" x2="-7" y2="-5" stroke="#A7F3D0" stroke-width="0.8" />
+            <line x1="12" y1="-8" x2="7" y2="-5" stroke="#A7F3D0" stroke-width="0.8" />
+            <line x1="12" y1="10" x2="7" y2="6" stroke="#047857" stroke-width="0.8" />
+            <line x1="-12" y1="10" x2="-7" y2="6" stroke="#047857" stroke-width="0.8" />
+          </g>
+
+          <!-- Side Emeralds on Mid Peaks -->
+          <polygon points="78,96 84,106 78,118 72,106" fill="url(#${uid}-emerald)" stroke="url(#${uid}-gold-champagne)" stroke-width="1" />
+          <polygon points="162,96 168,106 162,118 156,106" fill="url(#${uid}-emerald)" stroke="url(#${uid}-gold-champagne)" stroke-width="1" />
+
+          <!-- Heavy Imperial Base Band (Circlet) -->
+          <path d="M 40,146 L 200,146 L 204,168 L 36,168 Z" fill="url(#${uid}-gold-imperial)" stroke="url(#${uid}-gold-burnished)" stroke-width="1.5" />
+          <rect x="42" y="150" width="156" height="14" rx="2" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-champagne)" stroke-width="1" />
+          <path d="M 34,146 L 206,146" stroke="url(#${uid}-gold-champagne)" stroke-width="3" stroke-linecap="round" />
+          <path d="M 32,168 L 208,168" stroke="url(#${uid}-gold-champagne)" stroke-width="3.5" stroke-linecap="round" />
+
+          <!-- Circlet Jewels & 1% Insignia -->
+          <polygon points="62,152 68,157 62,162 56,157" fill="url(#${uid}-emerald)" stroke="url(#${uid}-gold-champagne)" stroke-width="0.8" />
+          <polygon points="90,152 96,157 90,162 84,157" fill="url(#${uid}-diamond)" />
+          <polygon points="150,152 156,157 150,162 144,157" fill="url(#${uid}-diamond)" />
+          <polygon points="178,152 184,157 178,162 172,157" fill="url(#${uid}-emerald)" stroke="url(#${uid}-gold-champagne)" stroke-width="0.8" />
+
+          <rect x="106" y="148" width="28" height="18" rx="3" fill="url(#${uid}-obsidian)" stroke="url(#${uid}-gold-champagne)" stroke-width="1.4" />
+          <text x="120" y="161" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="11" font-weight="700" fill="url(#${uid}-gold-champagne)">1%</text>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 12. art4 — Sovereign Scepter
+     * Architectural Sovereign Regalia Scepter with Faceted Gem & Fluted Wings
+     * ===================================================================== */
+    case 'art_scepter': {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(120, 120) rotate(34)">
+          <!-- Top Sovereign Cross Pattée Finial -->
+          <polygon points="0,-108 5,-96 14,-98 14,-90 5,-92 5,-82 -5,-82 -5,-92 -14,-90 -14,-98 -5,-96" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.8"/>
+          <circle cx="0" cy="-94" r="2.2" fill="url(#${uid}-diamond)"/>
+
+          <!-- Architectural Sovereign Head: Flanked Wing Guards & Faceted Ruby Heart -->
+          <!-- Left & Right Sculpted Golden Sovereign Wings -->
+          <polygon points="-14,-76 -28,-66 -24,-42 -12,-34" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="1"/>
+          <polygon points="14,-76 28,-66 24,-42 12,-34" fill="url(#${uid}-gold-burnished)" stroke="#3D2806" stroke-width="1"/>
+          <!-- Central Octagonal Step-Cut Crimson Ruby -->
+          <polygon points="-10,-78 10,-78 20,-66 20,-46 10,-34 -10,-34 -20,-46 -20,-66" fill="url(#${uid}-ruby)" stroke="url(#${uid}-gold-imperial)" stroke-width="1.5"/>
+          <polygon points="-6,-68 6,-68 12,-60 12,-52 6,-44 -6,-44 -12,-52 -12,-60" fill="none" stroke="#FF9EB5" stroke-width="0.9"/>
+          <!-- Golden Ribbed Sovereign Claws Holding Ruby -->
+          <line x1="-20" y1="-56" x2="20" y2="-56" stroke="url(#${uid}-gold-champagne)" stroke-width="2.5"/>
+          <line x1="0" y1="-78" x2="0" y2="-34" stroke="url(#${uid}-gold-champagne)" stroke-width="2.5"/>
+          <circle cx="0" cy="-56" r="3" fill="url(#${uid}-diamond)" stroke="#3D2806" stroke-width="0.6"/>
+
+          <!-- Stepped Capital Collar -->
+          <polygon points="-18,-34 18,-34 12,-20 -12,-20" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1"/>
+          <rect x="-15" y="-20" width="30" height="6" rx="2" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+
+          <!-- Heavy Octagonal Black Obsidian Shaft with Twin Golden Knops -->
+          <polygon points="-9,-14 9,-14 8,22 -8,22" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="0.9"/>
+          <line x1="-3.5" y1="-13" x2="-3.5" y2="21" stroke="#FFFFFF" stroke-width="1.3" opacity="0.45"/>
+
+          <!-- Center 1% Sovereign Ring Knop -->
+          <rect x="-12" y="22" width="24" height="8" rx="2" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+          <text x="0" y="28.5" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="6.5" font-weight="700" fill="#140C02">1%</text>
+
+          <!-- Lower Obsidian Shaft Segment -->
+          <polygon points="-8,30 8,30 7,66 -7,66" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="0.9"/>
+          <line x1="-3" y1="31" x2="-3" y2="65" stroke="#FFFFFF" stroke-width="1.3" opacity="0.45"/>
+
+          <!-- Chiseled Lower Pommel & Diamond-Point Counterweight -->
+          <rect x="-11" y="66" width="22" height="6" rx="2" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+          <polygon points="-14,72 14,72 9,86 -9,86" fill="url(#${uid}-gold-imperial)" stroke="#3D2806" stroke-width="1"/>
+          <polygon points="-6,86 6,86 0,108" fill="url(#${uid}-gold-champagne)" stroke="#3D2806" stroke-width="0.9"/>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+
+    /* =====================================================================
+     * 13. wid1 — Sovereign Master Card Widget (STRICTLY PRESERVED)
+     * ===================================================================== */
+    case 'wid_mastercard':
+    default: {
+      const content = `
+        <g filter="url(#${uid}-drop-shadow)" transform="translate(20, 52)">
+          <rect x="0" y="0" width="200" height="126" rx="12" fill="url(#${uid}-obsidian-facet)" stroke="url(#${uid}-gold-imperial)" stroke-width="2"/>
+          <rect x="6" y="6" width="188" height="114" rx="8" fill="none" stroke="url(#${uid}-gold-champagne)" stroke-width="0.8" opacity="0.5"/>
+          <path d="M 100 32 L 88 18 L 95 22 L 100 12 L 105 22 L 112 18 Z" fill="url(#${uid}-gold-champagne)"/>
+          <text x="100" y="64" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="14" font-weight="700" fill="url(#${uid}-gold-champagne)" letter-spacing="2">THE 1% CLUB</text>
+          <text x="100" y="80" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="7" fill="#C59B27" letter-spacing="3">SOVEREIGN MASTER WIDGET</text>
+          <polygon points="150,126 200,126 200,86" fill="url(#${uid}-gold-imperial)"/>
+          <text x="182" y="118" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="13" font-weight="700" fill="#0A0805">1%</text>
+        </g>
+      `;
+      innerSvg = renderClocheVitrine(content, uid);
+      break;
+    }
+  }
+
+  return `<svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 240 240" width="100%" height="100%" class="sovereign-artifact-svg">${sharedDefs}${innerSvg}</svg>`;
+};
