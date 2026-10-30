@@ -6275,7 +6275,7 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   contain: layout style paint;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  border: 1px solid rgba(212, 175, 106, 0.35) !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
   border-radius: 14px !important;
   padding: 12px 10px 10px !important;
   display: flex !important;
@@ -6284,11 +6284,12 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   justify-content: flex-start !important;
   text-align: center !important;
   cursor: pointer;
-  background: #0d0c0e !important;
-  color: var(--text-primary) !important;
+  background: #0d0b09 !important;
+  background: linear-gradient(180deg, #13100c 0%, #0d0b09 60%, #080705 100%) !important;
+  color: #faf6ee !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 240, 205, 0.08),
-    0 8px 24px -4px rgba(0, 0, 0, 0.75) !important;
+    inset 0 1px 0 rgba(255, 240, 205, 0.06),
+    0 8px 24px -4px rgba(0, 0, 0, 0.85) !important;
   transition:
     transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
     box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -33933,56 +33934,194 @@ body.light-mode #boutique-tab .boutique-ownership-plaque .ownership-seal-text {
   letter-spacing: 0.04em;
 }
 
-/* === BOUTIQUE VITRINE PASS (2026-10-06) === */
-.boutique-card-icon,
-.boutique-card-fallback {
-  width: 112px !important;
-  height: 112px !important;
-  aspect-ratio: 1 / 1 !important;
-  border-radius: 50% !important;
-  background: radial-gradient(circle at 50% 32%, #3a3128 0%, #1c1712 48%, #0b0906 100%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.55) !important;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.65), 0 0 0 4px rgba(156, 109, 35, 0.45), inset 0 12px 22px rgba(0, 0, 0, 0.65), inset 0 -8px 16px rgba(0, 0, 0, 0.7), 0 10px 24px rgba(60, 40, 10, 0.25) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
+/* === THE 1% CLUB — BOUTIQUE DARK MODE REFINEMENT === */
+body:not(.light-mode) #boutique-tab,
+body.dark-mode #boutique-tab {
+  background-color: #050505 !important;
 }
-.boutique-card-icon svg,
-.boutique-card-fallback svg,
-.boutique-card-icon img,
-.boutique-card-fallback img {
-  width: 78px !important;
-  height: 78px !important;
+
+/* 1. Boutique Card: Matte Obsidian Base with subtle warm gradient & thin Champagne Gold border */
+body:not(.light-mode) #boutique-tab .boutique-card,
+body.dark-mode #boutique-tab .boutique-card {
+  background: #0d0b09 !important;
+  background: linear-gradient(180deg, #13100c 0%, #0d0b09 60%, #080705 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 205, 0.06),
+    0 8px 24px -4px rgba(0, 0, 0, 0.85) !important;
 }
-body.light-mode .boutique-card-icon,
-body.light-mode .boutique-card-fallback {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 0 4px rgba(156, 109, 35, 0.5), inset 0 12px 22px rgba(0, 0, 0, 0.65), inset 0 -8px 16px rgba(0, 0, 0, 0.7), 0 10px 24px rgba(60, 40, 10, 0.18) !important;
+
+body:not(.light-mode) #boutique-tab .boutique-card:hover,
+body.dark-mode #boutique-tab .boutique-card:hover {
+  transform: translateY(-2px) translateZ(0) !important;
+  border-color: rgba(212, 175, 106, 0.55) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 220, 0.12),
+    0 12px 28px -4px rgba(0, 0, 0, 0.95),
+    0 0 12px rgba(212, 175, 106, 0.12) !important;
 }
-.boutique-card-price,
-.pcs-item-price {
-  font-family: var(--font-display) !important;
-  font-size: 17px !important;
-  letter-spacing: 1px !important;
+
+body:not(.light-mode) #boutique-tab .boutique-card::before,
+body.dark-mode #boutique-tab .boutique-card::before {
+  display: none !important;
+}
+
+/* 2. Showcase Chamber: Pure seamless transparency, zero white rings or muddy holes */
+body:not(.light-mode) #boutique-tab .boutique-cloche-stage,
+body.dark-mode #boutique-tab .boutique-cloche-stage,
+body:not(.light-mode) #boutique-tab .cloche-vitrine-chamber,
+body.dark-mode #boutique-tab .cloche-vitrine-chamber,
+body:not(.light-mode) #boutique-tab .boutique-card-icon,
+body.dark-mode #boutique-tab .boutique-card-icon,
+body:not(.light-mode) #boutique-tab .boutique-card-fallback,
+body.dark-mode #boutique-tab .boutique-card-fallback {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-card-icon::after,
+body.dark-mode #boutique-tab .boutique-card-icon::after {
+  display: none !important;
+}
+
+body:not(.light-mode) #boutique-tab .sovereign-artifact-svg,
+body.dark-mode #boutique-tab .sovereign-artifact-svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 124px !important;
+  max-height: 124px !important;
+  display: block !important;
+  background: transparent !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7)) !important;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-card:hover .sovereign-artifact-svg,
+body.dark-mode #boutique-tab .boutique-card:hover .sovereign-artifact-svg {
+  transform: translateY(-2px) scale(1.03) !important;
+}
+
+/* 3. Typography: Ivory Name, Champagne Gold Price, Muted Gold details */
+body:not(.light-mode) #boutique-tab .boutique-card-name,
+body.dark-mode #boutique-tab .boutique-card-name {
+  color: #faf6ee !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-card-gold-bar,
+body.dark-mode #boutique-tab .boutique-card-gold-bar {
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 106, 0.35) 50%, transparent 100%) !important;
+  height: 1px !important;
+  margin: 3px auto 4px !important;
+  width: 36px !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-card-price,
+body.dark-mode #boutique-tab .boutique-card-price {
+  font-family: var(--font-display, "Cinzel", serif) !important;
   font-weight: 700 !important;
-  background-image: linear-gradient(180deg, #b8860b 0%, #8a6420 55%, #6b4a1c 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  color: transparent !important;
+  font-size: 14px !important;
+  letter-spacing: 0.05em !important;
+  color: #e5cb88 !important;
+  -webkit-text-fill-color: #e5cb88 !important;
+  background: none !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9) !important;
 }
-body.dark-mode .boutique-card-price,
-body.dark-mode .pcs-item-price {
-  background-image: linear-gradient(180deg, #f6e7b9 0%, #d4af37 55%, #a9761f 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
+
+body:not(.light-mode) #boutique-tab .boutique-card-price.is-free,
+body.dark-mode #boutique-tab .boutique-card-price.is-free {
+  color: #8ecba0 !important;
+  -webkit-text-fill-color: #8ecba0 !important;
+  font-family: inherit !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
 }
-.boutique-card {
-  border: 1px solid rgba(156, 109, 35, 0.42) !important;
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.18) !important;
+
+/* 4. Rank Badges & Tier Plaques: Obsidian black base, thin gold border, gold/ivory text */
+body:not(.light-mode) #boutique-tab .boutique-card .rarity-badge,
+body.dark-mode #boutique-tab .boutique-card .rarity-badge {
+  background: #080706 !important;
+  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  color: #faf6ee !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  font-weight: 600 !important;
 }
-body.light-mode .boutique-card {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), 0 8px 26px rgba(70, 50, 20, 0.12) !important;
+
+body:not(.light-mode) #boutique-tab .boutique-tier-plaque,
+body.dark-mode #boutique-tab .boutique-tier-plaque {
+  background: #080706 !important;
+  border: 1px solid rgba(212, 175, 106, 0.32) !important;
+  color: #e5cb88 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-tier-plaque .tier-plaque-mark,
+body.dark-mode #boutique-tab .boutique-tier-plaque .tier-plaque-mark {
+  color: #d4af6a !important;
+}
+
+/* 5. Buttons in Dark Mode */
+body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-acquire,
+body.dark-mode #boutique-tab .boutique-own-btn.btn-acquire {
+  color: #1c1305 !important;
+  font-weight: 700 !important;
+  font-size: 9.5px !important;
+  letter-spacing: 0.05em !important;
+  background: linear-gradient(145deg, #f0d599 0%, #d8b264 35%, #be9444 75%, #9e762c 100%) !important;
+  border: 1px solid #b88d38 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 240, 0.75),
+    inset 0 -1px 0 rgba(110, 80, 20, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.6) !important;
+  text-shadow: 0 1px 0 rgba(255, 250, 235, 0.45) !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-acquire:hover,
+body.dark-mode #boutique-tab .boutique-own-btn.btn-acquire:hover {
+  background: linear-gradient(145deg, #f5ddaa 0%, #dfbc72 35%, #c89e4c 75%, #a87e32 100%) !important;
+  border-color: #d4ae60 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 4px 10px rgba(0, 0, 0, 0.65) !important;
+  color: #1a1306 !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-locked,
+body.dark-mode #boutique-tab .boutique-own-btn.btn-locked {
+  background: #080706 !important;
+  border: 1px solid rgba(212, 175, 106, 0.3) !important;
+  color: #e5cb88 !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.7) !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-owned,
+body.dark-mode #boutique-tab .boutique-own-btn.btn-owned,
+body:not(.light-mode) #boutique-tab .boutique-ownership-plaque,
+body.dark-mode #boutique-tab .boutique-ownership-plaque {
+  background: linear-gradient(180deg, #16120d 0%, #080706 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.35) !important;
+  color: #faf6ee !important;
+  box-shadow: inset 0 1px 0 rgba(255, 240, 205, 0.12), 0 2px 5px rgba(0, 0, 0, 0.6) !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-mark,
+body.dark-mode #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-mark {
+  color: #d4af6a !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-text,
+body.dark-mode #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-text {
+  color: #faf6ee !important;
+}
+
+body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-free,
+body.dark-mode #boutique-tab .boutique-own-btn.btn-free {
+  background: #080706 !important;
+  border: 1px solid rgba(212, 175, 106, 0.32) !important;
+  color: #e5cb88 !important;
 }
 
 /* Unified Close Buttons Positioning & Safe Area Rules */

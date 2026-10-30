@@ -2525,10 +2525,10 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     const tierEligible = typeof isTierEligible === "function" ? isTierEligible(userTier, item.requiredTier) : true;
     const extraCardClass = (window.quickPurchasedItems && window.quickPurchasedItems.has(item.id)) ? " qp-shimmer-active" : "";
 
-    const cardClass = `boutique-card${isOwned ? " is-owned" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`.trim();
+    const cardClass = `boutique-card boutique-item-card${isOwned ? " is-owned" : ""}${!isOwned && !tierEligible ? " is-tier-locked" : ""}${extraCardClass}`.trim();
     const priceHtml = item.free
-      ? `<span class="boutique-card-price is-free">${window.t("boutique.free") || ("Free")}</span>`
-      : `<span class="boutique-card-price">$${item.price.toLocaleString("en-US")}</span>`;
+      ? `<span class="boutique-card-price boutique-item-price price-tag is-free">${window.t("boutique.free") || ("Free")}</span>`
+      : `<span class="boutique-card-price boutique-item-price price-tag">$${item.price.toLocaleString("en-US")}</span>`;
 
     let progressHtml = "";
     if (!isOwned && !item.free) {
@@ -2553,8 +2553,9 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
       : `<span class="boutique-card-fallback" style="display:flex">${artifactSvg}</span>`;
 
     const tierInfo = getBoutiqueTierLabel(item.requiredTier, isAr);
-    const tierPillHtml = (!isOwned && !tierEligible && item.requiredTier)
-      ? `<span class="boutique-tier-plaque" title="${tierInfo.name}"><span class="tier-plaque-mark">❖</span> ${tierInfo.short}</span>`
+    const hasElevatedReq = item.requiredTier && !/^(SOVEREIGN MEMBER|MEMBER)$/i.test(item.requiredTier);
+    const tierPillHtml = (!isOwned && !tierEligible && hasElevatedReq && tierInfo && tierInfo.short)
+      ? `<span class="boutique-tier-plaque tier-badge boutique-badge" title="${tierInfo.name}"><span class="tier-plaque-mark">❖</span> ${tierInfo.short}</span>`
       : "";
 
     let btnContent = "";
@@ -2573,7 +2574,7 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
     } else if (!tierEligible) {
       const reqLabel = tierInfo.gateLabel;
       btnContent = `<svg class="btn-lock-svg" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 5a3 3 0 016 0v3H9V7z"/></svg> <span>${reqLabel}</span>`;
-      btnClass = "btn-locked";
+      btnClass = "btn-locked tier-locked-btn";
       btnOnClick = `onclick='handleQuickPurchase(event, ${JSON.stringify(item)}, "${catKey}")'`;
     } else {
       btnContent = `<span>${window.t("boutique.acquire") || ("Acquire")}</span> <svg class="btn-bag-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`;
@@ -2583,16 +2584,16 @@ function renderBoutiqueContent(filter, root, owned, equipped, categories) {
 
     return `
       <div class="${cardClass}" data-item-id="${item.id}" data-cat="${catKey}" data-owned="${isOwned ? 1 : 0}" onclick='openInspectionModal(${JSON.stringify(item)}, "${catKey}", ${isOwned})' style="cursor: pointer;">
-        <div class="boutique-card-header">
-          <span class="rarity-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "Rare"}</span>
+        <div class="boutique-card-header boutique-card-badges boutique-badges-row">
+          <span class="rarity-badge boutique-badge rarity-${item.rarity}">${RARITY_LABEL[item.rarity] ? RARITY_LABEL[item.rarity]() : "Rare"}</span>
           ${tierPillHtml}
         </div>
         
-        <div class="boutique-cloche-stage">
+        <div class="boutique-cloche-stage boutique-card-visual boutique-visual">
           ${clocheHtml}
         </div>
 
-        <span class="boutique-card-name">${window.t(item.name)}</span>
+        <h3 class="boutique-card-name boutique-item-name boutique-card-title">${window.t(item.name)}</h3>
         ${priceHtml}
         <div class="boutique-card-gold-bar" aria-hidden="true"></div>
 
