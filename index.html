@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&family=Pinyon+Script&family=Great+Vibes&family=Alex+Brush&display=swap"
       rel="stylesheet"
       crossorigin="anonymous"
     />
@@ -2641,6 +2641,18 @@
               <div class="oath-corner oath-corner-bl"></div>
               <div class="oath-corner oath-corner-br"></div>
 
+              <!-- Subtle Archival Chancery Watermark -->
+              <div class="oath-chancery-watermark" aria-hidden="true">
+                <svg viewBox="0 0 200 200" fill="none" class="oath-watermark-svg">
+                  <circle cx="100" cy="100" r="92" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"></circle>
+                  <circle cx="100" cy="100" r="82" stroke="currentColor" stroke-width="0.75"></circle>
+                  <path d="M100 28 L114 65 L154 68 L122 96 L132 136 L100 115 L68 136 L78 96 L46 68 L86 65 Z" stroke="currentColor" stroke-width="0.8" fill="none"></path>
+                  <circle cx="100" cy="100" r="44" stroke="currentColor" stroke-width="0.6"></circle>
+                  <text x="100" y="96" font-family="'Cinzel', serif" font-size="8.5" text-anchor="middle" fill="currentColor" letter-spacing="2">SIGILLUM</text>
+                  <text x="100" y="110" font-family="'Cinzel', serif" font-size="7.5" text-anchor="middle" fill="currentColor" letter-spacing="2">SOVEREIGN</text>
+                </svg>
+              </div>
+
               <div class="sovereign-oath-inner">
                 <!-- Decree Emblem & Motto -->
                 <div class="oath-decree-header">
@@ -2712,8 +2724,19 @@
                 <div class="oath-ratification-footer">
                   <div class="oath-sig-box">
                     <span class="oath-sig-label" data-i18n="profile.oathSignetTitle">RATIFIED VIA SOVEREIGN SIGNET</span>
-                    <div class="oath-signature-text" id="oathMemberSignature">Alexander • Sovereign</div>
-                    <span class="oath-crypt-id" id="oathCryptographicCode">HASH: 8F2A • IMMUTABLE COVENANT • REGISTERED</span>
+                    <div class="oath-signature-text" id="oathMemberSignature">
+                      <div class="oath-signature-handwritten-wrap">
+                        <span class="oath-signature-handwritten" id="oathHandwrittenName">Ismail Elsayed</span>
+                        <span class="oath-signature-tier-seal">✦ SOVEREIGN</span>
+                      </div>
+                      <div class="oath-signature-paraph-flourish">
+                        <svg viewBox="0 0 260 20" fill="none" preserveAspectRatio="none" class="oath-paraph-svg">
+                          <path d="M4 11 C 45 4, 110 16, 175 6 C 210 1, 235 8, 255 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+                          <path d="M150 11 C 185 14, 215 15, 252 11" stroke="currentColor" stroke-width="0.8" opacity="0.6" stroke-linecap="round"></path>
+                        </svg>
+                      </div>
+                    </div>
+                    <span class="oath-crypt-id" id="oathCryptographicCode">HASH: 8F0001 • IMMUTABLE COVENANT • ARCHIVED</span>
                   </div>
 
                   <div class="oath-action-wrap">

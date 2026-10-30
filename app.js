@@ -8515,6 +8515,15 @@ function attachDeedInteractiveHandlers() {
       }, 1750);
     }
 
+    if (ghostWatermark) {
+      ghostWatermark.classList.remove("is-uv-active");
+      void ghostWatermark.offsetWidth;
+      ghostWatermark.classList.add("is-uv-active");
+      setTimeout(() => {
+        ghostWatermark.classList.remove("is-uv-active");
+      }, 3500);
+    }
+
     if (waxSeal) {
       waxSeal.classList.add("is-wax-pressed");
       setTimeout(() => waxSeal.classList.remove("is-wax-pressed"), 650);
@@ -8677,11 +8686,30 @@ function renderProfileSovereignOath() {
   const sigEl = document.getElementById("oathMemberSignature");
   if (sigEl) {
     const isStealth = localStorage.getItem("club_stealth_mode") === "true";
-    const stealthMoniker = (window.t && window.t("profile.stealthMoniker")) || "SOVEREIGN SHADOW • 001";
-    const rawName = isStealth ? stealthMoniker : (AppState.user?.name || "MEMBER");
-    const isElite = AppState.user?.tier === "Elite" ;
+    const stealthMoniker = (window.t && window.t("profile.stealthMoniker")) || "Sovereign Shadow 001";
+    const rawName = isStealth ? stealthMoniker : (AppState.user?.name || "Ismail Elsayed");
+    const isElite = AppState.user?.tier === "Elite";
     const tierName = isElite ? (window.t("profile.compTierElite") || "Elite") : (window.t("profile.compTierSovereign") || "Sovereign");
-    sigEl.textContent = `${rawName} • ${tierName}`;
+    
+    // Format name in calligraphic title case so cursive script renders with natural handwriting rhythm:
+    const signatureName = rawName
+      .toLowerCase()
+      .split(" ")
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+
+    sigEl.innerHTML = `
+      <div class="oath-signature-handwritten-wrap">
+        <span class="oath-signature-handwritten" title="${signatureName}">${signatureName}</span>
+        <span class="oath-signature-tier-seal">✦ ${tierName.toUpperCase()}</span>
+      </div>
+      <div class="oath-signature-paraph-flourish">
+        <svg viewBox="0 0 260 20" fill="none" preserveAspectRatio="none" class="oath-paraph-svg">
+          <path d="M4 11 C 45 4, 110 16, 175 6 C 210 1, 235 8, 255 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+          <path d="M150 11 C 185 14, 215 15, 252 11" stroke="currentColor" stroke-width="0.8" opacity="0.6" stroke-linecap="round"></path>
+        </svg>
+      </div>
+    `;
   }
 
   const cryptEl = document.getElementById("oathCryptographicCode");
@@ -9265,7 +9293,7 @@ window.HeaderScrollController = (function() {
   let lastClubScrollTop = 0;
   let accumulatedOlderDelta = 0;
   let accumulatedNewerDelta = 0;
-  const CLUB_SCROLL_THRESHOLD = 18;
+  const CLUB_SCROLL_THRESHOLD = 28;
   let isNavigating = false;
   let isLockedVisible = false;
   let ticking = false;
@@ -9289,10 +9317,18 @@ window.HeaderScrollController = (function() {
   let clubTransitionTimer = null;
 
   function setClubHeaderCollapsed(collapsed) {
+    if (isClubCollapsed === collapsed) return;
     const header = getHeader();
     if (!header) return;
     const clubTab = document.getElementById("club-tab");
     const creditsEl = document.getElementById("clubCreditsDisplay");
+
+    isClubHeaderTransitioning = true;
+    if (clubTransitionTimer) clearTimeout(clubTransitionTimer);
+    clubTransitionTimer = setTimeout(() => {
+      isClubHeaderTransitioning = false;
+    }, 620);
+
     if (collapsed) {
       header.classList.add("header-hidden");
       document.body.classList.add("header-hidden-active");
@@ -9499,12 +9535,18 @@ window.HeaderScrollController = (function() {
         const header = getHeader();
         if (!header) return;
 
-        const currentScroll = Math.max(0, activePage.scrollTop || 0);
+        const currentScroll = Math.max(
+          0,
+          activePage.scrollTop || 0,
+          window.scrollY || 0,
+          document.documentElement.scrollTop || 0,
+          (document.querySelector(".app-main")?.scrollTop) || 0
+        );
         const delta = currentScroll - lastScrollTop;
         lastScrollTop = currentScroll;
 
         // When user is near the very top of the page: Header is always smoothly visible
-        if (currentScroll <= 20) {
+        if (currentScroll <= 25) {
           accumulatedPageDelta = 0;
           if (header.classList.contains("header-hidden")) {
             header.classList.remove("header-hidden");
@@ -9519,8 +9561,8 @@ window.HeaderScrollController = (function() {
           return;
         }
 
-        // Ignore micro-subpixel noise (< 1.5px)
-        if (Math.abs(delta) < 1.5) return;
+        // Ignore micro-subpixel noise (< 2px)
+        if (Math.abs(delta) < 2) return;
 
         // Directional Accumulation: Only deliberate gestures toggle header state
         if (delta > 0) {
@@ -9528,8 +9570,8 @@ window.HeaderScrollController = (function() {
           if (accumulatedPageDelta < 0) accumulatedPageDelta = 0;
           accumulatedPageDelta += delta;
 
-          // Deliberate 16px downward gesture past top zone (40px) triggers silky smooth slide-up
-          if (accumulatedPageDelta >= 16 && currentScroll > 40) {
+          // Deliberate 28px downward gesture past top zone (48px) triggers silky smooth slide-up
+          if (accumulatedPageDelta >= 28 && currentScroll > 48) {
             if (!header.classList.contains("header-hidden")) {
               header.classList.add("header-hidden");
               document.body.classList.add("header-hidden-active");
@@ -9541,8 +9583,8 @@ window.HeaderScrollController = (function() {
           if (accumulatedPageDelta > 0) accumulatedPageDelta = 0;
           accumulatedPageDelta += delta; // negative
 
-          // Deliberate 14px upward gesture smoothly slides header down
-          if (accumulatedPageDelta <= -14) {
+          // Deliberate 20px upward gesture smoothly slides header down
+          if (accumulatedPageDelta <= -20) {
             if (header.classList.contains("header-hidden")) {
               header.classList.remove("header-hidden");
               document.body.classList.remove("header-hidden-active");

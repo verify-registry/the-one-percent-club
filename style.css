@@ -2651,22 +2651,27 @@ html.light-mode .nav-item.is-active .nav-label {
   width: auto !important;
   max-width: min(320px, 86vw) !important;
   box-sizing: border-box !important;
-  font-family: var(--font-sans, "Manrope", sans-serif) !important;
-  font-size: 11px !important;
-  font-weight: 500 !important;
-  line-height: 1.35 !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1.45 !important;
   text-align: center !important;
-  color: #f3ede2 !important;
-  background: radial-gradient(circle at 50% 0%, rgba(35, 30, 24, 0.95) 0%, rgba(14, 12, 16, 0.97) 100%) !important;
+  text-transform: uppercase !important;
+  color: #f7eed8 !important;
+  background: 
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 106, 0.18) 0%, transparent 75%),
+    linear-gradient(180deg, #241d13 0%, #120e09 100%) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(212, 175, 106, 0.35) !important;
-  padding: 8px 16px !important;
-  border-radius: 20px !important;
+  border: 1.2px solid rgba(212, 175, 106, 0.45) !important;
+  padding: 10px 18px !important;
+  border-radius: 14px !important;
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.75),
-    0 2px 8px rgba(0, 0, 0, 0.5),
-    inset 0 1px 1px rgba(255, 245, 215, 0.18) !important;
+    0 12px 34px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(0, 0, 0, 0.9),
+    0 0 16px rgba(212, 175, 106, 0.2),
+    inset 0 1.5px 1px rgba(255, 245, 215, 0.3) !important;
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
@@ -2687,12 +2692,14 @@ html.light-mode .nav-item.is-active .nav-label {
 }
 
 body.light-mode .nav-toast {
-  background: linear-gradient(135deg, rgba(255, 252, 246, 0.96) 0%, rgba(246, 239, 227, 0.97) 100%) !important;
-  border-color: rgba(185, 145, 75, 0.45) !important;
-  color: #3b2c14 !important;
+  background: 
+    radial-gradient(circle at 50% 0%, rgba(255, 248, 235, 0.98) 0%, rgba(246, 238, 222, 0.98) 100%) !important;
+  border: 1.2px solid rgba(185, 145, 75, 0.55) !important;
+  color: #2b1a03 !important;
   box-shadow:
-    0 8px 24px rgba(80, 60, 20, 0.16),
-    inset 0 1px 1px #ffffff !important;
+    0 14px 34px rgba(70, 50, 15, 0.16),
+    0 0 0 1px rgba(185, 145, 75, 0.25),
+    inset 0 1.5px 1px #ffffff !important;
 }
 
 /* ==========================================================================
@@ -3614,12 +3621,12 @@ html.light-mode #club-tab.is-active,
 /* Responsive Collapsed Header Layout: Reclaim vertical space when reading older messages */
 #club-tab,
 #club-tab.is-active {
-  transition: padding-top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: padding-top 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 #club-tab.club-header-collapsed,
 #club-tab.is-active.club-header-collapsed {
-  padding-top: calc(env(safe-area-inset-top, 0px) + 4px) !important;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 6px) !important;
 }
 
 .club-chat-viewport,
@@ -19617,46 +19624,65 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
 .oath-pillars-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 11px;
   margin-bottom: 22px;
   position: relative;
   z-index: 2;
 }
 
 .oath-pillar-cell {
-  background: rgba(14, 13, 18, 0.78);
-  border: 1px solid rgba(212, 175, 106, 0.2);
-  border-radius: 10px;
+  background: 
+    radial-gradient(ellipse at 15% 50%, rgba(212, 175, 106, 0.04) 0%, transparent 60%),
+    linear-gradient(145deg, rgba(24, 20, 28, 0.9) 0%, rgba(13, 11, 16, 0.96) 100%);
+  border: 1px solid rgba(212, 175, 106, 0.28);
+  border-inline-start: 3.5px solid #d4af6a;
+  border-radius: 11px;
   padding: 12px 14px;
   box-shadow: 
-    inset 0 1px 3px rgba(0, 0, 0, 0.6),
-    0 2px 5px rgba(0, 0, 0, 0.3);
-  transition: border-color 0.25s ease;
+    0 4px 14px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 240, 205, 0.1),
+    inset 0 0 12px rgba(212, 175, 106, 0.03);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
 }
 
 .oath-pillar-cell:hover {
-  border-color: rgba(212, 175, 106, 0.45);
+  border-color: rgba(235, 205, 135, 0.6);
+  border-inline-start-color: #ffd782;
+  transform: translateY(-1px);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.75),
+    0 0 16px rgba(212, 175, 106, 0.16),
+    inset 0 1px 0 rgba(255, 245, 220, 0.2);
 }
 
 .opc-head {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   margin-bottom: 6px;
 }
 
 .opc-icon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 7px;
+  background: 
+    radial-gradient(circle at 50% 30%, rgba(212, 175, 106, 0.25) 0%, rgba(212, 175, 106, 0.05) 100%),
+    rgba(22, 18, 12, 0.85);
+  border: 1px solid rgba(212, 175, 106, 0.45);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 245, 215, 0.35);
 }
 
 .opc-icon svg {
-  width: 100%;
-  height: 100%;
+  width: 14px;
+  height: 14px;
 }
 
 .opc-title {
@@ -19666,20 +19692,42 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
   letter-spacing: 0.08em;
   color: #f7ecce;
   text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .opc-desc {
   font-size: 9.5px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.55;
+  color: rgba(255, 245, 225, 0.72);
   margin: 0;
-  padding-inline-start: 30px;
+  padding-inline-start: 35px;
+  font-family: var(--font-ui, "Manrope", sans-serif);
 }
 
-/* Ratification Footer & Signet */
+/* Subtle Archival Chancery Watermark */
+.oath-chancery-watermark {
+  position: absolute;
+  right: 18px;
+  bottom: 22px;
+  width: 180px;
+  height: 180px;
+  pointer-events: none;
+  color: #d4af6a;
+  opacity: 0.045;
+  z-index: 1;
+  user-select: none;
+  transform: rotate(-6deg);
+}
+
+.oath-watermark-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Ratification Footer & Sovereign Signature */
 .oath-ratification-footer {
   padding-top: 16px;
-  border-top: 1px dashed rgba(212, 175, 106, 0.24);
+  border-top: 1px dashed rgba(212, 175, 106, 0.28);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19690,38 +19738,94 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
 }
 
 .oath-sig-box {
-  flex: 1 1 180px;
+  flex: 1 1 190px;
+  min-width: 0;
 }
 
 .oath-sig-label {
   display: block;
-  font-family: var(--font-ui, "Manrope", sans-serif);
-  font-size: 7.5px;
-  letter-spacing: 0.14em;
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #8f816c;
-  margin-bottom: 4px;
+  color: #c4a77d;
+  margin-bottom: 6px;
 }
 
 .oath-signature-text {
-  font-family: 'Great Vibes', 'Playfair Display', cursive, serif;
-  font-size: 19px;
-  line-height: 1.2;
-  letter-spacing: 0.04em;
-  background: linear-gradient(180deg, #ffffff 0%, #faecd2 45%, #d4af6a 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+}
+
+.oath-signature-handwritten-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.oath-signature-handwritten {
+  font-family: 'Pinyon Script', 'Great Vibes', 'Alex Brush', cursive, serif !important;
+  font-size: 32px !important;
+  line-height: 1.15 !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+  display: inline-block;
+  background: linear-gradient(135deg, #ffffff 0%, #faecd2 25%, #e2b765 65%, #b8862d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 4px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  filter: drop-shadow(0 2px 6px rgba(226, 183, 101, 0.45));
+  transform: rotate(-1.5deg);
+  transform-origin: left bottom;
+  padding-inline-end: 4px;
+}
+
+.oath-signature-tier-seal {
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f7ecce;
+  background: rgba(212, 175, 106, 0.15);
+  border: 1px solid rgba(212, 175, 106, 0.4);
+  padding: 2px 7px;
+  border-radius: 4px;
+  align-self: center;
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.oath-signature-paraph-flourish {
+  width: 100%;
+  max-width: 230px;
+  height: 14px;
+  margin-top: -3px;
+  margin-bottom: 5px;
+  color: #e2b765;
+  opacity: 0.85;
+  filter: drop-shadow(0 1px 3px rgba(226, 183, 101, 0.35));
+}
+
+.oath-paraph-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .oath-crypt-id {
   display: block;
   font-family: var(--font-mono, monospace);
   font-size: 7.5px;
-  letter-spacing: 0.08em;
-  color: #a4937d;
-  opacity: 0.85;
+  letter-spacing: 0.09em;
+  color: #b5a38a;
+  opacity: 0.9;
 }
 
 .oath-action-wrap {
@@ -19731,19 +19835,21 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
 .oath-signet-seal-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
-  padding: 7px 15px;
-  border-radius: 20px;
+  padding: 8px 18px;
+  border-radius: 24px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(212, 175, 106, 0.16) 0%, transparent 75%),
-    linear-gradient(180deg, #2a2013 0%, #151009 50%, #0a0704 100%);
-  border: 1px solid rgba(212, 175, 106, 0.55);
-  color: #f7e6c5;
+    radial-gradient(circle at 50% 0%, rgba(255, 245, 215, 0.3) 0%, transparent 75%),
+    linear-gradient(180deg, #382c1b 0%, #1a140b 55%, #0a0704 100%);
+  border: 1px solid rgba(235, 205, 135, 0.65);
+  color: #fcefd4;
   cursor: pointer;
   box-shadow: 
     0 0 0 1px rgba(0, 0, 0, 0.95),
-    0 4px 12px rgba(0, 0, 0, 0.75),
-    inset 0 1.5px 1.5px rgba(255, 245, 215, 0.35),
+    0 5px 14px rgba(0, 0, 0, 0.8),
+    0 0 12px rgba(212, 175, 106, 0.25),
+    inset 0 1.5px 2px rgba(255, 245, 215, 0.45),
     inset 0 -2px 3px rgba(0, 0, 0, 0.85);
   transition: 
     background 0.22s ease, 
@@ -19756,100 +19862,194 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
 
 .oath-signet-seal-btn:hover {
   background:
-    radial-gradient(circle at 50% 0%, rgba(212, 175, 106, 0.25) 0%, transparent 75%),
-    linear-gradient(180deg, #3d2e1b 0%, #1c150c 50%, #0e0a05 100%);
-  border-color: rgba(235, 200, 125, 0.85);
+    radial-gradient(circle at 50% 0%, rgba(255, 245, 215, 0.4) 0%, transparent 75%),
+    linear-gradient(180deg, #483823 0%, #221b10 55%, #100b05 100%);
+  border-color: rgba(255, 225, 155, 0.95);
   color: #ffffff;
   transform: translateY(-1.5px) scale(1.02);
   box-shadow: 
     0 0 0 1px rgba(0, 0, 0, 0.95),
-    0 6px 16px rgba(0, 0, 0, 0.85),
-    0 0 14px rgba(212, 175, 106, 0.3),
-    inset 0 1.5px 2px rgba(255, 255, 235, 0.55),
+    0 7px 18px rgba(0, 0, 0, 0.9),
+    0 0 18px rgba(212, 175, 106, 0.4),
+    inset 0 1.5px 2.5px rgba(255, 255, 235, 0.65),
     inset 0 -2px 4px rgba(0, 0, 0, 0.95);
 }
 
 .oath-signet-seal-btn:active,
 .oath-signet-seal-btn.is-signet-pressed {
-  transform: scale(0.92) translateY(1.5px) !important;
+  transform: scale(0.94) translateY(1.5px) !important;
   box-shadow: 
     0 0 0 1px rgba(0, 0, 0, 0.95),
     0 1px 4px rgba(0, 0, 0, 0.9),
     inset 0 3px 6px rgba(0, 0, 0, 0.95),
-    0 0 12px rgba(212, 175, 106, 0.45) !important;
+    0 0 14px rgba(212, 175, 106, 0.5) !important;
 }
 
 .ossb-ring {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 
 .ossb-star {
-  color: var(--txt-gold-muted, #ecd5a5);
-  font-size: 9px;
+  color: #ecd5a5;
+  font-size: 10px;
+  filter: drop-shadow(0 0 4px rgba(236, 213, 165, 0.6));
 }
 
 .ossb-text {
   font-family: var(--font-display, "Cinzel", serif);
   font-size: 8.5px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-/* Light Mode for Sovereign Oath */
+/* =========================================================
+   LIGHT MODE FOR SOVEREIGN OATH & DECREE (ROYAL ARCHIVAL VELLUM)
+   ========================================================= */
 body.light-mode .sovereign-oath-card {
   background: 
-    radial-gradient(ellipse at 50% 0%, rgba(250, 245, 235, 0.98) 0%, rgba(240, 232, 218, 0.99) 70%),
-    linear-gradient(180deg, #ffffff 0%, #f4ede0 100%);
-  border: 1px solid rgba(185, 145, 75, 0.4);
+    radial-gradient(ellipse at 50% 0%, #fefcf8 0%, #f7f0e3 70%),
+    linear-gradient(180deg, #fdfbf7 0%, #f4ece0 100%) !important;
+  border: 1.2px solid rgba(197, 155, 78, 0.48) !important;
   box-shadow: 
-    0 14px 34px rgba(65, 45, 15, 0.08),
-    inset 0 1px 0 #ffffff,
-    0 0 0 1px rgba(212, 175, 106, 0.15);
+    0 16px 40px rgba(65, 45, 15, 0.09),
+    0 0 0 1px rgba(212, 175, 106, 0.2),
+    inset 0 1px 0 #ffffff !important;
 }
 
 body.light-mode .sovereign-oath-inner {
-  border: 1px solid rgba(185, 145, 75, 0.28);
+  border: 1px solid rgba(185, 145, 75, 0.32) !important;
   background: 
-    radial-gradient(ellipse at 50% 5%, rgba(185, 145, 75, 0.06) 0%, transparent 60%),
-    #faf6ef;
+    radial-gradient(ellipse at 50% 5%, rgba(197, 155, 78, 0.07) 0%, transparent 60%),
+    #faf6ef !important;
+  box-shadow: inset 0 0 20px rgba(197, 155, 78, 0.04) !important;
 }
 
 body.light-mode .oath-decree-sub {
-  color: #3b2d16;
+  color: #3d2c14 !important;
+  text-shadow: none !important;
 }
 
 body.light-mode .oath-preamble {
-  color: #5c4e3a;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 11.5px !important;
+  font-style: italic !important;
+  color: #4a3a27 !important;
+  line-height: 1.6 !important;
+}
+
+body.light-mode .oath-chancery-watermark {
+  color: #1e3a8a !important;
+  opacity: 0.065 !important;
+  mix-blend-mode: multiply !important;
 }
 
 body.light-mode .oath-pillar-cell {
-  background: #ffffff;
-  border-color: rgba(185, 145, 75, 0.25);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  background: linear-gradient(145deg, #ffffff 0%, #faf5ea 100%) !important;
+  border: 1px solid rgba(197, 155, 78, 0.35) !important;
+  border-inline-start: 3.5px solid #c59b4e !important;
+  box-shadow: 
+    0 3px 10px rgba(65, 45, 15, 0.05),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode .oath-pillar-cell:hover {
+  border-color: rgba(185, 145, 75, 0.6) !important;
+  border-inline-start-color: #a8792c !important;
+  box-shadow: 
+    0 6px 18px rgba(65, 45, 15, 0.1),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode .opc-icon {
+  background: linear-gradient(135deg, #fbf7ee 0%, #f0e6d2 100%) !important;
+  border-color: rgba(197, 155, 78, 0.45) !important;
+  box-shadow: 
+    0 2px 5px rgba(70, 45, 10, 0.08),
+    inset 0 1px 0 #ffffff !important;
 }
 
 body.light-mode .opc-title {
-  color: #2b2011;
+  color: #26190a !important;
+  text-shadow: none !important;
 }
 
 body.light-mode .opc-desc {
-  color: #5c4e3a;
+  color: #524330 !important;
 }
 
+/* Light Mode Signature: Diplomatic Royal Prussian Fountain Pen Ink */
 body.light-mode .oath-signature-text {
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: #2b2112;
-  color: #2b2112;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: initial !important;
+  color: #1e3a8a !important;
+}
+
+body.light-mode .oath-signature-handwritten {
+  background: linear-gradient(135deg, #091a32 0%, #1e3a8a 60%, #172554 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #1e3a8a !important;
+  filter: drop-shadow(0 0.5px 0.5px rgba(30, 58, 138, 0.38)) !important;
+}
+
+body.light-mode .oath-signature-tier-seal {
+  color: #6b4d1b !important;
+  background: rgba(197, 155, 78, 0.12) !important;
+  border: 1px solid rgba(197, 155, 78, 0.38) !important;
+  box-shadow: 
+    0 1px 2px rgba(60, 40, 10, 0.08),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode .oath-signature-paraph-flourish {
+  color: #1e3a8a !important;
+  opacity: 0.72 !important;
+  filter: drop-shadow(0 0.5px 0.5px rgba(30, 58, 138, 0.25)) !important;
+}
+
+body.light-mode .oath-sig-label {
+  color: #6d583d !important;
+}
+
+body.light-mode .oath-crypt-id {
+  color: #72624d !important;
 }
 
 body.light-mode .oath-signet-seal-btn {
-  background: linear-gradient(180deg, #ffffff 0%, #f4eee2 100%);
-  border-color: rgba(185, 145, 75, 0.4);
-  color: #362914;
+  background: linear-gradient(180deg, #fdf4df 0%, #e8c278 40%, #c49436 82%, #8e6216 100%) !important;
+  border: 1px solid #7c581a !important;
+  color: #261601 !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.25),
+    0 4px 12px rgba(60, 40, 10, 0.18),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 1px rgba(90, 60, 15, 0.45) !important;
+  border-radius: 24px !important;
+}
+
+body.light-mode .oath-signet-seal-btn:hover {
+  background: linear-gradient(180deg, #fff8e8 0%, #f0cd86 40%, #cca044 82%, #9d6d1b 100%) !important;
+  border-color: #5c3f10 !important;
+  color: #150b00 !important;
+  box-shadow: 
+    0 0 0 1px rgba(90, 60, 15, 0.35),
+    0 6px 16px rgba(60, 40, 10, 0.25),
+    inset 0 1.5px 1px #ffffff,
+    inset 0 -1.5px 1px rgba(90, 60, 15, 0.55) !important;
+}
+
+body.light-mode .ossb-star {
+  color: #3d2806 !important;
+  filter: none !important;
+}
+
+body.light-mode .ossb-text {
+  color: #261601 !important;
+  font-weight: 800 !important;
 }
 
 /* =========================================================
@@ -25085,6 +25285,10 @@ body #profile-tab .oath-signature-text {
   font-size: 16.5px !important;
 }
 
+body #profile-tab .oath-signature-handwritten {
+  font-size: 30px !important;
+}
+
 body #profile-tab .oath-crypt-id {
   font-size: 7px !important;
   word-break: break-all !important;
@@ -25362,6 +25566,9 @@ body #profile-tab .ossb-text {
   }
   body #profile-tab .oath-signature-text {
     font-size: 14.5px !important;
+  }
+  body #profile-tab .oath-signature-handwritten {
+    font-size: 25px !important;
   }
   body #profile-tab .oath-crypt-id {
     font-size: 6.5px !important;
@@ -27639,19 +27846,6 @@ body.light-mode .deed-embossed-seal {
     inset 0 -2px 3px rgba(110, 80, 25, 0.4) !important;
 }
 
-body.light-mode .oath-signet-seal-btn {
-  background:
-    radial-gradient(circle at 50% 0%, rgba(212, 175, 106, 0.16) 0%, transparent 75%),
-    linear-gradient(180deg, #ffffff 0%, #f4eee2 55%, #eae1d0 100%) !important;
-  border-color: rgba(185, 145, 75, 0.55) !important;
-  color: #362914 !important;
-  box-shadow:
-    0 0 0 1px rgba(185, 145, 75, 0.25),
-    0 3px 10px rgba(80, 55, 20, 0.12),
-    inset 0 1.2px 1.5px #ffffff,
-    inset 0 -1.5px 2px rgba(140, 110, 60, 0.2) !important;
-}
-
 body.light-mode .is-coin-mint-active {
   box-shadow:
     0 0 0 1px rgba(185, 145, 75, 0.5),
@@ -27732,29 +27926,45 @@ body.light-mode .is-screw-torqued {
 
 .deed-ghost-watermark {
   position: absolute;
-  top: 50%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 250px;
   height: 250px;
-  pointer-events: auto;
-  cursor: pointer;
-  z-index: 1;
+  pointer-events: none !important;
+  z-index: 0 !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: rgba(212, 175, 106, 0.08);
+  opacity: 0.18;
   transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
               filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
+/* Ensure all deed text content sits cleanly in front of watermark */
+.ledger-top-banner,
+.ledger-beneficiary-wrap,
+.ledger-induction-date-block,
+.ledger-metadata-grid,
+.ledger-timeline-section,
+.ledger-footer-stamp {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Eliminate clutter that collides with historical provenance text */
+.deed-ghost-watermark .deed-crypto-hash-strip,
+.deed-ghost-watermark .deed-uv-fibers {
+  display: none !important;
+}
+
 .deed-ghost-watermark:hover {
-  color: rgba(245, 225, 160, 0.16);
-  filter: drop-shadow(0 0 16px rgba(212, 175, 106, 0.22));
-  transform: translate(-50%, -50%) scale(1.02);
+  transform: translate(-50%, -50%) scale(1.01);
 }
 
 .deed-watermark-emblem {
@@ -27850,27 +28060,29 @@ body.light-mode .is-screw-torqued {
    engraved relief etched into the sovereign parchment
    ========================================================= */
 
-/* Warm Horological Illumination Beam */
+/* Sovereign Holographic Forensic UV Blue Illumination Beam */
+/* Sovereign Holographic Forensic UV Blue Illumination Beam */
 .sovereign-deed-folio.is-uv-scanning .deed-uv-scanner-ray {
   opacity: 1;
   animation: uvBeamTraverse 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   background: linear-gradient(
     180deg,
-    rgba(212, 175, 106, 0.25) 0%,
-    rgba(255, 245, 220, 0.45) 40%,
-    rgba(124, 88, 26, 0.65) 100%
+    rgba(59, 130, 246, 0.28) 0%,
+    rgba(37, 99, 235, 0.08) 45%,
+    transparent 100%
   ) !important;
-  border-top: 1.5px solid #dcae4a !important;
+  border-top: 1.5px solid #60a5fa !important;
   box-shadow:
-    0 0 16px rgba(196, 148, 54, 0.45),
-    0 0 28px rgba(255, 235, 180, 0.25) !important;
+    0 0 10px rgba(96, 165, 250, 0.7),
+    0 0 24px rgba(59, 130, 246, 0.35) !important;
+  height: 22px !important;
   pointer-events: none;
-  z-index: 10;
+  z-index: 5 !important;
 }
 
 @keyframes uvBeamTraverse {
   0% {
-    top: -40px;
+    top: -30px;
     opacity: 0;
   }
   15% {
@@ -27880,88 +28092,47 @@ body.light-mode .is-screw-torqued {
     opacity: 1;
   }
   100% {
-    top: calc(100% + 20px);
+    top: calc(100% + 15px);
     opacity: 0;
   }
 }
 
-/* Deep Intaglio Engraved Watermark Matrix (Dark Mode) */
+/* Sovereign Holographic Forensic UV Blue Watermark Seal (Dark Mode) */
 .sovereign-deed-folio.is-uv-scanning .deed-ghost-watermark,
 .deed-ghost-watermark.is-uv-active {
-  color: #d4af6a !important;
-  opacity: 0.85 !important;
-  filter:
-    drop-shadow(0 1px 0 rgba(255, 240, 200, 0.4))
-    drop-shadow(0 -1px 0.5px rgba(0, 0, 0, 0.95))
-    drop-shadow(0 0 12px rgba(212, 175, 106, 0.25)) !important;
-  transform: translate(-50%, -50%) scale(1.01) !important;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  color: #60a5fa !important; /* Luminous royal celestial sapphire */
+  opacity: 0.38 !important;
+  mix-blend-mode: screen !important;
+  filter: 
+    drop-shadow(0 0 8px rgba(59, 130, 246, 0.7))
+    drop-shadow(0 0 20px rgba(37, 99, 235, 0.4)) !important;
+  transform: translate(-50%, -50%) scale(1.02) !important;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.sovereign-deed-folio.is-uv-scanning .uv-fiber,
-.deed-ghost-watermark.is-uv-active .uv-fiber {
-  opacity: 0.95;
-  filter: drop-shadow(0 0 6px currentColor);
-  transform: scale(1.2);
-}
-
-/* Cryptographic Archival Hash Strip - Etched Hallmark (Dark Mode) */
-.sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip,
-.deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip {
-  color: #f3e5c8 !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25), 0 -1px 0.5px rgba(0, 0, 0, 0.9) !important;
-}
-
-.sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip .dch-indicator,
-.deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip .dch-indicator {
-  background: linear-gradient(180deg, rgba(38, 30, 18, 0.95) 0%, rgba(18, 14, 9, 1) 100%) !important;
-  border-color: rgba(212, 175, 106, 0.6) !important;
-  color: #f6e7be !important;
-  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.3), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* Deep Intaglio Engraved Watermark Matrix (Light Mode Parchment) */
+/* Sovereign Holographic Forensic UV Blue Watermark Seal (Light Mode) */
 body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-ghost-watermark,
 body.light-mode .deed-ghost-watermark.is-uv-active {
-  color: #6d4e1a !important; /* Deep antique intaglio ink */
-  opacity: 0.82 !important;
-  filter:
-    drop-shadow(0 1.2px 0 #ffffff)
-    drop-shadow(0 -1px 0.5px rgba(50, 32, 10, 0.65))
-    drop-shadow(0 0 8px rgba(124, 88, 26, 0.18)) !important;
-  transform: translate(-50%, -50%) scale(1.01) !important;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  color: #1e3a8a !important; /* Authentic Diplomatic Royal Navy Blue */
+  opacity: 0.34 !important;
+  mix-blend-mode: multiply !important;
+  filter: drop-shadow(0 0 1px rgba(30, 58, 138, 0.6)) !important;
+  transform: translate(-50%, -50%) scale(1.02) !important;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Light Mode Scanner Ray - Amber/Gold Parchment Laser */
+/* Light Mode Scanner Ray - Royal Sapphire Laser */
 body.light-mode .deed-uv-scanner-ray {
   background: linear-gradient(
     180deg,
-    rgba(196, 148, 54, 0.18) 0%,
-    rgba(250, 236, 197, 0.45) 45%,
-    rgba(124, 88, 26, 0.65) 100%
+    rgba(30, 64, 175, 0.16) 0%,
+    rgba(37, 99, 235, 0.05) 45%,
+    transparent 100%
   ) !important;
-  border-top: 1.5px solid #7c581a !important;
+  border-top: 1.5px solid #1e40af !important;
   box-shadow:
-    0 0 12px rgba(124, 88, 26, 0.35),
-    0 0 24px rgba(212, 175, 106, 0.2) !important;
-}
-
-body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip,
-body.light-mode .deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip {
-  color: #2b1a03 !important;
-  font-weight: 800 !important;
-  text-shadow: 0 1px 0 #ffffff, 0 -0.8px 0.5px rgba(60, 40, 10, 0.5) !important;
-}
-
-body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-crypto-hash-strip .dch-indicator,
-body.light-mode .deed-ghost-watermark.is-uv-active .deed-crypto-hash-strip .dch-indicator {
-  background: linear-gradient(180deg, #ffffff 0%, #f6eee0 100%) !important;
-  border-color: #7c581a !important;
-  color: #2b1a03 !important;
-  font-weight: 800 !important;
-  box-shadow: inset 0 1px 0 #ffffff, 0 1px 4px rgba(45, 30, 8, 0.12) !important;
-  text-shadow: none !important;
+    0 0 10px rgba(37, 99, 235, 0.4) !important;
+  height: 22px !important;
 }
 
 /* Subtle Intaglio Indentation on the Entire Parchment Folio */
@@ -28011,9 +28182,9 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash .oath-card-inner {
     transform: translate(-50%, -50%) scale(1);
   }
   40% {
-    color: rgba(255, 235, 175, 0.35);
-    filter: drop-shadow(0 0 24px rgba(212, 175, 106, 0.5));
-    transform: translate(-50%, -50%) scale(1.03);
+    color: #38bdf8;
+    filter: drop-shadow(0 0 16px #38bdf8) drop-shadow(0 0 28px rgba(14, 165, 233, 0.8));
+    transform: translate(-50%, -50%) scale(1.04);
   }
   100% {
     color: rgba(212, 175, 106, 0.08);
@@ -32702,8 +32873,7 @@ body.light-mode .reliquary-empty-action-btn,
 body.light-mode .sd-btn-add,
 body.light-mode .mini-dossier-btn.is-toast-primary,
 body.light-mode .edit-profile-save-btn,
-body.light-mode #accountInfoModal .dossier-save-btn,
-body.light-mode .oath-signet-seal-btn {
+body.light-mode #accountInfoModal .dossier-save-btn {
   background: linear-gradient(135deg, 
     #ffffff 0%, 
     #faecc5 12%, 
@@ -32736,8 +32906,7 @@ body.light-mode .reliquary-empty-action-btn:hover,
 body.light-mode .sd-btn-add:hover,
 body.light-mode .mini-dossier-btn.is-toast-primary:hover,
 body.light-mode .edit-profile-save-btn:hover,
-body.light-mode #accountInfoModal .dossier-save-btn:hover,
-body.light-mode .oath-signet-seal-btn:hover {
+body.light-mode #accountInfoModal .dossier-save-btn:hover {
   filter: brightness(1.04) !important;
   box-shadow:
     0 0 0 0.5px rgba(50, 32, 10, 0.45),
@@ -32756,8 +32925,7 @@ body.light-mode .reliquary-empty-action-btn:active,
 body.light-mode .sd-btn-add:active,
 body.light-mode .mini-dossier-btn.is-toast-primary:active,
 body.light-mode .edit-profile-save-btn:active,
-body.light-mode #accountInfoModal .dossier-save-btn:active,
-body.light-mode .oath-signet-seal-btn:active {
+body.light-mode #accountInfoModal .dossier-save-btn:active {
   transform: scale(0.98) !important;
   filter: brightness(0.96) !important;
 }
@@ -36671,9 +36839,7 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
   mask-image: none !important;
   border: none !important;
   border-bottom: none !important;
-  box-shadow: none !important;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 body.light-mode #appHeader,
@@ -37277,23 +37443,68 @@ html.light-mode #headerVerifiedShieldBtn .seal-check-shadow {
   overflow: visible !important;
 }
 
-/* Unified Header Across All Tabs: Liquid Glass Header with Fluid Slide Transition */
+/* ==========================================================================
+   THE 1% CLUB — ULTRA-LUXURY LIQUID GLASS HEADER MOTION SYSTEM
+   Haute Horlogerie fluid physics, optical blur dissipation, micro-parallax
+   and seamless 120Hz frame synchronization across all tabs
+   ========================================================================== */
 #appHeader,
 .app-header {
   transform: translate3d(0, 0, 0);
   opacity: 1;
   pointer-events: auto;
-  will-change: transform, opacity;
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.26s ease-out !important;
+  will-change: opacity, transform;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 
+    0 1px 0 0 rgba(212, 175, 55, 0.16),
+    0 16px 36px -10px rgba(0, 0, 0, 0.65) !important;
+}
+
+body.light-mode #appHeader,
+html.light-mode #appHeader,
+body.light-mode .app-header,
+html.light-mode .app-header,
+:root[data-theme="light"] #appHeader,
+:root[data-theme="light"] .app-header {
+  box-shadow: 
+    0 1px 0 0 rgba(184, 134, 45, 0.20),
+    0 12px 30px -8px rgba(0, 0, 0, 0.10) !important;
 }
 
 #appHeader.header-hidden,
 .app-header.header-hidden {
-  transform: translate3d(0, -105%, 0) !important;
+  transform: translate3d(0, -100%, 0) !important;
   opacity: 0 !important;
+  box-shadow: none !important;
   pointer-events: none !important;
 }
 
+/* Interior Smooth Fade for Crown, Typography & Shield Button */
+#appHeader .brand,
+.app-header .brand {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  will-change: opacity, transform;
+}
+
+#appHeader.header-hidden .brand,
+.app-header.header-hidden .brand {
+  transform: translateX(-50%) translate3d(0, -8px, 0) !important;
+  opacity: 0 !important;
+}
+
+#appHeader #headerVerifiedShieldBtn,
+#appHeader .shield-btn,
+.app-header .shield-btn {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  will-change: opacity, transform;
+}
+
+#appHeader.header-hidden #headerVerifiedShieldBtn,
+#appHeader.header-hidden .shield-btn,
+.app-header.header-hidden .shield-btn {
+  transform: translateY(-50%) translate3d(0, -8px, 0) !important;
+  opacity: 0 !important;
+}
 
 /* Unified Page Top Padding Guarantee Across Content Tabs */
 .page,
@@ -37303,34 +37514,41 @@ html.light-mode #headerVerifiedShieldBtn .seal-check-shadow {
   padding-top: calc(var(--header-actual-height, 80px) + 8px) !important;
 }
 
-/* Dedicated Club Header-to-Rooms Alignment (Unified Horizon Fit) */
+/* Dedicated Club Header-to-Rooms Alignment (Unified Horizon Fit & Smooth Interpolation) */
+#club-tab,
 #club-tab.is-active,
 #club-tab.club-header-collapsed,
+#club-tab.is-active.club-header-collapsed {
+  transition: padding-top 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#club-tab.is-active,
+body.light-mode #club-tab.is-active,
+html.light-mode #club-tab.is-active,
+body.dark-mode #club-tab.is-active,
+html.dark-mode #club-tab.is-active,
+:root[data-theme="light"] #club-tab.is-active,
+:root[data-theme="dark"] #club-tab.is-active {
+  padding-top: var(--header-actual-height, 84px) !important;
+}
+
+#club-tab.club-header-collapsed,
 #club-tab.is-active.club-header-collapsed,
+body.dark-mode #club-tab.club-header-collapsed,
+body.dark-mode #club-tab.is-active.club-header-collapsed,
+html.dark-mode #club-tab.club-header-collapsed,
+html.dark-mode #club-tab.is-active.club-header-collapsed,
 body.light-mode #club-tab.club-header-collapsed,
 body.light-mode #club-tab.is-active.club-header-collapsed,
 html.light-mode #club-tab.club-header-collapsed,
 html.light-mode #club-tab.is-active.club-header-collapsed,
-body.dark-mode #club-tab.club-header-collapsed,
-body.dark-mode #club-tab.is-active.club-header-collapsed,
-html.dark-mode #club-tab.club-header-collapsed,
-html.dark-mode #club-tab.is-active.club-header-collapsed,
-:root[data-theme="light"] #club-tab.club-header-collapsed,
-:root[data-theme="light"] #club-tab.is-active.club-header-collapsed,
-:root[data-theme="dark"] #club-tab.club-header-collapsed,
-:root[data-theme="dark"] #club-tab.is-active.club-header-collapsed {
-  padding-top: var(--header-actual-height, 84px) !important;
-}
-body.dark-mode #club-tab.club-header-collapsed,
-body.dark-mode #club-tab.is-active.club-header-collapsed,
-html.dark-mode #club-tab.club-header-collapsed,
-html.dark-mode #club-tab.is-active.club-header-collapsed,
 :root[data-theme="light"] #club-tab.club-header-collapsed,
 :root[data-theme="light"] #club-tab.is-active.club-header-collapsed,
 :root[data-theme="dark"] #club-tab.club-header-collapsed,
 :root[data-theme="dark"] #club-tab.is-active.club-header-collapsed {
   padding-top: calc(env(safe-area-inset-top, 0px) + 6px) !important;
 }
+
 
 
 /* ========================================================= */
@@ -39556,14 +39774,15 @@ body.light-mode #club-tab .sovereign-salon-ticker {
 /* 4. TOP APP HEADER AUTO-DISMISS ANIMATIONS & RECLAIMED VIEWPORT SPACE */
 #appHeader,
 .app-header {
-    will-change: transform, opacity;
-    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.26s ease-out !important;
+    will-change: opacity, transform;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 #appHeader.header-hidden,
 .app-header.header-hidden {
-    transform: translate3d(0, -105%, 0) !important;
+    transform: translate3d(0, -100%, 0) !important;
     opacity: 0 !important;
+    box-shadow: none !important;
     pointer-events: none !important;
 }
 
