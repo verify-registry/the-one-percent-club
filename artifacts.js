@@ -117,9 +117,16 @@ window.getSovereignArtifact = function(idOrType) {
   // Render 3D photorealistic jewelry piece if available in artifactImageMap
   const imageKey = artifactImageMap[type];
   if (imageKey) {
+    const clipId = `${uid}-vitrine-clip`;
     const content = `
+      <clipPath id="${clipId}">
+        <rect x="6" y="6" width="228" height="228" rx="28" />
+      </clipPath>
       <g class="sovereign-3d-artifact">
-        <image href="artifacts/${imageKey}.webp" xlink:href="artifacts/${imageKey}.webp" x="0" y="0" width="240" height="240" preserveAspectRatio="xMidYMid meet" />
+        <g clip-path="url(#${clipId})">
+          <image href="artifacts/${imageKey}.webp" xlink:href="artifacts/${imageKey}.webp" x="0" y="0" width="240" height="240" preserveAspectRatio="xMidYMid slice" />
+        </g>
+        <rect x="6" y="6" width="228" height="228" rx="28" fill="none" stroke="rgba(212, 175, 55, 0.65)" stroke-width="1.5" />
       </g>
     `;
     const innerSvg = localRenderVitrine(content, uid);

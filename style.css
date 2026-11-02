@@ -40145,47 +40145,53 @@ body.light-mode #profile-tab #openSettingsBtn svg,
    SOVEREIGN BOUTIQUE: COLLECTIBLE 3D CARDS & ARTIFACT LIGHT/DARK ELEVATION
    ========================================================================== */
 
-/* 1. Light Mode Item Card Background & Border */
+/* Light Mode Card: Warm Sovereign Ivory with Crisp Gold Border */
 body.light-mode .boutique-item-card,
-html.light-mode body .boutique-item-card,
+html.light-mode .boutique-item-card,
 [data-theme="light"] .boutique-item-card {
-  background: linear-gradient(180deg, #FDFBF7 0%, #F5EFE4 100%) !important;
-  border: 1px solid rgba(184, 138, 44, 0.35) !important;
+  background: linear-gradient(180deg, #FDFBF7 0%, #F4EFE4 100%) !important;
+  border: 1px solid rgba(184, 138, 44, 0.38) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 26px rgba(120, 90, 30, 0.08), inset 0 1px 0 #FFFFFF !important;
+  padding: 12px 10px 14px !important;
 }
 
-/* 2. Visual Stage Transparency (Zero Dark Circles or Floor Shadows) */
+/* Artifact Visual Container: Clean Obsidian Velvet Medallion Stage */
 .boutique-card-visual,
-.boutique-cloche-stage,
-.boutique-visual {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+body.light-mode .boutique-card-visual {
+  width: 148px !important;
+  height: 148px !important;
+  margin: 6px auto 12px auto !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 50% 45%, #12100C 0%, #070709 75%, #040406 100%) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.65) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), inset 0 2px 4px rgba(255, 230, 160, 0.15), inset 0 -4px 8px rgba(0, 0, 0, 0.8) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
 }
 
-/* 3. Photorealistic 3D Artifact Drop-Shadow Elevation */
-.sovereign-3d-artifact,
-.sovereign-artifact-svg .sovereign-3d-artifact {
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65)) !important;
-  transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-body.light-mode .sovereign-3d-artifact,
-html.light-mode body .sovereign-3d-artifact,
-[data-theme="light"] .sovereign-3d-artifact {
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.28)) !important;
-}
-
-/* 4. Complete Non-Truncated Card Titles */
-.boutique-card-name,
-.boutique-item-name,
-.boutique-card-title {
-  height: auto !important;
-  min-height: 34px !important;
-  max-height: none !important;
+/* Ensure Inner SVG & WebP Renders Fill the Circular Medallion Stage Flawlessly */
+.boutique-card-visual svg,
+.boutique-card-visual img {
+  width: 100% !important;
+  height: 100% !important;
   display: block !important;
-  -webkit-line-clamp: unset !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
+
+/* Remove Title Truncation in Boutique Cards */
+.boutique-item-title,
+.boutique-card-info h3,
+.boutique-item-card h3 {
+  white-space: normal !important;
   overflow: visible !important;
   text-overflow: clip !important;
-  white-space: normal !important;
   word-break: break-word !important;
+  line-height: 1.25 !important;
+  min-height: 2.5em !important;
 }
