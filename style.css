@@ -6601,20 +6601,21 @@ body.light-mode .rarity-free {
 }
 
 /* Product Typography Hierarchy */
-#boutique-tab .boutique-card-name {
+#boutique-tab .boutique-card-name,
+#boutique-tab .boutique-item-name,
+#boutique-tab .boutique-card-title {
   font-size: 12px !important;
   margin: 4px 0 2px !important;
   font-weight: 600 !important;
   color: #f7f3ea !important;
   line-height: 1.35 !important;
-  height: 34px !important;
+  height: auto !important;
   min-height: 34px !important;
-  max-height: 34px !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  max-height: none !important;
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
   text-align: center !important;
   width: 100% !important;
   box-sizing: border-box !important;
@@ -40138,4 +40139,53 @@ body.light-mode #profile-tab #openSettingsBtn svg,
 
 #btnResetSettings:active {
   transform: translateY(0.5px) scale(0.99) !important;
+}
+
+/* ==========================================================================
+   SOVEREIGN BOUTIQUE: COLLECTIBLE 3D CARDS & ARTIFACT LIGHT/DARK ELEVATION
+   ========================================================================== */
+
+/* 1. Light Mode Item Card Background & Border */
+body.light-mode .boutique-item-card,
+html.light-mode body .boutique-item-card,
+[data-theme="light"] .boutique-item-card {
+  background: linear-gradient(180deg, #FDFBF7 0%, #F5EFE4 100%) !important;
+  border: 1px solid rgba(184, 138, 44, 0.35) !important;
+}
+
+/* 2. Visual Stage Transparency (Zero Dark Circles or Floor Shadows) */
+.boutique-card-visual,
+.boutique-cloche-stage,
+.boutique-visual {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 3. Photorealistic 3D Artifact Drop-Shadow Elevation */
+.sovereign-3d-artifact,
+.sovereign-artifact-svg .sovereign-3d-artifact {
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65)) !important;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+body.light-mode .sovereign-3d-artifact,
+html.light-mode body .sovereign-3d-artifact,
+[data-theme="light"] .sovereign-3d-artifact {
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.28)) !important;
+}
+
+/* 4. Complete Non-Truncated Card Titles */
+.boutique-card-name,
+.boutique-item-name,
+.boutique-card-title {
+  height: auto !important;
+  min-height: 34px !important;
+  max-height: none !important;
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: normal !important;
+  word-break: break-word !important;
 }

@@ -118,7 +118,7 @@ window.getSovereignArtifact = function(idOrType) {
   const imageKey = artifactImageMap[type];
   if (imageKey) {
     const content = `
-      <g filter="url(#${uid}-drop-shadow)" class="sovereign-3d-artifact">
+      <g class="sovereign-3d-artifact">
         <image href="artifacts/${imageKey}.webp" xlink:href="artifacts/${imageKey}.webp" x="0" y="0" width="240" height="240" preserveAspectRatio="xMidYMid meet" />
       </g>
     `;
