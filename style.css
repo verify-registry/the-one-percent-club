@@ -26802,10 +26802,10 @@ body.light-mode .reliquary-modal-backdrop {
 
 .rmc-turntable-pedestal {
   position: relative !important;
-  width: 48px !important;
-  height: 48px !important;
+  width: 76px !important;
+  height: 76px !important;
   flex-shrink: 0 !important;
-  border-radius: 50% !important;
+  border-radius: 14px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -26814,7 +26814,7 @@ body.light-mode .reliquary-modal-backdrop {
 .rmc-pedestal-bezel {
   position: absolute !important;
   inset: -1.5px !important;
-  border-radius: 50% !important;
+  border-radius: 14px !important;
   background: conic-gradient(
     from 45deg,
     #ffffff 0%,
@@ -26829,23 +26829,34 @@ body.light-mode .reliquary-modal-backdrop {
 
 .rmc-pedestal-velvet {
   position: relative !important;
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 50% !important;
+  width: 72px !important;
+  height: 72px !important;
+  border-radius: 12px !important;
   flex-shrink: 0 !important;
-  background: radial-gradient(circle at 40% 35%, #2a2016 0%, #15100c 70%, #080605 100%) !important;
+  background: #09080c !important;
   border: 1px solid rgba(212, 175, 106, 0.45) !important;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.95) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  overflow: hidden !important;
   z-index: 1 !important;
 }
 
 .rmc-pedestal-velvet img,
+.rmc-pedestal-velvet .sovereign-real-artifact-img {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 11px !important;
+}
+
 .rmc-pedestal-velvet svg {
-  width: 28px !important;
-  height: 28px !important;
+  width: 58px !important;
+  height: 58px !important;
   object-fit: contain !important;
   filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.85)) !important;
 }
@@ -33498,21 +33509,21 @@ body.light-mode #boutique-tab .boutique-section-divider .bsd-mark {
 .boutique-cloche-stage {
   position: relative !important;
   width: 100% !important;
-  height: 128px !important;
-  min-height: 128px !important;
-  max-height: 128px !important;
+  height: 152px !important;
+  min-height: 152px !important;
+  max-height: 152px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  margin: 2px auto 6px !important;
+  margin: 2px auto 8px !important;
   overflow: visible !important;
   z-index: 2 !important;
 }
 
 .cloche-vitrine-chamber {
   position: relative !important;
-  width: 128px !important;
-  height: 128px !important;
+  width: 100% !important;
+  height: 100% !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -40156,32 +40167,106 @@ html.light-mode .boutique-item-card,
   padding: 12px 10px 14px !important;
 }
 
-/* Artifact Visual Container: Clean Obsidian Velvet Medallion Stage */
-.boutique-card-visual,
-body.light-mode .boutique-card-visual {
-  width: 148px !important;
-  height: 148px !important;
+/* ==========================================================================
+   THE 1% CLUB — SOVEREIGN HAUTE JOAILLERIE & HOROLOGY SHOWCASE CHAMBER
+   Replaces cramped circular medallion clipping with an authentic high-jewelry
+   display vitrine in both Dark and Light modes.
+   ========================================================================== */
+.boutique-card-visual {
+  width: 100% !important;
+  height: 164px !important;
   margin: 6px auto 12px auto !important;
   padding: 0 !important;
-  border-radius: 50% !important;
-  background: radial-gradient(circle at 50% 45%, #12100C 0%, #070709 75%, #040406 100%) !important;
-  border: 1.5px solid rgba(212, 175, 55, 0.65) !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), inset 0 2px 4px rgba(255, 230, 160, 0.15), inset 0 -4px 8px rgba(0, 0, 0, 0.8) !important;
+  border-radius: 14px !important;
+  background: #09080c !important;
+  border: 1px solid rgba(212, 175, 106, 0.4) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 240, 190, 0.18) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
   position: relative !important;
+  box-sizing: border-box !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.35s ease !important;
 }
 
-/* Ensure Inner SVG & WebP Renders Fill the Circular Medallion Stage Flawlessly */
-.boutique-card-visual svg,
-.boutique-card-visual img {
+body.light-mode .boutique-card-visual,
+html.light-mode .boutique-card-visual,
+[data-theme="light"] .boutique-card-visual {
+  background: #0d0c11 !important;
+  border: 1px solid rgba(197, 155, 62, 0.45) !important;
+  box-shadow: 0 8px 22px rgba(80, 55, 20, 0.16), inset 0 1px 0 rgba(255, 240, 190, 0.25) !important;
+}
+
+/* Master Card & Showcase Hover Dynamics */
+#boutique-tab .boutique-card:hover .boutique-card-visual {
+  border-color: rgba(212, 175, 106, 0.65) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 190, 0.28),
+    0 12px 28px rgba(0, 0, 0, 0.75) !important;
+}
+
+body.light-mode #boutique-tab .boutique-card:hover .boutique-card-visual,
+html.light-mode #boutique-tab .boutique-card:hover .boutique-card-visual,
+[data-theme="light"] #boutique-tab .boutique-card:hover .boutique-card-visual {
+  border-color: rgba(197, 155, 62, 0.7) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 190, 0.35),
+    0 10px 24px rgba(80, 55, 20, 0.22) !important;
+}
+
+.cloche-vitrine-chamber,
+.sovereign-artifact-showcase {
   width: 100% !important;
   height: 100% !important;
-  display: block !important;
-  border-radius: 50% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 13px !important;
+}
+
+/* Authentic Haute Joaillerie Photography Presentation */
+.sovereign-real-artifact-img,
+.boutique-card-visual img,
+.cloche-vitrine-chamber img,
+.sovereign-artifact-showcase img {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
   object-fit: cover !important;
+  display: block !important;
+  border-radius: 13px !important;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#boutique-tab .boutique-card:hover .sovereign-real-artifact-img,
+#boutique-tab .boutique-card:hover .boutique-card-visual img,
+#boutique-tab .boutique-card:hover .cloche-vitrine-chamber img {
+  transform: scale(1.06) !important;
+}
+
+.boutique-card-visual svg,
+.cloche-vitrine-chamber svg,
+.sovereign-artifact-showcase svg,
+svg.sovereign-artifact-svg {
+  width: 140px !important;
+  height: 140px !important;
+  display: block !important;
+  margin: auto !important;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.65)) !important;
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), filter 0.38s ease !important;
+}
+
+#boutique-tab .boutique-card:hover svg.sovereign-artifact-svg {
+  transform: scale(1.05) !important;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75)) !important;
 }
 
 /* Remove Title Truncation in Boutique Cards */
