@@ -649,7 +649,7 @@ const ACHIEVEMENTS_DATA = {
     name: "THE INITIATE",
     title: "FIRST STEP",
     desc: "Boutique threshold: 1 Artifact or $5,000 spent.",
-    icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C9.24 2 7 4.24 7 7C7 9.38 8.67 11.37 10.9 11.87L10 22H14L13.1 11.87C15.33 11.37 17 9.38 17 7C17 4.24 14.76 2 12 2ZM12 8.5C11.17 8.5 10.5 7.83 10.5 7C10.5 6.17 11.17 5.5 12 5.5C12.83 5.5 13.5 6.17 13.5 7C13.5 7.83 12.83 8.5 12 8.5Z" fill="currentColor"/></svg>',
+    icon: '<svg viewBox="0 0 24 24" fill="none" class="heraldic-icon-svg"><path d="M12 2.5a4.5 4.5 0 0 0-4.5 4.5c0 1.95 1.25 3.6 3 4.22V21.5h3v-2h2v-2.5h-2v-1.5h2v-2.5h-2v-1.78c1.75-.62 3-2.27 3-4.22a4.5 4.5 0 0 0-4.5-4.5zm0 2.2a2.3 2.3 0 1 1 0 4.6 2.3 2.3 0 0 1 0-4.6z" fill="currentColor"/></svg>',
     isUnlocked: () =>
       Object.keys(ClubState.owned).length >= 1 ||
       (ClubState.totalSpent || 0) >= 5000,
@@ -664,7 +664,7 @@ const ACHIEVEMENTS_DATA = {
     name: "THE CONNOISSEUR",
     title: "COLLECTOR",
     desc: "Boutique threshold: 3 Artifacts or $25,000 spent.",
-    icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 9L12 22L22 9L12 2ZM12 5.82L17.18 9L12 18.02L6.82 9L12 5.82Z" fill="currentColor"/></svg>',
+    icon: '<svg viewBox="0 0 24 24" fill="none" class="heraldic-icon-svg"><path d="M7 3h10l5 5.5-10 12.5L2 8.5 7 3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" fill="currentColor" fill-opacity="0.2"/><path d="M2 8.5h20M7 3l5 5.5 5-5.5M7.5 8.5L12 21l4.5-12.5" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/><circle cx="12" cy="11.5" r="1.5" fill="currentColor"/></svg>',
     isUnlocked: () =>
       Object.keys(ClubState.owned).length >= 3 ||
       (ClubState.totalSpent || 0) >= 25000,
@@ -679,7 +679,7 @@ const ACHIEVEMENTS_DATA = {
     name: "HIGH SOVEREIGN",
     title: "ELITE STATUS",
     desc: "Boutique threshold: $50,000 cumulative spend.",
-    icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.5 2 5 4 5 9C5 12.5 7 16 12 21C17 16 19 12.5 19 9C19 4 15.5 2 12 2ZM12 17.5C8.5 13.5 7 11 7 9C7 5.5 9.5 4 12 4C14.5 4 17 5.5 17 9C17 11 15.5 13.5 12 17.5Z" fill="currentColor"/><circle cx="12" cy="9" r="3" fill="currentColor"/></svg>',
+    icon: '<svg viewBox="0 0 24 24" fill="none" class="heraldic-icon-svg"><path d="M9.5 2.5L12 5.5l2.5-3 1 4.5 4.5-1-3 2.5 3 2.5-4.5-1-1 4.5-2.5-3-2.5 3-1-4.5-4.5 1 3-2.5-3-2.5 4.5 1 1-4.5z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="12" cy="11.5" r="3.2" stroke="currentColor" stroke-width="1.1" fill="currentColor" fill-opacity="0.5"/><circle cx="12" cy="11.5" r="1.3" fill="#ffffff"/></svg>',
     isUnlocked: () => (ClubState.totalSpent || 0) >= 50000,
     target: 50000,
     progress: () => ClubState.totalSpent || 0,
@@ -688,7 +688,7 @@ const ACHIEVEMENTS_DATA = {
     name: "THE APEX TITAN",
     title: "MAXIMUM PRESTIGE",
     desc: "Boutique threshold: $100,000 cumulative spend.",
-    icon: '<svg viewBox="0 0 24 24" fill="none"><path d="M2 17l2-10 4 4 4-7 4 7 4-4 2 10z" fill="currentColor"/><rect x="3" y="19" width="18" height="2" fill="currentColor"/></svg>',
+    icon: '<svg viewBox="0 0 24 24" fill="none" class="heraldic-icon-svg"><path d="M12 1.5l2 3.8 4.2-1.2-1 4.2 4.2 1.5-3 3 2.8 3.2-4.2.8.5 4.3-4.2-1.5-2 3.8-2-3.8-4.2 1.5.5-4.3-4.2-.8 2.8-3.2-3-3 4.2-1.5-1-4.2 4.2 1.2 2-3.8z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/><path d="M8.5 13.5l1.2-3.8 2.3 1.8 2.3-1.8 1.2 3.8H8.5z" fill="currentColor"/><circle cx="12" cy="9.5" r="1.1" fill="#ffffff"/></svg>',
     isUnlocked: () => (ClubState.totalSpent || 0) >= 100000,
     target: 100000,
     progress: () => ClubState.totalSpent || 0,
@@ -7287,7 +7287,7 @@ function renderProfileAchievements() {
           <div class="hrr-ribbon-bezel" aria-hidden="true"></div>
           ${isUnlocked 
             ? '<div class="hrr-rosette-device" aria-hidden="true"><span class="hrr-rosette-core">✦</span></div>' 
-            : '<div class="hrr-lock-device" aria-hidden="true">🔒</div>'}
+            : '<div class="hrr-lock-device" aria-hidden="true"><svg viewBox="0 0 16 16" width="9" height="9" fill="currentColor"><path d="M4 6V4.5a4 4 0 0 1 8 0V6h1a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1zm2-1.5V6h4V4.5a2 2 0 1 0-4 0zM8 9a1.2 1.2 0 0 0-1 1.15v1.7a1 1 0 0 0 2 0v-1.7A1.2 1.2 0 0 0 8 9z"/></svg></div>'}
         </div>
       `;
     });
@@ -7352,6 +7352,10 @@ function renderProfileAchievements() {
           </div>
 
           <div class="honor-citation-hint">
+            <svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.3" class="hch-icon" aria-hidden="true">
+              <circle cx="8" cy="8" r="6.5"></circle>
+              <path d="M8 5v3.5l2 1.5"></path>
+            </svg>
             <span>${window.t("honors.inspectCitation")}</span>
           </div>
         </div>
@@ -7413,6 +7417,10 @@ function renderProfileAchievements() {
           </div>
 
           <div class="honor-citation-hint">
+            <svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.3" class="hch-icon" aria-hidden="true">
+              <circle cx="8" cy="8" r="6.5"></circle>
+              <path d="M8 5v3.5l2 1.5"></path>
+            </svg>
             <span>${window.t("honors.inspectCitation")}</span>
           </div>
         </div>
@@ -7432,8 +7440,18 @@ function renderProfileAchievements() {
         <span class="achievements-summary-label">${window.t("honors.unlocked")}</span>
         <span class="achievements-summary-value">${earnedCount} / ${totalAchievements}</span>
       </div>
-      <div class="achievements-summary-divider"></div>
-      <div class="achievements-summary-col" style="align-items: flex-end;">
+      <div class="achievements-summary-center-gauge" aria-hidden="true">
+        <div class="asc-track-bar">
+          <div class="asc-track-fill" style="width: ${completionPercent}%;"></div>
+        </div>
+        <div class="asc-track-pips">
+          <span class="asc-pip ${earnedCount >= 1 ? 'is-active' : ''}">I</span>
+          <span class="asc-pip ${earnedCount >= 2 ? 'is-active' : ''}">II</span>
+          <span class="asc-pip ${earnedCount >= 3 ? 'is-active' : ''}">III</span>
+          <span class="asc-pip ${earnedCount >= 4 ? 'is-active' : ''}">IV</span>
+        </div>
+      </div>
+      <div class="achievements-summary-col" style="align-items: flex-end; text-align: end;">
         <span class="achievements-summary-label">${window.t("honors.tierProgress")}</span>
         <span class="achievements-summary-value" style="color: ${completionPercent === 100 ? "#e6c27a" : "#d4af6a"};">${completionPercent}%</span>
       </div>
@@ -8705,9 +8723,10 @@ function renderProfileSovereignOath() {
         <span class="oath-signature-tier-seal">✦ ${tierName.toUpperCase()}</span>
       </div>
       <div class="oath-signature-paraph-flourish">
-        <svg viewBox="0 0 260 20" fill="none" preserveAspectRatio="none" class="oath-paraph-svg">
-          <path d="M4 11 C 45 4, 110 16, 175 6 C 210 1, 235 8, 255 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
-          <path d="M150 11 C 185 14, 215 15, 252 11" stroke="currentColor" stroke-width="0.8" opacity="0.6" stroke-linecap="round"></path>
+        <svg viewBox="0 0 240 18" fill="none" preserveAspectRatio="none" class="oath-paraph-svg">
+          <path d="M4 12 C 45 5, 105 16, 155 8 C 190 3, 218 11, 236 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+          <path d="M130 9 C 165 13, 200 12, 232 8" stroke="currentColor" stroke-width="0.75" opacity="0.65" stroke-linecap="round"></path>
+          <circle cx="236" cy="8" r="1.3" fill="currentColor"></circle>
         </svg>
       </div>
     `;

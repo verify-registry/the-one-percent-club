@@ -858,40 +858,48 @@ input {
   flex-shrink: 0;
   z-index: 100 !important;
   transform: translate3d(0, 0, 0) !important;
-  pointer-events: auto !important;
+  pointer-events: none !important;
   background:
-    radial-gradient(ellipse 110% 70px at 50% -10px, rgba(212, 175, 55, 0.15) 0%, rgba(184, 134, 45, 0.04) 50%, transparent 80%),
+    radial-gradient(ellipse 120% 75px at 50% -12px, rgba(212, 175, 55, 0.14) 0%, rgba(184, 134, 45, 0.03) 45%, transparent 75%),
     linear-gradient(
       180deg,
-      rgba(15, 11, 19, 0.94) 0%,
-      rgba(13, 9, 16, 0.86) 30%,
-      rgba(10, 8, 13, 0.60) 58%,
-      rgba(7, 5, 9, 0.30) 78%,
-      rgba(5, 4, 7, 0.08) 92%,
-      transparent 100%
+      rgba(7, 7, 9, 0.96) 0%,
+      rgba(7, 7, 9, 0.92) 36%,
+      rgba(7, 7, 9, 0.78) 54%,
+      rgba(7, 7, 9, 0.52) 70%,
+      rgba(7, 7, 9, 0.26) 84%,
+      rgba(7, 7, 9, 0.08) 93%,
+      rgba(7, 7, 9, 0) 100%
     ) !important;
   backdrop-filter: blur(24px) saturate(190%) contrast(108%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(108%) !important;
   -webkit-mask-image: linear-gradient(
     180deg,
-    #000 0%,
-    #000 48%,
-    rgba(0, 0, 0, 0.85) 66%,
-    rgba(0, 0, 0, 0.40) 84%,
-    rgba(0, 0, 0, 0.08) 94%,
+    #000000 0%,
+    #000000 48%,
+    rgba(0, 0, 0, 0.94) 58%,
+    rgba(0, 0, 0, 0.80) 68%,
+    rgba(0, 0, 0, 0.58) 78%,
+    rgba(0, 0, 0, 0.32) 87%,
+    rgba(0, 0, 0, 0.10) 94%,
+    rgba(0, 0, 0, 0.02) 98%,
     transparent 100%
   ) !important;
   mask-image: linear-gradient(
     180deg,
-    #000 0%,
-    #000 48%,
-    rgba(0, 0, 0, 0.85) 66%,
-    rgba(0, 0, 0, 0.40) 84%,
-    rgba(0, 0, 0, 0.08) 94%,
+    #000000 0%,
+    #000000 48%,
+    rgba(0, 0, 0, 0.94) 58%,
+    rgba(0, 0, 0, 0.80) 68%,
+    rgba(0, 0, 0, 0.58) 78%,
+    rgba(0, 0, 0, 0.32) 87%,
+    rgba(0, 0, 0, 0.10) 94%,
+    rgba(0, 0, 0, 0.02) 98%,
     transparent 100%
   ) !important;
   border: none !important;
   border-bottom: none !important;
+  outline: none !important;
   box-shadow: none !important;
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -916,37 +924,45 @@ html.light-mode .app-header,
   padding: calc(9px + env(safe-area-inset-top, 0px)) 16px 12px !important;
   box-sizing: border-box !important;
   background:
-    radial-gradient(ellipse 110% 70px at 50% -10px, rgba(235, 205, 130, 0.32) 0%, rgba(212, 175, 55, 0.08) 50%, transparent 80%),
+    radial-gradient(ellipse 120% 75px at 50% -12px, rgba(235, 205, 130, 0.30) 0%, rgba(212, 175, 55, 0.06) 45%, transparent 75%),
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.95) 0%,
-      rgba(253, 250, 244, 0.88) 30%,
-      rgba(250, 245, 235, 0.60) 58%,
-      rgba(247, 241, 230, 0.30) 78%,
-      rgba(244, 238, 225, 0.08) 92%,
-      transparent 100%
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(253, 250, 244, 0.92) 36%,
+      rgba(250, 245, 236, 0.78) 54%,
+      rgba(247, 241, 230, 0.52) 70%,
+      rgba(244, 237, 224, 0.26) 84%,
+      rgba(244, 237, 224, 0.08) 93%,
+      rgba(244, 237, 224, 0) 100%
     ) !important;
   border: none !important;
   border-bottom: none !important;
+  outline: none !important;
   box-shadow: none !important;
   backdrop-filter: blur(24px) saturate(170%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
   -webkit-mask-image: linear-gradient(
     180deg,
-    #000 0%,
-    #000 48%,
-    rgba(0, 0, 0, 0.85) 66%,
-    rgba(0, 0, 0, 0.40) 84%,
-    rgba(0, 0, 0, 0.08) 94%,
+    #000000 0%,
+    #000000 48%,
+    rgba(0, 0, 0, 0.94) 58%,
+    rgba(0, 0, 0, 0.80) 68%,
+    rgba(0, 0, 0, 0.58) 78%,
+    rgba(0, 0, 0, 0.32) 87%,
+    rgba(0, 0, 0, 0.10) 94%,
+    rgba(0, 0, 0, 0.02) 98%,
     transparent 100%
   ) !important;
   mask-image: linear-gradient(
     180deg,
-    #000 0%,
-    #000 48%,
-    rgba(0, 0, 0, 0.85) 66%,
-    rgba(0, 0, 0, 0.40) 84%,
-    rgba(0, 0, 0, 0.08) 94%,
+    #000000 0%,
+    #000000 48%,
+    rgba(0, 0, 0, 0.94) 58%,
+    rgba(0, 0, 0, 0.80) 68%,
+    rgba(0, 0, 0, 0.58) 78%,
+    rgba(0, 0, 0, 0.32) 87%,
+    rgba(0, 0, 0, 0.10) 94%,
+    rgba(0, 0, 0, 0.02) 98%,
     transparent 100%
   ) !important;
 }
@@ -19634,34 +19650,31 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
 
 .oath-pillar-cell {
   background: 
-    radial-gradient(ellipse at 15% 50%, rgba(212, 175, 106, 0.04) 0%, transparent 60%),
-    linear-gradient(145deg, rgba(24, 20, 28, 0.9) 0%, rgba(13, 11, 16, 0.96) 100%);
-  border: 1px solid rgba(212, 175, 106, 0.28);
-  border-inline-start: 3.5px solid #d4af6a;
-  border-radius: 11px;
+    radial-gradient(ellipse at 15% 50%, rgba(212, 175, 106, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(22, 18, 14, 0.75) 0%, rgba(14, 11, 8, 0.88) 100%);
+  border: 1px solid rgba(212, 175, 106, 0.22);
+  border-radius: 9px;
   padding: 12px 14px;
   box-shadow: 
-    0 4px 14px rgba(0, 0, 0, 0.65),
-    inset 0 1px 0 rgba(255, 240, 205, 0.1),
-    inset 0 0 12px rgba(212, 175, 106, 0.03);
+    0 4px 14px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 240, 205, 0.08);
   transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
 }
 
 .oath-pillar-cell:hover {
-  border-color: rgba(235, 205, 135, 0.6);
-  border-inline-start-color: #ffd782;
+  border-color: rgba(235, 205, 135, 0.5);
   transform: translateY(-1px);
   box-shadow: 
-    0 8px 20px rgba(0, 0, 0, 0.75),
-    0 0 16px rgba(212, 175, 106, 0.16),
-    inset 0 1px 0 rgba(255, 245, 220, 0.2);
+    0 8px 20px rgba(0, 0, 0, 0.7),
+    0 0 16px rgba(212, 175, 106, 0.15),
+    inset 0 1px 0 rgba(255, 245, 220, 0.16);
 }
 
 .opc-head {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 10px;
   margin-bottom: 6px;
 }
 
@@ -19672,38 +19685,39 @@ body.light-mode .sovereign-oath-card.is-oath-ratified-flash {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 7px;
+  border-radius: 50%;
   background: 
-    radial-gradient(circle at 50% 30%, rgba(212, 175, 106, 0.25) 0%, rgba(212, 175, 106, 0.05) 100%),
-    rgba(22, 18, 12, 0.85);
-  border: 1px solid rgba(212, 175, 106, 0.45);
+    radial-gradient(circle at 35% 35%, #563c14 0%, #2e1c07 60%, #140c03 100%);
+  border: 1px solid rgba(212, 175, 106, 0.55);
   box-shadow: 
-    0 2px 6px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 245, 215, 0.35);
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 245, 215, 0.3);
 }
 
 .opc-icon svg {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
 }
 
 .opc-title {
-  font-family: var(--font-display, "Cinzel", "Cormorant Garamond", serif);
-  font-size: 10.5px;
+  font-family: var(--font-display, "Cinzel", serif);
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #f7ecce;
+  letter-spacing: 0.1em;
+  color: #f7e6be;
   text-transform: uppercase;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .opc-desc {
-  font-size: 9.5px;
+  font-size: 13.5px;
   line-height: 1.55;
-  color: rgba(255, 245, 225, 0.72);
+  color: rgba(255, 242, 217, 0.85);
   margin: 0;
-  padding-inline-start: 35px;
-  font-family: var(--font-ui, "Manrope", sans-serif);
+  padding-inline-start: 34px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: normal;
+  font-weight: 500;
 }
 
 /* Subtle Archival Chancery Watermark */
@@ -19948,73 +19962,110 @@ body.light-mode .oath-chancery-watermark {
   mix-blend-mode: multiply !important;
 }
 
+body.light-mode .oath-chancery-watermark {
+  color: #c59b4e !important;
+  opacity: 0.05 !important;
+  mix-blend-mode: multiply !important;
+}
+
 body.light-mode .oath-pillar-cell {
-  background: linear-gradient(145deg, #ffffff 0%, #faf5ea 100%) !important;
-  border: 1px solid rgba(197, 155, 78, 0.35) !important;
-  border-inline-start: 3.5px solid #c59b4e !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(248, 241, 228, 0.5) 100%) !important;
+  border: 1px solid rgba(197, 155, 78, 0.25) !important;
+  border-inline-start: none !important;
+  border-left: none !important;
+  border-radius: 9px !important;
   box-shadow: 
-    0 3px 10px rgba(65, 45, 15, 0.05),
-    inset 0 1px 0 #ffffff !important;
+    0 1px 4px rgba(70, 48, 15, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
 }
 
 body.light-mode .oath-pillar-cell:hover {
-  border-color: rgba(185, 145, 75, 0.6) !important;
-  border-inline-start-color: #a8792c !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 241, 228, 0.65) 100%) !important;
+  border-color: rgba(185, 145, 75, 0.45) !important;
+  border-inline-start: none !important;
+  border-left: none !important;
   box-shadow: 
-    0 6px 18px rgba(65, 45, 15, 0.1),
-    inset 0 1px 0 #ffffff !important;
+    0 3px 10px rgba(70, 48, 15, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 
 body.light-mode .opc-icon {
-  background: linear-gradient(135deg, #fbf7ee 0%, #f0e6d2 100%) !important;
-  border-color: rgba(197, 155, 78, 0.45) !important;
+  background: radial-gradient(circle at 35% 35%, #fffdf5 0%, #f7e3ad 50%, #cfa340 100%) !important;
+  border-color: #9e731e !important;
+  border-radius: 50% !important;
   box-shadow: 
-    0 2px 5px rgba(70, 45, 10, 0.08),
+    0 1px 3px rgba(60, 40, 10, 0.15),
     inset 0 1px 0 #ffffff !important;
 }
 
+body.light-mode .opc-icon svg path,
+body.light-mode .opc-icon svg rect,
+body.light-mode .opc-icon svg circle {
+  stroke: #5c3804 !important;
+}
+
 body.light-mode .opc-title {
-  color: #26190a !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  color: #2e1e0d !important;
   text-shadow: none !important;
 }
 
 body.light-mode .opc-desc {
-  color: #524330 !important;
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-size: 13.5px !important;
+  line-height: 1.55 !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  color: #3b2914 !important;
 }
 
-/* Light Mode Signature: Diplomatic Royal Prussian Fountain Pen Ink */
+/* Light Mode Signature: Sovereign Imperial Gall & Liquid 24K Gold Ink */
 body.light-mode .oath-signature-text {
   background: none !important;
   -webkit-background-clip: unset !important;
   -webkit-text-fill-color: initial !important;
-  color: #1e3a8a !important;
+  color: #4e3410 !important;
 }
 
 body.light-mode .oath-signature-handwritten {
-  background: linear-gradient(135deg, #091a32 0%, #1e3a8a 60%, #172554 100%) !important;
+  font-family: 'Pinyon Script', 'Great Vibes', 'Alex Brush', cursive !important;
+  font-size: 38px !important;
+  line-height: 1.15 !important;
+  background: linear-gradient(135deg, #1f1406 0%, #4e3410 42%, #875c1c 72%, #b8862d 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  color: #1e3a8a !important;
-  filter: drop-shadow(0 0.5px 0.5px rgba(30, 58, 138, 0.38)) !important;
+  color: #4e3410 !important;
+  filter: drop-shadow(0 1px 1px rgba(184, 134, 45, 0.35)) !important;
 }
 
 body.light-mode .oath-signature-tier-seal {
-  color: #6b4d1b !important;
-  background: rgba(197, 155, 78, 0.12) !important;
-  border: 1px solid rgba(197, 155, 78, 0.38) !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 8px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  color: #4a320b !important;
+  background: linear-gradient(180deg, #fdf8ee 0%, #f3e5c8 100%) !important;
+  border: 1px solid #b88a32 !important;
   box-shadow: 
-    0 1px 2px rgba(60, 40, 10, 0.08),
+    0 1px 3px rgba(60, 40, 10, 0.1),
     inset 0 1px 0 #ffffff !important;
 }
 
 body.light-mode .oath-signature-paraph-flourish {
-  color: #1e3a8a !important;
-  opacity: 0.72 !important;
-  filter: drop-shadow(0 0.5px 0.5px rgba(30, 58, 138, 0.25)) !important;
+  color: #9e7225 !important;
+  opacity: 0.8 !important;
+  filter: drop-shadow(0 1px 2px rgba(184, 134, 45, 0.25)) !important;
 }
 
 body.light-mode .oath-sig-label {
+  font-family: var(--font-display, "Cinzel", serif) !important;
   color: #6d583d !important;
+  letter-spacing: 0.16em !important;
+  font-size: 8px !important;
+  font-weight: 600 !important;
 }
 
 body.light-mode .oath-crypt-id {
@@ -20022,26 +20073,41 @@ body.light-mode .oath-crypt-id {
 }
 
 body.light-mode .oath-signet-seal-btn {
-  background: linear-gradient(180deg, #fdf4df 0%, #e8c278 40%, #c49436 82%, #8e6216 100%) !important;
-  border: 1px solid #7c581a !important;
-  color: #261601 !important;
+  background: linear-gradient(180deg, #FFFDF2 0%, #F5CF68 28%, #D49B28 72%, #8C590E 100%) !important;
+  border: 1px solid #784A08 !important;
+  color: #241402 !important;
   box-shadow: 
-    0 0 0 1px rgba(90, 60, 15, 0.25),
-    0 4px 12px rgba(60, 40, 10, 0.18),
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.95),
-    inset 0 -1.5px 1px rgba(90, 60, 15, 0.45) !important;
-  border-radius: 24px !important;
+    0 3px 12px rgba(80, 50, 12, 0.22),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 1.5px 1px #FFFFFF,
+    inset 0 -1.5px 2px #5A3604 !important;
+  border-radius: 26px !important;
+  padding: 8px 22px !important;
 }
 
 body.light-mode .oath-signet-seal-btn:hover {
-  background: linear-gradient(180deg, #fff8e8 0%, #f0cd86 40%, #cca044 82%, #9d6d1b 100%) !important;
-  border-color: #5c3f10 !important;
-  color: #150b00 !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FDE48C 28%, #E5AA30 72%, #9E6510 100%) !important;
+  border-color: #5C3804 !important;
+  color: #1A0C00 !important;
+  transform: translateY(-1.5px) scale(1.02) !important;
   box-shadow: 
-    0 0 0 1px rgba(90, 60, 15, 0.35),
-    0 6px 16px rgba(60, 40, 10, 0.25),
-    inset 0 1.5px 1px #ffffff,
-    inset 0 -1.5px 1px rgba(90, 60, 15, 0.55) !important;
+    0 6px 18px rgba(80, 50, 12, 0.28),
+    inset 0 1.5px 1.5px #FFFFFF,
+    inset 0 -1.5px 2px #5A3604 !important;
+}
+
+body.light-mode .oath-signet-seal-btn .ossb-text {
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-weight: 800 !important;
+  font-size: 9px !important;
+  letter-spacing: 0.16em !important;
+  color: #241402 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+body.light-mode .oath-signet-seal-btn .ossb-star {
+  color: #5C3804 !important;
+  font-size: 11px !important;
 }
 
 body.light-mode .ossb-star {
@@ -25241,36 +25307,44 @@ body #profile-tab .oath-pillars-grid {
 }
 
 body #profile-tab .oath-pillar-cell {
-  padding: 9px 11px !important;
+  padding: 10px 12px !important;
   border-radius: 9px !important;
+  border-inline-start: none !important;
+  border-left: none !important;
   box-sizing: border-box !important;
   width: 100% !important;
 }
 
 body #profile-tab .opc-header {
-  gap: 8px !important;
+  gap: 9px !important;
 }
 
 body #profile-tab .opc-icon {
-  width: 18px !important;
-  height: 18px !important;
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
 }
 
 body #profile-tab .opc-title {
-  font-size: 9.5px !important;
-  letter-spacing: 0.05em !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
 }
 
 body #profile-tab .opc-desc {
-  font-size: 8.5px !important;
-  line-height: 1.45 !important;
-  padding-inline-start: 26px !important;
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  padding-inline-start: 31px !important;
   box-sizing: border-box !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
 }
 
 body #profile-tab .oath-ratification-footer {
-  padding-top: 12px !important;
-  gap: 10px !important;
+  padding-top: 14px !important;
+  gap: 12px !important;
   box-sizing: border-box !important;
   width: 100% !important;
 }
@@ -25280,7 +25354,9 @@ body #profile-tab .oath-sig-box {
 }
 
 body #profile-tab .oath-sig-label {
-  font-size: 7.5px !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 8px !important;
+  letter-spacing: 0.16em !important;
 }
 
 body #profile-tab .oath-signature-text {
@@ -25288,7 +25364,9 @@ body #profile-tab .oath-signature-text {
 }
 
 body #profile-tab .oath-signature-handwritten {
-  font-size: 30px !important;
+  font-family: 'Pinyon Script', 'Great Vibes', 'Alex Brush', cursive !important;
+  font-size: 36px !important;
+  line-height: 1.15 !important;
 }
 
 body #profile-tab .oath-crypt-id {
@@ -25297,13 +25375,16 @@ body #profile-tab .oath-crypt-id {
 }
 
 body #profile-tab .oath-signet-seal-btn {
-  padding: 6px 12px !important;
-  border-radius: 20px !important;
+  padding: 8px 18px !important;
+  border-radius: 24px !important;
   flex-shrink: 0 !important;
 }
 
 body #profile-tab .ossb-text {
-  font-size: 8.5px !important;
+  font-family: var(--font-display, "Cinzel", serif) !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
 }
 
 /* 7. Ultra-Compact Screen Adaptations (360px - 374px) */
@@ -34741,43 +34822,51 @@ html[dir="ltr"] #authRecoveryModal .auth-text-input {
 
   font-family: "Manrope", sans-serif !important;
 
-}/* Broad English UI Typography across elements, using :not to explicitly exclude frozen cards & Arabic text */
+}/* Broad English UI Typography across elements, using :not to explicitly exclude frozen cards, signature & Arabic text */
 body :not(
-  .profile-hero-card, .profile-hero-card *, #profileHeroPlaque, #profileHeroPlaque *, .membership-card, .membership-card *, #membershipCard, #membershipCard *, :lang(ar), :lang(ar) *, .is-rtl, .is-rtl *
+  .profile-hero-card, .profile-hero-card *, #profileHeroPlaque, #profileHeroPlaque *, .membership-card, .membership-card *, #membershipCard, #membershipCard *, :lang(ar), :lang(ar) *, .is-rtl, .is-rtl *, .oath-signature-handwritten, .oath-signature-handwritten *, #oathHandwrittenName, .oath-preamble, .opc-desc, .opc-title, .oath-decree-sub, .ossb-text, .sovereign-oath-card, .sovereign-oath-card *
 ) {
-
   font-family: "Manrope", sans-serif;
-
 }:lang(ar), .is-rtl {
-
   font-family: "Readex Pro", "Cairo", "Amiri", -apple-system, sans-serif !important;
-
 }:lang(ar), .is-rtl {
-
   font-family: "Readex Pro", "Cairo", "Amiri", -apple-system, sans-serif !important;
-
 }
 
-/* Explicit coverage for any LTR or English element outside frozen cards and sovereign brand header */
-[dir="ltr"]:not(.membership-card *):not(#page-card *):not(#membershipCard *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(.brand *):not(.brand-title):not(.brand-tagline-text):not(#appHeader .brand-title):not(#appHeader .brand-tagline-text),
-[lang="en"]:not(.membership-card *):not(#page-card *):not(#membershipCard *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(.brand *):not(.brand-title):not(.brand-tagline-text):not(#appHeader .brand-title):not(#appHeader .brand-tagline-text) {
+/* Explicit coverage for any LTR or English element outside frozen cards, sovereign brand header, and oath decree */
+[dir="ltr"]:not(.membership-card *):not(#page-card *):not(#membershipCard *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(.brand *):not(.brand-title):not(.brand-tagline-text):not(#appHeader .brand-title):not(#appHeader .brand-tagline-text):not(.oath-signature-handwritten):not(.oath-signature-handwritten *):not(#oathHandwrittenName):not(.oath-preamble):not(.opc-desc):not(.opc-title):not(.oath-decree-sub):not(.ossb-text):not(#sovereignOathCard *),
+[lang="en"]:not(.membership-card *):not(#page-card *):not(#membershipCard *):not(.profile-hero-card *):not(#profileHeroPlaque *):not(.brand *):not(.brand-title):not(.brand-tagline-text):not(#appHeader .brand-title):not(#appHeader .brand-tagline-text):not(.oath-signature-handwritten):not(.oath-signature-handwritten *):not(#oathHandwrittenName):not(.oath-preamble):not(.opc-desc):not(.opc-title):not(.oath-decree-sub):not(.ossb-text):not(#sovereignOathCard *) {
   font-family: "Manrope", sans-serif !important;
 }
 
 /* When the app is in English mode (html[lang="en"] or html[dir="ltr"]):
-   All UI elements outside the two frozen cards and sovereign brand header are guaranteed Manrope */
+   All UI elements outside the frozen cards and sovereign oath are guaranteed Manrope */
 html[lang="en"] :where(
   .app-header > *:not(.brand),
   .bottom-nav,
   #club-tab,
   #boutique-tab,
-  #profile-tab > *:not(.profile-hero-card):not(#profileHeroPlaque),
+  #profile-tab > *:not(.profile-hero-card):not(#profileHeroPlaque):not(#profileOathSection):not(#sovereignOathCard):not(#sovereignOathCard *),
   .luxury-modal-overlay,
   .purchase-modal-overlay,
   .card-actions,
   .copy-toast
 ) :where(h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select, label, [data-i18n]) {
   font-family: "Manrope", sans-serif !important;
+}
+
+/* --- Guaranteed Royal Calligraphy for Sovereign Oath Signature --- */
+.oath-signature-handwritten,
+#oathHandwrittenName,
+body #profile-tab .oath-signature-handwritten,
+body.light-mode #profile-tab .oath-signature-handwritten,
+html[lang="en"] #profile-tab .oath-signature-handwritten,
+html[dir="ltr"] #profile-tab .oath-signature-handwritten {
+  font-family: 'Pinyon Script', 'Great Vibes', 'Alex Brush', cursive !important;
+  font-size: 38px !important;
+  line-height: 1.15 !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
 }
 
 /* ==========================================================================
@@ -36973,24 +37062,58 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
   display: block !important;
   z-index: 100 !important;
   transform: translate3d(0, 0, 0) !important;
-  pointer-events: auto !important;
+  pointer-events: none !important;
   background:
-    radial-gradient(ellipse 110% 70px at 50% -10px, rgba(212, 175, 55, 0.15) 0%, rgba(184, 134, 45, 0.04) 50%, transparent 80%),
+    radial-gradient(ellipse 120% 75px at 50% -12px, rgba(212, 175, 55, 0.14) 0%, rgba(184, 134, 45, 0.03) 45%, transparent 75%),
     linear-gradient(
       180deg,
-      rgba(7, 7, 9, 0.98) 0%,
-      rgba(7, 7, 9, 0.95) 60%,
-      rgba(7, 7, 9, 0.85) 78%,
-      rgba(7, 7, 9, 0.40) 90%,
-      transparent 100%
+      rgba(7, 7, 9, 0.96) 0%,
+      rgba(7, 7, 9, 0.92) 36%,
+      rgba(7, 7, 9, 0.78) 54%,
+      rgba(7, 7, 9, 0.52) 70%,
+      rgba(7, 7, 9, 0.26) 84%,
+      rgba(7, 7, 9, 0.08) 93%,
+      rgba(7, 7, 9, 0) 100%
     ) !important;
   backdrop-filter: blur(24px) saturate(190%) contrast(108%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(190%) contrast(108%) !important;
-  -webkit-mask-image: none !important;
-  mask-image: none !important;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 48%,
+    rgba(0, 0, 0, 0.94) 58%,
+    rgba(0, 0, 0, 0.80) 68%,
+    rgba(0, 0, 0, 0.58) 78%,
+    rgba(0, 0, 0, 0.32) 87%,
+    rgba(0, 0, 0, 0.10) 94%,
+    rgba(0, 0, 0, 0.02) 98%,
+    transparent 100%
+  ) !important;
+  mask-image: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 48%,
+    rgba(0, 0, 0, 0.94) 58%,
+    rgba(0, 0, 0, 0.80) 68%,
+    rgba(0, 0, 0, 0.58) 78%,
+    rgba(0, 0, 0, 0.32) 87%,
+    rgba(0, 0, 0, 0.10) 94%,
+    rgba(0, 0, 0, 0.02) 98%,
+    transparent 100%
+  ) !important;
   border: none !important;
   border-bottom: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#appHeader .brand,
+.app-header .brand,
+#appHeader #headerVerifiedShieldBtn,
+#appHeader .shield-btn,
+.app-header .shield-btn {
+  pointer-events: auto !important;
 }
 
 body.light-mode #appHeader,
@@ -37005,21 +37128,46 @@ html.light-mode .app-header,
   padding: calc(9px + env(safe-area-inset-top, 0px)) 16px 12px !important;
   box-sizing: border-box !important;
   background:
-    radial-gradient(ellipse 110% 70px at 50% -10px, rgba(235, 205, 130, 0.32) 0%, rgba(212, 175, 55, 0.08) 50%, transparent 80%),
+    radial-gradient(ellipse 120% 75px at 50% -12px, rgba(235, 205, 130, 0.30) 0%, rgba(212, 175, 55, 0.06) 45%, transparent 75%),
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(253, 250, 244, 0.95) 60%,
-      rgba(250, 245, 235, 0.85) 78%,
-      rgba(247, 241, 230, 0.40) 90%,
-      transparent 100%
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(253, 250, 244, 0.92) 36%,
+      rgba(250, 245, 236, 0.78) 54%,
+      rgba(247, 241, 230, 0.52) 70%,
+      rgba(244, 237, 224, 0.26) 84%,
+      rgba(244, 237, 224, 0.08) 93%,
+      rgba(244, 237, 224, 0) 100%
     ) !important;
   backdrop-filter: blur(24px) saturate(170%) !important;
   -webkit-backdrop-filter: blur(24px) saturate(170%) !important;
-  -webkit-mask-image: none !important;
-  mask-image: none !important;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 48%,
+    rgba(0, 0, 0, 0.94) 58%,
+    rgba(0, 0, 0, 0.80) 68%,
+    rgba(0, 0, 0, 0.58) 78%,
+    rgba(0, 0, 0, 0.32) 87%,
+    rgba(0, 0, 0, 0.10) 94%,
+    rgba(0, 0, 0, 0.02) 98%,
+    transparent 100%
+  ) !important;
+  mask-image: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 48%,
+    rgba(0, 0, 0, 0.94) 58%,
+    rgba(0, 0, 0, 0.80) 68%,
+    rgba(0, 0, 0, 0.58) 78%,
+    rgba(0, 0, 0, 0.32) 87%,
+    rgba(0, 0, 0, 0.10) 94%,
+    rgba(0, 0, 0, 0.02) 98%,
+    transparent 100%
+  ) !important;
   border: none !important;
   border-bottom: none !important;
+  outline: none !important;
   box-shadow: none !important;
 }
 
@@ -37606,9 +37754,9 @@ html.light-mode #headerVerifiedShieldBtn .seal-check-shadow {
   pointer-events: auto;
   will-change: opacity, transform;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  box-shadow: 
-    0 1px 0 0 rgba(212, 175, 55, 0.16),
-    0 16px 36px -10px rgba(0, 0, 0, 0.65) !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-bottom: none !important;
 }
 
 body.light-mode #appHeader,
@@ -37617,9 +37765,9 @@ body.light-mode .app-header,
 html.light-mode .app-header,
 :root[data-theme="light"] #appHeader,
 :root[data-theme="light"] .app-header {
-  box-shadow: 
-    0 1px 0 0 rgba(184, 134, 45, 0.20),
-    0 12px 30px -8px rgba(0, 0, 0, 0.10) !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-bottom: none !important;
 }
 
 #appHeader.header-hidden,
