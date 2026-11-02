@@ -1,66 +1,124 @@
 /**
  * THE 1% CLUB — Sovereign Boutique Artifacts Engine
- * Real Physical Haute Joaillerie & Haute Horlogerie Studio Photography
+ * Dual-Mode Authentic Haute Joaillerie & Haute Horlogerie Studio Photography
+ * Light Mode: Luminous daylight editorial on warm Carrara marble, champagne silk & alabaster
+ * Dark Mode: Deep obsidian & black velvet studio photography
  */
+
+function isLightModeActive() {
+  if (typeof document === 'undefined') return false;
+  return document.documentElement.classList.contains('light-mode') ||
+         (document.body && document.body.classList.contains('light-mode')) ||
+         document.documentElement.getAttribute('data-theme') === 'light' ||
+         (typeof localStorage !== 'undefined' && localStorage.getItem('app_theme') === 'light');
+}
+
+const aliasMap = {
+  // Stars
+  'star1': 'star1',
+  'star2': 'star1',
+  'star3': 'star1',
+  'star4': 'star4',
+  'star_sovereign': 'star1',
+  'star_grand_cross': 'star1',
+  'star_constellation': 'star1',
+  'star_zenith': 'star4',
+  'star': 'star1',
+  'badge1': 'star1',
+
+  // Crowns
+  'crown1': 'crown1',
+  'crown2': 'crown1',
+  'crown3': 'crown1',
+  'crown4': 'crown4',
+  'crown_imperial': 'crown1',
+  'crown_sol': 'crown1',
+  'crown_solaris': 'crown1',
+  'crown_moritz': 'crown1',
+  'crown_zenith': 'crown4',
+  'apex_crown': 'crown4',
+  'crown': 'crown1',
+
+  // Auras
+  'aura1': 'aura1',
+  'aura2': 'aura1',
+  'aura3': 'aura4',
+  'aura4': 'aura4',
+  'aura_radial': 'aura1',
+  'aura_champagne': 'aura1',
+  'aura_guilloche': 'aura1',
+  'aura_eclipse': 'aura4',
+  'aura_celestial': 'aura4',
+  'aura': 'aura1',
+  'frame1': 'aura1',
+  'frame2': 'aura1',
+  'frame3': 'aura1',
+  'frame4': 'aura4',
+
+  // Rings & Signets
+  'ring1': 'ring1',
+  'ring2': 'ring2',
+  'ring3': 'ring3',
+  'ring4': 'ring3',
+  'ring_monogram': 'ring1',
+  'ring_onyx': 'ring2',
+  'ring_falcon': 'ring3',
+  'ring_emerald': 'ring3',
+  'ring_chrono': 'ring3',
+  'sovereign_signet': 'ring1',
+  'ring': 'ring1',
+  'jewelry': 'ring1',
+
+  // Artifacts & Horology
+  'art1': 'art1',
+  'art2': 'art2',
+  'art3': 'art2',
+  'art4': 'art4',
+  'art_horology': 'art1',
+  'art_tourbillon': 'art1',
+  'art_seal': 'art2',
+  'art_falcon_medallion': 'art2',
+  'art_scepter': 'art4',
+  'art': 'art1',
+
+  // Widgets
+  'wid1': 'wid1',
+  'wid_mastercard': 'wid1',
+
+  // Legacy circle tokens mapped to master pieces
+  'Jet': 'art1',
+  'Yacht': 'art2',
+  'Estate': 'ring2',
+  'Watch': 'art1',
+  'Car': 'ring3',
+  'Art': 'star4',
+  'Horse': 'crown1',
+  'Island': 'aura4'
+};
 
 window.getSovereignArtifact = function(idOrType) {
   const uid = 'sov-' + Math.random().toString(36).substring(2, 9);
-
-  const aliasMap = {
-    'star1': 'star1',
-    'star2': 'star1',
-    'star3': 'star1',
-    'star4': 'star4',
-    'star_sovereign': 'star1',
-    'star_zenith': 'star4',
-    'crown1': 'crown1',
-    'crown2': 'crown1',
-    'crown3': 'crown1',
-    'crown4': 'crown4',
-    'crown_imperial': 'crown1',
-    'crown_zenith': 'crown4',
-    'aura1': 'aura1',
-    'aura2': 'aura1',
-    'aura3': 'aura1',
-    'aura4': 'aura4',
-    'aura_champagne': 'aura1',
-    'aura_celestial': 'aura4',
-    'ring1': 'ring1',
-    'ring2': 'ring2',
-    'ring3': 'ring3',
-    'ring4': 'ring3',
-    'ring_monogram': 'ring1',
-    'ring_onyx': 'ring2',
-    'ring_emerald': 'ring3',
-    'art1': 'art1',
-    'art2': 'art2',
-    'art3': 'art2',
-    'art4': 'art4',
-    'art_horology': 'art1',
-    'art_seal': 'art2',
-    'art_scepter': 'art4',
-    'wid1': 'wid1',
-    'wid_mastercard': 'wid1',
-    'frame1': 'aura1',
-    'frame2': 'aura1',
-    'frame3': 'aura1',
-    'frame4': 'aura4',
-    'badge1': 'star1',
-    'Jet': 'art1',
-    'Yacht': 'art2',
-    'Estate': 'ring2',
-    'Watch': 'art1',
-    'Car': 'ring3',
-    'Art': 'star4',
-    'Horse': 'crown1',
-    'Island': 'aura4'
-  };
-
-  const key = aliasMap[idOrType] || idOrType;
+  const key = (idOrType && aliasMap[idOrType]) ? aliasMap[idOrType] : idOrType;
+  const isLight = isLightModeActive();
 
   // Real Photorealistic Physical High-Jewelry & Horology Piece
   if (key && key !== 'wid1' && key !== 'wid_mastercard') {
-    return `<img src="/artifacts/${key}.webp" alt="${key}" class="sovereign-real-artifact-img" decoding="async" onerror="this.onerror=null;this.src='/artifacts/${key}.jpg';" />`;
+    const activeSrc = isLight ? `/artifacts/${key}_light.webp` : `/artifacts/${key}.webp`;
+    return `<img 
+      src="${activeSrc}" 
+      data-artifact-key="${key}"
+      data-dark="/artifacts/${key}.webp" 
+      data-dark-fallback="/artifacts/${key}.jpg" 
+      data-light="/artifacts/${key}_light.webp" 
+      data-light-fallback="/artifacts/${key}_light.jpg" 
+      alt="${key}" 
+      class="sovereign-real-artifact-img" 
+      decoding="async" 
+      onerror="
+        this.onerror = null;
+        const l = document.documentElement.classList.contains('light-mode') || (document.body && document.body.classList.contains('light-mode'));
+        this.src = l ? (this.dataset.lightFallback || this.dataset.light) : (this.dataset.darkFallback || this.dataset.dark);
+      " />`;
   }
 
   // Sovereign Master Card Widget (wid1)
@@ -94,7 +152,7 @@ window.getSovereignArtifact = function(idOrType) {
 
 // Window-level vitrine compatibility helper for app.js callers
 window.renderClocheVitrine = function(innerContent, isObsidianBaseOrUid, uid) {
-  if (typeof innerContent === "string" && (innerContent.includes("<svg") || innerContent.includes("<img") || innerContent.includes("<g") || innerContent.includes("<image"))) {
+  if (typeof innerContent === "string" && (innerContent.includes("<img") || innerContent.includes("<picture") || innerContent.includes("<svg") || innerContent.includes("<g") || innerContent.includes("<image"))) {
     return `<div class="cloche-vitrine-chamber sovereign-artifact-showcase">${innerContent}</div>`;
   }
   const fallbackKey =
@@ -105,29 +163,54 @@ window.renderClocheVitrine = function(innerContent, isObsidianBaseOrUid, uid) {
   return `<div class="cloche-vitrine-chamber sovereign-artifact-showcase">${valid}</div>`;
 };
 
-// Pre-populate registry and bridge to window.SOVEREIGN_ARTIFACTS
-const registry = {};
-const KNOWN_KEYS = [
-  "star1", "star2", "star3", "star4", "star_sovereign", "star_zenith", "star", "star_grand_cross", "star_constellation",
-  "crown1", "crown2", "crown3", "crown4", "crown_imperial", "crown_zenith", "crown", "apex_crown", "crown_sol", "crown_solaris", "crown_moritz",
-  "aura1", "aura2", "aura3", "aura4", "aura_champagne", "aura_radial", "aura_celestial", "aura", "aura_guilloche", "aura_eclipse",
-  "ring1", "ring2", "ring3", "ring4", "ring_monogram", "ring_onyx", "ring_emerald", "ring_falcon", "ring", "sovereign_signet", "ring_chrono", "jewelry",
-  "art1", "art2", "art3", "art4", "art_horology", "art_tourbillon", "art_seal", "art_scepter", "art", "art_falcon_medallion",
-  "wid1", "wid_mastercard",
-  "frame1", "frame2", "frame3", "frame4", "badge1",
-  "Jet", "Yacht", "Estate", "Watch", "Car", "Art", "Horse", "Island"
-];
+// Dynamic theme switcher for live toggle without full page re-render
+window.updateSovereignArtifactThemes = function() {
+  const isLight = isLightModeActive();
+  const imgs = document.querySelectorAll('.sovereign-real-artifact-img');
+  imgs.forEach((img) => {
+    const key = img.dataset.artifactKey;
+    if (!key) return;
+    const targetSrc = isLight ? `/artifacts/${key}_light.webp` : `/artifacts/${key}.webp`;
+    if (!img.src.endsWith(targetSrc)) {
+      img.src = targetSrc;
+    }
+  });
+};
 
-KNOWN_KEYS.forEach((k) => {
-  registry[k] = window.getSovereignArtifact(k);
-});
+// Listen to theme switches in DOM & storage
+if (typeof window !== 'undefined') {
+  if (typeof MutationObserver !== 'undefined') {
+    const observer = new MutationObserver(() => {
+      window.updateSovereignArtifactThemes();
+    });
+    if (document.documentElement) {
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+    }
+    const attachBodyObserver = () => {
+      if (document.body) {
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      }
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', attachBodyObserver);
+    } else {
+      attachBodyObserver();
+    }
+  }
 
-window.SOVEREIGN_ARTIFACTS = new Proxy(registry, {
+  window.addEventListener('themeChanged', () => {
+    window.updateSovereignArtifactThemes();
+  });
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'app_theme') window.updateSovereignArtifactThemes();
+  });
+}
+
+// Dynamic Proxy for window.SOVEREIGN_ARTIFACTS so current theme is always rendered
+window.SOVEREIGN_ARTIFACTS = new Proxy({}, {
   get(target, prop) {
-    if (typeof prop === "string" && !(prop in target) && prop !== "toJSON" && prop !== "constructor") {
-      const generated = window.getSovereignArtifact(prop);
-      target[prop] = generated;
-      return generated;
+    if (typeof prop === "string" && prop !== "toJSON" && prop !== "constructor") {
+      return window.getSovereignArtifact(prop);
     }
     return target[prop];
   },

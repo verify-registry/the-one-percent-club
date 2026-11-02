@@ -33556,23 +33556,23 @@ body.light-mode .cloche-vitrine-svg {
 }
 
 .boutique-cloche-stage .boutique-card-fallback {
-  width: 96px !important;
-  height: 96px !important;
-  min-width: 96px !important;
-  min-height: 96px !important;
-  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  border-radius: 12px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: radial-gradient(circle at 45% 40%, #1e1913 0%, #0d0c0e 80%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.35) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 body.light-mode .boutique-cloche-stage .boutique-card-fallback {
-  background: radial-gradient(circle at 45% 40%, #ffffff 0%, #f7f3ea 100%) !important;
-  border: 1px solid rgba(184, 141, 56, 0.45) !important;
-  box-shadow: 0 3px 10px rgba(65, 45, 16, 0.08) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .boutique-cloche-stage .boutique-card-fallback svg {
@@ -40193,9 +40193,12 @@ html.light-mode .boutique-item-card,
 body.light-mode .boutique-card-visual,
 html.light-mode .boutique-card-visual,
 [data-theme="light"] .boutique-card-visual {
-  background: #0d0c11 !important;
-  border: 1px solid rgba(197, 155, 62, 0.45) !important;
-  box-shadow: 0 8px 22px rgba(80, 55, 20, 0.16), inset 0 1px 0 rgba(255, 240, 190, 0.25) !important;
+  background: linear-gradient(180deg, #fdfbf7 0%, #f6f0e4 100%) !important;
+  border: 1px solid rgba(197, 155, 62, 0.5) !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 0 rgba(197, 155, 62, 0.15),
+    0 4px 14px rgba(80, 55, 20, 0.08) !important;
 }
 
 /* Master Card & Showcase Hover Dynamics */
@@ -40209,10 +40212,10 @@ html.light-mode .boutique-card-visual,
 body.light-mode #boutique-tab .boutique-card:hover .boutique-card-visual,
 html.light-mode #boutique-tab .boutique-card:hover .boutique-card-visual,
 [data-theme="light"] #boutique-tab .boutique-card:hover .boutique-card-visual {
-  border-color: rgba(197, 155, 62, 0.7) !important;
+  border-color: rgba(197, 155, 62, 0.8) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 240, 190, 0.35),
-    0 10px 24px rgba(80, 55, 20, 0.22) !important;
+    inset 0 1px 0 #ffffff,
+    0 8px 22px rgba(80, 55, 20, 0.15) !important;
 }
 
 .cloche-vitrine-chamber,
