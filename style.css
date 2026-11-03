@@ -36026,23 +36026,24 @@ html.light-mode #club-tab.is-active,
   box-sizing: border-box !important;
   position: relative !important;
   transform: translateZ(0) !important;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.02) 20%,
-    rgba(24, 18, 28, 0.28) 50%,
-    rgba(12, 9, 15, 0.38) 100%
-  ) !important;
+  background:
+    radial-gradient(ellipse 90% 60% at 20% 0%, rgba(255, 245, 215, 0.18) 0%, transparent 60%),
+    linear-gradient(
+      135deg,
+      rgba(28, 23, 36, 0.88) 0%,
+      rgba(16, 13, 22, 0.92) 50%,
+      rgba(9, 7, 13, 0.96) 100%
+    ) !important;
   backdrop-filter: blur(14px) saturate(150%) contrast(104%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(150%) contrast(104%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  border: 1px solid rgba(212, 175, 55, 0.40) !important;
   border-top: 1.2px solid rgba(255, 248, 225, 0.70) !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.12) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.85) !important;
   box-shadow:
-    0 6px 18px -2px rgba(0, 0, 0, 0.38),
-    0 2px 5px -1px rgba(0, 0, 0, 0.20),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.26),
-    inset 0 -1px 1.5px rgba(0, 0, 0, 0.24) !important;
+    0 6px 18px -2px rgba(0, 0, 0, 0.65),
+    0 0 12px rgba(212, 175, 55, 0.15),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.50) !important;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
@@ -37989,19 +37990,26 @@ body:not(.light-mode) .club-messages .sovereign-dispatch-card:not(.is-personal-d
 body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
 body:not(.light-mode) .chat-bubble.is-incoming {
   border-radius: 20px 20px 20px 6px !important;
-  background: linear-gradient(
-    145deg,
-    rgba(26, 21, 32, 0.52) 0%,
-    rgba(15, 12, 19, 0.38) 48%,
-    rgba(8, 7, 12, 0.55) 100%
-  ) !important;
-  border: 1px solid rgba(212, 175, 55, 0.26) !important;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.60) !important;
-  border-bottom: 1.2px solid rgba(0, 0, 0, 0.55) !important;
+  background:
+    radial-gradient(ellipse 95% 65% at 20% 0%, rgba(255, 245, 215, 0.16) 0%, transparent 65%),
+    radial-gradient(circle at 85% 90%, rgba(212, 175, 55, 0.10) 0%, transparent 60%),
+    linear-gradient(
+      145deg,
+      rgba(26, 22, 34, 0.88) 0%,
+      rgba(16, 13, 22, 0.92) 48%,
+      rgba(9, 7, 13, 0.96) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(180%) contrast(105%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(105%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.42) !important;
+  border-top: 1.5px solid rgba(255, 248, 225, 0.80) !important;
+  border-left: 1.2px solid rgba(255, 248, 225, 0.45) !important;
+  border-bottom: 1.2px solid rgba(0, 0, 0, 0.75) !important;
+  border-right: 1px solid rgba(212, 175, 55, 0.30) !important;
   box-shadow:
-    0 10px 32px -4px rgba(0, 0, 0, 0.58),
-    0 3px 10px -1px rgba(0, 0, 0, 0.35),
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.35),
+    0 12px 36px -4px rgba(0, 0, 0, 0.72),
+    0 0 20px -3px rgba(212, 175, 55, 0.18),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.32),
     inset 0 -1.5px 2px rgba(0, 0, 0, 0.45) !important;
   color: #ede7d8 !important;
 }
@@ -38011,8 +38019,8 @@ body:not(.light-mode) .club-messages .sovereign-dispatch-card:not(.is-personal-d
 body:not(.light-mode) .chat-bubble.is-incoming::after {
   background: radial-gradient(
     circle at 20% 12%,
-    rgba(255, 255, 255, 0.10) 0%,
-    rgba(212, 175, 55, 0.04) 40%,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(212, 175, 55, 0.08) 40%,
     transparent 70%
   ) !important;
 }
@@ -38022,13 +38030,13 @@ body:not(.light-mode) .club-messages .sovereign-dispatch-card:not(.is-personal-d
 body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch):hover,
 body:not(.light-mode) .chat-bubble.is-incoming:hover {
   transform: translateY(-2px) scale(1.004) translateZ(0) !important;
-  border-color: rgba(212, 175, 55, 0.40) !important;
-  border-top-color: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(212, 175, 55, 0.65) !important;
+  border-top-color: #ffffff !important;
   box-shadow:
-    0 14px 38px -4px rgba(0, 0, 0, 0.68),
-    0 4px 14px rgba(0, 0, 0, 0.40),
-    0 0 14px rgba(212, 175, 55, 0.12),
-    inset 0 1.8px 2px rgba(255, 255, 255, 0.50),
+    0 14px 40px -4px rgba(0, 0, 0, 0.82),
+    0 4px 14px rgba(0, 0, 0, 0.50),
+    0 0 22px rgba(212, 175, 55, 0.28),
+    inset 0 1.8px 2px rgba(255, 255, 255, 0.45),
     inset 0 -1.5px 2px rgba(0, 0, 0, 0.50) !important;
 }
 
@@ -38038,21 +38046,28 @@ body:not(.light-mode) .club-messages .sovereign-dispatch-card.is-personal-dispat
 body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
 body:not(.light-mode) .chat-bubble.is-outgoing {
   border-radius: 20px 20px 6px 20px !important;
-  background: linear-gradient(
-    145deg,
-    rgba(64, 46, 20, 0.60) 0%,
-    rgba(38, 27, 12, 0.46) 48%,
-    rgba(20, 14, 6, 0.64) 100%
-  ) !important;
-  border: 1px solid rgba(224, 186, 76, 0.45) !important;
-  border-top: 1.8px solid rgba(255, 250, 225, 0.92) !important;
-  border-bottom: 1.2px solid rgba(65, 42, 10, 0.60) !important;
+  background:
+    radial-gradient(ellipse 95% 65% at 80% 0%, rgba(255, 235, 170, 0.24) 0%, transparent 65%),
+    radial-gradient(circle at 15% 90%, rgba(212, 175, 55, 0.12) 0%, transparent 60%),
+    linear-gradient(
+      145deg,
+      rgba(52, 38, 16, 0.90) 0%,
+      rgba(34, 24, 10, 0.94) 48%,
+      rgba(18, 12, 5, 0.97) 100%
+    ) !important;
+  backdrop-filter: blur(24px) saturate(180%) contrast(105%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(105%) !important;
+  border: 1px solid rgba(235, 196, 85, 0.65) !important;
+  border-top: 1.8px solid rgba(255, 250, 225, 0.95) !important;
+  border-left: 1.2px solid rgba(255, 248, 220, 0.50) !important;
+  border-bottom: 1.2px solid rgba(0, 0, 0, 0.80) !important;
+  border-right: 1px solid rgba(235, 196, 85, 0.45) !important;
   box-shadow:
-    0 10px 32px -4px rgba(0, 0, 0, 0.62),
-    0 0 22px rgba(212, 175, 55, 0.18),
-    0 3px 10px -1px rgba(0, 0, 0, 0.38),
-    inset 0 1.6px 2px rgba(255, 248, 220, 0.58),
-    inset 0 -1.5px 2px rgba(0, 0, 0, 0.45) !important;
+    0 12px 38px -4px rgba(0, 0, 0, 0.75),
+    0 0 28px rgba(212, 175, 55, 0.28),
+    0 3px 10px -1px rgba(0, 0, 0, 0.45),
+    inset 0 1.8px 2.5px rgba(255, 248, 220, 0.45),
+    inset 0 -1.5px 2px rgba(0, 0, 0, 0.50) !important;
   color: #ede7d8 !important;
 }
 
@@ -38062,7 +38077,7 @@ body:not(.light-mode) .chat-bubble.is-outgoing::after {
   background: radial-gradient(
     circle at 80% 12%,
     rgba(255, 220, 130, 0.18) 0%,
-    rgba(212, 175, 55, 0.08) 45%,
+    rgba(212, 175, 55, 0.10) 45%,
     transparent 70%
   ) !important;
 }
@@ -38072,13 +38087,13 @@ body:not(.light-mode) .club-messages .sovereign-dispatch-card.is-personal-dispat
 body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch:hover,
 body:not(.light-mode) .chat-bubble.is-outgoing:hover {
   transform: translateY(-2px) scale(1.004) translateZ(0) !important;
-  border-color: rgba(235, 196, 85, 0.65) !important;
+  border-color: rgba(235, 196, 85, 0.85) !important;
   border-top-color: #ffffff !important;
   box-shadow:
-    0 14px 40px -4px rgba(0, 0, 0, 0.70),
-    0 0 30px rgba(212, 175, 55, 0.28),
-    0 4px 14px rgba(0, 0, 0, 0.40),
-    inset 0 2px 2.5px rgba(255, 252, 235, 0.75),
+    0 14px 40px -4px rgba(0, 0, 0, 0.82),
+    0 0 35px rgba(212, 175, 55, 0.38),
+    0 4px 14px rgba(0, 0, 0, 0.45),
+    inset 0 2px 2.5px rgba(255, 252, 235, 0.65),
     inset 0 -1.5px 2px rgba(0, 0, 0, 0.50) !important;
 }
 
@@ -38154,44 +38169,46 @@ body.light-mode .chat-bubble.is-outgoing {
 
 /* 4.5 LIQUID GLASS ACCOLADES & REACTION PILLS */
 body:not(.light-mode) .sovereign-accolade-btn {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(212, 175, 55, 0.26) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.40) !important;
-  color: #d4af37 !important;
+  background: linear-gradient(135deg, rgba(38, 30, 48, 0.90) 0%, rgba(22, 17, 28, 0.95) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  border-top: 1.2px solid rgba(255, 248, 225, 0.70) !important;
+  color: #f7e4a8 !important;
   border-radius: 999px !important;
-  padding: 2.5px 8px !important;
+  padding: 3px 9px !important;
   backdrop-filter: blur(14px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.55), 0 0 10px rgba(212, 175, 55, 0.16), inset 0 1px 1.5px rgba(255, 248, 225, 0.25) !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 body:not(.light-mode) .sovereign-accolade-btn:hover {
-  background: rgba(212, 175, 55, 0.16) !important;
-  border-color: rgba(212, 175, 55, 0.60) !important;
+  background: linear-gradient(135deg, rgba(65, 48, 22, 0.96) 0%, rgba(38, 26, 10, 0.98) 100%) !important;
+  border-color: rgba(235, 196, 85, 0.85) !important;
   border-top-color: #ffffff !important;
+  color: #fff2c7 !important;
   transform: translateY(-1px) scale(1.05) !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.40), 0 0 10px rgba(212, 175, 55, 0.25) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.60), 0 0 14px rgba(212, 175, 55, 0.35) !important;
 }
 
 body.light-mode .sovereign-accolade-btn {
-  background: rgba(255, 255, 255, 0.65) !important;
-  border: 1px solid rgba(180, 140, 50, 0.30) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.95) !important;
-  color: #664917 !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(198, 164, 91, 0.40) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.98) !important;
+  color: #5c4217 !important;
   border-radius: 999px !important;
   padding: 2.5px 8px !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  box-shadow: 0 2px 6px rgba(120, 90, 30, 0.10), inset 0 1px 1.5px #ffffff !important;
+  box-shadow: 0 2px 6px rgba(120, 90, 30, 0.08), inset 0 1px 1.5px #ffffff !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 body.light-mode .sovereign-accolade-btn:hover {
-  background: rgba(255, 248, 220, 0.85) !important;
-  border-color: rgba(180, 140, 50, 0.60) !important;
+  background: rgba(255, 250, 238, 0.98) !important;
+  border-color: rgba(198, 164, 91, 0.65) !important;
+  color: #3b2808 !important;
   transform: translateY(-1px) scale(1.05) !important;
-  box-shadow: 0 4px 10px rgba(120, 90, 30, 0.18), 0 0 8px rgba(212, 175, 55, 0.20) !important;
+  box-shadow: 0 4px 10px rgba(120, 90, 30, 0.16), 0 0 8px rgba(212, 175, 55, 0.22) !important;
 }
 
 /* 4.6 LIQUID GLASS WHISPER CIPHER PILL */
@@ -39080,11 +39097,22 @@ body.light-mode .club-credits-label {
 
 body:not(.light-mode) #obsidianDispatchComposer,
 body:not(.light-mode) .obsidian-dispatch-composer {
-  background: linear-gradient(135deg, rgba(20, 20, 26, 0.40) 0%, rgba(12, 12, 16, 0.30) 50%, rgba(8, 8, 12, 0.42) 100%) !important;
-  border: 1px solid rgba(212, 175, 55, 0.22) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.32) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.45) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.18), inset 0 -1px 2px rgba(0, 0, 0, 0.35) !important;
+  background:
+    radial-gradient(ellipse 90% 60% at 20% 0%, rgba(255, 245, 215, 0.16) 0%, transparent 60%),
+    linear-gradient(
+      135deg,
+      rgba(28, 22, 36, 0.88) 0%,
+      rgba(16, 13, 22, 0.92) 50%,
+      rgba(9, 7, 13, 0.96) 100%
+    ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.42) !important;
+  border-top: 1.5px solid rgba(255, 248, 225, 0.75) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.80) !important;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.70),
+    0 0 20px rgba(212, 175, 55, 0.18),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.45) !important;
 }
 
 body.light-mode #obsidianDispatchComposer,
@@ -39437,25 +39465,22 @@ body.light-mode #club-tab .club-room-btn.active,
 :root[data-theme="light"] #clubRoomsNav .club-room-btn.is-active,
 :root[data-theme="light"] #club-tab .club-room-btn.is-active {
   background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #fff4c7 10%,
-    #fed768 25%,
-    #f5c040 45%,
-    #e4a929 65%,
-    #c18617 85%,
-    #7b4c06 100%
+    180deg,
+    #fff5dc 0%,
+    #f7dfa7 28%,
+    #dfb564 70%,
+    #c6943b 100%
   ) !important;
-  border: 1px solid #d4a530 !important;
+  border: 1px solid #96743b !important;
   border-top: 1.5px solid #ffffff !important;
-  border-bottom: 1.5px solid #5a3504 !important;
-  color: #0d0701 !important;
+  border-bottom: 1.5px solid #73531b !important;
+  color: #1a0f02 !important;
   font-weight: 800 !important;
   box-shadow:
-    0 2px 6px rgba(140, 95, 20, 0.18),
+    0 2px 7px rgba(135, 90, 20, 0.20),
     0 1px 2px rgba(0, 0, 0, 0.05),
     inset 0 1.2px 1.2px #ffffff,
-    inset 0 -1px 1.2px rgba(90, 50, 5, 0.50) !important;
+    inset 0 -1px 1.2px rgba(120, 80, 20, 0.35) !important;
   filter: none !important;
   outline: none !important;
 }
@@ -39724,7 +39749,7 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
     z-index: 0 !important;
     pointer-events: none !important;
     overflow: hidden !important;
-    background: #080604 !important;
+    background: #08070c !important;
 }
 
 #ultimate-club-bg .gold-facade-svg {
@@ -39734,7 +39759,8 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    opacity: 0.90 !important;
+    opacity: 0.65 !important;
+    filter: contrast(108%) saturate(120%) brightness(102%) !important;
     transform: scale(1.02) !important;
 }
 
@@ -39745,9 +39771,9 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
     pointer-events: none !important;
     z-index: 2 !important;
     background: 
-        radial-gradient(ellipse 120% 75% at 50% 35%, rgba(14, 11, 7, 0.40) 0%, rgba(9, 7, 4, 0.70) 65%, rgba(5, 4, 2, 0.92) 100%),
-        linear-gradient(180deg, rgba(6, 5, 4, 0.65) 0%, rgba(6, 5, 4, 0.15) 25%, rgba(6, 5, 4, 0.30) 75%, rgba(4, 3, 2, 0.88) 100%) !important;
-    mix-blend-mode: multiply !important;
+        radial-gradient(ellipse 115% 70% at 50% 28%, rgba(212, 175, 55, 0.16) 0%, rgba(12, 10, 16, 0.45) 55%, rgba(6, 5, 8, 0.90) 100%),
+        linear-gradient(180deg, rgba(6, 5, 8, 0.55) 0%, rgba(6, 5, 8, 0.12) 25%, rgba(6, 5, 8, 0.35) 75%, rgba(4, 3, 6, 0.90) 100%) !important;
+    mix-blend-mode: normal !important;
 }
 
 /* MICROSCOPIC FROSTED GRAIN */
@@ -39836,21 +39862,19 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
 body:not(.light-mode) #clubPinnedInfo,
 body:not(.light-mode) .club-chamber-plaque {
     background:
-        radial-gradient(ellipse 90% 65% at 20% 0%, rgba(255, 245, 215, 0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 95% 65% at 20% 0%, rgba(255, 245, 215, 0.20) 0%, transparent 65%),
         radial-gradient(circle at 85% 90%, rgba(212, 175, 55, 0.14) 0%, transparent 60%),
-        linear-gradient(135deg, rgba(28, 22, 36, 0.54) 0%, rgba(16, 12, 22, 0.36) 45%, rgba(10, 8, 14, 0.50) 100%) !important;
-    border: 1px solid rgba(212, 175, 55, 0.30) !important;
-    border-top: 1.5px solid rgba(255, 255, 255, 0.78) !important;
-    border-left: 1.2px solid rgba(255, 255, 255, 0.42) !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.65) !important;
-    border-right: 1px solid rgba(212, 175, 55, 0.22) !important;
+        linear-gradient(135deg, rgba(28, 23, 36, 0.88) 0%, rgba(16, 13, 22, 0.92) 45%, rgba(9, 7, 13, 0.96) 100%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.42) !important;
+    border-top: 1.5px solid rgba(255, 248, 225, 0.80) !important;
+    border-left: 1.2px solid rgba(255, 248, 225, 0.45) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.85) !important;
+    border-right: 1px solid rgba(212, 175, 55, 0.28) !important;
     box-shadow:
-        0 8px 32px -4px rgba(0, 0, 0, 0.55),
-        0 2px 8px -1px rgba(0, 0, 0, 0.35),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.42),
-        inset 0 -1.5px 2.5px rgba(0, 0, 0, 0.40),
-        inset 1px 0 1.5px rgba(255, 245, 215, 0.20),
-        0 0 20px -3px rgba(212, 175, 55, 0.20) !important;
+        0 10px 32px -4px rgba(0, 0, 0, 0.70),
+        0 0 18px -2px rgba(212, 175, 55, 0.20),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.30),
+        inset 0 -1.5px 2px rgba(0, 0, 0, 0.45) !important;
 }
 
 body.light-mode #clubPinnedInfo,
@@ -39937,21 +39961,19 @@ body:not(.light-mode) #sovereignSalonTicker,
 body:not(.light-mode) .sovereign-salon-ticker,
 body:not(.light-mode) #club-tab .sovereign-salon-ticker {
     background:
-        radial-gradient(ellipse 90% 60% at 20% 0%, rgba(255, 248, 220, 0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 95% 60% at 20% 0%, rgba(255, 248, 220, 0.20) 0%, transparent 65%),
         radial-gradient(circle at 85% 90%, rgba(212, 175, 55, 0.14) 0%, transparent 60%),
-        linear-gradient(135deg, rgba(28, 22, 36, 0.52) 0%, rgba(16, 12, 22, 0.34) 45%, rgba(10, 8, 14, 0.48) 100%) !important;
-    border: 1px solid rgba(212, 175, 55, 0.30) !important;
-    border-top: 1.5px solid rgba(255, 255, 255, 0.78) !important;
-    border-left: 1.2px solid rgba(255, 255, 255, 0.40) !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.65) !important;
-    border-right: 1px solid rgba(212, 175, 55, 0.22) !important;
+        linear-gradient(135deg, rgba(28, 23, 36, 0.88) 0%, rgba(16, 13, 22, 0.92) 45%, rgba(9, 7, 13, 0.96) 100%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.42) !important;
+    border-top: 1.5px solid rgba(255, 248, 225, 0.80) !important;
+    border-left: 1.2px solid rgba(255, 248, 225, 0.45) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.85) !important;
+    border-right: 1px solid rgba(212, 175, 55, 0.28) !important;
     box-shadow:
-        0 8px 30px -4px rgba(0, 0, 0, 0.52),
-        0 2px 6px -1px rgba(0, 0, 0, 0.35),
-        inset 0 1.5px 2px rgba(255, 255, 255, 0.42),
-        inset 0 -1.5px 2.5px rgba(0, 0, 0, 0.38),
-        inset 1px 0 1.5px rgba(255, 245, 215, 0.20),
-        0 0 18px -3px rgba(212, 175, 55, 0.20) !important;
+        0 8px 30px -4px rgba(0, 0, 0, 0.70),
+        0 0 16px -2px rgba(212, 175, 55, 0.18),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.30),
+        inset 0 -1.5px 2px rgba(0, 0, 0, 0.45) !important;
 }
 
 body.light-mode #sovereignSalonTicker,
@@ -40140,24 +40162,33 @@ body.light-mode #club-tab .sovereign-salon-ticker {
 }
 
 /* Light Mode: Polished Champagne Golden Facade & High Contrast Typography */
-body.light-mode #ultimate-club-bg {
-    background: #f8f5ee !important;
+/* Light Mode: Warm Ivory & Champagne-Gold Polygon Facade & Harmonized Interface */
+body.light-mode #ultimate-club-bg,
+:root[data-theme="light"] #ultimate-club-bg {
+    background: linear-gradient(180deg, #FAF7EF 0%, #F5F0E3 45%, #E8DFC9 100%) !important;
 }
 
-body.light-mode #ultimate-club-bg .gold-facade-svg {
-    opacity: 0.82 !important;
-    filter: contrast(102%) saturate(95%) !important;
+body.light-mode #ultimate-club-bg .gold-facade-svg,
+:root[data-theme="light"] #ultimate-club-bg .gold-facade-svg {
+    opacity: 0.45 !important;
+    filter: contrast(86%) saturate(82%) brightness(101%) !important;
 }
 
-body.light-mode #ultimate-club-bg .gold-facade-atmosphere-vignette {
+body.light-mode #ultimate-club-bg .gold-facade-atmosphere-vignette,
+:root[data-theme="light"] #ultimate-club-bg .gold-facade-atmosphere-vignette {
     background: 
-        radial-gradient(ellipse 120% 75% at 50% 35%, rgba(255, 255, 255, 0.38) 0%, rgba(248, 243, 233, 0.65) 60%, rgba(238, 230, 212, 0.86) 100%),
-        linear-gradient(180deg, rgba(253, 251, 247, 0.50) 0%, rgba(253, 251, 247, 0.15) 25%, rgba(248, 243, 233, 0.30) 75%, rgba(238, 230, 212, 0.80) 100%) !important;
+        radial-gradient(ellipse 110% 70% at 50% 28%, rgba(255, 255, 255, 0.72) 0%, rgba(245, 240, 227, 0.52) 55%, rgba(232, 223, 201, 0.80) 100%),
+        linear-gradient(180deg, rgba(250, 247, 239, 0.45) 0%, rgba(245, 240, 227, 0.20) 30%, rgba(245, 240, 227, 0.45) 70%, rgba(232, 223, 201, 0.88) 100%) !important;
     mix-blend-mode: soft-light !important;
 }
 
+body.light-mode #ultimate-club-bg::after,
+:root[data-theme="light"] #ultimate-club-bg::after {
+    opacity: 0.10 !important;
+}
+
 body.light-mode .dispatch-name {
-    color: #3b2807 !important;
+    color: #1e1913 !important;
     font-weight: 700 !important;
 }
 
@@ -40167,17 +40198,32 @@ body.light-mode .dispatch-text-content {
 
 body.light-mode .dispatch-seat-tag,
 body.light-mode .dispatch-wealth-tag {
-    color: #614c2f !important;
+    color: #5a4b37 !important;
 }
 
 body.light-mode .dispatch-sovereign-timestamp {
-    color: #6d5118 !important;
+    color: #664917 !important;
 }
 
 body.light-mode #club-tab .sovereign-dispatch-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(252, 249, 242, 0.86) 50%, rgba(246, 239, 225, 0.92) 100%) !important;
-    border: 1px solid rgba(190, 145, 55, 0.45) !important;
-    box-shadow: 0 6px 20px rgba(70, 45, 10, 0.12), inset 0 1.5px 2px #ffffff !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(252, 249, 243, 0.90) 50%, rgba(246, 240, 229, 0.92) 100%) !important;
+    border: 1px solid rgba(198, 164, 91, 0.38) !important;
+    border-top: 1.5px solid #ffffff !important;
+    box-shadow: 0 4px 18px rgba(120, 85, 25, 0.08), inset 0 1px 1.5px #ffffff !important;
+}
+
+body.light-mode #club-tab .sovereign-dispatch-card.is-personal-dispatch,
+body.light-mode #club-tab .sovereign-dispatch-card.dispatch-sender-me,
+body.light-mode #club-tab .sovereign-dispatch-card.dispatch-align-right {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.97) 0%, rgba(250, 246, 237, 0.94) 50%, rgba(245, 239, 225, 0.95) 100%) !important;
+    border: 1px solid rgba(198, 164, 91, 0.48) !important;
+    border-top: 1.5px solid #ffffff !important;
+    box-shadow: 0 5px 20px rgba(135, 90, 20, 0.10), inset 0 1px 1.5px #ffffff !important;
+}
+
+body.light-mode #club-tab .sovereign-dispatch-card.is-personal-dispatch .dispatch-manuscript-body,
+body.light-mode #club-tab .sovereign-dispatch-card.is-personal-dispatch .dispatch-text-content {
+    color: #1a150e !important;
 }
 
 
