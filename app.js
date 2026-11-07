@@ -4534,6 +4534,7 @@ window.updateClubHudHeight = updateClubHudHeight;
 
 function startClubWelcomeAutoDismiss() {
   const plaque = document.getElementById("clubPinnedInfo");
+  const tab = document.getElementById("club-tab");
   if (!plaque) return;
 
   if (clubWelcomeDismissTimer) {
@@ -4545,15 +4546,29 @@ function startClubWelcomeAutoDismiss() {
   plaque.style.removeProperty("opacity");
   plaque.style.removeProperty("transform");
   plaque.style.removeProperty("max-height");
+  plaque.style.removeProperty("height");
+  plaque.style.removeProperty("padding");
   plaque.style.removeProperty("padding-top");
   plaque.style.removeProperty("padding-bottom");
+  plaque.style.removeProperty("margin");
   plaque.style.removeProperty("margin-top");
   plaque.style.removeProperty("margin-bottom");
   plaque.style.removeProperty("overflow");
+  plaque.style.removeProperty("pointer-events");
+  plaque.style.removeProperty("border");
+  plaque.style.removeProperty("box-shadow");
   plaque.classList.remove("is-collapsed");
   plaque.removeAttribute("hidden");
   plaque.style.removeProperty("display");
+  if (tab) {
+    tab.classList.remove("plaque-dismissed");
+  }
   updateClubHudHeight();
+
+  // Automatically dismiss welcome message after 5 seconds of opening the tab
+  clubWelcomeDismissTimer = setTimeout(() => {
+    dismissClubWelcomePlaque();
+  }, 5000);
 }
 
 function cancelClubWelcomeAutoDismiss() {
@@ -4563,21 +4578,47 @@ function cancelClubWelcomeAutoDismiss() {
   }
 }
 
-function dismissClubWelcomePlaque() {
+function dismissClubWelcomePlaque(immediate = false) {
   const plaque = document.getElementById("clubPinnedInfo");
   const tab = document.getElementById("club-tab");
   if (!plaque) return;
 
-  plaque.classList.add("is-collapsed");
-  plaque.setAttribute("hidden", "");
-  plaque.style.setProperty("display", "none", "important");
+  if (clubWelcomeDismissTimer) {
+    clearTimeout(clubWelcomeDismissTimer);
+    clubWelcomeDismissTimer = null;
+  }
+
+  if (immediate) {
+    plaque.classList.add("is-collapsed");
+    plaque.setAttribute("hidden", "");
+    plaque.style.setProperty("display", "none", "important");
+    plaque.style.setProperty("opacity", "0", "important");
+    plaque.style.setProperty("max-height", "0px", "important");
+    plaque.style.setProperty("height", "0px", "important");
+    plaque.style.setProperty("padding", "0px", "important");
+    plaque.style.setProperty("margin", "0px", "important");
+    plaque.style.setProperty("border", "none", "important");
+    plaque.style.setProperty("overflow", "hidden", "important");
+
+    if (tab) {
+      tab.classList.add("plaque-dismissed");
+      tab.style.setProperty("--club-hud-height", "42px");
+    }
+    updateClubHudHeight();
+    return;
+  }
+
+  // Smooth fade-out and slide-up collapse
+  plaque.style.setProperty("transition", "opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), margin 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s cubic-bezier(0.16, 1, 0.3, 1)", "important");
   plaque.style.setProperty("opacity", "0", "important");
+  plaque.style.setProperty("transform", "translateY(-6px) scale(0.98)", "important");
   plaque.style.setProperty("max-height", "0px", "important");
-  plaque.style.setProperty("height", "0px", "important");
-  plaque.style.setProperty("padding", "0px", "important");
-  plaque.style.setProperty("margin", "0px", "important");
-  plaque.style.setProperty("border", "none", "important");
+  plaque.style.setProperty("padding-top", "0px", "important");
+  plaque.style.setProperty("padding-bottom", "0px", "important");
+  plaque.style.setProperty("margin-top", "0px", "important");
+  plaque.style.setProperty("margin-bottom", "0px", "important");
   plaque.style.setProperty("overflow", "hidden", "important");
+  plaque.style.setProperty("pointer-events", "none", "important");
 
   if (tab) {
     tab.classList.add("plaque-dismissed");
@@ -4585,10 +4626,12 @@ function dismissClubWelcomePlaque() {
   }
   updateClubHudHeight();
 
-  if (clubWelcomeDismissTimer) {
-    clearTimeout(clubWelcomeDismissTimer);
-    clubWelcomeDismissTimer = null;
-  }
+  setTimeout(() => {
+    plaque.classList.add("is-collapsed");
+    plaque.setAttribute("hidden", "");
+    plaque.style.setProperty("display", "none", "important");
+    updateClubHudHeight();
+  }, 350);
 }
 
 window.startClubWelcomeAutoDismiss = startClubWelcomeAutoDismiss;
