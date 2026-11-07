@@ -5156,6 +5156,84 @@ body.light-mode .dispatch-read-more-btn:hover {
   50% { opacity: 1; transform: scale(1.15); }
 }
 
+/* --- Club Typing Indicator — Light Mode Translucent Champagne Ivory Glass --- */
+body.light-mode #typingIndicator,
+body.light-mode .club-typing-indicator,
+html.light-mode #typingIndicator,
+html.light-mode .club-typing-indicator,
+:root[data-theme="light"] #typingIndicator,
+:root[data-theme="light"] .club-typing-indicator,
+[data-theme="light"] #typingIndicator,
+[data-theme="light"] .club-typing-indicator {
+  background:
+    radial-gradient(ellipse 95% 65% at 25% 0%, rgba(255, 255, 255, 0.95) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(252, 248, 238, 0.82) 50%, rgba(244, 235, 215, 0.88) 100%) !important;
+  border: 1px solid rgba(195, 155, 95, 0.45) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.98) !important;
+  border-bottom: 1px solid rgba(160, 120, 50, 0.25) !important;
+  box-shadow:
+    0 6px 18px -2px rgba(120, 85, 25, 0.12),
+    0 2px 6px -1px rgba(120, 85, 25, 0.05),
+    inset 0 1px 1px #ffffff,
+    inset 0 -1px 1.5px rgba(184, 142, 62, 0.15) !important;
+  color: #5c4314 !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+
+body.light-mode #typingIndicator .horological-typing-escapement,
+body.light-mode .club-typing-indicator .horological-typing-escapement,
+html.light-mode .club-typing-indicator .horological-typing-escapement,
+:root[data-theme="light"] .club-typing-indicator .horological-typing-escapement,
+[data-theme="light"] .club-typing-indicator .horological-typing-escapement {
+  color: #9e7529 !important;
+}
+
+body.light-mode #typingIndicator .golden-ink-nib-svg,
+body.light-mode .club-typing-indicator .golden-ink-nib-svg,
+html.light-mode .club-typing-indicator .golden-ink-nib-svg,
+:root[data-theme="light"] .club-typing-indicator .golden-ink-nib-svg,
+[data-theme="light"] .club-typing-indicator .golden-ink-nib-svg {
+  color: #8c631e !important;
+}
+
+body.light-mode #typingIndicator .typing-text-wrap bdi,
+body.light-mode .club-typing-indicator .typing-text-wrap bdi,
+html.light-mode .club-typing-indicator .typing-text-wrap bdi,
+:root[data-theme="light"] .club-typing-indicator .typing-text-wrap bdi,
+[data-theme="light"] .club-typing-indicator .typing-text-wrap bdi {
+  color: #2b1f0c !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em;
+}
+
+body.light-mode #typingIndicator .typing-action-text,
+body.light-mode .club-typing-indicator .typing-action-text,
+html.light-mode .club-typing-indicator .typing-action-text,
+:root[data-theme="light"] .club-typing-indicator .typing-action-text,
+[data-theme="light"] .club-typing-indicator .typing-action-text {
+  color: #6e5223 !important;
+  font-weight: 500 !important;
+}
+
+body.light-mode #typingIndicator .horological-tick,
+body.light-mode .club-typing-indicator .horological-tick,
+html.light-mode .club-typing-indicator .horological-tick,
+:root[data-theme="light"] .club-typing-indicator .horological-tick,
+[data-theme="light"] .club-typing-indicator .horological-tick {
+  background: #b5832a !important;
+  box-shadow: 0 0 3px rgba(181, 131, 42, 0.4) !important;
+}
+
+body.light-mode #typingIndicator .typing-pulse-dot,
+body.light-mode .club-typing-indicator .typing-pulse-dot,
+html.light-mode .club-typing-indicator .typing-pulse-dot,
+:root[data-theme="light"] .club-typing-indicator .typing-pulse-dot,
+[data-theme="light"] .club-typing-indicator .typing-pulse-dot {
+  background: #b5832a !important;
+  box-shadow: 0 0 4px rgba(181, 131, 42, 0.4) !important;
+}
+
 /* --- 1. Restored Club Message Credits Bar (Floating 3D Dispatch Allocation) --- */
 #club-tab .club-credits-display,
 .club-credits-display,
@@ -36478,47 +36556,49 @@ body.light-mode .club-credits-label {
 }
 
 .credit-count-val {
-  font-family: var(--font-display, "Cinzel", "Playfair Display", serif) !important;
+  font-family: var(--font-ui, "Manrope", system-ui, sans-serif) !important;
   font-weight: 800 !important;
   color: #fcf1d8 !important;
-  font-size: 8.5px !important;
+  font-size: 10.5px !important;
   line-height: 1 !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: 0.01em !important;
+  font-variant-numeric: tabular-nums !important;
 }
 
 .credit-count-label {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 6.5px !important;
-  font-weight: 600 !important;
+  font-size: 7.5px !important;
+  font-weight: 700 !important;
   color: #d4af55 !important;
   opacity: 0.90 !important;
   margin-inline-start: 2px !important;
-  letter-spacing: 0.03em !important;
+  letter-spacing: 0.02em !important;
   text-transform: uppercase !important;
   line-height: 1 !important;
 }
 
 .credit-count-sep {
-  margin: 0 1px !important;
-  opacity: 0.50 !important;
-  font-size: 7.5px !important;
+  margin: 0 1.5px !important;
+  opacity: 0.65 !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
   color: #d4af55 !important;
   line-height: 1 !important;
 }
 
 body.light-mode .club-credits-readout {
-  color: #3b2706 !important;
-  background: rgba(255, 255, 255, 0.85) !important;
-  border: 0.5px solid rgba(195, 155, 95, 0.40) !important;
-  border-top: 0.5px solid #ffffff !important;
-  border-bottom: 0.5px solid rgba(160, 120, 45, 0.25) !important;
+  color: #2b1c04 !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF6EE 100%) !important;
+  border: 0.75px solid rgba(195, 155, 95, 0.50) !important;
+  border-top: 1px solid #ffffff !important;
+  border-bottom: 0.75px solid rgba(160, 120, 45, 0.30) !important;
   box-shadow:
-    inset 0 1px 1px rgba(120, 90, 30, 0.12),
-    0 0.5px 1px rgba(0, 0, 0, 0.05) !important;
+    inset 0 0.5px 1px rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(120, 90, 30, 0.09) !important;
 }
 
 body.light-mode .credit-count-val {
-  color: #2e1f06 !important;
+  color: #2b1c04 !important;
 }
 
 body.light-mode .credit-count-label {
@@ -36526,7 +36606,7 @@ body.light-mode .credit-count-label {
 }
 
 body.light-mode .credit-count-sep {
-  color: #8b6b24 !important;
+  color: #a3721e !important;
 }
 
 .gauge-pips-strip,
@@ -38283,52 +38363,79 @@ body:not(.light-mode) .club-credits-buy:hover {
 body.light-mode #clubCreditsBuyBtn,
 body.light-mode .club-credits-buy {
   background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.92) 0%,
-    rgba(252, 246, 234, 0.80) 45%,
-    rgba(242, 230, 208, 0.68) 100%
+    180deg,
+    #FFFFFF 0%,
+    #FAF5EB 100%
   ) !important;
   backdrop-filter: blur(14px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
-  border: 0.75px solid rgba(197, 160, 89, 0.55) !important;
-  border-top: 1px solid #ffffff !important;
-  border-bottom: 1px solid rgba(150, 110, 35, 0.35) !important;
+  border: 0.75px solid rgba(195, 155, 95, 0.48) !important;
+  border-top: 1.2px solid #ffffff !important;
+  border-bottom: 1px solid rgba(160, 120, 50, 0.32) !important;
   box-shadow:
-    0 2px 5px -1px rgba(90, 60, 15, 0.15),
-    0 0.5px 1px rgba(212, 175, 55, 0.20),
-    inset 0 1px 1px #ffffff,
-    inset 0 -1px 1px rgba(184, 141, 56, 0.18) !important;
-  color: #483009 !important;
+    0 1.5px 4px rgba(120, 85, 25, 0.12),
+    0 0.5px 1px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 #ffffff,
+    inset 0 -0.5px 1px rgba(184, 142, 62, 0.12) !important;
+  color: #3b2808 !important;
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
   font-weight: 700 !important;
-  font-size: 7.5px !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
-  border-radius: 6px !important;
-  height: 22px !important;
-  min-height: 22px !important;
-  max-height: 22px !important;
-  padding: 0 8px 0 6px !important;
+  font-size: 8.8px !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  border-radius: 9999px !important;
+  height: 23px !important;
+  min-height: 23px !important;
+  max-height: 23px !important;
+  padding: 0 9.5px 0 7.5px !important;
   margin: 0 !important;
   margin-inline-start: auto !important;
-  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.light-mode #clubCreditsBuyBtn .alloc-plus-glyph,
+body.light-mode .club-credits-buy .alloc-plus-glyph {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: #a37424 !important;
+  text-shadow: 0 1px 0 #ffffff !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+}
+
+body.light-mode #clubCreditsBuyBtn .alloc-btn-label,
+body.light-mode .club-credits-buy .alloc-btn-label {
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
+  font-size: 8.8px !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  line-height: 1 !important;
 }
 
 body.light-mode #clubCreditsBuyBtn:hover,
 body.light-mode .club-credits-buy:hover {
   background: linear-gradient(
-    135deg,
+    180deg,
     #ffffff 0%,
-    rgba(255, 250, 240, 0.95) 45%,
-    rgba(248, 238, 218, 0.85) 100%
+    #FFFBF2 100%
   ) !important;
-  border-color: rgba(197, 160, 89, 0.80) !important;
+  border-color: rgba(195, 155, 95, 0.70) !important;
   border-top-color: #ffffff !important;
   box-shadow:
-    0 3px 8px -1px rgba(90, 60, 15, 0.22),
-    0 1px 2px rgba(212, 175, 55, 0.30),
-    inset 0 1px 1px #ffffff,
-    inset 0 -1px 1px rgba(184, 141, 56, 0.25) !important;
+    0 2px 6px rgba(120, 85, 25, 0.16),
+    inset 0 1px 1px #ffffff !important;
   transform: translateY(-0.5px) !important;
 }
+
 
 /* ==========================================================================
    THE 1% CLUB — FLOATING LIQUID GLASS HUD (WELCOME PLAQUE & TICKER)
@@ -38963,6 +39070,15 @@ body.light-mode .club-pinned.club-chamber-plaque .chamber-plaque-close-btn:hover
   transform: translateZ(0) !important;
   backdrop-filter: blur(20px) saturate(180%) contrast(105%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) contrast(105%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  padding: 3.5px 7px 3.5px 11px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  box-sizing: border-box !important;
   transition: all 0.25s ease !important;
 }
 
@@ -38971,11 +39087,11 @@ body:not(.light-mode) #clubCreditsDisplay,
 body:not(.light-mode) .club-credits-display {
   background:
     linear-gradient(135deg, #15120F 0%, #0F0D0A 50%, #0D0C0A 100%) !important;
-  border: 1px solid rgba(198, 164, 91, 0.24) !important;
+  border: 1px solid rgba(198, 164, 91, 0.28) !important;
   border-top: 1.2px solid rgba(255, 248, 220, 0.40) !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.85) !important;
   box-shadow:
-    0 6px 18px -2px rgba(0, 0, 0, 0.65),
+    0 4px 14px -2px rgba(0, 0, 0, 0.65),
     inset 0 1px 1px rgba(255, 255, 255, 0.12),
     inset 0 -1px 1.5px rgba(0, 0, 0, 0.55) !important;
 }
@@ -38986,52 +39102,92 @@ body.light-mode .club-credits-display,
 html.light-mode #clubCreditsDisplay,
 :root[data-theme="light"] #clubCreditsDisplay {
   background:
-    radial-gradient(ellipse 95% 65% at 25% 0%, rgba(255, 255, 255, 0.85) 0%, transparent 70%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(252, 248, 238, 0.48) 50%, rgba(244, 236, 218, 0.60) 100%) !important;
-  border: 1px solid rgba(195, 155, 95, 0.38) !important;
-  border-top: 1.2px solid rgba(255, 255, 255, 0.98) !important;
-  border-bottom: 1px solid rgba(160, 120, 50, 0.25) !important;
+    radial-gradient(ellipse 95% 75% at 20% 0%, rgba(255, 255, 255, 0.98) 0%, transparent 68%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(252, 248, 238, 0.88) 45%, rgba(245, 236, 218, 0.92) 100%) !important;
+  border: 1px solid rgba(195, 155, 95, 0.45) !important;
+  border-top: 1.2px solid #ffffff !important;
+  border-bottom: 1px solid rgba(150, 110, 40, 0.28) !important;
   box-shadow:
-    0 6px 20px -2px rgba(120, 85, 25, 0.10),
-    0 2px 6px -1px rgba(120, 85, 25, 0.04),
+    0 3.5px 14px -2px rgba(110, 75, 20, 0.10),
+    0 1px 3px rgba(0, 0, 0, 0.03),
     inset 0 1px 1px #ffffff,
-    inset 0 -1px 1.5px rgba(184, 142, 62, 0.14) !important;
+    inset 0 -1px 1.5px rgba(184, 142, 62, 0.12) !important;
 }
 
-/* Glassy Readout Pill (e.g. 10 / 10) */
+.club-credits-info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+.club-credits-crown {
+  font-size: 12.5px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  filter: drop-shadow(0 1px 1px rgba(150, 100, 20, 0.25));
+}
+
+/* Clean Readout Pill (e.g. 55 / 10) */
 body:not(.light-mode) #club-tab #clubCreditsText,
 body:not(.light-mode) .club-credits-readout {
-  background: #0D0C0A !important;
+  background: #0E0C09 !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
-  border: 0.5px solid rgba(198, 164, 91, 0.25) !important;
-  border-top: 0.5px solid rgba(255, 248, 220, 0.35) !important;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.75) !important;
-  color: #E8DFC9 !important;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.65), 0 0.5px 0.5px rgba(255, 255, 255, 0.06) !important;
+  border: 0.75px solid rgba(198, 164, 91, 0.40) !important;
+  border-top: 0.75px solid rgba(255, 248, 220, 0.50) !important;
+  border-bottom: 0.75px solid rgba(0, 0, 0, 0.80) !important;
+  color: #FFF6DE !important;
+  font-family: var(--font-ui, "Manrope", system-ui, sans-serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+  font-variant-numeric: tabular-nums !important;
+  padding: 1.5px 6.5px !important;
+  border-radius: 9999px !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.70) !important;
 }
 
 body.light-mode #club-tab #clubCreditsText,
 body.light-mode .club-credits-readout {
-  background: rgba(255, 255, 255, 0.85) !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF6EE 100%) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
-  border: 0.5px solid rgba(195, 155, 95, 0.40) !important;
-  border-top: 0.5px solid #ffffff !important;
-  border-bottom: 0.5px solid rgba(160, 120, 45, 0.25) !important;
-  color: #3b2706 !important;
-  box-shadow: inset 0 1px 1px rgba(120, 90, 30, 0.12), 0 0.5px 1px rgba(0, 0, 0, 0.05) !important;
+  border: 0.75px solid rgba(195, 155, 95, 0.50) !important;
+  border-top: 1px solid #ffffff !important;
+  border-bottom: 0.75px solid rgba(160, 115, 45, 0.30) !important;
+  color: #2b1c04 !important;
+  font-family: var(--font-ui, "Manrope", system-ui, sans-serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+  font-variant-numeric: tabular-nums !important;
+  padding: 1.5px 6.5px !important;
+  border-radius: 9999px !important;
+  box-shadow: inset 0 0.5px 1px rgba(255, 255, 255, 0.9), 0 1px 2px rgba(120, 85, 25, 0.09) !important;
 }
 
-/* Glassy Crown & Label Typography */
+/* Label Typography — Natural Clean Sentence Case */
 body:not(.light-mode) .club-credits-label {
-  color: #A99B83 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7) !important;
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  color: #E2D7C0 !important;
+  white-space: nowrap !important;
 }
 
 body.light-mode .club-credits-label {
-  color: #3d2806 !important;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  color: #322104 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+  white-space: nowrap !important;
 }
 
 #obsidianDispatchComposer,
@@ -39539,21 +39695,21 @@ body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-board-tag {
   font-weight: 800 !important;
 }
 
-/* 10. MESSAGE ALLOCATION GAUGE PIPS — REFINED HOROLOGICAL MICRO-BEAD JEWEL TREATMENT */
+/* 10. MESSAGE ALLOCATION GAUGE PIPS — HOROLOGICAL RECTANGULAR GOLD INGOT BARS */
 .gauge-pips-strip,
 #gaugePipsStrip {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 1.2px !important;
-  padding: 1px 3px !important;
-  border-radius: 9999px !important;
-  height: 6.5px !important;
-  max-height: 6.5px !important;
+  gap: 1.8px !important;
+  padding: 2px 4.5px !important;
+  border-radius: 4px !important;
+  height: 15px !important;
+  max-height: 15px !important;
   backdrop-filter: blur(14px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(160%) !important;
   margin: 0 !important;
-  margin-inline-start: 0 !important;
+  margin-inline-start: 1px !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
   box-sizing: border-box !important;
@@ -39562,59 +39718,58 @@ body.light-mode #clubRoomsNav .club-room-btn.is-active .chamber-board-tag {
 
 body:not(.light-mode) .gauge-pips-strip,
 body:not(.light-mode) #gaugePipsStrip {
-  background: rgba(10, 8, 14, 0.70) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.22) !important;
+  background: rgba(14, 11, 16, 0.85) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.25) !important;
   border-top: 0.5px solid rgba(255, 248, 220, 0.35) !important;
-  border-bottom: 0.5px solid rgba(0, 0, 0, 0.65) !important;
-  box-shadow: inset 0 0.75px 1px rgba(0, 0, 0, 0.60), 0 0.5px 0.5px rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.75) !important;
+  box-shadow: inset 0 0.5px 1.5px rgba(0, 0, 0, 0.65) !important;
 }
 
 body.light-mode .gauge-pips-strip,
 body.light-mode #gaugePipsStrip {
-  background: rgba(240, 232, 218, 0.75) !important;
-  border: 0.5px solid rgba(195, 155, 95, 0.32) !important;
-  border-top: 0.5px solid #ffffff !important;
-  box-shadow: inset 0 0.75px 1px rgba(120, 85, 25, 0.15) !important;
+  background: linear-gradient(180deg, rgba(234, 224, 205, 0.85) 0%, rgba(220, 206, 182, 0.95) 100%) !important;
+  border: 0.75px solid rgba(195, 155, 95, 0.48) !important;
+  border-top: 0.75px solid #ffffff !important;
+  border-bottom: 0.75px solid rgba(160, 115, 45, 0.32) !important;
+  box-shadow: inset 0 1px 2px rgba(85, 55, 15, 0.18), 0 0.5px 1px rgba(255, 255, 255, 0.75) !important;
 }
 
 .gauge-pips-strip .gauge-pip {
-  width: 2.2px !important;
-  height: 2.2px !important;
-  border-radius: 50% !important;
+  width: 4.5px !important;
+  height: 10.5px !important;
+  border-radius: 1.5px !important;
   box-sizing: border-box !important;
   flex-shrink: 0 !important;
   margin: 0 !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Liquid Gold Micro-Bead Jewels (Active Allocation) */
+/* 24K Gold Bullion Ingot Bars (Active Allocation) */
 body:not(.light-mode) .gauge-pips-strip .gauge-pip.is-filled {
-  background: radial-gradient(circle at 35% 30%, #fffbf0 0%, #dfb455 50%, #997322 100%) !important;
-  border: 0.5px solid rgba(255, 248, 220, 0.55) !important;
-  box-shadow:
-    inset 0 0.3px 0.3px rgba(255, 255, 255, 0.70),
-    0 0 1px rgba(223, 180, 85, 0.45) !important;
+  background: linear-gradient(180deg, #FFF6D6 0%, #E8BA3E 25%, #C28D24 60%, #7D510C 100%) !important;
+  border: 0.4px solid rgba(255, 248, 220, 0.65) !important;
+  box-shadow: 0 0 3px rgba(220, 175, 55, 0.50), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.8) !important;
 }
 
 body.light-mode .gauge-pips-strip .gauge-pip.is-filled {
-  background: radial-gradient(circle at 35% 30%, #fffbf0 0%, #c49432 50%, #875e18 100%) !important;
-  border: 0.5px solid rgba(195, 145, 45, 0.65) !important;
-  box-shadow: inset 0 0.3px 0.3px #ffffff, 0 0 1px rgba(120, 85, 25, 0.25) !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF1BC 16%, #E5B239 52%, #A37117 84%, #6B4508 100%) !important;
+  border: 0.4px solid rgba(135, 90, 15, 0.75) !important;
+  box-shadow: 0 1px 2px rgba(110, 75, 20, 0.28), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.95) !important;
 }
 
-/* Smoked Obsidian Micro-Sockets (Spent/Empty Allocation) */
+/* Recessed Bezel Slots (Spent/Empty Allocation) */
 body:not(.light-mode) .gauge-pips-strip .gauge-pip.is-spent {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 0.5px solid rgba(212, 175, 55, 0.10) !important;
-  box-shadow: inset 0 0.5px 0.75px rgba(0, 0, 0, 0.50) !important;
-  opacity: 0.35 !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 0.4px solid rgba(212, 175, 55, 0.18) !important;
+  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.65) !important;
+  opacity: 0.40 !important;
 }
 
 body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
-  background: rgba(0, 0, 0, 0.04) !important;
-  border: 0.5px solid rgba(195, 155, 95, 0.16) !important;
-  box-shadow: inset 0 0.5px 0.75px rgba(120, 85, 25, 0.08) !important;
-  opacity: 0.35 !important;
+  background: rgba(175, 145, 110, 0.28) !important;
+  border: 0.4px solid rgba(170, 135, 90, 0.38) !important;
+  box-shadow: inset 0 0.8px 1.5px rgba(80, 55, 20, 0.20) !important;
+  opacity: 0.60 !important;
 }
 
 /* Shimmer interaction */
@@ -39627,41 +39782,37 @@ body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
     filter: brightness(1) drop-shadow(0 0 0 transparent);
   }
   50% {
-    filter: brightness(1.20) drop-shadow(0 0 1.5px rgba(255, 248, 220, 0.5));
+    filter: brightness(1.25) drop-shadow(0 0 2px rgba(255, 248, 220, 0.6));
   }
 }
 
 @media (max-width: 360px) {
   .gauge-pips-strip,
   #gaugePipsStrip {
-    gap: 1px !important;
-    padding: 0.8px 2.5px !important;
-    height: 6px !important;
-    max-height: 6px !important;
-    margin: 0 !important;
-    margin-inline-start: 0 !important;
+    gap: 1.4px !important;
+    padding: 1.5px 3px !important;
+    height: 12.5px !important;
+    max-height: 12.5px !important;
   }
   .gauge-pips-strip .gauge-pip {
-    width: 2px !important;
-    height: 2px !important;
-    border-radius: 50% !important;
+    width: 3.5px !important;
+    height: 8px !important;
+    border-radius: 1.2px !important;
   }
 }
 
 @media (max-width: 340px) {
   .gauge-pips-strip,
   #gaugePipsStrip {
-    gap: 0.8px !important;
-    padding: 0.5px 2px !important;
-    height: 5.5px !important;
-    max-height: 5.5px !important;
-    margin: 0 !important;
-    margin-inline-start: 0 !important;
+    gap: 1.2px !important;
+    padding: 1px 2.5px !important;
+    height: 11px !important;
+    max-height: 11px !important;
   }
   .gauge-pips-strip .gauge-pip {
-    width: 1.8px !important;
-    height: 1.8px !important;
-    border-radius: 50% !important;
+    width: 3px !important;
+    height: 7px !important;
+    border-radius: 1px !important;
   }
 }
 /* ========================================================= */

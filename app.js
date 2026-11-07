@@ -3924,12 +3924,7 @@ function updateCreditsUI(forceAnimate = false) {
   lastRecordedCredits = currentCredits;
 
   if (creditsText) {
-    const isAr = typeof window !== "undefined" && window.currentLang === "ar";
-    if (currentCredits > 10) {
-      creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-label">${"credits"}</span>`;
-    } else {
-      creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-sep">/</span><bdi class="credit-count-val">${maxCredits}</bdi>`;
-    }
+    creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-sep">/</span><bdi class="credit-count-val">${maxCredits}</bdi>`;
     if (currentCredits <= 0) {
       creditsText.style.color = "#d9534f";
     } else {

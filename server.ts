@@ -9,7 +9,41 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = Number(process.env.PORT) || 3000;
+
+function resolvePort(): number {
+  const argv = process.argv.slice(2);
+  for (let i = 0; i < argv.length; i++) {
+    if ((argv[i] === "--port" || argv[i] === "-p") && argv[i + 1]) {
+      const parsed = parseInt(argv[i + 1], 10);
+      if (!isNaN(parsed) && parsed > 0) return parsed;
+    }
+    if (argv[i].startsWith("--port=")) {
+      const parsed = parseInt(argv[i].split("=")[1], 10);
+      if (!isNaN(parsed) && parsed > 0) return parsed;
+    }
+  }
+  if (process.env.PORT && process.env.PORT !== "8080") {
+    const parsed = parseInt(process.env.PORT, 10);
+    if (!isNaN(parsed) && parsed > 0) return parsed;
+  }
+  return 3000;
+}
+
+function resolveHost(): string {
+  const argv = process.argv.slice(2);
+  for (let i = 0; i < argv.length; i++) {
+    if ((argv[i] === "--host" || argv[i] === "-h") && argv[i + 1]) {
+      return argv[i + 1];
+    }
+    if (argv[i].startsWith("--host=")) {
+      return argv[i].split("=")[1];
+    }
+  }
+  return process.env.HOST || "0.0.0.0";
+}
+
+const port = resolvePort();
+const host = resolveHost();
 
 // Native zlib compression middleware
 function gzipMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -370,6 +404,23 @@ app.use((req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server is running on port ${port} (host 0.0.0.0)`);
+const server = app.listen(port, host, () => {
+  console.log(`Server is running on port ${port} (host ${host})`);
+});
+
+server.on("error", (err: any) => {
+  console.error(`Server error on port ${port}:`, err);
+  process.exit(1);
+});
+
+process.on("SIGTERM", () => {
+  server.close(() => {
+    process.exit(0);
+  });
+});
+
+process.on("SIGINT", () => {
+  server.close(() => {
+    process.exit(0);
+  });
 });
