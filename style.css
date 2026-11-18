@@ -1373,16 +1373,6 @@ body.light-mode .section-rule span:last-child {
   opacity: 0 !important;
 }
 
-@keyframes luxuryFadeSlide {
-  0% {
-    opacity: 0;
-    transform: translateY(14px) scale(0.995);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
 
 .page#membership-tab,
 #membership-tab.is-active {
@@ -1681,27 +1671,6 @@ body.light-mode .section-rule span:last-child {
     inset -1.5px -2.5px 8px rgba(0, 0, 0, 0.85),
     inset 0 0 20px rgba(0, 0, 0, 0.85);
   z-index: 3;
-}
-@keyframes halo-breathe {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 2px rgba(20, 13, 3, 0.97),
-      0 0 20px 4px rgba(212, 175, 106, 0.3),
-      0 0 45px 8px rgba(199, 154, 62, 0.15),
-      inset 2px 3px 6px rgba(255, 248, 215, 0.35),
-      inset -2px -3px 8px rgba(0, 0, 0, 0.8),
-      inset 0 0 15px 5px rgba(0, 0, 0, 0.6);
-  }
-  50% {
-    box-shadow:
-      0 0 0 2px rgba(20, 13, 3, 0.97),
-      0 0 32px 8px rgba(247, 231, 185, 0.45),
-      0 0 70px 15px rgba(199, 154, 62, 0.28),
-      inset 2px 3px 6px rgba(255, 248, 215, 0.35),
-      inset -2px -3px 8px rgba(0, 0, 0, 0.8),
-      inset 0 0 15px 5px rgba(0, 0, 0, 0.6);
-  }
 }
 .portrait-photo {
   width: 100%;
@@ -4293,49 +4262,6 @@ body.light-mode #clubPinnedDismissBtn:hover {
   }
 }
 
-@keyframes dispatchArrivalIncomingRTL {
-  0% {
-    opacity: 0;
-    transform: translate3d(6px, 20px, 0) scale(0.975);
-    filter: blur(2.5px);
-  }
-  30% {
-    opacity: 0.75;
-    filter: blur(0.8px);
-  }
-  75% {
-    opacity: 0.98;
-    filter: blur(0);
-    transform: translate3d(0, 1px, 0) scale(1.002);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes dispatchArrivalPersonalRTL {
-  0% {
-    opacity: 0;
-    transform: translate3d(-6px, 20px, 0) scale(0.975);
-    filter: blur(2.5px);
-  }
-  30% {
-    opacity: 0.75;
-    filter: blur(0.8px);
-  }
-  75% {
-    opacity: 0.98;
-    filter: blur(0);
-    transform: translate3d(0, 1px, 0) scale(1.002);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .sovereign-dispatch-card.is-new-dispatch,
@@ -4502,26 +4428,6 @@ body.light-mode #clubPinnedDismissBtn:hover {
   }
 }
 
-@keyframes sovereignSealStampFadeRtl {
-  0% {
-    opacity: 0;
-    transform: translateY(-50%) rotate(8deg) scale(1.15);
-  }
-  12% {
-    opacity: 0.35;
-    transform: translateY(-50%) rotate(4deg) scale(1);
-  }
-  30% {
-    opacity: 0.22;
-  }
-  65% {
-    opacity: 0.11;
-  }
-  100% {
-    opacity: 0.06;
-    transform: translateY(-50%) rotate(4deg) scale(1);
-  }
-}
 
 @keyframes sovereignQuillGleam {
   0% {
@@ -5648,14 +5554,6 @@ html.light-mode .club-typing-indicator .typing-pulse-dot,
   caret-color: var(--gold-polished, #d4af37);
 }
 
-@keyframes sovereignGoldBreathingGlow {
-  0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(212, 175, 106, 0.45)) drop-shadow(0 0 1px rgba(255, 248, 225, 0.6));
-  }
-  50% {
-    filter: drop-shadow(0 0 12px rgba(212, 175, 106, 0.7)) drop-shadow(0 0 2.5px rgba(255, 248, 225, 0.9));
-  }
-}
 
 /* Whisper Mode Active Styling */
 .obsidian-dispatch-composer.is-whisper-mode {
@@ -8270,14 +8168,6 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping span {
 
 }
 
-@keyframes clubRoomsChevronNudgeRTL {
-  0%, 100% {
-    transform: scaleX(-1) translateX(0);
-  }
-  50% {
-    transform: scaleX(-1) translateX(1.5px);
-  }
-}
 
 /* Backward Mode: Invert chevron direction for revisiting previous pairs (no pulse or nudge) */
 #club-tab .club-rooms-scroll-arrow.is-backward .discovery-chevron-icon {
@@ -15665,55 +15555,7 @@ body.light-mode .membership-card .card-actions .btn {
    PHASE 19: ANIMATING THE RINGS & AVATAR PULSE (THE LIVING IDENTITY)
    ========================================================================== */
 
-/* 1. Make the Avatar Ring Pulse Very Subtly */
-@keyframes luxuryPulse {
-  0% {
-    box-shadow:
-      0 25px 35px -10px rgba(45, 30, 10, 0.65),
-      0 10px 15px -5px rgba(212, 175, 55, 0.1),
-      inset 0 -2px 10px rgba(0, 0, 0, 0.8),
-      inset 0 4px 6px rgba(255, 245, 200, 0.6);
-  }
-  50% {
-    box-shadow:
-      0 25px 35px -10px rgba(45, 30, 10, 0.65),
-      0 10px 25px -2px rgba(212, 175, 55, 0.25),
-      /* Outer glow expands slightly */ inset 0 -2px 10px rgba(0, 0, 0, 0.8),
-      inset 0 4px 8px rgba(255, 245, 200, 0.8); /* Inner top highlight intensifies */
-  }
-  100% {
-    box-shadow:
-      0 25px 35px -10px rgba(45, 30, 10, 0.65),
-      0 10px 15px -5px rgba(212, 175, 55, 0.1),
-      inset 0 -2px 10px rgba(0, 0, 0, 0.8),
-      inset 0 4px 6px rgba(255, 245, 200, 0.6);
-  }
-}
 
-/* Light Mode Pulse variant */
-@keyframes luxuryPulseLight {
-  0% {
-    box-shadow:
-      0 25px 35px -10px rgba(110, 80, 40, 0.25),
-      0 10px 15px -5px rgba(212, 175, 55, 0.15),
-      inset 0 -2px 10px rgba(80, 50, 15, 0.4),
-      inset 0 4px 6px rgba(255, 255, 255, 0.9);
-  }
-  50% {
-    box-shadow:
-      0 25px 35px -10px rgba(110, 80, 40, 0.25),
-      0 10px 25px -2px rgba(212, 175, 55, 0.3),
-      /* Brighter gold reflection */ inset 0 -2px 10px rgba(80, 50, 15, 0.4),
-      inset 0 4px 10px rgba(255, 255, 255, 1); /* Sharper top specular */
-  }
-  100% {
-    box-shadow:
-      0 25px 35px -10px rgba(110, 80, 40, 0.25),
-      0 10px 15px -5px rgba(212, 175, 55, 0.15),
-      inset 0 -2px 10px rgba(80, 50, 15, 0.4),
-      inset 0 4px 6px rgba(255, 255, 255, 0.9);
-  }
-}
 
 body .membership-card .portrait-ring,
 body.light-mode .membership-card .portrait-ring {
@@ -18826,14 +18668,6 @@ body.light-mode .membership-ledger-card.is-deed-verified-flash {
   }
 }
 
-@keyframes securityRibbonGlideRtl {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(50%);
-  }
-}
 
 body.light-mode .deed-security-ribbon {
   background:
@@ -24366,11 +24200,6 @@ body.light-mode #settingsModal .luxury-switch input:checked + .slider:before {
   border-color: rgba(185, 145, 75, 0.7) !important;
 }
 
-/* Language Segmented Control */
-#settingsModal .lang-selector-group {
-  display: flex !important;
-  gap: 6px !important;
-}
 
 /* Logout Button */
 #settingsModal #btnSettingsLogout,
@@ -35228,10 +35057,6 @@ body.light-mode #logoutConfirmModal p {
   }
 }
 
-@keyframes continuousTickerScroll {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .ticker-marquee-track {

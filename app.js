@@ -89,26 +89,29 @@ function renderRing(ringId, valueId, percent) {
 // CENTRAL LOCALIZATION SYSTEM
 // ==========================================
 
-const savedLang = localStorage.getItem("one_percent_lang");
-let currentLang = (savedLang === "ar" || savedLang === "en") ? savedLang : "en";
-window.currentLang = currentLang;
+// Single authoritative English-only LTR localization contract reconciled with translations.js
+let currentLang = "en";
+window.currentLang = "en";
 var boutiqueLoadingTimeout = null;
 var profileCollectionTimeout = null;
 
-function getNestedValue(obj, path) {
-  return path.split(".").reduce((acc, part) => acc && acc[part], obj);
+if (typeof window.t !== "function") {
+  window.t = function (key) {
+    if (!key) return "";
+    const lookup = (obj, path) =>
+      obj && path ? path.split(".").reduce((acc, part) => acc && acc[part], obj) : null;
+    let item = lookup(window.I18N, key);
+    if (!item && typeof key === "string" && key.startsWith("items.")) {
+      item = lookup(window.I18N, key.replace(/^items\./, ""));
+    }
+    if (item) {
+      if (typeof item === "string") return item;
+      if (item.en) return item.en;
+    }
+    return key;
+  };
 }
-
-window.t = function (key, lang = currentLang) {
-  if (!key) return "";
-  let item = getNestedValue(window.I18N, key);
-  if (!item && typeof key === "string" && key.startsWith("items.")) {
-    const stripped = key.replace(/^items\./, "");
-    item = getNestedValue(window.I18N, stripped);
-  }
-  if (item && item[lang]) return item[lang];
-  return key; // fallback
-};
+window.getTranslation = window.t;
 
 window.syncClubInputDirection = function (inputEl) {
   const input = inputEl || document.getElementById("clubInput");
@@ -134,15 +137,14 @@ window.syncClubInputDirection = function (inputEl) {
   }
 };
 
-window.setLanguage = function (lang) {
-  if (lang !== "en" && lang !== "ar") return;
+window.setLanguage = function () {
+  const lang = "en";
   currentLang = lang;
   window.currentLang = lang;
-  localStorage.setItem("one_percent_lang", lang);
   if (typeof AppState !== "undefined") AppState.language = lang;
 
   document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
+  document.documentElement.dir = "ltr";
   if (typeof window.syncClubInputDirection === "function") {
     window.syncClubInputDirection();
   }
@@ -151,21 +153,9 @@ window.setLanguage = function (lang) {
   }
   // Update typography
   const root = document.documentElement;
-  if (lang === "en") {
-    root.style.setProperty("--font-display", '"Cormorant Garamond", serif');
-    root.style.setProperty("--font-ui", '"Manrope", -apple-system, sans-serif');
-    root.style.fontFamily = "var(--font-ui)";
-  } else {
-    root.style.setProperty(
-      "--font-display",
-      '"Amiri", "Cormorant Garamond", serif',
-    );
-    root.style.setProperty(
-      "--font-ui",
-      '"Readex Pro", "Cairo", "Manrope", sans-serif',
-    );
-    root.style.fontFamily = "var(--font-ui)";
-  }
+  root.style.setProperty("--font-display", '"Cormorant Garamond", serif');
+  root.style.setProperty("--font-ui", '"Manrope", -apple-system, sans-serif');
+  root.style.fontFamily = "var(--font-ui)";
 
   // Apply translations to data-i18n elements
   document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -350,10 +340,10 @@ function initGlobalSettings() {
       // Synchronize Settings Modal controls & descriptions
       this.syncModalUI();
 
-      // Trigger redraws for dynamic luxury elements (Guilloche canvas)
-      window.dispatchEvent(
-        new CustomEvent("themechange", { detail: { theme: validTheme, isLight } }),
-      );
+      // Trigger redraws for dynamic luxury elements (Guilloche canvas & dual-mode artifacts)
+      const themeDetail = { theme: validTheme, isLight };
+      window.dispatchEvent(new CustomEvent("themechange", { detail: themeDetail }));
+      window.dispatchEvent(new CustomEvent("themeChanged", { detail: themeDetail }));
       if (this._resizeDebounceTimer) clearTimeout(this._resizeDebounceTimer);
       this._resizeDebounceTimer = setTimeout(() => {
         window.dispatchEvent(new Event("resize"));
@@ -1283,12 +1273,6 @@ const AppState = {
     this._subscribers[event].forEach((cb) => cb(data));
   },
 
-  get member() {
-    return this.user;
-  },
-  set member(val) {
-    this.user = val;
-  },
   get collectedItems() {
     return Object.keys(this.owned);
   },
@@ -1739,11 +1723,6 @@ const AppState = {
         }
       });
 
-      if (this._subscribers["change"]) {
-        this._subscribers["change"].forEach((cb) => cb());
-      }
-
-      if (typeof updateUI === "function") updateUI();
       return true;
     }
     return false;
@@ -1755,14 +1734,6 @@ const AppState = {
   },
 };
 const ClubState = AppState;
-Object.defineProperty(ClubState, "member", {
-  get: () => AppState.user,
-  set: (v) => {
-    AppState.user = v;
-  },
-  configurable: true,
-  enumerable: true,
-});
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return "";
@@ -1955,20 +1926,15 @@ window.openMemberMiniDossier = function (member) {
     };
   }
 
-  // Close handlers
+  // Close button delegates to unified closeMemberMiniDossierModal handler
   const closeBtn = document.getElementById("closeMiniDossierBtn");
-  const closeModal = () => {
-    modal.hidden = true;
-    modal.setAttribute("aria-hidden", "true");
-    if (window.AudioEngine && window.AudioEngine.playModalClose) {
-      window.AudioEngine.playModalClose();
-    }
-  };
-  window.closeMemberMiniDossierModal = closeModal;
-  if (closeBtn) closeBtn.onclick = closeModal;
-  modal.onclick = (e) => {
-    if (e.target === modal) closeModal();
-  };
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      if (typeof window.closeMemberMiniDossierModal === "function") {
+        window.closeMemberMiniDossierModal();
+      }
+    };
+  }
 
   modal.hidden = false;
   modal.setAttribute("aria-hidden", "false");
@@ -2297,11 +2263,6 @@ ClubState.on("change", () => {
 
   if (typeof renderProfileCollection === "function") {
     renderProfileCollection(false);
-  }
-
-  if (typeof renderRing === "function") {
-    renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
-    renderRing("privRing", "privValue", AppState.user.privilegesValue);
   }
 
   if (typeof applyEquippedToCard === "function")
@@ -3385,47 +3346,6 @@ const Router = {
     this.onEnter(tab);
   },
 
-  navigateContext(pageId, title, returnTab) {
-    if (window.AudioEngine) AudioEngine.playRustle();
-    if (window.HeaderScrollController) {
-      window.HeaderScrollController.onTabChangeStart();
-    }
-    contextReturnTab = returnTab;
-    if (typeof window.setClubFloatingControlsVisibility === "function") {
-      window.setClubFloatingControlsVisibility(false);
-    }
-    document.querySelectorAll(".page").forEach((p) => {
-      p.classList.remove("is-active");
-      p.setAttribute("aria-hidden", "true");
-      p.setAttribute("hidden", "");
-    });
-
-    const activePage = document.getElementById(pageId);
-    if (activePage) {
-      activePage.removeAttribute("hidden");
-      activePage.setAttribute("aria-hidden", "false");
-      activePage.classList.add("is-active");
-      activePage.scrollTop = 0;
-    }
-    document.getElementById("sectionName").textContent = title;
-    const header = document.getElementById("appHeader");
-    if (header) {
-      header.classList.remove("header-hidden");
-      header.classList.remove("header-compact");
-      if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
-    }
-    document
-      .querySelectorAll(".nav-item")
-      .forEach((n) => n.classList.remove("is-active"));
-
-    const main = document.querySelector(".app-main");
-    if (main) main.scrollTop = 0;
-    window.scrollTo(0, 0);
-    if (window.HeaderScrollController) {
-      window.HeaderScrollController.onTabChangeComplete();
-    }
-  },
-
   onEnter(tab) {
     if (tab === "club") {
       const isLeaderboard = AppState.activeChannelId === "leaderboard";
@@ -3862,14 +3782,12 @@ function initMemberDossierActionButtons() {
   if (msgBtn && !msgBtn.dataset.boundAction) {
     msgBtn.dataset.boundAction = "true";
     msgBtn.addEventListener("click", handleAction);
-    msgBtn.onclick = handleAction;
   }
 
   const addFriendBtn = document.getElementById("memberActionAddFriendBtn");
   if (addFriendBtn && !addFriendBtn.dataset.boundAction) {
     addFriendBtn.dataset.boundAction = "true";
     addFriendBtn.addEventListener("click", handleAction);
-    addFriendBtn.onclick = handleAction;
   }
 }
 window.initMemberDossierActionButtons = initMemberDossierActionButtons;
@@ -3974,7 +3892,6 @@ function updateCreditsUI(forceAnimate = false) {
 
 if (typeof window !== "undefined") {
   window.updateCreditsUI = updateCreditsUI;
-  window.triggerGaugeHorologicalShimmer = () => updateCreditsUI(true);
 }
 
 updateCreditsUI();
@@ -6281,11 +6198,6 @@ document.getElementById("reliquaryModalCloseBtn")?.addEventListener("click", () 
 window.purchase = function(item, source = 'modal', btnElement = null) {
   const success = ClubState.purchase(item);
   if (success) {
-    if (window.HapticEngine) {
-      window.HapticEngine.boutiquePurchase();
-    } else if (typeof navigator !== "undefined" && navigator.vibrate) {
-      navigator.vibrate([35, 50, 20]);
-    }
     if (window.AudioEngine) {
       window.AudioEngine.playChime();
     }
@@ -6388,8 +6300,6 @@ if (activeBoutiqueTab && typeof renderBoutique === "function") {
 }
 if (typeof updateMasterCard === "function") {
   updateMasterCard();
-}
-if (typeof renderProfileCollection === "function") {
 }
 
 const initProfileAndModals = () => {
@@ -9356,15 +9266,7 @@ window.HeaderScrollController = (function() {
   let isLockedVisible = false;
   let ticking = false;
   let clubTicking = false;
-  let cachedHeader = null;
   let accumulatedPageDelta = 0;
-
-  function getHeader() {
-    if (!cachedHeader) {
-      cachedHeader = document.getElementById("appHeader");
-    }
-    return cachedHeader;
-  }
 
   function getActivePageEl() {
     return document.querySelector(".page.is-active");
@@ -9745,10 +9647,6 @@ window.resetHeaderScrollTracking = window.HeaderScrollController.updateStateForC
 window.HeaderAutoDismissController = (function() {
   let timer = null;
   let isAutoHidden = false;
-
-  function getHeader() {
-    return document.getElementById("appHeader");
-  }
 
   function hideHeader() {
     // Disabled: Top header must remain permanently stationary and visible across tabs

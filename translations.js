@@ -1816,8 +1816,9 @@ function getNestedValue(obj, path) {
   if (!obj || !path) return null;
   return path.split('.').reduce((acc, part) => acc && acc[part], obj);
 }
+window.getNestedValue = getNestedValue;
 
-window.t = function (key, lang = 'en') {
+window.t = function (key) {
   if (!key) return '';
   let item = getNestedValue(window.I18N, key);
   if (!item && typeof key === 'string' && key.startsWith('items.')) {
@@ -1832,19 +1833,21 @@ window.t = function (key, lang = 'en') {
 
 window.getTranslation = window.t;
 
-window.setLanguage = function (lang) {
-  window.currentLang = 'en';
-  if (typeof document !== 'undefined' && document.documentElement) {
-    document.documentElement.setAttribute('lang', 'en');
-    document.documentElement.setAttribute('dir', 'ltr');
-  }
-};
+if (typeof window.setLanguage !== 'function') {
+  window.setLanguage = function () {
+    window.currentLang = 'en';
+    if (typeof document !== 'undefined' && document.documentElement) {
+      document.documentElement.setAttribute('lang', 'en');
+      document.documentElement.setAttribute('dir', 'ltr');
+    }
+  };
+}
 
 window.applyTranslations = function () {
   if (typeof document === 'undefined') return;
   document.querySelectorAll('[data-i18n]').forEach((el) => {
     const key = el.getAttribute('data-i18n');
-    const translated = window.t(key, 'en');
+    const translated = window.t(key);
     if (translated && translated !== key) {
       if (el.children.length === 0) {
         el.textContent = translated;

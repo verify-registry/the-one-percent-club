@@ -198,6 +198,9 @@ if (typeof window !== 'undefined') {
     }
   }
 
+  window.addEventListener('themechange', () => {
+    window.updateSovereignArtifactThemes();
+  });
   window.addEventListener('themeChanged', () => {
     window.updateSovereignArtifactThemes();
   });

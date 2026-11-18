@@ -39,22 +39,25 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 ├── .env.example                 # Documented environment variable definitions (no secrets)
 ├── .gitignore                   # Standard git exclusions (node_modules, build artifacts)
 ├── AUDIT.md                     # Master Architectural Blueprint (this file)
-├── Audio.js                     # Synthesized WebAudio horological sound engine
+├── Audio.js                     # Synthesized WebAudio horological sound engine (934 lines)
 ├── README.md                    # Repository documentation and orientation
-├── app.js                       # Core application state, tabs, commerce & club engine
-├── artifacts.js                 # Pure inline SVG vector catalog for all collectibles
+├── app.js                       # Core application state, tabs, commerce & club engine (9,968 lines)
+├── artifacts/                   # Single authoritative collectible asset directory (48 dual-mode .webp/.jpg files, 4.90 MB)
+├── artifacts.js                 # Collectible asset catalog & dual-mode Dark/Light renderer (220 lines)
 ├── firebase-applet-config.json  # Provisioned AI Studio Firebase Firestore & Auth client config
 ├── firebase-blueprint.json      # Firestore schemas, collections, and security specifications
 ├── firestore.rules              # Deployed Firestore security and authorization rules
-├── index.html                   # Master single-page HTML entry point & SVG gradient defs
-├── luxury.js                    # Haute horlogerie canvas physics engine for Master Card
+├── index.html                   # Master single-page HTML entry point & SVG gradient defs (4,514 lines)
+├── luxury.js                    # Haute horlogerie canvas physics engine for Master Card (2,244 lines)
 ├── metadata.json                # AI Studio platform capabilities and metadata
 ├── package.json                 # Project dependencies, scripts (dev, start, build, lint)
-├── server.ts                    # Production Express server (Gzip, market proxy, SPA routing)
+├── public/
+│   └── assets/aistudio/         # Preserved archival design reference screenshots (41 files)
+├── server.ts                    # Production Express server (Gzip, static /artifacts, market proxy, SPA routing; 426 lines)
 ├── src/
-│   └── main.tsx                 # Non-intrusive TypeScript shield entry point
-├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals)
-├── translations.js              # Standardized English localization dictionary
+│   └── main.tsx                 # Non-intrusive TypeScript shield entry point (15 lines)
+├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals; 42,114 lines)
+├── translations.js              # Standardized English localization dictionary (1,857 lines)
 ├── tsconfig.json                # TypeScript compiler configuration (ES2022, bundler)
 └── vite.config.ts               # Vite configuration for AI Studio dev server (port 3000)
 ```
@@ -63,15 +66,16 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 
 | File | Exact Architectural Role |
 |---|---|
-| `index.html` | HTML entry point. Hosts all semantic tab containers (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`), modal overlays (Settings, Account, Support, Dossier, Inspection, Auth, Recovery), and global SVG gradient definitions (`#ringGoldGrad`, `#bezelGrad`, `#sov_gold_24k`). Zero inline `<style>` tags. |
-| `style.css` | Consolidated master stylesheet. Contains the seamless Liquid Glass header, VisionOS crystal bottom dock, typography hierarchy, responsive breakpoints (360px–430px), modal card systems, and Dark/Light mode color schemes. |
-| `app.js` | Primary application logic controller. Manages reactive state (`AppState`), boutique commerce and vault persistence, club chat with room switching and daily message reserves, live market ticker client consumption, metric ring complications (Wealth Index and Privileges Index with D3), and authentication state (`AuthBoundary`). |
-| `luxury.js` | Mathematical canvas rendering engine for the Master Identity Card. Computes layered guilloché geometry, dynamic gold dust particle dynamics, specular metallic sheen passes, and high-DPI card image exports. |
-| `artifacts.js` | Vector asset registry (`window.SOVEREIGN_ARTIFACTS`). Stores 100% pure inline SVG vector blueprints for all 12 boutique collectibles and widgets. No raster image URLs. |
-| `translations.js` | English dictionary (`window.TRANSLATIONS.en`) and localization helper `window.t(key)`. |
-| `Audio.js` | WebAudio synthesized horological acoustic engine (`window.AudioEngine`). Synthesizes physical mechanical clicks, minute-repeater chimes, and transaction success sounds directly from oscillators with zero audio file downloads. |
-| `server.ts` | Full-stack Node.js 22 + Express server. Handles gzip compression middleware, immutable static file caching, SPA fallback to `index.html`, and the server-side `/api/market-ticker` proxy with 60-second caching for Twelve Data + Biquote spot prices. |
-| `src/main.tsx` | Passthrough shield entry point ensuring platform compatibility with TypeScript build and lint tooling without overriding the native HTML/CSS/JS runtime. |
+| `index.html` | HTML entry point (4,514 lines). Hosts all semantic tab containers (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`), modal overlays (Settings, Account, Support, Dossier, Inspection, Auth, Recovery), and global SVG gradient definitions (`#ringGoldGrad`, `#bezelGrad`, `#sov_gold_24k`). Zero inline `<style>` tags; modal backdrop dismissal is centrally handled by `initUnifiedModalBackdrops()` in `app.js`. |
+| `style.css` | Consolidated master stylesheet (42,114 lines). Contains the seamless Liquid Glass header, VisionOS crystal bottom dock, typography hierarchy, responsive breakpoints (360px–430px), modal card systems, and Dark/Light mode color schemes. |
+| `app.js` | Primary application logic controller (9,968 lines). Manages reactive state (`AppState`), boutique commerce and vault persistence, club chat with room switching and daily message reserves, live market ticker client consumption, metric ring complications (Wealth Index and Privileges Index with D3), unified modal backdrop management, and authentication state (`AuthBoundary`). |
+| `luxury.js` | Mathematical canvas rendering engine for the Master Identity Card (2,244 lines). Computes layered guilloché geometry, dynamic gold dust particle dynamics, specular metallic sheen passes, and high-DPI metallic gold card image exports. |
+| `artifacts.js` | Collectible asset registry (`window.SOVEREIGN_ARTIFACTS`, 220 lines). Renders all 12 boutique collectibles from the single authoritative `/artifacts/` directory using theme-aware dual-mode `.webp`/`.jpg` studio assets (Obsidian Dark & Imperial Light, reacting to both `themechange` and `themeChanged` events), plus pure inline SVG for `wid1` and legacy `aliasMap` compatibility. |
+| `artifacts/` | Single authoritative directory of 48 dual-mode studio collectible images (12 active artifacts × Dark/Light × `.webp`/`.jpg`, ~4.90 MB total) served statically by `server.ts`. |
+| `translations.js` | English dictionary (`window.TRANSLATIONS.en`, 1,857 lines) and reconciled localization helpers (`window.getNestedValue`, `window.t`, `window.getTranslation`). |
+| `Audio.js` | WebAudio synthesized horological acoustic engine (`window.AudioEngine`, 934 lines). Synthesizes physical mechanical clicks, minute-repeater chimes, and transaction success sounds directly from oscillators with zero audio file downloads. |
+| `server.ts` | Full-stack Node.js 22 + Express server (426 lines). Handles gzip compression middleware, immutable static file caching (serving `/artifacts/` from project root), SPA fallback to `index.html`, and the server-side `/api/market-ticker` proxy with 60-second caching for Twelve Data + Biquote spot prices. |
+| `src/main.tsx` | Passthrough shield entry point (15 lines) ensuring platform compatibility with TypeScript build and lint tooling without overriding the native HTML/CSS/JS runtime. |
 
 ---
 
@@ -172,7 +176,7 @@ Triggered via `#openSettingsRow` in the Profile menu list (and secondary button 
 
 ## 4. BOUTIQUE & COLLECTIBLES REGISTRY
 
-All 12 boutique collectibles and the Master Card Widget are rendered using **100% pure inline SVG vector code** stored in `artifacts.js`. Zero external image files or placeholder PNGs.
+All 12 boutique collectibles are rendered via `artifacts.js` from the single authoritative local `/artifacts/` directory using theme-aware dual-mode studio assets (`.webp` with `.jpg` fallback for both Obsidian Dark and Imperial Light), while the Master Card Widget (`wid1`) renders as pure inline SVG. Zero external remote image URLs or placeholder PNGs.
 
 | ID | Artifact Name | Category | Required Tier | Price (USD) | Specification & Metallurgy |
 |---|---|---|---|---|---|
@@ -200,8 +204,8 @@ To preserve 100% stability, zero visual regressions, and platform compliance in 
 
 1. **Preserve `crown4` Unconditionally:**
    `crown4` ("Crown of Zenith Authority", icon: `crown_zenith`, $9,000) is the pinnacle crown collectible. Never remove, replace, or rename its ID or metadata.
-2. **Pure Inline SVG Mandate:**
-   Never introduce external image URLs (`http://`, `https://`) or raster image files (`.png`, `.jpg`, `.webp`) for collectibles, hallmarks, or seals. All graphics must be resolution-independent SVG elements with self-contained gradient definitions.
+2. **Single Authoritative Asset Policy (`/artifacts/` + Inline SVG):**
+   Never introduce external remote image URLs (`http://`, `https://`) or duplicate asset directories. All 12 boutique collectibles resolve exclusively to local dual-mode `.webp`/`.jpg` assets inside `/artifacts/` via `artifacts.js`, while `wid1`, hallmarks, bezels, and sovereign seals render as resolution-independent inline SVG elements.
 3. **Strict English-Only (LTR) Rule:**
    Do not introduce dual-language toggles that flip layout direction or corrupt English editorial typography. All primary copy must resolve cleanly to English strings.
 4. **No Inline HTML `<style>` Bloat:**
@@ -212,3 +216,24 @@ To preserve 100% stability, zero visual regressions, and platform compliance in 
    Live market ticker quotes must be queried and cached via `/api/market-ticker` in `server.ts`. Never expose Twelve Data or Biquote API keys in client-side code, and never fabricate financial prices.
 7. **Clean Environment & Dependency Hygiene:**
    Maintain npm package integrity. Never commit `bun.lock`, `yarn.lock`, or temporary cleanup scripts (`.py`, `.sh`). Verify `tsc --noEmit` on every change sequence.
+
+---
+
+## 6. SURGICAL REFACTORING & OPTIMIZATION LOG
+
+### Batch 1 — Runtime Bug Fixes, Handler Deduplication & State Integrity
+- **Purchase & UI Pipeline Deduplication (`app.js`):** Removed redundant manual `_subscribers["change"]` iteration and direct `updateUI()` invocation inside `AppState.purchase()` so `this.notify()` drives a single reactive render cycle; removed duplicate `HapticEngine.boutiquePurchase()` call in `window.purchase()`.
+- **Complication Ring Animation Fix (`app.js`):** Removed redundant direct `renderRing()` invocation in `ClubState.on("change")` since `updateMasterCard()` already invokes `renderRing()`.
+- **Dossier & Modal Listener Hygiene (`app.js`):** Removed duplicate `.onclick = handleAction` assignments in `initMemberDossierActionButtons()`; removed dynamic `window.closeMemberMiniDossierModal` overwrite and repeated `modal.onclick` assignment in `openMemberMiniDossier()`.
+- **State Accessor & Helper Cleanup (`app.js`):** Removed two shadowed duplicate `get/set member` accessor definitions on `AppState`; reused top-level `getHeader()` in `HeaderScrollController` and `HeaderAutoDismissController`; removed empty `renderProfileCollection` dead stub.
+- **Theme Event Alignment (`app.js` & `artifacts.js`):** Dispatched both `"themechange"` and `"themeChanged"` in `ThemeManager.setTheme()` and subscribed `artifacts.js` to both events for instant Dark/Light artifact transitions.
+- **Canvas 2D Export Fix (`luxury.js`):** Replaced invalid SVG paint string `ctx.fillStyle = "url(#ringGoldGrad)"` in `renderMasterCardToBlob()` with a proper Canvas 2D linear gold gradient (`makeGoldGrad(...)`) so exported `MEMBER ID` metadata renders in authentic metallic gold.
+- **HTML Attribute Fix (`index.html`):** Fixed unclosed `placeholder="Interests"` quote inside `#page-edit-account`.
+- **English-Only Localization Reconciliation (`app.js` & `translations.js`):** Unified `window.t`, `window.getTranslation`, `window.getNestedValue`, `window.setLanguage`, and `window.currentLang` on a single English-only LTR contract while preserving `window.syncClubInputDirection()`.
+
+### Batch 2 — Asset Deduplication, Dead Code Removal & Cascade-Safe CSS Cleanup
+- **Asset Deduplication (~22.69 MB Saved):** Verified zero code references and removed byte-for-byte duplicate `/public/artifacts/` (48 files, 4.90 MB) and unreferenced intermediate `/src/assets/images/` (24 files, 17.79 MB). Preserved the single authoritative `/artifacts/` (48 files, 4.90 MB) served by `server.ts` and `/public/assets/aistudio/` (41 archival screenshots).
+- **Verified Dead Code Removal (`app.js`):** Removed zero-caller `Router.navigateContext` and `window.triggerGaugeHorologicalShimmer`.
+- **Active Utility Retention (`app.js`):** Pre-deletion verification confirmed `window.DeferredQueue` is actively called during Club Chamber initialization (`initSovereignSalonTicker()`), so it was intentionally retained.
+- **Unified Modal Backdrop Consolidation (`index.html`):** Removed 12 duplicate inline backdrop `onclick="if (event.target === this) ..."` attributes across all `UNIFIED_MODALS`, making `initUnifiedModalBackdrops()` in `app.js` the single backdrop dismissal path while preserving all explicit close-button handlers.
+- **Cascade-Safe CSS Cleanup (`style.css`):** Removed 2 shadowed earlier duplicate `@keyframes` (`luxuryFadeSlide`, `continuousTickerScroll`), 9 zero-reference `@keyframes` (`halo-breathe`, `dispatchArrivalIncomingRTL`, `dispatchArrivalPersonalRTL`, `sovereignSealStampFadeRtl`, `sovereignGoldBreathingGlow`, `clubRoomsChevronNudgeRTL`, `luxuryPulse`, `luxuryPulseLight`, `securityRibbonGlideRtl`), and the dead `#settingsModal .lang-selector-group` rule without reordering any active visual cascade blocks.

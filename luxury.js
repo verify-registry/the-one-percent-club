@@ -883,7 +883,7 @@ async function renderMasterCardToBlob() {
   // 9. Member Identity Information
   // Member Nº
   ctx.font = "600 15px 'Cormorant Garamond', Georgia, serif";
-  ctx.fillStyle = "url(#ringGoldGrad)";
+  ctx.fillStyle = makeGoldGrad(cx - 120, cardY + 465, cx + 120, cardY + 475);
   ctx.textAlign = "center";
   ctx.fillText(`MEMBER  Nº  ${memberId}`, cx, cardY + 475);
 
