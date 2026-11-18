@@ -6082,19 +6082,21 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid rgba(212, 175, 106, 0.38) !important;
+  border: 1px solid rgba(212, 175, 106, 0.50) !important;
+  border-top: 1px solid rgba(240, 218, 160, 0.70) !important;
+  border-bottom: 1px solid rgba(130, 95, 30, 0.45) !important;
   border-radius: 14px;
   padding: 12px 16px;
   background: linear-gradient(
     165deg,
-    rgba(26, 20, 13, 0.98) 0%,
-    rgba(16, 12, 8, 0.99) 55%,
+    rgba(24, 18, 12, 0.98) 0%,
+    rgba(15, 11, 7, 0.99) 55%,
     rgba(9, 7, 5, 1) 100%
   ) !important;
   box-shadow:
-    inset 0 1px 1px rgba(255, 240, 205, 0.18),
+    inset 0 1px 0 rgba(255, 240, 205, 0.12),
     inset 0 -2px 6px rgba(0, 0, 0, 0.85),
-    0 6px 18px -4px rgba(0, 0, 0, 0.7);
+    0 4px 16px -2px rgba(0, 0, 0, 0.75) !important;
   width: 100%;
   box-sizing: border-box;
 }
@@ -6107,40 +6109,57 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
 
 #boutique-tab .boutique-balance-label {
   font-size: 10px;
-  color: #a89a85;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  color: #bfa577;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 #boutique-tab .boutique-balance-value {
   font-family: var(--font-display, "Cinzel", serif);
   font-weight: 700;
-  font-size: 19px;
-  color: var(--gold-champagne, #e5cb88);
+  font-size: 20px;
+  color: #edd69a;
   letter-spacing: 0.04em;
   line-height: 1.1;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
 }
 
 #boutique-tab .boutique-balance-add {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  border: 1px solid rgba(212, 175, 106, 0.45);
-  background: linear-gradient(180deg, rgba(38, 30, 18, 0.95) 0%, rgba(18, 14, 8, 0.98) 100%);
-  color: var(--gold-champagne);
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 9px !important;
+  border: 1px solid #cfa34d !important;
+  background: linear-gradient(145deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  color: #161005 !important;
   font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 1px 0 rgba(255, 235, 180, 0.2), 0 2px 6px rgba(0, 0, 0, 0.5);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1px 1px rgba(60, 42, 10, 0.45) !important;
   cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+#boutique-tab .boutique-balance-add svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+#boutique-tab .boutique-balance-add svg path {
+  stroke: #161005 !important;
+  stroke-width: 2.2 !important;
 }
 
 #boutique-tab .boutique-balance-add:hover {
-  border-color: rgba(229, 203, 136, 0.7);
-  background: linear-gradient(180deg, rgba(50, 40, 24, 0.98) 0%, rgba(26, 20, 12, 1) 100%);
+  filter: brightness(1.06);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 1px rgba(60, 42, 10, 0.5) !important;
   transform: translateY(-1px);
 }
 
@@ -6171,26 +6190,16 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
    Clean, Understated Editorial Category Tabs
    ========================================================================== */
 /* --- HAUTE JOAILLERIE CATEGORY STRIP (DARK MODE) --- */
-#boutique-tab .boutique-tabs  {
-
+#boutique-tab .boutique-tabs {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  background: transparent !important;
-  border: none !important;
-  border-bottom: 0.5px solid rgba(212, 175, 106, 0.22) !important;
-  padding: 0 2px 2px 2px !important;
-  gap: 0 !important;
-  margin: 0 0 16px 0 !important;
-  
-  box-shadow: none !important;
   width: 100%;
   box-sizing: border-box;
   min-height: 38px;
   height: 38px;
-
 }
 #boutique-tab .boutique-tabs::-webkit-scrollbar {
   display: none;
@@ -6203,68 +6212,40 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
   height: 100%;
   background: transparent !important;
   border: none !important;
-  border-radius: 0 !important;
-  color: #9a886f !important;
+  border-radius: 12px !important;
+  color: #D6BE8B !important;
   font-family: var(--font-ui, "Cairo", system-ui, sans-serif);
   font-size: 11.5px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 5px 15px 9px 15px !important;
+  padding: 5px 12px !important;
   cursor: pointer;
-  transition:
-    color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.25s ease, background 0.25s ease, transform 0.15s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
   box-shadow: none !important;
-  border-inline-end: 0.5px solid rgba(212, 175, 106, 0.18) !important;
-}
-
-#boutique-tab .boutique-tab:last-child {
-  border-inline-end: none !important;
 }
 
 #boutique-tab .boutique-tab:hover {
-  color: #faecc5 !important;
-  background: transparent !important;
+  color: #FFF2CC !important;
+  background: rgba(212, 175, 55, 0.16) !important;
 }
 
 body:not(.light-mode) #boutique-tab .boutique-tab.is-active,
 body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"] {
   background: transparent !important;
   border: none !important;
-  border-inline-end: 0.5px solid rgba(212, 175, 106, 0.18) !important;
-  color: #faecc5 !important;
-  font-weight: 700 !important;
+  color: #120B02 !important;
+  font-weight: 800 !important;
   box-shadow: none !important;
-}
-
-body:not(.light-mode) #boutique-tab .boutique-tab.is-active:last-child,
-body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]:last-child {
-  border-inline-end: none !important;
 }
 
 body:not(.light-mode) #boutique-tab .boutique-tab.is-active::after,
 body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
-  content: "" !important;
-  position: absolute !important;
-  bottom: 0px !important;
-  inset-inline-start: 18% !important;
-  inset-inline-end: 18% !important;
-  height: 2px !important;
-  border-radius: 1px !important;
-  background: linear-gradient(
-    90deg,
-    rgba(212, 175, 106, 0.1) 0%,
-    #e2ae33 20%,
-    #fff5d6 50%,
-    #e2ae33 80%,
-    rgba(212, 175, 106, 0.1) 100%
-  ) !important;
-  box-shadow: 0 1px 3px rgba(212, 175, 106, 0.4) !important;
-  transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  display: none !important;
+  content: none !important;
 }
 
 #boutique-tab .boutique-section {
@@ -6372,7 +6353,8 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   contain: layout style paint;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  border: 1px solid rgba(212, 175, 106, 0.28) !important;
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  border-top: 1px solid rgba(240, 218, 160, 0.65) !important;
   border-radius: 14px !important;
   padding: 12px 10px 10px !important;
   display: flex !important;
@@ -6382,10 +6364,10 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   text-align: center !important;
   cursor: pointer;
   background: #0d0b09 !important;
-  background: linear-gradient(180deg, #13100c 0%, #0d0b09 60%, #080705 100%) !important;
+  background: linear-gradient(180deg, #16120e 0%, #0e0c09 60%, #070604 100%) !important;
   color: #faf6ee !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 240, 205, 0.06),
+    inset 0 1px 0 rgba(255, 240, 205, 0.08),
     0 8px 24px -4px rgba(0, 0, 0, 0.85) !important;
   transition:
     transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -6402,14 +6384,13 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   display: none !important;
 }
 
-/* Subtle, refined luxury hover effect */
+/* Subtle, refined luxury hover effect with polished gold border */
 #boutique-tab .boutique-card:hover {
   transform: translateY(-2px) translateZ(0);
-  border-color: rgba(212, 175, 106, 0.65) !important;
+  border-color: rgba(220, 185, 115, 0.75) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 245, 220, 0.16),
-    0 12px 28px -4px rgba(0, 0, 0, 0.85),
-    0 0 14px rgba(212, 175, 106, 0.15) !important;
+    0 12px 28px -4px rgba(0, 0, 0, 0.85) !important;
 }
 
 #boutique-tab .boutique-card:hover::before {
@@ -9296,22 +9277,11 @@ html.light-mode #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hid
   width: 100%;
 }
 
-#boutique-tab .boutique-ownership-toggle  {
-
+#boutique-tab .boutique-ownership-toggle {
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: 40px;
-  height: 40px;
-  background: linear-gradient(180deg, #18140f 0%, #0e0c09 100%);
-  border: 0.5px solid rgba(212, 175, 106, 0.28);
-  border-radius: 20px;
-  padding: 3px;
-  gap: 2px;
   box-sizing: border-box;
-  
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 235, 180, 0.08);
-
 }
 
 #boutique-tab .b-filt-btn {
@@ -9319,16 +9289,16 @@ html.light-mode #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hid
   min-width: 0;
   height: 100%;
   background: transparent;
-  border: 0.5px solid transparent;
-  color: #9c8b73;
+  border: 1px solid transparent;
+  color: #D6BE8B;
   font-family: var(--font-ui, "Cairo", system-ui, sans-serif);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 6px 10px;
-  border-radius: 17px;
+  letter-spacing: 0.02em;
+  padding: 5px 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -9338,20 +9308,18 @@ html.light-mode #club-tab .club-rooms-scroll-arrow:not(.is-backward):not(.is-hid
 }
 
 #boutique-tab .b-filt-btn:hover {
-  color: #faecc5;
-  background: rgba(212, 175, 106, 0.08);
+  color: #FFF2CC;
+  background: rgba(212, 175, 55, 0.16);
 }
 
 body:not(.light-mode) #boutique-tab .b-filt-btn.is-active,
 body:not(.light-mode) #boutique-tab .b-filt-btn[aria-selected="true"],
 body:not(.light-mode) .b-filt-btn.is-active,
 body:not(.light-mode) .b-filt-btn[aria-selected="true"] {
-  background: linear-gradient(180deg, #2b2112 0%, #1c150b 100%) !important;
-  border: 0.5px solid rgba(212, 175, 106, 0.5) !important;
-  color: #faecc5 !important;
-  font-weight: 700 !important;
-  border-radius: 17px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 235, 180, 0.15) !important;
+  background: transparent !important;
+  color: #120B02 !important;
+  font-weight: 800 !important;
+  border-radius: 12px !important;
 }
 
 @keyframes shimmer {
@@ -33467,16 +33435,17 @@ body:not(.light-mode) .boutique-status-filter,
 body:not(.light-mode) #boutique-tab .boutique-ownership-toggle,
 body:not(.light-mode) .boutique-category-filter,
 body:not(.light-mode) #boutique-tab .boutique-tabs {
-  background: linear-gradient(180deg, rgba(26, 20, 14, 0.94) 0%, rgba(15, 11, 7, 0.96) 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.48) !important;
+  background: linear-gradient(180deg, rgba(22, 16, 10, 0.96) 0%, rgba(12, 9, 5, 0.98) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.50) !important;
+  border-top: 1px solid rgba(240, 218, 160, 0.70) !important;
+  border-bottom: 1px solid rgba(130, 95, 30, 0.45) !important;
   box-shadow:
-    0 4px 18px -2px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 235, 180, 0.25),
-    inset 0 -1px 0 rgba(130, 95, 30, 0.3),
-    inset 0 0 0 0.5px rgba(212, 175, 106, 0.2) !important;
+    0 4px 16px -2px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 240, 205, 0.16),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.6) !important;
 }
 
-/* --- AUTHENTIC GOLD INGOT GLIDERS (BAR 1 & BAR 2) --- */
+/* --- POLISHED SATIN GOLD GLIDERS (BAR 1 & BAR 2) --- */
 .boutique-status-glider,
 .boutique-tab-glider {
   position: absolute !important;
@@ -33491,24 +33460,28 @@ body:not(.light-mode) #boutique-tab .boutique-tabs {
   opacity: 0;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), width 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease !important;
   will-change: transform, width !important;
-  background: linear-gradient(180deg, #fff2d3 0%, #fae2a9 26%, #ecc577 68%, #dea94b 100%) !important;
-  border: 1px solid #b78a35 !important;
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
   box-shadow:
-    0 2px 7px rgba(135, 90, 20, 0.28),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1px rgba(145, 95, 18, 0.3),
-    0 0 8px rgba(212, 175, 106, 0.25) !important;
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1px 1px rgba(60, 42, 10, 0.45) !important;
 }
 
 body:not(.light-mode) .boutique-status-glider,
 body:not(.light-mode) .boutique-tab-glider {
-  background: linear-gradient(180deg, #563f1a 0%, #3a2910 50%, #221707 100%) !important;
-  border: 1px solid rgba(238, 204, 133, 0.9) !important;
+  background: linear-gradient(
+    165deg,
+    #ebd299 0%,
+    #d8b262 38%,
+    #b88e39 72%,
+    #8e681c 100%
+  ) !important;
+  border: 1px solid #cfa34d !important;
   box-shadow:
-    0 2px 10px rgba(0, 0, 0, 0.8),
-    inset 0 1px 0 rgba(255, 242, 205, 0.5),
-    inset 0 -1px 0 rgba(135, 95, 25, 0.4),
-    0 0 12px rgba(212, 175, 106, 0.3) !important;
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1px 1px rgba(60, 42, 10, 0.45) !important;
 }
 
 /* --- SEAMLESS SEGMENTS INSIDE THE STRIPS (BAR 1 & BAR 2) --- */
@@ -33558,7 +33531,8 @@ body:not(.light-mode) .boutique-status-filter .b-filt-btn,
 body:not(.light-mode) #boutique-tab .b-filt-btn,
 body:not(.light-mode) .boutique-category-filter .boutique-tab,
 body:not(.light-mode) #boutique-tab .boutique-tab {
-  color: #a89578 !important;
+  color: #D6BE8B !important;
+  font-weight: 600 !important;
 }
 
 .boutique-status-filter .b-filt-btn:hover,
@@ -33573,8 +33547,9 @@ body:not(.light-mode) .boutique-status-filter .b-filt-btn:hover,
 body:not(.light-mode) #boutique-tab .b-filt-btn:hover,
 body:not(.light-mode) .boutique-category-filter .boutique-tab:hover,
 body:not(.light-mode) #boutique-tab .boutique-tab:hover {
-  color: #faecc5 !important;
-  text-shadow: 0 0 8px rgba(212, 175, 106, 0.4) !important;
+  color: #FFF2CC !important;
+  background: rgba(212, 175, 55, 0.16) !important;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5) !important;
 }
 
 .boutique-status-filter .b-filt-btn:active,
@@ -33584,7 +33559,7 @@ body:not(.light-mode) #boutique-tab .boutique-tab:hover {
   transform: scale(0.96) !important;
 }
 
-/* Active State: Razor-sharp Contrast on the Gold Ingot */
+/* Active State: Razor-sharp Sovereign Contrast on the Gold Ingot */
 .boutique-status-filter .b-filt-btn.is-active,
 .boutique-status-filter .b-filt-btn[aria-selected="true"],
 #boutique-tab .b-filt-btn.is-active,
@@ -33596,9 +33571,22 @@ body:not(.light-mode) #boutique-tab .boutique-tab:hover {
   background: transparent !important;
   border-color: transparent !important;
   box-shadow: none !important;
-  color: #1a0f02 !important;
-  font-weight: 700 !important;
-  text-shadow: 0 0.5px 0 rgba(255, 245, 220, 0.8) !important;
+  color: #120B02 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.95) !important;
+}
+
+.boutique-status-filter .b-filt-btn.is-active span,
+.boutique-status-filter .b-filt-btn[aria-selected="true"] span,
+#boutique-tab .b-filt-btn.is-active span,
+#boutique-tab .b-filt-btn[aria-selected="true"] span,
+.boutique-category-filter .boutique-tab.is-active span,
+.boutique-category-filter .boutique-tab[aria-selected="true"] span,
+#boutique-tab .boutique-tab.is-active span,
+#boutique-tab .boutique-tab[aria-selected="true"] span {
+  color: #120B02 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.95) !important;
 }
 
 body:not(.light-mode) .boutique-status-filter .b-filt-btn.is-active,
@@ -33609,9 +33597,22 @@ body:not(.light-mode) .boutique-category-filter .boutique-tab.is-active,
 body:not(.light-mode) .boutique-category-filter .boutique-tab[aria-selected="true"],
 body:not(.light-mode) #boutique-tab .boutique-tab.is-active,
 body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"] {
-  color: #fff4d4 !important;
-  font-weight: 700 !important;
-  text-shadow: 0 0 8px rgba(230, 195, 120, 0.45) !important;
+  color: #120B02 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.95) !important;
+}
+
+body:not(.light-mode) .boutique-status-filter .b-filt-btn.is-active span,
+body:not(.light-mode) .boutique-status-filter .b-filt-btn[aria-selected="true"] span,
+body:not(.light-mode) #boutique-tab .b-filt-btn.is-active span,
+body:not(.light-mode) #boutique-tab .b-filt-btn[aria-selected="true"] span,
+body:not(.light-mode) .boutique-category-filter .boutique-tab.is-active span,
+body:not(.light-mode) .boutique-category-filter .boutique-tab[aria-selected="true"] span,
+body:not(.light-mode) #boutique-tab .boutique-tab.is-active span,
+body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"] span {
+  color: #120B02 !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.95) !important;
 }
 
 .boutique-category-filter .boutique-tab::after,
@@ -41210,3 +41211,1079 @@ body.light-mode #profile-tab .honor-order-badge {
 body.light-mode #profile-tab .honor-citation-hint {
   color: #543912 !important;
 }
+
+/* ==========================================================================
+   THE 1% CLUB — SOVEREIGN TRANSPARENT LIQUID GLASS ARCHITECTURE
+   1. شريط التداول (Trading Ticker Bar): #sovereignSalonTicker
+   2. رسالة الترحيب (Welcome Chamber Plaque): #clubPinnedInfo
+   3. إضافة وتخصيص الرصيد (Dispatch Allocation Bar): #clubCreditsDisplay
+   - True Optical Transparency & Deep Refractive Backdrop Blur (blur 28px)
+   - 24K Polished Gold Hairline Bevels & Specular Caustic Glare
+   - High Contrast Typography & Zero Solid Box Artifacts
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. شريط التداول — TRADING SESSIONS TICKER (TRANSPARENT LIQUID GLASS CAPSULE)
+   -------------------------------------------------------------------------- */
+#sovereignSalonTicker,
+.sovereign-salon-ticker,
+#club-tab .sovereign-salon-ticker {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 2px calc(12px + env(safe-area-inset-right, 0px)) 3px calc(12px + env(safe-area-inset-left, 0px)) !important;
+  padding: 0 10px !important;
+  border-radius: 16px !important;
+  box-sizing: border-box !important;
+  z-index: 10 !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  pointer-events: auto !important;
+  transform: translateZ(0) !important;
+  backdrop-filter: blur(28px) saturate(190%) contrast(104%) brightness(1.04) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(104%) brightness(1.04) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.25s ease !important;
+}
+
+#sovereignSalonTicker::before,
+.sovereign-salon-ticker::before,
+#sovereignSalonTicker::after,
+.sovereign-salon-ticker::after {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* Dark Mode: Transparent Smoked Obsidian Liquid Glass Ticker */
+body:not(.light-mode) #sovereignSalonTicker,
+body:not(.light-mode) .sovereign-salon-ticker,
+body:not(.light-mode) #club-tab .sovereign-salon-ticker {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(22, 18, 14, 0.34) 50%,
+    rgba(10, 8, 6, 0.44) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.40) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45) !important;
+  box-shadow:
+    0 8px 24px -2px rgba(0, 0, 0, 0.40),
+    0 2px 6px rgba(0, 0, 0, 0.20),
+    inset 0 1px 1.2px rgba(255, 255, 255, 0.20),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Light Mode: Transparent Crystalline Frosted Alabaster Liquid Glass Ticker */
+body.light-mode #sovereignSalonTicker,
+body.light-mode .sovereign-salon-ticker,
+body.light-mode #club-tab .sovereign-salon-ticker,
+html.light-mode #sovereignSalonTicker,
+html.light-mode .sovereign-salon-ticker,
+html.light-mode #club-tab .sovereign-salon-ticker,
+:root[data-theme="light"] #sovereignSalonTicker,
+:root[data-theme="light"] .sovereign-salon-ticker,
+:root[data-theme="light"] #club-tab .sovereign-salon-ticker {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.52) 0%,
+    rgba(252, 248, 238, 0.26) 50%,
+    rgba(246, 238, 222, 0.36) 100%
+  ) !important;
+  backdrop-filter: blur(28px) saturate(180%) contrast(102%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) contrast(102%) !important;
+  border: 1px solid rgba(195, 155, 95, 0.35) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(160, 120, 50, 0.18) !important;
+  box-shadow:
+    0 6px 20px -2px rgba(120, 85, 25, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    inset 0 1.2px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1.5px rgba(184, 142, 62, 0.10) !important;
+}
+
+#sovereignSalonTicker:hover,
+.sovereign-salon-ticker:hover {
+  transform: translateY(-0.5px) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. رسالة التترحيب — WELCOME CHAMBER PLAQUE (TRANSPARENT LIQUID GLASS BANNER)
+   -------------------------------------------------------------------------- */
+#clubPinnedInfo,
+.club-pinned.club-chamber-plaque,
+.club-chamber-plaque,
+#club-tab .club-pinned.club-chamber-plaque,
+#club-tab .club-chamber-plaque,
+#club-tab .club-pinned {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  margin: 2px calc(12px + env(safe-area-inset-right, 0px)) 3px calc(12px + env(safe-area-inset-left, 0px)) !important;
+  padding: 8px 12px !important;
+  border-radius: 16px !important;
+  box-sizing: border-box !important;
+  z-index: 10 !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  min-height: 46px !important;
+  height: auto !important;
+  max-height: none !important;
+  pointer-events: auto !important;
+  transform: translateZ(0) !important;
+  backdrop-filter: blur(28px) saturate(190%) contrast(104%) brightness(1.04) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(104%) brightness(1.04) !important;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              margin 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#clubPinnedInfo::before,
+.club-chamber-plaque::before,
+#clubPinnedInfo::after,
+.club-chamber-plaque::after {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* Dark Mode: Transparent Smoked Obsidian Liquid Glass Plaque */
+body:not(.light-mode) #clubPinnedInfo,
+body:not(.light-mode) .club-chamber-plaque,
+body:not(.light-mode) #club-tab .club-pinned.club-chamber-plaque,
+body:not(.light-mode) #club-tab .club-chamber-plaque,
+body:not(.light-mode) #club-tab .club-pinned {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(22, 18, 14, 0.36) 50%,
+    rgba(10, 8, 6, 0.46) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.40) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45) !important;
+  box-shadow:
+    0 10px 30px -4px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.22),
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Light Mode: Transparent Crystalline Frosted Alabaster Liquid Glass Plaque */
+body.light-mode #clubPinnedInfo,
+body.light-mode .club-chamber-plaque,
+body.light-mode #club-tab .club-pinned.club-chamber-plaque,
+body.light-mode #club-tab .club-chamber-plaque,
+body.light-mode #club-tab .club-pinned,
+html.light-mode #clubPinnedInfo,
+html.light-mode .club-chamber-plaque,
+:root[data-theme="light"] #clubPinnedInfo,
+:root[data-theme="light"] .club-chamber-plaque {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.52) 0%,
+    rgba(252, 248, 238, 0.28) 50%,
+    rgba(246, 238, 222, 0.38) 100%
+  ) !important;
+  backdrop-filter: blur(28px) saturate(180%) contrast(102%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) contrast(102%) !important;
+  border: 1px solid rgba(195, 155, 95, 0.35) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(160, 120, 50, 0.18) !important;
+  box-shadow:
+    0 8px 26px -3px rgba(120, 85, 25, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.02),
+    inset 0 1.2px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1.5px rgba(184, 142, 62, 0.10) !important;
+}
+
+#clubPinnedInfo:hover,
+.club-chamber-plaque:hover {
+  transform: translateY(-0.5px) !important;
+}
+
+/* Transparent Glass Icon Disc inside Plaque */
+#clubPinnedIconWrap,
+.chamber-plaque-icon-wrap {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+body:not(.light-mode) #clubPinnedIconWrap,
+body:not(.light-mode) .chamber-plaque-icon-wrap {
+  background: rgba(212, 175, 55, 0.14) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+  color: #F3CA5A !important;
+}
+
+body.light-mode #clubPinnedIconWrap,
+body.light-mode .chamber-plaque-icon-wrap {
+  background: rgba(255, 255, 255, 0.65) !important;
+  border: 1px solid rgba(195, 155, 95, 0.35) !important;
+  box-shadow: 0 1px 3px rgba(120, 80, 20, 0.08), inset 0 1px 1px #ffffff !important;
+  color: #A37424 !important;
+}
+
+/* Plaque Typography */
+#clubPinnedTitle,
+.chamber-plaque-title {
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.25 !important;
+}
+
+body:not(.light-mode) #clubPinnedTitle,
+body:not(.light-mode) .chamber-plaque-title {
+  color: #F8EED6 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.70) !important;
+}
+
+body.light-mode #clubPinnedTitle,
+body.light-mode .chamber-plaque-title {
+  color: #241603 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+#clubPinnedSub,
+.chamber-plaque-sub {
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
+  font-size: 10.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: normal !important;
+  line-height: 1.3 !important;
+  margin-top: 2px !important;
+}
+
+body:not(.light-mode) #clubPinnedSub,
+body:not(.light-mode) .chamber-plaque-sub {
+  color: #C8BDA8 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.50) !important;
+}
+
+body.light-mode #clubPinnedSub,
+body.light-mode .chamber-plaque-sub {
+  color: #553E20 !important;
+  text-shadow: none !important;
+}
+
+/* Transparent Glass Dismiss Button */
+#clubPinnedDismissBtn,
+.chamber-plaque-dismiss-btn {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+body:not(.light-mode) #clubPinnedDismissBtn,
+body:not(.light-mode) .chamber-plaque-dismiss-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #F3CA5A !important;
+}
+
+body:not(.light-mode) #clubPinnedDismissBtn:hover,
+body:not(.light-mode) .chamber-plaque-dismiss-btn:hover {
+  background: rgba(212, 175, 55, 0.22) !important;
+  color: #FFFDF5 !important;
+  transform: scale(1.05) !important;
+}
+
+body.light-mode #clubPinnedDismissBtn,
+body.light-mode .chamber-plaque-dismiss-btn {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(195, 155, 95, 0.28) !important;
+  color: #7A5418 !important;
+}
+
+body.light-mode #clubPinnedDismissBtn:hover,
+body.light-mode .chamber-plaque-dismiss-btn:hover {
+  background: rgba(184, 142, 62, 0.18) !important;
+  color: #352205 !important;
+  transform: scale(1.05) !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. إضافة وتخصيص الرصيد — DISPATCH ALLOCATION BAR (TRANSPARENT LIQUID GLASS)
+   -------------------------------------------------------------------------- */
+#clubCreditsDisplay,
+.club-credits-display,
+#club-tab .club-credits-display {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 6px !important;
+  padding: 3px 5px 3px 9px !important;
+  height: 33px !important;
+  min-height: 33px !important;
+  max-height: 33px !important;
+  border-radius: 9999px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transform: translateZ(0) !important;
+  backdrop-filter: blur(28px) saturate(190%) contrast(104%) brightness(1.04) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(104%) brightness(1.04) !important;
+  width: 100% !important;
+  margin: 0 !important;
+  margin-bottom: 0 !important;
+  z-index: 25 !important;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+#clubCreditsDisplay::before,
+.club-credits-display::before,
+#club-tab .club-credits-display::before,
+#clubCreditsDisplay::after,
+.club-credits-display::after,
+#club-tab .club-credits-display::after {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* Dark Mode: Transparent Smoked Obsidian Liquid Glass Allocation Bar */
+body:not(.light-mode) #clubCreditsDisplay,
+body:not(.light-mode) .club-credits-display {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(22, 18, 14, 0.34) 50%,
+    rgba(10, 8, 6, 0.44) 100%
+  ) !important;
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  border-top: 1.2px solid rgba(255, 255, 255, 0.40) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.45) !important;
+  box-shadow:
+    0 8px 24px -2px rgba(0, 0, 0, 0.42),
+    0 2px 6px rgba(0, 0, 0, 0.20),
+    inset 0 1px 1.2px rgba(255, 255, 255, 0.20),
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.38) !important;
+}
+
+/* Light Mode: Transparent Crystalline Frosted Alabaster Liquid Glass Allocation Bar */
+body.light-mode #clubCreditsDisplay,
+body.light-mode .club-credits-display,
+html.light-mode #clubCreditsDisplay,
+:root[data-theme="light"] #clubCreditsDisplay {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(252, 248, 238, 0.24) 50%,
+    rgba(246, 238, 222, 0.32) 100%
+  ) !important;
+  backdrop-filter: blur(28px) saturate(180%) contrast(102%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) contrast(102%) !important;
+  border: 1px solid rgba(195, 155, 95, 0.35) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(160, 120, 50, 0.18) !important;
+  box-shadow:
+    0 6px 20px -3px rgba(120, 85, 25, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    inset 0 1.2px 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1.5px rgba(184, 142, 62, 0.10) !important;
+}
+
+/* Info Row Container (Left Cluster) — Zero-Overflow Clean Alignment */
+.club-credits-info {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  overflow: hidden !important;
+}
+
+/* Fleur-de-lis / Crown Emblem */
+.club-credits-crown {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.sovereign-fleur-svg {
+  width: 12px !important;
+  height: 12px !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+
+body:not(.light-mode) .club-credits-crown {
+  color: #E8BA3E !important;
+  filter: drop-shadow(0 0 3px rgba(232, 186, 62, 0.45));
+}
+
+body.light-mode .club-credits-crown {
+  color: #B27E1C !important;
+  filter: drop-shadow(0 1px 1px rgba(160, 110, 20, 0.30));
+}
+
+/* Label: "Dispatch Allocation" — Gracefully shrinks without pushing */
+.club-credits-label {
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+}
+
+body:not(.light-mode) .club-credits-label {
+  color: #E6DCBF !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7) !important;
+}
+
+body.light-mode .club-credits-label {
+  color: #352205 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Readout Badge (e.g. 155 / 10) — Semi-Transparent Liquid Glass Bezel */
+#club-tab #clubCreditsText,
+.club-credits-readout {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: var(--font-ui, "Manrope", system-ui, sans-serif) !important;
+  font-variant-numeric: tabular-nums !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+  padding: 1.2px 5.5px !important;
+  border-radius: 9999px !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+
+body:not(.light-mode) #club-tab #clubCreditsText,
+body:not(.light-mode) .club-credits-readout {
+  background: rgba(14, 11, 8, 0.45) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 0.75px solid rgba(198, 164, 91, 0.38) !important;
+  border-top: 0.75px solid rgba(255, 248, 220, 0.50) !important;
+  border-bottom: 0.75px solid rgba(0, 0, 0, 0.75) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.65), 0 0 4px rgba(212, 175, 55, 0.12) !important;
+  color: #FFF6DE !important;
+}
+
+body.light-mode #club-tab #clubCreditsText,
+body.light-mode .club-credits-readout {
+  background: rgba(255, 255, 255, 0.55) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 0.75px solid rgba(195, 155, 95, 0.40) !important;
+  border-top: 1px solid #ffffff !important;
+  border-bottom: 0.75px solid rgba(160, 115, 45, 0.25) !important;
+  box-shadow:
+    inset 0 0.5px 1px rgba(255, 255, 255, 0.85),
+    0 1px 2px rgba(120, 85, 25, 0.06) !important;
+  color: #2b1c04 !important;
+}
+
+.credit-count-val {
+  font-family: var(--font-ui, "Manrope", system-ui, sans-serif) !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em !important;
+  font-variant-numeric: tabular-nums !important;
+  line-height: 1 !important;
+}
+
+body:not(.light-mode) .credit-count-val {
+  color: #FFF6DF !important;
+}
+
+body.light-mode .credit-count-val {
+  color: #241603 !important;
+}
+
+.credit-count-sep {
+  margin: 0 1px !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  opacity: 0.75 !important;
+}
+
+body:not(.light-mode) .credit-count-sep {
+  color: #D4AF37 !important;
+}
+
+body.light-mode .credit-count-sep {
+  color: #A3721E !important;
+}
+
+/* Horological Micro-Bullion Ingot Strip (10 Segments) — Compact Zero-Overflow Slot */
+.gauge-pips-strip,
+#gaugePipsStrip {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1px !important;
+  padding: 1.2px 2.5px !important;
+  border-radius: 3.5px !important;
+  height: 12.5px !important;
+  max-height: 12.5px !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  vertical-align: middle !important;
+  transition: all 0.2s ease !important;
+}
+
+body:not(.light-mode) .gauge-pips-strip,
+body:not(.light-mode) #gaugePipsStrip {
+  background: rgba(12, 9, 14, 0.45) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 0.5px solid rgba(212, 175, 55, 0.28) !important;
+  border-top: 0.5px solid rgba(255, 248, 220, 0.38) !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.85) !important;
+  box-shadow: inset 0 0.8px 2px rgba(0, 0, 0, 0.65) !important;
+}
+
+body.light-mode .gauge-pips-strip,
+body.light-mode #gaugePipsStrip {
+  background: rgba(230, 220, 202, 0.42) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 0.75px solid rgba(195, 155, 95, 0.38) !important;
+  border-top: 0.75px solid #ffffff !important;
+  border-bottom: 0.75px solid rgba(160, 115, 45, 0.28) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(85, 55, 15, 0.15),
+    0 0.5px 1px rgba(255, 255, 255, 0.70) !important;
+}
+
+.gauge-pips-strip .gauge-pip {
+  width: 2.6px !important;
+  height: 8px !important;
+  border-radius: 1px !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 24K Bullion Active Ingot Bar */
+body:not(.light-mode) .gauge-pips-strip .gauge-pip.is-filled {
+  background: linear-gradient(180deg, #FFF8DB 0%, #E8BA3E 25%, #C28D24 60%, #7D510C 100%) !important;
+  border: 0.4px solid rgba(255, 248, 220, 0.70) !important;
+  box-shadow: 0 0 2px rgba(220, 175, 55, 0.50), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.85) !important;
+}
+
+body.light-mode .gauge-pips-strip .gauge-pip.is-filled {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF1BC 16%, #E5B239 52%, #A37117 84%, #6B4508 100%) !important;
+  border: 0.4px solid rgba(135, 90, 15, 0.75) !important;
+  box-shadow: 0 0.8px 1.5px rgba(110, 75, 20, 0.25), inset 0 0.5px 0.5px rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Recessed Spent Chamber Bar */
+body:not(.light-mode) .gauge-pips-strip .gauge-pip.is-spent {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 0.4px solid rgba(212, 175, 55, 0.16) !important;
+  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.70) !important;
+  opacity: 0.35 !important;
+}
+
+body.light-mode .gauge-pips-strip .gauge-pip.is-spent {
+  background: rgba(175, 145, 110, 0.20) !important;
+  border: 0.4px solid rgba(170, 135, 90, 0.30) !important;
+  box-shadow: inset 0 0.8px 1.5px rgba(80, 55, 20, 0.18) !important;
+  opacity: 0.50 !important;
+}
+
+/* Request Allocation Button (Right Pillar) — Translucent Tactile Liquid Glass Seal */
+#clubCreditsBuyBtn,
+.club-credits-buy {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  height: 23px !important;
+  min-height: 23px !important;
+  max-height: 23px !important;
+  padding: 0 8px 0 6.5px !important;
+  margin: 0 !important;
+  margin-inline-start: 0 !important;
+  border-radius: 9999px !important;
+  cursor: pointer !important;
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#clubCreditsBuyBtn::before,
+.club-credits-buy::before,
+#clubCreditsBuyBtn::after,
+.club-credits-buy::after {
+  content: none !important;
+  display: none !important;
+}
+
+body:not(.light-mode) #clubCreditsBuyBtn,
+body:not(.light-mode) .club-credits-buy {
+  background: linear-gradient(
+    135deg,
+    rgba(42, 34, 25, 0.55) 0%,
+    rgba(26, 21, 15, 0.50) 100%
+  ) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 0.75px solid rgba(198, 164, 91, 0.45) !important;
+  border-top: 1px solid rgba(255, 248, 225, 0.65) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.75) !important;
+  box-shadow:
+    0 2px 6px -1px rgba(0, 0, 0, 0.40),
+    0 0 6px rgba(198, 164, 91, 0.15),
+    inset 0 0.75px 1px rgba(255, 248, 225, 0.20),
+    inset 0 -0.75px 1px rgba(0, 0, 0, 0.50) !important;
+  color: #F5E8C7 !important;
+  text-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.85) !important;
+}
+
+body:not(.light-mode) #clubCreditsBuyBtn:hover,
+body:not(.light-mode) .club-credits-buy:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(54, 44, 32, 0.65) 0%,
+    rgba(34, 27, 20, 0.60) 100%
+  ) !important;
+  border-color: rgba(220, 185, 75, 0.70) !important;
+  border-top-color: #ffffff !important;
+  box-shadow:
+    0 3px 8px -1px rgba(0, 0, 0, 0.50),
+    0 0 10px rgba(198, 164, 91, 0.28),
+    inset 0 1px 1.2px rgba(255, 248, 225, 0.35) !important;
+  transform: translateY(-0.5px) !important;
+}
+
+body.light-mode #clubCreditsBuyBtn,
+body.light-mode .club-credits-buy {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(250, 243, 230, 0.45) 100%
+  ) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 0.85px solid rgba(195, 155, 95, 0.42) !important;
+  border-top: 1.2px solid #ffffff !important;
+  border-bottom: 1px solid rgba(160, 118, 48, 0.28) !important;
+  box-shadow:
+    0 2px 5px rgba(120, 85, 25, 0.08),
+    0 0.5px 1px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 #ffffff,
+    inset 0 -0.5px 1px rgba(184, 142, 62, 0.10) !important;
+  color: #352305 !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+body.light-mode #clubCreditsBuyBtn:hover,
+body.light-mode .club-credits-buy:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.80) 0%,
+    rgba(255, 250, 240, 0.65) 100%
+  ) !important;
+  border-color: rgba(180, 135, 65, 0.60) !important;
+  border-top-color: #ffffff !important;
+  box-shadow:
+    0 3px 7px rgba(120, 85, 25, 0.12),
+    inset 0 1px 1px #ffffff !important;
+  transform: translateY(-0.5px) !important;
+}
+
+#clubCreditsBuyBtn:active,
+.club-credits-buy:active {
+  transform: translateY(0.5px) scale(0.98) !important;
+}
+
+/* Plus Glyph */
+.alloc-plus-glyph {
+  font-family: inherit !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.2s ease !important;
+}
+
+body:not(.light-mode) .alloc-plus-glyph {
+  color: #E8BA3E !important;
+  text-shadow: 0 0 4px rgba(232, 186, 62, 0.6) !important;
+}
+
+body.light-mode .alloc-plus-glyph {
+  color: #A37424 !important;
+  text-shadow: 0 1px 0 #ffffff !important;
+}
+
+.alloc-btn-label {
+  font-family: var(--font-ui, "Cairo", "Manrope", system-ui, sans-serif) !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+/* Responsive Button Labeling (Zero-Collision Strategy) */
+@media (max-width: 480px) {
+  .alloc-btn-full {
+    display: none !important;
+  }
+  .alloc-btn-short {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 481px) {
+  .alloc-btn-full {
+    display: inline !important;
+  }
+  .alloc-btn-short {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE MICRO-CALIBRATIONS: GUARANTEED ZERO OVERLAP ON ALL VIEWPORTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 390px) {
+  #clubCreditsDisplay,
+  .club-credits-display {
+    padding: 3px 5px 3px 8px !important;
+    gap: 5px !important;
+  }
+  .club-credits-info {
+    gap: 3.5px !important;
+  }
+  .club-credits-label {
+    font-size: 8px !important;
+  }
+  .credit-count-val {
+    font-size: 9px !important;
+  }
+  .gauge-pips-strip,
+  #gaugePipsStrip {
+    padding: 1px 2px !important;
+    gap: 1px !important;
+  }
+  .gauge-pips-strip .gauge-pip {
+    width: 2.4px !important;
+    height: 7.5px !important;
+  }
+  #clubCreditsBuyBtn,
+  .club-credits-buy {
+    padding: 0 7px 0 5.5px !important;
+    font-size: 8px !important;
+    height: 22px !important;
+    min-height: 22px !important;
+    max-height: 22px !important;
+  }
+  .alloc-btn-label {
+    font-size: 8px !important;
+  }
+}
+
+@media (max-width: 350px) {
+  #clubCreditsDisplay,
+  .club-credits-display {
+    padding: 2.5px 4px 2.5px 7px !important;
+    gap: 4px !important;
+  }
+  .club-credits-info {
+    gap: 3px !important;
+  }
+  .club-credits-crown {
+    width: 11px !important;
+    height: 11px !important;
+  }
+  .sovereign-fleur-svg {
+    width: 10px !important;
+    height: 10px !important;
+  }
+  .club-credits-label {
+    font-size: 7.5px !important;
+    max-width: 60px !important;
+  }
+  .credit-count-val {
+    font-size: 8.5px !important;
+  }
+  .gauge-pips-strip,
+  #gaugePipsStrip {
+    padding: 1px 1.5px !important;
+    gap: 0.8px !important;
+    height: 11.5px !important;
+    max-height: 11.5px !important;
+  }
+  .gauge-pips-strip .gauge-pip {
+    width: 2.2px !important;
+    height: 7px !important;
+  }
+  #clubCreditsBuyBtn,
+  .club-credits-buy {
+    padding: 0 6px 0 5px !important;
+    height: 21px !important;
+    min-height: 21px !important;
+    max-height: 21px !important;
+    gap: 2px !important;
+  }
+  .alloc-btn-label {
+    font-size: 7.5px !important;
+  }
+  .alloc-plus-glyph {
+    font-size: 9px !important;
+  }
+}
+
+@media (max-width: 325px) {
+  .club-credits-label {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   SOVEREIGN SALON: HAUTE BOUTIQUE POLISHED SATIN GOLD (NOT RADIANT / NO GLOW)
+   Master Specification: Hand-finished, Brushed, Polished Luxury Gold
+   ========================================================================== */
+
+/* 1. TOP ACCOUNT BALANCE CARD: POLISHED SATIN GOLD BORDER & INGOT BUTTON */
+#boutique-tab .boutique-balance,
+.boutique-curatorial-header .boutique-balance {
+  border: 1px solid rgba(212, 175, 106, 0.50) !important;
+  border-top: 1px solid rgba(240, 218, 160, 0.70) !important;
+  border-bottom: 1px solid rgba(130, 95, 30, 0.45) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 205, 0.12),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.85),
+    0 4px 16px -2px rgba(0, 0, 0, 0.75) !important;
+}
+
+#boutique-tab #boutiqueAddBalanceBtn,
+#boutique-tab .boutique-balance-add,
+.boutique-balance-add {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 9px !important;
+  border: 1px solid #cfa34d !important;
+  background: linear-gradient(145deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  color: #161005 !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1px 1px rgba(60, 42, 10, 0.45) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.15s ease, filter 0.15s ease !important;
+}
+
+#boutique-tab #boutiqueAddBalanceBtn svg,
+#boutique-tab .boutique-balance-add svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+#boutique-tab #boutiqueAddBalanceBtn svg path,
+#boutique-tab .boutique-balance-add svg path {
+  stroke: #161005 !important;
+  stroke-width: 2.2 !important;
+}
+
+#boutique-tab #boutiqueAddBalanceBtn:hover,
+#boutique-tab .boutique-balance-add:hover {
+  filter: brightness(1.06) !important;
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 1px rgba(60, 42, 10, 0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+#boutique-tab #boutiqueAddBalanceBtn:active,
+#boutique-tab .boutique-balance-add:active {
+  transform: scale(0.96) !important;
+}
+
+/* 2. CAPSULE FILTER STRIPS: POLISHED SATIN GOLD METALLIC BORDERS */
+#boutique-tab .boutique-ownership-toggle,
+#boutique-tab #boutiqueFilterToggle,
+.boutique-status-filter,
+#boutique-tab .boutique-tabs,
+#boutique-tab #boutiqueTabs,
+.boutique-category-filter {
+  border: 1px solid rgba(212, 175, 106, 0.50) !important;
+  border-top: 1px solid rgba(240, 218, 160, 0.70) !important;
+  border-bottom: 1px solid rgba(130, 95, 30, 0.45) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    0 4px 16px -2px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 240, 205, 0.16),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 3. GLIDERS & ACTIVE BUTTONS: POLISHED SATIN GOLD (NO NEON GLOW) */
+#boutiqueStatusGlider,
+#boutiqueTabGlider,
+.boutique-status-glider,
+.boutique-tab-glider {
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1px 1px rgba(60, 42, 10, 0.45) !important;
+}
+
+/* Active button: Polished gold fill with crisp black typography */
+#boutique-tab .b-filt-btn.is-active,
+#boutique-tab .b-filt-btn[aria-selected="true"],
+.boutique-status-filter .b-filt-btn.is-active,
+#boutique-tab .boutique-tab.is-active,
+#boutique-tab .boutique-tab[aria-selected="true"],
+.boutique-category-filter .boutique-tab.is-active {
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  color: #161005 !important;
+  font-weight: 700 !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1px 1px rgba(60, 42, 10, 0.45) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.6) !important;
+  border-radius: 12px !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+#boutique-tab .b-filt-btn.is-active span,
+#boutique-tab .b-filt-btn[aria-selected="true"] span,
+.boutique-status-filter .b-filt-btn.is-active span,
+#boutique-tab .boutique-tab.is-active span,
+#boutique-tab .boutique-tab[aria-selected="true"] span,
+.boutique-category-filter .boutique-tab.is-active span {
+  color: #161005 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.6) !important;
+}
+
+/* Inactive Buttons: Refined Champagne Gold Typography */
+#boutique-tab .b-filt-btn:not(.is-active),
+.boutique-status-filter .b-filt-btn:not(.is-active),
+#boutique-tab .boutique-tab:not(.is-active),
+.boutique-category-filter .boutique-tab:not(.is-active) {
+  color: #bfa577 !important;
+  font-weight: 500 !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+}
+
+#boutique-tab .b-filt-btn:not(.is-active):hover,
+.boutique-status-filter .b-filt-btn:not(.is-active):hover,
+#boutique-tab .boutique-tab:not(.is-active):hover,
+.boutique-category-filter .boutique-tab:not(.is-active):hover {
+  color: #edd69a !important;
+  background: rgba(212, 175, 106, 0.10) !important;
+  border: 1px solid rgba(212, 175, 106, 0.25) !important;
+  border-radius: 12px !important;
+}
+
+/* 4. COLLECTIBLE CARDS: POLISHED GOLD BORDERS (NO GLOW) */
+#boutique-tab .boutique-card,
+.boutique-card {
+  border: 1px solid rgba(212, 175, 106, 0.45) !important;
+  border-top: 1px solid rgba(240, 218, 160, 0.65) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 205, 0.08),
+    0 8px 24px -4px rgba(0, 0, 0, 0.85) !important;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease !important;
+}
+
+#boutique-tab .boutique-card:hover,
+.boutique-card:hover {
+  border-color: rgba(220, 185, 115, 0.75) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 220, 0.16),
+    0 12px 28px -4px rgba(0, 0, 0, 0.85) !important;
+}
+
+#boutique-tab .boutique-own-btn.btn-acquire,
+#boutique-tab .boutique-card .btn-acquire,
+.boutique-own-btn.btn-acquire {
+  color: #161005 !important;
+  font-weight: 700 !important;
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1px 1px rgba(60, 42, 10, 0.45) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.6) !important;
+}
+
+#boutique-tab .boutique-own-btn.btn-acquire:hover,
+#boutique-tab .boutique-card .btn-acquire:hover,
+.boutique-own-btn.btn-acquire:hover {
+  filter: brightness(1.06) !important;
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 1px rgba(60, 42, 10, 0.5) !important;
+}
+
+

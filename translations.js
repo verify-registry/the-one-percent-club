@@ -331,6 +331,9 @@ window.I18N = {
     requestAllocation: {
       en: "Request Allocation",
     },
+    requestAllocationShort: {
+      en: "Allocation",
+    },
     whisperToggle: {
       en: "Encrypted Dispatch",
     },
