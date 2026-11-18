@@ -41,38 +41,38 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 ├── AUDIT.md                     # Master Architectural Blueprint (this file)
 ├── Audio.js                     # Synthesized WebAudio horological sound engine (934 lines)
 ├── README.md                    # Repository documentation and orientation
-├── app.js                       # Core application state, tabs, commerce & club engine (9,968 lines)
+├── app.js                       # Core application state, tabs, commerce & club engine (9,855 lines)
 ├── artifacts/                   # Single authoritative collectible asset directory (48 dual-mode .webp/.jpg files, 4.90 MB)
 ├── artifacts.js                 # Collectible asset catalog & dual-mode Dark/Light renderer (220 lines)
 ├── firebase-applet-config.json  # Provisioned AI Studio Firebase Firestore & Auth client config
 ├── firebase-blueprint.json      # Firestore schemas, collections, and security specifications
 ├── firestore.rules              # Deployed Firestore security and authorization rules
-├── index.html                   # Master single-page HTML entry point & SVG gradient defs (4,514 lines)
-├── luxury.js                    # Haute horlogerie canvas physics engine for Master Card (2,244 lines)
+├── index.html                   # Master single-page HTML entry point & SVG gradient defs (4,482 lines)
+├── luxury.js                    # Haute horlogerie canvas physics engine for Master Card (2,215 lines)
 ├── metadata.json                # AI Studio platform capabilities and metadata
 ├── package.json                 # Project dependencies, scripts (dev, start, build, lint)
-├── public/
-│   └── assets/aistudio/         # Preserved archival design reference screenshots (41 files)
 ├── server.ts                    # Production Express server (Gzip, static /artifacts, market proxy, SPA routing; 426 lines)
 ├── src/
 │   └── main.tsx                 # Non-intrusive TypeScript shield entry point (15 lines)
-├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals; 42,114 lines)
-├── translations.js              # Standardized English localization dictionary (1,857 lines)
+├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals; 37,892 lines)
+├── translations.js              # Standardized English localization dictionary (1,844 lines)
 ├── tsconfig.json                # TypeScript compiler configuration (ES2022, bundler)
 └── vite.config.ts               # Vite configuration for AI Studio dev server (port 3000)
 ```
+
+*(Total core source footprint: **57,883 lines** across 9 files; total workspace size excluding `node_modules`/`.git`/`dist`: **~7.0 MB**, including the 4.90 MB `/artifacts/` studio collection.)*
 
 ### Exact File Roles
 
 | File | Exact Architectural Role |
 |---|---|
-| `index.html` | HTML entry point (4,514 lines). Hosts all semantic tab containers (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`), modal overlays (Settings, Account, Support, Dossier, Inspection, Auth, Recovery), and global SVG gradient definitions (`#ringGoldGrad`, `#bezelGrad`, `#sov_gold_24k`). Zero inline `<style>` tags; modal backdrop dismissal is centrally handled by `initUnifiedModalBackdrops()` in `app.js`. |
-| `style.css` | Consolidated master stylesheet (42,114 lines). Contains the seamless Liquid Glass header, VisionOS crystal bottom dock, typography hierarchy, responsive breakpoints (360px–430px), modal card systems, and Dark/Light mode color schemes. |
-| `app.js` | Primary application logic controller (9,968 lines). Manages reactive state (`AppState`), boutique commerce and vault persistence, club chat with room switching and daily message reserves, live market ticker client consumption, metric ring complications (Wealth Index and Privileges Index with D3), unified modal backdrop management, and authentication state (`AuthBoundary`). |
-| `luxury.js` | Mathematical canvas rendering engine for the Master Identity Card (2,244 lines). Computes layered guilloché geometry, dynamic gold dust particle dynamics, specular metallic sheen passes, and high-DPI metallic gold card image exports. |
+| `index.html` | HTML entry point (4,482 lines). Hosts all semantic tab containers (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`), modal overlays (Settings, Account, Support, Dossier, Inspection, Auth, Recovery), and global SVG gradient definitions (`#ringGoldGrad`, `#bezelGrad`, `#sov_gold_24k`). Zero inline `<style>` tags; modal backdrop dismissal is centrally handled by `initUnifiedModalBackdrops()` in `app.js`. |
+| `style.css` | Consolidated master stylesheet (37,892 lines). Contains the seamless Liquid Glass header, VisionOS crystal bottom dock, typography hierarchy, responsive breakpoints (360px–430px), modal card systems, and Dark/Light mode color schemes. |
+| `app.js` | Primary application logic controller (9,855 lines). Manages reactive state (`AppState`), boutique commerce and vault persistence, club chat with room switching and daily message reserves, live market ticker client consumption, metric ring complications (Wealth Index and Privileges Index with D3), unified modal backdrop management, consolidated capture-scroll/rAF-resize dispatchers, and authentication state (`AuthBoundary`). |
+| `luxury.js` | Mathematical canvas rendering engine for the Master Identity Card (2,215 lines). Computes layered guilloché geometry, dynamic gold dust particle dynamics, specular metallic sheen passes, high-DPI metallic gold card image exports, and a unified visibility/tab/resize lifecycle hub. |
 | `artifacts.js` | Collectible asset registry (`window.SOVEREIGN_ARTIFACTS`, 220 lines). Renders all 12 boutique collectibles from the single authoritative `/artifacts/` directory using theme-aware dual-mode `.webp`/`.jpg` studio assets (Obsidian Dark & Imperial Light, reacting to both `themechange` and `themeChanged` events), plus pure inline SVG for `wid1` and legacy `aliasMap` compatibility. |
 | `artifacts/` | Single authoritative directory of 48 dual-mode studio collectible images (12 active artifacts × Dark/Light × `.webp`/`.jpg`, ~4.90 MB total) served statically by `server.ts`. |
-| `translations.js` | English dictionary (`window.TRANSLATIONS.en`, 1,857 lines) and reconciled localization helpers (`window.getNestedValue`, `window.t`, `window.getTranslation`). |
+| `translations.js` | English dictionary (`window.TRANSLATIONS.en`, 1,844 lines) and authoritative localization helpers (`window.getNestedValue`, `window.t`, `window.getTranslation`). |
 | `Audio.js` | WebAudio synthesized horological acoustic engine (`window.AudioEngine`, 934 lines). Synthesizes physical mechanical clicks, minute-repeater chimes, and transaction success sounds directly from oscillators with zero audio file downloads. |
 | `server.ts` | Full-stack Node.js 22 + Express server (426 lines). Handles gzip compression middleware, immutable static file caching (serving `/artifacts/` from project root), SPA fallback to `index.html`, and the server-side `/api/market-ticker` proxy with 60-second caching for Twelve Data + Biquote spot prices. |
 | `src/main.tsx` | Passthrough shield entry point (15 lines) ensuring platform compatibility with TypeScript build and lint tooling without overriding the native HTML/CSS/JS runtime. |
@@ -237,3 +237,9 @@ To preserve 100% stability, zero visual regressions, and platform compliance in 
 - **Active Utility Retention (`app.js`):** Pre-deletion verification confirmed `window.DeferredQueue` is actively called during Club Chamber initialization (`initSovereignSalonTicker()`), so it was intentionally retained.
 - **Unified Modal Backdrop Consolidation (`index.html`):** Removed 12 duplicate inline backdrop `onclick="if (event.target === this) ..."` attributes across all `UNIFIED_MODALS`, making `initUnifiedModalBackdrops()` in `app.js` the single backdrop dismissal path while preserving all explicit close-button handlers.
 - **Cascade-Safe CSS Cleanup (`style.css`):** Removed 2 shadowed earlier duplicate `@keyframes` (`luxuryFadeSlide`, `continuousTickerScroll`), 9 zero-reference `@keyframes` (`halo-breathe`, `dispatchArrivalIncomingRTL`, `dispatchArrivalPersonalRTL`, `sovereignSealStampFadeRtl`, `sovereignGoldBreathingGlow`, `clubRoomsChevronNudgeRTL`, `luxuryPulse`, `luxuryPulseLight`, `securityRibbonGlideRtl`), and the dead `#settingsModal .lang-selector-group` rule without reordering any active visual cascade blocks.
+
+### Batch 3 — Deep Safe Compaction, Listener Unification & Workspace Purge
+- **Workspace Asset Cleanup (~29.89 MiB Saved):** Deleted `/public/assets/aistudio/` (41 unreferenced archival screenshots/logs), reducing total non-`node_modules` workspace footprint to **~7.0 MB** while preserving `/artifacts/` (48 active dual-mode studio files) 100% untouched.
+- **Cascade-Safe `style.css` Compaction (-4,222 Lines: `42,114` → `37,892`):** Removed 346 fully-dead rules (from verified 0-reference classes) and pruned 1,713 in-place shadowed declarations + 182 fully-shadowed blocks **without reordering any surviving cascade rules**. Strictly preserved all 26 dynamically constructed JS classes (`tier-*`, `rarity-*`, `is-*`, `hrr-ribbon-*`, `ribbon-*`, `medal-*`) and all 27 substring-overlap classes.
+- **In-Place `app.js`, `translations.js` & `index.html` Cleanup (Zero TDZ Risk):** Kept all 53 top-level `const`/`let` declarations in their exact initialization order; removed redundant `window.t` fallback (`app.js`), dead `langEnBtn`/`langArBtn` refs (`app.js`), unused `window.applyTranslations` (`translations.js`), orphaned `#page-edit-account` (`index.html`) + `#editAccountForm` listener (`app.js`), and disabled `HeaderAutoDismissController` (`app.js`, preserving boot `header-hidden` reset & `updateHeaderHeightVar()` inside `HeaderScrollController.init()`). Consolidated 3 `window.resize` listeners into 1 rAF-throttled dispatcher (keeping `visualViewport` keyboard handler separate) and merged 2 capture-phase `document.scroll` listeners into 1.
+- **`luxury.js` Unified Lifecycle Hub:** Consolidated 3 `document.visibilitychange` listeners into 1 dispatcher, 2 `#membership-tab` `MutationObserver` instances into 1 shared observer, and 2 `window.resize` listeners into 1 debounced (150ms) handler while keeping per-canvas `ResizeObserver` instances intact.

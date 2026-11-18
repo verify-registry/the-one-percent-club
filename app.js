@@ -94,24 +94,7 @@ let currentLang = "en";
 window.currentLang = "en";
 var boutiqueLoadingTimeout = null;
 var profileCollectionTimeout = null;
-
-if (typeof window.t !== "function") {
-  window.t = function (key) {
-    if (!key) return "";
-    const lookup = (obj, path) =>
-      obj && path ? path.split(".").reduce((acc, part) => acc && acc[part], obj) : null;
-    let item = lookup(window.I18N, key);
-    if (!item && typeof key === "string" && key.startsWith("items.")) {
-      item = lookup(window.I18N, key.replace(/^items\./, ""));
-    }
-    if (item) {
-      if (typeof item === "string") return item;
-      if (item.en) return item.en;
-    }
-    return key;
-  };
-}
-window.getTranslation = window.t;
+// window.t and window.getTranslation are defined authoritatively in translations.js (loaded prior to app.js)
 
 window.syncClubInputDirection = function (inputEl) {
   const input = inputEl || document.getElementById("clubInput");
@@ -199,20 +182,6 @@ window.setLanguage = function () {
     });
   });
 
-  // Update Settings Toggles
-  const btnEn = document.getElementById("langEnBtn");
-  const btnAr = document.getElementById("langArBtn");
-  if (btnEn && btnAr) {
-    btnEn.classList.toggle("is-active", lang === "en");
-    btnAr.classList.toggle("is-active", lang === "ar");
-    btnEn.style.background = "";
-    btnEn.style.color = "";
-    btnEn.style.borderColor = "";
-    btnAr.style.background = "";
-    btnAr.style.color = "";
-    btnAr.style.borderColor = "";
-  }
-
   // Update specific UI states if needed
   if (typeof window.applyLanguage === "function") window.applyLanguage(lang);
   if (typeof window.updateUI === "function") {
@@ -278,9 +247,6 @@ window.setLanguage = function () {
 };
 
 function initGlobalSettings() {
-  const btnEn = document.getElementById("langEnBtn");
-  if (btnEn) btnEn.addEventListener("click", () => window.setLanguage("en"));
-
   window.setLanguage("en");
 
   // --- Theme Mode State Manager ---
@@ -2808,10 +2774,7 @@ window.updateBoutiqueGliders = function (instant = false) {
     }
   }
 };
-
-window.addEventListener("resize", () => {
-  window.updateBoutiqueGliders?.(true);
-});
+// Resize updates for boutique gliders are handled by the unified rAF-throttled resize dispatcher in HeaderScrollController.init()
 
 document.querySelectorAll(".boutique-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
@@ -3793,31 +3756,7 @@ function initMemberDossierActionButtons() {
 window.initMemberDossierActionButtons = initMemberDossierActionButtons;
 initMemberDossierActionButtons();
 
-document.getElementById("editAccountForm")?.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  ClubState.member.name = document.getElementById("editName").value;
-  ClubState.member.username = document.getElementById("editUsername").value;
-  ClubState.member.bio = document.getElementById("editBio").value;
-  ClubState.member.interests = document.getElementById("editInterests").value;
-  ClubState.member.location = document.getElementById("editLocation").value;
-  ClubState.save();
-
-  ClubState.emit("change");
-
-  Router.navigate("profile");
-  showPremiumToast(
-    window.t("profile.profileUpdated"),
-    window.t("misc.changesSaved"),
-  );
-  if (window.unlockAchievement) {
-    window.unlockAchievement(
-      "profile_updated",
-      "THE DOSSIER",
-      "Your personal identity dossier has been updated.",
-    );
-  }
-});
+// (Orphaned #page-edit-account / #editAccountForm removed in Batch 3; editing is handled via #editProfileModal)
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
@@ -4739,9 +4678,7 @@ function initClubRoomsDiscoveryArrow() {
       });
     }, { passive: true });
 
-    window.addEventListener("resize", () => {
-      requestAnimationFrame(updateClubRoomsArrowState);
-    }, { passive: true });
+    // Resize arrow updates are handled by the unified rAF-throttled resize dispatcher in HeaderScrollController.init()
 
     window.addEventListener("languageChanged", () => {
       requestAnimationFrame(updateClubRoomsArrowState);
@@ -9213,20 +9150,17 @@ function renderLeaderboard() {
 }
 
 /* ==========================================================================
-   SMART SCROLLBAR AUTO-HIDE
+   SMART SCROLLBAR AUTO-HIDE (invoked by unified document capture scroll listener)
    ========================================================================== */
-document.addEventListener("scroll", (e) => {
+function handleSmartScrollbarAutoHide(e) {
   const el = e.target;
   if (!el || !el.classList) return;
-  
   el.classList.add('is-scrolling');
-  
   clearTimeout(el._scrollTimeout);
-  
   el._scrollTimeout = setTimeout(() => {
     el.classList.remove('is-scrolling');
   }, 800);
-}, { passive: true, capture: true });
+}
 
 
 
@@ -9350,13 +9284,13 @@ window.HeaderScrollController = (function() {
 
     if (!isScrollable) {
       isLockedVisible = true;
-      if (header.classList.contains("header-hidden") && !window.HeaderAutoDismissController?.isAutoHidden()) {
+      if (header.classList.contains("header-hidden")) {
         header.classList.remove("header-hidden");
       }
     } else {
       isLockedVisible = false;
       if (lastScrollTop <= 25) {
-        if (header.classList.contains("header-hidden") && !window.HeaderAutoDismissController?.isAutoHidden()) {
+        if (header.classList.contains("header-hidden")) {
           header.classList.remove("header-hidden");
         }
       }
@@ -9575,8 +9509,9 @@ window.HeaderScrollController = (function() {
 
   return {
     init() {
-      // Global capture listener routes scroll events to non-club page handlers
+      // Unified capture-phase document scroll listener (smart scrollbar auto-hide + non-club header scroll)
       document.addEventListener("scroll", (e) => {
+        handleSmartScrollbarAutoHide(e);
         const target = e.target;
         const msgs = document.getElementById("clubMessages");
         if (target === msgs || (msgs && msgs.contains(target))) {
@@ -9586,25 +9521,28 @@ window.HeaderScrollController = (function() {
         handleOtherPagesScroll(e);
       }, { passive: true, capture: true });
 
+      // Unified rAF-throttled window resize dispatcher (header height, active tab, boutique gliders, club rooms arrows)
+      let resizeRafId = null;
       window.addEventListener("resize", () => {
-        updateStateForCurrentTab();
-        updateHeaderHeightVar();
-      }, { passive: true });
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => {
-          updateHeaderHeightVar();
+        if (resizeRafId) return;
+        resizeRafId = requestAnimationFrame(() => {
+          resizeRafId = null;
           updateStateForCurrentTab();
-          attachClubScroll();
-          if (document.getElementById("membership-tab")?.classList.contains("is-active")) {
-            document.querySelector(".app-main")?.classList.add("main-membership-active");
-          }
-          if (document.getElementById("club-tab")?.classList.contains("is-active")) {
-            document.querySelector(".app-main")?.classList.add("main-club-active");
-            document.body?.classList.add("tab-club-active");
+          updateHeaderHeightVar();
+          window.updateBoutiqueGliders?.(true);
+          if (typeof updateClubRoomsArrowState === "function") {
+            updateClubRoomsArrowState();
           }
         });
-      } else {
+      }, { passive: true });
+
+      const bootSync = () => {
+        const header = getHeader();
+        if (header) {
+          header.classList.remove("header-hidden");
+          document.body?.classList.remove("header-hidden-active");
+          document.documentElement?.classList.remove("header-hidden-active");
+        }
         updateHeaderHeightVar();
         updateStateForCurrentTab();
         attachClubScroll();
@@ -9615,6 +9553,12 @@ window.HeaderScrollController = (function() {
           document.querySelector(".app-main")?.classList.add("main-club-active");
           document.body?.classList.add("tab-club-active");
         }
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", bootSync);
+      } else {
+        bootSync();
       }
     },
     attachClubScroll,
@@ -9637,63 +9581,6 @@ window.HeaderScrollController = (function() {
 window.HeaderScrollController.init();
 window.updateHeaderHeightVar = window.HeaderScrollController.updateHeaderHeightVar;
 window.resetHeaderScrollTracking = window.HeaderScrollController.updateStateForCurrentTab;
-
-/* ==========================================================================
-   SOVEREIGN APP HEADER AUTO-DISMISS CONTROLLER (20 SECONDS)
-   - Automatically hides the top header after 20 seconds for full screen immersion
-   - Reclaims vertical viewport space with fluid physics
-   - Allows instant graceful restoration upon interaction (touch near top, nav switch)
-   ========================================================================== */
-window.HeaderAutoDismissController = (function() {
-  let timer = null;
-  let isAutoHidden = false;
-
-  function hideHeader() {
-    // Disabled: Top header must remain permanently stationary and visible across tabs
-    return;
-  }
-
-  function showHeader(restartTimer = true) {
-    const header = getHeader();
-    if (!header) return;
-    isAutoHidden = false;
-    header.classList.remove("header-hidden");
-    document.body.classList.remove("header-hidden-active");
-    document.documentElement.classList.remove("header-hidden-active");
-    const h = header.offsetHeight || 84;
-    document.documentElement.style.setProperty("--header-actual-height", h + "px");
-
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-  }
-
-  function startTimer() {
-    // Disabled auto-dismiss timer to ensure header remains fixed and stable
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-  }
-
-  function init() {
-    showHeader(false);
-  }
-
-  return {
-    init,
-    startTimer,
-    showHeader,
-    hideHeader,
-    isAutoHidden() {
-      return false;
-    }
-  };
-})();
-
-// Start Header Auto Dismiss Controller
-window.HeaderAutoDismissController.init();
 
 
 // ==========================================

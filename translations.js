@@ -1842,16 +1842,3 @@ if (typeof window.setLanguage !== 'function') {
     }
   };
 }
-
-window.applyTranslations = function () {
-  if (typeof document === 'undefined') return;
-  document.querySelectorAll('[data-i18n]').forEach((el) => {
-    const key = el.getAttribute('data-i18n');
-    const translated = window.t(key);
-    if (translated && translated !== key) {
-      if (el.children.length === 0) {
-        el.textContent = translated;
-      }
-    }
-  });
-};

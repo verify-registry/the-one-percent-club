@@ -269,6 +269,7 @@ function initGuilloche() {
   window.resumeGuillocheCanvas = () => {
     if (isTabActive()) {
       isDirty = true;
+      resizeCanvas();
       requestDraw();
     }
   };
@@ -279,28 +280,6 @@ function initGuilloche() {
       animFrameId = null;
     }
   };
-
-  // Watch for membership tab activation/deactivation
-  const membershipTab = document.getElementById("membership-tab");
-  if (membershipTab) {
-    const tabObserver = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.attributeName === 'class') {
-          if (isTabActive()) {
-            isDirty = true;
-            resizeCanvas();
-            requestDraw();
-          } else {
-            if (animFrameId) {
-              cancelAnimationFrame(animFrameId);
-              animFrameId = null;
-            }
-          }
-        }
-      }
-    });
-    tabObserver.observe(membershipTab, { attributes: true, attributeFilter: ['class'] });
-  }
 
   const resizeCanvas = () => {
     const parent = canvas.parentElement;
@@ -336,30 +315,9 @@ function initGuilloche() {
     requestDraw();
   };
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      if (animFrameId) {
-        cancelAnimationFrame(animFrameId);
-        animFrameId = null;
-      }
-    } else {
-      if (isTabActive()) {
-        isDirty = true;
-        resizeCanvas();
-        requestDraw();
-      }
-    }
-  });
-
-  // Debounce the resize event to prevent CPU spikes during window drag/orientation change
-  window.addEventListener(
-    "resize",
-    () => {
-      if (resizeTimeout) clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(resizeCanvas, 150); // Wait 150ms after resizing stops
-    },
-    { passive: true },
-  );
+  window._guillocheResizeCanvas = resizeCanvas;
+  // Lifecycle visibilitychange, #membership-tab MutationObserver, and debounced window.resize
+  // are unified in the shared lifecycle hub at the bottom of luxury.js.
 
   // Deterministic initialization via ResizeObserver synchronized with requestAnimationFrame
   if (typeof ResizeObserver !== "undefined" && canvas.parentElement) {
@@ -1649,13 +1607,11 @@ function resetTiltForCard(card) {
   }
 }
 
-// 9. VISIBILITY & TAB LIFECYCLE HANDLERS
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    targetRotX = 0;
-    targetRotY = 0;
-  }
-});
+// 9. VISIBILITY & TAB LIFECYCLE HANDLERS (dispatched by unified visibilitychange hub)
+window._resetCardTiltOnHidden = function () {
+  targetRotX = 0;
+  targetRotY = 0;
+};
 
 // Smoothly return card to neutral when switching tabs
 document.querySelectorAll(".nav-item").forEach((btn) => {
@@ -2173,7 +2129,7 @@ function initGoldDust() {
     ro.observe(canvas.parentElement);
   }
 
-  window.addEventListener("resize", resize);
+  window._goldDustResizeCanvas = resize;
 
   window.resumeGoldDustCanvas = () => {
     if (!animId && isCardActive()) {
@@ -2187,39 +2143,6 @@ function initGoldDust() {
       animId = null;
     }
   };
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      if (animId) {
-        cancelAnimationFrame(animId);
-        animId = null;
-      }
-    } else if (isCardActive() && !animId) {
-      draw();
-    }
-  });
-
-  // Tab-aware render loop pausing & resuming
-  const membershipTabEl = document.getElementById("membership-tab");
-  if (membershipTabEl) {
-    const tabObserver = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        if (m.attributeName === "class") {
-          if (membershipTabEl.classList.contains("is-active") && !document.hidden) {
-            if (!animId) {
-              draw();
-            }
-          } else {
-            if (animId) {
-              cancelAnimationFrame(animId);
-              animId = null;
-            }
-          }
-        }
-      }
-    });
-    tabObserver.observe(membershipTabEl, { attributes: true, attributeFilter: ["class"] });
-  }
 
   // Initialize after layout settles
   setTimeout(() => {
@@ -2241,4 +2164,52 @@ window.resumeMembershipRAF = function() {
   if (typeof window.resumeGoldDustCanvas === "function") window.resumeGoldDustCanvas();
   if (typeof window.resumeCardTiltLoop === "function") window.resumeCardTiltLoop();
 };
+
+// =========================================================================
+// UNIFIED LUXURY CANVAS & TILT LIFECYCLE HUB (Batch 3 Consolidation)
+// Single visibilitychange, single #membership-tab MutationObserver, single debounced resize
+// =========================================================================
+(function initLuxuryLifecycleHub() {
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      window.pauseGuillocheCanvas?.();
+      window.pauseGoldDustCanvas?.();
+      window._resetCardTiltOnHidden?.();
+    } else {
+      window.resumeGuillocheCanvas?.();
+      window.resumeGoldDustCanvas?.();
+    }
+  });
+
+  const membershipTabEl = document.getElementById("membership-tab");
+  if (membershipTabEl) {
+    const sharedTabObserver = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.attributeName === "class") {
+          if (membershipTabEl.classList.contains("is-active") && !document.hidden) {
+            window.resumeGuillocheCanvas?.();
+            window.resumeGoldDustCanvas?.();
+          } else {
+            window.pauseGuillocheCanvas?.();
+            window.pauseGoldDustCanvas?.();
+          }
+        }
+      }
+    });
+    sharedTabObserver.observe(membershipTabEl, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  let sharedResizeTimer = null;
+  window.addEventListener(
+    "resize",
+    () => {
+      if (sharedResizeTimer) clearTimeout(sharedResizeTimer);
+      sharedResizeTimer = setTimeout(() => {
+        window._guillocheResizeCanvas?.();
+        window._goldDustResizeCanvas?.();
+      }, 150);
+    },
+    { passive: true },
+  );
+})();
 
