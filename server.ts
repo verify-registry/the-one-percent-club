@@ -180,7 +180,8 @@ function isGlobalForexMarketOpen(): boolean {
 }
 
 app.get("/api/market-ticker", async (req: Request, res: Response) => {
-  const twelveDataKey = process.env.TWELVE_DATA_API_KEY || process.env.MARKET_DATA_API_KEY;
+  const twelveDataKey =
+    process.env["TWELVE_DATA_API_KEY"] || process.env["MARKET_DATA_API_KEY"] || "";
   const now = Date.now();
 
   if (now < marketCache.backoffUntil) {
