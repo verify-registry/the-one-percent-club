@@ -36,8 +36,7 @@ The design system derives its luxury strictly from craftsmanship, material depth
 The repository follows a clean, decoupled full-stack architecture where frontend presentation, canvas physics, vector graphics, acoustic feedback, and server APIs reside in dedicated files:
 
 ```
-├── .env.example                 # Documented environment variable definitions (no secrets)
-├── .gitignore                   # Standard git exclusions (node_modules, build artifacts)
+├── .gitignore                   # Standard git exclusions (node_modules, build artifacts, lockfiles)
 ├── AUDIT.md                     # Master Architectural Blueprint (this file)
 ├── Audio.js                     # Synthesized WebAudio horological sound engine (934 lines)
 ├── README.md                    # Repository documentation and orientation
@@ -51,7 +50,7 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 ├── luxury.js                    # Haute horlogerie canvas physics engine for Master Card (2,215 lines)
 ├── metadata.json                # AI Studio platform capabilities and metadata
 ├── package.json                 # Project dependencies, scripts (dev, start, build, lint)
-├── server.ts                    # Production Express server (Gzip, static /artifacts, market proxy, SPA routing; 426 lines)
+├── server.ts                    # Production Express server (Gzip, static /artifacts, market proxy, SPA routing; 427 lines)
 ├── src/
 │   └── main.tsx                 # Non-intrusive TypeScript shield entry point (15 lines)
 ├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals; 37,892 lines)
@@ -60,7 +59,7 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 └── vite.config.ts               # Vite configuration for AI Studio dev server (port 3000)
 ```
 
-*(Total core source footprint: **57,883 lines** across 9 files; total workspace size excluding `node_modules`/`.git`/`dist`: **~7.0 MB**, including the 4.90 MB `/artifacts/` studio collection.)*
+*(Total core source footprint: **57,884 lines** across 9 files; total workspace size excluding `node_modules`/`.git`/`dist`: **~6.9 MB**, including the 4.90 MB `/artifacts/` studio collection.)*
 
 ### Exact File Roles
 
@@ -74,7 +73,7 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 | `artifacts/` | Single authoritative directory of 48 dual-mode studio collectible images (12 active artifacts × Dark/Light × `.webp`/`.jpg`, ~4.90 MB total) served statically by `server.ts`. |
 | `translations.js` | English dictionary (`window.TRANSLATIONS.en`, 1,844 lines) and authoritative localization helpers (`window.getNestedValue`, `window.t`, `window.getTranslation`). |
 | `Audio.js` | WebAudio synthesized horological acoustic engine (`window.AudioEngine`, 934 lines). Synthesizes physical mechanical clicks, minute-repeater chimes, and transaction success sounds directly from oscillators with zero audio file downloads. |
-| `server.ts` | Full-stack Node.js 22 + Express server (426 lines). Handles gzip compression middleware, immutable static file caching (serving `/artifacts/` from project root), SPA fallback to `index.html`, and the server-side `/api/market-ticker` proxy with 60-second caching for Twelve Data + Biquote spot prices. |
+| `server.ts` | Full-stack Node.js 22 + Express server (427 lines). Handles gzip compression middleware, immutable static file caching (serving `/artifacts/` from project root), SPA fallback to `index.html`, and the server-side `/api/market-ticker` proxy with 60-second caching for Twelve Data + Biquote spot prices. |
 | `src/main.tsx` | Passthrough shield entry point (15 lines) ensuring platform compatibility with TypeScript build and lint tooling without overriding the native HTML/CSS/JS runtime. |
 
 ---
