@@ -40,9 +40,9 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 ├── AUDIT.md                     # Master Architectural Blueprint (this file)
 ├── Audio.js                     # Synthesized WebAudio horological sound engine (934 lines)
 ├── README.md                    # Repository documentation and orientation
-├── app.js                       # Core application state, tabs, commerce & club engine (9,855 lines)
-├── artifacts/                   # Single authoritative collectible asset directory (48 dual-mode .webp/.jpg files, 4.90 MB)
-├── artifacts.js                 # Collectible asset catalog & dual-mode Dark/Light renderer (220 lines)
+├── app.js                       # Core application state, tabs, commerce & club engine (9,853 lines)
+├── artifacts/                   # Single authoritative collectible asset directory (24 optimized dual-mode .webp files, 0.92 MiB)
+├── artifacts.js                 # Collectible asset catalog & dual-mode Dark/Light renderer (213 lines)
 ├── firebase-applet-config.json  # Provisioned AI Studio Firebase Firestore & Auth client config
 ├── firebase-blueprint.json      # Firestore schemas, collections, and security specifications
 ├── firestore.rules              # Deployed Firestore security and authorization rules
@@ -53,24 +53,24 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 ├── server.ts                    # Production Express server (Gzip, static /artifacts, market proxy, SPA routing; 427 lines)
 ├── src/
 │   └── main.tsx                 # Non-intrusive TypeScript shield entry point (15 lines)
-├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals; 37,892 lines)
+├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals; 37,874 lines)
 ├── translations.js              # Standardized English localization dictionary (1,844 lines)
 ├── tsconfig.json                # TypeScript compiler configuration (ES2022, bundler)
 └── vite.config.ts               # Vite configuration for AI Studio dev server (port 3000)
 ```
 
-*(Total core source footprint: **57,884 lines** across 9 files; total workspace size excluding `node_modules`/`.git`/`dist`: **~6.9 MB**, including the 4.90 MB `/artifacts/` studio collection.)*
+*(Total core source footprint: **57,857 lines** across 9 files; total workspace size excluding `node_modules`/`.git`/`dist`: **~2.84 MiB**, including the 0.92 MiB `/artifacts/` studio collection.)*
 
 ### Exact File Roles
 
 | File | Exact Architectural Role |
 |---|---|
 | `index.html` | HTML entry point (4,482 lines). Hosts all semantic tab containers (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`), modal overlays (Settings, Account, Support, Dossier, Inspection, Auth, Recovery), and global SVG gradient definitions (`#ringGoldGrad`, `#bezelGrad`, `#sov_gold_24k`). Zero inline `<style>` tags; modal backdrop dismissal is centrally handled by `initUnifiedModalBackdrops()` in `app.js`. |
-| `style.css` | Consolidated master stylesheet (37,892 lines). Contains the seamless Liquid Glass header, VisionOS crystal bottom dock, typography hierarchy, responsive breakpoints (360px–430px), modal card systems, and Dark/Light mode color schemes. |
-| `app.js` | Primary application logic controller (9,855 lines). Manages reactive state (`AppState`), boutique commerce and vault persistence, club chat with room switching and daily message reserves, live market ticker client consumption, metric ring complications (Wealth Index and Privileges Index with D3), unified modal backdrop management, consolidated capture-scroll/rAF-resize dispatchers, and authentication state (`AuthBoundary`). |
+| `style.css` | Consolidated master stylesheet (37,874 lines). Contains the seamless Liquid Glass header, VisionOS crystal bottom dock, typography hierarchy, responsive breakpoints (360px–430px), modal card systems, and Dark/Light mode color schemes. |
+| `app.js` | Primary application logic controller (9,853 lines). Manages reactive state (`AppState`), boutique commerce and vault persistence, club chat with room switching and daily message reserves, live market ticker client consumption, metric ring complications (Wealth Index and Privileges Index with D3), unified modal backdrop management, consolidated capture-scroll/rAF-resize dispatchers, and authentication state (`AuthBoundary`). |
 | `luxury.js` | Mathematical canvas rendering engine for the Master Identity Card (2,215 lines). Computes layered guilloché geometry, dynamic gold dust particle dynamics, specular metallic sheen passes, high-DPI metallic gold card image exports, and a unified visibility/tab/resize lifecycle hub. |
-| `artifacts.js` | Collectible asset registry (`window.SOVEREIGN_ARTIFACTS`, 220 lines). Renders all 12 boutique collectibles from the single authoritative `/artifacts/` directory using theme-aware dual-mode `.webp`/`.jpg` studio assets (Obsidian Dark & Imperial Light, reacting to both `themechange` and `themeChanged` events), plus pure inline SVG for `wid1` and legacy `aliasMap` compatibility. |
-| `artifacts/` | Single authoritative directory of 48 dual-mode studio collectible images (12 active artifacts × Dark/Light × `.webp`/`.jpg`, ~4.90 MB total) served statically by `server.ts`. |
+| `artifacts.js` | Collectible asset registry (`window.SOVEREIGN_ARTIFACTS`, 213 lines). Renders all 12 boutique collectibles from the single authoritative `/artifacts/` directory using theme-aware dual-mode `.webp` studio assets (Obsidian Dark & Imperial Light, reacting to both `themechange` and `themeChanged` events), plus pure inline SVG for `wid1` and legacy `aliasMap` compatibility. |
+| `artifacts/` | Single authoritative directory of 24 optimized dual-mode studio collectible images (12 active artifacts × Dark/Light in 512×512 lossy WebP, ~0.92 MiB total) served statically by `server.ts`. |
 | `translations.js` | English dictionary (`window.TRANSLATIONS.en`, 1,844 lines) and authoritative localization helpers (`window.getNestedValue`, `window.t`, `window.getTranslation`). |
 | `Audio.js` | WebAudio synthesized horological acoustic engine (`window.AudioEngine`, 934 lines). Synthesizes physical mechanical clicks, minute-repeater chimes, and transaction success sounds directly from oscillators with zero audio file downloads. |
 | `server.ts` | Full-stack Node.js 22 + Express server (427 lines). Handles gzip compression middleware, immutable static file caching (serving `/artifacts/` from project root), SPA fallback to `index.html`, and the server-side `/api/market-ticker` proxy with 60-second caching for Twelve Data + Biquote spot prices. |
@@ -175,7 +175,7 @@ Triggered via `#openSettingsRow` in the Profile menu list (and secondary button 
 
 ## 4. BOUTIQUE & COLLECTIBLES REGISTRY
 
-All 12 boutique collectibles are rendered via `artifacts.js` from the single authoritative local `/artifacts/` directory using theme-aware dual-mode studio assets (`.webp` with `.jpg` fallback for both Obsidian Dark and Imperial Light), while the Master Card Widget (`wid1`) renders as pure inline SVG. Zero external remote image URLs or placeholder PNGs.
+All 12 boutique collectibles are rendered via `artifacts.js` from the single authoritative local `/artifacts/` directory using theme-aware dual-mode studio assets (optimized 512×512 `.webp` for both Obsidian Dark and Imperial Light), while the Master Card Widget (`wid1`) renders as pure inline SVG. Zero external remote image URLs or placeholder PNGs.
 
 | ID | Artifact Name | Category | Required Tier | Price (USD) | Specification & Metallurgy |
 |---|---|---|---|---|---|
@@ -204,7 +204,7 @@ To preserve 100% stability, zero visual regressions, and platform compliance in 
 1. **Preserve `crown4` Unconditionally:**
    `crown4` ("Crown of Zenith Authority", icon: `crown_zenith`, $9,000) is the pinnacle crown collectible. Never remove, replace, or rename its ID or metadata.
 2. **Single Authoritative Asset Policy (`/artifacts/` + Inline SVG):**
-   Never introduce external remote image URLs (`http://`, `https://`) or duplicate asset directories. All 12 boutique collectibles resolve exclusively to local dual-mode `.webp`/`.jpg` assets inside `/artifacts/` via `artifacts.js`, while `wid1`, hallmarks, bezels, and sovereign seals render as resolution-independent inline SVG elements.
+   Never introduce external remote image URLs (`http://`, `https://`) or duplicate asset directories. All 12 boutique collectibles resolve exclusively to local dual-mode `.webp` assets inside `/artifacts/` via `artifacts.js`, while `wid1`, hallmarks, bezels, and sovereign seals render as resolution-independent inline SVG elements.
 3. **Strict English-Only (LTR) Rule:**
    Do not introduce dual-language toggles that flip layout direction or corrupt English editorial typography. All primary copy must resolve cleanly to English strings.
 4. **No Inline HTML `<style>` Bloat:**
@@ -242,3 +242,10 @@ To preserve 100% stability, zero visual regressions, and platform compliance in 
 - **Cascade-Safe `style.css` Compaction (-4,222 Lines: `42,114` → `37,892`):** Removed 346 fully-dead rules (from verified 0-reference classes) and pruned 1,713 in-place shadowed declarations + 182 fully-shadowed blocks **without reordering any surviving cascade rules**. Strictly preserved all 26 dynamically constructed JS classes (`tier-*`, `rarity-*`, `is-*`, `hrr-ribbon-*`, `ribbon-*`, `medal-*`) and all 27 substring-overlap classes.
 - **In-Place `app.js`, `translations.js` & `index.html` Cleanup (Zero TDZ Risk):** Kept all 53 top-level `const`/`let` declarations in their exact initialization order; removed redundant `window.t` fallback (`app.js`), dead `langEnBtn`/`langArBtn` refs (`app.js`), unused `window.applyTranslations` (`translations.js`), orphaned `#page-edit-account` (`index.html`) + `#editAccountForm` listener (`app.js`), and disabled `HeaderAutoDismissController` (`app.js`, preserving boot `header-hidden` reset & `updateHeaderHeightVar()` inside `HeaderScrollController.init()`). Consolidated 3 `window.resize` listeners into 1 rAF-throttled dispatcher (keeping `visualViewport` keyboard handler separate) and merged 2 capture-phase `document.scroll` listeners into 1.
 - **`luxury.js` Unified Lifecycle Hub:** Consolidated 3 `document.visibilitychange` listeners into 1 dispatcher, 2 `#membership-tab` `MutationObserver` instances into 1 shared observer, and 2 `window.resize` listeners into 1 debounced (150ms) handler while keeping per-canvas `ResizeObserver` instances intact.
+
+### Batch 4 — Asset Optimization, Bug Fixes & Security Hardening
+- **Studio Asset Optimization (`/artifacts/` & `artifacts.js`, -4.18 MB / -81.2%):** Deleted all 24 legacy `.jpg` fallback files and re-encoded all 24 `.webp` files via Lanczos resize to `512×512` (lossy WebP, `quality=84`, `method=6`, alpha preserved), shrinking `/artifacts/` from **5,142,669 bytes (4.90 MiB, 48 files)** to **966,278 bytes (0.92 MiB, 24 files)**. Removed `data-dark-fallback`, `data-light-fallback`, and the `.jpg` `onerror` handler from `artifacts.js`.
+- **Double Deposit Bug Fix (`app.js`):** Removed duplicate `ClubState.balance += amount;` and `ClubState.save();` calls inside the `.deposit-pkg` click handler (`ClubState === AppState`).
+- **Stylesheet & Font Hygiene (`style.css` & `index.html`):** Removed the duplicate render-blocking Google Fonts `@import` at the top of `style.css`; fixed the 4 unclosed/broken RTL comment blocks (`Arrow Orientation`, `RTL Arrow Direction`, `In RTL, text flows right-to-left`, `ARABIC / RTL`) so no valid CSS rules are swallowed; trimmed unused Arabic font families (`Amiri`, `Cairo`, `Readex Pro`) from the `index.html` Google Fonts `<link>`.
+- **Firestore Security Hardening (`firestore.rules`):** Added `tier` update immutability validation inside `isValidUser(userId)` (`resource == null || !('tier' in incoming()) || ('tier' in existing() && incoming().tier == existing().tier)`) to prevent client-side tier self-escalation on profile updates.
+- **Repository Hygiene (`README.md` & Workspace):** Updated `server.js` reference to `server.ts` in `README.md` and removed stray `bun.lock` lockfile, bringing total non-`node_modules` workspace size from **7,236,023 bytes (6.90 MiB)** down to **~2.84 MiB**.

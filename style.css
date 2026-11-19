@@ -1,7 +1,6 @@
 /* =========================================================
    1. VARIABLES & RESET
    ========================================================= */
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@300;400;500;600;700&display=swap");
 
 :root {
   --header-actual-height: 82px;
@@ -5284,13 +5283,8 @@ html[dir="ltr"] .obsidian-dispatch-input::placeholder {
 }
 .sovereign-seal-send-btn:hover .sovereign-arrow-monogram-svg {
   filter: drop-shadow(0 0 5px rgba(212, 175, 106, 0.55));
-}/* Arrow Orientation:
-   In RTL mode (Arabic), the arrow flips horizontally to point in the direction of dispatch (leftwards toward chat) {
-
-  transform-origin: 22px 22px;
-  transform: scaleX(-1);
-
 }
+/* Arrow Orientation: RTL horizontal flip omitted in English-only LTR mode */
 
 .sovereign-seal-send-btn:disabled {
   opacity: 0.35;
@@ -7493,11 +7487,8 @@ html.light-mode #profile-tab .pcc-chip-seal-dot.is-stamping {
   50% {
     transform: translateX(1.5px);
   }
-}/* RTL Arrow Direction: In Arabic RTL {
-
-  transform: scaleX(-1);
-
 }
+/* RTL Arrow Direction: omitted in English-only LTR mode */
 
 
 /* Backward Mode: Invert chevron direction for revisiting previous pairs (no pulse or nudge) */
@@ -12680,12 +12671,7 @@ html body #profile-tab .phc-edit-btn svg {
 
 
 /* 4. Forced Single Line Typography */
-/* In RTL, text flows right-to-left {
-
-  padding-right: 32px !important;
-  padding-left: 0 !important;
-
-}
+/* RTL text flow override omitted in English-only LTR mode */
 
 body #profile-tab .phc-name {
   font-size: 1.15rem !important;
@@ -13678,12 +13664,8 @@ body #profile-tab .phc-quote {
 }
 #membership-tab .card-actions .btn span {
   letter-spacing: 0.08em !important;
-}/* ==========================================================================
-   ARABIC / RTL (Natural elegance {
-
-  letter-spacing: 0 !important;
-
 }
+/* ARABIC / RTL letter-spacing override omitted in English-only LTR mode */
 
 /* Responsive adjustments if required (strictly isolated to Membership fonts) */
 @media (max-width: 375px) {

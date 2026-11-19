@@ -7000,9 +7000,7 @@ const initProfileAndModals = () => {
     btn.addEventListener("click", () => {
       const amount = parseInt(btn.dataset.amount, 10) || 10000;
       AppState.balance += amount;
-      ClubState.balance += amount;
       AppState.save();
-      ClubState.save();
       updateUI();
 
       if (window.AudioEngine && window.AudioEngine.playChime) {

@@ -108,17 +108,10 @@ window.getSovereignArtifact = function(idOrType) {
       src="${activeSrc}" 
       data-artifact-key="${key}"
       data-dark="/artifacts/${key}.webp" 
-      data-dark-fallback="/artifacts/${key}.jpg" 
       data-light="/artifacts/${key}_light.webp" 
-      data-light-fallback="/artifacts/${key}_light.jpg" 
       alt="${key}" 
       class="sovereign-real-artifact-img" 
-      decoding="async" 
-      onerror="
-        this.onerror = null;
-        const l = document.documentElement.classList.contains('light-mode') || (document.body && document.body.classList.contains('light-mode'));
-        this.src = l ? (this.dataset.lightFallback || this.dataset.light) : (this.dataset.darkFallback || this.dataset.dark);
-      " />`;
+      decoding="async" />`;
   }
 
   // Sovereign Master Card Widget (wid1)
