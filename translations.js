@@ -1,13 +1,15 @@
 // THE 1% CLUB — SOVEREIGN ENGLISH LEXICON
-try {
-  ['lang', 'language', 'appLang', 'app_lang', 'club_lang', 'sovereign_lang', 'i18nextLng', 'one_percent_lang'].forEach(k => {
-    localStorage.removeItem(k);
-    sessionStorage.removeItem(k);
-  });
-} catch (e) {}
-if (typeof document !== 'undefined' && document.documentElement) {
-  document.documentElement.setAttribute('lang', 'en');
-  document.documentElement.setAttribute('dir', 'ltr');
+if (typeof window === 'undefined' || window.__APP_INITIAL_LANG__ !== 'en') {
+  try {
+    ['lang', 'language', 'appLang', 'app_lang', 'club_lang', 'sovereign_lang', 'i18nextLng', 'one_percent_lang'].forEach(k => {
+      localStorage.removeItem(k);
+      sessionStorage.removeItem(k);
+    });
+  } catch (e) {}
+  if (typeof document !== 'undefined' && document.documentElement) {
+    document.documentElement.setAttribute('lang', 'en');
+    document.documentElement.setAttribute('dir', 'ltr');
+  }
 }
 window.currentLang = 'en';
 
@@ -476,9 +478,6 @@ window.I18N = {
     },
     addMemberBtn: {
       en: "Add Member",
-    },
-    messageBtn: {
-      en: "Private Dispatch",
     },
     messageSoon: {
       en: "Private Dispatch — Coming Soon",

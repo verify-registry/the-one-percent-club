@@ -7,7 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
   initMetallicAssets();
 });
 
+let metallicAssetsInitialized = false;
+
 function initMetallicAssets() {
+  if (metallicAssetsInitialized) return;
+  metallicAssetsInitialized = true;
+
   // 1. Use native OffscreenCanvas API if supported for hardware acceleration
   const size = 256; // Optimal size for detail vs memory
   let offscreen, ctx;
@@ -136,37 +141,44 @@ function initMetallicAssets() {
     defs.appendChild(pattern);
   }
 
-  // Function to apply the 3D metal texture to specific elements
+  const TARGET_METAL_GRADIENTS = new Set([
+    "url(#wreathGrad)",
+    "url(#bezelGrad)",
+    "url(#ringGoldGrad)",
+  ]);
+
+  const processEl = (el) => {
+    const fill = el.getAttribute("fill");
+    if (fill && TARGET_METAL_GRADIENTS.has(fill.replace(/\s/g, ""))) {
+      el.setAttribute("fill", "url(#metal3D)");
+    }
+    const stroke = el.getAttribute("stroke");
+    if (stroke && TARGET_METAL_GRADIENTS.has(stroke.replace(/\s/g, ""))) {
+      el.setAttribute("stroke", "url(#metal3D)");
+    }
+  };
+
+  // Function to apply the 3D metal texture to specific SVG elements without scanning plain HTML subtrees
   const applyMetal = (node) => {
-    if (node.nodeType === 1) {
-      // Element node
-      const targetGradients = [
-        "url(#wreathGrad)",
-        "url(#bezelGrad)",
-        "url(#ringGoldGrad)",
-      ];
+    if (!node || node.nodeType !== 1 || !node.isConnected) return;
 
-      const processEl = (el) => {
-        const fill = el.getAttribute("fill");
-        if (fill && targetGradients.includes(fill.replace(/\s/g, ""))) {
-          el.setAttribute("fill", "url(#metal3D)");
-        }
-        const stroke = el.getAttribute("stroke");
-        if (stroke && targetGradients.includes(stroke.replace(/\s/g, ""))) {
-          el.setAttribute("stroke", "url(#metal3D)");
-        }
-      };
+    if (
+      node.hasAttribute &&
+      (node.hasAttribute("fill") || node.hasAttribute("stroke"))
+    ) {
+      processEl(node);
+    }
 
-      if (
-        node.hasAttribute &&
-        (node.hasAttribute("fill") || node.hasAttribute("stroke"))
-      ) {
-        processEl(node);
+    if (node.childElementCount > 0) {
+      const isSvgSubtree =
+        (typeof SVGElement !== "undefined" && node instanceof SVGElement) ||
+        (typeof node.getElementsByTagName === "function" &&
+          node.getElementsByTagName("svg").length > 0);
+      if (isSvgSubtree) {
+        node
+          .querySelectorAll('[fill*="url(#"], [stroke*="url(#"]')
+          .forEach(processEl);
       }
-
-      node
-        .querySelectorAll('[fill*="url(#"], [stroke*="url(#"]')
-        .forEach(processEl);
     }
   };
 
@@ -175,16 +187,45 @@ function initMetallicAssets() {
 
   // 2. Observe DOM mutations so dynamically added components (like bezelTicks in app.js) get the texture too
   const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach(applyMetal);
+    const addedElements = new Set();
+    for (let i = 0; i < mutations.length; i++) {
+      const addedNodes = mutations[i].addedNodes;
+      for (let j = 0; j < addedNodes.length; j++) {
+        const node = addedNodes[j];
+        if (node.nodeType === 1 && node.isConnected) {
+          addedElements.add(node);
+        }
+      }
+    }
+    if (addedElements.size === 0) return;
+
+    if (addedElements.size === 1) {
+      for (const node of addedElements) {
+        applyMetal(node);
+      }
+      return;
+    }
+
+    addedElements.forEach((node) => {
+      // Skip descendants whose ancestor is already included in this mutation batch
+      let parent = node.parentElement;
+      while (parent) {
+        if (addedElements.has(parent)) return;
+        parent = parent.parentElement;
+      }
+      applyMetal(node);
     });
   });
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
+let guillocheInitialized = false;
+
 function initGuilloche() {
+  if (guillocheInitialized) return;
   const canvas = document.getElementById("guillocheCanvas");
   if (!canvas) return;
+  guillocheInitialized = true;
   const ctx = canvas.getContext("2d", { alpha: true }); // Optimize by disabling alpha channel on base canvas
 
   // Performance optimization: track current dimensions to prevent redundant redraws
@@ -192,23 +233,17 @@ function initGuilloche() {
   let currentHeight = 0;
   let currentDpr = 1;
   let currentIsLight = document.body.classList.contains("light-mode");
-  let resizeTimeout;
   let isDirty = false;
   let animFrameId = null;
+  let resizeRafId = null;
 
   const isTabActive = () => {
-    if (document.hidden) return false;
+    if (document.hidden || !canvas.isConnected) return false;
     const tab = document.getElementById("membership-tab");
     return Boolean(tab && tab.classList.contains("is-active"));
   };
 
-  const drawFrame = () => {
-    animFrameId = null;
-    if (!isDirty || !isTabActive()) return;
-    isDirty = false;
-    drawGuilloche(ctx, currentWidth, currentHeight);
-
-    // Sync Boutique Primary Widget canvas if present
+  const syncBoutiqueGuillocheCanvas = () => {
     const boutiqueCanvas = document.querySelector("#boutique-tab .guilloche-canvas");
     if (boutiqueCanvas && boutiqueCanvas.parentElement) {
       const bRect = boutiqueCanvas.parentElement.getBoundingClientRect();
@@ -225,6 +260,16 @@ function initGuilloche() {
     }
   };
 
+  const drawFrame = () => {
+    animFrameId = null;
+    if (!isDirty || !isTabActive()) return;
+    isDirty = false;
+    drawGuilloche(ctx, currentWidth, currentHeight);
+
+    // Sync Boutique Primary Widget canvas if present
+    syncBoutiqueGuillocheCanvas();
+  };
+
   const requestDraw = () => {
     if (!isTabActive()) return;
     if (animFrameId) cancelAnimationFrame(animFrameId);
@@ -233,38 +278,27 @@ function initGuilloche() {
 
   const forceRedraw = () => {
     const isLight = document.body.classList.contains("light-mode");
-    if (currentIsLight !== isLight) {
-      currentIsLight = isLight;
-      isDirty = true;
+    if (currentIsLight === isLight) return;
+    currentIsLight = isLight;
+    isDirty = true;
+    if (isTabActive()) {
       requestDraw();
+    } else {
+      // Refresh boutique widget canvas immediately when theme changes off the Membership tab
+      syncBoutiqueGuillocheCanvas();
     }
   };
 
-  // Watch for theme changes specifically
+  // Watch for theme changes specifically (guarded so non-theme body class mutations do not redraw)
   const themeObserver = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      if (mutation.attributeName === 'class') {
+    for (let i = 0; i < mutations.length; i++) {
+      if (mutations[i].attributeName === "class") {
         forceRedraw();
-
-        // Also refresh boutique widget canvas on theme change
-        const boutiqueCanvas = document.querySelector("#boutique-tab .guilloche-canvas");
-        if (boutiqueCanvas && boutiqueCanvas.parentElement) {
-          const bRect = boutiqueCanvas.parentElement.getBoundingClientRect();
-          if (bRect.width > 0 && bRect.height > 0) {
-            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-            boutiqueCanvas.width = bRect.width * dpr;
-            boutiqueCanvas.height = bRect.height * dpr;
-            const bCtx = boutiqueCanvas.getContext("2d");
-            if (bCtx) {
-              bCtx.scale(dpr, dpr);
-              drawGuilloche(bCtx, bRect.width, bRect.height);
-            }
-          }
-        }
+        break;
       }
     }
   });
-  themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  themeObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
   window.resumeGuillocheCanvas = () => {
     if (isTabActive()) {
@@ -279,10 +313,16 @@ function initGuilloche() {
       cancelAnimationFrame(animFrameId);
       animFrameId = null;
     }
+    if (resizeRafId) {
+      cancelAnimationFrame(resizeRafId);
+      resizeRafId = null;
+    }
   };
 
   const resizeCanvas = () => {
+    if (!canvas.isConnected) return;
     const parent = canvas.parentElement;
+    if (!parent) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const rect = parent.getBoundingClientRect();
 
@@ -302,7 +342,7 @@ function initGuilloche() {
     currentWidth = rect.width;
     currentHeight = rect.height;
     currentDpr = dpr;
-    currentIsLight = document.body.classList.contains("light-mode");
+    currentIsLight = isLight;
 
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
@@ -325,9 +365,12 @@ function initGuilloche() {
       for (const entry of entries) {
         const cr = entry.contentRect;
         if (cr.width > 0 && cr.height > 0) {
-          requestAnimationFrame(() => {
+          if (resizeRafId) cancelAnimationFrame(resizeRafId);
+          resizeRafId = requestAnimationFrame(() => {
+            resizeRafId = null;
+            if (!canvas.isConnected) return;
             resizeCanvas();
-            requestDraw();
+            if (isDirty) requestDraw();
           });
           break;
         }
@@ -1166,26 +1209,43 @@ function initActionButtonsTactileFeedback() {
     "#membership-tab .card-actions .btn, #shareBtn, #copyBtn"
   );
   buttons.forEach((btn) => {
+    if (btn.dataset.tactileBound) return;
+    btn.dataset.tactileBound = "true";
+
+    let releaseTimer = null;
+    const clearReleaseTimer = () => {
+      if (releaseTimer !== null) {
+        clearTimeout(releaseTimer);
+        releaseTimer = null;
+      }
+    };
+
     const handleDown = () => {
+      clearReleaseTimer();
       btn.classList.add("is-pressed");
     };
     const handleUp = () => {
+      clearReleaseTimer();
+      if (!btn.isConnected) return;
       btn.classList.remove("is-pressed");
       btn.blur();
     };
+    const scheduleUp = (delay) => {
+      clearReleaseTimer();
+      releaseTimer = setTimeout(() => {
+        releaseTimer = null;
+        handleUp();
+      }, delay);
+    };
 
     btn.addEventListener("touchstart", handleDown, { passive: true });
-    btn.addEventListener("touchend", () => {
-      setTimeout(handleUp, 80);
-    }, { passive: true });
+    btn.addEventListener("touchend", () => scheduleUp(80), { passive: true });
     btn.addEventListener("touchcancel", handleUp, { passive: true });
     btn.addEventListener("pointerdown", handleDown);
     btn.addEventListener("pointerup", handleUp);
     btn.addEventListener("pointercancel", handleUp);
     btn.addEventListener("pointerleave", handleUp);
-    btn.addEventListener("click", () => {
-      setTimeout(handleUp, 100);
-    });
+    btn.addEventListener("click", () => scheduleUp(100));
   });
 }
 
@@ -1332,9 +1392,29 @@ function requestTiltPermissionOnce() {
   }
 }
 
+let orientationGestureListenersBound = false;
+
+function detachOrientationGestureListeners() {
+  if (!orientationGestureListenersBound) return;
+  document.removeEventListener("click", tryAttachOrientation);
+  document.removeEventListener("touchend", tryAttachOrientation);
+  orientationGestureListenersBound = false;
+}
+
+function tryAttachOrientation() {
+  if (deviceOrientationAttached) {
+    detachOrientationGestureListeners();
+    return;
+  }
+  if (isGyroscopeEnabled()) {
+    requestTiltPermissionOnce();
+  }
+}
+
 function enableDeviceTilt() {
   if (deviceOrientationAttached) return;
   deviceOrientationAttached = true;
+  detachOrientationGestureListeners();
   window.addEventListener("deviceorientation", handleDeviceOrientation, { passive: true });
 }
 
@@ -1615,14 +1695,31 @@ window._resetCardTiltOnHidden = function () {
 
 // Smoothly return card to neutral when switching tabs
 document.querySelectorAll(".nav-item").forEach((btn) => {
+  if (btn.dataset.tiltNavBound) return;
+  btn.dataset.tiltNavBound = "true";
   btn.addEventListener("click", () => {
     targetRotX = 0;
     targetRotY = 0;
     resetAllCardTransforms();
-    if (!tiltLoopActive) {
-      tiltLoopActive = true;
-      cancelAnimationFrame(tiltAnimFrame);
-      tiltAnimFrame = requestAnimationFrame(tiltLoop);
+    if (
+      isMembershipTabActive() &&
+      (Math.abs(currentRotX) >= TILT_EPSILON || Math.abs(currentRotY) >= TILT_EPSILON)
+    ) {
+      if (!tiltLoopActive) {
+        tiltLoopActive = true;
+        cancelAnimationFrame(tiltAnimFrame);
+        tiltAnimFrame = requestAnimationFrame(tiltLoop);
+      }
+    } else {
+      currentRotX = 0;
+      currentRotY = 0;
+      if (tiltLoopActive) {
+        tiltLoopActive = false;
+        if (tiltAnimFrame) {
+          cancelAnimationFrame(tiltAnimFrame);
+          tiltAnimFrame = null;
+        }
+      }
     }
   });
 });
@@ -1647,14 +1744,13 @@ window.isGyroscopeEnabled = isGyroscopeEnabled;
 
 function initGlobalTilt() {
   // Device Orientation Setup on user gestures (iOS 13+ & Android)
-  const tryAttachOrientation = () => {
-    if (!deviceOrientationAttached && isGyroscopeEnabled()) {
-      requestTiltPermissionOnce();
-    }
-  };
-  document.addEventListener("click", tryAttachOrientation, { passive: true });
-  document.addEventListener("touchend", tryAttachOrientation, { passive: true });
+  // Attempt immediate attach first; only bind document gesture listeners while awaiting permission
   tryAttachOrientation();
+  if (!deviceOrientationAttached && !orientationGestureListenersBound) {
+    orientationGestureListenersBound = true;
+    document.addEventListener("click", tryAttachOrientation, { passive: true });
+    document.addEventListener("touchend", tryAttachOrientation, { passive: true });
+  }
 
   // Setup all tilt cards idempotently
   document.querySelectorAll(".luxury-tilt-card").forEach((card) => {
@@ -1670,7 +1766,14 @@ function initGlobalTilt() {
     const startHoverAmbient = () => {
       cancelAnimationFrame(hoverAmbientFrame);
       const loop = () => {
-        if (!isHovered) return;
+        if (!isHovered || document.hidden || !card.isConnected) {
+          isHovered = false;
+          isPointerInteracting = false;
+          cachedRect = null;
+          card.classList.remove("is-hovered");
+          hoverAmbientFrame = null;
+          return;
+        }
         const now = performance.now();
         // If cursor pauses for >200ms, introduce a gentle living micro-tilt breath (~0.5deg)
         if (now - lastPointerMoveTime > 200) {
@@ -1687,10 +1790,12 @@ function initGlobalTilt() {
     card.addEventListener("pointerenter", (e) => {
       if (e.pointerType === "touch") return;
       if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn, #profileMedallionCase")) return;
+      const rect = card.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
       isHovered = true;
       isPointerInteracting = true;
       card.classList.add("is-hovered");
-      cachedRect = card.getBoundingClientRect();
+      cachedRect = rect;
 
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(6); // subtle tick on hover enter
@@ -1700,7 +1805,6 @@ function initGlobalTilt() {
         window.AudioEngine.playHover();
       }
 
-      const rect = cachedRect;
       const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
       const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
       lastPointerMoveTime = performance.now();
@@ -1715,9 +1819,11 @@ function initGlobalTilt() {
       moveQueued = true;
       requestAnimationFrame(() => {
         moveQueued = false;
+        if (!card.isConnected || document.hidden) return;
         lastPointerMoveTime = performance.now();
         if (!cachedRect) cachedRect = card.getBoundingClientRect();
         const rect = cachedRect;
+        if (!rect.width || !rect.height) return;
         const nx = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
         const ny = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
 
@@ -1734,6 +1840,7 @@ function initGlobalTilt() {
       cachedRect = null;
       card.classList.remove("is-hovered");
       cancelAnimationFrame(hoverAmbientFrame);
+      hoverAmbientFrame = null;
       resetTiltForCard(card);
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(4); // subtle tick on hover leave
@@ -1752,7 +1859,15 @@ function initGlobalTilt() {
       const startTime = performance.now();
       cancelAnimationFrame(longPressAnimFrame);
       const loop = () => {
-        if (!isLongPressActive) return;
+        if (!isLongPressActive || document.hidden || !card.isConnected) {
+          longPressAnimFrame = null;
+          if (document.hidden || !card.isConnected) {
+            isLongPressActive = false;
+            isPointerInteracting = false;
+            card.classList.remove("is-long-press-active");
+          }
+          return;
+        }
         const elapsed = (performance.now() - startTime) * 0.0016;
         // Restrained, continuous luxury 3D tilt orbit while held (max ~±1.1 deg)
         const orbitRx = Math.sin(elapsed) * 0.9;
@@ -1773,13 +1888,15 @@ function initGlobalTilt() {
 
       clearTimeout(longPressTimer);
       cancelAnimationFrame(longPressAnimFrame);
+      longPressAnimFrame = null;
 
       if (window.navigator && window.navigator.vibrate) {
         window.navigator.vibrate(8);
       }
 
       longPressTimer = setTimeout(() => {
-        if (!isTouching) return;
+        longPressTimer = null;
+        if (!isTouching || document.hidden || !card.isConnected) return;
         isLongPressActive = true;
         isPointerInteracting = true;
         wasLongPress = true;
@@ -1810,12 +1927,15 @@ function initGlobalTilt() {
         }
       } else {
         cancelAnimationFrame(longPressAnimFrame);
+        longPressAnimFrame = null;
         if (touchMoveQueued) return;
         touchMoveQueued = true;
         requestAnimationFrame(() => {
           touchMoveQueued = false;
+          if (!card.isConnected || document.hidden || !isLongPressActive) return;
           if (!cachedRect) cachedRect = card.getBoundingClientRect();
           const rect = cachedRect;
+          if (!rect.width || !rect.height) return;
           const nx = Math.max(-1, Math.min(1, ((curX - rect.left) / rect.width - 0.5) * 2));
           const ny = Math.max(-1, Math.min(1, ((curY - rect.top) / rect.height - 0.5) * 2));
           updateTiltTarget(-ny * TILT_MAX_DEG, nx * TILT_MAX_DEG);
@@ -1825,9 +1945,11 @@ function initGlobalTilt() {
 
     const endTouch = () => {
       isTouching = false;
+      cachedRect = null;
       clearTimeout(longPressTimer);
       longPressTimer = null;
       cancelAnimationFrame(longPressAnimFrame);
+      longPressAnimFrame = null;
 
       if (isLongPressActive) {
         isLongPressActive = false;
@@ -1859,9 +1981,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // GOLD DUST PARTICLES
+let goldDustInitialized = false;
+
 function initGoldDust() {
+  if (goldDustInitialized) return;
   const canvas = document.getElementById("goldDustCanvas");
   if (!canvas) return;
+  goldDustInitialized = true;
   const ctx = canvas.getContext("2d", { alpha: true });
 
   let particles = [];
@@ -1941,17 +2067,28 @@ function initGoldDust() {
   };
 
   const resize = () => {
+    if (!canvas.isConnected) return;
     const parent = canvas.parentElement;
     if (!parent) return;
     const rect = parent.getBoundingClientRect();
     if (rect.width <= 0 || rect.height <= 0) return;
 
-    width = rect.width;
-    height = rect.height;
-
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
+    const targetW = Math.round(rect.width * dpr);
+    const targetH = Math.round(rect.height * dpr);
+
+    // Avoid redundant canvas buffer reallocations on no-op resize ticks
+    if (
+      width !== rect.width ||
+      height !== rect.height ||
+      canvas.width !== targetW ||
+      canvas.height !== targetH
+    ) {
+      width = rect.width;
+      height = rect.height;
+      canvas.width = targetW;
+      canvas.height = targetH;
+    }
 
     if (particles.length === 0) {
       initParticles();
@@ -1974,7 +2111,7 @@ function initGoldDust() {
   };
 
   const isCardActive = () => {
-    if (document.hidden) return false;
+    if (document.hidden || !canvas.isConnected) return false;
     const tab = document.getElementById("membership-tab");
     return Boolean(tab && tab.classList.contains("is-active"));
   };
@@ -1998,12 +2135,24 @@ function initGoldDust() {
 
     const isLight = document.body.classList.contains("light-mode");
 
-    // Clean up dead burst particles
-    particles = particles.filter((p) => !p.isBurst || p.life > 0);
+    // Clean up dead burst particles and count base particles in-place (zero per-frame array allocations)
+    let baseCount = 0;
+    let writeIdx = 0;
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      if (p.isBurst && p.life <= 0) continue;
+      if (!p.isBurst) baseCount++;
+      if (writeIdx !== i) particles[writeIdx] = p;
+      writeIdx++;
+    }
+    if (writeIdx !== particles.length) {
+      particles.length = writeIdx;
+    }
 
     // Maintain base particle population
-    while (particles.filter(p => !p.isBurst).length < PARTICLE_COUNT) {
+    while (baseCount < PARTICLE_COUNT) {
       particles.push(createParticle(false, Math.random() * width, height + 6));
+      baseCount++;
     }
 
     // Parallax tilt shift from 3D tilt engine
@@ -2146,6 +2295,7 @@ function initGoldDust() {
 
   // Initialize after layout settles
   setTimeout(() => {
+    if (!canvas.isConnected) return;
     resize();
     if (!animId && isCardActive()) {
       draw();
@@ -2170,30 +2320,50 @@ window.resumeMembershipRAF = function() {
 // Single visibilitychange, single #membership-tab MutationObserver, single debounced resize
 // =========================================================================
 (function initLuxuryLifecycleHub() {
+  const membershipTabEl = document.getElementById("membership-tab");
+  let lastMembershipActive = membershipTabEl
+    ? membershipTabEl.classList.contains("is-active") && !document.hidden
+    : false;
+
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
+      lastMembershipActive = false;
       window.pauseGuillocheCanvas?.();
       window.pauseGoldDustCanvas?.();
+      window.pauseCardTiltLoop?.();
       window._resetCardTiltOnHidden?.();
     } else {
+      lastMembershipActive = Boolean(
+        membershipTabEl && membershipTabEl.classList.contains("is-active")
+      );
       window.resumeGuillocheCanvas?.();
       window.resumeGoldDustCanvas?.();
     }
   });
 
-  const membershipTabEl = document.getElementById("membership-tab");
   if (membershipTabEl) {
     const sharedTabObserver = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        if (m.attributeName === "class") {
-          if (membershipTabEl.classList.contains("is-active") && !document.hidden) {
-            window.resumeGuillocheCanvas?.();
-            window.resumeGoldDustCanvas?.();
-          } else {
-            window.pauseGuillocheCanvas?.();
-            window.pauseGoldDustCanvas?.();
-          }
+      let classChanged = false;
+      for (let i = 0; i < mutations.length; i++) {
+        if (mutations[i].attributeName === "class") {
+          classChanged = true;
+          break;
         }
+      }
+      if (!classChanged) return;
+
+      const isActive =
+        membershipTabEl.classList.contains("is-active") && !document.hidden;
+      if (isActive === lastMembershipActive) return;
+      lastMembershipActive = isActive;
+
+      if (isActive) {
+        window.resumeGuillocheCanvas?.();
+        window.resumeGoldDustCanvas?.();
+      } else {
+        window.pauseGuillocheCanvas?.();
+        window.pauseGoldDustCanvas?.();
+        window.pauseCardTiltLoop?.();
       }
     });
     sharedTabObserver.observe(membershipTabEl, { attributes: true, attributeFilter: ["class"] });

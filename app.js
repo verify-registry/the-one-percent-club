@@ -94,6 +94,9 @@ let currentLang = "en";
 window.currentLang = "en";
 var boutiqueLoadingTimeout = null;
 var profileCollectionTimeout = null;
+let langArrowTimer = null;
+let skipProfileCollectionInNextNotify = false;
+let globalSettingsInitialized = false;
 // window.t and window.getTranslation are defined authoritatively in translations.js (loaded prior to app.js)
 
 window.syncClubInputDirection = function (inputEl) {
@@ -132,7 +135,14 @@ window.setLanguage = function () {
     window.syncClubInputDirection();
   }
   if (typeof updateClubRoomsArrowState === "function") {
-    setTimeout(updateClubRoomsArrowState, 50);
+    const roomsArrow = document.getElementById("clubRoomsScrollArrow");
+    if (!roomsArrow || !roomsArrow._discoveryBound) {
+      if (langArrowTimer !== null) clearTimeout(langArrowTimer);
+      langArrowTimer = setTimeout(() => {
+        langArrowTimer = null;
+        updateClubRoomsArrowState();
+      }, 50);
+    }
   }
   // Update typography
   const root = document.documentElement;
@@ -183,15 +193,27 @@ window.setLanguage = function () {
   });
 
   // Update specific UI states if needed
-  if (typeof window.applyLanguage === "function") window.applyLanguage(lang);
+  const didApplyLanguage = typeof window.applyLanguage === "function";
+  if (didApplyLanguage) window.applyLanguage(lang);
   if (typeof window.updateUI === "function") {
-    window.updateUI();
+    skipProfileCollectionInNextNotify = didApplyLanguage && Boolean(window.isProfileInitialized);
+    try {
+      window.updateUI();
+    } finally {
+      skipProfileCollectionInNextNotify = false;
+    }
   }
-  if (typeof window.renderBoutique === "function") window.renderBoutique();
+  if (!document.querySelector(".boutique-tab.is-active") && typeof window.renderBoutique === "function") {
+    window.renderBoutique();
+  }
   if (typeof window.updateBoutiqueGliders === "function") window.updateBoutiqueGliders(true);
-  if (typeof window.renderMessages === "function") window.renderMessages();
-  if (typeof window.renderLeaderboard === "function")
+  if (typeof window.renderMessages === "function" && document.getElementById("clubMessages")?.childElementCount > 0) {
+    window.renderMessages();
+  }
+  const lbTarget = document.getElementById("clubLeaderboardContainer") || document.getElementById("leaderboardList");
+  if (typeof window.renderLeaderboard === "function" && lbTarget && lbTarget.childElementCount > 0) {
     window.renderLeaderboard();
+  }
   // Update open Member Dossier modal in-place if currently active
   const pageMember = document.getElementById("page-member");
   if (pageMember && !pageMember.hidden && pageMember.classList.contains("is-active") && window.currentActiveMemberProfile) {
@@ -202,43 +224,7 @@ window.setLanguage = function () {
   if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
     window.ThemeManager.syncModalUI();
   }
-  if (typeof window.updateSovereignSalonTickerInPlace === "function") {
-    window.updateSovereignSalonTickerInPlace();
-  } else if (typeof window.updateClubTicker === "function") {
-    window.updateClubTicker();
-  }
   window.dispatchEvent(new CustomEvent("languageChanged", { detail: { lang } }));
-
-  // Update Profile hero tier text
-  const profileHeroTier = document.getElementById("profileTierName");
-  if (typeof AppState !== "undefined") {
-    const tier = AppState.user.tier;
-    let heroTierTrans = window.t("profile.heroSovereignTier");
-    if (tier === "Sovereign" ) {
-      heroTierTrans = window.t("profile.heroSovereignTier");
-    } else if (tier === "Elite" ) {
-      heroTierTrans = window.t("profile.heroEliteTier");
-    }
-    if (profileHeroTier) profileHeroTier.textContent = heroTierTrans;
-  }
-
-  // Explicit sync for Member Dossier Modal & Honor Badge
-  const rankLabel = document.getElementById("memberDossierRankLabel");
-  if (rankLabel) {
-    rankLabel.textContent = window.t("memberDossier.standingTier", lang);
-  }
-  const regTitle = document.querySelector(".sd-reg-title");
-  if (regTitle) {
-    regTitle.textContent = window.t("memberDossier.registryTitle", lang);
-  }
-  const charterLabelEl = document.querySelector(".sd-reg-label[data-i18n='memberDossier.charterLabel']");
-  if (charterLabelEl) {
-    charterLabelEl.textContent = window.t("memberDossier.charterLabel", lang);
-  }
-  const hrrStatusBadge = document.getElementById("hrrStatusBadge");
-  if (hrrStatusBadge) {
-    hrrStatusBadge.textContent = window.t("honors.officialStatusBadge", lang);
-  }
 
   // Explicit sync for Club pinned chamber title
   if (typeof updateClubPinnedTitle === "function") {
@@ -247,20 +233,28 @@ window.setLanguage = function () {
 };
 
 function initGlobalSettings() {
-  window.setLanguage("en");
+  if (globalSettingsInitialized) return;
+  globalSettingsInitialized = true;
 
   // --- Theme Mode State Manager ---
   window.ThemeManager = {
+    _currentTheme: null,
+    _initialized: false,
     getTheme() {
+      if (this._currentTheme === "light" || this._currentTheme === "dark") {
+        return this._currentTheme;
+      }
       try {
         const saved = localStorage.getItem("app_theme");
         if (saved === "light" || saved === "dark") {
           return saved;
         }
-        return "dark";
-      } catch {
-        return "dark";
+      } catch {}
+      const rootTheme = document.documentElement && document.documentElement.getAttribute("data-theme");
+      if (rootTheme === "light" || rootTheme === "dark") {
+        return rootTheme;
       }
+      return "dark";
     },
     isLight() {
       return this.getTheme() === "light";
@@ -270,24 +264,41 @@ function initGlobalSettings() {
       const isLight = validTheme === "light";
       const root = document.documentElement;
       const body = document.body;
+      const expectedClass = isLight ? "light-mode" : "dark-mode";
+      const oppositeClass = isLight ? "dark-mode" : "light-mode";
 
-      // Apply temporary smooth transition class for silky 120Hz morphing
-      root.classList.add("theme-transitioning");
-      if (this._themeTransitionTimer) clearTimeout(this._themeTransitionTimer);
-      this._themeTransitionTimer = setTimeout(() => {
-        root.classList.remove("theme-transitioning");
-      }, 340);
+      const rootMatches =
+        root.getAttribute("data-theme") === validTheme &&
+        root.classList.contains(expectedClass) &&
+        !root.classList.contains(oppositeClass);
+      const bodyMatches =
+        !body ||
+        (body.getAttribute("data-theme") === validTheme &&
+          body.classList.contains(expectedClass) &&
+          !body.classList.contains(oppositeClass));
+      const domChanged = !(rootMatches && bodyMatches);
 
-      // Toggle dark-mode / light-mode classes on document root element (<html>)
-      root.classList.toggle("light-mode", isLight);
-      root.classList.toggle("dark-mode", !isLight);
-      root.setAttribute("data-theme", validTheme);
+      this._currentTheme = validTheme;
 
-      // Keep body synchronized for backwards compatibility
-      if (body) {
-        body.classList.toggle("light-mode", isLight);
-        body.classList.toggle("dark-mode", !isLight);
-        body.setAttribute("data-theme", validTheme);
+      if (domChanged) {
+        // Apply temporary smooth transition class for silky 120Hz morphing
+        root.classList.add("theme-transitioning");
+        if (this._themeTransitionTimer) clearTimeout(this._themeTransitionTimer);
+        this._themeTransitionTimer = setTimeout(() => {
+          root.classList.remove("theme-transitioning");
+        }, 340);
+
+        // Toggle dark-mode / light-mode classes on document root element (<html>)
+        root.classList.toggle("light-mode", isLight);
+        root.classList.toggle("dark-mode", !isLight);
+        root.setAttribute("data-theme", validTheme);
+
+        // Keep body synchronized for backwards compatibility
+        if (body) {
+          body.classList.toggle("light-mode", isLight);
+          body.classList.toggle("dark-mode", !isLight);
+          body.setAttribute("data-theme", validTheme);
+        }
       }
 
       // Persist theme choice in localStorage when explicitly requested
@@ -306,14 +317,16 @@ function initGlobalSettings() {
       // Synchronize Settings Modal controls & descriptions
       this.syncModalUI();
 
-      // Trigger redraws for dynamic luxury elements (Guilloche canvas & dual-mode artifacts)
-      const themeDetail = { theme: validTheme, isLight };
-      window.dispatchEvent(new CustomEvent("themechange", { detail: themeDetail }));
-      window.dispatchEvent(new CustomEvent("themeChanged", { detail: themeDetail }));
-      if (this._resizeDebounceTimer) clearTimeout(this._resizeDebounceTimer);
-      this._resizeDebounceTimer = setTimeout(() => {
-        window.dispatchEvent(new Event("resize"));
-      }, 100);
+      // Trigger redraws for dynamic luxury elements only when the active theme actually changed
+      if (domChanged) {
+        const themeDetail = { theme: validTheme, isLight };
+        window.dispatchEvent(new CustomEvent("themechange", { detail: themeDetail }));
+        window.dispatchEvent(new CustomEvent("themeChanged", { detail: themeDetail }));
+        if (this._resizeDebounceTimer) clearTimeout(this._resizeDebounceTimer);
+        this._resizeDebounceTimer = setTimeout(() => {
+          window.dispatchEvent(new Event("resize"));
+        }, 100);
+      }
     },
     toggle() {
       const next = this.isLight() ? "dark" : "light";
@@ -355,15 +368,21 @@ function initGlobalSettings() {
       }
     },
     init() {
+      if (this._initialized) {
+        this.syncModalUI();
+        this.bindToggle();
+        return;
+      }
+      this._initialized = true;
       const initial = this.getTheme();
       // Apply initial theme without overwriting existing localStorage preferences
       this.setTheme(initial, false);
       this.bindToggle();
-      this.syncModalUI();
     },
   };
 
   window.ThemeManager.init();
+  window.setLanguage("en");
 
   // --- Horological Soundscape Global Controller (Settings Modal) ---
   function syncAudioSoundUI(enabled) {
@@ -496,7 +515,6 @@ function initGlobalSettings() {
         : window.t("settings.stealthDisabledToast");
       if (typeof showNavToast === "function") showNavToast(msg);
       if (typeof updateUI === "function") updateUI();
-      if (typeof updateMasterCard === "function") updateMasterCard();
     });
   }
 }
@@ -1668,10 +1686,6 @@ const AppState = {
       this.save();
       this.notify();
 
-      if (typeof renderProfileCollection === "function") {
-        renderProfileCollection(false);
-      }
-
       // Subtle tactile haptic impulse for successful Boutique transaction
       if (window.HapticEngine) {
         window.HapticEngine.boutiquePurchase();
@@ -2043,8 +2057,6 @@ AppState.init();
 const savedAppLang = localStorage.getItem("one_percent_lang");
 const initialLang = savedAppLang === "ar" ? "ar" : "en";
 AppState.language = initialLang;
-if (typeof window.applyLanguage === "function")
-  window.applyLanguage(initialLang);
 
 document.getElementById("photoUploadBtn")?.addEventListener("click", () => {
   document.getElementById("photoInput")?.click();
@@ -2220,14 +2232,9 @@ ClubState.on("change", () => {
   const balEl = document.getElementById("boutiqueBalanceDisplay");
   if (balEl) balEl.textContent = AppState.balance.toLocaleString("en-US");
 
-  const countEl = document.getElementById("profileItemCount");
-  if (countEl) countEl.textContent = AppState.collectedItems.length;
-
   if (typeof initProfile === "function" && !window.isProfileInitialized) {
     initProfile();
-  }
-
-  if (typeof renderProfileCollection === "function") {
+  } else if (!skipProfileCollectionInNextNotify && typeof renderProfileCollection === "function") {
     renderProfileCollection(false);
   }
 
@@ -2797,16 +2804,6 @@ document.querySelectorAll(".boutique-tab").forEach((tab) => {
   });
 });
 
-renderBoutique();
-window.updateBoutiqueGliders?.(true);
-
-const balanceDisplay = document.getElementById("boutiqueBalanceDisplay");
-if (balanceDisplay) {
-  balanceDisplay.textContent = ClubState.balance.toLocaleString("en-US");
-}
-
-updateUI();
-
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 const copyToast = document.getElementById("copyToast");
@@ -3168,7 +3165,7 @@ window.tabScrollPositions = {
   profile: 0,
   boutique: 0
 };
-window.isProfileInitialized = false;
+window.isProfileInitialized = Boolean(window.isProfileInitialized);
 
 // ==========================================
 // ==========================================
@@ -3707,8 +3704,6 @@ function closeMemberProfile() {
 }
 window.closeMemberProfile = closeMemberProfile;
 
-document.getElementById("memberProfileCloseBtn")?.addEventListener("click", closeMemberProfile);
-
 function initMemberDossierActionButtons() {
   const handleAction = (e) => {
     if (e) {
@@ -3832,8 +3827,6 @@ function updateCreditsUI(forceAnimate = false) {
 if (typeof window !== "undefined") {
   window.updateCreditsUI = updateCreditsUI;
 }
-
-updateCreditsUI();
 
 // ---------------------------------------------------------
 // ---------------------------------------------------------
@@ -4162,7 +4155,7 @@ window.setClubFloatingControlsVisibility = function(visible) {
   }
 };
 
-function updateClubPinnedTitle(lang = (window.currentLang || (typeof AppState !== "undefined" && AppState.language) || "ar")) {
+function updateClubPinnedTitle(lang = (window.currentLang || (typeof AppState !== "undefined" && AppState.language) || "en")) {
   const pinnedTitle = document.getElementById("clubPinnedTitle");
   if (!pinnedTitle) return;
   const channelId = (typeof AppState !== "undefined" && AppState.activeChannelId) || "global-lounge";
@@ -5950,9 +5943,16 @@ if (clubInputEl) {
 })();
 
 /* === 6. MODALS & SETTINGS LOGIC === */
+let inspectionToDepositTimer = null;
+
 function openInspectionModal(item, catKey, isOwned, isEquipped) {
   const modal = document.getElementById("inspectionModal");
   if (!modal) return;
+
+  if (inspectionToDepositTimer !== null) {
+    clearTimeout(inspectionToDepositTimer);
+    inspectionToDepositTimer = null;
+  }
 
   modal.hidden = false;
   if (window.AudioEngine && window.AudioEngine.playModalOpen) {
@@ -6100,7 +6100,11 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
       equipBtn.onclick = () => {
         closeInspectionModal();
         if (typeof window.openDepositModal === "function") {
-          setTimeout(() => window.openDepositModal(), 200);
+          if (inspectionToDepositTimer !== null) clearTimeout(inspectionToDepositTimer);
+          inspectionToDepositTimer = setTimeout(() => {
+            inspectionToDepositTimer = null;
+            window.openDepositModal();
+          }, 200);
         }
       };
     } else {
@@ -6119,14 +6123,6 @@ function openInspectionModal(item, catKey, isOwned, isEquipped) {
     }
   }
 }
-
-document.getElementById("inspectionCloseBtn")?.addEventListener("click", () => {
-  closeInspectionModal();
-});
-
-document.getElementById("reliquaryModalCloseBtn")?.addEventListener("click", () => {
-  if (typeof closeReliquaryInspectModal === "function") closeReliquaryInspectModal();
-});
 
 // Reliquary modal backdrop is unified and managed by initUnifiedModalBackdrops
 
@@ -6190,10 +6186,9 @@ function updateMasterCard() {
 
   if (window.renderMembershipTab) window.renderMembershipTab();
   if (window.renderWidgetSection) {
-    const widgetHTML = renderWidgetSection();
     const widgetContainer = document.querySelector(".widget-section");
     if (widgetContainer) {
-      widgetContainer.outerHTML = widgetHTML;
+      widgetContainer.outerHTML = renderWidgetSection();
     }
   }
 }
@@ -6230,16 +6225,14 @@ document.querySelectorAll(".b-filt-btn").forEach((btn) => {
   });
 });
 
-applyEquippedToCard(ClubState.equipped);
-const activeBoutiqueTab = document.querySelector(".boutique-tab.is-active");
-if (activeBoutiqueTab && typeof renderBoutique === "function") {
-  renderBoutique(activeBoutiqueTab.dataset.cat);
-}
-if (typeof updateMasterCard === "function") {
-  updateMasterCard();
-}
+let profileAndModalsInitialized = false;
+let circlesHighlightRaf = null;
+let circlesScrollTimer = null;
+let circlesPulseTimer = null;
 
 const initProfileAndModals = () => {
+  if (profileAndModalsInitialized) return;
+  profileAndModalsInitialized = true;
   if (typeof initProfile === "function") initProfile();
   const savedPortrait = localStorage.getItem(`portrait_${ClubState.member.id}`);
   if (savedPortrait) {
@@ -6300,6 +6293,30 @@ const initProfileAndModals = () => {
   // 1. EDIT PROFILE MODAL (Public Identity Only)
   // =========================================================================
   const editProfileModal = document.getElementById("editProfileModal");
+  let editProfileResizeRaf = null;
+  let editProfileResizeTimer = null;
+  const clearEditProfileTimers = () => {
+    if (editProfileResizeRaf !== null) {
+      cancelAnimationFrame(editProfileResizeRaf);
+      editProfileResizeRaf = null;
+    }
+    if (editProfileResizeTimer !== null) {
+      clearTimeout(editProfileResizeTimer);
+      editProfileResizeTimer = null;
+    }
+    if (circlesHighlightRaf !== null) {
+      cancelAnimationFrame(circlesHighlightRaf);
+      circlesHighlightRaf = null;
+    }
+    if (circlesScrollTimer !== null) {
+      clearTimeout(circlesScrollTimer);
+      circlesScrollTimer = null;
+    }
+    if (circlesPulseTimer !== null) {
+      clearTimeout(circlesPulseTimer);
+      circlesPulseTimer = null;
+    }
+  };
 
   window.openEditProfileModal = function (e) {
     if (e) {
@@ -6312,6 +6329,7 @@ const initProfileAndModals = () => {
     if (!modal) return;
 
     try {
+      clearEditProfileTimers();
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
       if (window.AudioEngine && window.AudioEngine.playModalOpen) {
@@ -6349,8 +6367,18 @@ const initProfileAndModals = () => {
       }
       if (quoteInput && typeof adjustQuoteTextareaHeight === "function") {
         adjustQuoteTextareaHeight(quoteInput);
-        requestAnimationFrame(() => adjustQuoteTextareaHeight(quoteInput));
-        setTimeout(() => adjustQuoteTextareaHeight(quoteInput), 80);
+        editProfileResizeRaf = requestAnimationFrame(() => {
+          editProfileResizeRaf = null;
+          if (modal.classList.contains("is-open")) {
+            adjustQuoteTextareaHeight(quoteInput);
+          }
+        });
+        editProfileResizeTimer = setTimeout(() => {
+          editProfileResizeTimer = null;
+          if (modal.classList.contains("is-open")) {
+            adjustQuoteTextareaHeight(quoteInput);
+          }
+        }, 80);
       }
       if (typeof renderModalCirclesSelector === "function") {
         renderModalCirclesSelector(AppState.user.circles || ["pe_venture", "haute_horlogerie", "sovereign_ai", "aviation_yachts"]);
@@ -6361,6 +6389,7 @@ const initProfileAndModals = () => {
   };
 
   window.closeEditProfileModal = function () {
+    clearEditProfileTimers();
     const modal = editProfileModal || document.getElementById("editProfileModal");
     if (!modal || !modal.classList.contains("is-open")) return;
     modal.classList.remove("is-open");
@@ -6781,8 +6810,6 @@ const initProfileAndModals = () => {
   }
 
   const openSettingsRow = document.getElementById("openSettingsRow");
-  const openSettingsBtn = document.getElementById("openSettingsBtn");
-  const menuSettings = document.getElementById("menuSettings");
   const settingsModal = document.getElementById("settingsModal");
   const closeSettingsBtn = document.getElementById("closeSettingsModal");
 
@@ -6828,12 +6855,6 @@ const initProfileAndModals = () => {
         openSettings();
       }
     });
-  }
-  if (openSettingsBtn) {
-    openSettingsBtn.addEventListener("click", openSettings);
-  }
-  if (menuSettings) {
-    menuSettings.addEventListener("click", openSettings);
   }
   if (closeSettingsBtn) {
     closeSettingsBtn.addEventListener("click", () => {
@@ -7343,9 +7364,16 @@ function renderProfileAchievements() {
 }
 
 // --- Shared Sovereign Modal Controller ---
+const modalCloseTimers = new Map();
+
 function openModalCore(modalId, options = {}) {
   const modal = document.getElementById(modalId);
   if (!modal) return;
+  const pendingCloseTimer = modalCloseTimers.get(modalId);
+  if (pendingCloseTimer) {
+    clearTimeout(pendingCloseTimer);
+    modalCloseTimers.delete(modalId);
+  }
   if (options.playAudio !== false) {
     if (window.AudioEngine && window.AudioEngine.playModalOpen) {
       window.AudioEngine.playModalOpen();
@@ -7368,22 +7396,45 @@ function openModalCore(modalId, options = {}) {
 function closeModalCore(modalId, options = {}) {
   const modal = document.getElementById(modalId);
   if (!modal) return;
-  if (modal.hidden && !modal.classList.contains(options.activeClass || "is-open") && !modal.classList.contains("is-active")) return;
+  const activeClass = options.activeClass || "is-open";
+  if (modal.hidden && !modal.classList.contains(activeClass) && !modal.classList.contains("is-active")) return;
+  const pendingCloseTimer = modalCloseTimers.get(modalId);
+  if (pendingCloseTimer) {
+    clearTimeout(pendingCloseTimer);
+    modalCloseTimers.delete(modalId);
+  }
   if (options.playAudio !== false) {
     if (window.AudioEngine && window.AudioEngine.playModalClose) {
       window.AudioEngine.playModalClose();
     }
   }
-  modal.classList.remove(options.activeClass || "is-open", "is-active");
+  modal.classList.remove(activeClass, "is-active");
   if (options.bodyClass) {
-    document.body.classList.remove(options.bodyClass);
+    const keepBodyClass =
+      options.bodyClass === "modal-open" &&
+      ["heraldicCitationModal", "reliquaryInspectModal"].some((otherId) => {
+        if (otherId === modalId) return false;
+        const otherEl = document.getElementById(otherId);
+        return Boolean(
+          otherEl &&
+          !otherEl.hidden &&
+          (otherEl.classList.contains("is-open") || otherEl.classList.contains("is-active"))
+        );
+      });
+    if (!keepBodyClass) {
+      document.body.classList.remove(options.bodyClass);
+    }
   }
   const hideDelay = options.hideDelay || 0;
   if (hideDelay > 0) {
-    setTimeout(() => {
-      modal.hidden = true;
-      modal.setAttribute("aria-hidden", "true");
+    const timerId = setTimeout(() => {
+      modalCloseTimers.delete(modalId);
+      if (!modal.classList.contains(activeClass) && !modal.classList.contains("is-active")) {
+        modal.hidden = true;
+        modal.setAttribute("aria-hidden", "true");
+      }
     }, hideDelay);
+    modalCloseTimers.set(modalId, timerId);
   } else {
     modal.hidden = true;
     modal.setAttribute("aria-hidden", "true");
@@ -7636,7 +7687,6 @@ window.copyReliquarySerial = function() {
 };
 
 window.openReliquaryInspectModal = openReliquaryInspectModal;
-window.closeReliquaryInspectModal = closeReliquaryInspectModal;
 
 // profileCollectionTimeout hoisted at top-level
 
@@ -8170,13 +8220,19 @@ function renderProfileCircles() {
 
     if (typeof window.openEditProfileModal === "function") {
       window.openEditProfileModal();
-      requestAnimationFrame(() => {
-        setTimeout(() => {
+      circlesHighlightRaf = requestAnimationFrame(() => {
+        circlesHighlightRaf = null;
+        circlesScrollTimer = setTimeout(() => {
+          circlesScrollTimer = null;
+          const modal = document.getElementById("editProfileModal");
+          if (!modal || !modal.classList.contains("is-open")) return;
           const circlesPanel = document.getElementById("modalCirclesPanel");
           if (circlesPanel) {
             circlesPanel.scrollIntoView({ behavior: "smooth", block: "center" });
             circlesPanel.classList.add("pulse-highlight");
-            setTimeout(() => {
+            if (circlesPulseTimer !== null) clearTimeout(circlesPulseTimer);
+            circlesPulseTimer = setTimeout(() => {
+              circlesPulseTimer = null;
               circlesPanel.classList.remove("pulse-highlight");
             }, 1500);
           }
@@ -9584,6 +9640,8 @@ window.resetHeaderScrollTracking = window.HeaderScrollController.updateStateForC
 // ==========================================
 // AUTHENTICATION INTEGRATION BOUNDARY
 // ==========================================
+let authRecoveryCloseTimer = null;
+
 window.AuthBoundary = {
   currentMode: "login",
 
@@ -9682,6 +9740,14 @@ window.AuthBoundary = {
 
   logout() {
     sessionStorage.removeItem("1percent_sovereign_session");
+    if (authRecoveryCloseTimer !== null) {
+      clearTimeout(authRecoveryCloseTimer);
+      authRecoveryCloseTimer = null;
+    }
+    if (inspectionToDepositTimer !== null) {
+      clearTimeout(inspectionToDepositTimer);
+      inspectionToDepositTimer = null;
+    }
     if (typeof cancelClubWelcomeAutoDismiss === "function") {
       cancelClubWelcomeAutoDismiss();
     }
@@ -9697,7 +9763,10 @@ window.AuthBoundary = {
     const logoutModal = document.getElementById("logoutConfirmModal");
     if (logoutModal) logoutModal.classList.remove("is-open");
     const recoveryModal = document.getElementById("authRecoveryModal");
-    if (recoveryModal) recoveryModal.classList.remove("is-open", "is-active");
+    if (recoveryModal) {
+      recoveryModal.style.display = "none";
+      recoveryModal.classList.remove("is-open", "is-active");
+    }
 
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
@@ -9782,6 +9851,10 @@ window.AuthBoundary = {
   },
 
   openRecovery() {
+    if (authRecoveryCloseTimer !== null) {
+      clearTimeout(authRecoveryCloseTimer);
+      authRecoveryCloseTimer = null;
+    }
     const modal = document.getElementById("authRecoveryModal");
     if (modal) {
       modal.style.display = "flex";
@@ -9792,6 +9865,10 @@ window.AuthBoundary = {
   },
 
   closeRecovery() {
+    if (authRecoveryCloseTimer !== null) {
+      clearTimeout(authRecoveryCloseTimer);
+      authRecoveryCloseTimer = null;
+    }
     const modal = document.getElementById("authRecoveryModal");
     if (modal) {
       modal.style.display = "none";
@@ -9800,6 +9877,10 @@ window.AuthBoundary = {
   },
 
   sendRecovery(email) {
+    if (authRecoveryCloseTimer !== null) {
+      clearTimeout(authRecoveryCloseTimer);
+      authRecoveryCloseTimer = null;
+    }
     const successMsg = document.getElementById("recoverySuccessMsg");
     if (successMsg) {
       const isRecoveryAr = (window.currentLang === "ar");
@@ -9808,7 +9889,8 @@ window.AuthBoundary = {
         : `Password recovery instructions sent to ${email} successfully`;
       successMsg.style.display = "block";
     }
-    setTimeout(() => {
+    authRecoveryCloseTimer = setTimeout(() => {
+      authRecoveryCloseTimer = null;
       this.closeRecovery();
     }, 2500);
   }
@@ -9820,11 +9902,13 @@ window.AuthBoundary = {
 // ==========================================================================
 function initApp() {
   try {
-    // 1. Settings, Theme, and Language Initialization
-    if (typeof initGlobalSettings === "function") initGlobalSettings();
-
-    // 2. Global State Notification (Renders Master Card, Stats, Vitrine)
-    if (typeof AppState !== "undefined" && AppState.notify) AppState.notify();
+    // 1. Settings, Theme, and Language Initialization (invokes setLanguage -> updateUI -> AppState.notify)
+    if (typeof initGlobalSettings === "function") {
+      initGlobalSettings();
+    } else if (typeof AppState !== "undefined" && AppState.notify) {
+      // 2. Fallback Global State Notification if initGlobalSettings is unavailable
+      AppState.notify();
+    }
 
     // 3. Metric Complication Tooltips
     if (typeof initMetricTooltips === "function") initMetricTooltips();

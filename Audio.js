@@ -852,6 +852,10 @@ const AudioEngine = (function () {
     playFineScrewTick,
     playUvForensicChime,
     playHeraldicMedalChime,
+    // Phase 1 compatibility aliases for existing app.js call sites
+    playClick: playFineScrewTick,
+    playTransactionSuccess: playChime,
+    playGoldSheenChime: playHeraldicMedalChime,
   };
 })();
 
@@ -921,6 +925,8 @@ const HapticEngine = (function () {
     boutiquePurchase,
     milestoneUnlock,
     tap,
+    // Phase 1 compatibility alias preserving milestoneUnlock cadence & rate-limiting
+    triggerMilestoneVibration: milestoneUnlock,
   };
 })();
 
