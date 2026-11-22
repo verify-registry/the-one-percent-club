@@ -301,9 +301,13 @@ function initGuilloche() {
   themeObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
   window.resumeGuillocheCanvas = () => {
-    if (isTabActive()) {
+    if (!isTabActive()) return;
+    const isLight = document.body.classList.contains("light-mode");
+    if (currentWidth === 0 || currentHeight === 0 || currentIsLight !== isLight) {
       isDirty = true;
       resizeCanvas();
+    }
+    if (isDirty) {
       requestDraw();
     }
   };
@@ -386,26 +390,20 @@ function drawGuilloche(ctx, width, height) {
 
   ctx.clearRect(0, 0, width, height);
 
-  // --- 1. PURE TOPOGRAPHIC GEOMETRY (NO CROSSHATCH) ---
-  // We use a single bundle of non-intersecting, diverging S-curves.
+  // --- 1. ICONIC TOPOGRAPHIC SWEEPING S-CURVE GUILLOCHÉ ---
   const paths = new Path2D();
-  const numLines = 300; 
+  const numLines = 300;
 
   for (let i = 0; i <= numLines; i++) {
     let t = i / numLines;
     let nt = t * 2 - 1; // Ranges from -1 to 1
 
-    // Density distribution: pushes lines tightly to the edges, leaving the center quiet
     let yBase = Math.sign(nt) * Math.pow(Math.abs(nt), 1.2) * (height * 1.5);
-
-    // Amplitude of the curve increases as we move to the edges.
-    // This breaks the "repetitive parallel" look, creating gracefully expanding sweeps.
     let amplitude = Math.pow(Math.abs(nt), 0.8) * height * 0.7;
 
     let startX = -width * 1.5;
     let endX = width * 1.5;
 
-    // Control points to create the sweeping S-curve
     let cp1X = -width * 0.5;
     let cp1Y = yBase - amplitude;
 
@@ -417,49 +415,45 @@ function drawGuilloche(ctx, width, height) {
   }
 
   ctx.save();
-  // Rotate the entire majestic bundle so it flows diagonally across the card
   ctx.translate(width * 0.5, height * 0.5);
-  ctx.rotate(-Math.PI / 7); // ~ -25 degrees tilt
+  ctx.rotate(-Math.PI / 7);
 
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 
-  // --- 2. PHYSICAL TRENCH (SHADOW) ---
-  // Deepens the existing CSS surface as a true intaglio engraving
+  // --- 2. PHYSICAL TRENCH (INTAGLIO ENGRAVING DEPTH) ---
   ctx.save();
   ctx.globalCompositeOperation = "multiply";
-  ctx.translate(0.5, 0.5); // Sub-pixel shift for physical depth
-  ctx.lineWidth = isLight ? 1.0 : 1.1;
-  ctx.strokeStyle = isLight ? "rgba(95, 68, 35, 0.28)" : "rgba(0, 0, 0, 0.85)";
+  ctx.translate(0.5, 0.5);
+  ctx.lineWidth = isLight ? 0.92 : 1.1;
+  ctx.strokeStyle = isLight ? "rgba(95, 68, 35, 0.21)" : "rgba(0, 0, 0, 0.85)";
   ctx.stroke(paths);
   ctx.restore();
 
-  // --- 3. ANISOTROPIC SPECULAR HIGHLIGHT (THE REAL METAL SECRET) ---
-  // Catches the grooves with controlled specular metallic highlights
+  // --- 3. ANISOTROPIC SPECULAR HIGHLIGHT ---
   ctx.save();
   ctx.globalCompositeOperation = isLight ? "source-over" : "color-dodge";
-  ctx.translate(-0.5, -0.5); // Opposing sub-pixel shift
-  ctx.lineWidth = isLight ? 0.65 : 0.75; // Razor-crisp intaglio bevel catch
+  ctx.translate(-0.5, -0.5);
+  ctx.lineWidth = isLight ? 0.60 : 0.75;
 
-  // Directional Light Band relative to the rotated canvas
   const specGrad = ctx.createLinearGradient(-width, -height, width, height);
 
   if (isLight) {
     specGrad.addColorStop(0.0, "rgba(175, 135, 50, 0.0)");
     specGrad.addColorStop(0.28, "rgba(175, 135, 50, 0.0)");
-    specGrad.addColorStop(0.38, "rgba(205, 165, 75, 0.35)"); // Refined warm gold intaglio catch
-    specGrad.addColorStop(0.44, "rgba(175, 135, 50, 0.05)");
-    specGrad.addColorStop(0.56, "rgba(175, 135, 50, 0.0)"); 
-    specGrad.addColorStop(0.66, "rgba(205, 165, 75, 0.25)"); // Secondary warm accent
+    specGrad.addColorStop(0.38, "rgba(205, 165, 75, 0.26)");
+    specGrad.addColorStop(0.44, "rgba(175, 135, 50, 0.04)");
+    specGrad.addColorStop(0.56, "rgba(175, 135, 50, 0.0)");
+    specGrad.addColorStop(0.66, "rgba(205, 165, 75, 0.18)");
     specGrad.addColorStop(0.72, "rgba(175, 135, 50, 0.0)");
     specGrad.addColorStop(1.0, "rgba(175, 135, 50, 0.0)");
   } else {
     specGrad.addColorStop(0.0, "rgba(201, 168, 106, 0.0)");
     specGrad.addColorStop(0.28, "rgba(201, 168, 106, 0.0)");
-    specGrad.addColorStop(0.40, "rgba(245, 225, 165, 0.82)"); // Authentic Champagne gold catch
+    specGrad.addColorStop(0.40, "rgba(245, 225, 165, 0.82)");
     specGrad.addColorStop(0.46, "rgba(201, 168, 106, 0.08)");
     specGrad.addColorStop(0.55, "rgba(201, 168, 106, 0.0)");
-    specGrad.addColorStop(0.65, "rgba(225, 190, 120, 0.55)"); // Secondary metallic glint
+    specGrad.addColorStop(0.65, "rgba(225, 190, 120, 0.55)");
     specGrad.addColorStop(0.72, "rgba(201, 168, 106, 0.0)");
     specGrad.addColorStop(1.0, "rgba(201, 168, 106, 0.0)");
   }
@@ -471,10 +465,16 @@ function drawGuilloche(ctx, width, height) {
   ctx.restore(); // End Rotation
 
   // --- 4. ORGANIC CENTER PROTECTION ---
-  // Ensure the primary identity elements read cleanly while preserving crisp engraving in all other regions.
   ctx.save();
   ctx.globalCompositeOperation = "destination-out";
-  const fadeGrad = ctx.createRadialGradient(width * 0.5, height * 0.45, 0, width * 0.5, height * 0.45, Math.max(width, height) * 0.52);
+  const fadeGrad = ctx.createRadialGradient(
+    width * 0.5,
+    height * 0.45,
+    0,
+    width * 0.5,
+    height * 0.45,
+    Math.max(width, height) * 0.52
+  );
   fadeGrad.addColorStop(0.0, "rgba(0, 0, 0, 0.92)");
   fadeGrad.addColorStop(0.42, "rgba(0, 0, 0, 0.25)");
   fadeGrad.addColorStop(0.85, "rgba(0, 0, 0, 0.0)");
@@ -1700,7 +1700,9 @@ document.querySelectorAll(".nav-item").forEach((btn) => {
   btn.addEventListener("click", () => {
     targetRotX = 0;
     targetRotY = 0;
-    resetAllCardTransforms();
+    if (Math.abs(currentRotX) >= TILT_EPSILON || Math.abs(currentRotY) >= TILT_EPSILON) {
+      resetAllCardTransforms();
+    }
     if (
       isMembershipTabActive() &&
       (Math.abs(currentRotX) >= TILT_EPSILON || Math.abs(currentRotY) >= TILT_EPSILON)
@@ -1991,7 +1993,7 @@ function initGoldDust() {
   const ctx = canvas.getContext("2d", { alpha: true });
 
   let particles = [];
-  const PARTICLE_COUNT = 52;
+  const PARTICLE_COUNT = 24;
 
   let width = 0;
   let height = 0;
@@ -2018,21 +2020,21 @@ function initGoldDust() {
     const palette = isLight ? lightGoldPalette : darkGoldPalette;
     const color = palette[Math.floor(Math.random() * palette.length)];
 
-    // Type distribution: 60% fine motes, 28% medium shimmering flecks, 12% radiant glints
+    // Whisper-fine metallic micro-dust (no oversized bokeh/glitter blobs)
     const typeRand = Math.random();
     let type = "mote";
-    let radius = Math.random() * 0.7 + 0.65; // 0.65px - 1.35px
+    let radius = Math.random() * 0.36 + 0.42; // 0.42px - 0.78px
 
-    if (typeRand > 0.88) {
+    if (typeRand > 0.90) {
       type = "glint";
-      radius = Math.random() * 0.8 + 1.8; // 1.8px - 2.6px
-    } else if (typeRand > 0.60) {
+      radius = Math.random() * 0.30 + 1.05; // 1.05px - 1.35px
+    } else if (typeRand > 0.62) {
       type = "fleck";
-      radius = Math.random() * 0.6 + 1.2; // 1.2px - 1.8px
+      radius = Math.random() * 0.28 + 0.78; // 0.78px - 1.06px
     }
 
     if (isBurst) {
-      radius *= 1.35;
+      radius *= 1.25;
     }
 
     return {
@@ -2042,18 +2044,18 @@ function initGoldDust() {
       type,
       color,
       // Suspended thermal buoyancy drift
-      speedX: isBurst ? (Math.random() - 0.5) * 1.4 : (Math.random() - 0.5) * 0.16,
-      speedY: isBurst ? -(Math.random() * 2.2 + 1.0) : -(Math.random() * 0.2 + 0.07),
-      wobbleSpeed: Math.random() * 0.02 + 0.01,
+      speedX: isBurst ? (Math.random() - 0.5) * 1.4 : (Math.random() - 0.5) * 0.12,
+      speedY: isBurst ? -(Math.random() * 2.2 + 1.0) : -(Math.random() * 0.16 + 0.05),
+      wobbleSpeed: Math.random() * 0.018 + 0.008,
       wobbleAngle: Math.random() * Math.PI * 2,
-      baseOpacity: type === "glint" ? Math.random() * 0.35 + 0.45 : Math.random() * 0.35 + 0.28,
-      pulseSpeed: Math.random() * 0.025 + 0.008,
+      baseOpacity: type === "glint" ? Math.random() * 0.16 + 0.22 : Math.random() * 0.16 + 0.14,
+      pulseSpeed: Math.random() * 0.02 + 0.006,
       pulseAngle: Math.random() * Math.PI * 2,
-      flare: type === "glint" && Math.random() > 0.5 ? Math.random() * 0.6 + 0.2 : 0,
-      flareDecay: Math.random() * 0.014 + 0.008,
-      flareInterval: Math.floor(Math.random() * 240 + 120),
-      flareTimer: Math.floor(Math.random() * 180),
-      depth: Math.random() * 0.8 + 0.2, // Parallax depth factor (0.2 to 1.0)
+      flare: type === "glint" && Math.random() > 0.65 ? Math.random() * 0.35 + 0.12 : 0,
+      flareDecay: Math.random() * 0.015 + 0.009,
+      flareInterval: Math.floor(Math.random() * 320 + 180),
+      flareTimer: Math.floor(Math.random() * 220),
+      depth: Math.random() * 0.8 + 0.2,
       isBurst,
       life: isBurst ? 1.0 : Infinity
     };
@@ -2210,25 +2212,34 @@ function initGoldDust() {
         opacity *= Math.min(1, p.life * 2.5);
       }
 
+      // Typography-safe vertical attenuation (keeps title & footer crisp)
+      let zoneMask = 1.0;
+      if (!p.isBurst && height > 0) {
+        const yRatio = drawY / height;
+        if (yRatio > 0.76 || yRatio < 0.12) {
+          zoneMask = 0.12;
+        } else if (yRatio > 0.36 && yRatio < 0.68) {
+          zoneMask = 0.45;
+        }
+      }
+
       // Final composite opacity
       const finalOpacity = Math.max(
         0,
-        Math.min(1, opacity + p.flare * 0.5)
+        Math.min(0.62, (opacity + p.flare * 0.28) * zoneMask)
       );
+      if (finalOpacity < 0.02) continue;
 
-      const radius = p.radius * (1 + p.flare * 0.35);
+      const radius = p.radius * (1 + p.flare * 0.2);
       const { r, g, b } = p.color;
 
-      // Draw particle base mote
+      // Draw fine metallic micro-mote
       ctx.beginPath();
       ctx.arc(drawX, drawY, radius, 0, Math.PI * 2);
 
-      if (p.flare > 0.15 || p.type === "glint") {
-        ctx.shadowColor = isLight ? `rgba(180, 138, 52, ${finalOpacity * 0.7})` : `rgba(255, 235, 170, ${finalOpacity * 0.8})`;
-        ctx.shadowBlur = isLight ? 3 : 5 * (1 + p.flare);
-      } else if (p.type === "fleck") {
-        ctx.shadowColor = isLight ? `rgba(165, 125, 45, 0.4)` : `rgba(212, 175, 55, 0.4)`;
-        ctx.shadowBlur = 2;
+      if (p.flare > 0.2 || p.type === "glint") {
+        ctx.shadowColor = isLight ? `rgba(180, 138, 52, ${finalOpacity * 0.45})` : `rgba(255, 235, 170, ${finalOpacity * 0.55})`;
+        ctx.shadowBlur = isLight ? 1.5 : 2.5;
       } else {
         ctx.shadowBlur = 0;
       }
@@ -2236,10 +2247,10 @@ function initGoldDust() {
       ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${finalOpacity})`;
       ctx.fill();
 
-      // Soft 4-point glint flare for starlet particles
-      if (p.flare > 0.08) {
-        const f = p.flare;
-        const flareSpan = (p.radius * 3.5 + 2) * f;
+      // Delicate pinpoint starlet gleam
+      if (p.flare > 0.12 && zoneMask > 0.3) {
+        const f = p.flare * zoneMask;
+        const flareSpan = (p.radius * 1.9 + 0.9) * f;
 
         ctx.save();
         ctx.translate(drawX, drawY);
@@ -2251,15 +2262,9 @@ function initGoldDust() {
         ctx.quadraticCurveTo(0, 0, -flareSpan, 0);
         ctx.quadraticCurveTo(0, 0, 0, -flareSpan);
 
-        ctx.shadowColor = isLight ? "rgba(200, 150, 60, 0.8)" : "rgba(255, 245, 210, 0.9)";
-        ctx.shadowBlur = 6 * f;
-        ctx.fillStyle = isLight ? `rgba(210, 165, 70, ${f * 0.75})` : `rgba(255, 248, 220, ${f * 0.85})`;
-        ctx.fill();
-
-        // White-gold pinpoint center
-        ctx.beginPath();
-        ctx.arc(0, 0, p.radius * 0.7 * f, 0, Math.PI * 2);
-        ctx.fillStyle = isLight ? `rgba(255, 255, 255, ${f * 0.9})` : `rgba(255, 255, 255, ${f})`;
+        ctx.shadowColor = isLight ? "rgba(200, 150, 60, 0.45)" : "rgba(255, 245, 210, 0.55)";
+        ctx.shadowBlur = 3 * f;
+        ctx.fillStyle = isLight ? `rgba(210, 165, 70, ${f * 0.45})` : `rgba(255, 248, 220, ${f * 0.55})`;
         ctx.fill();
 
         ctx.restore();
@@ -2270,9 +2275,10 @@ function initGoldDust() {
     animId = requestAnimationFrame(draw);
   };
 
-  // ResizeObserver for reliable dimension tracking
+  // ResizeObserver for reliable dimension tracking (skip forced reflow during active nav glide)
   if (window.ResizeObserver && canvas.parentElement) {
     const ro = new ResizeObserver(() => {
+      if (window._navTransitionActive) return;
       resize();
     });
     ro.observe(canvas.parentElement);
@@ -2358,8 +2364,11 @@ window.resumeMembershipRAF = function() {
       lastMembershipActive = isActive;
 
       if (isActive) {
-        window.resumeGuillocheCanvas?.();
-        window.resumeGoldDustCanvas?.();
+        // When Router manages a tab switch glide, Router defers resume past the 280ms glide window
+        if (!window._navTransitionActive) {
+          window.resumeGuillocheCanvas?.();
+          window.resumeGoldDustCanvas?.();
+        }
       } else {
         window.pauseGuillocheCanvas?.();
         window.pauseGoldDustCanvas?.();

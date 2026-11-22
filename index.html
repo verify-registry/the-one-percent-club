@@ -232,6 +232,12 @@
                   <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
                 </radialGradient>
 
+                <radialGradient id="crownContactShadowLight" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#563409" stop-opacity="0.52"/>
+                  <stop offset="52%" stop-color="#6B420D" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="#6B420D" stop-opacity="0"/>
+                </radialGradient>
+
                 <!-- 2. Dark Mode Crown Lit Facet (Radiant Polished Champagne / 24K Gold) -->
                 <linearGradient id="crownFacetLitDark" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#FFFFFF"/>
@@ -518,7 +524,7 @@
         <button class="icon-btn shield-btn solid-gold-medallion" id="headerVerifiedShieldBtn" type="button" aria-label="Verified Membership" title="Sovereign Credential Authenticated">
           <svg
             class="verification-seal-svg"
-            viewBox="0 0 64 64"
+            viewBox="0 0 60 68"
             width="100%"
             height="100%"
             xmlns="http://www.w3.org/2000/svg"
@@ -526,266 +532,336 @@
             focusable="false"
           >
             <defs>
-              <!-- 1. Refined Polished Champagne-Gold Outer Rim (Coherent Material with Header) -->
-              <linearGradient id="sealBezelDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#382006"/>
-                <stop offset="16%" stop-color="#8E6018"/>
-                <stop offset="36%" stop-color="#E8B842"/>
-                <stop offset="48%" stop-color="#FFF4D2"/>
-                <stop offset="52%" stop-color="#FFFFFF"/>
-                <stop offset="66%" stop-color="#D6A02C"/>
-                <stop offset="84%" stop-color="#7A4C10"/>
-                <stop offset="100%" stop-color="#241202"/>
+              <!-- Exact Royal Swiss Écu Shield + Top Pearl Clip Path -->
+              <clipPath id="ecuOuterClip">
+                <circle cx="30" cy="5.2" r="2.65"/>
+                <path d="M 30.0 7.6 C 24.0 11.4, 15.6 13.4, 8.2 13.8 C 9.0 18.2, 9.5 24.8, 9.8 33.4 C 10.4 47.2, 18.8 57.6, 30.0 64.2 C 41.2 57.6, 49.6 47.2, 50.2 33.4 C 50.5 24.8, 51.0 18.2, 51.8 13.8 C 44.4 13.4, 36.0 11.4, 30.0 7.6 Z"/>
+              </clipPath>
+              <clipPath id="ecuCavityClip">
+                <path d="M 30.0 14.2 C 25.0 17.2, 18.8 18.8, 13.8 19.3 C 14.3 23.0, 14.7 28.0, 15.0 34.0 C 15.5 44.6, 21.8 52.6, 30.0 57.6 C 38.2 52.6, 44.5 44.6, 45.0 34.0 C 45.3 28.0, 45.7 23.0, 46.2 19.3 C 41.2 18.8, 35.0 17.2, 30.0 14.2 Z"/>
+              </clipPath>
+
+              <!-- 1. Crown-Matched 3D Spherical Gold Finial Pearl -->
+              <radialGradient id="ecuPearlDark" cx="32%" cy="28%" r="68%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="22%" stop-color="#FFF2C4"/>
+                <stop offset="52%" stop-color="#E4AE34"/>
+                <stop offset="80%" stop-color="#965F12"/>
+                <stop offset="100%" stop-color="#462604"/>
+              </radialGradient>
+
+              <radialGradient id="ecuPearlLight" cx="32%" cy="28%" r="68%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="22%" stop-color="#FFF0BC"/>
+                <stop offset="52%" stop-color="#DC9E28"/>
+                <stop offset="80%" stop-color="#8E540C"/>
+                <stop offset="100%" stop-color="#482604"/>
+              </radialGradient>
+
+              <!-- 2. 4-Plane Mirror-Polished 18K Gold Bezel Gradients (Dark Mode) -->
+              <linearGradient id="ecuPlaneTLDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="24%" stop-color="#FFF7DC"/>
+                <stop offset="52%" stop-color="#F7D26A"/>
+                <stop offset="78%" stop-color="#FFFFFF"/>
+                <stop offset="100%" stop-color="#D69B26"/>
               </linearGradient>
 
-              <linearGradient id="sealBezelLight" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#2C1602"/>
-                <stop offset="18%" stop-color="#7E5012"/>
-                <stop offset="38%" stop-color="#DDA632"/>
-                <stop offset="50%" stop-color="#FFFFFF"/>
-                <stop offset="68%" stop-color="#C49022"/>
-                <stop offset="86%" stop-color="#6E3E08"/>
-                <stop offset="100%" stop-color="#241002"/>
+              <linearGradient id="ecuPlaneTRDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F5CE68"/>
+                <stop offset="28%" stop-color="#C88E24"/>
+                <stop offset="62%" stop-color="#845210"/>
+                <stop offset="100%" stop-color="#4A2A06"/>
               </linearGradient>
 
-              <!-- 2. Simple Warm Metallic Gold Face -->
-              <linearGradient id="sealFaceDark" x1="15%" y1="10%" x2="85%" y2="90%">
-                <stop offset="0%" stop-color="#FFF6DC"/>
-                <stop offset="18%" stop-color="#F4D072"/>
-                <stop offset="38%" stop-color="#D8A432"/>
-                <stop offset="55%" stop-color="#FFF0C0"/>
-                <stop offset="72%" stop-color="#C28E22"/>
+              <linearGradient id="ecuPlaneBLDark" x1="12%" y1="0%" x2="88%" y2="100%">
+                <stop offset="0%" stop-color="#FFF4CE"/>
+                <stop offset="32%" stop-color="#E4AE38"/>
+                <stop offset="72%" stop-color="#9E6816"/>
+                <stop offset="100%" stop-color="#583308"/>
+              </linearGradient>
+
+              <!-- Lower-Right Plane with Authentic Secondary Golden Bounce Reflection -->
+              <linearGradient id="ecuPlaneBRDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#5E3809"/>
+                <stop offset="38%" stop-color="#361C04"/>
+                <stop offset="68%" stop-color="#C99128"/>
+                <stop offset="86%" stop-color="#FCE394"/>
+                <stop offset="100%" stop-color="#845212"/>
+              </linearGradient>
+
+              <!-- 3. 4-Plane Mirror-Polished 18K Gold Bezel Gradients (Light Mode — High-Contrast Ivory Luxury) -->
+              <linearGradient id="ecuPlaneTLLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="22%" stop-color="#FFF4CC"/>
+                <stop offset="50%" stop-color="#EBC04C"/>
+                <stop offset="74%" stop-color="#FFF9E4"/>
+                <stop offset="100%" stop-color="#BA801E"/>
+              </linearGradient>
+
+              <linearGradient id="ecuPlaneTRLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#DFAC3C"/>
+                <stop offset="30%" stop-color="#A8721A"/>
+                <stop offset="66%" stop-color="#6E420C"/>
+                <stop offset="100%" stop-color="#3C2004"/>
+              </linearGradient>
+
+              <linearGradient id="ecuPlaneBLLight" x1="12%" y1="0%" x2="88%" y2="100%">
+                <stop offset="0%" stop-color="#FCE498"/>
+                <stop offset="34%" stop-color="#D49C2C"/>
+                <stop offset="72%" stop-color="#8C5912"/>
+                <stop offset="100%" stop-color="#4A2906"/>
+              </linearGradient>
+
+              <linearGradient id="ecuPlaneBRLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#522F07"/>
+                <stop offset="38%" stop-color="#2D1603"/>
+                <stop offset="68%" stop-color="#B88020"/>
+                <stop offset="86%" stop-color="#F7D67C"/>
                 <stop offset="100%" stop-color="#6E420C"/>
               </linearGradient>
 
-              <linearGradient id="sealFaceLight" x1="15%" y1="10%" x2="85%" y2="90%">
-                <stop offset="0%" stop-color="#FFFDF2"/>
-                <stop offset="20%" stop-color="#F6D47A"/>
-                <stop offset="42%" stop-color="#DBA634"/>
-                <stop offset="56%" stop-color="#FFF2CC"/>
-                <stop offset="74%" stop-color="#BE8A20"/>
-                <stop offset="100%" stop-color="#74460E"/>
-              </linearGradient>
-
-              <!-- 3. Warm Antique-Bronze / Bronze-Gold Recessed Moat (Never Dominant Black) -->
-              <radialGradient id="sealRecessDark" cx="40%" cy="36%" r="64%">
-                <stop offset="0%" stop-color="#744A14"/>
-                <stop offset="40%" stop-color="#54300A"/>
-                <stop offset="75%" stop-color="#3C1E04"/>
-                <stop offset="100%" stop-color="#281202"/>
+              <!-- 4. Recessed Grand Feu Espresso-Bronze Enamel Cavity -->
+              <radialGradient id="ecuCavityDark" cx="38%" cy="32%" r="72%">
+                <stop offset="0%" stop-color="#4A2B09"/>
+                <stop offset="42%" stop-color="#281504"/>
+                <stop offset="78%" stop-color="#150A02"/>
+                <stop offset="100%" stop-color="#0B0501"/>
               </radialGradient>
 
-              <radialGradient id="sealRecessLight" cx="40%" cy="36%" r="64%">
-                <stop offset="0%" stop-color="#825418"/>
-                <stop offset="42%" stop-color="#60380C"/>
-                <stop offset="78%" stop-color="#422206"/>
-                <stop offset="100%" stop-color="#2E1402"/>
+              <radialGradient id="ecuCavityLight" cx="38%" cy="32%" r="72%">
+                <stop offset="0%" stop-color="#5D370C"/>
+                <stop offset="44%" stop-color="#381F06"/>
+                <stop offset="78%" stop-color="#221003"/>
+                <stop offset="100%" stop-color="#140902"/>
               </radialGradient>
 
-              <!-- 4. Sunken Step Chisel Rim -->
-              <linearGradient id="sealRecessRimDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#261002"/>
-                <stop offset="50%" stop-color="#865616"/>
-                <stop offset="100%" stop-color="#E4B242"/>
+              <!-- 5. Convex Grand Feu Glass-Enamel Dome Sheen -->
+              <linearGradient id="ecuEnamelSheen" x1="12%" y1="0%" x2="86%" y2="90%">
+                <stop offset="0%" stop-color="#FFF6D8" stop-opacity="0.22"/>
+                <stop offset="44%" stop-color="#F5CC6A" stop-opacity="0.05"/>
+                <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
               </linearGradient>
 
-              <linearGradient id="sealRecessRimLight" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#2C1202"/>
-                <stop offset="50%" stop-color="#92601C"/>
-                <stop offset="100%" stop-color="#EDB84E"/>
-              </linearGradient>
-
-              <!-- 5. Shield Left Facet: Radiant Champagne Specular -->
-              <linearGradient id="sealShieldLeftDark" x1="0%" y1="0%" x2="100%" y2="100%">
+              <!-- 6. Upper Mirror-Polished Crest Rim & Inner Recessed Step -->
+              <linearGradient id="ecuRimBevel" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="16%" stop-color="#FFF4D4"/>
-                <stop offset="44%" stop-color="#F0C85E"/>
-                <stop offset="76%" stop-color="#D09828"/>
-                <stop offset="100%" stop-color="#966212"/>
+                <stop offset="30%" stop-color="#FFF7DC"/>
+                <stop offset="62%" stop-color="#E2B03A"/>
+                <stop offset="100%" stop-color="#78480E"/>
               </linearGradient>
 
-              <linearGradient id="sealShieldLeftLight" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient id="ecuInnerStep" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#261202"/>
+                <stop offset="46%" stop-color="#9A6416"/>
+                <stop offset="100%" stop-color="#FFF6D6"/>
+              </linearGradient>
+
+              <linearGradient id="ecuFilletGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF7DA"/>
+                <stop offset="50%" stop-color="#C89128"/>
+                <stop offset="100%" stop-color="#6B400B"/>
+              </linearGradient>
+
+              <!-- 7. Swiss Dauphine Watch-Hand Two-Facet Solid 18K Gold Checkmark -->
+              <linearGradient id="dauphineLit" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="18%" stop-color="#FFF6DC"/>
-                <stop offset="46%" stop-color="#F2CC68"/>
-                <stop offset="76%" stop-color="#D49E2E"/>
-                <stop offset="100%" stop-color="#9C6816"/>
+                <stop offset="32%" stop-color="#FFF9E6"/>
+                <stop offset="68%" stop-color="#F9D97A"/>
+                <stop offset="100%" stop-color="#E6B440"/>
               </linearGradient>
 
-              <!-- 6. Shield Right Facet: Chiseled Antique Shadow Slope -->
-              <linearGradient id="sealShieldRightDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#B8801E"/>
-                <stop offset="32%" stop-color="#845210"/>
-                <stop offset="70%" stop-color="#562E06"/>
-                <stop offset="100%" stop-color="#301602"/>
+              <linearGradient id="dauphineShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#DDA432"/>
+                <stop offset="44%" stop-color="#AD761A"/>
+                <stop offset="82%" stop-color="#7E4F0E"/>
+                <stop offset="100%" stop-color="#522F06"/>
               </linearGradient>
 
-              <linearGradient id="sealShieldRightLight" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#BE8622"/>
-                <stop offset="32%" stop-color="#8A5814"/>
-                <stop offset="70%" stop-color="#5C3208"/>
-                <stop offset="100%" stop-color="#341802"/>
-              </linearGradient>
-
-              <!-- 7. Shield Perimeter Bevel Rim -->
-              <linearGradient id="sealShieldRimDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="35%" stop-color="#F4CC6E"/>
-                <stop offset="70%" stop-color="#9C6416"/>
-                <stop offset="100%" stop-color="#442204"/>
-              </linearGradient>
-
-              <linearGradient id="sealShieldRimLight" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="35%" stop-color="#F6D076"/>
-                <stop offset="70%" stop-color="#A0681A"/>
-                <stop offset="100%" stop-color="#482404"/>
-              </linearGradient>
-
-              <!-- 8. Bold Sovereign Checkmark Gradient -->
-              <linearGradient id="sealGoldCheck" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="25%" stop-color="#FFFCEE"/>
-                <stop offset="65%" stop-color="#FEE8AE"/>
-                <stop offset="100%" stop-color="#E4B242"/>
-              </linearGradient>
-              <linearGradient id="sealCheckMark" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="25%" stop-color="#FFFCEE"/>
-                <stop offset="65%" stop-color="#FEE8AE"/>
-                <stop offset="100%" stop-color="#E4B242"/>
+              <!-- 8. Restrained Smart Optical Metallic Glint Beam -->
+              <linearGradient id="ecuOpticalGlint" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#FFFDF4" stop-opacity="0"/>
+                <stop offset="36%" stop-color="#FFFDF4" stop-opacity="0.18"/>
+                <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.66"/>
+                <stop offset="64%" stop-color="#FFF2C4" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#FFFDF4" stop-opacity="0"/>
               </linearGradient>
             </defs>
 
-            <!-- Layer 1: Single Refined Outer Polished-Gold Rim -->
-            <circle
-              class="seal-outer-bezel"
-              cx="32"
-              cy="32"
-              r="29.5"
+            <!-- Layer 1: 4-Plane Mirror-Polished 18K Gold Royal Écu Frame -->
+            <!-- Top-Left Mirror-Lit Bevel Plane -->
+            <path
+              class="ecu-plane-tl"
+              d="M 30.0 7.6 C 24.0 11.4, 15.6 13.4, 8.2 13.8 C 9.0 18.2, 9.5 24.8, 9.8 33.4 L 30.0 33.4 Z"
+              fill="url(#ecuPlaneTLDark)"
+            />
+            <!-- Top-Right Satin-Polished Bevel Plane -->
+            <path
+              class="ecu-plane-tr"
+              d="M 30.0 7.6 C 36.0 11.4, 44.4 13.4, 51.8 13.8 C 51.0 18.2, 50.5 24.8, 50.2 33.4 L 30.0 33.4 Z"
+              fill="url(#ecuPlaneTRDark)"
+            />
+            <!-- Lower-Left Brushed-Gold Taper Plane -->
+            <path
+              class="ecu-plane-bl"
+              d="M 9.8 33.4 C 10.4 47.2, 18.8 57.6, 30.0 64.2 L 30.0 33.4 Z"
+              fill="url(#ecuPlaneBLDark)"
+            />
+            <!-- Lower-Right Shadow + Secondary Golden Bounce Plane -->
+            <path
+              class="ecu-plane-br"
+              d="M 50.2 33.4 C 49.6 47.2, 41.2 57.6, 30.0 64.2 L 30.0 33.4 Z"
+              fill="url(#ecuPlaneBRDark)"
+            />
+
+            <!-- Crisp Crown-Matched Antique-Bronze Outer Engraving Outline -->
+            <path
+              class="ecu-outer-outline"
+              d="M 30.0 7.6 C 24.0 11.4, 15.6 13.4, 8.2 13.8 C 9.0 18.2, 9.5 24.8, 9.8 33.4 C 10.4 47.2, 18.8 57.6, 30.0 64.2 C 41.2 57.6, 49.6 47.2, 50.2 33.4 C 50.5 24.8, 51.0 18.2, 51.8 13.8 C 44.4 13.4, 36.0 11.4, 30.0 7.6 Z"
               fill="none"
-              stroke="url(#sealBezelDark)"
-              stroke-width="1.2"
+              stroke="#3B2104"
+              stroke-width="0.9"
+              stroke-linejoin="round"
             />
 
-            <!-- Layer 2: Simple Warm Metallic Gold Face -->
-            <circle
-              class="seal-dial-face"
-              cx="32"
-              cy="32"
-              r="28.6"
-              fill="url(#sealFaceDark)"
-            />
-
-            <!-- Layer 3: Warm Bronze-Gold Recessed Region (Restrained Contrast, Clear Margins) -->
-            <circle
-              class="seal-sunken-bed"
-              cx="32"
-              cy="32"
-              r="22.5"
-              fill="url(#sealRecessDark)"
-            />
-            <circle
-              class="seal-sunken-rim"
-              cx="32"
-              cy="32"
-              r="22.5"
+            <!-- Mirror-Polished Specular Crest & Left Shoulder Catch-Light -->
+            <path
+              class="ecu-upper-rim"
+              d="M 10.7 33.0 C 10.4 24.8, 9.9 18.6, 9.2 14.6 C 16.2 14.2, 24.2 12.2, 30.0 8.5 C 35.8 12.2, 43.8 14.2, 50.8 14.6"
               fill="none"
-              stroke="url(#sealRecessRimDark)"
-              stroke-width="0.6"
+              stroke="url(#ecuRimBevel)"
+              stroke-width="1.05"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
 
-            <!-- Layer 4: Sovereign Geometric Shield (40% width, ~56% height, Centered at x=32) -->
-            <g class="seal-shield-group">
-              <!-- Left Facet: Radiant Champagne Specular -->
-              <path
-                class="seal-shield-left"
-                d="M32 12.5
-                   L19 17
-                   L19.7 30
-                   C20.2 38, 25.5 44.8, 32 48.5
-                   Z"
-                fill="url(#sealShieldLeftDark)"
-              />
+            <!-- Top & Bottom 3D Miter Crest Ridges -->
+            <line x1="30" y1="8.4" x2="30" y2="14.1" stroke="#FFFFFF" stroke-width="0.85" stroke-linecap="round" opacity="0.92"/>
+            <line x1="30" y1="57.7" x2="30" y2="63.3" stroke="#FFF2C8" stroke-width="0.7" stroke-linecap="round" opacity="0.82"/>
 
-              <!-- Right Facet: Chiseled Antique Shadow Slope -->
-              <path
-                class="seal-shield-right"
-                d="M32 12.5
-                   L45 17
-                   L44.3 30
-                   C43.8 38, 38.5 44.8, 32 48.5
-                   Z"
-                fill="url(#sealShieldRightDark)"
-              />
-
-              <!-- Center Crest Spine -->
-              <line
-                class="seal-shield-spine"
-                x1="32"
-                y1="12.5"
-                x2="32"
-                y2="48.5"
-                stroke="#FFFDF2"
-                stroke-width="0.8"
-                stroke-linecap="round"
-              />
-
-              <!-- Polished Gold Shield Perimeter Bevel Rim -->
-              <path
-                class="seal-shield-rim"
-                d="M32 12.5
-                   L45 17
-                   L44.3 30
-                   C43.8 38, 38.5 44.8, 32 48.5
-                   C25.5 44.8, 20.2 38, 19.7 30
-                   L19 17 Z"
-                fill="none"
-                stroke="#FFF0B7"
-                stroke-width="0.9"
-                stroke-linejoin="round"
+            <!-- Layer 2: Crown-Matched Royal Spherical Gold Finial Pearl at Apex -->
+            <g class="ecu-finial-pearl">
+              <ellipse cx="30.0" cy="7.8" rx="2.3" ry="0.7" fill="#2A1402" opacity="0.88"/>
+              <circle
+                class="ecu-pearl-orb"
+                cx="30.0"
+                cy="5.2"
+                r="2.55"
+                fill="url(#ecuPearlDark)"
+                stroke="#3A2003"
+                stroke-width="0.45"
               />
             </g>
 
-            <!-- Layer 5: Bold Sovereign Checkmark (Crisp & High Contrast at 38px) -->
-            <g class="seal-check-group">
-              <!-- Deep Separation Underlay Shadow -->
+            <!-- Layer 3: Recessed Flinqué Grand Feu Espresso-Bronze Enamel Cavity -->
+            <path
+              class="ecu-cavity-fill"
+              d="M 30.0 14.2 C 25.0 17.2, 18.8 18.8, 13.8 19.3 C 14.3 23.0, 14.7 28.0, 15.0 34.0 C 15.5 44.6, 21.8 52.6, 30.0 57.6 C 38.2 52.6, 44.5 44.6, 45.0 34.0 C 45.3 28.0, 45.7 23.0, 46.2 19.3 C 41.2 18.8, 35.0 17.2, 30.0 14.2 Z"
+              fill="url(#ecuCavityDark)"
+            />
+
+            <!-- Subtle Engraved Radial Flinqué Guilloché Sunburst Under Enamel -->
+            <g class="ecu-guilloche" clip-path="url(#ecuCavityClip)" stroke="#E8BC58" stroke-width="0.42" opacity="0.14">
+              <line x1="30" y1="36" x2="30" y2="12"/>
+              <line x1="30" y1="36" x2="39" y2="14"/>
+              <line x1="30" y1="36" x2="47" y2="19"/>
+              <line x1="30" y1="36" x2="49" y2="29"/>
+              <line x1="30" y1="36" x2="49" y2="39"/>
+              <line x1="30" y1="36" x2="46" y2="49"/>
+              <line x1="30" y1="36" x2="38" y2="57"/>
+              <line x1="30" y1="36" x2="30" y2="60"/>
+              <line x1="30" y1="36" x2="22" y2="57"/>
+              <line x1="30" y1="36" x2="14" y2="49"/>
+              <line x1="30" y1="36" x2="11" y2="39"/>
+              <line x1="30" y1="36" x2="11" y2="29"/>
+              <line x1="30" y1="36" x2="13" y2="19"/>
+              <line x1="30" y1="36" x2="21" y2="14"/>
+            </g>
+
+            <!-- Convex Grand Feu Glass-Enamel Dome Sheen -->
+            <path
+              class="ecu-enamel-sheen"
+              d="M 12 16 L 48 16 L 47 30 Q 30 37 13 33 Z"
+              fill="url(#ecuEnamelSheen)"
+              clip-path="url(#ecuCavityClip)"
+            />
+
+            <!-- Precision Lathe-Cut Inner Bevel Step -->
+            <path
+              class="ecu-inner-step"
+              d="M 30.0 14.2 C 25.0 17.2, 18.8 18.8, 13.8 19.3 C 14.3 23.0, 14.7 28.0, 15.0 34.0 C 15.5 44.6, 21.8 52.6, 30.0 57.6 C 38.2 52.6, 44.5 44.6, 45.0 34.0 C 45.3 28.0, 45.7 23.0, 46.2 19.3 C 41.2 18.8, 35.0 17.2, 30.0 14.2 Z"
+              fill="none"
+              stroke="url(#ecuInnerStep)"
+              stroke-width="1.15"
+              stroke-linejoin="round"
+            />
+
+            <!-- Micro-Inlaid 18K Gold Dial Fillet Hairline -->
+            <path
+              class="ecu-inner-fillet"
+              d="M 30.0 16.8 C 25.8 19.3, 20.5 20.7, 16.3 21.2 C 16.7 24.4, 17.1 28.7, 17.3 33.9 C 17.8 43.0, 23.2 49.9, 30.0 54.3 C 36.8 49.9, 42.2 43.0, 42.7 33.9 C 42.9 28.7, 43.3 24.4, 43.7 21.2 C 39.5 20.7, 34.2 19.3, 30.0 16.8 Z"
+              fill="none"
+              stroke="url(#ecuFilletGold)"
+              stroke-width="0.52"
+              opacity="0.54"
+              stroke-linejoin="round"
+            />
+
+            <!-- Layer 4: Swiss Dauphine Watch-Hand Two-Facet Solid 18K Gold Checkmark -->
+            <g class="ecu-dauphine-check">
+              <!-- Deep Cast Relief Shadow on Flinqué Enamel -->
               <path
-                class="seal-check-shadow"
-                d="M23.5 30.5 L29.5 36 L41 23.5"
-                fill="none"
-                stroke="#68440D"
-                stroke-width="4.2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                class="dauphine-shadow-cast"
+                d="M 19.3 36.1 L 22.1 34.3 L 27.8 39.3 L 39.3 26.9 L 42.7 26.3 L 40.4 29.5 L 27.7 45.7 L 20.9 38.5 Z"
+                fill="#0D0501"
+                opacity="0.82"
               />
-              <!-- Polished Gold Checkmark Body -->
+              <!-- Upper Mirror-White 18K Champagne Gold Facet -->
               <path
-                class="seal-check-body"
-                d="M23.5 29.8 L29.5 35.3 L41 22.8"
-                fill="none"
-                stroke="url(#sealGoldCheck)"
-                stroke-width="2.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                class="dauphine-facet-lit"
+                d="M 18.8 34.6 L 21.6 32.8 L 27.3 37.8 L 38.8 25.4 L 42.2 24.8 L 27.2 41.2 Z"
+                fill="url(#dauphineLit)"
+                stroke="#4A2A04"
+                stroke-width="0.28"
+                stroke-linejoin="miter"
               />
-              <!-- Razor Specular Spine Highlight -->
+              <!-- Lower Sculpted Antique-Gold Facet -->
               <path
-                class="seal-check-spine"
-                d="M23.5 29.5 L29.5 35.0 L41 22.5"
+                class="dauphine-facet-shadow"
+                d="M 18.8 34.6 L 27.2 41.2 L 42.2 24.8 L 39.9 28.0 L 27.2 44.2 L 20.4 37.0 Z"
+                fill="url(#dauphineShadow)"
+                stroke="#3A1F03"
+                stroke-width="0.28"
+                stroke-linejoin="miter"
+              />
+              <!-- Razor-Sharp Knife-Edge Dauphine Center Spine -->
+              <path
+                class="dauphine-center-ridge"
+                d="M 19.2 34.8 L 27.2 41.2 L 41.8 25.1"
                 fill="none"
                 stroke="#FFFFFF"
-                stroke-width="0.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                opacity="0.95"
+                stroke-width="0.62"
+                stroke-linejoin="miter"
+                opacity="0.94"
+              />
+            </g>
+
+            <!-- Layer 5: Smart Optical Metallic Glint (Clipped Strictly Inside Royal Écu Silhouette) -->
+            <g clip-path="url(#ecuOuterClip)">
+              <rect
+                class="seal-smart-glint"
+                x="-28"
+                y="-12"
+                width="24"
+                height="94"
+                fill="url(#ecuOpticalGlint)"
               />
             </g>
           </svg>
         </button>
       </header>
 
-      <main class="app-main">
+      <main class="app-main main-membership-active">
         <!-- PAGE: MEMBERSHIP -->
         <section class="page is-active" id="membership-tab">
           <!-- MASTER CARD -->
@@ -1306,15 +1382,6 @@
           <div id="ultimate-club-bg" class="gold-facade-container" aria-hidden="true">
   <svg class="gold-facade-svg" viewBox="0 0 600 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs>
-    <filter id="goldHammeredLeaf" x="0%" y="0%" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.06" numOctaves="3" result="noise"/>
-      <feColorMatrix type="matrix" values="
-        0.35 0 0 0 0.82
-        0 0.28 0 0 0.65
-        0 0 0.20 0 0.32
-        0 0 0 0.14 0" in="noise" result="tintedNoise"/>
-      <feBlend mode="overlay" in="SourceGraphic" in2="tintedNoise" result="blend"/>
-    </filter>
     <linearGradient id="g_mirror_0" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="0%" stop-color="#FFF8E7"/><stop offset="50%" stop-color="#E5C77A"/><stop offset="100%" stop-color="#B89038"/></linearGradient>
     <linearGradient id="g_mirror_45" x1="15%" y1="15%" x2="85%" y2="85%"><stop offset="0%" stop-color="#FFF8E7"/><stop offset="50%" stop-color="#E5C77A"/><stop offset="100%" stop-color="#B89038"/></linearGradient>
     <linearGradient id="g_mirror_90" x1="50%" y1="0%" x2="50%" y2="100%"><stop offset="0%" stop-color="#FFF8E7"/><stop offset="50%" stop-color="#E5C77A"/><stop offset="100%" stop-color="#B89038"/></linearGradient>
@@ -1356,7 +1423,7 @@
     <linearGradient id="g_deep_270" x1="50%" y1="100%" x2="50%" y2="0%"><stop offset="0%" stop-color="#BA8B32"/><stop offset="50%" stop-color="#7A5314"/><stop offset="100%" stop-color="#3D2706"/></linearGradient>
     <linearGradient id="g_deep_315" x1="15%" y1="85%" x2="85%" y2="15%"><stop offset="0%" stop-color="#BA8B32"/><stop offset="50%" stop-color="#7A5314"/><stop offset="100%" stop-color="#3D2706"/></linearGradient>
   </defs>
-  <g filter="url(#goldHammeredLeaf)">
+  <g>
     <path d="M 0 0 L 63.1 0 L 69.6 61.7 Z" fill="url(#g_mirror_315)" stroke="rgba(198, 164, 91, 0.22)" stroke-width="0.5" stroke-linejoin="round"/>
     <path d="M 0 0 L 69.6 61.7 L 0 83.4 Z" fill="url(#g_deep_135)" stroke="rgba(198, 164, 91, 0.22)" stroke-width="0.5" stroke-linejoin="round"/>
     <path d="M 63.1 0 L 203.5 0 L 69.6 61.7 Z" fill="url(#g_gold24_270)" stroke="rgba(198, 164, 91, 0.22)" stroke-width="0.5" stroke-linejoin="round"/>
@@ -3237,7 +3304,7 @@
       </main>
 
       <!-- BOTTOM NAV -->
-      <nav class="bottom-nav" aria-label="Primary">
+      <nav class="bottom-nav" data-active-index="0" aria-label="Primary">
         <button class="nav-item is-active" data-tab="membership" type="button">
           <svg viewBox="0 0 24 24" fill="none">
             <rect
@@ -3270,9 +3337,18 @@
         </button>
         <button class="nav-item" data-tab="profile" type="button">
           <svg viewBox="0 0 24 24" fill="none">
+            <circle
+              cx="12"
+              cy="8.2"
+              r="3.6"
+              stroke="currentColor"
+              stroke-width="1.3"
+            ></circle>
             <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"
-              fill="currentColor"
+              d="M4.8 19.5c1-3.3 3.7-5.1 7.2-5.1s6.2 1.8 7.2 5.1"
+              stroke="currentColor"
+              stroke-width="1.3"
+              stroke-linecap="round"
             ></path>
           </svg>
           <span data-i18n="nav.profile">Profile</span>

@@ -499,12 +499,7 @@ body.light-mode .club-composer input::placeholder {
 }
 
 
-body.light-mode .nav-item {
-  color: #5c4520;
-}
-body.light-mode .nav-item.is-active {
-  color: var(--gold-polished);
-}
+/* (Bottom nav item light-mode styling unified in canonical Floating Capsule section) */
 
 body.light-mode .boutique-section-head h3 {
   color: var(--lm-text-dark) !important;
@@ -1219,6 +1214,7 @@ html.light-mode .tagline-rule .rule-diamond {
   scroll-behavior: smooth;
   z-index: 1;
   box-sizing: border-box;
+  contain: layout style;
 }
 
 .page.is-active {
@@ -1226,7 +1222,7 @@ html.light-mode .tagline-rule .rule-diamond {
   opacity: 1;
   pointer-events: auto;
   z-index: 2;
-  animation: luxuryFadeSlide 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: luxuryFadeSlide 0.17s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .page:not(.is-active),
@@ -2248,173 +2244,25 @@ body.light-mode .metric-tooltip-icon circle {
   opacity: 1;
 }
 
+/* Base structural anchors for .bottom-nav & .nav-item (all visual & motion rules unified in canonical Floating Capsule section) */
 .bottom-nav {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 100;
-  direction: ltr;
-  max-width: 520px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px));
-  border: none !important;
-  border-top: none !important;
-  border-radius: 0 !important;
-  box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.08) !important;
   pointer-events: auto;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
-
-  /* Optical Glass Blur Applied Directly to Navigation Element */
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-
-  /* Seamless Dissolve: Fades seamlessly toward top edge into the content without hard cut or line */
-  mask-image: linear-gradient(0deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
-  -webkit-mask-image: linear-gradient(0deg, #000000 0%, #000000 76%, rgba(0, 0, 0, 0.6) 90%, transparent 100%) !important;
-
-  /* Dark Mode Default: Obsidian Champagne Seamless Gradient Liquid Glass */
-  background: linear-gradient(
-    0deg,
-    rgba(8, 8, 10, 0.94) 0%,
-    rgba(12, 12, 15, 0.84) 42%,
-    rgba(16, 16, 20, 0.54) 74%,
-    rgba(16, 16, 20, 0.20) 90%,
-    rgba(16, 16, 20, 0.0) 100%
-  ) !important;
-}
-
-/* Remove Any Pseudo-Element Overlays */
-.bottom-nav::before,
-.bottom-nav::after {
-  content: none !important;
-  display: none !important;
-}
-
-/* Light Mode: Ivory & Champagne Gold Seamless Gradient Liquid Glass */
-body.light-mode .bottom-nav,
-html.light-mode .bottom-nav,
-[data-theme="light"] .bottom-nav {
-  background: linear-gradient(
-    0deg,
-    rgba(253, 251, 247, 0.95) 0%,
-    rgba(249, 245, 238, 0.85) 42%,
-    rgba(244, 238, 228, 0.56) 74%,
-    rgba(240, 233, 220, 0.20) 90%,
-    rgba(240, 233, 220, 0.0) 100%
-  ) !important;
-  box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.60) !important;
-}
-.bottom-nav.nav-hidden,
-body.keyboard-open .bottom-nav,
-html.keyboard-open .bottom-nav {
-  transform: translate3d(0, 105%, 0) !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
 }
 
 #club-tab.keyboard-active {
   transition: padding-bottom 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
-/* === 4. Tabs & Navigation === */
-.nav-item  {
 
-  
+.nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  padding: 4px 0;
-  color: var(--text-secondary) !important;
-  transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translate3d(0, 0, 0);
   touch-action: manipulation;
-  will-change: transform, color;
   user-select: none;
   -webkit-user-select: none;
-
-}
-.nav-item:active {
-  transform: scale(0.92) translate3d(0, 0, 0);
-  transition: transform 0.08s ease;
-}
-.nav-item svg {
-  width: 20px;
-  height: 20px;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.22s ease;
-  transform: translate3d(0, 0, 0);
-}
-.nav-item span {
-  font-size: 8.5px;
-  letter-spacing: 0.08em;
-  transition: color 0.18s ease;
-}
-.nav-item.is-active {
-  color: var(--gold-polished, #d4af6a) !important;
-  transform: translateY(-2px) translate3d(0, 0, 0);
-}
-.nav-item.is-active svg,
-.nav-item.is-active .nav-icon {
-  color: var(--gold-polished, #d4af6a) !important;
-  transform: scale(1.08) translate3d(0, 0, 0);
-  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.45)) !important;
-}
-.nav-item.is-active svg [stroke="currentColor"],
-.nav-item.is-active svg path[stroke],
-.nav-item.is-active svg rect[stroke] {
-  stroke: var(--gold-polished, #d4af6a) !important;
-  stroke-width: 1.6px !important;
-  stroke-linecap: round !important;
-  stroke-linejoin: round !important;
-}
-.nav-item.is-active svg [fill="currentColor"],
-.nav-item.is-active svg path[fill]:not([fill="none"]) {
-  fill: var(--gold-polished, #d4af6a) !important;
-}
-.nav-item.is-active span,
-.nav-item.is-active .nav-label {
-  color: var(--gold-polished, #d4af6a) !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.08em;
-  text-shadow: 0 0 12px rgba(212, 175, 55, 0.35) !important;
-}
-
-/* Light Mode Overrides: Clean, authentic polished gold with zero dark shadows */
-body.light-mode .nav-item.is-active,
-html.light-mode .nav-item.is-active {
-  color: #a87c2d !important;
-}
-body.light-mode .nav-item.is-active svg,
-html.light-mode .nav-item.is-active svg {
-  color: #a87c2d !important;
-  filter: none !important;
-}
-body.light-mode .nav-item.is-active svg [stroke="currentColor"],
-body.light-mode .nav-item.is-active svg path[stroke],
-body.light-mode .nav-item.is-active svg rect[stroke],
-html.light-mode .nav-item.is-active svg [stroke="currentColor"],
-html.light-mode .nav-item.is-active svg path[stroke],
-html.light-mode .nav-item.is-active svg rect[stroke] {
-  stroke: #a87c2d !important;
-}
-body.light-mode .nav-item.is-active svg [fill="currentColor"],
-body.light-mode .nav-item.is-active svg path[fill]:not([fill="none"]),
-html.light-mode .nav-item.is-active svg [fill="currentColor"],
-html.light-mode .nav-item.is-active svg path[fill]:not([fill="none"]) {
-  fill: #a87c2d !important;
-}
-body.light-mode .nav-item.is-active span,
-body.light-mode .nav-item.is-active .nav-label,
-html.light-mode .nav-item.is-active span,
-html.light-mode .nav-item.is-active .nav-label {
-  color: #8f641a !important;
-  font-weight: 700 !important;
-  text-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
 }
 .nav-toast {
   position: fixed !important;
@@ -3299,13 +3147,9 @@ body.light-mode .sd-footer-hallmark {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
-/* Full-width container handling specifically for Club Chat tab */
+/* Full-width container handling specifically for Club Chat tab (direct O(1) classes, zero :has() full-tree restyle) */
 .app-main.main-club-active,
-.app-main:has(#club-tab.is-active),
-.app:has(#club-tab.is-active) .app-main,
-body.tab-club-active .app-main,
-body:has(#club-tab.is-active) .app-main,
-html:has(#club-tab.is-active) .app-main {
+body.tab-club-active .app-main {
   padding: 0 !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -6648,12 +6492,11 @@ body.light-mode #boutique-tab .widget-add-btn.is-installed {
 }
 
 @media (max-width: 380px) {
-  .app-main:not(.main-club-active):not(:has(#club-tab.is-active)) {
+  .app-main:not(.main-club-active) {
     padding-inline-start: 10px;
     padding-inline-end: 10px;
   }
   .app-main.main-club-active,
-  .app-main:has(#club-tab.is-active),
   body.tab-club-active .app-main {
     padding-inline: 0 !important;
     padding-inline-start: 0 !important;
@@ -11754,11 +11597,11 @@ body.light-mode #accountInfoModal .avatar-preset-thumbnail.active {
 @keyframes luxuryFadeSlide {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.99);
+    transform: translate3d(0, 5px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -15085,9 +14928,7 @@ body.light-mode #boutique-tab .id-widget-container .membership-card::after {
 }
 
 /* 2. Container Architecture: Stable scroll isolation while preserving 3D Master Card tilt */
-.app-main.main-membership-active,
-.app-main:has(#membership-tab.is-active),
-.app:has(#membership-tab.is-active) .app-main {
+.app-main.main-membership-active {
   overflow: hidden !important;
   contain: none !important;
 }
@@ -28747,9 +28588,16 @@ body.light-mode #profile-tab .profile-hero-card {
 }
 
 
-/* === PERFORMANCE PASS: PRESERVE SOVEREIGN CLUB LIQUID GLASS & BOTTOM NAV === */
+/* === PERFORMANCE PASS: TARGETED MOBILE BACKDROP-FILTER CAP (ZERO UNIVERSAL * SCAN) === */
 @media (max-width: 600px) {
-  *:not(.bottom-nav, .bottom-nav *, .sovereign-salon-ticker, .sovereign-salon-ticker *, #clubCreditsDisplay, #clubCreditsDisplay *, .obsidian-dispatch-composer, .obsidian-dispatch-composer *, .sovereign-dispatch-card, .sovereign-dispatch-card *, .club-chamber-plaque, .club-chamber-plaque *, .club-rooms-nav, .club-rooms-nav *, .club-room-btn, .club-room-btn *) {
+  .modal,
+  .modal-content,
+  .settings-modal,
+  #settingsModal,
+  .boutique-card,
+  .profile-hero-card,
+  .membership-ledger-card,
+  .reliquary-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
@@ -35527,7 +35375,7 @@ body.light-mode #gaugePipsStrip {
     background-color: transparent !important;
 }
 
-/* THE 3D GEOMETRIC GOLDEN FACADE BASE */
+/* THE 3D GEOMETRIC GOLDEN FACADE BASE (GPU-ISOLATED, ZERO CPU PERLIN NOISE STALL) */
 #ultimate-club-bg {
     position: absolute !important;
     top: 0 !important;
@@ -35539,6 +35387,8 @@ body.light-mode #gaugePipsStrip {
     z-index: 0 !important;
     pointer-events: none !important;
     overflow: hidden !important;
+    contain: strict !important;
+    transform: translate3d(0, 0, 0) !important;
     background: #070707 !important;
 }
 
@@ -35549,9 +35399,9 @@ body.light-mode #gaugePipsStrip {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    opacity: 0.38 !important;
-    filter: grayscale(45%) contrast(145%) brightness(36%) sepia(35%) hue-rotate(5deg) !important;
-    transform: scale(1.02) !important;
+    opacity: 0.36 !important;
+    filter: grayscale(45%) contrast(140%) brightness(36%) sepia(35%) !important;
+    transform: translate3d(0, 0, 0) scale(1.02) !important;
 }
 
 /* LUXURY ATMOSPHERIC VIGNETTE (PRESERVES TEXT CONTRAST & HARMONY) */
@@ -35566,19 +35416,10 @@ body.light-mode #gaugePipsStrip {
     mix-blend-mode: normal !important;
 }
 
-/* MICROSCOPIC FROSTED GRAIN */
+/* Disabled full-screen CPU feTurbulence grain overlay to guarantee 60-120fps tab entry */
 #ultimate-club-bg::after {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E") !important;
-    opacity: 0.22 !important;
-    mix-blend-mode: soft-light !important;
-    z-index: 3 !important;
-    pointer-events: none !important;
+    content: none !important;
+    display: none !important;
 }
 
 /* THE 1% CLUB — FLOATING LIQUID GLASS HUD & VIEWPORT STACKING */
@@ -36039,23 +35880,24 @@ html.light-mode #ultimate-club-bg,
 body.light-mode #ultimate-club-bg .gold-facade-svg,
 html.light-mode #ultimate-club-bg .gold-facade-svg,
 :root[data-theme="light"] #ultimate-club-bg .gold-facade-svg {
-    opacity: 0.45 !important;
-    filter: contrast(86%) saturate(82%) brightness(101%) !important;
+    opacity: 0.36 !important;
+    filter: none !important;
 }
 
 body.light-mode #ultimate-club-bg .gold-facade-atmosphere-vignette,
 html.light-mode #ultimate-club-bg .gold-facade-atmosphere-vignette,
 :root[data-theme="light"] #ultimate-club-bg .gold-facade-atmosphere-vignette {
     background: 
-        radial-gradient(ellipse 110% 70% at 50% 28%, rgba(255, 255, 255, 0.72) 0%, rgba(245, 240, 227, 0.52) 55%, rgba(232, 223, 201, 0.80) 100%),
-        linear-gradient(180deg, rgba(250, 247, 239, 0.45) 0%, rgba(245, 240, 227, 0.20) 30%, rgba(245, 240, 227, 0.45) 70%, rgba(232, 223, 201, 0.88) 100%) !important;
-    mix-blend-mode: soft-light !important;
+        radial-gradient(ellipse 110% 70% at 50% 28%, rgba(255, 255, 255, 0.44) 0%, rgba(245, 240, 227, 0.32) 55%, rgba(232, 223, 201, 0.56) 100%),
+        linear-gradient(180deg, rgba(250, 247, 239, 0.32) 0%, rgba(245, 240, 227, 0.14) 30%, rgba(245, 240, 227, 0.32) 70%, rgba(232, 223, 201, 0.62) 100%) !important;
+    mix-blend-mode: normal !important;
 }
 
 body.light-mode #ultimate-club-bg::after,
 html.light-mode #ultimate-club-bg::after,
 :root[data-theme="light"] #ultimate-club-bg::after {
-    opacity: 0.10 !important;
+    content: none !important;
+    display: none !important;
 }
 
 body.light-mode .dispatch-name,
@@ -37776,5 +37618,1297 @@ body.light-mode .alloc-plus-glyph {
     inset 0 1px 0 #ffffff,
     inset 0 -1px 1px rgba(60, 42, 10, 0.5) !important;
 }
+
+/* ==========================================================================
+   THE 1% CLUB — MEMBERSHIP BATCH 1 VISUAL REFINEMENTS
+   1. Single copy confirmation popup positioned above Bottom Nav (80px = 68px nav + 12px clearance)
+      with Imperial Ivory Light Mode styling & accessible sr-only #copyToast
+   2. Light Mode contrast fixes for Member Number (3426) & 1% Sovereign Hallmark
+   ========================================================================== */
+
+/* 1A. Visible inline Membership feedback slot (#copyToast) below .card-actions and above .bottom-nav */
+#membership-tab #copyToast.copy-toast {
+  display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  min-height: 16px !important;
+  margin: -2px auto 2px !important;
+  padding: 0 12px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 16px !important;
+  letter-spacing: 0.03em !important;
+  text-align: center !important;
+  color: #e6cc8f !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  flex: none !important;
+  transition: opacity 0.22s ease !important;
+}
+
+#membership-tab #copyToast.copy-toast.is-visible {
+  opacity: 1 !important;
+}
+
+#membership-tab #copyToast.copy-toast.is-visible.is-error {
+  color: #e8b39a !important;
+}
+
+body.light-mode #membership-tab #copyToast.copy-toast {
+  color: #4a320d !important;
+}
+
+body.light-mode #membership-tab #copyToast.copy-toast.is-visible.is-error {
+  color: #7d291a !important;
+}
+
+/* 1B. Imperial Ivory & Antique Gold Light Mode styling for .gold-copy-popup (kept intact for API safety) */
+body.light-mode .gold-copy-popup-rim {
+  background: linear-gradient(
+    135deg,
+    #f6e5b8 0%,
+    #c89f48 32%,
+    #8c651d 68%,
+    #e2c278 100%
+  ) !important;
+  box-shadow:
+    0 14px 30px -6px rgba(55, 38, 12, 0.22),
+    0 4px 12px -2px rgba(70, 48, 15, 0.14),
+    0 0 0 1px rgba(156, 114, 37, 0.28) !important;
+}
+
+body.light-mode .gold-copy-popup-inner {
+  background: linear-gradient(
+    180deg,
+    #fffdf8 0%,
+    #f5ede0 62%,
+    #ece1cc 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(120, 88, 28, 0.14) !important;
+}
+
+body.light-mode .gold-copy-popup-shimmer {
+  background: linear-gradient(
+    105deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.45) 46%,
+    rgba(212, 175, 106, 0.28) 50%,
+    rgba(255, 255, 255, 0.45) 54%,
+    transparent 75%
+  ) !important;
+}
+
+body.light-mode .gold-copy-popup-icon-wrap {
+  filter: drop-shadow(0 1px 2px rgba(70, 48, 15, 0.18)) !important;
+}
+
+body.light-mode .gold-copy-popup-icon circle:first-of-type {
+  fill: #f8f2e4 !important;
+  stroke: #9c7225 !important;
+}
+
+body.light-mode .gold-copy-popup-icon circle:nth-of-type(2) {
+  stroke: rgba(138, 100, 30, 0.35) !important;
+}
+
+body.light-mode .gold-copy-popup-icon path {
+  stroke: #6e4c14 !important;
+}
+
+body.light-mode .gold-copy-popup-title {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: #2b1c06 !important;
+  -webkit-text-fill-color: #2b1c06 !important;
+  filter: none !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+body.light-mode .gold-copy-popup-subtitle {
+  color: #6e5120 !important;
+  opacity: 0.92 !important;
+}
+
+body.light-mode .gold-popup-crown {
+  filter: drop-shadow(0 1px 1px rgba(70, 48, 15, 0.2)) !important;
+}
+
+body.light-mode .gold-popup-crown path {
+  fill: #8f651d !important;
+  stroke: #4a3109 !important;
+}
+
+body.light-mode .gold-popup-crown circle {
+  fill: #b88c36 !important;
+}
+
+/* 2. Light Mode Contrast Fix: Member Number (3426) & 1% Hallmark (Membership Only) */
+body.light-mode #membership-tab .member-number,
+body.light-mode #membershipCard .member-number {
+  color: #2a1b05 !important;
+  -webkit-text-fill-color: #2a1b05 !important;
+  background: none !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+body.light-mode #membership-tab #cardHallmarkLine svg path,
+body.light-mode #membershipCard #cardHallmarkLine svg path {
+  stroke: #85601d !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85)) !important;
+}
+
+body.light-mode #membership-tab #cardHallmarkLine svg text,
+body.light-mode #membershipCard #cardHallmarkLine svg text {
+  fill: #3b2708 !important;
+  text-shadow: none !important;
+}
+
+/* ==========================================================================
+   THE 1% CLUB — UNIFIED FLOATING LIQUID GLASS BOTTOM NAVIGATION (CANONICAL)
+   - Single source of truth for layout, Dark/Light materials, & 120fps motion
+   - Explicit pure-percentage GPU transforms (translate3d 0%/100%/200%/300%)
+     with ZERO var()/calc() inside transform -> 100% off-main-thread CC glide
+   - Single unified motion curve across lens, icons, and labels:
+     0.26s cubic-bezier(0.22, 1, 0.36, 1)
+   - Unified SVG stroke-width (1.45px) across all states -> zero snap-twitch
+   ========================================================================== */
+
+/* 1. Outer Floating Liquid Glass Capsule */
+.bottom-nav {
+  position: fixed !important;
+  z-index: 100 !important;
+  box-sizing: border-box !important;
+  direction: ltr !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+  left: 12px !important;
+  right: 12px !important;
+  width: auto !important;
+  max-width: calc(520px - 24px) !important;
+  margin: 0 auto !important;
+  gap: 0 !important;
+  padding: 5px !important;
+  border-radius: 26px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-top-color: rgba(242, 218, 162, 0.30) !important;
+  border-left-color: rgba(235, 208, 148, 0.16) !important;
+  border-right-color: rgba(235, 208, 148, 0.16) !important;
+  border-bottom-color: rgba(212, 175, 106, 0.10) !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  isolation: isolate !important;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(22, 20, 18, 0.94) 0%,
+    rgba(10, 10, 12, 0.97) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 228, 0.24),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 12px 32px -6px rgba(0, 0, 0, 0.58),
+    0 2px 8px rgba(0, 0, 0, 0.34) !important;
+}
+
+/* 2. Single Pure-Compositor Sliding Optical Lens (ZERO var()/calc() in transform) */
+.bottom-nav::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  top: 5px !important;
+  bottom: 5px !important;
+  left: 5px !important;
+  width: calc((100% - 10px) / 4) !important;
+  box-sizing: border-box !important;
+  border-radius: 20px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-top-color: rgba(244, 222, 168, 0.34) !important;
+  border-left-color: rgba(235, 208, 148, 0.16) !important;
+  border-right-color: rgba(235, 208, 148, 0.16) !important;
+  border-bottom-color: rgba(212, 175, 106, 0.10) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 248, 232, 0.085) 0%,
+    rgba(212, 175, 106, 0.035) 62%,
+    rgba(255, 248, 232, 0.01) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 249, 232, 0.30),
+    inset 0 -1px 0 rgba(212, 175, 106, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.28) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  will-change: transform !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  transform: translate3d(0%, 0, 0) !important;
+  transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.bottom-nav[data-active-index="0"]::before {
+  transform: translate3d(0%, 0, 0) !important;
+}
+
+.bottom-nav[data-active-index="1"]::before {
+  transform: translate3d(100%, 0, 0) !important;
+}
+
+.bottom-nav[data-active-index="2"]::before {
+  transform: translate3d(200%, 0, 0) !important;
+}
+
+.bottom-nav[data-active-index="3"]::before {
+  transform: translate3d(300%, 0, 0) !important;
+}
+
+.bottom-nav::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* 3. Light Mode Floating Capsule & Translucent Liquid Glass Lens */
+body.light-mode .bottom-nav,
+html.light-mode .bottom-nav,
+[data-theme="light"] .bottom-nav {
+  border-top-color: rgba(255, 255, 255, 0.90) !important;
+  border-left-color: rgba(168, 128, 52, 0.20) !important;
+  border-right-color: rgba(168, 128, 52, 0.20) !important;
+  border-bottom-color: rgba(156, 114, 37, 0.24) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 253, 248, 0.95) 0%,
+    rgba(245, 238, 224, 0.97) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    inset 0 -1px 0 rgba(156, 114, 37, 0.10),
+    0 10px 28px -6px rgba(68, 48, 15, 0.14),
+    0 2px 8px rgba(68, 48, 15, 0.06) !important;
+}
+
+body.light-mode .bottom-nav::before,
+html.light-mode .bottom-nav::before,
+[data-theme="light"] .bottom-nav::before {
+  border-top-color: rgba(255, 255, 255, 0.92) !important;
+  border-left-color: rgba(168, 128, 52, 0.22) !important;
+  border-right-color: rgba(168, 128, 52, 0.22) !important;
+  border-bottom-color: rgba(156, 114, 37, 0.26) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.64) 0%,
+    rgba(248, 241, 228, 0.32) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(156, 114, 37, 0.10),
+    0 3px 10px rgba(82, 58, 18, 0.08) !important;
+}
+
+/* Progressive Translucent Liquid Glass (10px mobile-GPU tuned) */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .bottom-nav {
+    backdrop-filter: blur(10px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(140%) !important;
+    background: linear-gradient(
+      180deg,
+      rgba(26, 23, 20, 0.72) 0%,
+      rgba(11, 10, 10, 0.84) 100%
+    ) !important;
+  }
+
+  body.light-mode .bottom-nav,
+  html.light-mode .bottom-nav,
+  [data-theme="light"] .bottom-nav {
+    backdrop-filter: blur(10px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(140%) !important;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 253, 248, 0.76) 0%,
+      rgba(245, 238, 224, 0.86) 100%
+    ) !important;
+  }
+}
+
+/* Slide cleanly off-screen when hidden or keyboard is open */
+.bottom-nav.nav-hidden,
+body.keyboard-open .bottom-nav,
+html.keyboard-open .bottom-nav {
+  transform: translate3d(0, calc(100% + 28px), 0) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* 4. Unified Navigation Items — Single 0.26s Curve, Zero Stroke-Width Twitch, Zero Bounce Conflict */
+.bottom-nav .nav-item {
+  position: relative !important;
+  z-index: 1 !important;
+  box-sizing: border-box !important;
+  min-height: 50px !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  padding: 5px 2px !important;
+  border-radius: 20px !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #b8ad97 !important;
+  transform: translate3d(0, 0, 0) !important;
+  transition: color 0.26s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.bottom-nav .nav-item:not(.is-active):active {
+  transform: scale(0.97) translate3d(0, 0, 0) !important;
+}
+
+.bottom-nav .nav-item svg {
+  width: 20px !important;
+  height: 20px !important;
+  color: inherit !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+  opacity: 0.72 !important;
+  filter: none !important;
+  will-change: transform, opacity !important;
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.bottom-nav .nav-item svg [stroke="currentColor"],
+.bottom-nav .nav-item svg path[stroke],
+.bottom-nav .nav-item svg rect[stroke],
+.bottom-nav .nav-item svg circle[stroke] {
+  stroke: currentColor !important;
+  stroke-width: 1.45px !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  transition: none !important;
+}
+
+.bottom-nav .nav-item span {
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.025em !important;
+  white-space: nowrap !important;
+  color: inherit !important;
+  opacity: 0.74 !important;
+  text-shadow: none !important;
+  transition:
+    opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.26s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* 5. Active Tab State (Dark Mode) */
+.bottom-nav .nav-item.is-active {
+  color: #ebd08e !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+.bottom-nav .nav-item.is-active svg,
+.bottom-nav .nav-item.is-active .nav-icon {
+  opacity: 1 !important;
+  transform: translate3d(0, -0.5px, 0) scale(1.04) !important;
+  filter: none !important;
+}
+
+.bottom-nav .nav-item.is-active span,
+.bottom-nav .nav-item.is-active .nav-label {
+  opacity: 1 !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+/* 6. Light Mode Items & Active State */
+body.light-mode .bottom-nav .nav-item,
+html.light-mode .bottom-nav .nav-item {
+  color: #574834 !important;
+}
+
+body.light-mode .bottom-nav .nav-item:not(.is-active) span,
+html.light-mode .bottom-nav .nav-item:not(.is-active) span {
+  color: #574834 !important;
+  opacity: 0.74 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .bottom-nav .nav-item.is-active,
+html.light-mode .bottom-nav .nav-item.is-active {
+  color: #744f12 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+body.light-mode .bottom-nav .nav-item.is-active svg,
+html.light-mode .bottom-nav .nav-item.is-active svg {
+  opacity: 1 !important;
+  transform: translate3d(0, -0.5px, 0) scale(1.04) !important;
+  filter: none !important;
+}
+
+body.light-mode .bottom-nav .nav-item.is-active span,
+body.light-mode .bottom-nav .nav-item.is-active .nav-label,
+html.light-mode .bottom-nav .nav-item.is-active span,
+html.light-mode .bottom-nav .nav-item.is-active .nav-label {
+  color: #5e3e0c !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-nav::before,
+  .bottom-nav .nav-item,
+  .bottom-nav .nav-item svg,
+  .bottom-nav .nav-item span,
+  .page.is-active {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   THE 1% CLUB — MEMBERSHIP FULL POLISH (DARK & LIGHT MODE PARITY)
+   1. Liquid Glass Secondary Action Controls (#shareBtn, #copyBtn)
+   2. Master Card Guilloché & Gold Dust Subtlety
+   3. Coaxial Living Core Alignment & Chronograph Ring Clarity
+   4. Softened Light Mode Header Verification Shield Shadow
+   ========================================================================== */
+
+/* 1. LIQUID GLASS ACTION CONTROLS (Harmonized with Floating Glass Capsule) */
+#membership-tab .card-actions #shareBtn,
+#membership-tab .card-actions #copyBtn,
+#membership-tab .card-actions #shareBtn:not(:active):not(.is-pressed),
+#membership-tab .card-actions #copyBtn:not(:active):not(.is-pressed),
+#membership-tab .card-actions #shareBtn:hover:not(:active):not(.is-pressed),
+#membership-tab .card-actions #copyBtn:hover:not(:active):not(.is-pressed),
+#membership-tab .card-actions #shareBtn:focus:not(:active):not(.is-pressed),
+#membership-tab .card-actions #copyBtn:focus:not(:active):not(.is-pressed) {
+  border-radius: 16px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-top-color: rgba(242, 218, 162, 0.28) !important;
+  border-left-color: rgba(235, 208, 148, 0.14) !important;
+  border-right-color: rgba(235, 208, 148, 0.14) !important;
+  border-bottom-color: rgba(212, 175, 106, 0.10) !important;
+  background-image: linear-gradient(
+    180deg,
+    rgba(28, 24, 20, 0.86) 0%,
+    rgba(13, 12, 12, 0.92) 100%
+  ) !important;
+  background-origin: padding-box !important;
+  background-clip: padding-box !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 228, 0.20),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 6px 18px -4px rgba(0, 0, 0, 0.48),
+    0 1px 4px rgba(0, 0, 0, 0.28) !important;
+  color: #e6cc8f !important;
+  text-shadow: none !important;
+  transform: translate3d(0, 0, 0) !important;
+  transition:
+    transform 0.12s ease-out,
+    color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease !important;
+}
+
+#membership-tab .card-actions #shareBtn:active,
+#membership-tab .card-actions #copyBtn:active,
+#membership-tab .card-actions #shareBtn.is-pressed,
+#membership-tab .card-actions #copyBtn.is-pressed {
+  border-top-color: rgba(248, 228, 178, 0.44) !important;
+  border-left-color: rgba(235, 208, 148, 0.26) !important;
+  border-right-color: rgba(235, 208, 148, 0.26) !important;
+  border-bottom-color: rgba(212, 175, 106, 0.18) !important;
+  background-image: linear-gradient(
+    180deg,
+    rgba(235, 208, 148, 0.18) 0%,
+    rgba(28, 24, 18, 0.84) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 236, 0.34),
+    0 2px 8px rgba(0, 0, 0, 0.52) !important;
+  color: #f5e2b0 !important;
+  opacity: 0.96 !important;
+  transform: scale(0.97) translate3d(0, 0, 0) !important;
+}
+
+/* Light Mode Liquid Glass Action Controls */
+body.light-mode #membership-tab .card-actions #shareBtn,
+body.light-mode #membership-tab .card-actions #copyBtn,
+body.light-mode #membership-tab .card-actions #shareBtn:not(:active):not(.is-pressed),
+body.light-mode #membership-tab .card-actions #copyBtn:not(:active):not(.is-pressed),
+body.light-mode #membership-tab .card-actions #shareBtn:hover:not(:active):not(.is-pressed),
+body.light-mode #membership-tab .card-actions #copyBtn:hover:not(:active):not(.is-pressed),
+body.light-mode #membership-tab .card-actions #shareBtn:focus:not(:active):not(.is-pressed),
+body.light-mode #membership-tab .card-actions #copyBtn:focus:not(:active):not(.is-pressed) {
+  border-radius: 16px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-top-color: rgba(255, 255, 255, 0.92) !important;
+  border-left-color: rgba(168, 128, 52, 0.22) !important;
+  border-right-color: rgba(168, 128, 52, 0.22) !important;
+  border-bottom-color: rgba(156, 114, 37, 0.24) !important;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 253, 248, 0.88) 0%,
+    rgba(246, 239, 225, 0.82) 100%
+  ) !important;
+  background-origin: padding-box !important;
+  background-clip: padding-box !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    inset 0 -1px 0 rgba(156, 114, 37, 0.08),
+    0 5px 14px -4px rgba(74, 52, 16, 0.10),
+    0 1px 3px rgba(74, 52, 16, 0.05) !important;
+  color: #4b330c !important;
+  text-shadow: none !important;
+}
+
+body.light-mode #membership-tab .card-actions #shareBtn:active,
+body.light-mode #membership-tab .card-actions #copyBtn:active,
+body.light-mode #membership-tab .card-actions #shareBtn.is-pressed,
+body.light-mode #membership-tab .card-actions #copyBtn.is-pressed {
+  border-top-color: rgba(255, 255, 255, 0.96) !important;
+  border-left-color: rgba(168, 128, 52, 0.34) !important;
+  border-right-color: rgba(168, 128, 52, 0.34) !important;
+  border-bottom-color: rgba(156, 114, 37, 0.36) !important;
+  background-image: linear-gradient(
+    180deg,
+    rgba(246, 238, 222, 0.92) 0%,
+    rgba(235, 222, 196, 0.86) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(96, 68, 20, 0.12),
+    0 2px 6px rgba(74, 52, 16, 0.08) !important;
+  color: #362205 !important;
+  opacity: 0.96 !important;
+  transform: scale(0.97) translate3d(0, 0, 0) !important;
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  #membership-tab .card-actions #shareBtn,
+  #membership-tab .card-actions #copyBtn,
+  #membership-tab .card-actions #shareBtn:not(:active):not(.is-pressed),
+  #membership-tab .card-actions #copyBtn:not(:active):not(.is-pressed),
+  #membership-tab .card-actions #shareBtn:hover:not(:active):not(.is-pressed),
+  #membership-tab .card-actions #copyBtn:hover:not(:active):not(.is-pressed),
+  #membership-tab .card-actions #shareBtn:focus:not(:active):not(.is-pressed),
+  #membership-tab .card-actions #copyBtn:focus:not(:active):not(.is-pressed) {
+    backdrop-filter: blur(12px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+    background-image: linear-gradient(
+      180deg,
+      rgba(28, 24, 20, 0.62) 0%,
+      rgba(12, 11, 10, 0.76) 100%
+    ) !important;
+  }
+
+  body.light-mode #membership-tab .card-actions #shareBtn,
+  body.light-mode #membership-tab .card-actions #copyBtn,
+  body.light-mode #membership-tab .card-actions #shareBtn:not(:active):not(.is-pressed),
+  body.light-mode #membership-tab .card-actions #copyBtn:not(:active):not(.is-pressed),
+  body.light-mode #membership-tab .card-actions #shareBtn:hover:not(:active):not(.is-pressed),
+  body.light-mode #membership-tab .card-actions #copyBtn:hover:not(:active):not(.is-pressed),
+  body.light-mode #membership-tab .card-actions #shareBtn:focus:not(:active):not(.is-pressed),
+  body.light-mode #membership-tab .card-actions #copyBtn:focus:not(:active):not(.is-pressed) {
+    backdrop-filter: blur(12px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 253, 248, 0.68) 0%,
+      rgba(245, 238, 224, 0.58) 100%
+    ) !important;
+  }
+}
+
+/* 2. MASTER CARD SURFACE SUBTLETY (Iconic Guilloché Restored + Clean Gold Dust) */
+#membershipCard #guillocheCanvas,
+#membershipCard .guilloche-canvas,
+#boutique-tab .id-widget-container .guilloche-canvas {
+  opacity: 0.90 !important;
+}
+
+body.light-mode #membershipCard #guillocheCanvas,
+body.light-mode #membershipCard .guilloche-canvas,
+body.light-mode #boutique-tab .id-widget-container .guilloche-canvas {
+  opacity: 0.82 !important;
+}
+
+#membershipCard #goldDustCanvas,
+#membershipCard .gold-dust-canvas,
+#boutique-tab .id-widget-container .gold-dust-canvas {
+  opacity: 0.68 !important;
+}
+
+body.light-mode #membershipCard #goldDustCanvas,
+body.light-mode #membershipCard .gold-dust-canvas,
+body.light-mode #boutique-tab .id-widget-container .gold-dust-canvas {
+  opacity: 0.10 !important;
+}
+
+/* 3. COAXIAL LIVING CORE ALIGNMENT & SWISS CHRONOGRAPH RING CLARITY */
+#membership-tab .membership-card .living-core,
+#boutique-tab .id-widget-container .living-core {
+  box-sizing: border-box !important;
+  width: 28px !important;
+  height: 28px !important;
+  padding: 5px !important;
+  align-self: start !important;
+  margin-top: 21px !important;
+  margin-bottom: 0 !important;
+}
+
+#membership-tab .ring-track,
+#boutique-tab .id-widget-container .ring-track {
+  stroke: rgba(212, 175, 106, 0.20) !important;
+  stroke-width: 3.4px !important;
+}
+
+#membership-tab .ring-progress,
+#boutique-tab .id-widget-container .ring-progress {
+  stroke: #e5c372 !important;
+  stroke-width: 5.6px !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.65)) !important;
+}
+
+body.light-mode #membership-tab .ring-track,
+body.light-mode #boutique-tab .id-widget-container .ring-track {
+  stroke: rgba(120, 86, 28, 0.22) !important;
+  stroke-width: 3.4px !important;
+}
+
+body.light-mode #membership-tab .ring-progress,
+body.light-mode #boutique-tab .id-widget-container .ring-progress {
+  stroke: #9c6e1b !important;
+  stroke-width: 5.8px !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85)) !important;
+}
+
+body.light-mode #membership-tab .ring-info-icon,
+body.light-mode #boutique-tab .id-widget-container .ring-info-icon {
+  color: #7c5616 !important;
+  opacity: 0.9 !important;
+}
+
+/* 4. SOFTENED LIGHT MODE HEADER VERIFICATION SHIELD SHADOW */
+body.light-mode #appHeader .shield-btn,
+body.light-mode .app-header .shield-btn,
+body.light-mode .shield-btn {
+  border-color: rgba(132, 94, 24, 0.58) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.78),
+    inset 0 -1px 1.5px rgba(92, 64, 18, 0.42),
+    0 2px 6px rgba(82, 58, 18, 0.10) !important;
+}
+
+/* ==========================================================================
+   THE 1% CLUB — UNIFIED 72PX ZERO-DIFF GEOMETRIC HEADER & 12-POINT ROSETTE SEAL
+   - True 0.00px Geometric Lock Across ALL 4 Tabs (Membership, Club, Profile, Boutique)
+     in BOTH Dark Mode and Light Mode (resolves Light Mode .brand-title specificity leak)
+   - Full Brand Identity (Crown + THE 1% CLUB + PRIVATE WEALTH ◆ PRIVATE SOCIETY)
+     at identical crisp proportions and full opacity (1.0) on every tab
+   - 28px Sovereign 12-Point Geneva Rosette Seal (18K Gold & Black Onyx Enamel)
+     with silhouette-hugging metallic drop-shadow and 42px comfortable tap zone
+   - Zero Divider Line (::after hidden) — Light feathered Liquid Glass dissolve
+   - Seamless transparent #clubRoomsNavWrap + unified +8px top breathing room
+   ========================================================================== */
+
+#appHeader,
+.app-header,
+body.light-mode #appHeader,
+html.light-mode #appHeader,
+body.light-mode .app-header,
+html.light-mode .app-header,
+:root[data-theme="light"] #appHeader,
+:root[data-theme="light"] .app-header,
+body.header-subtab-mode #appHeader,
+body.header-subtab-mode .app-header,
+body.light-mode.header-subtab-mode #appHeader,
+body.light-mode.header-subtab-mode .app-header,
+html.light-mode body.header-subtab-mode #appHeader,
+html.light-mode body.header-subtab-mode .app-header,
+:root[data-theme="light"] body.header-subtab-mode #appHeader,
+:root[data-theme="light"] body.header-subtab-mode .app-header {
+  min-height: calc(72px + env(safe-area-inset-top, 0px)) !important;
+  height: calc(72px + env(safe-area-inset-top, 0px)) !important;
+  max-height: calc(72px + env(safe-area-inset-top, 0px)) !important;
+  padding: calc(5px + env(safe-area-inset-top, 0px)) 14px 5px !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  isolation: isolate !important;
+  transition:
+    opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* Light, Airy Seamless Liquid Glass Dissolve Backdrop (Zero Hard Edge / Crisp Legibility) */
+#appHeader::before,
+.app-header::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  background:
+    radial-gradient(ellipse 105% 50px at 50% -12px, rgba(212, 175, 55, 0.09) 0%, rgba(184, 134, 45, 0.02) 50%, transparent 78%),
+    linear-gradient(
+      180deg,
+      rgba(8, 8, 10, 0.90) 0%,
+      rgba(8, 8, 10, 0.76) 54%,
+      rgba(8, 8, 10, 0.34) 84%,
+      rgba(8, 8, 10, 0) 100%
+    ) !important;
+  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 58%, rgba(0, 0, 0, 0.56) 80%, transparent 100%) !important;
+  mask-image: linear-gradient(180deg, #000000 0%, #000000 58%, rgba(0, 0, 0, 0.56) 80%, transparent 100%) !important;
+}
+
+body.light-mode #appHeader::before,
+html.light-mode #appHeader::before,
+body.light-mode .app-header::before,
+html.light-mode .app-header::before,
+:root[data-theme="light"] #appHeader::before,
+:root[data-theme="light"] .app-header::before {
+  content: "" !important;
+  display: block !important;
+  background:
+    radial-gradient(ellipse 105% 50px at 50% -12px, rgba(235, 205, 130, 0.16) 0%, rgba(212, 175, 55, 0.03) 50%, transparent 78%),
+    linear-gradient(
+      180deg,
+      rgba(255, 253, 249, 0.92) 0%,
+      rgba(252, 248, 240, 0.78) 54%,
+      rgba(248, 242, 232, 0.36) 84%,
+      rgba(244, 237, 224, 0) 100%
+    ) !important;
+  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 58%, rgba(0, 0, 0, 0.56) 80%, transparent 100%) !important;
+  mask-image: linear-gradient(180deg, #000000 0%, #000000 58%, rgba(0, 0, 0, 0.56) 80%, transparent 100%) !important;
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  #appHeader::before,
+  .app-header::before {
+    backdrop-filter: blur(11px) saturate(138%) !important;
+    -webkit-backdrop-filter: blur(11px) saturate(138%) !important;
+  }
+}
+
+/* Explicitly Zero Divider Line Across All 4 Tabs (Seamless Merge) */
+#appHeader::after,
+.app-header::after,
+body.header-subtab-mode #appHeader::after,
+body.header-subtab-mode .app-header::after,
+body.light-mode.header-subtab-mode #appHeader::after,
+html.light-mode body.header-subtab-mode #appHeader::after,
+:root[data-theme="light"] body.header-subtab-mode #appHeader::after {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* True Vertical Centering for Brand Lockup — Identical Across All 4 Tabs */
+#appHeader .brand,
+.app-header .brand,
+body.light-mode #appHeader .brand,
+html.light-mode #appHeader .brand,
+body.light-mode .app-header .brand,
+html.light-mode .app-header .brand,
+:root[data-theme="light"] #appHeader .brand,
+:root[data-theme="light"] .app-header .brand,
+body.header-subtab-mode #appHeader .brand,
+body.header-subtab-mode .app-header .brand,
+body.light-mode.header-subtab-mode #appHeader .brand,
+html.light-mode body.header-subtab-mode #appHeader .brand,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand {
+  top: calc(50% + env(safe-area-inset-top, 0px) / 2) !important;
+  left: 50% !important;
+  transform: translate3d(-50%, -50%, 0) !important;
+  z-index: 2 !important;
+  transition:
+    opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* Smooth Upward Glide When Header Auto-Hides on Scroll (All Tabs & Both Themes) */
+#appHeader.header-hidden .brand,
+.app-header.header-hidden .brand,
+body.light-mode #appHeader.header-hidden .brand,
+html.light-mode #appHeader.header-hidden .brand,
+:root[data-theme="light"] #appHeader.header-hidden .brand,
+body.header-subtab-mode #appHeader.header-hidden .brand,
+body.light-mode.header-subtab-mode #appHeader.header-hidden .brand,
+html.light-mode body.header-subtab-mode #appHeader.header-hidden .brand,
+:root[data-theme="light"] body.header-subtab-mode #appHeader.header-hidden .brand {
+  transform: translate3d(-50%, calc(-50% - 8px), 0) !important;
+  opacity: 0 !important;
+}
+
+#appHeader .brand-crown-wrapper,
+.brand-crown-wrapper,
+body.light-mode #appHeader .brand-crown-wrapper,
+html.light-mode #appHeader .brand-crown-wrapper,
+:root[data-theme="light"] #appHeader .brand-crown-wrapper,
+body.header-subtab-mode #appHeader .brand-crown-wrapper,
+body.light-mode.header-subtab-mode #appHeader .brand-crown-wrapper,
+html.light-mode body.header-subtab-mode #appHeader .brand-crown-wrapper,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand-crown-wrapper {
+  margin: 0 0 2.5px 0 !important;
+}
+
+#appHeader .brand-crown,
+.brand-crown,
+body.light-mode #appHeader .brand-crown,
+html.light-mode #appHeader .brand-crown,
+:root[data-theme="light"] #appHeader .brand-crown,
+body.header-subtab-mode #appHeader .brand-crown,
+body.light-mode.header-subtab-mode #appHeader .brand-crown,
+html.light-mode body.header-subtab-mode #appHeader .brand-crown,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand-crown {
+  width: 39px !important;
+  height: 20.5px !important;
+}
+
+/* Soft Warm Antique-Bronze Contact Shadow Under Crown in Light Mode */
+body.light-mode #appHeader .brand-crown .crown-contact-shadow,
+html.light-mode #appHeader .brand-crown .crown-contact-shadow,
+:root[data-theme="light"] #appHeader .brand-crown .crown-contact-shadow {
+  fill: url(#crownContactShadowLight) !important;
+  opacity: 0.44 !important;
+}
+
+/* Exact 0.00px Identical Wordmark Scale & Haute-Joaillerie Tracking Across All 4 Tabs (Dark + Light) */
+#appHeader .brand-title,
+#appHeader .brand h1,
+.brand-title,
+.brand h1,
+body.light-mode #appHeader .brand-title,
+body.light-mode #appHeader .brand h1,
+html.light-mode #appHeader .brand-title,
+html.light-mode #appHeader .brand h1,
+body.light-mode .brand-title,
+body.light-mode .brand h1,
+html.light-mode .brand-title,
+html.light-mode .brand h1,
+:root[data-theme="light"] #appHeader .brand-title,
+:root[data-theme="light"] #appHeader .brand h1,
+body.header-subtab-mode #appHeader .brand-title,
+body.header-subtab-mode #appHeader .brand h1,
+body.light-mode.header-subtab-mode #appHeader .brand-title,
+body.light-mode.header-subtab-mode #appHeader .brand h1,
+html.light-mode body.header-subtab-mode #appHeader .brand-title,
+html.light-mode body.header-subtab-mode #appHeader .brand h1,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand-title,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand h1 {
+  font-size: clamp(19px, 5vw, 21px) !important;
+  letter-spacing: 0.115em !important;
+  margin: 0 0 2.5px 0 !important;
+  line-height: 1.1 !important;
+}
+
+/* Refined Mirror-Cast 18K Gold Light Mode Wordmark Relief (Softer, Cleaner Lower Edge) */
+body.light-mode #appHeader .brand-title,
+body.light-mode #appHeader .brand h1,
+html.light-mode #appHeader .brand-title,
+html.light-mode #appHeader .brand h1,
+:root[data-theme="light"] #appHeader .brand-title,
+:root[data-theme="light"] #appHeader .brand h1,
+body.light-mode.header-subtab-mode #appHeader .brand-title,
+body.light-mode.header-subtab-mode #appHeader .brand h1,
+html.light-mode body.header-subtab-mode #appHeader .brand-title,
+html.light-mode body.header-subtab-mode #appHeader .brand h1,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand-title,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand h1 {
+  filter:
+    drop-shadow(0 -0.5px 0 rgba(255, 255, 255, 0.96))
+    drop-shadow(0 0.7px 0 rgba(68, 39, 7, 0.68))
+    drop-shadow(0 1.3px 1.6px rgba(58, 34, 6, 0.20)) !important;
+}
+
+/* Full-Opacity PRIVATE WEALTH ◆ PRIVATE SOCIETY Identical Across All 4 Tabs (Dark + Light) */
+#appHeader .brand-tagline-lockup,
+.brand-tagline-lockup,
+body.light-mode #appHeader .brand-tagline-lockup,
+html.light-mode #appHeader .brand-tagline-lockup,
+:root[data-theme="light"] #appHeader .brand-tagline-lockup,
+body.header-subtab-mode #appHeader .brand-tagline-lockup,
+body.light-mode.header-subtab-mode #appHeader .brand-tagline-lockup,
+html.light-mode body.header-subtab-mode #appHeader .brand-tagline-lockup,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand-tagline-lockup {
+  display: flex !important;
+  opacity: 1 !important;
+  gap: 8px !important;
+  margin-top: 1px !important;
+}
+
+#appHeader .brand-tagline-text,
+body.light-mode #appHeader .brand-tagline-text,
+html.light-mode #appHeader .brand-tagline-text,
+:root[data-theme="light"] #appHeader .brand-tagline-text,
+body.header-subtab-mode #appHeader .brand-tagline-text,
+body.light-mode.header-subtab-mode #appHeader .brand-tagline-text,
+html.light-mode body.header-subtab-mode #appHeader .brand-tagline-text,
+:root[data-theme="light"] body.header-subtab-mode #appHeader .brand-tagline-text {
+  font-size: clamp(9.5px, 2.5vw, 10.8px) !important;
+  letter-spacing: 0.15em !important;
+  line-height: 1.1 !important;
+  opacity: 1 !important;
+}
+
+/* 26×29.5px Royal Swiss Écu Sovereign Shield — Optical Equilibrium (+27px) & Zero Ghost Disc */
+#appHeader #headerVerifiedShieldBtn,
+#appHeader .shield-btn,
+.app-header .shield-btn,
+body.light-mode #appHeader #headerVerifiedShieldBtn,
+html.light-mode #appHeader #headerVerifiedShieldBtn,
+:root[data-theme="light"] #appHeader #headerVerifiedShieldBtn,
+body.light-mode #appHeader .shield-btn,
+html.light-mode #appHeader .shield-btn,
+body.header-subtab-mode #appHeader #headerVerifiedShieldBtn,
+body.header-subtab-mode #appHeader .shield-btn,
+body.light-mode.header-subtab-mode #appHeader #headerVerifiedShieldBtn,
+html.light-mode body.header-subtab-mode #appHeader #headerVerifiedShieldBtn,
+:root[data-theme="light"] body.header-subtab-mode #appHeader #headerVerifiedShieldBtn {
+  width: 26px !important;
+  height: 29.5px !important;
+  top: calc(env(safe-area-inset-top, 0px) + 27px) !important;
+  inset-inline-end: calc(14px + env(safe-area-inset-right, 0px)) !important;
+  border: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  z-index: 5 !important;
+  transition:
+    opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* Completely Eliminate Legacy Circular ::before Ghost Ring & Medallion Sweep */
+#appHeader #headerVerifiedShieldBtn::before,
+#appHeader .shield-btn::before,
+#appHeader .solid-gold-medallion::before,
+body.light-mode #appHeader #headerVerifiedShieldBtn::before,
+html.light-mode #appHeader #headerVerifiedShieldBtn::before,
+:root[data-theme="light"] #appHeader #headerVerifiedShieldBtn::before,
+body.light-mode #appHeader .shield-btn::before,
+html.light-mode #appHeader .shield-btn::before,
+body.light-mode #appHeader .solid-gold-medallion::before,
+body.header-subtab-mode #appHeader #headerVerifiedShieldBtn::before {
+  display: none !important;
+  content: none !important;
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+#appHeader #headerVerifiedShieldBtn::after,
+#appHeader .shield-btn::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: -8px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  pointer-events: auto !important;
+}
+
+/* Preserve Unclipped Royal Écu Silhouette + Subtle Crown-Matched Cast Shadow */
+#headerVerifiedShieldBtn .verification-seal-svg {
+  border-radius: 0 !important;
+  overflow: visible !important;
+  filter:
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.5)) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .verification-seal-svg,
+html.light-mode #headerVerifiedShieldBtn .verification-seal-svg,
+:root[data-theme="light"] #headerVerifiedShieldBtn .verification-seal-svg {
+  filter:
+    drop-shadow(0 2px 3.5px rgba(58, 34, 6, 0.26))
+    drop-shadow(0 0.6px 1px rgba(42, 22, 3, 0.2)) !important;
+}
+
+/* Light Mode 4-Plane Mirror-Polished 18K Gold & Flinqué Enamel Mappings */
+body.light-mode #headerVerifiedShieldBtn .ecu-pearl-orb,
+html.light-mode #headerVerifiedShieldBtn .ecu-pearl-orb,
+:root[data-theme="light"] #headerVerifiedShieldBtn .ecu-pearl-orb {
+  fill: url(#ecuPearlLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .ecu-plane-tl,
+html.light-mode #headerVerifiedShieldBtn .ecu-plane-tl,
+:root[data-theme="light"] #headerVerifiedShieldBtn .ecu-plane-tl {
+  fill: url(#ecuPlaneTLLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .ecu-plane-tr,
+html.light-mode #headerVerifiedShieldBtn .ecu-plane-tr,
+:root[data-theme="light"] #headerVerifiedShieldBtn .ecu-plane-tr {
+  fill: url(#ecuPlaneTRLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .ecu-plane-bl,
+html.light-mode #headerVerifiedShieldBtn .ecu-plane-bl,
+:root[data-theme="light"] #headerVerifiedShieldBtn .ecu-plane-bl {
+  fill: url(#ecuPlaneBLLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .ecu-plane-br,
+html.light-mode #headerVerifiedShieldBtn .ecu-plane-br,
+:root[data-theme="light"] #headerVerifiedShieldBtn .ecu-plane-br {
+  fill: url(#ecuPlaneBRLight) !important;
+}
+
+body.light-mode #headerVerifiedShieldBtn .ecu-cavity-fill,
+html.light-mode #headerVerifiedShieldBtn .ecu-cavity-fill,
+:root[data-theme="light"] #headerVerifiedShieldBtn .ecu-cavity-fill {
+  fill: url(#ecuCavityLight) !important;
+}
+
+/* Restrained Smart Optical Metallic Glint (Natural Polished-Gold Light Sweep) */
+@keyframes sovereignSealOpticalGlint {
+  0%, 76% {
+    transform: translate3d(-26px, 0, 0) skewX(-24deg);
+    opacity: 0;
+  }
+  81% {
+    opacity: 0.85;
+  }
+  91% {
+    transform: translate3d(96px, 0, 0) skewX(-24deg);
+    opacity: 0.9;
+  }
+  96%, 100% {
+    transform: translate3d(96px, 0, 0) skewX(-24deg);
+    opacity: 0;
+  }
+}
+
+#headerVerifiedShieldBtn .seal-smart-glint {
+  transform: translate3d(-26px, 0, 0) skewX(-24deg);
+  transform-box: fill-box;
+  will-change: transform, opacity;
+  animation: sovereignSealOpticalGlint 8.5s cubic-bezier(0.22, 1, 0.36, 1) infinite !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #headerVerifiedShieldBtn .seal-smart-glint {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* Remove Solid Opaque Strip Behind Club Room Pills — Seamless Merge With Club Canvas */
+#club-tab .club-rooms-nav-wrap,
+#clubRoomsNavWrap,
+body.light-mode #clubRoomsNavWrap,
+html.light-mode #clubRoomsNavWrap,
+:root[data-theme="light"] #clubRoomsNavWrap,
+body.dark-mode #clubRoomsNavWrap,
+:root[data-theme="dark"] #clubRoomsNavWrap {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Unified Exact +8px Top Breathing Room Directly Below 72px Header Across ALL 4 Tabs */
+#membership-tab {
+  padding-top: calc(var(--header-actual-height, 72px) + 8px) !important;
+}
+
+body.header-subtab-mode #profile-tab {
+  padding-top: calc(var(--header-actual-height, 72px) + 8px) !important;
+}
+
+body.header-subtab-mode #boutique-tab {
+  padding-top: calc(var(--header-actual-height, 72px) + 8px) !important;
+}
+
+body.header-subtab-mode #boutique-tab .boutique-curatorial-header {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+#club-tab,
+#club-tab.is-active,
+#club-tab.club-header-collapsed,
+#club-tab.is-active.club-header-collapsed {
+  transition: padding-top 0.26s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+body.header-subtab-mode #club-tab.is-active:not(.club-header-collapsed) {
+  padding-top: calc(var(--header-actual-height, 72px) + 8px) !important;
+}
+
+/* ==========================================================================
+   THE 1% CLUB — MEMBERSHIP GEOMETRIC SYMMETRY LOCK (HORIZONTAL & VERTICAL)
+   - Unified 12px Left & Right Rail: Card === Action Buttons === Bottom Capsule
+   - Equilateral 12px Frame around Floating Bottom Capsule (Left = Right = Bottom)
+   - Exact Vertical Rhythm:
+       Header (72px) -> Card (+8px = 80px exact total top offset)
+       Card -> Action Buttons: 16px
+       Action Buttons -> Bottom Capsule: 16px (occupied cleanly by centered #copyToast)
+   ========================================================================== */
+
+.app-main.main-membership-active {
+  padding-inline: 12px !important;
+  padding-inline-start: 12px !important;
+  padding-inline-end: 12px !important;
+}
+
+.page#membership-tab,
+#membership-tab.is-active {
+  padding-top: calc(var(--header-actual-height, 72px) + 8px) !important;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+  gap: 0 !important;
+  justify-content: flex-start !important;
+}
+
+#membership-tab .card-actions {
+  width: 100% !important;
+  margin-top: 16px !important;
+  margin-bottom: 0 !important;
+  gap: 10px !important;
+}
+
+#membership-tab #copyToast.copy-toast {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 16px !important;
+  min-height: 16px !important;
+  max-height: 16px !important;
+  margin: 0 auto !important;
+  padding: 0 8px !important;
+  font-size: 10.5px !important;
+  line-height: 16px !important;
+}
+
+/* ==========================================================================
+   MEMBERSHIP <-> CLUB SILKY 60-120FPS GPU COMPOSITING OPTIMIZATION
+   - Pure opacity entrance on #membership-tab & #club-tab (avoids transform
+     containing-block jitter on fixed Club HUD & 3D Master Card flattening)
+   - Caps real stacked blur(24px-36px) passes on Club cards/HUD/composer
+     to visually equivalent 10-12px Liquid Glass (~6-8x lower GPU fill-rate)
+   - Removes accidental backdrop-filter from outer transparent .club-composer-wrap
+   ========================================================================== */
+@keyframes luxuryOpacityFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#membership-tab.page.is-active,
+#club-tab.page.is-active {
+  animation: luxuryOpacityFade 0.14s ease-out forwards !important;
+}
+
+/* Remove unnecessary wrapper blur directly behind floating .bottom-nav */
+#club-tab .club-composer-wrap,
+#clubComposerWrap {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* High-specificity GPU blur tuning on real Club dispatch cards (15-20 simultaneous cards) */
+#club-tab .sovereign-dispatch-card,
+#clubChatViewport .sovereign-dispatch-card,
+body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
+body:not(.light-mode) #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
+body.light-mode #clubChatViewport .sovereign-dispatch-card:not(.is-personal-dispatch),
+body.light-mode #clubChatViewport .sovereign-dispatch-card.is-personal-dispatch,
+:root[data-theme="light"] #club-tab .sovereign-dispatch-card,
+:root[data-theme="light"] #club-tab .sovereign-dispatch-card:not(.is-personal-dispatch),
+:root[data-theme="light"] #club-tab .sovereign-dispatch-card.dispatch-sender-me,
+:root[data-theme="light"] #club-tab .sovereign-dispatch-card.dispatch-align-right,
+body:not(.light-mode) .chat-bubble.is-incoming,
+body:not(.light-mode) .chat-bubble.is-outgoing,
+body.light-mode .chat-bubble.is-incoming,
+body.light-mode .chat-bubble.is-outgoing {
+  backdrop-filter: blur(10px) saturate(135%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(135%) !important;
+  contain: layout style !important;
+}
+
+/* High-specificity GPU blur tuning on Club HUD, ticker, plaque, credits, room pills & composer */
+#club-tab #sovereignSalonTicker,
+#club-tab .sovereign-salon-ticker,
+body:not(.light-mode) #sovereignSalonTicker,
+body:not(.light-mode) .sovereign-salon-ticker,
+body:not(.light-mode) #club-tab .sovereign-salon-ticker,
+body.light-mode #sovereignSalonTicker,
+body.light-mode .sovereign-salon-ticker,
+body.light-mode #club-tab .sovereign-salon-ticker,
+html.light-mode #sovereignSalonTicker,
+:root[data-theme="light"] #sovereignSalonTicker,
+:root[data-theme="light"] #club-tab .sovereign-salon-ticker,
+#club-tab #clubPinnedInfo,
+#club-tab .club-chamber-plaque,
+body:not(.light-mode) #clubPinnedInfo,
+body:not(.light-mode) .club-chamber-plaque,
+body.light-mode #clubPinnedInfo,
+body.light-mode .club-chamber-plaque,
+html.light-mode #clubPinnedInfo,
+:root[data-theme="light"] #clubPinnedInfo,
+:root[data-theme="light"] .club-chamber-plaque,
+#club-tab #clubCreditsDisplay,
+#club-tab .club-credits-display,
+body.light-mode #clubCreditsDisplay,
+body.light-mode .club-credits-display,
+html.light-mode #clubCreditsDisplay,
+:root[data-theme="light"] #clubCreditsDisplay,
+#club-tab #obsidianDispatchComposer,
+#club-tab .obsidian-dispatch-composer,
+body.light-mode #obsidianDispatchComposer,
+body.light-mode .obsidian-dispatch-composer,
+html.light-mode #obsidianDispatchComposer,
+:root[data-theme="light"] #obsidianDispatchComposer,
+#club-tab .club-room-btn,
+#clubRoomsNav .club-room-btn,
+body.light-mode #club-tab .club-room-btn,
+body.light-mode #clubRoomsNav .club-room-btn,
+:root[data-theme="dark"] #clubRoomsNav .club-room-btn,
+:root[data-theme="dark"] #club-tab .club-room-btn,
+:root[data-theme="light"] #clubRoomsNav .club-room-btn,
+:root[data-theme="light"] #club-tab .club-room-btn {
+  backdrop-filter: blur(12px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+}
+
+#club-tab.plaque-dismissed #clubPinnedInfo,
+#clubPinnedInfo.is-collapsed,
+#clubPinnedInfo[hidden] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+
+
+
+
+
+
+
 
 

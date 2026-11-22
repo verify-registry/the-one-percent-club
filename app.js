@@ -48,6 +48,7 @@ function renderRing(ringId, valueId, percent) {
   const ring = document.getElementById(ringId);
   const valEl = document.getElementById(valueId);
   if (!ring || !valEl) return;
+  ring.dataset.renderedPercent = String(percent);
   const radius = (ring.r && ring.r.baseVal ? ring.r.baseVal.value : parseFloat(ring.getAttribute("r"))) || 52;
   const circumference = radius * 2 * Math.PI;
 
@@ -2425,6 +2426,17 @@ function renderBoutique(filter = "all", showSkeleton = false) {
   const owned = ClubState.owned || {};
   const equipped = ClubState.equipped || {};
   const categories = filter === "all" ? Object.keys(BOUTIQUE) : [filter];
+  const ownershipMode = typeof currentOwnershipFilter !== "undefined" ? currentOwnershipFilter : "all";
+  const langKey = window.currentLang || document.documentElement.lang || "en";
+  const tierKey = (ClubState.member && ClubState.member.tier) || "SOVEREIGN MEMBER";
+  const ownedKey = Object.keys(owned).filter((k) => owned[k]).sort().join(",");
+  const equippedKey = JSON.stringify(equipped);
+  const qpKey = window.quickPurchasedItems ? Array.from(window.quickPurchasedItems).sort().join(",") : "";
+  const renderSig = `${filter}|${ownershipMode}|${langKey}|${ClubState.balance}|${tierKey}|${ownedKey}|${equippedKey}|${qpKey}`;
+
+  if (!showSkeleton && root.dataset.renderSig === renderSig && root.childElementCount > 0) {
+    return;
+  }
 
   if (showSkeleton && !root.dataset.skeletonShown) {
     if (boutiqueLoadingTimeout) clearTimeout(boutiqueLoadingTimeout);
@@ -2433,6 +2445,7 @@ function renderBoutique(filter = "all", showSkeleton = false) {
     boutiqueLoadingTimeout = setTimeout(() => {
       try {
         renderBoutiqueContent(filter, root, owned, equipped, categories);
+        root.dataset.renderSig = renderSig;
       } catch (e) {
         console.error("Error rendering boutique content:", e);
       }
@@ -2443,6 +2456,7 @@ function renderBoutique(filter = "all", showSkeleton = false) {
   try {
     renderBoutiqueContent(filter, root, owned, equipped, categories);
     root.dataset.skeletonShown = "true";
+    root.dataset.renderSig = renderSig;
   } catch (e) {
     console.error("Error rendering boutique content directly:", e);
   }
@@ -2808,64 +2822,97 @@ document.querySelectorAll(".boutique-tab").forEach((tab) => {
 // ---------------------------------------------------------
 const copyToast = document.getElementById("copyToast");
 let goldCopyPopupTimer = null;
+let copyToastTimer = null;
+let copyToastClearTimer = null;
+
+function dismissGoldCopyPopup() {
+  const popup = document.getElementById("goldCopyPopup");
+  if (popup) {
+    popup.classList.remove("is-visible");
+    popup.setAttribute("aria-hidden", "true");
+  }
+  clearTimeout(goldCopyPopupTimer);
+}
+
+function isCopyConfirmationMessage(msg) {
+  if (!msg) return true;
+  const text = String(msg);
+  const translated = window.t ? window.t("misc.linkCopied") : "";
+  return (
+    (translated && text === translated) ||
+    text.includes("Copied") ||
+    text.includes("Link")
+  );
+}
+
+function isMembershipErrorMessage(msg) {
+  if (!msg) return false;
+  const text = String(msg);
+  const shareFail = window.t ? window.t("membership.shareFailToast") : "";
+  return (
+    (shareFail && text === shareFail) ||
+    /\b(unable|failed|error)\b/i.test(text)
+  );
+}
+
+function showInlineMembershipNotice(message, options = {}) {
+  const { isError = false, duration = isError ? 3000 : 2100 } = options;
+  const resolvedMsg = String(message || "").trim();
+  if (!resolvedMsg) return;
+
+  dismissGoldCopyPopup();
+
+  const toastEl = document.getElementById("copyToast") || copyToast;
+  if (!toastEl) return;
+
+  clearTimeout(copyToastTimer);
+  clearTimeout(copyToastClearTimer);
+
+  toastEl.classList.remove("is-sr-only", "is-error");
+  toastEl.textContent = "";
+  void toastEl.offsetWidth;
+  toastEl.textContent = resolvedMsg;
+  if (isError) {
+    toastEl.classList.add("is-error");
+  }
+  toastEl.classList.add("is-visible");
+
+  copyToastTimer = setTimeout(() => {
+    toastEl.classList.remove("is-visible", "is-error");
+    copyToastClearTimer = setTimeout(() => {
+      if (!toastEl.classList.contains("is-visible")) {
+        toastEl.textContent = "";
+      }
+    }, 260);
+  }, duration);
+}
 
 function showGoldCopyPopup(title, subtitle = "") {
-  const popup = document.getElementById("goldCopyPopup");
-  const titleEl = document.getElementById("goldCopyPopupTitle");
-  const subEl = document.getElementById("goldCopyPopupSubtitle");
-  const resolvedTitle = title || (window.t ? window.t("misc.linkCopied") : "") || "Link Copied to Clipboard";
+  const resolvedTitle =
+    title ||
+    (window.t ? window.t("misc.linkCopied") : "") ||
+    "Link Copied to Clipboard";
 
-  if (titleEl) {
-    titleEl.textContent = resolvedTitle;
-  }
-  if (subEl) {
-    if (subtitle) {
-      subEl.textContent = subtitle;
-      subEl.style.display = "block";
-    } else {
-      const url = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl)
-        ? ClubState.member.verifyUrl
-        : "https://1percent.club/verify/3426";
-      subEl.textContent = url.replace(/^https?:\/\//, "");
-      subEl.style.display = "block";
-    }
-  }
-
-  // Also update original copyToast for accessibility & fallback
-  if (copyToast) {
-    copyToast.textContent = resolvedTitle;
-    copyToast.classList.add("is-visible");
-    setTimeout(() => copyToast.classList.remove("is-visible"), 2500);
-  }
-
-  if (popup) {
-    // Re-trigger shimmer animation
-    const shimmer = popup.querySelector(".gold-copy-popup-shimmer");
-    if (shimmer) {
-      shimmer.style.animation = "none";
-      void shimmer.offsetWidth;
-      shimmer.style.animation = "";
-    }
-
-    popup.classList.add("is-visible");
-    popup.setAttribute("aria-hidden", "false");
-
-    clearTimeout(goldCopyPopupTimer);
-    goldCopyPopupTimer = setTimeout(() => {
-      popup.classList.remove("is-visible");
-      popup.setAttribute("aria-hidden", "true");
-    }, 2800);
-  }
+  const isError = !isCopyConfirmationMessage(resolvedTitle) && isMembershipErrorMessage(resolvedTitle);
+  const duration = isCopyConfirmationMessage(resolvedTitle) ? 2100 : isError ? 3000 : 2400;
+  showInlineMembershipNotice(resolvedTitle, { isError, duration });
 }
 
 window.showGoldCopyPopup = showGoldCopyPopup;
 
 function showCopyToast(msg) {
-  if (!msg || msg === window.t("misc.linkCopied") || false || String(msg).includes("Copied") || String(msg).includes("Link")) {
-    const url = (typeof ClubState !== "undefined" && ClubState?.member?.verifyUrl) ? ClubState.member.verifyUrl : "";
-    showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", url);
+  if (isCopyConfirmationMessage(msg)) {
+    showInlineMembershipNotice(
+      (window.t ? window.t("misc.linkCopied") : "") ||
+        "Link Copied to Clipboard",
+      { isError: false, duration: 2100 },
+    );
   } else {
-    showGoldCopyPopup(msg, "");
+    const isError = isMembershipErrorMessage(msg);
+    showInlineMembershipNotice(msg, {
+      isError,
+      duration: isError ? 3000 : 2400,
+    });
   }
 }
 window.showCopyToast = showCopyToast;
@@ -2899,9 +2946,15 @@ if (copyBtn) {
         document.execCommand("copy");
         document.body.removeChild(tempInput);
       }
-      showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
+      showInlineMembershipNotice(
+        (window.t ? window.t("misc.linkCopied") : "") || "Link Copied to Clipboard",
+        { isError: false, duration: 2100 },
+      );
     } catch {
-      showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
+      showInlineMembershipNotice(
+        (window.t ? window.t("misc.linkCopied") : "") || "Link Copied to Clipboard",
+        { isError: false, duration: 2100 },
+      );
     }
   });
 }
@@ -2954,12 +3007,20 @@ if (shareBtn) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(verifyUrl);
       }
-      showGoldCopyPopup(window.t("misc.linkCopied") || "Link Copied to Clipboard", verifyUrl);
+      showInlineMembershipNotice(
+        (window.t ? window.t("misc.linkCopied") : "") || "Link Copied to Clipboard",
+        { isError: false, duration: 2100 },
+      );
     } catch (err) {
       if (err && (err.name === "AbortError" || err.name === "Abort" || String(err).includes("AbortError"))) {
         return;
       }
       console.warn("Share handler fallback error:", err);
+      showInlineMembershipNotice(
+        (window.t ? window.t("membership.shareFailToast") : null) ||
+          "Unable to share Master Card",
+        { isError: true, duration: 3000 },
+      );
     } finally {
       setTimeout(() => {
         shareBtn.dataset.busy = "false";
@@ -3207,12 +3268,52 @@ const Router = {
     }
 
     this.currentTab = tab;
-    this.switchView(tab);
-    this.updateHeader(tab);
-    this.triggerEnter(tab);
+    const navToken = (this._navToken = (this._navToken || 0) + 1);
+
+    // Frame 0: Start pure-compositor bottom-nav lens & icon glide with ZERO competing page work
+    this.syncBottomNav(tab);
+
+    // Double-rAF: guarantees Frame 0 actually paints & launches the GPU compositor glide
+    // before mounting the incoming tab (~16ms later)
+    requestAnimationFrame(() => {
+      if (navToken !== this._navToken) return;
+      requestAnimationFrame(() => {
+        if (navToken !== this._navToken) return;
+        this.switchView(tab);
+        this.updateHeader(tab);
+        this.triggerEnter(tab);
+      });
+    });
+  },
+
+  syncBottomNav(tab) {
+    window._navTransitionActive = true;
+    if (window._navTransitionEndTimer) clearTimeout(window._navTransitionEndTimer);
+    window._navTransitionEndTimer = setTimeout(() => {
+      window._navTransitionActive = false;
+    }, 320);
+
+    const navItems = document.querySelectorAll(".bottom-nav .nav-item");
+    let activeNavIndex = -1;
+    navItems.forEach((n, idx) => {
+      const isTarget = n.dataset.tab === tab;
+      n.classList.toggle("is-active", isTarget);
+      if (isTarget) activeNavIndex = idx;
+    });
+    const bottomNavEl = document.querySelector(".bottom-nav");
+    if (bottomNavEl && activeNavIndex >= 0) {
+      bottomNavEl.dataset.activeIndex = String(activeNavIndex);
+    }
   },
 
   switchView(tab) {
+    // Ensure bottom nav stays synced even if switchView is called directly
+    const bottomNavEl = document.querySelector(".bottom-nav");
+    const activeTarget = document.querySelector(`.bottom-nav .nav-item[data-tab="${tab}"]`);
+    if (activeTarget && !activeTarget.classList.contains("is-active")) {
+      this.syncBottomNav(tab);
+    }
+
     if (window.HeaderScrollController) {
       window.HeaderScrollController.onTabChangeStart();
     }
@@ -3221,9 +3322,12 @@ const Router = {
     }
 
     document.querySelectorAll(".page").forEach((p) => {
-      p.classList.remove("is-active");
-      p.setAttribute("aria-hidden", "true");
-      p.setAttribute("hidden", "");
+      if (p.id === `${tab}-tab`) return;
+      if (p.classList.contains("is-active") || !p.hasAttribute("hidden")) {
+        p.classList.remove("is-active");
+        p.setAttribute("aria-hidden", "true");
+        p.setAttribute("hidden", "");
+      }
     });
 
     const activePage = document.getElementById(`${tab}-tab`);
@@ -3232,25 +3336,30 @@ const Router = {
       activePage.setAttribute("aria-hidden", "false");
       activePage.classList.add("is-active");
       const savedScroll = (window.tabScrollPositions && window.tabScrollPositions[tab]) || 0;
-      activePage.scrollTop = savedScroll;
+      if (activePage.scrollTop !== savedScroll) {
+        activePage.scrollTop = savedScroll;
+      }
     }
-
-    document
-      .querySelectorAll(".nav-item")
-      .forEach((n) => n.classList.remove("is-active"));
-    const activeNav = document.querySelector(`.nav-item[data-tab="${tab}"]`);
-    if (activeNav) activeNav.classList.add("is-active");
 
     const main = document.querySelector(".app-main");
     if (main) {
       main.classList.toggle("main-membership-active", tab === "membership");
       main.classList.toggle("main-club-active", tab === "club");
-      main.scrollTop = 0;
+      if (main.scrollTop !== 0) main.scrollTop = 0;
     }
     if (document.body) {
       document.body.classList.toggle("tab-club-active", tab === "club");
+      const wasSubtab = document.body.classList.contains("header-subtab-mode");
+      const isSubtab = tab !== "membership";
+      document.body.classList.toggle("header-subtab-mode", isSubtab);
+      if (wasSubtab !== isSubtab && typeof window.updateHeaderHeightVar === "function") {
+        // Header height is unified across all 4 tabs; defer measurement out of Frame 0 to avoid forced reflow during nav glide
+        requestAnimationFrame(() => window.updateHeaderHeightVar());
+      }
     }
-    window.scrollTo(0, 0);
+    if (window.scrollY !== 0) {
+      window.scrollTo(0, 0);
+    }
 
     const header = getHeader();
     if (header) {
@@ -3262,31 +3371,32 @@ const Router = {
       if (typeof window.resetHeaderScrollTracking === "function") {
         window.resetHeaderScrollTracking();
       }
-      if (typeof window.updateHeaderHeightVar === "function") {
-        window.updateHeaderHeightVar();
-      }
     }
 
+    if (window._membershipResumeTimer) {
+      clearTimeout(window._membershipResumeTimer);
+      window._membershipResumeTimer = null;
+    }
     if (tab === "membership") {
-      if (typeof window.resumeMembershipRAF === "function") {
-        window.resumeMembershipRAF();
-      } else if (typeof window.resumeGoldDustCanvas === "function") {
-        window.resumeGoldDustCanvas();
-      }
+      // Canvas retains its last rendered frame visually; resume ambient loops right after bottom-nav glide completes
+      window._membershipResumeTimer = setTimeout(() => {
+        window._membershipResumeTimer = null;
+        if (Router.currentTab !== "membership") return;
+        if (typeof window.resumeMembershipRAF === "function") {
+          window.resumeMembershipRAF();
+        } else if (typeof window.resumeGoldDustCanvas === "function") {
+          window.resumeGoldDustCanvas();
+        }
+      }, 300);
     } else {
       if (typeof window.pauseMembershipRAF === "function") {
         window.pauseMembershipRAF();
       }
     }
-    if (tab === "club" && typeof window.autoGrowClubInput === "function") {
-      setTimeout(() => {
-        window.autoGrowClubInput();
-      }, 50);
-    }
     if (tab === "boutique") {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         window.updateBoutiqueGliders?.(true);
-      }, 30);
+      });
     }
   },
 
@@ -3298,7 +3408,6 @@ const Router = {
     if (header) {
       header.classList.remove("header-hidden");
       header.classList.remove("header-compact");
-      if (typeof window.updateHeaderHeightVar === "function") window.updateHeaderHeightVar();
     }
   },
 
@@ -3320,7 +3429,7 @@ const Router = {
       }
 
       const plaque = document.getElementById("clubPinnedInfo");
-      const tab = document.getElementById("club-tab");
+      const clubTabEl = document.getElementById("club-tab");
       if (plaque) {
         plaque.classList.remove("is-collapsed");
         plaque.removeAttribute("hidden");
@@ -3334,43 +3443,50 @@ const Router = {
         plaque.style.removeProperty("margin-bottom");
         plaque.style.removeProperty("overflow");
       }
-      if (tab) {
-        tab.classList.remove("plaque-dismissed");
-      }
-      if (typeof updateClubHudHeight === "function") {
-        updateClubHudHeight();
-      }
-
-      if (!isLeaderboard && typeof scrollChatToLatest === "function") {
-        scrollChatToLatest(false);
-        requestAnimationFrame(() => scrollChatToLatest(false));
-        setTimeout(() => scrollChatToLatest(false), 60);
-      }
-      if (typeof window.HeaderScrollController?.attachClubScroll === "function") {
-        window.HeaderScrollController.attachClubScroll();
-      }
-      if (typeof window.autoGrowClubInput === "function") {
-        window.autoGrowClubInput();
+      if (clubTabEl) {
+        clubTabEl.classList.remove("plaque-dismissed");
       }
       if (typeof startClubWelcomeAutoDismiss === "function") {
-        startClubWelcomeAutoDismiss();
+        startClubWelcomeAutoDismiss(true);
       }
       if (typeof window.updateClubTickerIfPending === "function") {
         window.updateClubTickerIfPending();
       }
-      if (typeof updateClubRoomsArrowState === "function") {
-        requestAnimationFrame(() => {
-          requestAnimationFrame(updateClubRoomsArrowState);
-        });
-        setTimeout(updateClubRoomsArrowState, 80);
-        setTimeout(updateClubRoomsArrowState, 260);
+
+      // Batch critical Club positioning in Frame 1, and defer secondary controls until
+      // after the 280ms GPU-composited bottom-nav lens glide completes
+      if (window._clubPostGlideTimer) {
+        clearTimeout(window._clubPostGlideTimer);
+        window._clubPostGlideTimer = null;
       }
+      requestAnimationFrame(() => {
+        if (Router.currentTab !== "club") return;
+        if (typeof updateClubHudHeight === "function") {
+          updateClubHudHeight();
+        }
+        if (!isLeaderboard && typeof scrollChatToLatest === "function") {
+          scrollChatToLatest(false);
+        }
+      });
+      window._clubPostGlideTimer = setTimeout(() => {
+        window._clubPostGlideTimer = null;
+        if (Router.currentTab !== "club") return;
+        if (typeof window.HeaderScrollController?.attachClubScroll === "function") {
+          window.HeaderScrollController.attachClubScroll();
+        }
+        if (typeof updateClubRoomsArrowState === "function") {
+          updateClubRoomsArrowState();
+        }
+        if (typeof window.autoGrowClubInput === "function") {
+          window.autoGrowClubInput();
+        }
+      }, 300);
     } else if (tab === "profile") {
       if (typeof window.setClubFloatingControlsVisibility === "function") {
         window.setClubFloatingControlsVisibility(false);
       }
       // IDEMPOTENT PROFILE LIFECYCLE:
-      // If Profile is already initialized, ensure collection stays in sync with purchased items
+      // If Profile is already initialized, sync collection only when state changed
       if (!window.isProfileInitialized) {
         initProfile();
       } else {
@@ -3399,8 +3515,18 @@ const Router = {
         cancelClubWelcomeAutoDismiss();
       }
       if (typeof renderRing === "function") {
-        renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
-        renderRing("privRing", "privValue", AppState.user.privilegesValue);
+        const wealthRingEl = document.getElementById("wealthRing");
+        const privRingEl = document.getElementById("privRing");
+        const wealthVal = String(AppState.user.wealthIndexValue);
+        const privVal = String(AppState.user.privilegesValue);
+        if (!wealthRingEl || wealthRingEl.dataset.renderedPercent !== wealthVal) {
+          renderRing("wealthRing", "wealthValue", AppState.user.wealthIndexValue);
+          if (wealthRingEl) wealthRingEl.dataset.renderedPercent = wealthVal;
+        }
+        if (!privRingEl || privRingEl.dataset.renderedPercent !== privVal) {
+          renderRing("privRing", "privValue", AppState.user.privilegesValue);
+          if (privRingEl) privRingEl.dataset.renderedPercent = privVal;
+        }
       }
     } else {
       if (typeof window.setClubFloatingControlsVisibility === "function") {
@@ -3468,6 +3594,9 @@ function openContextPage(pageId, title, returnTab) {
     activePage.scrollTop = 0;
   }
   document.getElementById("sectionName").textContent = title;
+  if (document.body) {
+    document.body.classList.add("header-subtab-mode");
+  }
   const header = document.getElementById("appHeader");
   if (header) {
     header.classList.remove("header-hidden");
@@ -3659,6 +3788,11 @@ function closeMemberProfile() {
   document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("is-active"));
   const clubNav = document.querySelector('.nav-item[data-tab="club"]');
   if (clubNav) clubNav.classList.add("is-active");
+  const bottomNavDirect = document.querySelector(".bottom-nav");
+  if (bottomNavDirect) bottomNavDirect.dataset.activeIndex = "1";
+  if (document.body) {
+    document.body.classList.add("header-subtab-mode");
+  }
 
   const header = document.getElementById("appHeader");
   if (header) {
@@ -4376,7 +4510,7 @@ function updateClubHudHeight() {
 }
 window.updateClubHudHeight = updateClubHudHeight;
 
-function startClubWelcomeAutoDismiss() {
+function startClubWelcomeAutoDismiss(deferMeasure = false) {
   const plaque = document.getElementById("clubPinnedInfo");
   const tab = document.getElementById("club-tab");
   if (!plaque) return;
@@ -4407,7 +4541,9 @@ function startClubWelcomeAutoDismiss() {
   if (tab) {
     tab.classList.remove("plaque-dismissed");
   }
-  updateClubHudHeight();
+  if (!deferMeasure) {
+    updateClubHudHeight();
+  }
 
   // Automatically dismiss welcome message after 5 seconds of opening the tab
   clubWelcomeDismissTimer = setTimeout(() => {
@@ -4686,37 +4822,46 @@ function initClubRoomsDiscoveryArrow() {
       dirObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["dir", "lang"] });
     } catch (e) {}
 
-    // 2. Observe #club-tab visibility/attribute changes (ensures arrow recalculates immediately on tab activation)
+    let arrowSyncTimer = null;
+    const scheduleClubRoomsArrowSync = () => {
+      if (arrowSyncTimer) clearTimeout(arrowSyncTimer);
+      const delay = window._navTransitionActive ? 310 : 0;
+      if (delay > 0) {
+        arrowSyncTimer = setTimeout(() => {
+          arrowSyncTimer = null;
+          updateClubRoomsArrowState();
+        }, delay);
+      } else {
+        requestAnimationFrame(updateClubRoomsArrowState);
+      }
+    };
+
+    // 2. Observe #club-tab visibility/attribute changes (debounced past bottom-nav glide)
     if (clubTab) {
       try {
         const tabObserver = new MutationObserver(() => {
-          requestAnimationFrame(() => {
-            requestAnimationFrame(updateClubRoomsArrowState);
-          });
-          setTimeout(updateClubRoomsArrowState, 80);
-          setTimeout(updateClubRoomsArrowState, 250);
+          scheduleClubRoomsArrowSync();
         });
-        tabObserver.observe(clubTab, { attributes: true, attributeFilter: ["class", "hidden", "style"] });
+        tabObserver.observe(clubTab, { attributes: true, attributeFilter: ["class", "hidden"] });
       } catch (e) {}
     }
 
-    // 3. ResizeObserver on nav container to trigger recalculation as soon as layout completes
+    // 3. ResizeObserver on nav container (deferred while bottom-nav glide is active)
     if (typeof ResizeObserver !== "undefined") {
       try {
         const resizeObs = new ResizeObserver(() => {
-          requestAnimationFrame(updateClubRoomsArrowState);
+          scheduleClubRoomsArrowSync();
         });
         resizeObs.observe(nav);
       } catch (e) {}
     }
 
-    // 4. IntersectionObserver on nav so entering visible viewport triggers arrow recalculation
+    // 4. IntersectionObserver on nav (deferred while bottom-nav glide is active)
     if (typeof IntersectionObserver !== "undefined") {
       try {
         const intersectObs = new IntersectionObserver((entries) => {
           if (entries.some((entry) => entry.isIntersecting)) {
-            requestAnimationFrame(updateClubRoomsArrowState);
-            setTimeout(updateClubRoomsArrowState, 80);
+            scheduleClubRoomsArrowSync();
           }
         }, { threshold: 0.05 });
         intersectObs.observe(nav);
@@ -7694,6 +7839,19 @@ function renderProfileCollection(forceSkeleton = false) {
   const container = document.getElementById("profileCollectionGrid");
   if (!container) return;
 
+  const langKey = AppState.language || document.documentElement.lang || "en";
+  const collectedIdsKey = (AppState.collectedItems || [])
+    .map((item) => (typeof item === "object" && item ? item.id : item))
+    .join(",");
+  const equippedKey = JSON.stringify(AppState.equipped || {});
+  const clubEquippedKey = JSON.stringify((typeof ClubState !== "undefined" && ClubState.equipped) || {});
+  const profileSig = `${langKey}|${collectedIdsKey}|${equippedKey}|${clubEquippedKey}`;
+
+  if (!forceSkeleton && container.dataset.renderSig === profileSig && container.childElementCount > 0) {
+    return;
+  }
+  container.dataset.renderSig = profileSig;
+
   if (profileCollectionTimeout) {
     clearTimeout(profileCollectionTimeout);
     profileCollectionTimeout = null;
@@ -9294,11 +9452,13 @@ window.HeaderScrollController = (function() {
     }
   }
 
+  let lastAppliedHeaderHeight = 0;
   function updateHeaderHeightVar() {
     const header = getHeader();
     if (header && !header.classList.contains("header-hidden")) {
       const h = header.offsetHeight;
-      if (h > 0) {
+      if (h > 0 && h !== lastAppliedHeaderHeight) {
+        lastAppliedHeaderHeight = h;
         document.documentElement.style.setProperty("--header-actual-height", h + "px");
       }
     }
@@ -9364,19 +9524,12 @@ window.HeaderScrollController = (function() {
 
   function onTabChangeComplete() {
     const currentSeq = ++navSeq;
-    setClubHeaderCollapsed(false);
-    updateStateForCurrentTab();
-    updateHeaderHeightVar();
     requestAnimationFrame(() => {
       if (currentSeq !== navSeq) return;
       setClubHeaderCollapsed(false);
       updateStateForCurrentTab();
       updateHeaderHeightVar();
-      setTimeout(() => {
-        if (currentSeq !== navSeq) return;
-        isNavigating = false;
-        updateStateForCurrentTab();
-      }, 50);
+      isNavigating = false;
     });
   }
 
