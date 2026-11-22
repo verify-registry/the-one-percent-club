@@ -1698,8 +1698,24 @@ document.querySelectorAll(".nav-item").forEach((btn) => {
   if (btn.dataset.tiltNavBound) return;
   btn.dataset.tiltNavBound = "true";
   btn.addEventListener("click", () => {
+    const targetTab = btn.dataset.tab;
     targetRotX = 0;
     targetRotY = 0;
+
+    // When leaving Membership for another tab, stop tilt immediately on Frame 0 with zero DOM writes or RAF restart
+    if (targetTab && targetTab !== "membership") {
+      currentRotX = 0;
+      currentRotY = 0;
+      if (tiltLoopActive) {
+        tiltLoopActive = false;
+        if (tiltAnimFrame) {
+          cancelAnimationFrame(tiltAnimFrame);
+          tiltAnimFrame = null;
+        }
+      }
+      return;
+    }
+
     if (Math.abs(currentRotX) >= TILT_EPSILON || Math.abs(currentRotY) >= TILT_EPSILON) {
       resetAllCardTransforms();
     }

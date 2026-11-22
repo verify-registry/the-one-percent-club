@@ -2755,44 +2755,41 @@ function renderWidgetSection() {
 }
 
 window.updateBoutiqueGliders = function (instant = false) {
-  // 1. Status Filter Glider
+  // 1. Batch ALL layout reads BEFORE any style writes (zero layout thrashing)
   const statusCont = document.getElementById("boutiqueFilterToggle");
   const statusGlider = document.getElementById("boutiqueStatusGlider");
   const activeStatusBtn = statusCont?.querySelector(".b-filt-btn.is-active");
+  const statusMetrics = (statusCont && statusGlider && activeStatusBtn)
+    ? { left: activeStatusBtn.offsetLeft, width: activeStatusBtn.offsetWidth }
+    : null;
 
-  if (statusCont && statusGlider && activeStatusBtn) {
-    if (instant) {
-      statusGlider.style.transition = "none";
-    }
-    const offsetLeft = activeStatusBtn.offsetLeft;
-    const width = activeStatusBtn.offsetWidth;
-    statusGlider.style.width = width + "px";
-    statusGlider.style.transform = `translateX(${offsetLeft}px)`;
-    statusGlider.style.opacity = "1";
-    if (instant) {
-      statusGlider.offsetHeight; // trigger reflow
-      statusGlider.style.transition = "";
-    }
-  }
-
-  // 2. Category Tab Glider
   const tabCont = document.getElementById("boutiqueTabs");
   const tabGlider = document.getElementById("boutiqueTabGlider");
   const activeTab = tabCont?.querySelector(".boutique-tab.is-active");
+  const tabMetrics = (tabCont && tabGlider && activeTab)
+    ? { left: activeTab.offsetLeft, width: activeTab.offsetWidth }
+    : null;
 
-  if (tabCont && tabGlider && activeTab) {
-    if (instant) {
-      tabGlider.style.transition = "none";
-    }
-    const offsetLeft = activeTab.offsetLeft;
-    const width = activeTab.offsetWidth;
-    tabGlider.style.width = width + "px";
-    tabGlider.style.transform = `translateX(${offsetLeft}px)`;
+  // 2. Apply ALL style writes cleanly without synchronous offsetHeight forced reflows
+  if (statusMetrics) {
+    if (instant) statusGlider.style.transition = "none";
+    statusGlider.style.width = statusMetrics.width + "px";
+    statusGlider.style.transform = `translate3d(${statusMetrics.left}px, 0, 0)`;
+    statusGlider.style.opacity = "1";
+  }
+
+  if (tabMetrics) {
+    if (instant) tabGlider.style.transition = "none";
+    tabGlider.style.width = tabMetrics.width + "px";
+    tabGlider.style.transform = `translate3d(${tabMetrics.left}px, 0, 0)`;
     tabGlider.style.opacity = "1";
-    if (instant) {
-      tabGlider.offsetHeight; // trigger reflow
-      tabGlider.style.transition = "";
-    }
+  }
+
+  if (instant && (statusMetrics || tabMetrics)) {
+    requestAnimationFrame(() => {
+      if (statusMetrics && statusGlider) statusGlider.style.transition = "";
+      if (tabMetrics && tabGlider) tabGlider.style.transition = "";
+    });
   }
 };
 // Resize updates for boutique gliders are handled by the unified rAF-throttled resize dispatcher in HeaderScrollController.init()
@@ -3262,9 +3259,21 @@ const Router = {
     }
 
     // Save scroll position of outgoing tab
-    const previousPage = document.getElementById(`${this.currentTab}-tab`);
+    const prevTab = this.currentTab;
+    const previousPage = document.getElementById(`${prevTab}-tab`);
     if (previousPage && window.tabScrollPositions) {
-      window.tabScrollPositions[this.currentTab] = previousPage.scrollTop;
+      window.tabScrollPositions[prevTab] = previousPage.scrollTop;
+    }
+
+    // Immediately pause heavy Membership RAF loops on Frame 0 BEFORE starting the nav glide
+    if (prevTab === "membership" && tab !== "membership") {
+      if (window._membershipResumeTimer) {
+        clearTimeout(window._membershipResumeTimer);
+        window._membershipResumeTimer = null;
+      }
+      if (typeof window.pauseMembershipRAF === "function") {
+        window.pauseMembershipRAF();
+      }
     }
 
     this.currentTab = tab;
@@ -3288,17 +3297,24 @@ const Router = {
 
   syncBottomNav(tab) {
     window._navTransitionActive = true;
+    document.body?.classList.add("nav-gliding");
     if (window._navTransitionEndTimer) clearTimeout(window._navTransitionEndTimer);
     window._navTransitionEndTimer = setTimeout(() => {
       window._navTransitionActive = false;
-    }, 320);
+      document.body?.classList.remove("nav-gliding");
+    }, 280);
 
     const navItems = document.querySelectorAll(".bottom-nav .nav-item");
     let activeNavIndex = -1;
     navItems.forEach((n, idx) => {
       const isTarget = n.dataset.tab === tab;
       n.classList.toggle("is-active", isTarget);
-      if (isTarget) activeNavIndex = idx;
+      if (isTarget) {
+        n.setAttribute("aria-current", "page");
+        activeNavIndex = idx;
+      } else {
+        n.removeAttribute("aria-current");
+      }
     });
     const bottomNavEl = document.querySelector(".bottom-nav");
     if (bottomNavEl && activeNavIndex >= 0) {
@@ -3317,8 +3333,13 @@ const Router = {
     if (window.HeaderScrollController) {
       window.HeaderScrollController.onTabChangeStart();
     }
-    if (tab !== "club" && typeof cancelClubWelcomeAutoDismiss === "function") {
-      cancelClubWelcomeAutoDismiss();
+    if (tab !== "club") {
+      if (typeof cancelClubWelcomeAutoDismiss === "function") {
+        cancelClubWelcomeAutoDismiss();
+      }
+      if (typeof cancelClubHeaderAutoHide === "function") {
+        cancelClubHeaderAutoHide();
+      }
     }
 
     document.querySelectorAll(".page").forEach((p) => {
@@ -3349,13 +3370,7 @@ const Router = {
     }
     if (document.body) {
       document.body.classList.toggle("tab-club-active", tab === "club");
-      const wasSubtab = document.body.classList.contains("header-subtab-mode");
-      const isSubtab = tab !== "membership";
-      document.body.classList.toggle("header-subtab-mode", isSubtab);
-      if (wasSubtab !== isSubtab && typeof window.updateHeaderHeightVar === "function") {
-        // Header height is unified across all 4 tabs; defer measurement out of Frame 0 to avoid forced reflow during nav glide
-        requestAnimationFrame(() => window.updateHeaderHeightVar());
-      }
+      document.body.classList.toggle("header-subtab-mode", tab !== "membership");
     }
     if (window.scrollY !== 0) {
       window.scrollTo(0, 0);
@@ -3377,6 +3392,10 @@ const Router = {
       clearTimeout(window._membershipResumeTimer);
       window._membershipResumeTimer = null;
     }
+    if (window._boutiqueGliderTimer) {
+      clearTimeout(window._boutiqueGliderTimer);
+      window._boutiqueGliderTimer = null;
+    }
     if (tab === "membership") {
       // Canvas retains its last rendered frame visually; resume ambient loops right after bottom-nav glide completes
       window._membershipResumeTimer = setTimeout(() => {
@@ -3387,16 +3406,19 @@ const Router = {
         } else if (typeof window.resumeGoldDustCanvas === "function") {
           window.resumeGoldDustCanvas();
         }
-      }, 300);
+      }, 285);
     } else {
       if (typeof window.pauseMembershipRAF === "function") {
         window.pauseMembershipRAF();
       }
     }
     if (tab === "boutique") {
-      requestAnimationFrame(() => {
+      // Defer Boutique glider measurement until right after 280ms nav glide so Boutique entry has zero mid-glide reflow
+      window._boutiqueGliderTimer = setTimeout(() => {
+        window._boutiqueGliderTimer = null;
+        if (Router.currentTab !== "boutique") return;
         window.updateBoutiqueGliders?.(true);
-      });
+      }, 285);
     }
   },
 
@@ -3430,7 +3452,7 @@ const Router = {
 
       const plaque = document.getElementById("clubPinnedInfo");
       const clubTabEl = document.getElementById("club-tab");
-      if (plaque) {
+      if (plaque && (plaque.classList.contains("is-collapsed") || plaque.hasAttribute("hidden") || plaque.style.cssText)) {
         plaque.classList.remove("is-collapsed");
         plaque.removeAttribute("hidden");
         plaque.style.removeProperty("display");
@@ -3443,34 +3465,37 @@ const Router = {
         plaque.style.removeProperty("margin-bottom");
         plaque.style.removeProperty("overflow");
       }
-      if (clubTabEl) {
+      if (clubTabEl && clubTabEl.classList.contains("plaque-dismissed")) {
         clubTabEl.classList.remove("plaque-dismissed");
       }
       if (typeof startClubWelcomeAutoDismiss === "function") {
         startClubWelcomeAutoDismiss(true);
       }
-      if (typeof window.updateClubTickerIfPending === "function") {
-        window.updateClubTickerIfPending();
+      if (typeof startClubHeaderAutoHide === "function") {
+        startClubHeaderAutoHide();
       }
 
-      // Batch critical Club positioning in Frame 1, and defer secondary controls until
-      // after the 280ms GPU-composited bottom-nav lens glide completes
+      // Keep Frame 1 featherlight (scroll positioning only), and defer secondary HUD/ticker/controls
+      // until right after the 295ms GPU-composited bottom-nav lens glide finishes
       if (window._clubPostGlideTimer) {
         clearTimeout(window._clubPostGlideTimer);
         window._clubPostGlideTimer = null;
       }
-      requestAnimationFrame(() => {
+      if (!isLeaderboard && typeof scrollChatToLatest === "function") {
+        requestAnimationFrame(() => {
+          if (Router.currentTab !== "club") return;
+          scrollChatToLatest(false);
+        });
+      }
+      window._clubPostGlideTimer = setTimeout(() => {
+        window._clubPostGlideTimer = null;
         if (Router.currentTab !== "club") return;
         if (typeof updateClubHudHeight === "function") {
           updateClubHudHeight();
         }
-        if (!isLeaderboard && typeof scrollChatToLatest === "function") {
-          scrollChatToLatest(false);
+        if (typeof window.updateClubTickerIfPending === "function") {
+          window.updateClubTickerIfPending();
         }
-      });
-      window._clubPostGlideTimer = setTimeout(() => {
-        window._clubPostGlideTimer = null;
-        if (Router.currentTab !== "club") return;
         if (typeof window.HeaderScrollController?.attachClubScroll === "function") {
           window.HeaderScrollController.attachClubScroll();
         }
@@ -3480,7 +3505,7 @@ const Router = {
         if (typeof window.autoGrowClubInput === "function") {
           window.autoGrowClubInput();
         }
-      }, 300);
+      }, 290);
     } else if (tab === "profile") {
       if (typeof window.setClubFloatingControlsVisibility === "function") {
         window.setClubFloatingControlsVisibility(false);
@@ -3894,32 +3919,54 @@ let gaugeShimmerTimeout = null;
 let gaugeTallyTimeout = null;
 
 function updateCreditsUI(forceAnimate = false) {
+  const barEl = document.getElementById("clubCreditsDisplay");
   const creditsText = document.getElementById("clubCreditsText");
   const buyBtn = document.getElementById("clubCreditsBuyBtn");
   const pipsContainer = document.getElementById("gaugePipsStrip");
 
   const currentCredits =
     typeof ClubState !== "undefined" && ClubState && ClubState.chatCredits !== undefined
-      ? ClubState.chatCredits
+      ? Math.max(0, Number(ClubState.chatCredits) || 0)
       : 10;
   const maxCredits = 10;
+  const TOTAL_INGOTS = 5;
+
+  // Idempotent fast-path: skip redundant DOM writes on Club tab re-entry when credits are unchanged
+  if (
+    !forceAnimate &&
+    lastRecordedCredits === currentCredits &&
+    pipsContainer &&
+    pipsContainer.children.length === TOTAL_INGOTS &&
+    creditsText &&
+    creditsText.dataset.renderedCredits === String(currentCredits)
+  ) {
+    return;
+  }
 
   const shouldAnimate =
     Boolean(forceAnimate) ||
     (lastRecordedCredits !== null && lastRecordedCredits !== currentCredits);
   lastRecordedCredits = currentCredits;
+  if (creditsText) {
+    creditsText.dataset.renderedCredits = String(currentCredits);
+  }
+
+  if (barEl) {
+    barEl.classList.toggle("is-depleted", currentCredits <= 0);
+    barEl.classList.toggle("is-surplus", currentCredits > maxCredits);
+  }
 
   if (creditsText) {
-    creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-sep">/</span><bdi class="credit-count-val">${maxCredits}</bdi>`;
-    if (currentCredits <= 0) {
-      creditsText.style.color = "#d9534f";
+    if (currentCredits > maxCredits) {
+      creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi>`;
     } else {
-      creditsText.style.color = "";
+      creditsText.innerHTML = `<bdi class="credit-count-val">${currentCredits}</bdi><span class="credit-count-sep">/</span><bdi class="credit-count-val credit-count-max">${maxCredits}</bdi>`;
     }
+    creditsText.style.color = "";
 
     if (shouldAnimate) {
       creditsText.classList.remove("is-ticked");
-      void creditsText.offsetWidth; // Force reflow to retrigger animation
+      void creditsText.offsetWidth;
       creditsText.classList.add("is-ticked");
       if (gaugeTallyTimeout) clearTimeout(gaugeTallyTimeout);
       gaugeTallyTimeout = setTimeout(() => {
@@ -3929,18 +3976,43 @@ function updateCreditsUI(forceAnimate = false) {
   }
 
   if (pipsContainer) {
-    const pips = pipsContainer.querySelectorAll(".gauge-pip");
+    // Hard invariant: NEVER exceed 5 ingots regardless of credit balance (e.g. 10, 50, 100+)
+    let pips = pipsContainer.querySelectorAll(".gauge-pip");
+    if (pips.length !== TOTAL_INGOTS) {
+      pipsContainer.innerHTML = "";
+      for (let i = 0; i < TOTAL_INGOTS; i++) {
+        const span = document.createElement("span");
+        span.className = "gauge-pip is-spent";
+        pipsContainer.appendChild(span);
+      }
+      pips = pipsContainer.querySelectorAll(".gauge-pip");
+    }
+
+    const isSurplus = currentCredits > maxCredits;
+    const clamped = Math.min(currentCredits, maxCredits);
+    const exactFilled = (clamped / maxCredits) * TOTAL_INGOTS;
+
     pips.forEach((pip, index) => {
-      if (index < currentCredits) {
+      if (isSurplus) {
+        pip.className = "gauge-pip is-filled is-surplus";
+      } else if (exactFilled >= index + 1) {
         pip.className = "gauge-pip is-filled";
+      } else if (exactFilled >= index + 0.5) {
+        pip.className = "gauge-pip is-half";
       } else {
         pip.className = "gauge-pip is-spent";
       }
     });
 
+    pipsContainer.setAttribute("aria-valuemax", String(TOTAL_INGOTS));
+    pipsContainer.setAttribute(
+      "aria-valuenow",
+      String(isSurplus ? TOTAL_INGOTS : Math.round(exactFilled * 10) / 10)
+    );
+
     if (shouldAnimate) {
       pipsContainer.classList.remove("is-shimmering");
-      void pipsContainer.offsetWidth; // Force reflow to retrigger shimmer
+      void pipsContainer.offsetWidth;
       pipsContainer.classList.add("is-shimmering");
       if (gaugeShimmerTimeout) clearTimeout(gaugeShimmerTimeout);
       gaugeShimmerTimeout = setTimeout(() => {
@@ -4473,6 +4545,10 @@ function switchChannel(channelId) {
   const activeTab = document.querySelector(".page.is-active");
   if (activeTab && activeTab.id === "club-tab") {
     startClubWelcomeAutoDismiss();
+    const header = document.getElementById("appHeader");
+    if (header && !header.classList.contains("header-hidden") && typeof startClubHeaderAutoHide === "function") {
+      startClubHeaderAutoHide();
+    }
     if (typeof updateClubRoomsArrowState === "function") {
       requestAnimationFrame(updateClubRoomsArrowState);
       setTimeout(updateClubRoomsArrowState, 100);
@@ -4481,6 +4557,8 @@ function switchChannel(channelId) {
 }
 
 let clubWelcomeDismissTimer = null;
+let clubWelcomeCleanupTimer = null;
+let clubHeaderAutoHideTimer = null;
 
 function updateClubBottomClearance() {
   const composerWrap = document.getElementById("clubComposerWrap");
@@ -4519,11 +4597,17 @@ function startClubWelcomeAutoDismiss(deferMeasure = false) {
     clearTimeout(clubWelcomeDismissTimer);
     clubWelcomeDismissTimer = null;
   }
+  if (clubWelcomeCleanupTimer) {
+    clearTimeout(clubWelcomeCleanupTimer);
+    clubWelcomeCleanupTimer = null;
+  }
 
+  plaque.classList.remove("is-dismissing");
   plaque.style.removeProperty("transition");
   plaque.style.removeProperty("opacity");
   plaque.style.removeProperty("transform");
   plaque.style.removeProperty("max-height");
+  plaque.style.removeProperty("min-height");
   plaque.style.removeProperty("height");
   plaque.style.removeProperty("padding");
   plaque.style.removeProperty("padding-top");
@@ -4534,6 +4618,7 @@ function startClubWelcomeAutoDismiss(deferMeasure = false) {
   plaque.style.removeProperty("overflow");
   plaque.style.removeProperty("pointer-events");
   plaque.style.removeProperty("border");
+  plaque.style.removeProperty("border-width");
   plaque.style.removeProperty("box-shadow");
   plaque.classList.remove("is-collapsed");
   plaque.removeAttribute("hidden");
@@ -4545,16 +4630,43 @@ function startClubWelcomeAutoDismiss(deferMeasure = false) {
     updateClubHudHeight();
   }
 
-  // Automatically dismiss welcome message after 5 seconds of opening the tab
+  // Automatically dismiss welcome message after 3 seconds of opening the tab
   clubWelcomeDismissTimer = setTimeout(() => {
+    clubWelcomeDismissTimer = null;
     dismissClubWelcomePlaque();
-  }, 5000);
+  }, 3000);
 }
 
 function cancelClubWelcomeAutoDismiss() {
   if (clubWelcomeDismissTimer) {
     clearTimeout(clubWelcomeDismissTimer);
     clubWelcomeDismissTimer = null;
+  }
+  if (clubWelcomeCleanupTimer) {
+    clearTimeout(clubWelcomeCleanupTimer);
+    clubWelcomeCleanupTimer = null;
+  }
+}
+
+function startClubHeaderAutoHide() {
+  cancelClubHeaderAutoHide();
+  // Automatically hide top app header after 5 seconds of opening the Club tab
+  clubHeaderAutoHideTimer = setTimeout(() => {
+    clubHeaderAutoHideTimer = null;
+    const clubTab = document.getElementById("club-tab");
+    if (!clubTab || !clubTab.classList.contains("is-active")) return;
+    if (typeof Router !== "undefined" && Router.currentTab !== "club") return;
+    if (clubTab.classList.contains("keyboard-active")) return;
+    if (typeof window.HeaderScrollController?.setClubHeaderCollapsed === "function") {
+      window.HeaderScrollController.setClubHeaderCollapsed(true);
+    }
+  }, 5000);
+}
+
+function cancelClubHeaderAutoHide() {
+  if (clubHeaderAutoHideTimer) {
+    clearTimeout(clubHeaderAutoHideTimer);
+    clubHeaderAutoHideTimer = null;
   }
 }
 
@@ -4567,13 +4679,19 @@ function dismissClubWelcomePlaque(immediate = false) {
     clearTimeout(clubWelcomeDismissTimer);
     clubWelcomeDismissTimer = null;
   }
+  if (clubWelcomeCleanupTimer) {
+    clearTimeout(clubWelcomeCleanupTimer);
+    clubWelcomeCleanupTimer = null;
+  }
 
   if (immediate) {
+    plaque.classList.remove("is-dismissing");
     plaque.classList.add("is-collapsed");
     plaque.setAttribute("hidden", "");
     plaque.style.setProperty("display", "none", "important");
     plaque.style.setProperty("opacity", "0", "important");
     plaque.style.setProperty("max-height", "0px", "important");
+    plaque.style.setProperty("min-height", "0px", "important");
     plaque.style.setProperty("height", "0px", "important");
     plaque.style.setProperty("padding", "0px", "important");
     plaque.style.setProperty("margin", "0px", "important");
@@ -4588,34 +4706,44 @@ function dismissClubWelcomePlaque(immediate = false) {
     return;
   }
 
-  // Smooth fade-out and slide-up collapse
-  plaque.style.setProperty("transition", "opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), margin 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s cubic-bezier(0.16, 1, 0.3, 1)", "important");
-  plaque.style.setProperty("opacity", "0", "important");
-  plaque.style.setProperty("transform", "translateY(-6px) scale(0.98)", "important");
-  plaque.style.setProperty("max-height", "0px", "important");
-  plaque.style.setProperty("padding-top", "0px", "important");
-  plaque.style.setProperty("padding-bottom", "0px", "important");
-  plaque.style.setProperty("margin-top", "0px", "important");
-  plaque.style.setProperty("margin-bottom", "0px", "important");
+  // Smooth, lightweight 220ms fade-out and glide-up collapse
+  const currentHeight = plaque.offsetHeight || 54;
+  plaque.classList.add("is-dismissing");
+  plaque.style.setProperty("max-height", currentHeight + "px", "important");
+  plaque.style.setProperty("min-height", "0px", "important");
   plaque.style.setProperty("overflow", "hidden", "important");
   plaque.style.setProperty("pointer-events", "none", "important");
 
-  if (tab) {
-    tab.classList.add("plaque-dismissed");
-    tab.style.setProperty("--club-hud-height", "42px");
-  }
-  updateClubHudHeight();
+  requestAnimationFrame(() => {
+    plaque.style.setProperty("transition", "opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1), transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), max-height 0.22s cubic-bezier(0.22, 1, 0.36, 1), padding 0.22s cubic-bezier(0.22, 1, 0.36, 1), margin 0.22s cubic-bezier(0.22, 1, 0.36, 1)", "important");
+    plaque.style.setProperty("opacity", "0", "important");
+    plaque.style.setProperty("transform", "translate3d(0, -5px, 0) scale(0.985)", "important");
+    plaque.style.setProperty("max-height", "0px", "important");
+    plaque.style.setProperty("padding-top", "0px", "important");
+    plaque.style.setProperty("padding-bottom", "0px", "important");
+    plaque.style.setProperty("margin-top", "0px", "important");
+    plaque.style.setProperty("margin-bottom", "-6px", "important");
+    plaque.style.setProperty("border-width", "0px", "important");
+  });
 
-  setTimeout(() => {
+  clubWelcomeCleanupTimer = setTimeout(() => {
+    clubWelcomeCleanupTimer = null;
+    plaque.classList.remove("is-dismissing");
     plaque.classList.add("is-collapsed");
     plaque.setAttribute("hidden", "");
     plaque.style.setProperty("display", "none", "important");
+    if (tab) {
+      tab.classList.add("plaque-dismissed");
+      tab.style.setProperty("--club-hud-height", "42px");
+    }
     updateClubHudHeight();
-  }, 350);
+  }, 235);
 }
 
 window.startClubWelcomeAutoDismiss = startClubWelcomeAutoDismiss;
 window.cancelClubWelcomeAutoDismiss = cancelClubWelcomeAutoDismiss;
+window.startClubHeaderAutoHide = startClubHeaderAutoHide;
+window.cancelClubHeaderAutoHide = cancelClubHeaderAutoHide;
 window.dismissClubWelcomePlaque = dismissClubWelcomePlaque;
 
 document.querySelectorAll(".club-room-btn").forEach((btn) => {
@@ -4968,7 +5096,7 @@ function initSovereignSalonTicker() {
         const statusClass = isLive ? "live" : (isDelayed ? "delayed" : "stale");
         const statusText = isLive
           ? ("LIVE")
-          : (isDelayed ? ("DELAYED") : ("STALE"));
+          : (isDelayed ? ("DELAYED") : ("INDICATIVE"));
         const timeBadge = item.lastUpdated ? ('<span class="ticker-time-tag">' + formatTime(item.lastUpdated) + '</span>') : "";
         const typeBadge = item.instrumentType
           ? ('<span class="ticker-sim-badge">' + (isAr ? (item.instrumentTypeAr || item.instrumentType) : item.instrumentType) + '</span>')
@@ -5081,7 +5209,7 @@ function initSovereignSalonTicker() {
           const statusClass = isLive ? "live" : (isDelayed ? "delayed" : "stale");
           const statusText = isLive
             ? ("LIVE")
-            : (isDelayed ? ("DELAYED") : ("STALE"));
+            : (isDelayed ? ("DELAYED") : ("INDICATIVE"));
 
           if (statusEl) {
             const expectedClass = "ticker-status-tag " + statusClass;
@@ -5584,7 +5712,7 @@ function scrollChatToLatest(smoothScroll = true) {
   const container = document.getElementById("clubMessages");
   if (!container) return;
 
-  if (typeof updateClubBottomClearance === "function") {
+  if (!window._navTransitionActive && typeof updateClubBottomClearance === "function") {
     updateClubBottomClearance();
   }
 
@@ -5851,25 +5979,50 @@ document
 window.autoGrowClubInput = function (el) {
   const input = el || document.getElementById("clubInput");
   if (!input) return;
-  // WhatsApp-style auto-expanding: reset to auto, then clamp between min and max height
-  input.style.height = "auto";
-  const minH = 22;
-  const maxH = 120; // Max ~5-6 lines
-  const scrollH = input.scrollHeight;
 
-  if (scrollH > maxH) {
-    input.style.height = maxH + "px";
-    input.style.overflowY = "auto";
-  } else {
-    const val = (input.value || "").trim();
-    const hasNewline = input.value && input.value.includes("\n");
-    if (!hasNewline && (!val || scrollH <= 26)) {
-      input.style.height = minH + "px";
+  const composer = document.getElementById("obsidianDispatchComposer");
+  const minH = 34; // Exact 1-line height matching 34px twin circular seals
+  const vpH = (window.visualViewport && window.visualViewport.height) || window.innerHeight || 800;
+  // Natural WhatsApp / Telegram / iMessage ceiling (~5-6 lines, adapts smoothly when keyboard is open)
+  const maxH = vpH < 460 ? Math.max(94, Math.min(118, Math.floor(vpH * 0.28))) : 134;
+
+  const prevH = parseFloat(input.dataset.lastAutoHeight || String(minH));
+  const val = input.value || "";
+
+  let targetH = minH;
+  let overflowY = "hidden";
+
+  if (val.length > 0) {
+    // Collapse to minH to accurately measure wrapped multi-line scrollHeight
+    input.style.setProperty("height", minH + "px", "important");
+    const scrollH = input.scrollHeight || minH;
+
+    if (scrollH > maxH) {
+      targetH = maxH;
+      overflowY = "auto";
     } else {
-      const targetH = Math.max(minH, scrollH);
-      input.style.height = targetH + "px";
+      targetH = Math.max(minH, scrollH);
+      overflowY = "hidden";
     }
-    input.style.overflowY = "hidden";
+  }
+
+  input.style.setProperty("height", targetH + "px", "important");
+  input.style.setProperty("overflow-y", overflowY, "important");
+  input.dataset.lastAutoHeight = String(targetH);
+
+  if (composer) {
+    composer.classList.toggle("is-multiline", targetH > minH + 6);
+  }
+
+  if (overflowY === "auto" && document.activeElement === input) {
+    // Keep caret comfortably visible while typing past max height
+    if (input.selectionStart === val.length) {
+      input.scrollTop = input.scrollHeight;
+    }
+  }
+
+  if (Math.abs(targetH - prevH) >= 2 && typeof window.updateClubBottomClearance === "function") {
+    window.updateClubBottomClearance();
   }
 };
 
@@ -5877,15 +6030,18 @@ const clubInputEl = document.getElementById("clubInput");
 if (clubInputEl) {
   clubInputEl.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-      if (e.shiftKey) {
-        // Shift+Enter creates a new line
-        setTimeout(() => {
+      const isTouchMobile =
+        (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) ||
+        ("ontouchstart" in window && navigator.maxTouchPoints > 0 && window.innerWidth <= 900);
+      if (e.shiftKey || isTouchMobile) {
+        // Mobile touch Enter & desktop Shift+Enter insert a new line and auto-expand
+        requestAnimationFrame(() => {
           if (typeof window.autoGrowClubInput === "function") {
             window.autoGrowClubInput(clubInputEl);
           }
-        }, 0);
+        });
       } else {
-        // Enter sends message
+        // Desktop Enter sends message
         e.preventDefault();
         handleSendMessage();
       }
@@ -9433,7 +9589,10 @@ window.HeaderScrollController = (function() {
     if (clubTransitionTimer) clearTimeout(clubTransitionTimer);
     clubTransitionTimer = setTimeout(() => {
       isClubHeaderTransitioning = false;
-    }, 620);
+      if (typeof window.updateClubBottomClearance === "function") {
+        window.updateClubBottomClearance();
+      }
+    }, 400);
 
     if (collapsed) {
       header.classList.add("header-hidden");
@@ -9522,14 +9681,28 @@ window.HeaderScrollController = (function() {
     setClubHeaderCollapsed(false);
   }
 
+  let postNavSyncTimer = null;
   function onTabChangeComplete() {
     const currentSeq = ++navSeq;
+    if (postNavSyncTimer) {
+      clearTimeout(postNavSyncTimer);
+      postNavSyncTimer = null;
+    }
     requestAnimationFrame(() => {
       if (currentSeq !== navSeq) return;
       setClubHeaderCollapsed(false);
-      updateStateForCurrentTab();
-      updateHeaderHeightVar();
       isNavigating = false;
+      if (window._navTransitionActive) {
+        // Defer scrollHeight/clientHeight layout reads strictly past the 280ms bottom-nav glide across all 4 tabs
+        postNavSyncTimer = setTimeout(() => {
+          postNavSyncTimer = null;
+          if (currentSeq !== navSeq) return;
+          updateStateForCurrentTab();
+        }, 285);
+      } else {
+        updateStateForCurrentTab();
+        updateHeaderHeightVar();
+      }
     });
   }
 
@@ -9584,6 +9757,9 @@ window.HeaderScrollController = (function() {
           accumulatedNewerDelta = 0;
           if (isClubCollapsed) {
             setClubHeaderCollapsed(false);
+            if (typeof window.startClubHeaderAutoHide === "function") {
+              window.startClubHeaderAutoHide();
+            }
           }
           return;
         }
@@ -9607,6 +9783,9 @@ window.HeaderScrollController = (function() {
 
           if (isClubCollapsed && (accumulatedNewerDelta >= CLUB_SCROLL_THRESHOLD || distanceFromBottom <= 35)) {
             setClubHeaderCollapsed(false);
+            if (typeof window.startClubHeaderAutoHide === "function") {
+              window.startClubHeaderAutoHide();
+            }
           }
         }
       });
@@ -9712,6 +9891,53 @@ window.HeaderScrollController = (function() {
       msgs._clubScrollAttached = true;
       msgs.addEventListener("scroll", handleClubScrollEvent, { passive: true });
     }
+
+    // Gentle downward pull on top zone (or top edge of chat) smoothly reveals auto-hidden header
+    const clubTab = document.getElementById("club-tab");
+    if (clubTab && !clubTab._clubHeaderPullRevealBound) {
+      clubTab._clubHeaderPullRevealBound = true;
+      let pullStartY = 0;
+      let pullStartX = 0;
+      let canRevealOnPull = false;
+
+      clubTab.addEventListener("touchstart", (e) => {
+        if (!isClubCollapsed || isNavigating || !e.touches || e.touches.length !== 1) {
+          canRevealOnPull = false;
+          return;
+        }
+        const target = e.target;
+        if (target && target.closest && target.closest("#clubComposerWrap, #clubInput")) {
+          canRevealOnPull = false;
+          return;
+        }
+        const touch = e.touches[0];
+        pullStartY = touch.clientY;
+        pullStartX = touch.clientX;
+        const inTopZone =
+          pullStartY <= 140 ||
+          Boolean(target && target.closest && target.closest("#clubRoomsNavWrap, #clubFloatingHud, #sovereignSalonTicker"));
+        const atChatTop = !msgs || msgs.scrollTop <= 8;
+        canRevealOnPull = inTopZone || atChatTop;
+      }, { passive: true });
+
+      clubTab.addEventListener("touchmove", (e) => {
+        if (!canRevealOnPull || !isClubCollapsed || !e.touches || e.touches.length !== 1) return;
+        const touch = e.touches[0];
+        const dy = touch.clientY - pullStartY;
+        const dx = Math.abs(touch.clientX - pullStartX);
+        if (dy >= 32 && dy > dx * 1.4) {
+          canRevealOnPull = false;
+          setClubHeaderCollapsed(false);
+          if (typeof window.startClubHeaderAutoHide === "function") {
+            window.startClubHeaderAutoHide();
+          }
+        }
+      }, { passive: true });
+
+      clubTab.addEventListener("touchend", () => {
+        canRevealOnPull = false;
+      }, { passive: true });
+    }
   }
 
   return {
@@ -9760,7 +9986,112 @@ window.HeaderScrollController = (function() {
           document.querySelector(".app-main")?.classList.add("main-club-active");
           document.body?.classList.add("tab-club-active");
         }
+        scheduleClubFacadePrebake();
       };
+
+      // Pre-rasterize the 132-polygon inline Club SVG facade once during idle time into a cached
+      // GPU-decoded bitmap pair (light & dark) so opening #club-tab never stalls the bottom-nav glide
+      function scheduleClubFacadePrebake() {
+        const runBake = () => {
+          try {
+            const bg = document.getElementById("ultimate-club-bg");
+            const svg = bg && bg.querySelector("svg.gold-facade-svg");
+            if (!bg || !svg || bg.dataset.facadeBaked === "1") return;
+            bg.dataset.facadeBaked = "1";
+
+            const svgMarkup = new XMLSerializer().serializeToString(svg);
+            const svgBlob = new Blob([svgMarkup], { type: "image/svg+xml;charset=utf-8" });
+            const svgUrl = URL.createObjectURL(svgBlob);
+            const srcImg = new Image();
+            srcImg.decoding = "async";
+            srcImg.onload = () => {
+              try {
+                const w = 540;
+                const h = 900;
+                const lightCanvas = document.createElement("canvas");
+                lightCanvas.width = w;
+                lightCanvas.height = h;
+                const lCtx = lightCanvas.getContext("2d");
+                if (!lCtx) {
+                  URL.revokeObjectURL(svgUrl);
+                  return;
+                }
+                lCtx.drawImage(srcImg, 0, 0, w, h);
+
+                const darkCanvas = document.createElement("canvas");
+                darkCanvas.width = w;
+                darkCanvas.height = h;
+                const dCtx = darkCanvas.getContext("2d");
+                if (dCtx) {
+                  if ("filter" in dCtx) {
+                    dCtx.filter = "grayscale(45%) contrast(140%) brightness(36%) sepia(35%)";
+                    dCtx.drawImage(srcImg, 0, 0, w, h);
+                  } else {
+                    dCtx.drawImage(srcImg, 0, 0, w, h);
+                    dCtx.globalCompositeOperation = "source-atop";
+                    dCtx.fillStyle = "rgba(10, 8, 5, 0.72)";
+                    dCtx.fillRect(0, 0, w, h);
+                  }
+                }
+                URL.revokeObjectURL(svgUrl);
+
+                const toImgNode = (canvasEl, clsName) =>
+                  new Promise((resolve) => {
+                    const finalize = (url) => {
+                      const img = document.createElement("img");
+                      img.className = clsName;
+                      img.alt = "";
+                      img.setAttribute("aria-hidden", "true");
+                      img.decoding = "async";
+                      img.src = url;
+                      if (typeof img.decode === "function") {
+                        img.decode().catch(() => {}).finally(() => resolve(img));
+                      } else {
+                        resolve(img);
+                      }
+                    };
+                    if (typeof canvasEl.toBlob === "function") {
+                      canvasEl.toBlob(
+                        (blob) => {
+                          if (blob) {
+                            finalize(URL.createObjectURL(blob));
+                          } else {
+                            finalize(canvasEl.toDataURL("image/png"));
+                          }
+                        },
+                        "image/webp",
+                        0.86
+                      );
+                    } else {
+                      finalize(canvasEl.toDataURL("image/png"));
+                    }
+                  });
+
+                Promise.all([
+                  toImgNode(lightCanvas, "gold-facade-svg gold-facade-baked gold-facade-baked-light"),
+                  toImgNode(darkCanvas, "gold-facade-svg gold-facade-baked gold-facade-baked-dark"),
+                ]).then(([lightImg, darkImg]) => {
+                  if (!bg.contains(svg)) return;
+                  bg.insertBefore(lightImg, svg);
+                  bg.insertBefore(darkImg, svg);
+                  bg.classList.add("has-baked-facade");
+                  svg.remove();
+                });
+              } catch (e) {
+                URL.revokeObjectURL(svgUrl);
+              }
+            };
+            srcImg.onerror = () => URL.revokeObjectURL(svgUrl);
+            srcImg.src = svgUrl;
+          } catch (e) {}
+        };
+
+        if (typeof window.requestIdleCallback === "function") {
+          window.requestIdleCallback(runBake, { timeout: 1400 });
+        } else {
+          setTimeout(runBake, 700);
+        }
+      }
 
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", bootSync);

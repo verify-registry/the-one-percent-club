@@ -328,7 +328,7 @@ window.I18N = {
       en: "Remaining messages today",
     },
     ledgerAllocationTitle: {
-      en: "Dispatch Allocation",
+      en: "Dispatch",
     },
     requestAllocation: {
       en: "Request Allocation",

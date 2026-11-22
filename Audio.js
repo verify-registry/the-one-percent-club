@@ -177,6 +177,9 @@ const AudioEngine = (function () {
     } catch {}
   }
 
+  let cachedRustleCtx = null;
+  let cachedRustleBuffer = null;
+
   // Soft paper/fabric rustle for tactile inspection (e.g. card tilt, long-press)
   function playRustle() {
     if (!enabled) return;
@@ -186,17 +189,19 @@ const AudioEngine = (function () {
     try {
       const t = c.currentTime;
       const duration = 0.22;
-      const bufferSize = Math.floor(c.sampleRate * duration);
-      const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
-      const data = buffer.getChannelData(0);
-
-      // Filtered white noise
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * 0.4;
+      if (cachedRustleCtx !== c || !cachedRustleBuffer) {
+        const bufferSize = Math.floor(c.sampleRate * duration);
+        const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * 0.4;
+        }
+        cachedRustleCtx = c;
+        cachedRustleBuffer = buffer;
       }
 
       const noiseSource = c.createBufferSource();
-      noiseSource.buffer = buffer;
+      noiseSource.buffer = cachedRustleBuffer;
 
       const filter = c.createBiquadFilter();
       filter.type = "lowpass";
