@@ -40,7 +40,7 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 ├── AUDIT.md                     # Master Architectural Blueprint (this file)
 ├── Audio.js                     # Synthesized WebAudio horological sound engine (945 lines)
 ├── README.md                    # Repository documentation and orientation
-├── app.js                       # Core application state, tabs, commerce & club engine (10,597 lines)
+├── app.js                       # Core application state, tabs, commerce & club engine (10,587 lines)
 ├── artifacts/                   # Single authoritative collectible asset directory (24 optimized dual-mode .webp files, 0.92 MiB)
 ├── artifacts.js                 # Collectible asset catalog & dual-mode Dark/Light renderer (213 lines)
 ├── assets/
@@ -55,21 +55,21 @@ The repository follows a clean, decoupled full-stack architecture where frontend
 ├── server.ts                    # Production Express server (Gzip, static root & /artifacts, market proxy, SPA routing; 427 lines)
 ├── src/
 │   └── main.tsx                 # Non-intrusive TypeScript shield entry point (15 lines)
-├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals, Atelier; 42,904 lines)
+├── style.css                    # Unified master stylesheet (Liquid Glass, dock, modals, Atelier; 42,884 lines)
 ├── translations.js              # Standardized English localization dictionary (1,843 lines)
 ├── tsconfig.json                # TypeScript compiler configuration (ES2022, bundler)
 └── vite.config.ts               # Vite configuration for AI Studio dev server (port 3000)
 ```
 
-*(Total core source footprint: **63,971 lines** across 9 files; total workspace footprint excluding `node_modules`/`.git`/`dist`: **48 files / ~6.01 MiB**, including the 0.92 MiB `/artifacts/` studio collection and 2.93 MiB `/assets/portraits/` curated portrait library.)*
+*(Total core source footprint: **63,941 lines** across 9 files; total workspace footprint excluding `node_modules`/`.git`/`dist`: **48 files / ~6.01 MiB**, including the 0.92 MiB `/artifacts/` studio collection and 2.93 MiB `/assets/portraits/` curated portrait library.)*
 
 ### Exact File Roles
 
 | File | Exact Architectural Role |
 |---|---|
 | `index.html` | HTML entry point (4,527 lines). Hosts all semantic tab containers (`#membership-tab`, `#club-tab`, `#profile-tab`, `#boutique-tab`), modal overlays (Settings, Account, Support, 3-Chapter Edit Profile Atelier, Dossier, Inspection, Auth, Recovery), and global SVG gradient definitions (`#ringGoldGrad`, `#bezelGrad`, `#sov_gold_24k`). Zero inline `<style>` tags; modal backdrop dismissal is centrally handled by `initUnifiedModalBackdrops()` in `app.js`. |
-| `style.css` | Consolidated master stylesheet (42,904 lines). Contains the seamless Liquid Glass header, VisionOS crystal bottom dock, typography hierarchy, responsive breakpoints (360px–430px), modal card systems, Edit Profile Atelier chapters, and Dark/Light mode color schemes. |
-| `app.js` | Primary application logic controller (10,597 lines). Manages reactive state (`AppState`), boutique commerce and vault persistence, club chat with room switching and daily message reserves, live market ticker client consumption, metric ring complications (Wealth Index and Privileges Index with D3), unified modal backdrop management, consolidated capture-scroll/rAF-resize/boot dispatchers, and authentication state (`AuthBoundary`). |
+| `style.css` | Consolidated master stylesheet (42,884 lines). Contains the seamless Liquid Glass header, VisionOS crystal bottom dock, typography hierarchy, responsive breakpoints (360px–430px), modal card systems, Edit Profile Atelier chapters, and Dark/Light mode color schemes. |
+| `app.js` | Primary application logic controller (10,587 lines). Manages reactive state (`AppState`), boutique commerce and vault persistence, club chat with room switching and daily message reserves, live market ticker client consumption, metric ring complications (Wealth Index and Privileges Index with D3), unified modal backdrop management, consolidated capture-scroll/rAF-resize/boot dispatchers, and authentication state (`AuthBoundary`). |
 | `luxury.js` | Mathematical canvas rendering engine for the Master Identity Card (2,500 lines). Computes layered guilloché geometry, dynamic gold dust particle dynamics, specular metallic sheen passes, high-DPI metallic gold card image exports, a single consolidated `DOMContentLoaded` initializer (`initLuxuryEngine`), and a unified visibility/tab/resize lifecycle hub. |
 | `artifacts.js` | Collectible asset registry (`window.SOVEREIGN_ARTIFACTS`, 213 lines). Renders all 12 boutique collectibles from the single authoritative `/artifacts/` directory using theme-aware dual-mode `.webp` studio assets (Obsidian Dark & Imperial Light, reacting to both `themechange` and `themeChanged` events), plus pure inline SVG for `wid1` and legacy `aliasMap` compatibility. |
 | `artifacts/` | Single authoritative directory of 24 optimized dual-mode studio collectible images (12 active artifacts × Dark/Light in 512×512 lossy WebP, ~0.92 MiB total) served statically by `server.ts`. |
@@ -260,3 +260,9 @@ To preserve 100% stability, zero visual regressions, and platform compliance in 
 - **Cascade-Safe `style.css` In-Place Pruning (-1,608 Lines / -40.8 KB: `44,512` → `42,904`):** Removed `105` verified 100%-shadowed earlier exact-selector blocks and `129` verified shadowed declarations strictly in-place with zero cascade reordering, preserving identical Dark & Light mode computed styles across all tabs and modals.
 - **JS Hygiene & Listener Consolidation (`app.js` & `luxury.js`):** Removed dead `#leaderboardList` fallback/selector refs and 2 write-only `window.*` exports (`window.boutiqueCatalog`, `window.updateClubTicker`); merged duplicate `"input"` listeners on `#editProfileNameInput`, `#editProfileLocationInput`, and `#editProfileQuoteInput` into single handlers per input; consolidated `app.js` `DOMContentLoaded` listeners into `initApp()` and `luxury.js`'s 3 `DOMContentLoaded` listeners into a single TDZ-safe `initLuxuryEngine()` at file end.
 - **Documentation Alignment (`AUDIT.md`):** Reconciled Section 2 File Map (including `/assets/portraits/`), exact workspace footprint (**48 files / ~6.01 MiB**), and core source line counts (**63,971 lines** across 9 files).
+
+### Batch 6 — Full-Repository Sweep, Same-Block CSS Deduplication & Vestigial Event Removal
+- **`style.css` Same-Block Shadowing Cleanup (-20 Lines / -633 B: `42,904` → `42,884`):** Removed `6` orphaned comment fragments in `:root`, `2` shadowed earlier gradient token definitions inside `:root` (`--gold-grad-polished`, `--gold-grad-antique`), `2` shadowed `#0d0b09` fallbacks in `#boutique-tab .boutique-card`, and `1` shadowed `scroll-padding-bottom` fallback in `.club-messages` strictly in-place; verified `0` remaining shadowed blocks/declarations, `0` unclosed comments, and balanced braces (`4,746` pairs).
+- **English-Only Event Hygiene (`app.js`, -10 Lines: `10,597` → `10,587`):** Removed the vestigial `languageChanged` `CustomEvent` dispatch in `window.setLanguage()` and its `2` unused listeners (`initClubRoomsDiscoveryArrow` and `initSovereignSalonTicker`), verified zero callers or side effects.
+- **Full 48-File Verification:** Audited `index.html`, `artifacts.js`, `Audio.js`, `translations.js`, `server.ts`, `package.json`, and `tsconfig.json` for broken asset/ID references, unused imports, or duplicate listeners (`0` issues found); confirmed `0` stray files (`bun.lock`, `*.zip`, `public/assets/aistudio/`).
+

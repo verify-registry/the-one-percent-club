@@ -90,30 +90,13 @@
      THE 1% CLUB — GLOBAL SOVEREIGN GOLD MATERIAL SYSTEM (HAUTE HORLOGERIE)
      ========================================================================== */
   --gold-specular: #FFFFFF;              /* Chiseled white specular highlight */
-             /* Champagne-gold highlight */
-               /* Primary polished gold */
-               /* Rich antique-gold midtone */
-                  /* Warm antique bronze */
-                /* Deep bronze-gold shadow */
   --gold-edge: #FFF6D4;                  /* Controlled metallic edge highlight */
-                 /* Micro-engraving detail */
 
   /* Centralized Metallic Gradients */
-  --gold-grad-polished: linear-gradient(
-    135deg,
-    var(--gold-highlight) 0%,
-    var(--gold-primary) 40%,
-    var(--gold-deep) 100%
-  );
   --gold-grad-brushed: linear-gradient(
     180deg,
     var(--gold-primary) 0%,
     var(--gold-midtone) 100%
-  );
-  --gold-grad-antique: linear-gradient(
-    135deg,
-    var(--gold-midtone) 0%,
-    var(--gold-deep) 100%
   );
 
   --oled-black: #050505;
@@ -5406,7 +5389,6 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   justify-content: flex-start !important;
   text-align: center !important;
   cursor: pointer;
-  background: #0d0b09 !important;
   background: linear-gradient(180deg, #16120e 0%, #0e0c09 60%, #070604 100%) !important;
   color: #faf6ee !important;
   box-shadow:
@@ -28907,7 +28889,6 @@ body.dark-mode #boutique-tab {
 /* 1. Boutique Card: Matte Obsidian Base with subtle warm gradient & thin Champagne Gold border */
 body:not(.light-mode) #boutique-tab .boutique-card,
 body.dark-mode #boutique-tab .boutique-card {
-  background: #0d0b09 !important;
   background: linear-gradient(180deg, #13100c 0%, #0d0b09 60%, #080705 100%) !important;
   border: 1px solid rgba(212, 175, 106, 0.28) !important;
   border-radius: 14px !important;
@@ -31462,7 +31443,6 @@ html.dark-mode #club-tab.is-active.club-header-collapsed .club-chat-viewport,
   z-index: 5 !important;
   padding-top: 6px !important;
   padding-bottom: 8px !important;
-  scroll-padding-bottom: 8px !important;
   padding-left: calc(14px + env(safe-area-inset-left, 0px)) !important;
   padding-right: calc(14px + env(safe-area-inset-right, 0px)) !important;
   overflow-y: auto !important;

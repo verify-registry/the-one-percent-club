@@ -225,7 +225,6 @@ window.setLanguage = function () {
   if (window.ThemeManager && typeof window.ThemeManager.syncModalUI === "function") {
     window.ThemeManager.syncModalUI();
   }
-  window.dispatchEvent(new CustomEvent("languageChanged", { detail: { lang } }));
 
   // Explicit sync for Club pinned chamber title
   if (typeof updateClubPinnedTitle === "function") {
@@ -4968,11 +4967,6 @@ function initClubRoomsDiscoveryArrow() {
 
     // Resize arrow updates are handled by the unified rAF-throttled resize dispatcher in HeaderScrollController.init()
 
-    window.addEventListener("languageChanged", () => {
-      requestAnimationFrame(updateClubRoomsArrowState);
-      setTimeout(updateClubRoomsArrowState, 150);
-    });
-
     // 1. Observe language / direction mutations on document
     try {
       const dirObserver = new MutationObserver(() => {
@@ -5374,10 +5368,6 @@ function initSovereignSalonTicker() {
     if (!document.hidden) {
       fetchMarketQuotes(false);
     }
-  });
-
-  window.addEventListener("languageChanged", () => {
-    updateTickerInPlace();
   });
 }
 
