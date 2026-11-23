@@ -2,17 +2,21 @@
 node_modules/
 dist/
 
-# AI Studio internal platform media & artifacts
+# AI Studio internal platform media & uploaded chat screenshots
 .aistudio/
+public/assets/aistudio/
 
-# Headless test scripts & scratchpad
+# Headless test scripts, scratchpad & local backup archives
 tmp/
+*.zip
 
 # Specific generated test screenshot artifacts (narrowly scoped; no broad image patterns)
 bar_*.png
 test_validation_*.png
 
-# Unmanaged lockfiles
+# Unmanaged lockfiles & transient audit reports
 bun.lock
 yarn.lock
+CODEBASE_AUDIT_REPORT.md
+CHECKPOINT_MANIFEST.txt
 

@@ -2,10 +2,7 @@
 // Handles the drawing of a complex geometric Guilloché pattern for the membership card background.
 // Also generates offscreen metallic textures for 3D bezels and wreaths.
 
-document.addEventListener("DOMContentLoaded", () => {
-  initGuilloche();
-  initMetallicAssets();
-});
+// Initialization is consolidated in initLuxuryEngine() below.
 
 let metallicAssetsInitialized = false;
 
@@ -1249,18 +1246,14 @@ function initActionButtonsTactileFeedback() {
   });
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initActionButtonsTactileFeedback);
-} else {
-  initActionButtonsTactileFeedback();
-}
+// Tactile feedback init is invoked inside consolidated initLuxuryEngine() below.
 
 // ---------------------------------------------------------
 // 19. MASTER CARD, SOVEREIGN CHAMBER PLAQUE & UNIFIED 3D GYROSCOPE TILT ENGINE
 // ----------------------------------------------------------------------------
-const TILT_MAX_DEG = 1.75;        // Restrained, subtle physical rotation within ±1–2 degrees
-const TILT_DEADZONE = 0.08;      // Smooth micro-deadzone preventing sensor jitter while keeping fluid response
-const TILT_LERP_FACTOR = 0.075;  // Silk-smooth physical damping (no snapping, no lag)
+const TILT_MAX_DEG = 5.5;         // Restrained, tactile physical metallic card rotation without edge clipping
+const TILT_DEADZONE = 0.06;      // Smooth micro-deadzone preventing sensor jitter while keeping responsive motion
+const TILT_LERP_FACTOR = 0.12;   // Fluid, immediate physical damping (natural tracking, zero sluggishness)
 const TILT_EPSILON = 0.003;      // Clean settlement threshold for 0,0 return
 
 // Separate target from rendered tilt values for smooth interpolation
@@ -1272,6 +1265,8 @@ let currentRotY = 0;
 let tiltLoopActive = false;
 let tiltAnimFrame = null;
 let deviceOrientationAttached = false;
+let receivedStandardOrientation = false;
+let receivedOrientationReading = false;
 let isPointerInteracting = false;
 let isLongPressActive = false;
 
@@ -1279,16 +1274,17 @@ let isLongPressActive = false;
 let calibratedBeta = null;
 let calibratedGamma = null;
 
-// Check if Gyroscope 3D Tilt is enabled in user settings and respects prefers-reduced-motion
+// Check if Gyroscope 3D Tilt is enabled in user settings (explicit preference takes priority over OS reduced-motion)
 function isGyroscopeEnabled() {
+  try {
+    const saved = localStorage.getItem("club_gyroscope_enabled");
+    if (saved === "false") return false;
+    if (saved === "true") return true;
+  } catch (e) {}
   if (typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     return false;
   }
-  try {
-    return localStorage.getItem("club_gyroscope_enabled") !== "false";
-  } catch (e) {
-    return true;
-  }
+  return true;
 }
 
 // Helper: Check which page tab is currently active
@@ -1328,40 +1324,45 @@ function handleDeviceOrientation(e) {
   if (e.beta == null || e.gamma == null) return;
   if (!Number.isFinite(e.beta) || !Number.isFinite(e.gamma)) return;
 
+  if (e.type === "deviceorientation") {
+    receivedStandardOrientation = true;
+  }
+  receivedOrientationReading = true;
+
   // Adaptive resting posture baseline:
-  // Instead of assuming fixed 45deg, dynamically calibrate to whatever natural posture
-  // the member holds their device in (sitting, desk, reclining, lying in bed).
+  // Dynamically calibrate to the member's natural posture with ultra-slow drift
+  // so deliberate wrist tilts hold their metallic reflection naturally without snapping flat.
   if (calibratedBeta === null) {
     calibratedBeta = e.beta;
     calibratedGamma = e.gamma;
   } else {
-    // If device posture shifted dramatically (e.g. user shifted posture by > 35°), re-anchor quickly
-    if (Math.abs(e.beta - calibratedBeta) > 35) {
+    // Only re-anchor immediately on genuine extreme posture shifts (e.g. sitting -> lying down)
+    if (Math.abs(e.beta - calibratedBeta) > 70) {
       calibratedBeta = e.beta;
     } else {
-      // Gentle exponential moving average (low-pass drift filter)
-      calibratedBeta += (e.beta - calibratedBeta) * 0.015;
+      // Gentle slow low-pass posture drift (~8-10s time constant at 60Hz)
+      calibratedBeta += (e.beta - calibratedBeta) * 0.002;
     }
 
-    if (Math.abs(e.gamma - calibratedGamma) > 30) {
+    if (Math.abs(e.gamma - calibratedGamma) > 65) {
       calibratedGamma = e.gamma;
     } else {
-      calibratedGamma += (e.gamma - calibratedGamma) * 0.015;
+      calibratedGamma += (e.gamma - calibratedGamma) * 0.002;
     }
   }
 
   const betaDev = e.beta - calibratedBeta;
   const gammaDev = e.gamma - calibratedGamma;
 
-  // Restrained, subtle sensitivity multiplier (0.10 instead of 0.32)
-  const rawRx = -betaDev * 0.10;
-  const rawRy = gammaDev * 0.10;
+  // Natural metallic card sensitivity (~20deg wrist tilt smoothly reaches full restrained tilt)
+  const rawRx = -betaDev * 0.26;
+  const rawRy = gammaDev * 0.26;
 
   // Subtle deadzone preventing micro-jitter
   let rx = applyDeadzone(rawRx, TILT_DEADZONE);
   let ry = applyDeadzone(rawRy, TILT_DEADZONE);
 
-  // Limit maximum tilt to restrained physical boundaries (±1.75°)
+  // Limit maximum tilt to restrained physical boundaries (±5.5°)
   rx = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, rx));
   ry = Math.max(-TILT_MAX_DEG, Math.min(TILT_MAX_DEG, ry));
 
@@ -1369,8 +1370,30 @@ function handleDeviceOrientation(e) {
   updateTiltTarget(rx, ry);
 }
 
+function handleDeviceOrientationAbsolute(e) {
+  if (receivedStandardOrientation) return;
+  handleDeviceOrientation(e);
+}
+
+// Fallback gravity-based tilt for devices/WebViews where deviceorientation yields null angles
+function handleDeviceMotionFallback(e) {
+  if (receivedOrientationReading) return;
+  if (!isMembershipTabActive() || !isGyroscopeEnabled()) return;
+  if (isPointerInteracting || isLongPressActive || window.__masterCardCaptureActive) return;
+
+  const g = e.accelerationIncludingGravity;
+  if (!g || !Number.isFinite(g.x) || !Number.isFinite(g.y) || !Number.isFinite(g.z)) return;
+
+  const betaDeg = Math.atan2(g.y, g.z) * (180 / Math.PI);
+  const gammaDeg = Math.atan2(-g.x, Math.hypot(g.y, g.z)) * (180 / Math.PI);
+  if (!Number.isFinite(betaDeg) || !Number.isFinite(gammaDeg)) return;
+
+  handleDeviceOrientation({ type: "devicemotion-fallback", beta: betaDeg, gamma: gammaDeg });
+  receivedOrientationReading = false;
+}
+
 // 1. & 10. IDEMPOTENT PERMISSION & ORIENTATION LISTENER (iOS 13+ & Android)
-function requestTiltPermissionOnce() {
+function requestTiltPermissionOnce(fromUserGesture) {
   if (deviceOrientationAttached) return;
   if (!isGyroscopeEnabled()) return;
 
@@ -1378,6 +1401,8 @@ function requestTiltPermissionOnce() {
     typeof DeviceOrientationEvent !== "undefined" &&
     typeof DeviceOrientationEvent.requestPermission === "function"
   ) {
+    // iOS 13+ requires requestPermission() to run inside a direct user gesture
+    if (fromUserGesture === false) return;
     DeviceOrientationEvent.requestPermission()
       .then((state) => {
         if (state === "granted" && !deviceOrientationAttached) {
@@ -1401,13 +1426,14 @@ function detachOrientationGestureListeners() {
   orientationGestureListenersBound = false;
 }
 
-function tryAttachOrientation() {
+function tryAttachOrientation(evt) {
   if (deviceOrientationAttached) {
     detachOrientationGestureListeners();
     return;
   }
   if (isGyroscopeEnabled()) {
-    requestTiltPermissionOnce();
+    const isGesture = Boolean(evt && evt.isTrusted);
+    requestTiltPermissionOnce(isGesture);
   }
 }
 
@@ -1416,6 +1442,12 @@ function enableDeviceTilt() {
   deviceOrientationAttached = true;
   detachOrientationGestureListeners();
   window.addEventListener("deviceorientation", handleDeviceOrientation, { passive: true });
+  if ("ondeviceorientationabsolute" in window) {
+    window.addEventListener("deviceorientationabsolute", handleDeviceOrientationAbsolute, { passive: true });
+  }
+  if ("DeviceMotionEvent" in window) {
+    window.addEventListener("devicemotion", handleDeviceMotionFallback, { passive: true });
+  }
 }
 
 // Unified target updater: clamps and starts RAF loop if idle
@@ -1488,6 +1520,8 @@ window.pauseCardTiltLoop = function() {
 
 window.resumeCardTiltLoop = function() {
   if (isMembershipTabActive() && isGyroscopeEnabled()) {
+    calibratedBeta = null;
+    calibratedGamma = null;
     updateTiltTarget(0, 0);
   }
 };
@@ -1523,7 +1557,8 @@ function setCardTilt(rx, ry) {
       card.style.setProperty('--tilt-ty', `${translateY}px`);
       card.style.setProperty('--tilt-scale', `${scale}`);
 
-      card.style.transform = `perspective(1800px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(${elevation}px) translateY(${translateY}px) scale3d(${scale}, ${scale}, ${scale})`;
+      // Let the canonical CSS transform rule drive 3D perspective directly from CSS custom properties
+      if (card.style.transform) card.style.transform = "";
       card.style.transition = "none";
 
       // Dynamic metallic reflections & foil angles
@@ -1535,16 +1570,15 @@ function setCardTilt(rx, ry) {
       card.style.setProperty('--foil-shift-x', `${(normX * 2.5).toFixed(2)}px`);
       card.style.setProperty('--foil-shift-y', `${(normY * 2.5).toFixed(2)}px`);
 
-      // Master Card Medallion Parallax
-      const portraitWrap = card.querySelector(".portrait-wrap");
-      if (portraitWrap) {
-        const pX = (ry * 0.12).toFixed(2);
-        const pY = (-rx * 0.12).toFixed(2);
-        const pRx = (rx * 0.45).toFixed(2);
-        const pRy = (ry * 0.45).toFixed(2);
-        portraitWrap.style.transform = `translateZ(10px) translate3d(${pX}px, ${pY}px, 0px) rotateX(${pRx}deg) rotateY(${pRy}deg)`;
-        portraitWrap.style.transition = "none";
-      }
+      // Master Card Medallion Parallax (driven via linked CSS custom properties on #membershipCard .portrait-wrap)
+      const pX = (ry * 0.35).toFixed(2);
+      const pY = (-rx * 0.35).toFixed(2);
+      const pRx = (rx * 0.25).toFixed(2);
+      const pRy = (ry * 0.25).toFixed(2);
+      card.style.setProperty('--portrait-tx', `${pX}px`);
+      card.style.setProperty('--portrait-ty', `${pY}px`);
+      card.style.setProperty('--portrait-rx', `${pRx}deg`);
+      card.style.setProperty('--portrait-ry', `${pRy}deg`);
     }
   }
 
@@ -1649,6 +1683,10 @@ function resetAllCardTransforms() {
     card.style.setProperty('--tilt-tz', '0px');
     card.style.setProperty('--tilt-ty', '0px');
     card.style.setProperty('--tilt-scale', '1');
+    card.style.setProperty('--portrait-tx', '0px');
+    card.style.setProperty('--portrait-ty', '0px');
+    card.style.setProperty('--portrait-rx', '0deg');
+    card.style.setProperty('--portrait-ry', '0deg');
     card.style.transform = '';
     card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
   });
@@ -1865,10 +1903,13 @@ function initGlobalTilt() {
       }
     }, { passive: true });
 
-    // 11. MOBILE LONG-PRESS TACTILE INSPECTION
+    // 11. MOBILE DIRECT FINGER-DRAG TILT (#membershipCard) & LONG-PRESS TACTILE INSPECTION
+    const isMasterCard = card.id === "membershipCard";
     let touchStartX = 0;
     let touchStartY = 0;
     let isTouching = false;
+    let isTouchDragging = false;
+    let wasTouchDrag = false;
     let longPressTimer = null;
     let longPressAnimFrame = null;
     let wasLongPress = false;
@@ -1887,9 +1928,9 @@ function initGlobalTilt() {
           return;
         }
         const elapsed = (performance.now() - startTime) * 0.0016;
-        // Restrained, continuous luxury 3D tilt orbit while held (max ~±1.1 deg)
-        const orbitRx = Math.sin(elapsed) * 0.9;
-        const orbitRy = Math.cos(elapsed * 0.85) * 1.1;
+        // Restrained, continuous luxury 3D tilt orbit while held
+        const orbitRx = Math.sin(elapsed) * 2.6;
+        const orbitRy = Math.cos(elapsed * 0.85) * 3.2;
         updateTiltTarget(orbitRx, orbitRy);
         longPressAnimFrame = requestAnimationFrame(loop);
       };
@@ -1898,10 +1939,13 @@ function initGlobalTilt() {
 
     card.addEventListener("touchstart", (e) => {
       if (!e.touches || e.touches.length === 0) return;
-      if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn, #profileMedallionCase")) return;
+      if (e.target.closest("button, a, input, select, textarea, .phc-edit-btn, #editAccountBtn, #profileMedallionCase, .metric-tooltip")) return;
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
+      cachedRect = card.getBoundingClientRect();
       isTouching = true;
+      isTouchDragging = false;
+      wasTouchDrag = false;
       wasLongPress = false;
 
       clearTimeout(longPressTimer);
@@ -1914,7 +1958,7 @@ function initGlobalTilt() {
 
       longPressTimer = setTimeout(() => {
         longPressTimer = null;
-        if (!isTouching || document.hidden || !card.isConnected) return;
+        if (!isTouching || isTouchDragging || document.hidden || !card.isConnected) return;
         isLongPressActive = true;
         isPointerInteracting = true;
         wasLongPress = true;
@@ -1932,18 +1976,47 @@ function initGlobalTilt() {
     }, { passive: true });
 
     let touchMoveQueued = false;
+    let latestTouchX = 0;
+    let latestTouchY = 0;
+
     card.addEventListener("touchmove", (e) => {
-      if (!e.touches || e.touches.length === 0) return;
+      if (!e.touches || e.touches.length === 0 || !isTouching) return;
       const curX = e.touches[0].clientX;
       const curY = e.touches[0].clientY;
+      latestTouchX = curX;
+      latestTouchY = curY;
 
       if (!isLongPressActive) {
         const dist = Math.hypot(curX - touchStartX, curY - touchStartY);
-        if (dist > 8) {
+        if (isMasterCard && isGyroscopeEnabled()) {
+          if (!isTouchDragging && dist > 5) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+            isTouchDragging = true;
+            wasTouchDrag = true;
+            isPointerInteracting = true;
+          }
+          if (isTouchDragging) {
+            if (e.cancelable) e.preventDefault();
+            if (touchMoveQueued) return;
+            touchMoveQueued = true;
+            requestAnimationFrame(() => {
+              touchMoveQueued = false;
+              if (!card.isConnected || document.hidden || !isTouchDragging) return;
+              if (!cachedRect) cachedRect = card.getBoundingClientRect();
+              const rect = cachedRect;
+              if (!rect.width || !rect.height) return;
+              const nx = Math.max(-1, Math.min(1, ((latestTouchX - rect.left) / rect.width - 0.5) * 2));
+              const ny = Math.max(-1, Math.min(1, ((latestTouchY - rect.top) / rect.height - 0.5) * 2));
+              updateTiltTarget(-ny * TILT_MAX_DEG, nx * TILT_MAX_DEG);
+            });
+          }
+        } else if (dist > 8) {
           clearTimeout(longPressTimer);
           longPressTimer = null;
         }
       } else {
+        if (isMasterCard && e.cancelable) e.preventDefault();
         cancelAnimationFrame(longPressAnimFrame);
         longPressAnimFrame = null;
         if (touchMoveQueued) return;
@@ -1954,12 +2027,12 @@ function initGlobalTilt() {
           if (!cachedRect) cachedRect = card.getBoundingClientRect();
           const rect = cachedRect;
           if (!rect.width || !rect.height) return;
-          const nx = Math.max(-1, Math.min(1, ((curX - rect.left) / rect.width - 0.5) * 2));
-          const ny = Math.max(-1, Math.min(1, ((curY - rect.top) / rect.height - 0.5) * 2));
+          const nx = Math.max(-1, Math.min(1, ((latestTouchX - rect.left) / rect.width - 0.5) * 2));
+          const ny = Math.max(-1, Math.min(1, ((latestTouchY - rect.top) / rect.height - 0.5) * 2));
           updateTiltTarget(-ny * TILT_MAX_DEG, nx * TILT_MAX_DEG);
         });
       }
-    }, { passive: true });
+    }, { passive: !isMasterCard });
 
     const endTouch = () => {
       isTouching = false;
@@ -1968,6 +2041,12 @@ function initGlobalTilt() {
       longPressTimer = null;
       cancelAnimationFrame(longPressAnimFrame);
       longPressAnimFrame = null;
+
+      if (isTouchDragging) {
+        isTouchDragging = false;
+        isPointerInteracting = false;
+        resetTiltForCard(card);
+      }
 
       if (isLongPressActive) {
         isLongPressActive = false;
@@ -1984,19 +2063,16 @@ function initGlobalTilt() {
     card.addEventListener("touchcancel", endTouch, { passive: true });
 
     card.addEventListener("click", (e) => {
-      if (wasLongPress) {
+      if (wasLongPress || wasTouchDrag) {
         e.preventDefault();
         e.stopPropagation();
         wasLongPress = false;
+        wasTouchDrag = false;
       }
     }, true);
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  initGlobalTilt();
-  initGoldDust();
-});
 
 // GOLD DUST PARTICLES
 let goldDustInitialized = false;
@@ -2407,4 +2483,18 @@ window.resumeMembershipRAF = function() {
     { passive: true },
   );
 })();
+
+function initLuxuryEngine() {
+  initGuilloche();
+  initMetallicAssets();
+  initActionButtonsTactileFeedback();
+  initGlobalTilt();
+  initGoldDust();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initLuxuryEngine);
+} else {
+  initLuxuryEngine();
+}
 

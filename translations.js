@@ -429,7 +429,7 @@ window.I18N = {
       en: "Account credentials saved successfully",
     },
     accountDesc: {
-      en: "Official account credentials and private contact information for sovereign members.",
+      en: "Private credentials and contact details.",
     },
     leaveBlankPlaceholder: {
       en: "Leave blank to keep current",
@@ -447,7 +447,7 @@ window.I18N = {
       en: "MEMBER CREDENTIALS",
     },
     changePortrait: {
-      en: "CHANGE PORTRAIT",
+      en: "UPLOAD BESPOKE PORTRAIT",
     },
     publicIdentity: {
       en: "PUBLIC IDENTITY",
@@ -495,7 +495,7 @@ window.I18N = {
       en: "Full Sovereign Access",
     },
     locationLabel: {
-      en: "LOCATION",
+      en: "PRIVATE RESIDENCE",
     },
     locationPlaceholder: {
       en: "e.g. MONACO / ALEXANDRIA / DUBAI",
@@ -531,7 +531,7 @@ window.I18N = {
       en: "REGISTRY",
     },
     compRegistryVal: {
-      en: "EST. 2024",
+      en: "EST. 2026",
     },
     compTierSovereign: {
       en: "SOVEREIGN",
@@ -561,130 +561,130 @@ window.I18N = {
       en: "Aug 2026",
     },
     historySectionTitle: {
-      en: "MEMBERSHIP CHRONICLE & GENESIS",
+      en: "MEMBERSHIP CHRONICLE",
     },
     historySectionSub: {
-      en: "Official Certified Archive of Induction",
+      en: "Official Archive",
     },
     authenticatedSeal: {
-      en: "AUTHENTICATED ARCHIVE",
+      en: "AUTHENTICATED",
     },
     inductionDateLabel: {
       en: "DATE OF INDUCTION",
     },
     inductionDateValue: {
-      en: "18 AUGUST 2026",
+      en: "18 August 2026",
     },
     inductionTimeProtocol: {
-      en: "Genesis Induction Protocol I • 04:12 UTC",
+      en: "Genesis Protocol I • 04:12 UTC",
     },
     registryNumberLabel: {
-      en: "SOVEREIGN REGISTRY NO.",
+      en: "REGISTRY NO.",
     },
     recordStatusLabel: {
-      en: "RECORD STATUS",
+      en: "STATUS",
     },
     recordStatusValue: {
-      en: "Permanently Sealed",
+      en: "Sealed",
     },
     inductionTierLabel: {
-      en: "INDUCTION TIER",
+      en: "TIER",
     },
     inductionTierValue: {
-      en: "Sovereign Member",
+      en: "Sovereign",
     },
     tenureLabel: {
-      en: "SENIORITY & TENURE",
+      en: "CLASS",
     },
     tenureValue: {
-      en: "Genesis Cycle • Founder Class",
+      en: "Founding Member",
     },
     timelineTitle: {
       en: "HISTORICAL PROVENANCE",
     },
     event1Title: {
-      en: "Genesis Admission Ratified",
+      en: "Genesis Admission",
     },
     event1Desc: {
-      en: "Sovereign Master Card minted and induction sealed by the Founding Council.",
+      en: "Master Card issued by the Founding Council.",
     },
     event2Title: {
-      en: "Credential Hallmarking & Vault Allocation",
+      en: "Vault Allocation",
     },
     event2Desc: {
-      en: "Biometric key bound; Sovereign Boutique balance credit assigned.",
+      en: "Private vault and boutique access granted.",
     },
     event3Title: {
       en: "Active Sovereign Standing",
     },
     event3Desc: {
-      en: "Full access granted to closed lounges, private councils, and boutique acquisitions.",
+      en: "Full access to private lounges and acquisitions.",
     },
     archiveHallmark: {
-      en: "THE 1% CLUB • ARCHIVAL REGISTRY OF SOVEREIGN SOULS • GENESIS CLASS",
+      en: "THE 1% CLUB • FOUNDING REGISTRY",
     },
     deedSealText: {
-      en: "SIGILLUM SOVEREIGN • ARCHIVE SECURE",
+      en: "SIGILLUM SOVEREIGN",
     },
     deedAuthenticityLabel: {
-      en: "DEED OF SOVEREIGN INDUCTION",
+      en: "DEED OF INDUCTION",
     },
     verifyDeedBtn: {
-      en: "VERIFY OFFICIAL SEAL",
+      en: "VERIFY SEAL",
     },
     deedVerifiedToast: {
-      en: "Sovereign Deed verified against immutable Club Ledger.",
+      en: "Membership deed verified in the Club Registry.",
     },
     oathSectionTitle: {
-      en: "SOVEREIGN OATH & DECREE",
+      en: "SOVEREIGN OATH",
     },
     oathSectionBadge: {
-      en: "DIPLOMATIC IMMUNITY • LEVEL I",
+      en: "LEVEL I",
     },
     oathMotto: {
-      en: "PRIVATE WEALTH. PRIVATE SOCIETY.",
+      en: "CHARTER OF DISCRETION",
     },
     oathPreamble: {
-      en: "By virtue of induction into THE 1% CLUB, the Sovereign Member enters into this immutable pact of silence, honor, and sovereign fraternity.",
+      en: "A private covenant of silence, decorum, and heritage.",
     },
     oathPillar1Title: {
-      en: "I. LEX SILENTII — ABSOLUTE DISCRETION",
+      en: "I. DISCRETION",
     },
     oathPillar1Desc: {
-      en: "All deliberations, councils, and acquisitions behind sealed club portals remain inviolable and forever confidential.",
+      en: "All salon discourse and holdings stay private.",
     },
     oathPillar2Title: {
-      en: "II. PACTUM DIGNITATIS — SOVEREIGN FELLOWSHIP",
+      en: "II. FELLOWSHIP",
     },
     oathPillar2Desc: {
-      en: "Upholding supreme decorum, recognizing peer sovereign dignity, and preserving the rarefied stature of the Club above all.",
+      en: "Mutual respect, dignity, and the Club's honor.",
     },
     oathPillar3Title: {
-      en: "III. SANCTITAS GAZAE — VAULT INTEGRITY",
+      en: "III. PROVENANCE",
     },
     oathPillar3Desc: {
-      en: "Preserving the cryptographic authenticity of vaulted heirlooms and honoring the sovereign heritage of personal prestige.",
+      en: "Every heirloom and credential is safeguarded.",
     },
     oathSignetTitle: {
-      en: "RATIFIED VIA SOVEREIGN SIGNET",
+      en: "SIGNED & SEALED",
     },
     oathSignetReaffirm: {
-      en: "REAFFIRM OATH",
+      en: "REAFFIRM",
     },
     oathReaffirmedToast: {
-      en: "The Sovereign Oath of Discretion has been solemnly reaffirmed in the Club Archives.",
+      en: "Sovereign Oath reaffirmed in the Club Registry.",
     },
     reliquaryTitle: {
-      en: "THE IMPERIAL MUSEUM OF SOVEREIGN ARTIFACTS",
+      en: "MY COLLECTION",
     },
     reliquarySub: {
-      en: "Royal Conservatory · Curated Provenance Archives",
+      en: "Curated Provenance Vault",
     },
     reliquaryCountLabel: {
       en: "Artifacts",
     },
     reliquaryStatusSecured: {
-      en: "CONSERVATORY INTEGRITY: 100% SECURED ✦",
+      en: "VAULT INTEGRITY: SECURED ✦",
     },
     certTitle: {
       en: "OFFICIAL PATENT OF SOVEREIGN PROVENANCE",
@@ -777,13 +777,13 @@ window.I18N = {
       en: "Interests",
     },
     displayName: {
-      en: "DISPLAY NAME",
+      en: "SOVEREIGN NAME",
     },
     namePlaceholder: {
       en: "Enter your display name",
     },
     quoteLabel: {
-      en: "PROFILE QUOTE",
+      en: "PERSONAL EPIGRAPH",
     },
     quoteText: {
       en: "Discipline. Network. Freedom.",
@@ -813,10 +813,10 @@ window.I18N = {
       en: "SAVE CHANGES",
     },
     circlesTitle: {
-      en: "SOVEREIGN CIRCLES & DOMAINS",
+      en: "SOVEREIGN CIRCLES",
     },
     circlesSub: {
-      en: "Accredited spheres of interest & influence",
+      en: "Curated spheres of influence",
     },
     circlesBadge: {
       en: "ACCREDITED ✦",
@@ -834,10 +834,10 @@ window.I18N = {
       en: "Coming Soon • Sovereign Circles curation pending diplomatic clearance",
     },
     circlesModalTitle: {
-      en: "ACCREDITED SOVEREIGN CIRCLES",
+      en: "SOVEREIGN CIRCLES",
     },
     circlesModalDesc: {
-      en: "Select up to 5 domains that reflect your sovereign prestige, investments, and private society passions.",
+      en: "Select up to 5 domains reflecting your private interests.",
     },
     circle_pe_venture: {
       en: "Private Equity & Venture",
@@ -1129,7 +1129,7 @@ window.I18N = {
   },
   honors: {
     officialStatusBadge: {
-      en: "✦ Officially Authenticated",
+      en: "✦ Authenticated",
     },
     locked: {
       en: "LOCKED",
@@ -1183,13 +1183,13 @@ window.I18N = {
       en: "MAXIMUM PRESTIGE",
     },
     heraldicRegistryTitle: {
-      en: "SOVEREIGN HERALDIC HONORS & ORDERS",
+      en: "HERALDIC HONORS",
     },
     chancellerySub: {
-      en: "CHANCELLERIE DES ORDRES • CITATIONS OF PRESTIGE",
+      en: "Chancellerie des Ordres",
     },
     ribbonRackLabel: {
-      en: "DIPLOMATIC SERVICE RIBBON RACK",
+      en: "SERVICE RIBBONS",
     },
     chancelleryDecree: {
       en: "PATENT OF SOVEREIGN CONFERRAL",
@@ -1201,25 +1201,25 @@ window.I18N = {
       en: "REQUIRED BENCHMARK",
     },
     bestowed: {
-      en: "BESTOWED & CONFERRED ✦",
+      en: "CONFERRED ✦",
     },
     pendingConferral: {
-      en: "PENDING BENCHMARK",
+      en: "PENDING",
     },
     inspectCitation: {
-      en: "TAP TO INSPECT PATENT DECREE",
+      en: "INSPECT DECREE",
     },
     ord_initiate: {
-      en: "ORD. I • THE ORDER OF THE INITIATE",
+      en: "ORD. I • INITIATE",
     },
     ord_connoisseur: {
-      en: "ORD. II • THE ORDER OF THE CONNOISSEUR",
+      en: "ORD. II • CONNOISSEUR",
     },
     ord_high_sovereign: {
-      en: "ORD. III • THE HIGH SOVEREIGN COLLAR",
+      en: "ORD. III • HIGH SOVEREIGN",
     },
     ord_apex_titan: {
-      en: "ORD. IV • THE APEX TITAN GRAND STAR",
+      en: "ORD. IV • APEX TITAN",
     },
     chancelleryCitation_initiate: {
       en: "“By virtue of the Sovereign Charter, this Cross of Initiation is bestowed upon the Member for establishing their premier accredited acquisition in the Private Boutique.”",
@@ -1236,7 +1236,7 @@ window.I18N = {
   },
   settings: {
     resetDefaults: {
-      en: "Reset to Defaults",
+      en: "Reset Defaults",
     },
     resetSuccessToast: {
       en: "App preferences reset to sovereign defaults",
@@ -1305,7 +1305,7 @@ window.I18N = {
       en: "Gyroscope 3D Tilt",
     },
     gyroscope_desc: {
-      en: "Physical tilt response for cards & glass plaques",
+      en: "Physical 3D tilt for cards & plaques",
     },
     gyroscope_enabled: {
       en: "Gyroscope 3D tilt activated",

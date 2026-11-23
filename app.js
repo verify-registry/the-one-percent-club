@@ -211,7 +211,7 @@ window.setLanguage = function () {
   if (typeof window.renderMessages === "function" && document.getElementById("clubMessages")?.childElementCount > 0) {
     window.renderMessages();
   }
-  const lbTarget = document.getElementById("clubLeaderboardContainer") || document.getElementById("leaderboardList");
+  const lbTarget = document.getElementById("clubLeaderboardContainer");
   if (typeof window.renderLeaderboard === "function" && lbTarget && lbTarget.childElementCount > 0) {
     window.renderLeaderboard();
   }
@@ -528,7 +528,7 @@ window.applyLanguage = function (lang) {
   const colTitle = document.getElementById("collectionSectionTitle");
   if (colTitle)
     colTitle.textContent =
-      "MY LUXURY COLLECTION";
+      "MY COLLECTION";
   if (typeof initProfile === "function") initProfile(true);
   if (typeof window.syncAudioSoundUI === "function" && window.AudioEngine) {
     window.syncAudioSoundUI(window.AudioEngine.isEnabled());
@@ -884,7 +884,6 @@ const BOUTIQUE = {
   },
 };
 window.BOUTIQUE = BOUTIQUE;
-window.boutiqueCatalog = BOUTIQUE;
 
 // =========================================================
 // RETIRED STOREFRONT COLLECTIBLES (PRESERVED FOR HISTORICAL
@@ -1073,7 +1072,11 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     badge: "ALPHA • VENTURE",
     badgeEn: "ALPHA • VENTURE",
     badgeAr: "",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="8" x2="13" y2="8"></line><line x1="7" y1="16" x2="11" y2="16"></line><circle cx="16" cy="15" r="2"></circle></svg>`
+    chapter: "Zurich · New York",
+    mandate: "Direct co-investments, family-office syndicates, and private allocations.",
+    clubChannel: "wealth",
+    clubSalonLabel: "Wealth Salon",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="8" x2="13" y2="8"></line><line x1="7" y1="16" x2="11" y2="16"></line><circle cx="16" cy="15" r="2"></circle></svg>`
   },
   {
     id: "haute_horlogerie",
@@ -1084,7 +1087,11 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     badge: "HOROLOGY • RARITY",
     badgeEn: "HOROLOGY • RARITY",
     badgeAr: "",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 14.5 13.5"></polyline><path d="M9 2h6M9 22h6M12 2v3M12 19v3"></path></svg>`
+    chapter: "Geneva · St. Moritz",
+    mandate: "Independent Swiss manufactures, grand complications, and private lots.",
+    clubChannel: "lifestyle",
+    clubSalonLabel: "Lifestyle Salon",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 14.5 13.5"></polyline><path d="M9 2h6M9 22h6M12 2v3M12 19v3"></path></svg>`
   },
   {
     id: "sovereign_ai",
@@ -1095,7 +1102,11 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     badge: "DEEP TECH • AI",
     badgeEn: "DEEP TECH • AI",
     badgeAr: "",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="3"></rect><circle cx="9" cy="9" r="1.5" fill="currentColor"></circle><circle cx="15" cy="9" r="1.5" fill="currentColor"></circle><path d="M8 15h8M12 4V2M12 22v-2M2 12h2M20 12h2"></path></svg>`
+    chapter: "San Francisco · Zurich",
+    mandate: "Frontier intelligence infrastructure, sovereign compute, and deep science.",
+    clubChannel: "tech",
+    clubSalonLabel: "Tech & AI Salon",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2.5 20.5 7.5 20.5 16.5 12 21.5 3.5 16.5 3.5 7.5"></polygon><circle cx="12" cy="12" r="2.6"></circle><line x1="12" y1="2.5" x2="12" y2="9.4"></line><line x1="12" y1="14.6" x2="12" y2="21.5"></line><line x1="3.5" y1="7.5" x2="9.7" y2="10.8"></line><line x1="20.5" y1="7.5" x2="14.3" y2="10.8"></line><line x1="3.5" y1="16.5" x2="9.7" y2="13.2"></line><line x1="20.5" y1="16.5" x2="14.3" y2="13.2"></line></svg>`
   },
   {
     id: "aviation_yachts",
@@ -1106,7 +1117,11 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     badge: "FLEET • AERONAUTICS",
     badgeEn: "FLEET • AERONAUTICS",
     badgeAr: "",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>`
+    chapter: "Monaco · Dubai",
+    mandate: "Long-range bespoke fleets, off-market superyachts, and private terminals.",
+    clubChannel: "lifestyle",
+    clubSalonLabel: "Lifestyle Salon",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polygon points="15.8 8.2 13.4 13.4 8.2 15.8 10.6 10.6 15.8 8.2"></polygon><line x1="12" y1="3" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="21"></line><line x1="3" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="21" y2="12"></line></svg>`
   },
   {
     id: "prime_estates",
@@ -1117,7 +1132,11 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     badge: "ESTATE • ASSETS",
     badgeEn: "ESTATE • ASSETS",
     badgeAr: "",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h2M13 10h2M9 14h2M13 14h2M10 21v-4h4v4"></path></svg>`
+    chapter: "London · Lake Como",
+    mandate: "Trophy coastal sanctuaries, historic European estates, and private residences.",
+    clubChannel: "business",
+    clubSalonLabel: "Business Salon",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h2M13 10h2M9 14h2M13 14h2M10 21v-4h4v4"></path></svg>`
   },
   {
     id: "fine_art",
@@ -1128,7 +1147,11 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     badge: "FINE ART • CURATION",
     badgeEn: "FINE ART • CURATION",
     badgeAr: "",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
+    chapter: "Geneva · Paris",
+    mandate: "Museum-grade works, private gallery viewings, and provenance advisory.",
+    clubChannel: "ideas",
+    clubSalonLabel: "Innovation Salon",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
   },
   {
     id: "macro_strategy",
@@ -1139,7 +1162,11 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     badge: "SOVEREIGN MACRO",
     badgeEn: "SOVEREIGN MACRO",
     badgeAr: "",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`
+    chapter: "Zurich · Singapore",
+    mandate: "Cross-border capital preservation, geopolitical briefings, and reserve strategy.",
+    clubChannel: "wealth",
+    clubSalonLabel: "Wealth Salon",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"></circle><line x1="2.5" y1="12" x2="21.5" y2="12"></line><path d="M12 2.5a14.5 14.5 0 0 1 3.8 9.5 14.5 14.5 0 0 1-3.8 9.5 14.5 14.5 0 0 1-3.8-9.5 14.5 14.5 0 0 1 3.8-9.5z"></path></svg>`
   },
   {
     id: "royal_equestrian",
@@ -1150,7 +1177,11 @@ const SOVEREIGN_CIRCLES_CATALOG = [
     badge: "EQUINE • ROYAL",
     badgeEn: "EQUINE • ROYAL",
     badgeAr: "",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19h16M19 19a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4M12 3l3 4 5 1-4 4 1 5-5-3-5 3 1-5-4-4 5-1 3-4z"></path></svg>`
+    chapter: "Ascot · Dubai",
+    mandate: "Champion bloodlines, private stud syndicates, and royal equestrian salons.",
+    clubChannel: "lifestyle",
+    clubSalonLabel: "Lifestyle Salon",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M19 19a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4M12 3l3 4 5 1-4 4 1 5-5-3-5 3 1-5-4-4 5-1 3-4z"></path></svg>`
   }
 ];
 window.SOVEREIGN_CIRCLES_CATALOG = SOVEREIGN_CIRCLES_CATALOG;
@@ -5297,13 +5328,6 @@ function initSovereignSalonTicker() {
   }
 
   window.updateSovereignSalonTickerInPlace = updateTickerInPlace;
-  window.updateClubTicker = function (forceRebuild = false) {
-    if (forceRebuild) {
-      updateTicker(true);
-    } else {
-      updateTickerInPlace();
-    }
-  };
 
   window.updateClubTickerIfPending = function () {
     if (tickerNeedsRepaint) {
@@ -6619,7 +6643,91 @@ const initProfileAndModals = () => {
     }
   };
 
-  window.openEditProfileModal = function (e) {
+  const switchAtelierChapter = (chapterKey) => {
+    const valid = ["portrait", "identity", "circles"];
+    const target = valid.includes(chapterKey) ? chapterKey : "portrait";
+    const modal = editProfileModal || document.getElementById("editProfileModal");
+    if (!modal) return;
+    modal.querySelectorAll(".atelier-chapter-tab").forEach((tab) => {
+      const active = tab.dataset.chapter === target;
+      tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    modal.querySelectorAll(".atelier-chapter-pane").forEach((pane) => {
+      const active = pane.dataset.chapterPane === target;
+      pane.classList.toggle("is-active", active);
+    });
+    const bodyEl = modal.querySelector(".atelier-modal-body");
+    if (bodyEl) bodyEl.scrollTop = 0;
+    if (target === "identity") {
+      const qEl = document.getElementById("editProfileQuoteInput");
+      if (qEl && typeof adjustQuoteTextareaHeight === "function") {
+        requestAnimationFrame(() => adjustQuoteTextareaHeight(qEl));
+      }
+    }
+  };
+  window.switchAtelierChapter = switchAtelierChapter;
+
+  const syncAtelierLivePreview = () => {
+    const nameVal = (document.getElementById("editProfileNameInput")?.value || AppState.user.name || "SOVEREIGN MEMBER").trim();
+    const locVal = (document.getElementById("editProfileLocationInput")?.value || AppState.user.location || "PRIVATE RESIDENCE").trim();
+    const previewName = document.getElementById("atelierPreviewName");
+    const previewLoc = document.getElementById("atelierPreviewLocation");
+    if (previewName) previewName.textContent = nameVal.toUpperCase();
+    if (previewLoc) {
+      const formattedLoc = locVal
+        .toLowerCase()
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+      previewLoc.textContent = `${formattedLoc} · Sovereign Record`;
+    }
+  };
+
+  const syncActiveQuoteChip = () => {
+    const qInput = document.getElementById("editProfileQuoteInput");
+    const currentVal = (qInput?.value || "").trim().toLowerCase();
+    document.querySelectorAll("#editProfileModal .quote-preset-chip").forEach((chip) => {
+      const chipText = (chip.dataset.quote || chip.textContent || "").trim().toLowerCase();
+      chip.classList.toggle("is-active", Boolean(currentVal && chipText === currentVal));
+    });
+  };
+
+  document.querySelectorAll("#editProfileModal .atelier-chapter-tab").forEach((tab) => {
+    tab.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      if (window.AudioEngine && typeof window.AudioEngine.playHover === "function") {
+        window.AudioEngine.playHover();
+      }
+      if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+        window.HapticEngine.tap(8);
+      }
+      switchAtelierChapter(tab.dataset.chapter);
+    });
+  });
+
+  document.getElementById("editProfileNameInput")?.addEventListener("input", () => {
+    syncAtelierLivePreview();
+    saveProfileDraft();
+  });
+  document.getElementById("editProfileLocationInput")?.addEventListener("input", () => {
+    syncAtelierLivePreview();
+    saveProfileDraft();
+  });
+  const atelierQuoteInputEl = document.getElementById("editProfileQuoteInput");
+  if (atelierQuoteInputEl) {
+    atelierQuoteInputEl.addEventListener("input", (e) => {
+      syncActiveQuoteChip();
+      saveProfileDraft();
+      adjustQuoteTextareaHeight(e.target);
+    });
+    ["change", "keyup", "paste"].forEach((evt) => {
+      atelierQuoteInputEl.addEventListener(evt, (e) => {
+        saveProfileDraft();
+        adjustQuoteTextareaHeight(e.target);
+      });
+    });
+  }
+
+  window.openEditProfileModal = function (e, initialChapter) {
     if (e) {
       if (typeof e.stopPropagation === "function") e.stopPropagation();
       if (typeof e.preventDefault === "function") e.preventDefault();
@@ -6666,6 +6774,10 @@ const initProfileAndModals = () => {
       if (typeof updateEditProfilePreview === "function") {
         updateEditProfilePreview(currentAvatarUrl);
       }
+      syncAtelierLivePreview();
+      syncActiveQuoteChip();
+      switchAtelierChapter(initialChapter || "portrait");
+
       if (quoteInput && typeof adjustQuoteTextareaHeight === "function") {
         adjustQuoteTextareaHeight(quoteInput);
         editProfileResizeRaf = requestAnimationFrame(() => {
@@ -6704,7 +6816,7 @@ const initProfileAndModals = () => {
   const editAccountBtn = document.getElementById("editAccountBtn");
   if (editAccountBtn) {
     editAccountBtn.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
-    editAccountBtn.addEventListener("click", window.openEditProfileModal);
+    editAccountBtn.addEventListener("click", (e) => window.openEditProfileModal(e, "portrait"));
   }
 
   const profileMedallionCase = document.getElementById("profileMedallionCase");
@@ -6712,7 +6824,7 @@ const initProfileAndModals = () => {
     profileMedallionCase.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
     profileMedallionCase.addEventListener("click", (e) => {
       if (typeof window.openEditProfileModal === "function") {
-        window.openEditProfileModal(e);
+        window.openEditProfileModal(e, "portrait");
       }
     });
   }
@@ -6735,6 +6847,7 @@ const initProfileAndModals = () => {
           adjustQuoteTextareaHeight(quoteInput);
         }
         quoteInput.dispatchEvent(new Event("input", { bubbles: true }));
+        syncActiveQuoteChip();
         if (typeof saveProfileDraft === "function") {
           saveProfileDraft();
         }
@@ -6816,14 +6929,31 @@ const initProfileAndModals = () => {
       const phoneInput = document.getElementById("accPhoneInput");
       const passInput = document.getElementById("accPasswordInput");
 
+      const resetPasswordVisibility = () => {
+        if (passInput) passInput.type = "password";
+        const toggleBtn = document.getElementById("toggleAccPasswordBtn");
+        if (toggleBtn) {
+          toggleBtn.setAttribute("aria-pressed", "false");
+          toggleBtn.setAttribute("aria-label", "Show password");
+          const openIcon = toggleBtn.querySelector(".eye-open-icon");
+          const offIcon = toggleBtn.querySelector(".eye-off-icon");
+          if (openIcon) openIcon.style.display = "";
+          if (offIcon) offIcon.style.display = "none";
+        }
+      };
+
       if (emailInput) emailInput.value = AppState.user.email || "";
       if (phoneInput) phoneInput.value = AppState.user.phone || "";
       if (passInput) passInput.value = "";
+      resetPasswordVisibility();
 
       const memberIdBadge = document.getElementById("accMemberIdBadge");
       if (memberIdBadge) {
-        const mid = (typeof ClubState !== "undefined" && ClubState?.member?.id) ? ClubState.member.id : "3426";
-        memberIdBadge.textContent = `MEMBER-${mid}`;
+        const rawMid = (typeof ClubState !== "undefined" && ClubState?.member?.id)
+          ? String(ClubState.member.id)
+          : String(AppState.user.memberNumber || "0001");
+        const cleanDigits = rawMid.replace(/^ID\s*/i, "").replace(/^MEMBER-/i, "").replace(/-1P$/i, "").trim() || "0001";
+        memberIdBadge.textContent = `ID ${cleanDigits}-1P`;
       }
     } catch (err) {
       console.error("[Account Info Modal Open Error]", err);
@@ -6835,10 +6965,38 @@ const initProfileAndModals = () => {
     if (!modal || !modal.classList.contains("is-open")) return;
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
+    const passInput = document.getElementById("accPasswordInput");
+    if (passInput) passInput.type = "password";
+    const toggleBtn = document.getElementById("toggleAccPasswordBtn");
+    if (toggleBtn) {
+      toggleBtn.setAttribute("aria-pressed", "false");
+      const openIcon = toggleBtn.querySelector(".eye-open-icon");
+      const offIcon = toggleBtn.querySelector(".eye-off-icon");
+      if (openIcon) openIcon.style.display = "";
+      if (offIcon) offIcon.style.display = "none";
+    }
     if (window.AudioEngine && window.AudioEngine.playModalClose) {
       window.AudioEngine.playModalClose();
     }
   };
+
+  // Wire Password Visibility Toggle
+  const toggleAccPasswordBtn = document.getElementById("toggleAccPasswordBtn");
+  if (toggleAccPasswordBtn) {
+    toggleAccPasswordBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const passInput = document.getElementById("accPasswordInput");
+      if (!passInput) return;
+      const isHidden = passInput.type === "password";
+      passInput.type = isHidden ? "text" : "password";
+      toggleAccPasswordBtn.setAttribute("aria-pressed", isHidden ? "true" : "false");
+      toggleAccPasswordBtn.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
+      const openIcon = toggleAccPasswordBtn.querySelector(".eye-open-icon");
+      const offIcon = toggleAccPasswordBtn.querySelector(".eye-off-icon");
+      if (openIcon) openIcon.style.display = isHidden ? "none" : "";
+      if (offIcon) offIcon.style.display = isHidden ? "" : "none";
+    });
+  }
 
   // Wire Account Information Menu Row
   const menuAccountInfo = document.getElementById("menuAccountInfo");
@@ -7492,7 +7650,7 @@ function renderProfileAchievements() {
           <div class="hrr-ribbon-bezel" aria-hidden="true"></div>
           ${isUnlocked 
             ? '<div class="hrr-rosette-device" aria-hidden="true"><span class="hrr-rosette-core">✦</span></div>' 
-            : '<div class="hrr-lock-device" aria-hidden="true"><svg viewBox="0 0 16 16" width="9" height="9" fill="currentColor"><path d="M4 6V4.5a4 4 0 0 1 8 0V6h1a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1zm2-1.5V6h4V4.5a2 2 0 1 0-4 0zM8 9a1.2 1.2 0 0 0-1 1.15v1.7a1 1 0 0 0 2 0v-1.7A1.2 1.2 0 0 0 8 9z"/></svg></div>'}
+            : '<div class="hrr-lock-device" aria-hidden="true"><svg viewBox="0 0 16 16" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.35"><path d="M8 2.5L13.5 8L8 13.5L2.5 8Z"/></svg></div>'}
         </div>
       `;
     });
@@ -7857,7 +8015,14 @@ function openReliquaryInspectModal(itemId) {
   // Title & Serial
   const titleEl = document.getElementById("reliquaryItemTitle");
   if (titleEl) {
-    titleEl.textContent = window.t("items." + item.id) || item.name;
+    const rawByKey = item.name ? window.t(item.name) : "";
+    const rawById = window.t("items." + item.id);
+    const isMissingKey = (v) => !v || /^items\./i.test(String(v).trim());
+    titleEl.textContent = !isMissingKey(rawByKey)
+      ? rawByKey
+      : !isMissingKey(rawById)
+        ? rawById
+        : String(item.id || "").replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
   const serialEl = document.getElementById("reliquaryItemSerial");
@@ -8031,10 +8196,10 @@ function renderProfileCollection(forceSkeleton = false) {
   let itemCount = collectedItems.length;
   const isAr = AppState.language === "ar" || document.documentElement.lang === "ar";
 
-  // Update header count badge with museum terminology
+  // Update header count badge with concise museum terminology
   const countPill = document.getElementById("reliquaryCountPill");
   if (countPill) {
-    countPill.textContent = `${itemCount} Museum Exhibits`;
+    countPill.textContent = `${itemCount} ${itemCount === 1 ? "EXHIBIT" : "EXHIBITS"}`;
   }
 
   if (itemCount === 0) {
@@ -8063,7 +8228,14 @@ function renderProfileCollection(forceSkeleton = false) {
     for (const item of collectedItems) {
       if (!item) continue;
       itemIndex++;
-      const nameText = window.t("items." + item.id) || item.name;
+      const rawByKey = item.name ? window.t(item.name) : "";
+      const rawById = window.t("items." + item.id);
+      const isMissingKey = (v) => !v || /^items\./i.test(String(v).trim());
+      const nameText = !isMissingKey(rawByKey)
+        ? rawByKey
+        : !isMissingKey(rawById)
+          ? rawById
+          : String(item.id || "").replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
       const rarityText = item.rarity ? (typeof RARITY_LABELS !== 'undefined' && RARITY_LABELS[item.rarity] ? RARITY_LABELS[item.rarity]() : item.rarity) : '';
       const metalText = item.metal || 'Au 999.9 Solid Gold';
 
@@ -8117,9 +8289,9 @@ function renderProfileCollection(forceSkeleton = false) {
               <span class="museum-value-tag">${item.price ? "$" + item.price.toLocaleString() + " USD" : "$15,000 USD"}</span>
             </div>
             <button type="button" class="museum-inspect-btn reliquary-inspect-chip" onclick="event.stopPropagation(); openReliquaryInspectModal('${item.id}')" aria-label="${inspectLabel}">
-              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8">
-                <circle cx="12" cy="12" r="8" stroke="currentColor"></circle>
-                <path d="M12 8v4l3 2" stroke="currentColor" stroke-linecap="round"></path>
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l7 3v5c0 4.6-3 8.2-7 10-4-1.8-7-5.4-7-10V6l7-3z"></path>
+                <path d="M9.2 12.2l1.9 1.9 3.7-3.8"></path>
               </svg>
               <span>${inspectLabel}</span>
             </button>
@@ -8134,11 +8306,11 @@ function renderProfileCollection(forceSkeleton = false) {
 
 
 const PRESET_AVATARS = [
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop"
+  "/assets/portraits/sovereign_1.jpg",
+  "/assets/portraits/sovereign_2.jpg",
+  "/assets/portraits/sovereign_3.jpg",
+  "/assets/portraits/sovereign_4.jpg",
+  "/assets/portraits/sovereign_5.jpg"
 ];
 
 function renderAvatarPresets(currentUrl) {
@@ -8215,22 +8387,6 @@ function adjustQuoteTextareaHeight(textarea) {
 window.adjustQuoteTextareaHeight = adjustQuoteTextareaHeight;
 
 document
-  .getElementById("editProfileNameInput")
-  ?.addEventListener("input", saveProfileDraft);
-
-const quoteInputEl = document.getElementById("editProfileQuoteInput");
-if (quoteInputEl) {
-  ["input", "change", "keyup", "paste"].forEach((evt) => {
-    quoteInputEl.addEventListener(evt, (e) => {
-      saveProfileDraft();
-      adjustQuoteTextareaHeight(e.target);
-    });
-  });
-}
-document
-  .getElementById("editProfileLocationInput")
-  ?.addEventListener("input", saveProfileDraft);
-document
   .getElementById("editProfileAvatarUrl")
   ?.addEventListener("input", (e) => {
     saveProfileDraft();
@@ -8270,7 +8426,7 @@ function renderProfileStatsBar() {
   const honorsVal = `${earnedHonors} / 4`;
   const honorsLabel = window.t("profile.compHonorsLabel");
 
-  const sinceVal = window.t("profile.compRegistryVal") || (isAr ? "2024" : "EST. 2024");
+  const sinceVal = window.t("profile.compRegistryVal") || (isAr ? "2026" : "EST. 2026");
   const sinceLabel = window.t("profile.compRegistryLabel");
 
   // Needle Rotations (Horological Degrees)
@@ -8477,7 +8633,7 @@ function attachComplicationHandlers() {
 // -------------------------------------------------------------
 window.modalSelectedCircles = null;
 
-function renderProfileCircles() {
+function renderProfileCircles(preserveExpandedId = null) {
   const container = document.getElementById("profileCirclesGrid");
   if (!container) return;
 
@@ -8488,6 +8644,11 @@ function renderProfileCircles() {
   }
 
   const activeIds = AppState.user.circles;
+  if (!AppState.user.primaryCircle || !activeIds.includes(AppState.user.primaryCircle)) {
+    AppState.user.primaryCircle = activeIds[0];
+  }
+  const primaryId = AppState.user.primaryCircle;
+
   const items = activeIds
     .map(id => SOVEREIGN_CIRCLES_CATALOG.find(c => c.id === id))
     .filter(Boolean);
@@ -8496,21 +8657,48 @@ function renderProfileCircles() {
   items.forEach(item => {
     const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
     const localizedBadge = (window.t && item.badgeKey && window.t(item.badgeKey)) || (isAr ? (item.badgeAr || item.badge) : (item.badgeEn || item.badge));
-    const statusText = "ACCREDITED";
+    const chapterText = item.chapter || "Geneva · London";
+    const mandateText = item.mandate || "Private member circle accredited by the Founding Council.";
+    const channelId = item.clubChannel || "general";
+    const salonLabel = (item.clubSalonLabel || "Enter Salon").toUpperCase();
+    const isPrimary = item.id === primaryId;
+    const isExpanded = preserveExpandedId === item.id;
+    const chipClasses = ["pcc-chip", isPrimary ? "is-primary" : "", isExpanded ? "is-expanded" : ""].filter(Boolean).join(" ");
+
     html += `
-      <div class="pcc-chip" data-circle-id="${item.id}" role="button" tabindex="0" title="${localizedName}">
-        <div class="pcc-chip-main">
-          <div class="pcc-chip-icon-box" aria-hidden="true">
-            ${item.icon}
+      <div class="${chipClasses}" data-circle-id="${item.id}" role="button" tabindex="0" aria-expanded="${isExpanded ? "true" : "false"}" title="${localizedName}">
+        <div class="pcc-chip-top">
+          <div class="pcc-chip-main">
+            <div class="pcc-chip-icon-box" aria-hidden="true">
+              ${item.icon}
+            </div>
+            <div class="pcc-chip-text-group">
+              <span class="pcc-chip-name">${localizedName}</span>
+              <span class="pcc-chip-domain">${localizedBadge}${isPrimary ? `<span class="pcc-primary-tag"> · PRIMARY</span>` : ""}</span>
+            </div>
           </div>
-          <div class="pcc-chip-text-group">
-            <span class="pcc-chip-name">${localizedName}</span>
-            <span class="pcc-chip-domain">${localizedBadge}</span>
+          <div class="pcc-chip-seal-dot" aria-hidden="true">
+            <span class="pcc-seal-star">✦</span>
           </div>
         </div>
-        <div class="pcc-chip-seal-dot" aria-hidden="true">
-          <span>${statusText}</span>
-          <span class="pcc-seal-star">✦</span>
+        <div class="pcc-chip-dossier" aria-hidden="${isExpanded ? "false" : "true"}">
+          <div class="pcc-chip-dossier-inner">
+            <p class="pcc-dossier-mandate">${mandateText}</p>
+            <div class="pcc-dossier-chapter">
+              <span class="pcc-dossier-dot"></span>
+              <span class="pcc-dossier-meta">${chapterText}</span>
+            </div>
+            <div class="pcc-dossier-footer">
+              <button type="button" class="pcc-dossier-primary-btn${isPrimary ? " is-primary" : ""}" data-circle-id="${item.id}" ${isPrimary ? 'aria-pressed="true"' : 'aria-pressed="false"'}>
+                <span class="pcc-primary-glyph" aria-hidden="true">✦</span>
+                <span>${isPrimary ? "PRIMARY CIRCLE" : "SET AS PRIMARY"}</span>
+              </button>
+              <button type="button" class="pcc-dossier-salon-btn" data-club-channel="${channelId}">
+                <span>${salonLabel}</span>
+                <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -8533,25 +8721,7 @@ function renderProfileCircles() {
     }
 
     if (typeof window.openEditProfileModal === "function") {
-      window.openEditProfileModal();
-      circlesHighlightRaf = requestAnimationFrame(() => {
-        circlesHighlightRaf = null;
-        circlesScrollTimer = setTimeout(() => {
-          circlesScrollTimer = null;
-          const modal = document.getElementById("editProfileModal");
-          if (!modal || !modal.classList.contains("is-open")) return;
-          const circlesPanel = document.getElementById("modalCirclesPanel");
-          if (circlesPanel) {
-            circlesPanel.scrollIntoView({ behavior: "smooth", block: "center" });
-            circlesPanel.classList.add("pulse-highlight");
-            if (circlesPulseTimer !== null) clearTimeout(circlesPulseTimer);
-            circlesPulseTimer = setTimeout(() => {
-              circlesPulseTimer = null;
-              circlesPanel.classList.remove("pulse-highlight");
-            }, 1500);
-          }
-        }, 80);
-      });
+      window.openEditProfileModal(null, "circles");
     }
     return false;
   };
@@ -8563,73 +8733,83 @@ function renderProfileCircles() {
     };
   }
 
-  const verifyCircleAccreditation = (chipEl) => {
+  const toggleCircleDossier = (chipEl) => {
     if (!chipEl) return;
-    const circleId = chipEl.dataset.circleId;
-    const item = (typeof SOVEREIGN_CIRCLES_CATALOG !== "undefined")
-      ? SOVEREIGN_CIRCLES_CATALOG.find(c => c.id === circleId)
-      : null;
-    const isAr = window.currentLang === "ar" || document.documentElement.lang === "ar" || document.documentElement.dir === "rtl";
-    const localizedName = item
-      ? ((window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName))
-      : ("Sovereign Domain");
+    const wasExpanded = chipEl.classList.contains("is-expanded");
 
-    // Play sovereign verification audio (Heavy brass stamp / UV chime)
-    if (window.AudioEngine) {
-      if (typeof window.AudioEngine.playHeavyBrassStamp === "function") {
-        window.AudioEngine.playHeavyBrassStamp();
-      } else if (typeof window.AudioEngine.playUvForensicChime === "function") {
-        window.AudioEngine.playUvForensicChime();
-      } else if (typeof window.AudioEngine.playChime === "function") {
-        window.AudioEngine.playChime();
+    container.querySelectorAll(".pcc-chip.is-expanded").forEach((other) => {
+      if (other !== chipEl) {
+        other.classList.remove("is-expanded");
+        other.setAttribute("aria-expanded", "false");
+        const otherDossier = other.querySelector(".pcc-chip-dossier");
+        if (otherDossier) otherDossier.setAttribute("aria-hidden", "true");
       }
-    }
+    });
 
-    // Tactile haptic stamp
-    if (window.HapticEngine) {
-      if (typeof window.HapticEngine.vibrate === "function") {
-        window.HapticEngine.vibrate([18, 30, 42]);
-      } else if (typeof window.HapticEngine.tap === "function") {
-        window.HapticEngine.tap(28);
-      }
-    }
+    const nextExpanded = !wasExpanded;
+    chipEl.classList.toggle("is-expanded", nextExpanded);
+    chipEl.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
+    const dossier = chipEl.querySelector(".pcc-chip-dossier");
+    if (dossier) dossier.setAttribute("aria-hidden", nextExpanded ? "false" : "true");
 
-    // In-place tactile badge stamp directly on the row
-    const sealDot = chipEl.querySelector(".pcc-chip-seal-dot");
-    if (sealDot && !sealDot.dataset.stamping) {
-      sealDot.dataset.stamping = "true";
-      const originalHtml = sealDot.innerHTML;
-      sealDot.classList.add("is-stamping");
-      sealDot.innerHTML = `<span>${"VERIFIED"}</span><span class="pcc-seal-star">✦</span>`;
-      setTimeout(() => {
-        sealDot.classList.remove("is-stamping");
-        sealDot.innerHTML = originalHtml;
-        delete sealDot.dataset.stamping;
-      }, 1900);
+    if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+      window.AudioEngine.playClick();
     }
-
-    // Visual pulse & seal gleam on the row
-    chipEl.classList.remove("is-verified-pulse");
-    void chipEl.offsetWidth; // trigger reflow
-    chipEl.classList.add("is-verified-pulse");
-    setTimeout(() => {
-      chipEl.classList.remove("is-verified-pulse");
-    }, 1100);
+    if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+      window.HapticEngine.tap(10);
+    }
   };
 
   if (!container.dataset.delegated) {
     container.dataset.delegated = "true";
     container.addEventListener("click", (e) => {
+      const primaryBtn = e.target.closest(".pcc-dossier-primary-btn");
+      if (primaryBtn) {
+        e.stopPropagation();
+        const circleId = primaryBtn.dataset.circleId;
+        if (!circleId || AppState.user.primaryCircle === circleId) return;
+        AppState.user.primaryCircle = circleId;
+        if (typeof AppState.save === "function") AppState.save();
+        if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+          window.AudioEngine.playClick();
+        }
+        if (window.HapticEngine && typeof window.HapticEngine.tap === "function") {
+          window.HapticEngine.tap(12);
+        }
+        renderProfileCircles(circleId);
+        if (typeof showNavToast === "function") {
+          showNavToast("Primary Sovereign Circle updated");
+        }
+        return;
+      }
+
+      const salonBtn = e.target.closest(".pcc-dossier-salon-btn");
+      if (salonBtn) {
+        e.stopPropagation();
+        const channel = salonBtn.dataset.clubChannel || "general";
+        if (window.AudioEngine && typeof window.AudioEngine.playClick === "function") {
+          window.AudioEngine.playClick();
+        }
+        const clubNavBtn = document.querySelector('[data-tab="club"]');
+        if (clubNavBtn) clubNavBtn.click();
+        setTimeout(() => {
+          const roomBtn = document.querySelector(`.club-room-btn[data-channel="${channel}"]`);
+          if (roomBtn) roomBtn.click();
+        }, 120);
+        return;
+      }
+
       const chip = e.target.closest(".pcc-chip");
       if (chip) {
-        verifyCircleAccreditation(chip);
+        toggleCircleDossier(chip);
       }
     });
     container.addEventListener("keydown", (e) => {
       const chip = e.target.closest(".pcc-chip");
       if (chip && (e.key === "Enter" || e.key === " ")) {
+        if (e.target.closest(".pcc-dossier-salon-btn") || e.target.closest(".pcc-dossier-primary-btn")) return;
         e.preventDefault();
-        verifyCircleAccreditation(chip);
+        toggleCircleDossier(chip);
       }
     });
   }
@@ -8662,13 +8842,16 @@ function renderModalCirclesSelector(currentSelected) {
     countBadge.textContent = `${window.modalSelectedCircles.length} / 5`;
   }
 
-  grid.innerHTML = SOVEREIGN_CIRCLES_CATALOG.map(item => {
+  const ROMAN_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+  grid.innerHTML = SOVEREIGN_CIRCLES_CATALOG.map((item, idx) => {
     const isSelected = window.modalSelectedCircles.includes(item.id);
     const localizedName = (window.t && window.t(item.nameKey)) || (isAr ? item.arName : item.enName);
     const localizedBadge = (window.t && item.badgeKey && window.t(item.badgeKey)) || (isAr ? (item.badgeAr || item.badge) : (item.badgeEn || item.badge));
+    const roman = ROMAN_NUMERALS[idx] || String(idx + 1);
     return `
       <div class="modal-circle-item ${isSelected ? "is-selected" : ""}" data-id="${item.id}" role="checkbox" aria-checked="${isSelected}">
-        <div style="display: flex; align-items: center; gap: 11px; min-width: 0; flex: 1 1 auto;">
+        <div style="display: flex; align-items: center; gap: 9px; min-width: 0; flex: 1 1 auto;">
+          <span class="mci-roman" aria-hidden="true">${roman}</span>
           <div class="mci-icon-box" aria-hidden="true">${item.icon}</div>
           <div class="mci-text-group">
             <span class="mci-name">${localizedName}</span>
@@ -8733,13 +8916,13 @@ function renderProfileMembershipDeed() {
   const regNoEl = document.getElementById("profileLedgerRegistryNo");
   if (regNoEl) {
     const rawId = AppState.user?.id ? String(AppState.user.id).replace("SV-", "") : "0001";
-    regNoEl.textContent = `REG-${rawId.padStart(4, "0")}-2024`;
+    regNoEl.textContent = `REG-${rawId.padStart(4, "0")}-2026`;
   }
 
   const tierEl = document.getElementById("profileLedgerTier");
   if (tierEl) {
-    const isElite = AppState.user?.tier === "Elite" ;
-    tierEl.textContent = isElite ? window.t("profile.compTierElite") : window.t("profile.compTierSovereign");
+    const isElite = AppState.user?.tier === "Elite";
+    tierEl.textContent = isElite ? "Elite" : "Sovereign";
   }
 
   const dateEl = document.getElementById("profileInductionDateDisplay");
@@ -8803,29 +8986,23 @@ function attachDeedInteractiveHandlers() {
 
     if (verifyBtn) {
       const span = verifyBtn.querySelector("span");
-      const originalText = span ? span.textContent : "";
+      const baseLabel = (typeof window.t === "function" && window.t("profile.verifyDeedBtn") && !/^profile\./i.test(window.t("profile.verifyDeedBtn")))
+        ? window.t("profile.verifyDeedBtn")
+        : "VERIFY SEAL";
+      if (verifyBtn._confirmTimer) clearTimeout(verifyBtn._confirmTimer);
       verifyBtn.classList.add("is-confirmed-stamp");
-      const isAr = (window.currentLang === "ar");
       if (span) {
-        span.textContent = isAr 
-          ? "Deed Certified & Verified Sovereign" 
-          : "OFFICIALLY AUTHENTICATED";
+        span.textContent = "VERIFIED";
       }
       if (typeof showNavToast === "function") {
-        showNavToast(isAr 
-          ? "❖ Sovereign Deed Accredited & Immutable • Sovereign Archives ❖" 
-          : "❖ SOVEREIGN DEED VALIDATED • IMMUTABLE GENESIS RECORD ❖");
+        showNavToast("Membership deed verified.");
       }
-      setTimeout(() => {
+      verifyBtn._confirmTimer = setTimeout(() => {
         verifyBtn.classList.remove("is-confirmed-stamp");
-        if (span && originalText) {
-          span.textContent = originalText;
+        if (span) {
+          span.textContent = baseLabel;
         }
-      }, 3500);
-    }
-
-    if (typeof spawnGoldenConfetti === "function") {
-      spawnGoldenConfetti();
+      }, 2600);
     }
   };
 
@@ -9022,28 +9199,29 @@ function attachOathInteractiveHandlers() {
 
       signetBtn.classList.add("is-signet-pressed");
       const textEl = signetBtn.querySelector(".ossb-text");
-      const originalText = textEl ? textEl.textContent : "";
-      const isAr = (window.currentLang === "ar");
+      const starEl = signetBtn.querySelector(".ossb-star");
+      const baseLabel = (typeof window.t === "function" && window.t("profile.oathSignetReaffirm") && !/^profile\./i.test(window.t("profile.oathSignetReaffirm")))
+        ? window.t("profile.oathSignetReaffirm")
+        : "REAFFIRM";
+      if (signetBtn._confirmTimer) clearTimeout(signetBtn._confirmTimer);
       if (textEl) {
-        textEl.textContent = isAr
-          ? "Oath Reaffirmed & Recorded in Archives"
-          : "OATH REAFFIRMED & ARCHIVED";
+        textEl.textContent = "REAFFIRMED";
+      }
+      if (starEl) {
+        starEl.textContent = "✓";
       }
       if (typeof showNavToast === "function") {
-        showNavToast(isAr 
-          ? "❖ Sovereign Charter Ratified & Recorded in Permanent Registry ❖" 
-          : "❖ SOVEREIGN OATH REAFFIRMED & PERMANENTLY RECORDED ❖");
+        showNavToast("Sovereign Oath reaffirmed.");
       }
-      setTimeout(() => {
+      signetBtn._confirmTimer = setTimeout(() => {
         signetBtn.classList.remove("is-signet-pressed");
-        if (textEl && originalText) {
-          textEl.textContent = originalText;
+        if (textEl) {
+          textEl.textContent = baseLabel;
         }
-      }, 3500);
-
-      if (typeof spawnGoldenConfetti === "function") {
-        spawnGoldenConfetti();
-      }
+        if (starEl) {
+          starEl.textContent = "✦";
+        }
+      }, 2600);
     });
   }
 
@@ -9083,9 +9261,7 @@ function setLeaderboardFilter(filter) {
 window.setLeaderboardFilter = setLeaderboardFilter;
 
 function renderLeaderboard() {
-  const container =
-    document.getElementById("clubLeaderboardContainer") ||
-    document.getElementById("leaderboardList");
+  const container = document.getElementById("clubLeaderboardContainer");
   if (!container) return;
 
   const isAr =
@@ -10093,11 +10269,7 @@ window.HeaderScrollController = (function() {
         }
       }
 
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", bootSync);
-      } else {
-        bootSync();
-      }
+      bootSync();
     },
     attachClubScroll,
     syncClubScrollTop,
@@ -10115,8 +10287,7 @@ window.HeaderScrollController = (function() {
   };
 })();
 
-// Initialize controller & expose legacy aliases
-window.HeaderScrollController.init();
+// Expose legacy aliases (HeaderScrollController.init() is invoked inside initApp)
 window.updateHeaderHeightVar = window.HeaderScrollController.updateHeaderHeightVar;
 window.resetHeaderScrollTracking = window.HeaderScrollController.updateStateForCurrentTab;
 
@@ -10386,6 +10557,11 @@ window.AuthBoundary = {
 // ==========================================================================
 function initApp() {
   try {
+    // 0. Unified Header Scroll, Resize & Facade Boot Controller
+    if (window.HeaderScrollController && typeof window.HeaderScrollController.init === "function") {
+      window.HeaderScrollController.init();
+    }
+
     // 1. Settings, Theme, and Language Initialization (invokes setLanguage -> updateUI -> AppState.notify)
     if (typeof initGlobalSettings === "function") {
       initGlobalSettings();
