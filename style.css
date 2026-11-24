@@ -42729,6 +42729,10 @@ html body #helpSupportModal #contactConciergeBtn {
   -webkit-text-fill-color: #180f03 !important;
   text-shadow: 0 0.5px 0 rgba(255, 250, 232, 0.42) !important;
   cursor: pointer !important;
+  transition: transform 0.16s ease, filter 0.18s ease !important;
+}
+
+html:not(.light-mode) body:not(.light-mode) #helpSupportModal #contactConciergeBtn {
   transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.18s ease !important;
 }
 
