@@ -85,27 +85,121 @@ function gzipMiddleware(req: Request, res: Response, next: NextFunction) {
 
 app.use(gzipMiddleware);
 
-// Serve static assets from root with ETag, Last-Modified, and optimized Cache-Control
-app.use(
-  express.static(path.join(__dirname, "."), {
+const PUBLIC_ROOT_FILES = new Map<string, string>([
+  ["/", path.join(__dirname, "index.html")],
+  ["/index.html", path.join(__dirname, "index.html")],
+  ["/style.css", path.join(__dirname, "style.css")],
+  ["/app.js", path.join(__dirname, "app.js")],
+  ["/translations.js", path.join(__dirname, "translations.js")],
+  ["/Audio.js", path.join(__dirname, "Audio.js")],
+  ["/luxury.js", path.join(__dirname, "luxury.js")],
+  ["/artifacts.js", path.join(__dirname, "artifacts.js")],
+]);
+
+const BLOCKED_INTERNAL_PREFIXES = [
+  "/docs",
+  "/src",
+  "/node_modules",
+];
+
+function decodeSafePath(rawPath: string): string | null {
+  try {
+    return decodeURIComponent(rawPath);
+  } catch {
+    return null;
+  }
+}
+
+function hasUnsafeOrHiddenSegment(decodedPath: string): boolean {
+  if (decodedPath.includes("\0") || decodedPath.includes("\\")) {
+    return true;
+  }
+  const segments = decodedPath.split("/");
+  return segments.some((seg) => seg === ".." || seg.startsWith("."));
+}
+
+function isBlockedInternalPrefix(decodedPath: string): boolean {
+  const lower = decodedPath.toLowerCase();
+  return BLOCKED_INTERNAL_PREFIXES.some(
+    (prefix) => lower === prefix || lower.startsWith(`${prefix}/`)
+  );
+}
+
+function setPublicAssetHeaders(res: Response, filePath: string): void {
+  res.setHeader("Vary", "Accept-Encoding");
+  if (
+    filePath.endsWith(".svg") ||
+    filePath.endsWith(".woff2") ||
+    filePath.endsWith(".png") ||
+    filePath.endsWith(".jpg") ||
+    filePath.endsWith(".webp")
+  ) {
+    res.setHeader("Cache-Control", "public, max-age=86400, stale-while-revalidate=604800");
+  } else {
+    res.setHeader("Cache-Control", "no-cache, must-revalidate");
+  }
+}
+
+// Block malformed encoding, traversal, hidden dotfiles, and internal directories early
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const decodedPath = decodeSafePath(req.path);
+  if (decodedPath === null) {
+    return res.status(404).type("text/plain").send("Not Found");
+  }
+  if (hasUnsafeOrHiddenSegment(decodedPath) || isBlockedInternalPrefix(decodedPath)) {
+    return res.status(404).type("text/plain").send("Not Found");
+  }
+  return next();
+});
+
+// Serve ONLY explicitly allowlisted public root files (never derive paths from req.path)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    return next();
+  }
+  const targetFile = PUBLIC_ROOT_FILES.get(req.path);
+  if (!targetFile) {
+    return next();
+  }
+  res.setHeader("Vary", "Accept-Encoding");
+  res.setHeader("Cache-Control", "no-cache, must-revalidate");
+  return res.sendFile(targetFile, {
     etag: true,
     lastModified: true,
-    setHeaders: (res, filePath) => {
-      res.setHeader("Vary", "Accept-Encoding");
-      if (filePath.endsWith(".html") || filePath.endsWith(".css") || filePath.endsWith(".js")) {
-        res.setHeader("Cache-Control", "no-cache, must-revalidate");
-      } else if (
-        filePath.endsWith(".svg") ||
-        filePath.endsWith(".woff2") ||
-        filePath.endsWith(".png") ||
-        filePath.endsWith(".jpg") ||
-        filePath.endsWith(".webp")
-      ) {
-        res.setHeader("Cache-Control", "public, max-age=86400, stale-while-revalidate=604800");
-      }
-    },
+    cacheControl: false,
+  });
+});
+
+// Narrowly scoped public asset mounts (no directory listing, dotfiles denied)
+app.use(
+  "/artifacts",
+  express.static(path.join(__dirname, "artifacts"), {
+    dotfiles: "deny",
+    index: false,
+    redirect: false,
+    etag: true,
+    lastModified: true,
+    setHeaders: setPublicAssetHeaders,
   })
 );
+app.use("/artifacts", (_req: Request, res: Response) => {
+  res.status(404).type("text/plain").send("Not Found");
+});
+
+app.use(
+  "/assets/portraits",
+  express.static(path.join(__dirname, "assets", "portraits"), {
+    dotfiles: "deny",
+    index: false,
+    redirect: false,
+    etag: true,
+    lastModified: true,
+    setHeaders: setPublicAssetHeaders,
+  })
+);
+app.use("/assets", (_req: Request, res: Response) => {
+  res.status(404).type("text/plain").send("Not Found");
+});
 
 // ==========================================================================
 // REAL MARKET DATA ENDPOINT (SERVER-SIDE INTEGRATION)
@@ -400,9 +494,40 @@ app.get("/api/market-ticker", async (req: Request, res: Response) => {
   }
 });
 
+// Unknown API routes must return JSON 404, never index.html
+app.use("/api", (_req: Request, res: Response) => {
+  res.status(404).json({ error: "Not Found" });
+});
+
+// SPA navigation fallback: only clean extensionless GET/HEAD routes receive index.html
 app.use((req: Request, res: Response) => {
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    return res.status(404).type("text/plain").send("Not Found");
+  }
+
+  const decodedPath = decodeSafePath(req.path);
+  if (decodedPath === null) {
+    return res.status(404).type("text/plain").send("Not Found");
+  }
+
+  // Reject any file-like path (any segment containing a dot, e.g. .ts, .json, .md, .js, .css, .lock, .rules, .env, .bak)
+  const lastSegment = decodedPath.split("/").filter(Boolean).pop() || "";
+  if (lastSegment.includes(".") || decodedPath.includes(".")) {
+    return res.status(404).type("text/plain").send("Not Found");
+  }
+
+  const accept = (req.headers.accept || "").toLowerCase();
+  if (accept && !accept.includes("text/html") && !accept.includes("*/*")) {
+    return res.status(404).type("text/plain").send("Not Found");
+  }
+
+  res.setHeader("Vary", "Accept-Encoding");
   res.setHeader("Cache-Control", "no-cache, must-revalidate");
-  res.sendFile(path.join(__dirname, "index.html"));
+  return res.sendFile(path.join(__dirname, "index.html"), {
+    etag: true,
+    lastModified: true,
+    cacheControl: false,
+  });
 });
 
 const server = app.listen(port, host, () => {
