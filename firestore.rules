@@ -30,7 +30,8 @@ service cloud.firestore {
     // Club channels collection
     // Authenticated reads for valid channel IDs; all mutations server-authoritative only
     match /channels/{channelId} {
-      allow read: if isSignedIn() && isValidId(channelId);
+      allow get: if isSignedIn() && isValidId(channelId);
+      allow list: if isSignedIn();
       allow create, update, delete: if false;
 
       // Club messages subcollection

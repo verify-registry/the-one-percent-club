@@ -19,4 +19,4 @@ bun.lock
 yarn.lock
 CODEBASE_AUDIT_REPORT.md
 CHECKPOINT_MANIFEST.txt
-
+firestore-debug.log
