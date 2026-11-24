@@ -1793,7 +1793,7 @@ window.I18N = {
       en: "Sign In",
     },
     footerTag: {
-      en: "Encrypted Sovereign Verification • The 1% Club",
+      en: "❖ Encrypted Sovereign Verification • The 1% Club",
     },
     recoveryTitle: {
       en: "Password Recovery",
