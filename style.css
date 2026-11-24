@@ -41577,28 +41577,59 @@ body.light-mode #accountInfoModal .dossier-ledger-status {
   color: #5c3d0c !important;
 }
 
-/* 6. Sovereign Primary Save CTA — Obsidian & Champagne Gold (Light) / Brushed Gold (Dark) */
+/* 6. Sovereign Primary Save CTA — Unified 24K Champagne-Antique Satin Gold (Dark & Light) */
 html body #accountInfoModal #saveAccountInfoBtn,
 html body #accountInfoModal .dossier-save-btn,
+html body #editProfileModal #saveEditProfileBtn,
 html body #editProfileModal .dossier-save-btn {
   width: 100% !important;
   height: 42px !important;
   min-height: 42px !important;
   border-radius: 12px !important;
-  background: linear-gradient(180deg, #e8ca7f 0%, #c89c44 100%) !important;
-  border: 1px solid rgba(255, 240, 198, 0.45) !important;
+  background: linear-gradient(168deg, #f5e2b5 0%, #dfb864 42%, #be9036 82%, #9a6c1c 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.72) !important;
+  border-top: 1px solid rgba(255, 250, 232, 0.88) !important;
+  border-bottom: 1px solid rgba(108, 72, 14, 0.78) !important;
   box-shadow:
-    0 8px 22px -8px rgba(0, 0, 0, 0.72),
-    inset 0 1px 0 rgba(255, 250, 232, 0.65) !important;
+    0 4px 12px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 252, 240, 0.80),
+    inset 0 -1.5px 1.5px rgba(84, 54, 10, 0.36) !important;
   font-family: "Cinzel", "Cormorant Garamond", serif !important;
   font-size: 10.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.16em !important;
   text-transform: uppercase !important;
-  color: #160f05 !important;
-  -webkit-text-fill-color: #160f05 !important;
-  text-shadow: none !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 250, 232, 0.42) !important;
   transition: transform 0.18s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+}
+
+html:not(.light-mode) body:not(.light-mode) #accountInfoModal #saveAccountInfoBtn:hover,
+html:not(.light-mode) body:not(.light-mode) #accountInfoModal .dossier-save-btn:hover,
+html:not(.light-mode) body:not(.light-mode) #editProfileModal #saveEditProfileBtn:hover,
+html:not(.light-mode) body:not(.light-mode) #editProfileModal .dossier-save-btn:hover {
+  filter: brightness(1.05) !important;
+  transform: translateY(-1px) !important;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.65),
+    0 0 12px rgba(212, 175, 106, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    inset 0 -1.5px 1.5px rgba(84, 54, 10, 0.36) !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
+}
+
+html:not(.light-mode) body:not(.light-mode) #accountInfoModal #saveAccountInfoBtn:focus-visible,
+html:not(.light-mode) body:not(.light-mode) #accountInfoModal .dossier-save-btn:focus-visible,
+html:not(.light-mode) body:not(.light-mode) #editProfileModal #saveEditProfileBtn:focus-visible,
+html:not(.light-mode) body:not(.light-mode) #editProfileModal .dossier-save-btn:focus-visible {
+  outline: 2px solid rgba(245, 226, 181, 0.85) !important;
+  outline-offset: 2px !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.55),
+    0 0 0 3px rgba(212, 175, 106, 0.28),
+    inset 0 1px 0 rgba(255, 252, 240, 0.85) !important;
 }
 
 html.light-mode body #accountInfoModal #saveAccountInfoBtn,
@@ -41643,6 +41674,18 @@ body.light-mode #editProfileModal .dossier-save-btn:hover {
 html body #accountInfoModal #saveAccountInfoBtn:active,
 html body #editProfileModal .dossier-save-btn:active {
   transform: translateY(1px) scale(0.99) !important;
+}
+
+html:not(.light-mode) body:not(.light-mode) #accountInfoModal #saveAccountInfoBtn:active,
+html:not(.light-mode) body:not(.light-mode) #accountInfoModal .dossier-save-btn:active,
+html:not(.light-mode) body:not(.light-mode) #editProfileModal #saveEditProfileBtn:active,
+html:not(.light-mode) body:not(.light-mode) #editProfileModal .dossier-save-btn:active {
+  transform: translateY(1px) scale(0.99) !important;
+  filter: brightness(0.97) !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 1.5px 3px rgba(84, 54, 10, 0.42),
+    inset 0 -1px 0 rgba(255, 250, 232, 0.5) !important;
 }
 
 /* ==========================================================================
@@ -42669,17 +42712,54 @@ html body #helpSupportModal #contactConciergeBtn {
   height: 41px !important;
   min-height: 41px !important;
   border-radius: 11px !important;
-  background: linear-gradient(180deg, #e8ca7f 0%, #c89c44 100%) !important;
-  border: 1px solid rgba(255, 240, 198, 0.45) !important;
+  background: linear-gradient(168deg, #f5e2b5 0%, #dfb864 42%, #be9036 82%, #9a6c1c 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.72) !important;
+  border-top: 1px solid rgba(255, 250, 232, 0.88) !important;
+  border-bottom: 1px solid rgba(108, 72, 14, 0.78) !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 252, 240, 0.80),
+    inset 0 -1.5px 1.5px rgba(84, 54, 10, 0.36) !important;
   font-family: "Cinzel", "Cormorant Garamond", serif !important;
   font-size: 10px !important;
   font-weight: 700 !important;
   letter-spacing: 0.16em !important;
   text-transform: uppercase !important;
-  color: #160f05 !important;
-  -webkit-text-fill-color: #160f05 !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 250, 232, 0.42) !important;
   cursor: pointer !important;
-  transition: transform 0.16s ease, filter 0.18s ease !important;
+  transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.18s ease !important;
+}
+
+html:not(.light-mode) body:not(.light-mode) #helpSupportModal #contactConciergeBtn:hover {
+  filter: brightness(1.05) !important;
+  transform: translateY(-1px) !important;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.65),
+    0 0 12px rgba(212, 175, 106, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    inset 0 -1.5px 1.5px rgba(84, 54, 10, 0.36) !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
+}
+
+html:not(.light-mode) body:not(.light-mode) #helpSupportModal #contactConciergeBtn:active {
+  transform: translateY(1px) scale(0.99) !important;
+  filter: brightness(0.97) !important;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.6),
+    inset 0 1.5px 3px rgba(84, 54, 10, 0.42),
+    inset 0 -1px 0 rgba(255, 250, 232, 0.5) !important;
+}
+
+html:not(.light-mode) body:not(.light-mode) #helpSupportModal #contactConciergeBtn:focus-visible {
+  outline: 2px solid rgba(245, 226, 181, 0.85) !important;
+  outline-offset: 2px !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.55),
+    0 0 0 3px rgba(212, 175, 106, 0.28),
+    inset 0 1px 0 rgba(255, 252, 240, 0.85) !important;
 }
 
 html.light-mode body #helpSupportModal #contactConciergeBtn,
