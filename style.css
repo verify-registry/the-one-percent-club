@@ -380,12 +380,77 @@ body.light-mode .boutique-card {
 }
 
 body.light-mode .purchase-modal-overlay { background: rgba(30, 24, 16, 0.52) !important; }
-body.light-mode .purchase-modal { background: var(--surface-modal) !important; border: 1px solid rgba(156, 109, 35, 0.3) !important; color: var(--text-primary) !important; }
-body.light-mode .purchase-modal-name { color: var(--text-primary) !important; }
-body.light-mode .purchase-modal-rarity { color: var(--border-gold) !important; }
-body.light-mode .purchase-modal-details, body.light-mode .purchase-modal-row, body.light-mode .purchase-modal-msg { color: var(--text-secondary) !important; }
-body.light-mode .credits-pkg { background: var(--surface-elevated) !important; border-color: rgba(156, 109, 35, 0.35) !important; color: var(--text-primary) !important; }
-body.light-mode .credits-pkg-price { color: var(--border-gold) !important; }
+body.light-mode .purchase-modal { background: var(--surface-modal) !important; border: 1px solid rgba(156, 109, 35, 0.34) !important; color: var(--text-primary) !important; }
+body.light-mode .purchase-modal-name { color: #1c1409 !important; }
+body.light-mode .purchase-modal-header p { color: #5e4a2c !important; }
+body.light-mode .purchase-modal-rarity { color: #7a5314 !important; }
+body.light-mode .purchase-modal-details, body.light-mode .purchase-modal-row, body.light-mode .purchase-modal-msg { color: #574325 !important; }
+body.light-mode .credits-pkg {
+  background: linear-gradient(180deg, #fffdf8 0%, #f5eddd 100%) !important;
+  border-color: rgba(164, 122, 42, 0.38) !important;
+  color: #1c1409 !important;
+  box-shadow: 0 2px 8px -3px rgba(84, 58, 16, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.94) !important;
+}
+body.light-mode .credits-pkg:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #fbf3e2 100%) !important;
+  border-color: rgba(154, 108, 24, 0.68) !important;
+  box-shadow: 0 4px 12px -4px rgba(84, 58, 16, 0.16), inset 0 1px 0 #ffffff !important;
+}
+body.light-mode .credits-pkg:active,
+body.light-mode .credits-pkg.is-selected {
+  background: linear-gradient(180deg, #f9eed4 0%, #eedbb2 100%) !important;
+  border-color: #8c6216 !important;
+  box-shadow: inset 0 1px 2px rgba(84, 58, 16, 0.14) !important;
+}
+body.light-mode .credits-pkg.is-popular {
+  border-color: rgba(164, 118, 34, 0.68) !important;
+  box-shadow: 0 4px 14px -4px rgba(124, 88, 26, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.96) !important;
+}
+body.light-mode .credits-pkg:disabled,
+body.light-mode .credits-pkg.is-disabled {
+  background: #f2ece0 !important;
+  border-color: rgba(156, 124, 68, 0.24) !important;
+  opacity: 0.52 !important;
+  cursor: not-allowed !important;
+}
+body.light-mode .credits-pkg-amount {
+  color: #1c1409 !important;
+  font-weight: 600 !important;
+}
+body.light-mode .credits-pkg-price {
+  color: #7a5210 !important;
+  font-weight: 700 !important;
+}
+body.light-mode .credits-pkg-badge {
+  background: linear-gradient(168deg, #f7e6bd 0%, #dfba6a 48%, #b8882c 100%) !important;
+  color: #180f03 !important;
+  border: 1px solid rgba(146, 104, 28, 0.45) !important;
+}
+body.light-mode #creditsModal #creditsCancelBtn,
+body.light-mode #depositModal #depositCancelBtn {
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.94) 0%, rgba(244, 235, 218, 0.94) 100%) !important;
+  border: 1px solid rgba(164, 122, 42, 0.44) !important;
+  color: #4a320c !important;
+  -webkit-text-fill-color: #4a320c !important;
+  box-shadow: 0 2px 6px -2px rgba(84, 58, 16, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.96) !important;
+  text-shadow: none !important;
+}
+body.light-mode #creditsModal #creditsCancelBtn:hover,
+body.light-mode #depositModal #depositCancelBtn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f7efe0 100%) !important;
+  border-color: rgba(140, 98, 22, 0.68) !important;
+  color: #2b1a03 !important;
+  -webkit-text-fill-color: #2b1a03 !important;
+}
+body.light-mode #creditsModal #creditsCancelBtn:active,
+body.light-mode #depositModal #depositCancelBtn:active {
+  background: linear-gradient(180deg, #f3e7ce 0%, #e9d7b5 100%) !important;
+}
+body.light-mode #creditsModal #creditsCancelBtn:disabled,
+body.light-mode #depositModal #depositCancelBtn:disabled {
+  opacity: 0.48 !important;
+  cursor: not-allowed !important;
+}
 
 body.light-mode .honor-card,
 body.light-mode .stats-bar,
@@ -2301,13 +2366,13 @@ body.light-mode .sovereign-dossier-card {
 
 .sd-close-btn {
   position: absolute !important;
-  top: 12px !important;
-  left: 12px !important;
-  right: auto !important;
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  min-height: 28px !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
   border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
@@ -5299,7 +5364,8 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"]::after {
   text-align: start;
 
 }
-#boutique-tab .boutique-section-title {
+#boutique-tab .boutique-section-title,
+#boutique-tab .widget-section .boutique-section-head h3 {
   font-family: var(--font-display, "Cinzel", serif);
   font-weight: 700;
   font-size: 15.5px;
@@ -5696,13 +5762,14 @@ body.light-mode .rarity-free {
   font-weight: 600 !important;
   color: #f7f3ea !important;
   line-height: 1.35 !important;
-  height: auto !important;
+  height: 34px !important;
   min-height: 34px !important;
-  max-height: none !important;
-  display: block !important;
-  -webkit-line-clamp: unset !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
+  max-height: 34px !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
   text-align: center !important;
   width: 100% !important;
   box-sizing: border-box !important;
@@ -5774,6 +5841,7 @@ body.light-mode .rarity-free {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  gap: 5px !important;
   text-align: center !important;
   white-space: nowrap !important;
   line-height: 1.2 !important;
@@ -5972,8 +6040,8 @@ body.light-mode .boutique-curatorial-modal {
 .boutique-curatorial-modal .rmc-seal-mark {
   position: absolute !important;
   top: 4px !important;
-  right: 8px !important;
-  left: auto !important;
+  left: 8px !important;
+  right: auto !important;
   width: 30px !important;
   height: 30px !important;
   display: flex !important;
@@ -6140,11 +6208,18 @@ body.light-mode .boutique-curatorial-modal {
 }
 .credits-pkg:hover {
   border-color: rgba(212, 175, 55, 0.45);
-  background: rgba(212, 175, 55, 0.06);
+  background: rgba(212, 175, 55, 0.08);
 }
-.credits-pkg:active {
+.credits-pkg:active,
+.credits-pkg.is-selected {
   border-color: var(--gold-champagne);
-  background: rgba(120, 90, 25, 0.15);
+  background: rgba(120, 90, 25, 0.18);
+}
+.credits-pkg:disabled,
+.credits-pkg.is-disabled {
+  opacity: 0.46;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 .credits-pkg.is-popular {
   border-color: rgba(212, 175, 55, 0.5);
@@ -6154,8 +6229,8 @@ body.light-mode .boutique-curatorial-modal {
   position: absolute;
   top: -8px;
   left: 12px;
-  background: linear-gradient(135deg, #d4af37, #aa820a);
-  color: #0b0c10;
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 42%, #b88e39 100%);
+  color: #161005;
   font-size: 8.5px;
   font-weight: 700;
   padding: 1px 7px;
@@ -6173,6 +6248,35 @@ body.light-mode .boutique-curatorial-modal {
   font-size: 14px;
   color: var(--gold-champagne);
   font-weight: 600;
+}
+#creditsModal #creditsCancelBtn,
+#depositModal #depositCancelBtn {
+  background: linear-gradient(180deg, rgba(28, 22, 15, 0.72) 0%, rgba(16, 12, 8, 0.84) 100%);
+  border: 1px solid rgba(212, 175, 106, 0.36);
+  color: #e6c87e;
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 rgba(255, 240, 195, 0.08), 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.12s ease;
+}
+#creditsModal #creditsCancelBtn::after,
+#depositModal #depositCancelBtn::after {
+  display: none;
+  content: none;
+}
+#creditsModal #creditsCancelBtn:hover,
+#depositModal #depositCancelBtn:hover {
+  background: linear-gradient(180deg, rgba(38, 30, 20, 0.86) 0%, rgba(22, 17, 11, 0.92) 100%);
+  border-color: rgba(226, 192, 122, 0.58);
+  color: #f6e4b6;
+}
+#creditsModal #creditsCancelBtn:active,
+#depositModal #depositCancelBtn:active {
+  transform: scale(0.985);
+}
+#creditsModal #creditsCancelBtn:disabled,
+#depositModal #depositCancelBtn:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
 }
 
 .widget-section {
@@ -16104,11 +16208,13 @@ body.light-mode .ossb-text {
 }
 .mini-dossier-close-btn {
   position: absolute !important;
-  top: 12px !important;
-  left: 12px !important;
-  right: auto !important;
-  width: 28px !important;
-  height: 28px !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
   border-radius: 50% !important;
   border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
   background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
@@ -22096,21 +22202,21 @@ body.light-mode .reliquary-modal-backdrop {
   gap: 0 !important;
 }
 
-/* Sovereign Circular Close Button — Standardized Top-Left Placement */
+/* Sovereign Circular Close Button — Standardized Upper-Right Placement */
 .rmc-close-btn {
   position: absolute !important;
-  top: 12px !important;
-  left: 12px !important;
-  right: auto !important;
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  min-height: 28px !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
-  border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
-  color: #f7e8c4 !important;
-  display: flex !important;
+  background: linear-gradient(180deg, #1d1710 0%, #110d09 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.42) !important;
+  color: #e6c678 !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
@@ -22118,24 +22224,21 @@ body.light-mode .reliquary-modal-backdrop {
   padding: 0 !important;
   margin: 0 !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
-  box-shadow: 
-    0 0 0 1px #050403, 
-    0 2px 8px rgba(0, 0, 0, 0.75), 
-    inset 0 1px 0.5px rgba(255, 245, 215, 0.35) !important;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 240, 195, 0.14) !important;
   outline: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
 
 .rmc-close-btn:hover {
-  background: radial-gradient(circle at 35% 30%, rgba(56, 44, 28, 0.98) 0%, rgba(24, 18, 11, 1) 100%) !important;
-  border-color: #f5d77f !important;
-  color: #ffffff !important;
-  transform: scale(1.06) !important;
-  box-shadow: 
-    0 0 0 1px #050403, 
-    0 4px 12px rgba(0, 0, 0, 0.85), 
-    0 0 8px rgba(212, 175, 106, 0.3), 
-    inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  background: linear-gradient(180deg, #281f15 0%, #16110b 100%) !important;
+  border-color: rgba(235, 202, 128, 0.72) !important;
+  color: #fff6de !important;
+  transform: scale(1.05) !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 245, 215, 0.24) !important;
 }
 
 .rmc-close-btn:active {
@@ -22143,10 +22246,10 @@ body.light-mode .reliquary-modal-backdrop {
 }
 
 .rmc-close-btn svg {
-  width: 13px !important;
-  height: 13px !important;
+  width: 14px !important;
+  height: 14px !important;
   stroke: currentColor !important;
-  stroke-width: 2.2 !important;
+  stroke-width: 1.8 !important;
   display: block !important;
 }
 
@@ -22168,8 +22271,8 @@ body.light-mode .reliquary-modal-backdrop {
 .rmc-seal-wrap {
   position: absolute !important;
   top: 6px !important;
-  right: 8px !important;
-  left: auto !important;
+  left: 8px !important;
+  right: auto !important;
   width: 26px !important;
   height: 26px !important;
   flex-shrink: 0 !important;
@@ -22555,29 +22658,32 @@ body.light-mode .reliquary-modal-backdrop {
   transform: none !important;
 }
 
-/* Active Acquisition Button  */
-.rmc-equip-btn:not(.is-locked) {
-  background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
-  border: 1px solid #dcae4a !important;
-  color: #1a1104 !important;
+/* Active Acquisition Button — Unified 24K Satin Metallic Gold (Dark) */
+.rmc-equip-btn:not(.is-locked):not(.needs-balance) {
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  border-top: 1px solid rgba(255, 248, 224, 0.68) !important;
+  border-bottom: 1px solid rgba(92, 62, 12, 0.72) !important;
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
   font-weight: 800 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.45) !important;
   box-shadow:
-    0 3px 8px rgba(120, 90, 30, 0.35),
-    0 0 12px rgba(220, 174, 74, 0.25),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.2) !important;
+    0 4px 12px -3px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.42) !important;
 }
 
-.rmc-equip-btn:not(.is-locked):hover {
+.rmc-equip-btn:not(.is-locked):not(.needs-balance):hover {
   transform: translateY(-1px) !important;
-  background: linear-gradient(135deg, #ffffff 0%, #faecc5 20%, #e5b955 50%, #a87920 100%) !important;
+  filter: brightness(1.05) !important;
   box-shadow:
-    0 5px 14px rgba(120, 90, 30, 0.45),
-    0 0 18px rgba(220, 174, 74, 0.4),
-    inset 0 1px 2px #ffffff !important;
+    0 6px 16px -3px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 252, 238, 0.8),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.48) !important;
 }
 
-/* Primary Action Button ( /       ) */
+/* Primary Action Button (Seal & Close Patent — Unified 24K Satin Gold) */
 .rmc-dismiss-btn {
   width: 100% !important;
   min-height: 42px !important;
@@ -22598,28 +22704,60 @@ body.light-mode .reliquary-modal-backdrop {
   outline: none !important;
   user-select: none !important;
   -webkit-tap-highlight-color: transparent !important;
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, filter 0.15s ease !important;
-  border: 1px solid #dcae4a !important;
-  background: linear-gradient(135deg, #faecc5 0%, #dfb758 30%, #c4923e 65%, #8c6014 100%) !important;
-  color: #140d02 !important;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, filter 0.15s ease, border-color 0.15s ease, background 0.15s ease !important;
+  border: 1px solid #cfa34d !important;
+  border-top: 1px solid rgba(255, 248, 224, 0.68) !important;
+  border-bottom: 1px solid rgba(92, 62, 12, 0.72) !important;
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.45) !important;
   box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.6),
-    0 0 12px rgba(220, 174, 74, 0.25),
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.25) !important;
+    0 4px 12px -3px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.42) !important;
 }
 
 .rmc-dismiss-btn:hover {
   transform: translateY(-1px) !important;
-  filter: brightness(1.04) !important;
+  filter: brightness(1.05) !important;
   box-shadow:
-    0 6px 16px rgba(0, 0, 0, 0.7),
-    0 0 18px rgba(220, 174, 74, 0.4),
-    inset 0 1px 2px #ffffff !important;
+    0 6px 16px -3px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 252, 238, 0.8),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.48) !important;
 }
 
 .rmc-dismiss-btn:active {
   transform: translateY(1px) scale(0.99) !important;
+}
+
+/* Curatorial Chamber Secondary Close Action — Restrained Outline / Glass (Never Primary Gold) */
+#inspectionModal #inspectionCancelBtn {
+  background: linear-gradient(180deg, rgba(28, 22, 15, 0.72) 0%, rgba(16, 12, 8, 0.84) 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.34) !important;
+  color: #e6cfa0 !important;
+  -webkit-text-fill-color: #e6cfa0 !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 195, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.35) !important;
+}
+
+#inspectionModal #inspectionCancelBtn:hover {
+  background: linear-gradient(180deg, rgba(38, 30, 20, 0.86) 0%, rgba(22, 17, 11, 0.92) 100%) !important;
+  border-color: rgba(226, 192, 122, 0.56) !important;
+  color: #f6e4b6 !important;
+  -webkit-text-fill-color: #f6e4b6 !important;
+  filter: none !important;
+  transform: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 195, 0.12),
+    0 3px 10px rgba(0, 0, 0, 0.42) !important;
+}
+
+#inspectionModal #inspectionCancelBtn:active {
+  transform: scale(0.99) !important;
 }
 
 .rdb-crest {
@@ -22643,17 +22781,17 @@ body.light-mode .reliquary-modal-card {
 }
 
 body.light-mode .rmc-close-btn {
-  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f6eee2 70%, #ede0cb 100%) !important;
-  border: 1.2px solid rgba(175, 133, 50, 0.7) !important;
-  color: #3d280a !important;
-  box-shadow: 0 0 0 1px rgba(90, 60, 15, 0.25), 0 2px 6px rgba(90, 60, 20, 0.15), inset 0 1px 0.5px #ffffff !important;
+  background: linear-gradient(180deg, #fffdf8 0%, #f4ead6 100%) !important;
+  border: 1px solid rgba(164, 122, 42, 0.45) !important;
+  color: #5c3d0c !important;
+  box-shadow: 0 2px 6px rgba(84, 58, 16, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.96) !important;
 }
 
 body.light-mode .rmc-close-btn:hover {
-  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbf7ee 60%, #e8d7be 100%) !important;
-  color: #1a1003 !important;
-  border-color: #b88628 !important;
-  box-shadow: 0 0 0 1px rgba(90, 60, 15, 0.35), 0 3px 10px rgba(90, 60, 20, 0.22), inset 0 1px 1px #ffffff !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f0df 100%) !important;
+  color: #241806 !important;
+  border-color: rgba(146, 104, 28, 0.72) !important;
+  box-shadow: 0 3px 10px rgba(84, 58, 16, 0.16), inset 0 1px 0 #ffffff !important;
 }
 
 body.light-mode .rmc-header {
@@ -22772,28 +22910,60 @@ body.light-mode .rmc-dismiss-btn {
   min-height: 42px !important;
   height: 42px !important;
   border-radius: 8px !important;
-  background: linear-gradient(135deg, #ffffff 0%, #faecc5 18%, #dcae4a 45%, #b88628 80%, #916315 100%) !important;
-  color: #1a1002 !important; /* Authoritative dark bronze: 100% readable, never pale */
+  background: linear-gradient(168deg, #f7e6bd 0%, #e1bc6c 44%, #c2943a 82%, #9e701e 100%) !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
   font-size: 12px !important;
   font-weight: 800 !important;
-  border: 1px solid #9e7223 !important;
+  border: 1px solid rgba(146, 104, 28, 0.62) !important;
+  border-top: 1px solid rgba(255, 253, 244, 0.94) !important;
+  border-bottom: 1px solid rgba(108, 72, 14, 0.62) !important;
   box-shadow:
-    0 4px 14px rgba(110, 80, 25, 0.22),
-    inset 0 1px 1.5px #ffffff,
-    inset 0 -1px 1px rgba(90, 60, 15, 0.3) !important;
-  text-shadow: none !important;
+    0 5px 14px -5px rgba(88, 58, 12, 0.32),
+    inset 0 1px 0 rgba(255, 253, 242, 0.86),
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.3) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 250, 232, 0.45) !important;
 }
 
 body.light-mode .rmc-dismiss-btn:hover {
   transform: translateY(-1px) !important;
   filter: brightness(1.04) !important;
   box-shadow:
-    0 6px 18px rgba(110, 80, 25, 0.3),
-    inset 0 1px 2px #ffffff !important;
+    0 6px 16px -4px rgba(88, 58, 12, 0.36),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.32) !important;
 }
 
 body.light-mode .rmc-dismiss-btn:active {
   transform: translateY(1px) scale(0.99) !important;
+}
+
+body.light-mode #inspectionModal #inspectionCancelBtn {
+  background: linear-gradient(180deg, rgba(255, 253, 248, 0.92) 0%, rgba(244, 235, 218, 0.94) 100%) !important;
+  border: 1px solid rgba(164, 122, 42, 0.44) !important;
+  color: #4a320c !important;
+  -webkit-text-fill-color: #4a320c !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+  box-shadow:
+    0 2px 6px -2px rgba(84, 58, 16, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96) !important;
+}
+
+body.light-mode #inspectionModal #inspectionCancelBtn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f7efe0 100%) !important;
+  border-color: rgba(140, 98, 22, 0.68) !important;
+  color: #2b1a03 !important;
+  -webkit-text-fill-color: #2b1a03 !important;
+  filter: none !important;
+  transform: none !important;
+  box-shadow:
+    0 3px 10px -3px rgba(84, 58, 16, 0.16),
+    inset 0 1px 0 #ffffff !important;
+}
+
+body.light-mode #inspectionModal #inspectionCancelBtn:active {
+  transform: scale(0.99) !important;
 }
 
 /* Mobile Responsive Optimization (<= 480px) */
@@ -23472,7 +23642,7 @@ body.light-mode .is-screw-torqued {
   border: 0.5px solid rgba(212, 175, 106, 0.25);
 }
 
-/* Forensic UV Scanner Beam */
+/* Forensic Archival Gold Scanner Beam */
 .deed-uv-scanner-ray {
   position: absolute;
   left: 0;
@@ -23481,14 +23651,14 @@ body.light-mode .is-screw-torqued {
   height: 38px;
   background: linear-gradient(
     180deg,
-    rgba(192, 132, 252, 0.45) 0%,
-    rgba(56, 189, 248, 0.25) 30%,
+    rgba(245, 223, 139, 0.42) 0%,
+    rgba(212, 175, 55, 0.22) 32%,
     transparent 100%
   );
-  border-top: 1.5px solid #e0c8ff;
+  border-top: 1.5px solid #f5df8b;
   box-shadow:
-    0 0 16px rgba(192, 132, 252, 0.7),
-    0 0 32px rgba(56, 189, 248, 0.45);
+    0 0 14px rgba(245, 223, 139, 0.58),
+    0 0 28px rgba(212, 175, 55, 0.34);
   pointer-events: none;
   opacity: 0;
   z-index: 10;
@@ -23500,21 +23670,20 @@ body.light-mode .is-screw-torqued {
    engraved relief etched into the sovereign parchment
    ========================================================= */
 
-/* Sovereign Holographic Forensic UV Blue Illumination Beam */
-/* Sovereign Holographic Forensic UV Blue Illumination Beam */
+/* Sovereign Archival Champagne-Gold Forensic Illumination Beam (Dark Mode) */
 .sovereign-deed-folio.is-uv-scanning .deed-uv-scanner-ray {
   opacity: 1;
   animation: uvBeamTraverse 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   background: linear-gradient(
     180deg,
-    rgba(59, 130, 246, 0.28) 0%,
-    rgba(37, 99, 235, 0.08) 45%,
+    rgba(245, 223, 139, 0.34) 0%,
+    rgba(212, 175, 55, 0.12) 48%,
     transparent 100%
   ) !important;
-  border-top: 1.5px solid #60a5fa !important;
+  border-top: 1.5px solid #f5df8b !important;
   box-shadow:
-    0 0 10px rgba(96, 165, 250, 0.7),
-    0 0 24px rgba(59, 130, 246, 0.35) !important;
+    0 0 12px rgba(245, 223, 139, 0.68),
+    0 0 26px rgba(212, 175, 55, 0.36) !important;
   height: 22px !important;
   pointer-events: none;
   z-index: 5 !important;
@@ -23561,17 +23730,19 @@ body.light-mode .deed-ghost-watermark.is-uv-active {
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Light Mode Scanner Ray - Royal Sapphire Laser */
-body.light-mode .deed-uv-scanner-ray {
+/* Light Mode Scanner Ray - Burnished Antique Gold Archival Beam */
+body.light-mode .deed-uv-scanner-ray,
+body.light-mode .sovereign-deed-folio.is-uv-scanning .deed-uv-scanner-ray {
   background: linear-gradient(
     180deg,
-    rgba(30, 64, 175, 0.16) 0%,
-    rgba(37, 99, 235, 0.05) 45%,
+    rgba(212, 175, 55, 0.26) 0%,
+    rgba(180, 134, 36, 0.08) 48%,
     transparent 100%
   ) !important;
-  border-top: 1.5px solid #1e40af !important;
+  border-top: 1.5px solid #b8861e !important;
   box-shadow:
-    0 0 10px rgba(37, 99, 235, 0.4) !important;
+    0 0 10px rgba(212, 175, 55, 0.45),
+    0 0 20px rgba(180, 134, 36, 0.22) !important;
   height: 22px !important;
 }
 
@@ -24940,13 +25111,13 @@ body.light-mode #profile-tab .phc-est {
 
 .hcc-close-btn {
   position: absolute !important;
-  top: 12px !important;
-  left: 12px !important;
-  right: auto !important;
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  min-height: 28px !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
   border-radius: 50% !important;
   background: radial-gradient(circle at 35% 30%, rgba(42, 34, 23, 0.96) 0%, rgba(18, 14, 9, 0.98) 100%) !important;
   border: 1.2px solid rgba(212, 175, 106, 0.65) !important;
@@ -27898,32 +28069,31 @@ body.light-mode .btn-gold,
 body.light-mode #boutique-tab .btn-acquire,
 body.light-mode #boutique-tab .btn-equip,
 body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):not(.btn-locked):not(.btn-free):not(.boutique-tier-req-badge):not(.boutique-free-status-badge),
-body.light-mode .rmc-equip-btn,
+body.light-mode .rmc-equip-btn:not(.is-locked):not(.needs-balance),
 body.light-mode .reliquary-boutique-btn,
 body.light-mode .reliquary-empty-action-btn,
 body.light-mode .sd-btn-add,
 body.light-mode .mini-dossier-btn.is-toast-primary,
 body.light-mode .edit-profile-save-btn,
 body.light-mode #accountInfoModal .dossier-save-btn {
-  background: linear-gradient(135deg, 
-    #ffffff 0%, 
-    #faecc5 12%, 
-    #dcae4a 32%, 
-    #a07424 50%, 
-    #684514 62%, 
-    #c49436 78%, 
-    #7a5218 90%, 
-    #ffffff 100%
+  background: linear-gradient(
+    168deg,
+    #f7e6bd 0%,
+    #e1bc6c 44%,
+    #c2943a 82%,
+    #9e701e 100%
   ) !important;
-  border: 0.8px solid #7c581a !important;
-  color: #2b1a03 !important;
+  border: 1px solid rgba(146, 104, 28, 0.62) !important;
+  border-top: 1px solid rgba(255, 253, 244, 0.94) !important;
+  border-bottom: 1px solid rgba(108, 72, 14, 0.62) !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
   font-weight: 800 !important;
-  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.6) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 250, 232, 0.45) !important;
   box-shadow:
-    0 0 0 0.5px rgba(50, 32, 10, 0.35),
-    0 2px 5px rgba(35, 20, 6, 0.16),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 0.5px rgba(90, 60, 15, 0.35) !important;
+    0 5px 14px -5px rgba(88, 58, 12, 0.3),
+    inset 0 1px 0 rgba(255, 253, 242, 0.86),
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.28) !important;
   transition: filter 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease !important;
 }
 
@@ -27931,7 +28101,7 @@ body.light-mode .btn-gold:hover,
 body.light-mode #boutique-tab .btn-acquire:hover,
 body.light-mode #boutique-tab .btn-equip:hover,
 body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):not(.btn-locked):not(.btn-free):not(.boutique-tier-req-badge):not(.boutique-free-status-badge):hover,
-body.light-mode .rmc-equip-btn:hover,
+body.light-mode .rmc-equip-btn:not(.is-locked):not(.needs-balance):hover,
 body.light-mode .reliquary-boutique-btn:hover,
 body.light-mode .reliquary-empty-action-btn:hover,
 body.light-mode .sd-btn-add:hover,
@@ -27940,33 +28110,31 @@ body.light-mode .edit-profile-save-btn:hover,
 body.light-mode #accountInfoModal .dossier-save-btn:hover {
   filter: brightness(1.04) !important;
   box-shadow:
-    0 0 0 0.5px rgba(50, 32, 10, 0.45),
-    0 3px 8px rgba(35, 20, 6, 0.22),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.98),
-    inset 0 -1px 0.5px rgba(90, 60, 15, 0.4) !important;
+    0 6px 16px -4px rgba(88, 58, 12, 0.34),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.32) !important;
 }
 
 body.light-mode .btn-gold:active,
 body.light-mode #boutique-tab .btn-acquire:active,
 body.light-mode #boutique-tab .btn-equip:active,
 body.light-mode #boutique-tab .boutique-own-btn:not(.btn-equipped):not(.btn-owned):not(.btn-locked):not(.btn-free):not(.boutique-tier-req-badge):not(.boutique-free-status-badge):active,
-body.light-mode .rmc-equip-btn:active,
+body.light-mode .rmc-equip-btn:not(.is-locked):not(.needs-balance):active,
 body.light-mode .reliquary-boutique-btn:active,
 body.light-mode .reliquary-empty-action-btn:active,
 body.light-mode .sd-btn-add:active,
 body.light-mode .mini-dossier-btn.is-toast-primary:active,
 body.light-mode .edit-profile-save-btn:active,
 body.light-mode #accountInfoModal .dossier-save-btn:active {
-  transform: scale(0.98) !important;
-  filter: brightness(0.96) !important;
+  transform: scale(0.985) !important;
+  filter: brightness(0.97) !important;
 }
 
 /* 2. Metallic Gold Active Controls & Category Filter Pills */
 body.light-mode .pill-btn.is-active,
 body.light-mode .sl-filter-btn.is-active,
 body.light-mode .sovereign-accolade-btn.is-conferred,
-body.light-mode .pcc-curate-btn,
-body.light-mode .deed-verify-btn {
+body.light-mode .pcc-curate-btn {
   background: linear-gradient(135deg, 
     #ffffff 0%, 
     #faecc5 12%, 
@@ -27991,21 +28159,20 @@ body.light-mode .deed-verify-btn {
 body .deed-verify-btn.is-confirmed-stamp,
 body #profile-tab .deed-verify-btn.is-confirmed-stamp,
 body .oath-signet-seal-btn.is-signet-pressed {
-  background: linear-gradient(135deg, 
-    #ffffff 0%, 
-    #faecc5 15%, 
-    #dcae4a 35%, 
-    #a07424 55%, 
-    #c49436 80%, 
-    #7a5218 100%
+  background: linear-gradient(
+    168deg,
+    #f9ebca 0%,
+    #e5c376 44%,
+    #c89b42 82%,
+    #a57724 100%
   ) !important;
-  border-color: #7c581a !important;
-  color: #120b02 !important;
+  border-color: rgba(146, 104, 28, 0.68) !important;
+  color: #161005 !important;
   font-weight: 800 !important;
   box-shadow:
-    0 0 0 1px rgba(124, 88, 26, 0.5),
-    0 4px 14px rgba(120, 80, 20, 0.28),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.98) !important;
+    0 0 0 1px rgba(146, 104, 28, 0.42),
+    0 6px 16px -4px rgba(120, 80, 20, 0.3),
+    inset 0 1px 0 rgba(255, 253, 242, 0.88) !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
@@ -28539,7 +28706,8 @@ body:not(.light-mode) #boutique-tab .boutique-tab[aria-selected="true"] span {
   }
 }
 
-body.light-mode #boutique-tab .boutique-section-title {
+body.light-mode #boutique-tab .boutique-section-title,
+body.light-mode #boutique-tab .widget-section .boutique-section-head h3 {
   color: #2b1f0c !important;
   text-shadow: none !important;
 }
@@ -28683,14 +28851,22 @@ body.light-mode #boutique-tab .boutique-card-name {
   color: #241a0d !important;
   font-weight: 700 !important;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+  height: 39px !important;
+  min-height: 39px !important;
+  max-height: 39px !important;
+  padding-bottom: 5px !important;
 }
 
 body.light-mode #boutique-tab .boutique-card-name::after {
   content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
   display: block;
   width: 32px;
   height: 1px;
-  margin: 3px auto 0;
+  margin: 0;
   background: linear-gradient(90deg, transparent 0%, rgba(124, 88, 26, 0.45) 50%, transparent 100%) !important;
 }
 
@@ -28705,6 +28881,7 @@ body.light-mode #boutique-tab .boutique-card-price {
   margin: 3px 0 4px !important;
   height: 20px !important;
   min-height: 20px !important;
+  max-height: 20px !important;
   line-height: 20px !important;
   display: flex !important;
   align-items: center !important;
@@ -28770,15 +28947,16 @@ body.light-mode #boutique-tab .boutique-free-status-badge {
 /* 7. LUXURY REQUIREMENT BADGE («  SOVEREIGN LUMINARY / SOVEREIGN EXARCH») */
 body.light-mode #boutique-tab .boutique-own-btn.btn-locked,
 body.light-mode #boutique-tab .boutique-tier-req-badge {
-  background: linear-gradient(180deg, #fdfbf7 0%, #f6efe2 100%) !important;
-  border: 0.8px solid #7c581a !important; /* Exact gold border from edit-profile button */
+  background: linear-gradient(180deg, #ede8de 0%, #e2dacb 100%) !important;
+  border: 1px dashed rgba(124, 94, 46, 0.52) !important;
   border-radius: 7px !important;
   box-shadow:
-    0 0 0 0.5px rgba(50, 32, 10, 0.25),
-    0 1px 3px rgba(35, 20, 6, 0.08),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
-    inset 0 -0.5px 0.5px rgba(90, 60, 15, 0.15) !important;
-  color: #2b1a03 !important;
+    inset 0 1px 2px rgba(45, 30, 10, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.65) !important;
+  color: #6a5536 !important;
+  font-size: 8.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
   cursor: pointer !important;
   padding: 3px 6px !important;
   height: 34px !important;
@@ -28787,34 +28965,34 @@ body.light-mode #boutique-tab .boutique-tier-req-badge {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  gap: 4px !important;
   text-shadow: none !important;
   outline: none !important;
   white-space: normal !important;
 }
 
-/* 8. LUXURY ACQUISITION BUTTON («») — EXACT EDIT-PROFILE PHYSICAL GOLD */
+/* 8. LUXURY ACQUISITION BUTTON — UNIFIED 24K SATIN CHAMPAGNE GOLD (IMPERIAL LIGHT) */
 body.light-mode #boutique-tab .boutique-own-btn.btn-acquire {
-  background: linear-gradient(135deg, 
-    #ffffff 0%, 
-    #faecc5 12%, 
-    #dcae4a 32%, 
-    #a07424 50%, 
-    #684514 62%, 
-    #c49436 78%, 
-    #7a5218 90%, 
-    #ffffff 100%
+  background: linear-gradient(
+    168deg,
+    #f7e6bd 0%,
+    #e1bc6c 44%,
+    #c2943a 82%,
+    #9e701e 100%
   ) !important;
-  border: 0.8px solid #7c581a !important;
-  color: #2b1a03 !important; /* Dark warm brown / deep antique gold */
+  border: 1px solid rgba(146, 104, 28, 0.62) !important;
+  border-top: 1px solid rgba(255, 253, 244, 0.94) !important;
+  border-bottom: 1px solid rgba(108, 72, 14, 0.62) !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
   font-weight: 800 !important;
   font-size: 10.5px !important;
   letter-spacing: 0.04em !important;
-  text-shadow: 0 0.5px 0 rgba(255, 255, 255, 0.6) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 250, 232, 0.45) !important;
   box-shadow:
-    0 0 0 0.5px rgba(50, 32, 10, 0.35),
-    0 2px 5px rgba(35, 20, 6, 0.16),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
-    inset 0 -1px 0.5px rgba(90, 60, 15, 0.35) !important;
+    0 4px 12px -4px rgba(88, 58, 12, 0.28),
+    inset 0 1px 0 rgba(255, 253, 242, 0.86),
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.28) !important;
   height: 34px !important;
   border-radius: 7px !important;
   cursor: pointer !important;
@@ -28824,24 +29002,26 @@ body.light-mode #boutique-tab .boutique-own-btn.btn-acquire {
 body.light-mode #boutique-tab .boutique-own-btn.btn-acquire:hover {
   filter: brightness(1.04) !important;
   box-shadow:
-    0 0 0 0.5px rgba(50, 32, 10, 0.45),
-    0 3px 8px rgba(35, 20, 6, 0.22),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.98),
-    inset 0 -1px 0.5px rgba(90, 60, 15, 0.4) !important;
-  color: #2b1a03 !important;
+    0 5px 14px -3px rgba(88, 58, 12, 0.34),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.32) !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
 }
 
 body.light-mode #boutique-tab .boutique-own-btn.btn-acquire:active {
-  transform: scale(0.98) !important;
-  filter: brightness(0.96) !important;
+  transform: scale(0.985) !important;
+  filter: brightness(0.97) !important;
 }
 
 /* 9. OWNERSHIP SEAL («») */
 body.light-mode #boutique-tab .boutique-own-btn.btn-owned,
 body.light-mode #boutique-tab .boutique-ownership-plaque {
-  background: linear-gradient(180deg, #fdfbf7 0%, #f6eee2 100%) !important; /* Ivory/Champagne serene background */
-  border: 0.8px solid #7c581a !important; /* Physical Gold fine border */
+  background: linear-gradient(180deg, #fbf4e4 0%, #f1e3c4 100%) !important; /* Elevated champagne sovereign seal */
+  border: 1px solid rgba(154, 114, 32, 0.72) !important; /* Solid burnished gold hairline */
   border-radius: 7px !important;
+  color: #3a2607 !important;
+  font-weight: 700 !important;
   height: 34px !important;
   min-height: 34px !important;
   max-height: 34px !important;
@@ -28851,10 +29031,9 @@ body.light-mode #boutique-tab .boutique-ownership-plaque {
   gap: 6px !important;
   padding: 0 10px !important;
   box-shadow:
-    0 0 0 0.5px rgba(50, 32, 10, 0.2),
-    0 1px 3px rgba(35, 20, 6, 0.06),
-    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
-    inset 0 -0.5px 0.5px rgba(90, 60, 15, 0.15) !important;
+    0 1px 3px rgba(68, 44, 10, 0.1),
+    inset 0 1px 0 rgba(255, 253, 245, 0.95),
+    inset 0 -1px 0 rgba(154, 114, 32, 0.22) !important;
   pointer-events: none !important;
   cursor: default !important;
 }
@@ -29011,45 +29190,52 @@ body.dark-mode #boutique-tab .boutique-tier-plaque .tier-plaque-mark {
 /* 5. Buttons in Dark Mode */
 body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-acquire,
 body.dark-mode #boutique-tab .boutique-own-btn.btn-acquire {
-  color: #1c1305 !important;
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
   font-weight: 700 !important;
   font-size: 9.5px !important;
   letter-spacing: 0.05em !important;
-  background: linear-gradient(145deg, #f0d599 0%, #d8b264 35%, #be9444 75%, #9e762c 100%) !important;
-  border: 1px solid #b88d38 !important;
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  border-top: 1px solid rgba(255, 248, 224, 0.68) !important;
+  border-bottom: 1px solid rgba(92, 62, 12, 0.72) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 252, 240, 0.75),
-    inset 0 -1px 0 rgba(110, 80, 20, 0.35),
-    0 2px 6px rgba(0, 0, 0, 0.6) !important;
-  text-shadow: 0 1px 0 rgba(255, 250, 235, 0.45) !important;
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.42),
+    0 3px 8px rgba(0, 0, 0, 0.58) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.45) !important;
 }
 
 body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-acquire:hover,
 body.dark-mode #boutique-tab .boutique-own-btn.btn-acquire:hover {
-  background: linear-gradient(145deg, #f5ddaa 0%, #dfbc72 35%, #c89e4c 75%, #a87e32 100%) !important;
-  border-color: #d4ae60 !important;
+  filter: brightness(1.05) !important;
+  border-color: #dec074 !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 1px 0 rgba(255, 252, 238, 0.8),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.48),
     0 4px 10px rgba(0, 0, 0, 0.65) !important;
-  color: #1a1306 !important;
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
 }
 
 body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-locked,
 body.dark-mode #boutique-tab .boutique-own-btn.btn-locked {
-  background: #080706 !important;
-  border: 1px solid rgba(212, 175, 106, 0.3) !important;
-  color: #e5cb88 !important;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.7) !important;
+  background: linear-gradient(180deg, #100e0b 0%, #070605 100%) !important;
+  border: 1px dashed rgba(176, 142, 86, 0.36) !important;
+  color: #b89c6c !important;
+  font-size: 8.5px !important;
+  gap: 4px !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.85) !important;
 }
 
 body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-owned,
 body.dark-mode #boutique-tab .boutique-own-btn.btn-owned,
 body:not(.light-mode) #boutique-tab .boutique-ownership-plaque,
 body.dark-mode #boutique-tab .boutique-ownership-plaque {
-  background: linear-gradient(180deg, #16120d 0%, #080706 100%) !important;
-  border: 1px solid rgba(212, 175, 106, 0.35) !important;
-  color: #faf6ee !important;
-  box-shadow: inset 0 1px 0 rgba(255, 240, 205, 0.12), 0 2px 5px rgba(0, 0, 0, 0.6) !important;
+  background: linear-gradient(180deg, #1d170f 0%, #0e0b07 100%) !important;
+  border: 1px solid rgba(226, 186, 104, 0.56) !important;
+  color: #f6ebd6 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 240, 200, 0.22), 0 2px 5px rgba(0, 0, 0, 0.6) !important;
 }
 
 body:not(.light-mode) #boutique-tab .boutique-own-btn.btn-owned .ownership-seal-mark,
@@ -29069,15 +29255,31 @@ body.dark-mode #boutique-tab .boutique-own-btn.btn-free {
   color: #e5cb88 !important;
 }
 
-/* Unified Close Buttons Positioning & Safe Area Rules */
+/* Unified Close Buttons Positioning & Safe Area Rules (Upper-Right Standard) */
 .rmc-close-btn,
 .sd-close-btn,
 .mini-dossier-close-btn,
 .hcc-close-btn,
 .luxury-close-btn {
   position: absolute !important;
-  left: 16px !important;
-  right: auto !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+}
+
+.boutique-curatorial-modal .rmc-document-frame .rmc-close-btn {
+  top: 2px !important;
+  right: 2px !important;
+  left: auto !important;
+}
+
+#creditsModal .purchase-modal,
+#depositModal .purchase-modal {
+  position: relative !important;
 }
 
 .rmc-header,
@@ -29085,10 +29287,14 @@ body.dark-mode #boutique-tab .boutique-own-btn.btn-free {
 .mini-dossier-header,
 .heraldic-citation-card,
 .luxury-modal-header,
-.purchase-modal-header,
 .sovereign-mini-dossier-card {
   position: relative !important;
   padding-top: 42px !important;
+}
+
+.purchase-modal-header {
+  position: relative !important;
+  padding: 10px 46px 0 46px !important;
 }
 
 /* ========================================================
@@ -29578,7 +29784,7 @@ body.light-mode #authRecoveryModal .luxury-modal-box {
 body.light-mode #authRecoveryModal .luxury-modal-header {
   border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
   background: linear-gradient(180deg, rgba(212, 175, 55, 0.06) 0%, transparent 100%) !important;
-  padding: 12px 16px 12px 52px !important;
+  padding: 13px 56px 12px 20px !important;
   position: relative !important;
   display: flex !important;
   align-items: center !important;
@@ -29597,18 +29803,22 @@ body.light-mode #authRecoveryModal .luxury-modal-header {
   text-align: left !important;
 }
 
-#authRecoveryModal .luxury-close-btn {
+#authRecoveryModal .luxury-close-btn,
+body.light-mode #authRecoveryModal .luxury-close-btn {
   position: absolute !important;
-  top: 9px !important;
-  left: 12px !important;
-  right: auto !important;
-  width: 24px !important;
-  height: 24px !important;
-  background: rgba(255,255,255,0.05) !important;
-  border: 1px solid rgba(212,175,55,0.3) !important;
+  top: 50% !important;
+  right: 16px !important;
+  left: auto !important;
+  transform: translateY(-50%) !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  background: linear-gradient(180deg, #1d1710 0%, #110d09 100%) !important;
+  border: 1px solid rgba(212, 175, 106, 0.42) !important;
   border-radius: 50% !important;
-  color: #d4af37 !important;
-  display: flex !important;
+  color: #e6c678 !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
@@ -29616,8 +29826,8 @@ body.light-mode #authRecoveryModal .luxury-modal-header {
 }
 
 html[dir="ltr"] #authRecoveryModal .luxury-close-btn {
-  left: 12px !important;
-  right: auto !important;
+  right: 16px !important;
+  left: auto !important;
 }
 
 #authRecoveryModal .luxury-modal-body,
@@ -29742,6 +29952,8 @@ html[lang="en"] .profile-section-title,
 html[dir="ltr"] .profile-section-title,
 html[lang="en"] .boutique-section-title,
 html[dir="ltr"] .boutique-section-title,
+html[lang="en"] #boutique-tab .widget-section .boutique-section-head h3,
+html[dir="ltr"] #boutique-tab .widget-section .boutique-section-head h3,
 html[lang="en"] .honors-section-title,
 html[dir="ltr"] .honors-section-title,
 html[lang="en"] .chamber-plaque-title,
@@ -29849,7 +30061,7 @@ html[dir="ltr"] .auth-input-label {
 }
 
 /* ==========================================================================
-   2. STANDARDIZED MODAL TOP-LEFT CLOSE BUTTON (X) & PERMANENT SAFE AREA
+   2. STANDARDIZED MODAL UPPER-RIGHT CLOSE BUTTON (X) & PERMANENT SAFE AREA
    ========================================================================== */
 .luxury-modal-header,
 #settingsModal .luxury-modal-header,
@@ -29862,15 +30074,15 @@ html[dir="ltr"] .auth-input-label {
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  padding-left: 56px !important;
-  padding-right: 20px !important;
-  padding-top: 16px !important;
-  padding-bottom: 16px !important;
-  min-height: 56px !important;
+  padding-left: 20px !important;
+  padding-right: 56px !important;
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  min-height: 54px !important;
   box-sizing: border-box !important;
 }
 
-/* X Button permanently pinned to Top-Left */
+/* X Button permanently pinned to Upper-Right */
 .luxury-close-btn,
 .luxury-modal-header .luxury-close-btn,
 .luxury-modal-box .luxury-close-btn,
@@ -29880,13 +30092,14 @@ html[dir="ltr"] .auth-input-label {
 #accountInfoModal .luxury-close-btn,
 #authRecoveryModal .luxury-close-btn {
   position: absolute !important;
-  top: 14px !important;
-  left: 14px !important;
-  right: auto !important;
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  min-height: 28px !important;
+  top: 50% !important;
+  right: 16px !important;
+  left: auto !important;
+  transform: translateY(-50%) !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
   z-index: 20 !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -35993,24 +36206,27 @@ body.light-mode .alloc-plus-glyph {
 #boutique-tab .boutique-card .btn-acquire,
 .boutique-own-btn.btn-acquire {
   color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
   font-weight: 700 !important;
   background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
   border: 1px solid #cfa34d !important;
+  border-top: 1px solid rgba(255, 248, 224, 0.68) !important;
+  border-bottom: 1px solid rgba(92, 62, 12, 0.72) !important;
   box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.55),
+    0 3px 8px rgba(0, 0, 0, 0.58),
     inset 0 1px 0 rgba(255, 250, 230, 0.65),
-    inset 0 -1px 1px rgba(60, 42, 10, 0.45) !important;
-  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.6) !important;
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.42) !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.45) !important;
 }
 
 #boutique-tab .boutique-own-btn.btn-acquire:hover,
 #boutique-tab .boutique-card .btn-acquire:hover,
 .boutique-own-btn.btn-acquire:hover {
-  filter: brightness(1.06) !important;
+  filter: brightness(1.05) !important;
   box-shadow:
-    0 3px 8px rgba(0, 0, 0, 0.65),
-    inset 0 1px 0 #ffffff,
-    inset 0 -1px 1px rgba(60, 42, 10, 0.5) !important;
+    0 4px 10px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 252, 238, 0.8),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.48) !important;
 }
 
 /* ==========================================================================
@@ -39021,6 +39237,38 @@ body #profile-tab #sovereignOathCard .oath-signet-seal-btn {
   justify-content: center !important;
 }
 
+body:not(.light-mode) #profile-tab #sovereignOathCard #oathInteractiveSignetBtn,
+body:not(.light-mode) #profile-tab #sovereignOathCard .oath-signet-seal-btn {
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  border-top: 1px solid rgba(255, 248, 224, 0.68) !important;
+  border-bottom: 1px solid rgba(92, 62, 12, 0.72) !important;
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.45) !important;
+  box-shadow:
+    0 4px 12px -3px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.42) !important;
+}
+
+body:not(.light-mode) #profile-tab #sovereignOathCard #oathInteractiveSignetBtn:hover,
+body:not(.light-mode) #profile-tab #sovereignOathCard .oath-signet-seal-btn:hover {
+  filter: brightness(1.05) !important;
+  border-color: #dec074 !important;
+  box-shadow:
+    0 6px 16px -3px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 252, 238, 0.8),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.48) !important;
+}
+
+body:not(.light-mode) #profile-tab #sovereignOathCard #oathInteractiveSignetBtn .ossb-ring,
+body:not(.light-mode) #profile-tab #sovereignOathCard #oathInteractiveSignetBtn .ossb-star,
+body:not(.light-mode) #profile-tab #sovereignOathCard #oathInteractiveSignetBtn .ossb-text {
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
+}
+
 body #profile-tab #sovereignOathCard .oath-signet-seal-btn .ossb-ring {
   gap: 5px !important;
 }
@@ -39401,6 +39649,39 @@ body #profile-tab #sovereignDeedCard .deed-verify-btn {
   font-weight: 700 !important;
   letter-spacing: 0.14em !important;
   white-space: nowrap !important;
+}
+
+body:not(.light-mode) #profile-tab #sovereignDeedCard #btnVerifyDeed,
+body:not(.light-mode) #profile-tab #sovereignDeedCard .deed-verify-btn {
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  border-top: 1px solid rgba(255, 248, 224, 0.68) !important;
+  border-bottom: 1px solid rgba(92, 62, 12, 0.72) !important;
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.45) !important;
+  box-shadow:
+    0 4px 12px -3px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.42) !important;
+}
+
+body:not(.light-mode) #profile-tab #sovereignDeedCard #btnVerifyDeed:hover,
+body:not(.light-mode) #profile-tab #sovereignDeedCard .deed-verify-btn:hover {
+  filter: brightness(1.05) !important;
+  border-color: #dec074 !important;
+  box-shadow:
+    0 6px 16px -3px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 252, 238, 0.8),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.48) !important;
+}
+
+body:not(.light-mode) #profile-tab #sovereignDeedCard #btnVerifyDeed span,
+body:not(.light-mode) #profile-tab #sovereignDeedCard #btnVerifyDeed .deed-btn-icon,
+body:not(.light-mode) #profile-tab #sovereignDeedCard #btnVerifyDeed .deed-btn-icon path {
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
+  stroke: #161005 !important;
 }
 
 body #profile-tab #sovereignDeedCard #btnVerifyDeed .deed-btn-icon {
@@ -41192,55 +41473,87 @@ body.light-mode #accountInfoModal .dossier-ledger-status {
   color: #5c3d0c !important;
 }
 
-/* 6. Sovereign Primary Save CTA — Obsidian & Champagne Gold (Light) / Brushed Gold (Dark) */
+/* 6. Sovereign Primary Save CTA — Unified 24K Satin Metallic Gold (Dark & Light) */
 html body #accountInfoModal #saveAccountInfoBtn,
 html body #accountInfoModal .dossier-save-btn,
+html body #editProfileModal #saveEditProfileBtn,
 html body #editProfileModal .dossier-save-btn {
   width: 100% !important;
   height: 42px !important;
   min-height: 42px !important;
   border-radius: 12px !important;
-  background: linear-gradient(180deg, #e8ca7f 0%, #c89c44 100%) !important;
-  border: 1px solid rgba(255, 240, 198, 0.45) !important;
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  border-top: 1px solid rgba(255, 248, 224, 0.68) !important;
+  border-bottom: 1px solid rgba(92, 62, 12, 0.72) !important;
   box-shadow:
-    0 8px 22px -8px rgba(0, 0, 0, 0.72),
-    inset 0 1px 0 rgba(255, 250, 232, 0.65) !important;
+    0 6px 18px -6px rgba(0, 0, 0, 0.72),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.42) !important;
   font-family: "Cinzel", "Cormorant Garamond", serif !important;
   font-size: 10.5px !important;
   font-weight: 700 !important;
   letter-spacing: 0.16em !important;
   text-transform: uppercase !important;
-  color: #160f05 !important;
-  -webkit-text-fill-color: #160f05 !important;
-  text-shadow: none !important;
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.45) !important;
   transition: transform 0.18s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+}
+
+html body #accountInfoModal #saveAccountInfoBtn:hover,
+html body #editProfileModal #saveEditProfileBtn:hover,
+html body #editProfileModal .dossier-save-btn:hover {
+  filter: brightness(1.05) !important;
+  border-color: #dec074 !important;
+  box-shadow:
+    0 8px 20px -6px rgba(0, 0, 0, 0.78),
+    inset 0 1px 0 rgba(255, 252, 238, 0.8),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.48) !important;
 }
 
 html.light-mode body #accountInfoModal #saveAccountInfoBtn,
 body.light-mode #accountInfoModal #saveAccountInfoBtn,
 html.light-mode body #accountInfoModal .dossier-save-btn,
 body.light-mode #accountInfoModal .dossier-save-btn,
+html.light-mode body #editProfileModal #saveEditProfileBtn,
+body.light-mode #editProfileModal #saveEditProfileBtn,
 html.light-mode body #editProfileModal .dossier-save-btn,
 body.light-mode #editProfileModal .dossier-save-btn {
-  background: linear-gradient(180deg, #24190c 0%, #120c05 100%) !important;
-  border: 1px solid rgba(176, 138, 66, 0.56) !important;
+  background: linear-gradient(
+    168deg,
+    #f7e6bd 0%,
+    #e1bc6c 44%,
+    #c2943a 82%,
+    #9e701e 100%
+  ) !important;
+  border: 1px solid rgba(146, 104, 28, 0.62) !important;
+  border-top: 1px solid rgba(255, 253, 244, 0.94) !important;
+  border-bottom: 1px solid rgba(108, 72, 14, 0.62) !important;
   box-shadow:
-    0 10px 22px -10px rgba(34, 24, 12, 0.46),
-    inset 0 1px 0 rgba(246, 224, 168, 0.22) !important;
-  color: #f3dfb0 !important;
-  -webkit-text-fill-color: #f3dfb0 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45) !important;
+    0 6px 16px -6px rgba(88, 58, 12, 0.34),
+    inset 0 1px 0 rgba(255, 253, 242, 0.86),
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.3) !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 250, 232, 0.45) !important;
 }
 
 html.light-mode body #accountInfoModal #saveAccountInfoBtn:hover,
 body.light-mode #accountInfoModal #saveAccountInfoBtn:hover,
+html.light-mode body #editProfileModal #saveEditProfileBtn:hover,
+body.light-mode #editProfileModal #saveEditProfileBtn:hover,
 html.light-mode body #editProfileModal .dossier-save-btn:hover,
 body.light-mode #editProfileModal .dossier-save-btn:hover {
-  background: linear-gradient(180deg, #2e2010 0%, #170f07 100%) !important;
-  border-color: rgba(198, 156, 74, 0.75) !important;
+  filter: brightness(1.04) !important;
+  box-shadow:
+    0 8px 18px -6px rgba(88, 58, 12, 0.38),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.32) !important;
 }
 
 html body #accountInfoModal #saveAccountInfoBtn:active,
+html body #editProfileModal #saveEditProfileBtn:active,
 html body #editProfileModal .dossier-save-btn:active {
   transform: translateY(1px) scale(0.99) !important;
 }
@@ -42269,26 +42582,66 @@ html body #helpSupportModal #contactConciergeBtn {
   height: 41px !important;
   min-height: 41px !important;
   border-radius: 11px !important;
-  background: linear-gradient(180deg, #e8ca7f 0%, #c89c44 100%) !important;
-  border: 1px solid rgba(255, 240, 198, 0.45) !important;
+  background: linear-gradient(165deg, #ebd299 0%, #d8b262 38%, #b88e39 72%, #8e681c 100%) !important;
+  border: 1px solid #cfa34d !important;
+  border-top: 1px solid rgba(255, 248, 224, 0.68) !important;
+  border-bottom: 1px solid rgba(92, 62, 12, 0.72) !important;
+  box-shadow:
+    0 6px 16px -6px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 250, 230, 0.65),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.42) !important;
   font-family: "Cinzel", "Cormorant Garamond", serif !important;
   font-size: 10px !important;
   font-weight: 700 !important;
   letter-spacing: 0.16em !important;
   text-transform: uppercase !important;
-  color: #160f05 !important;
-  -webkit-text-fill-color: #160f05 !important;
+  color: #161005 !important;
+  -webkit-text-fill-color: #161005 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 248, 220, 0.45) !important;
   cursor: pointer !important;
-  transition: transform 0.16s ease, filter 0.18s ease !important;
+  transition: transform 0.16s ease, filter 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+html body #helpSupportModal #contactConciergeBtn:hover {
+  filter: brightness(1.05) !important;
+  box-shadow:
+    0 8px 18px -6px rgba(0, 0, 0, 0.76),
+    inset 0 1px 0 rgba(255, 252, 238, 0.8),
+    inset 0 -1.5px 1.5px rgba(60, 42, 10, 0.48) !important;
+}
+
+html body #helpSupportModal #contactConciergeBtn:active {
+  transform: translateY(1px) scale(0.99) !important;
 }
 
 html.light-mode body #helpSupportModal #contactConciergeBtn,
 body.light-mode #helpSupportModal #contactConciergeBtn {
-  background: linear-gradient(180deg, #24190c 0%, #120c05 100%) !important;
-  border: 1px solid rgba(176, 138, 66, 0.56) !important;
-  color: #f3dfb0 !important;
-  -webkit-text-fill-color: #f3dfb0 !important;
-  box-shadow: 0 8px 18px -8px rgba(34, 24, 12, 0.42) !important;
+  background: linear-gradient(
+    168deg,
+    #f7e6bd 0%,
+    #e1bc6c 44%,
+    #c2943a 82%,
+    #9e701e 100%
+  ) !important;
+  border: 1px solid rgba(146, 104, 28, 0.62) !important;
+  border-top: 1px solid rgba(255, 253, 244, 0.94) !important;
+  border-bottom: 1px solid rgba(108, 72, 14, 0.62) !important;
+  color: #180f03 !important;
+  -webkit-text-fill-color: #180f03 !important;
+  text-shadow: 0 0.5px 0 rgba(255, 250, 232, 0.45) !important;
+  box-shadow:
+    0 6px 16px -6px rgba(88, 58, 12, 0.34),
+    inset 0 1px 0 rgba(255, 253, 242, 0.86),
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.3) !important;
+}
+
+html.light-mode body #helpSupportModal #contactConciergeBtn:hover,
+body.light-mode #helpSupportModal #contactConciergeBtn:hover {
+  filter: brightness(1.04) !important;
+  box-shadow:
+    0 8px 18px -6px rgba(88, 58, 12, 0.38),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1.5px 1.5px rgba(88, 56, 10, 0.32) !important;
 }
 
 html body #helpSupportModal .concierge-faq-panel {
