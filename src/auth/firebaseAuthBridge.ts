@@ -2,6 +2,7 @@ import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
 import {
   getAuth,
   setPersistence,
+  indexedDBLocalPersistence,
   browserLocalPersistence,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -13,6 +14,12 @@ import {
   type Auth,
   type User,
 } from "firebase/auth";
+
+export type SovereignPersistenceMode =
+  | "pending"
+  | "indexeddb"
+  | "localstorage"
+  | "unavailable";
 
 export interface SovereignAuthUser {
   readonly uid: string;
@@ -46,6 +53,7 @@ export interface SovereignAuthFacade {
   readonly initialized: boolean;
   readonly auth: Auth | null;
   readonly ready: Promise<void>;
+  readonly persistenceMode: SovereignPersistenceMode;
   getCurrentUser(): SovereignAuthUser | null;
   registerWithEmail(email: string, password: string): Promise<SovereignAuthResult>;
   signInWithEmail(email: string, password: string): Promise<SovereignAuthResult>;
@@ -183,6 +191,14 @@ function mapAuthError(error: unknown, lang?: string): MappedAuthError {
           ? "طريقة تسجيل الدخول هذه غير مفعّلة حالياً في إعدادات النادي."
           : "This sign-in method is not currently enabled in authentication settings.",
       });
+    case "auth/persistence-unavailable":
+      return Object.freeze({
+        code,
+        silent: false,
+        message: isAr
+          ? "التخزين الآمن للجلسة غير متاح في هذا المتصفح. يرجى تفعيل تخزين المتصفح أو إعادة المحاولة في بيئة متصفح مدعومة."
+          : "Secure session storage is unavailable in this browser. Please enable browser storage or retry in a supported browser environment.",
+      });
     case "auth/not-initialized":
       return Object.freeze({
         code,
@@ -232,6 +248,7 @@ function createSovereignAuth(): SovereignAuthFacade {
   let auth: Auth | null = null;
   let initialized = false;
   let googleSignInInFlight = false;
+  let persistenceMode: SovereignPersistenceMode = "pending";
 
   const cfg =
     typeof __FIREBASE_AUTH_CONFIG__ !== "undefined" ? __FIREBASE_AUTH_CONFIG__ : null;
@@ -253,15 +270,126 @@ function createSovereignAuth(): SovereignAuthFacade {
     }
   }
 
-  const ready: Promise<void> = auth
-    ? setPersistence(auth, browserLocalPersistence).catch(() => undefined)
-    : Promise.resolve();
+  function isIndexedDBAvailable(): Promise<boolean> {
+    return new Promise((resolve) => {
+      let settled = false;
+      const finish = (ok: boolean) => {
+        if (!settled) {
+          settled = true;
+          resolve(ok);
+        }
+      };
+
+      let idb: IDBFactory | undefined;
+      try {
+        if (typeof window === "undefined") {
+          finish(false);
+          return;
+        }
+        idb = window.indexedDB;
+      } catch {
+        finish(false);
+        return;
+      }
+
+      if (!idb || typeof idb.open !== "function") {
+        finish(false);
+        return;
+      }
+
+      const probeName = "__sovereign_auth_idb_probe__";
+      const timer = setTimeout(() => finish(false), 1500);
+
+      try {
+        const request = idb.open(probeName, 1);
+        request.onerror = () => {
+          clearTimeout(timer);
+          finish(false);
+        };
+        request.onblocked = () => {
+          clearTimeout(timer);
+          finish(false);
+        };
+        request.onsuccess = () => {
+          clearTimeout(timer);
+          try {
+            request.result.close();
+          } catch {
+            // Ignore close errors during probe cleanup.
+          }
+          try {
+            idb?.deleteDatabase(probeName);
+          } catch {
+            // Ignore delete errors during probe cleanup.
+          }
+          finish(true);
+        };
+      } catch {
+        clearTimeout(timer);
+        finish(false);
+      }
+    });
+  }
+
+  function isLocalStorageAvailable(): boolean {
+    try {
+      if (typeof window === "undefined") return false;
+      const storage = window.localStorage;
+      if (!storage) return false;
+      const probeKey = "__sovereign_auth_ls_probe__";
+      storage.setItem(probeKey, "1");
+      const readBack = storage.getItem(probeKey);
+      storage.removeItem(probeKey);
+      return readBack === "1";
+    } catch {
+      return false;
+    }
+  }
+
+  async function initializePersistence(activeAuth: Auth): Promise<void> {
+    if (await isIndexedDBAvailable()) {
+      try {
+        await setPersistence(activeAuth, indexedDBLocalPersistence);
+        persistenceMode = "indexeddb";
+        return;
+      } catch {
+        // IndexedDB persistence configuration failed; attempt browser localStorage fallback.
+      }
+    }
+
+    if (isLocalStorageAvailable()) {
+      try {
+        await setPersistence(activeAuth, browserLocalPersistence);
+        persistenceMode = "localstorage";
+        return;
+      } catch {
+        // Browser localStorage persistence configuration failed.
+      }
+    }
+
+    persistenceMode = "unavailable";
+    throw createCodedError("auth/persistence-unavailable");
+  }
+
+  const ready: Promise<void> = (() => {
+    if (!initialized || !auth) {
+      persistenceMode = "unavailable";
+      return Promise.reject(createCodedError("auth/not-initialized"));
+    }
+    return initializePersistence(auth);
+  })();
+
+  // Attach an internal rejection observer so unhandledrejection never fires while preserving `ready`'s rejected state.
+  ready.catch(() => undefined);
 
   async function requireAuth(): Promise<Auth> {
     if (!initialized || !auth) {
       throw createCodedError("auth/not-initialized");
     }
     await ready;
+    if (persistenceMode !== "indexeddb" && persistenceMode !== "localstorage") {
+      throw createCodedError("auth/persistence-unavailable");
+    }
     return auth;
   }
 
@@ -273,7 +401,13 @@ function createSovereignAuth(): SovereignAuthFacade {
       return auth;
     },
     ready,
+    get persistenceMode(): SovereignPersistenceMode {
+      return persistenceMode;
+    },
     getCurrentUser(): SovereignAuthUser | null {
+      if (persistenceMode === "unavailable") {
+        return null;
+      }
       return toSanitizedUser(auth ? auth.currentUser : null);
     },
     async registerWithEmail(email: string, password: string): Promise<SovereignAuthResult> {
@@ -344,16 +478,21 @@ function createSovereignAuth(): SovereignAuthFacade {
       const activeAuth = auth;
       let disposed = false;
       let innerUnsubscribe: (() => void) | null = null;
-      ready
-        .catch(() => undefined)
-        .then(() => {
+      ready.then(
+        () => {
           if (disposed) return;
           innerUnsubscribe = firebaseOnAuthStateChanged(activeAuth, (firebaseUser) => {
             if (!disposed) {
               callback(toSanitizedUser(firebaseUser));
             }
           });
-        });
+        },
+        () => {
+          // Persistence unavailable: do not subscribe to Firebase Auth or silently establish a session.
+          if (disposed) return;
+          callback(null);
+        }
+      );
       return () => {
         disposed = true;
         if (innerUnsubscribe) {
