@@ -5,9 +5,9 @@
   "description": "Exclusive Sovereign Membership Application",
   "main": "server.ts",
   "scripts": {
-    "start": "node server.ts",
-    "dev": "tsx server.ts",
-    "build": "tsc --noEmit",
+    "start": "vite build && node server.ts",
+    "dev": "vite build && tsx server.ts",
+    "build": "tsc --noEmit && vite build",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
@@ -18,7 +18,7 @@
     "@vitejs/plugin-react": "^6.1.2",
     "dotenv": "^18.0.7",
     "express": "^5.2.1",
-    "firebase": "^13.0.0",
+    "firebase": "13.4.0",
     "react": "^19.3.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",

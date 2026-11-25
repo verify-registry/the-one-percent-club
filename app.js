@@ -7394,20 +7394,18 @@ const initProfileAndModals = () => {
   }
 
   if (btnConfirmLogout) {
-    btnConfirmLogout.addEventListener("click", () => {
-      if (typeof window.AuthBoundary !== "undefined" && typeof window.AuthBoundary.logout === "function") {
-        window.AuthBoundary.logout();
-      } else {
-        sessionStorage.removeItem("1percent_sovereign_session");
-        const settingsModal = document.getElementById("settingsModal");
-        if (settingsModal) settingsModal.classList.remove("is-open");
-        const logoutConfirmModal = document.getElementById("logoutConfirmModal");
-        if (logoutConfirmModal) logoutConfirmModal.classList.remove("is-open");
-        const overlay = document.getElementById("authLoginOverlay");
-        if (overlay) {
-          overlay.classList.add("is-open", "is-active");
-          overlay.style.display = "flex";
-        }
+    btnConfirmLogout.addEventListener("click", async () => {
+      if (typeof window.AuthBoundary === "undefined" || typeof window.AuthBoundary.logout !== "function") {
+        return;
+      }
+      if (btnConfirmLogout.disabled) return;
+      btnConfirmLogout.disabled = true;
+      btnConfirmLogout.setAttribute("aria-busy", "true");
+      try {
+        await window.AuthBoundary.logout();
+      } finally {
+        btnConfirmLogout.disabled = false;
+        btnConfirmLogout.removeAttribute("aria-busy");
       }
     });
   }
@@ -10289,9 +10287,47 @@ let authRecoveryCloseTimer = null;
 
 window.AuthBoundary = {
   currentMode: "login",
+  currentUser: null,
+  authResolved: false,
+  isSubmitting: false,
+  isRecoverySubmitting: false,
+  isLoggingOut: false,
+  _authUnsubscribe: null,
 
   getSession() {
-    return sessionStorage.getItem("1percent_sovereign_session");
+    return this.currentUser;
+  },
+
+  isAuthenticated() {
+    return Boolean(this.currentUser);
+  },
+
+  applyPendingAuthGate() {
+    const header = document.getElementById("appHeader");
+    if (header) header.style.display = "none";
+    const bottomNav = document.querySelector(".bottom-nav, .app-bottom-nav");
+    if (bottomNav) bottomNav.style.display = "none";
+    document.querySelectorAll(".page").forEach((p) => {
+      p.classList.remove("is-active");
+      p.setAttribute("hidden", "");
+      p.hidden = true;
+    });
+  },
+
+  showError(message) {
+    const errorMsg = document.getElementById("authErrorMsg");
+    if (!errorMsg) return;
+    if (!message) {
+      errorMsg.textContent = "";
+      errorMsg.style.display = "none";
+      return;
+    }
+    errorMsg.textContent = message;
+    errorMsg.style.display = "block";
+  },
+
+  clearError() {
+    this.showError("");
   },
 
   setMode(mode) {
@@ -10305,8 +10341,8 @@ window.AuthBoundary = {
     const forgotLink = document.getElementById("forgotPasswordLink");
     const togglePrompt = document.getElementById("authTogglePrompt");
     const toggleBtn = document.getElementById("authToggleModeBtn");
-    const errorMsg = document.getElementById("authErrorMsg");
-    if (errorMsg) errorMsg.style.display = "none";
+    const passwordInput = document.getElementById("authPasswordInput");
+    this.clearError();
 
     if (mode === "signup") {
       if (tabLogin) {
@@ -10324,6 +10360,7 @@ window.AuthBoundary = {
       if (forgotLink) forgotLink.style.display = "none";
       if (togglePrompt) togglePrompt.textContent = window.t("auth.haveAccountPrompt") || "Already have an account?";
       if (toggleBtn) toggleBtn.textContent = window.t("auth.loginLink") || "Sign In";
+      if (passwordInput) passwordInput.setAttribute("autocomplete", "new-password");
     } else {
       if (tabLogin) {
         tabLogin.classList.add("is-active");
@@ -10340,6 +10377,7 @@ window.AuthBoundary = {
       if (forgotLink) forgotLink.style.display = "";
       if (togglePrompt) togglePrompt.textContent = window.t("auth.noAccountPrompt") || "Don't have an account?";
       if (toggleBtn) toggleBtn.textContent = window.t("auth.createAccountLink") || "Create New Account";
+      if (passwordInput) passwordInput.setAttribute("autocomplete", "current-password");
     }
   },
 
@@ -10372,19 +10410,8 @@ window.AuthBoundary = {
     const bottomNav = document.querySelector(".bottom-nav, .app-bottom-nav");
     if (bottomNav) bottomNav.style.display = "";
   },
-  
-  login(email, provider = "credentials") {
-    sessionStorage.setItem("1percent_sovereign_session", JSON.stringify({ email, provider, timestamp: Date.now() }));
-    
-    this.hideLoginOverlay();
 
-    if (typeof goToPage === "function") {
-      goToPage("membership");
-    }
-  },
-
-  logout() {
-    sessionStorage.removeItem("1percent_sovereign_session");
+  _clearRuntimeTimersAndModals() {
     if (authRecoveryCloseTimer !== null) {
       clearTimeout(authRecoveryCloseTimer);
       authRecoveryCloseTimer = null;
@@ -10412,6 +10439,35 @@ window.AuthBoundary = {
       recoveryModal.style.display = "none";
       recoveryModal.classList.remove("is-open", "is-active");
     }
+  },
+
+  handleAuthStateChange(user) {
+    this.authResolved = true;
+    this.currentUser = user || null;
+
+    try {
+      sessionStorage.removeItem("1percent_sovereign_session");
+    } catch {
+      // Ignore storage access errors in restricted contexts
+    }
+
+    if (this.currentUser) {
+      const passwordInput = document.getElementById("authPasswordInput");
+      if (passwordInput) passwordInput.value = "";
+      this.clearError();
+      this.closeRecovery();
+      this.hideLoginOverlay();
+
+      const activeVisiblePage = Array.from(document.querySelectorAll(".page")).find(
+        (p) => p.classList.contains("is-active") && !p.hidden && !p.hasAttribute("hidden")
+      );
+      if (!activeVisiblePage && typeof goToPage === "function") {
+        goToPage("membership");
+      }
+      return;
+    }
+
+    this._clearRuntimeTimersAndModals();
 
     document.querySelectorAll(".page").forEach((p) => {
       p.classList.remove("is-active");
@@ -10422,12 +10478,72 @@ window.AuthBoundary = {
     this.showLoginOverlay();
   },
 
+  login() {
+    const activeUser = window.SovereignAuth?.getCurrentUser ? window.SovereignAuth.getCurrentUser() : null;
+    if (!activeUser) return false;
+    this.handleAuthStateChange(activeUser);
+    return true;
+  },
+
+  async logout() {
+    if (this.isLoggingOut) return false;
+    this.isLoggingOut = true;
+
+    try {
+      try {
+        sessionStorage.removeItem("1percent_sovereign_session");
+      } catch {
+        // Ignore storage access errors in restricted contexts
+      }
+
+      if (!window.SovereignAuth || !window.SovereignAuth.initialized || typeof window.SovereignAuth.signOut !== "function") {
+        const mapped = window.SovereignAuth?.mapAuthError
+          ? window.SovereignAuth.mapAuthError({ code: "auth/not-initialized" }, window.currentLang)
+          : { message: "Authentication service is currently unavailable. Please try again later." };
+        if (typeof showNavToast === "function") {
+          showNavToast(mapped.message);
+        }
+        return false;
+      }
+
+      await window.SovereignAuth.signOut();
+      this._clearRuntimeTimersAndModals();
+      if (!window.SovereignAuth.getCurrentUser()) {
+        this.handleAuthStateChange(null);
+      }
+      return true;
+    } catch (err) {
+      const mapped = window.SovereignAuth?.mapAuthError
+        ? window.SovereignAuth.mapAuthError(err, window.currentLang)
+        : { message: "Unable to sign out. Please try again." };
+      if (typeof showNavToast === "function" && mapped.message) {
+        showNavToast(mapped.message);
+      }
+      return false;
+    } finally {
+      this.isLoggingOut = false;
+    }
+  },
+
   init() {
-    const session = this.getSession();
-    if (session) {
-      this.hideLoginOverlay();
-    } else {
-      this.showLoginOverlay();
+    try {
+      sessionStorage.removeItem("1percent_sovereign_session");
+    } catch {
+      // Ignore storage access errors in restricted contexts
+    }
+
+    if (!this.authResolved) {
+      this.applyPendingAuthGate();
+    }
+
+    if (!this._authUnsubscribe) {
+      if (window.SovereignAuth && window.SovereignAuth.initialized && typeof window.SovereignAuth.onAuthStateChanged === "function") {
+        this._authUnsubscribe = window.SovereignAuth.onAuthStateChanged((user) => {
+          this.handleAuthStateChange(user);
+        });
+      } else {
+        this.handleAuthStateChange(null);
+      }
     }
 
     const tabLogin = document.getElementById("authTabLogin");
@@ -10453,18 +10569,105 @@ window.AuthBoundary = {
     const emailForm = document.getElementById("authEmailForm");
     if (emailForm && !emailForm.dataset.bound) {
       emailForm.dataset.bound = "true";
-      emailForm.addEventListener("submit", (e) => {
+      emailForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const email = document.getElementById("authEmailInput")?.value || "member@the1percent.club";
-        window.AuthBoundary.login(email, window.AuthBoundary.currentMode === "signup" ? "signup" : "email_password");
+        if (window.AuthBoundary.isSubmitting) return;
+
+        const emailInput = document.getElementById("authEmailInput");
+        const passwordInput = document.getElementById("authPasswordInput");
+        const submitBtn = document.getElementById("authSubmitBtn");
+        const email = emailInput ? emailInput.value.trim() : "";
+        const password = passwordInput ? passwordInput.value : "";
+
+        window.AuthBoundary.clearError();
+
+        if (!email) {
+          const mapped = window.SovereignAuth?.mapAuthError
+            ? window.SovereignAuth.mapAuthError({ code: "auth/missing-email" }, window.currentLang)
+            : { message: "Please enter a valid email address." };
+          window.AuthBoundary.showError(mapped.message);
+          return;
+        }
+        if (!password) {
+          const mapped = window.SovereignAuth?.mapAuthError
+            ? window.SovereignAuth.mapAuthError({ code: "auth/missing-password" }, window.currentLang)
+            : { message: "Please enter your password." };
+          window.AuthBoundary.showError(mapped.message);
+          return;
+        }
+
+        if (!window.SovereignAuth || !window.SovereignAuth.initialized) {
+          const mapped = window.SovereignAuth?.mapAuthError
+            ? window.SovereignAuth.mapAuthError({ code: "auth/not-initialized" }, window.currentLang)
+            : { message: "Authentication service is currently unavailable. Please try again later." };
+          window.AuthBoundary.showError(mapped.message);
+          return;
+        }
+
+        window.AuthBoundary.isSubmitting = true;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.setAttribute("aria-busy", "true");
+        }
+
+        try {
+          const isSignup = window.AuthBoundary.currentMode === "signup";
+          if (isSignup) {
+            await window.SovereignAuth.registerWithEmail(email, password);
+          } else {
+            await window.SovereignAuth.signInWithEmail(email, password);
+          }
+
+          if (passwordInput) passwordInput.value = "";
+          window.AuthBoundary.clearError();
+        } catch (err) {
+          const mapped = window.SovereignAuth.mapAuthError(err, window.currentLang);
+          if (!mapped.silent) {
+            window.AuthBoundary.showError(mapped.message);
+          }
+        } finally {
+          window.AuthBoundary.isSubmitting = false;
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute("aria-busy");
+          }
+        }
       });
     }
 
     const googleBtn = document.getElementById("authGoogleBtn");
     if (googleBtn && !googleBtn.dataset.bound) {
       googleBtn.dataset.bound = "true";
-      googleBtn.addEventListener("click", () => {
-        window.AuthBoundary.login("sovereign.google@the1percent.club", "google");
+      googleBtn.addEventListener("click", async () => {
+        if (window.AuthBoundary.isSubmitting) return;
+
+        window.AuthBoundary.clearError();
+
+        if (!window.SovereignAuth || !window.SovereignAuth.initialized) {
+          const mapped = window.SovereignAuth?.mapAuthError
+            ? window.SovereignAuth.mapAuthError({ code: "auth/not-initialized" }, window.currentLang)
+            : { message: "Authentication service is currently unavailable. Please try again later." };
+          window.AuthBoundary.showError(mapped.message);
+          return;
+        }
+
+        window.AuthBoundary.isSubmitting = true;
+        googleBtn.disabled = true;
+        googleBtn.setAttribute("aria-busy", "true");
+
+        try {
+          await window.SovereignAuth.signInWithGoogle();
+          window.AuthBoundary.clearError();
+        } catch (err) {
+          const mapped = window.SovereignAuth.mapAuthError(err, window.currentLang);
+          if (!mapped.silent && mapped.message) {
+            window.AuthBoundary.showError(mapped.message);
+          }
+        } finally {
+          window.AuthBoundary.isSubmitting = false;
+          googleBtn.disabled = false;
+          googleBtn.removeAttribute("aria-busy");
+        }
       });
     }
 
@@ -10489,7 +10692,8 @@ window.AuthBoundary = {
       recoveryForm.dataset.bound = "true";
       recoveryForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        const email = document.getElementById("recoveryEmailInput")?.value || "member@the1percent.club";
+        const emailInput = document.getElementById("recoveryEmailInput");
+        const email = emailInput ? emailInput.value.trim() : "";
         window.AuthBoundary.sendRecovery(email);
       });
     }
@@ -10505,7 +10709,10 @@ window.AuthBoundary = {
       modal.style.display = "flex";
       modal.classList.add("is-open", "is-active");
       const successMsg = document.getElementById("recoverySuccessMsg");
-      if (successMsg) successMsg.style.display = "none";
+      if (successMsg) {
+        successMsg.textContent = "";
+        successMsg.style.display = "none";
+      }
     }
   },
 
@@ -10521,25 +10728,90 @@ window.AuthBoundary = {
     }
   },
 
-  sendRecovery(email) {
+  async sendRecovery(email) {
+    if (this.isRecoverySubmitting) return;
+
     if (authRecoveryCloseTimer !== null) {
       clearTimeout(authRecoveryCloseTimer);
       authRecoveryCloseTimer = null;
     }
+
+    const cleanEmail = typeof email === "string" ? email.trim() : "";
     const successMsg = document.getElementById("recoverySuccessMsg");
-    if (successMsg) {
-      const isRecoveryAr = (window.currentLang === "ar");
-      successMsg.textContent = isRecoveryAr
-        ? `Password reset instructions sent to ${email} successfully`
-        : `Password recovery instructions sent to ${email} successfully`;
+    const submitBtn = document.querySelector("#authRecoveryForm button[type=\"submit\"]");
+    const isRecoveryAr = (window.currentLang === "ar");
+
+    const showRecoveryNotice = (message) => {
+      if (!successMsg) return;
+      successMsg.textContent = message;
       successMsg.style.display = "block";
+    };
+
+    const showNeutralSuccess = () => {
+      const neutralText = isRecoveryAr
+        ? "إذا كان هناك حساب مرتبط بهذا البريد الإلكتروني، فقد تم إرسال تعليمات إعادة تعيين كلمة المرور."
+        : "If an account exists for this email address, password recovery instructions have been sent.";
+      showRecoveryNotice(neutralText);
+      authRecoveryCloseTimer = setTimeout(() => {
+        authRecoveryCloseTimer = null;
+        this.closeRecovery();
+      }, 2500);
+    };
+
+    if (successMsg) {
+      successMsg.textContent = "";
+      successMsg.style.display = "none";
     }
-    authRecoveryCloseTimer = setTimeout(() => {
-      authRecoveryCloseTimer = null;
-      this.closeRecovery();
-    }, 2500);
+
+    if (!cleanEmail) {
+      const mapped = window.SovereignAuth?.mapAuthError
+        ? window.SovereignAuth.mapAuthError({ code: "auth/missing-email" }, window.currentLang)
+        : { message: "Please enter a valid email address." };
+      showRecoveryNotice(mapped.message);
+      return;
+    }
+
+    if (!window.SovereignAuth || !window.SovereignAuth.initialized) {
+      const mapped = window.SovereignAuth?.mapAuthError
+        ? window.SovereignAuth.mapAuthError({ code: "auth/not-initialized" }, window.currentLang)
+        : { message: "Authentication service is currently unavailable. Please try again later." };
+      showRecoveryNotice(mapped.message);
+      return;
+    }
+
+    this.isRecoverySubmitting = true;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.setAttribute("aria-busy", "true");
+    }
+
+    try {
+      await window.SovereignAuth.sendPasswordReset(cleanEmail);
+      showNeutralSuccess();
+    } catch (err) {
+      const code = err && typeof err === "object" && "code" in err ? err.code : "";
+      if (code === "auth/user-not-found") {
+        showNeutralSuccess();
+      } else {
+        const mapped = window.SovereignAuth.mapAuthError(err, window.currentLang);
+        if (!mapped.silent && mapped.message) {
+          showRecoveryNotice(mapped.message);
+        }
+      }
+    } finally {
+      this.isRecoverySubmitting = false;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute("aria-busy");
+      }
+    }
   }
 };
+
+// Apply startup auth-resolution gate immediately so protected tabs never flash before onAuthStateChanged resolves.
+if (window.AuthBoundary && typeof window.AuthBoundary.applyPendingAuthGate === "function") {
+  window.AuthBoundary.applyPendingAuthGate();
+}
 
 // ==========================================================================
 // MASTER APPLICATION INITIALIZATION CONTROLLER

@@ -94,12 +94,14 @@ const PUBLIC_ROOT_FILES = new Map<string, string>([
   ["/Audio.js", path.join(__dirname, "Audio.js")],
   ["/luxury.js", path.join(__dirname, "luxury.js")],
   ["/artifacts.js", path.join(__dirname, "artifacts.js")],
+  ["/firebase-auth-bridge.js", path.join(__dirname, "dist", "firebase-auth-bridge.js")],
 ]);
 
 const BLOCKED_INTERNAL_PREFIXES = [
   "/docs",
   "/src",
   "/node_modules",
+  "/dist",
 ];
 
 function decodeSafePath(rawPath: string): string | null {
